@@ -1,0 +1,72 @@
+# Copyright 2021 Google LLC. All Rights Reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+components:
+  schemas:
+    AccessPolicy:
+      properties:
+        createTime:
+          description: Time the AccessPolicy was created in UTC
+          format: date-time
+          readOnly: true
+          type: string
+          x-dcl-go-name: CreateTime
+          x-kubernetes-immutable: true
+        name:
+          description: 'Resource name of the AccessPolicy. Format: {policy_id}'
+          readOnly: true
+          type: string
+          x-dcl-go-name: Name
+          x-dcl-server-generated-parameter: true
+          x-kubernetes-immutable: true
+        organization:
+          description: The organization that this AccessPolicy belongs to
+          type: string
+          x-dcl-go-name: Organization
+          x-kubernetes-immutable: true
+        parent:
+          description: 'The parent of this AccessPolicy in the Cloud Resource Hierarchy.
+            Currently immutable once created. Format: organizations/{organization_id}'
+          type: string
+          x-dcl-go-name: Parent
+          x-kubernetes-immutable: true
+        title:
+          description: Human readable title. Does not affect behavior
+          type: string
+          x-dcl-go-name: Title
+        updateTime:
+          description: Time the AccessPolicy was updated in UTC
+          format: date-time
+          readOnly: true
+          type: string
+          x-dcl-go-name: UpdateTime
+          x-kubernetes-immutable: true
+      required:
+      - organization
+      - title
+      title: AccessPolicy
+      type: object
+      x-dcl-id: accessPolicies/{{name}}
+      x-dcl-locations: []
+      x-dcl-parent-container: organization
+      x-dcl-uses-state-hint: false
+info:
+  description: DCL Specification for the AccessContextManager AccessPolicy resource
+  title: AccessContextManager/AccessPolicy
+  x-dcl-has-iam: false
+paths:
+  list:
+    description: The function called used to list information about many AccessPolicy
+    parameters:
+    - name: parent
+      required: true

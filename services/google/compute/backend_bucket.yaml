@@ -1,0 +1,98 @@
+# Copyright 2021 Google LLC. All Rights Reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+components:
+  schemas:
+    BackendBucket:
+      properties:
+        bucketName:
+          description: Cloud Storage bucket name.
+          type: string
+          x-dcl-go-name: BucketName
+          x-dcl-references:
+          - field: name
+            resource: Storage/Bucket
+        cdnPolicy:
+          description: Cloud CDN configuration for this `BackendBucket`.
+          properties:
+            signedUrlCacheMaxAgeSec:
+              description: 'Maximum number of seconds the response to a signed URL
+                request will be considered fresh. After this time period, the response
+                will be revalidated before being served. Defaults to 1hr (3600s).
+                When serving responses to signed URL requests, Cloud CDN will internally
+                behave as though all responses from this backend had a `"Cache-Control:
+                public, max-age=[TTL]"` header, regardless of any existing Cache-Control
+                header. The actual headers served in responses will not be altered. '
+              format: int64
+              type: integer
+              x-dcl-go-name: SignedUrlCacheMaxAgeSec
+              x-kubernetes-immutable: true
+            signedUrlKeyNames:
+              description: \[Output Only\] Names of the keys for signing request URLs.
+              items:
+                type: string
+                x-dcl-go-type: string
+              type: array
+              x-dcl-go-name: SignedUrlKeyNames
+              x-dcl-list-type: list
+              x-kubernetes-immutable: true
+          type: object
+          x-dcl-go-name: CdnPolicy
+          x-dcl-go-type: BackendBucketCdnPolicy
+        description:
+          description: An optional textual description of the resource; provided by
+            the client when the resource is created.
+          type: string
+          x-dcl-go-name: Description
+        enableCdn:
+          description: If true, enable Cloud CDN for this `BackendBucket`.
+          type: boolean
+          x-dcl-go-name: EnableCdn
+        name:
+          description: Name of the resource. Provided by the client when the resource
+            is created. The name must be 1-63 characters long, and comply with [RFC1035](https://www.ietf.org/rfc/rfc1035.txt).
+            Specifically, the name must be 1-63 characters long and match the regular
+            expression \`\[a-z\](\[-a-z0-9\]\*\[a-z0-9\])?\` which means the first
+            character must be a lowercase letter, and all following characters must
+            be a dash, lowercase letter, or digit, except the last character, which
+            cannot be a dash.
+          type: string
+          x-dcl-go-name: Name
+        project:
+          description: The project for this backend bucket
+          type: string
+          x-dcl-go-name: Project
+          x-kubernetes-immutable: true
+        selfLink:
+          description: The self link for this resource
+          readOnly: true
+          type: string
+          x-dcl-go-name: SelfLink
+          x-kubernetes-immutable: true
+      title: BackendBucket
+      type: object
+      x-dcl-id: projects/{{project}}/global/backendBuckets/{{name}}
+      x-dcl-locations:
+      - global
+      x-dcl-parent-container: project
+      x-dcl-uses-state-hint: false
+info:
+  description: DCL Specification for the Compute BackendBucket resource
+  title: Compute/BackendBucket
+  x-dcl-has-iam: false
+paths:
+  list:
+    description: The function called used to list information about many BackendBucket
+    parameters:
+    - name: project
+      required: true

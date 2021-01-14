@@ -1,0 +1,21 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "client.go",
+        "dns_utils.go",
+        "managed_zone.go",
+        "managed_zone_internal.go",
+        "operations.go",
+        "resource_record_set.go",
+        "resource_record_set_internal.go",
+    ],
+    importpath = "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dns",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//dcl:go_default_library",
+        "@com_github_mohae_deepcopy//:go_default_library",
+        "@org_golang_google_api//googleapi:go_default_library",
+    ],
+)

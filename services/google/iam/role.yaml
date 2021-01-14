@@ -1,0 +1,131 @@
+# Copyright 2021 Google LLC. All Rights Reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+components:
+  schemas:
+    Role:
+      properties:
+        deleted:
+          description: The current deleted state of the role. This field is read only.
+            It will be ignored in calls to CreateRole and UpdateRole.
+          type: boolean
+          x-dcl-go-name: Deleted
+          x-kubernetes-immutable: true
+        description:
+          description: Optional. A human-readable description for the role.
+          type: string
+          x-dcl-go-name: Description
+          x-kubernetes-immutable: true
+        etag:
+          description: Used to perform a consistent read-modify-write.
+          type: string
+          x-dcl-go-name: Etag
+          x-kubernetes-immutable: true
+        groupName:
+          type: string
+          x-dcl-go-name: GroupName
+          x-kubernetes-immutable: true
+        groupTitle:
+          type: string
+          x-dcl-go-name: GroupTitle
+          x-kubernetes-immutable: true
+        includedPermissions:
+          description: The names of the permissions this role grants when bound in
+            an IAM policy.
+          items:
+            type: string
+            x-dcl-go-type: string
+          type: array
+          x-dcl-go-name: IncludedPermissions
+          x-dcl-list-type: list
+          x-kubernetes-immutable: true
+        includedRoles:
+          items:
+            type: string
+            x-dcl-go-type: string
+          type: array
+          x-dcl-go-name: IncludedRoles
+          x-dcl-list-type: list
+          x-kubernetes-immutable: true
+        lifecyclePhase:
+          type: string
+          x-dcl-go-name: LifecyclePhase
+          x-kubernetes-immutable: true
+        localizedValues:
+          properties:
+            localizedDescription:
+              description: Will be English by default or if an error occurred during
+                translation.
+              type: string
+              x-dcl-go-name: LocalizedDescription
+              x-kubernetes-immutable: true
+            localizedTitle:
+              description: Will be English by default or if an error occurred during
+                translation.
+              type: string
+              x-dcl-go-name: LocalizedTitle
+              x-kubernetes-immutable: true
+          type: object
+          x-dcl-go-name: LocalizedValues
+          x-dcl-go-type: RoleLocalizedValues
+          x-kubernetes-immutable: true
+        name:
+          description: The name of the role. When Role is used in CreateRole, the
+            role name must not be set. When Role is used in output and other input
+            such as UpdateRole, the role name is the complete path, e.g., roles/logging.viewer
+            for predefined roles and organizations/{ORGANIZATION\_ID}/roles/logging.viewer
+            for custom roles.
+          type: string
+          x-dcl-go-name: Name
+          x-kubernetes-immutable: true
+        parent:
+          type: string
+          x-dcl-go-name: Parent
+          x-kubernetes-immutable: true
+        stage:
+          description: The current launch stage of the role. If the \`ALPHA\` launch
+            stage has been selected for a role, the \`stage\` field will not be included
+            in the returned definition for the role.
+          enum:
+          - ALPHA
+          - BETA
+          - GA
+          - DEPRECATED
+          - DISABLED
+          - EAP
+          type: string
+          x-dcl-go-name: Stage
+          x-dcl-go-type: RoleStageEnum
+          x-kubernetes-immutable: true
+        title:
+          description: Optional. A human-readable title for the role. Typically this
+            is limited to 100 UTF-8 bytes.
+          type: string
+          x-dcl-go-name: Title
+          x-kubernetes-immutable: true
+      title: Role
+      type: object
+      x-dcl-id: '{{parent}}/roles/{{name}}'
+      x-dcl-locations: []
+      x-dcl-parent-container: organization
+      x-dcl-uses-state-hint: false
+info:
+  description: DCL Specification for the Iam Role resource
+  title: Iam/Role
+  x-dcl-has-iam: false
+paths:
+  list:
+    description: The function called used to list information about many Role
+    parameters:
+    - name: parent
+      required: true

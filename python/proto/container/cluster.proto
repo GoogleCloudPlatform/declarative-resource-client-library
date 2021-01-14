@@ -1,0 +1,294 @@
+// Copyright 2021 Google LLC. All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+syntax = "proto3";
+
+package dcl;
+
+import "proto/connector/sdk.proto";
+import "proto/empty.proto";
+
+enum ContainerClusterNetworkPolicyProviderEnum {
+  ContainerClusterNetworkPolicyProviderEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerClusterNetworkPolicyProviderEnumPROVIDER_UNSPECIFIED = 1;
+  ContainerClusterNetworkPolicyProviderEnumCALICO = 2;
+}
+
+enum ContainerClusterDatabaseEncryptionStateEnum {
+  ContainerClusterDatabaseEncryptionStateEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerClusterDatabaseEncryptionStateEnumUNKNOWN = 1;
+  ContainerClusterDatabaseEncryptionStateEnumENCRYPTED = 2;
+  ContainerClusterDatabaseEncryptionStateEnumDECRYPTED = 3;
+}
+
+message ContainerCluster {
+  string name = 1;
+  string description = 2;
+  int64 initial_node_count = 3;
+  ContainerClusterMasterAuth master_auth = 4;
+  string logging_service = 5;
+  string monitoring_service = 6;
+  string network = 7;
+  string cluster_ipv4_cidr = 8;
+  ContainerClusterAddonsConfig addons_config = 9;
+  string subnetwork = 10;
+  repeated ContainerClusterNodePools node_pools = 11;
+  repeated string locations = 12;
+  bool enable_kubernetes_alpha = 13;
+  map<string, string> resource_labels = 14;
+  string label_fingerprint = 15;
+  ContainerClusterLegacyAbac legacy_abac = 16;
+  ContainerClusterNetworkPolicy network_policy = 17;
+  ContainerClusterIPAllocationPolicy ip_allocation_policy = 18;
+  ContainerClusterMasterAuthorizedNetworksConfig master_authorized_networks_config = 19;
+  ContainerClusterBinaryAuthorization binary_authorization = 20;
+  ContainerClusterAutoscaling autoscaling = 21;
+  ContainerClusterNetworkConfig network_config = 22;
+  ContainerClusterMaintenancePolicy maintenance_policy = 23;
+  ContainerClusterDefaultMaxPodsConstraint default_max_pods_constraint = 24;
+  ContainerClusterResourceUsageExportConfig resource_usage_export_config = 25;
+  ContainerClusterAuthenticatorGroupsConfig authenticator_groups_config = 26;
+  ContainerClusterPrivateClusterConfig private_cluster_config = 27;
+  ContainerClusterDatabaseEncryption database_encryption = 28;
+  ContainerClusterVerticalPodAutoscaling vertical_pod_autoscaling = 29;
+  ContainerClusterShieldedNodes shielded_nodes = 30;
+  string endpoint = 31;
+  string master_version = 32;
+  string create_time = 33;
+  string status = 34;
+  string status_message = 35;
+  int64 node_ipv4_cidr_size = 36;
+  string services_ipv4_cidr = 37;
+  string expire_time = 38;
+  string location = 39;
+  bool enable_tpu = 40;
+  string tpu_ipv4_cidr_block = 41;
+  repeated ContainerClusterConditions conditions = 42;
+  string project = 43;
+}
+
+message ContainerClusterMasterAuth {
+  string username = 1;
+  string password = 2;
+  ContainerClusterMasterAuthClientCertificateConfig client_certificate_config = 3;
+  string cluster_ca_certificate = 4;
+  string client_certificate = 5;
+  string client_key = 6;
+}
+
+message ContainerClusterMasterAuthClientCertificateConfig {
+  bool issue_client_certificate = 1;
+}
+
+message ContainerClusterAddonsConfig {
+  ContainerClusterAddonsConfigHttpLoadBalancing http_load_balancing = 1;
+  ContainerClusterAddonsConfigHorizontalPodAutoscaling horizontal_pod_autoscaling = 2;
+  ContainerClusterAddonsConfigKubernetesDashboard kubernetes_dashboard = 3;
+  ContainerClusterAddonsConfigNetworkPolicyConfig network_policy_config = 4;
+  ContainerClusterAddonsConfigCloudRunConfig cloud_run_config = 5;
+}
+
+message ContainerClusterAddonsConfigHttpLoadBalancing {
+  bool disabled = 1;
+}
+
+message ContainerClusterAddonsConfigHorizontalPodAutoscaling {
+  bool disabled = 1;
+}
+
+message ContainerClusterAddonsConfigKubernetesDashboard {
+  bool disabled = 1;
+}
+
+message ContainerClusterAddonsConfigNetworkPolicyConfig {
+  bool disabled = 1;
+}
+
+message ContainerClusterAddonsConfigCloudRunConfig {
+  bool disabled = 1;
+}
+
+message ContainerClusterNodePools {
+  string name = 1;
+}
+
+message ContainerClusterLegacyAbac {
+  bool enabled = 1;
+}
+
+message ContainerClusterNetworkPolicy {
+  ContainerClusterNetworkPolicyProviderEnum provider = 1;
+  bool enabled = 2;
+}
+
+message ContainerClusterIPAllocationPolicy {
+  bool use_ip_aliases = 1;
+  bool create_subnetwork = 2;
+  string subnetwork_name = 3;
+  string cluster_secondary_range_name = 4;
+  string services_secondary_range_name = 5;
+  string cluster_ipv4_cidr_block = 6;
+  string node_ipv4_cidr_block = 7;
+  string services_ipv4_cidr_block = 8;
+  string tpu_ipv4_cidr_block = 9;
+}
+
+message ContainerClusterMasterAuthorizedNetworksConfig {
+  bool enabled = 1;
+  repeated ContainerClusterMasterAuthorizedNetworksConfigCidrBlocks cidr_blocks = 2;
+}
+
+message ContainerClusterMasterAuthorizedNetworksConfigCidrBlocks {
+  string display_name = 1;
+  string cidr_block = 2;
+}
+
+message ContainerClusterBinaryAuthorization {
+  bool enabled = 1;
+}
+
+message ContainerClusterAutoscaling {
+  bool enable_node_autoprovisioning = 1;
+  repeated ContainerClusterAutoscalingResourceLimits resource_limits = 2;
+  ContainerClusterAutoscalingAutoprovisioningNodePoolDefaults autoprovisioning_node_pool_defaults = 3;
+}
+
+message ContainerClusterAutoscalingResourceLimits {
+  string resource_type = 1;
+  int64 minimum = 2;
+  int64 maximum = 3;
+}
+
+message ContainerClusterAutoscalingAutoprovisioningNodePoolDefaults {
+  repeated string oauth_scopes = 1;
+  string service_account = 2;
+  ContainerClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings upgrade_settings = 3;
+  ContainerClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement management = 4;
+}
+
+message ContainerClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings {
+  int64 max_surge = 1;
+  int64 max_unavailable = 2;
+}
+
+message ContainerClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement {
+  bool auto_upgrade = 1;
+  bool auto_repair = 2;
+}
+
+message ContainerClusterNetworkConfig {
+  string network = 1;
+  string subnetwork = 2;
+  bool enable_intra_node_visibility = 3;
+}
+
+message ContainerClusterMaintenancePolicy {
+  ContainerClusterMaintenancePolicyWindow window = 1;
+  string resource_version = 2;
+}
+
+message ContainerClusterMaintenancePolicyWindow {
+  ContainerClusterMaintenancePolicyWindowDailyMaintenanceWindow daily_maintenance_window = 1;
+  ContainerClusterMaintenancePolicyWindowRecurringWindow recurring_window = 2;
+}
+
+message ContainerClusterMaintenancePolicyWindowDailyMaintenanceWindow {
+  string start_time = 1;
+  string duration = 2;
+}
+
+message ContainerClusterMaintenancePolicyWindowRecurringWindow {
+  ContainerClusterMaintenancePolicyWindowRecurringWindowWindow window = 1;
+  string recurrence = 2;
+}
+
+message ContainerClusterMaintenancePolicyWindowRecurringWindowWindow {
+  string start_time = 1;
+  string end_time = 2;
+}
+
+message ContainerClusterDefaultMaxPodsConstraint {
+  string max_pods_per_node = 1;
+}
+
+message ContainerClusterResourceUsageExportConfig {
+  ContainerClusterResourceUsageExportConfigBigqueryDestination bigquery_destination = 1;
+  bool enable_network_egress_monitoring = 2;
+  ContainerClusterResourceUsageExportConfigConsumptionMeteringConfig consumption_metering_config = 3;
+}
+
+message ContainerClusterResourceUsageExportConfigBigqueryDestination {
+  string dataset_id = 1;
+}
+
+message ContainerClusterResourceUsageExportConfigConsumptionMeteringConfig {
+  bool enabled = 1;
+}
+
+message ContainerClusterAuthenticatorGroupsConfig {
+  bool enabled = 1;
+  string security_group = 2;
+}
+
+message ContainerClusterPrivateClusterConfig {
+  bool enable_private_nodes = 1;
+  bool enable_private_endpoint = 2;
+  string master_ipv4_cidr_block = 3;
+  string private_endpoint = 4;
+  string public_endpoint = 5;
+  string peering_name = 6;
+}
+
+message ContainerClusterDatabaseEncryption {
+  ContainerClusterDatabaseEncryptionStateEnum state = 1;
+  string key_name = 2;
+}
+
+message ContainerClusterVerticalPodAutoscaling {
+  bool enabled = 1;
+}
+
+message ContainerClusterShieldedNodes {
+  bool enabled = 1;
+}
+
+message ContainerClusterConditions {
+  string code = 1;
+  string message = 2;
+}
+
+message ApplyContainerClusterRequest {
+  ContainerCluster resource = 1;
+  repeated LifecycleDirective lifecycle_directives = 2;
+  string service_account_file = 3;
+}
+
+message DeleteContainerClusterRequest {
+  string service_account_file = 1;
+  ContainerCluster resource = 2;
+}
+
+message ListContainerClusterRequest {
+  string service_account_file = 1;
+  string Project = 2;
+  string Location = 3;
+}
+
+message ListContainerClusterResponse {
+  repeated ContainerCluster items = 1;
+}
+service ContainerClusterService {
+  rpc ApplyContainerCluster(ApplyContainerClusterRequest) returns (ContainerCluster);
+  rpc DeleteContainerCluster(DeleteContainerClusterRequest) returns (google.protobuf.Empty);
+  rpc ListContainerCluster(ListContainerClusterRequest) returns (ListContainerClusterResponse);
+}

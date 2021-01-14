@@ -1,0 +1,322 @@
+# Copyright 2021 Google LLC. All Rights Reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+components:
+  schemas:
+    Application:
+      properties:
+        authDomain:
+          description: Google Apps authentication domain that controls which users
+            can access this application. Defaults to open access for any Google Account.
+          type: string
+          x-dcl-go-name: AuthDomain
+        blockedAddresses:
+          description: 'Netmasks in CIDR notation format that should be blocked from
+            accessing this application. Can be used to defend against a Denial of
+            Service attack. Example: "1.2.3.4/31". @OutputOnly'
+          items:
+            type: string
+            x-dcl-go-type: string
+          type: array
+          x-dcl-go-name: BlockedAddresses
+          x-dcl-list-type: list
+        codeBucket:
+          description: Google Cloud Storage bucket that can be used for storing files
+            associated with this application. This bucket is associated with the application
+            and can be used by the gcloud deployment commands. @OutputOnly
+          type: string
+          x-dcl-go-name: CodeBucket
+          x-kubernetes-immutable: true
+        consumerProject:
+          description: Currently used by RDS to route GFC (Google Cloud Functions)
+            requests and GSE (Google Serverless Engine) requests. See go/gcf-simple-routing
+            for more details.
+          properties:
+            name:
+              description: |-
+                The name used for routing URLs from the consumer project in the
+                form <region>-<projectid> for GCF or <region>.<projectid> for GSE.
+                See go/gcf-simple-routing for more information on functions routing.
+                TODO(whaught): Add regex validation to the name field.
+              type: string
+              x-dcl-go-name: Name
+              x-kubernetes-immutable: true
+            projectId:
+              description: |-
+                The consumer project id.
+
+                This is used for billing and Shared VPC purposes, and setting this
+                value should be strictly limited.
+
+                While today it is not validated upon deployment, in the future checks
+                should be made to validate the consumer <-> tenant relationship.
+              type: string
+              x-dcl-go-name: ProjectId
+              x-kubernetes-immutable: true
+            region:
+              description: |-
+                GCF/Cloud Run region
+                This region is different than the App Engine region set in location_id.
+
+                For example, GCF/Cloud Run uses "us-central1" vs App Engine's "us-central"
+
+                View the list of
+                [GCF supported regions](https://cloud.google.com/functions/docs/locations).
+                [Cloud Run supported regions](TBD).
+              type: string
+              x-dcl-go-name: Region
+              x-kubernetes-immutable: true
+            routeHash:
+              description: |-
+                GSE (Google Serverless Engine) will launch obfuscated URL for apps.
+                The general url format is ${route}-${projectId}-${region}.a.prime.app
+                Project level hash will be used in above routing URL.
+              properties:
+                projectHash:
+                  description: NO DESCRIPTION FOUND.
+                  type: string
+                  x-dcl-go-name: ProjectHash
+                  x-kubernetes-immutable: true
+              type: object
+              x-dcl-go-name: RouteHash
+              x-dcl-go-type: ApplicationConsumerProjectRouteHash
+              x-kubernetes-immutable: true
+            service:
+              description: NO DESCRIPTION FOUND.
+              enum:
+              - UNKNOWN
+              - GCF_PROD
+              - GCF_STAGING
+              - SERVERLESS
+              type: string
+              x-dcl-go-name: Service
+              x-dcl-go-type: ApplicationConsumerProjectServiceEnum
+              x-kubernetes-immutable: true
+          type: object
+          x-dcl-go-name: ConsumerProject
+          x-dcl-go-type: ApplicationConsumerProject
+          x-kubernetes-immutable: true
+        databaseType:
+          description: The type of the Cloud Firestore or Cloud Datastore database
+            associated with this application.
+          enum:
+          - DATABASE_TYPE_UNSPECIFIED
+          - CLOUD_DATASTORE
+          - CLOUD_FIRESTORE
+          - CLOUD_DATASTORE_COMPATIBILITY
+          type: string
+          x-dcl-go-name: DatabaseType
+          x-dcl-go-type: ApplicationDatabaseTypeEnum
+          x-kubernetes-immutable: true
+        defaultBucket:
+          description: Google Cloud Storage bucket that can be used by this application
+            to store content. @OutputOnly
+          type: string
+          x-dcl-go-name: DefaultBucket
+          x-kubernetes-immutable: true
+        defaultHostname:
+          description: Hostname used to reach this application, as resolved by App
+            Engine. @OutputOnly
+          type: string
+          x-dcl-go-name: DefaultHostname
+          x-kubernetes-immutable: true
+        dispatchRules:
+          description: HTTP path dispatch rules for requests to the application that
+            do not explicitly target a service or version. Rules are order-dependent.
+            Up to 20 dispatch rules can be supported.
+          items:
+            properties:
+              domain:
+                description: |-
+                  Domain name to match against. The wildcard "`*`" is supported if
+                  specified before a period: "`*.`".
+
+                  Defaults to matching all domains: "`*`".
+                type: string
+                x-dcl-go-name: Domain
+                x-kubernetes-immutable: true
+              path:
+                description: |-
+                  Pathname within the host. Must start with a "`/`". A
+                  single "`*`" can be included at the end of the path.
+
+                  The sum of the lengths of the domain and path may not
+                  exceed 100 characters.
+                type: string
+                x-dcl-go-name: Path
+                x-kubernetes-immutable: true
+              service:
+                description: |-
+                  Resource ID of a service in this application that should
+                  serve the matched request. The service must already
+                  exist. Example: `default`.
+                type: string
+                x-dcl-go-name: Service
+                x-kubernetes-immutable: true
+            type: object
+            x-dcl-go-type: ApplicationDispatchRules
+          type: array
+          x-dcl-go-name: DispatchRules
+          x-dcl-list-type: list
+          x-kubernetes-immutable: true
+        domains:
+          description: DNS domains that this application is configured to serve. @OutputOnly
+          items:
+            type: string
+            x-dcl-go-type: string
+          type: array
+          x-dcl-go-name: Domains
+          x-dcl-list-type: list
+          x-kubernetes-immutable: true
+        featureSettings:
+          description: The feature specific settings to be used in the application.
+          properties:
+            splitHealthChecks:
+              description: |-
+                Boolean value indicating if split health checks should be used instead
+                of the legacy health checks. At an app.yaml level, this means defaulting
+                to 'readiness_check' and 'liveness_check' values instead of
+                'health_check' ones. Once the legacy 'health_check' behavior is
+                deprecated, and this value is always true, this setting can
+                be removed.
+              type: boolean
+              x-dcl-go-name: SplitHealthChecks
+              x-kubernetes-immutable: true
+            useContainerOptimizedOs:
+              description: |-
+                If true, use [Container-Optimized OS](https://cloud.google.com/container-optimized-os/)
+                base image for VMs, rather than a base Debian image.
+              type: boolean
+              x-dcl-go-name: UseContainerOptimizedOs
+              x-kubernetes-immutable: true
+          type: object
+          x-dcl-go-name: FeatureSettings
+          x-dcl-go-type: ApplicationFeatureSettings
+        gcrDomain:
+          description: The Google Container Registry domain used for storing managed
+            build docker images for this application.
+          type: string
+          x-dcl-go-name: GcrDomain
+          x-kubernetes-immutable: true
+        iap:
+          description: NO DESCRIPTION FOUND.
+          properties:
+            enabled:
+              description: |-
+                Whether the serving infrastructure will authenticate and
+                authorize all incoming requests.
+
+                If true, the `oauth2_client_id` and `oauth2_client_secret`
+                fields must be non-empty.
+              type: boolean
+              x-dcl-go-name: Enabled
+              x-kubernetes-immutable: true
+            oauth2ClientId:
+              description: OAuth2 client ID to use for the authentication flow.
+              type: string
+              x-dcl-go-name: OAuth2ClientId
+              x-kubernetes-immutable: true
+            oauth2ClientSecret:
+              description: |-
+                OAuth2 client secret to use for the authentication flow.
+
+                For security reasons, this value cannot be retrieved via the API.
+                Instead, the SHA-256 hash of the value is returned in the
+                `oauth2_client_secret_sha256` field.
+
+                @InputOnly
+              type: string
+              x-dcl-go-name: OAuth2ClientSecret
+              x-dcl-sensitive: true
+              x-kubernetes-immutable: true
+            oauth2ClientSecretSha256:
+              description: |-
+                Hex-encoded SHA-256 hash of the client secret.
+
+                @OutputOnly
+              type: string
+              x-dcl-go-name: OAuth2ClientSecretSha256
+              x-kubernetes-immutable: true
+          type: object
+          x-dcl-go-name: Iap
+          x-dcl-go-type: ApplicationIap
+          x-kubernetes-immutable: true
+        location:
+          description: Location from which this application runs. Application instances
+            run out of the data centers in the specified location, which is also where
+            all of the application's end user content is stored. Defaults to \`us-central\`.
+            View the list of \[supported locations\](https://cloud.google.com/appengine/docs/locations).
+          type: string
+          x-dcl-go-name: Location
+          x-kubernetes-immutable: true
+        name:
+          description: The name of the application
+          type: string
+          x-dcl-go-name: Name
+          x-kubernetes-immutable: true
+        parent:
+          description: 'An optional reference to a parent Resource. Supported parent
+            types include "organization" and "folder". Once set, the parent cannot
+            be cleared. The `parent` can be set on creation or using the `UpdateProject`
+            method; the end user must have the `resourcemanager.projects.create` permission
+            on the parent. Read-write. '
+          properties:
+            id:
+              description: |-
+                Required field for the type-specific id. This should correspond to the id
+                used in the type-specific API's.
+              type: string
+              x-dcl-go-name: Id
+              x-kubernetes-immutable: true
+            type:
+              description: |-
+                Required field representing the resource type this id is for.
+                At present, the valid types are: "organization", "folder", and "project".
+              type: string
+              x-dcl-go-name: Type
+              x-kubernetes-immutable: true
+          type: object
+          x-dcl-go-name: Parent
+          x-dcl-go-type: ApplicationParent
+          x-kubernetes-immutable: true
+        serviceAccount:
+          description: Service account associated with this application. When the
+            application makes requests to other Google services, this identity is
+            used for authentication purposes. @OutputOnly
+          type: string
+          x-dcl-go-name: ServiceAccount
+          x-kubernetes-immutable: true
+        servingStatus:
+          description: Serving status of this application.
+          enum:
+          - UNSPECIFIED
+          - SERVING
+          - USER_DISABLED
+          - SYSTEM_DISABLED
+          type: string
+          x-dcl-go-name: ServingStatus
+          x-dcl-go-type: ApplicationServingStatusEnum
+      title: Application
+      type: object
+      x-dcl-id: apps/{{name}}
+      x-dcl-locations: []
+      x-dcl-parent-container: organization
+      x-dcl-uses-state-hint: false
+info:
+  description: DCL Specification for the Appengine Application resource
+  title: Appengine/Application
+  x-dcl-has-iam: false
+paths:
+  list:
+    description: The function called used to list information about many Application
+    parameters: []

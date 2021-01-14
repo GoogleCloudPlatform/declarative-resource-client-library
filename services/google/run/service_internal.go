@@ -1,0 +1,12660 @@
+// Copyright 2021 Google LLC. All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+package run
+
+import (
+	"bytes"
+	"context"
+	"encoding/json"
+	"fmt"
+	"github.com/mohae/deepcopy"
+	"io/ioutil"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
+	"reflect"
+	"strings"
+)
+
+func (r *Service) validate() error {
+
+	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
+		return err
+	}
+	if err := dcl.RequiredParameter(r.Location, "Location"); err != nil {
+		return err
+	}
+	if err := dcl.RequiredParameter(r.Name, "Name"); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(r.Metadata) {
+		if err := r.Metadata.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.Spec) {
+		if err := r.Spec.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.Status) {
+		if err := r.Status.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ServiceMetadata) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.CreateTime) {
+		if err := r.CreateTime.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.DeleteTime) {
+		if err := r.DeleteTime.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ServiceMetadataCreateTime) validate() error {
+	return nil
+}
+func (r *ServiceMetadataOwnerReferences) validate() error {
+	return nil
+}
+func (r *ServiceMetadataDeleteTime) validate() error {
+	return nil
+}
+func (r *ServiceSpec) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.Template) {
+		if err := r.Template.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ServiceSpecTemplate) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.Metadata) {
+		if err := r.Metadata.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.Spec) {
+		if err := r.Spec.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ServiceSpecTemplateMetadata) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.CreateTime) {
+		if err := r.CreateTime.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.DeleteTime) {
+		if err := r.DeleteTime.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ServiceSpecTemplateMetadataCreateTime) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateMetadataOwnerReferences) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateMetadataDeleteTime) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateSpec) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainers) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.Resources) {
+		if err := r.Resources.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.LivenessProbe) {
+		if err := r.LivenessProbe.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.ReadinessProbe) {
+		if err := r.ReadinessProbe.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.SecurityContext) {
+		if err := r.SecurityContext.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersEnv) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.ValueFrom) {
+		if err := r.ValueFrom.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersEnvValueFrom) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.ConfigMapKeyRef) {
+		if err := r.ConfigMapKeyRef.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.SecretKeyRef) {
+		if err := r.SecretKeyRef.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.LocalObjectReference) {
+		if err := r.LocalObjectReference.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.LocalObjectReference) {
+		if err := r.LocalObjectReference.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersResources) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersPorts) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersEnvFrom) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.ConfigMapRef) {
+		if err := r.ConfigMapRef.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.SecretRef) {
+		if err := r.SecretRef.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersEnvFromConfigMapRef) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.LocalObjectReference) {
+		if err := r.LocalObjectReference.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersEnvFromSecretRef) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.LocalObjectReference) {
+		if err := r.LocalObjectReference.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersVolumeMounts) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersLivenessProbe) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.Exec) {
+		if err := r.Exec.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.HttpGet) {
+		if err := r.HttpGet.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.TcpSocket) {
+		if err := r.TcpSocket.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersLivenessProbeExec) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersLivenessProbeHttpGet) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersReadinessProbe) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.Exec) {
+		if err := r.Exec.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.HttpGet) {
+		if err := r.HttpGet.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.TcpSocket) {
+		if err := r.TcpSocket.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersReadinessProbeExec) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersReadinessProbeHttpGet) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateSpecContainersSecurityContext) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateSpecVolumes) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.Secret) {
+		if err := r.Secret.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.ConfigMap) {
+		if err := r.ConfigMap.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ServiceSpecTemplateSpecVolumesSecret) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateSpecVolumesSecretItems) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateSpecVolumesConfigMap) validate() error {
+	return nil
+}
+func (r *ServiceSpecTemplateSpecVolumesConfigMapItems) validate() error {
+	return nil
+}
+func (r *ServiceSpecTraffic) validate() error {
+	return nil
+}
+func (r *ServiceStatus) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.Address) {
+		if err := r.Address.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ServiceStatusConditions) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.LastTransitionTime) {
+		if err := r.LastTransitionTime.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ServiceStatusConditionsLastTransitionTime) validate() error {
+	return nil
+}
+func (r *ServiceStatusTraffic) validate() error {
+	return nil
+}
+func (r *ServiceStatusAddress) validate() error {
+	return nil
+}
+
+func serviceGetURL(userBasePath string, r *Service) (string, error) {
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(r.Project),
+		"location": dcl.ValueOrEmptyString(r.Location),
+		"name":     dcl.ValueOrEmptyString(r.Name),
+	}
+	return dcl.URL("/apis/serving.knative.dev/v1/namespaces/{{project}}/services/{{name}}", "https://{{location}}-run.googleapis.com/", userBasePath, params), nil
+}
+
+func serviceListURL(userBasePath, project, location string) (string, error) {
+	params := map[string]interface{}{
+		"project":  project,
+		"location": location,
+	}
+	return dcl.URL("/apis/serving.knative.dev/v1/namespaces/{{project}}/services", "https://{{location}}-run.googleapis.com/", userBasePath, params), nil
+
+}
+
+func serviceCreateURL(userBasePath, project, location string) (string, error) {
+	params := map[string]interface{}{
+		"project":  project,
+		"location": location,
+	}
+	return dcl.URL("/apis/serving.knative.dev/v1/namespaces/{{project}}/services", "https://{{location}}-run.googleapis.com/", userBasePath, params), nil
+
+}
+
+func serviceDeleteURL(userBasePath string, r *Service) (string, error) {
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(r.Project),
+		"location": dcl.ValueOrEmptyString(r.Location),
+		"name":     dcl.ValueOrEmptyString(r.Name),
+	}
+	return dcl.URL("/apis/serving.knative.dev/v1/namespaces/{{project}}/services/{{name}}", "https://{{location}}-run.googleapis.com/", userBasePath, params), nil
+}
+
+// serviceApiOperation represents a mutable operation in the underlying REST
+// API such as Create, Update, or Delete.
+type serviceApiOperation interface {
+	do(context.Context, *Service, *Client) error
+}
+
+// newUpdateServiceUpdateServiceRequest creates a request for an
+// Service resource's UpdateService update type by filling in the update
+// fields based on the intended state of the resource.
+func newUpdateServiceUpdateServiceRequest(ctx context.Context, f *Service, c *Client) (map[string]interface{}, error) {
+	req := map[string]interface{}{}
+
+	return req, nil
+}
+
+// marshalUpdateServiceUpdateServiceRequest converts the update into
+// the final JSON request body.
+func marshalUpdateServiceUpdateServiceRequest(c *Client, m map[string]interface{}) ([]byte, error) {
+
+	return json.Marshal(m)
+}
+
+type updateServiceUpdateServiceOperation struct {
+	// If the update operation has the REQUIRES_APPLY_OPTIONS trait, this will be populated.
+	// Usually it will be nil - this is to prevent us from accidentally depending on apply
+	// options, which should usually be unnecessary.
+	ApplyOptions []dcl.ApplyOption
+}
+
+// do creates a request and sends it to the appropriate URL. In most operations,
+// do will transcribe a subset of the resource into a request object and send a
+// PUT request to a single URL.
+
+func (op *updateServiceUpdateServiceOperation) do(ctx context.Context, r *Service, c *Client) error {
+	_, err := c.GetService(ctx, r.urlNormalized())
+	if err != nil {
+		return err
+	}
+
+	u, err := r.updateURL(c.Config.BasePath, "UpdateService")
+	if err != nil {
+		return err
+	}
+
+	req, err := newUpdateServiceUpdateServiceRequest(ctx, r, c)
+	if err != nil {
+		return err
+	}
+
+	c.Config.Logger.Infof("Created update: %#v", req)
+	body, err := marshalUpdateServiceUpdateServiceRequest(c, req)
+	if err != nil {
+		return err
+	}
+	_, err = dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.Retry)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (c *Client) listServiceRaw(ctx context.Context, project, location, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := serviceListURL(c.Config.BasePath, project, location)
+	if err != nil {
+		return nil, err
+	}
+
+	m := make(map[string]string)
+	if pageToken != "" {
+		m["pageToken"] = pageToken
+	}
+
+	if pageSize != ServiceMaxPage {
+		m["pageSize"] = fmt.Sprintf("%v", pageSize)
+	}
+
+	u, err = dcl.AddQueryParams(u, m)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Response.Body.Close()
+	return ioutil.ReadAll(resp.Response.Body)
+}
+
+type listServiceOperation struct {
+	Items []map[string]interface{} `json:"items"`
+	Token string                   `json:"nextPageToken"`
+}
+
+func (c *Client) listService(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*Service, string, error) {
+	b, err := c.listServiceRaw(ctx, project, location, pageToken, pageSize)
+	if err != nil {
+		return nil, "", err
+	}
+
+	var m listServiceOperation
+	if err := json.Unmarshal(b, &m); err != nil {
+		return nil, "", err
+	}
+
+	var l []*Service
+	for _, v := range m.Items {
+		res := flattenService(c, v)
+		res.Project = &project
+		res.Location = &location
+		l = append(l, res)
+	}
+
+	return l, m.Token, nil
+}
+
+func (c *Client) deleteAllService(ctx context.Context, f func(*Service) bool, resources []*Service) error {
+	var errors []string
+	for _, res := range resources {
+		if f(res) {
+			// We do not want deleteAll to fail on a deletion or else it will stop deleting other resources.
+			err := c.DeleteService(ctx, res)
+			if err != nil {
+				errors = append(errors, err.Error())
+			}
+		}
+	}
+	if len(errors) > 0 {
+		return fmt.Errorf("%v", strings.Join(errors, "\n"))
+	} else {
+		return nil
+	}
+}
+
+type deleteServiceOperation struct{}
+
+func (op *deleteServiceOperation) do(ctx context.Context, r *Service, c *Client) error {
+
+	_, err := c.GetService(ctx, r.urlNormalized())
+
+	if err != nil {
+		if dcl.IsNotFound(err) {
+			c.Config.Logger.Infof("Service not found, returning. Original error: %v", err)
+			return nil
+		}
+		c.Config.Logger.Warningf("GetService checking for existence. error: %v", err)
+		return err
+	}
+
+	u, err := serviceDeleteURL(c.Config.BasePath, r.urlNormalized())
+	if err != nil {
+		return err
+	}
+
+	// Delete should never have a body
+	body := &bytes.Buffer{}
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	if err != nil {
+		return fmt.Errorf("failed to delete Service: %w", err)
+	}
+	_, err = c.GetService(ctx, r.urlNormalized())
+	if !dcl.IsNotFound(err) {
+		return dcl.NotDeletedError{ExistingResource: r}
+	}
+	return nil
+}
+
+// Create operations are similar to Update operations, although they do not have
+// specific request objects. The Create request object is the json encoding of
+// the resource, which is modified by res.marshal to form the base request body.
+type createServiceOperation struct{}
+
+func (op *createServiceOperation) do(ctx context.Context, r *Service, c *Client) error {
+	c.Config.Logger.Infof("Attempting to create %v", r)
+
+	project, location := r.createFields()
+	u, err := serviceCreateURL(c.Config.BasePath, project, location)
+
+	if err != nil {
+		return err
+	}
+
+	req, err := r.marshal(c)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	if err != nil {
+		return err
+	}
+	// wait for object to be created.
+	var o operations.KNativeOperation
+	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+		return err
+	}
+	if err := o.Wait(ctx, c.Config, "https://{{location}}-run.googleapis.com/", "GET"); err != nil {
+		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
+		return err
+	}
+	c.Config.Logger.Infof("Successfully waited for operation")
+
+	if _, err := c.GetService(ctx, r.urlNormalized()); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (c *Client) getServiceRaw(ctx context.Context, r *Service) ([]byte, error) {
+	if dcl.IsZeroValue(r.ApiVersion) {
+		r.ApiVersion = dcl.String("serving.knative.dev/v1")
+	}
+	if dcl.IsZeroValue(r.Kind) {
+		r.Kind = dcl.String("Service")
+	}
+
+	u, err := serviceGetURL(c.Config.BasePath, r.urlNormalized())
+	if err != nil {
+		return nil, err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Response.Body.Close()
+	b, err := ioutil.ReadAll(resp.Response.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	return b, nil
+}
+
+func (c *Client) serviceDiffsForRawDesired(ctx context.Context, rawDesired *Service, opts ...dcl.ApplyOption) (initial, desired *Service, diffs []serviceDiff, err error) {
+	c.Config.Logger.Info("Fetching initial state...")
+	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
+	var fetchState *Service
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		if r, ok := sh.(*Service); !ok {
+			c.Config.Logger.Warningf("Initial state hint was of the wrong type; expected Service, got %T", sh)
+		} else {
+			fetchState = r
+		}
+	}
+	if fetchState == nil {
+		fetchState = rawDesired
+	}
+
+	// 1.2: Retrieval of raw initial state from API
+	rawInitial, err := c.GetService(ctx, fetchState.urlNormalized())
+	if rawInitial == nil {
+		if !dcl.IsNotFound(err) {
+			c.Config.Logger.Warningf("Failed to retrieve whether a Service resource already exists: %s", err)
+			return nil, nil, nil, fmt.Errorf("failed to retrieve Service resource: %v", err)
+		}
+
+		c.Config.Logger.Info("Found that Service resource did not exist.")
+		// Perform canonicalization to pick up defaults.
+		desired, err = canonicalizeServiceDesiredState(rawDesired, rawInitial)
+		return nil, desired, nil, err
+	}
+	c.Config.Logger.Infof("Found initial state for Service: %v", rawInitial)
+	c.Config.Logger.Infof("Initial desired state for Service: %v", rawDesired)
+
+	// 1.3: Canonicalize raw initial state into initial state.
+	initial, err = canonicalizeServiceInitialState(rawInitial, rawDesired)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+	c.Config.Logger.Infof("Canonicalized initial state for Service: %v", initial)
+
+	// 1.4: Canonicalize raw desired state into desired state.
+	desired, err = canonicalizeServiceDesiredState(rawDesired, rawInitial, opts...)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+	c.Config.Logger.Infof("Canonicalized desired state for Service: %v", desired)
+
+	// 2.1: Comparison of initial and desired state.
+	diffs, err = diffService(c, desired, initial, opts...)
+	return initial, desired, diffs, err
+}
+
+func canonicalizeServiceInitialState(rawInitial, rawDesired *Service) (*Service, error) {
+	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
+	return rawInitial, nil
+}
+
+/*
+* Canonicalizers
+*
+* These are responsible for converting either a user-specified config or a
+* GCP API response to a standard format that can be used for difference checking.
+* */
+
+func canonicalizeServiceDesiredState(rawDesired, rawInitial *Service, opts ...dcl.ApplyOption) (*Service, error) {
+
+	if dcl.IsZeroValue(rawDesired.ApiVersion) {
+		rawDesired.ApiVersion = dcl.String("serving.knative.dev/v1")
+	}
+
+	if dcl.IsZeroValue(rawDesired.Kind) {
+		rawDesired.Kind = dcl.String("Service")
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		if r, ok := sh.(*Service); !ok {
+			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Service, got %T", sh)
+		} else {
+			_ = r
+		}
+	}
+
+	if rawInitial == nil {
+		// Since the initial state is empty, the desired state is all we have.
+		// We canonicalize the remaining nested objects with nil to pick up defaults.
+		rawDesired.Metadata = canonicalizeServiceMetadata(rawDesired.Metadata, nil, opts...)
+		rawDesired.Spec = canonicalizeServiceSpec(rawDesired.Spec, nil, opts...)
+		rawDesired.Status = canonicalizeServiceStatus(rawDesired.Status, nil, opts...)
+
+		return rawDesired, nil
+	}
+	if dcl.IsZeroValue(rawDesired.ApiVersion) {
+		rawDesired.ApiVersion = rawInitial.ApiVersion
+	}
+	if dcl.IsZeroValue(rawDesired.Kind) {
+		rawDesired.Kind = rawInitial.Kind
+	}
+	rawDesired.Metadata = canonicalizeServiceMetadata(rawDesired.Metadata, rawInitial.Metadata, opts...)
+	rawDesired.Spec = canonicalizeServiceSpec(rawDesired.Spec, rawInitial.Spec, opts...)
+	rawDesired.Status = canonicalizeServiceStatus(rawDesired.Status, rawInitial.Status, opts...)
+	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
+		rawDesired.Project = rawInitial.Project
+	}
+	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
+		rawDesired.Location = rawInitial.Location
+	}
+	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
+		rawDesired.Name = rawInitial.Name
+	}
+
+	return rawDesired, nil
+}
+
+func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Service, error) {
+
+	if dcl.IsEmptyValueIndirect(rawNew.ApiVersion) && dcl.IsEmptyValueIndirect(rawDesired.ApiVersion) {
+		rawNew.ApiVersion = rawDesired.ApiVersion
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Kind) && dcl.IsEmptyValueIndirect(rawDesired.Kind) {
+		rawNew.Kind = rawDesired.Kind
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Metadata) && dcl.IsEmptyValueIndirect(rawDesired.Metadata) {
+		rawNew.Metadata = rawDesired.Metadata
+	} else {
+		rawNew.Metadata = canonicalizeNewServiceMetadata(c, rawDesired.Metadata, rawNew.Metadata)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Spec) && dcl.IsEmptyValueIndirect(rawDesired.Spec) {
+		rawNew.Spec = rawDesired.Spec
+	} else {
+		rawNew.Spec = canonicalizeNewServiceSpec(c, rawDesired.Spec, rawNew.Spec)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Status) && dcl.IsEmptyValueIndirect(rawDesired.Status) {
+		rawNew.Status = rawDesired.Status
+	} else {
+		rawNew.Status = canonicalizeNewServiceStatus(c, rawDesired.Status, rawNew.Status)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
+		rawNew.Project = rawDesired.Project
+	} else {
+		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
+			rawNew.Project = rawDesired.Project
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
+		rawNew.Location = rawDesired.Location
+	} else {
+		if dcl.NameToSelfLink(rawDesired.Location, rawNew.Location) {
+			rawNew.Location = rawDesired.Location
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+		rawNew.Name = rawDesired.Name
+	} else {
+		if dcl.NameToSelfLink(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
+	}
+
+	return rawNew, nil
+}
+
+func canonicalizeServiceMetadata(des, initial *ServiceMetadata, opts ...dcl.ApplyOption) *ServiceMetadata {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+	if dcl.IsZeroValue(des.GenerateName) {
+		des.GenerateName = initial.GenerateName
+	}
+	if dcl.IsZeroValue(des.Namespace) {
+		des.Namespace = initial.Namespace
+	}
+	if dcl.IsZeroValue(des.SelfLink) {
+		des.SelfLink = initial.SelfLink
+	}
+	if dcl.IsZeroValue(des.Uid) {
+		des.Uid = initial.Uid
+	}
+	if dcl.IsZeroValue(des.ResourceVersion) {
+		des.ResourceVersion = initial.ResourceVersion
+	}
+	if dcl.IsZeroValue(des.Generation) {
+		des.Generation = initial.Generation
+	}
+	des.CreateTime = canonicalizeServiceMetadataCreateTime(des.CreateTime, initial.CreateTime, opts...)
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	}
+	if dcl.IsZeroValue(des.Annotations) {
+		des.Annotations = initial.Annotations
+	}
+	if dcl.IsZeroValue(des.OwnerReferences) {
+		des.OwnerReferences = initial.OwnerReferences
+	}
+	des.DeleteTime = canonicalizeServiceMetadataDeleteTime(des.DeleteTime, initial.DeleteTime, opts...)
+	if dcl.IsZeroValue(des.DeletionGracePeriodSeconds) {
+		des.DeletionGracePeriodSeconds = initial.DeletionGracePeriodSeconds
+	}
+	if dcl.IsZeroValue(des.Finalizers) {
+		des.Finalizers = initial.Finalizers
+	}
+	if dcl.IsZeroValue(des.ClusterName) {
+		des.ClusterName = initial.ClusterName
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceMetadata(c *Client, des, nw *ServiceMetadata) *ServiceMetadata {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	nw.CreateTime = canonicalizeNewServiceMetadataCreateTime(c, des.CreateTime, nw.CreateTime)
+	nw.DeleteTime = canonicalizeNewServiceMetadataDeleteTime(c, des.DeleteTime, nw.DeleteTime)
+
+	return nw
+}
+
+func canonicalizeNewServiceMetadataSet(c *Client, des, nw []ServiceMetadata) []ServiceMetadata {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceMetadata
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceMetadata(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceMetadataCreateTime(des, initial *ServiceMetadataCreateTime, opts ...dcl.ApplyOption) *ServiceMetadataCreateTime {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Seconds) {
+		des.Seconds = initial.Seconds
+	}
+	if dcl.IsZeroValue(des.Nanos) {
+		des.Nanos = initial.Nanos
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceMetadataCreateTime(c *Client, des, nw *ServiceMetadataCreateTime) *ServiceMetadataCreateTime {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceMetadataCreateTimeSet(c *Client, des, nw []ServiceMetadataCreateTime) []ServiceMetadataCreateTime {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceMetadataCreateTime
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceMetadataCreateTime(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceMetadataOwnerReferences(des, initial *ServiceMetadataOwnerReferences, opts ...dcl.ApplyOption) *ServiceMetadataOwnerReferences {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.ApiVersion) {
+		des.ApiVersion = initial.ApiVersion
+	}
+	if dcl.IsZeroValue(des.Kind) {
+		des.Kind = initial.Kind
+	}
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+	if dcl.IsZeroValue(des.Uid) {
+		des.Uid = initial.Uid
+	}
+	if dcl.IsZeroValue(des.Controller) {
+		des.Controller = initial.Controller
+	}
+	if dcl.IsZeroValue(des.BlockOwnerDeletion) {
+		des.BlockOwnerDeletion = initial.BlockOwnerDeletion
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceMetadataOwnerReferences(c *Client, des, nw *ServiceMetadataOwnerReferences) *ServiceMetadataOwnerReferences {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceMetadataOwnerReferencesSet(c *Client, des, nw []ServiceMetadataOwnerReferences) []ServiceMetadataOwnerReferences {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceMetadataOwnerReferences
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceMetadataOwnerReferences(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceMetadataDeleteTime(des, initial *ServiceMetadataDeleteTime, opts ...dcl.ApplyOption) *ServiceMetadataDeleteTime {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Seconds) {
+		des.Seconds = initial.Seconds
+	}
+	if dcl.IsZeroValue(des.Nanos) {
+		des.Nanos = initial.Nanos
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceMetadataDeleteTime(c *Client, des, nw *ServiceMetadataDeleteTime) *ServiceMetadataDeleteTime {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceMetadataDeleteTimeSet(c *Client, des, nw []ServiceMetadataDeleteTime) []ServiceMetadataDeleteTime {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceMetadataDeleteTime
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceMetadataDeleteTime(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpec(des, initial *ServiceSpec, opts ...dcl.ApplyOption) *ServiceSpec {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	des.Template = canonicalizeServiceSpecTemplate(des.Template, initial.Template, opts...)
+	if dcl.IsZeroValue(des.Traffic) {
+		des.Traffic = initial.Traffic
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpec(c *Client, des, nw *ServiceSpec) *ServiceSpec {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	nw.Template = canonicalizeNewServiceSpecTemplate(c, des.Template, nw.Template)
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecSet(c *Client, des, nw []ServiceSpec) []ServiceSpec {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpec
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpec(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplate(des, initial *ServiceSpecTemplate, opts ...dcl.ApplyOption) *ServiceSpecTemplate {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	des.Metadata = canonicalizeServiceSpecTemplateMetadata(des.Metadata, initial.Metadata, opts...)
+	des.Spec = canonicalizeServiceSpecTemplateSpec(des.Spec, initial.Spec, opts...)
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplate(c *Client, des, nw *ServiceSpecTemplate) *ServiceSpecTemplate {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	nw.Metadata = canonicalizeNewServiceSpecTemplateMetadata(c, des.Metadata, nw.Metadata)
+	nw.Spec = canonicalizeNewServiceSpecTemplateSpec(c, des.Spec, nw.Spec)
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSet(c *Client, des, nw []ServiceSpecTemplate) []ServiceSpecTemplate {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplate
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplate(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateMetadata(des, initial *ServiceSpecTemplateMetadata, opts ...dcl.ApplyOption) *ServiceSpecTemplateMetadata {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+	if dcl.IsZeroValue(des.GenerateName) {
+		des.GenerateName = initial.GenerateName
+	}
+	if dcl.IsZeroValue(des.Namespace) {
+		des.Namespace = initial.Namespace
+	}
+	if dcl.IsZeroValue(des.SelfLink) {
+		des.SelfLink = initial.SelfLink
+	}
+	if dcl.IsZeroValue(des.Uid) {
+		des.Uid = initial.Uid
+	}
+	if dcl.IsZeroValue(des.ResourceVersion) {
+		des.ResourceVersion = initial.ResourceVersion
+	}
+	if dcl.IsZeroValue(des.Generation) {
+		des.Generation = initial.Generation
+	}
+	des.CreateTime = canonicalizeServiceSpecTemplateMetadataCreateTime(des.CreateTime, initial.CreateTime, opts...)
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	}
+	if dcl.IsZeroValue(des.Annotations) {
+		des.Annotations = initial.Annotations
+	}
+	if dcl.IsZeroValue(des.OwnerReferences) {
+		des.OwnerReferences = initial.OwnerReferences
+	}
+	des.DeleteTime = canonicalizeServiceSpecTemplateMetadataDeleteTime(des.DeleteTime, initial.DeleteTime, opts...)
+	if dcl.IsZeroValue(des.DeletionGracePeriodSeconds) {
+		des.DeletionGracePeriodSeconds = initial.DeletionGracePeriodSeconds
+	}
+	if dcl.IsZeroValue(des.Finalizers) {
+		des.Finalizers = initial.Finalizers
+	}
+	if dcl.IsZeroValue(des.ClusterName) {
+		des.ClusterName = initial.ClusterName
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateMetadata(c *Client, des, nw *ServiceSpecTemplateMetadata) *ServiceSpecTemplateMetadata {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	nw.CreateTime = canonicalizeNewServiceSpecTemplateMetadataCreateTime(c, des.CreateTime, nw.CreateTime)
+	nw.DeleteTime = canonicalizeNewServiceSpecTemplateMetadataDeleteTime(c, des.DeleteTime, nw.DeleteTime)
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateMetadataSet(c *Client, des, nw []ServiceSpecTemplateMetadata) []ServiceSpecTemplateMetadata {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateMetadata
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateMetadata(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateMetadataCreateTime(des, initial *ServiceSpecTemplateMetadataCreateTime, opts ...dcl.ApplyOption) *ServiceSpecTemplateMetadataCreateTime {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Seconds) {
+		des.Seconds = initial.Seconds
+	}
+	if dcl.IsZeroValue(des.Nanos) {
+		des.Nanos = initial.Nanos
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateMetadataCreateTime(c *Client, des, nw *ServiceSpecTemplateMetadataCreateTime) *ServiceSpecTemplateMetadataCreateTime {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateMetadataCreateTimeSet(c *Client, des, nw []ServiceSpecTemplateMetadataCreateTime) []ServiceSpecTemplateMetadataCreateTime {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateMetadataCreateTime
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateMetadataCreateTime(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateMetadataOwnerReferences(des, initial *ServiceSpecTemplateMetadataOwnerReferences, opts ...dcl.ApplyOption) *ServiceSpecTemplateMetadataOwnerReferences {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.ApiVersion) {
+		des.ApiVersion = initial.ApiVersion
+	}
+	if dcl.IsZeroValue(des.Kind) {
+		des.Kind = initial.Kind
+	}
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+	if dcl.IsZeroValue(des.Uid) {
+		des.Uid = initial.Uid
+	}
+	if dcl.IsZeroValue(des.Controller) {
+		des.Controller = initial.Controller
+	}
+	if dcl.IsZeroValue(des.BlockOwnerDeletion) {
+		des.BlockOwnerDeletion = initial.BlockOwnerDeletion
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateMetadataOwnerReferences(c *Client, des, nw *ServiceSpecTemplateMetadataOwnerReferences) *ServiceSpecTemplateMetadataOwnerReferences {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateMetadataOwnerReferencesSet(c *Client, des, nw []ServiceSpecTemplateMetadataOwnerReferences) []ServiceSpecTemplateMetadataOwnerReferences {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateMetadataOwnerReferences
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateMetadataOwnerReferences(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateMetadataDeleteTime(des, initial *ServiceSpecTemplateMetadataDeleteTime, opts ...dcl.ApplyOption) *ServiceSpecTemplateMetadataDeleteTime {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Seconds) {
+		des.Seconds = initial.Seconds
+	}
+	if dcl.IsZeroValue(des.Nanos) {
+		des.Nanos = initial.Nanos
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateMetadataDeleteTime(c *Client, des, nw *ServiceSpecTemplateMetadataDeleteTime) *ServiceSpecTemplateMetadataDeleteTime {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateMetadataDeleteTimeSet(c *Client, des, nw []ServiceSpecTemplateMetadataDeleteTime) []ServiceSpecTemplateMetadataDeleteTime {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateMetadataDeleteTime
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateMetadataDeleteTime(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpec(des, initial *ServiceSpecTemplateSpec, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpec {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.ContainerConcurrency) {
+		des.ContainerConcurrency = initial.ContainerConcurrency
+	}
+	if dcl.IsZeroValue(des.TimeoutSeconds) {
+		des.TimeoutSeconds = initial.TimeoutSeconds
+	}
+	if dcl.IsZeroValue(des.ServiceAccountName) {
+		des.ServiceAccountName = initial.ServiceAccountName
+	}
+	if dcl.IsZeroValue(des.Containers) {
+		des.Containers = initial.Containers
+	}
+	if dcl.IsZeroValue(des.Volumes) {
+		des.Volumes = initial.Volumes
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpec(c *Client, des, nw *ServiceSpecTemplateSpec) *ServiceSpecTemplateSpec {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecSet(c *Client, des, nw []ServiceSpecTemplateSpec) []ServiceSpecTemplateSpec {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpec
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpec(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainers(des, initial *ServiceSpecTemplateSpecContainers, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainers {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+	if dcl.IsZeroValue(des.Image) {
+		des.Image = initial.Image
+	}
+	if dcl.IsZeroValue(des.Command) {
+		des.Command = initial.Command
+	}
+	if dcl.IsZeroValue(des.Args) {
+		des.Args = initial.Args
+	}
+	if dcl.IsZeroValue(des.Env) {
+		des.Env = initial.Env
+	}
+	des.Resources = canonicalizeServiceSpecTemplateSpecContainersResources(des.Resources, initial.Resources, opts...)
+	if dcl.IsZeroValue(des.WorkingDir) {
+		des.WorkingDir = initial.WorkingDir
+	}
+	if dcl.IsZeroValue(des.Ports) {
+		des.Ports = initial.Ports
+	}
+	if dcl.IsZeroValue(des.EnvFrom) {
+		des.EnvFrom = initial.EnvFrom
+	}
+	if dcl.IsZeroValue(des.VolumeMounts) {
+		des.VolumeMounts = initial.VolumeMounts
+	}
+	des.LivenessProbe = canonicalizeServiceSpecTemplateSpecContainersLivenessProbe(des.LivenessProbe, initial.LivenessProbe, opts...)
+	des.ReadinessProbe = canonicalizeServiceSpecTemplateSpecContainersReadinessProbe(des.ReadinessProbe, initial.ReadinessProbe, opts...)
+	if dcl.IsZeroValue(des.TerminationMessagePath) {
+		des.TerminationMessagePath = initial.TerminationMessagePath
+	}
+	if dcl.IsZeroValue(des.TerminationMessagePolicy) {
+		des.TerminationMessagePolicy = initial.TerminationMessagePolicy
+	}
+	if dcl.IsZeroValue(des.ImagePullPolicy) {
+		des.ImagePullPolicy = initial.ImagePullPolicy
+	}
+	des.SecurityContext = canonicalizeServiceSpecTemplateSpecContainersSecurityContext(des.SecurityContext, initial.SecurityContext, opts...)
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainers(c *Client, des, nw *ServiceSpecTemplateSpecContainers) *ServiceSpecTemplateSpecContainers {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	nw.Resources = canonicalizeNewServiceSpecTemplateSpecContainersResources(c, des.Resources, nw.Resources)
+	nw.LivenessProbe = canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbe(c, des.LivenessProbe, nw.LivenessProbe)
+	nw.ReadinessProbe = canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbe(c, des.ReadinessProbe, nw.ReadinessProbe)
+	nw.SecurityContext = canonicalizeNewServiceSpecTemplateSpecContainersSecurityContext(c, des.SecurityContext, nw.SecurityContext)
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersSet(c *Client, des, nw []ServiceSpecTemplateSpecContainers) []ServiceSpecTemplateSpecContainers {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainers
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainers(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersEnv(des, initial *ServiceSpecTemplateSpecContainersEnv, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersEnv {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+	if dcl.IsZeroValue(des.Value) {
+		des.Value = initial.Value
+	}
+	des.ValueFrom = canonicalizeServiceSpecTemplateSpecContainersEnvValueFrom(des.ValueFrom, initial.ValueFrom, opts...)
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnv(c *Client, des, nw *ServiceSpecTemplateSpecContainersEnv) *ServiceSpecTemplateSpecContainersEnv {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	nw.ValueFrom = canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFrom(c, des.ValueFrom, nw.ValueFrom)
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersEnv) []ServiceSpecTemplateSpecContainersEnv {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersEnv
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersEnv(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersEnvValueFrom(des, initial *ServiceSpecTemplateSpecContainersEnvValueFrom, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersEnvValueFrom {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	des.ConfigMapKeyRef = canonicalizeServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(des.ConfigMapKeyRef, initial.ConfigMapKeyRef, opts...)
+	des.SecretKeyRef = canonicalizeServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(des.SecretKeyRef, initial.SecretKeyRef, opts...)
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFrom(c *Client, des, nw *ServiceSpecTemplateSpecContainersEnvValueFrom) *ServiceSpecTemplateSpecContainersEnvValueFrom {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	nw.ConfigMapKeyRef = canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c, des.ConfigMapKeyRef, nw.ConfigMapKeyRef)
+	nw.SecretKeyRef = canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c, des.SecretKeyRef, nw.SecretKeyRef)
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersEnvValueFrom) []ServiceSpecTemplateSpecContainersEnvValueFrom {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersEnvValueFrom
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersEnvValueFrom(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(des, initial *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	des.LocalObjectReference = canonicalizeServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(des.LocalObjectReference, initial.LocalObjectReference, opts...)
+	if dcl.IsZeroValue(des.Key) {
+		des.Key = initial.Key
+	}
+	if dcl.IsZeroValue(des.Optional) {
+		des.Optional = initial.Optional
+	}
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c *Client, des, nw *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef) *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	nw.LocalObjectReference = canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, des.LocalObjectReference, nw.LocalObjectReference)
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef) []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(des, initial *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c *Client, des, nw *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference) *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReferenceSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference) []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(des, initial *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	des.LocalObjectReference = canonicalizeServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(des.LocalObjectReference, initial.LocalObjectReference, opts...)
+	if dcl.IsZeroValue(des.Key) {
+		des.Key = initial.Key
+	}
+	if dcl.IsZeroValue(des.Optional) {
+		des.Optional = initial.Optional
+	}
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c *Client, des, nw *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef) *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	nw.LocalObjectReference = canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, des.LocalObjectReference, nw.LocalObjectReference)
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef) []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(des, initial *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c *Client, des, nw *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference) *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReferenceSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference) []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersResources(des, initial *ServiceSpecTemplateSpecContainersResources, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersResources {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Limits) {
+		des.Limits = initial.Limits
+	}
+	if dcl.IsZeroValue(des.Requests) {
+		des.Requests = initial.Requests
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersResources(c *Client, des, nw *ServiceSpecTemplateSpecContainersResources) *ServiceSpecTemplateSpecContainersResources {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersResourcesSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersResources) []ServiceSpecTemplateSpecContainersResources {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersResources
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersResources(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersPorts(des, initial *ServiceSpecTemplateSpecContainersPorts, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersPorts {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+	if dcl.IsZeroValue(des.ContainerPort) {
+		des.ContainerPort = initial.ContainerPort
+	}
+	if dcl.IsZeroValue(des.Protocol) {
+		des.Protocol = initial.Protocol
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersPorts(c *Client, des, nw *ServiceSpecTemplateSpecContainersPorts) *ServiceSpecTemplateSpecContainersPorts {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersPortsSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersPorts) []ServiceSpecTemplateSpecContainersPorts {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersPorts
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersPorts(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersEnvFrom(des, initial *ServiceSpecTemplateSpecContainersEnvFrom, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersEnvFrom {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Prefix) {
+		des.Prefix = initial.Prefix
+	}
+	des.ConfigMapRef = canonicalizeServiceSpecTemplateSpecContainersEnvFromConfigMapRef(des.ConfigMapRef, initial.ConfigMapRef, opts...)
+	des.SecretRef = canonicalizeServiceSpecTemplateSpecContainersEnvFromSecretRef(des.SecretRef, initial.SecretRef, opts...)
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvFrom(c *Client, des, nw *ServiceSpecTemplateSpecContainersEnvFrom) *ServiceSpecTemplateSpecContainersEnvFrom {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	nw.ConfigMapRef = canonicalizeNewServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c, des.ConfigMapRef, nw.ConfigMapRef)
+	nw.SecretRef = canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSecretRef(c, des.SecretRef, nw.SecretRef)
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersEnvFrom) []ServiceSpecTemplateSpecContainersEnvFrom {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersEnvFrom
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersEnvFrom(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersEnvFromConfigMapRef(des, initial *ServiceSpecTemplateSpecContainersEnvFromConfigMapRef, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersEnvFromConfigMapRef {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	des.LocalObjectReference = canonicalizeServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(des.LocalObjectReference, initial.LocalObjectReference, opts...)
+	if dcl.IsZeroValue(des.Optional) {
+		des.Optional = initial.Optional
+	}
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c *Client, des, nw *ServiceSpecTemplateSpecContainersEnvFromConfigMapRef) *ServiceSpecTemplateSpecContainersEnvFromConfigMapRef {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	nw.LocalObjectReference = canonicalizeNewServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, des.LocalObjectReference, nw.LocalObjectReference)
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromConfigMapRefSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersEnvFromConfigMapRef) []ServiceSpecTemplateSpecContainersEnvFromConfigMapRef {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersEnvFromConfigMapRef
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(des, initial *ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c *Client, des, nw *ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference) *ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReferenceSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference) []ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersEnvFromSecretRef(des, initial *ServiceSpecTemplateSpecContainersEnvFromSecretRef, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersEnvFromSecretRef {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	des.LocalObjectReference = canonicalizeServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(des.LocalObjectReference, initial.LocalObjectReference, opts...)
+	if dcl.IsZeroValue(des.Optional) {
+		des.Optional = initial.Optional
+	}
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSecretRef(c *Client, des, nw *ServiceSpecTemplateSpecContainersEnvFromSecretRef) *ServiceSpecTemplateSpecContainersEnvFromSecretRef {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	nw.LocalObjectReference = canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, des.LocalObjectReference, nw.LocalObjectReference)
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSecretRefSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersEnvFromSecretRef) []ServiceSpecTemplateSpecContainersEnvFromSecretRef {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersEnvFromSecretRef
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersEnvFromSecretRef(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(des, initial *ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c *Client, des, nw *ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference) *ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenceSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference) []ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersVolumeMounts(des, initial *ServiceSpecTemplateSpecContainersVolumeMounts, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersVolumeMounts {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+	if dcl.IsZeroValue(des.ReadOnly) {
+		des.ReadOnly = initial.ReadOnly
+	}
+	if dcl.IsZeroValue(des.MountPath) {
+		des.MountPath = initial.MountPath
+	}
+	if dcl.IsZeroValue(des.SubPath) {
+		des.SubPath = initial.SubPath
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersVolumeMounts(c *Client, des, nw *ServiceSpecTemplateSpecContainersVolumeMounts) *ServiceSpecTemplateSpecContainersVolumeMounts {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersVolumeMountsSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersVolumeMounts) []ServiceSpecTemplateSpecContainersVolumeMounts {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersVolumeMounts
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersVolumeMounts(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersLivenessProbe(des, initial *ServiceSpecTemplateSpecContainersLivenessProbe, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersLivenessProbe {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.InitialDelaySeconds) {
+		des.InitialDelaySeconds = initial.InitialDelaySeconds
+	}
+	if dcl.IsZeroValue(des.TimeoutSeconds) {
+		des.TimeoutSeconds = initial.TimeoutSeconds
+	}
+	if dcl.IsZeroValue(des.PeriodSeconds) {
+		des.PeriodSeconds = initial.PeriodSeconds
+	}
+	if dcl.IsZeroValue(des.SuccessThreshold) {
+		des.SuccessThreshold = initial.SuccessThreshold
+	}
+	if dcl.IsZeroValue(des.FailureThreshold) {
+		des.FailureThreshold = initial.FailureThreshold
+	}
+	des.Exec = canonicalizeServiceSpecTemplateSpecContainersLivenessProbeExec(des.Exec, initial.Exec, opts...)
+	des.HttpGet = canonicalizeServiceSpecTemplateSpecContainersLivenessProbeHttpGet(des.HttpGet, initial.HttpGet, opts...)
+	des.TcpSocket = canonicalizeServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(des.TcpSocket, initial.TcpSocket, opts...)
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbe(c *Client, des, nw *ServiceSpecTemplateSpecContainersLivenessProbe) *ServiceSpecTemplateSpecContainersLivenessProbe {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	nw.Exec = canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeExec(c, des.Exec, nw.Exec)
+	nw.HttpGet = canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c, des.HttpGet, nw.HttpGet)
+	nw.TcpSocket = canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c, des.TcpSocket, nw.TcpSocket)
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersLivenessProbe) []ServiceSpecTemplateSpecContainersLivenessProbe {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersLivenessProbe
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersLivenessProbe(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersLivenessProbeExec(des, initial *ServiceSpecTemplateSpecContainersLivenessProbeExec, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersLivenessProbeExec {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Command) {
+		des.Command = initial.Command
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeExec(c *Client, des, nw *ServiceSpecTemplateSpecContainersLivenessProbeExec) *ServiceSpecTemplateSpecContainersLivenessProbeExec {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeExecSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersLivenessProbeExec) []ServiceSpecTemplateSpecContainersLivenessProbeExec {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersLivenessProbeExec
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersLivenessProbeExec(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersLivenessProbeHttpGet(des, initial *ServiceSpecTemplateSpecContainersLivenessProbeHttpGet, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersLivenessProbeHttpGet {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Path) {
+		des.Path = initial.Path
+	}
+	if dcl.IsZeroValue(des.Host) {
+		des.Host = initial.Host
+	}
+	if dcl.IsZeroValue(des.Scheme) {
+		des.Scheme = initial.Scheme
+	}
+	if dcl.IsZeroValue(des.HttpHeaders) {
+		des.HttpHeaders = initial.HttpHeaders
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c *Client, des, nw *ServiceSpecTemplateSpecContainersLivenessProbeHttpGet) *ServiceSpecTemplateSpecContainersLivenessProbeHttpGet {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeHttpGetSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersLivenessProbeHttpGet) []ServiceSpecTemplateSpecContainersLivenessProbeHttpGet {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersLivenessProbeHttpGet
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(des, initial *ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+	if dcl.IsZeroValue(des.Value) {
+		des.Value = initial.Value
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(c *Client, des, nw *ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders) *ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders) []ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(des, initial *ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Port) {
+		des.Port = initial.Port
+	}
+	if dcl.IsZeroValue(des.Host) {
+		des.Host = initial.Host
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c *Client, des, nw *ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket) *ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeTcpSocketSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket) []ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersReadinessProbe(des, initial *ServiceSpecTemplateSpecContainersReadinessProbe, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersReadinessProbe {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.InitialDelaySeconds) {
+		des.InitialDelaySeconds = initial.InitialDelaySeconds
+	}
+	if dcl.IsZeroValue(des.TimeoutSeconds) {
+		des.TimeoutSeconds = initial.TimeoutSeconds
+	}
+	if dcl.IsZeroValue(des.PeriodSeconds) {
+		des.PeriodSeconds = initial.PeriodSeconds
+	}
+	if dcl.IsZeroValue(des.SuccessThreshold) {
+		des.SuccessThreshold = initial.SuccessThreshold
+	}
+	if dcl.IsZeroValue(des.FailureThreshold) {
+		des.FailureThreshold = initial.FailureThreshold
+	}
+	des.Exec = canonicalizeServiceSpecTemplateSpecContainersReadinessProbeExec(des.Exec, initial.Exec, opts...)
+	des.HttpGet = canonicalizeServiceSpecTemplateSpecContainersReadinessProbeHttpGet(des.HttpGet, initial.HttpGet, opts...)
+	des.TcpSocket = canonicalizeServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(des.TcpSocket, initial.TcpSocket, opts...)
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbe(c *Client, des, nw *ServiceSpecTemplateSpecContainersReadinessProbe) *ServiceSpecTemplateSpecContainersReadinessProbe {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	nw.Exec = canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeExec(c, des.Exec, nw.Exec)
+	nw.HttpGet = canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c, des.HttpGet, nw.HttpGet)
+	nw.TcpSocket = canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c, des.TcpSocket, nw.TcpSocket)
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersReadinessProbe) []ServiceSpecTemplateSpecContainersReadinessProbe {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersReadinessProbe
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersReadinessProbe(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersReadinessProbeExec(des, initial *ServiceSpecTemplateSpecContainersReadinessProbeExec, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersReadinessProbeExec {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Command) {
+		des.Command = initial.Command
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeExec(c *Client, des, nw *ServiceSpecTemplateSpecContainersReadinessProbeExec) *ServiceSpecTemplateSpecContainersReadinessProbeExec {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeExecSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersReadinessProbeExec) []ServiceSpecTemplateSpecContainersReadinessProbeExec {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersReadinessProbeExec
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersReadinessProbeExec(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersReadinessProbeHttpGet(des, initial *ServiceSpecTemplateSpecContainersReadinessProbeHttpGet, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersReadinessProbeHttpGet {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Path) {
+		des.Path = initial.Path
+	}
+	if dcl.IsZeroValue(des.Host) {
+		des.Host = initial.Host
+	}
+	if dcl.IsZeroValue(des.Scheme) {
+		des.Scheme = initial.Scheme
+	}
+	if dcl.IsZeroValue(des.HttpHeaders) {
+		des.HttpHeaders = initial.HttpHeaders
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c *Client, des, nw *ServiceSpecTemplateSpecContainersReadinessProbeHttpGet) *ServiceSpecTemplateSpecContainersReadinessProbeHttpGet {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeHttpGetSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersReadinessProbeHttpGet) []ServiceSpecTemplateSpecContainersReadinessProbeHttpGet {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersReadinessProbeHttpGet
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(des, initial *ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+	if dcl.IsZeroValue(des.Value) {
+		des.Value = initial.Value
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(c *Client, des, nw *ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders) *ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders) []ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(des, initial *ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Port) {
+		des.Port = initial.Port
+	}
+	if dcl.IsZeroValue(des.Host) {
+		des.Host = initial.Host
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c *Client, des, nw *ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket) *ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeTcpSocketSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket) []ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecContainersSecurityContext(des, initial *ServiceSpecTemplateSpecContainersSecurityContext, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersSecurityContext {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.RunAsUser) {
+		des.RunAsUser = initial.RunAsUser
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersSecurityContext(c *Client, des, nw *ServiceSpecTemplateSpecContainersSecurityContext) *ServiceSpecTemplateSpecContainersSecurityContext {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersSecurityContextSet(c *Client, des, nw []ServiceSpecTemplateSpecContainersSecurityContext) []ServiceSpecTemplateSpecContainersSecurityContext {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecContainersSecurityContext
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecContainersSecurityContext(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecVolumes(des, initial *ServiceSpecTemplateSpecVolumes, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecVolumes {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+	des.Secret = canonicalizeServiceSpecTemplateSpecVolumesSecret(des.Secret, initial.Secret, opts...)
+	des.ConfigMap = canonicalizeServiceSpecTemplateSpecVolumesConfigMap(des.ConfigMap, initial.ConfigMap, opts...)
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecVolumes(c *Client, des, nw *ServiceSpecTemplateSpecVolumes) *ServiceSpecTemplateSpecVolumes {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	nw.Secret = canonicalizeNewServiceSpecTemplateSpecVolumesSecret(c, des.Secret, nw.Secret)
+	nw.ConfigMap = canonicalizeNewServiceSpecTemplateSpecVolumesConfigMap(c, des.ConfigMap, nw.ConfigMap)
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecVolumesSet(c *Client, des, nw []ServiceSpecTemplateSpecVolumes) []ServiceSpecTemplateSpecVolumes {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecVolumes
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecVolumes(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecVolumesSecret(des, initial *ServiceSpecTemplateSpecVolumesSecret, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecVolumesSecret {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.SecretName) {
+		des.SecretName = initial.SecretName
+	}
+	if dcl.IsZeroValue(des.Items) {
+		des.Items = initial.Items
+	}
+	if dcl.IsZeroValue(des.DefaultMode) {
+		des.DefaultMode = initial.DefaultMode
+	}
+	if dcl.IsZeroValue(des.Optional) {
+		des.Optional = initial.Optional
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecVolumesSecret(c *Client, des, nw *ServiceSpecTemplateSpecVolumesSecret) *ServiceSpecTemplateSpecVolumesSecret {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecVolumesSecretSet(c *Client, des, nw []ServiceSpecTemplateSpecVolumesSecret) []ServiceSpecTemplateSpecVolumesSecret {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecVolumesSecret
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecVolumesSecret(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecVolumesSecretItems(des, initial *ServiceSpecTemplateSpecVolumesSecretItems, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecVolumesSecretItems {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Key) {
+		des.Key = initial.Key
+	}
+	if dcl.IsZeroValue(des.Path) {
+		des.Path = initial.Path
+	}
+	if dcl.IsZeroValue(des.Mode) {
+		des.Mode = initial.Mode
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecVolumesSecretItems(c *Client, des, nw *ServiceSpecTemplateSpecVolumesSecretItems) *ServiceSpecTemplateSpecVolumesSecretItems {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecVolumesSecretItemsSet(c *Client, des, nw []ServiceSpecTemplateSpecVolumesSecretItems) []ServiceSpecTemplateSpecVolumesSecretItems {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecVolumesSecretItems
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecVolumesSecretItems(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecVolumesConfigMap(des, initial *ServiceSpecTemplateSpecVolumesConfigMap, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecVolumesConfigMap {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+	if dcl.IsZeroValue(des.Items) {
+		des.Items = initial.Items
+	}
+	if dcl.IsZeroValue(des.DefaultMode) {
+		des.DefaultMode = initial.DefaultMode
+	}
+	if dcl.IsZeroValue(des.Optional) {
+		des.Optional = initial.Optional
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecVolumesConfigMap(c *Client, des, nw *ServiceSpecTemplateSpecVolumesConfigMap) *ServiceSpecTemplateSpecVolumesConfigMap {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecVolumesConfigMapSet(c *Client, des, nw []ServiceSpecTemplateSpecVolumesConfigMap) []ServiceSpecTemplateSpecVolumesConfigMap {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecVolumesConfigMap
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecVolumesConfigMap(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTemplateSpecVolumesConfigMapItems(des, initial *ServiceSpecTemplateSpecVolumesConfigMapItems, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecVolumesConfigMapItems {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Key) {
+		des.Key = initial.Key
+	}
+	if dcl.IsZeroValue(des.Path) {
+		des.Path = initial.Path
+	}
+	if dcl.IsZeroValue(des.Mode) {
+		des.Mode = initial.Mode
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTemplateSpecVolumesConfigMapItems(c *Client, des, nw *ServiceSpecTemplateSpecVolumesConfigMapItems) *ServiceSpecTemplateSpecVolumesConfigMapItems {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTemplateSpecVolumesConfigMapItemsSet(c *Client, des, nw []ServiceSpecTemplateSpecVolumesConfigMapItems) []ServiceSpecTemplateSpecVolumesConfigMapItems {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTemplateSpecVolumesConfigMapItems
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTemplateSpecVolumesConfigMapItems(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceSpecTraffic(des, initial *ServiceSpecTraffic, opts ...dcl.ApplyOption) *ServiceSpecTraffic {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.ConfigurationName) {
+		des.ConfigurationName = initial.ConfigurationName
+	}
+	if dcl.IsZeroValue(des.RevisionName) {
+		des.RevisionName = initial.RevisionName
+	}
+	if dcl.IsZeroValue(des.Percent) {
+		des.Percent = initial.Percent
+	}
+	if dcl.IsZeroValue(des.Tag) {
+		des.Tag = initial.Tag
+	}
+	if dcl.IsZeroValue(des.LatestRevision) {
+		des.LatestRevision = initial.LatestRevision
+	}
+	if dcl.IsZeroValue(des.Url) {
+		des.Url = initial.Url
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceSpecTraffic(c *Client, des, nw *ServiceSpecTraffic) *ServiceSpecTraffic {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceSpecTrafficSet(c *Client, des, nw []ServiceSpecTraffic) []ServiceSpecTraffic {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceSpecTraffic
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceSpecTraffic(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceStatus(des, initial *ServiceStatus, opts ...dcl.ApplyOption) *ServiceStatus {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.ObservedGeneration) {
+		des.ObservedGeneration = initial.ObservedGeneration
+	}
+	if dcl.IsZeroValue(des.Conditions) {
+		des.Conditions = initial.Conditions
+	}
+	if dcl.IsZeroValue(des.LatestReadyRevisionName) {
+		des.LatestReadyRevisionName = initial.LatestReadyRevisionName
+	}
+	if dcl.IsZeroValue(des.LatestCreatedRevisionName) {
+		des.LatestCreatedRevisionName = initial.LatestCreatedRevisionName
+	}
+	if dcl.IsZeroValue(des.Traffic) {
+		des.Traffic = initial.Traffic
+	}
+	if dcl.IsZeroValue(des.Url) {
+		des.Url = initial.Url
+	}
+	des.Address = canonicalizeServiceStatusAddress(des.Address, initial.Address, opts...)
+
+	return des
+}
+
+func canonicalizeNewServiceStatus(c *Client, des, nw *ServiceStatus) *ServiceStatus {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	nw.Address = canonicalizeNewServiceStatusAddress(c, des.Address, nw.Address)
+
+	return nw
+}
+
+func canonicalizeNewServiceStatusSet(c *Client, des, nw []ServiceStatus) []ServiceStatus {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceStatus
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceStatus(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceStatusConditions(des, initial *ServiceStatusConditions, opts ...dcl.ApplyOption) *ServiceStatusConditions {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Type) {
+		des.Type = initial.Type
+	}
+	if dcl.IsZeroValue(des.Status) {
+		des.Status = initial.Status
+	}
+	if dcl.IsZeroValue(des.Reason) {
+		des.Reason = initial.Reason
+	}
+	if dcl.IsZeroValue(des.Message) {
+		des.Message = initial.Message
+	}
+	des.LastTransitionTime = canonicalizeServiceStatusConditionsLastTransitionTime(des.LastTransitionTime, initial.LastTransitionTime, opts...)
+	if dcl.IsZeroValue(des.Severity) {
+		des.Severity = initial.Severity
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceStatusConditions(c *Client, des, nw *ServiceStatusConditions) *ServiceStatusConditions {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	nw.LastTransitionTime = canonicalizeNewServiceStatusConditionsLastTransitionTime(c, des.LastTransitionTime, nw.LastTransitionTime)
+
+	return nw
+}
+
+func canonicalizeNewServiceStatusConditionsSet(c *Client, des, nw []ServiceStatusConditions) []ServiceStatusConditions {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceStatusConditions
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceStatusConditions(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceStatusConditionsLastTransitionTime(des, initial *ServiceStatusConditionsLastTransitionTime, opts ...dcl.ApplyOption) *ServiceStatusConditionsLastTransitionTime {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Seconds) {
+		des.Seconds = initial.Seconds
+	}
+	if dcl.IsZeroValue(des.Nanos) {
+		des.Nanos = initial.Nanos
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceStatusConditionsLastTransitionTime(c *Client, des, nw *ServiceStatusConditionsLastTransitionTime) *ServiceStatusConditionsLastTransitionTime {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceStatusConditionsLastTransitionTimeSet(c *Client, des, nw []ServiceStatusConditionsLastTransitionTime) []ServiceStatusConditionsLastTransitionTime {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceStatusConditionsLastTransitionTime
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceStatusConditionsLastTransitionTime(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceStatusTraffic(des, initial *ServiceStatusTraffic, opts ...dcl.ApplyOption) *ServiceStatusTraffic {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.ConfigurationName) {
+		des.ConfigurationName = initial.ConfigurationName
+	}
+	if dcl.IsZeroValue(des.RevisionName) {
+		des.RevisionName = initial.RevisionName
+	}
+	if dcl.IsZeroValue(des.Percent) {
+		des.Percent = initial.Percent
+	}
+	if dcl.IsZeroValue(des.Tag) {
+		des.Tag = initial.Tag
+	}
+	if dcl.IsZeroValue(des.LatestRevision) {
+		des.LatestRevision = initial.LatestRevision
+	}
+	if dcl.IsZeroValue(des.Url) {
+		des.Url = initial.Url
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceStatusTraffic(c *Client, des, nw *ServiceStatusTraffic) *ServiceStatusTraffic {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceStatusTrafficSet(c *Client, des, nw []ServiceStatusTraffic) []ServiceStatusTraffic {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceStatusTraffic
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceStatusTraffic(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeServiceStatusAddress(des, initial *ServiceStatusAddress, opts ...dcl.ApplyOption) *ServiceStatusAddress {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Service)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Url) {
+		des.Url = initial.Url
+	}
+
+	return des
+}
+
+func canonicalizeNewServiceStatusAddress(c *Client, des, nw *ServiceStatusAddress) *ServiceStatusAddress {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewServiceStatusAddressSet(c *Client, des, nw []ServiceStatusAddress) []ServiceStatusAddress {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ServiceStatusAddress
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareServiceStatusAddress(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+type serviceDiff struct {
+	// The diff should include one or the other of RequiresRecreate or UpdateOp.
+	RequiresRecreate bool
+	UpdateOp         serviceApiOperation
+	// This is for reporting only.
+	FieldName string
+}
+
+// The differ returns a list of diffs, along with a list of operations that should be taken
+// to remedy them. Right now, it does not attempt to consolidate operations - if several
+// fields can be fixed with a patch update, it will perform the patch several times.
+// Diffs on some fields will be ignored if the `desired` state has an empty (nil)
+// value. This empty value indicates that the user does not care about the state for
+// the field. Empty fields on the actual object will cause diffs.
+// TODO(magic-modules-eng): for efficiency in some resources, add batching.
+func diffService(c *Client, desired, actual *Service, opts ...dcl.ApplyOption) ([]serviceDiff, error) {
+	if desired == nil || actual == nil {
+		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
+	}
+
+	var diffs []serviceDiff
+	if !dcl.IsZeroValue(desired.ApiVersion) && (dcl.IsZeroValue(actual.ApiVersion) || !reflect.DeepEqual(*desired.ApiVersion, *actual.ApiVersion)) {
+		c.Config.Logger.Infof("Detected diff in ApiVersion.\nDESIRED: %#v\nACTUAL: %#v", desired.ApiVersion, actual.ApiVersion)
+		diffs = append(diffs, serviceDiff{
+			RequiresRecreate: true,
+			FieldName:        "ApiVersion",
+		})
+	}
+	if !dcl.IsZeroValue(desired.Kind) && (dcl.IsZeroValue(actual.Kind) || !reflect.DeepEqual(*desired.Kind, *actual.Kind)) {
+		c.Config.Logger.Infof("Detected diff in Kind.\nDESIRED: %#v\nACTUAL: %#v", desired.Kind, actual.Kind)
+		diffs = append(diffs, serviceDiff{
+			RequiresRecreate: true,
+			FieldName:        "Kind",
+		})
+	}
+	if compareServiceMetadata(c, desired.Metadata, actual.Metadata) {
+		c.Config.Logger.Infof("Detected diff in Metadata.\nDESIRED: %#v\nACTUAL: %#v", desired.Metadata, actual.Metadata)
+		diffs = append(diffs, serviceDiff{
+			RequiresRecreate: true,
+			FieldName:        "Metadata",
+		})
+	}
+	if compareServiceSpec(c, desired.Spec, actual.Spec) {
+		c.Config.Logger.Infof("Detected diff in Spec.\nDESIRED: %#v\nACTUAL: %#v", desired.Spec, actual.Spec)
+		diffs = append(diffs, serviceDiff{
+			RequiresRecreate: true,
+			FieldName:        "Spec",
+		})
+	}
+	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
+		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
+		diffs = append(diffs, serviceDiff{
+			RequiresRecreate: true,
+			FieldName:        "Project",
+		})
+	}
+	if !dcl.IsZeroValue(desired.Location) && !dcl.NameToSelfLink(desired.Location, actual.Location) {
+		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
+		diffs = append(diffs, serviceDiff{
+			RequiresRecreate: true,
+			FieldName:        "Location",
+		})
+	}
+	if !dcl.IsZeroValue(desired.Name) && !dcl.NameToSelfLink(desired.Name, actual.Name) {
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		diffs = append(diffs, serviceDiff{
+			RequiresRecreate: true,
+			FieldName:        "Name",
+		})
+	}
+	// We need to ensure that this list does not contain identical operations *most of the time*.
+	// There may be some cases where we will need multiple copies of the same operation - for instance,
+	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
+	// such examples and so we deduplicate unconditionally.
+
+	// The best way for us to do this is to iterate through the list
+	// and remove any copies of operations which are identical to a previous operation.
+	// This is O(n^2) in the number of operations, but n will always be very small,
+	// even 10 would be an extremely high number.
+	var opTypes []string
+	var deduped []serviceDiff
+	for _, d := range diffs {
+		// Two operations are considered identical if they have the same type.
+		// The type of an operation is derived from the name of the update method.
+		if !dcl.StringSliceContains(fmt.Sprintf("%T", d.UpdateOp), opTypes) {
+			deduped = append(deduped, d)
+			opTypes = append(opTypes, fmt.Sprintf("%T", d.UpdateOp))
+		} else {
+			c.Config.Logger.Infof("Omitting planned operation of type %T since once is already scheduled.", d.UpdateOp)
+		}
+	}
+
+	return deduped, nil
+}
+func compareServiceMetadataSlice(c *Client, desired, actual []ServiceMetadata) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceMetadata, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceMetadata(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceMetadata, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceMetadata(c *Client, desired, actual *ServiceMetadata) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	if actual.GenerateName == nil && desired.GenerateName != nil && !dcl.IsEmptyValueIndirect(desired.GenerateName) {
+		c.Config.Logger.Infof("desired GenerateName %s - but actually nil", dcl.SprintResource(desired.GenerateName))
+		return true
+	}
+	if !reflect.DeepEqual(desired.GenerateName, actual.GenerateName) && !dcl.IsZeroValue(desired.GenerateName) && !(dcl.IsEmptyValueIndirect(desired.GenerateName) && dcl.IsZeroValue(actual.GenerateName)) {
+		c.Config.Logger.Infof("Diff in GenerateName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GenerateName), dcl.SprintResource(actual.GenerateName))
+		return true
+	}
+	if actual.Namespace == nil && desired.Namespace != nil && !dcl.IsEmptyValueIndirect(desired.Namespace) {
+		c.Config.Logger.Infof("desired Namespace %s - but actually nil", dcl.SprintResource(desired.Namespace))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Namespace, actual.Namespace) && !dcl.IsZeroValue(desired.Namespace) && !(dcl.IsEmptyValueIndirect(desired.Namespace) && dcl.IsZeroValue(actual.Namespace)) {
+		c.Config.Logger.Infof("Diff in Namespace. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Namespace), dcl.SprintResource(actual.Namespace))
+		return true
+	}
+	if actual.SelfLink == nil && desired.SelfLink != nil && !dcl.IsEmptyValueIndirect(desired.SelfLink) {
+		c.Config.Logger.Infof("desired SelfLink %s - but actually nil", dcl.SprintResource(desired.SelfLink))
+		return true
+	}
+	if !reflect.DeepEqual(desired.SelfLink, actual.SelfLink) && !dcl.IsZeroValue(desired.SelfLink) && !(dcl.IsEmptyValueIndirect(desired.SelfLink) && dcl.IsZeroValue(actual.SelfLink)) {
+		c.Config.Logger.Infof("Diff in SelfLink. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SelfLink), dcl.SprintResource(actual.SelfLink))
+		return true
+	}
+	if actual.Uid == nil && desired.Uid != nil && !dcl.IsEmptyValueIndirect(desired.Uid) {
+		c.Config.Logger.Infof("desired Uid %s - but actually nil", dcl.SprintResource(desired.Uid))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Uid, actual.Uid) && !dcl.IsZeroValue(desired.Uid) && !(dcl.IsEmptyValueIndirect(desired.Uid) && dcl.IsZeroValue(actual.Uid)) {
+		c.Config.Logger.Infof("Diff in Uid. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Uid), dcl.SprintResource(actual.Uid))
+		return true
+	}
+	if actual.ResourceVersion == nil && desired.ResourceVersion != nil && !dcl.IsEmptyValueIndirect(desired.ResourceVersion) {
+		c.Config.Logger.Infof("desired ResourceVersion %s - but actually nil", dcl.SprintResource(desired.ResourceVersion))
+		return true
+	}
+	if !reflect.DeepEqual(desired.ResourceVersion, actual.ResourceVersion) && !dcl.IsZeroValue(desired.ResourceVersion) && !(dcl.IsEmptyValueIndirect(desired.ResourceVersion) && dcl.IsZeroValue(actual.ResourceVersion)) {
+		c.Config.Logger.Infof("Diff in ResourceVersion. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceVersion), dcl.SprintResource(actual.ResourceVersion))
+		return true
+	}
+	if actual.Generation == nil && desired.Generation != nil && !dcl.IsEmptyValueIndirect(desired.Generation) {
+		c.Config.Logger.Infof("desired Generation %s - but actually nil", dcl.SprintResource(desired.Generation))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Generation, actual.Generation) && !dcl.IsZeroValue(desired.Generation) && !(dcl.IsEmptyValueIndirect(desired.Generation) && dcl.IsZeroValue(actual.Generation)) {
+		c.Config.Logger.Infof("Diff in Generation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Generation), dcl.SprintResource(actual.Generation))
+		return true
+	}
+	if actual.CreateTime == nil && desired.CreateTime != nil && !dcl.IsEmptyValueIndirect(desired.CreateTime) {
+		c.Config.Logger.Infof("desired CreateTime %s - but actually nil", dcl.SprintResource(desired.CreateTime))
+		return true
+	}
+	if compareServiceMetadataCreateTime(c, desired.CreateTime, actual.CreateTime) && !dcl.IsZeroValue(desired.CreateTime) {
+		c.Config.Logger.Infof("Diff in CreateTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CreateTime), dcl.SprintResource(actual.CreateTime))
+		return true
+	}
+	if actual.Labels == nil && desired.Labels != nil && !dcl.IsEmptyValueIndirect(desired.Labels) {
+		c.Config.Logger.Infof("desired Labels %s - but actually nil", dcl.SprintResource(desired.Labels))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Labels, actual.Labels) && !dcl.IsZeroValue(desired.Labels) {
+		c.Config.Logger.Infof("Diff in Labels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Labels), dcl.SprintResource(actual.Labels))
+		return true
+	}
+	if actual.Annotations == nil && desired.Annotations != nil && !dcl.IsEmptyValueIndirect(desired.Annotations) {
+		c.Config.Logger.Infof("desired Annotations %s - but actually nil", dcl.SprintResource(desired.Annotations))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Annotations, actual.Annotations) && !dcl.IsZeroValue(desired.Annotations) {
+		c.Config.Logger.Infof("Diff in Annotations. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Annotations), dcl.SprintResource(actual.Annotations))
+		return true
+	}
+	if actual.OwnerReferences == nil && desired.OwnerReferences != nil && !dcl.IsEmptyValueIndirect(desired.OwnerReferences) {
+		c.Config.Logger.Infof("desired OwnerReferences %s - but actually nil", dcl.SprintResource(desired.OwnerReferences))
+		return true
+	}
+	if compareServiceMetadataOwnerReferencesSlice(c, desired.OwnerReferences, actual.OwnerReferences) && !dcl.IsZeroValue(desired.OwnerReferences) {
+		c.Config.Logger.Infof("Diff in OwnerReferences. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OwnerReferences), dcl.SprintResource(actual.OwnerReferences))
+		return true
+	}
+	if actual.DeleteTime == nil && desired.DeleteTime != nil && !dcl.IsEmptyValueIndirect(desired.DeleteTime) {
+		c.Config.Logger.Infof("desired DeleteTime %s - but actually nil", dcl.SprintResource(desired.DeleteTime))
+		return true
+	}
+	if compareServiceMetadataDeleteTime(c, desired.DeleteTime, actual.DeleteTime) && !dcl.IsZeroValue(desired.DeleteTime) {
+		c.Config.Logger.Infof("Diff in DeleteTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DeleteTime), dcl.SprintResource(actual.DeleteTime))
+		return true
+	}
+	if actual.DeletionGracePeriodSeconds == nil && desired.DeletionGracePeriodSeconds != nil && !dcl.IsEmptyValueIndirect(desired.DeletionGracePeriodSeconds) {
+		c.Config.Logger.Infof("desired DeletionGracePeriodSeconds %s - but actually nil", dcl.SprintResource(desired.DeletionGracePeriodSeconds))
+		return true
+	}
+	if !reflect.DeepEqual(desired.DeletionGracePeriodSeconds, actual.DeletionGracePeriodSeconds) && !dcl.IsZeroValue(desired.DeletionGracePeriodSeconds) && !(dcl.IsEmptyValueIndirect(desired.DeletionGracePeriodSeconds) && dcl.IsZeroValue(actual.DeletionGracePeriodSeconds)) {
+		c.Config.Logger.Infof("Diff in DeletionGracePeriodSeconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DeletionGracePeriodSeconds), dcl.SprintResource(actual.DeletionGracePeriodSeconds))
+		return true
+	}
+	if actual.Finalizers == nil && desired.Finalizers != nil && !dcl.IsEmptyValueIndirect(desired.Finalizers) {
+		c.Config.Logger.Infof("desired Finalizers %s - but actually nil", dcl.SprintResource(desired.Finalizers))
+		return true
+	}
+	if !dcl.SliceEquals(desired.Finalizers, actual.Finalizers) && !dcl.IsZeroValue(desired.Finalizers) {
+		c.Config.Logger.Infof("Diff in Finalizers. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Finalizers), dcl.SprintResource(actual.Finalizers))
+		return true
+	}
+	if actual.ClusterName == nil && desired.ClusterName != nil && !dcl.IsEmptyValueIndirect(desired.ClusterName) {
+		c.Config.Logger.Infof("desired ClusterName %s - but actually nil", dcl.SprintResource(desired.ClusterName))
+		return true
+	}
+	if !reflect.DeepEqual(desired.ClusterName, actual.ClusterName) && !dcl.IsZeroValue(desired.ClusterName) && !(dcl.IsEmptyValueIndirect(desired.ClusterName) && dcl.IsZeroValue(actual.ClusterName)) {
+		c.Config.Logger.Infof("Diff in ClusterName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterName), dcl.SprintResource(actual.ClusterName))
+		return true
+	}
+	return false
+}
+func compareServiceMetadataCreateTimeSlice(c *Client, desired, actual []ServiceMetadataCreateTime) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceMetadataCreateTime, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceMetadataCreateTime(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceMetadataCreateTime, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceMetadataCreateTime(c *Client, desired, actual *ServiceMetadataCreateTime) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
+		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
+		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
+		return true
+	}
+	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
+		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
+		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
+		return true
+	}
+	return false
+}
+func compareServiceMetadataOwnerReferencesSlice(c *Client, desired, actual []ServiceMetadataOwnerReferences) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceMetadataOwnerReferences, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceMetadataOwnerReferences(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceMetadataOwnerReferences, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceMetadataOwnerReferences(c *Client, desired, actual *ServiceMetadataOwnerReferences) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.ApiVersion == nil && desired.ApiVersion != nil && !dcl.IsEmptyValueIndirect(desired.ApiVersion) {
+		c.Config.Logger.Infof("desired ApiVersion %s - but actually nil", dcl.SprintResource(desired.ApiVersion))
+		return true
+	}
+	if !reflect.DeepEqual(desired.ApiVersion, actual.ApiVersion) && !dcl.IsZeroValue(desired.ApiVersion) && !(dcl.IsEmptyValueIndirect(desired.ApiVersion) && dcl.IsZeroValue(actual.ApiVersion)) {
+		c.Config.Logger.Infof("Diff in ApiVersion. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ApiVersion), dcl.SprintResource(actual.ApiVersion))
+		return true
+	}
+	if actual.Kind == nil && desired.Kind != nil && !dcl.IsEmptyValueIndirect(desired.Kind) {
+		c.Config.Logger.Infof("desired Kind %s - but actually nil", dcl.SprintResource(desired.Kind))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Kind, actual.Kind) && !dcl.IsZeroValue(desired.Kind) && !(dcl.IsEmptyValueIndirect(desired.Kind) && dcl.IsZeroValue(actual.Kind)) {
+		c.Config.Logger.Infof("Diff in Kind. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Kind), dcl.SprintResource(actual.Kind))
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	if actual.Uid == nil && desired.Uid != nil && !dcl.IsEmptyValueIndirect(desired.Uid) {
+		c.Config.Logger.Infof("desired Uid %s - but actually nil", dcl.SprintResource(desired.Uid))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Uid, actual.Uid) && !dcl.IsZeroValue(desired.Uid) && !(dcl.IsEmptyValueIndirect(desired.Uid) && dcl.IsZeroValue(actual.Uid)) {
+		c.Config.Logger.Infof("Diff in Uid. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Uid), dcl.SprintResource(actual.Uid))
+		return true
+	}
+	if actual.Controller == nil && desired.Controller != nil && !dcl.IsEmptyValueIndirect(desired.Controller) {
+		c.Config.Logger.Infof("desired Controller %s - but actually nil", dcl.SprintResource(desired.Controller))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Controller, actual.Controller) && !dcl.IsZeroValue(desired.Controller) && !(dcl.IsEmptyValueIndirect(desired.Controller) && dcl.IsZeroValue(actual.Controller)) {
+		c.Config.Logger.Infof("Diff in Controller. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Controller), dcl.SprintResource(actual.Controller))
+		return true
+	}
+	if actual.BlockOwnerDeletion == nil && desired.BlockOwnerDeletion != nil && !dcl.IsEmptyValueIndirect(desired.BlockOwnerDeletion) {
+		c.Config.Logger.Infof("desired BlockOwnerDeletion %s - but actually nil", dcl.SprintResource(desired.BlockOwnerDeletion))
+		return true
+	}
+	if !reflect.DeepEqual(desired.BlockOwnerDeletion, actual.BlockOwnerDeletion) && !dcl.IsZeroValue(desired.BlockOwnerDeletion) && !(dcl.IsEmptyValueIndirect(desired.BlockOwnerDeletion) && dcl.IsZeroValue(actual.BlockOwnerDeletion)) {
+		c.Config.Logger.Infof("Diff in BlockOwnerDeletion. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BlockOwnerDeletion), dcl.SprintResource(actual.BlockOwnerDeletion))
+		return true
+	}
+	return false
+}
+func compareServiceMetadataDeleteTimeSlice(c *Client, desired, actual []ServiceMetadataDeleteTime) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceMetadataDeleteTime, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceMetadataDeleteTime(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceMetadataDeleteTime, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceMetadataDeleteTime(c *Client, desired, actual *ServiceMetadataDeleteTime) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
+		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
+		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
+		return true
+	}
+	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
+		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
+		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
+		return true
+	}
+	return false
+}
+func compareServiceSpecSlice(c *Client, desired, actual []ServiceSpec) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpec, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpec(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpec, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpec(c *Client, desired, actual *ServiceSpec) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Template == nil && desired.Template != nil && !dcl.IsEmptyValueIndirect(desired.Template) {
+		c.Config.Logger.Infof("desired Template %s - but actually nil", dcl.SprintResource(desired.Template))
+		return true
+	}
+	if compareServiceSpecTemplate(c, desired.Template, actual.Template) && !dcl.IsZeroValue(desired.Template) {
+		c.Config.Logger.Infof("Diff in Template. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Template), dcl.SprintResource(actual.Template))
+		return true
+	}
+	if actual.Traffic == nil && desired.Traffic != nil && !dcl.IsEmptyValueIndirect(desired.Traffic) {
+		c.Config.Logger.Infof("desired Traffic %s - but actually nil", dcl.SprintResource(desired.Traffic))
+		return true
+	}
+	if compareServiceSpecTrafficSlice(c, desired.Traffic, actual.Traffic) && !dcl.IsZeroValue(desired.Traffic) {
+		c.Config.Logger.Infof("Diff in Traffic. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Traffic), dcl.SprintResource(actual.Traffic))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSlice(c *Client, desired, actual []ServiceSpecTemplate) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplate, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplate(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplate, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplate(c *Client, desired, actual *ServiceSpecTemplate) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Metadata == nil && desired.Metadata != nil && !dcl.IsEmptyValueIndirect(desired.Metadata) {
+		c.Config.Logger.Infof("desired Metadata %s - but actually nil", dcl.SprintResource(desired.Metadata))
+		return true
+	}
+	if compareServiceSpecTemplateMetadata(c, desired.Metadata, actual.Metadata) && !dcl.IsZeroValue(desired.Metadata) {
+		c.Config.Logger.Infof("Diff in Metadata. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Metadata), dcl.SprintResource(actual.Metadata))
+		return true
+	}
+	if actual.Spec == nil && desired.Spec != nil && !dcl.IsEmptyValueIndirect(desired.Spec) {
+		c.Config.Logger.Infof("desired Spec %s - but actually nil", dcl.SprintResource(desired.Spec))
+		return true
+	}
+	if compareServiceSpecTemplateSpec(c, desired.Spec, actual.Spec) && !dcl.IsZeroValue(desired.Spec) {
+		c.Config.Logger.Infof("Diff in Spec. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Spec), dcl.SprintResource(actual.Spec))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateMetadataSlice(c *Client, desired, actual []ServiceSpecTemplateMetadata) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateMetadata, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateMetadata(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadata, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateMetadata(c *Client, desired, actual *ServiceSpecTemplateMetadata) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	if actual.GenerateName == nil && desired.GenerateName != nil && !dcl.IsEmptyValueIndirect(desired.GenerateName) {
+		c.Config.Logger.Infof("desired GenerateName %s - but actually nil", dcl.SprintResource(desired.GenerateName))
+		return true
+	}
+	if !reflect.DeepEqual(desired.GenerateName, actual.GenerateName) && !dcl.IsZeroValue(desired.GenerateName) && !(dcl.IsEmptyValueIndirect(desired.GenerateName) && dcl.IsZeroValue(actual.GenerateName)) {
+		c.Config.Logger.Infof("Diff in GenerateName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GenerateName), dcl.SprintResource(actual.GenerateName))
+		return true
+	}
+	if actual.Namespace == nil && desired.Namespace != nil && !dcl.IsEmptyValueIndirect(desired.Namespace) {
+		c.Config.Logger.Infof("desired Namespace %s - but actually nil", dcl.SprintResource(desired.Namespace))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Namespace, actual.Namespace) && !dcl.IsZeroValue(desired.Namespace) && !(dcl.IsEmptyValueIndirect(desired.Namespace) && dcl.IsZeroValue(actual.Namespace)) {
+		c.Config.Logger.Infof("Diff in Namespace. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Namespace), dcl.SprintResource(actual.Namespace))
+		return true
+	}
+	if actual.SelfLink == nil && desired.SelfLink != nil && !dcl.IsEmptyValueIndirect(desired.SelfLink) {
+		c.Config.Logger.Infof("desired SelfLink %s - but actually nil", dcl.SprintResource(desired.SelfLink))
+		return true
+	}
+	if !reflect.DeepEqual(desired.SelfLink, actual.SelfLink) && !dcl.IsZeroValue(desired.SelfLink) && !(dcl.IsEmptyValueIndirect(desired.SelfLink) && dcl.IsZeroValue(actual.SelfLink)) {
+		c.Config.Logger.Infof("Diff in SelfLink. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SelfLink), dcl.SprintResource(actual.SelfLink))
+		return true
+	}
+	if actual.Uid == nil && desired.Uid != nil && !dcl.IsEmptyValueIndirect(desired.Uid) {
+		c.Config.Logger.Infof("desired Uid %s - but actually nil", dcl.SprintResource(desired.Uid))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Uid, actual.Uid) && !dcl.IsZeroValue(desired.Uid) && !(dcl.IsEmptyValueIndirect(desired.Uid) && dcl.IsZeroValue(actual.Uid)) {
+		c.Config.Logger.Infof("Diff in Uid. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Uid), dcl.SprintResource(actual.Uid))
+		return true
+	}
+	if actual.ResourceVersion == nil && desired.ResourceVersion != nil && !dcl.IsEmptyValueIndirect(desired.ResourceVersion) {
+		c.Config.Logger.Infof("desired ResourceVersion %s - but actually nil", dcl.SprintResource(desired.ResourceVersion))
+		return true
+	}
+	if !reflect.DeepEqual(desired.ResourceVersion, actual.ResourceVersion) && !dcl.IsZeroValue(desired.ResourceVersion) && !(dcl.IsEmptyValueIndirect(desired.ResourceVersion) && dcl.IsZeroValue(actual.ResourceVersion)) {
+		c.Config.Logger.Infof("Diff in ResourceVersion. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceVersion), dcl.SprintResource(actual.ResourceVersion))
+		return true
+	}
+	if actual.Generation == nil && desired.Generation != nil && !dcl.IsEmptyValueIndirect(desired.Generation) {
+		c.Config.Logger.Infof("desired Generation %s - but actually nil", dcl.SprintResource(desired.Generation))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Generation, actual.Generation) && !dcl.IsZeroValue(desired.Generation) && !(dcl.IsEmptyValueIndirect(desired.Generation) && dcl.IsZeroValue(actual.Generation)) {
+		c.Config.Logger.Infof("Diff in Generation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Generation), dcl.SprintResource(actual.Generation))
+		return true
+	}
+	if actual.CreateTime == nil && desired.CreateTime != nil && !dcl.IsEmptyValueIndirect(desired.CreateTime) {
+		c.Config.Logger.Infof("desired CreateTime %s - but actually nil", dcl.SprintResource(desired.CreateTime))
+		return true
+	}
+	if compareServiceSpecTemplateMetadataCreateTime(c, desired.CreateTime, actual.CreateTime) && !dcl.IsZeroValue(desired.CreateTime) {
+		c.Config.Logger.Infof("Diff in CreateTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CreateTime), dcl.SprintResource(actual.CreateTime))
+		return true
+	}
+	if actual.Labels == nil && desired.Labels != nil && !dcl.IsEmptyValueIndirect(desired.Labels) {
+		c.Config.Logger.Infof("desired Labels %s - but actually nil", dcl.SprintResource(desired.Labels))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Labels, actual.Labels) && !dcl.IsZeroValue(desired.Labels) {
+		c.Config.Logger.Infof("Diff in Labels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Labels), dcl.SprintResource(actual.Labels))
+		return true
+	}
+	if actual.Annotations == nil && desired.Annotations != nil && !dcl.IsEmptyValueIndirect(desired.Annotations) {
+		c.Config.Logger.Infof("desired Annotations %s - but actually nil", dcl.SprintResource(desired.Annotations))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Annotations, actual.Annotations) && !dcl.IsZeroValue(desired.Annotations) {
+		c.Config.Logger.Infof("Diff in Annotations. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Annotations), dcl.SprintResource(actual.Annotations))
+		return true
+	}
+	if actual.OwnerReferences == nil && desired.OwnerReferences != nil && !dcl.IsEmptyValueIndirect(desired.OwnerReferences) {
+		c.Config.Logger.Infof("desired OwnerReferences %s - but actually nil", dcl.SprintResource(desired.OwnerReferences))
+		return true
+	}
+	if compareServiceSpecTemplateMetadataOwnerReferencesSlice(c, desired.OwnerReferences, actual.OwnerReferences) && !dcl.IsZeroValue(desired.OwnerReferences) {
+		c.Config.Logger.Infof("Diff in OwnerReferences. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OwnerReferences), dcl.SprintResource(actual.OwnerReferences))
+		return true
+	}
+	if actual.DeleteTime == nil && desired.DeleteTime != nil && !dcl.IsEmptyValueIndirect(desired.DeleteTime) {
+		c.Config.Logger.Infof("desired DeleteTime %s - but actually nil", dcl.SprintResource(desired.DeleteTime))
+		return true
+	}
+	if compareServiceSpecTemplateMetadataDeleteTime(c, desired.DeleteTime, actual.DeleteTime) && !dcl.IsZeroValue(desired.DeleteTime) {
+		c.Config.Logger.Infof("Diff in DeleteTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DeleteTime), dcl.SprintResource(actual.DeleteTime))
+		return true
+	}
+	if actual.DeletionGracePeriodSeconds == nil && desired.DeletionGracePeriodSeconds != nil && !dcl.IsEmptyValueIndirect(desired.DeletionGracePeriodSeconds) {
+		c.Config.Logger.Infof("desired DeletionGracePeriodSeconds %s - but actually nil", dcl.SprintResource(desired.DeletionGracePeriodSeconds))
+		return true
+	}
+	if !reflect.DeepEqual(desired.DeletionGracePeriodSeconds, actual.DeletionGracePeriodSeconds) && !dcl.IsZeroValue(desired.DeletionGracePeriodSeconds) && !(dcl.IsEmptyValueIndirect(desired.DeletionGracePeriodSeconds) && dcl.IsZeroValue(actual.DeletionGracePeriodSeconds)) {
+		c.Config.Logger.Infof("Diff in DeletionGracePeriodSeconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DeletionGracePeriodSeconds), dcl.SprintResource(actual.DeletionGracePeriodSeconds))
+		return true
+	}
+	if actual.Finalizers == nil && desired.Finalizers != nil && !dcl.IsEmptyValueIndirect(desired.Finalizers) {
+		c.Config.Logger.Infof("desired Finalizers %s - but actually nil", dcl.SprintResource(desired.Finalizers))
+		return true
+	}
+	if !dcl.SliceEquals(desired.Finalizers, actual.Finalizers) && !dcl.IsZeroValue(desired.Finalizers) {
+		c.Config.Logger.Infof("Diff in Finalizers. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Finalizers), dcl.SprintResource(actual.Finalizers))
+		return true
+	}
+	if actual.ClusterName == nil && desired.ClusterName != nil && !dcl.IsEmptyValueIndirect(desired.ClusterName) {
+		c.Config.Logger.Infof("desired ClusterName %s - but actually nil", dcl.SprintResource(desired.ClusterName))
+		return true
+	}
+	if !reflect.DeepEqual(desired.ClusterName, actual.ClusterName) && !dcl.IsZeroValue(desired.ClusterName) && !(dcl.IsEmptyValueIndirect(desired.ClusterName) && dcl.IsZeroValue(actual.ClusterName)) {
+		c.Config.Logger.Infof("Diff in ClusterName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterName), dcl.SprintResource(actual.ClusterName))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateMetadataCreateTimeSlice(c *Client, desired, actual []ServiceSpecTemplateMetadataCreateTime) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateMetadataCreateTime, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateMetadataCreateTime(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataCreateTime, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateMetadataCreateTime(c *Client, desired, actual *ServiceSpecTemplateMetadataCreateTime) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
+		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
+		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
+		return true
+	}
+	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
+		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
+		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateMetadataOwnerReferencesSlice(c *Client, desired, actual []ServiceSpecTemplateMetadataOwnerReferences) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateMetadataOwnerReferences, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateMetadataOwnerReferences(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataOwnerReferences, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateMetadataOwnerReferences(c *Client, desired, actual *ServiceSpecTemplateMetadataOwnerReferences) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.ApiVersion == nil && desired.ApiVersion != nil && !dcl.IsEmptyValueIndirect(desired.ApiVersion) {
+		c.Config.Logger.Infof("desired ApiVersion %s - but actually nil", dcl.SprintResource(desired.ApiVersion))
+		return true
+	}
+	if !reflect.DeepEqual(desired.ApiVersion, actual.ApiVersion) && !dcl.IsZeroValue(desired.ApiVersion) && !(dcl.IsEmptyValueIndirect(desired.ApiVersion) && dcl.IsZeroValue(actual.ApiVersion)) {
+		c.Config.Logger.Infof("Diff in ApiVersion. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ApiVersion), dcl.SprintResource(actual.ApiVersion))
+		return true
+	}
+	if actual.Kind == nil && desired.Kind != nil && !dcl.IsEmptyValueIndirect(desired.Kind) {
+		c.Config.Logger.Infof("desired Kind %s - but actually nil", dcl.SprintResource(desired.Kind))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Kind, actual.Kind) && !dcl.IsZeroValue(desired.Kind) && !(dcl.IsEmptyValueIndirect(desired.Kind) && dcl.IsZeroValue(actual.Kind)) {
+		c.Config.Logger.Infof("Diff in Kind. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Kind), dcl.SprintResource(actual.Kind))
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	if actual.Uid == nil && desired.Uid != nil && !dcl.IsEmptyValueIndirect(desired.Uid) {
+		c.Config.Logger.Infof("desired Uid %s - but actually nil", dcl.SprintResource(desired.Uid))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Uid, actual.Uid) && !dcl.IsZeroValue(desired.Uid) && !(dcl.IsEmptyValueIndirect(desired.Uid) && dcl.IsZeroValue(actual.Uid)) {
+		c.Config.Logger.Infof("Diff in Uid. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Uid), dcl.SprintResource(actual.Uid))
+		return true
+	}
+	if actual.Controller == nil && desired.Controller != nil && !dcl.IsEmptyValueIndirect(desired.Controller) {
+		c.Config.Logger.Infof("desired Controller %s - but actually nil", dcl.SprintResource(desired.Controller))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Controller, actual.Controller) && !dcl.IsZeroValue(desired.Controller) && !(dcl.IsEmptyValueIndirect(desired.Controller) && dcl.IsZeroValue(actual.Controller)) {
+		c.Config.Logger.Infof("Diff in Controller. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Controller), dcl.SprintResource(actual.Controller))
+		return true
+	}
+	if actual.BlockOwnerDeletion == nil && desired.BlockOwnerDeletion != nil && !dcl.IsEmptyValueIndirect(desired.BlockOwnerDeletion) {
+		c.Config.Logger.Infof("desired BlockOwnerDeletion %s - but actually nil", dcl.SprintResource(desired.BlockOwnerDeletion))
+		return true
+	}
+	if !reflect.DeepEqual(desired.BlockOwnerDeletion, actual.BlockOwnerDeletion) && !dcl.IsZeroValue(desired.BlockOwnerDeletion) && !(dcl.IsEmptyValueIndirect(desired.BlockOwnerDeletion) && dcl.IsZeroValue(actual.BlockOwnerDeletion)) {
+		c.Config.Logger.Infof("Diff in BlockOwnerDeletion. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BlockOwnerDeletion), dcl.SprintResource(actual.BlockOwnerDeletion))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateMetadataDeleteTimeSlice(c *Client, desired, actual []ServiceSpecTemplateMetadataDeleteTime) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateMetadataDeleteTime, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateMetadataDeleteTime(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataDeleteTime, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateMetadataDeleteTime(c *Client, desired, actual *ServiceSpecTemplateMetadataDeleteTime) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
+		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
+		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
+		return true
+	}
+	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
+		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
+		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecSlice(c *Client, desired, actual []ServiceSpecTemplateSpec) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpec, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpec(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpec, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpec(c *Client, desired, actual *ServiceSpecTemplateSpec) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.ContainerConcurrency == nil && desired.ContainerConcurrency != nil && !dcl.IsEmptyValueIndirect(desired.ContainerConcurrency) {
+		c.Config.Logger.Infof("desired ContainerConcurrency %s - but actually nil", dcl.SprintResource(desired.ContainerConcurrency))
+		return true
+	}
+	if !reflect.DeepEqual(desired.ContainerConcurrency, actual.ContainerConcurrency) && !dcl.IsZeroValue(desired.ContainerConcurrency) && !(dcl.IsEmptyValueIndirect(desired.ContainerConcurrency) && dcl.IsZeroValue(actual.ContainerConcurrency)) {
+		c.Config.Logger.Infof("Diff in ContainerConcurrency. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContainerConcurrency), dcl.SprintResource(actual.ContainerConcurrency))
+		return true
+	}
+	if actual.TimeoutSeconds == nil && desired.TimeoutSeconds != nil && !dcl.IsEmptyValueIndirect(desired.TimeoutSeconds) {
+		c.Config.Logger.Infof("desired TimeoutSeconds %s - but actually nil", dcl.SprintResource(desired.TimeoutSeconds))
+		return true
+	}
+	if !reflect.DeepEqual(desired.TimeoutSeconds, actual.TimeoutSeconds) && !dcl.IsZeroValue(desired.TimeoutSeconds) && !(dcl.IsEmptyValueIndirect(desired.TimeoutSeconds) && dcl.IsZeroValue(actual.TimeoutSeconds)) {
+		c.Config.Logger.Infof("Diff in TimeoutSeconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeoutSeconds), dcl.SprintResource(actual.TimeoutSeconds))
+		return true
+	}
+	if actual.ServiceAccountName == nil && desired.ServiceAccountName != nil && !dcl.IsEmptyValueIndirect(desired.ServiceAccountName) {
+		c.Config.Logger.Infof("desired ServiceAccountName %s - but actually nil", dcl.SprintResource(desired.ServiceAccountName))
+		return true
+	}
+	if !reflect.DeepEqual(desired.ServiceAccountName, actual.ServiceAccountName) && !dcl.IsZeroValue(desired.ServiceAccountName) && !(dcl.IsEmptyValueIndirect(desired.ServiceAccountName) && dcl.IsZeroValue(actual.ServiceAccountName)) {
+		c.Config.Logger.Infof("Diff in ServiceAccountName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceAccountName), dcl.SprintResource(actual.ServiceAccountName))
+		return true
+	}
+	if actual.Containers == nil && desired.Containers != nil && !dcl.IsEmptyValueIndirect(desired.Containers) {
+		c.Config.Logger.Infof("desired Containers %s - but actually nil", dcl.SprintResource(desired.Containers))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersSlice(c, desired.Containers, actual.Containers) && !dcl.IsZeroValue(desired.Containers) {
+		c.Config.Logger.Infof("Diff in Containers. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Containers), dcl.SprintResource(actual.Containers))
+		return true
+	}
+	if actual.Volumes == nil && desired.Volumes != nil && !dcl.IsEmptyValueIndirect(desired.Volumes) {
+		c.Config.Logger.Infof("desired Volumes %s - but actually nil", dcl.SprintResource(desired.Volumes))
+		return true
+	}
+	if compareServiceSpecTemplateSpecVolumesSlice(c, desired.Volumes, actual.Volumes) && !dcl.IsZeroValue(desired.Volumes) {
+		c.Config.Logger.Infof("Diff in Volumes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Volumes), dcl.SprintResource(actual.Volumes))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainers) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainers, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainers(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainers, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainers(c *Client, desired, actual *ServiceSpecTemplateSpecContainers) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	if actual.Image == nil && desired.Image != nil && !dcl.IsEmptyValueIndirect(desired.Image) {
+		c.Config.Logger.Infof("desired Image %s - but actually nil", dcl.SprintResource(desired.Image))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Image, actual.Image) && !dcl.IsZeroValue(desired.Image) && !(dcl.IsEmptyValueIndirect(desired.Image) && dcl.IsZeroValue(actual.Image)) {
+		c.Config.Logger.Infof("Diff in Image. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Image), dcl.SprintResource(actual.Image))
+		return true
+	}
+	if actual.Command == nil && desired.Command != nil && !dcl.IsEmptyValueIndirect(desired.Command) {
+		c.Config.Logger.Infof("desired Command %s - but actually nil", dcl.SprintResource(desired.Command))
+		return true
+	}
+	if !dcl.SliceEquals(desired.Command, actual.Command) && !dcl.IsZeroValue(desired.Command) {
+		c.Config.Logger.Infof("Diff in Command. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Command), dcl.SprintResource(actual.Command))
+		return true
+	}
+	if actual.Args == nil && desired.Args != nil && !dcl.IsEmptyValueIndirect(desired.Args) {
+		c.Config.Logger.Infof("desired Args %s - but actually nil", dcl.SprintResource(desired.Args))
+		return true
+	}
+	if !dcl.SliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
+		c.Config.Logger.Infof("Diff in Args. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
+		return true
+	}
+	if actual.Env == nil && desired.Env != nil && !dcl.IsEmptyValueIndirect(desired.Env) {
+		c.Config.Logger.Infof("desired Env %s - but actually nil", dcl.SprintResource(desired.Env))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersEnvSlice(c, desired.Env, actual.Env) && !dcl.IsZeroValue(desired.Env) {
+		c.Config.Logger.Infof("Diff in Env. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Env), dcl.SprintResource(actual.Env))
+		return true
+	}
+	if actual.Resources == nil && desired.Resources != nil && !dcl.IsEmptyValueIndirect(desired.Resources) {
+		c.Config.Logger.Infof("desired Resources %s - but actually nil", dcl.SprintResource(desired.Resources))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersResources(c, desired.Resources, actual.Resources) && !dcl.IsZeroValue(desired.Resources) {
+		c.Config.Logger.Infof("Diff in Resources. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Resources), dcl.SprintResource(actual.Resources))
+		return true
+	}
+	if actual.WorkingDir == nil && desired.WorkingDir != nil && !dcl.IsEmptyValueIndirect(desired.WorkingDir) {
+		c.Config.Logger.Infof("desired WorkingDir %s - but actually nil", dcl.SprintResource(desired.WorkingDir))
+		return true
+	}
+	if !reflect.DeepEqual(desired.WorkingDir, actual.WorkingDir) && !dcl.IsZeroValue(desired.WorkingDir) && !(dcl.IsEmptyValueIndirect(desired.WorkingDir) && dcl.IsZeroValue(actual.WorkingDir)) {
+		c.Config.Logger.Infof("Diff in WorkingDir. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.WorkingDir), dcl.SprintResource(actual.WorkingDir))
+		return true
+	}
+	if actual.Ports == nil && desired.Ports != nil && !dcl.IsEmptyValueIndirect(desired.Ports) {
+		c.Config.Logger.Infof("desired Ports %s - but actually nil", dcl.SprintResource(desired.Ports))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersPortsSlice(c, desired.Ports, actual.Ports) && !dcl.IsZeroValue(desired.Ports) {
+		c.Config.Logger.Infof("Diff in Ports. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Ports), dcl.SprintResource(actual.Ports))
+		return true
+	}
+	if actual.EnvFrom == nil && desired.EnvFrom != nil && !dcl.IsEmptyValueIndirect(desired.EnvFrom) {
+		c.Config.Logger.Infof("desired EnvFrom %s - but actually nil", dcl.SprintResource(desired.EnvFrom))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersEnvFromSlice(c, desired.EnvFrom, actual.EnvFrom) && !dcl.IsZeroValue(desired.EnvFrom) {
+		c.Config.Logger.Infof("Diff in EnvFrom. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnvFrom), dcl.SprintResource(actual.EnvFrom))
+		return true
+	}
+	if actual.VolumeMounts == nil && desired.VolumeMounts != nil && !dcl.IsEmptyValueIndirect(desired.VolumeMounts) {
+		c.Config.Logger.Infof("desired VolumeMounts %s - but actually nil", dcl.SprintResource(desired.VolumeMounts))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersVolumeMountsSlice(c, desired.VolumeMounts, actual.VolumeMounts) && !dcl.IsZeroValue(desired.VolumeMounts) {
+		c.Config.Logger.Infof("Diff in VolumeMounts. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.VolumeMounts), dcl.SprintResource(actual.VolumeMounts))
+		return true
+	}
+	if actual.LivenessProbe == nil && desired.LivenessProbe != nil && !dcl.IsEmptyValueIndirect(desired.LivenessProbe) {
+		c.Config.Logger.Infof("desired LivenessProbe %s - but actually nil", dcl.SprintResource(desired.LivenessProbe))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersLivenessProbe(c, desired.LivenessProbe, actual.LivenessProbe) && !dcl.IsZeroValue(desired.LivenessProbe) {
+		c.Config.Logger.Infof("Diff in LivenessProbe. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LivenessProbe), dcl.SprintResource(actual.LivenessProbe))
+		return true
+	}
+	if actual.ReadinessProbe == nil && desired.ReadinessProbe != nil && !dcl.IsEmptyValueIndirect(desired.ReadinessProbe) {
+		c.Config.Logger.Infof("desired ReadinessProbe %s - but actually nil", dcl.SprintResource(desired.ReadinessProbe))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersReadinessProbe(c, desired.ReadinessProbe, actual.ReadinessProbe) && !dcl.IsZeroValue(desired.ReadinessProbe) {
+		c.Config.Logger.Infof("Diff in ReadinessProbe. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReadinessProbe), dcl.SprintResource(actual.ReadinessProbe))
+		return true
+	}
+	if actual.TerminationMessagePath == nil && desired.TerminationMessagePath != nil && !dcl.IsEmptyValueIndirect(desired.TerminationMessagePath) {
+		c.Config.Logger.Infof("desired TerminationMessagePath %s - but actually nil", dcl.SprintResource(desired.TerminationMessagePath))
+		return true
+	}
+	if !reflect.DeepEqual(desired.TerminationMessagePath, actual.TerminationMessagePath) && !dcl.IsZeroValue(desired.TerminationMessagePath) && !(dcl.IsEmptyValueIndirect(desired.TerminationMessagePath) && dcl.IsZeroValue(actual.TerminationMessagePath)) {
+		c.Config.Logger.Infof("Diff in TerminationMessagePath. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TerminationMessagePath), dcl.SprintResource(actual.TerminationMessagePath))
+		return true
+	}
+	if actual.TerminationMessagePolicy == nil && desired.TerminationMessagePolicy != nil && !dcl.IsEmptyValueIndirect(desired.TerminationMessagePolicy) {
+		c.Config.Logger.Infof("desired TerminationMessagePolicy %s - but actually nil", dcl.SprintResource(desired.TerminationMessagePolicy))
+		return true
+	}
+	if !reflect.DeepEqual(desired.TerminationMessagePolicy, actual.TerminationMessagePolicy) && !dcl.IsZeroValue(desired.TerminationMessagePolicy) && !(dcl.IsEmptyValueIndirect(desired.TerminationMessagePolicy) && dcl.IsZeroValue(actual.TerminationMessagePolicy)) {
+		c.Config.Logger.Infof("Diff in TerminationMessagePolicy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TerminationMessagePolicy), dcl.SprintResource(actual.TerminationMessagePolicy))
+		return true
+	}
+	if actual.ImagePullPolicy == nil && desired.ImagePullPolicy != nil && !dcl.IsEmptyValueIndirect(desired.ImagePullPolicy) {
+		c.Config.Logger.Infof("desired ImagePullPolicy %s - but actually nil", dcl.SprintResource(desired.ImagePullPolicy))
+		return true
+	}
+	if !reflect.DeepEqual(desired.ImagePullPolicy, actual.ImagePullPolicy) && !dcl.IsZeroValue(desired.ImagePullPolicy) && !(dcl.IsEmptyValueIndirect(desired.ImagePullPolicy) && dcl.IsZeroValue(actual.ImagePullPolicy)) {
+		c.Config.Logger.Infof("Diff in ImagePullPolicy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ImagePullPolicy), dcl.SprintResource(actual.ImagePullPolicy))
+		return true
+	}
+	if actual.SecurityContext == nil && desired.SecurityContext != nil && !dcl.IsEmptyValueIndirect(desired.SecurityContext) {
+		c.Config.Logger.Infof("desired SecurityContext %s - but actually nil", dcl.SprintResource(desired.SecurityContext))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersSecurityContext(c, desired.SecurityContext, actual.SecurityContext) && !dcl.IsZeroValue(desired.SecurityContext) {
+		c.Config.Logger.Infof("Diff in SecurityContext. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecurityContext), dcl.SprintResource(actual.SecurityContext))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersEnvSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersEnv) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnv, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersEnv(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnv, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersEnv(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnv) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
+		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
+		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
+		return true
+	}
+	if actual.ValueFrom == nil && desired.ValueFrom != nil && !dcl.IsEmptyValueIndirect(desired.ValueFrom) {
+		c.Config.Logger.Infof("desired ValueFrom %s - but actually nil", dcl.SprintResource(desired.ValueFrom))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersEnvValueFrom(c, desired.ValueFrom, actual.ValueFrom) && !dcl.IsZeroValue(desired.ValueFrom) {
+		c.Config.Logger.Infof("Diff in ValueFrom. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueFrom), dcl.SprintResource(actual.ValueFrom))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersEnvValueFromSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersEnvValueFrom) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvValueFrom, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersEnvValueFrom(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFrom, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersEnvValueFrom(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvValueFrom) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.ConfigMapKeyRef == nil && desired.ConfigMapKeyRef != nil && !dcl.IsEmptyValueIndirect(desired.ConfigMapKeyRef) {
+		c.Config.Logger.Infof("desired ConfigMapKeyRef %s - but actually nil", dcl.SprintResource(desired.ConfigMapKeyRef))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c, desired.ConfigMapKeyRef, actual.ConfigMapKeyRef) && !dcl.IsZeroValue(desired.ConfigMapKeyRef) {
+		c.Config.Logger.Infof("Diff in ConfigMapKeyRef. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfigMapKeyRef), dcl.SprintResource(actual.ConfigMapKeyRef))
+		return true
+	}
+	if actual.SecretKeyRef == nil && desired.SecretKeyRef != nil && !dcl.IsEmptyValueIndirect(desired.SecretKeyRef) {
+		c.Config.Logger.Infof("desired SecretKeyRef %s - but actually nil", dcl.SprintResource(desired.SecretKeyRef))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c, desired.SecretKeyRef, actual.SecretKeyRef) && !dcl.IsZeroValue(desired.SecretKeyRef) {
+		c.Config.Logger.Infof("Diff in SecretKeyRef. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecretKeyRef), dcl.SprintResource(actual.SecretKeyRef))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.LocalObjectReference == nil && desired.LocalObjectReference != nil && !dcl.IsEmptyValueIndirect(desired.LocalObjectReference) {
+		c.Config.Logger.Infof("desired LocalObjectReference %s - but actually nil", dcl.SprintResource(desired.LocalObjectReference))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, desired.LocalObjectReference, actual.LocalObjectReference) && !dcl.IsZeroValue(desired.LocalObjectReference) {
+		c.Config.Logger.Infof("Diff in LocalObjectReference. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalObjectReference), dcl.SprintResource(actual.LocalObjectReference))
+		return true
+	}
+	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
+		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
+		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
+		return true
+	}
+	if actual.Optional == nil && desired.Optional != nil && !dcl.IsEmptyValueIndirect(desired.Optional) {
+		c.Config.Logger.Infof("desired Optional %s - but actually nil", dcl.SprintResource(desired.Optional))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) && !(dcl.IsEmptyValueIndirect(desired.Optional) && dcl.IsZeroValue(actual.Optional)) {
+		c.Config.Logger.Infof("Diff in Optional. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReferenceSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.LocalObjectReference == nil && desired.LocalObjectReference != nil && !dcl.IsEmptyValueIndirect(desired.LocalObjectReference) {
+		c.Config.Logger.Infof("desired LocalObjectReference %s - but actually nil", dcl.SprintResource(desired.LocalObjectReference))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, desired.LocalObjectReference, actual.LocalObjectReference) && !dcl.IsZeroValue(desired.LocalObjectReference) {
+		c.Config.Logger.Infof("Diff in LocalObjectReference. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalObjectReference), dcl.SprintResource(actual.LocalObjectReference))
+		return true
+	}
+	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
+		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
+		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
+		return true
+	}
+	if actual.Optional == nil && desired.Optional != nil && !dcl.IsEmptyValueIndirect(desired.Optional) {
+		c.Config.Logger.Infof("desired Optional %s - but actually nil", dcl.SprintResource(desired.Optional))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) && !(dcl.IsEmptyValueIndirect(desired.Optional) && dcl.IsZeroValue(actual.Optional)) {
+		c.Config.Logger.Infof("Diff in Optional. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReferenceSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersResourcesSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersResources) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersResources, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersResources(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersResources, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersResources(c *Client, desired, actual *ServiceSpecTemplateSpecContainersResources) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Limits == nil && desired.Limits != nil && !dcl.IsEmptyValueIndirect(desired.Limits) {
+		c.Config.Logger.Infof("desired Limits %s - but actually nil", dcl.SprintResource(desired.Limits))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Limits, actual.Limits) && !dcl.IsZeroValue(desired.Limits) {
+		c.Config.Logger.Infof("Diff in Limits. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Limits), dcl.SprintResource(actual.Limits))
+		return true
+	}
+	if actual.Requests == nil && desired.Requests != nil && !dcl.IsEmptyValueIndirect(desired.Requests) {
+		c.Config.Logger.Infof("desired Requests %s - but actually nil", dcl.SprintResource(desired.Requests))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Requests, actual.Requests) && !dcl.IsZeroValue(desired.Requests) {
+		c.Config.Logger.Infof("Diff in Requests. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Requests), dcl.SprintResource(actual.Requests))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersPortsSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersPorts) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersPorts, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersPorts(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersPorts, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersPorts(c *Client, desired, actual *ServiceSpecTemplateSpecContainersPorts) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	if actual.ContainerPort == nil && desired.ContainerPort != nil && !dcl.IsEmptyValueIndirect(desired.ContainerPort) {
+		c.Config.Logger.Infof("desired ContainerPort %s - but actually nil", dcl.SprintResource(desired.ContainerPort))
+		return true
+	}
+	if !reflect.DeepEqual(desired.ContainerPort, actual.ContainerPort) && !dcl.IsZeroValue(desired.ContainerPort) && !(dcl.IsEmptyValueIndirect(desired.ContainerPort) && dcl.IsZeroValue(actual.ContainerPort)) {
+		c.Config.Logger.Infof("Diff in ContainerPort. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContainerPort), dcl.SprintResource(actual.ContainerPort))
+		return true
+	}
+	if actual.Protocol == nil && desired.Protocol != nil && !dcl.IsEmptyValueIndirect(desired.Protocol) {
+		c.Config.Logger.Infof("desired Protocol %s - but actually nil", dcl.SprintResource(desired.Protocol))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Protocol, actual.Protocol) && !dcl.IsZeroValue(desired.Protocol) && !(dcl.IsEmptyValueIndirect(desired.Protocol) && dcl.IsZeroValue(actual.Protocol)) {
+		c.Config.Logger.Infof("Diff in Protocol. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Protocol), dcl.SprintResource(actual.Protocol))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersEnvFromSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersEnvFrom) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvFrom, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersEnvFrom(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFrom, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersEnvFrom(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvFrom) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Prefix == nil && desired.Prefix != nil && !dcl.IsEmptyValueIndirect(desired.Prefix) {
+		c.Config.Logger.Infof("desired Prefix %s - but actually nil", dcl.SprintResource(desired.Prefix))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Prefix, actual.Prefix) && !dcl.IsZeroValue(desired.Prefix) && !(dcl.IsEmptyValueIndirect(desired.Prefix) && dcl.IsZeroValue(actual.Prefix)) {
+		c.Config.Logger.Infof("Diff in Prefix. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Prefix), dcl.SprintResource(actual.Prefix))
+		return true
+	}
+	if actual.ConfigMapRef == nil && desired.ConfigMapRef != nil && !dcl.IsEmptyValueIndirect(desired.ConfigMapRef) {
+		c.Config.Logger.Infof("desired ConfigMapRef %s - but actually nil", dcl.SprintResource(desired.ConfigMapRef))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c, desired.ConfigMapRef, actual.ConfigMapRef) && !dcl.IsZeroValue(desired.ConfigMapRef) {
+		c.Config.Logger.Infof("Diff in ConfigMapRef. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfigMapRef), dcl.SprintResource(actual.ConfigMapRef))
+		return true
+	}
+	if actual.SecretRef == nil && desired.SecretRef != nil && !dcl.IsEmptyValueIndirect(desired.SecretRef) {
+		c.Config.Logger.Infof("desired SecretRef %s - but actually nil", dcl.SprintResource(desired.SecretRef))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersEnvFromSecretRef(c, desired.SecretRef, actual.SecretRef) && !dcl.IsZeroValue(desired.SecretRef) {
+		c.Config.Logger.Infof("Diff in SecretRef. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecretRef), dcl.SprintResource(actual.SecretRef))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersEnvFromConfigMapRef) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvFromConfigMapRef, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromConfigMapRef, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvFromConfigMapRef) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.LocalObjectReference == nil && desired.LocalObjectReference != nil && !dcl.IsEmptyValueIndirect(desired.LocalObjectReference) {
+		c.Config.Logger.Infof("desired LocalObjectReference %s - but actually nil", dcl.SprintResource(desired.LocalObjectReference))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, desired.LocalObjectReference, actual.LocalObjectReference) && !dcl.IsZeroValue(desired.LocalObjectReference) {
+		c.Config.Logger.Infof("Diff in LocalObjectReference. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalObjectReference), dcl.SprintResource(actual.LocalObjectReference))
+		return true
+	}
+	if actual.Optional == nil && desired.Optional != nil && !dcl.IsEmptyValueIndirect(desired.Optional) {
+		c.Config.Logger.Infof("desired Optional %s - but actually nil", dcl.SprintResource(desired.Optional))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) && !(dcl.IsEmptyValueIndirect(desired.Optional) && dcl.IsZeroValue(actual.Optional)) {
+		c.Config.Logger.Infof("Diff in Optional. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReferenceSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersEnvFromSecretRefSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersEnvFromSecretRef) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvFromSecretRef, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersEnvFromSecretRef(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromSecretRef, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersEnvFromSecretRef(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvFromSecretRef) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.LocalObjectReference == nil && desired.LocalObjectReference != nil && !dcl.IsEmptyValueIndirect(desired.LocalObjectReference) {
+		c.Config.Logger.Infof("desired LocalObjectReference %s - but actually nil", dcl.SprintResource(desired.LocalObjectReference))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, desired.LocalObjectReference, actual.LocalObjectReference) && !dcl.IsZeroValue(desired.LocalObjectReference) {
+		c.Config.Logger.Infof("Diff in LocalObjectReference. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalObjectReference), dcl.SprintResource(actual.LocalObjectReference))
+		return true
+	}
+	if actual.Optional == nil && desired.Optional != nil && !dcl.IsEmptyValueIndirect(desired.Optional) {
+		c.Config.Logger.Infof("desired Optional %s - but actually nil", dcl.SprintResource(desired.Optional))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) && !(dcl.IsEmptyValueIndirect(desired.Optional) && dcl.IsZeroValue(actual.Optional)) {
+		c.Config.Logger.Infof("Diff in Optional. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenceSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersVolumeMountsSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersVolumeMounts) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersVolumeMounts, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersVolumeMounts(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersVolumeMounts, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersVolumeMounts(c *Client, desired, actual *ServiceSpecTemplateSpecContainersVolumeMounts) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	if actual.ReadOnly == nil && desired.ReadOnly != nil && !dcl.IsEmptyValueIndirect(desired.ReadOnly) {
+		c.Config.Logger.Infof("desired ReadOnly %s - but actually nil", dcl.SprintResource(desired.ReadOnly))
+		return true
+	}
+	if !reflect.DeepEqual(desired.ReadOnly, actual.ReadOnly) && !dcl.IsZeroValue(desired.ReadOnly) && !(dcl.IsEmptyValueIndirect(desired.ReadOnly) && dcl.IsZeroValue(actual.ReadOnly)) {
+		c.Config.Logger.Infof("Diff in ReadOnly. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReadOnly), dcl.SprintResource(actual.ReadOnly))
+		return true
+	}
+	if actual.MountPath == nil && desired.MountPath != nil && !dcl.IsEmptyValueIndirect(desired.MountPath) {
+		c.Config.Logger.Infof("desired MountPath %s - but actually nil", dcl.SprintResource(desired.MountPath))
+		return true
+	}
+	if !reflect.DeepEqual(desired.MountPath, actual.MountPath) && !dcl.IsZeroValue(desired.MountPath) && !(dcl.IsEmptyValueIndirect(desired.MountPath) && dcl.IsZeroValue(actual.MountPath)) {
+		c.Config.Logger.Infof("Diff in MountPath. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MountPath), dcl.SprintResource(actual.MountPath))
+		return true
+	}
+	if actual.SubPath == nil && desired.SubPath != nil && !dcl.IsEmptyValueIndirect(desired.SubPath) {
+		c.Config.Logger.Infof("desired SubPath %s - but actually nil", dcl.SprintResource(desired.SubPath))
+		return true
+	}
+	if !reflect.DeepEqual(desired.SubPath, actual.SubPath) && !dcl.IsZeroValue(desired.SubPath) && !(dcl.IsEmptyValueIndirect(desired.SubPath) && dcl.IsZeroValue(actual.SubPath)) {
+		c.Config.Logger.Infof("Diff in SubPath. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SubPath), dcl.SprintResource(actual.SubPath))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersLivenessProbeSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersLivenessProbe) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersLivenessProbe, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersLivenessProbe(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbe, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersLivenessProbe(c *Client, desired, actual *ServiceSpecTemplateSpecContainersLivenessProbe) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.InitialDelaySeconds == nil && desired.InitialDelaySeconds != nil && !dcl.IsEmptyValueIndirect(desired.InitialDelaySeconds) {
+		c.Config.Logger.Infof("desired InitialDelaySeconds %s - but actually nil", dcl.SprintResource(desired.InitialDelaySeconds))
+		return true
+	}
+	if !reflect.DeepEqual(desired.InitialDelaySeconds, actual.InitialDelaySeconds) && !dcl.IsZeroValue(desired.InitialDelaySeconds) && !(dcl.IsEmptyValueIndirect(desired.InitialDelaySeconds) && dcl.IsZeroValue(actual.InitialDelaySeconds)) {
+		c.Config.Logger.Infof("Diff in InitialDelaySeconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InitialDelaySeconds), dcl.SprintResource(actual.InitialDelaySeconds))
+		return true
+	}
+	if actual.TimeoutSeconds == nil && desired.TimeoutSeconds != nil && !dcl.IsEmptyValueIndirect(desired.TimeoutSeconds) {
+		c.Config.Logger.Infof("desired TimeoutSeconds %s - but actually nil", dcl.SprintResource(desired.TimeoutSeconds))
+		return true
+	}
+	if !reflect.DeepEqual(desired.TimeoutSeconds, actual.TimeoutSeconds) && !dcl.IsZeroValue(desired.TimeoutSeconds) && !(dcl.IsEmptyValueIndirect(desired.TimeoutSeconds) && dcl.IsZeroValue(actual.TimeoutSeconds)) {
+		c.Config.Logger.Infof("Diff in TimeoutSeconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeoutSeconds), dcl.SprintResource(actual.TimeoutSeconds))
+		return true
+	}
+	if actual.PeriodSeconds == nil && desired.PeriodSeconds != nil && !dcl.IsEmptyValueIndirect(desired.PeriodSeconds) {
+		c.Config.Logger.Infof("desired PeriodSeconds %s - but actually nil", dcl.SprintResource(desired.PeriodSeconds))
+		return true
+	}
+	if !reflect.DeepEqual(desired.PeriodSeconds, actual.PeriodSeconds) && !dcl.IsZeroValue(desired.PeriodSeconds) && !(dcl.IsEmptyValueIndirect(desired.PeriodSeconds) && dcl.IsZeroValue(actual.PeriodSeconds)) {
+		c.Config.Logger.Infof("Diff in PeriodSeconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PeriodSeconds), dcl.SprintResource(actual.PeriodSeconds))
+		return true
+	}
+	if actual.SuccessThreshold == nil && desired.SuccessThreshold != nil && !dcl.IsEmptyValueIndirect(desired.SuccessThreshold) {
+		c.Config.Logger.Infof("desired SuccessThreshold %s - but actually nil", dcl.SprintResource(desired.SuccessThreshold))
+		return true
+	}
+	if !reflect.DeepEqual(desired.SuccessThreshold, actual.SuccessThreshold) && !dcl.IsZeroValue(desired.SuccessThreshold) && !(dcl.IsEmptyValueIndirect(desired.SuccessThreshold) && dcl.IsZeroValue(actual.SuccessThreshold)) {
+		c.Config.Logger.Infof("Diff in SuccessThreshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SuccessThreshold), dcl.SprintResource(actual.SuccessThreshold))
+		return true
+	}
+	if actual.FailureThreshold == nil && desired.FailureThreshold != nil && !dcl.IsEmptyValueIndirect(desired.FailureThreshold) {
+		c.Config.Logger.Infof("desired FailureThreshold %s - but actually nil", dcl.SprintResource(desired.FailureThreshold))
+		return true
+	}
+	if !reflect.DeepEqual(desired.FailureThreshold, actual.FailureThreshold) && !dcl.IsZeroValue(desired.FailureThreshold) && !(dcl.IsEmptyValueIndirect(desired.FailureThreshold) && dcl.IsZeroValue(actual.FailureThreshold)) {
+		c.Config.Logger.Infof("Diff in FailureThreshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FailureThreshold), dcl.SprintResource(actual.FailureThreshold))
+		return true
+	}
+	if actual.Exec == nil && desired.Exec != nil && !dcl.IsEmptyValueIndirect(desired.Exec) {
+		c.Config.Logger.Infof("desired Exec %s - but actually nil", dcl.SprintResource(desired.Exec))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersLivenessProbeExec(c, desired.Exec, actual.Exec) && !dcl.IsZeroValue(desired.Exec) {
+		c.Config.Logger.Infof("Diff in Exec. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Exec), dcl.SprintResource(actual.Exec))
+		return true
+	}
+	if actual.HttpGet == nil && desired.HttpGet != nil && !dcl.IsEmptyValueIndirect(desired.HttpGet) {
+		c.Config.Logger.Infof("desired HttpGet %s - but actually nil", dcl.SprintResource(desired.HttpGet))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c, desired.HttpGet, actual.HttpGet) && !dcl.IsZeroValue(desired.HttpGet) {
+		c.Config.Logger.Infof("Diff in HttpGet. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpGet), dcl.SprintResource(actual.HttpGet))
+		return true
+	}
+	if actual.TcpSocket == nil && desired.TcpSocket != nil && !dcl.IsEmptyValueIndirect(desired.TcpSocket) {
+		c.Config.Logger.Infof("desired TcpSocket %s - but actually nil", dcl.SprintResource(desired.TcpSocket))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c, desired.TcpSocket, actual.TcpSocket) && !dcl.IsZeroValue(desired.TcpSocket) {
+		c.Config.Logger.Infof("Diff in TcpSocket. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TcpSocket), dcl.SprintResource(actual.TcpSocket))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersLivenessProbeExecSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersLivenessProbeExec) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersLivenessProbeExec, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersLivenessProbeExec(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeExec, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersLivenessProbeExec(c *Client, desired, actual *ServiceSpecTemplateSpecContainersLivenessProbeExec) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Command == nil && desired.Command != nil && !dcl.IsEmptyValueIndirect(desired.Command) {
+		c.Config.Logger.Infof("desired Command %s - but actually nil", dcl.SprintResource(desired.Command))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Command, actual.Command) && !dcl.IsZeroValue(desired.Command) && !(dcl.IsEmptyValueIndirect(desired.Command) && dcl.IsZeroValue(actual.Command)) {
+		c.Config.Logger.Infof("Diff in Command. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Command), dcl.SprintResource(actual.Command))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersLivenessProbeHttpGet) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersLivenessProbeHttpGet, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeHttpGet, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c *Client, desired, actual *ServiceSpecTemplateSpecContainersLivenessProbeHttpGet) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Path == nil && desired.Path != nil && !dcl.IsEmptyValueIndirect(desired.Path) {
+		c.Config.Logger.Infof("desired Path %s - but actually nil", dcl.SprintResource(desired.Path))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) && !(dcl.IsEmptyValueIndirect(desired.Path) && dcl.IsZeroValue(actual.Path)) {
+		c.Config.Logger.Infof("Diff in Path. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
+		return true
+	}
+	if actual.Host == nil && desired.Host != nil && !dcl.IsEmptyValueIndirect(desired.Host) {
+		c.Config.Logger.Infof("desired Host %s - but actually nil", dcl.SprintResource(desired.Host))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) && !(dcl.IsEmptyValueIndirect(desired.Host) && dcl.IsZeroValue(actual.Host)) {
+		c.Config.Logger.Infof("Diff in Host. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
+		return true
+	}
+	if actual.Scheme == nil && desired.Scheme != nil && !dcl.IsEmptyValueIndirect(desired.Scheme) {
+		c.Config.Logger.Infof("desired Scheme %s - but actually nil", dcl.SprintResource(desired.Scheme))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Scheme, actual.Scheme) && !dcl.IsZeroValue(desired.Scheme) && !(dcl.IsEmptyValueIndirect(desired.Scheme) && dcl.IsZeroValue(actual.Scheme)) {
+		c.Config.Logger.Infof("Diff in Scheme. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scheme), dcl.SprintResource(actual.Scheme))
+		return true
+	}
+	if actual.HttpHeaders == nil && desired.HttpHeaders != nil && !dcl.IsEmptyValueIndirect(desired.HttpHeaders) {
+		c.Config.Logger.Infof("desired HttpHeaders %s - but actually nil", dcl.SprintResource(desired.HttpHeaders))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersSlice(c, desired.HttpHeaders, actual.HttpHeaders) && !dcl.IsZeroValue(desired.HttpHeaders) {
+		c.Config.Logger.Infof("Diff in HttpHeaders. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpHeaders), dcl.SprintResource(actual.HttpHeaders))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(c *Client, desired, actual *ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
+		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
+		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocketSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c *Client, desired, actual *ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Port == nil && desired.Port != nil && !dcl.IsEmptyValueIndirect(desired.Port) {
+		c.Config.Logger.Infof("desired Port %s - but actually nil", dcl.SprintResource(desired.Port))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) && !(dcl.IsEmptyValueIndirect(desired.Port) && dcl.IsZeroValue(actual.Port)) {
+		c.Config.Logger.Infof("Diff in Port. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
+		return true
+	}
+	if actual.Host == nil && desired.Host != nil && !dcl.IsEmptyValueIndirect(desired.Host) {
+		c.Config.Logger.Infof("desired Host %s - but actually nil", dcl.SprintResource(desired.Host))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) && !(dcl.IsEmptyValueIndirect(desired.Host) && dcl.IsZeroValue(actual.Host)) {
+		c.Config.Logger.Infof("Diff in Host. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersReadinessProbeSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersReadinessProbe) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersReadinessProbe, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersReadinessProbe(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbe, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersReadinessProbe(c *Client, desired, actual *ServiceSpecTemplateSpecContainersReadinessProbe) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.InitialDelaySeconds == nil && desired.InitialDelaySeconds != nil && !dcl.IsEmptyValueIndirect(desired.InitialDelaySeconds) {
+		c.Config.Logger.Infof("desired InitialDelaySeconds %s - but actually nil", dcl.SprintResource(desired.InitialDelaySeconds))
+		return true
+	}
+	if !reflect.DeepEqual(desired.InitialDelaySeconds, actual.InitialDelaySeconds) && !dcl.IsZeroValue(desired.InitialDelaySeconds) && !(dcl.IsEmptyValueIndirect(desired.InitialDelaySeconds) && dcl.IsZeroValue(actual.InitialDelaySeconds)) {
+		c.Config.Logger.Infof("Diff in InitialDelaySeconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InitialDelaySeconds), dcl.SprintResource(actual.InitialDelaySeconds))
+		return true
+	}
+	if actual.TimeoutSeconds == nil && desired.TimeoutSeconds != nil && !dcl.IsEmptyValueIndirect(desired.TimeoutSeconds) {
+		c.Config.Logger.Infof("desired TimeoutSeconds %s - but actually nil", dcl.SprintResource(desired.TimeoutSeconds))
+		return true
+	}
+	if !reflect.DeepEqual(desired.TimeoutSeconds, actual.TimeoutSeconds) && !dcl.IsZeroValue(desired.TimeoutSeconds) && !(dcl.IsEmptyValueIndirect(desired.TimeoutSeconds) && dcl.IsZeroValue(actual.TimeoutSeconds)) {
+		c.Config.Logger.Infof("Diff in TimeoutSeconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeoutSeconds), dcl.SprintResource(actual.TimeoutSeconds))
+		return true
+	}
+	if actual.PeriodSeconds == nil && desired.PeriodSeconds != nil && !dcl.IsEmptyValueIndirect(desired.PeriodSeconds) {
+		c.Config.Logger.Infof("desired PeriodSeconds %s - but actually nil", dcl.SprintResource(desired.PeriodSeconds))
+		return true
+	}
+	if !reflect.DeepEqual(desired.PeriodSeconds, actual.PeriodSeconds) && !dcl.IsZeroValue(desired.PeriodSeconds) && !(dcl.IsEmptyValueIndirect(desired.PeriodSeconds) && dcl.IsZeroValue(actual.PeriodSeconds)) {
+		c.Config.Logger.Infof("Diff in PeriodSeconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PeriodSeconds), dcl.SprintResource(actual.PeriodSeconds))
+		return true
+	}
+	if actual.SuccessThreshold == nil && desired.SuccessThreshold != nil && !dcl.IsEmptyValueIndirect(desired.SuccessThreshold) {
+		c.Config.Logger.Infof("desired SuccessThreshold %s - but actually nil", dcl.SprintResource(desired.SuccessThreshold))
+		return true
+	}
+	if !reflect.DeepEqual(desired.SuccessThreshold, actual.SuccessThreshold) && !dcl.IsZeroValue(desired.SuccessThreshold) && !(dcl.IsEmptyValueIndirect(desired.SuccessThreshold) && dcl.IsZeroValue(actual.SuccessThreshold)) {
+		c.Config.Logger.Infof("Diff in SuccessThreshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SuccessThreshold), dcl.SprintResource(actual.SuccessThreshold))
+		return true
+	}
+	if actual.FailureThreshold == nil && desired.FailureThreshold != nil && !dcl.IsEmptyValueIndirect(desired.FailureThreshold) {
+		c.Config.Logger.Infof("desired FailureThreshold %s - but actually nil", dcl.SprintResource(desired.FailureThreshold))
+		return true
+	}
+	if !reflect.DeepEqual(desired.FailureThreshold, actual.FailureThreshold) && !dcl.IsZeroValue(desired.FailureThreshold) && !(dcl.IsEmptyValueIndirect(desired.FailureThreshold) && dcl.IsZeroValue(actual.FailureThreshold)) {
+		c.Config.Logger.Infof("Diff in FailureThreshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FailureThreshold), dcl.SprintResource(actual.FailureThreshold))
+		return true
+	}
+	if actual.Exec == nil && desired.Exec != nil && !dcl.IsEmptyValueIndirect(desired.Exec) {
+		c.Config.Logger.Infof("desired Exec %s - but actually nil", dcl.SprintResource(desired.Exec))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersReadinessProbeExec(c, desired.Exec, actual.Exec) && !dcl.IsZeroValue(desired.Exec) {
+		c.Config.Logger.Infof("Diff in Exec. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Exec), dcl.SprintResource(actual.Exec))
+		return true
+	}
+	if actual.HttpGet == nil && desired.HttpGet != nil && !dcl.IsEmptyValueIndirect(desired.HttpGet) {
+		c.Config.Logger.Infof("desired HttpGet %s - but actually nil", dcl.SprintResource(desired.HttpGet))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c, desired.HttpGet, actual.HttpGet) && !dcl.IsZeroValue(desired.HttpGet) {
+		c.Config.Logger.Infof("Diff in HttpGet. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpGet), dcl.SprintResource(actual.HttpGet))
+		return true
+	}
+	if actual.TcpSocket == nil && desired.TcpSocket != nil && !dcl.IsEmptyValueIndirect(desired.TcpSocket) {
+		c.Config.Logger.Infof("desired TcpSocket %s - but actually nil", dcl.SprintResource(desired.TcpSocket))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c, desired.TcpSocket, actual.TcpSocket) && !dcl.IsZeroValue(desired.TcpSocket) {
+		c.Config.Logger.Infof("Diff in TcpSocket. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TcpSocket), dcl.SprintResource(actual.TcpSocket))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersReadinessProbeExecSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersReadinessProbeExec) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersReadinessProbeExec, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersReadinessProbeExec(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeExec, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersReadinessProbeExec(c *Client, desired, actual *ServiceSpecTemplateSpecContainersReadinessProbeExec) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Command == nil && desired.Command != nil && !dcl.IsEmptyValueIndirect(desired.Command) {
+		c.Config.Logger.Infof("desired Command %s - but actually nil", dcl.SprintResource(desired.Command))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Command, actual.Command) && !dcl.IsZeroValue(desired.Command) && !(dcl.IsEmptyValueIndirect(desired.Command) && dcl.IsZeroValue(actual.Command)) {
+		c.Config.Logger.Infof("Diff in Command. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Command), dcl.SprintResource(actual.Command))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersReadinessProbeHttpGet) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersReadinessProbeHttpGet, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeHttpGet, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c *Client, desired, actual *ServiceSpecTemplateSpecContainersReadinessProbeHttpGet) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Path == nil && desired.Path != nil && !dcl.IsEmptyValueIndirect(desired.Path) {
+		c.Config.Logger.Infof("desired Path %s - but actually nil", dcl.SprintResource(desired.Path))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) && !(dcl.IsEmptyValueIndirect(desired.Path) && dcl.IsZeroValue(actual.Path)) {
+		c.Config.Logger.Infof("Diff in Path. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
+		return true
+	}
+	if actual.Host == nil && desired.Host != nil && !dcl.IsEmptyValueIndirect(desired.Host) {
+		c.Config.Logger.Infof("desired Host %s - but actually nil", dcl.SprintResource(desired.Host))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) && !(dcl.IsEmptyValueIndirect(desired.Host) && dcl.IsZeroValue(actual.Host)) {
+		c.Config.Logger.Infof("Diff in Host. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
+		return true
+	}
+	if actual.Scheme == nil && desired.Scheme != nil && !dcl.IsEmptyValueIndirect(desired.Scheme) {
+		c.Config.Logger.Infof("desired Scheme %s - but actually nil", dcl.SprintResource(desired.Scheme))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Scheme, actual.Scheme) && !dcl.IsZeroValue(desired.Scheme) && !(dcl.IsEmptyValueIndirect(desired.Scheme) && dcl.IsZeroValue(actual.Scheme)) {
+		c.Config.Logger.Infof("Diff in Scheme. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scheme), dcl.SprintResource(actual.Scheme))
+		return true
+	}
+	if actual.HttpHeaders == nil && desired.HttpHeaders != nil && !dcl.IsEmptyValueIndirect(desired.HttpHeaders) {
+		c.Config.Logger.Infof("desired HttpHeaders %s - but actually nil", dcl.SprintResource(desired.HttpHeaders))
+		return true
+	}
+	if compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersSlice(c, desired.HttpHeaders, actual.HttpHeaders) && !dcl.IsZeroValue(desired.HttpHeaders) {
+		c.Config.Logger.Infof("Diff in HttpHeaders. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpHeaders), dcl.SprintResource(actual.HttpHeaders))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(c *Client, desired, actual *ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
+		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
+		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocketSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c *Client, desired, actual *ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Port == nil && desired.Port != nil && !dcl.IsEmptyValueIndirect(desired.Port) {
+		c.Config.Logger.Infof("desired Port %s - but actually nil", dcl.SprintResource(desired.Port))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) && !(dcl.IsEmptyValueIndirect(desired.Port) && dcl.IsZeroValue(actual.Port)) {
+		c.Config.Logger.Infof("Diff in Port. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
+		return true
+	}
+	if actual.Host == nil && desired.Host != nil && !dcl.IsEmptyValueIndirect(desired.Host) {
+		c.Config.Logger.Infof("desired Host %s - but actually nil", dcl.SprintResource(desired.Host))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) && !(dcl.IsEmptyValueIndirect(desired.Host) && dcl.IsZeroValue(actual.Host)) {
+		c.Config.Logger.Infof("Diff in Host. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecContainersSecurityContextSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersSecurityContext) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersSecurityContext, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecContainersSecurityContext(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersSecurityContext, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecContainersSecurityContext(c *Client, desired, actual *ServiceSpecTemplateSpecContainersSecurityContext) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.RunAsUser == nil && desired.RunAsUser != nil && !dcl.IsEmptyValueIndirect(desired.RunAsUser) {
+		c.Config.Logger.Infof("desired RunAsUser %s - but actually nil", dcl.SprintResource(desired.RunAsUser))
+		return true
+	}
+	if !reflect.DeepEqual(desired.RunAsUser, actual.RunAsUser) && !dcl.IsZeroValue(desired.RunAsUser) && !(dcl.IsEmptyValueIndirect(desired.RunAsUser) && dcl.IsZeroValue(actual.RunAsUser)) {
+		c.Config.Logger.Infof("Diff in RunAsUser. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RunAsUser), dcl.SprintResource(actual.RunAsUser))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecVolumesSlice(c *Client, desired, actual []ServiceSpecTemplateSpecVolumes) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecVolumes, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecVolumes(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumes, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecVolumes(c *Client, desired, actual *ServiceSpecTemplateSpecVolumes) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	if actual.Secret == nil && desired.Secret != nil && !dcl.IsEmptyValueIndirect(desired.Secret) {
+		c.Config.Logger.Infof("desired Secret %s - but actually nil", dcl.SprintResource(desired.Secret))
+		return true
+	}
+	if compareServiceSpecTemplateSpecVolumesSecret(c, desired.Secret, actual.Secret) && !dcl.IsZeroValue(desired.Secret) {
+		c.Config.Logger.Infof("Diff in Secret. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Secret), dcl.SprintResource(actual.Secret))
+		return true
+	}
+	if actual.ConfigMap == nil && desired.ConfigMap != nil && !dcl.IsEmptyValueIndirect(desired.ConfigMap) {
+		c.Config.Logger.Infof("desired ConfigMap %s - but actually nil", dcl.SprintResource(desired.ConfigMap))
+		return true
+	}
+	if compareServiceSpecTemplateSpecVolumesConfigMap(c, desired.ConfigMap, actual.ConfigMap) && !dcl.IsZeroValue(desired.ConfigMap) {
+		c.Config.Logger.Infof("Diff in ConfigMap. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfigMap), dcl.SprintResource(actual.ConfigMap))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecVolumesSecretSlice(c *Client, desired, actual []ServiceSpecTemplateSpecVolumesSecret) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecVolumesSecret, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecVolumesSecret(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesSecret, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecVolumesSecret(c *Client, desired, actual *ServiceSpecTemplateSpecVolumesSecret) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.SecretName == nil && desired.SecretName != nil && !dcl.IsEmptyValueIndirect(desired.SecretName) {
+		c.Config.Logger.Infof("desired SecretName %s - but actually nil", dcl.SprintResource(desired.SecretName))
+		return true
+	}
+	if !reflect.DeepEqual(desired.SecretName, actual.SecretName) && !dcl.IsZeroValue(desired.SecretName) && !(dcl.IsEmptyValueIndirect(desired.SecretName) && dcl.IsZeroValue(actual.SecretName)) {
+		c.Config.Logger.Infof("Diff in SecretName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecretName), dcl.SprintResource(actual.SecretName))
+		return true
+	}
+	if actual.Items == nil && desired.Items != nil && !dcl.IsEmptyValueIndirect(desired.Items) {
+		c.Config.Logger.Infof("desired Items %s - but actually nil", dcl.SprintResource(desired.Items))
+		return true
+	}
+	if compareServiceSpecTemplateSpecVolumesSecretItemsSlice(c, desired.Items, actual.Items) && !dcl.IsZeroValue(desired.Items) {
+		c.Config.Logger.Infof("Diff in Items. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Items), dcl.SprintResource(actual.Items))
+		return true
+	}
+	if actual.DefaultMode == nil && desired.DefaultMode != nil && !dcl.IsEmptyValueIndirect(desired.DefaultMode) {
+		c.Config.Logger.Infof("desired DefaultMode %s - but actually nil", dcl.SprintResource(desired.DefaultMode))
+		return true
+	}
+	if !reflect.DeepEqual(desired.DefaultMode, actual.DefaultMode) && !dcl.IsZeroValue(desired.DefaultMode) && !(dcl.IsEmptyValueIndirect(desired.DefaultMode) && dcl.IsZeroValue(actual.DefaultMode)) {
+		c.Config.Logger.Infof("Diff in DefaultMode. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DefaultMode), dcl.SprintResource(actual.DefaultMode))
+		return true
+	}
+	if actual.Optional == nil && desired.Optional != nil && !dcl.IsEmptyValueIndirect(desired.Optional) {
+		c.Config.Logger.Infof("desired Optional %s - but actually nil", dcl.SprintResource(desired.Optional))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) && !(dcl.IsEmptyValueIndirect(desired.Optional) && dcl.IsZeroValue(actual.Optional)) {
+		c.Config.Logger.Infof("Diff in Optional. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecVolumesSecretItemsSlice(c *Client, desired, actual []ServiceSpecTemplateSpecVolumesSecretItems) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecVolumesSecretItems, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecVolumesSecretItems(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesSecretItems, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecVolumesSecretItems(c *Client, desired, actual *ServiceSpecTemplateSpecVolumesSecretItems) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
+		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
+		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
+		return true
+	}
+	if actual.Path == nil && desired.Path != nil && !dcl.IsEmptyValueIndirect(desired.Path) {
+		c.Config.Logger.Infof("desired Path %s - but actually nil", dcl.SprintResource(desired.Path))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) && !(dcl.IsEmptyValueIndirect(desired.Path) && dcl.IsZeroValue(actual.Path)) {
+		c.Config.Logger.Infof("Diff in Path. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
+		return true
+	}
+	if actual.Mode == nil && desired.Mode != nil && !dcl.IsEmptyValueIndirect(desired.Mode) {
+		c.Config.Logger.Infof("desired Mode %s - but actually nil", dcl.SprintResource(desired.Mode))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Mode, actual.Mode) && !dcl.IsZeroValue(desired.Mode) && !(dcl.IsEmptyValueIndirect(desired.Mode) && dcl.IsZeroValue(actual.Mode)) {
+		c.Config.Logger.Infof("Diff in Mode. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Mode), dcl.SprintResource(actual.Mode))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecVolumesConfigMapSlice(c *Client, desired, actual []ServiceSpecTemplateSpecVolumesConfigMap) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecVolumesConfigMap, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecVolumesConfigMap(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesConfigMap, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecVolumesConfigMap(c *Client, desired, actual *ServiceSpecTemplateSpecVolumesConfigMap) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	if actual.Items == nil && desired.Items != nil && !dcl.IsEmptyValueIndirect(desired.Items) {
+		c.Config.Logger.Infof("desired Items %s - but actually nil", dcl.SprintResource(desired.Items))
+		return true
+	}
+	if compareServiceSpecTemplateSpecVolumesConfigMapItemsSlice(c, desired.Items, actual.Items) && !dcl.IsZeroValue(desired.Items) {
+		c.Config.Logger.Infof("Diff in Items. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Items), dcl.SprintResource(actual.Items))
+		return true
+	}
+	if actual.DefaultMode == nil && desired.DefaultMode != nil && !dcl.IsEmptyValueIndirect(desired.DefaultMode) {
+		c.Config.Logger.Infof("desired DefaultMode %s - but actually nil", dcl.SprintResource(desired.DefaultMode))
+		return true
+	}
+	if !reflect.DeepEqual(desired.DefaultMode, actual.DefaultMode) && !dcl.IsZeroValue(desired.DefaultMode) && !(dcl.IsEmptyValueIndirect(desired.DefaultMode) && dcl.IsZeroValue(actual.DefaultMode)) {
+		c.Config.Logger.Infof("Diff in DefaultMode. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DefaultMode), dcl.SprintResource(actual.DefaultMode))
+		return true
+	}
+	if actual.Optional == nil && desired.Optional != nil && !dcl.IsEmptyValueIndirect(desired.Optional) {
+		c.Config.Logger.Infof("desired Optional %s - but actually nil", dcl.SprintResource(desired.Optional))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) && !(dcl.IsEmptyValueIndirect(desired.Optional) && dcl.IsZeroValue(actual.Optional)) {
+		c.Config.Logger.Infof("Diff in Optional. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTemplateSpecVolumesConfigMapItemsSlice(c *Client, desired, actual []ServiceSpecTemplateSpecVolumesConfigMapItems) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecVolumesConfigMapItems, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTemplateSpecVolumesConfigMapItems(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesConfigMapItems, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTemplateSpecVolumesConfigMapItems(c *Client, desired, actual *ServiceSpecTemplateSpecVolumesConfigMapItems) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
+		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
+		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
+		return true
+	}
+	if actual.Path == nil && desired.Path != nil && !dcl.IsEmptyValueIndirect(desired.Path) {
+		c.Config.Logger.Infof("desired Path %s - but actually nil", dcl.SprintResource(desired.Path))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) && !(dcl.IsEmptyValueIndirect(desired.Path) && dcl.IsZeroValue(actual.Path)) {
+		c.Config.Logger.Infof("Diff in Path. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
+		return true
+	}
+	if actual.Mode == nil && desired.Mode != nil && !dcl.IsEmptyValueIndirect(desired.Mode) {
+		c.Config.Logger.Infof("desired Mode %s - but actually nil", dcl.SprintResource(desired.Mode))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Mode, actual.Mode) && !dcl.IsZeroValue(desired.Mode) && !(dcl.IsEmptyValueIndirect(desired.Mode) && dcl.IsZeroValue(actual.Mode)) {
+		c.Config.Logger.Infof("Diff in Mode. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Mode), dcl.SprintResource(actual.Mode))
+		return true
+	}
+	return false
+}
+func compareServiceSpecTrafficSlice(c *Client, desired, actual []ServiceSpecTraffic) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceSpecTraffic, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceSpecTraffic(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceSpecTraffic, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceSpecTraffic(c *Client, desired, actual *ServiceSpecTraffic) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.ConfigurationName == nil && desired.ConfigurationName != nil && !dcl.IsEmptyValueIndirect(desired.ConfigurationName) {
+		c.Config.Logger.Infof("desired ConfigurationName %s - but actually nil", dcl.SprintResource(desired.ConfigurationName))
+		return true
+	}
+	if !reflect.DeepEqual(desired.ConfigurationName, actual.ConfigurationName) && !dcl.IsZeroValue(desired.ConfigurationName) && !(dcl.IsEmptyValueIndirect(desired.ConfigurationName) && dcl.IsZeroValue(actual.ConfigurationName)) {
+		c.Config.Logger.Infof("Diff in ConfigurationName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfigurationName), dcl.SprintResource(actual.ConfigurationName))
+		return true
+	}
+	if actual.RevisionName == nil && desired.RevisionName != nil && !dcl.IsEmptyValueIndirect(desired.RevisionName) {
+		c.Config.Logger.Infof("desired RevisionName %s - but actually nil", dcl.SprintResource(desired.RevisionName))
+		return true
+	}
+	if !reflect.DeepEqual(desired.RevisionName, actual.RevisionName) && !dcl.IsZeroValue(desired.RevisionName) && !(dcl.IsEmptyValueIndirect(desired.RevisionName) && dcl.IsZeroValue(actual.RevisionName)) {
+		c.Config.Logger.Infof("Diff in RevisionName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RevisionName), dcl.SprintResource(actual.RevisionName))
+		return true
+	}
+	if actual.Percent == nil && desired.Percent != nil && !dcl.IsEmptyValueIndirect(desired.Percent) {
+		c.Config.Logger.Infof("desired Percent %s - but actually nil", dcl.SprintResource(desired.Percent))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Percent, actual.Percent) && !dcl.IsZeroValue(desired.Percent) && !(dcl.IsEmptyValueIndirect(desired.Percent) && dcl.IsZeroValue(actual.Percent)) {
+		c.Config.Logger.Infof("Diff in Percent. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percent), dcl.SprintResource(actual.Percent))
+		return true
+	}
+	if actual.Tag == nil && desired.Tag != nil && !dcl.IsEmptyValueIndirect(desired.Tag) {
+		c.Config.Logger.Infof("desired Tag %s - but actually nil", dcl.SprintResource(desired.Tag))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Tag, actual.Tag) && !dcl.IsZeroValue(desired.Tag) && !(dcl.IsEmptyValueIndirect(desired.Tag) && dcl.IsZeroValue(actual.Tag)) {
+		c.Config.Logger.Infof("Diff in Tag. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Tag), dcl.SprintResource(actual.Tag))
+		return true
+	}
+	if actual.LatestRevision == nil && desired.LatestRevision != nil && !dcl.IsEmptyValueIndirect(desired.LatestRevision) {
+		c.Config.Logger.Infof("desired LatestRevision %s - but actually nil", dcl.SprintResource(desired.LatestRevision))
+		return true
+	}
+	if !reflect.DeepEqual(desired.LatestRevision, actual.LatestRevision) && !dcl.IsZeroValue(desired.LatestRevision) && !(dcl.IsEmptyValueIndirect(desired.LatestRevision) && dcl.IsZeroValue(actual.LatestRevision)) {
+		c.Config.Logger.Infof("Diff in LatestRevision. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LatestRevision), dcl.SprintResource(actual.LatestRevision))
+		return true
+	}
+	return false
+}
+func compareServiceStatusSlice(c *Client, desired, actual []ServiceStatus) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceStatus, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceStatus(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceStatus, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceStatus(c *Client, desired, actual *ServiceStatus) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.ObservedGeneration == nil && desired.ObservedGeneration != nil && !dcl.IsEmptyValueIndirect(desired.ObservedGeneration) {
+		c.Config.Logger.Infof("desired ObservedGeneration %s - but actually nil", dcl.SprintResource(desired.ObservedGeneration))
+		return true
+	}
+	if !reflect.DeepEqual(desired.ObservedGeneration, actual.ObservedGeneration) && !dcl.IsZeroValue(desired.ObservedGeneration) && !(dcl.IsEmptyValueIndirect(desired.ObservedGeneration) && dcl.IsZeroValue(actual.ObservedGeneration)) {
+		c.Config.Logger.Infof("Diff in ObservedGeneration. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ObservedGeneration), dcl.SprintResource(actual.ObservedGeneration))
+		return true
+	}
+	if actual.Conditions == nil && desired.Conditions != nil && !dcl.IsEmptyValueIndirect(desired.Conditions) {
+		c.Config.Logger.Infof("desired Conditions %s - but actually nil", dcl.SprintResource(desired.Conditions))
+		return true
+	}
+	if compareServiceStatusConditionsSlice(c, desired.Conditions, actual.Conditions) && !dcl.IsZeroValue(desired.Conditions) {
+		c.Config.Logger.Infof("Diff in Conditions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Conditions), dcl.SprintResource(actual.Conditions))
+		return true
+	}
+	if actual.LatestReadyRevisionName == nil && desired.LatestReadyRevisionName != nil && !dcl.IsEmptyValueIndirect(desired.LatestReadyRevisionName) {
+		c.Config.Logger.Infof("desired LatestReadyRevisionName %s - but actually nil", dcl.SprintResource(desired.LatestReadyRevisionName))
+		return true
+	}
+	if !reflect.DeepEqual(desired.LatestReadyRevisionName, actual.LatestReadyRevisionName) && !dcl.IsZeroValue(desired.LatestReadyRevisionName) && !(dcl.IsEmptyValueIndirect(desired.LatestReadyRevisionName) && dcl.IsZeroValue(actual.LatestReadyRevisionName)) {
+		c.Config.Logger.Infof("Diff in LatestReadyRevisionName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LatestReadyRevisionName), dcl.SprintResource(actual.LatestReadyRevisionName))
+		return true
+	}
+	if actual.LatestCreatedRevisionName == nil && desired.LatestCreatedRevisionName != nil && !dcl.IsEmptyValueIndirect(desired.LatestCreatedRevisionName) {
+		c.Config.Logger.Infof("desired LatestCreatedRevisionName %s - but actually nil", dcl.SprintResource(desired.LatestCreatedRevisionName))
+		return true
+	}
+	if !reflect.DeepEqual(desired.LatestCreatedRevisionName, actual.LatestCreatedRevisionName) && !dcl.IsZeroValue(desired.LatestCreatedRevisionName) && !(dcl.IsEmptyValueIndirect(desired.LatestCreatedRevisionName) && dcl.IsZeroValue(actual.LatestCreatedRevisionName)) {
+		c.Config.Logger.Infof("Diff in LatestCreatedRevisionName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LatestCreatedRevisionName), dcl.SprintResource(actual.LatestCreatedRevisionName))
+		return true
+	}
+	if actual.Traffic == nil && desired.Traffic != nil && !dcl.IsEmptyValueIndirect(desired.Traffic) {
+		c.Config.Logger.Infof("desired Traffic %s - but actually nil", dcl.SprintResource(desired.Traffic))
+		return true
+	}
+	if compareServiceStatusTrafficSlice(c, desired.Traffic, actual.Traffic) && !dcl.IsZeroValue(desired.Traffic) {
+		c.Config.Logger.Infof("Diff in Traffic. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Traffic), dcl.SprintResource(actual.Traffic))
+		return true
+	}
+	if actual.Url == nil && desired.Url != nil && !dcl.IsEmptyValueIndirect(desired.Url) {
+		c.Config.Logger.Infof("desired Url %s - but actually nil", dcl.SprintResource(desired.Url))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Url, actual.Url) && !dcl.IsZeroValue(desired.Url) && !(dcl.IsEmptyValueIndirect(desired.Url) && dcl.IsZeroValue(actual.Url)) {
+		c.Config.Logger.Infof("Diff in Url. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Url), dcl.SprintResource(actual.Url))
+		return true
+	}
+	if actual.Address == nil && desired.Address != nil && !dcl.IsEmptyValueIndirect(desired.Address) {
+		c.Config.Logger.Infof("desired Address %s - but actually nil", dcl.SprintResource(desired.Address))
+		return true
+	}
+	if compareServiceStatusAddress(c, desired.Address, actual.Address) && !dcl.IsZeroValue(desired.Address) {
+		c.Config.Logger.Infof("Diff in Address. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Address), dcl.SprintResource(actual.Address))
+		return true
+	}
+	return false
+}
+func compareServiceStatusConditionsSlice(c *Client, desired, actual []ServiceStatusConditions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceStatusConditions, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceStatusConditions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceStatusConditions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceStatusConditions(c *Client, desired, actual *ServiceStatusConditions) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Type == nil && desired.Type != nil && !dcl.IsEmptyValueIndirect(desired.Type) {
+		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) && !(dcl.IsEmptyValueIndirect(desired.Type) && dcl.IsZeroValue(actual.Type)) {
+		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
+		return true
+	}
+	if actual.Status == nil && desired.Status != nil && !dcl.IsEmptyValueIndirect(desired.Status) {
+		c.Config.Logger.Infof("desired Status %s - but actually nil", dcl.SprintResource(desired.Status))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Status, actual.Status) && !dcl.IsZeroValue(desired.Status) && !(dcl.IsEmptyValueIndirect(desired.Status) && dcl.IsZeroValue(actual.Status)) {
+		c.Config.Logger.Infof("Diff in Status. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Status), dcl.SprintResource(actual.Status))
+		return true
+	}
+	if actual.Reason == nil && desired.Reason != nil && !dcl.IsEmptyValueIndirect(desired.Reason) {
+		c.Config.Logger.Infof("desired Reason %s - but actually nil", dcl.SprintResource(desired.Reason))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Reason, actual.Reason) && !dcl.IsZeroValue(desired.Reason) && !(dcl.IsEmptyValueIndirect(desired.Reason) && dcl.IsZeroValue(actual.Reason)) {
+		c.Config.Logger.Infof("Diff in Reason. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Reason), dcl.SprintResource(actual.Reason))
+		return true
+	}
+	if actual.Message == nil && desired.Message != nil && !dcl.IsEmptyValueIndirect(desired.Message) {
+		c.Config.Logger.Infof("desired Message %s - but actually nil", dcl.SprintResource(desired.Message))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Message, actual.Message) && !dcl.IsZeroValue(desired.Message) && !(dcl.IsEmptyValueIndirect(desired.Message) && dcl.IsZeroValue(actual.Message)) {
+		c.Config.Logger.Infof("Diff in Message. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Message), dcl.SprintResource(actual.Message))
+		return true
+	}
+	if actual.LastTransitionTime == nil && desired.LastTransitionTime != nil && !dcl.IsEmptyValueIndirect(desired.LastTransitionTime) {
+		c.Config.Logger.Infof("desired LastTransitionTime %s - but actually nil", dcl.SprintResource(desired.LastTransitionTime))
+		return true
+	}
+	if compareServiceStatusConditionsLastTransitionTime(c, desired.LastTransitionTime, actual.LastTransitionTime) && !dcl.IsZeroValue(desired.LastTransitionTime) {
+		c.Config.Logger.Infof("Diff in LastTransitionTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LastTransitionTime), dcl.SprintResource(actual.LastTransitionTime))
+		return true
+	}
+	if actual.Severity == nil && desired.Severity != nil && !dcl.IsEmptyValueIndirect(desired.Severity) {
+		c.Config.Logger.Infof("desired Severity %s - but actually nil", dcl.SprintResource(desired.Severity))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Severity, actual.Severity) && !dcl.IsZeroValue(desired.Severity) && !(dcl.IsEmptyValueIndirect(desired.Severity) && dcl.IsZeroValue(actual.Severity)) {
+		c.Config.Logger.Infof("Diff in Severity. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Severity), dcl.SprintResource(actual.Severity))
+		return true
+	}
+	return false
+}
+func compareServiceStatusConditionsLastTransitionTimeSlice(c *Client, desired, actual []ServiceStatusConditionsLastTransitionTime) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceStatusConditionsLastTransitionTime, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceStatusConditionsLastTransitionTime(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceStatusConditionsLastTransitionTime, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceStatusConditionsLastTransitionTime(c *Client, desired, actual *ServiceStatusConditionsLastTransitionTime) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
+		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
+		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
+		return true
+	}
+	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
+		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
+		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
+		return true
+	}
+	return false
+}
+func compareServiceStatusTrafficSlice(c *Client, desired, actual []ServiceStatusTraffic) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceStatusTraffic, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceStatusTraffic(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceStatusTraffic, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceStatusTraffic(c *Client, desired, actual *ServiceStatusTraffic) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.ConfigurationName == nil && desired.ConfigurationName != nil && !dcl.IsEmptyValueIndirect(desired.ConfigurationName) {
+		c.Config.Logger.Infof("desired ConfigurationName %s - but actually nil", dcl.SprintResource(desired.ConfigurationName))
+		return true
+	}
+	if !reflect.DeepEqual(desired.ConfigurationName, actual.ConfigurationName) && !dcl.IsZeroValue(desired.ConfigurationName) && !(dcl.IsEmptyValueIndirect(desired.ConfigurationName) && dcl.IsZeroValue(actual.ConfigurationName)) {
+		c.Config.Logger.Infof("Diff in ConfigurationName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfigurationName), dcl.SprintResource(actual.ConfigurationName))
+		return true
+	}
+	if actual.RevisionName == nil && desired.RevisionName != nil && !dcl.IsEmptyValueIndirect(desired.RevisionName) {
+		c.Config.Logger.Infof("desired RevisionName %s - but actually nil", dcl.SprintResource(desired.RevisionName))
+		return true
+	}
+	if !reflect.DeepEqual(desired.RevisionName, actual.RevisionName) && !dcl.IsZeroValue(desired.RevisionName) && !(dcl.IsEmptyValueIndirect(desired.RevisionName) && dcl.IsZeroValue(actual.RevisionName)) {
+		c.Config.Logger.Infof("Diff in RevisionName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RevisionName), dcl.SprintResource(actual.RevisionName))
+		return true
+	}
+	if actual.Percent == nil && desired.Percent != nil && !dcl.IsEmptyValueIndirect(desired.Percent) {
+		c.Config.Logger.Infof("desired Percent %s - but actually nil", dcl.SprintResource(desired.Percent))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Percent, actual.Percent) && !dcl.IsZeroValue(desired.Percent) && !(dcl.IsEmptyValueIndirect(desired.Percent) && dcl.IsZeroValue(actual.Percent)) {
+		c.Config.Logger.Infof("Diff in Percent. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percent), dcl.SprintResource(actual.Percent))
+		return true
+	}
+	if actual.Tag == nil && desired.Tag != nil && !dcl.IsEmptyValueIndirect(desired.Tag) {
+		c.Config.Logger.Infof("desired Tag %s - but actually nil", dcl.SprintResource(desired.Tag))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Tag, actual.Tag) && !dcl.IsZeroValue(desired.Tag) && !(dcl.IsEmptyValueIndirect(desired.Tag) && dcl.IsZeroValue(actual.Tag)) {
+		c.Config.Logger.Infof("Diff in Tag. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Tag), dcl.SprintResource(actual.Tag))
+		return true
+	}
+	if actual.LatestRevision == nil && desired.LatestRevision != nil && !dcl.IsEmptyValueIndirect(desired.LatestRevision) {
+		c.Config.Logger.Infof("desired LatestRevision %s - but actually nil", dcl.SprintResource(desired.LatestRevision))
+		return true
+	}
+	if !reflect.DeepEqual(desired.LatestRevision, actual.LatestRevision) && !dcl.IsZeroValue(desired.LatestRevision) && !(dcl.IsEmptyValueIndirect(desired.LatestRevision) && dcl.IsZeroValue(actual.LatestRevision)) {
+		c.Config.Logger.Infof("Diff in LatestRevision. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LatestRevision), dcl.SprintResource(actual.LatestRevision))
+		return true
+	}
+	return false
+}
+func compareServiceStatusAddressSlice(c *Client, desired, actual []ServiceStatusAddress) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceStatusAddress, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceStatusAddress(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceStatusAddress, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceStatusAddress(c *Client, desired, actual *ServiceStatusAddress) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Url == nil && desired.Url != nil && !dcl.IsEmptyValueIndirect(desired.Url) {
+		c.Config.Logger.Infof("desired Url %s - but actually nil", dcl.SprintResource(desired.Url))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Url, actual.Url) && !dcl.IsZeroValue(desired.Url) && !(dcl.IsEmptyValueIndirect(desired.Url) && dcl.IsZeroValue(actual.Url)) {
+		c.Config.Logger.Infof("Diff in Url. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Url), dcl.SprintResource(actual.Url))
+		return true
+	}
+	return false
+}
+
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Service) urlNormalized() *Service {
+	normalized := deepcopy.Copy(*r).(Service)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	return &normalized
+}
+
+func (r *Service) getFields() (string, string, string) {
+	n := r.urlNormalized()
+	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+}
+
+func (r *Service) createFields() (string, string) {
+	n := r.urlNormalized()
+	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location)
+}
+
+func (r *Service) deleteFields() (string, string, string) {
+	n := r.urlNormalized()
+	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+}
+
+func (r *Service) updateURL(userBasePath, updateName string) (string, error) {
+	n := r.urlNormalized()
+	if updateName == "UpdateService" {
+		fields := map[string]interface{}{
+			"project":  dcl.ValueOrEmptyString(n.Project),
+			"location": dcl.ValueOrEmptyString(n.Location),
+			"name":     dcl.ValueOrEmptyString(n.Name),
+		}
+		return dcl.URL("/apis/serving.knative.dev/v1/namespaces/{{project}}/services/{{name}}", "https://{{location}}-run.googleapis.com/", userBasePath, fields), nil
+
+	}
+	return "", fmt.Errorf("unknown update name: %s", updateName)
+}
+
+// marshal encodes the Service resource into JSON for a Create request, and
+// performs transformations from the resource schema to the API schema if
+// necessary.
+func (r *Service) marshal(c *Client) ([]byte, error) {
+	m, err := expandService(c, r)
+	if err != nil {
+		return nil, fmt.Errorf("error marshalling Service: %w", err)
+	}
+
+	return json.Marshal(m)
+}
+
+// unmarshalService decodes JSON responses into the Service resource schema.
+func unmarshalService(b []byte, c *Client) (*Service, error) {
+	var m map[string]interface{}
+	if err := json.Unmarshal(b, &m); err != nil {
+		return nil, err
+	}
+
+	return flattenService(c, m), nil
+}
+
+// expandService expands Service into a JSON request object.
+func expandService(c *Client, f *Service) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
+	if v := f.ApiVersion; !dcl.IsEmptyValueIndirect(v) {
+		m["apiVersion"] = v
+	}
+	if v := f.Kind; !dcl.IsEmptyValueIndirect(v) {
+		m["kind"] = v
+	}
+	if v, err := expandServiceMetadata(c, f.Metadata); err != nil {
+		return nil, fmt.Errorf("error expanding Metadata into metadata: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["metadata"] = v
+	}
+	if v, err := expandServiceSpec(c, f.Spec); err != nil {
+		return nil, fmt.Errorf("error expanding Spec into spec: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["spec"] = v
+	}
+	if v, err := expandServiceStatus(c, f.Status); err != nil {
+		return nil, fmt.Errorf("error expanding Status into status: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["status"] = v
+	}
+	if v, err := dcl.EmptyValue(); err != nil {
+		return nil, fmt.Errorf("error expanding Project into project: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["project"] = v
+	}
+	if v, err := dcl.EmptyValue(); err != nil {
+		return nil, fmt.Errorf("error expanding Location into location: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["location"] = v
+	}
+	if v, err := dcl.EmptyValue(); err != nil {
+		return nil, fmt.Errorf("error expanding Name into name: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+
+	return m, nil
+}
+
+// flattenService flattens Service from a JSON request object into the
+// Service type.
+func flattenService(c *Client, i interface{}) *Service {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+	if len(m) == 0 {
+		return nil
+	}
+
+	r := &Service{}
+	r.ApiVersion = dcl.FlattenString(m["apiVersion"])
+	if _, ok := m["apiVersion"]; !ok {
+		c.Config.Logger.Info("Using default value for apiVersion")
+		r.ApiVersion = dcl.String("serving.knative.dev/v1")
+	}
+	r.Kind = dcl.FlattenString(m["kind"])
+	if _, ok := m["kind"]; !ok {
+		c.Config.Logger.Info("Using default value for kind")
+		r.Kind = dcl.String("Service")
+	}
+	r.Metadata = flattenServiceMetadata(c, m["metadata"])
+	r.Spec = flattenServiceSpec(c, m["spec"])
+	r.Status = flattenServiceStatus(c, m["status"])
+	r.Project = dcl.FlattenString(m["project"])
+	r.Location = dcl.FlattenString(m["location"])
+	r.Name = dcl.FlattenString(m["name"])
+
+	return r
+}
+
+// expandServiceMetadataMap expands the contents of ServiceMetadata into a JSON
+// request object.
+func expandServiceMetadataMap(c *Client, f map[string]ServiceMetadata) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceMetadata(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceMetadataSlice expands the contents of ServiceMetadata into a JSON
+// request object.
+func expandServiceMetadataSlice(c *Client, f []ServiceMetadata) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceMetadata(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceMetadataMap flattens the contents of ServiceMetadata from a JSON
+// response object.
+func flattenServiceMetadataMap(c *Client, i interface{}) map[string]ServiceMetadata {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceMetadata{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceMetadata{}
+	}
+
+	items := make(map[string]ServiceMetadata)
+	for k, item := range a {
+		items[k] = *flattenServiceMetadata(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceMetadataSlice flattens the contents of ServiceMetadata from a JSON
+// response object.
+func flattenServiceMetadataSlice(c *Client, i interface{}) []ServiceMetadata {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceMetadata{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceMetadata{}
+	}
+
+	items := make([]ServiceMetadata, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceMetadata(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceMetadata expands an instance of ServiceMetadata into a JSON
+// request object.
+func expandServiceMetadata(c *Client, f *ServiceMetadata) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.GenerateName; !dcl.IsEmptyValueIndirect(v) {
+		m["generateName"] = v
+	}
+	if v := f.Namespace; !dcl.IsEmptyValueIndirect(v) {
+		m["namespace"] = v
+	}
+	if v := f.SelfLink; !dcl.IsEmptyValueIndirect(v) {
+		m["selfLink"] = v
+	}
+	if v := f.Uid; !dcl.IsEmptyValueIndirect(v) {
+		m["uid"] = v
+	}
+	if v := f.ResourceVersion; !dcl.IsEmptyValueIndirect(v) {
+		m["resourceVersion"] = v
+	}
+	if v := f.Generation; !dcl.IsEmptyValueIndirect(v) {
+		m["generation"] = v
+	}
+	if v, err := expandServiceMetadataCreateTime(c, f.CreateTime); err != nil {
+		return nil, fmt.Errorf("error expanding CreateTime into creationTimestamp: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["creationTimestamp"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+	if v := f.Annotations; !dcl.IsEmptyValueIndirect(v) {
+		m["annotations"] = v
+	}
+	if v, err := expandServiceMetadataOwnerReferencesSlice(c, f.OwnerReferences); err != nil {
+		return nil, fmt.Errorf("error expanding OwnerReferences into ownerReferences: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["ownerReferences"] = v
+	}
+	if v, err := expandServiceMetadataDeleteTime(c, f.DeleteTime); err != nil {
+		return nil, fmt.Errorf("error expanding DeleteTime into deletionTimestamp: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["deletionTimestamp"] = v
+	}
+	if v := f.DeletionGracePeriodSeconds; !dcl.IsEmptyValueIndirect(v) {
+		m["deletionGracePeriodSeconds"] = v
+	}
+	if v := f.Finalizers; !dcl.IsEmptyValueIndirect(v) {
+		m["finalizers"] = v
+	}
+	if v := f.ClusterName; !dcl.IsEmptyValueIndirect(v) {
+		m["clusterName"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceMetadata flattens an instance of ServiceMetadata from a JSON
+// response object.
+func flattenServiceMetadata(c *Client, i interface{}) *ServiceMetadata {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceMetadata{}
+	r.Name = dcl.FlattenString(m["name"])
+	r.GenerateName = dcl.FlattenString(m["generateName"])
+	r.Namespace = dcl.FlattenString(m["namespace"])
+	r.SelfLink = dcl.FlattenString(m["selfLink"])
+	r.Uid = dcl.FlattenString(m["uid"])
+	r.ResourceVersion = dcl.FlattenString(m["resourceVersion"])
+	r.Generation = dcl.FlattenInteger(m["generation"])
+	r.CreateTime = flattenServiceMetadataCreateTime(c, m["creationTimestamp"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	r.Annotations = dcl.FlattenKeyValuePairs(m["annotations"])
+	r.OwnerReferences = flattenServiceMetadataOwnerReferencesSlice(c, m["ownerReferences"])
+	r.DeleteTime = flattenServiceMetadataDeleteTime(c, m["deletionTimestamp"])
+	r.DeletionGracePeriodSeconds = dcl.FlattenInteger(m["deletionGracePeriodSeconds"])
+	r.Finalizers = dcl.FlattenStringSlice(m["finalizers"])
+	r.ClusterName = dcl.FlattenString(m["clusterName"])
+
+	return r
+}
+
+// expandServiceMetadataCreateTimeMap expands the contents of ServiceMetadataCreateTime into a JSON
+// request object.
+func expandServiceMetadataCreateTimeMap(c *Client, f map[string]ServiceMetadataCreateTime) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceMetadataCreateTime(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceMetadataCreateTimeSlice expands the contents of ServiceMetadataCreateTime into a JSON
+// request object.
+func expandServiceMetadataCreateTimeSlice(c *Client, f []ServiceMetadataCreateTime) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceMetadataCreateTime(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceMetadataCreateTimeMap flattens the contents of ServiceMetadataCreateTime from a JSON
+// response object.
+func flattenServiceMetadataCreateTimeMap(c *Client, i interface{}) map[string]ServiceMetadataCreateTime {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceMetadataCreateTime{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceMetadataCreateTime{}
+	}
+
+	items := make(map[string]ServiceMetadataCreateTime)
+	for k, item := range a {
+		items[k] = *flattenServiceMetadataCreateTime(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceMetadataCreateTimeSlice flattens the contents of ServiceMetadataCreateTime from a JSON
+// response object.
+func flattenServiceMetadataCreateTimeSlice(c *Client, i interface{}) []ServiceMetadataCreateTime {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceMetadataCreateTime{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceMetadataCreateTime{}
+	}
+
+	items := make([]ServiceMetadataCreateTime, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceMetadataCreateTime(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceMetadataCreateTime expands an instance of ServiceMetadataCreateTime into a JSON
+// request object.
+func expandServiceMetadataCreateTime(c *Client, f *ServiceMetadataCreateTime) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
+		m["seconds"] = v
+	}
+	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
+		m["nanos"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceMetadataCreateTime flattens an instance of ServiceMetadataCreateTime from a JSON
+// response object.
+func flattenServiceMetadataCreateTime(c *Client, i interface{}) *ServiceMetadataCreateTime {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceMetadataCreateTime{}
+	r.Seconds = dcl.FlattenInteger(m["seconds"])
+	r.Nanos = dcl.FlattenInteger(m["nanos"])
+
+	return r
+}
+
+// expandServiceMetadataOwnerReferencesMap expands the contents of ServiceMetadataOwnerReferences into a JSON
+// request object.
+func expandServiceMetadataOwnerReferencesMap(c *Client, f map[string]ServiceMetadataOwnerReferences) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceMetadataOwnerReferences(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceMetadataOwnerReferencesSlice expands the contents of ServiceMetadataOwnerReferences into a JSON
+// request object.
+func expandServiceMetadataOwnerReferencesSlice(c *Client, f []ServiceMetadataOwnerReferences) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceMetadataOwnerReferences(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceMetadataOwnerReferencesMap flattens the contents of ServiceMetadataOwnerReferences from a JSON
+// response object.
+func flattenServiceMetadataOwnerReferencesMap(c *Client, i interface{}) map[string]ServiceMetadataOwnerReferences {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceMetadataOwnerReferences{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceMetadataOwnerReferences{}
+	}
+
+	items := make(map[string]ServiceMetadataOwnerReferences)
+	for k, item := range a {
+		items[k] = *flattenServiceMetadataOwnerReferences(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceMetadataOwnerReferencesSlice flattens the contents of ServiceMetadataOwnerReferences from a JSON
+// response object.
+func flattenServiceMetadataOwnerReferencesSlice(c *Client, i interface{}) []ServiceMetadataOwnerReferences {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceMetadataOwnerReferences{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceMetadataOwnerReferences{}
+	}
+
+	items := make([]ServiceMetadataOwnerReferences, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceMetadataOwnerReferences(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceMetadataOwnerReferences expands an instance of ServiceMetadataOwnerReferences into a JSON
+// request object.
+func expandServiceMetadataOwnerReferences(c *Client, f *ServiceMetadataOwnerReferences) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.ApiVersion; !dcl.IsEmptyValueIndirect(v) {
+		m["apiVersion"] = v
+	}
+	if v := f.Kind; !dcl.IsEmptyValueIndirect(v) {
+		m["kind"] = v
+	}
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Uid; !dcl.IsEmptyValueIndirect(v) {
+		m["uid"] = v
+	}
+	if v := f.Controller; !dcl.IsEmptyValueIndirect(v) {
+		m["controller"] = v
+	}
+	if v := f.BlockOwnerDeletion; !dcl.IsEmptyValueIndirect(v) {
+		m["blockOwnerDeletion"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceMetadataOwnerReferences flattens an instance of ServiceMetadataOwnerReferences from a JSON
+// response object.
+func flattenServiceMetadataOwnerReferences(c *Client, i interface{}) *ServiceMetadataOwnerReferences {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceMetadataOwnerReferences{}
+	r.ApiVersion = dcl.FlattenString(m["apiVersion"])
+	r.Kind = dcl.FlattenString(m["kind"])
+	r.Name = dcl.FlattenString(m["name"])
+	r.Uid = dcl.FlattenString(m["uid"])
+	r.Controller = dcl.FlattenBool(m["controller"])
+	r.BlockOwnerDeletion = dcl.FlattenBool(m["blockOwnerDeletion"])
+
+	return r
+}
+
+// expandServiceMetadataDeleteTimeMap expands the contents of ServiceMetadataDeleteTime into a JSON
+// request object.
+func expandServiceMetadataDeleteTimeMap(c *Client, f map[string]ServiceMetadataDeleteTime) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceMetadataDeleteTime(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceMetadataDeleteTimeSlice expands the contents of ServiceMetadataDeleteTime into a JSON
+// request object.
+func expandServiceMetadataDeleteTimeSlice(c *Client, f []ServiceMetadataDeleteTime) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceMetadataDeleteTime(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceMetadataDeleteTimeMap flattens the contents of ServiceMetadataDeleteTime from a JSON
+// response object.
+func flattenServiceMetadataDeleteTimeMap(c *Client, i interface{}) map[string]ServiceMetadataDeleteTime {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceMetadataDeleteTime{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceMetadataDeleteTime{}
+	}
+
+	items := make(map[string]ServiceMetadataDeleteTime)
+	for k, item := range a {
+		items[k] = *flattenServiceMetadataDeleteTime(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceMetadataDeleteTimeSlice flattens the contents of ServiceMetadataDeleteTime from a JSON
+// response object.
+func flattenServiceMetadataDeleteTimeSlice(c *Client, i interface{}) []ServiceMetadataDeleteTime {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceMetadataDeleteTime{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceMetadataDeleteTime{}
+	}
+
+	items := make([]ServiceMetadataDeleteTime, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceMetadataDeleteTime(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceMetadataDeleteTime expands an instance of ServiceMetadataDeleteTime into a JSON
+// request object.
+func expandServiceMetadataDeleteTime(c *Client, f *ServiceMetadataDeleteTime) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
+		m["seconds"] = v
+	}
+	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
+		m["nanos"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceMetadataDeleteTime flattens an instance of ServiceMetadataDeleteTime from a JSON
+// response object.
+func flattenServiceMetadataDeleteTime(c *Client, i interface{}) *ServiceMetadataDeleteTime {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceMetadataDeleteTime{}
+	r.Seconds = dcl.FlattenInteger(m["seconds"])
+	r.Nanos = dcl.FlattenInteger(m["nanos"])
+
+	return r
+}
+
+// expandServiceSpecMap expands the contents of ServiceSpec into a JSON
+// request object.
+func expandServiceSpecMap(c *Client, f map[string]ServiceSpec) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpec(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecSlice expands the contents of ServiceSpec into a JSON
+// request object.
+func expandServiceSpecSlice(c *Client, f []ServiceSpec) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpec(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecMap flattens the contents of ServiceSpec from a JSON
+// response object.
+func flattenServiceSpecMap(c *Client, i interface{}) map[string]ServiceSpec {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpec{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpec{}
+	}
+
+	items := make(map[string]ServiceSpec)
+	for k, item := range a {
+		items[k] = *flattenServiceSpec(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecSlice flattens the contents of ServiceSpec from a JSON
+// response object.
+func flattenServiceSpecSlice(c *Client, i interface{}) []ServiceSpec {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpec{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpec{}
+	}
+
+	items := make([]ServiceSpec, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpec(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpec expands an instance of ServiceSpec into a JSON
+// request object.
+func expandServiceSpec(c *Client, f *ServiceSpec) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v, err := expandServiceSpecTemplate(c, f.Template); err != nil {
+		return nil, fmt.Errorf("error expanding Template into template: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["template"] = v
+	}
+	if v, err := expandServiceSpecTrafficSlice(c, f.Traffic); err != nil {
+		return nil, fmt.Errorf("error expanding Traffic into traffic: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["traffic"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpec flattens an instance of ServiceSpec from a JSON
+// response object.
+func flattenServiceSpec(c *Client, i interface{}) *ServiceSpec {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpec{}
+	r.Template = flattenServiceSpecTemplate(c, m["template"])
+	r.Traffic = flattenServiceSpecTrafficSlice(c, m["traffic"])
+
+	return r
+}
+
+// expandServiceSpecTemplateMap expands the contents of ServiceSpecTemplate into a JSON
+// request object.
+func expandServiceSpecTemplateMap(c *Client, f map[string]ServiceSpecTemplate) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplate(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSlice expands the contents of ServiceSpecTemplate into a JSON
+// request object.
+func expandServiceSpecTemplateSlice(c *Client, f []ServiceSpecTemplate) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplate(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateMap flattens the contents of ServiceSpecTemplate from a JSON
+// response object.
+func flattenServiceSpecTemplateMap(c *Client, i interface{}) map[string]ServiceSpecTemplate {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplate{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplate{}
+	}
+
+	items := make(map[string]ServiceSpecTemplate)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplate(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSlice flattens the contents of ServiceSpecTemplate from a JSON
+// response object.
+func flattenServiceSpecTemplateSlice(c *Client, i interface{}) []ServiceSpecTemplate {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplate{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplate{}
+	}
+
+	items := make([]ServiceSpecTemplate, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplate(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplate expands an instance of ServiceSpecTemplate into a JSON
+// request object.
+func expandServiceSpecTemplate(c *Client, f *ServiceSpecTemplate) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v, err := expandServiceSpecTemplateMetadata(c, f.Metadata); err != nil {
+		return nil, fmt.Errorf("error expanding Metadata into metadata: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["metadata"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpec(c, f.Spec); err != nil {
+		return nil, fmt.Errorf("error expanding Spec into spec: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["spec"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplate flattens an instance of ServiceSpecTemplate from a JSON
+// response object.
+func flattenServiceSpecTemplate(c *Client, i interface{}) *ServiceSpecTemplate {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplate{}
+	r.Metadata = flattenServiceSpecTemplateMetadata(c, m["metadata"])
+	r.Spec = flattenServiceSpecTemplateSpec(c, m["spec"])
+
+	return r
+}
+
+// expandServiceSpecTemplateMetadataMap expands the contents of ServiceSpecTemplateMetadata into a JSON
+// request object.
+func expandServiceSpecTemplateMetadataMap(c *Client, f map[string]ServiceSpecTemplateMetadata) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateMetadata(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateMetadataSlice expands the contents of ServiceSpecTemplateMetadata into a JSON
+// request object.
+func expandServiceSpecTemplateMetadataSlice(c *Client, f []ServiceSpecTemplateMetadata) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateMetadata(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateMetadataMap flattens the contents of ServiceSpecTemplateMetadata from a JSON
+// response object.
+func flattenServiceSpecTemplateMetadataMap(c *Client, i interface{}) map[string]ServiceSpecTemplateMetadata {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateMetadata{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateMetadata{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateMetadata)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateMetadata(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateMetadataSlice flattens the contents of ServiceSpecTemplateMetadata from a JSON
+// response object.
+func flattenServiceSpecTemplateMetadataSlice(c *Client, i interface{}) []ServiceSpecTemplateMetadata {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateMetadata{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateMetadata{}
+	}
+
+	items := make([]ServiceSpecTemplateMetadata, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateMetadata(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateMetadata expands an instance of ServiceSpecTemplateMetadata into a JSON
+// request object.
+func expandServiceSpecTemplateMetadata(c *Client, f *ServiceSpecTemplateMetadata) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.GenerateName; !dcl.IsEmptyValueIndirect(v) {
+		m["generateName"] = v
+	}
+	if v := f.Namespace; !dcl.IsEmptyValueIndirect(v) {
+		m["namespace"] = v
+	}
+	if v := f.SelfLink; !dcl.IsEmptyValueIndirect(v) {
+		m["selfLink"] = v
+	}
+	if v := f.Uid; !dcl.IsEmptyValueIndirect(v) {
+		m["uid"] = v
+	}
+	if v := f.ResourceVersion; !dcl.IsEmptyValueIndirect(v) {
+		m["resourceVersion"] = v
+	}
+	if v := f.Generation; !dcl.IsEmptyValueIndirect(v) {
+		m["generation"] = v
+	}
+	if v, err := expandServiceSpecTemplateMetadataCreateTime(c, f.CreateTime); err != nil {
+		return nil, fmt.Errorf("error expanding CreateTime into creationTimestamp: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["creationTimestamp"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+	if v := f.Annotations; !dcl.IsEmptyValueIndirect(v) {
+		m["annotations"] = v
+	}
+	if v, err := expandServiceSpecTemplateMetadataOwnerReferencesSlice(c, f.OwnerReferences); err != nil {
+		return nil, fmt.Errorf("error expanding OwnerReferences into ownerReferences: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["ownerReferences"] = v
+	}
+	if v, err := expandServiceSpecTemplateMetadataDeleteTime(c, f.DeleteTime); err != nil {
+		return nil, fmt.Errorf("error expanding DeleteTime into deletionTimestamp: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["deletionTimestamp"] = v
+	}
+	if v := f.DeletionGracePeriodSeconds; !dcl.IsEmptyValueIndirect(v) {
+		m["deletionGracePeriodSeconds"] = v
+	}
+	if v := f.Finalizers; !dcl.IsEmptyValueIndirect(v) {
+		m["finalizers"] = v
+	}
+	if v := f.ClusterName; !dcl.IsEmptyValueIndirect(v) {
+		m["clusterName"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateMetadata flattens an instance of ServiceSpecTemplateMetadata from a JSON
+// response object.
+func flattenServiceSpecTemplateMetadata(c *Client, i interface{}) *ServiceSpecTemplateMetadata {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateMetadata{}
+	r.Name = dcl.FlattenString(m["name"])
+	r.GenerateName = dcl.FlattenString(m["generateName"])
+	r.Namespace = dcl.FlattenString(m["namespace"])
+	r.SelfLink = dcl.FlattenString(m["selfLink"])
+	r.Uid = dcl.FlattenString(m["uid"])
+	r.ResourceVersion = dcl.FlattenString(m["resourceVersion"])
+	r.Generation = dcl.FlattenInteger(m["generation"])
+	r.CreateTime = flattenServiceSpecTemplateMetadataCreateTime(c, m["creationTimestamp"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	r.Annotations = dcl.FlattenKeyValuePairs(m["annotations"])
+	r.OwnerReferences = flattenServiceSpecTemplateMetadataOwnerReferencesSlice(c, m["ownerReferences"])
+	r.DeleteTime = flattenServiceSpecTemplateMetadataDeleteTime(c, m["deletionTimestamp"])
+	r.DeletionGracePeriodSeconds = dcl.FlattenInteger(m["deletionGracePeriodSeconds"])
+	r.Finalizers = dcl.FlattenStringSlice(m["finalizers"])
+	r.ClusterName = dcl.FlattenString(m["clusterName"])
+
+	return r
+}
+
+// expandServiceSpecTemplateMetadataCreateTimeMap expands the contents of ServiceSpecTemplateMetadataCreateTime into a JSON
+// request object.
+func expandServiceSpecTemplateMetadataCreateTimeMap(c *Client, f map[string]ServiceSpecTemplateMetadataCreateTime) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateMetadataCreateTime(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateMetadataCreateTimeSlice expands the contents of ServiceSpecTemplateMetadataCreateTime into a JSON
+// request object.
+func expandServiceSpecTemplateMetadataCreateTimeSlice(c *Client, f []ServiceSpecTemplateMetadataCreateTime) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateMetadataCreateTime(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateMetadataCreateTimeMap flattens the contents of ServiceSpecTemplateMetadataCreateTime from a JSON
+// response object.
+func flattenServiceSpecTemplateMetadataCreateTimeMap(c *Client, i interface{}) map[string]ServiceSpecTemplateMetadataCreateTime {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateMetadataCreateTime{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateMetadataCreateTime{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateMetadataCreateTime)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateMetadataCreateTime(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateMetadataCreateTimeSlice flattens the contents of ServiceSpecTemplateMetadataCreateTime from a JSON
+// response object.
+func flattenServiceSpecTemplateMetadataCreateTimeSlice(c *Client, i interface{}) []ServiceSpecTemplateMetadataCreateTime {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateMetadataCreateTime{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateMetadataCreateTime{}
+	}
+
+	items := make([]ServiceSpecTemplateMetadataCreateTime, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateMetadataCreateTime(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateMetadataCreateTime expands an instance of ServiceSpecTemplateMetadataCreateTime into a JSON
+// request object.
+func expandServiceSpecTemplateMetadataCreateTime(c *Client, f *ServiceSpecTemplateMetadataCreateTime) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
+		m["seconds"] = v
+	}
+	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
+		m["nanos"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateMetadataCreateTime flattens an instance of ServiceSpecTemplateMetadataCreateTime from a JSON
+// response object.
+func flattenServiceSpecTemplateMetadataCreateTime(c *Client, i interface{}) *ServiceSpecTemplateMetadataCreateTime {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateMetadataCreateTime{}
+	r.Seconds = dcl.FlattenInteger(m["seconds"])
+	r.Nanos = dcl.FlattenInteger(m["nanos"])
+
+	return r
+}
+
+// expandServiceSpecTemplateMetadataOwnerReferencesMap expands the contents of ServiceSpecTemplateMetadataOwnerReferences into a JSON
+// request object.
+func expandServiceSpecTemplateMetadataOwnerReferencesMap(c *Client, f map[string]ServiceSpecTemplateMetadataOwnerReferences) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateMetadataOwnerReferences(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateMetadataOwnerReferencesSlice expands the contents of ServiceSpecTemplateMetadataOwnerReferences into a JSON
+// request object.
+func expandServiceSpecTemplateMetadataOwnerReferencesSlice(c *Client, f []ServiceSpecTemplateMetadataOwnerReferences) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateMetadataOwnerReferences(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateMetadataOwnerReferencesMap flattens the contents of ServiceSpecTemplateMetadataOwnerReferences from a JSON
+// response object.
+func flattenServiceSpecTemplateMetadataOwnerReferencesMap(c *Client, i interface{}) map[string]ServiceSpecTemplateMetadataOwnerReferences {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateMetadataOwnerReferences{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateMetadataOwnerReferences{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateMetadataOwnerReferences)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateMetadataOwnerReferences(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateMetadataOwnerReferencesSlice flattens the contents of ServiceSpecTemplateMetadataOwnerReferences from a JSON
+// response object.
+func flattenServiceSpecTemplateMetadataOwnerReferencesSlice(c *Client, i interface{}) []ServiceSpecTemplateMetadataOwnerReferences {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateMetadataOwnerReferences{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateMetadataOwnerReferences{}
+	}
+
+	items := make([]ServiceSpecTemplateMetadataOwnerReferences, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateMetadataOwnerReferences(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateMetadataOwnerReferences expands an instance of ServiceSpecTemplateMetadataOwnerReferences into a JSON
+// request object.
+func expandServiceSpecTemplateMetadataOwnerReferences(c *Client, f *ServiceSpecTemplateMetadataOwnerReferences) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.ApiVersion; !dcl.IsEmptyValueIndirect(v) {
+		m["apiVersion"] = v
+	}
+	if v := f.Kind; !dcl.IsEmptyValueIndirect(v) {
+		m["kind"] = v
+	}
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Uid; !dcl.IsEmptyValueIndirect(v) {
+		m["uid"] = v
+	}
+	if v := f.Controller; !dcl.IsEmptyValueIndirect(v) {
+		m["controller"] = v
+	}
+	if v := f.BlockOwnerDeletion; !dcl.IsEmptyValueIndirect(v) {
+		m["blockOwnerDeletion"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateMetadataOwnerReferences flattens an instance of ServiceSpecTemplateMetadataOwnerReferences from a JSON
+// response object.
+func flattenServiceSpecTemplateMetadataOwnerReferences(c *Client, i interface{}) *ServiceSpecTemplateMetadataOwnerReferences {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateMetadataOwnerReferences{}
+	r.ApiVersion = dcl.FlattenString(m["apiVersion"])
+	r.Kind = dcl.FlattenString(m["kind"])
+	r.Name = dcl.FlattenString(m["name"])
+	r.Uid = dcl.FlattenString(m["uid"])
+	r.Controller = dcl.FlattenBool(m["controller"])
+	r.BlockOwnerDeletion = dcl.FlattenBool(m["blockOwnerDeletion"])
+
+	return r
+}
+
+// expandServiceSpecTemplateMetadataDeleteTimeMap expands the contents of ServiceSpecTemplateMetadataDeleteTime into a JSON
+// request object.
+func expandServiceSpecTemplateMetadataDeleteTimeMap(c *Client, f map[string]ServiceSpecTemplateMetadataDeleteTime) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateMetadataDeleteTime(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateMetadataDeleteTimeSlice expands the contents of ServiceSpecTemplateMetadataDeleteTime into a JSON
+// request object.
+func expandServiceSpecTemplateMetadataDeleteTimeSlice(c *Client, f []ServiceSpecTemplateMetadataDeleteTime) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateMetadataDeleteTime(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateMetadataDeleteTimeMap flattens the contents of ServiceSpecTemplateMetadataDeleteTime from a JSON
+// response object.
+func flattenServiceSpecTemplateMetadataDeleteTimeMap(c *Client, i interface{}) map[string]ServiceSpecTemplateMetadataDeleteTime {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateMetadataDeleteTime{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateMetadataDeleteTime{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateMetadataDeleteTime)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateMetadataDeleteTime(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateMetadataDeleteTimeSlice flattens the contents of ServiceSpecTemplateMetadataDeleteTime from a JSON
+// response object.
+func flattenServiceSpecTemplateMetadataDeleteTimeSlice(c *Client, i interface{}) []ServiceSpecTemplateMetadataDeleteTime {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateMetadataDeleteTime{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateMetadataDeleteTime{}
+	}
+
+	items := make([]ServiceSpecTemplateMetadataDeleteTime, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateMetadataDeleteTime(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateMetadataDeleteTime expands an instance of ServiceSpecTemplateMetadataDeleteTime into a JSON
+// request object.
+func expandServiceSpecTemplateMetadataDeleteTime(c *Client, f *ServiceSpecTemplateMetadataDeleteTime) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
+		m["seconds"] = v
+	}
+	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
+		m["nanos"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateMetadataDeleteTime flattens an instance of ServiceSpecTemplateMetadataDeleteTime from a JSON
+// response object.
+func flattenServiceSpecTemplateMetadataDeleteTime(c *Client, i interface{}) *ServiceSpecTemplateMetadataDeleteTime {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateMetadataDeleteTime{}
+	r.Seconds = dcl.FlattenInteger(m["seconds"])
+	r.Nanos = dcl.FlattenInteger(m["nanos"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecMap expands the contents of ServiceSpecTemplateSpec into a JSON
+// request object.
+func expandServiceSpecTemplateSpecMap(c *Client, f map[string]ServiceSpecTemplateSpec) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpec(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecSlice expands the contents of ServiceSpecTemplateSpec into a JSON
+// request object.
+func expandServiceSpecTemplateSpecSlice(c *Client, f []ServiceSpecTemplateSpec) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpec(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecMap flattens the contents of ServiceSpecTemplateSpec from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpec {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpec{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpec{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpec)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpec(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecSlice flattens the contents of ServiceSpecTemplateSpec from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecSlice(c *Client, i interface{}) []ServiceSpecTemplateSpec {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpec{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpec{}
+	}
+
+	items := make([]ServiceSpecTemplateSpec, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpec(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpec expands an instance of ServiceSpecTemplateSpec into a JSON
+// request object.
+func expandServiceSpecTemplateSpec(c *Client, f *ServiceSpecTemplateSpec) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.ContainerConcurrency; !dcl.IsEmptyValueIndirect(v) {
+		m["containerConcurrency"] = v
+	}
+	if v := f.TimeoutSeconds; !dcl.IsEmptyValueIndirect(v) {
+		m["timeoutSeconds"] = v
+	}
+	if v := f.ServiceAccountName; !dcl.IsEmptyValueIndirect(v) {
+		m["serviceAccountName"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecContainersSlice(c, f.Containers); err != nil {
+		return nil, fmt.Errorf("error expanding Containers into containers: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["containers"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecVolumesSlice(c, f.Volumes); err != nil {
+		return nil, fmt.Errorf("error expanding Volumes into volumes: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["volumes"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpec flattens an instance of ServiceSpecTemplateSpec from a JSON
+// response object.
+func flattenServiceSpecTemplateSpec(c *Client, i interface{}) *ServiceSpecTemplateSpec {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpec{}
+	r.ContainerConcurrency = dcl.FlattenInteger(m["containerConcurrency"])
+	r.TimeoutSeconds = dcl.FlattenInteger(m["timeoutSeconds"])
+	r.ServiceAccountName = dcl.FlattenString(m["serviceAccountName"])
+	r.Containers = flattenServiceSpecTemplateSpecContainersSlice(c, m["containers"])
+	r.Volumes = flattenServiceSpecTemplateSpecVolumesSlice(c, m["volumes"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersMap expands the contents of ServiceSpecTemplateSpecContainers into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersMap(c *Client, f map[string]ServiceSpecTemplateSpecContainers) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainers(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersSlice expands the contents of ServiceSpecTemplateSpecContainers into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersSlice(c *Client, f []ServiceSpecTemplateSpecContainers) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainers(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersMap flattens the contents of ServiceSpecTemplateSpecContainers from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainers {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainers{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainers{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainers)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainers(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersSlice flattens the contents of ServiceSpecTemplateSpecContainers from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainers {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainers{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainers{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainers, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainers(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainers expands an instance of ServiceSpecTemplateSpecContainers into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainers(c *Client, f *ServiceSpecTemplateSpecContainers) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Image; !dcl.IsEmptyValueIndirect(v) {
+		m["image"] = v
+	}
+	if v := f.Command; !dcl.IsEmptyValueIndirect(v) {
+		m["command"] = v
+	}
+	if v := f.Args; !dcl.IsEmptyValueIndirect(v) {
+		m["args"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecContainersEnvSlice(c, f.Env); err != nil {
+		return nil, fmt.Errorf("error expanding Env into env: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["env"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecContainersResources(c, f.Resources); err != nil {
+		return nil, fmt.Errorf("error expanding Resources into resources: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resources"] = v
+	}
+	if v := f.WorkingDir; !dcl.IsEmptyValueIndirect(v) {
+		m["workingDir"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecContainersPortsSlice(c, f.Ports); err != nil {
+		return nil, fmt.Errorf("error expanding Ports into ports: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["ports"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecContainersEnvFromSlice(c, f.EnvFrom); err != nil {
+		return nil, fmt.Errorf("error expanding EnvFrom into envFrom: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["envFrom"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecContainersVolumeMountsSlice(c, f.VolumeMounts); err != nil {
+		return nil, fmt.Errorf("error expanding VolumeMounts into volumeMounts: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["volumeMounts"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecContainersLivenessProbe(c, f.LivenessProbe); err != nil {
+		return nil, fmt.Errorf("error expanding LivenessProbe into livenessProbe: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["livenessProbe"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecContainersReadinessProbe(c, f.ReadinessProbe); err != nil {
+		return nil, fmt.Errorf("error expanding ReadinessProbe into readinessProbe: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["readinessProbe"] = v
+	}
+	if v := f.TerminationMessagePath; !dcl.IsEmptyValueIndirect(v) {
+		m["terminationMessagePath"] = v
+	}
+	if v := f.TerminationMessagePolicy; !dcl.IsEmptyValueIndirect(v) {
+		m["terminationMessagePolicy"] = v
+	}
+	if v := f.ImagePullPolicy; !dcl.IsEmptyValueIndirect(v) {
+		m["imagePullPolicy"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecContainersSecurityContext(c, f.SecurityContext); err != nil {
+		return nil, fmt.Errorf("error expanding SecurityContext into securityContext: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["securityContext"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainers flattens an instance of ServiceSpecTemplateSpecContainers from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainers(c *Client, i interface{}) *ServiceSpecTemplateSpecContainers {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainers{}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Image = dcl.FlattenString(m["image"])
+	r.Command = dcl.FlattenStringSlice(m["command"])
+	r.Args = dcl.FlattenStringSlice(m["args"])
+	r.Env = flattenServiceSpecTemplateSpecContainersEnvSlice(c, m["env"])
+	r.Resources = flattenServiceSpecTemplateSpecContainersResources(c, m["resources"])
+	r.WorkingDir = dcl.FlattenString(m["workingDir"])
+	r.Ports = flattenServiceSpecTemplateSpecContainersPortsSlice(c, m["ports"])
+	r.EnvFrom = flattenServiceSpecTemplateSpecContainersEnvFromSlice(c, m["envFrom"])
+	r.VolumeMounts = flattenServiceSpecTemplateSpecContainersVolumeMountsSlice(c, m["volumeMounts"])
+	r.LivenessProbe = flattenServiceSpecTemplateSpecContainersLivenessProbe(c, m["livenessProbe"])
+	r.ReadinessProbe = flattenServiceSpecTemplateSpecContainersReadinessProbe(c, m["readinessProbe"])
+	r.TerminationMessagePath = dcl.FlattenString(m["terminationMessagePath"])
+	r.TerminationMessagePolicy = dcl.FlattenString(m["terminationMessagePolicy"])
+	r.ImagePullPolicy = dcl.FlattenString(m["imagePullPolicy"])
+	r.SecurityContext = flattenServiceSpecTemplateSpecContainersSecurityContext(c, m["securityContext"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersEnvMap expands the contents of ServiceSpecTemplateSpecContainersEnv into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersEnv) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersEnv(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersEnvSlice expands the contents of ServiceSpecTemplateSpecContainersEnv into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvSlice(c *Client, f []ServiceSpecTemplateSpecContainersEnv) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersEnv(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvMap flattens the contents of ServiceSpecTemplateSpecContainersEnv from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersEnv {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersEnv{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersEnv{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersEnv)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersEnv(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvSlice flattens the contents of ServiceSpecTemplateSpecContainersEnv from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersEnv {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersEnv{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersEnv{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersEnv, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersEnv(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersEnv expands an instance of ServiceSpecTemplateSpecContainersEnv into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnv(c *Client, f *ServiceSpecTemplateSpecContainersEnv) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
+		m["value"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecContainersEnvValueFrom(c, f.ValueFrom); err != nil {
+		return nil, fmt.Errorf("error expanding ValueFrom into valueFrom: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["valueFrom"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersEnv flattens an instance of ServiceSpecTemplateSpecContainersEnv from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnv(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersEnv {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersEnv{}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Value = dcl.FlattenString(m["value"])
+	r.ValueFrom = flattenServiceSpecTemplateSpecContainersEnvValueFrom(c, m["valueFrom"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersEnvValueFromMap expands the contents of ServiceSpecTemplateSpecContainersEnvValueFrom into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvValueFromMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersEnvValueFrom) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersEnvValueFrom(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersEnvValueFromSlice expands the contents of ServiceSpecTemplateSpecContainersEnvValueFrom into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvValueFromSlice(c *Client, f []ServiceSpecTemplateSpecContainersEnvValueFrom) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersEnvValueFrom(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvValueFromMap flattens the contents of ServiceSpecTemplateSpecContainersEnvValueFrom from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvValueFromMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersEnvValueFrom {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersEnvValueFrom{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersEnvValueFrom{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersEnvValueFrom)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersEnvValueFrom(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvValueFromSlice flattens the contents of ServiceSpecTemplateSpecContainersEnvValueFrom from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvValueFromSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersEnvValueFrom {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersEnvValueFrom{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersEnvValueFrom{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersEnvValueFrom, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersEnvValueFrom(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersEnvValueFrom expands an instance of ServiceSpecTemplateSpecContainersEnvValueFrom into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvValueFrom(c *Client, f *ServiceSpecTemplateSpecContainersEnvValueFrom) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v, err := expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c, f.ConfigMapKeyRef); err != nil {
+		return nil, fmt.Errorf("error expanding ConfigMapKeyRef into configMapKeyRef: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["configMapKeyRef"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c, f.SecretKeyRef); err != nil {
+		return nil, fmt.Errorf("error expanding SecretKeyRef into secretKeyRef: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["secretKeyRef"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvValueFrom flattens an instance of ServiceSpecTemplateSpecContainersEnvValueFrom from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvValueFrom(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersEnvValueFrom {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersEnvValueFrom{}
+	r.ConfigMapKeyRef = flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c, m["configMapKeyRef"])
+	r.SecretKeyRef = flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c, m["secretKeyRef"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefMap expands the contents of ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefSlice expands the contents of ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefSlice(c *Client, f []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefMap flattens the contents of ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefSlice flattens the contents of ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef expands an instance of ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c *Client, f *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v, err := expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, f.LocalObjectReference); err != nil {
+		return nil, fmt.Errorf("error expanding LocalObjectReference into localObjectReference: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["localObjectReference"] = v
+	}
+	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
+		m["key"] = v
+	}
+	if v := f.Optional; !dcl.IsEmptyValueIndirect(v) {
+		m["optional"] = v
+	}
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef flattens an instance of ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef{}
+	r.LocalObjectReference = flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, m["localObjectReference"])
+	r.Key = dcl.FlattenString(m["key"])
+	r.Optional = dcl.FlattenBool(m["optional"])
+	r.Name = dcl.FlattenString(m["name"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReferenceMap expands the contents of ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReferenceMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReferenceSlice expands the contents of ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReferenceSlice(c *Client, f []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReferenceMap flattens the contents of ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReferenceMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReferenceSlice flattens the contents of ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReferenceSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference expands an instance of ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c *Client, f *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference flattens an instance of ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference{}
+	r.Name = dcl.FlattenString(m["name"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefMap expands the contents of ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefSlice expands the contents of ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefSlice(c *Client, f []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefMap flattens the contents of ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefSlice flattens the contents of ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef expands an instance of ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c *Client, f *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v, err := expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, f.LocalObjectReference); err != nil {
+		return nil, fmt.Errorf("error expanding LocalObjectReference into localObjectReference: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["localObjectReference"] = v
+	}
+	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
+		m["key"] = v
+	}
+	if v := f.Optional; !dcl.IsEmptyValueIndirect(v) {
+		m["optional"] = v
+	}
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef flattens an instance of ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef{}
+	r.LocalObjectReference = flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, m["localObjectReference"])
+	r.Key = dcl.FlattenString(m["key"])
+	r.Optional = dcl.FlattenBool(m["optional"])
+	r.Name = dcl.FlattenString(m["name"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReferenceMap expands the contents of ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReferenceMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReferenceSlice expands the contents of ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReferenceSlice(c *Client, f []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReferenceMap flattens the contents of ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReferenceMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReferenceSlice flattens the contents of ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReferenceSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference expands an instance of ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c *Client, f *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference flattens an instance of ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference{}
+	r.Name = dcl.FlattenString(m["name"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersResourcesMap expands the contents of ServiceSpecTemplateSpecContainersResources into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersResourcesMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersResources) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersResources(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersResourcesSlice expands the contents of ServiceSpecTemplateSpecContainersResources into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersResourcesSlice(c *Client, f []ServiceSpecTemplateSpecContainersResources) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersResources(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersResourcesMap flattens the contents of ServiceSpecTemplateSpecContainersResources from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersResourcesMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersResources {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersResources{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersResources{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersResources)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersResources(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersResourcesSlice flattens the contents of ServiceSpecTemplateSpecContainersResources from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersResourcesSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersResources {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersResources{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersResources{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersResources, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersResources(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersResources expands an instance of ServiceSpecTemplateSpecContainersResources into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersResources(c *Client, f *ServiceSpecTemplateSpecContainersResources) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Limits; !dcl.IsEmptyValueIndirect(v) {
+		m["limits"] = v
+	}
+	if v := f.Requests; !dcl.IsEmptyValueIndirect(v) {
+		m["requests"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersResources flattens an instance of ServiceSpecTemplateSpecContainersResources from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersResources(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersResources {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersResources{}
+	r.Limits = dcl.FlattenKeyValuePairs(m["limits"])
+	r.Requests = dcl.FlattenKeyValuePairs(m["requests"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersPortsMap expands the contents of ServiceSpecTemplateSpecContainersPorts into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersPortsMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersPorts) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersPorts(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersPortsSlice expands the contents of ServiceSpecTemplateSpecContainersPorts into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersPortsSlice(c *Client, f []ServiceSpecTemplateSpecContainersPorts) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersPorts(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersPortsMap flattens the contents of ServiceSpecTemplateSpecContainersPorts from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersPortsMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersPorts {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersPorts{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersPorts{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersPorts)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersPorts(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersPortsSlice flattens the contents of ServiceSpecTemplateSpecContainersPorts from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersPortsSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersPorts {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersPorts{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersPorts{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersPorts, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersPorts(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersPorts expands an instance of ServiceSpecTemplateSpecContainersPorts into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersPorts(c *Client, f *ServiceSpecTemplateSpecContainersPorts) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.ContainerPort; !dcl.IsEmptyValueIndirect(v) {
+		m["containerPort"] = v
+	}
+	if v := f.Protocol; !dcl.IsEmptyValueIndirect(v) {
+		m["protocol"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersPorts flattens an instance of ServiceSpecTemplateSpecContainersPorts from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersPorts(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersPorts {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersPorts{}
+	r.Name = dcl.FlattenString(m["name"])
+	r.ContainerPort = dcl.FlattenInteger(m["containerPort"])
+	r.Protocol = dcl.FlattenString(m["protocol"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersEnvFromMap expands the contents of ServiceSpecTemplateSpecContainersEnvFrom into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvFromMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersEnvFrom) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersEnvFrom(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersEnvFromSlice expands the contents of ServiceSpecTemplateSpecContainersEnvFrom into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvFromSlice(c *Client, f []ServiceSpecTemplateSpecContainersEnvFrom) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersEnvFrom(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvFromMap flattens the contents of ServiceSpecTemplateSpecContainersEnvFrom from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvFromMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersEnvFrom {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersEnvFrom{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersEnvFrom{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersEnvFrom)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersEnvFrom(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvFromSlice flattens the contents of ServiceSpecTemplateSpecContainersEnvFrom from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvFromSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersEnvFrom {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersEnvFrom{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersEnvFrom{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersEnvFrom, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersEnvFrom(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersEnvFrom expands an instance of ServiceSpecTemplateSpecContainersEnvFrom into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvFrom(c *Client, f *ServiceSpecTemplateSpecContainersEnvFrom) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Prefix; !dcl.IsEmptyValueIndirect(v) {
+		m["prefix"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c, f.ConfigMapRef); err != nil {
+		return nil, fmt.Errorf("error expanding ConfigMapRef into configMapRef: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["configMapRef"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecContainersEnvFromSecretRef(c, f.SecretRef); err != nil {
+		return nil, fmt.Errorf("error expanding SecretRef into secretRef: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["secretRef"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvFrom flattens an instance of ServiceSpecTemplateSpecContainersEnvFrom from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvFrom(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersEnvFrom {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersEnvFrom{}
+	r.Prefix = dcl.FlattenString(m["prefix"])
+	r.ConfigMapRef = flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c, m["configMapRef"])
+	r.SecretRef = flattenServiceSpecTemplateSpecContainersEnvFromSecretRef(c, m["secretRef"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersEnvFromConfigMapRefMap expands the contents of ServiceSpecTemplateSpecContainersEnvFromConfigMapRef into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvFromConfigMapRefMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersEnvFromConfigMapRef) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersEnvFromConfigMapRefSlice expands the contents of ServiceSpecTemplateSpecContainersEnvFromConfigMapRef into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvFromConfigMapRefSlice(c *Client, f []ServiceSpecTemplateSpecContainersEnvFromConfigMapRef) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRefMap flattens the contents of ServiceSpecTemplateSpecContainersEnvFromConfigMapRef from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRefMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersEnvFromConfigMapRef {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersEnvFromConfigMapRef{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersEnvFromConfigMapRef{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersEnvFromConfigMapRef)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRefSlice flattens the contents of ServiceSpecTemplateSpecContainersEnvFromConfigMapRef from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRefSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersEnvFromConfigMapRef {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersEnvFromConfigMapRef{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersEnvFromConfigMapRef{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersEnvFromConfigMapRef, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersEnvFromConfigMapRef expands an instance of ServiceSpecTemplateSpecContainersEnvFromConfigMapRef into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c *Client, f *ServiceSpecTemplateSpecContainersEnvFromConfigMapRef) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v, err := expandServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, f.LocalObjectReference); err != nil {
+		return nil, fmt.Errorf("error expanding LocalObjectReference into localObjectReference: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["localObjectReference"] = v
+	}
+	if v := f.Optional; !dcl.IsEmptyValueIndirect(v) {
+		m["optional"] = v
+	}
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRef flattens an instance of ServiceSpecTemplateSpecContainersEnvFromConfigMapRef from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersEnvFromConfigMapRef {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersEnvFromConfigMapRef{}
+	r.LocalObjectReference = flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, m["localObjectReference"])
+	r.Optional = dcl.FlattenBool(m["optional"])
+	r.Name = dcl.FlattenString(m["name"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReferenceMap expands the contents of ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReferenceMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReferenceSlice expands the contents of ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReferenceSlice(c *Client, f []ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReferenceMap flattens the contents of ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReferenceMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReferenceSlice flattens the contents of ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReferenceSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference expands an instance of ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c *Client, f *ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference flattens an instance of ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference{}
+	r.Name = dcl.FlattenString(m["name"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersEnvFromSecretRefMap expands the contents of ServiceSpecTemplateSpecContainersEnvFromSecretRef into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvFromSecretRefMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersEnvFromSecretRef) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersEnvFromSecretRef(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersEnvFromSecretRefSlice expands the contents of ServiceSpecTemplateSpecContainersEnvFromSecretRef into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvFromSecretRefSlice(c *Client, f []ServiceSpecTemplateSpecContainersEnvFromSecretRef) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersEnvFromSecretRef(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvFromSecretRefMap flattens the contents of ServiceSpecTemplateSpecContainersEnvFromSecretRef from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvFromSecretRefMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersEnvFromSecretRef {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersEnvFromSecretRef{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersEnvFromSecretRef{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersEnvFromSecretRef)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersEnvFromSecretRef(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvFromSecretRefSlice flattens the contents of ServiceSpecTemplateSpecContainersEnvFromSecretRef from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvFromSecretRefSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersEnvFromSecretRef {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersEnvFromSecretRef{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersEnvFromSecretRef{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersEnvFromSecretRef, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersEnvFromSecretRef(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersEnvFromSecretRef expands an instance of ServiceSpecTemplateSpecContainersEnvFromSecretRef into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvFromSecretRef(c *Client, f *ServiceSpecTemplateSpecContainersEnvFromSecretRef) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v, err := expandServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, f.LocalObjectReference); err != nil {
+		return nil, fmt.Errorf("error expanding LocalObjectReference into localObjectReference: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["localObjectReference"] = v
+	}
+	if v := f.Optional; !dcl.IsEmptyValueIndirect(v) {
+		m["optional"] = v
+	}
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvFromSecretRef flattens an instance of ServiceSpecTemplateSpecContainersEnvFromSecretRef from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvFromSecretRef(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersEnvFromSecretRef {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersEnvFromSecretRef{}
+	r.LocalObjectReference = flattenServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, m["localObjectReference"])
+	r.Optional = dcl.FlattenBool(m["optional"])
+	r.Name = dcl.FlattenString(m["name"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenceMap expands the contents of ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenceMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenceSlice expands the contents of ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenceSlice(c *Client, f []ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenceMap flattens the contents of ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenceMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenceSlice flattens the contents of ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenceSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference expands an instance of ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c *Client, f *ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference flattens an instance of ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference{}
+	r.Name = dcl.FlattenString(m["name"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersVolumeMountsMap expands the contents of ServiceSpecTemplateSpecContainersVolumeMounts into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersVolumeMountsMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersVolumeMounts) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersVolumeMounts(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersVolumeMountsSlice expands the contents of ServiceSpecTemplateSpecContainersVolumeMounts into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersVolumeMountsSlice(c *Client, f []ServiceSpecTemplateSpecContainersVolumeMounts) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersVolumeMounts(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersVolumeMountsMap flattens the contents of ServiceSpecTemplateSpecContainersVolumeMounts from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersVolumeMountsMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersVolumeMounts {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersVolumeMounts{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersVolumeMounts{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersVolumeMounts)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersVolumeMounts(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersVolumeMountsSlice flattens the contents of ServiceSpecTemplateSpecContainersVolumeMounts from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersVolumeMountsSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersVolumeMounts {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersVolumeMounts{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersVolumeMounts{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersVolumeMounts, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersVolumeMounts(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersVolumeMounts expands an instance of ServiceSpecTemplateSpecContainersVolumeMounts into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersVolumeMounts(c *Client, f *ServiceSpecTemplateSpecContainersVolumeMounts) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.ReadOnly; !dcl.IsEmptyValueIndirect(v) {
+		m["readOnly"] = v
+	}
+	if v := f.MountPath; !dcl.IsEmptyValueIndirect(v) {
+		m["mountPath"] = v
+	}
+	if v := f.SubPath; !dcl.IsEmptyValueIndirect(v) {
+		m["subPath"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersVolumeMounts flattens an instance of ServiceSpecTemplateSpecContainersVolumeMounts from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersVolumeMounts(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersVolumeMounts {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersVolumeMounts{}
+	r.Name = dcl.FlattenString(m["name"])
+	r.ReadOnly = dcl.FlattenBool(m["readOnly"])
+	r.MountPath = dcl.FlattenString(m["mountPath"])
+	r.SubPath = dcl.FlattenString(m["subPath"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersLivenessProbeMap expands the contents of ServiceSpecTemplateSpecContainersLivenessProbe into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersLivenessProbeMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersLivenessProbe) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersLivenessProbe(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersLivenessProbeSlice expands the contents of ServiceSpecTemplateSpecContainersLivenessProbe into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersLivenessProbeSlice(c *Client, f []ServiceSpecTemplateSpecContainersLivenessProbe) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersLivenessProbe(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersLivenessProbeMap flattens the contents of ServiceSpecTemplateSpecContainersLivenessProbe from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersLivenessProbeMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersLivenessProbe {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersLivenessProbe{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersLivenessProbe{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersLivenessProbe)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersLivenessProbe(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersLivenessProbeSlice flattens the contents of ServiceSpecTemplateSpecContainersLivenessProbe from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersLivenessProbeSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersLivenessProbe {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersLivenessProbe{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersLivenessProbe{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersLivenessProbe, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersLivenessProbe(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersLivenessProbe expands an instance of ServiceSpecTemplateSpecContainersLivenessProbe into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersLivenessProbe(c *Client, f *ServiceSpecTemplateSpecContainersLivenessProbe) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.InitialDelaySeconds; !dcl.IsEmptyValueIndirect(v) {
+		m["initialDelaySeconds"] = v
+	}
+	if v := f.TimeoutSeconds; !dcl.IsEmptyValueIndirect(v) {
+		m["timeoutSeconds"] = v
+	}
+	if v := f.PeriodSeconds; !dcl.IsEmptyValueIndirect(v) {
+		m["periodSeconds"] = v
+	}
+	if v := f.SuccessThreshold; !dcl.IsEmptyValueIndirect(v) {
+		m["successThreshold"] = v
+	}
+	if v := f.FailureThreshold; !dcl.IsEmptyValueIndirect(v) {
+		m["failureThreshold"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecContainersLivenessProbeExec(c, f.Exec); err != nil {
+		return nil, fmt.Errorf("error expanding Exec into exec: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["exec"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c, f.HttpGet); err != nil {
+		return nil, fmt.Errorf("error expanding HttpGet into httpGet: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["httpGet"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c, f.TcpSocket); err != nil {
+		return nil, fmt.Errorf("error expanding TcpSocket into tcpSocket: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["tcpSocket"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersLivenessProbe flattens an instance of ServiceSpecTemplateSpecContainersLivenessProbe from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersLivenessProbe(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersLivenessProbe {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersLivenessProbe{}
+	r.InitialDelaySeconds = dcl.FlattenInteger(m["initialDelaySeconds"])
+	r.TimeoutSeconds = dcl.FlattenInteger(m["timeoutSeconds"])
+	r.PeriodSeconds = dcl.FlattenInteger(m["periodSeconds"])
+	r.SuccessThreshold = dcl.FlattenInteger(m["successThreshold"])
+	r.FailureThreshold = dcl.FlattenInteger(m["failureThreshold"])
+	r.Exec = flattenServiceSpecTemplateSpecContainersLivenessProbeExec(c, m["exec"])
+	r.HttpGet = flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c, m["httpGet"])
+	r.TcpSocket = flattenServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c, m["tcpSocket"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersLivenessProbeExecMap expands the contents of ServiceSpecTemplateSpecContainersLivenessProbeExec into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersLivenessProbeExecMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersLivenessProbeExec) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersLivenessProbeExec(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersLivenessProbeExecSlice expands the contents of ServiceSpecTemplateSpecContainersLivenessProbeExec into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersLivenessProbeExecSlice(c *Client, f []ServiceSpecTemplateSpecContainersLivenessProbeExec) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersLivenessProbeExec(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersLivenessProbeExecMap flattens the contents of ServiceSpecTemplateSpecContainersLivenessProbeExec from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersLivenessProbeExecMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersLivenessProbeExec {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersLivenessProbeExec{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersLivenessProbeExec{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersLivenessProbeExec)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersLivenessProbeExec(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersLivenessProbeExecSlice flattens the contents of ServiceSpecTemplateSpecContainersLivenessProbeExec from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersLivenessProbeExecSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersLivenessProbeExec {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersLivenessProbeExec{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersLivenessProbeExec{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersLivenessProbeExec, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersLivenessProbeExec(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersLivenessProbeExec expands an instance of ServiceSpecTemplateSpecContainersLivenessProbeExec into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersLivenessProbeExec(c *Client, f *ServiceSpecTemplateSpecContainersLivenessProbeExec) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Command; !dcl.IsEmptyValueIndirect(v) {
+		m["command"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersLivenessProbeExec flattens an instance of ServiceSpecTemplateSpecContainersLivenessProbeExec from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersLivenessProbeExec(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersLivenessProbeExec {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersLivenessProbeExec{}
+	r.Command = dcl.FlattenString(m["command"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersLivenessProbeHttpGetMap expands the contents of ServiceSpecTemplateSpecContainersLivenessProbeHttpGet into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersLivenessProbeHttpGetMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersLivenessProbeHttpGet) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersLivenessProbeHttpGetSlice expands the contents of ServiceSpecTemplateSpecContainersLivenessProbeHttpGet into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersLivenessProbeHttpGetSlice(c *Client, f []ServiceSpecTemplateSpecContainersLivenessProbeHttpGet) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGetMap flattens the contents of ServiceSpecTemplateSpecContainersLivenessProbeHttpGet from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGetMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersLivenessProbeHttpGet {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersLivenessProbeHttpGet{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersLivenessProbeHttpGet{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersLivenessProbeHttpGet)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGetSlice flattens the contents of ServiceSpecTemplateSpecContainersLivenessProbeHttpGet from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGetSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersLivenessProbeHttpGet {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersLivenessProbeHttpGet{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersLivenessProbeHttpGet{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersLivenessProbeHttpGet, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersLivenessProbeHttpGet expands an instance of ServiceSpecTemplateSpecContainersLivenessProbeHttpGet into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c *Client, f *ServiceSpecTemplateSpecContainersLivenessProbeHttpGet) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Path; !dcl.IsEmptyValueIndirect(v) {
+		m["path"] = v
+	}
+	if v := f.Host; !dcl.IsEmptyValueIndirect(v) {
+		m["host"] = v
+	}
+	if v := f.Scheme; !dcl.IsEmptyValueIndirect(v) {
+		m["scheme"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersSlice(c, f.HttpHeaders); err != nil {
+		return nil, fmt.Errorf("error expanding HttpHeaders into httpHeaders: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["httpHeaders"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGet flattens an instance of ServiceSpecTemplateSpecContainersLivenessProbeHttpGet from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersLivenessProbeHttpGet {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersLivenessProbeHttpGet{}
+	r.Path = dcl.FlattenString(m["path"])
+	r.Host = dcl.FlattenString(m["host"])
+	r.Scheme = dcl.FlattenString(m["scheme"])
+	r.HttpHeaders = flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersSlice(c, m["httpHeaders"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersMap expands the contents of ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersSlice expands the contents of ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersSlice(c *Client, f []ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersMap flattens the contents of ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersSlice flattens the contents of ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders expands an instance of ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(c *Client, f *ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
+		m["value"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders flattens an instance of ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders{}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Value = dcl.FlattenString(m["value"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersLivenessProbeTcpSocketMap expands the contents of ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersLivenessProbeTcpSocketMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersLivenessProbeTcpSocketSlice expands the contents of ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersLivenessProbeTcpSocketSlice(c *Client, f []ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersLivenessProbeTcpSocketMap flattens the contents of ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersLivenessProbeTcpSocketMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersLivenessProbeTcpSocketSlice flattens the contents of ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersLivenessProbeTcpSocketSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersLivenessProbeTcpSocket expands an instance of ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c *Client, f *ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Port; !dcl.IsEmptyValueIndirect(v) {
+		m["port"] = v
+	}
+	if v := f.Host; !dcl.IsEmptyValueIndirect(v) {
+		m["host"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersLivenessProbeTcpSocket flattens an instance of ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket{}
+	r.Port = dcl.FlattenInteger(m["port"])
+	r.Host = dcl.FlattenString(m["host"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersReadinessProbeMap expands the contents of ServiceSpecTemplateSpecContainersReadinessProbe into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersReadinessProbeMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersReadinessProbe) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersReadinessProbe(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersReadinessProbeSlice expands the contents of ServiceSpecTemplateSpecContainersReadinessProbe into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersReadinessProbeSlice(c *Client, f []ServiceSpecTemplateSpecContainersReadinessProbe) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersReadinessProbe(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersReadinessProbeMap flattens the contents of ServiceSpecTemplateSpecContainersReadinessProbe from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersReadinessProbeMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersReadinessProbe {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersReadinessProbe{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersReadinessProbe{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersReadinessProbe)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersReadinessProbe(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersReadinessProbeSlice flattens the contents of ServiceSpecTemplateSpecContainersReadinessProbe from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersReadinessProbeSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersReadinessProbe {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersReadinessProbe{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersReadinessProbe{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersReadinessProbe, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersReadinessProbe(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersReadinessProbe expands an instance of ServiceSpecTemplateSpecContainersReadinessProbe into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersReadinessProbe(c *Client, f *ServiceSpecTemplateSpecContainersReadinessProbe) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.InitialDelaySeconds; !dcl.IsEmptyValueIndirect(v) {
+		m["initialDelaySeconds"] = v
+	}
+	if v := f.TimeoutSeconds; !dcl.IsEmptyValueIndirect(v) {
+		m["timeoutSeconds"] = v
+	}
+	if v := f.PeriodSeconds; !dcl.IsEmptyValueIndirect(v) {
+		m["periodSeconds"] = v
+	}
+	if v := f.SuccessThreshold; !dcl.IsEmptyValueIndirect(v) {
+		m["successThreshold"] = v
+	}
+	if v := f.FailureThreshold; !dcl.IsEmptyValueIndirect(v) {
+		m["failureThreshold"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecContainersReadinessProbeExec(c, f.Exec); err != nil {
+		return nil, fmt.Errorf("error expanding Exec into exec: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["exec"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c, f.HttpGet); err != nil {
+		return nil, fmt.Errorf("error expanding HttpGet into httpGet: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["httpGet"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c, f.TcpSocket); err != nil {
+		return nil, fmt.Errorf("error expanding TcpSocket into tcpSocket: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["tcpSocket"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersReadinessProbe flattens an instance of ServiceSpecTemplateSpecContainersReadinessProbe from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersReadinessProbe(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersReadinessProbe {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersReadinessProbe{}
+	r.InitialDelaySeconds = dcl.FlattenInteger(m["initialDelaySeconds"])
+	r.TimeoutSeconds = dcl.FlattenInteger(m["timeoutSeconds"])
+	r.PeriodSeconds = dcl.FlattenInteger(m["periodSeconds"])
+	r.SuccessThreshold = dcl.FlattenInteger(m["successThreshold"])
+	r.FailureThreshold = dcl.FlattenInteger(m["failureThreshold"])
+	r.Exec = flattenServiceSpecTemplateSpecContainersReadinessProbeExec(c, m["exec"])
+	r.HttpGet = flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c, m["httpGet"])
+	r.TcpSocket = flattenServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c, m["tcpSocket"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersReadinessProbeExecMap expands the contents of ServiceSpecTemplateSpecContainersReadinessProbeExec into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersReadinessProbeExecMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersReadinessProbeExec) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersReadinessProbeExec(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersReadinessProbeExecSlice expands the contents of ServiceSpecTemplateSpecContainersReadinessProbeExec into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersReadinessProbeExecSlice(c *Client, f []ServiceSpecTemplateSpecContainersReadinessProbeExec) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersReadinessProbeExec(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersReadinessProbeExecMap flattens the contents of ServiceSpecTemplateSpecContainersReadinessProbeExec from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersReadinessProbeExecMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersReadinessProbeExec {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersReadinessProbeExec{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersReadinessProbeExec{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersReadinessProbeExec)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersReadinessProbeExec(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersReadinessProbeExecSlice flattens the contents of ServiceSpecTemplateSpecContainersReadinessProbeExec from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersReadinessProbeExecSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersReadinessProbeExec {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersReadinessProbeExec{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersReadinessProbeExec{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersReadinessProbeExec, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersReadinessProbeExec(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersReadinessProbeExec expands an instance of ServiceSpecTemplateSpecContainersReadinessProbeExec into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersReadinessProbeExec(c *Client, f *ServiceSpecTemplateSpecContainersReadinessProbeExec) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Command; !dcl.IsEmptyValueIndirect(v) {
+		m["command"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersReadinessProbeExec flattens an instance of ServiceSpecTemplateSpecContainersReadinessProbeExec from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersReadinessProbeExec(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersReadinessProbeExec {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersReadinessProbeExec{}
+	r.Command = dcl.FlattenString(m["command"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersReadinessProbeHttpGetMap expands the contents of ServiceSpecTemplateSpecContainersReadinessProbeHttpGet into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersReadinessProbeHttpGetMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersReadinessProbeHttpGet) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersReadinessProbeHttpGetSlice expands the contents of ServiceSpecTemplateSpecContainersReadinessProbeHttpGet into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersReadinessProbeHttpGetSlice(c *Client, f []ServiceSpecTemplateSpecContainersReadinessProbeHttpGet) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGetMap flattens the contents of ServiceSpecTemplateSpecContainersReadinessProbeHttpGet from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGetMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersReadinessProbeHttpGet {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersReadinessProbeHttpGet{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersReadinessProbeHttpGet{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersReadinessProbeHttpGet)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGetSlice flattens the contents of ServiceSpecTemplateSpecContainersReadinessProbeHttpGet from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGetSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersReadinessProbeHttpGet {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersReadinessProbeHttpGet{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersReadinessProbeHttpGet{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersReadinessProbeHttpGet, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersReadinessProbeHttpGet expands an instance of ServiceSpecTemplateSpecContainersReadinessProbeHttpGet into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c *Client, f *ServiceSpecTemplateSpecContainersReadinessProbeHttpGet) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Path; !dcl.IsEmptyValueIndirect(v) {
+		m["path"] = v
+	}
+	if v := f.Host; !dcl.IsEmptyValueIndirect(v) {
+		m["host"] = v
+	}
+	if v := f.Scheme; !dcl.IsEmptyValueIndirect(v) {
+		m["scheme"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersSlice(c, f.HttpHeaders); err != nil {
+		return nil, fmt.Errorf("error expanding HttpHeaders into httpHeaders: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["httpHeaders"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGet flattens an instance of ServiceSpecTemplateSpecContainersReadinessProbeHttpGet from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersReadinessProbeHttpGet {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersReadinessProbeHttpGet{}
+	r.Path = dcl.FlattenString(m["path"])
+	r.Host = dcl.FlattenString(m["host"])
+	r.Scheme = dcl.FlattenString(m["scheme"])
+	r.HttpHeaders = flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersSlice(c, m["httpHeaders"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersMap expands the contents of ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersSlice expands the contents of ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersSlice(c *Client, f []ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersMap flattens the contents of ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersSlice flattens the contents of ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders expands an instance of ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(c *Client, f *ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
+		m["value"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders flattens an instance of ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders{}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Value = dcl.FlattenString(m["value"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersReadinessProbeTcpSocketMap expands the contents of ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersReadinessProbeTcpSocketMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersReadinessProbeTcpSocketSlice expands the contents of ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersReadinessProbeTcpSocketSlice(c *Client, f []ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersReadinessProbeTcpSocketMap flattens the contents of ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersReadinessProbeTcpSocketMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersReadinessProbeTcpSocketSlice flattens the contents of ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersReadinessProbeTcpSocketSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersReadinessProbeTcpSocket expands an instance of ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c *Client, f *ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Port; !dcl.IsEmptyValueIndirect(v) {
+		m["port"] = v
+	}
+	if v := f.Host; !dcl.IsEmptyValueIndirect(v) {
+		m["host"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersReadinessProbeTcpSocket flattens an instance of ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket{}
+	r.Port = dcl.FlattenInteger(m["port"])
+	r.Host = dcl.FlattenString(m["host"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecContainersSecurityContextMap expands the contents of ServiceSpecTemplateSpecContainersSecurityContext into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersSecurityContextMap(c *Client, f map[string]ServiceSpecTemplateSpecContainersSecurityContext) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersSecurityContext(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecContainersSecurityContextSlice expands the contents of ServiceSpecTemplateSpecContainersSecurityContext into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersSecurityContextSlice(c *Client, f []ServiceSpecTemplateSpecContainersSecurityContext) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecContainersSecurityContext(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersSecurityContextMap flattens the contents of ServiceSpecTemplateSpecContainersSecurityContext from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersSecurityContextMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecContainersSecurityContext {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecContainersSecurityContext{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecContainersSecurityContext{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecContainersSecurityContext)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecContainersSecurityContext(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecContainersSecurityContextSlice flattens the contents of ServiceSpecTemplateSpecContainersSecurityContext from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersSecurityContextSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecContainersSecurityContext {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecContainersSecurityContext{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecContainersSecurityContext{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecContainersSecurityContext, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecContainersSecurityContext(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecContainersSecurityContext expands an instance of ServiceSpecTemplateSpecContainersSecurityContext into a JSON
+// request object.
+func expandServiceSpecTemplateSpecContainersSecurityContext(c *Client, f *ServiceSpecTemplateSpecContainersSecurityContext) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.RunAsUser; !dcl.IsEmptyValueIndirect(v) {
+		m["runAsUser"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecContainersSecurityContext flattens an instance of ServiceSpecTemplateSpecContainersSecurityContext from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecContainersSecurityContext(c *Client, i interface{}) *ServiceSpecTemplateSpecContainersSecurityContext {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecContainersSecurityContext{}
+	r.RunAsUser = dcl.FlattenInteger(m["runAsUser"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecVolumesMap expands the contents of ServiceSpecTemplateSpecVolumes into a JSON
+// request object.
+func expandServiceSpecTemplateSpecVolumesMap(c *Client, f map[string]ServiceSpecTemplateSpecVolumes) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecVolumes(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecVolumesSlice expands the contents of ServiceSpecTemplateSpecVolumes into a JSON
+// request object.
+func expandServiceSpecTemplateSpecVolumesSlice(c *Client, f []ServiceSpecTemplateSpecVolumes) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecVolumes(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecVolumesMap flattens the contents of ServiceSpecTemplateSpecVolumes from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecVolumesMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecVolumes {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecVolumes{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecVolumes{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecVolumes)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecVolumes(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecVolumesSlice flattens the contents of ServiceSpecTemplateSpecVolumes from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecVolumesSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecVolumes {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecVolumes{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecVolumes{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecVolumes, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecVolumes(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecVolumes expands an instance of ServiceSpecTemplateSpecVolumes into a JSON
+// request object.
+func expandServiceSpecTemplateSpecVolumes(c *Client, f *ServiceSpecTemplateSpecVolumes) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecVolumesSecret(c, f.Secret); err != nil {
+		return nil, fmt.Errorf("error expanding Secret into secret: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["secret"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecVolumesConfigMap(c, f.ConfigMap); err != nil {
+		return nil, fmt.Errorf("error expanding ConfigMap into configMap: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["configMap"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecVolumes flattens an instance of ServiceSpecTemplateSpecVolumes from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecVolumes(c *Client, i interface{}) *ServiceSpecTemplateSpecVolumes {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecVolumes{}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Secret = flattenServiceSpecTemplateSpecVolumesSecret(c, m["secret"])
+	r.ConfigMap = flattenServiceSpecTemplateSpecVolumesConfigMap(c, m["configMap"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecVolumesSecretMap expands the contents of ServiceSpecTemplateSpecVolumesSecret into a JSON
+// request object.
+func expandServiceSpecTemplateSpecVolumesSecretMap(c *Client, f map[string]ServiceSpecTemplateSpecVolumesSecret) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecVolumesSecret(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecVolumesSecretSlice expands the contents of ServiceSpecTemplateSpecVolumesSecret into a JSON
+// request object.
+func expandServiceSpecTemplateSpecVolumesSecretSlice(c *Client, f []ServiceSpecTemplateSpecVolumesSecret) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecVolumesSecret(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecVolumesSecretMap flattens the contents of ServiceSpecTemplateSpecVolumesSecret from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecVolumesSecretMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecVolumesSecret {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecVolumesSecret{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecVolumesSecret{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecVolumesSecret)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecVolumesSecret(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecVolumesSecretSlice flattens the contents of ServiceSpecTemplateSpecVolumesSecret from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecVolumesSecretSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecVolumesSecret {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecVolumesSecret{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecVolumesSecret{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecVolumesSecret, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecVolumesSecret(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecVolumesSecret expands an instance of ServiceSpecTemplateSpecVolumesSecret into a JSON
+// request object.
+func expandServiceSpecTemplateSpecVolumesSecret(c *Client, f *ServiceSpecTemplateSpecVolumesSecret) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.SecretName; !dcl.IsEmptyValueIndirect(v) {
+		m["secretName"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecVolumesSecretItemsSlice(c, f.Items); err != nil {
+		return nil, fmt.Errorf("error expanding Items into items: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["items"] = v
+	}
+	if v := f.DefaultMode; !dcl.IsEmptyValueIndirect(v) {
+		m["defaultMode"] = v
+	}
+	if v := f.Optional; !dcl.IsEmptyValueIndirect(v) {
+		m["optional"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecVolumesSecret flattens an instance of ServiceSpecTemplateSpecVolumesSecret from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecVolumesSecret(c *Client, i interface{}) *ServiceSpecTemplateSpecVolumesSecret {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecVolumesSecret{}
+	r.SecretName = dcl.FlattenString(m["secretName"])
+	r.Items = flattenServiceSpecTemplateSpecVolumesSecretItemsSlice(c, m["items"])
+	r.DefaultMode = dcl.FlattenInteger(m["defaultMode"])
+	r.Optional = dcl.FlattenBool(m["optional"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecVolumesSecretItemsMap expands the contents of ServiceSpecTemplateSpecVolumesSecretItems into a JSON
+// request object.
+func expandServiceSpecTemplateSpecVolumesSecretItemsMap(c *Client, f map[string]ServiceSpecTemplateSpecVolumesSecretItems) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecVolumesSecretItems(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecVolumesSecretItemsSlice expands the contents of ServiceSpecTemplateSpecVolumesSecretItems into a JSON
+// request object.
+func expandServiceSpecTemplateSpecVolumesSecretItemsSlice(c *Client, f []ServiceSpecTemplateSpecVolumesSecretItems) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecVolumesSecretItems(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecVolumesSecretItemsMap flattens the contents of ServiceSpecTemplateSpecVolumesSecretItems from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecVolumesSecretItemsMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecVolumesSecretItems {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecVolumesSecretItems{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecVolumesSecretItems{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecVolumesSecretItems)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecVolumesSecretItems(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecVolumesSecretItemsSlice flattens the contents of ServiceSpecTemplateSpecVolumesSecretItems from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecVolumesSecretItemsSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecVolumesSecretItems {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecVolumesSecretItems{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecVolumesSecretItems{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecVolumesSecretItems, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecVolumesSecretItems(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecVolumesSecretItems expands an instance of ServiceSpecTemplateSpecVolumesSecretItems into a JSON
+// request object.
+func expandServiceSpecTemplateSpecVolumesSecretItems(c *Client, f *ServiceSpecTemplateSpecVolumesSecretItems) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
+		m["key"] = v
+	}
+	if v := f.Path; !dcl.IsEmptyValueIndirect(v) {
+		m["path"] = v
+	}
+	if v := f.Mode; !dcl.IsEmptyValueIndirect(v) {
+		m["mode"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecVolumesSecretItems flattens an instance of ServiceSpecTemplateSpecVolumesSecretItems from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecVolumesSecretItems(c *Client, i interface{}) *ServiceSpecTemplateSpecVolumesSecretItems {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecVolumesSecretItems{}
+	r.Key = dcl.FlattenString(m["key"])
+	r.Path = dcl.FlattenString(m["path"])
+	r.Mode = dcl.FlattenInteger(m["mode"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecVolumesConfigMapMap expands the contents of ServiceSpecTemplateSpecVolumesConfigMap into a JSON
+// request object.
+func expandServiceSpecTemplateSpecVolumesConfigMapMap(c *Client, f map[string]ServiceSpecTemplateSpecVolumesConfigMap) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecVolumesConfigMap(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecVolumesConfigMapSlice expands the contents of ServiceSpecTemplateSpecVolumesConfigMap into a JSON
+// request object.
+func expandServiceSpecTemplateSpecVolumesConfigMapSlice(c *Client, f []ServiceSpecTemplateSpecVolumesConfigMap) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecVolumesConfigMap(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecVolumesConfigMapMap flattens the contents of ServiceSpecTemplateSpecVolumesConfigMap from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecVolumesConfigMapMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecVolumesConfigMap {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecVolumesConfigMap{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecVolumesConfigMap{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecVolumesConfigMap)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecVolumesConfigMap(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecVolumesConfigMapSlice flattens the contents of ServiceSpecTemplateSpecVolumesConfigMap from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecVolumesConfigMapSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecVolumesConfigMap {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecVolumesConfigMap{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecVolumesConfigMap{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecVolumesConfigMap, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecVolumesConfigMap(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecVolumesConfigMap expands an instance of ServiceSpecTemplateSpecVolumesConfigMap into a JSON
+// request object.
+func expandServiceSpecTemplateSpecVolumesConfigMap(c *Client, f *ServiceSpecTemplateSpecVolumesConfigMap) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v, err := expandServiceSpecTemplateSpecVolumesConfigMapItemsSlice(c, f.Items); err != nil {
+		return nil, fmt.Errorf("error expanding Items into items: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["items"] = v
+	}
+	if v := f.DefaultMode; !dcl.IsEmptyValueIndirect(v) {
+		m["defaultMode"] = v
+	}
+	if v := f.Optional; !dcl.IsEmptyValueIndirect(v) {
+		m["optional"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecVolumesConfigMap flattens an instance of ServiceSpecTemplateSpecVolumesConfigMap from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecVolumesConfigMap(c *Client, i interface{}) *ServiceSpecTemplateSpecVolumesConfigMap {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecVolumesConfigMap{}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Items = flattenServiceSpecTemplateSpecVolumesConfigMapItemsSlice(c, m["items"])
+	r.DefaultMode = dcl.FlattenInteger(m["defaultMode"])
+	r.Optional = dcl.FlattenBool(m["optional"])
+
+	return r
+}
+
+// expandServiceSpecTemplateSpecVolumesConfigMapItemsMap expands the contents of ServiceSpecTemplateSpecVolumesConfigMapItems into a JSON
+// request object.
+func expandServiceSpecTemplateSpecVolumesConfigMapItemsMap(c *Client, f map[string]ServiceSpecTemplateSpecVolumesConfigMapItems) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTemplateSpecVolumesConfigMapItems(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTemplateSpecVolumesConfigMapItemsSlice expands the contents of ServiceSpecTemplateSpecVolumesConfigMapItems into a JSON
+// request object.
+func expandServiceSpecTemplateSpecVolumesConfigMapItemsSlice(c *Client, f []ServiceSpecTemplateSpecVolumesConfigMapItems) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTemplateSpecVolumesConfigMapItems(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTemplateSpecVolumesConfigMapItemsMap flattens the contents of ServiceSpecTemplateSpecVolumesConfigMapItems from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecVolumesConfigMapItemsMap(c *Client, i interface{}) map[string]ServiceSpecTemplateSpecVolumesConfigMapItems {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTemplateSpecVolumesConfigMapItems{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTemplateSpecVolumesConfigMapItems{}
+	}
+
+	items := make(map[string]ServiceSpecTemplateSpecVolumesConfigMapItems)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTemplateSpecVolumesConfigMapItems(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTemplateSpecVolumesConfigMapItemsSlice flattens the contents of ServiceSpecTemplateSpecVolumesConfigMapItems from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecVolumesConfigMapItemsSlice(c *Client, i interface{}) []ServiceSpecTemplateSpecVolumesConfigMapItems {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTemplateSpecVolumesConfigMapItems{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTemplateSpecVolumesConfigMapItems{}
+	}
+
+	items := make([]ServiceSpecTemplateSpecVolumesConfigMapItems, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTemplateSpecVolumesConfigMapItems(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTemplateSpecVolumesConfigMapItems expands an instance of ServiceSpecTemplateSpecVolumesConfigMapItems into a JSON
+// request object.
+func expandServiceSpecTemplateSpecVolumesConfigMapItems(c *Client, f *ServiceSpecTemplateSpecVolumesConfigMapItems) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
+		m["key"] = v
+	}
+	if v := f.Path; !dcl.IsEmptyValueIndirect(v) {
+		m["path"] = v
+	}
+	if v := f.Mode; !dcl.IsEmptyValueIndirect(v) {
+		m["mode"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTemplateSpecVolumesConfigMapItems flattens an instance of ServiceSpecTemplateSpecVolumesConfigMapItems from a JSON
+// response object.
+func flattenServiceSpecTemplateSpecVolumesConfigMapItems(c *Client, i interface{}) *ServiceSpecTemplateSpecVolumesConfigMapItems {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTemplateSpecVolumesConfigMapItems{}
+	r.Key = dcl.FlattenString(m["key"])
+	r.Path = dcl.FlattenString(m["path"])
+	r.Mode = dcl.FlattenInteger(m["mode"])
+
+	return r
+}
+
+// expandServiceSpecTrafficMap expands the contents of ServiceSpecTraffic into a JSON
+// request object.
+func expandServiceSpecTrafficMap(c *Client, f map[string]ServiceSpecTraffic) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceSpecTraffic(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceSpecTrafficSlice expands the contents of ServiceSpecTraffic into a JSON
+// request object.
+func expandServiceSpecTrafficSlice(c *Client, f []ServiceSpecTraffic) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceSpecTraffic(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceSpecTrafficMap flattens the contents of ServiceSpecTraffic from a JSON
+// response object.
+func flattenServiceSpecTrafficMap(c *Client, i interface{}) map[string]ServiceSpecTraffic {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceSpecTraffic{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceSpecTraffic{}
+	}
+
+	items := make(map[string]ServiceSpecTraffic)
+	for k, item := range a {
+		items[k] = *flattenServiceSpecTraffic(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceSpecTrafficSlice flattens the contents of ServiceSpecTraffic from a JSON
+// response object.
+func flattenServiceSpecTrafficSlice(c *Client, i interface{}) []ServiceSpecTraffic {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceSpecTraffic{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceSpecTraffic{}
+	}
+
+	items := make([]ServiceSpecTraffic, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceSpecTraffic(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceSpecTraffic expands an instance of ServiceSpecTraffic into a JSON
+// request object.
+func expandServiceSpecTraffic(c *Client, f *ServiceSpecTraffic) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.ConfigurationName; !dcl.IsEmptyValueIndirect(v) {
+		m["configurationName"] = v
+	}
+	if v := f.RevisionName; !dcl.IsEmptyValueIndirect(v) {
+		m["revisionName"] = v
+	}
+	if v := f.Percent; !dcl.IsEmptyValueIndirect(v) {
+		m["percent"] = v
+	}
+	if v := f.Tag; !dcl.IsEmptyValueIndirect(v) {
+		m["tag"] = v
+	}
+	if v := f.LatestRevision; !dcl.IsEmptyValueIndirect(v) {
+		m["latestRevision"] = v
+	}
+	if v := f.Url; !dcl.IsEmptyValueIndirect(v) {
+		m["url"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceSpecTraffic flattens an instance of ServiceSpecTraffic from a JSON
+// response object.
+func flattenServiceSpecTraffic(c *Client, i interface{}) *ServiceSpecTraffic {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceSpecTraffic{}
+	r.ConfigurationName = dcl.FlattenString(m["configurationName"])
+	r.RevisionName = dcl.FlattenString(m["revisionName"])
+	r.Percent = dcl.FlattenInteger(m["percent"])
+	r.Tag = dcl.FlattenString(m["tag"])
+	r.LatestRevision = dcl.FlattenBool(m["latestRevision"])
+	r.Url = dcl.FlattenString(m["url"])
+
+	return r
+}
+
+// expandServiceStatusMap expands the contents of ServiceStatus into a JSON
+// request object.
+func expandServiceStatusMap(c *Client, f map[string]ServiceStatus) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceStatus(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceStatusSlice expands the contents of ServiceStatus into a JSON
+// request object.
+func expandServiceStatusSlice(c *Client, f []ServiceStatus) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceStatus(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceStatusMap flattens the contents of ServiceStatus from a JSON
+// response object.
+func flattenServiceStatusMap(c *Client, i interface{}) map[string]ServiceStatus {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceStatus{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceStatus{}
+	}
+
+	items := make(map[string]ServiceStatus)
+	for k, item := range a {
+		items[k] = *flattenServiceStatus(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceStatusSlice flattens the contents of ServiceStatus from a JSON
+// response object.
+func flattenServiceStatusSlice(c *Client, i interface{}) []ServiceStatus {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceStatus{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceStatus{}
+	}
+
+	items := make([]ServiceStatus, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceStatus(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceStatus expands an instance of ServiceStatus into a JSON
+// request object.
+func expandServiceStatus(c *Client, f *ServiceStatus) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.ObservedGeneration; !dcl.IsEmptyValueIndirect(v) {
+		m["observedGeneration"] = v
+	}
+	if v, err := expandServiceStatusConditionsSlice(c, f.Conditions); err != nil {
+		return nil, fmt.Errorf("error expanding Conditions into conditions: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["conditions"] = v
+	}
+	if v := f.LatestReadyRevisionName; !dcl.IsEmptyValueIndirect(v) {
+		m["latestReadyRevisionName"] = v
+	}
+	if v := f.LatestCreatedRevisionName; !dcl.IsEmptyValueIndirect(v) {
+		m["latestCreatedRevisionName"] = v
+	}
+	if v, err := expandServiceStatusTrafficSlice(c, f.Traffic); err != nil {
+		return nil, fmt.Errorf("error expanding Traffic into traffic: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["traffic"] = v
+	}
+	if v := f.Url; !dcl.IsEmptyValueIndirect(v) {
+		m["url"] = v
+	}
+	if v, err := expandServiceStatusAddress(c, f.Address); err != nil {
+		return nil, fmt.Errorf("error expanding Address into address: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["address"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceStatus flattens an instance of ServiceStatus from a JSON
+// response object.
+func flattenServiceStatus(c *Client, i interface{}) *ServiceStatus {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceStatus{}
+	r.ObservedGeneration = dcl.FlattenInteger(m["observedGeneration"])
+	r.Conditions = flattenServiceStatusConditionsSlice(c, m["conditions"])
+	r.LatestReadyRevisionName = dcl.FlattenString(m["latestReadyRevisionName"])
+	r.LatestCreatedRevisionName = dcl.FlattenString(m["latestCreatedRevisionName"])
+	r.Traffic = flattenServiceStatusTrafficSlice(c, m["traffic"])
+	r.Url = dcl.FlattenString(m["url"])
+	r.Address = flattenServiceStatusAddress(c, m["address"])
+
+	return r
+}
+
+// expandServiceStatusConditionsMap expands the contents of ServiceStatusConditions into a JSON
+// request object.
+func expandServiceStatusConditionsMap(c *Client, f map[string]ServiceStatusConditions) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceStatusConditions(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceStatusConditionsSlice expands the contents of ServiceStatusConditions into a JSON
+// request object.
+func expandServiceStatusConditionsSlice(c *Client, f []ServiceStatusConditions) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceStatusConditions(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceStatusConditionsMap flattens the contents of ServiceStatusConditions from a JSON
+// response object.
+func flattenServiceStatusConditionsMap(c *Client, i interface{}) map[string]ServiceStatusConditions {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceStatusConditions{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceStatusConditions{}
+	}
+
+	items := make(map[string]ServiceStatusConditions)
+	for k, item := range a {
+		items[k] = *flattenServiceStatusConditions(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceStatusConditionsSlice flattens the contents of ServiceStatusConditions from a JSON
+// response object.
+func flattenServiceStatusConditionsSlice(c *Client, i interface{}) []ServiceStatusConditions {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceStatusConditions{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceStatusConditions{}
+	}
+
+	items := make([]ServiceStatusConditions, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceStatusConditions(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceStatusConditions expands an instance of ServiceStatusConditions into a JSON
+// request object.
+func expandServiceStatusConditions(c *Client, f *ServiceStatusConditions) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Status; !dcl.IsEmptyValueIndirect(v) {
+		m["status"] = v
+	}
+	if v := f.Reason; !dcl.IsEmptyValueIndirect(v) {
+		m["reason"] = v
+	}
+	if v := f.Message; !dcl.IsEmptyValueIndirect(v) {
+		m["message"] = v
+	}
+	if v, err := expandServiceStatusConditionsLastTransitionTime(c, f.LastTransitionTime); err != nil {
+		return nil, fmt.Errorf("error expanding LastTransitionTime into lastTransitionTime: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["lastTransitionTime"] = v
+	}
+	if v := f.Severity; !dcl.IsEmptyValueIndirect(v) {
+		m["severity"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceStatusConditions flattens an instance of ServiceStatusConditions from a JSON
+// response object.
+func flattenServiceStatusConditions(c *Client, i interface{}) *ServiceStatusConditions {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceStatusConditions{}
+	r.Type = dcl.FlattenString(m["type"])
+	r.Status = dcl.FlattenString(m["status"])
+	r.Reason = dcl.FlattenString(m["reason"])
+	r.Message = dcl.FlattenString(m["message"])
+	r.LastTransitionTime = flattenServiceStatusConditionsLastTransitionTime(c, m["lastTransitionTime"])
+	r.Severity = dcl.FlattenString(m["severity"])
+
+	return r
+}
+
+// expandServiceStatusConditionsLastTransitionTimeMap expands the contents of ServiceStatusConditionsLastTransitionTime into a JSON
+// request object.
+func expandServiceStatusConditionsLastTransitionTimeMap(c *Client, f map[string]ServiceStatusConditionsLastTransitionTime) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceStatusConditionsLastTransitionTime(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceStatusConditionsLastTransitionTimeSlice expands the contents of ServiceStatusConditionsLastTransitionTime into a JSON
+// request object.
+func expandServiceStatusConditionsLastTransitionTimeSlice(c *Client, f []ServiceStatusConditionsLastTransitionTime) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceStatusConditionsLastTransitionTime(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceStatusConditionsLastTransitionTimeMap flattens the contents of ServiceStatusConditionsLastTransitionTime from a JSON
+// response object.
+func flattenServiceStatusConditionsLastTransitionTimeMap(c *Client, i interface{}) map[string]ServiceStatusConditionsLastTransitionTime {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceStatusConditionsLastTransitionTime{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceStatusConditionsLastTransitionTime{}
+	}
+
+	items := make(map[string]ServiceStatusConditionsLastTransitionTime)
+	for k, item := range a {
+		items[k] = *flattenServiceStatusConditionsLastTransitionTime(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceStatusConditionsLastTransitionTimeSlice flattens the contents of ServiceStatusConditionsLastTransitionTime from a JSON
+// response object.
+func flattenServiceStatusConditionsLastTransitionTimeSlice(c *Client, i interface{}) []ServiceStatusConditionsLastTransitionTime {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceStatusConditionsLastTransitionTime{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceStatusConditionsLastTransitionTime{}
+	}
+
+	items := make([]ServiceStatusConditionsLastTransitionTime, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceStatusConditionsLastTransitionTime(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceStatusConditionsLastTransitionTime expands an instance of ServiceStatusConditionsLastTransitionTime into a JSON
+// request object.
+func expandServiceStatusConditionsLastTransitionTime(c *Client, f *ServiceStatusConditionsLastTransitionTime) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
+		m["seconds"] = v
+	}
+	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
+		m["nanos"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceStatusConditionsLastTransitionTime flattens an instance of ServiceStatusConditionsLastTransitionTime from a JSON
+// response object.
+func flattenServiceStatusConditionsLastTransitionTime(c *Client, i interface{}) *ServiceStatusConditionsLastTransitionTime {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceStatusConditionsLastTransitionTime{}
+	r.Seconds = dcl.FlattenInteger(m["seconds"])
+	r.Nanos = dcl.FlattenInteger(m["nanos"])
+
+	return r
+}
+
+// expandServiceStatusTrafficMap expands the contents of ServiceStatusTraffic into a JSON
+// request object.
+func expandServiceStatusTrafficMap(c *Client, f map[string]ServiceStatusTraffic) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceStatusTraffic(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceStatusTrafficSlice expands the contents of ServiceStatusTraffic into a JSON
+// request object.
+func expandServiceStatusTrafficSlice(c *Client, f []ServiceStatusTraffic) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceStatusTraffic(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceStatusTrafficMap flattens the contents of ServiceStatusTraffic from a JSON
+// response object.
+func flattenServiceStatusTrafficMap(c *Client, i interface{}) map[string]ServiceStatusTraffic {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceStatusTraffic{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceStatusTraffic{}
+	}
+
+	items := make(map[string]ServiceStatusTraffic)
+	for k, item := range a {
+		items[k] = *flattenServiceStatusTraffic(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceStatusTrafficSlice flattens the contents of ServiceStatusTraffic from a JSON
+// response object.
+func flattenServiceStatusTrafficSlice(c *Client, i interface{}) []ServiceStatusTraffic {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceStatusTraffic{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceStatusTraffic{}
+	}
+
+	items := make([]ServiceStatusTraffic, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceStatusTraffic(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceStatusTraffic expands an instance of ServiceStatusTraffic into a JSON
+// request object.
+func expandServiceStatusTraffic(c *Client, f *ServiceStatusTraffic) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.ConfigurationName; !dcl.IsEmptyValueIndirect(v) {
+		m["configurationName"] = v
+	}
+	if v := f.RevisionName; !dcl.IsEmptyValueIndirect(v) {
+		m["revisionName"] = v
+	}
+	if v := f.Percent; !dcl.IsEmptyValueIndirect(v) {
+		m["percent"] = v
+	}
+	if v := f.Tag; !dcl.IsEmptyValueIndirect(v) {
+		m["tag"] = v
+	}
+	if v := f.LatestRevision; !dcl.IsEmptyValueIndirect(v) {
+		m["latestRevision"] = v
+	}
+	if v := f.Url; !dcl.IsEmptyValueIndirect(v) {
+		m["url"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceStatusTraffic flattens an instance of ServiceStatusTraffic from a JSON
+// response object.
+func flattenServiceStatusTraffic(c *Client, i interface{}) *ServiceStatusTraffic {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceStatusTraffic{}
+	r.ConfigurationName = dcl.FlattenString(m["configurationName"])
+	r.RevisionName = dcl.FlattenString(m["revisionName"])
+	r.Percent = dcl.FlattenInteger(m["percent"])
+	r.Tag = dcl.FlattenString(m["tag"])
+	r.LatestRevision = dcl.FlattenBool(m["latestRevision"])
+	r.Url = dcl.FlattenString(m["url"])
+
+	return r
+}
+
+// expandServiceStatusAddressMap expands the contents of ServiceStatusAddress into a JSON
+// request object.
+func expandServiceStatusAddressMap(c *Client, f map[string]ServiceStatusAddress) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandServiceStatusAddress(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandServiceStatusAddressSlice expands the contents of ServiceStatusAddress into a JSON
+// request object.
+func expandServiceStatusAddressSlice(c *Client, f []ServiceStatusAddress) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandServiceStatusAddress(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenServiceStatusAddressMap flattens the contents of ServiceStatusAddress from a JSON
+// response object.
+func flattenServiceStatusAddressMap(c *Client, i interface{}) map[string]ServiceStatusAddress {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceStatusAddress{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceStatusAddress{}
+	}
+
+	items := make(map[string]ServiceStatusAddress)
+	for k, item := range a {
+		items[k] = *flattenServiceStatusAddress(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenServiceStatusAddressSlice flattens the contents of ServiceStatusAddress from a JSON
+// response object.
+func flattenServiceStatusAddressSlice(c *Client, i interface{}) []ServiceStatusAddress {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ServiceStatusAddress{}
+	}
+
+	if len(a) == 0 {
+		return []ServiceStatusAddress{}
+	}
+
+	items := make([]ServiceStatusAddress, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenServiceStatusAddress(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandServiceStatusAddress expands an instance of ServiceStatusAddress into a JSON
+// request object.
+func expandServiceStatusAddress(c *Client, f *ServiceStatusAddress) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Url; !dcl.IsEmptyValueIndirect(v) {
+		m["url"] = v
+	}
+
+	return m, nil
+}
+
+// flattenServiceStatusAddress flattens an instance of ServiceStatusAddress from a JSON
+// response object.
+func flattenServiceStatusAddress(c *Client, i interface{}) *ServiceStatusAddress {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ServiceStatusAddress{}
+	r.Url = dcl.FlattenString(m["url"])
+
+	return r
+}
+
+// This function returns a matcher that checks whether a serialized resource matches this resource
+// in its parameters (as defined by the fields in a Get, which definitionally define resource
+// identity).  This is useful in extracting the element from a List call.
+func (r *Service) matcher(c *Client) func([]byte) bool {
+	return func(b []byte) bool {
+		cr, err := unmarshalService(b, c)
+		if err != nil {
+			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
+			return false
+		}
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
+		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
+
+		if nr.Project == nil && ncr.Project == nil {
+			c.Config.Logger.Info("Both Project fields null - considering equal.")
+		} else if nr.Project == nil || ncr.Project == nil {
+			c.Config.Logger.Info("Only one Project field is null - considering unequal.")
+			return false
+		} else if *nr.Project != *ncr.Project {
+			return false
+		}
+		if nr.Location == nil && ncr.Location == nil {
+			c.Config.Logger.Info("Both Location fields null - considering equal.")
+		} else if nr.Location == nil || ncr.Location == nil {
+			c.Config.Logger.Info("Only one Location field is null - considering unequal.")
+			return false
+		} else if *nr.Location != *ncr.Location {
+			return false
+		}
+		if nr.Name == nil && ncr.Name == nil {
+			c.Config.Logger.Info("Both Name fields null - considering equal.")
+		} else if nr.Name == nil || ncr.Name == nil {
+			c.Config.Logger.Info("Only one Name field is null - considering unequal.")
+			return false
+		} else if *nr.Name != *ncr.Name {
+			return false
+		}
+		return true
+	}
+}

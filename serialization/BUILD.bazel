@@ -1,0 +1,23 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "kcc_yaml.go",
+        "serialization.go",
+    ],
+    importpath = "github.com/GoogleCloudPlatform/declarative-resource-client-library/serialization",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//dcl:go_default_library",
+        "//services/google/accesscontextmanager:go_default_library",
+        "//services/google/compute:go_default_library",
+        "//services/google/dns:go_default_library",
+        "//services/google/pubsub:go_default_library",
+        "//services/google/redis:go_default_library",
+        "//services/google/storage:go_default_library",
+        "@com_github_hashicorp_hcl//hcl/fmtcmd:go_default_library",
+        "@com_github_hashicorp_terraform_json//:go_default_library",
+        "@in_gopkg_yaml_v2//:go_default_library",
+    ],
+)

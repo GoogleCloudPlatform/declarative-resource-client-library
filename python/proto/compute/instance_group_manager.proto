@@ -1,0 +1,150 @@
+// Copyright 2021 Google LLC. All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+syntax = "proto3";
+
+package dcl;
+
+import "proto/connector/sdk.proto";
+import "proto/empty.proto";
+
+enum ComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum {
+  ComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumPROACTIVE = 1;
+  ComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumNONE = 2;
+}
+
+enum ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnum {
+  ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnumRESTART = 1;
+  ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnumREPLACE = 2;
+}
+
+message ComputeInstanceGroupManager {
+  string base_instance_name = 1;
+  string creation_timestamp = 2;
+  ComputeInstanceGroupManagerDistributionPolicy distribution_policy = 3;
+  ComputeInstanceGroupManagerCurrentActions current_actions = 4;
+  string description = 5;
+  repeated ComputeInstanceGroupManagerVersions versions = 6;
+  int64 id = 7;
+  string instance_group = 8;
+  string instance_template = 9;
+  string name = 10;
+  repeated ComputeInstanceGroupManagerNamedPorts named_ports = 11;
+  ComputeInstanceGroupManagerStatus status = 12;
+  repeated string target_pools = 13;
+  repeated ComputeInstanceGroupManagerAutohealingPolicies autohealing_policies = 14;
+  ComputeInstanceGroupManagerUpdatePolicy update_policy = 15;
+  int64 target_size = 16;
+  string zone = 17;
+  string region = 18;
+  string project = 19;
+  string location = 20;
+}
+
+message ComputeInstanceGroupManagerDistributionPolicy {
+  repeated ComputeInstanceGroupManagerDistributionPolicyZones zones = 1;
+}
+
+message ComputeInstanceGroupManagerDistributionPolicyZones {
+  string zone = 1;
+}
+
+message ComputeInstanceGroupManagerCurrentActions {
+  int64 abandoning = 1;
+  int64 creating = 2;
+  int64 creating_without_retries = 3;
+  int64 deleting = 4;
+  int64 none = 5;
+  int64 recreating = 6;
+  int64 refreshing = 7;
+  int64 restarting = 8;
+}
+
+message ComputeInstanceGroupManagerVersions {
+  string name = 1;
+  string instance_template = 2;
+  ComputeInstanceGroupManagerVersionsTargetSize target_size = 3;
+}
+
+message ComputeInstanceGroupManagerVersionsTargetSize {
+  int64 fixed = 1;
+  int64 percent = 2;
+  int64 calculated = 3;
+}
+
+message ComputeInstanceGroupManagerNamedPorts {
+  string name = 1;
+  int64 port = 2;
+}
+
+message ComputeInstanceGroupManagerStatus {
+  bool is_stable = 1;
+  ComputeInstanceGroupManagerStatusVersionTarget version_target = 2;
+  string autoscalar = 3;
+}
+
+message ComputeInstanceGroupManagerStatusVersionTarget {
+  bool is_reached = 1;
+}
+
+message ComputeInstanceGroupManagerAutohealingPolicies {
+  string health_check = 1;
+  int64 initial_delay_sec = 2;
+}
+
+message ComputeInstanceGroupManagerUpdatePolicy {
+  ComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum instance_redistribution_type = 1;
+  ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnum minimal_action = 2;
+  ComputeInstanceGroupManagerUpdatePolicyMaxSurge max_surge = 3;
+}
+
+message ComputeInstanceGroupManagerUpdatePolicyMaxSurge {
+  int64 fixed = 1;
+  int64 percent = 2;
+  int64 calculated = 3;
+  ComputeInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable max_unavailable = 4;
+}
+
+message ComputeInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable {
+  int64 fixed = 1;
+  int64 percent = 2;
+  int64 calculated = 3;
+}
+
+message ApplyComputeInstanceGroupManagerRequest {
+  ComputeInstanceGroupManager resource = 1;
+  repeated LifecycleDirective lifecycle_directives = 2;
+  string service_account_file = 3;
+}
+
+message DeleteComputeInstanceGroupManagerRequest {
+  string service_account_file = 1;
+  ComputeInstanceGroupManager resource = 2;
+}
+
+message ListComputeInstanceGroupManagerRequest {
+  string service_account_file = 1;
+  string Project = 2;
+  string Location = 3;
+}
+
+message ListComputeInstanceGroupManagerResponse {
+  repeated ComputeInstanceGroupManager items = 1;
+}
+service ComputeInstanceGroupManagerService {
+  rpc ApplyComputeInstanceGroupManager(ApplyComputeInstanceGroupManagerRequest) returns (ComputeInstanceGroupManager);
+  rpc DeleteComputeInstanceGroupManager(DeleteComputeInstanceGroupManagerRequest) returns (google.protobuf.Empty);
+  rpc ListComputeInstanceGroupManager(ListComputeInstanceGroupManagerRequest) returns (ListComputeInstanceGroupManagerResponse);
+}

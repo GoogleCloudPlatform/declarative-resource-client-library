@@ -1,0 +1,390 @@
+# Copyright 2021 Google LLC. All Rights Reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+components:
+  schemas:
+    Router:
+      properties:
+        bgp:
+          description: 'BGP information specific to this router. '
+          properties:
+            advertiseMode:
+              description: 'User-specified flag to indicate which mode to use for
+                advertisement.  Valid values of this enum field are: DEFAULT, CUSTOM '
+              enum:
+              - DEFAULT
+              - CUSTOM
+              type: string
+              x-dcl-go-name: AdvertiseMode
+              x-dcl-go-type: RouterBgpAdvertiseModeEnum
+            advertisedGroups:
+              description: 'User-specified list of prefix groups to advertise in custom
+                mode. This field can only be populated if advertiseMode is CUSTOM
+                and is advertised to all peers of the router. These groups will be
+                advertised in addition to any specified prefixes. Leave this field
+                blank to advertise no custom groups.  This enum field has the one
+                valid value: ALL_SUBNETS '
+              items:
+                type: string
+                x-dcl-go-type: string
+              type: array
+              x-dcl-go-name: AdvertisedGroups
+              x-dcl-list-type: list
+            advertisedIPRanges:
+              description: 'User-specified list of individual IP ranges to advertise
+                in custom mode. This field can only be populated if advertiseMode
+                is CUSTOM and is advertised to all peers of the router. These IP ranges
+                will be advertised in addition to any specified groups. Leave this
+                field blank to advertise no custom IP ranges. '
+              items:
+                properties:
+                  description:
+                    description: 'User-specified description for the IP range. '
+                    type: string
+                    x-dcl-go-name: Description
+                  range:
+                    description: 'The IP range to advertise. The value must be a CIDR-formatted
+                      string. '
+                    type: string
+                    x-dcl-go-name: Range
+                type: object
+                x-dcl-go-type: RouterBgpAdvertisedIPRanges
+              type: array
+              x-dcl-go-name: AdvertisedIPRanges
+              x-dcl-list-type: list
+            asn:
+              description: 'Local BGP Autonomous System Number (ASN). Must be an RFC6996
+                private ASN, either 16-bit or 32-bit. The value will be fixed for
+                this router resource. All VPN tunnels that link to this router will
+                have the same local ASN. '
+              format: int64
+              type: integer
+              x-dcl-go-name: Asn
+          type: object
+          x-dcl-go-name: Bgp
+          x-dcl-go-type: RouterBgp
+        bgpPeers:
+          description: BGP information that must be configured into the routing stack
+            to establish BGP peering. This information must specify the peer ASN and
+            either the interface name, IP address, or peer IP address
+          items:
+            properties:
+              advertiseMode:
+                description: User-specified flag to indicate which mode to use for
+                  advertisement.
+                type: string
+                x-dcl-go-name: AdvertiseMode
+              advertisedGroups:
+                description: User-specified list of prefix groups to advertise in
+                  custom mode
+                items:
+                  type: string
+                  x-dcl-go-type: RouterBgpPeersAdvertisedGroupsEnum
+                type: array
+                x-dcl-go-name: AdvertisedGroups
+                x-dcl-list-type: list
+              advertisedIPRanges:
+                description: User-specified list of individual IP ranges to advertise
+                  in custom mode. This field can only be populated if advertiseMode
+                  is CUSTOM
+                items:
+                  properties:
+                    description:
+                      description: User-specified description for the IP range.
+                      type: string
+                      x-dcl-go-name: Description
+                    range:
+                      description: The IP range to advertise. The value must be a
+                        CIDR-formatted string.
+                      type: string
+                      x-dcl-go-name: Range
+                  type: object
+                  x-dcl-go-type: RouterBgpPeersAdvertisedIPRanges
+                type: array
+                x-dcl-go-name: AdvertisedIPRanges
+                x-dcl-list-type: list
+              advertisedRoutePriority:
+                description: The priority of routes advertised to this BGP peer. Where
+                  there is more than one matching route of maximum length, the routes
+                  with the lowest priority value win.
+                format: int64
+                type: integer
+                x-dcl-go-name: AdvertisedRoutePriority
+              interfaceName:
+                description: Name of the interface the BGP peer is associated with.
+                type: string
+                x-dcl-go-name: InterfaceName
+              ipAddress:
+                description: IP address of the interface inside Google Cloud Platform.
+                  Only IPv4 is supported.
+                type: string
+                x-dcl-go-name: IPAddress
+              managementType:
+                description: The resource that configures and manages this BGP peer
+                readOnly: true
+                type: string
+                x-dcl-go-name: ManagementType
+                x-kubernetes-immutable: true
+              name:
+                description: Name of this BGP peer
+                type: string
+                x-dcl-go-name: Name
+              peerAsn:
+                description: Peer BGP Autonomous System Number (ASN). Each BGP interface
+                  may use a different value.
+                format: int64
+                type: integer
+                x-dcl-go-name: PeerAsn
+              peerIPAddress:
+                description: IP address of the BGP interface outside Google Cloud
+                  Platform. Only IPv4 is supported.
+                type: string
+                x-dcl-go-name: PeerIPAddress
+            type: object
+            x-dcl-go-type: RouterBgpPeers
+          type: array
+          x-dcl-go-name: BgpPeers
+          x-dcl-list-type: list
+        creationTimestamp:
+          description: Creation timestamp in RFC3339 text format.
+          format: date-time
+          readOnly: true
+          type: string
+          x-dcl-go-name: CreationTimestamp
+          x-kubernetes-immutable: true
+        description:
+          description: 'An optional description of this resource. '
+          type: string
+          x-dcl-go-name: Description
+        interfaces:
+          description: Router interfaces. Each interface requires either one linked
+            resource, (for example, linkedVpnTunnel), or IP address and IP address
+            range (for example, ipRange), or both.
+          items:
+            properties:
+              ipRange:
+                description: IP address and range of the interface.
+                type: string
+                x-dcl-go-name: IPRange
+              linkedVpnTunnel:
+                description: URI of the linked VPN tunnel, which must be in the same
+                  region as the router.
+                type: string
+                x-dcl-go-name: LinkedVpnTunnel
+                x-dcl-references:
+                - field: selfLink
+                  resource: Compute/VpnTunnel
+              managementType:
+                description: The resource that configures and manages this interface.
+                enum:
+                - MANAGED_BY_USER
+                - MANAGED_BY_ATTACHMENT
+                readOnly: true
+                type: string
+                x-dcl-go-name: ManagementType
+                x-dcl-go-type: RouterInterfacesManagementTypeEnum
+                x-kubernetes-immutable: true
+              name:
+                description: Name of this interface entry.
+                type: string
+                x-dcl-go-name: Name
+                x-kubernetes-immutable: true
+            type: object
+            x-dcl-go-type: RouterInterfaces
+          type: array
+          x-dcl-go-name: Interfaces
+          x-dcl-list-type: list
+        name:
+          description: 'Name of the resource. The name must be 1-63 characters long,
+            and comply with RFC1035. Specifically, the name must be 1-63 characters
+            long and match the regular expression `[a-z]([-a-z0-9]*[a-z0-9])?` which
+            means the first character must be a lowercase letter, and all following
+            characters must be a dash, lowercase letter, or digit, except the last
+            character, which cannot be a dash. '
+          type: string
+          x-dcl-go-name: Name
+        nats:
+          description: A list of NAT services created in this router.
+          items:
+            properties:
+              drainNatIps:
+                description: A list of URLs of the IP resources to be drained. These
+                  IPs must be valid static external IPs that have been assigned to
+                  the NAT. These IPs should be used for updating/patching a NAT only.
+                items:
+                  type: string
+                  x-dcl-go-type: string
+                type: array
+                x-dcl-go-name: DrainNatIps
+                x-dcl-list-type: list
+              icmpIdleTimeoutSec:
+                description: Timeout (in seconds) for ICMP connections. Defaults to
+                  30s if not set.
+                format: int64
+                type: integer
+                x-dcl-go-name: IcmpIdleTimeoutSec
+              logConfig:
+                description: Configure logging on this NAT.
+                properties:
+                  enable:
+                    description: Indicates whether or not to export logs. This is
+                      false by default.
+                    type: boolean
+                    x-dcl-go-name: Enable
+                  filter:
+                    description: Specify the desired filtering of logs on this NAT.
+                      If unspecified, logs are exported for all connections handled
+                      by this NAT.
+                    enum:
+                    - ERRORS_ONLY
+                    - TRANSLATIONS_ONLY
+                    - ALL
+                    type: string
+                    x-dcl-go-name: Filter
+                    x-dcl-go-type: RouterNatsLogConfigFilterEnum
+                type: object
+                x-dcl-go-name: LogConfig
+                x-dcl-go-type: RouterNatsLogConfig
+              minPortsPerVm:
+                description: Minimum number of ports allocated to a VM from this NAT
+                  config. If not set, a default number of ports is allocated to a
+                  VM. This is rounded up to the nearest power of 2. For example, if
+                  the value of this field is 50, at least 64 ports are allocated to
+                  a VM.
+                format: int64
+                type: integer
+                x-dcl-go-name: MinPortsPerVm
+              name:
+                description: Unique name of this Nat service
+                type: string
+                x-dcl-go-name: Name
+              natIPAllocateOption:
+                description: The NAT IP Allocate Option
+                items:
+                  type: string
+                  x-dcl-go-type: RouterNatsNatIPAllocateOptionEnum
+                type: array
+                x-dcl-go-name: NatIPAllocateOption
+                x-dcl-list-type: list
+              natIps:
+                description: A list of URLs of the IP resources used for this Nat
+                  service. These IP addresses must be valid static external IP addresses
+                  assigned to the project.
+                items:
+                  type: string
+                  x-dcl-go-type: string
+                type: array
+                x-dcl-go-name: NatIps
+                x-dcl-list-type: list
+              sourceSubnetworkIPRangesToNat:
+                description: Unique name of this Nat service
+                enum:
+                - ALL_SUBNETWORKS_ALL_IP_RANGES
+                - ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES
+                - LIST_OF_SUBNETWORKS
+                type: string
+                x-dcl-go-name: SourceSubnetworkIPRangesToNat
+                x-dcl-go-type: RouterNatsSourceSubnetworkIPRangesToNatEnum
+              subnetworks:
+                description: A list of Subnetwork resources whose traffic should be
+                  translated by NAT Gateway. It is used only when LIST_OF_SUBNETWORKS
+                  is selected for the SubnetworkIpRangeToNatOption above.
+                items:
+                  properties:
+                    name:
+                      description: URL for the subnetwork resource that will use NAT.
+                      type: string
+                      x-dcl-go-name: Name
+                    secondaryIPRangeNames:
+                      description: A list of the secondary ranges of the Subnetwork
+                        that are allowed to use NAT.
+                      type: string
+                      x-dcl-go-name: SecondaryIPRangeNames
+                    sourceIPRangesToNat:
+                      description: Specify the options for NAT ranges in the Subnetwork.
+                      type: string
+                      x-dcl-go-name: SourceIPRangesToNat
+                  type: object
+                  x-dcl-go-type: RouterNatsSubnetworks
+                type: array
+                x-dcl-go-name: Subnetworks
+                x-dcl-list-type: list
+              tcpEstablishedIdleTimeoutSec:
+                description: Timeout (in seconds) for TCP established connections.
+                  Defaults to 1200s if not set.
+                format: int64
+                type: integer
+                x-dcl-go-name: TcpEstablishedIdleTimeoutSec
+              tcpTransitoryIdleTimeoutSec:
+                description: Timeout (in seconds) for TCP transitory connections.
+                  Defaults to 30s if not set.
+                format: int64
+                type: integer
+                x-dcl-go-name: TcpTransitoryIdleTimeoutSec
+              udpIdleTimeoutSec:
+                description: Timeout (in seconds) for UDP connections. Defaults to
+                  30s if not set.
+                format: int64
+                type: integer
+                x-dcl-go-name: UdpIdleTimeoutSec
+            type: object
+            x-dcl-go-type: RouterNats
+          type: array
+          x-dcl-go-name: Nats
+          x-dcl-list-type: list
+        network:
+          description: URI of the network to which this router belongs.
+          type: string
+          x-dcl-go-name: Network
+          x-dcl-references:
+          - field: selfLink
+            resource: Compute/Network
+          x-kubernetes-immutable: true
+        project:
+          description: The project id of the resource.
+          type: string
+          x-dcl-go-name: Project
+          x-kubernetes-immutable: true
+        region:
+          description: Region where the router resides.
+          type: string
+          x-dcl-go-name: Region
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Compute/Region
+        selfLink:
+          description: The self link of the router
+          readOnly: true
+          type: string
+          x-dcl-go-name: SelfLink
+          x-kubernetes-immutable: true
+      title: Router
+      type: object
+      x-dcl-id: projects/{{project}}/regions/{{region}}/routers/{{name}}
+      x-dcl-locations:
+      - region
+      x-dcl-parent-container: project
+      x-dcl-uses-state-hint: false
+info:
+  description: DCL Specification for the Compute Router resource
+  title: Compute/Router
+  x-dcl-has-iam: false
+paths:
+  list:
+    description: The function called used to list information about many Router
+    parameters:
+    - name: project
+      required: true
+    - name: region
+      required: true

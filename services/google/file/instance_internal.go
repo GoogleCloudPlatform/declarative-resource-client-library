@@ -1,0 +1,2060 @@
+// Copyright 2021 Google LLC. All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+package file
+
+import (
+	"bytes"
+	"context"
+	"encoding/json"
+	"fmt"
+	"github.com/mohae/deepcopy"
+	"io/ioutil"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
+	"reflect"
+	"strings"
+)
+
+func (r *Instance) validate() error {
+
+	if err := dcl.RequiredParameter(r.Name, "Name"); err != nil {
+		return err
+	}
+	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
+		return err
+	}
+	if err := dcl.RequiredParameter(r.Location, "Location"); err != nil {
+		return err
+	}
+	return nil
+}
+func (r *InstanceLabels) validate() error {
+	return nil
+}
+func (r *InstanceFileShares) validate() error {
+	return nil
+}
+func (r *InstanceFileSharesNfsExportOptions) validate() error {
+	return nil
+}
+func (r *InstanceNetworks) validate() error {
+	return nil
+}
+
+func instanceGetURL(userBasePath string, r *Instance) (string, error) {
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(r.Project),
+		"location": dcl.ValueOrEmptyString(r.Location),
+		"name":     dcl.ValueOrEmptyString(r.Name),
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/instances/{{name}}", "https://file.googleapis.com/v1/", userBasePath, params), nil
+}
+
+func instanceListURL(userBasePath, project, location string) (string, error) {
+	params := map[string]interface{}{
+		"project":  project,
+		"location": location,
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/instances", "https://file.googleapis.com/v1/", userBasePath, params), nil
+
+}
+
+func instanceCreateURL(userBasePath, project, location, name string) (string, error) {
+	params := map[string]interface{}{
+		"project":  project,
+		"location": location,
+		"name":     name,
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/instances?instanceId={{name}}", "https://file.googleapis.com/v1/", userBasePath, params), nil
+
+}
+
+func instanceDeleteURL(userBasePath string, r *Instance) (string, error) {
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(r.Project),
+		"location": dcl.ValueOrEmptyString(r.Location),
+		"name":     dcl.ValueOrEmptyString(r.Name),
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/instances/{{name}}", "https://file.googleapis.com/v1/", userBasePath, params), nil
+}
+
+// instanceApiOperation represents a mutable operation in the underlying REST
+// API such as Create, Update, or Delete.
+type instanceApiOperation interface {
+	do(context.Context, *Instance, *Client) error
+}
+
+// newUpdateInstanceUpdateInstanceRequest creates a request for an
+// Instance resource's UpdateInstance update type by filling in the update
+// fields based on the intended state of the resource.
+func newUpdateInstanceUpdateInstanceRequest(ctx context.Context, f *Instance, c *Client) (map[string]interface{}, error) {
+	req := map[string]interface{}{}
+
+	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+		req["description"] = v
+	}
+	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
+		req["state"] = v
+	}
+	if v := f.StatusMessage; !dcl.IsEmptyValueIndirect(v) {
+		req["statusMessage"] = v
+	}
+	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
+		req["createTime"] = v
+	}
+	if v := f.Tier; !dcl.IsEmptyValueIndirect(v) {
+		req["tier"] = v
+	}
+	if v, err := expandInstanceLabelsSlice(c, f.Labels); err != nil {
+		return nil, fmt.Errorf("error expanding Labels into labels: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["labels"] = v
+	}
+	if v, err := expandInstanceFileSharesSlice(c, f.FileShares); err != nil {
+		return nil, fmt.Errorf("error expanding FileShares into fileShares: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["fileShares"] = v
+	}
+	if v, err := expandInstanceNetworksSlice(c, f.Networks); err != nil {
+		return nil, fmt.Errorf("error expanding Networks into networks: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["networks"] = v
+	}
+	if v := f.Etag; !dcl.IsEmptyValueIndirect(v) {
+		req["etag"] = v
+	}
+	return req, nil
+}
+
+// marshalUpdateInstanceUpdateInstanceRequest converts the update into
+// the final JSON request body.
+func marshalUpdateInstanceUpdateInstanceRequest(c *Client, m map[string]interface{}) ([]byte, error) {
+
+	return json.Marshal(m)
+}
+
+type updateInstanceUpdateInstanceOperation struct {
+	// If the update operation has the REQUIRES_APPLY_OPTIONS trait, this will be populated.
+	// Usually it will be nil - this is to prevent us from accidentally depending on apply
+	// options, which should usually be unnecessary.
+	ApplyOptions []dcl.ApplyOption
+}
+
+// do creates a request and sends it to the appropriate URL. In most operations,
+// do will transcribe a subset of the resource into a request object and send a
+// PUT request to a single URL.
+
+func (op *updateInstanceUpdateInstanceOperation) do(ctx context.Context, r *Instance, c *Client) error {
+	_, err := c.GetInstance(ctx, r.urlNormalized())
+	if err != nil {
+		return err
+	}
+
+	u, err := r.updateURL(c.Config.BasePath, "UpdateInstance")
+	if err != nil {
+		return err
+	}
+
+	req, err := newUpdateInstanceUpdateInstanceRequest(ctx, r, c)
+	if err != nil {
+		return err
+	}
+
+	c.Config.Logger.Infof("Created update: %#v", req)
+	body, err := marshalUpdateInstanceUpdateInstanceRequest(c, req)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	if err != nil {
+		return err
+	}
+
+	var o operations.StandardGCPOperation
+	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+		return err
+	}
+	err = o.Wait(ctx, c.Config, "https://file.googleapis.com/v1/", "GET")
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (c *Client) listInstanceRaw(ctx context.Context, project, location, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := instanceListURL(c.Config.BasePath, project, location)
+	if err != nil {
+		return nil, err
+	}
+
+	m := make(map[string]string)
+	if pageToken != "" {
+		m["pageToken"] = pageToken
+	}
+
+	if pageSize != InstanceMaxPage {
+		m["pageSize"] = fmt.Sprintf("%v", pageSize)
+	}
+
+	u, err = dcl.AddQueryParams(u, m)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Response.Body.Close()
+	return ioutil.ReadAll(resp.Response.Body)
+}
+
+type listInstanceOperation struct {
+	Instances []map[string]interface{} `json:"instances"`
+	Token     string                   `json:"nextPageToken"`
+}
+
+func (c *Client) listInstance(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*Instance, string, error) {
+	b, err := c.listInstanceRaw(ctx, project, location, pageToken, pageSize)
+	if err != nil {
+		return nil, "", err
+	}
+
+	var m listInstanceOperation
+	if err := json.Unmarshal(b, &m); err != nil {
+		return nil, "", err
+	}
+
+	var l []*Instance
+	for _, v := range m.Instances {
+		res := flattenInstance(c, v)
+		res.Project = &project
+		res.Location = &location
+		l = append(l, res)
+	}
+
+	return l, m.Token, nil
+}
+
+func (c *Client) deleteAllInstance(ctx context.Context, f func(*Instance) bool, resources []*Instance) error {
+	var errors []string
+	for _, res := range resources {
+		if f(res) {
+			// We do not want deleteAll to fail on a deletion or else it will stop deleting other resources.
+			err := c.DeleteInstance(ctx, res)
+			if err != nil {
+				errors = append(errors, err.Error())
+			}
+		}
+	}
+	if len(errors) > 0 {
+		return fmt.Errorf("%v", strings.Join(errors, "\n"))
+	} else {
+		return nil
+	}
+}
+
+type deleteInstanceOperation struct{}
+
+func (op *deleteInstanceOperation) do(ctx context.Context, r *Instance, c *Client) error {
+
+	_, err := c.GetInstance(ctx, r.urlNormalized())
+
+	if err != nil {
+		if dcl.IsNotFound(err) {
+			c.Config.Logger.Infof("Instance not found, returning. Original error: %v", err)
+			return nil
+		}
+		c.Config.Logger.Warningf("GetInstance checking for existence. error: %v", err)
+		return err
+	}
+
+	u, err := instanceDeleteURL(c.Config.BasePath, r.urlNormalized())
+	if err != nil {
+		return err
+	}
+
+	// Delete should never have a body
+	body := &bytes.Buffer{}
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	if err != nil {
+		return err
+	}
+
+	// wait for object to be deleted.
+	var o operations.StandardGCPOperation
+	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+		return err
+	}
+	if err := o.Wait(ctx, c.Config, "https://file.googleapis.com/v1/", "GET"); err != nil {
+		return err
+	}
+	_, err = c.GetInstance(ctx, r.urlNormalized())
+	if !dcl.IsNotFound(err) {
+		return dcl.NotDeletedError{ExistingResource: r}
+	}
+	return nil
+}
+
+// Create operations are similar to Update operations, although they do not have
+// specific request objects. The Create request object is the json encoding of
+// the resource, which is modified by res.marshal to form the base request body.
+type createInstanceOperation struct{}
+
+func (op *createInstanceOperation) do(ctx context.Context, r *Instance, c *Client) error {
+	c.Config.Logger.Infof("Attempting to create %v", r)
+
+	project, location, name := r.createFields()
+	u, err := instanceCreateURL(c.Config.BasePath, project, location, name)
+
+	if err != nil {
+		return err
+	}
+
+	req, err := r.marshal(c)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	if err != nil {
+		return err
+	}
+	// wait for object to be created.
+	var o operations.StandardGCPOperation
+	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+		return err
+	}
+	if err := o.Wait(ctx, c.Config, "https://file.googleapis.com/v1/", "GET"); err != nil {
+		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
+		return err
+	}
+	c.Config.Logger.Infof("Successfully waited for operation")
+
+	if _, err := c.GetInstance(ctx, r.urlNormalized()); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (c *Client) getInstanceRaw(ctx context.Context, r *Instance) ([]byte, error) {
+
+	u, err := instanceGetURL(c.Config.BasePath, r.urlNormalized())
+	if err != nil {
+		return nil, err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Response.Body.Close()
+	b, err := ioutil.ReadAll(resp.Response.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	return b, nil
+}
+
+func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Instance, opts ...dcl.ApplyOption) (initial, desired *Instance, diffs []instanceDiff, err error) {
+	c.Config.Logger.Info("Fetching initial state...")
+	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
+	var fetchState *Instance
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		if r, ok := sh.(*Instance); !ok {
+			c.Config.Logger.Warningf("Initial state hint was of the wrong type; expected Instance, got %T", sh)
+		} else {
+			fetchState = r
+		}
+	}
+	if fetchState == nil {
+		fetchState = rawDesired
+	}
+
+	// 1.2: Retrieval of raw initial state from API
+	rawInitial, err := c.GetInstance(ctx, fetchState.urlNormalized())
+	if rawInitial == nil {
+		if !dcl.IsNotFound(err) {
+			c.Config.Logger.Warningf("Failed to retrieve whether a Instance resource already exists: %s", err)
+			return nil, nil, nil, fmt.Errorf("failed to retrieve Instance resource: %v", err)
+		}
+
+		c.Config.Logger.Info("Found that Instance resource did not exist.")
+		// Perform canonicalization to pick up defaults.
+		desired, err = canonicalizeInstanceDesiredState(rawDesired, rawInitial)
+		return nil, desired, nil, err
+	}
+	c.Config.Logger.Infof("Found initial state for Instance: %v", rawInitial)
+	c.Config.Logger.Infof("Initial desired state for Instance: %v", rawDesired)
+
+	// 1.3: Canonicalize raw initial state into initial state.
+	initial, err = canonicalizeInstanceInitialState(rawInitial, rawDesired)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+	c.Config.Logger.Infof("Canonicalized initial state for Instance: %v", initial)
+
+	// 1.4: Canonicalize raw desired state into desired state.
+	desired, err = canonicalizeInstanceDesiredState(rawDesired, rawInitial, opts...)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+	c.Config.Logger.Infof("Canonicalized desired state for Instance: %v", desired)
+
+	// 2.1: Comparison of initial and desired state.
+	diffs, err = diffInstance(c, desired, initial, opts...)
+	return initial, desired, diffs, err
+}
+
+func canonicalizeInstanceInitialState(rawInitial, rawDesired *Instance) (*Instance, error) {
+	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
+	return rawInitial, nil
+}
+
+/*
+* Canonicalizers
+*
+* These are responsible for converting either a user-specified config or a
+* GCP API response to a standard format that can be used for difference checking.
+* */
+
+func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...dcl.ApplyOption) (*Instance, error) {
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		if r, ok := sh.(*Instance); !ok {
+			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Instance, got %T", sh)
+		} else {
+			_ = r
+		}
+	}
+
+	if rawInitial == nil {
+		// Since the initial state is empty, the desired state is all we have.
+		// We canonicalize the remaining nested objects with nil to pick up defaults.
+
+		return rawDesired, nil
+	}
+	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
+		rawDesired.Name = rawInitial.Name
+	}
+	if dcl.IsZeroValue(rawDesired.Description) {
+		rawDesired.Description = rawInitial.Description
+	}
+	if dcl.IsZeroValue(rawDesired.State) {
+		rawDesired.State = rawInitial.State
+	}
+	if dcl.IsZeroValue(rawDesired.StatusMessage) {
+		rawDesired.StatusMessage = rawInitial.StatusMessage
+	}
+	if dcl.IsZeroValue(rawDesired.CreateTime) {
+		rawDesired.CreateTime = rawInitial.CreateTime
+	}
+	if dcl.IsZeroValue(rawDesired.Tier) {
+		rawDesired.Tier = rawInitial.Tier
+	}
+	if dcl.IsZeroValue(rawDesired.Labels) {
+		rawDesired.Labels = rawInitial.Labels
+	}
+	if dcl.IsZeroValue(rawDesired.FileShares) {
+		rawDesired.FileShares = rawInitial.FileShares
+	}
+	if dcl.IsZeroValue(rawDesired.Networks) {
+		rawDesired.Networks = rawInitial.Networks
+	}
+	if dcl.IsZeroValue(rawDesired.Etag) {
+		rawDesired.Etag = rawInitial.Etag
+	}
+	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
+		rawDesired.Project = rawInitial.Project
+	}
+	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
+		rawDesired.Location = rawInitial.Location
+	}
+
+	return rawDesired, nil
+}
+
+func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Instance, error) {
+
+	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+		rawNew.Name = rawDesired.Name
+	} else {
+		if dcl.NameToSelfLink(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
+		rawNew.Description = rawDesired.Description
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
+		rawNew.State = rawDesired.State
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.StatusMessage) && dcl.IsEmptyValueIndirect(rawDesired.StatusMessage) {
+		rawNew.StatusMessage = rawDesired.StatusMessage
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
+		rawNew.CreateTime = rawDesired.CreateTime
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Tier) && dcl.IsEmptyValueIndirect(rawDesired.Tier) {
+		rawNew.Tier = rawDesired.Tier
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
+		rawNew.Labels = rawDesired.Labels
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.FileShares) && dcl.IsEmptyValueIndirect(rawDesired.FileShares) {
+		rawNew.FileShares = rawDesired.FileShares
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Networks) && dcl.IsEmptyValueIndirect(rawDesired.Networks) {
+		rawNew.Networks = rawDesired.Networks
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
+		rawNew.Etag = rawDesired.Etag
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
+		rawNew.Project = rawDesired.Project
+	} else {
+		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
+			rawNew.Project = rawDesired.Project
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
+		rawNew.Location = rawDesired.Location
+	} else {
+		if dcl.NameToSelfLink(rawDesired.Location, rawNew.Location) {
+			rawNew.Location = rawDesired.Location
+		}
+	}
+
+	return rawNew, nil
+}
+
+func canonicalizeInstanceLabels(des, initial *InstanceLabels, opts ...dcl.ApplyOption) *InstanceLabels {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Instance)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Key) {
+		des.Key = initial.Key
+	}
+	if dcl.IsZeroValue(des.Value) {
+		des.Value = initial.Value
+	}
+
+	return des
+}
+
+func canonicalizeNewInstanceLabels(c *Client, des, nw *InstanceLabels) *InstanceLabels {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceLabelsSet(c *Client, des, nw []InstanceLabels) []InstanceLabels {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceLabels
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareInstanceLabels(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeInstanceFileShares(des, initial *InstanceFileShares, opts ...dcl.ApplyOption) *InstanceFileShares {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Instance)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+	if dcl.IsZeroValue(des.CapacityGb) {
+		des.CapacityGb = initial.CapacityGb
+	}
+	if dcl.NameToSelfLink(des.SourceBackup, initial.SourceBackup) || dcl.IsZeroValue(des.SourceBackup) {
+		des.SourceBackup = initial.SourceBackup
+	}
+	if dcl.IsZeroValue(des.NfsExportOptions) {
+		des.NfsExportOptions = initial.NfsExportOptions
+	}
+
+	return des
+}
+
+func canonicalizeNewInstanceFileShares(c *Client, des, nw *InstanceFileShares) *InstanceFileShares {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	if dcl.NameToSelfLink(des.SourceBackup, nw.SourceBackup) || dcl.IsZeroValue(des.SourceBackup) {
+		nw.SourceBackup = des.SourceBackup
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceFileSharesSet(c *Client, des, nw []InstanceFileShares) []InstanceFileShares {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceFileShares
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareInstanceFileShares(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeInstanceFileSharesNfsExportOptions(des, initial *InstanceFileSharesNfsExportOptions, opts ...dcl.ApplyOption) *InstanceFileSharesNfsExportOptions {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Instance)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.IPRanges) {
+		des.IPRanges = initial.IPRanges
+	}
+	if dcl.IsZeroValue(des.AccessMode) {
+		des.AccessMode = initial.AccessMode
+	}
+	if dcl.IsZeroValue(des.SquashMode) {
+		des.SquashMode = initial.SquashMode
+	}
+	if dcl.IsZeroValue(des.AnonUid) {
+		des.AnonUid = initial.AnonUid
+	}
+	if dcl.IsZeroValue(des.AnonGid) {
+		des.AnonGid = initial.AnonGid
+	}
+
+	return des
+}
+
+func canonicalizeNewInstanceFileSharesNfsExportOptions(c *Client, des, nw *InstanceFileSharesNfsExportOptions) *InstanceFileSharesNfsExportOptions {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceFileSharesNfsExportOptionsSet(c *Client, des, nw []InstanceFileSharesNfsExportOptions) []InstanceFileSharesNfsExportOptions {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceFileSharesNfsExportOptions
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareInstanceFileSharesNfsExportOptions(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeInstanceNetworks(des, initial *InstanceNetworks, opts ...dcl.ApplyOption) *InstanceNetworks {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Instance)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Network) {
+		des.Network = initial.Network
+	}
+	if dcl.IsZeroValue(des.Modes) {
+		des.Modes = initial.Modes
+	}
+	if dcl.IsZeroValue(des.ReservedIPRange) {
+		des.ReservedIPRange = initial.ReservedIPRange
+	}
+	if dcl.IsZeroValue(des.IPAddresses) {
+		des.IPAddresses = initial.IPAddresses
+	}
+
+	return des
+}
+
+func canonicalizeNewInstanceNetworks(c *Client, des, nw *InstanceNetworks) *InstanceNetworks {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceNetworksSet(c *Client, des, nw []InstanceNetworks) []InstanceNetworks {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceNetworks
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareInstanceNetworks(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+type instanceDiff struct {
+	// The diff should include one or the other of RequiresRecreate or UpdateOp.
+	RequiresRecreate bool
+	UpdateOp         instanceApiOperation
+	// This is for reporting only.
+	FieldName string
+}
+
+// The differ returns a list of diffs, along with a list of operations that should be taken
+// to remedy them. Right now, it does not attempt to consolidate operations - if several
+// fields can be fixed with a patch update, it will perform the patch several times.
+// Diffs on some fields will be ignored if the `desired` state has an empty (nil)
+// value. This empty value indicates that the user does not care about the state for
+// the field. Empty fields on the actual object will cause diffs.
+// TODO(magic-modules-eng): for efficiency in some resources, add batching.
+func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption) ([]instanceDiff, error) {
+	if desired == nil || actual == nil {
+		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
+	}
+
+	var diffs []instanceDiff
+	if !dcl.IsZeroValue(desired.Name) && !dcl.NameToSelfLink(desired.Name, actual.Name) {
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		diffs = append(diffs, instanceDiff{
+			RequiresRecreate: true,
+			FieldName:        "Name",
+		})
+	}
+	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+
+		diffs = append(diffs, instanceDiff{
+			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			FieldName: "Description",
+		})
+
+	}
+	if !dcl.IsZeroValue(desired.Tier) && (dcl.IsZeroValue(actual.Tier) || !reflect.DeepEqual(*desired.Tier, *actual.Tier)) {
+		c.Config.Logger.Infof("Detected diff in Tier.\nDESIRED: %#v\nACTUAL: %#v", desired.Tier, actual.Tier)
+
+		diffs = append(diffs, instanceDiff{
+			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			FieldName: "Tier",
+		})
+
+	}
+	if compareInstanceLabelsSlice(c, desired.Labels, actual.Labels) {
+		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %#v\nACTUAL: %#v", desired.Labels, actual.Labels)
+
+		diffs = append(diffs, instanceDiff{
+			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			FieldName: "Labels",
+		})
+
+	}
+	if compareInstanceFileSharesSlice(c, desired.FileShares, actual.FileShares) {
+		c.Config.Logger.Infof("Detected diff in FileShares.\nDESIRED: %#v\nACTUAL: %#v", desired.FileShares, actual.FileShares)
+
+		diffs = append(diffs, instanceDiff{
+			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			FieldName: "FileShares",
+		})
+
+	}
+	if compareInstanceNetworksSlice(c, desired.Networks, actual.Networks) {
+		c.Config.Logger.Infof("Detected diff in Networks.\nDESIRED: %#v\nACTUAL: %#v", desired.Networks, actual.Networks)
+
+		diffs = append(diffs, instanceDiff{
+			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			FieldName: "Networks",
+		})
+
+	}
+	if !dcl.IsZeroValue(desired.Etag) && (dcl.IsZeroValue(actual.Etag) || !reflect.DeepEqual(*desired.Etag, *actual.Etag)) {
+		c.Config.Logger.Infof("Detected diff in Etag.\nDESIRED: %#v\nACTUAL: %#v", desired.Etag, actual.Etag)
+
+		diffs = append(diffs, instanceDiff{
+			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			FieldName: "Etag",
+		})
+
+	}
+	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
+		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
+		diffs = append(diffs, instanceDiff{
+			RequiresRecreate: true,
+			FieldName:        "Project",
+		})
+	}
+	if !dcl.IsZeroValue(desired.Location) && !dcl.NameToSelfLink(desired.Location, actual.Location) {
+		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
+		diffs = append(diffs, instanceDiff{
+			RequiresRecreate: true,
+			FieldName:        "Location",
+		})
+	}
+	// We need to ensure that this list does not contain identical operations *most of the time*.
+	// There may be some cases where we will need multiple copies of the same operation - for instance,
+	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
+	// such examples and so we deduplicate unconditionally.
+
+	// The best way for us to do this is to iterate through the list
+	// and remove any copies of operations which are identical to a previous operation.
+	// This is O(n^2) in the number of operations, but n will always be very small,
+	// even 10 would be an extremely high number.
+	var opTypes []string
+	var deduped []instanceDiff
+	for _, d := range diffs {
+		// Two operations are considered identical if they have the same type.
+		// The type of an operation is derived from the name of the update method.
+		if !dcl.StringSliceContains(fmt.Sprintf("%T", d.UpdateOp), opTypes) {
+			deduped = append(deduped, d)
+			opTypes = append(opTypes, fmt.Sprintf("%T", d.UpdateOp))
+		} else {
+			c.Config.Logger.Infof("Omitting planned operation of type %T since once is already scheduled.", d.UpdateOp)
+		}
+	}
+
+	return deduped, nil
+}
+func compareInstanceLabelsSlice(c *Client, desired, actual []InstanceLabels) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceLabels, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareInstanceLabels(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceLabels, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceLabels(c *Client, desired, actual *InstanceLabels) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
+		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
+		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
+		return true
+	}
+	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
+		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
+		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
+		return true
+	}
+	return false
+}
+func compareInstanceFileSharesSlice(c *Client, desired, actual []InstanceFileShares) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceFileShares, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareInstanceFileShares(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceFileShares, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceFileShares(c *Client, desired, actual *InstanceFileShares) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	if actual.CapacityGb == nil && desired.CapacityGb != nil && !dcl.IsEmptyValueIndirect(desired.CapacityGb) {
+		c.Config.Logger.Infof("desired CapacityGb %s - but actually nil", dcl.SprintResource(desired.CapacityGb))
+		return true
+	}
+	if !reflect.DeepEqual(desired.CapacityGb, actual.CapacityGb) && !dcl.IsZeroValue(desired.CapacityGb) && !(dcl.IsEmptyValueIndirect(desired.CapacityGb) && dcl.IsZeroValue(actual.CapacityGb)) {
+		c.Config.Logger.Infof("Diff in CapacityGb. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CapacityGb), dcl.SprintResource(actual.CapacityGb))
+		return true
+	}
+	if actual.SourceBackup == nil && desired.SourceBackup != nil && !dcl.IsEmptyValueIndirect(desired.SourceBackup) {
+		c.Config.Logger.Infof("desired SourceBackup %s - but actually nil", dcl.SprintResource(desired.SourceBackup))
+		return true
+	}
+	if !dcl.NameToSelfLink(desired.SourceBackup, actual.SourceBackup) && !dcl.IsZeroValue(desired.SourceBackup) {
+		c.Config.Logger.Infof("Diff in SourceBackup. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SourceBackup), dcl.SprintResource(actual.SourceBackup))
+		return true
+	}
+	if actual.NfsExportOptions == nil && desired.NfsExportOptions != nil && !dcl.IsEmptyValueIndirect(desired.NfsExportOptions) {
+		c.Config.Logger.Infof("desired NfsExportOptions %s - but actually nil", dcl.SprintResource(desired.NfsExportOptions))
+		return true
+	}
+	if compareInstanceFileSharesNfsExportOptionsSlice(c, desired.NfsExportOptions, actual.NfsExportOptions) && !dcl.IsZeroValue(desired.NfsExportOptions) {
+		c.Config.Logger.Infof("Diff in NfsExportOptions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NfsExportOptions), dcl.SprintResource(actual.NfsExportOptions))
+		return true
+	}
+	return false
+}
+func compareInstanceFileSharesNfsExportOptionsSlice(c *Client, desired, actual []InstanceFileSharesNfsExportOptions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceFileSharesNfsExportOptions, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareInstanceFileSharesNfsExportOptions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceFileSharesNfsExportOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceFileSharesNfsExportOptions(c *Client, desired, actual *InstanceFileSharesNfsExportOptions) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.IPRanges == nil && desired.IPRanges != nil && !dcl.IsEmptyValueIndirect(desired.IPRanges) {
+		c.Config.Logger.Infof("desired IPRanges %s - but actually nil", dcl.SprintResource(desired.IPRanges))
+		return true
+	}
+	if !dcl.SliceEquals(desired.IPRanges, actual.IPRanges) && !dcl.IsZeroValue(desired.IPRanges) {
+		c.Config.Logger.Infof("Diff in IPRanges. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IPRanges), dcl.SprintResource(actual.IPRanges))
+		return true
+	}
+	if actual.AccessMode == nil && desired.AccessMode != nil && !dcl.IsEmptyValueIndirect(desired.AccessMode) {
+		c.Config.Logger.Infof("desired AccessMode %s - but actually nil", dcl.SprintResource(desired.AccessMode))
+		return true
+	}
+	if !reflect.DeepEqual(desired.AccessMode, actual.AccessMode) && !dcl.IsZeroValue(desired.AccessMode) && !(dcl.IsEmptyValueIndirect(desired.AccessMode) && dcl.IsZeroValue(actual.AccessMode)) {
+		c.Config.Logger.Infof("Diff in AccessMode. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AccessMode), dcl.SprintResource(actual.AccessMode))
+		return true
+	}
+	if actual.SquashMode == nil && desired.SquashMode != nil && !dcl.IsEmptyValueIndirect(desired.SquashMode) {
+		c.Config.Logger.Infof("desired SquashMode %s - but actually nil", dcl.SprintResource(desired.SquashMode))
+		return true
+	}
+	if !reflect.DeepEqual(desired.SquashMode, actual.SquashMode) && !dcl.IsZeroValue(desired.SquashMode) && !(dcl.IsEmptyValueIndirect(desired.SquashMode) && dcl.IsZeroValue(actual.SquashMode)) {
+		c.Config.Logger.Infof("Diff in SquashMode. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SquashMode), dcl.SprintResource(actual.SquashMode))
+		return true
+	}
+	if actual.AnonUid == nil && desired.AnonUid != nil && !dcl.IsEmptyValueIndirect(desired.AnonUid) {
+		c.Config.Logger.Infof("desired AnonUid %s - but actually nil", dcl.SprintResource(desired.AnonUid))
+		return true
+	}
+	if !reflect.DeepEqual(desired.AnonUid, actual.AnonUid) && !dcl.IsZeroValue(desired.AnonUid) && !(dcl.IsEmptyValueIndirect(desired.AnonUid) && dcl.IsZeroValue(actual.AnonUid)) {
+		c.Config.Logger.Infof("Diff in AnonUid. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AnonUid), dcl.SprintResource(actual.AnonUid))
+		return true
+	}
+	if actual.AnonGid == nil && desired.AnonGid != nil && !dcl.IsEmptyValueIndirect(desired.AnonGid) {
+		c.Config.Logger.Infof("desired AnonGid %s - but actually nil", dcl.SprintResource(desired.AnonGid))
+		return true
+	}
+	if !reflect.DeepEqual(desired.AnonGid, actual.AnonGid) && !dcl.IsZeroValue(desired.AnonGid) && !(dcl.IsEmptyValueIndirect(desired.AnonGid) && dcl.IsZeroValue(actual.AnonGid)) {
+		c.Config.Logger.Infof("Diff in AnonGid. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AnonGid), dcl.SprintResource(actual.AnonGid))
+		return true
+	}
+	return false
+}
+func compareInstanceNetworksSlice(c *Client, desired, actual []InstanceNetworks) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceNetworks, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareInstanceNetworks(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceNetworks, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceNetworks(c *Client, desired, actual *InstanceNetworks) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Network == nil && desired.Network != nil && !dcl.IsEmptyValueIndirect(desired.Network) {
+		c.Config.Logger.Infof("desired Network %s - but actually nil", dcl.SprintResource(desired.Network))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Network, actual.Network) && !dcl.IsZeroValue(desired.Network) && !(dcl.IsEmptyValueIndirect(desired.Network) && dcl.IsZeroValue(actual.Network)) {
+		c.Config.Logger.Infof("Diff in Network. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Network), dcl.SprintResource(actual.Network))
+		return true
+	}
+	if actual.Modes == nil && desired.Modes != nil && !dcl.IsEmptyValueIndirect(desired.Modes) {
+		c.Config.Logger.Infof("desired Modes %s - but actually nil", dcl.SprintResource(desired.Modes))
+		return true
+	}
+	if compareInstanceNetworksModesEnumSlice(c, desired.Modes, actual.Modes) && !dcl.IsZeroValue(desired.Modes) {
+		c.Config.Logger.Infof("Diff in Modes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Modes), dcl.SprintResource(actual.Modes))
+		return true
+	}
+	if actual.ReservedIPRange == nil && desired.ReservedIPRange != nil && !dcl.IsEmptyValueIndirect(desired.ReservedIPRange) {
+		c.Config.Logger.Infof("desired ReservedIPRange %s - but actually nil", dcl.SprintResource(desired.ReservedIPRange))
+		return true
+	}
+	if !reflect.DeepEqual(desired.ReservedIPRange, actual.ReservedIPRange) && !dcl.IsZeroValue(desired.ReservedIPRange) && !(dcl.IsEmptyValueIndirect(desired.ReservedIPRange) && dcl.IsZeroValue(actual.ReservedIPRange)) {
+		c.Config.Logger.Infof("Diff in ReservedIPRange. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReservedIPRange), dcl.SprintResource(actual.ReservedIPRange))
+		return true
+	}
+	return false
+}
+func compareInstanceStateEnumSlice(c *Client, desired, actual []InstanceStateEnum) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceStateEnum, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareInstanceStateEnum(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceStateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceStateEnum(c *Client, desired, actual *InstanceStateEnum) bool {
+	return !reflect.DeepEqual(desired, actual)
+}
+
+func compareInstanceTierEnumSlice(c *Client, desired, actual []InstanceTierEnum) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceTierEnum, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareInstanceTierEnum(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceTierEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceTierEnum(c *Client, desired, actual *InstanceTierEnum) bool {
+	return !reflect.DeepEqual(desired, actual)
+}
+
+func compareInstanceFileSharesNfsExportOptionsAccessModeEnumSlice(c *Client, desired, actual []InstanceFileSharesNfsExportOptionsAccessModeEnum) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceFileSharesNfsExportOptionsAccessModeEnum, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareInstanceFileSharesNfsExportOptionsAccessModeEnum(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceFileSharesNfsExportOptionsAccessModeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceFileSharesNfsExportOptionsAccessModeEnum(c *Client, desired, actual *InstanceFileSharesNfsExportOptionsAccessModeEnum) bool {
+	return !reflect.DeepEqual(desired, actual)
+}
+
+func compareInstanceFileSharesNfsExportOptionsSquashModeEnumSlice(c *Client, desired, actual []InstanceFileSharesNfsExportOptionsSquashModeEnum) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceFileSharesNfsExportOptionsSquashModeEnum, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareInstanceFileSharesNfsExportOptionsSquashModeEnum(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceFileSharesNfsExportOptionsSquashModeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceFileSharesNfsExportOptionsSquashModeEnum(c *Client, desired, actual *InstanceFileSharesNfsExportOptionsSquashModeEnum) bool {
+	return !reflect.DeepEqual(desired, actual)
+}
+
+func compareInstanceNetworksModesEnumSlice(c *Client, desired, actual []InstanceNetworksModesEnum) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceNetworksModesEnum, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareInstanceNetworksModesEnum(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceNetworksModesEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceNetworksModesEnum(c *Client, desired, actual *InstanceNetworksModesEnum) bool {
+	return !reflect.DeepEqual(desired, actual)
+}
+
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Instance) urlNormalized() *Instance {
+	normalized := deepcopy.Copy(*r).(Instance)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
+}
+
+func (r *Instance) getFields() (string, string, string) {
+	n := r.urlNormalized()
+	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+}
+
+func (r *Instance) createFields() (string, string, string) {
+	n := r.urlNormalized()
+	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+}
+
+func (r *Instance) deleteFields() (string, string, string) {
+	n := r.urlNormalized()
+	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+}
+
+func (r *Instance) updateURL(userBasePath, updateName string) (string, error) {
+	n := r.urlNormalized()
+	if updateName == "UpdateInstance" {
+		fields := map[string]interface{}{
+			"project":  dcl.ValueOrEmptyString(n.Project),
+			"location": dcl.ValueOrEmptyString(n.Location),
+			"name":     dcl.ValueOrEmptyString(n.Name),
+		}
+		return dcl.URL("projects/{{project}}/locations/{{location}}/instances/{{name}}", "https://file.googleapis.com/v1/", userBasePath, fields), nil
+
+	}
+	return "", fmt.Errorf("unknown update name: %s", updateName)
+}
+
+// marshal encodes the Instance resource into JSON for a Create request, and
+// performs transformations from the resource schema to the API schema if
+// necessary.
+func (r *Instance) marshal(c *Client) ([]byte, error) {
+	m, err := expandInstance(c, r)
+	if err != nil {
+		return nil, fmt.Errorf("error marshalling Instance: %w", err)
+	}
+
+	return json.Marshal(m)
+}
+
+// unmarshalInstance decodes JSON responses into the Instance resource schema.
+func unmarshalInstance(b []byte, c *Client) (*Instance, error) {
+	var m map[string]interface{}
+	if err := json.Unmarshal(b, &m); err != nil {
+		return nil, err
+	}
+
+	return flattenInstance(c, m), nil
+}
+
+// expandInstance expands Instance into a JSON request object.
+func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
+	if v, err := dcl.EmptyValue(); err != nil {
+		return nil, fmt.Errorf("error expanding Name into name: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+		m["description"] = v
+	}
+	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
+		m["state"] = v
+	}
+	if v := f.StatusMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["statusMessage"] = v
+	}
+	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
+		m["createTime"] = v
+	}
+	if v := f.Tier; !dcl.IsEmptyValueIndirect(v) {
+		m["tier"] = v
+	}
+	if v, err := expandInstanceLabelsSlice(c, f.Labels); err != nil {
+		return nil, fmt.Errorf("error expanding Labels into labels: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+	if v, err := expandInstanceFileSharesSlice(c, f.FileShares); err != nil {
+		return nil, fmt.Errorf("error expanding FileShares into fileShares: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["fileShares"] = v
+	}
+	if v, err := expandInstanceNetworksSlice(c, f.Networks); err != nil {
+		return nil, fmt.Errorf("error expanding Networks into networks: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["networks"] = v
+	}
+	if v := f.Etag; !dcl.IsEmptyValueIndirect(v) {
+		m["etag"] = v
+	}
+	if v, err := dcl.EmptyValue(); err != nil {
+		return nil, fmt.Errorf("error expanding Project into project: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["project"] = v
+	}
+	if v, err := dcl.EmptyValue(); err != nil {
+		return nil, fmt.Errorf("error expanding Location into location: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["location"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstance flattens Instance from a JSON request object into the
+// Instance type.
+func flattenInstance(c *Client, i interface{}) *Instance {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+	if len(m) == 0 {
+		return nil
+	}
+
+	r := &Instance{}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Description = dcl.FlattenString(m["description"])
+	r.State = flattenInstanceStateEnum(m["state"])
+	r.StatusMessage = dcl.FlattenString(m["statusMessage"])
+	r.CreateTime = dcl.FlattenString(m["createTime"])
+	r.Tier = flattenInstanceTierEnum(m["tier"])
+	r.Labels = flattenInstanceLabelsSlice(c, m["labels"])
+	r.FileShares = flattenInstanceFileSharesSlice(c, m["fileShares"])
+	r.Networks = flattenInstanceNetworksSlice(c, m["networks"])
+	r.Etag = dcl.FlattenString(m["etag"])
+	r.Project = dcl.FlattenString(m["project"])
+	r.Location = dcl.FlattenString(m["location"])
+
+	return r
+}
+
+// expandInstanceLabelsMap expands the contents of InstanceLabels into a JSON
+// request object.
+func expandInstanceLabelsMap(c *Client, f map[string]InstanceLabels) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceLabels(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceLabelsSlice expands the contents of InstanceLabels into a JSON
+// request object.
+func expandInstanceLabelsSlice(c *Client, f []InstanceLabels) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceLabels(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceLabelsMap flattens the contents of InstanceLabels from a JSON
+// response object.
+func flattenInstanceLabelsMap(c *Client, i interface{}) map[string]InstanceLabels {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceLabels{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceLabels{}
+	}
+
+	items := make(map[string]InstanceLabels)
+	for k, item := range a {
+		items[k] = *flattenInstanceLabels(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceLabelsSlice flattens the contents of InstanceLabels from a JSON
+// response object.
+func flattenInstanceLabelsSlice(c *Client, i interface{}) []InstanceLabels {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceLabels{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceLabels{}
+	}
+
+	items := make([]InstanceLabels, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceLabels(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceLabels expands an instance of InstanceLabels into a JSON
+// request object.
+func expandInstanceLabels(c *Client, f *InstanceLabels) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
+		m["key"] = v
+	}
+	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
+		m["value"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceLabels flattens an instance of InstanceLabels from a JSON
+// response object.
+func flattenInstanceLabels(c *Client, i interface{}) *InstanceLabels {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceLabels{}
+	r.Key = dcl.FlattenString(m["key"])
+	r.Value = dcl.FlattenString(m["value"])
+
+	return r
+}
+
+// expandInstanceFileSharesMap expands the contents of InstanceFileShares into a JSON
+// request object.
+func expandInstanceFileSharesMap(c *Client, f map[string]InstanceFileShares) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceFileShares(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceFileSharesSlice expands the contents of InstanceFileShares into a JSON
+// request object.
+func expandInstanceFileSharesSlice(c *Client, f []InstanceFileShares) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceFileShares(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceFileSharesMap flattens the contents of InstanceFileShares from a JSON
+// response object.
+func flattenInstanceFileSharesMap(c *Client, i interface{}) map[string]InstanceFileShares {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceFileShares{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceFileShares{}
+	}
+
+	items := make(map[string]InstanceFileShares)
+	for k, item := range a {
+		items[k] = *flattenInstanceFileShares(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceFileSharesSlice flattens the contents of InstanceFileShares from a JSON
+// response object.
+func flattenInstanceFileSharesSlice(c *Client, i interface{}) []InstanceFileShares {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceFileShares{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceFileShares{}
+	}
+
+	items := make([]InstanceFileShares, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceFileShares(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceFileShares expands an instance of InstanceFileShares into a JSON
+// request object.
+func expandInstanceFileShares(c *Client, f *InstanceFileShares) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.CapacityGb; !dcl.IsEmptyValueIndirect(v) {
+		m["capacityGb"] = v
+	}
+	if v := f.SourceBackup; !dcl.IsEmptyValueIndirect(v) {
+		m["sourceBackup"] = v
+	}
+	if v, err := expandInstanceFileSharesNfsExportOptionsSlice(c, f.NfsExportOptions); err != nil {
+		return nil, fmt.Errorf("error expanding NfsExportOptions into nfsExportOptions: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["nfsExportOptions"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceFileShares flattens an instance of InstanceFileShares from a JSON
+// response object.
+func flattenInstanceFileShares(c *Client, i interface{}) *InstanceFileShares {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceFileShares{}
+	r.Name = dcl.FlattenString(m["name"])
+	r.CapacityGb = dcl.FlattenInteger(m["capacityGb"])
+	r.SourceBackup = dcl.FlattenString(m["sourceBackup"])
+	r.NfsExportOptions = flattenInstanceFileSharesNfsExportOptionsSlice(c, m["nfsExportOptions"])
+
+	return r
+}
+
+// expandInstanceFileSharesNfsExportOptionsMap expands the contents of InstanceFileSharesNfsExportOptions into a JSON
+// request object.
+func expandInstanceFileSharesNfsExportOptionsMap(c *Client, f map[string]InstanceFileSharesNfsExportOptions) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceFileSharesNfsExportOptions(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceFileSharesNfsExportOptionsSlice expands the contents of InstanceFileSharesNfsExportOptions into a JSON
+// request object.
+func expandInstanceFileSharesNfsExportOptionsSlice(c *Client, f []InstanceFileSharesNfsExportOptions) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceFileSharesNfsExportOptions(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceFileSharesNfsExportOptionsMap flattens the contents of InstanceFileSharesNfsExportOptions from a JSON
+// response object.
+func flattenInstanceFileSharesNfsExportOptionsMap(c *Client, i interface{}) map[string]InstanceFileSharesNfsExportOptions {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceFileSharesNfsExportOptions{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceFileSharesNfsExportOptions{}
+	}
+
+	items := make(map[string]InstanceFileSharesNfsExportOptions)
+	for k, item := range a {
+		items[k] = *flattenInstanceFileSharesNfsExportOptions(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceFileSharesNfsExportOptionsSlice flattens the contents of InstanceFileSharesNfsExportOptions from a JSON
+// response object.
+func flattenInstanceFileSharesNfsExportOptionsSlice(c *Client, i interface{}) []InstanceFileSharesNfsExportOptions {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceFileSharesNfsExportOptions{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceFileSharesNfsExportOptions{}
+	}
+
+	items := make([]InstanceFileSharesNfsExportOptions, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceFileSharesNfsExportOptions(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceFileSharesNfsExportOptions expands an instance of InstanceFileSharesNfsExportOptions into a JSON
+// request object.
+func expandInstanceFileSharesNfsExportOptions(c *Client, f *InstanceFileSharesNfsExportOptions) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.IPRanges; !dcl.IsEmptyValueIndirect(v) {
+		m["ipRanges"] = v
+	}
+	if v := f.AccessMode; !dcl.IsEmptyValueIndirect(v) {
+		m["accessMode"] = v
+	}
+	if v := f.SquashMode; !dcl.IsEmptyValueIndirect(v) {
+		m["squashMode"] = v
+	}
+	if v := f.AnonUid; !dcl.IsEmptyValueIndirect(v) {
+		m["anonUid"] = v
+	}
+	if v := f.AnonGid; !dcl.IsEmptyValueIndirect(v) {
+		m["anonGid"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceFileSharesNfsExportOptions flattens an instance of InstanceFileSharesNfsExportOptions from a JSON
+// response object.
+func flattenInstanceFileSharesNfsExportOptions(c *Client, i interface{}) *InstanceFileSharesNfsExportOptions {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceFileSharesNfsExportOptions{}
+	r.IPRanges = dcl.FlattenStringSlice(m["ipRanges"])
+	r.AccessMode = flattenInstanceFileSharesNfsExportOptionsAccessModeEnum(m["accessMode"])
+	r.SquashMode = flattenInstanceFileSharesNfsExportOptionsSquashModeEnum(m["squashMode"])
+	r.AnonUid = dcl.FlattenInteger(m["anonUid"])
+	r.AnonGid = dcl.FlattenInteger(m["anonGid"])
+
+	return r
+}
+
+// expandInstanceNetworksMap expands the contents of InstanceNetworks into a JSON
+// request object.
+func expandInstanceNetworksMap(c *Client, f map[string]InstanceNetworks) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceNetworks(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceNetworksSlice expands the contents of InstanceNetworks into a JSON
+// request object.
+func expandInstanceNetworksSlice(c *Client, f []InstanceNetworks) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceNetworks(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceNetworksMap flattens the contents of InstanceNetworks from a JSON
+// response object.
+func flattenInstanceNetworksMap(c *Client, i interface{}) map[string]InstanceNetworks {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceNetworks{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceNetworks{}
+	}
+
+	items := make(map[string]InstanceNetworks)
+	for k, item := range a {
+		items[k] = *flattenInstanceNetworks(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceNetworksSlice flattens the contents of InstanceNetworks from a JSON
+// response object.
+func flattenInstanceNetworksSlice(c *Client, i interface{}) []InstanceNetworks {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceNetworks{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceNetworks{}
+	}
+
+	items := make([]InstanceNetworks, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceNetworks(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceNetworks expands an instance of InstanceNetworks into a JSON
+// request object.
+func expandInstanceNetworks(c *Client, f *InstanceNetworks) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Network; !dcl.IsEmptyValueIndirect(v) {
+		m["network"] = v
+	}
+	if v := f.Modes; !dcl.IsEmptyValueIndirect(v) {
+		m["modes"] = v
+	}
+	if v := f.ReservedIPRange; !dcl.IsEmptyValueIndirect(v) {
+		m["reservedIpRange"] = v
+	}
+	if v := f.IPAddresses; !dcl.IsEmptyValueIndirect(v) {
+		m["ipAddresses"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceNetworks flattens an instance of InstanceNetworks from a JSON
+// response object.
+func flattenInstanceNetworks(c *Client, i interface{}) *InstanceNetworks {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceNetworks{}
+	r.Network = dcl.FlattenString(m["network"])
+	r.Modes = flattenInstanceNetworksModesEnumSlice(c, m["modes"])
+	r.ReservedIPRange = dcl.FlattenString(m["reservedIpRange"])
+	r.IPAddresses = dcl.FlattenStringSlice(m["ipAddresses"])
+
+	return r
+}
+
+// flattenInstanceStateEnumSlice flattens the contents of InstanceStateEnum from a JSON
+// response object.
+func flattenInstanceStateEnumSlice(c *Client, i interface{}) []InstanceStateEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceStateEnum{}
+	}
+
+	items := make([]InstanceStateEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceStateEnum(item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceStateEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceStateEnum with the same value as that string.
+func flattenInstanceStateEnum(i interface{}) *InstanceStateEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceStateEnumRef("")
+	}
+
+	return InstanceStateEnumRef(s)
+}
+
+// flattenInstanceTierEnumSlice flattens the contents of InstanceTierEnum from a JSON
+// response object.
+func flattenInstanceTierEnumSlice(c *Client, i interface{}) []InstanceTierEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceTierEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceTierEnum{}
+	}
+
+	items := make([]InstanceTierEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceTierEnum(item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceTierEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceTierEnum with the same value as that string.
+func flattenInstanceTierEnum(i interface{}) *InstanceTierEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceTierEnumRef("")
+	}
+
+	return InstanceTierEnumRef(s)
+}
+
+// flattenInstanceFileSharesNfsExportOptionsAccessModeEnumSlice flattens the contents of InstanceFileSharesNfsExportOptionsAccessModeEnum from a JSON
+// response object.
+func flattenInstanceFileSharesNfsExportOptionsAccessModeEnumSlice(c *Client, i interface{}) []InstanceFileSharesNfsExportOptionsAccessModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceFileSharesNfsExportOptionsAccessModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceFileSharesNfsExportOptionsAccessModeEnum{}
+	}
+
+	items := make([]InstanceFileSharesNfsExportOptionsAccessModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceFileSharesNfsExportOptionsAccessModeEnum(item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceFileSharesNfsExportOptionsAccessModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceFileSharesNfsExportOptionsAccessModeEnum with the same value as that string.
+func flattenInstanceFileSharesNfsExportOptionsAccessModeEnum(i interface{}) *InstanceFileSharesNfsExportOptionsAccessModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceFileSharesNfsExportOptionsAccessModeEnumRef("")
+	}
+
+	return InstanceFileSharesNfsExportOptionsAccessModeEnumRef(s)
+}
+
+// flattenInstanceFileSharesNfsExportOptionsSquashModeEnumSlice flattens the contents of InstanceFileSharesNfsExportOptionsSquashModeEnum from a JSON
+// response object.
+func flattenInstanceFileSharesNfsExportOptionsSquashModeEnumSlice(c *Client, i interface{}) []InstanceFileSharesNfsExportOptionsSquashModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceFileSharesNfsExportOptionsSquashModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceFileSharesNfsExportOptionsSquashModeEnum{}
+	}
+
+	items := make([]InstanceFileSharesNfsExportOptionsSquashModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceFileSharesNfsExportOptionsSquashModeEnum(item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceFileSharesNfsExportOptionsSquashModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceFileSharesNfsExportOptionsSquashModeEnum with the same value as that string.
+func flattenInstanceFileSharesNfsExportOptionsSquashModeEnum(i interface{}) *InstanceFileSharesNfsExportOptionsSquashModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceFileSharesNfsExportOptionsSquashModeEnumRef("")
+	}
+
+	return InstanceFileSharesNfsExportOptionsSquashModeEnumRef(s)
+}
+
+// flattenInstanceNetworksModesEnumSlice flattens the contents of InstanceNetworksModesEnum from a JSON
+// response object.
+func flattenInstanceNetworksModesEnumSlice(c *Client, i interface{}) []InstanceNetworksModesEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceNetworksModesEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceNetworksModesEnum{}
+	}
+
+	items := make([]InstanceNetworksModesEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceNetworksModesEnum(item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceNetworksModesEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceNetworksModesEnum with the same value as that string.
+func flattenInstanceNetworksModesEnum(i interface{}) *InstanceNetworksModesEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceNetworksModesEnumRef("")
+	}
+
+	return InstanceNetworksModesEnumRef(s)
+}
+
+// This function returns a matcher that checks whether a serialized resource matches this resource
+// in its parameters (as defined by the fields in a Get, which definitionally define resource
+// identity).  This is useful in extracting the element from a List call.
+func (r *Instance) matcher(c *Client) func([]byte) bool {
+	return func(b []byte) bool {
+		cr, err := unmarshalInstance(b, c)
+		if err != nil {
+			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
+			return false
+		}
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
+		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
+
+		if nr.Project == nil && ncr.Project == nil {
+			c.Config.Logger.Info("Both Project fields null - considering equal.")
+		} else if nr.Project == nil || ncr.Project == nil {
+			c.Config.Logger.Info("Only one Project field is null - considering unequal.")
+			return false
+		} else if *nr.Project != *ncr.Project {
+			return false
+		}
+		if nr.Location == nil && ncr.Location == nil {
+			c.Config.Logger.Info("Both Location fields null - considering equal.")
+		} else if nr.Location == nil || ncr.Location == nil {
+			c.Config.Logger.Info("Only one Location field is null - considering unequal.")
+			return false
+		} else if *nr.Location != *ncr.Location {
+			return false
+		}
+		if nr.Name == nil && ncr.Name == nil {
+			c.Config.Logger.Info("Both Name fields null - considering equal.")
+		} else if nr.Name == nil || ncr.Name == nil {
+			c.Config.Logger.Info("Only one Name field is null - considering unequal.")
+			return false
+		} else if *nr.Name != *ncr.Name {
+			return false
+		}
+		return true
+	}
+}

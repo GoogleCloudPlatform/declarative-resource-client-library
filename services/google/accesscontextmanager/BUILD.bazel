@@ -1,0 +1,23 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "access_level.go",
+        "access_level_internal.go",
+        "access_policy.go",
+        "access_policy_internal.go",
+        "accesscontextmanager_utils.go",
+        "client.go",
+        "operations.go",
+        "service_perimeter.go",
+        "service_perimeter_internal.go",
+    ],
+    importpath = "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/accesscontextmanager",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//dcl:go_default_library",
+        "@com_github_mohae_deepcopy//:go_default_library",
+        "@org_golang_google_api//googleapi:go_default_library",
+    ],
+)

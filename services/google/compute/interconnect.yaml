@@ -1,0 +1,319 @@
+# Copyright 2021 Google LLC. All Rights Reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+components:
+  schemas:
+    Interconnect:
+      properties:
+        adminEnabled:
+          description: Administrative status of the interconnect. When this is set
+            to true, the Interconnect is functional and can carry traffic. When set
+            to false, no packets can be carried over the interconnect and no BGP routes
+            are exchanged over it. By default, the status is set to true.
+          type: boolean
+          x-dcl-go-name: AdminEnabled
+        circuitInfos:
+          description: A list of CircuitInfo objects, that describe the individual
+            circuits in this LAG.
+          items:
+            properties:
+              customerDemarcId:
+                description: Customer-side demarc ID for this circuit.
+                type: string
+                x-dcl-go-name: CustomerDemarcId
+                x-kubernetes-immutable: true
+              googleCircuitId:
+                description: Google-assigned unique ID for this circuit. Assigned
+                  at circuit turn-up.
+                type: string
+                x-dcl-go-name: GoogleCircuitId
+                x-kubernetes-immutable: true
+              googleDemarcId:
+                description: Google-side demarc ID for this circuit. Assigned at circuit
+                  turn-up and provided by Google to the customer in the LOA.
+                type: string
+                x-dcl-go-name: GoogleDemarcId
+                x-kubernetes-immutable: true
+            type: object
+            x-dcl-go-type: InterconnectCircuitInfos
+          readOnly: true
+          type: array
+          x-dcl-go-name: CircuitInfos
+          x-dcl-list-type: list
+          x-kubernetes-immutable: true
+        customerName:
+          description: Customer name, to put in the Letter of Authorization as the
+            party authorized to request a crossconnect.
+          type: string
+          x-dcl-go-name: CustomerName
+        description:
+          description: An optional description of this resource. Provide this property
+            when you create the resource.
+          type: string
+          x-dcl-go-name: Description
+        expectedOutages:
+          description: A list of outages expected for this Interconnect.
+          items:
+            properties:
+              affectedCircuits:
+                description: If issue_type is IT_PARTIAL_OUTAGE, a list of the Google-side
+                  circuit IDs that will be affected.
+                items:
+                  type: string
+                  x-dcl-go-type: string
+                type: array
+                x-dcl-go-name: AffectedCircuits
+                x-dcl-list-type: list
+                x-kubernetes-immutable: true
+              description:
+                description: A description about the purpose of the outage.
+                type: string
+                x-dcl-go-name: Description
+                x-kubernetes-immutable: true
+              endTime:
+                description: Scheduled end time for the outage (milliseconds since
+                  Unix epoch).
+                format: int64
+                type: integer
+                x-dcl-go-name: EndTime
+                x-kubernetes-immutable: true
+              issueType:
+                description: 'Form this outage is expected to take, which can take
+                  one of the following values: OUTAGE: The Interconnect may be completely
+                  out of service for some or all of the specified window. PARTIAL_OUTAGE:
+                  Some circuits comprising the Interconnect as a whole should remain
+                  up, but with reduced bandwidth.nn Note that the versions of this
+                  enum prefixed with "IT_" have been deprecated in favor of the unprefixed
+                  values.'
+                enum:
+                - OUTAGE
+                - PARTIAL_OUTAGE
+                type: string
+                x-dcl-go-name: IssueType
+                x-dcl-go-type: InterconnectExpectedOutagesIssueTypeEnum
+                x-kubernetes-immutable: true
+              name:
+                description: Unique identifier for this outage notification.
+                type: string
+                x-dcl-go-name: Name
+                x-kubernetes-immutable: true
+              source:
+                description: 'The party that generated this notification, which can
+                  take the following value: GOOGLE: this notification as generated
+                  by Google. Note that the value of NSRC_GOOGLE has been deprecated
+                  in favor of GOOGLE.'
+                enum:
+                - GOOGLE
+                type: string
+                x-dcl-go-name: Source
+                x-dcl-go-type: InterconnectExpectedOutagesSourceEnum
+                x-kubernetes-immutable: true
+              startTime:
+                description: Scheduled start time for the outage (milliseconds since
+                  Unix epoch).
+                format: int64
+                type: integer
+                x-dcl-go-name: StartTime
+                x-kubernetes-immutable: true
+              state:
+                description: 'State of this notification, which can take one of the
+                  following values: ACTIVE: This outage notification is active. The
+                  event could be in the past, present, or future. See start_time and
+                  end_time for scheduling. CANCELLED: The outage associated with this
+                  notification was cancelled before the outage was due to start. Note
+                  that the versions of this enum prefixed with "NS_" have been deprecated
+                  in favor of the unprefixed values.'
+                enum:
+                - ACTIVE
+                - CANCELLED
+                type: string
+                x-dcl-go-name: State
+                x-dcl-go-type: InterconnectExpectedOutagesStateEnum
+                x-kubernetes-immutable: true
+            type: object
+            x-dcl-go-type: InterconnectExpectedOutages
+          readOnly: true
+          type: array
+          x-dcl-go-name: ExpectedOutages
+          x-dcl-list-type: list
+          x-kubernetes-immutable: true
+        googleIPAddress:
+          description: IP address configured on the Google side of the Interconnect
+            link. This can be used only for ping tests.
+          readOnly: true
+          type: string
+          x-dcl-go-name: GoogleIPAddress
+          x-kubernetes-immutable: true
+        googleReferenceId:
+          description: Google reference ID to be used when raising support tickets
+            with Google or otherwise to debug backend connectivity issues.
+          readOnly: true
+          type: string
+          x-dcl-go-name: GoogleReferenceId
+          x-kubernetes-immutable: true
+        id:
+          description: The unique identifier for the resource. This identifier is
+            defined by the server.
+          format: int64
+          readOnly: true
+          type: integer
+          x-dcl-go-name: Id
+          x-kubernetes-immutable: true
+        interconnectAttachments:
+          description: A list of the URLs of all InterconnectAttachments configured
+            to use this Interconnect.
+          items:
+            type: string
+            x-dcl-go-type: string
+          readOnly: true
+          type: array
+          x-dcl-go-name: InterconnectAttachments
+          x-dcl-list-type: list
+          x-kubernetes-immutable: true
+        interconnectType:
+          description: 'Type of interconnect, which can take one of the following
+            values: PARTNER: A partner-managed interconnection shared between customers
+            though a partner. DEDICATED: A dedicated physical interconnection with
+            the customer.nn Note that a value IT_PRIVATE has been deprecated in favor
+            of DEDICATED.'
+          enum:
+          - IT_PRIVATE
+          - PARTNER
+          - DEDICATED
+          type: string
+          x-dcl-go-name: InterconnectType
+          x-dcl-go-type: InterconnectInterconnectTypeEnum
+        linkType:
+          description: 'Type of link requested, which can take one of the following
+            values: LINK_TYPE_ETHERNET_10G_LR: A 10G Ethernet with LR optics LINK_TYPE_ETHERNET_100G_LR:
+            A 100G Ethernet with LR optics.nn Note that this field indicates the speed
+            of each of the links in the bundle, not the speed of the entire bundle.'
+          enum:
+          - LINK_TYPE_ETHERNET_10G_LR
+          - LINK_TYPE_ETHERNET_100G_LR
+          type: string
+          x-dcl-go-name: LinkType
+          x-dcl-go-type: InterconnectLinkTypeEnum
+        location:
+          description: URL of the InterconnectLocation object that represents where
+            this connection is to be provisioned.
+          type: string
+          x-dcl-go-name: Location
+        name:
+          description: Name of the resource. Provided by the client when the resource
+            is created. The name must be 1-63 characters long, and comply with RFC1035.
+            Specifically, the name must be 1-63 characters long and match the regular
+            expression [a-z]([-a-z0-9]*[a-z0-9])? which means the first character
+            must be a lowercase letter, and all following characters must be a dash,
+            lowercase letter, or digit, except the last character, which cannot be
+            a dash.
+          type: string
+          x-dcl-go-name: Name
+        nocContactEmail:
+          description: Email address to contact the customer NOC for operations and
+            maintenance notifications regarding this Interconnect. If specified, this
+            will be used for notifications in addition to all other forms described,
+            such as Stackdriver logs alerting and Cloud Notifications.
+          type: string
+          x-dcl-go-name: NocContactEmail
+        operationalStatus:
+          description: 'The current status of this Interconnect''s functionality,
+            which can take one of the following values: OS_ACTIVE: A valid Interconnect,
+            which is turned up and is ready to use. Attachments may be provisioned
+            on this Interconnect. OS_UNPROVISIONED: An Interconnect that has not completed
+            turnup. No attachments may be provisioned on this Interconnect. OS_UNDER_MAINTENANCE:
+            An Interconnect that is undergoing internal maintenance. No attachments
+            may be provisioned or updated on this Interconnect.'
+          enum:
+          - OS_ACTIVE
+          - OS_UNPROVISIONED
+          - OS_UNDER_MAINTENANCE
+          readOnly: true
+          type: string
+          x-dcl-go-name: OperationalStatus
+          x-dcl-go-type: InterconnectOperationalStatusEnum
+          x-kubernetes-immutable: true
+        peerIPAddress:
+          description: IP address configured on the customer side of the Interconnect
+            link. The customer should configure this IP address during turnup when
+            prompted by Google NOC. This can be used only for ping tests.
+          readOnly: true
+          type: string
+          x-dcl-go-name: PeerIPAddress
+          x-kubernetes-immutable: true
+        project:
+          description: The project for the resource
+          type: string
+          x-dcl-go-name: Project
+          x-kubernetes-immutable: true
+        provisionedLinkCount:
+          description: Number of links actually provisioned in this interconnect.
+          format: int64
+          readOnly: true
+          type: integer
+          x-dcl-go-name: ProvisionedLinkCount
+          x-kubernetes-immutable: true
+        requestedLinkCount:
+          description: Target number of physical links in the link bundle, as requested
+            by the customer.
+          format: int64
+          type: integer
+          x-dcl-go-name: RequestedLinkCount
+        selfLink:
+          description: Server-defined URL for the resource.
+          readOnly: true
+          type: string
+          x-dcl-go-name: SelfLink
+          x-kubernetes-immutable: true
+        state:
+          description: 'The current state of Interconnect functionality, which can
+            take one of the following values: ACTIVE: The Interconnect is valid, turned
+            up and ready to use. Attachments may be provisioned on this Interconnect.
+            UNPROVISIONED: The Interconnect has not completed turnup. No attachments
+            may be provisioned on this Interconnect. UNDER_MAINTENANCE: The Interconnect
+            is undergoing internal maintenance. No attachments may be provisioned
+            or updated on this Interconnect.'
+          enum:
+          - DEPRECATED
+          - OBSOLETE
+          - DELETED
+          - ACTIVE
+          readOnly: true
+          type: string
+          x-dcl-go-name: State
+          x-dcl-go-type: InterconnectStateEnum
+          x-kubernetes-immutable: true
+      required:
+      - name
+      - location
+      - linkType
+      - interconnectType
+      - customerName
+      - project
+      title: Interconnect
+      type: object
+      x-dcl-id: projects/{{project}}/global/interconnects/{{name}}
+      x-dcl-locations:
+      - global
+      x-dcl-parent-container: project
+      x-dcl-uses-state-hint: false
+info:
+  description: DCL Specification for the Compute Interconnect resource
+  title: Compute/Interconnect
+  x-dcl-has-iam: false
+paths:
+  list:
+    description: The function called used to list information about many Interconnect
+    parameters:
+    - name: project
+      required: true

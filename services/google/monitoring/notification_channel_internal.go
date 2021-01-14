@@ -1,0 +1,822 @@
+// Copyright 2021 Google LLC. All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+package monitoring
+
+import (
+	"bytes"
+	"context"
+	"encoding/json"
+	"fmt"
+	"github.com/mohae/deepcopy"
+	"io/ioutil"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
+	"reflect"
+	"strings"
+)
+
+func (r *NotificationChannel) validate() error {
+
+	return nil
+}
+
+func notificationChannelGetURL(userBasePath string, r *NotificationChannel) (string, error) {
+	params := map[string]interface{}{
+		"project": dcl.ValueOrEmptyString(r.Project),
+		"name":    dcl.ValueOrEmptyString(r.Name),
+	}
+	return dcl.URL("v3/projects/{{project}}/notificationChannels/{{name}}", "https://monitoring.googleapis.com/", userBasePath, params), nil
+}
+
+func notificationChannelListURL(userBasePath, project string) (string, error) {
+	params := map[string]interface{}{
+		"project": project,
+	}
+	return dcl.URL("v3/projects/{{project}}/notificationChannels", "https://monitoring.googleapis.com/", userBasePath, params), nil
+
+}
+
+func notificationChannelCreateURL(userBasePath, project string) (string, error) {
+	params := map[string]interface{}{
+		"project": project,
+	}
+	return dcl.URL("v3/projects/{{project}}/notificationChannels", "https://monitoring.googleapis.com/", userBasePath, params), nil
+
+}
+
+func notificationChannelDeleteURL(userBasePath string, r *NotificationChannel) (string, error) {
+	params := map[string]interface{}{
+		"project": dcl.ValueOrEmptyString(r.Project),
+		"name":    dcl.ValueOrEmptyString(r.Name),
+	}
+	return dcl.URL("v3/projects/{{project}}/notificationChannels/{{name}}", "https://monitoring.googleapis.com/", userBasePath, params), nil
+}
+
+// notificationChannelApiOperation represents a mutable operation in the underlying REST
+// API such as Create, Update, or Delete.
+type notificationChannelApiOperation interface {
+	do(context.Context, *NotificationChannel, *Client) error
+}
+
+// newUpdateNotificationChannelUpdateRequest creates a request for an
+// NotificationChannel resource's update update type by filling in the update
+// fields based on the intended state of the resource.
+func newUpdateNotificationChannelUpdateRequest(ctx context.Context, f *NotificationChannel, c *Client) (map[string]interface{}, error) {
+	req := map[string]interface{}{}
+
+	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+		req["description"] = v
+	}
+	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
+		req["displayName"] = v
+	}
+	if v := f.Enabled; !dcl.IsEmptyValueIndirect(v) {
+		req["enabled"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		req["labels"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		req["type"] = v
+	}
+	if v := f.UserLabels; !dcl.IsEmptyValueIndirect(v) {
+		req["userLabels"] = v
+	}
+	req["name"] = fmt.Sprintf("projects/%s/notificationChannels/%s", *f.Project, *f.Name)
+
+	return req, nil
+}
+
+// marshalUpdateNotificationChannelUpdateRequest converts the update into
+// the final JSON request body.
+func marshalUpdateNotificationChannelUpdateRequest(c *Client, m map[string]interface{}) ([]byte, error) {
+
+	return json.Marshal(m)
+}
+
+type updateNotificationChannelUpdateOperation struct {
+	// If the update operation has the REQUIRES_APPLY_OPTIONS trait, this will be populated.
+	// Usually it will be nil - this is to prevent us from accidentally depending on apply
+	// options, which should usually be unnecessary.
+	ApplyOptions []dcl.ApplyOption
+}
+
+// do creates a request and sends it to the appropriate URL. In most operations,
+// do will transcribe a subset of the resource into a request object and send a
+// PUT request to a single URL.
+
+func (op *updateNotificationChannelUpdateOperation) do(ctx context.Context, r *NotificationChannel, c *Client) error {
+	_, err := c.GetNotificationChannel(ctx, r.urlNormalized())
+	if err != nil {
+		return err
+	}
+
+	u, err := r.updateURL(c.Config.BasePath, "update")
+	if err != nil {
+		return err
+	}
+	mask := strings.Join([]string{"description", "displayName", "enabled", "labels", "type", "userLabels"}, ",")
+	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
+	if err != nil {
+		return err
+	}
+
+	req, err := newUpdateNotificationChannelUpdateRequest(ctx, r, c)
+	if err != nil {
+		return err
+	}
+
+	c.Config.Logger.Infof("Created update: %#v", req)
+	body, err := marshalUpdateNotificationChannelUpdateRequest(c, req)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	if err != nil {
+		return err
+	}
+
+	var o operations.MonitoringOperation
+	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+		return err
+	}
+	err = o.Wait(ctx, c.Config, "https://monitoring.googleapis.com/", "GET")
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (c *Client) listNotificationChannelRaw(ctx context.Context, project, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := notificationChannelListURL(c.Config.BasePath, project)
+	if err != nil {
+		return nil, err
+	}
+
+	m := make(map[string]string)
+	if pageToken != "" {
+		m["pageToken"] = pageToken
+	}
+
+	if pageSize != NotificationChannelMaxPage {
+		m["pageSize"] = fmt.Sprintf("%v", pageSize)
+	}
+
+	u, err = dcl.AddQueryParams(u, m)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Response.Body.Close()
+	return ioutil.ReadAll(resp.Response.Body)
+}
+
+type listNotificationChannelOperation struct {
+	NotificationChannels []map[string]interface{} `json:"notificationChannels"`
+	Token                string                   `json:"nextPageToken"`
+}
+
+func (c *Client) listNotificationChannel(ctx context.Context, project, pageToken string, pageSize int32) ([]*NotificationChannel, string, error) {
+	b, err := c.listNotificationChannelRaw(ctx, project, pageToken, pageSize)
+	if err != nil {
+		return nil, "", err
+	}
+
+	var m listNotificationChannelOperation
+	if err := json.Unmarshal(b, &m); err != nil {
+		return nil, "", err
+	}
+
+	var l []*NotificationChannel
+	for _, v := range m.NotificationChannels {
+		res := flattenNotificationChannel(c, v)
+		res.Project = &project
+		l = append(l, res)
+	}
+
+	return l, m.Token, nil
+}
+
+func (c *Client) deleteAllNotificationChannel(ctx context.Context, f func(*NotificationChannel) bool, resources []*NotificationChannel) error {
+	var errors []string
+	for _, res := range resources {
+		if f(res) {
+			// We do not want deleteAll to fail on a deletion or else it will stop deleting other resources.
+			err := c.DeleteNotificationChannel(ctx, res)
+			if err != nil {
+				errors = append(errors, err.Error())
+			}
+		}
+	}
+	if len(errors) > 0 {
+		return fmt.Errorf("%v", strings.Join(errors, "\n"))
+	} else {
+		return nil
+	}
+}
+
+type deleteNotificationChannelOperation struct{}
+
+func (op *deleteNotificationChannelOperation) do(ctx context.Context, r *NotificationChannel, c *Client) error {
+
+	_, err := c.GetNotificationChannel(ctx, r.urlNormalized())
+
+	if err != nil {
+		if dcl.IsNotFound(err) {
+			c.Config.Logger.Infof("NotificationChannel not found, returning. Original error: %v", err)
+			return nil
+		}
+		c.Config.Logger.Warningf("GetNotificationChannel checking for existence. error: %v", err)
+		return err
+	}
+
+	u, err := notificationChannelDeleteURL(c.Config.BasePath, r.urlNormalized())
+	if err != nil {
+		return err
+	}
+
+	// Delete should never have a body
+	body := &bytes.Buffer{}
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	if err != nil {
+		return fmt.Errorf("failed to delete NotificationChannel: %w", err)
+	}
+	_, err = c.GetNotificationChannel(ctx, r.urlNormalized())
+	if !dcl.IsNotFound(err) {
+		return dcl.NotDeletedError{ExistingResource: r}
+	}
+	return nil
+}
+
+// Create operations are similar to Update operations, although they do not have
+// specific request objects. The Create request object is the json encoding of
+// the resource, which is modified by res.marshal to form the base request body.
+type createNotificationChannelOperation struct{}
+
+func (op *createNotificationChannelOperation) do(ctx context.Context, r *NotificationChannel, c *Client) error {
+	c.Config.Logger.Infof("Attempting to create %v", r)
+
+	project := r.createFields()
+	u, err := notificationChannelCreateURL(c.Config.BasePath, project)
+
+	if err != nil {
+		return err
+	}
+
+	req, err := r.marshal(c)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	if err != nil {
+		return err
+	}
+	// wait for object to be created.
+	var o operations.MonitoringOperation
+	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+		return err
+	}
+	if err := o.Wait(ctx, c.Config, "https://monitoring.googleapis.com/", "GET"); err != nil {
+		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
+		return err
+	}
+	c.Config.Logger.Infof("Successfully waited for operation")
+
+	r.Name, err = o.FetchName()
+	if err != nil {
+		return fmt.Errorf("error trying to retrieve Name: %w", err)
+	}
+
+	if _, err := c.GetNotificationChannel(ctx, r.urlNormalized()); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (c *Client) getNotificationChannelRaw(ctx context.Context, r *NotificationChannel) ([]byte, error) {
+	if dcl.IsZeroValue(r.Enabled) {
+		r.Enabled = dcl.Bool(true)
+	}
+
+	u, err := notificationChannelGetURL(c.Config.BasePath, r.urlNormalized())
+	if err != nil {
+		return nil, err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Response.Body.Close()
+	b, err := ioutil.ReadAll(resp.Response.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	return b, nil
+}
+
+func (c *Client) notificationChannelDiffsForRawDesired(ctx context.Context, rawDesired *NotificationChannel, opts ...dcl.ApplyOption) (initial, desired *NotificationChannel, diffs []notificationChannelDiff, err error) {
+	c.Config.Logger.Info("Fetching initial state...")
+	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
+	var fetchState *NotificationChannel
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		if r, ok := sh.(*NotificationChannel); !ok {
+			c.Config.Logger.Warningf("Initial state hint was of the wrong type; expected NotificationChannel, got %T", sh)
+		} else {
+			fetchState = r
+		}
+	}
+	if fetchState == nil {
+		fetchState = rawDesired
+	}
+
+	if fetchState.Name == nil {
+		// We cannot perform a get because of lack of information. We have to assume
+		// that this is being created for the first time.
+		desired, err := canonicalizeNotificationChannelDesiredState(rawDesired, nil)
+		return nil, desired, nil, err
+	}
+	// 1.2: Retrieval of raw initial state from API
+	rawInitial, err := c.GetNotificationChannel(ctx, fetchState.urlNormalized())
+	if rawInitial == nil {
+		if !dcl.IsNotFound(err) {
+			c.Config.Logger.Warningf("Failed to retrieve whether a NotificationChannel resource already exists: %s", err)
+			return nil, nil, nil, fmt.Errorf("failed to retrieve NotificationChannel resource: %v", err)
+		}
+
+		c.Config.Logger.Info("Found that NotificationChannel resource did not exist.")
+		// Perform canonicalization to pick up defaults.
+		desired, err = canonicalizeNotificationChannelDesiredState(rawDesired, rawInitial)
+		return nil, desired, nil, err
+	}
+	c.Config.Logger.Infof("Found initial state for NotificationChannel: %v", rawInitial)
+	c.Config.Logger.Infof("Initial desired state for NotificationChannel: %v", rawDesired)
+
+	// 1.3: Canonicalize raw initial state into initial state.
+	initial, err = canonicalizeNotificationChannelInitialState(rawInitial, rawDesired)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+	c.Config.Logger.Infof("Canonicalized initial state for NotificationChannel: %v", initial)
+
+	// 1.4: Canonicalize raw desired state into desired state.
+	desired, err = canonicalizeNotificationChannelDesiredState(rawDesired, rawInitial, opts...)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+	c.Config.Logger.Infof("Canonicalized desired state for NotificationChannel: %v", desired)
+
+	// 2.1: Comparison of initial and desired state.
+	diffs, err = diffNotificationChannel(c, desired, initial, opts...)
+	return initial, desired, diffs, err
+}
+
+func canonicalizeNotificationChannelInitialState(rawInitial, rawDesired *NotificationChannel) (*NotificationChannel, error) {
+	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
+	return rawInitial, nil
+}
+
+/*
+* Canonicalizers
+*
+* These are responsible for converting either a user-specified config or a
+* GCP API response to a standard format that can be used for difference checking.
+* */
+
+func canonicalizeNotificationChannelDesiredState(rawDesired, rawInitial *NotificationChannel, opts ...dcl.ApplyOption) (*NotificationChannel, error) {
+
+	if dcl.IsZeroValue(rawDesired.Enabled) {
+		rawDesired.Enabled = dcl.Bool(true)
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		if r, ok := sh.(*NotificationChannel); !ok {
+			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected NotificationChannel, got %T", sh)
+		} else {
+			_ = r
+		}
+	}
+
+	if rawInitial == nil {
+		// Since the initial state is empty, the desired state is all we have.
+		// We canonicalize the remaining nested objects with nil to pick up defaults.
+
+		return rawDesired, nil
+	}
+	if dcl.IsZeroValue(rawDesired.Description) {
+		rawDesired.Description = rawInitial.Description
+	}
+	if dcl.IsZeroValue(rawDesired.DisplayName) {
+		rawDesired.DisplayName = rawInitial.DisplayName
+	}
+	if dcl.IsZeroValue(rawDesired.Enabled) {
+		rawDesired.Enabled = rawInitial.Enabled
+	}
+	if dcl.IsZeroValue(rawDesired.Labels) {
+		rawDesired.Labels = rawInitial.Labels
+	}
+	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
+		rawDesired.Name = rawInitial.Name
+	}
+	if dcl.IsZeroValue(rawDesired.Type) {
+		rawDesired.Type = rawInitial.Type
+	}
+	if dcl.IsZeroValue(rawDesired.UserLabels) {
+		rawDesired.UserLabels = rawInitial.UserLabels
+	}
+	if dcl.IsZeroValue(rawDesired.VerificationStatus) {
+		rawDesired.VerificationStatus = rawInitial.VerificationStatus
+	}
+	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
+		rawDesired.Project = rawInitial.Project
+	}
+
+	return rawDesired, nil
+}
+
+func canonicalizeNotificationChannelNewState(c *Client, rawNew, rawDesired *NotificationChannel) (*NotificationChannel, error) {
+
+	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
+		rawNew.Description = rawDesired.Description
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
+		rawNew.DisplayName = rawDesired.DisplayName
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Enabled) && dcl.IsEmptyValueIndirect(rawDesired.Enabled) {
+		rawNew.Enabled = rawDesired.Enabled
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
+		rawNew.Labels = rawDesired.Labels
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+		rawNew.Name = rawDesired.Name
+	} else {
+		if dcl.NameToSelfLink(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Type) && dcl.IsEmptyValueIndirect(rawDesired.Type) {
+		rawNew.Type = rawDesired.Type
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.UserLabels) && dcl.IsEmptyValueIndirect(rawDesired.UserLabels) {
+		rawNew.UserLabels = rawDesired.UserLabels
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.VerificationStatus) && dcl.IsEmptyValueIndirect(rawDesired.VerificationStatus) {
+		rawNew.VerificationStatus = rawDesired.VerificationStatus
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
+		rawNew.Project = rawDesired.Project
+	} else {
+		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
+			rawNew.Project = rawDesired.Project
+		}
+	}
+
+	return rawNew, nil
+}
+
+type notificationChannelDiff struct {
+	// The diff should include one or the other of RequiresRecreate or UpdateOp.
+	RequiresRecreate bool
+	UpdateOp         notificationChannelApiOperation
+	// This is for reporting only.
+	FieldName string
+}
+
+// The differ returns a list of diffs, along with a list of operations that should be taken
+// to remedy them. Right now, it does not attempt to consolidate operations - if several
+// fields can be fixed with a patch update, it will perform the patch several times.
+// Diffs on some fields will be ignored if the `desired` state has an empty (nil)
+// value. This empty value indicates that the user does not care about the state for
+// the field. Empty fields on the actual object will cause diffs.
+// TODO(magic-modules-eng): for efficiency in some resources, add batching.
+func diffNotificationChannel(c *Client, desired, actual *NotificationChannel, opts ...dcl.ApplyOption) ([]notificationChannelDiff, error) {
+	if desired == nil || actual == nil {
+		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
+	}
+
+	var diffs []notificationChannelDiff
+	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+
+		diffs = append(diffs, notificationChannelDiff{
+			UpdateOp:  &updateNotificationChannelUpdateOperation{},
+			FieldName: "Description",
+		})
+
+	}
+	if !dcl.IsZeroValue(desired.DisplayName) && (dcl.IsZeroValue(actual.DisplayName) || !reflect.DeepEqual(*desired.DisplayName, *actual.DisplayName)) {
+		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %#v\nACTUAL: %#v", desired.DisplayName, actual.DisplayName)
+
+		diffs = append(diffs, notificationChannelDiff{
+			UpdateOp:  &updateNotificationChannelUpdateOperation{},
+			FieldName: "DisplayName",
+		})
+
+	}
+	if !dcl.IsZeroValue(desired.Enabled) && (dcl.IsZeroValue(actual.Enabled) || !reflect.DeepEqual(*desired.Enabled, *actual.Enabled)) {
+		c.Config.Logger.Infof("Detected diff in Enabled.\nDESIRED: %#v\nACTUAL: %#v", desired.Enabled, actual.Enabled)
+
+		diffs = append(diffs, notificationChannelDiff{
+			UpdateOp:  &updateNotificationChannelUpdateOperation{},
+			FieldName: "Enabled",
+		})
+
+	}
+	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
+		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %#v\nACTUAL: %#v", desired.Labels, actual.Labels)
+
+		diffs = append(diffs, notificationChannelDiff{
+			UpdateOp:  &updateNotificationChannelUpdateOperation{},
+			FieldName: "Labels",
+		})
+
+	}
+	if !dcl.IsZeroValue(desired.Type) && (dcl.IsZeroValue(actual.Type) || !reflect.DeepEqual(*desired.Type, *actual.Type)) {
+		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %#v\nACTUAL: %#v", desired.Type, actual.Type)
+
+		diffs = append(diffs, notificationChannelDiff{
+			UpdateOp:  &updateNotificationChannelUpdateOperation{},
+			FieldName: "Type",
+		})
+
+	}
+	if !reflect.DeepEqual(desired.UserLabels, actual.UserLabels) {
+		c.Config.Logger.Infof("Detected diff in UserLabels.\nDESIRED: %#v\nACTUAL: %#v", desired.UserLabels, actual.UserLabels)
+
+		diffs = append(diffs, notificationChannelDiff{
+			UpdateOp:  &updateNotificationChannelUpdateOperation{},
+			FieldName: "UserLabels",
+		})
+
+	}
+	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
+		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
+		diffs = append(diffs, notificationChannelDiff{
+			RequiresRecreate: true,
+			FieldName:        "Project",
+		})
+	}
+	// We need to ensure that this list does not contain identical operations *most of the time*.
+	// There may be some cases where we will need multiple copies of the same operation - for instance,
+	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
+	// such examples and so we deduplicate unconditionally.
+
+	// The best way for us to do this is to iterate through the list
+	// and remove any copies of operations which are identical to a previous operation.
+	// This is O(n^2) in the number of operations, but n will always be very small,
+	// even 10 would be an extremely high number.
+	var opTypes []string
+	var deduped []notificationChannelDiff
+	for _, d := range diffs {
+		// Two operations are considered identical if they have the same type.
+		// The type of an operation is derived from the name of the update method.
+		if !dcl.StringSliceContains(fmt.Sprintf("%T", d.UpdateOp), opTypes) {
+			deduped = append(deduped, d)
+			opTypes = append(opTypes, fmt.Sprintf("%T", d.UpdateOp))
+		} else {
+			c.Config.Logger.Infof("Omitting planned operation of type %T since once is already scheduled.", d.UpdateOp)
+		}
+	}
+
+	return deduped, nil
+}
+func compareNotificationChannelVerificationStatusEnumSlice(c *Client, desired, actual []NotificationChannelVerificationStatusEnum) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NotificationChannelVerificationStatusEnum, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareNotificationChannelVerificationStatusEnum(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NotificationChannelVerificationStatusEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNotificationChannelVerificationStatusEnum(c *Client, desired, actual *NotificationChannelVerificationStatusEnum) bool {
+	return !reflect.DeepEqual(desired, actual)
+}
+
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *NotificationChannel) urlNormalized() *NotificationChannel {
+	normalized := deepcopy.Copy(*r).(NotificationChannel)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
+
+func (r *NotificationChannel) getFields() (string, string) {
+	n := r.urlNormalized()
+	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
+}
+
+func (r *NotificationChannel) createFields() string {
+	n := r.urlNormalized()
+	return dcl.ValueOrEmptyString(n.Project)
+}
+
+func (r *NotificationChannel) deleteFields() (string, string) {
+	n := r.urlNormalized()
+	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
+}
+
+func (r *NotificationChannel) updateURL(userBasePath, updateName string) (string, error) {
+	n := r.urlNormalized()
+	if updateName == "update" {
+		fields := map[string]interface{}{
+			"project": dcl.ValueOrEmptyString(n.Project),
+			"name":    dcl.ValueOrEmptyString(n.Name),
+		}
+		return dcl.URL("v3/projects/{{project}}/notificationChannels/{{name}}", "https://monitoring.googleapis.com/", userBasePath, fields), nil
+
+	}
+	return "", fmt.Errorf("unknown update name: %s", updateName)
+}
+
+// marshal encodes the NotificationChannel resource into JSON for a Create request, and
+// performs transformations from the resource schema to the API schema if
+// necessary.
+func (r *NotificationChannel) marshal(c *Client) ([]byte, error) {
+	m, err := expandNotificationChannel(c, r)
+	if err != nil {
+		return nil, fmt.Errorf("error marshalling NotificationChannel: %w", err)
+	}
+
+	return json.Marshal(m)
+}
+
+// unmarshalNotificationChannel decodes JSON responses into the NotificationChannel resource schema.
+func unmarshalNotificationChannel(b []byte, c *Client) (*NotificationChannel, error) {
+	var m map[string]interface{}
+	if err := json.Unmarshal(b, &m); err != nil {
+		return nil, err
+	}
+
+	return flattenNotificationChannel(c, m), nil
+}
+
+// expandNotificationChannel expands NotificationChannel into a JSON request object.
+func expandNotificationChannel(c *Client, f *NotificationChannel) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
+	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+		m["description"] = v
+	}
+	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
+		m["displayName"] = v
+	}
+	if v := f.Enabled; !dcl.IsEmptyValueIndirect(v) {
+		m["enabled"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.UserLabels; !dcl.IsEmptyValueIndirect(v) {
+		m["userLabels"] = v
+	}
+	if v := f.VerificationStatus; !dcl.IsEmptyValueIndirect(v) {
+		m["verificationStatus"] = v
+	}
+	if v, err := dcl.EmptyValue(); err != nil {
+		return nil, fmt.Errorf("error expanding Project into project: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["project"] = v
+	}
+
+	return m, nil
+}
+
+// flattenNotificationChannel flattens NotificationChannel from a JSON request object into the
+// NotificationChannel type.
+func flattenNotificationChannel(c *Client, i interface{}) *NotificationChannel {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+	if len(m) == 0 {
+		return nil
+	}
+
+	r := &NotificationChannel{}
+	r.Description = dcl.FlattenString(m["description"])
+	r.DisplayName = dcl.FlattenString(m["displayName"])
+	r.Enabled = dcl.FlattenBool(m["enabled"])
+	if _, ok := m["enabled"]; !ok {
+		c.Config.Logger.Info("Using default value for enabled")
+		r.Enabled = dcl.Bool(true)
+	}
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	r.Name = dcl.FlattenSecretValue(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.UserLabels = dcl.FlattenKeyValuePairs(m["userLabels"])
+	r.VerificationStatus = flattenNotificationChannelVerificationStatusEnum(m["verificationStatus"])
+	r.Project = dcl.FlattenString(m["project"])
+
+	return r
+}
+
+// flattenNotificationChannelVerificationStatusEnumSlice flattens the contents of NotificationChannelVerificationStatusEnum from a JSON
+// response object.
+func flattenNotificationChannelVerificationStatusEnumSlice(c *Client, i interface{}) []NotificationChannelVerificationStatusEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NotificationChannelVerificationStatusEnum{}
+	}
+
+	if len(a) == 0 {
+		return []NotificationChannelVerificationStatusEnum{}
+	}
+
+	items := make([]NotificationChannelVerificationStatusEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNotificationChannelVerificationStatusEnum(item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// flattenNotificationChannelVerificationStatusEnum asserts that an interface is a string, and returns a
+// pointer to a *NotificationChannelVerificationStatusEnum with the same value as that string.
+func flattenNotificationChannelVerificationStatusEnum(i interface{}) *NotificationChannelVerificationStatusEnum {
+	s, ok := i.(string)
+	if !ok {
+		return NotificationChannelVerificationStatusEnumRef("")
+	}
+
+	return NotificationChannelVerificationStatusEnumRef(s)
+}
+
+// This function returns a matcher that checks whether a serialized resource matches this resource
+// in its parameters (as defined by the fields in a Get, which definitionally define resource
+// identity).  This is useful in extracting the element from a List call.
+func (r *NotificationChannel) matcher(c *Client) func([]byte) bool {
+	return func(b []byte) bool {
+		cr, err := unmarshalNotificationChannel(b, c)
+		if err != nil {
+			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
+			return false
+		}
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
+		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
+
+		if nr.Project == nil && ncr.Project == nil {
+			c.Config.Logger.Info("Both Project fields null - considering equal.")
+		} else if nr.Project == nil || ncr.Project == nil {
+			c.Config.Logger.Info("Only one Project field is null - considering unequal.")
+			return false
+		} else if *nr.Project != *ncr.Project {
+			return false
+		}
+		if nr.Name == nil && ncr.Name == nil {
+			c.Config.Logger.Info("Both Name fields null - considering equal.")
+		} else if nr.Name == nil || ncr.Name == nil {
+			c.Config.Logger.Info("Only one Name field is null - considering unequal.")
+			return false
+		} else if *nr.Name != *ncr.Name {
+			return false
+		}
+		return true
+	}
+}

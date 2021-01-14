@@ -1,0 +1,384 @@
+// Copyright 2021 Google LLC. All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+syntax = "proto3";
+
+package dcl;
+
+import "proto/connector/sdk.proto";
+import "proto/empty.proto";
+import "cloud/graphite/mmv2/services/google/dataproc/cluster.proto";
+
+enum DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum {
+  DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnumNULL_VALUE = 1;
+}
+
+enum DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum {
+  DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnumNULL_VALUE = 1;
+}
+
+enum DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum {
+  DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnumNULL_VALUE = 1;
+}
+
+enum DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum {
+  DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnumNULL_VALUE = 1;
+}
+
+enum DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum {
+  DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnumNULL_VALUE = 1;
+}
+
+enum DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum {
+  DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnumNULL_VALUE = 1;
+}
+
+enum DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum {
+  DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnumNULL_VALUE = 1;
+}
+
+message DataprocWorkflowTemplate {
+  string name = 1;
+  int64 version = 2;
+  string create_time = 3;
+  string update_time = 4;
+  repeated DataprocWorkflowTemplateLabels labels = 5;
+  DataprocWorkflowTemplatePlacement placement = 6;
+  repeated DataprocWorkflowTemplateJobs jobs = 7;
+  repeated DataprocWorkflowTemplateParameters parameters = 8;
+  string project = 9;
+  string location = 10;
+}
+
+message DataprocWorkflowTemplateLabels {
+  string key = 1;
+  string value = 2;
+}
+
+message DataprocWorkflowTemplatePlacement {
+  DataprocWorkflowTemplatePlacementManagedCluster managed_cluster = 1;
+  DataprocWorkflowTemplatePlacementClusterSelector cluster_selector = 2;
+}
+
+message DataprocWorkflowTemplatePlacementManagedCluster {
+  string cluster_name = 1;
+  DataprocClusterClusterConfig config = 2;
+  repeated DataprocWorkflowTemplatePlacementManagedClusterLabels labels = 3;
+}
+
+message DataprocWorkflowTemplatePlacementManagedClusterLabels {
+  string key = 1;
+  string value = 2;
+}
+
+message DataprocWorkflowTemplatePlacementClusterSelector {
+  string zone = 1;
+  repeated DataprocWorkflowTemplatePlacementClusterSelectorClusterLabels cluster_labels = 2;
+}
+
+message DataprocWorkflowTemplatePlacementClusterSelectorClusterLabels {
+  string key = 1;
+  string value = 2;
+}
+
+message DataprocWorkflowTemplateJobs {
+  string step_id = 1;
+  DataprocWorkflowTemplateJobsHadoopJob hadoop_job = 2;
+  DataprocWorkflowTemplateJobsSparkJob spark_job = 3;
+  DataprocWorkflowTemplateJobsPysparkJob pyspark_job = 4;
+  DataprocWorkflowTemplateJobsHiveJob hive_job = 5;
+  DataprocWorkflowTemplateJobsPigJob pig_job = 6;
+  DataprocWorkflowTemplateJobsSparkRJob spark_r_job = 7;
+  DataprocWorkflowTemplateJobsSparkSqlJob spark_sql_job = 8;
+  DataprocWorkflowTemplateJobsPrestoJob presto_job = 9;
+  repeated DataprocWorkflowTemplateJobsLabels labels = 10;
+  DataprocWorkflowTemplateJobsScheduling scheduling = 11;
+  repeated string prerequisite_step_ids = 12;
+}
+
+message DataprocWorkflowTemplateJobsHadoopJob {
+  string main_jar_file_uri = 1;
+  string main_class = 2;
+  repeated string args = 3;
+  repeated string jar_file_uris = 4;
+  repeated string file_uris = 5;
+  repeated string archive_uris = 6;
+  repeated DataprocWorkflowTemplateJobsHadoopJobProperties properties = 7;
+  DataprocWorkflowTemplateJobsHadoopJobLoggingConfig logging_config = 8;
+}
+
+message DataprocWorkflowTemplateJobsHadoopJobProperties {
+  string key = 1;
+  string value = 2;
+}
+
+message DataprocWorkflowTemplateJobsHadoopJobLoggingConfig {
+  repeated DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels driver_log_levels = 1;
+}
+
+message DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels {
+  string key = 1;
+  DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum value = 2;
+}
+
+message DataprocWorkflowTemplateJobsSparkJob {
+  string main_jar_file_uri = 1;
+  string main_class = 2;
+  repeated string args = 3;
+  repeated string jar_file_uris = 4;
+  repeated string file_uris = 5;
+  repeated string archive_uris = 6;
+  repeated DataprocWorkflowTemplateJobsSparkJobProperties properties = 7;
+  DataprocWorkflowTemplateJobsSparkJobLoggingConfig logging_config = 8;
+}
+
+message DataprocWorkflowTemplateJobsSparkJobProperties {
+  string key = 1;
+  string value = 2;
+}
+
+message DataprocWorkflowTemplateJobsSparkJobLoggingConfig {
+  repeated DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels driver_log_levels = 1;
+}
+
+message DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels {
+  string key = 1;
+  DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum value = 2;
+}
+
+message DataprocWorkflowTemplateJobsPysparkJob {
+  string main_python_file_uri = 1;
+  repeated string args = 2;
+  repeated string python_file_uris = 3;
+  repeated string jar_file_uris = 4;
+  repeated string file_uris = 5;
+  repeated string archive_uris = 6;
+  repeated DataprocWorkflowTemplateJobsPysparkJobProperties properties = 7;
+  DataprocWorkflowTemplateJobsPysparkJobLoggingConfig logging_config = 8;
+}
+
+message DataprocWorkflowTemplateJobsPysparkJobProperties {
+  string key = 1;
+  string value = 2;
+}
+
+message DataprocWorkflowTemplateJobsPysparkJobLoggingConfig {
+  repeated DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels driver_log_levels = 1;
+}
+
+message DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels {
+  string key = 1;
+  DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum value = 2;
+}
+
+message DataprocWorkflowTemplateJobsHiveJob {
+  string query_file_uri = 1;
+  DataprocWorkflowTemplateJobsHiveJobQueryList query_list = 2;
+  bool continue_on_failure = 3;
+  repeated DataprocWorkflowTemplateJobsHiveJobScriptVariables script_variables = 4;
+  repeated DataprocWorkflowTemplateJobsHiveJobProperties properties = 5;
+  repeated string jar_file_uris = 6;
+}
+
+message DataprocWorkflowTemplateJobsHiveJobQueryList {
+  repeated string queries = 1;
+}
+
+message DataprocWorkflowTemplateJobsHiveJobScriptVariables {
+  string key = 1;
+  string value = 2;
+}
+
+message DataprocWorkflowTemplateJobsHiveJobProperties {
+  string key = 1;
+  string value = 2;
+}
+
+message DataprocWorkflowTemplateJobsPigJob {
+  string query_file_uri = 1;
+  DataprocWorkflowTemplateJobsPigJobQueryList query_list = 2;
+  bool continue_on_failure = 3;
+  repeated DataprocWorkflowTemplateJobsPigJobScriptVariables script_variables = 4;
+  repeated DataprocWorkflowTemplateJobsPigJobProperties properties = 5;
+  repeated string jar_file_uris = 6;
+  DataprocWorkflowTemplateJobsPigJobLoggingConfig logging_config = 7;
+}
+
+message DataprocWorkflowTemplateJobsPigJobQueryList {
+  repeated string queries = 1;
+}
+
+message DataprocWorkflowTemplateJobsPigJobScriptVariables {
+  string key = 1;
+  string value = 2;
+}
+
+message DataprocWorkflowTemplateJobsPigJobProperties {
+  string key = 1;
+  string value = 2;
+}
+
+message DataprocWorkflowTemplateJobsPigJobLoggingConfig {
+  repeated DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels driver_log_levels = 1;
+}
+
+message DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels {
+  string key = 1;
+  DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum value = 2;
+}
+
+message DataprocWorkflowTemplateJobsSparkRJob {
+  string main_r_file_uri = 1;
+  repeated string args = 2;
+  repeated string file_uris = 3;
+  repeated string archive_uris = 4;
+  repeated DataprocWorkflowTemplateJobsSparkRJobProperties properties = 5;
+  DataprocWorkflowTemplateJobsSparkRJobLoggingConfig logging_config = 6;
+}
+
+message DataprocWorkflowTemplateJobsSparkRJobProperties {
+  string key = 1;
+  string value = 2;
+}
+
+message DataprocWorkflowTemplateJobsSparkRJobLoggingConfig {
+  repeated DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels driver_log_levels = 1;
+}
+
+message DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels {
+  string key = 1;
+  DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum value = 2;
+}
+
+message DataprocWorkflowTemplateJobsSparkSqlJob {
+  string query_file_uri = 1;
+  DataprocWorkflowTemplateJobsSparkSqlJobQueryList query_list = 2;
+  repeated DataprocWorkflowTemplateJobsSparkSqlJobScriptVariables script_variables = 3;
+  repeated DataprocWorkflowTemplateJobsSparkSqlJobProperties properties = 4;
+  repeated string jar_file_uris = 5;
+  DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfig logging_config = 6;
+}
+
+message DataprocWorkflowTemplateJobsSparkSqlJobQueryList {
+  repeated string queries = 1;
+}
+
+message DataprocWorkflowTemplateJobsSparkSqlJobScriptVariables {
+  string key = 1;
+  string value = 2;
+}
+
+message DataprocWorkflowTemplateJobsSparkSqlJobProperties {
+  string key = 1;
+  string value = 2;
+}
+
+message DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfig {
+  repeated DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels driver_log_levels = 1;
+}
+
+message DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels {
+  string key = 1;
+  DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum value = 2;
+}
+
+message DataprocWorkflowTemplateJobsPrestoJob {
+  string query_file_uri = 1;
+  DataprocWorkflowTemplateJobsPrestoJobQueryList query_list = 2;
+  bool continue_on_failure = 3;
+  string output_format = 4;
+  repeated string client_tags = 5;
+  repeated DataprocWorkflowTemplateJobsPrestoJobProperties properties = 6;
+  DataprocWorkflowTemplateJobsPrestoJobLoggingConfig logging_config = 7;
+}
+
+message DataprocWorkflowTemplateJobsPrestoJobQueryList {
+  repeated string queries = 1;
+}
+
+message DataprocWorkflowTemplateJobsPrestoJobProperties {
+  string key = 1;
+  string value = 2;
+}
+
+message DataprocWorkflowTemplateJobsPrestoJobLoggingConfig {
+  repeated DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels driver_log_levels = 1;
+}
+
+message DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels {
+  string key = 1;
+  DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum value = 2;
+}
+
+message DataprocWorkflowTemplateJobsLabels {
+  string key = 1;
+  string value = 2;
+}
+
+message DataprocWorkflowTemplateJobsScheduling {
+  int64 max_failures_per_hour = 1;
+  int64 max_failures_total = 2;
+}
+
+message DataprocWorkflowTemplateParameters {
+  string name = 1;
+  repeated string fields = 2;
+  string description = 3;
+  DataprocWorkflowTemplateParametersValidation validation = 4;
+}
+
+message DataprocWorkflowTemplateParametersValidation {
+  DataprocWorkflowTemplateParametersValidationRegex regex = 1;
+  DataprocWorkflowTemplateParametersValidationValues values = 2;
+}
+
+message DataprocWorkflowTemplateParametersValidationRegex {
+  repeated string regexes = 1;
+}
+
+message DataprocWorkflowTemplateParametersValidationValues {
+  repeated string values = 1;
+}
+
+message ApplyDataprocWorkflowTemplateRequest {
+  DataprocWorkflowTemplate resource = 1;
+  repeated LifecycleDirective lifecycle_directives = 2;
+  string service_account_file = 3;
+}
+
+message DeleteDataprocWorkflowTemplateRequest {
+  string service_account_file = 1;
+  DataprocWorkflowTemplate resource = 2;
+}
+
+message ListDataprocWorkflowTemplateRequest {
+  string service_account_file = 1;
+  string Project = 2;
+  string Location = 3;
+}
+
+message ListDataprocWorkflowTemplateResponse {
+  repeated DataprocWorkflowTemplate items = 1;
+}
+service DataprocWorkflowTemplateService {
+  rpc ApplyDataprocWorkflowTemplate(ApplyDataprocWorkflowTemplateRequest) returns (DataprocWorkflowTemplate);
+  rpc DeleteDataprocWorkflowTemplate(DeleteDataprocWorkflowTemplateRequest) returns (google.protobuf.Empty);
+  rpc ListDataprocWorkflowTemplate(ListDataprocWorkflowTemplateRequest) returns (ListDataprocWorkflowTemplateResponse);
+}

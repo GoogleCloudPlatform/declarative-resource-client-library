@@ -1,0 +1,168 @@
+// Copyright 2021 Google LLC. All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+syntax = "proto3";
+
+package dcl;
+
+import "proto/connector/sdk.proto";
+import "proto/empty.proto";
+
+enum LoggingLogMetricMetricDescriptorLabelsValueTypeEnum {
+  LoggingLogMetricMetricDescriptorLabelsValueTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  LoggingLogMetricMetricDescriptorLabelsValueTypeEnumSTRING = 1;
+  LoggingLogMetricMetricDescriptorLabelsValueTypeEnumBOOL = 2;
+  LoggingLogMetricMetricDescriptorLabelsValueTypeEnumINT64 = 3;
+  LoggingLogMetricMetricDescriptorLabelsValueTypeEnumDOUBLE = 4;
+  LoggingLogMetricMetricDescriptorLabelsValueTypeEnumDISTRIBUTION = 5;
+  LoggingLogMetricMetricDescriptorLabelsValueTypeEnumMONEY = 6;
+}
+
+enum LoggingLogMetricMetricDescriptorMetricKindEnum {
+  LoggingLogMetricMetricDescriptorMetricKindEnumNO_VALUE_DO_NOT_USE = 0;
+  LoggingLogMetricMetricDescriptorMetricKindEnumMETRIC_KIND_UNSPECIFIED = 1;
+  LoggingLogMetricMetricDescriptorMetricKindEnumGAUGE = 2;
+  LoggingLogMetricMetricDescriptorMetricKindEnumDELTA = 3;
+  LoggingLogMetricMetricDescriptorMetricKindEnumCUMULATIVE = 4;
+}
+
+enum LoggingLogMetricMetricDescriptorValueTypeEnum {
+  LoggingLogMetricMetricDescriptorValueTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  LoggingLogMetricMetricDescriptorValueTypeEnumSTRING = 1;
+  LoggingLogMetricMetricDescriptorValueTypeEnumBOOL = 2;
+  LoggingLogMetricMetricDescriptorValueTypeEnumINT64 = 3;
+  LoggingLogMetricMetricDescriptorValueTypeEnumDOUBLE = 4;
+  LoggingLogMetricMetricDescriptorValueTypeEnumDISTRIBUTION = 5;
+  LoggingLogMetricMetricDescriptorValueTypeEnumMONEY = 6;
+}
+
+enum LoggingLogMetricMetricDescriptorMetadataLaunchStageEnum {
+  LoggingLogMetricMetricDescriptorMetadataLaunchStageEnumNO_VALUE_DO_NOT_USE = 0;
+  LoggingLogMetricMetricDescriptorMetadataLaunchStageEnumLAUNCH_STAGE_UNSPECIFIED = 1;
+  LoggingLogMetricMetricDescriptorMetadataLaunchStageEnumUNIMPLEMENTED = 2;
+  LoggingLogMetricMetricDescriptorMetadataLaunchStageEnumPRELAUNCH = 3;
+  LoggingLogMetricMetricDescriptorMetadataLaunchStageEnumEARLY_ACCESS = 4;
+  LoggingLogMetricMetricDescriptorMetadataLaunchStageEnumALPHA = 5;
+  LoggingLogMetricMetricDescriptorMetadataLaunchStageEnumBETA = 6;
+  LoggingLogMetricMetricDescriptorMetadataLaunchStageEnumGA = 7;
+  LoggingLogMetricMetricDescriptorMetadataLaunchStageEnumDEPRECATED = 8;
+}
+
+enum LoggingLogMetricMetricDescriptorLaunchStageEnum {
+  LoggingLogMetricMetricDescriptorLaunchStageEnumNO_VALUE_DO_NOT_USE = 0;
+  LoggingLogMetricMetricDescriptorLaunchStageEnumLAUNCH_STAGE_UNSPECIFIED = 1;
+  LoggingLogMetricMetricDescriptorLaunchStageEnumUNIMPLEMENTED = 2;
+  LoggingLogMetricMetricDescriptorLaunchStageEnumPRELAUNCH = 3;
+  LoggingLogMetricMetricDescriptorLaunchStageEnumEARLY_ACCESS = 4;
+  LoggingLogMetricMetricDescriptorLaunchStageEnumALPHA = 5;
+  LoggingLogMetricMetricDescriptorLaunchStageEnumBETA = 6;
+  LoggingLogMetricMetricDescriptorLaunchStageEnumGA = 7;
+  LoggingLogMetricMetricDescriptorLaunchStageEnumDEPRECATED = 8;
+}
+
+message LoggingLogMetric {
+  string name = 1;
+  string description = 2;
+  string filter = 3;
+  bool disabled = 4;
+  LoggingLogMetricMetricDescriptor metric_descriptor = 5;
+  string value_extractor = 6;
+  map<string, string> label_extractors = 7;
+  LoggingLogMetricBucketOptions bucket_options = 8;
+  string create_time = 9;
+  string update_time = 10;
+  string resolution = 11;
+  string project = 12;
+}
+
+message LoggingLogMetricMetricDescriptor {
+  string name = 1;
+  string type = 2;
+  repeated LoggingLogMetricMetricDescriptorLabels labels = 3;
+  LoggingLogMetricMetricDescriptorMetricKindEnum metric_kind = 4;
+  LoggingLogMetricMetricDescriptorValueTypeEnum value_type = 5;
+  string unit = 6;
+  string display_name = 7;
+  LoggingLogMetricMetricDescriptorMetadata metadata = 8;
+  LoggingLogMetricMetricDescriptorLaunchStageEnum launch_stage = 9;
+  repeated string monitored_resource_types = 10;
+}
+
+message LoggingLogMetricMetricDescriptorLabels {
+  string key = 1;
+  LoggingLogMetricMetricDescriptorLabelsValueTypeEnum value_type = 2;
+  string description = 3;
+}
+
+message LoggingLogMetricMetricDescriptorMetadata {
+  LoggingLogMetricMetricDescriptorMetadataLaunchStageEnum launch_stage = 1;
+  LoggingLogMetricMetricDescriptorMetadataSamplePeriod sample_period = 2;
+  LoggingLogMetricMetricDescriptorMetadataIngestDelay ingest_delay = 3;
+}
+
+message LoggingLogMetricMetricDescriptorMetadataSamplePeriod {
+  int64 seconds = 1;
+  int64 nanos = 2;
+}
+
+message LoggingLogMetricMetricDescriptorMetadataIngestDelay {
+  int64 seconds = 1;
+  int64 nanos = 2;
+}
+
+message LoggingLogMetricBucketOptions {
+  LoggingLogMetricBucketOptionsLinearBuckets linear_buckets = 1;
+  LoggingLogMetricBucketOptionsExponentialBuckets exponential_buckets = 2;
+  LoggingLogMetricBucketOptionsExplicitBuckets explicit_buckets = 3;
+}
+
+message LoggingLogMetricBucketOptionsLinearBuckets {
+  int64 num_finite_buckets = 1;
+  double width = 2;
+  double offset = 3;
+}
+
+message LoggingLogMetricBucketOptionsExponentialBuckets {
+  int64 num_finite_buckets = 1;
+  double growth_factor = 2;
+  double scale = 3;
+}
+
+message LoggingLogMetricBucketOptionsExplicitBuckets {
+  repeated double bounds = 1;
+}
+
+message ApplyLoggingLogMetricRequest {
+  LoggingLogMetric resource = 1;
+  repeated LifecycleDirective lifecycle_directives = 2;
+  string service_account_file = 3;
+}
+
+message DeleteLoggingLogMetricRequest {
+  string service_account_file = 1;
+  LoggingLogMetric resource = 2;
+}
+
+message ListLoggingLogMetricRequest {
+  string service_account_file = 1;
+  string Project = 2;
+}
+
+message ListLoggingLogMetricResponse {
+  repeated LoggingLogMetric items = 1;
+}
+service LoggingLogMetricService {
+  rpc ApplyLoggingLogMetric(ApplyLoggingLogMetricRequest) returns (LoggingLogMetric);
+  rpc DeleteLoggingLogMetric(DeleteLoggingLogMetricRequest) returns (google.protobuf.Empty);
+  rpc ListLoggingLogMetric(ListLoggingLogMetricRequest) returns (ListLoggingLogMetricResponse);
+}

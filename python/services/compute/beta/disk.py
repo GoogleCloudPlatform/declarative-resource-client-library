@@ -1,0 +1,560 @@
+# Copyright 2021 Google LLC. All Rights Reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+from connector import channel
+from google3.cloud.graphite.mmv2.services.google.compute import disk_pb2
+from google3.cloud.graphite.mmv2.services.google.compute import disk_pb2_grpc
+
+from typing import List
+
+
+class Disk(object):
+    def __init__(
+        self,
+        self_link: str = None,
+        description: str = None,
+        disk_encryption_key: dict = None,
+        guest_os_feature: list = None,
+        labels: dict = None,
+        label_fingerprint: str = None,
+        license: list = None,
+        name: str = None,
+        region: str = None,
+        replica_zones: list = None,
+        resource_policy: list = None,
+        size_gb: int = None,
+        source_image: str = None,
+        source_image_encryption_key: dict = None,
+        source_image_id: str = None,
+        source_snapshot: str = None,
+        source_snapshot_encryption_key: dict = None,
+        source_snapshot_id: str = None,
+        type: str = None,
+        zone: str = None,
+        project: str = None,
+        id: int = None,
+        status: str = None,
+        options: str = None,
+        licenses: list = None,
+        guest_os_features: list = None,
+        last_attach_timestamp: str = None,
+        last_detach_timestamp: str = None,
+        users: list = None,
+        license_codes: list = None,
+        physical_block_size_bytes: int = None,
+        resource_policies: list = None,
+        source_disk: str = None,
+        source_disk_id: str = None,
+        location: str = None,
+        service_account_file: str = "",
+    ):
+
+        channel.initialize()
+        self.description = description
+        self.disk_encryption_key = disk_encryption_key
+        self.guest_os_feature = guest_os_feature
+        self.labels = labels
+        self.license = license
+        self.name = name
+        self.region = region
+        self.replica_zones = replica_zones
+        self.resource_policy = resource_policy
+        self.size_gb = size_gb
+        self.source_image = source_image
+        self.source_image_encryption_key = source_image_encryption_key
+        self.source_snapshot = source_snapshot
+        self.source_snapshot_encryption_key = source_snapshot_encryption_key
+        self.type = type
+        self.project = project
+        self.id = id
+        self.options = options
+        self.licenses = licenses
+        self.guest_os_features = guest_os_features
+        self.license_codes = license_codes
+        self.physical_block_size_bytes = physical_block_size_bytes
+        self.resource_policies = resource_policies
+        self.source_disk = source_disk
+        self.source_disk_id = source_disk_id
+        self.location = location
+        self.service_account_file = service_account_file
+
+    def apply(self):
+        stub = disk_pb2_grpc.ComputeBetaDiskServiceStub(channel.Channel())
+        request = disk_pb2.ApplyComputeBetaDiskRequest()
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if DiskEncryptionKey.to_proto(self.disk_encryption_key):
+            request.resource.disk_encryption_key.CopyFrom(
+                DiskEncryptionKey.to_proto(self.disk_encryption_key)
+            )
+        else:
+            request.resource.ClearField("disk_encryption_key")
+        if DiskGuestOsFeatureArray.to_proto(self.guest_os_feature):
+            request.resource.guest_os_feature.extend(
+                DiskGuestOsFeatureArray.to_proto(self.guest_os_feature)
+            )
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
+        if Primitive.to_proto(self.license):
+            request.resource.license.extend(Primitive.to_proto(self.license))
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.region):
+            request.resource.region = Primitive.to_proto(self.region)
+
+        if Primitive.to_proto(self.replica_zones):
+            request.resource.replica_zones.extend(
+                Primitive.to_proto(self.replica_zones)
+            )
+        if Primitive.to_proto(self.resource_policy):
+            request.resource.resource_policy.extend(
+                Primitive.to_proto(self.resource_policy)
+            )
+        if Primitive.to_proto(self.size_gb):
+            request.resource.size_gb = Primitive.to_proto(self.size_gb)
+
+        if Primitive.to_proto(self.source_image):
+            request.resource.source_image = Primitive.to_proto(self.source_image)
+
+        if DiskEncryptionKey.to_proto(self.source_image_encryption_key):
+            request.resource.source_image_encryption_key.CopyFrom(
+                DiskEncryptionKey.to_proto(self.source_image_encryption_key)
+            )
+        else:
+            request.resource.ClearField("source_image_encryption_key")
+        if Primitive.to_proto(self.source_snapshot):
+            request.resource.source_snapshot = Primitive.to_proto(self.source_snapshot)
+
+        if DiskEncryptionKey.to_proto(self.source_snapshot_encryption_key):
+            request.resource.source_snapshot_encryption_key.CopyFrom(
+                DiskEncryptionKey.to_proto(self.source_snapshot_encryption_key)
+            )
+        else:
+            request.resource.ClearField("source_snapshot_encryption_key")
+        if Primitive.to_proto(self.type):
+            request.resource.type = Primitive.to_proto(self.type)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.id):
+            request.resource.id = Primitive.to_proto(self.id)
+
+        if Primitive.to_proto(self.options):
+            request.resource.options = Primitive.to_proto(self.options)
+
+        if Primitive.to_proto(self.licenses):
+            request.resource.licenses.extend(Primitive.to_proto(self.licenses))
+        if DiskGuestOsFeaturesArray.to_proto(self.guest_os_features):
+            request.resource.guest_os_features.extend(
+                DiskGuestOsFeaturesArray.to_proto(self.guest_os_features)
+            )
+        if int64Array.to_proto(self.license_codes):
+            request.resource.license_codes.extend(
+                int64Array.to_proto(self.license_codes)
+            )
+        if Primitive.to_proto(self.physical_block_size_bytes):
+            request.resource.physical_block_size_bytes = Primitive.to_proto(
+                self.physical_block_size_bytes
+            )
+
+        if Primitive.to_proto(self.resource_policies):
+            request.resource.resource_policies.extend(
+                Primitive.to_proto(self.resource_policies)
+            )
+        if Primitive.to_proto(self.source_disk):
+            request.resource.source_disk = Primitive.to_proto(self.source_disk)
+
+        if Primitive.to_proto(self.source_disk_id):
+            request.resource.source_disk_id = Primitive.to_proto(self.source_disk_id)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
+
+        request.service_account_file = self.service_account_file
+
+        response = stub.ApplyComputeBetaDisk(request)
+        self.self_link = Primitive.from_proto(response.self_link)
+        self.description = Primitive.from_proto(response.description)
+        self.disk_encryption_key = DiskEncryptionKey.from_proto(
+            response.disk_encryption_key
+        )
+        self.guest_os_feature = DiskGuestOsFeatureArray.from_proto(
+            response.guest_os_feature
+        )
+        self.labels = Primitive.from_proto(response.labels)
+        self.label_fingerprint = Primitive.from_proto(response.label_fingerprint)
+        self.license = Primitive.from_proto(response.license)
+        self.name = Primitive.from_proto(response.name)
+        self.region = Primitive.from_proto(response.region)
+        self.replica_zones = Primitive.from_proto(response.replica_zones)
+        self.resource_policy = Primitive.from_proto(response.resource_policy)
+        self.size_gb = Primitive.from_proto(response.size_gb)
+        self.source_image = Primitive.from_proto(response.source_image)
+        self.source_image_encryption_key = DiskEncryptionKey.from_proto(
+            response.source_image_encryption_key
+        )
+        self.source_image_id = Primitive.from_proto(response.source_image_id)
+        self.source_snapshot = Primitive.from_proto(response.source_snapshot)
+        self.source_snapshot_encryption_key = DiskEncryptionKey.from_proto(
+            response.source_snapshot_encryption_key
+        )
+        self.source_snapshot_id = Primitive.from_proto(response.source_snapshot_id)
+        self.type = Primitive.from_proto(response.type)
+        self.zone = Primitive.from_proto(response.zone)
+        self.project = Primitive.from_proto(response.project)
+        self.id = Primitive.from_proto(response.id)
+        self.status = DiskStatusEnum.from_proto(response.status)
+        self.options = Primitive.from_proto(response.options)
+        self.licenses = Primitive.from_proto(response.licenses)
+        self.guest_os_features = DiskGuestOsFeaturesArray.from_proto(
+            response.guest_os_features
+        )
+        self.last_attach_timestamp = Primitive.from_proto(
+            response.last_attach_timestamp
+        )
+        self.last_detach_timestamp = Primitive.from_proto(
+            response.last_detach_timestamp
+        )
+        self.users = Primitive.from_proto(response.users)
+        self.license_codes = int64Array.from_proto(response.license_codes)
+        self.physical_block_size_bytes = Primitive.from_proto(
+            response.physical_block_size_bytes
+        )
+        self.resource_policies = Primitive.from_proto(response.resource_policies)
+        self.source_disk = Primitive.from_proto(response.source_disk)
+        self.source_disk_id = Primitive.from_proto(response.source_disk_id)
+        self.location = Primitive.from_proto(response.location)
+
+    @classmethod
+    def delete(self, project, location, name, service_account_file=""):
+        stub = disk_pb2_grpc.ComputeBetaDiskServiceStub(channel.Channel())
+        request = disk_pb2.DeleteComputeBetaDiskRequest()
+        request.service_account_file = service_account_file
+        request.Project = project
+
+        request.Location = location
+
+        request.Name = name
+
+        response = stub.DeleteComputeBetaDisk(request)
+
+    @classmethod
+    def list(self, project, location, service_account_file=""):
+        stub = disk_pb2_grpc.ComputeBetaDiskServiceStub(channel.Channel())
+        request = disk_pb2.ListComputeBetaDiskRequest()
+        request.service_account_file = service_account_file
+        request.Project = project
+
+        request.Location = location
+
+        return stub.ListComputeBetaDisk(request).items
+
+    @classmethod
+    def from_any(self, any_proto):
+        # Marshal any proto to regular proto.
+        res_proto = disk_pb2.ComputeBetaDisk()
+        any_proto.Unpack(res_proto)
+
+        res = Disk()
+        res.self_link = Primitive.from_proto(res_proto.self_link)
+        res.description = Primitive.from_proto(res_proto.description)
+        res.disk_encryption_key = DiskEncryptionKey.from_proto(
+            res_proto.disk_encryption_key
+        )
+        res.guest_os_feature = DiskGuestOsFeatureArray.from_proto(
+            res_proto.guest_os_feature
+        )
+        res.labels = Primitive.from_proto(res_proto.labels)
+        res.label_fingerprint = Primitive.from_proto(res_proto.label_fingerprint)
+        res.license = Primitive.from_proto(res_proto.license)
+        res.name = Primitive.from_proto(res_proto.name)
+        res.region = Primitive.from_proto(res_proto.region)
+        res.replica_zones = Primitive.from_proto(res_proto.replica_zones)
+        res.resource_policy = Primitive.from_proto(res_proto.resource_policy)
+        res.size_gb = Primitive.from_proto(res_proto.size_gb)
+        res.source_image = Primitive.from_proto(res_proto.source_image)
+        res.source_image_encryption_key = DiskEncryptionKey.from_proto(
+            res_proto.source_image_encryption_key
+        )
+        res.source_image_id = Primitive.from_proto(res_proto.source_image_id)
+        res.source_snapshot = Primitive.from_proto(res_proto.source_snapshot)
+        res.source_snapshot_encryption_key = DiskEncryptionKey.from_proto(
+            res_proto.source_snapshot_encryption_key
+        )
+        res.source_snapshot_id = Primitive.from_proto(res_proto.source_snapshot_id)
+        res.type = Primitive.from_proto(res_proto.type)
+        res.zone = Primitive.from_proto(res_proto.zone)
+        res.project = Primitive.from_proto(res_proto.project)
+        res.id = Primitive.from_proto(res_proto.id)
+        res.status = DiskStatusEnum.from_proto(res_proto.status)
+        res.options = Primitive.from_proto(res_proto.options)
+        res.licenses = Primitive.from_proto(res_proto.licenses)
+        res.guest_os_features = DiskGuestOsFeaturesArray.from_proto(
+            res_proto.guest_os_features
+        )
+        res.last_attach_timestamp = Primitive.from_proto(
+            res_proto.last_attach_timestamp
+        )
+        res.last_detach_timestamp = Primitive.from_proto(
+            res_proto.last_detach_timestamp
+        )
+        res.users = Primitive.from_proto(res_proto.users)
+        res.license_codes = int64Array.from_proto(res_proto.license_codes)
+        res.physical_block_size_bytes = Primitive.from_proto(
+            res_proto.physical_block_size_bytes
+        )
+        res.resource_policies = Primitive.from_proto(res_proto.resource_policies)
+        res.source_disk = Primitive.from_proto(res_proto.source_disk)
+        res.source_disk_id = Primitive.from_proto(res_proto.source_disk_id)
+        res.location = Primitive.from_proto(res_proto.location)
+        return res
+
+
+class DiskGuestOsFeature(object):
+    def __init__(self, type: str = None, type_alt: list = None):
+        self.type = type
+        self.type_alt = type_alt
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = disk_pb2.ComputeBetaDiskGuestOsFeature()
+        if DiskGuestOsFeatureTypeEnum.to_proto(resource.type):
+            res.type = DiskGuestOsFeatureTypeEnum.to_proto(resource.type)
+        if DiskGuestOsFeatureTypeAltEnumArray.to_proto(resource.type_alt):
+            res.type_alt.extend(
+                DiskGuestOsFeatureTypeAltEnumArray.to_proto(resource.type_alt)
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DiskGuestOsFeature(type=resource.type, type_alt=resource.type_alt,)
+
+
+class DiskGuestOsFeatureArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [DiskGuestOsFeature.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [DiskGuestOsFeature.from_proto(i) for i in resources]
+
+
+class DiskEncryptionKey(object):
+    def __init__(
+        self,
+        raw_key: str = None,
+        kms_key_name: str = None,
+        sha256: str = None,
+        kms_key_service_account: str = None,
+    ):
+        self.raw_key = raw_key
+        self.kms_key_name = kms_key_name
+        self.sha256 = sha256
+        self.kms_key_service_account = kms_key_service_account
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = disk_pb2.ComputeBetaDiskEncryptionKey()
+        if Primitive.to_proto(resource.raw_key):
+            res.raw_key = Primitive.to_proto(resource.raw_key)
+        if Primitive.to_proto(resource.kms_key_name):
+            res.kms_key_name = Primitive.to_proto(resource.kms_key_name)
+        if Primitive.to_proto(resource.sha256):
+            res.sha256 = Primitive.to_proto(resource.sha256)
+        if Primitive.to_proto(resource.kms_key_service_account):
+            res.kms_key_service_account = Primitive.to_proto(
+                resource.kms_key_service_account
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DiskEncryptionKey(
+            raw_key=resource.raw_key,
+            kms_key_name=resource.kms_key_name,
+            sha256=resource.sha256,
+            kms_key_service_account=resource.kms_key_service_account,
+        )
+
+
+class DiskEncryptionKeyArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [DiskEncryptionKey.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [DiskEncryptionKey.from_proto(i) for i in resources]
+
+
+class DiskGuestOsFeatures(object):
+    def __init__(self, type: str = None, type_alts: list = None):
+        self.type = type
+        self.type_alts = type_alts
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = disk_pb2.ComputeBetaDiskGuestOsFeatures()
+        if DiskGuestOsFeaturesTypeEnum.to_proto(resource.type):
+            res.type = DiskGuestOsFeaturesTypeEnum.to_proto(resource.type)
+        if DiskGuestOsFeaturesTypeAltsEnumArray.to_proto(resource.type_alts):
+            res.type_alts.extend(
+                DiskGuestOsFeaturesTypeAltsEnumArray.to_proto(resource.type_alts)
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DiskGuestOsFeatures(type=resource.type, type_alts=resource.type_alts,)
+
+
+class DiskGuestOsFeaturesArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [DiskGuestOsFeatures.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [DiskGuestOsFeatures.from_proto(i) for i in resources]
+
+
+class DiskGuestOsFeatureTypeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return disk_pb2.ComputeBetaDiskGuestOsFeatureTypeEnum.Value(
+            "ComputeBetaDiskGuestOsFeatureTypeEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return disk_pb2.ComputeBetaDiskGuestOsFeatureTypeEnum.Name(resource)[
+            len("ComputeBetaDiskGuestOsFeatureTypeEnum") :
+        ]
+
+
+class DiskGuestOsFeatureTypeAltEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return disk_pb2.ComputeBetaDiskGuestOsFeatureTypeAltEnum.Value(
+            "ComputeBetaDiskGuestOsFeatureTypeAltEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return disk_pb2.ComputeBetaDiskGuestOsFeatureTypeAltEnum.Name(resource)[
+            len("ComputeBetaDiskGuestOsFeatureTypeAltEnum") :
+        ]
+
+
+class DiskStatusEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return disk_pb2.ComputeBetaDiskStatusEnum.Value(
+            "ComputeBetaDiskStatusEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return disk_pb2.ComputeBetaDiskStatusEnum.Name(resource)[
+            len("ComputeBetaDiskStatusEnum") :
+        ]
+
+
+class DiskGuestOsFeaturesTypeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return disk_pb2.ComputeBetaDiskGuestOsFeaturesTypeEnum.Value(
+            "ComputeBetaDiskGuestOsFeaturesTypeEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return disk_pb2.ComputeBetaDiskGuestOsFeaturesTypeEnum.Name(resource)[
+            len("ComputeBetaDiskGuestOsFeaturesTypeEnum") :
+        ]
+
+
+class DiskGuestOsFeaturesTypeAltsEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return disk_pb2.ComputeBetaDiskGuestOsFeaturesTypeAltsEnum.Value(
+            "ComputeBetaDiskGuestOsFeaturesTypeAltsEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return disk_pb2.ComputeBetaDiskGuestOsFeaturesTypeAltsEnum.Name(resource)[
+            len("ComputeBetaDiskGuestOsFeaturesTypeAltsEnum") :
+        ]
+
+
+class Primitive(object):
+    @classmethod
+    def to_proto(self, s):
+        if not s:
+            return ""
+        return s
+
+    @classmethod
+    def from_proto(self, s):
+        return s

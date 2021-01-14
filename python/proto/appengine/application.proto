@@ -1,0 +1,122 @@
+// Copyright 2021 Google LLC. All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+syntax = "proto3";
+
+package dcl;
+
+import "proto/connector/sdk.proto";
+import "proto/empty.proto";
+
+enum AppengineApplicationConsumerProjectServiceEnum {
+  AppengineApplicationConsumerProjectServiceEnumNO_VALUE_DO_NOT_USE = 0;
+  AppengineApplicationConsumerProjectServiceEnumUNKNOWN = 1;
+  AppengineApplicationConsumerProjectServiceEnumGCF_PROD = 2;
+  AppengineApplicationConsumerProjectServiceEnumGCF_STAGING = 3;
+  AppengineApplicationConsumerProjectServiceEnumSERVERLESS = 4;
+}
+
+enum AppengineApplicationDatabaseTypeEnum {
+  AppengineApplicationDatabaseTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  AppengineApplicationDatabaseTypeEnumDATABASE_TYPE_UNSPECIFIED = 1;
+  AppengineApplicationDatabaseTypeEnumCLOUD_DATASTORE = 2;
+  AppengineApplicationDatabaseTypeEnumCLOUD_FIRESTORE = 3;
+  AppengineApplicationDatabaseTypeEnumCLOUD_DATASTORE_COMPATIBILITY = 4;
+}
+
+enum AppengineApplicationServingStatusEnum {
+  AppengineApplicationServingStatusEnumNO_VALUE_DO_NOT_USE = 0;
+  AppengineApplicationServingStatusEnumUNSPECIFIED = 1;
+  AppengineApplicationServingStatusEnumSERVING = 2;
+  AppengineApplicationServingStatusEnumUSER_DISABLED = 3;
+  AppengineApplicationServingStatusEnumSYSTEM_DISABLED = 4;
+}
+
+message AppengineApplication {
+  string auth_domain = 1;
+  repeated string blocked_addresses = 2;
+  string code_bucket = 3;
+  AppengineApplicationConsumerProject consumer_project = 4;
+  AppengineApplicationDatabaseTypeEnum database_type = 5;
+  string default_bucket = 6;
+  string default_hostname = 7;
+  repeated AppengineApplicationDispatchRules dispatch_rules = 8;
+  repeated string domains = 9;
+  AppengineApplicationFeatureSettings feature_settings = 10;
+  string gcr_domain = 11;
+  AppengineApplicationIap iap = 12;
+  AppengineApplicationParent parent = 13;
+  string name = 14;
+  string location = 15;
+  AppengineApplicationServingStatusEnum serving_status = 16;
+  string service_account = 17;
+}
+
+message AppengineApplicationConsumerProject {
+  AppengineApplicationConsumerProjectServiceEnum service = 1;
+  string name = 2;
+  string project_id = 3;
+  AppengineApplicationConsumerProjectRouteHash route_hash = 4;
+  string region = 5;
+}
+
+message AppengineApplicationConsumerProjectRouteHash {
+  string project_hash = 1;
+}
+
+message AppengineApplicationDispatchRules {
+  string domain = 1;
+  string path = 2;
+  string service = 3;
+}
+
+message AppengineApplicationFeatureSettings {
+  bool split_health_checks = 1;
+  bool use_container_optimized_os = 2;
+}
+
+message AppengineApplicationIap {
+  bool enabled = 1;
+  string oauth2_client_id = 2;
+  string oauth2_client_secret = 3;
+  string oauth2_client_secret_sha256 = 4;
+}
+
+message AppengineApplicationParent {
+  string type = 1;
+  string id = 2;
+}
+
+message ApplyAppengineApplicationRequest {
+  AppengineApplication resource = 1;
+  repeated LifecycleDirective lifecycle_directives = 2;
+  string service_account_file = 3;
+}
+
+message DeleteAppengineApplicationRequest {
+  string service_account_file = 1;
+  AppengineApplication resource = 2;
+}
+
+message ListAppengineApplicationRequest {
+  string service_account_file = 1;
+}
+
+message ListAppengineApplicationResponse {
+  repeated AppengineApplication items = 1;
+}
+service AppengineApplicationService {
+  rpc ApplyAppengineApplication(ApplyAppengineApplicationRequest) returns (AppengineApplication);
+  rpc DeleteAppengineApplication(DeleteAppengineApplicationRequest) returns (google.protobuf.Empty);
+  rpc ListAppengineApplication(ListAppengineApplicationRequest) returns (ListAppengineApplicationResponse);
+}

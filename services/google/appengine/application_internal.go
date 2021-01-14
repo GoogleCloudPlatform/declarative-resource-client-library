@@ -1,0 +1,2365 @@
+// Copyright 2021 Google LLC. All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+package appengine
+
+import (
+	"bytes"
+	"context"
+	"encoding/json"
+	"fmt"
+	"github.com/mohae/deepcopy"
+	"io/ioutil"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
+	"reflect"
+	"strings"
+)
+
+func (r *Application) validate() error {
+
+	if !dcl.IsEmptyValueIndirect(r.ConsumerProject) {
+		if err := r.ConsumerProject.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.FeatureSettings) {
+		if err := r.FeatureSettings.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.Iap) {
+		if err := r.Iap.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.Parent) {
+		if err := r.Parent.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ApplicationConsumerProject) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.RouteHash) {
+		if err := r.RouteHash.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ApplicationConsumerProjectRouteHash) validate() error {
+	return nil
+}
+func (r *ApplicationDispatchRules) validate() error {
+	return nil
+}
+func (r *ApplicationFeatureSettings) validate() error {
+	return nil
+}
+func (r *ApplicationIap) validate() error {
+	return nil
+}
+func (r *ApplicationParent) validate() error {
+	return nil
+}
+
+func applicationGetURL(userBasePath string, r *Application) (string, error) {
+	params := map[string]interface{}{
+		"name": dcl.ValueOrEmptyString(r.Name),
+	}
+	return dcl.URL("apps/{{name}}", "https://appengine.googleapis.com/v1/", userBasePath, params), nil
+}
+
+func applicationCreateURL(userBasePath string, _ ...interface{}) (string, error) {
+	return dcl.URL("apps", "https://appengine.googleapis.com/v1/", userBasePath, map[string]interface{}{}), nil
+}
+
+// applicationApiOperation represents a mutable operation in the underlying REST
+// API such as Create, Update, or Delete.
+type applicationApiOperation interface {
+	do(context.Context, *Application, *Client) error
+}
+
+// newUpdateApplicationUpdateApplicationRequest creates a request for an
+// Application resource's UpdateApplication update type by filling in the update
+// fields based on the intended state of the resource.
+func newUpdateApplicationUpdateApplicationRequest(ctx context.Context, f *Application, c *Client) (map[string]interface{}, error) {
+	req := map[string]interface{}{}
+
+	if v := f.AuthDomain; !dcl.IsEmptyValueIndirect(v) {
+		req["authDomain"] = v
+	}
+	if v := f.BlockedAddresses; !dcl.IsEmptyValueIndirect(v) {
+		req["blockedAddresses"] = v
+	}
+	if v, err := expandApplicationFeatureSettings(c, f.FeatureSettings); err != nil {
+		return nil, fmt.Errorf("error expanding FeatureSettings into featureSettings: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["featureSettings"] = v
+	}
+	if v := f.ServingStatus; !dcl.IsEmptyValueIndirect(v) {
+		req["servingStatus"] = v
+	}
+	return req, nil
+}
+
+// marshalUpdateApplicationUpdateApplicationRequest converts the update into
+// the final JSON request body.
+func marshalUpdateApplicationUpdateApplicationRequest(c *Client, m map[string]interface{}) ([]byte, error) {
+
+	return json.Marshal(m)
+}
+
+type updateApplicationUpdateApplicationOperation struct {
+	// If the update operation has the REQUIRES_APPLY_OPTIONS trait, this will be populated.
+	// Usually it will be nil - this is to prevent us from accidentally depending on apply
+	// options, which should usually be unnecessary.
+	ApplyOptions []dcl.ApplyOption
+}
+
+// do creates a request and sends it to the appropriate URL. In most operations,
+// do will transcribe a subset of the resource into a request object and send a
+// PUT request to a single URL.
+
+func (op *updateApplicationUpdateApplicationOperation) do(ctx context.Context, r *Application, c *Client) error {
+	_, err := c.GetApplication(ctx, r.urlNormalized())
+	if err != nil {
+		return err
+	}
+
+	u, err := r.updateURL(c.Config.BasePath, "UpdateApplication")
+	if err != nil {
+		return err
+	}
+
+	req, err := newUpdateApplicationUpdateApplicationRequest(ctx, r, c)
+	if err != nil {
+		return err
+	}
+
+	c.Config.Logger.Infof("Created update: %#v", req)
+	body, err := marshalUpdateApplicationUpdateApplicationRequest(c, req)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	if err != nil {
+		return err
+	}
+
+	var o operations.StandardGCPOperation
+	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+		return err
+	}
+	err = o.Wait(ctx, c.Config, "https://appengine.googleapis.com/v1/", "GET")
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+type listApplicationOperation struct {
+	Items []map[string]interface{} `json:"items"`
+	Token string                   `json:"nextPageToken"`
+}
+
+func (c *Client) listApplication(ctx context.Context, pageToken string) ([]*Application, string, error) {
+	b, err := c.listApplicationRaw(ctx, pageToken)
+	if err != nil {
+		return nil, "", err
+	}
+
+	var m listApplicationOperation
+	if err := json.Unmarshal(b, &m); err != nil {
+		return nil, "", err
+	}
+
+	var l []*Application
+	for _, v := range m.Items {
+		res := flattenApplication(c, v)
+		l = append(l, res)
+	}
+
+	return l, m.Token, nil
+}
+
+func (c *Client) deleteAllApplication(ctx context.Context, f func(*Application) bool, resources []*Application) error {
+	var errors []string
+	for _, res := range resources {
+		if f(res) {
+			// We do not want deleteAll to fail on a deletion or else it will stop deleting other resources.
+			err := c.DeleteApplication(ctx, res)
+			if err != nil {
+				errors = append(errors, err.Error())
+			}
+		}
+	}
+	if len(errors) > 0 {
+		return fmt.Errorf("%v", strings.Join(errors, "\n"))
+	} else {
+		return nil
+	}
+}
+
+type deleteApplicationOperation struct{}
+
+func (op *deleteApplicationOperation) do(ctx context.Context, r *Application, c *Client) error {
+
+	_, err := c.GetApplication(ctx, r.urlNormalized())
+
+	if err != nil {
+		if dcl.IsForbiddenOrNotFound(err) {
+			c.Config.Logger.Infof("Application not found, returning. Original error: %v", err)
+			return nil
+		}
+		c.Config.Logger.Warningf("GetApplication checking for existence. error: %v", err)
+		return err
+	}
+
+	u, err := applicationDeleteURL(c.Config.BasePath, r.urlNormalized())
+	if err != nil {
+		return err
+	}
+
+	// Delete should never have a body
+	body := &bytes.Buffer{}
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	if err != nil {
+		return fmt.Errorf("failed to delete Application: %w", err)
+	}
+	return nil
+}
+
+// Create operations are similar to Update operations, although they do not have
+// specific request objects. The Create request object is the json encoding of
+// the resource, which is modified by res.marshal to form the base request body.
+type createApplicationOperation struct{}
+
+func (op *createApplicationOperation) do(ctx context.Context, r *Application, c *Client) error {
+	c.Config.Logger.Infof("Attempting to create %v", r)
+
+	u, err := applicationCreateURL(c.Config.BasePath)
+
+	if err != nil {
+		return err
+	}
+
+	req, err := r.marshal(c)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	if err != nil {
+		return err
+	}
+	// wait for object to be created.
+	var o operations.StandardGCPOperation
+	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+		return err
+	}
+	if err := o.Wait(ctx, c.Config, "https://appengine.googleapis.com/v1/", "GET"); err != nil {
+		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
+		return err
+	}
+	c.Config.Logger.Infof("Successfully waited for operation")
+
+	if _, err := c.GetApplication(ctx, r.urlNormalized()); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (c *Client) getApplicationRaw(ctx context.Context, r *Application) ([]byte, error) {
+
+	u, err := applicationGetURL(c.Config.BasePath, r.urlNormalized())
+	if err != nil {
+		return nil, err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Response.Body.Close()
+	b, err := ioutil.ReadAll(resp.Response.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	return b, nil
+}
+
+func (c *Client) applicationDiffsForRawDesired(ctx context.Context, rawDesired *Application, opts ...dcl.ApplyOption) (initial, desired *Application, diffs []applicationDiff, err error) {
+	c.Config.Logger.Info("Fetching initial state...")
+	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
+	var fetchState *Application
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		if r, ok := sh.(*Application); !ok {
+			c.Config.Logger.Warningf("Initial state hint was of the wrong type; expected Application, got %T", sh)
+		} else {
+			fetchState = r
+		}
+	}
+	if fetchState == nil {
+		fetchState = rawDesired
+	}
+
+	// 1.2: Retrieval of raw initial state from API
+	rawInitial, err := c.GetApplication(ctx, fetchState.urlNormalized())
+	if rawInitial == nil {
+		if !dcl.IsForbiddenOrNotFound(err) {
+			c.Config.Logger.Warningf("Failed to retrieve whether a Application resource already exists: %s", err)
+			return nil, nil, nil, fmt.Errorf("failed to retrieve Application resource: %v", err)
+		}
+
+		c.Config.Logger.Info("Found that Application resource did not exist.")
+		// Perform canonicalization to pick up defaults.
+		desired, err = canonicalizeApplicationDesiredState(rawDesired, rawInitial)
+		return nil, desired, nil, err
+	}
+	c.Config.Logger.Infof("Found initial state for Application: %v", rawInitial)
+	c.Config.Logger.Infof("Initial desired state for Application: %v", rawDesired)
+
+	// 1.3: Canonicalize raw initial state into initial state.
+	initial, err = canonicalizeApplicationInitialState(rawInitial, rawDesired)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+	c.Config.Logger.Infof("Canonicalized initial state for Application: %v", initial)
+
+	// 1.4: Canonicalize raw desired state into desired state.
+	desired, err = canonicalizeApplicationDesiredState(rawDesired, rawInitial, opts...)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+	c.Config.Logger.Infof("Canonicalized desired state for Application: %v", desired)
+
+	// 2.1: Comparison of initial and desired state.
+	diffs, err = diffApplication(c, desired, initial, opts...)
+	return initial, desired, diffs, err
+}
+
+func canonicalizeApplicationInitialState(rawInitial, rawDesired *Application) (*Application, error) {
+	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
+	return rawInitial, nil
+}
+
+/*
+* Canonicalizers
+*
+* These are responsible for converting either a user-specified config or a
+* GCP API response to a standard format that can be used for difference checking.
+* */
+
+func canonicalizeApplicationDesiredState(rawDesired, rawInitial *Application, opts ...dcl.ApplyOption) (*Application, error) {
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		if r, ok := sh.(*Application); !ok {
+			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Application, got %T", sh)
+		} else {
+			_ = r
+		}
+	}
+
+	if rawInitial == nil {
+		// Since the initial state is empty, the desired state is all we have.
+		// We canonicalize the remaining nested objects with nil to pick up defaults.
+		rawDesired.ConsumerProject = canonicalizeApplicationConsumerProject(rawDesired.ConsumerProject, nil, opts...)
+		rawDesired.FeatureSettings = canonicalizeApplicationFeatureSettings(rawDesired.FeatureSettings, nil, opts...)
+		rawDesired.Iap = canonicalizeApplicationIap(rawDesired.Iap, nil, opts...)
+		rawDesired.Parent = canonicalizeApplicationParent(rawDesired.Parent, nil, opts...)
+
+		return rawDesired, nil
+	}
+	if dcl.IsZeroValue(rawDesired.AuthDomain) {
+		rawDesired.AuthDomain = rawInitial.AuthDomain
+	}
+	if dcl.IsZeroValue(rawDesired.BlockedAddresses) {
+		rawDesired.BlockedAddresses = rawInitial.BlockedAddresses
+	}
+	if dcl.IsZeroValue(rawDesired.CodeBucket) {
+		rawDesired.CodeBucket = rawInitial.CodeBucket
+	}
+	rawDesired.ConsumerProject = canonicalizeApplicationConsumerProject(rawDesired.ConsumerProject, rawInitial.ConsumerProject, opts...)
+	if dcl.IsZeroValue(rawDesired.DatabaseType) {
+		rawDesired.DatabaseType = rawInitial.DatabaseType
+	}
+	if dcl.IsZeroValue(rawDesired.DefaultBucket) {
+		rawDesired.DefaultBucket = rawInitial.DefaultBucket
+	}
+	if dcl.IsZeroValue(rawDesired.DefaultHostname) {
+		rawDesired.DefaultHostname = rawInitial.DefaultHostname
+	}
+	if dcl.IsZeroValue(rawDesired.DispatchRules) {
+		rawDesired.DispatchRules = rawInitial.DispatchRules
+	}
+	if dcl.IsZeroValue(rawDesired.Domains) {
+		rawDesired.Domains = rawInitial.Domains
+	}
+	rawDesired.FeatureSettings = canonicalizeApplicationFeatureSettings(rawDesired.FeatureSettings, rawInitial.FeatureSettings, opts...)
+	if dcl.IsZeroValue(rawDesired.GcrDomain) {
+		rawDesired.GcrDomain = rawInitial.GcrDomain
+	}
+	rawDesired.Iap = canonicalizeApplicationIap(rawDesired.Iap, rawInitial.Iap, opts...)
+	rawDesired.Parent = canonicalizeApplicationParent(rawDesired.Parent, rawInitial.Parent, opts...)
+	if dcl.IsZeroValue(rawDesired.Name) {
+		rawDesired.Name = rawInitial.Name
+	}
+	if dcl.IsZeroValue(rawDesired.Location) {
+		rawDesired.Location = rawInitial.Location
+	}
+	if dcl.IsZeroValue(rawDesired.ServingStatus) {
+		rawDesired.ServingStatus = rawInitial.ServingStatus
+	}
+	if dcl.IsZeroValue(rawDesired.ServiceAccount) {
+		rawDesired.ServiceAccount = rawInitial.ServiceAccount
+	}
+
+	return rawDesired, nil
+}
+
+func canonicalizeApplicationNewState(c *Client, rawNew, rawDesired *Application) (*Application, error) {
+
+	if dcl.IsEmptyValueIndirect(rawNew.AuthDomain) && dcl.IsEmptyValueIndirect(rawDesired.AuthDomain) {
+		rawNew.AuthDomain = rawDesired.AuthDomain
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.BlockedAddresses) && dcl.IsEmptyValueIndirect(rawDesired.BlockedAddresses) {
+		rawNew.BlockedAddresses = rawDesired.BlockedAddresses
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.CodeBucket) && dcl.IsEmptyValueIndirect(rawDesired.CodeBucket) {
+		rawNew.CodeBucket = rawDesired.CodeBucket
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.ConsumerProject) && dcl.IsEmptyValueIndirect(rawDesired.ConsumerProject) {
+		rawNew.ConsumerProject = rawDesired.ConsumerProject
+	} else {
+		rawNew.ConsumerProject = canonicalizeNewApplicationConsumerProject(c, rawDesired.ConsumerProject, rawNew.ConsumerProject)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.DatabaseType) && dcl.IsEmptyValueIndirect(rawDesired.DatabaseType) {
+		rawNew.DatabaseType = rawDesired.DatabaseType
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.DefaultBucket) && dcl.IsEmptyValueIndirect(rawDesired.DefaultBucket) {
+		rawNew.DefaultBucket = rawDesired.DefaultBucket
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.DefaultHostname) && dcl.IsEmptyValueIndirect(rawDesired.DefaultHostname) {
+		rawNew.DefaultHostname = rawDesired.DefaultHostname
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.DispatchRules) && dcl.IsEmptyValueIndirect(rawDesired.DispatchRules) {
+		rawNew.DispatchRules = rawDesired.DispatchRules
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Domains) && dcl.IsEmptyValueIndirect(rawDesired.Domains) {
+		rawNew.Domains = rawDesired.Domains
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.FeatureSettings) && dcl.IsEmptyValueIndirect(rawDesired.FeatureSettings) {
+		rawNew.FeatureSettings = rawDesired.FeatureSettings
+	} else {
+		rawNew.FeatureSettings = canonicalizeNewApplicationFeatureSettings(c, rawDesired.FeatureSettings, rawNew.FeatureSettings)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.GcrDomain) && dcl.IsEmptyValueIndirect(rawDesired.GcrDomain) {
+		rawNew.GcrDomain = rawDesired.GcrDomain
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Iap) && dcl.IsEmptyValueIndirect(rawDesired.Iap) {
+		rawNew.Iap = rawDesired.Iap
+	} else {
+		rawNew.Iap = canonicalizeNewApplicationIap(c, rawDesired.Iap, rawNew.Iap)
+	}
+
+	rawNew.Parent = rawDesired.Parent
+
+	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+		rawNew.Name = rawDesired.Name
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
+		rawNew.Location = rawDesired.Location
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.ServingStatus) && dcl.IsEmptyValueIndirect(rawDesired.ServingStatus) {
+		rawNew.ServingStatus = rawDesired.ServingStatus
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.ServiceAccount) && dcl.IsEmptyValueIndirect(rawDesired.ServiceAccount) {
+		rawNew.ServiceAccount = rawDesired.ServiceAccount
+	} else {
+	}
+
+	return rawNew, nil
+}
+
+func canonicalizeApplicationConsumerProject(des, initial *ApplicationConsumerProject, opts ...dcl.ApplyOption) *ApplicationConsumerProject {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Application)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Service) {
+		des.Service = initial.Service
+	}
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+	if dcl.IsZeroValue(des.ProjectId) {
+		des.ProjectId = initial.ProjectId
+	}
+	des.RouteHash = canonicalizeApplicationConsumerProjectRouteHash(des.RouteHash, initial.RouteHash, opts...)
+	if dcl.IsZeroValue(des.Region) {
+		des.Region = initial.Region
+	}
+
+	return des
+}
+
+func canonicalizeNewApplicationConsumerProject(c *Client, des, nw *ApplicationConsumerProject) *ApplicationConsumerProject {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	nw.RouteHash = canonicalizeNewApplicationConsumerProjectRouteHash(c, des.RouteHash, nw.RouteHash)
+
+	return nw
+}
+
+func canonicalizeNewApplicationConsumerProjectSet(c *Client, des, nw []ApplicationConsumerProject) []ApplicationConsumerProject {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ApplicationConsumerProject
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareApplicationConsumerProject(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeApplicationConsumerProjectRouteHash(des, initial *ApplicationConsumerProjectRouteHash, opts ...dcl.ApplyOption) *ApplicationConsumerProjectRouteHash {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Application)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.ProjectHash) {
+		des.ProjectHash = initial.ProjectHash
+	}
+
+	return des
+}
+
+func canonicalizeNewApplicationConsumerProjectRouteHash(c *Client, des, nw *ApplicationConsumerProjectRouteHash) *ApplicationConsumerProjectRouteHash {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewApplicationConsumerProjectRouteHashSet(c *Client, des, nw []ApplicationConsumerProjectRouteHash) []ApplicationConsumerProjectRouteHash {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ApplicationConsumerProjectRouteHash
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareApplicationConsumerProjectRouteHash(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeApplicationDispatchRules(des, initial *ApplicationDispatchRules, opts ...dcl.ApplyOption) *ApplicationDispatchRules {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Application)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Domain) {
+		des.Domain = initial.Domain
+	}
+	if dcl.IsZeroValue(des.Path) {
+		des.Path = initial.Path
+	}
+	if dcl.IsZeroValue(des.Service) {
+		des.Service = initial.Service
+	}
+
+	return des
+}
+
+func canonicalizeNewApplicationDispatchRules(c *Client, des, nw *ApplicationDispatchRules) *ApplicationDispatchRules {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewApplicationDispatchRulesSet(c *Client, des, nw []ApplicationDispatchRules) []ApplicationDispatchRules {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ApplicationDispatchRules
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareApplicationDispatchRules(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeApplicationFeatureSettings(des, initial *ApplicationFeatureSettings, opts ...dcl.ApplyOption) *ApplicationFeatureSettings {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Application)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.SplitHealthChecks) {
+		des.SplitHealthChecks = initial.SplitHealthChecks
+	}
+	if dcl.IsZeroValue(des.UseContainerOptimizedOs) {
+		des.UseContainerOptimizedOs = initial.UseContainerOptimizedOs
+	}
+
+	return des
+}
+
+func canonicalizeNewApplicationFeatureSettings(c *Client, des, nw *ApplicationFeatureSettings) *ApplicationFeatureSettings {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewApplicationFeatureSettingsSet(c *Client, des, nw []ApplicationFeatureSettings) []ApplicationFeatureSettings {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ApplicationFeatureSettings
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareApplicationFeatureSettings(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeApplicationIap(des, initial *ApplicationIap, opts ...dcl.ApplyOption) *ApplicationIap {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Application)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Enabled) {
+		des.Enabled = initial.Enabled
+	}
+	if dcl.IsZeroValue(des.OAuth2ClientId) {
+		des.OAuth2ClientId = initial.OAuth2ClientId
+	}
+	if dcl.IsZeroValue(des.OAuth2ClientSecret) {
+		des.OAuth2ClientSecret = initial.OAuth2ClientSecret
+	}
+	if dcl.IsZeroValue(des.OAuth2ClientSecretSha256) {
+		des.OAuth2ClientSecretSha256 = initial.OAuth2ClientSecretSha256
+	}
+
+	return des
+}
+
+func canonicalizeNewApplicationIap(c *Client, des, nw *ApplicationIap) *ApplicationIap {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewApplicationIapSet(c *Client, des, nw []ApplicationIap) []ApplicationIap {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ApplicationIap
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareApplicationIap(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeApplicationParent(des, initial *ApplicationParent, opts ...dcl.ApplyOption) *ApplicationParent {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		r := sh.(*Application)
+		_ = r
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Type) {
+		des.Type = initial.Type
+	}
+	if dcl.IsZeroValue(des.Id) {
+		des.Id = initial.Id
+	}
+
+	return des
+}
+
+func canonicalizeNewApplicationParent(c *Client, des, nw *ApplicationParent) *ApplicationParent {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewApplicationParentSet(c *Client, des, nw []ApplicationParent) []ApplicationParent {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ApplicationParent
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareApplicationParent(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+type applicationDiff struct {
+	// The diff should include one or the other of RequiresRecreate or UpdateOp.
+	RequiresRecreate bool
+	UpdateOp         applicationApiOperation
+	// This is for reporting only.
+	FieldName string
+}
+
+// The differ returns a list of diffs, along with a list of operations that should be taken
+// to remedy them. Right now, it does not attempt to consolidate operations - if several
+// fields can be fixed with a patch update, it will perform the patch several times.
+// Diffs on some fields will be ignored if the `desired` state has an empty (nil)
+// value. This empty value indicates that the user does not care about the state for
+// the field. Empty fields on the actual object will cause diffs.
+// TODO(magic-modules-eng): for efficiency in some resources, add batching.
+func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyOption) ([]applicationDiff, error) {
+	if desired == nil || actual == nil {
+		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
+	}
+
+	var diffs []applicationDiff
+	if !dcl.IsZeroValue(desired.AuthDomain) && (dcl.IsZeroValue(actual.AuthDomain) || !reflect.DeepEqual(*desired.AuthDomain, *actual.AuthDomain)) {
+		c.Config.Logger.Infof("Detected diff in AuthDomain.\nDESIRED: %#v\nACTUAL: %#v", desired.AuthDomain, actual.AuthDomain)
+
+		diffs = append(diffs, applicationDiff{
+			UpdateOp:  &updateApplicationUpdateApplicationOperation{},
+			FieldName: "AuthDomain",
+		})
+
+	}
+	if !dcl.SliceEquals(desired.BlockedAddresses, actual.BlockedAddresses) {
+		c.Config.Logger.Infof("Detected diff in BlockedAddresses.\nDESIRED: %#v\nACTUAL: %#v", desired.BlockedAddresses, actual.BlockedAddresses)
+
+		diffs = append(diffs, applicationDiff{
+			UpdateOp:  &updateApplicationUpdateApplicationOperation{},
+			FieldName: "BlockedAddresses",
+		})
+
+	}
+	if !dcl.IsZeroValue(desired.CodeBucket) && (dcl.IsZeroValue(actual.CodeBucket) || !reflect.DeepEqual(*desired.CodeBucket, *actual.CodeBucket)) {
+		c.Config.Logger.Infof("Detected diff in CodeBucket.\nDESIRED: %#v\nACTUAL: %#v", desired.CodeBucket, actual.CodeBucket)
+		diffs = append(diffs, applicationDiff{
+			RequiresRecreate: true,
+			FieldName:        "CodeBucket",
+		})
+	}
+	if compareApplicationConsumerProject(c, desired.ConsumerProject, actual.ConsumerProject) {
+		c.Config.Logger.Infof("Detected diff in ConsumerProject.\nDESIRED: %#v\nACTUAL: %#v", desired.ConsumerProject, actual.ConsumerProject)
+		diffs = append(diffs, applicationDiff{
+			RequiresRecreate: true,
+			FieldName:        "ConsumerProject",
+		})
+	}
+	if !dcl.IsZeroValue(desired.DatabaseType) && (dcl.IsZeroValue(actual.DatabaseType) || !reflect.DeepEqual(*desired.DatabaseType, *actual.DatabaseType)) {
+		c.Config.Logger.Infof("Detected diff in DatabaseType.\nDESIRED: %#v\nACTUAL: %#v", desired.DatabaseType, actual.DatabaseType)
+		diffs = append(diffs, applicationDiff{
+			RequiresRecreate: true,
+			FieldName:        "DatabaseType",
+		})
+	}
+	if !dcl.IsZeroValue(desired.DefaultBucket) && (dcl.IsZeroValue(actual.DefaultBucket) || !reflect.DeepEqual(*desired.DefaultBucket, *actual.DefaultBucket)) {
+		c.Config.Logger.Infof("Detected diff in DefaultBucket.\nDESIRED: %#v\nACTUAL: %#v", desired.DefaultBucket, actual.DefaultBucket)
+		diffs = append(diffs, applicationDiff{
+			RequiresRecreate: true,
+			FieldName:        "DefaultBucket",
+		})
+	}
+	if !dcl.IsZeroValue(desired.DefaultHostname) && (dcl.IsZeroValue(actual.DefaultHostname) || !reflect.DeepEqual(*desired.DefaultHostname, *actual.DefaultHostname)) {
+		c.Config.Logger.Infof("Detected diff in DefaultHostname.\nDESIRED: %#v\nACTUAL: %#v", desired.DefaultHostname, actual.DefaultHostname)
+		diffs = append(diffs, applicationDiff{
+			RequiresRecreate: true,
+			FieldName:        "DefaultHostname",
+		})
+	}
+	if compareApplicationDispatchRulesSlice(c, desired.DispatchRules, actual.DispatchRules) {
+		c.Config.Logger.Infof("Detected diff in DispatchRules.\nDESIRED: %#v\nACTUAL: %#v", desired.DispatchRules, actual.DispatchRules)
+		diffs = append(diffs, applicationDiff{
+			RequiresRecreate: true,
+			FieldName:        "DispatchRules",
+		})
+	}
+	if !dcl.SliceEquals(desired.Domains, actual.Domains) {
+		c.Config.Logger.Infof("Detected diff in Domains.\nDESIRED: %#v\nACTUAL: %#v", desired.Domains, actual.Domains)
+		diffs = append(diffs, applicationDiff{
+			RequiresRecreate: true,
+			FieldName:        "Domains",
+		})
+	}
+	if compareApplicationFeatureSettings(c, desired.FeatureSettings, actual.FeatureSettings) {
+		c.Config.Logger.Infof("Detected diff in FeatureSettings.\nDESIRED: %#v\nACTUAL: %#v", desired.FeatureSettings, actual.FeatureSettings)
+
+		diffs = append(diffs, applicationDiff{
+			UpdateOp:  &updateApplicationUpdateApplicationOperation{},
+			FieldName: "FeatureSettings",
+		})
+
+	}
+	if !dcl.IsZeroValue(desired.GcrDomain) && (dcl.IsZeroValue(actual.GcrDomain) || !reflect.DeepEqual(*desired.GcrDomain, *actual.GcrDomain)) {
+		c.Config.Logger.Infof("Detected diff in GcrDomain.\nDESIRED: %#v\nACTUAL: %#v", desired.GcrDomain, actual.GcrDomain)
+		diffs = append(diffs, applicationDiff{
+			RequiresRecreate: true,
+			FieldName:        "GcrDomain",
+		})
+	}
+	if compareApplicationIap(c, desired.Iap, actual.Iap) {
+		c.Config.Logger.Infof("Detected diff in Iap.\nDESIRED: %#v\nACTUAL: %#v", desired.Iap, actual.Iap)
+		diffs = append(diffs, applicationDiff{
+			RequiresRecreate: true,
+			FieldName:        "Iap",
+		})
+	}
+	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		diffs = append(diffs, applicationDiff{
+			RequiresRecreate: true,
+			FieldName:        "Name",
+		})
+	}
+	if !dcl.IsZeroValue(desired.Location) && (dcl.IsZeroValue(actual.Location) || !reflect.DeepEqual(*desired.Location, *actual.Location)) {
+		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
+		diffs = append(diffs, applicationDiff{
+			RequiresRecreate: true,
+			FieldName:        "Location",
+		})
+	}
+	if !dcl.IsZeroValue(desired.ServingStatus) && (dcl.IsZeroValue(actual.ServingStatus) || !reflect.DeepEqual(*desired.ServingStatus, *actual.ServingStatus)) {
+		c.Config.Logger.Infof("Detected diff in ServingStatus.\nDESIRED: %#v\nACTUAL: %#v", desired.ServingStatus, actual.ServingStatus)
+
+		diffs = append(diffs, applicationDiff{
+			UpdateOp:  &updateApplicationUpdateApplicationOperation{},
+			FieldName: "ServingStatus",
+		})
+
+	}
+	if !dcl.IsZeroValue(desired.ServiceAccount) && (dcl.IsZeroValue(actual.ServiceAccount) || !reflect.DeepEqual(*desired.ServiceAccount, *actual.ServiceAccount)) {
+		c.Config.Logger.Infof("Detected diff in ServiceAccount.\nDESIRED: %#v\nACTUAL: %#v", desired.ServiceAccount, actual.ServiceAccount)
+		diffs = append(diffs, applicationDiff{
+			RequiresRecreate: true,
+			FieldName:        "ServiceAccount",
+		})
+	}
+	// We need to ensure that this list does not contain identical operations *most of the time*.
+	// There may be some cases where we will need multiple copies of the same operation - for instance,
+	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
+	// such examples and so we deduplicate unconditionally.
+
+	// The best way for us to do this is to iterate through the list
+	// and remove any copies of operations which are identical to a previous operation.
+	// This is O(n^2) in the number of operations, but n will always be very small,
+	// even 10 would be an extremely high number.
+	var opTypes []string
+	var deduped []applicationDiff
+	for _, d := range diffs {
+		// Two operations are considered identical if they have the same type.
+		// The type of an operation is derived from the name of the update method.
+		if !dcl.StringSliceContains(fmt.Sprintf("%T", d.UpdateOp), opTypes) {
+			deduped = append(deduped, d)
+			opTypes = append(opTypes, fmt.Sprintf("%T", d.UpdateOp))
+		} else {
+			c.Config.Logger.Infof("Omitting planned operation of type %T since once is already scheduled.", d.UpdateOp)
+		}
+	}
+
+	return deduped, nil
+}
+func compareApplicationConsumerProjectSlice(c *Client, desired, actual []ApplicationConsumerProject) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ApplicationConsumerProject, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareApplicationConsumerProject(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ApplicationConsumerProject, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareApplicationConsumerProject(c *Client, desired, actual *ApplicationConsumerProject) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Service == nil && desired.Service != nil && !dcl.IsEmptyValueIndirect(desired.Service) {
+		c.Config.Logger.Infof("desired Service %s - but actually nil", dcl.SprintResource(desired.Service))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Service, actual.Service) && !dcl.IsZeroValue(desired.Service) && !(dcl.IsEmptyValueIndirect(desired.Service) && dcl.IsZeroValue(actual.Service)) {
+		c.Config.Logger.Infof("Diff in Service. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Service), dcl.SprintResource(actual.Service))
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	if actual.ProjectId == nil && desired.ProjectId != nil && !dcl.IsEmptyValueIndirect(desired.ProjectId) {
+		c.Config.Logger.Infof("desired ProjectId %s - but actually nil", dcl.SprintResource(desired.ProjectId))
+		return true
+	}
+	if !reflect.DeepEqual(desired.ProjectId, actual.ProjectId) && !dcl.IsZeroValue(desired.ProjectId) && !(dcl.IsEmptyValueIndirect(desired.ProjectId) && dcl.IsZeroValue(actual.ProjectId)) {
+		c.Config.Logger.Infof("Diff in ProjectId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProjectId), dcl.SprintResource(actual.ProjectId))
+		return true
+	}
+	if actual.RouteHash == nil && desired.RouteHash != nil && !dcl.IsEmptyValueIndirect(desired.RouteHash) {
+		c.Config.Logger.Infof("desired RouteHash %s - but actually nil", dcl.SprintResource(desired.RouteHash))
+		return true
+	}
+	if compareApplicationConsumerProjectRouteHash(c, desired.RouteHash, actual.RouteHash) && !dcl.IsZeroValue(desired.RouteHash) {
+		c.Config.Logger.Infof("Diff in RouteHash. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RouteHash), dcl.SprintResource(actual.RouteHash))
+		return true
+	}
+	if actual.Region == nil && desired.Region != nil && !dcl.IsEmptyValueIndirect(desired.Region) {
+		c.Config.Logger.Infof("desired Region %s - but actually nil", dcl.SprintResource(desired.Region))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Region, actual.Region) && !dcl.IsZeroValue(desired.Region) && !(dcl.IsEmptyValueIndirect(desired.Region) && dcl.IsZeroValue(actual.Region)) {
+		c.Config.Logger.Infof("Diff in Region. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Region), dcl.SprintResource(actual.Region))
+		return true
+	}
+	return false
+}
+func compareApplicationConsumerProjectRouteHashSlice(c *Client, desired, actual []ApplicationConsumerProjectRouteHash) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ApplicationConsumerProjectRouteHash, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareApplicationConsumerProjectRouteHash(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ApplicationConsumerProjectRouteHash, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareApplicationConsumerProjectRouteHash(c *Client, desired, actual *ApplicationConsumerProjectRouteHash) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.ProjectHash == nil && desired.ProjectHash != nil && !dcl.IsEmptyValueIndirect(desired.ProjectHash) {
+		c.Config.Logger.Infof("desired ProjectHash %s - but actually nil", dcl.SprintResource(desired.ProjectHash))
+		return true
+	}
+	if !reflect.DeepEqual(desired.ProjectHash, actual.ProjectHash) && !dcl.IsZeroValue(desired.ProjectHash) && !(dcl.IsEmptyValueIndirect(desired.ProjectHash) && dcl.IsZeroValue(actual.ProjectHash)) {
+		c.Config.Logger.Infof("Diff in ProjectHash. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProjectHash), dcl.SprintResource(actual.ProjectHash))
+		return true
+	}
+	return false
+}
+func compareApplicationDispatchRulesSlice(c *Client, desired, actual []ApplicationDispatchRules) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ApplicationDispatchRules, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareApplicationDispatchRules(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ApplicationDispatchRules, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareApplicationDispatchRules(c *Client, desired, actual *ApplicationDispatchRules) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Domain == nil && desired.Domain != nil && !dcl.IsEmptyValueIndirect(desired.Domain) {
+		c.Config.Logger.Infof("desired Domain %s - but actually nil", dcl.SprintResource(desired.Domain))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Domain, actual.Domain) && !dcl.IsZeroValue(desired.Domain) && !(dcl.IsEmptyValueIndirect(desired.Domain) && dcl.IsZeroValue(actual.Domain)) {
+		c.Config.Logger.Infof("Diff in Domain. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Domain), dcl.SprintResource(actual.Domain))
+		return true
+	}
+	if actual.Path == nil && desired.Path != nil && !dcl.IsEmptyValueIndirect(desired.Path) {
+		c.Config.Logger.Infof("desired Path %s - but actually nil", dcl.SprintResource(desired.Path))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) && !(dcl.IsEmptyValueIndirect(desired.Path) && dcl.IsZeroValue(actual.Path)) {
+		c.Config.Logger.Infof("Diff in Path. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
+		return true
+	}
+	if actual.Service == nil && desired.Service != nil && !dcl.IsEmptyValueIndirect(desired.Service) {
+		c.Config.Logger.Infof("desired Service %s - but actually nil", dcl.SprintResource(desired.Service))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Service, actual.Service) && !dcl.IsZeroValue(desired.Service) && !(dcl.IsEmptyValueIndirect(desired.Service) && dcl.IsZeroValue(actual.Service)) {
+		c.Config.Logger.Infof("Diff in Service. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Service), dcl.SprintResource(actual.Service))
+		return true
+	}
+	return false
+}
+func compareApplicationFeatureSettingsSlice(c *Client, desired, actual []ApplicationFeatureSettings) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ApplicationFeatureSettings, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareApplicationFeatureSettings(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ApplicationFeatureSettings, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareApplicationFeatureSettings(c *Client, desired, actual *ApplicationFeatureSettings) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.SplitHealthChecks == nil && desired.SplitHealthChecks != nil && !dcl.IsEmptyValueIndirect(desired.SplitHealthChecks) {
+		c.Config.Logger.Infof("desired SplitHealthChecks %s - but actually nil", dcl.SprintResource(desired.SplitHealthChecks))
+		return true
+	}
+	if !reflect.DeepEqual(desired.SplitHealthChecks, actual.SplitHealthChecks) && !dcl.IsZeroValue(desired.SplitHealthChecks) && !(dcl.IsEmptyValueIndirect(desired.SplitHealthChecks) && dcl.IsZeroValue(actual.SplitHealthChecks)) {
+		c.Config.Logger.Infof("Diff in SplitHealthChecks. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SplitHealthChecks), dcl.SprintResource(actual.SplitHealthChecks))
+		return true
+	}
+	if actual.UseContainerOptimizedOs == nil && desired.UseContainerOptimizedOs != nil && !dcl.IsEmptyValueIndirect(desired.UseContainerOptimizedOs) {
+		c.Config.Logger.Infof("desired UseContainerOptimizedOs %s - but actually nil", dcl.SprintResource(desired.UseContainerOptimizedOs))
+		return true
+	}
+	if !reflect.DeepEqual(desired.UseContainerOptimizedOs, actual.UseContainerOptimizedOs) && !dcl.IsZeroValue(desired.UseContainerOptimizedOs) && !(dcl.IsEmptyValueIndirect(desired.UseContainerOptimizedOs) && dcl.IsZeroValue(actual.UseContainerOptimizedOs)) {
+		c.Config.Logger.Infof("Diff in UseContainerOptimizedOs. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UseContainerOptimizedOs), dcl.SprintResource(actual.UseContainerOptimizedOs))
+		return true
+	}
+	return false
+}
+func compareApplicationIapSlice(c *Client, desired, actual []ApplicationIap) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ApplicationIap, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareApplicationIap(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ApplicationIap, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareApplicationIap(c *Client, desired, actual *ApplicationIap) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Enabled == nil && desired.Enabled != nil && !dcl.IsEmptyValueIndirect(desired.Enabled) {
+		c.Config.Logger.Infof("desired Enabled %s - but actually nil", dcl.SprintResource(desired.Enabled))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Enabled, actual.Enabled) && !dcl.IsZeroValue(desired.Enabled) && !(dcl.IsEmptyValueIndirect(desired.Enabled) && dcl.IsZeroValue(actual.Enabled)) {
+		c.Config.Logger.Infof("Diff in Enabled. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Enabled), dcl.SprintResource(actual.Enabled))
+		return true
+	}
+	if actual.OAuth2ClientId == nil && desired.OAuth2ClientId != nil && !dcl.IsEmptyValueIndirect(desired.OAuth2ClientId) {
+		c.Config.Logger.Infof("desired OAuth2ClientId %s - but actually nil", dcl.SprintResource(desired.OAuth2ClientId))
+		return true
+	}
+	if !reflect.DeepEqual(desired.OAuth2ClientId, actual.OAuth2ClientId) && !dcl.IsZeroValue(desired.OAuth2ClientId) && !(dcl.IsEmptyValueIndirect(desired.OAuth2ClientId) && dcl.IsZeroValue(actual.OAuth2ClientId)) {
+		c.Config.Logger.Infof("Diff in OAuth2ClientId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OAuth2ClientId), dcl.SprintResource(actual.OAuth2ClientId))
+		return true
+	}
+	if actual.OAuth2ClientSecret == nil && desired.OAuth2ClientSecret != nil && !dcl.IsEmptyValueIndirect(desired.OAuth2ClientSecret) {
+		c.Config.Logger.Infof("desired OAuth2ClientSecret %s - but actually nil", dcl.SprintResource(desired.OAuth2ClientSecret))
+		return true
+	}
+	if !reflect.DeepEqual(desired.OAuth2ClientSecret, actual.OAuth2ClientSecret) && !dcl.IsZeroValue(desired.OAuth2ClientSecret) && !(dcl.IsEmptyValueIndirect(desired.OAuth2ClientSecret) && dcl.IsZeroValue(actual.OAuth2ClientSecret)) {
+		c.Config.Logger.Infof("Diff in OAuth2ClientSecret. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OAuth2ClientSecret), dcl.SprintResource(actual.OAuth2ClientSecret))
+		return true
+	}
+	if actual.OAuth2ClientSecretSha256 == nil && desired.OAuth2ClientSecretSha256 != nil && !dcl.IsEmptyValueIndirect(desired.OAuth2ClientSecretSha256) {
+		c.Config.Logger.Infof("desired OAuth2ClientSecretSha256 %s - but actually nil", dcl.SprintResource(desired.OAuth2ClientSecretSha256))
+		return true
+	}
+	if !reflect.DeepEqual(desired.OAuth2ClientSecretSha256, actual.OAuth2ClientSecretSha256) && !dcl.IsZeroValue(desired.OAuth2ClientSecretSha256) && !(dcl.IsEmptyValueIndirect(desired.OAuth2ClientSecretSha256) && dcl.IsZeroValue(actual.OAuth2ClientSecretSha256)) {
+		c.Config.Logger.Infof("Diff in OAuth2ClientSecretSha256. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OAuth2ClientSecretSha256), dcl.SprintResource(actual.OAuth2ClientSecretSha256))
+		return true
+	}
+	return false
+}
+func compareApplicationParentSlice(c *Client, desired, actual []ApplicationParent) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ApplicationParent, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareApplicationParent(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ApplicationParent, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareApplicationParent(c *Client, desired, actual *ApplicationParent) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Type == nil && desired.Type != nil && !dcl.IsEmptyValueIndirect(desired.Type) {
+		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) && !(dcl.IsEmptyValueIndirect(desired.Type) && dcl.IsZeroValue(actual.Type)) {
+		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
+		return true
+	}
+	if actual.Id == nil && desired.Id != nil && !dcl.IsEmptyValueIndirect(desired.Id) {
+		c.Config.Logger.Infof("desired Id %s - but actually nil", dcl.SprintResource(desired.Id))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Id, actual.Id) && !dcl.IsZeroValue(desired.Id) && !(dcl.IsEmptyValueIndirect(desired.Id) && dcl.IsZeroValue(actual.Id)) {
+		c.Config.Logger.Infof("Diff in Id. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Id), dcl.SprintResource(actual.Id))
+		return true
+	}
+	return false
+}
+func compareApplicationConsumerProjectServiceEnumSlice(c *Client, desired, actual []ApplicationConsumerProjectServiceEnum) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ApplicationConsumerProjectServiceEnum, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareApplicationConsumerProjectServiceEnum(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ApplicationConsumerProjectServiceEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareApplicationConsumerProjectServiceEnum(c *Client, desired, actual *ApplicationConsumerProjectServiceEnum) bool {
+	return !reflect.DeepEqual(desired, actual)
+}
+
+func compareApplicationDatabaseTypeEnumSlice(c *Client, desired, actual []ApplicationDatabaseTypeEnum) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ApplicationDatabaseTypeEnum, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareApplicationDatabaseTypeEnum(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ApplicationDatabaseTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareApplicationDatabaseTypeEnum(c *Client, desired, actual *ApplicationDatabaseTypeEnum) bool {
+	return !reflect.DeepEqual(desired, actual)
+}
+
+func compareApplicationServingStatusEnumSlice(c *Client, desired, actual []ApplicationServingStatusEnum) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ApplicationServingStatusEnum, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareApplicationServingStatusEnum(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ApplicationServingStatusEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareApplicationServingStatusEnum(c *Client, desired, actual *ApplicationServingStatusEnum) bool {
+	return !reflect.DeepEqual(desired, actual)
+}
+
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Application) urlNormalized() *Application {
+	normalized := deepcopy.Copy(*r).(Application)
+	return &normalized
+}
+
+func (r *Application) getFields() string {
+	n := r.urlNormalized()
+	return dcl.ValueOrEmptyString(n.Name)
+}
+
+func (r *Application) createFields() string {
+	return ""
+}
+
+func (r *Application) deleteFields() string {
+	n := r.urlNormalized()
+	return dcl.ValueOrEmptyString(n.Name)
+}
+
+func (r *Application) updateURL(userBasePath, updateName string) (string, error) {
+	n := r.urlNormalized()
+	if updateName == "UpdateApplication" {
+		fields := map[string]interface{}{
+			"name": dcl.ValueOrEmptyString(n.Name),
+		}
+		return dcl.URL("apps/{{name}}", "https://appengine.googleapis.com/v1/", userBasePath, fields), nil
+
+	}
+	return "", fmt.Errorf("unknown update name: %s", updateName)
+}
+
+// marshal encodes the Application resource into JSON for a Create request, and
+// performs transformations from the resource schema to the API schema if
+// necessary.
+func (r *Application) marshal(c *Client) ([]byte, error) {
+	m, err := expandApplication(c, r)
+	if err != nil {
+		return nil, fmt.Errorf("error marshalling Application: %w", err)
+	}
+	dcl.MoveMapEntry(
+		m,
+		[]string{"parent"},
+		[]string{},
+	)
+
+	return json.Marshal(m)
+}
+
+// unmarshalApplication decodes JSON responses into the Application resource schema.
+func unmarshalApplication(b []byte, c *Client) (*Application, error) {
+	var m map[string]interface{}
+	if err := json.Unmarshal(b, &m); err != nil {
+		return nil, err
+	}
+
+	return flattenApplication(c, m), nil
+}
+
+// expandApplication expands Application into a JSON request object.
+func expandApplication(c *Client, f *Application) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
+	if v := f.AuthDomain; !dcl.IsEmptyValueIndirect(v) {
+		m["authDomain"] = v
+	}
+	if v := f.BlockedAddresses; !dcl.IsEmptyValueIndirect(v) {
+		m["blockedAddresses"] = v
+	}
+	if v := f.CodeBucket; !dcl.IsEmptyValueIndirect(v) {
+		m["codeBucket"] = v
+	}
+	if v, err := expandApplicationConsumerProject(c, f.ConsumerProject); err != nil {
+		return nil, fmt.Errorf("error expanding ConsumerProject into consumerProject: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["consumerProject"] = v
+	}
+	if v := f.DatabaseType; !dcl.IsEmptyValueIndirect(v) {
+		m["databaseType"] = v
+	}
+	if v := f.DefaultBucket; !dcl.IsEmptyValueIndirect(v) {
+		m["defaultBucket"] = v
+	}
+	if v := f.DefaultHostname; !dcl.IsEmptyValueIndirect(v) {
+		m["defaultHostname"] = v
+	}
+	if v, err := expandApplicationDispatchRulesSlice(c, f.DispatchRules); err != nil {
+		return nil, fmt.Errorf("error expanding DispatchRules into dispatchRules: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["dispatchRules"] = v
+	}
+	if v := f.Domains; !dcl.IsEmptyValueIndirect(v) {
+		m["domains"] = v
+	}
+	if v, err := expandApplicationFeatureSettings(c, f.FeatureSettings); err != nil {
+		return nil, fmt.Errorf("error expanding FeatureSettings into featureSettings: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["featureSettings"] = v
+	}
+	if v := f.GcrDomain; !dcl.IsEmptyValueIndirect(v) {
+		m["gcrDomain"] = v
+	}
+	if v, err := expandApplicationIap(c, f.Iap); err != nil {
+		return nil, fmt.Errorf("error expanding Iap into iap: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["iap"] = v
+	}
+	if v, err := expandApplicationParent(c, f.Parent); err != nil {
+		return nil, fmt.Errorf("error expanding Parent into parent: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["parent"] = v
+	}
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["id"] = v
+	}
+	if v := f.Location; !dcl.IsEmptyValueIndirect(v) {
+		m["locationId"] = v
+	}
+	if v := f.ServingStatus; !dcl.IsEmptyValueIndirect(v) {
+		m["servingStatus"] = v
+	}
+	if v := f.ServiceAccount; !dcl.IsEmptyValueIndirect(v) {
+		m["serviceAccount"] = v
+	}
+
+	return m, nil
+}
+
+// flattenApplication flattens Application from a JSON request object into the
+// Application type.
+func flattenApplication(c *Client, i interface{}) *Application {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+	if len(m) == 0 {
+		return nil
+	}
+
+	r := &Application{}
+	r.AuthDomain = dcl.FlattenString(m["authDomain"])
+	r.BlockedAddresses = dcl.FlattenStringSlice(m["blockedAddresses"])
+	r.CodeBucket = dcl.FlattenString(m["codeBucket"])
+	r.ConsumerProject = flattenApplicationConsumerProject(c, m["consumerProject"])
+	r.DatabaseType = flattenApplicationDatabaseTypeEnum(m["databaseType"])
+	r.DefaultBucket = dcl.FlattenString(m["defaultBucket"])
+	r.DefaultHostname = dcl.FlattenString(m["defaultHostname"])
+	r.DispatchRules = flattenApplicationDispatchRulesSlice(c, m["dispatchRules"])
+	r.Domains = dcl.FlattenStringSlice(m["domains"])
+	r.FeatureSettings = flattenApplicationFeatureSettings(c, m["featureSettings"])
+	r.GcrDomain = dcl.FlattenString(m["gcrDomain"])
+	r.Iap = flattenApplicationIap(c, m["iap"])
+	r.Parent = flattenApplicationParent(c, m["parent"])
+	r.Name = dcl.FlattenString(m["id"])
+	r.Location = dcl.FlattenString(m["locationId"])
+	r.ServingStatus = flattenApplicationServingStatusEnum(m["servingStatus"])
+	r.ServiceAccount = dcl.FlattenString(m["serviceAccount"])
+
+	return r
+}
+
+// expandApplicationConsumerProjectMap expands the contents of ApplicationConsumerProject into a JSON
+// request object.
+func expandApplicationConsumerProjectMap(c *Client, f map[string]ApplicationConsumerProject) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandApplicationConsumerProject(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandApplicationConsumerProjectSlice expands the contents of ApplicationConsumerProject into a JSON
+// request object.
+func expandApplicationConsumerProjectSlice(c *Client, f []ApplicationConsumerProject) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandApplicationConsumerProject(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenApplicationConsumerProjectMap flattens the contents of ApplicationConsumerProject from a JSON
+// response object.
+func flattenApplicationConsumerProjectMap(c *Client, i interface{}) map[string]ApplicationConsumerProject {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ApplicationConsumerProject{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ApplicationConsumerProject{}
+	}
+
+	items := make(map[string]ApplicationConsumerProject)
+	for k, item := range a {
+		items[k] = *flattenApplicationConsumerProject(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenApplicationConsumerProjectSlice flattens the contents of ApplicationConsumerProject from a JSON
+// response object.
+func flattenApplicationConsumerProjectSlice(c *Client, i interface{}) []ApplicationConsumerProject {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ApplicationConsumerProject{}
+	}
+
+	if len(a) == 0 {
+		return []ApplicationConsumerProject{}
+	}
+
+	items := make([]ApplicationConsumerProject, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenApplicationConsumerProject(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandApplicationConsumerProject expands an instance of ApplicationConsumerProject into a JSON
+// request object.
+func expandApplicationConsumerProject(c *Client, f *ApplicationConsumerProject) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.ProjectId; !dcl.IsEmptyValueIndirect(v) {
+		m["projectId"] = v
+	}
+	if v, err := expandApplicationConsumerProjectRouteHash(c, f.RouteHash); err != nil {
+		return nil, fmt.Errorf("error expanding RouteHash into routeHash: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["routeHash"] = v
+	}
+	if v := f.Region; !dcl.IsEmptyValueIndirect(v) {
+		m["region"] = v
+	}
+
+	return m, nil
+}
+
+// flattenApplicationConsumerProject flattens an instance of ApplicationConsumerProject from a JSON
+// response object.
+func flattenApplicationConsumerProject(c *Client, i interface{}) *ApplicationConsumerProject {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ApplicationConsumerProject{}
+	r.Service = flattenApplicationConsumerProjectServiceEnum(m["service"])
+	r.Name = dcl.FlattenString(m["name"])
+	r.ProjectId = dcl.FlattenString(m["projectId"])
+	r.RouteHash = flattenApplicationConsumerProjectRouteHash(c, m["routeHash"])
+	r.Region = dcl.FlattenString(m["region"])
+
+	return r
+}
+
+// expandApplicationConsumerProjectRouteHashMap expands the contents of ApplicationConsumerProjectRouteHash into a JSON
+// request object.
+func expandApplicationConsumerProjectRouteHashMap(c *Client, f map[string]ApplicationConsumerProjectRouteHash) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandApplicationConsumerProjectRouteHash(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandApplicationConsumerProjectRouteHashSlice expands the contents of ApplicationConsumerProjectRouteHash into a JSON
+// request object.
+func expandApplicationConsumerProjectRouteHashSlice(c *Client, f []ApplicationConsumerProjectRouteHash) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandApplicationConsumerProjectRouteHash(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenApplicationConsumerProjectRouteHashMap flattens the contents of ApplicationConsumerProjectRouteHash from a JSON
+// response object.
+func flattenApplicationConsumerProjectRouteHashMap(c *Client, i interface{}) map[string]ApplicationConsumerProjectRouteHash {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ApplicationConsumerProjectRouteHash{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ApplicationConsumerProjectRouteHash{}
+	}
+
+	items := make(map[string]ApplicationConsumerProjectRouteHash)
+	for k, item := range a {
+		items[k] = *flattenApplicationConsumerProjectRouteHash(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenApplicationConsumerProjectRouteHashSlice flattens the contents of ApplicationConsumerProjectRouteHash from a JSON
+// response object.
+func flattenApplicationConsumerProjectRouteHashSlice(c *Client, i interface{}) []ApplicationConsumerProjectRouteHash {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ApplicationConsumerProjectRouteHash{}
+	}
+
+	if len(a) == 0 {
+		return []ApplicationConsumerProjectRouteHash{}
+	}
+
+	items := make([]ApplicationConsumerProjectRouteHash, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenApplicationConsumerProjectRouteHash(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandApplicationConsumerProjectRouteHash expands an instance of ApplicationConsumerProjectRouteHash into a JSON
+// request object.
+func expandApplicationConsumerProjectRouteHash(c *Client, f *ApplicationConsumerProjectRouteHash) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.ProjectHash; !dcl.IsEmptyValueIndirect(v) {
+		m["projectHash"] = v
+	}
+
+	return m, nil
+}
+
+// flattenApplicationConsumerProjectRouteHash flattens an instance of ApplicationConsumerProjectRouteHash from a JSON
+// response object.
+func flattenApplicationConsumerProjectRouteHash(c *Client, i interface{}) *ApplicationConsumerProjectRouteHash {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ApplicationConsumerProjectRouteHash{}
+	r.ProjectHash = dcl.FlattenString(m["projectHash"])
+
+	return r
+}
+
+// expandApplicationDispatchRulesMap expands the contents of ApplicationDispatchRules into a JSON
+// request object.
+func expandApplicationDispatchRulesMap(c *Client, f map[string]ApplicationDispatchRules) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandApplicationDispatchRules(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandApplicationDispatchRulesSlice expands the contents of ApplicationDispatchRules into a JSON
+// request object.
+func expandApplicationDispatchRulesSlice(c *Client, f []ApplicationDispatchRules) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandApplicationDispatchRules(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenApplicationDispatchRulesMap flattens the contents of ApplicationDispatchRules from a JSON
+// response object.
+func flattenApplicationDispatchRulesMap(c *Client, i interface{}) map[string]ApplicationDispatchRules {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ApplicationDispatchRules{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ApplicationDispatchRules{}
+	}
+
+	items := make(map[string]ApplicationDispatchRules)
+	for k, item := range a {
+		items[k] = *flattenApplicationDispatchRules(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenApplicationDispatchRulesSlice flattens the contents of ApplicationDispatchRules from a JSON
+// response object.
+func flattenApplicationDispatchRulesSlice(c *Client, i interface{}) []ApplicationDispatchRules {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ApplicationDispatchRules{}
+	}
+
+	if len(a) == 0 {
+		return []ApplicationDispatchRules{}
+	}
+
+	items := make([]ApplicationDispatchRules, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenApplicationDispatchRules(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandApplicationDispatchRules expands an instance of ApplicationDispatchRules into a JSON
+// request object.
+func expandApplicationDispatchRules(c *Client, f *ApplicationDispatchRules) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Domain; !dcl.IsEmptyValueIndirect(v) {
+		m["domain"] = v
+	}
+	if v := f.Path; !dcl.IsEmptyValueIndirect(v) {
+		m["path"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+
+	return m, nil
+}
+
+// flattenApplicationDispatchRules flattens an instance of ApplicationDispatchRules from a JSON
+// response object.
+func flattenApplicationDispatchRules(c *Client, i interface{}) *ApplicationDispatchRules {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ApplicationDispatchRules{}
+	r.Domain = dcl.FlattenString(m["domain"])
+	r.Path = dcl.FlattenString(m["path"])
+	r.Service = dcl.FlattenString(m["service"])
+
+	return r
+}
+
+// expandApplicationFeatureSettingsMap expands the contents of ApplicationFeatureSettings into a JSON
+// request object.
+func expandApplicationFeatureSettingsMap(c *Client, f map[string]ApplicationFeatureSettings) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandApplicationFeatureSettings(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandApplicationFeatureSettingsSlice expands the contents of ApplicationFeatureSettings into a JSON
+// request object.
+func expandApplicationFeatureSettingsSlice(c *Client, f []ApplicationFeatureSettings) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandApplicationFeatureSettings(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenApplicationFeatureSettingsMap flattens the contents of ApplicationFeatureSettings from a JSON
+// response object.
+func flattenApplicationFeatureSettingsMap(c *Client, i interface{}) map[string]ApplicationFeatureSettings {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ApplicationFeatureSettings{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ApplicationFeatureSettings{}
+	}
+
+	items := make(map[string]ApplicationFeatureSettings)
+	for k, item := range a {
+		items[k] = *flattenApplicationFeatureSettings(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenApplicationFeatureSettingsSlice flattens the contents of ApplicationFeatureSettings from a JSON
+// response object.
+func flattenApplicationFeatureSettingsSlice(c *Client, i interface{}) []ApplicationFeatureSettings {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ApplicationFeatureSettings{}
+	}
+
+	if len(a) == 0 {
+		return []ApplicationFeatureSettings{}
+	}
+
+	items := make([]ApplicationFeatureSettings, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenApplicationFeatureSettings(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandApplicationFeatureSettings expands an instance of ApplicationFeatureSettings into a JSON
+// request object.
+func expandApplicationFeatureSettings(c *Client, f *ApplicationFeatureSettings) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.SplitHealthChecks; !dcl.IsEmptyValueIndirect(v) {
+		m["splitHealthChecks"] = v
+	}
+	if v := f.UseContainerOptimizedOs; !dcl.IsEmptyValueIndirect(v) {
+		m["useContainerOptimizedOs"] = v
+	}
+
+	return m, nil
+}
+
+// flattenApplicationFeatureSettings flattens an instance of ApplicationFeatureSettings from a JSON
+// response object.
+func flattenApplicationFeatureSettings(c *Client, i interface{}) *ApplicationFeatureSettings {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ApplicationFeatureSettings{}
+	r.SplitHealthChecks = dcl.FlattenBool(m["splitHealthChecks"])
+	r.UseContainerOptimizedOs = dcl.FlattenBool(m["useContainerOptimizedOs"])
+
+	return r
+}
+
+// expandApplicationIapMap expands the contents of ApplicationIap into a JSON
+// request object.
+func expandApplicationIapMap(c *Client, f map[string]ApplicationIap) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandApplicationIap(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandApplicationIapSlice expands the contents of ApplicationIap into a JSON
+// request object.
+func expandApplicationIapSlice(c *Client, f []ApplicationIap) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandApplicationIap(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenApplicationIapMap flattens the contents of ApplicationIap from a JSON
+// response object.
+func flattenApplicationIapMap(c *Client, i interface{}) map[string]ApplicationIap {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ApplicationIap{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ApplicationIap{}
+	}
+
+	items := make(map[string]ApplicationIap)
+	for k, item := range a {
+		items[k] = *flattenApplicationIap(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenApplicationIapSlice flattens the contents of ApplicationIap from a JSON
+// response object.
+func flattenApplicationIapSlice(c *Client, i interface{}) []ApplicationIap {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ApplicationIap{}
+	}
+
+	if len(a) == 0 {
+		return []ApplicationIap{}
+	}
+
+	items := make([]ApplicationIap, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenApplicationIap(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandApplicationIap expands an instance of ApplicationIap into a JSON
+// request object.
+func expandApplicationIap(c *Client, f *ApplicationIap) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Enabled; !dcl.IsEmptyValueIndirect(v) {
+		m["enabled"] = v
+	}
+	if v := f.OAuth2ClientId; !dcl.IsEmptyValueIndirect(v) {
+		m["oauth2ClientId"] = v
+	}
+	if v := f.OAuth2ClientSecret; !dcl.IsEmptyValueIndirect(v) {
+		m["oauth2ClientSecret"] = v
+	}
+	if v := f.OAuth2ClientSecretSha256; !dcl.IsEmptyValueIndirect(v) {
+		m["oauth2ClientSecretSha256"] = v
+	}
+
+	return m, nil
+}
+
+// flattenApplicationIap flattens an instance of ApplicationIap from a JSON
+// response object.
+func flattenApplicationIap(c *Client, i interface{}) *ApplicationIap {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ApplicationIap{}
+	r.Enabled = dcl.FlattenBool(m["enabled"])
+	r.OAuth2ClientId = dcl.FlattenString(m["oauth2ClientId"])
+	r.OAuth2ClientSecret = dcl.FlattenString(m["oauth2ClientSecret"])
+	r.OAuth2ClientSecretSha256 = dcl.FlattenString(m["oauth2ClientSecretSha256"])
+
+	return r
+}
+
+// expandApplicationParentMap expands the contents of ApplicationParent into a JSON
+// request object.
+func expandApplicationParentMap(c *Client, f map[string]ApplicationParent) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandApplicationParent(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandApplicationParentSlice expands the contents of ApplicationParent into a JSON
+// request object.
+func expandApplicationParentSlice(c *Client, f []ApplicationParent) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandApplicationParent(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenApplicationParentMap flattens the contents of ApplicationParent from a JSON
+// response object.
+func flattenApplicationParentMap(c *Client, i interface{}) map[string]ApplicationParent {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ApplicationParent{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ApplicationParent{}
+	}
+
+	items := make(map[string]ApplicationParent)
+	for k, item := range a {
+		items[k] = *flattenApplicationParent(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenApplicationParentSlice flattens the contents of ApplicationParent from a JSON
+// response object.
+func flattenApplicationParentSlice(c *Client, i interface{}) []ApplicationParent {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ApplicationParent{}
+	}
+
+	if len(a) == 0 {
+		return []ApplicationParent{}
+	}
+
+	items := make([]ApplicationParent, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenApplicationParent(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandApplicationParent expands an instance of ApplicationParent into a JSON
+// request object.
+func expandApplicationParent(c *Client, f *ApplicationParent) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
+		m["id"] = v
+	}
+
+	return m, nil
+}
+
+// flattenApplicationParent flattens an instance of ApplicationParent from a JSON
+// response object.
+func flattenApplicationParent(c *Client, i interface{}) *ApplicationParent {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ApplicationParent{}
+	r.Type = dcl.FlattenString(m["type"])
+	r.Id = dcl.FlattenString(m["id"])
+
+	return r
+}
+
+// flattenApplicationConsumerProjectServiceEnumSlice flattens the contents of ApplicationConsumerProjectServiceEnum from a JSON
+// response object.
+func flattenApplicationConsumerProjectServiceEnumSlice(c *Client, i interface{}) []ApplicationConsumerProjectServiceEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ApplicationConsumerProjectServiceEnum{}
+	}
+
+	if len(a) == 0 {
+		return []ApplicationConsumerProjectServiceEnum{}
+	}
+
+	items := make([]ApplicationConsumerProjectServiceEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenApplicationConsumerProjectServiceEnum(item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// flattenApplicationConsumerProjectServiceEnum asserts that an interface is a string, and returns a
+// pointer to a *ApplicationConsumerProjectServiceEnum with the same value as that string.
+func flattenApplicationConsumerProjectServiceEnum(i interface{}) *ApplicationConsumerProjectServiceEnum {
+	s, ok := i.(string)
+	if !ok {
+		return ApplicationConsumerProjectServiceEnumRef("")
+	}
+
+	return ApplicationConsumerProjectServiceEnumRef(s)
+}
+
+// flattenApplicationDatabaseTypeEnumSlice flattens the contents of ApplicationDatabaseTypeEnum from a JSON
+// response object.
+func flattenApplicationDatabaseTypeEnumSlice(c *Client, i interface{}) []ApplicationDatabaseTypeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ApplicationDatabaseTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []ApplicationDatabaseTypeEnum{}
+	}
+
+	items := make([]ApplicationDatabaseTypeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenApplicationDatabaseTypeEnum(item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// flattenApplicationDatabaseTypeEnum asserts that an interface is a string, and returns a
+// pointer to a *ApplicationDatabaseTypeEnum with the same value as that string.
+func flattenApplicationDatabaseTypeEnum(i interface{}) *ApplicationDatabaseTypeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return ApplicationDatabaseTypeEnumRef("")
+	}
+
+	return ApplicationDatabaseTypeEnumRef(s)
+}
+
+// flattenApplicationServingStatusEnumSlice flattens the contents of ApplicationServingStatusEnum from a JSON
+// response object.
+func flattenApplicationServingStatusEnumSlice(c *Client, i interface{}) []ApplicationServingStatusEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ApplicationServingStatusEnum{}
+	}
+
+	if len(a) == 0 {
+		return []ApplicationServingStatusEnum{}
+	}
+
+	items := make([]ApplicationServingStatusEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenApplicationServingStatusEnum(item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// flattenApplicationServingStatusEnum asserts that an interface is a string, and returns a
+// pointer to a *ApplicationServingStatusEnum with the same value as that string.
+func flattenApplicationServingStatusEnum(i interface{}) *ApplicationServingStatusEnum {
+	s, ok := i.(string)
+	if !ok {
+		return ApplicationServingStatusEnumRef("")
+	}
+
+	return ApplicationServingStatusEnumRef(s)
+}
+
+// This function returns a matcher that checks whether a serialized resource matches this resource
+// in its parameters (as defined by the fields in a Get, which definitionally define resource
+// identity).  This is useful in extracting the element from a List call.
+func (r *Application) matcher(c *Client) func([]byte) bool {
+	return func(b []byte) bool {
+		cr, err := unmarshalApplication(b, c)
+		if err != nil {
+			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
+			return false
+		}
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
+		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
+
+		if nr.Name == nil && ncr.Name == nil {
+			c.Config.Logger.Info("Both Name fields null - considering equal.")
+		} else if nr.Name == nil || ncr.Name == nil {
+			c.Config.Logger.Info("Only one Name field is null - considering unequal.")
+			return false
+		} else if *nr.Name != *ncr.Name {
+			return false
+		}
+		return true
+	}
+}
