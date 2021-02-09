@@ -90,7 +90,7 @@ components:
                             to perform cross-time series reduction. If `cross_series_reducer` is
                             specified, then `per_series_aligner` must be specified, and must not be
                             `ALIGN_NONE`. An `alignment_period` must also be specified; otherwise, an
-                            error is returned.
+                            error is returned. Possible values: REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX, REDUCE_SUM, REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE, REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99, REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05, REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION
                           enum:
                           - REDUCE_NONE
                           - REDUCE_MEAN
@@ -421,6 +421,9 @@ components:
                       condition. See [Logs-based metric
                       labels](/logging/docs/logs-based-metrics/labels) for how to construct
                       extractors.
+                    items:
+                      type: string
+                      x-dcl-go-type: string
                     type: object
                     x-dcl-go-name: LabelExtractors
                     x-kubernetes-immutable: true
@@ -519,6 +522,9 @@ components:
                   matching VMs and compares them to the specified threshold.
                 properties:
                   comparison:
+                    description: ' Possible values: COMPARISON_UNSPECIFIED, COMPARISON_GT,
+                      COMPARISON_GE, COMPARISON_LT, COMPARISON_LE, COMPARISON_EQ,
+                      COMPARISON_NE'
                     enum:
                     - COMPARISON_UNSPECIFIED
                     - COMPARISON_GT
@@ -651,7 +657,7 @@ components:
                             to perform cross-time series reduction. If `cross_series_reducer` is
                             specified, then `per_series_aligner` must be specified, and must not be
                             `ALIGN_NONE`. An `alignment_period` must also be specified; otherwise, an
-                            error is returned.
+                            error is returned. Possible values: REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX, REDUCE_SUM, REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE, REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99, REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05, REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION
                           enum:
                           - REDUCE_NONE
                           - REDUCE_MEAN
@@ -866,7 +872,7 @@ components:
                       The comparison to apply between the time series (indicated by `filter`
                       and `aggregation`) and the threshold (indicated by `threshold_value`).
                       The comparison is applied on each time series, with the time series
-                      on the left-hand side, and the threshold on the right-hand side.
+                      on the left-hand side, and the threshold on the right-hand side. Possible values: COMPARISON_UNSPECIFIED, COMPARISON_GT, COMPARISON_GE, COMPARISON_LT, COMPARISON_LE, COMPARISON_EQ, COMPARISON_NE
                     enum:
                     - COMPARISON_UNSPECIFIED
                     - COMPARISON_GT
@@ -1006,7 +1012,7 @@ components:
                             to perform cross-time series reduction. If `cross_series_reducer` is
                             specified, then `per_series_aligner` must be specified, and must not be
                             `ALIGN_NONE`. An `alignment_period` must also be specified; otherwise, an
-                            error is returned.
+                            error is returned. Possible values: REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX, REDUCE_SUM, REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE, REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99, REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05, REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION
                           enum:
                           - REDUCE_NONE
                           - REDUCE_MEAN
@@ -1223,7 +1229,7 @@ components:
                       The comparison is applied on each time series, with the time series
                       on the left-hand side and the threshold on the right-hand side.
 
-                      Only `COMPARISON_LT` and `COMPARISON_GT` are supported currently.
+                      Only `COMPARISON_LT` and `COMPARISON_GT` are supported currently. Possible values: COMPARISON_UNSPECIFIED, COMPARISON_GT, COMPARISON_GE, COMPARISON_LT, COMPARISON_LE, COMPARISON_EQ, COMPARISON_NE
                     enum:
                     - COMPARISON_UNSPECIFIED
                     - COMPARISON_GT
@@ -1280,7 +1286,7 @@ components:
                             to perform cross-time series reduction. If `cross_series_reducer` is
                             specified, then `per_series_aligner` must be specified, and must not be
                             `ALIGN_NONE`. An `alignment_period` must also be specified; otherwise, an
-                            error is returned.
+                            error is returned. Possible values: REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX, REDUCE_SUM, REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE, REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99, REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05, REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION
                           enum:
                           - REDUCE_NONE
                           - REDUCE_MEAN
@@ -1739,7 +1745,9 @@ components:
                 x-dcl-go-name: Name
                 x-kubernetes-immutable: true
               resourceStateFilter:
-                description: The resource state filter to apply to this condition.
+                description: 'The resource state filter to apply to this condition.
+                  Possible values: RESOURCE_STATE_FILTER_UNSPECIFIED, INCLUDE_INACTIVE,
+                  EXCLUDE_INACTIVE'
                 enum:
                 - RESOURCE_STATE_FILTER_UNSPECIFIED
                 - INCLUDE_INACTIVE
@@ -1862,6 +1870,8 @@ components:
         incidentStrategy:
           properties:
             type:
+              description: ' Possible values: TYPE_UNSPECIFIED, CUSTOM, APP_ENGINE,
+                CLOUD_ENDPOINTS, ISTIO, ISTIO_SERVICE'
               enum:
               - TYPE_UNSPECIFIED
               - CUSTOM
@@ -1988,6 +1998,9 @@ components:
             63 Unicode characters or 128 bytes, whichever is smaller. Labels and
             values can contain only lowercase letters, numerals, underscores, and
             dashes. Keys must begin with a letter.
+          items:
+            type: string
+            x-dcl-go-type: string
           type: object
           x-dcl-go-name: UserLabels
           x-kubernetes-immutable: true
@@ -2077,8 +2090,35 @@ info:
   title: Monitoring/AlertPolicy
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many AlertPolicy
+  apply:
+    description: The function used to apply information about a AlertPolicy
+    parameters:
+    - description: A full instance of a AlertPolicy
+      name: AlertPolicy
+      required: true
+  delete:
+    description: The function used to delete a AlertPolicy
+    parameters:
+    - description: A full instance of a AlertPolicy
+      name: AlertPolicy
+      required: true
+  deleteAll:
+    description: The function used to delete all AlertPolicy
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a AlertPolicy
+    parameters:
+    - description: A full instance of a AlertPolicy
+      name: AlertPolicy
+      required: true
+  list:
+    description: The function used to list information about many AlertPolicy
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

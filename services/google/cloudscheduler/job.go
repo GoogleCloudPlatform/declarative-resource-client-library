@@ -17,33 +17,28 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 type Job struct {
-	Name                 *string                 `json:"name"`
-	Description          *string                 `json:"description"`
-	Labels               []JobLabels             `json:"labels"`
-	PubsubTarget         *JobPubsubTarget        `json:"pubsubTarget"`
-	AppEngineHttpTarget  *JobAppEngineHttpTarget `json:"appEngineHttpTarget"`
-	HttpTarget           *JobHttpTarget          `json:"httpTarget"`
-	Schedule             *string                 `json:"schedule"`
-	TimeZone             *string                 `json:"timeZone"`
-	UserUpdateTime       *string                 `json:"userUpdateTime"`
-	State                *JobStateEnum           `json:"state"`
-	Status               *JobStatus              `json:"status"`
-	TotalAttemptCount    *int64                  `json:"totalAttemptCount"`
-	FailedAttemptCount   *int64                  `json:"failedAttemptCount"`
-	TotalExecutionCount  *int64                  `json:"totalExecutionCount"`
-	FailedExecutionCount *int64                  `json:"failedExecutionCount"`
-	View                 *JobViewEnum            `json:"view"`
-	ScheduleTime         *string                 `json:"scheduleTime"`
-	LastAttemptTime      *string                 `json:"lastAttemptTime"`
-	RetryConfig          *JobRetryConfig         `json:"retryConfig"`
-	AttemptDeadline      *JobAttemptDeadline     `json:"attemptDeadline"`
-	Project              *string                 `json:"project"`
-	Location             *string                 `json:"location"`
+	Name                *string                 `json:"name"`
+	Description         *string                 `json:"description"`
+	PubsubTarget        *JobPubsubTarget        `json:"pubsubTarget"`
+	AppEngineHttpTarget *JobAppEngineHttpTarget `json:"appEngineHttpTarget"`
+	HttpTarget          *JobHttpTarget          `json:"httpTarget"`
+	Schedule            *string                 `json:"schedule"`
+	TimeZone            *string                 `json:"timeZone"`
+	UserUpdateTime      *string                 `json:"userUpdateTime"`
+	State               *JobStateEnum           `json:"state"`
+	Status              *JobStatus              `json:"status"`
+	ScheduleTime        *string                 `json:"scheduleTime"`
+	LastAttemptTime     *string                 `json:"lastAttemptTime"`
+	RetryConfig         *JobRetryConfig         `json:"retryConfig"`
+	AttemptDeadline     *string                 `json:"attemptDeadline"`
+	Project             *string                 `json:"project"`
+	Location            *string                 `json:"location"`
 }
 
 func (r *Job) String() string {
@@ -131,60 +126,11 @@ func (v JobStateEnum) Validate() error {
 	}
 }
 
-// The enum JobViewEnum.
-type JobViewEnum string
-
-// JobViewEnumRef returns a *JobViewEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func JobViewEnumRef(s string) *JobViewEnum {
-	if s == "" {
-		return nil
-	}
-
-	v := JobViewEnum(s)
-	return &v
-}
-
-func (v JobViewEnum) Validate() error {
-	for _, s := range []string{"VIEW_UNSPECIFIED", "BASIC", "FULL"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "JobViewEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
-type JobLabels struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this JobLabels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyJobLabels *JobLabels = &JobLabels{empty: true}
-
-func (r *JobLabels) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *JobLabels) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type JobPubsubTarget struct {
-	empty      bool                        `json:"-"`
-	TopicName  *string                     `json:"topicName"`
-	Data       *string                     `json:"data"`
-	Attributes []JobPubsubTargetAttributes `json:"attributes"`
+	empty      bool              `json:"-"`
+	TopicName  *string           `json:"topicName"`
+	Data       *string           `json:"data"`
+	Attributes map[string]string `json:"attributes"`
 }
 
 // This object is used to assert a desired state where this JobPubsubTarget is
@@ -203,34 +149,12 @@ func (r *JobPubsubTarget) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type JobPubsubTargetAttributes struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this JobPubsubTargetAttributes is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyJobPubsubTargetAttributes *JobPubsubTargetAttributes = &JobPubsubTargetAttributes{empty: true}
-
-func (r *JobPubsubTargetAttributes) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *JobPubsubTargetAttributes) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type JobAppEngineHttpTarget struct {
 	empty            bool                                    `json:"-"`
 	HttpMethod       *JobAppEngineHttpTargetHttpMethodEnum   `json:"httpMethod"`
 	AppEngineRouting *JobAppEngineHttpTargetAppEngineRouting `json:"appEngineRouting"`
 	RelativeUri      *string                                 `json:"relativeUri"`
-	Headers          []JobAppEngineHttpTargetHeaders         `json:"headers"`
+	Headers          map[string]string                       `json:"headers"`
 	Body             *string                                 `json:"body"`
 }
 
@@ -274,33 +198,11 @@ func (r *JobAppEngineHttpTargetAppEngineRouting) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type JobAppEngineHttpTargetHeaders struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this JobAppEngineHttpTargetHeaders is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyJobAppEngineHttpTargetHeaders *JobAppEngineHttpTargetHeaders = &JobAppEngineHttpTargetHeaders{empty: true}
-
-func (r *JobAppEngineHttpTargetHeaders) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *JobAppEngineHttpTargetHeaders) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type JobHttpTarget struct {
 	empty      bool                         `json:"-"`
 	Uri        *string                      `json:"uri"`
 	HttpMethod *JobHttpTargetHttpMethodEnum `json:"httpMethod"`
-	Headers    []JobHttpTargetHeaders       `json:"headers"`
+	Headers    map[string]string            `json:"headers"`
 	Body       *string                      `json:"body"`
 	OAuthToken *JobHttpTargetOAuthToken     `json:"oauthToken"`
 	OidcToken  *JobHttpTargetOidcToken      `json:"oidcToken"`
@@ -316,28 +218,6 @@ func (r *JobHttpTarget) String() string {
 }
 
 func (r *JobHttpTarget) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type JobHttpTargetHeaders struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this JobHttpTargetHeaders is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyJobHttpTargetHeaders *JobHttpTargetHeaders = &JobHttpTargetHeaders{empty: true}
-
-func (r *JobHttpTargetHeaders) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *JobHttpTargetHeaders) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -434,12 +314,12 @@ func (r *JobStatusDetails) HashCode() string {
 }
 
 type JobRetryConfig struct {
-	empty              bool                              `json:"-"`
-	RetryCount         *int64                            `json:"retryCount"`
-	MaxRetryDuration   *JobRetryConfigMaxRetryDuration   `json:"maxRetryDuration"`
-	MinBackoffDuration *JobRetryConfigMinBackoffDuration `json:"minBackoffDuration"`
-	MaxBackoffDuration *JobRetryConfigMaxBackoffDuration `json:"maxBackoffDuration"`
-	MaxDoublings       *int64                            `json:"maxDoublings"`
+	empty              bool    `json:"-"`
+	RetryCount         *int64  `json:"retryCount"`
+	MaxRetryDuration   *string `json:"maxRetryDuration"`
+	MinBackoffDuration *string `json:"minBackoffDuration"`
+	MaxBackoffDuration *string `json:"maxBackoffDuration"`
+	MaxDoublings       *int64  `json:"maxDoublings"`
 }
 
 // This object is used to assert a desired state where this JobRetryConfig is
@@ -452,94 +332,6 @@ func (r *JobRetryConfig) String() string {
 }
 
 func (r *JobRetryConfig) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type JobRetryConfigMaxRetryDuration struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this JobRetryConfigMaxRetryDuration is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyJobRetryConfigMaxRetryDuration *JobRetryConfigMaxRetryDuration = &JobRetryConfigMaxRetryDuration{empty: true}
-
-func (r *JobRetryConfigMaxRetryDuration) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *JobRetryConfigMaxRetryDuration) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type JobRetryConfigMinBackoffDuration struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this JobRetryConfigMinBackoffDuration is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyJobRetryConfigMinBackoffDuration *JobRetryConfigMinBackoffDuration = &JobRetryConfigMinBackoffDuration{empty: true}
-
-func (r *JobRetryConfigMinBackoffDuration) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *JobRetryConfigMinBackoffDuration) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type JobRetryConfigMaxBackoffDuration struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this JobRetryConfigMaxBackoffDuration is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyJobRetryConfigMaxBackoffDuration *JobRetryConfigMaxBackoffDuration = &JobRetryConfigMaxBackoffDuration{empty: true}
-
-func (r *JobRetryConfigMaxBackoffDuration) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *JobRetryConfigMaxBackoffDuration) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type JobAttemptDeadline struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this JobAttemptDeadline is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyJobAttemptDeadline *JobAttemptDeadline = &JobAttemptDeadline{empty: true}
-
-func (r *JobAttemptDeadline) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *JobAttemptDeadline) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -722,7 +514,9 @@ func (c *Client) ApplyJob(ctx context.Context, rawDesired *Job, opts ...dcl.Appl
 	if create {
 		ops = append(ops, &createJobOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteJobOperation{})
+
 		ops = append(ops, &createJobOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeJobDesiredState(rawDesired, nil)

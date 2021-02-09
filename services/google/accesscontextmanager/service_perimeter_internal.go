@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *ServicePerimeter) validate() error {
@@ -84,7 +85,7 @@ func servicePerimeterListURL(userBasePath, policy string) (string, error) {
 	params := map[string]interface{}{
 		"policy": policy,
 	}
-	return dcl.URL("accessPolicies/{{policy}}/servicePerimeters", "https://accesscontextmanager.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("{{policy}}/servicePerimeters", "https://accesscontextmanager.googleapis.com/v1/", userBasePath, params), nil
 
 }
 
@@ -184,7 +185,7 @@ func (op *updateServicePerimeterUpdateOperation) do(ctx context.Context, r *Serv
 		return err
 	}
 
-	var o operations.AcmOperation
+	var o operations.StandardGCPOperation
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
@@ -296,7 +297,7 @@ func (op *deleteServicePerimeterOperation) do(ctx context.Context, r *ServicePer
 	}
 
 	// wait for object to be deleted.
-	var o operations.AcmOperation
+	var o operations.StandardGCPOperation
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
@@ -334,7 +335,7 @@ func (op *createServicePerimeterOperation) do(ctx context.Context, r *ServicePer
 		return err
 	}
 	// wait for object to be created.
-	var o operations.AcmOperation
+	var o operations.StandardGCPOperation
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
@@ -395,12 +396,12 @@ func (c *Client) servicePerimeterDiffsForRawDesired(ctx context.Context, rawDesi
 			c.Config.Logger.Warningf("Failed to retrieve whether a ServicePerimeter resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve ServicePerimeter resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that ServicePerimeter resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeServicePerimeterDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for ServicePerimeter: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for ServicePerimeter: %v", rawDesired)
 
@@ -520,13 +521,7 @@ func canonicalizeServicePerimeterNewState(c *Client, rawNew, rawDesired *Service
 		rawNew.Status = canonicalizeNewServicePerimeterStatus(c, rawDesired.Status, rawNew.Status)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Policy) && dcl.IsEmptyValueIndirect(rawDesired.Policy) {
-		rawNew.Policy = rawDesired.Policy
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Policy, rawNew.Policy) {
-			rawNew.Policy = rawDesired.Policy
-		}
-	}
+	rawNew.Policy = rawDesired.Policy
 
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
@@ -816,7 +811,7 @@ func diffServicePerimeter(c *Client, desired, actual *ServicePerimeter, opts ...
 
 	var diffs []servicePerimeterDiff
 	if !dcl.IsZeroValue(desired.Title) && (dcl.IsZeroValue(actual.Title) || !reflect.DeepEqual(*desired.Title, *actual.Title)) {
-		c.Config.Logger.Infof("Detected diff in Title.\nDESIRED: %#v\nACTUAL: %#v", desired.Title, actual.Title)
+		c.Config.Logger.Infof("Detected diff in Title.\nDESIRED: %v\nACTUAL: %v", desired.Title, actual.Title)
 
 		diffs = append(diffs, servicePerimeterDiff{
 			UpdateOp:  &updateServicePerimeterUpdateOperation{},
@@ -825,7 +820,7 @@ func diffServicePerimeter(c *Client, desired, actual *ServicePerimeter, opts ...
 
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, servicePerimeterDiff{
 			UpdateOp:  &updateServicePerimeterUpdateOperation{},
@@ -834,14 +829,14 @@ func diffServicePerimeter(c *Client, desired, actual *ServicePerimeter, opts ...
 
 	}
 	if !dcl.IsZeroValue(desired.PerimeterType) && (dcl.IsZeroValue(actual.PerimeterType) || !reflect.DeepEqual(*desired.PerimeterType, *actual.PerimeterType)) {
-		c.Config.Logger.Infof("Detected diff in PerimeterType.\nDESIRED: %#v\nACTUAL: %#v", desired.PerimeterType, actual.PerimeterType)
+		c.Config.Logger.Infof("Detected diff in PerimeterType.\nDESIRED: %v\nACTUAL: %v", desired.PerimeterType, actual.PerimeterType)
 		diffs = append(diffs, servicePerimeterDiff{
 			RequiresRecreate: true,
 			FieldName:        "PerimeterType",
 		})
 	}
 	if compareServicePerimeterStatus(c, desired.Status, actual.Status) {
-		c.Config.Logger.Infof("Detected diff in Status.\nDESIRED: %#v\nACTUAL: %#v", desired.Status, actual.Status)
+		c.Config.Logger.Infof("Detected diff in Status.\nDESIRED: %v\nACTUAL: %v", desired.Status, actual.Status)
 
 		diffs = append(diffs, servicePerimeterDiff{
 			UpdateOp:  &updateServicePerimeterUpdateOperation{},
@@ -849,29 +844,22 @@ func diffServicePerimeter(c *Client, desired, actual *ServicePerimeter, opts ...
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Policy) && !dcl.NameToSelfLink(desired.Policy, actual.Policy) {
-		c.Config.Logger.Infof("Detected diff in Policy.\nDESIRED: %#v\nACTUAL: %#v", desired.Policy, actual.Policy)
-		diffs = append(diffs, servicePerimeterDiff{
-			RequiresRecreate: true,
-			FieldName:        "Policy",
-		})
-	}
 	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, servicePerimeterDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.UseExplicitDryRunSpec) && (dcl.IsZeroValue(actual.UseExplicitDryRunSpec) || !reflect.DeepEqual(*desired.UseExplicitDryRunSpec, *actual.UseExplicitDryRunSpec)) {
-		c.Config.Logger.Infof("Detected diff in UseExplicitDryRunSpec.\nDESIRED: %#v\nACTUAL: %#v", desired.UseExplicitDryRunSpec, actual.UseExplicitDryRunSpec)
+		c.Config.Logger.Infof("Detected diff in UseExplicitDryRunSpec.\nDESIRED: %v\nACTUAL: %v", desired.UseExplicitDryRunSpec, actual.UseExplicitDryRunSpec)
 		diffs = append(diffs, servicePerimeterDiff{
 			RequiresRecreate: true,
 			FieldName:        "UseExplicitDryRunSpec",
 		})
 	}
 	if compareServicePerimeterSpec(c, desired.Spec, actual.Spec) {
-		c.Config.Logger.Infof("Detected diff in Spec.\nDESIRED: %#v\nACTUAL: %#v", desired.Spec, actual.Spec)
+		c.Config.Logger.Infof("Detected diff in Spec.\nDESIRED: %v\nACTUAL: %v", desired.Spec, actual.Spec)
 
 		diffs = append(diffs, servicePerimeterDiff{
 			UpdateOp:  &updateServicePerimeterUpdateOperation{},
@@ -1197,7 +1185,7 @@ func expandServicePerimeter(c *Client, f *ServicePerimeter) (map[string]interfac
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["policy"] = v
 	}
-	if v, err := dcl.DeriveField("accessPolicies/%s/servicePerimeters/%s", f.Name, f.Policy, f.Name); err != nil {
+	if v, err := dcl.DeriveField("%s/servicePerimeters/%s", f.Name, f.Policy, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v

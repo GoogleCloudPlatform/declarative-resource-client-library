@@ -29,11 +29,6 @@ components:
           x-dcl-go-name: Name
           x-dcl-server-generated-parameter: true
           x-kubernetes-immutable: true
-        organization:
-          description: The organization that this AccessPolicy belongs to
-          type: string
-          x-dcl-go-name: Organization
-          x-kubernetes-immutable: true
         parent:
           description: 'The parent of this AccessPolicy in the Cloud Resource Hierarchy.
             Currently immutable once created. Format: organizations/{organization_id}'
@@ -52,11 +47,10 @@ components:
           x-dcl-go-name: UpdateTime
           x-kubernetes-immutable: true
       required:
-      - organization
       - title
       title: AccessPolicy
       type: object
-      x-dcl-id: accessPolicies/{{name}}
+      x-dcl-id: ""
       x-dcl-locations: []
       x-dcl-parent-container: organization
       x-dcl-uses-state-hint: false
@@ -65,8 +59,35 @@ info:
   title: AccessContextManager/AccessPolicy
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many AccessPolicy
+  apply:
+    description: The function used to apply information about a AccessPolicy
+    parameters:
+    - description: A full instance of a AccessPolicy
+      name: AccessPolicy
+      required: true
+  delete:
+    description: The function used to delete a AccessPolicy
+    parameters:
+    - description: A full instance of a AccessPolicy
+      name: AccessPolicy
+      required: true
+  deleteAll:
+    description: The function used to delete all AccessPolicy
     parameters:
     - name: parent
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a AccessPolicy
+    parameters:
+    - description: A full instance of a AccessPolicy
+      name: AccessPolicy
+      required: true
+  list:
+    description: The function used to list information about many AccessPolicy
+    parameters:
+    - name: parent
+      required: true
+      schema:
+        type: string

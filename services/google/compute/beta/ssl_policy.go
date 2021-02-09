@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -314,7 +315,9 @@ func (c *Client) ApplySslPolicy(ctx context.Context, rawDesired *SslPolicy, opts
 	if create {
 		ops = append(ops, &createSslPolicyOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteSslPolicyOperation{})
+
 		ops = append(ops, &createSslPolicyOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeSslPolicyDesiredState(rawDesired, nil)

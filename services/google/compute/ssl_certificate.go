@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -260,7 +261,9 @@ func (c *Client) ApplySslCertificate(ctx context.Context, rawDesired *SslCertifi
 	if create {
 		ops = append(ops, &createSslCertificateOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteSslCertificateOperation{})
+
 		ops = append(ops, &createSslCertificateOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeSslCertificateDesiredState(rawDesired, nil)

@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -548,7 +549,9 @@ func (c *Client) ApplyManagedZone(ctx context.Context, rawDesired *ManagedZone, 
 	if create {
 		ops = append(ops, &createManagedZoneOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteManagedZoneOperation{})
+
 		ops = append(ops, &createManagedZoneOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeManagedZoneDesiredState(rawDesired, nil)

@@ -16,6 +16,7 @@ package vpcaccess
 import (
 	"context"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -245,7 +246,9 @@ func (c *Client) ApplyConnector(ctx context.Context, rawDesired *Connector, opts
 	if create {
 		ops = append(ops, &createConnectorOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteConnectorOperation{})
+
 		ops = append(ops, &createConnectorOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeConnectorDesiredState(rawDesired, nil)

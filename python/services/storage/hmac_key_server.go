@@ -99,11 +99,13 @@ func (s *HmacKeyServer) ApplyStorageHmacKey(ctx context.Context, request *storag
 
 // DeleteHmacKey handles the gRPC request by passing it to the underlying HmacKey Delete() method.
 func (s *HmacKeyServer) DeleteStorageHmacKey(ctx context.Context, request *storagepb.DeleteStorageHmacKeyRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigHmacKey(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteHmacKey(ctx, ProtoToHmacKey(request.GetResource()))
+
 }
 
 // ListHmacKey handles the gRPC request by passing it to the underlying HmacKeyList() method.

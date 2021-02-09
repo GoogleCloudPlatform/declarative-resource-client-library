@@ -504,11 +504,13 @@ func (s *RouterServer) ApplyComputeBetaRouter(ctx context.Context, request *beta
 
 // DeleteRouter handles the gRPC request by passing it to the underlying Router Delete() method.
 func (s *RouterServer) DeleteComputeBetaRouter(ctx context.Context, request *betapb.DeleteComputeBetaRouterRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigRouter(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteRouter(ctx, ProtoToRouter(request.GetResource()))
+
 }
 
 // ListRouter handles the gRPC request by passing it to the underlying RouterList() method.

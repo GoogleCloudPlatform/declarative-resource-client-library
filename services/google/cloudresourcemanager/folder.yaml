@@ -31,6 +31,15 @@ components:
           type: string
           x-dcl-go-name: DeleteTime
           x-kubernetes-immutable: true
+        displayName:
+          description: 'The folder''s display name. A folder''s display name must
+            be unique amongst its siblings, e.g. no two folders with the same parent
+            can share the same display name. The display name must start and end with
+            a letter or digit, may contain letters, digits, spaces, hyphens and underscores
+            and can be no longer than 30 characters. This is captured by the regular
+            expression: `[p{L}p{N}]([p{L}p{N}_- ]{0,28}[p{L}p{N}])?`.'
+          type: string
+          x-dcl-go-name: DisplayName
         etag:
           description: Output only. A checksum computed by the server based on the
             current value of the Folder resource. This may be sent on update and delete
@@ -39,30 +48,21 @@ components:
           type: string
           x-dcl-go-name: Etag
           x-kubernetes-immutable: true
-        id:
-          description: 'Output only. The resource name of the Folder. Its format is
-            `folders/{id}`, for example: "folders/1234".'
+        name:
+          description: Output only. The resource name of the Folder.
           readOnly: true
           type: string
-          x-dcl-go-name: Id
+          x-dcl-go-name: Name
           x-dcl-server-generated-parameter: true
           x-kubernetes-immutable: true
-        name:
-          description: 'The folder''s display name. A folder''s display name must
-            be unique amongst its siblings, e.g. no two folders with the same parent
-            can share the same display name. The display name must start and end with
-            a letter or digit, may contain letters, digits, spaces, hyphens and underscores
-            and can be no longer than 30 characters. This is captured by the regular
-            expression: `[\p{L}\p{N}]([\p{L}\p{N}_- ]{0,28}[\p{L}\p{N}])?`.'
-          type: string
-          x-dcl-go-name: Name
         parent:
           description: Required. The Folder's parent's resource name. Updates to the
             folder's parent must be performed via MoveFolder.
           type: string
           x-dcl-go-name: Parent
         state:
-          description: Output only. The lifecycle state of the folder.
+          description: 'Output only. The lifecycle state of the folder. Possible values:
+            LIFECYCLE_STATE_UNSPECIFIED, ACTIVE, DELETE_REQUESTED'
           enum:
           - LIFECYCLE_STATE_UNSPECIFIED
           - ACTIVE
@@ -83,7 +83,7 @@ components:
       - parent
       title: Folder
       type: object
-      x-dcl-id: v2/{{id}}
+      x-dcl-id: folders/{{name}}
       x-dcl-locations: []
       x-dcl-parent-container: organization
       x-dcl-uses-state-hint: false
@@ -92,8 +92,35 @@ info:
   title: Cloudresourcemanager/Folder
   x-dcl-has-iam: true
 paths:
-  list:
-    description: The function called used to list information about many Folder
+  apply:
+    description: The function used to apply information about a Folder
+    parameters:
+    - description: A full instance of a Folder
+      name: Folder
+      required: true
+  delete:
+    description: The function used to delete a Folder
+    parameters:
+    - description: A full instance of a Folder
+      name: Folder
+      required: true
+  deleteAll:
+    description: The function used to delete all Folder
     parameters:
     - name: parent
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Folder
+    parameters:
+    - description: A full instance of a Folder
+      name: Folder
+      required: true
+  list:
+    description: The function used to list information about many Folder
+    parameters:
+    - name: parent
+      required: true
+      schema:
+        type: string

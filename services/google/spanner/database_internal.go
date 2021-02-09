@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Database) validate() error {
@@ -280,12 +281,12 @@ func (c *Client) databaseDiffsForRawDesired(ctx context.Context, rawDesired *Dat
 			c.Config.Logger.Warningf("Failed to retrieve whether a Database resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Database resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Database resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeDatabaseDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Database: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Database: %v", rawDesired)
 
@@ -357,34 +358,16 @@ func canonicalizeDatabaseDesiredState(rawDesired, rawInitial *Database, opts ...
 
 func canonicalizeDatabaseNewState(c *Client, rawNew, rawDesired *Database) (*Database, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Name, rawNew.Name) {
-			rawNew.Name = rawDesired.Name
-		}
-	}
+	rawNew.Name = rawDesired.Name
 
-	if dcl.IsEmptyValueIndirect(rawNew.Instance) && dcl.IsEmptyValueIndirect(rawDesired.Instance) {
-		rawNew.Instance = rawDesired.Instance
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Instance, rawNew.Instance) {
-			rawNew.Instance = rawDesired.Instance
-		}
-	}
+	rawNew.Instance = rawDesired.Instance
 
 	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
 		rawNew.State = rawDesired.State
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	rawNew.Ddl = rawDesired.Ddl
 
@@ -412,27 +395,6 @@ func diffDatabase(c *Client, desired, actual *Database, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []databaseDiff
-	if !dcl.IsZeroValue(desired.Name) && !dcl.NameToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
-		diffs = append(diffs, databaseDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Instance) && !dcl.NameToSelfLink(desired.Instance, actual.Instance) {
-		c.Config.Logger.Infof("Detected diff in Instance.\nDESIRED: %#v\nACTUAL: %#v", desired.Instance, actual.Instance)
-		diffs = append(diffs, databaseDiff{
-			RequiresRecreate: true,
-			FieldName:        "Instance",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, databaseDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any

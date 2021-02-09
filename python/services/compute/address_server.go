@@ -219,11 +219,13 @@ func (s *AddressServer) ApplyComputeAddress(ctx context.Context, request *comput
 
 // DeleteAddress handles the gRPC request by passing it to the underlying Address Delete() method.
 func (s *AddressServer) DeleteComputeAddress(ctx context.Context, request *computepb.DeleteComputeAddressRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigAddress(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteAddress(ctx, ProtoToAddress(request.GetResource()))
+
 }
 
 // ListAddress handles the gRPC request by passing it to the underlying AddressList() method.

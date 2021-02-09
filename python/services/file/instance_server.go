@@ -85,18 +85,6 @@ func ProtoToFileInstanceNetworksModesEnum(e filepb.FileInstanceNetworksModesEnum
 	return nil
 }
 
-// ProtoToInstanceLabels converts a InstanceLabels resource from its proto representation.
-func ProtoToFileInstanceLabels(p *filepb.FileInstanceLabels) *file.InstanceLabels {
-	if p == nil {
-		return nil
-	}
-	obj := &file.InstanceLabels{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
 // ProtoToInstanceFileShares converts a InstanceFileShares resource from its proto representation.
 func ProtoToFileInstanceFileShares(p *filepb.FileInstanceFileShares) *file.InstanceFileShares {
 	if p == nil {
@@ -161,9 +149,6 @@ func ProtoToInstance(p *filepb.FileInstance) *file.Instance {
 		Project:       dcl.StringOrNil(p.Project),
 		Location:      dcl.StringOrNil(p.Location),
 	}
-	for _, r := range p.GetLabels() {
-		obj.Labels = append(obj.Labels, *ProtoToFileInstanceLabels(r))
-	}
 	for _, r := range p.GetFileShares() {
 		obj.FileShares = append(obj.FileShares, *ProtoToFileInstanceFileShares(r))
 	}
@@ -226,18 +211,6 @@ func FileInstanceNetworksModesEnumToProto(e *file.InstanceNetworksModesEnum) fil
 		return filepb.FileInstanceNetworksModesEnum(v)
 	}
 	return filepb.FileInstanceNetworksModesEnum(0)
-}
-
-// InstanceLabelsToProto converts a InstanceLabels resource to its proto representation.
-func FileInstanceLabelsToProto(o *file.InstanceLabels) *filepb.FileInstanceLabels {
-	if o == nil {
-		return nil
-	}
-	p := &filepb.FileInstanceLabels{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
-	}
-	return p
 }
 
 // InstanceFileSharesToProto converts a InstanceFileShares resource to its proto representation.
@@ -304,9 +277,6 @@ func InstanceToProto(resource *file.Instance) *filepb.FileInstance {
 		Project:       dcl.ValueOrEmptyString(resource.Project),
 		Location:      dcl.ValueOrEmptyString(resource.Location),
 	}
-	for _, r := range resource.Labels {
-		p.Labels = append(p.Labels, FileInstanceLabelsToProto(&r))
-	}
 	for _, r := range resource.FileShares {
 		p.FileShares = append(p.FileShares, FileInstanceFileSharesToProto(&r))
 	}
@@ -339,11 +309,13 @@ func (s *InstanceServer) ApplyFileInstance(ctx context.Context, request *filepb.
 
 // DeleteInstance handles the gRPC request by passing it to the underlying Instance Delete() method.
 func (s *InstanceServer) DeleteFileInstance(ctx context.Context, request *filepb.DeleteFileInstanceRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteInstance(ctx, ProtoToInstance(request.GetResource()))
+
 }
 
 // ListInstance handles the gRPC request by passing it to the underlying InstanceList() method.

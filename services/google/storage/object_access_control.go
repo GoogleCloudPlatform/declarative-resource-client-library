@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -296,7 +297,9 @@ func (c *Client) ApplyObjectAccessControl(ctx context.Context, rawDesired *Objec
 	if create {
 		ops = append(ops, &createObjectAccessControlOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteObjectAccessControlOperation{})
+
 		ops = append(ops, &createObjectAccessControlOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeObjectAccessControlDesiredState(rawDesired, nil)

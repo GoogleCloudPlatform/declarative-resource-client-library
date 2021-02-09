@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Connector) validate() error {
@@ -291,12 +292,12 @@ func (c *Client) connectorDiffsForRawDesired(ctx context.Context, rawDesired *Co
 			c.Config.Logger.Warningf("Failed to retrieve whether a Connector resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Connector resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Connector resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeConnectorDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Connector: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Connector: %v", rawDesired)
 
@@ -388,13 +389,7 @@ func canonicalizeConnectorDesiredState(rawDesired, rawInitial *Connector, opts .
 
 func canonicalizeConnectorNewState(c *Client, rawNew, rawDesired *Connector) (*Connector, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Name, rawNew.Name) {
-			rawNew.Name = rawDesired.Name
-		}
-	}
+	rawNew.Name = rawDesired.Name
 
 	if dcl.IsEmptyValueIndirect(rawNew.Network) && dcl.IsEmptyValueIndirect(rawDesired.Network) {
 		rawNew.Network = rawDesired.Network
@@ -416,21 +411,9 @@ func canonicalizeConnectorNewState(c *Client, rawNew, rawDesired *Connector) (*C
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
-	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
-		rawNew.Location = rawDesired.Location
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Location, rawNew.Location) {
-			rawNew.Location = rawDesired.Location
-		}
-	}
+	rawNew.Location = rawDesired.Location
 
 	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
 		rawNew.State = rawDesired.State
@@ -466,53 +449,32 @@ func diffConnector(c *Client, desired, actual *Connector, opts ...dcl.ApplyOptio
 	}
 
 	var diffs []connectorDiff
-	if !dcl.IsZeroValue(desired.Name) && !dcl.NameToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
-		diffs = append(diffs, connectorDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
-	}
 	if !dcl.IsZeroValue(desired.Network) && (dcl.IsZeroValue(actual.Network) || !reflect.DeepEqual(*desired.Network, *actual.Network)) {
-		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %#v\nACTUAL: %#v", desired.Network, actual.Network)
+		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
 		diffs = append(diffs, connectorDiff{
 			RequiresRecreate: true,
 			FieldName:        "Network",
 		})
 	}
 	if !dcl.IsZeroValue(desired.IPCidrRange) && (dcl.IsZeroValue(actual.IPCidrRange) || !reflect.DeepEqual(*desired.IPCidrRange, *actual.IPCidrRange)) {
-		c.Config.Logger.Infof("Detected diff in IPCidrRange.\nDESIRED: %#v\nACTUAL: %#v", desired.IPCidrRange, actual.IPCidrRange)
+		c.Config.Logger.Infof("Detected diff in IPCidrRange.\nDESIRED: %v\nACTUAL: %v", desired.IPCidrRange, actual.IPCidrRange)
 		diffs = append(diffs, connectorDiff{
 			RequiresRecreate: true,
 			FieldName:        "IPCidrRange",
 		})
 	}
 	if !dcl.IsZeroValue(desired.MinThroughput) && (dcl.IsZeroValue(actual.MinThroughput) || !reflect.DeepEqual(*desired.MinThroughput, *actual.MinThroughput)) {
-		c.Config.Logger.Infof("Detected diff in MinThroughput.\nDESIRED: %#v\nACTUAL: %#v", desired.MinThroughput, actual.MinThroughput)
+		c.Config.Logger.Infof("Detected diff in MinThroughput.\nDESIRED: %v\nACTUAL: %v", desired.MinThroughput, actual.MinThroughput)
 		diffs = append(diffs, connectorDiff{
 			RequiresRecreate: true,
 			FieldName:        "MinThroughput",
 		})
 	}
 	if !dcl.IsZeroValue(desired.MaxThroughput) && (dcl.IsZeroValue(actual.MaxThroughput) || !reflect.DeepEqual(*desired.MaxThroughput, *actual.MaxThroughput)) {
-		c.Config.Logger.Infof("Detected diff in MaxThroughput.\nDESIRED: %#v\nACTUAL: %#v", desired.MaxThroughput, actual.MaxThroughput)
+		c.Config.Logger.Infof("Detected diff in MaxThroughput.\nDESIRED: %v\nACTUAL: %v", desired.MaxThroughput, actual.MaxThroughput)
 		diffs = append(diffs, connectorDiff{
 			RequiresRecreate: true,
 			FieldName:        "MaxThroughput",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, connectorDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Location) && !dcl.NameToSelfLink(desired.Location, actual.Location) {
-		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
-		diffs = append(diffs, connectorDiff{
-			RequiresRecreate: true,
-			FieldName:        "Location",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.

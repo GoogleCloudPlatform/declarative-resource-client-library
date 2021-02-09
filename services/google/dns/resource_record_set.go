@@ -16,6 +16,7 @@ package dns
 import (
 	"context"
 	"fmt"
+
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -178,7 +179,9 @@ func (c *Client) ApplyResourceRecordSet(ctx context.Context, rawDesired *Resourc
 	if create {
 		ops = append(ops, &createResourceRecordSetOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteResourceRecordSetOperation{})
+
 		ops = append(ops, &createResourceRecordSetOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeResourceRecordSetDesiredState(rawDesired, nil)

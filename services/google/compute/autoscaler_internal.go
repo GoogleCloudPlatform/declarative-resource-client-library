@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Autoscaler) validate() error {
@@ -457,12 +458,12 @@ func (c *Client) autoscalerDiffsForRawDesired(ctx context.Context, rawDesired *A
 			c.Config.Logger.Warningf("Failed to retrieve whether a Autoscaler resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Autoscaler resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Autoscaler resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeAutoscalerDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Autoscaler: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Autoscaler: %v", rawDesired)
 
@@ -635,26 +636,14 @@ func canonicalizeAutoscalerNewState(c *Client, rawNew, rawDesired *Autoscaler) (
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	if dcl.IsEmptyValueIndirect(rawNew.CreationTimestamp) && dcl.IsEmptyValueIndirect(rawDesired.CreationTimestamp) {
 		rawNew.CreationTimestamp = rawDesired.CreationTimestamp
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
-		rawNew.Location = rawDesired.Location
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Location, rawNew.Location) {
-			rawNew.Location = rawDesired.Location
-		}
-	}
+	rawNew.Location = rawDesired.Location
 
 	return rawNew, nil
 }
@@ -1119,14 +1108,14 @@ func diffAutoscaler(c *Client, desired, actual *Autoscaler, opts ...dcl.ApplyOpt
 
 	var diffs []autoscalerDiff
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, autoscalerDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, autoscalerDiff{
 			UpdateOp:  &updateAutoscalerUpdateOperation{},
@@ -1135,7 +1124,7 @@ func diffAutoscaler(c *Client, desired, actual *Autoscaler, opts ...dcl.ApplyOpt
 
 	}
 	if !dcl.IsZeroValue(desired.Target) && !dcl.NameToSelfLink(desired.Target, actual.Target) {
-		c.Config.Logger.Infof("Detected diff in Target.\nDESIRED: %#v\nACTUAL: %#v", desired.Target, actual.Target)
+		c.Config.Logger.Infof("Detected diff in Target.\nDESIRED: %v\nACTUAL: %v", desired.Target, actual.Target)
 
 		diffs = append(diffs, autoscalerDiff{
 			UpdateOp:  &updateAutoscalerUpdateOperation{},
@@ -1144,7 +1133,7 @@ func diffAutoscaler(c *Client, desired, actual *Autoscaler, opts ...dcl.ApplyOpt
 
 	}
 	if compareAutoscalerAutoscalingPolicy(c, desired.AutoscalingPolicy, actual.AutoscalingPolicy) {
-		c.Config.Logger.Infof("Detected diff in AutoscalingPolicy.\nDESIRED: %#v\nACTUAL: %#v", desired.AutoscalingPolicy, actual.AutoscalingPolicy)
+		c.Config.Logger.Infof("Detected diff in AutoscalingPolicy.\nDESIRED: %v\nACTUAL: %v", desired.AutoscalingPolicy, actual.AutoscalingPolicy)
 
 		diffs = append(diffs, autoscalerDiff{
 			UpdateOp:  &updateAutoscalerUpdateOperation{},
@@ -1153,45 +1142,31 @@ func diffAutoscaler(c *Client, desired, actual *Autoscaler, opts ...dcl.ApplyOpt
 
 	}
 	if !dcl.IsZeroValue(desired.Zone) && (dcl.IsZeroValue(actual.Zone) || !reflect.DeepEqual(*desired.Zone, *actual.Zone)) {
-		c.Config.Logger.Infof("Detected diff in Zone.\nDESIRED: %#v\nACTUAL: %#v", desired.Zone, actual.Zone)
+		c.Config.Logger.Infof("Detected diff in Zone.\nDESIRED: %v\nACTUAL: %v", desired.Zone, actual.Zone)
 		diffs = append(diffs, autoscalerDiff{
 			RequiresRecreate: true,
 			FieldName:        "Zone",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Region) && (dcl.IsZeroValue(actual.Region) || !reflect.DeepEqual(*desired.Region, *actual.Region)) {
-		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %#v\nACTUAL: %#v", desired.Region, actual.Region)
+		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %v\nACTUAL: %v", desired.Region, actual.Region)
 		diffs = append(diffs, autoscalerDiff{
 			RequiresRecreate: true,
 			FieldName:        "Region",
 		})
 	}
 	if !dcl.IsZeroValue(desired.SelfLinkWithId) && (dcl.IsZeroValue(actual.SelfLinkWithId) || !reflect.DeepEqual(*desired.SelfLinkWithId, *actual.SelfLinkWithId)) {
-		c.Config.Logger.Infof("Detected diff in SelfLinkWithId.\nDESIRED: %#v\nACTUAL: %#v", desired.SelfLinkWithId, actual.SelfLinkWithId)
+		c.Config.Logger.Infof("Detected diff in SelfLinkWithId.\nDESIRED: %v\nACTUAL: %v", desired.SelfLinkWithId, actual.SelfLinkWithId)
 		diffs = append(diffs, autoscalerDiff{
 			RequiresRecreate: true,
 			FieldName:        "SelfLinkWithId",
 		})
 	}
 	if !reflect.DeepEqual(desired.ScalingScheduleStatus, actual.ScalingScheduleStatus) {
-		c.Config.Logger.Infof("Detected diff in ScalingScheduleStatus.\nDESIRED: %#v\nACTUAL: %#v", desired.ScalingScheduleStatus, actual.ScalingScheduleStatus)
+		c.Config.Logger.Infof("Detected diff in ScalingScheduleStatus.\nDESIRED: %v\nACTUAL: %v", desired.ScalingScheduleStatus, actual.ScalingScheduleStatus)
 		diffs = append(diffs, autoscalerDiff{
 			RequiresRecreate: true,
 			FieldName:        "ScalingScheduleStatus",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, autoscalerDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Location) && !dcl.NameToSelfLink(desired.Location, actual.Location) {
-		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
-		diffs = append(diffs, autoscalerDiff{
-			RequiresRecreate: true,
-			FieldName:        "Location",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.

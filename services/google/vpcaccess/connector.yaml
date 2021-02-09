@@ -17,7 +17,7 @@ components:
       properties:
         ipCidrRange:
           description: 'The range of internal addresses that follows RFC 4632 notation.
-            Example: \`10.132.0.0/28\`.'
+            Example: `10.132.0.0/28`.'
           type: string
           x-dcl-go-name: IPCidrRange
           x-kubernetes-immutable: true
@@ -43,7 +43,7 @@ components:
           x-dcl-go-name: MinThroughput
           x-kubernetes-immutable: true
         name:
-          description: The resource name in the format \`projects/\*/locations/\*/connectors/\*\`.
+          description: The resource name in the format `projects/*/locations/*/connectors/*`.
           type: string
           x-dcl-go-name: Name
           x-kubernetes-immutable: true
@@ -65,7 +65,8 @@ components:
           x-dcl-go-name: SelfLink
           x-kubernetes-immutable: true
         state:
-          description: Output only. State of the VPC access connector.
+          description: 'Output only. State of the VPC access connector. Possible values:
+            STATE_UNSPECIFIED, READY, CREATING, DELETING, ERROR, UPDATING'
           enum:
           - STATE_UNSPECIFIED
           - READY
@@ -95,10 +96,43 @@ info:
   title: Vpcaccess/Connector
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Connector
+  apply:
+    description: The function used to apply information about a Connector
+    parameters:
+    - description: A full instance of a Connector
+      name: Connector
+      required: true
+  delete:
+    description: The function used to delete a Connector
+    parameters:
+    - description: A full instance of a Connector
+      name: Connector
+      required: true
+  deleteAll:
+    description: The function used to delete all Connector
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: location
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Connector
+    parameters:
+    - description: A full instance of a Connector
+      name: Connector
+      required: true
+  list:
+    description: The function used to list information about many Connector
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string

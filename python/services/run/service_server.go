@@ -1504,11 +1504,13 @@ func (s *ServiceServer) ApplyRunService(ctx context.Context, request *runpb.Appl
 
 // DeleteService handles the gRPC request by passing it to the underlying Service Delete() method.
 func (s *ServiceServer) DeleteRunService(ctx context.Context, request *runpb.DeleteRunServiceRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigService(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteService(ctx, ProtoToService(request.GetResource()))
+
 }
 
 // ListService handles the gRPC request by passing it to the underlying ServiceList() method.

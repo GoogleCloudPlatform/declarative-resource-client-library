@@ -16,6 +16,7 @@ package runtimeconfig
 import (
 	"context"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -205,7 +206,9 @@ func (c *Client) ApplyConfig(ctx context.Context, rawDesired *Config, opts ...dc
 	if create {
 		ops = append(ops, &createConfigOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteConfigOperation{})
+
 		ops = append(ops, &createConfigOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeConfigDesiredState(rawDesired, nil)

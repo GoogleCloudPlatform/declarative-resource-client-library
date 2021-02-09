@@ -43,10 +43,43 @@ info:
   title: Runtimeconfig/Config
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Config
+  apply:
+    description: The function used to apply information about a Config
+    parameters:
+    - description: A full instance of a Config
+      name: Config
+      required: true
+  delete:
+    description: The function used to delete a Config
+    parameters:
+    - description: A full instance of a Config
+      name: Config
+      required: true
+  deleteAll:
+    description: The function used to delete all Config
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: name
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Config
+    parameters:
+    - description: A full instance of a Config
+      name: Config
+      required: true
+  list:
+    description: The function used to list information about many Config
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: name
+      required: true
+      schema:
+        type: string

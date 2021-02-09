@@ -167,21 +167,6 @@ func ProtoToDataprocClusterClusterConfigGceClusterConfig(p *dataprocpb.DataprocC
 	for _, r := range p.GetTags() {
 		obj.Tags = append(obj.Tags, r)
 	}
-	for _, r := range p.GetMetadata() {
-		obj.Metadata = append(obj.Metadata, *ProtoToDataprocClusterClusterConfigGceClusterConfigMetadata(r))
-	}
-	return obj
-}
-
-// ProtoToClusterClusterConfigGceClusterConfigMetadata converts a ClusterClusterConfigGceClusterConfigMetadata resource from its proto representation.
-func ProtoToDataprocClusterClusterConfigGceClusterConfigMetadata(p *dataprocpb.DataprocClusterClusterConfigGceClusterConfigMetadata) *dataproc.ClusterClusterConfigGceClusterConfigMetadata {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.ClusterClusterConfigGceClusterConfigMetadata{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
 	return obj
 }
 
@@ -229,24 +214,8 @@ func ProtoToDataprocClusterInstanceGroupConfig(p *dataprocpb.DataprocClusterInst
 	for _, r := range p.GetInstanceNames() {
 		obj.InstanceNames = append(obj.InstanceNames, r)
 	}
-	for _, r := range p.GetInstanceReferences() {
-		obj.InstanceReferences = append(obj.InstanceReferences, *ProtoToDataprocClusterInstanceGroupConfigInstanceReferences(r))
-	}
 	for _, r := range p.GetAccelerators() {
 		obj.Accelerators = append(obj.Accelerators, *ProtoToDataprocClusterInstanceGroupConfigAccelerators(r))
-	}
-	return obj
-}
-
-// ProtoToClusterInstanceGroupConfigInstanceReferences converts a ClusterInstanceGroupConfigInstanceReferences resource from its proto representation.
-func ProtoToDataprocClusterInstanceGroupConfigInstanceReferences(p *dataprocpb.DataprocClusterInstanceGroupConfigInstanceReferences) *dataproc.ClusterInstanceGroupConfigInstanceReferences {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.ClusterInstanceGroupConfigInstanceReferences{
-		InstanceName: dcl.StringOrNil(p.InstanceName),
-		InstanceId:   dcl.StringOrNil(p.InstanceId),
-		PublicKey:    dcl.StringOrNil(p.PublicKey),
 	}
 	return obj
 }
@@ -309,19 +278,7 @@ func ProtoToDataprocClusterClusterConfigInitializationActions(p *dataprocpb.Data
 	}
 	obj := &dataproc.ClusterClusterConfigInitializationActions{
 		ExecutableFile:   dcl.StringOrNil(p.ExecutableFile),
-		ExecutionTimeout: ProtoToDataprocClusterClusterConfigInitializationActionsExecutionTimeout(p.GetExecutionTimeout()),
-	}
-	return obj
-}
-
-// ProtoToClusterClusterConfigInitializationActionsExecutionTimeout converts a ClusterClusterConfigInitializationActionsExecutionTimeout resource from its proto representation.
-func ProtoToDataprocClusterClusterConfigInitializationActionsExecutionTimeout(p *dataprocpb.DataprocClusterClusterConfigInitializationActionsExecutionTimeout) *dataproc.ClusterClusterConfigInitializationActionsExecutionTimeout {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.ClusterClusterConfigInitializationActionsExecutionTimeout{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
+		ExecutionTimeout: dcl.StringOrNil(p.ExecutionTimeout),
 	}
 	return obj
 }
@@ -390,34 +347,10 @@ func ProtoToDataprocClusterClusterConfigLifecycleConfig(p *dataprocpb.DataprocCl
 		return nil
 	}
 	obj := &dataproc.ClusterClusterConfigLifecycleConfig{
-		IdleDeleteTtl:  ProtoToDataprocClusterClusterConfigLifecycleConfigIdleDeleteTtl(p.GetIdleDeleteTtl()),
+		IdleDeleteTtl:  dcl.StringOrNil(p.IdleDeleteTtl),
 		AutoDeleteTime: dcl.StringOrNil(p.GetAutoDeleteTime()),
-		AutoDeleteTtl:  ProtoToDataprocClusterClusterConfigLifecycleConfigAutoDeleteTtl(p.GetAutoDeleteTtl()),
+		AutoDeleteTtl:  dcl.StringOrNil(p.AutoDeleteTtl),
 		IdleStartTime:  dcl.StringOrNil(p.GetIdleStartTime()),
-	}
-	return obj
-}
-
-// ProtoToClusterClusterConfigLifecycleConfigIdleDeleteTtl converts a ClusterClusterConfigLifecycleConfigIdleDeleteTtl resource from its proto representation.
-func ProtoToDataprocClusterClusterConfigLifecycleConfigIdleDeleteTtl(p *dataprocpb.DataprocClusterClusterConfigLifecycleConfigIdleDeleteTtl) *dataproc.ClusterClusterConfigLifecycleConfigIdleDeleteTtl {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.ClusterClusterConfigLifecycleConfigIdleDeleteTtl{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
-	}
-	return obj
-}
-
-// ProtoToClusterClusterConfigLifecycleConfigAutoDeleteTtl converts a ClusterClusterConfigLifecycleConfigAutoDeleteTtl resource from its proto representation.
-func ProtoToDataprocClusterClusterConfigLifecycleConfigAutoDeleteTtl(p *dataprocpb.DataprocClusterClusterConfigLifecycleConfigAutoDeleteTtl) *dataproc.ClusterClusterConfigLifecycleConfigAutoDeleteTtl {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.ClusterClusterConfigLifecycleConfigAutoDeleteTtl{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
 	}
 	return obj
 }
@@ -429,33 +362,6 @@ func ProtoToDataprocClusterClusterConfigEndpointConfig(p *dataprocpb.DataprocClu
 	}
 	obj := &dataproc.ClusterClusterConfigEndpointConfig{
 		EnableHttpPortAccess: dcl.Bool(p.EnableHttpPortAccess),
-	}
-	for _, r := range p.GetHttpPorts() {
-		obj.HttpPorts = append(obj.HttpPorts, *ProtoToDataprocClusterClusterConfigEndpointConfigHttpPorts(r))
-	}
-	return obj
-}
-
-// ProtoToClusterClusterConfigEndpointConfigHttpPorts converts a ClusterClusterConfigEndpointConfigHttpPorts resource from its proto representation.
-func ProtoToDataprocClusterClusterConfigEndpointConfigHttpPorts(p *dataprocpb.DataprocClusterClusterConfigEndpointConfigHttpPorts) *dataproc.ClusterClusterConfigEndpointConfigHttpPorts {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.ClusterClusterConfigEndpointConfigHttpPorts{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
-// ProtoToClusterLabels converts a ClusterLabels resource from its proto representation.
-func ProtoToDataprocClusterLabels(p *dataprocpb.DataprocClusterLabels) *dataproc.ClusterLabels {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.ClusterLabels{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
 	}
 	return obj
 }
@@ -494,36 +400,6 @@ func ProtoToDataprocClusterMetrics(p *dataprocpb.DataprocClusterMetrics) *datapr
 		return nil
 	}
 	obj := &dataproc.ClusterMetrics{}
-	for _, r := range p.GetHdfsMetrics() {
-		obj.HdfsMetrics = append(obj.HdfsMetrics, *ProtoToDataprocClusterMetricsHdfsMetrics(r))
-	}
-	for _, r := range p.GetYarnMetrics() {
-		obj.YarnMetrics = append(obj.YarnMetrics, *ProtoToDataprocClusterMetricsYarnMetrics(r))
-	}
-	return obj
-}
-
-// ProtoToClusterMetricsHdfsMetrics converts a ClusterMetricsHdfsMetrics resource from its proto representation.
-func ProtoToDataprocClusterMetricsHdfsMetrics(p *dataprocpb.DataprocClusterMetricsHdfsMetrics) *dataproc.ClusterMetricsHdfsMetrics {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.ClusterMetricsHdfsMetrics{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.Int64OrNil(p.Value),
-	}
-	return obj
-}
-
-// ProtoToClusterMetricsYarnMetrics converts a ClusterMetricsYarnMetrics resource from its proto representation.
-func ProtoToDataprocClusterMetricsYarnMetrics(p *dataprocpb.DataprocClusterMetricsYarnMetrics) *dataproc.ClusterMetricsYarnMetrics {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.ClusterMetricsYarnMetrics{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.Int64OrNil(p.Value),
-	}
 	return obj
 }
 
@@ -537,9 +413,6 @@ func ProtoToCluster(p *dataprocpb.DataprocCluster) *dataproc.Cluster {
 		ClusterUuid: dcl.StringOrNil(p.ClusterUuid),
 		Metrics:     ProtoToDataprocClusterMetrics(p.GetMetrics()),
 		Location:    dcl.StringOrNil(p.Location),
-	}
-	for _, r := range p.GetLabels() {
-		obj.Labels = append(obj.Labels, *ProtoToDataprocClusterLabels(r))
 	}
 	for _, r := range p.GetStatusHistory() {
 		obj.StatusHistory = append(obj.StatusHistory, *ProtoToDataprocClusterStatusHistory(r))
@@ -681,20 +554,9 @@ func DataprocClusterClusterConfigGceClusterConfigToProto(o *dataproc.ClusterClus
 	for _, r := range o.Tags {
 		p.Tags = append(p.Tags, r)
 	}
-	for _, r := range o.Metadata {
-		p.Metadata = append(p.Metadata, DataprocClusterClusterConfigGceClusterConfigMetadataToProto(&r))
-	}
-	return p
-}
-
-// ClusterClusterConfigGceClusterConfigMetadataToProto converts a ClusterClusterConfigGceClusterConfigMetadata resource to its proto representation.
-func DataprocClusterClusterConfigGceClusterConfigMetadataToProto(o *dataproc.ClusterClusterConfigGceClusterConfigMetadata) *dataprocpb.DataprocClusterClusterConfigGceClusterConfigMetadata {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocClusterClusterConfigGceClusterConfigMetadata{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
+	p.Metadata = make(map[string]string)
+	for k, r := range o.Metadata {
+		p.Metadata[k] = r
 	}
 	return p
 }
@@ -743,24 +605,8 @@ func DataprocClusterInstanceGroupConfigToProto(o *dataproc.ClusterInstanceGroupC
 	for _, r := range o.InstanceNames {
 		p.InstanceNames = append(p.InstanceNames, r)
 	}
-	for _, r := range o.InstanceReferences {
-		p.InstanceReferences = append(p.InstanceReferences, DataprocClusterInstanceGroupConfigInstanceReferencesToProto(&r))
-	}
 	for _, r := range o.Accelerators {
 		p.Accelerators = append(p.Accelerators, DataprocClusterInstanceGroupConfigAcceleratorsToProto(&r))
-	}
-	return p
-}
-
-// ClusterInstanceGroupConfigInstanceReferencesToProto converts a ClusterInstanceGroupConfigInstanceReferences resource to its proto representation.
-func DataprocClusterInstanceGroupConfigInstanceReferencesToProto(o *dataproc.ClusterInstanceGroupConfigInstanceReferences) *dataprocpb.DataprocClusterInstanceGroupConfigInstanceReferences {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocClusterInstanceGroupConfigInstanceReferences{
-		InstanceName: dcl.ValueOrEmptyString(o.InstanceName),
-		InstanceId:   dcl.ValueOrEmptyString(o.InstanceId),
-		PublicKey:    dcl.ValueOrEmptyString(o.PublicKey),
 	}
 	return p
 }
@@ -827,19 +673,7 @@ func DataprocClusterClusterConfigInitializationActionsToProto(o *dataproc.Cluste
 	}
 	p := &dataprocpb.DataprocClusterClusterConfigInitializationActions{
 		ExecutableFile:   dcl.ValueOrEmptyString(o.ExecutableFile),
-		ExecutionTimeout: DataprocClusterClusterConfigInitializationActionsExecutionTimeoutToProto(o.ExecutionTimeout),
-	}
-	return p
-}
-
-// ClusterClusterConfigInitializationActionsExecutionTimeoutToProto converts a ClusterClusterConfigInitializationActionsExecutionTimeout resource to its proto representation.
-func DataprocClusterClusterConfigInitializationActionsExecutionTimeoutToProto(o *dataproc.ClusterClusterConfigInitializationActionsExecutionTimeout) *dataprocpb.DataprocClusterClusterConfigInitializationActionsExecutionTimeout {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocClusterClusterConfigInitializationActionsExecutionTimeout{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
+		ExecutionTimeout: dcl.ValueOrEmptyString(o.ExecutionTimeout),
 	}
 	return p
 }
@@ -908,34 +742,10 @@ func DataprocClusterClusterConfigLifecycleConfigToProto(o *dataproc.ClusterClust
 		return nil
 	}
 	p := &dataprocpb.DataprocClusterClusterConfigLifecycleConfig{
-		IdleDeleteTtl:  DataprocClusterClusterConfigLifecycleConfigIdleDeleteTtlToProto(o.IdleDeleteTtl),
+		IdleDeleteTtl:  dcl.ValueOrEmptyString(o.IdleDeleteTtl),
 		AutoDeleteTime: dcl.ValueOrEmptyString(o.AutoDeleteTime),
-		AutoDeleteTtl:  DataprocClusterClusterConfigLifecycleConfigAutoDeleteTtlToProto(o.AutoDeleteTtl),
+		AutoDeleteTtl:  dcl.ValueOrEmptyString(o.AutoDeleteTtl),
 		IdleStartTime:  dcl.ValueOrEmptyString(o.IdleStartTime),
-	}
-	return p
-}
-
-// ClusterClusterConfigLifecycleConfigIdleDeleteTtlToProto converts a ClusterClusterConfigLifecycleConfigIdleDeleteTtl resource to its proto representation.
-func DataprocClusterClusterConfigLifecycleConfigIdleDeleteTtlToProto(o *dataproc.ClusterClusterConfigLifecycleConfigIdleDeleteTtl) *dataprocpb.DataprocClusterClusterConfigLifecycleConfigIdleDeleteTtl {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocClusterClusterConfigLifecycleConfigIdleDeleteTtl{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
-	}
-	return p
-}
-
-// ClusterClusterConfigLifecycleConfigAutoDeleteTtlToProto converts a ClusterClusterConfigLifecycleConfigAutoDeleteTtl resource to its proto representation.
-func DataprocClusterClusterConfigLifecycleConfigAutoDeleteTtlToProto(o *dataproc.ClusterClusterConfigLifecycleConfigAutoDeleteTtl) *dataprocpb.DataprocClusterClusterConfigLifecycleConfigAutoDeleteTtl {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocClusterClusterConfigLifecycleConfigAutoDeleteTtl{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
 	}
 	return p
 }
@@ -948,32 +758,9 @@ func DataprocClusterClusterConfigEndpointConfigToProto(o *dataproc.ClusterCluste
 	p := &dataprocpb.DataprocClusterClusterConfigEndpointConfig{
 		EnableHttpPortAccess: dcl.ValueOrEmptyBool(o.EnableHttpPortAccess),
 	}
-	for _, r := range o.HttpPorts {
-		p.HttpPorts = append(p.HttpPorts, DataprocClusterClusterConfigEndpointConfigHttpPortsToProto(&r))
-	}
-	return p
-}
-
-// ClusterClusterConfigEndpointConfigHttpPortsToProto converts a ClusterClusterConfigEndpointConfigHttpPorts resource to its proto representation.
-func DataprocClusterClusterConfigEndpointConfigHttpPortsToProto(o *dataproc.ClusterClusterConfigEndpointConfigHttpPorts) *dataprocpb.DataprocClusterClusterConfigEndpointConfigHttpPorts {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocClusterClusterConfigEndpointConfigHttpPorts{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
-	}
-	return p
-}
-
-// ClusterLabelsToProto converts a ClusterLabels resource to its proto representation.
-func DataprocClusterLabelsToProto(o *dataproc.ClusterLabels) *dataprocpb.DataprocClusterLabels {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocClusterLabels{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
+	p.HttpPorts = make(map[string]string)
+	for k, r := range o.HttpPorts {
+		p.HttpPorts[k] = r
 	}
 	return p
 }
@@ -1012,35 +799,13 @@ func DataprocClusterMetricsToProto(o *dataproc.ClusterMetrics) *dataprocpb.Datap
 		return nil
 	}
 	p := &dataprocpb.DataprocClusterMetrics{}
-	for _, r := range o.HdfsMetrics {
-		p.HdfsMetrics = append(p.HdfsMetrics, DataprocClusterMetricsHdfsMetricsToProto(&r))
+	p.HdfsMetrics = make(map[string]string)
+	for k, r := range o.HdfsMetrics {
+		p.HdfsMetrics[k] = r
 	}
-	for _, r := range o.YarnMetrics {
-		p.YarnMetrics = append(p.YarnMetrics, DataprocClusterMetricsYarnMetricsToProto(&r))
-	}
-	return p
-}
-
-// ClusterMetricsHdfsMetricsToProto converts a ClusterMetricsHdfsMetrics resource to its proto representation.
-func DataprocClusterMetricsHdfsMetricsToProto(o *dataproc.ClusterMetricsHdfsMetrics) *dataprocpb.DataprocClusterMetricsHdfsMetrics {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocClusterMetricsHdfsMetrics{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyInt64(o.Value),
-	}
-	return p
-}
-
-// ClusterMetricsYarnMetricsToProto converts a ClusterMetricsYarnMetrics resource to its proto representation.
-func DataprocClusterMetricsYarnMetricsToProto(o *dataproc.ClusterMetricsYarnMetrics) *dataprocpb.DataprocClusterMetricsYarnMetrics {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocClusterMetricsYarnMetrics{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyInt64(o.Value),
+	p.YarnMetrics = make(map[string]string)
+	for k, r := range o.YarnMetrics {
+		p.YarnMetrics[k] = r
 	}
 	return p
 }
@@ -1055,9 +820,6 @@ func ClusterToProto(resource *dataproc.Cluster) *dataprocpb.DataprocCluster {
 		ClusterUuid: dcl.ValueOrEmptyString(resource.ClusterUuid),
 		Metrics:     DataprocClusterMetricsToProto(resource.Metrics),
 		Location:    dcl.ValueOrEmptyString(resource.Location),
-	}
-	for _, r := range resource.Labels {
-		p.Labels = append(p.Labels, DataprocClusterLabelsToProto(&r))
 	}
 	for _, r := range resource.StatusHistory {
 		p.StatusHistory = append(p.StatusHistory, DataprocClusterStatusHistoryToProto(&r))
@@ -1088,11 +850,13 @@ func (s *ClusterServer) ApplyDataprocCluster(ctx context.Context, request *datap
 
 // DeleteCluster handles the gRPC request by passing it to the underlying Cluster Delete() method.
 func (s *ClusterServer) DeleteDataprocCluster(ctx context.Context, request *dataprocpb.DeleteDataprocClusterRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigCluster(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteCluster(ctx, ProtoToCluster(request.GetResource()))
+
 }
 
 // ListCluster handles the gRPC request by passing it to the underlying ClusterList() method.

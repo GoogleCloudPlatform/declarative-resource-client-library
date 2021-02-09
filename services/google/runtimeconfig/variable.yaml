@@ -34,8 +34,7 @@ components:
         text:
           description: 'The string value of the variable. The length of the value
             must be less than 4096 bytes. Empty values are also accepted. For example,
-            \\\\\\\\\\\\\\\`text: "my text value"\\\\\\\\\\\\\\\`. The string must
-            be valid UTF-8.'
+            `text: "my text value"`. The string must be valid UTF-8.'
           type: string
           x-dcl-conflicts:
           - value
@@ -70,10 +69,43 @@ info:
   title: Runtimeconfig/Variable
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Variable
+  apply:
+    description: The function used to apply information about a Variable
+    parameters:
+    - description: A full instance of a Variable
+      name: Variable
+      required: true
+  delete:
+    description: The function used to delete a Variable
+    parameters:
+    - description: A full instance of a Variable
+      name: Variable
+      required: true
+  deleteAll:
+    description: The function used to delete all Variable
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: runtimeconfig
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Variable
+    parameters:
+    - description: A full instance of a Variable
+      name: Variable
+      required: true
+  list:
+    description: The function used to list information about many Variable
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: runtimeconfig
+      required: true
+      schema:
+        type: string

@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="cloudfunctions", resources=["cloud_function"])
+connector(name="cloudfunctions", resources=["function"])

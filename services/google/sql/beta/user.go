@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -262,7 +263,9 @@ func (c *Client) ApplyUser(ctx context.Context, rawDesired *User, opts ...dcl.Ap
 	if create {
 		ops = append(ops, &createUserOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteUserOperation{})
+
 		ops = append(ops, &createUserOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeUserDesiredState(rawDesired, nil)

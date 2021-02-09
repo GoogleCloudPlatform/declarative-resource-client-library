@@ -71,7 +71,9 @@ components:
                               type: string
                               x-dcl-go-name: MinimumVersion
                             osType:
-                              description: The operating system type of the device.
+                              description: 'The operating system type of the device.
+                                Possible values: OS_UNSPECIFIED, DESKTOP_MAC, DESKTOP_WINDOWS,
+                                DESKTOP_LINUX, DESKTOP_CHROME_OS'
                               enum:
                               - OS_UNSPECIFIED
                               - DESKTOP_MAC
@@ -225,8 +227,35 @@ info:
   title: AccessContextManager/AccessLevel
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many AccessLevel
+  apply:
+    description: The function used to apply information about a AccessLevel
+    parameters:
+    - description: A full instance of a AccessLevel
+      name: AccessLevel
+      required: true
+  delete:
+    description: The function used to delete a AccessLevel
+    parameters:
+    - description: A full instance of a AccessLevel
+      name: AccessLevel
+      required: true
+  deleteAll:
+    description: The function used to delete all AccessLevel
     parameters:
     - name: policy
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a AccessLevel
+    parameters:
+    - description: A full instance of a AccessLevel
+      name: AccessLevel
+      required: true
+  list:
+    description: The function used to list information about many AccessLevel
+    parameters:
+    - name: policy
+      required: true
+      schema:
+        type: string

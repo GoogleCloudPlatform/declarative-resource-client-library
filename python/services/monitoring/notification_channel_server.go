@@ -99,11 +99,13 @@ func (s *NotificationChannelServer) ApplyMonitoringNotificationChannel(ctx conte
 
 // DeleteNotificationChannel handles the gRPC request by passing it to the underlying NotificationChannel Delete() method.
 func (s *NotificationChannelServer) DeleteMonitoringNotificationChannel(ctx context.Context, request *monitoringpb.DeleteMonitoringNotificationChannelRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigNotificationChannel(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteNotificationChannel(ctx, ProtoToNotificationChannel(request.GetResource()))
+
 }
 
 // ListNotificationChannel handles the gRPC request by passing it to the underlying NotificationChannelList() method.

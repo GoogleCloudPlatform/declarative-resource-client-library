@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -225,7 +226,9 @@ func (c *Client) ApplyTopic(ctx context.Context, rawDesired *Topic, opts ...dcl.
 	if create {
 		ops = append(ops, &createTopicOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteTopicOperation{})
+
 		ops = append(ops, &createTopicOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeTopicDesiredState(rawDesired, nil)

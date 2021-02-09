@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *InstanceGroupManager) validate() error {
@@ -529,12 +530,12 @@ func (c *Client) instanceGroupManagerDiffsForRawDesired(ctx context.Context, raw
 			c.Config.Logger.Warningf("Failed to retrieve whether a InstanceGroupManager resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve InstanceGroupManager resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that InstanceGroupManager resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for InstanceGroupManager: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for InstanceGroupManager: %v", rawDesired)
 
@@ -629,10 +630,10 @@ func canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial *Instan
 	if dcl.IsZeroValue(rawDesired.TargetSize) {
 		rawDesired.TargetSize = rawInitial.TargetSize
 	}
-	if dcl.NameToSelfLink(rawDesired.Zone, rawInitial.Zone) {
+	if dcl.IsZeroValue(rawDesired.Zone) {
 		rawDesired.Zone = rawInitial.Zone
 	}
-	if dcl.NameToSelfLink(rawDesired.Region, rawInitial.Region) {
+	if dcl.IsZeroValue(rawDesired.Region) {
 		rawDesired.Region = rawInitial.Region
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
@@ -740,34 +741,16 @@ func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *Ins
 	if dcl.IsEmptyValueIndirect(rawNew.Zone) && dcl.IsEmptyValueIndirect(rawDesired.Zone) {
 		rawNew.Zone = rawDesired.Zone
 	} else {
-		if dcl.NameToSelfLink(rawDesired.Zone, rawNew.Zone) {
-			rawNew.Zone = rawDesired.Zone
-		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Region) && dcl.IsEmptyValueIndirect(rawDesired.Region) {
 		rawNew.Region = rawDesired.Region
 	} else {
-		if dcl.NameToSelfLink(rawDesired.Region, rawNew.Region) {
-			rawNew.Region = rawDesired.Region
-		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
-	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
-		rawNew.Location = rawDesired.Location
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Location, rawNew.Location) {
-			rawNew.Location = rawDesired.Location
-		}
-	}
+	rawNew.Location = rawDesired.Location
 
 	return rawNew, nil
 }
@@ -1530,35 +1513,35 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 
 	var diffs []instanceGroupManagerDiff
 	if !dcl.IsZeroValue(desired.BaseInstanceName) && (dcl.IsZeroValue(actual.BaseInstanceName) || !reflect.DeepEqual(*desired.BaseInstanceName, *actual.BaseInstanceName)) {
-		c.Config.Logger.Infof("Detected diff in BaseInstanceName.\nDESIRED: %#v\nACTUAL: %#v", desired.BaseInstanceName, actual.BaseInstanceName)
+		c.Config.Logger.Infof("Detected diff in BaseInstanceName.\nDESIRED: %v\nACTUAL: %v", desired.BaseInstanceName, actual.BaseInstanceName)
 		diffs = append(diffs, instanceGroupManagerDiff{
 			RequiresRecreate: true,
 			FieldName:        "BaseInstanceName",
 		})
 	}
 	if compareInstanceGroupManagerDistributionPolicy(c, desired.DistributionPolicy, actual.DistributionPolicy) {
-		c.Config.Logger.Infof("Detected diff in DistributionPolicy.\nDESIRED: %#v\nACTUAL: %#v", desired.DistributionPolicy, actual.DistributionPolicy)
+		c.Config.Logger.Infof("Detected diff in DistributionPolicy.\nDESIRED: %v\nACTUAL: %v", desired.DistributionPolicy, actual.DistributionPolicy)
 		diffs = append(diffs, instanceGroupManagerDiff{
 			RequiresRecreate: true,
 			FieldName:        "DistributionPolicy",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, instanceGroupManagerDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
 	if compareInstanceGroupManagerVersionsSlice(c, desired.Versions, actual.Versions) {
-		c.Config.Logger.Infof("Detected diff in Versions.\nDESIRED: %#v\nACTUAL: %#v", desired.Versions, actual.Versions)
+		c.Config.Logger.Infof("Detected diff in Versions.\nDESIRED: %v\nACTUAL: %v", desired.Versions, actual.Versions)
 		diffs = append(diffs, instanceGroupManagerDiff{
 			RequiresRecreate: true,
 			FieldName:        "Versions",
 		})
 	}
 	if !dcl.IsZeroValue(desired.InstanceTemplate) && !dcl.NameToSelfLink(desired.InstanceTemplate, actual.InstanceTemplate) {
-		c.Config.Logger.Infof("Detected diff in InstanceTemplate.\nDESIRED: %#v\nACTUAL: %#v", desired.InstanceTemplate, actual.InstanceTemplate)
+		c.Config.Logger.Infof("Detected diff in InstanceTemplate.\nDESIRED: %v\nACTUAL: %v", desired.InstanceTemplate, actual.InstanceTemplate)
 
 		diffs = append(diffs, instanceGroupManagerDiff{
 			UpdateOp:  &updateInstanceGroupManagerSetInstanceTemplateOperation{},
@@ -1567,21 +1550,21 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, instanceGroupManagerDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if compareInstanceGroupManagerNamedPortsSlice(c, desired.NamedPorts, actual.NamedPorts) {
-		c.Config.Logger.Infof("Detected diff in NamedPorts.\nDESIRED: %#v\nACTUAL: %#v", desired.NamedPorts, actual.NamedPorts)
+		c.Config.Logger.Infof("Detected diff in NamedPorts.\nDESIRED: %v\nACTUAL: %v", desired.NamedPorts, actual.NamedPorts)
 		diffs = append(diffs, instanceGroupManagerDiff{
 			RequiresRecreate: true,
 			FieldName:        "NamedPorts",
 		})
 	}
 	if !dcl.IsZeroValue(desired.TargetPools) && !reflect.DeepEqual(desired.TargetPools, actual.TargetPools) {
-		c.Config.Logger.Infof("Detected diff in TargetPools.\nDESIRED: %#v\nACTUAL: %#v", desired.TargetPools, actual.TargetPools)
+		c.Config.Logger.Infof("Detected diff in TargetPools.\nDESIRED: %v\nACTUAL: %v", desired.TargetPools, actual.TargetPools)
 
 		diffs = append(diffs, instanceGroupManagerDiff{
 			UpdateOp:  &updateInstanceGroupManagerSetTargetPoolsOperation{},
@@ -1590,52 +1573,24 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 
 	}
 	if compareInstanceGroupManagerAutohealingPoliciesSlice(c, desired.AutohealingPolicies, actual.AutohealingPolicies) {
-		c.Config.Logger.Infof("Detected diff in AutohealingPolicies.\nDESIRED: %#v\nACTUAL: %#v", desired.AutohealingPolicies, actual.AutohealingPolicies)
+		c.Config.Logger.Infof("Detected diff in AutohealingPolicies.\nDESIRED: %v\nACTUAL: %v", desired.AutohealingPolicies, actual.AutohealingPolicies)
 		diffs = append(diffs, instanceGroupManagerDiff{
 			RequiresRecreate: true,
 			FieldName:        "AutohealingPolicies",
 		})
 	}
 	if compareInstanceGroupManagerUpdatePolicy(c, desired.UpdatePolicy, actual.UpdatePolicy) {
-		c.Config.Logger.Infof("Detected diff in UpdatePolicy.\nDESIRED: %#v\nACTUAL: %#v", desired.UpdatePolicy, actual.UpdatePolicy)
+		c.Config.Logger.Infof("Detected diff in UpdatePolicy.\nDESIRED: %v\nACTUAL: %v", desired.UpdatePolicy, actual.UpdatePolicy)
 		diffs = append(diffs, instanceGroupManagerDiff{
 			RequiresRecreate: true,
 			FieldName:        "UpdatePolicy",
 		})
 	}
 	if !dcl.IsZeroValue(desired.TargetSize) && (dcl.IsZeroValue(actual.TargetSize) || !reflect.DeepEqual(*desired.TargetSize, *actual.TargetSize)) {
-		c.Config.Logger.Infof("Detected diff in TargetSize.\nDESIRED: %#v\nACTUAL: %#v", desired.TargetSize, actual.TargetSize)
+		c.Config.Logger.Infof("Detected diff in TargetSize.\nDESIRED: %v\nACTUAL: %v", desired.TargetSize, actual.TargetSize)
 		diffs = append(diffs, instanceGroupManagerDiff{
 			RequiresRecreate: true,
 			FieldName:        "TargetSize",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Zone) && !dcl.NameToSelfLink(desired.Zone, actual.Zone) {
-		c.Config.Logger.Infof("Detected diff in Zone.\nDESIRED: %#v\nACTUAL: %#v", desired.Zone, actual.Zone)
-		diffs = append(diffs, instanceGroupManagerDiff{
-			RequiresRecreate: true,
-			FieldName:        "Zone",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Region) && !dcl.NameToSelfLink(desired.Region, actual.Region) {
-		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %#v\nACTUAL: %#v", desired.Region, actual.Region)
-		diffs = append(diffs, instanceGroupManagerDiff{
-			RequiresRecreate: true,
-			FieldName:        "Region",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, instanceGroupManagerDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Location) && !dcl.NameToSelfLink(desired.Location, actual.Location) {
-		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
-		diffs = append(diffs, instanceGroupManagerDiff{
-			RequiresRecreate: true,
-			FieldName:        "Location",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -2165,8 +2120,6 @@ func (r *InstanceGroupManager) urlNormalized() *InstanceGroupManager {
 	normalized := deepcopy.Copy(*r).(InstanceGroupManager)
 	normalized.InstanceGroup = dcl.SelfLinkToName(r.InstanceGroup)
 	normalized.InstanceTemplate = dcl.SelfLinkToName(r.InstanceTemplate)
-	normalized.Zone = dcl.SelfLinkToName(r.Zone)
-	normalized.Region = dcl.SelfLinkToName(r.Region)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
@@ -2313,14 +2266,10 @@ func expandInstanceGroupManager(c *Client, f *InstanceGroupManager) (map[string]
 	if v := f.TargetSize; !dcl.IsEmptyValueIndirect(v) {
 		m["targetSize"] = v
 	}
-	if v, err := dcl.EmptyValue(); err != nil {
-		return nil, fmt.Errorf("error expanding Zone into zone: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Zone; !dcl.IsEmptyValueIndirect(v) {
 		m["zone"] = v
 	}
-	if v, err := dcl.EmptyValue(); err != nil {
-		return nil, fmt.Errorf("error expanding Region into region: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Region; !dcl.IsEmptyValueIndirect(v) {
 		m["region"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

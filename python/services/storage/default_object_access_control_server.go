@@ -148,11 +148,13 @@ func (s *DefaultObjectAccessControlServer) ApplyStorageDefaultObjectAccessContro
 
 // DeleteDefaultObjectAccessControl handles the gRPC request by passing it to the underlying DefaultObjectAccessControl Delete() method.
 func (s *DefaultObjectAccessControlServer) DeleteStorageDefaultObjectAccessControl(ctx context.Context, request *storagepb.DeleteStorageDefaultObjectAccessControlRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigDefaultObjectAccessControl(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteDefaultObjectAccessControl(ctx, ProtoToDefaultObjectAccessControl(request.GetResource()))
+
 }
 
 // ListDefaultObjectAccessControl handles the gRPC request by passing it to the underlying DefaultObjectAccessControlList() method.

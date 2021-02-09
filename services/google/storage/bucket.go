@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -468,7 +469,9 @@ func (c *Client) ApplyBucket(ctx context.Context, rawDesired *Bucket, opts ...dc
 	if create {
 		ops = append(ops, &createBucketOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteBucketOperation{})
+
 		ops = append(ops, &createBucketOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeBucketDesiredState(rawDesired, nil)

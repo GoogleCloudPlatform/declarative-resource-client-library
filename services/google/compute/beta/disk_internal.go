@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Disk) validate() error {
@@ -474,12 +475,12 @@ func (c *Client) diskDiffsForRawDesired(ctx context.Context, rawDesired *Disk, o
 			c.Config.Logger.Warningf("Failed to retrieve whether a Disk resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Disk resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Disk resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeDiskDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Disk: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Disk: %v", rawDesired)
 
@@ -750,13 +751,7 @@ func canonicalizeDiskNewState(c *Client, rawNew, rawDesired *Disk) (*Disk, error
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	if dcl.IsEmptyValueIndirect(rawNew.Id) && dcl.IsEmptyValueIndirect(rawDesired.Id) {
 		rawNew.Id = rawDesired.Id
@@ -823,13 +818,7 @@ func canonicalizeDiskNewState(c *Client, rawNew, rawDesired *Disk) (*Disk, error
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
-		rawNew.Location = rawDesired.Location
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Location, rawNew.Location) {
-			rawNew.Location = rawDesired.Location
-		}
-	}
+	rawNew.Location = rawDesired.Location
 
 	return rawNew, nil
 }
@@ -1036,28 +1025,28 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]disk
 
 	var diffs []diskDiff
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
 	if compareDiskEncryptionKey(c, desired.DiskEncryptionKey, actual.DiskEncryptionKey) {
-		c.Config.Logger.Infof("Detected diff in DiskEncryptionKey.\nDESIRED: %#v\nACTUAL: %#v", desired.DiskEncryptionKey, actual.DiskEncryptionKey)
+		c.Config.Logger.Infof("Detected diff in DiskEncryptionKey.\nDESIRED: %v\nACTUAL: %v", desired.DiskEncryptionKey, actual.DiskEncryptionKey)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "DiskEncryptionKey",
 		})
 	}
 	if compareDiskGuestOsFeatureSlice(c, desired.GuestOsFeature, actual.GuestOsFeature) {
-		c.Config.Logger.Infof("Detected diff in GuestOsFeature.\nDESIRED: %#v\nACTUAL: %#v", desired.GuestOsFeature, actual.GuestOsFeature)
+		c.Config.Logger.Infof("Detected diff in GuestOsFeature.\nDESIRED: %v\nACTUAL: %v", desired.GuestOsFeature, actual.GuestOsFeature)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "GuestOsFeature",
 		})
 	}
 	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %#v\nACTUAL: %#v", desired.Labels, actual.Labels)
+		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, diskDiff{
 			UpdateOp:  &updateDiskSetLabelsOperation{},
@@ -1066,42 +1055,42 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]disk
 
 	}
 	if !dcl.SliceEquals(desired.License, actual.License) {
-		c.Config.Logger.Infof("Detected diff in License.\nDESIRED: %#v\nACTUAL: %#v", desired.License, actual.License)
+		c.Config.Logger.Infof("Detected diff in License.\nDESIRED: %v\nACTUAL: %v", desired.License, actual.License)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "License",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Region) && (dcl.IsZeroValue(actual.Region) || !reflect.DeepEqual(*desired.Region, *actual.Region)) {
-		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %#v\nACTUAL: %#v", desired.Region, actual.Region)
+		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %v\nACTUAL: %v", desired.Region, actual.Region)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "Region",
 		})
 	}
 	if !dcl.SliceEquals(desired.ReplicaZones, actual.ReplicaZones) {
-		c.Config.Logger.Infof("Detected diff in ReplicaZones.\nDESIRED: %#v\nACTUAL: %#v", desired.ReplicaZones, actual.ReplicaZones)
+		c.Config.Logger.Infof("Detected diff in ReplicaZones.\nDESIRED: %v\nACTUAL: %v", desired.ReplicaZones, actual.ReplicaZones)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "ReplicaZones",
 		})
 	}
 	if !dcl.SliceEquals(desired.ResourcePolicy, actual.ResourcePolicy) {
-		c.Config.Logger.Infof("Detected diff in ResourcePolicy.\nDESIRED: %#v\nACTUAL: %#v", desired.ResourcePolicy, actual.ResourcePolicy)
+		c.Config.Logger.Infof("Detected diff in ResourcePolicy.\nDESIRED: %v\nACTUAL: %v", desired.ResourcePolicy, actual.ResourcePolicy)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "ResourcePolicy",
 		})
 	}
 	if !dcl.IsZeroValue(desired.SizeGb) && (dcl.IsZeroValue(actual.SizeGb) || !reflect.DeepEqual(*desired.SizeGb, *actual.SizeGb)) {
-		c.Config.Logger.Infof("Detected diff in SizeGb.\nDESIRED: %#v\nACTUAL: %#v", desired.SizeGb, actual.SizeGb)
+		c.Config.Logger.Infof("Detected diff in SizeGb.\nDESIRED: %v\nACTUAL: %v", desired.SizeGb, actual.SizeGb)
 
 		diffs = append(diffs, diskDiff{
 			UpdateOp:  &updateDiskResizeOperation{},
@@ -1110,115 +1099,101 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]disk
 
 	}
 	if !dcl.IsZeroValue(desired.SourceImage) && !dcl.NameToSelfLink(desired.SourceImage, actual.SourceImage) {
-		c.Config.Logger.Infof("Detected diff in SourceImage.\nDESIRED: %#v\nACTUAL: %#v", desired.SourceImage, actual.SourceImage)
+		c.Config.Logger.Infof("Detected diff in SourceImage.\nDESIRED: %v\nACTUAL: %v", desired.SourceImage, actual.SourceImage)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "SourceImage",
 		})
 	}
 	if compareDiskEncryptionKey(c, desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey) {
-		c.Config.Logger.Infof("Detected diff in SourceImageEncryptionKey.\nDESIRED: %#v\nACTUAL: %#v", desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey)
+		c.Config.Logger.Infof("Detected diff in SourceImageEncryptionKey.\nDESIRED: %v\nACTUAL: %v", desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "SourceImageEncryptionKey",
 		})
 	}
 	if !dcl.IsZeroValue(desired.SourceSnapshot) && !dcl.PartialSelfLinkToSelfLink(desired.SourceSnapshot, actual.SourceSnapshot) {
-		c.Config.Logger.Infof("Detected diff in SourceSnapshot.\nDESIRED: %#v\nACTUAL: %#v", desired.SourceSnapshot, actual.SourceSnapshot)
+		c.Config.Logger.Infof("Detected diff in SourceSnapshot.\nDESIRED: %v\nACTUAL: %v", desired.SourceSnapshot, actual.SourceSnapshot)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "SourceSnapshot",
 		})
 	}
 	if compareDiskEncryptionKey(c, desired.SourceSnapshotEncryptionKey, actual.SourceSnapshotEncryptionKey) {
-		c.Config.Logger.Infof("Detected diff in SourceSnapshotEncryptionKey.\nDESIRED: %#v\nACTUAL: %#v", desired.SourceSnapshotEncryptionKey, actual.SourceSnapshotEncryptionKey)
+		c.Config.Logger.Infof("Detected diff in SourceSnapshotEncryptionKey.\nDESIRED: %v\nACTUAL: %v", desired.SourceSnapshotEncryptionKey, actual.SourceSnapshotEncryptionKey)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "SourceSnapshotEncryptionKey",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Type) && !dcl.NameToSelfLink(desired.Type, actual.Type) {
-		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %#v\nACTUAL: %#v", desired.Type, actual.Type)
+		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %v\nACTUAL: %v", desired.Type, actual.Type)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "Type",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
 	if !dcl.IsZeroValue(desired.Id) && (dcl.IsZeroValue(actual.Id) || !reflect.DeepEqual(*desired.Id, *actual.Id)) {
-		c.Config.Logger.Infof("Detected diff in Id.\nDESIRED: %#v\nACTUAL: %#v", desired.Id, actual.Id)
+		c.Config.Logger.Infof("Detected diff in Id.\nDESIRED: %v\nACTUAL: %v", desired.Id, actual.Id)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "Id",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Options) && (dcl.IsZeroValue(actual.Options) || !reflect.DeepEqual(*desired.Options, *actual.Options)) {
-		c.Config.Logger.Infof("Detected diff in Options.\nDESIRED: %#v\nACTUAL: %#v", desired.Options, actual.Options)
+		c.Config.Logger.Infof("Detected diff in Options.\nDESIRED: %v\nACTUAL: %v", desired.Options, actual.Options)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "Options",
 		})
 	}
 	if !dcl.SliceEquals(desired.Licenses, actual.Licenses) {
-		c.Config.Logger.Infof("Detected diff in Licenses.\nDESIRED: %#v\nACTUAL: %#v", desired.Licenses, actual.Licenses)
+		c.Config.Logger.Infof("Detected diff in Licenses.\nDESIRED: %v\nACTUAL: %v", desired.Licenses, actual.Licenses)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "Licenses",
 		})
 	}
 	if compareDiskGuestOsFeaturesSlice(c, desired.GuestOsFeatures, actual.GuestOsFeatures) {
-		c.Config.Logger.Infof("Detected diff in GuestOsFeatures.\nDESIRED: %#v\nACTUAL: %#v", desired.GuestOsFeatures, actual.GuestOsFeatures)
+		c.Config.Logger.Infof("Detected diff in GuestOsFeatures.\nDESIRED: %v\nACTUAL: %v", desired.GuestOsFeatures, actual.GuestOsFeatures)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "GuestOsFeatures",
 		})
 	}
 	if !dcl.IntSliceEquals(desired.LicenseCodes, actual.LicenseCodes) {
-		c.Config.Logger.Infof("Detected diff in LicenseCodes.\nDESIRED: %#v\nACTUAL: %#v", desired.LicenseCodes, actual.LicenseCodes)
+		c.Config.Logger.Infof("Detected diff in LicenseCodes.\nDESIRED: %v\nACTUAL: %v", desired.LicenseCodes, actual.LicenseCodes)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "LicenseCodes",
 		})
 	}
 	if !dcl.IsZeroValue(desired.PhysicalBlockSizeBytes) && (dcl.IsZeroValue(actual.PhysicalBlockSizeBytes) || !reflect.DeepEqual(*desired.PhysicalBlockSizeBytes, *actual.PhysicalBlockSizeBytes)) {
-		c.Config.Logger.Infof("Detected diff in PhysicalBlockSizeBytes.\nDESIRED: %#v\nACTUAL: %#v", desired.PhysicalBlockSizeBytes, actual.PhysicalBlockSizeBytes)
+		c.Config.Logger.Infof("Detected diff in PhysicalBlockSizeBytes.\nDESIRED: %v\nACTUAL: %v", desired.PhysicalBlockSizeBytes, actual.PhysicalBlockSizeBytes)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "PhysicalBlockSizeBytes",
 		})
 	}
 	if !dcl.SliceEquals(desired.ResourcePolicies, actual.ResourcePolicies) {
-		c.Config.Logger.Infof("Detected diff in ResourcePolicies.\nDESIRED: %#v\nACTUAL: %#v", desired.ResourcePolicies, actual.ResourcePolicies)
+		c.Config.Logger.Infof("Detected diff in ResourcePolicies.\nDESIRED: %v\nACTUAL: %v", desired.ResourcePolicies, actual.ResourcePolicies)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "ResourcePolicies",
 		})
 	}
 	if !dcl.IsZeroValue(desired.SourceDisk) && (dcl.IsZeroValue(actual.SourceDisk) || !reflect.DeepEqual(*desired.SourceDisk, *actual.SourceDisk)) {
-		c.Config.Logger.Infof("Detected diff in SourceDisk.\nDESIRED: %#v\nACTUAL: %#v", desired.SourceDisk, actual.SourceDisk)
+		c.Config.Logger.Infof("Detected diff in SourceDisk.\nDESIRED: %v\nACTUAL: %v", desired.SourceDisk, actual.SourceDisk)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "SourceDisk",
 		})
 	}
 	if !dcl.IsZeroValue(desired.SourceDiskId) && (dcl.IsZeroValue(actual.SourceDiskId) || !reflect.DeepEqual(*desired.SourceDiskId, *actual.SourceDiskId)) {
-		c.Config.Logger.Infof("Detected diff in SourceDiskId.\nDESIRED: %#v\nACTUAL: %#v", desired.SourceDiskId, actual.SourceDiskId)
+		c.Config.Logger.Infof("Detected diff in SourceDiskId.\nDESIRED: %v\nACTUAL: %v", desired.SourceDiskId, actual.SourceDiskId)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "SourceDiskId",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Location) && !dcl.NameToSelfLink(desired.Location, actual.Location) {
-		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "Location",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.

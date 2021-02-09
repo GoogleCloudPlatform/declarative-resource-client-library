@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -255,7 +256,9 @@ func (c *Client) ApplySnapshot(ctx context.Context, rawDesired *Snapshot, opts .
 	if create {
 		ops = append(ops, &createSnapshotOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteSnapshotOperation{})
+
 		ops = append(ops, &createSnapshotOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeSnapshotDesiredState(rawDesired, nil)

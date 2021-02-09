@@ -27,10 +27,14 @@ components:
           additionalProperties:
             type: string
           description: User-specified labels.
+          items:
+            type: string
+            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         lifecycleState:
-          description: The Project lifecycle state. Read-only.
+          description: 'The Project lifecycle state. Read-only. Possible values: LIFECYCLE_STATE_UNSPECIFIED,
+            ACTIVE, DELETE_REQUESTED, DELETE_IN_PROGRESS'
           enum:
           - LIFECYCLE_STATE_UNSPECIFIED
           - ACTIVE
@@ -84,7 +88,7 @@ components:
           x-kubernetes-immutable: true
       title: Project
       type: object
-      x-dcl-id: projects/{{name}}
+      x-dcl-id: v1/projects/{{name}}
       x-dcl-labels: labels
       x-dcl-locations: []
       x-dcl-parent-container: organization
@@ -92,8 +96,29 @@ components:
 info:
   description: DCL Specification for the Cloudresourcemanager Project resource
   title: Cloudresourcemanager/Project
-  x-dcl-has-iam: false
+  x-dcl-has-iam: true
 paths:
+  apply:
+    description: The function used to apply information about a Project
+    parameters:
+    - description: A full instance of a Project
+      name: Project
+      required: true
+  delete:
+    description: The function used to delete a Project
+    parameters:
+    - description: A full instance of a Project
+      name: Project
+      required: true
+  deleteAll:
+    description: The function used to delete all Project
+    parameters: []
+  get:
+    description: The function used to get information about a Project
+    parameters:
+    - description: A full instance of a Project
+      name: Project
+      required: true
   list:
-    description: The function called used to list information about many Project
+    description: The function used to list information about many Project
     parameters: []

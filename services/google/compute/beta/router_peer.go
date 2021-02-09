@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -255,7 +256,9 @@ func (c *Client) ApplyRouterPeer(ctx context.Context, rawDesired *RouterPeer, op
 	if create {
 		ops = append(ops, &createRouterPeerOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteRouterPeerOperation{})
+
 		ops = append(ops, &createRouterPeerOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeRouterPeerDesiredState(rawDesired, nil)

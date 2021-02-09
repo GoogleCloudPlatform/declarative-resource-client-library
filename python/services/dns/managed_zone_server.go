@@ -436,11 +436,13 @@ func (s *ManagedZoneServer) DnsManagedZoneAsHcl(ctx context.Context, request *dn
 
 // DeleteManagedZone handles the gRPC request by passing it to the underlying ManagedZone Delete() method.
 func (s *ManagedZoneServer) DeleteDnsManagedZone(ctx context.Context, request *dnspb.DeleteDnsManagedZoneRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigManagedZone(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteManagedZone(ctx, ProtoToManagedZone(request.GetResource()))
+
 }
 
 // ListManagedZone handles the gRPC request by passing it to the underlying ManagedZoneList() method.

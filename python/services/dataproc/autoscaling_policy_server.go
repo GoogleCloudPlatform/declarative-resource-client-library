@@ -180,11 +180,13 @@ func (s *AutoscalingPolicyServer) ApplyDataprocAutoscalingPolicy(ctx context.Con
 
 // DeleteAutoscalingPolicy handles the gRPC request by passing it to the underlying AutoscalingPolicy Delete() method.
 func (s *AutoscalingPolicyServer) DeleteDataprocAutoscalingPolicy(ctx context.Context, request *dataprocpb.DeleteDataprocAutoscalingPolicyRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigAutoscalingPolicy(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteAutoscalingPolicy(ctx, ProtoToAutoscalingPolicy(request.GetResource()))
+
 }
 
 // ListAutoscalingPolicy handles the gRPC request by passing it to the underlying AutoscalingPolicyList() method.

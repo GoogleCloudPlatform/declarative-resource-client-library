@@ -16,17 +16,17 @@ package accesscontextmanager
 import (
 	"context"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 type AccessPolicy struct {
-	Name         *string `json:"name"`
-	Parent       *string `json:"parent"`
-	Organization *string `json:"organization"`
-	Title        *string `json:"title"`
-	CreateTime   *string `json:"createTime"`
-	UpdateTime   *string `json:"updateTime"`
+	Name       *string `json:"name"`
+	Parent     *string `json:"parent"`
+	Title      *string `json:"title"`
+	CreateTime *string `json:"createTime"`
+	UpdateTime *string `json:"updateTime"`
 }
 
 func (r *AccessPolicy) String() string {
@@ -107,9 +107,7 @@ func (c *Client) GetAccessPolicy(ctx context.Context, r *AccessPolicy) (*AccessP
 	if err != nil {
 		return nil, err
 	}
-	result.Name = r.Name
-
-	result.Name = r.Name
+	result.Parent = r.Parent
 
 	c.Config.Logger.Infof("Retrieved raw result state: %v", result)
 	c.Config.Logger.Infof("Canonicalizing with specified state: %v", r)
@@ -126,6 +124,11 @@ func (c *Client) DeleteAccessPolicy(ctx context.Context, r *AccessPolicy) error 
 	if r == nil {
 		return fmt.Errorf("AccessPolicy resource is nil")
 	}
+	r, err := c.GetAccessPolicy(ctx, r)
+	if err != nil {
+		return err
+	}
+
 	c.Config.Logger.Info("Deleting AccessPolicy...")
 	deleteOp := deleteAccessPolicyOperation{}
 	return deleteOp.do(ctx, r, c)
@@ -205,7 +208,9 @@ func (c *Client) ApplyAccessPolicy(ctx context.Context, rawDesired *AccessPolicy
 	if create {
 		ops = append(ops, &createAccessPolicyOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteAccessPolicyOperation{})
+
 		ops = append(ops, &createAccessPolicyOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeAccessPolicyDesiredState(rawDesired, nil)

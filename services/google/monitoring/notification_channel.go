@@ -16,6 +16,7 @@ package monitoring
 import (
 	"context"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -239,7 +240,9 @@ func (c *Client) ApplyNotificationChannel(ctx context.Context, rawDesired *Notif
 	if create {
 		ops = append(ops, &createNotificationChannelOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteNotificationChannelOperation{})
+
 		ops = append(ops, &createNotificationChannelOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeNotificationChannelDesiredState(rawDesired, nil)

@@ -13,16 +13,36 @@
 // limitations under the License.
 package iam
 
-import "github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+import (
+	"regexp"
+
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+)
+
+// EncodeIAMCreateRequest encodes the create request for an iam resource.
+func EncodeIAMCreateRequest(m map[string]interface{}, resourceName, idField string) map[string]interface{} {
+	req := make(map[string]interface{})
+	// Put base object into object field.
+	dcl.PutMapEntry(req, []string{resourceName}, m)
+	// Move name field from from nested object to id field.
+	dcl.MoveMapEntry(req, []string{resourceName, "name"}, []string{idField})
+	// Delete projectID field.
+	delete(req[resourceName].(map[string]interface{}), "projectId")
+	// Change value of id field to only last part after / and before @.
+	idParts := regexp.MustCompile("([^@/]+)[^/]*$").FindStringSubmatch(*req[idField].(*string))
+	if len(idParts) < 2 {
+		return req
+	}
+	req[idField] = idParts[1]
+	return req
+}
 
 // EncodeRoleCreateRequest properly encodes the create request for an iam role.
 func EncodeRoleCreateRequest(m map[string]interface{}) map[string]interface{} {
-	req := make(map[string]interface{})
-	// Change base object name to only last part after /.
-	m["name"] = dcl.SelfLinkToName(m["name"].(*string))
-	// Move base object into "role" field.
-	dcl.PutMapEntry(req, []string{"role"}, m)
-	// Move name from role.name to roleId.
-	dcl.MoveMapEntry(req, []string{"role", "name"}, []string{"roleId"})
-	return req
+	return EncodeIAMCreateRequest(m, "role", "roleId")
+}
+
+// EncodeServiceAccountCreateRequest properly encodes the create request for an iam service account.
+func EncodeServiceAccountCreateRequest(m map[string]interface{}) map[string]interface{} {
+	return EncodeIAMCreateRequest(m, "serviceAccount", "accountId")
 }

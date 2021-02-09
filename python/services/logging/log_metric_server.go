@@ -449,11 +449,13 @@ func (s *LogMetricServer) ApplyLoggingLogMetric(ctx context.Context, request *lo
 
 // DeleteLogMetric handles the gRPC request by passing it to the underlying LogMetric Delete() method.
 func (s *LogMetricServer) DeleteLoggingLogMetric(ctx context.Context, request *loggingpb.DeleteLoggingLogMetricRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigLogMetric(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteLogMetric(ctx, ProtoToLogMetric(request.GetResource()))
+
 }
 
 // ListLogMetric handles the gRPC request by passing it to the underlying LogMetricList() method.

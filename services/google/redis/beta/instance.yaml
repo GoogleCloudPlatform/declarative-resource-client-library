@@ -35,7 +35,8 @@ components:
           x-dcl-go-name: AuthorizedNetwork
         connectMode:
           description: 'Optional. The connect mode of Redis instance. If not provided,
-            default one will be used. Current default: DIRECT\_PEERING.'
+            default one will be used. Current default: DIRECT\_PEERING. Possible values:
+            CONNECT_MODE_UNSPECIFIED, DIRECT_PEERING, PRIVATE_SERVICE_ACCESS'
           enum:
           - CONNECT_MODE_UNSPECIFIED
           - DIRECT_PEERING
@@ -70,22 +71,14 @@ components:
           x-dcl-go-name: Host
           x-kubernetes-immutable: true
         labels:
+          additionalProperties:
+            type: string
           description: Resource labels to represent user provided metadata
           items:
-            properties:
-              key:
-                type: string
-                x-dcl-go-name: Key
-                x-kubernetes-immutable: true
-              value:
-                type: string
-                x-dcl-go-name: Value
-                x-kubernetes-immutable: true
-            type: object
-            x-dcl-go-type: InstanceLabels
-          type: array
+            type: string
+            x-dcl-go-type: string
+          type: object
           x-dcl-go-name: Labels
-          x-dcl-list-type: list
         location:
           description: The location for the resource
           type: string
@@ -130,8 +123,9 @@ components:
               items:
                 properties:
                   day:
-                    description: Required. Allows to define schedule that runs specified
-                      day of the week.
+                    description: 'Required. Allows to define schedule that runs specified
+                      day of the week. Possible values: DAY_OF_WEEK_UNSPECIFIED, MONDAY,
+                      TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY'
                     enum:
                     - DAY_OF_WEEK_UNSPECIFIED
                     - MONDAY
@@ -148,32 +142,9 @@ components:
                   duration:
                     description: Output only. Duration of the time window. Fixed to
                       be 3 hours for now.
-                    properties:
-                      nanos:
-                        description: Signed fractions of a second at nanosecond resolution
-                          of the span of time. Durations less than one second are
-                          represented with a 0 \`seconds\` field and a positive or
-                          negative \`nanos\` field. For durations of one second or
-                          more, a non-zero value for the \`nanos\` field must be of
-                          the same sign as the \`seconds\` field. Must be from -999,999,999
-                          to +999,999,999 inclusive.
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Nanos
-                        x-kubernetes-immutable: true
-                      seconds:
-                        description: 'Signed seconds of the span of time. Must be
-                          from -315,576,000,000 to +315,576,000,000 inclusive. Note:
-                          these bounds are computed from: 60 sec/min \* 60 min/hr
-                          \* 24 hr/day \* 365.25 days/year \* 10000 years'
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Seconds
-                        x-kubernetes-immutable: true
                     readOnly: true
-                    type: object
+                    type: string
                     x-dcl-go-name: Duration
-                    x-dcl-go-type: InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration
                     x-kubernetes-immutable: true
                   startTime:
                     description: Required. Start time of the window in UTC.
@@ -255,7 +226,7 @@ components:
           x-dcl-go-type: InstanceMaintenanceSchedule
           x-kubernetes-immutable: true
         memorySizeGb:
-          description: Required. Redis memory size in GB, up to 200GB.
+          description: Required. Redis memory size in GB, up to 300GB.
           format: int64
           type: integer
           x-dcl-go-name: MemorySizeGb
@@ -290,31 +261,25 @@ components:
           x-dcl-go-name: Project
           x-kubernetes-immutable: true
         redisConfigs:
+          additionalProperties:
+            type: string
           description: 'Optional. Redis configuration parameters, according to http://redis.io/topics/config.
-            Currently, the only supported parameters are: Redis 3.2 and above: \*
-            maxmemory-policy \* notify-keyspace-events Redis 4.0 and above: \* activedefrag
-            \* lfu-log-factor \* lfu-decay-time'
+            Currently, the only supported parameters are: Redis version 3.2 and newer:
+            \* maxmemory-policy \* notify-keyspace-events Redis version 4.0 and newer:
+            \* activedefrag \* lfu-decay-time \* lfu-log-factor \* maxmemory-gb Redis
+            version 5.0 and newer: \* stream-node-max-bytes \* stream-node-max-entries'
           items:
-            properties:
-              key:
-                type: string
-                x-dcl-go-name: Key
-                x-kubernetes-immutable: true
-              value:
-                type: string
-                x-dcl-go-name: Value
-                x-kubernetes-immutable: true
-            type: object
-            x-dcl-go-type: InstanceRedisConfigs
-          type: array
+            type: string
+            x-dcl-go-type: string
+          type: object
           x-dcl-go-name: RedisConfigs
-          x-dcl-list-type: list
         redisVersion:
           description: 'Optional. The version of Redis software. If not provided,
             latest supported version will be used. Updating the version will perform
             an upgrade/downgrade to the new version. Currently, the supported values
             are: \* \`REDIS\_4\_0\` for Redis 4.0 compatibility \* \`REDIS\_3\_2\`
-            for Redis 3.2 compatibility (default)'
+            for Redis 3.2 compatibility (default) \* \`REDIS\_5\_0\` for Redis 5.0
+            compatibility'
           type: string
           x-dcl-go-name: RedisVersion
         region:
@@ -373,7 +338,9 @@ components:
           x-dcl-list-type: list
           x-kubernetes-immutable: true
         state:
-          description: Output only. The current state of this instance.
+          description: 'Output only. The current state of this instance. Possible
+            values: STATE_UNSPECIFIED, CREATING, READY, UPDATING, DELETING, REPAIRING,
+            PERFORMING_MAINTENANCE, IMPORTING, FAILING_OVER'
           enum:
           - STATE_UNSPECIFIED
           - CREATING
@@ -397,7 +364,8 @@ components:
           x-dcl-go-name: StatusMessage
           x-kubernetes-immutable: true
         tier:
-          description: Required. The service tier of the instance.
+          description: 'Required. The service tier of the instance. Possible values:
+            TIER_UNSPECIFIED, BASIC, STANDARD_HA'
           enum:
           - TIER_UNSPECIFIED
           - BASIC
@@ -406,8 +374,9 @@ components:
           x-dcl-go-name: Tier
           x-dcl-go-type: InstanceTierEnum
         transitEncryptionMode:
-          description: Optional. The TLS mode of the Redis instance. If not provided,
-            TLS is disabled for the instance.
+          description: 'Optional. The TLS mode of the Redis instance. If not provided,
+            TLS is disabled for the instance. Possible values: TRANSIT_ENCRYPTION_MODE_UNSPECIFIED,
+            SERVER_AUTHENTICATION, DISABLED'
           enum:
           - TRANSIT_ENCRYPTION_MODE_UNSPECIFIED
           - SERVER_AUTHENTICATION
@@ -434,10 +403,43 @@ info:
   title: Redis/Instance
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Instance
+  apply:
+    description: The function used to apply information about a Instance
+    parameters:
+    - description: A full instance of a Instance
+      name: Instance
+      required: true
+  delete:
+    description: The function used to delete a Instance
+    parameters:
+    - description: A full instance of a Instance
+      name: Instance
+      required: true
+  deleteAll:
+    description: The function used to delete all Instance
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: location
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Instance
+    parameters:
+    - description: A full instance of a Instance
+      name: Instance
+      required: true
+  list:
+    description: The function used to list information about many Instance
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string

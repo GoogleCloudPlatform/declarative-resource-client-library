@@ -86,11 +86,13 @@ func (s *HttpHealthCheckServer) ApplyComputeBetaHttpHealthCheck(ctx context.Cont
 
 // DeleteHttpHealthCheck handles the gRPC request by passing it to the underlying HttpHealthCheck Delete() method.
 func (s *HttpHealthCheckServer) DeleteComputeBetaHttpHealthCheck(ctx context.Context, request *betapb.DeleteComputeBetaHttpHealthCheckRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigHttpHealthCheck(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteHttpHealthCheck(ctx, ProtoToHttpHealthCheck(request.GetResource()))
+
 }
 
 // ListHttpHealthCheck handles the gRPC request by passing it to the underlying HttpHealthCheckList() method.

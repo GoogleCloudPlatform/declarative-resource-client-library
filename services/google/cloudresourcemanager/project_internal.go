@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Project) validate() error {
@@ -43,24 +44,44 @@ func projectGetURL(userBasePath string, r *Project) (string, error) {
 	params := map[string]interface{}{
 		"name": dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("projects/{{name}}", "https://cloudresourcemanager.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("v1/projects/{{name}}", "https://cloudresourcemanager.googleapis.com/", userBasePath, params), nil
 }
 
 func projectListURL(userBasePath string) (string, error) {
 	params := map[string]interface{}{}
-	return dcl.URL("projects", "https://cloudresourcemanager.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("v1/projects", "https://cloudresourcemanager.googleapis.com/", userBasePath, params), nil
 
 }
 
 func projectCreateURL(userBasePath string, _ ...interface{}) (string, error) {
-	return dcl.URL("projects", "https://cloudresourcemanager.googleapis.com/", userBasePath, map[string]interface{}{}), nil
+	return dcl.URL("v1/projects", "https://cloudresourcemanager.googleapis.com/", userBasePath, map[string]interface{}{}), nil
 }
 
 func projectDeleteURL(userBasePath string, r *Project) (string, error) {
 	params := map[string]interface{}{
 		"name": dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("projects/{{name}}", "https://cloudresourcemanager.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("v1/projects/{{name}}", "https://cloudresourcemanager.googleapis.com/", userBasePath, params), nil
+}
+
+func (r *Project) SetPolicyURL(userBasePath string) string {
+	n := r.urlNormalized()
+	fields := map[string]interface{}{
+		"name": *n.Name,
+	}
+	return dcl.URL("v1/projects/{{name}}:setIamPolicy", "https://cloudresourcemanager.googleapis.com/", userBasePath, fields)
+}
+
+func (r *Project) getPolicyURL(userBasePath string) string {
+	n := r.urlNormalized()
+	fields := map[string]interface{}{
+		"name": *n.Name,
+	}
+	return dcl.URL("v1/projects/{{name}}:getIamPolicy", "https://cloudresourcemanager.googleapis.com/", userBasePath, fields)
+}
+
+func (r *Project) IAMPolicyVersion() int {
+	return 3
 }
 
 // projectApiOperation represents a mutable operation in the underlying REST
@@ -322,12 +343,12 @@ func (c *Client) projectDiffsForRawDesired(ctx context.Context, rawDesired *Proj
 			c.Config.Logger.Warningf("Failed to retrieve whether a Project resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Project resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Project resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeProjectDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Project: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Project: %v", rawDesired)
 
@@ -515,7 +536,7 @@ func diffProject(c *Client, desired, actual *Project, opts ...dcl.ApplyOption) (
 
 	var diffs []projectDiff
 	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %#v\nACTUAL: %#v", desired.Labels, actual.Labels)
+		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, projectDiff{
 			UpdateOp:  &updateProjectUpdateProjectOperation{},
@@ -524,21 +545,21 @@ func diffProject(c *Client, desired, actual *Project, opts ...dcl.ApplyOption) (
 
 	}
 	if !dcl.IsZeroValue(desired.DisplayName) && (dcl.IsZeroValue(actual.DisplayName) || !reflect.DeepEqual(*desired.DisplayName, *actual.DisplayName)) {
-		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %#v\nACTUAL: %#v", desired.DisplayName, actual.DisplayName)
+		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 		diffs = append(diffs, projectDiff{
 			RequiresRecreate: true,
 			FieldName:        "DisplayName",
 		})
 	}
 	if compareProjectParent(c, desired.Parent, actual.Parent) {
-		c.Config.Logger.Infof("Detected diff in Parent.\nDESIRED: %#v\nACTUAL: %#v", desired.Parent, actual.Parent)
+		c.Config.Logger.Infof("Detected diff in Parent.\nDESIRED: %v\nACTUAL: %v", desired.Parent, actual.Parent)
 		diffs = append(diffs, projectDiff{
 			RequiresRecreate: true,
 			FieldName:        "Parent",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, projectDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
@@ -653,7 +674,7 @@ func (r *Project) updateURL(userBasePath, updateName string) (string, error) {
 		fields := map[string]interface{}{
 			"name": dcl.ValueOrEmptyString(n.Name),
 		}
-		return dcl.URL("projects/{{name}}", "https://cloudresourcemanager.googleapis.com/", userBasePath, fields), nil
+		return dcl.URL("v1/projects/{{name}}", "https://cloudresourcemanager.googleapis.com/", userBasePath, fields), nil
 
 	}
 	return "", fmt.Errorf("unknown update name: %s", updateName)

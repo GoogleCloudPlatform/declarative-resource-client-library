@@ -18,11 +18,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 func (r *Topic) validate() error {
@@ -359,12 +360,12 @@ func (c *Client) topicDiffsForRawDesired(ctx context.Context, rawDesired *Topic,
 			c.Config.Logger.Warningf("Failed to retrieve whether a Topic resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Topic resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Topic resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeTopicDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Topic: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Topic: %v", rawDesired)
 
@@ -435,13 +436,7 @@ func canonicalizeTopicDesiredState(rawDesired, rawInitial *Topic, opts ...dcl.Ap
 
 func canonicalizeTopicNewState(c *Client, rawNew, rawDesired *Topic) (*Topic, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Name, rawNew.Name) {
-			rawNew.Name = rawDesired.Name
-		}
-	}
+	rawNew.Name = rawDesired.Name
 
 	if dcl.IsEmptyValueIndirect(rawNew.KmsKeyName) && dcl.IsEmptyValueIndirect(rawDesired.KmsKeyName) {
 		rawNew.KmsKeyName = rawDesired.KmsKeyName
@@ -459,13 +454,7 @@ func canonicalizeTopicNewState(c *Client, rawNew, rawDesired *Topic) (*Topic, er
 		rawNew.MessageStoragePolicy = canonicalizeNewTopicMessageStoragePolicy(c, rawDesired.MessageStoragePolicy, rawNew.MessageStoragePolicy)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -546,15 +535,8 @@ func diffTopic(c *Client, desired, actual *Topic, opts ...dcl.ApplyOption) ([]to
 	}
 
 	var diffs []topicDiff
-	if !dcl.IsZeroValue(desired.Name) && !dcl.NameToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
-		diffs = append(diffs, topicDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
-	}
 	if !dcl.IsZeroValue(desired.KmsKeyName) && (dcl.IsZeroValue(actual.KmsKeyName) || !reflect.DeepEqual(*desired.KmsKeyName, *actual.KmsKeyName)) {
-		c.Config.Logger.Infof("Detected diff in KmsKeyName.\nDESIRED: %#v\nACTUAL: %#v", desired.KmsKeyName, actual.KmsKeyName)
+		c.Config.Logger.Infof("Detected diff in KmsKeyName.\nDESIRED: %v\nACTUAL: %v", desired.KmsKeyName, actual.KmsKeyName)
 
 		diffs = append(diffs, topicDiff{
 			UpdateOp:  &updateTopicUpdateOperation{},
@@ -563,7 +545,7 @@ func diffTopic(c *Client, desired, actual *Topic, opts ...dcl.ApplyOption) ([]to
 
 	}
 	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %#v\nACTUAL: %#v", desired.Labels, actual.Labels)
+		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, topicDiff{
 			UpdateOp:  &updateTopicUpdateOperation{},
@@ -572,20 +554,13 @@ func diffTopic(c *Client, desired, actual *Topic, opts ...dcl.ApplyOption) ([]to
 
 	}
 	if compareTopicMessageStoragePolicy(c, desired.MessageStoragePolicy, actual.MessageStoragePolicy) {
-		c.Config.Logger.Infof("Detected diff in MessageStoragePolicy.\nDESIRED: %#v\nACTUAL: %#v", desired.MessageStoragePolicy, actual.MessageStoragePolicy)
+		c.Config.Logger.Infof("Detected diff in MessageStoragePolicy.\nDESIRED: %v\nACTUAL: %v", desired.MessageStoragePolicy, actual.MessageStoragePolicy)
 
 		diffs = append(diffs, topicDiff{
 			UpdateOp:  &updateTopicUpdateOperation{},
 			FieldName: "MessageStoragePolicy",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, topicDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,

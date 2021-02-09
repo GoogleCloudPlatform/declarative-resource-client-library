@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -227,7 +228,9 @@ func (c *Client) ApplyRepo(ctx context.Context, rawDesired *Repo, opts ...dcl.Ap
 	if create {
 		ops = append(ops, &createRepoOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteRepoOperation{})
+
 		ops = append(ops, &createRepoOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeRepoDesiredState(rawDesired, nil)

@@ -669,11 +669,13 @@ func (s *ImageServer) ComputeImageAsHcl(ctx context.Context, request *computepb.
 
 // DeleteImage handles the gRPC request by passing it to the underlying Image Delete() method.
 func (s *ImageServer) DeleteComputeImage(ctx context.Context, request *computepb.DeleteComputeImageRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigImage(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteImage(ctx, ProtoToImage(request.GetResource()))
+
 }
 
 // ListImage handles the gRPC request by passing it to the underlying ImageList() method.

@@ -27,6 +27,9 @@ components:
           additionalProperties:
             type: string
           description: 'A set of key/value label pairs to assign to this Topic. '
+          items:
+            type: string
+            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         messageStoragePolicy:
@@ -75,8 +78,35 @@ info:
   title: Pubsub/Topic
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Topic
+  apply:
+    description: The function used to apply information about a Topic
+    parameters:
+    - description: A full instance of a Topic
+      name: Topic
+      required: true
+  delete:
+    description: The function used to delete a Topic
+    parameters:
+    - description: A full instance of a Topic
+      name: Topic
+      required: true
+  deleteAll:
+    description: The function used to delete all Topic
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Topic
+    parameters:
+    - description: A full instance of a Topic
+      name: Topic
+      required: true
+  list:
+    description: The function used to list information about many Topic
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -737,7 +738,7 @@ type InstanceSettings struct {
 	DatabaseReplicationEnabled  *bool                                    `json:"databaseReplicationEnabled"`
 	CrashSafeReplicationEnabled *bool                                    `json:"crashSafeReplicationEnabled"`
 	SettingsVersion             *InstanceSettingsSettingsVersion         `json:"settingsVersion"`
-	UserLabels                  []InstanceSettingsUserLabels             `json:"userLabels"`
+	UserLabels                  map[string]string                        `json:"userLabels"`
 	StorageAutoResizeLimit      *InstanceSettingsStorageAutoResizeLimit  `json:"storageAutoResizeLimit"`
 	IPConfiguration             *InstanceSettingsIPConfiguration         `json:"ipConfiguration"`
 	LocationPreference          *InstanceSettingsLocationPreference      `json:"locationPreference"`
@@ -782,28 +783,6 @@ func (r *InstanceSettingsSettingsVersion) String() string {
 }
 
 func (r *InstanceSettingsSettingsVersion) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceSettingsUserLabels struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this InstanceSettingsUserLabels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceSettingsUserLabels *InstanceSettingsUserLabels = &InstanceSettingsUserLabels{empty: true}
-
-func (r *InstanceSettingsUserLabels) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceSettingsUserLabels) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -1359,7 +1338,9 @@ func (c *Client) ApplyInstance(ctx context.Context, rawDesired *Instance, opts .
 	if create {
 		ops = append(ops, &createInstanceOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteInstanceOperation{})
+
 		ops = append(ops, &createInstanceOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeInstanceDesiredState(rawDesired, nil)

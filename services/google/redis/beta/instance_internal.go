@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Instance) validate() error {
@@ -55,12 +56,6 @@ func (r *Instance) validate() error {
 	}
 	return nil
 }
-func (r *InstanceLabels) validate() error {
-	return nil
-}
-func (r *InstanceRedisConfigs) validate() error {
-	return nil
-}
 func (r *InstanceServerCaCerts) validate() error {
 	return nil
 }
@@ -79,17 +74,9 @@ func (r *InstanceMaintenancePolicyWeeklyMaintenanceWindow) validate() error {
 			return err
 		}
 	}
-	if !dcl.IsEmptyValueIndirect(r.Duration) {
-		if err := r.Duration.validate(); err != nil {
-			return err
-		}
-	}
 	return nil
 }
 func (r *InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime) validate() error {
-	return nil
-}
-func (r *InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration) validate() error {
 	return nil
 }
 func (r *InstanceMaintenanceSchedule) validate() error {
@@ -153,9 +140,7 @@ func newUpdateInstanceUpdateInstanceRequest(ctx context.Context, f *Instance, c 
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
 	}
-	if v, err := expandInstanceLabelsSlice(c, f.Labels); err != nil {
-		return nil, fmt.Errorf("error expanding Labels into labels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
 	}
 	if v := f.LocationId; !dcl.IsEmptyValueIndirect(v) {
@@ -170,9 +155,7 @@ func newUpdateInstanceUpdateInstanceRequest(ctx context.Context, f *Instance, c 
 	if v := f.ReservedIPRange; !dcl.IsEmptyValueIndirect(v) {
 		req["reservedIpRange"] = v
 	}
-	if v, err := expandInstanceRedisConfigsSlice(c, f.RedisConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding RedisConfigs into redisConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.RedisConfigs; !dcl.IsEmptyValueIndirect(v) {
 		req["redisConfigs"] = v
 	}
 	if v := f.Tier; !dcl.IsEmptyValueIndirect(v) {
@@ -454,12 +437,12 @@ func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Ins
 			c.Config.Logger.Warningf("Failed to retrieve whether a Instance resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Instance resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Instance resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeInstanceDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Instance: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Instance: %v", rawDesired)
 
@@ -720,147 +703,13 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 		rawNew.MaintenanceSchedule = canonicalizeNewInstanceMaintenanceSchedule(c, rawDesired.MaintenanceSchedule, rawNew.MaintenanceSchedule)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
-	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
-		rawNew.Location = rawDesired.Location
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Location, rawNew.Location) {
-			rawNew.Location = rawDesired.Location
-		}
-	}
+	rawNew.Location = rawDesired.Location
 
-	if dcl.IsEmptyValueIndirect(rawNew.Region) && dcl.IsEmptyValueIndirect(rawDesired.Region) {
-		rawNew.Region = rawDesired.Region
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Region, rawNew.Region) {
-			rawNew.Region = rawDesired.Region
-		}
-	}
+	rawNew.Region = rawDesired.Region
 
 	return rawNew, nil
-}
-
-func canonicalizeInstanceLabels(des, initial *InstanceLabels, opts ...dcl.ApplyOption) *InstanceLabels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Instance)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewInstanceLabels(c *Client, des, nw *InstanceLabels) *InstanceLabels {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstanceLabelsSet(c *Client, des, nw []InstanceLabels) []InstanceLabels {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceLabels
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareInstanceLabels(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeInstanceRedisConfigs(des, initial *InstanceRedisConfigs, opts ...dcl.ApplyOption) *InstanceRedisConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Instance)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewInstanceRedisConfigs(c *Client, des, nw *InstanceRedisConfigs) *InstanceRedisConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstanceRedisConfigsSet(c *Client, des, nw []InstanceRedisConfigs) []InstanceRedisConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceRedisConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareInstanceRedisConfigs(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
 }
 
 func canonicalizeInstanceServerCaCerts(des, initial *InstanceServerCaCerts, opts ...dcl.ApplyOption) *InstanceServerCaCerts {
@@ -1015,7 +864,9 @@ func canonicalizeInstanceMaintenancePolicyWeeklyMaintenanceWindow(des, initial *
 		des.Day = initial.Day
 	}
 	des.StartTime = canonicalizeInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(des.StartTime, initial.StartTime, opts...)
-	des.Duration = canonicalizeInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration(des.Duration, initial.Duration, opts...)
+	if dcl.IsZeroValue(des.Duration) {
+		des.Duration = initial.Duration
+	}
 
 	return des
 }
@@ -1026,7 +877,6 @@ func canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindow(c *Client, 
 	}
 
 	nw.StartTime = canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c, des.StartTime, nw.StartTime)
-	nw.Duration = canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration(c, des.Duration, nw.Duration)
 
 	return nw
 }
@@ -1104,64 +954,6 @@ func canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTimeSet
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration(des, initial *InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration, opts ...dcl.ApplyOption) *InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Instance)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration(c *Client, des, nw *InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration) *InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindowDurationSet(c *Client, des, nw []InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration) []InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -1259,7 +1051,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	var diffs []instanceDiff
 	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
@@ -1268,7 +1060,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.DisplayName) && (dcl.IsZeroValue(actual.DisplayName) || !reflect.DeepEqual(*desired.DisplayName, *actual.DisplayName)) {
-		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %#v\nACTUAL: %#v", desired.DisplayName, actual.DisplayName)
+		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
@@ -1276,8 +1068,8 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if compareInstanceLabelsSlice(c, desired.Labels, actual.Labels) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %#v\nACTUAL: %#v", desired.Labels, actual.Labels)
+	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
+		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
@@ -1286,7 +1078,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.LocationId) && (dcl.IsZeroValue(actual.LocationId) || !reflect.DeepEqual(*desired.LocationId, *actual.LocationId)) {
-		c.Config.Logger.Infof("Detected diff in LocationId.\nDESIRED: %#v\nACTUAL: %#v", desired.LocationId, actual.LocationId)
+		c.Config.Logger.Infof("Detected diff in LocationId.\nDESIRED: %v\nACTUAL: %v", desired.LocationId, actual.LocationId)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
@@ -1295,7 +1087,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.AlternativeLocationId) && (dcl.IsZeroValue(actual.AlternativeLocationId) || !reflect.DeepEqual(*desired.AlternativeLocationId, *actual.AlternativeLocationId)) {
-		c.Config.Logger.Infof("Detected diff in AlternativeLocationId.\nDESIRED: %#v\nACTUAL: %#v", desired.AlternativeLocationId, actual.AlternativeLocationId)
+		c.Config.Logger.Infof("Detected diff in AlternativeLocationId.\nDESIRED: %v\nACTUAL: %v", desired.AlternativeLocationId, actual.AlternativeLocationId)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
@@ -1304,7 +1096,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.RedisVersion) && (dcl.IsZeroValue(actual.RedisVersion) || !reflect.DeepEqual(*desired.RedisVersion, *actual.RedisVersion)) {
-		c.Config.Logger.Infof("Detected diff in RedisVersion.\nDESIRED: %#v\nACTUAL: %#v", desired.RedisVersion, actual.RedisVersion)
+		c.Config.Logger.Infof("Detected diff in RedisVersion.\nDESIRED: %v\nACTUAL: %v", desired.RedisVersion, actual.RedisVersion)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
@@ -1313,7 +1105,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.ReservedIPRange) && (dcl.IsZeroValue(actual.ReservedIPRange) || !reflect.DeepEqual(*desired.ReservedIPRange, *actual.ReservedIPRange)) {
-		c.Config.Logger.Infof("Detected diff in ReservedIPRange.\nDESIRED: %#v\nACTUAL: %#v", desired.ReservedIPRange, actual.ReservedIPRange)
+		c.Config.Logger.Infof("Detected diff in ReservedIPRange.\nDESIRED: %v\nACTUAL: %v", desired.ReservedIPRange, actual.ReservedIPRange)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
@@ -1321,8 +1113,8 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if compareInstanceRedisConfigsSlice(c, desired.RedisConfigs, actual.RedisConfigs) {
-		c.Config.Logger.Infof("Detected diff in RedisConfigs.\nDESIRED: %#v\nACTUAL: %#v", desired.RedisConfigs, actual.RedisConfigs)
+	if !reflect.DeepEqual(desired.RedisConfigs, actual.RedisConfigs) {
+		c.Config.Logger.Infof("Detected diff in RedisConfigs.\nDESIRED: %v\nACTUAL: %v", desired.RedisConfigs, actual.RedisConfigs)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
@@ -1331,7 +1123,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.Tier) && (dcl.IsZeroValue(actual.Tier) || !reflect.DeepEqual(*desired.Tier, *actual.Tier)) {
-		c.Config.Logger.Infof("Detected diff in Tier.\nDESIRED: %#v\nACTUAL: %#v", desired.Tier, actual.Tier)
+		c.Config.Logger.Infof("Detected diff in Tier.\nDESIRED: %v\nACTUAL: %v", desired.Tier, actual.Tier)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
@@ -1340,7 +1132,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.MemorySizeGb) && (dcl.IsZeroValue(actual.MemorySizeGb) || !reflect.DeepEqual(*desired.MemorySizeGb, *actual.MemorySizeGb)) {
-		c.Config.Logger.Infof("Detected diff in MemorySizeGb.\nDESIRED: %#v\nACTUAL: %#v", desired.MemorySizeGb, actual.MemorySizeGb)
+		c.Config.Logger.Infof("Detected diff in MemorySizeGb.\nDESIRED: %v\nACTUAL: %v", desired.MemorySizeGb, actual.MemorySizeGb)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
@@ -1349,7 +1141,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.AuthorizedNetwork) && (dcl.IsZeroValue(actual.AuthorizedNetwork) || !reflect.DeepEqual(*desired.AuthorizedNetwork, *actual.AuthorizedNetwork)) {
-		c.Config.Logger.Infof("Detected diff in AuthorizedNetwork.\nDESIRED: %#v\nACTUAL: %#v", desired.AuthorizedNetwork, actual.AuthorizedNetwork)
+		c.Config.Logger.Infof("Detected diff in AuthorizedNetwork.\nDESIRED: %v\nACTUAL: %v", desired.AuthorizedNetwork, actual.AuthorizedNetwork)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
@@ -1358,7 +1150,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.ConnectMode) && (dcl.IsZeroValue(actual.ConnectMode) || !reflect.DeepEqual(*desired.ConnectMode, *actual.ConnectMode)) {
-		c.Config.Logger.Infof("Detected diff in ConnectMode.\nDESIRED: %#v\nACTUAL: %#v", desired.ConnectMode, actual.ConnectMode)
+		c.Config.Logger.Infof("Detected diff in ConnectMode.\nDESIRED: %v\nACTUAL: %v", desired.ConnectMode, actual.ConnectMode)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
@@ -1367,7 +1159,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.AuthEnabled) && (dcl.IsZeroValue(actual.AuthEnabled) || !reflect.DeepEqual(*desired.AuthEnabled, *actual.AuthEnabled)) {
-		c.Config.Logger.Infof("Detected diff in AuthEnabled.\nDESIRED: %#v\nACTUAL: %#v", desired.AuthEnabled, actual.AuthEnabled)
+		c.Config.Logger.Infof("Detected diff in AuthEnabled.\nDESIRED: %v\nACTUAL: %v", desired.AuthEnabled, actual.AuthEnabled)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
@@ -1376,7 +1168,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.TransitEncryptionMode) && (dcl.IsZeroValue(actual.TransitEncryptionMode) || !reflect.DeepEqual(*desired.TransitEncryptionMode, *actual.TransitEncryptionMode)) {
-		c.Config.Logger.Infof("Detected diff in TransitEncryptionMode.\nDESIRED: %#v\nACTUAL: %#v", desired.TransitEncryptionMode, actual.TransitEncryptionMode)
+		c.Config.Logger.Infof("Detected diff in TransitEncryptionMode.\nDESIRED: %v\nACTUAL: %v", desired.TransitEncryptionMode, actual.TransitEncryptionMode)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
@@ -1385,34 +1177,13 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if compareInstanceMaintenancePolicy(c, desired.MaintenancePolicy, actual.MaintenancePolicy) {
-		c.Config.Logger.Infof("Detected diff in MaintenancePolicy.\nDESIRED: %#v\nACTUAL: %#v", desired.MaintenancePolicy, actual.MaintenancePolicy)
+		c.Config.Logger.Infof("Detected diff in MaintenancePolicy.\nDESIRED: %v\nACTUAL: %v", desired.MaintenancePolicy, actual.MaintenancePolicy)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
 			FieldName: "MaintenancePolicy",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, instanceDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Location) && !dcl.NameToSelfLink(desired.Location, actual.Location) {
-		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
-		diffs = append(diffs, instanceDiff{
-			RequiresRecreate: true,
-			FieldName:        "Location",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Region) && !dcl.NameToSelfLink(desired.Region, actual.Region) {
-		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %#v\nACTUAL: %#v", desired.Region, actual.Region)
-		diffs = append(diffs, instanceDiff{
-			RequiresRecreate: true,
-			FieldName:        "Region",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
@@ -1437,84 +1208,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 	}
 
 	return deduped, nil
-}
-func compareInstanceLabelsSlice(c *Client, desired, actual []InstanceLabels) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceLabels, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareInstanceLabels(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceLabels, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareInstanceLabels(c *Client, desired, actual *InstanceLabels) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
-func compareInstanceRedisConfigsSlice(c *Client, desired, actual []InstanceRedisConfigs) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceRedisConfigs, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareInstanceRedisConfigs(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceRedisConfigs, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareInstanceRedisConfigs(c *Client, desired, actual *InstanceRedisConfigs) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
 }
 func compareInstanceServerCaCertsSlice(c *Client, desired, actual []InstanceServerCaCerts) bool {
 	if len(desired) != len(actual) {
@@ -1676,45 +1369,6 @@ func compareInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c *Client,
 	}
 	if !reflect.DeepEqual(desired.Minutes, actual.Minutes) && !dcl.IsZeroValue(desired.Minutes) && !(dcl.IsEmptyValueIndirect(desired.Minutes) && dcl.IsZeroValue(actual.Minutes)) {
 		c.Config.Logger.Infof("Diff in Minutes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Minutes), dcl.SprintResource(actual.Minutes))
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-func compareInstanceMaintenancePolicyWeeklyMaintenanceWindowDurationSlice(c *Client, desired, actual []InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration(c *Client, desired, actual *InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
 		return true
 	}
 	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
@@ -1922,9 +1576,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		m["displayName"] = v
 	}
-	if v, err := expandInstanceLabelsSlice(c, f.Labels); err != nil {
-		return nil, fmt.Errorf("error expanding Labels into labels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
 	}
 	if v := f.LocationId; !dcl.IsEmptyValueIndirect(v) {
@@ -1957,9 +1609,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	if v := f.StatusMessage; !dcl.IsEmptyValueIndirect(v) {
 		m["statusMessage"] = v
 	}
-	if v, err := expandInstanceRedisConfigsSlice(c, f.RedisConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding RedisConfigs into redisConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.RedisConfigs; !dcl.IsEmptyValueIndirect(v) {
 		m["redisConfigs"] = v
 	}
 	if v := f.Tier; !dcl.IsEmptyValueIndirect(v) {
@@ -2031,7 +1681,7 @@ func flattenInstance(c *Client, i interface{}) *Instance {
 	r := &Instance{}
 	r.Name = dcl.FlattenString(m["name"])
 	r.DisplayName = dcl.FlattenString(m["displayName"])
-	r.Labels = flattenInstanceLabelsSlice(c, m["labels"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	r.LocationId = dcl.FlattenString(m["locationId"])
 	r.AlternativeLocationId = dcl.FlattenString(m["alternativeLocationId"])
 	r.RedisVersion = dcl.FlattenString(m["redisVersion"])
@@ -2042,7 +1692,7 @@ func flattenInstance(c *Client, i interface{}) *Instance {
 	r.CreateTime = dcl.FlattenString(m["createTime"])
 	r.State = flattenInstanceStateEnum(m["state"])
 	r.StatusMessage = dcl.FlattenString(m["statusMessage"])
-	r.RedisConfigs = flattenInstanceRedisConfigsSlice(c, m["redisConfigs"])
+	r.RedisConfigs = dcl.FlattenKeyValuePairs(m["redisConfigs"])
 	r.Tier = flattenInstanceTierEnum(m["tier"])
 	r.MemorySizeGb = dcl.FlattenInteger(m["memorySizeGb"])
 	r.AuthorizedNetwork = dcl.FlattenString(m["authorizedNetwork"])
@@ -2056,234 +1706,6 @@ func flattenInstance(c *Client, i interface{}) *Instance {
 	r.Project = dcl.FlattenString(m["project"])
 	r.Location = dcl.FlattenString(m["location"])
 	r.Region = dcl.FlattenString(m["region"])
-
-	return r
-}
-
-// expandInstanceLabelsMap expands the contents of InstanceLabels into a JSON
-// request object.
-func expandInstanceLabelsMap(c *Client, f map[string]InstanceLabels) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceLabels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceLabelsSlice expands the contents of InstanceLabels into a JSON
-// request object.
-func expandInstanceLabelsSlice(c *Client, f []InstanceLabels) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceLabels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceLabelsMap flattens the contents of InstanceLabels from a JSON
-// response object.
-func flattenInstanceLabelsMap(c *Client, i interface{}) map[string]InstanceLabels {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceLabels{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceLabels{}
-	}
-
-	items := make(map[string]InstanceLabels)
-	for k, item := range a {
-		items[k] = *flattenInstanceLabels(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceLabelsSlice flattens the contents of InstanceLabels from a JSON
-// response object.
-func flattenInstanceLabelsSlice(c *Client, i interface{}) []InstanceLabels {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceLabels{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceLabels{}
-	}
-
-	items := make([]InstanceLabels, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceLabels(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceLabels expands an instance of InstanceLabels into a JSON
-// request object.
-func expandInstanceLabels(c *Client, f *InstanceLabels) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceLabels flattens an instance of InstanceLabels from a JSON
-// response object.
-func flattenInstanceLabels(c *Client, i interface{}) *InstanceLabels {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceLabels{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
-
-	return r
-}
-
-// expandInstanceRedisConfigsMap expands the contents of InstanceRedisConfigs into a JSON
-// request object.
-func expandInstanceRedisConfigsMap(c *Client, f map[string]InstanceRedisConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceRedisConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceRedisConfigsSlice expands the contents of InstanceRedisConfigs into a JSON
-// request object.
-func expandInstanceRedisConfigsSlice(c *Client, f []InstanceRedisConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceRedisConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceRedisConfigsMap flattens the contents of InstanceRedisConfigs from a JSON
-// response object.
-func flattenInstanceRedisConfigsMap(c *Client, i interface{}) map[string]InstanceRedisConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceRedisConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceRedisConfigs{}
-	}
-
-	items := make(map[string]InstanceRedisConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstanceRedisConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceRedisConfigsSlice flattens the contents of InstanceRedisConfigs from a JSON
-// response object.
-func flattenInstanceRedisConfigsSlice(c *Client, i interface{}) []InstanceRedisConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceRedisConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceRedisConfigs{}
-	}
-
-	items := make([]InstanceRedisConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceRedisConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceRedisConfigs expands an instance of InstanceRedisConfigs into a JSON
-// request object.
-func expandInstanceRedisConfigs(c *Client, f *InstanceRedisConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceRedisConfigs flattens an instance of InstanceRedisConfigs from a JSON
-// response object.
-func flattenInstanceRedisConfigs(c *Client, i interface{}) *InstanceRedisConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceRedisConfigs{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
 
 	return r
 }
@@ -2635,9 +2057,7 @@ func expandInstanceMaintenancePolicyWeeklyMaintenanceWindow(c *Client, f *Instan
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["startTime"] = v
 	}
-	if v, err := expandInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration(c, f.Duration); err != nil {
-		return nil, fmt.Errorf("error expanding Duration into duration: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Duration; !dcl.IsEmptyValueIndirect(v) {
 		m["duration"] = v
 	}
 
@@ -2655,7 +2075,7 @@ func flattenInstanceMaintenancePolicyWeeklyMaintenanceWindow(c *Client, i interf
 	r := &InstanceMaintenancePolicyWeeklyMaintenanceWindow{}
 	r.Day = flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum(m["day"])
 	r.StartTime = flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c, m["startTime"])
-	r.Duration = flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration(c, m["duration"])
+	r.Duration = dcl.FlattenString(m["duration"])
 
 	return r
 }
@@ -2776,120 +2196,6 @@ func flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c *Client,
 	r := &InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime{}
 	r.Hours = dcl.FlattenInteger(m["hours"])
 	r.Minutes = dcl.FlattenInteger(m["minutes"])
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
-
-	return r
-}
-
-// expandInstanceMaintenancePolicyWeeklyMaintenanceWindowDurationMap expands the contents of InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration into a JSON
-// request object.
-func expandInstanceMaintenancePolicyWeeklyMaintenanceWindowDurationMap(c *Client, f map[string]InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceMaintenancePolicyWeeklyMaintenanceWindowDurationSlice expands the contents of InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration into a JSON
-// request object.
-func expandInstanceMaintenancePolicyWeeklyMaintenanceWindowDurationSlice(c *Client, f []InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowDurationMap flattens the contents of InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration from a JSON
-// response object.
-func flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowDurationMap(c *Client, i interface{}) map[string]InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration{}
-	}
-
-	items := make(map[string]InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration)
-	for k, item := range a {
-		items[k] = *flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowDurationSlice flattens the contents of InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration from a JSON
-// response object.
-func flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowDurationSlice(c *Client, i interface{}) []InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration{}
-	}
-
-	items := make([]InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration expands an instance of InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration into a JSON
-// request object.
-func expandInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration(c *Client, f *InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration flattens an instance of InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration from a JSON
-// response object.
-func flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration(c *Client, i interface{}) *InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration{}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 

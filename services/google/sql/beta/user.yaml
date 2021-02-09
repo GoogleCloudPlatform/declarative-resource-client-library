@@ -74,7 +74,7 @@ components:
           x-dcl-go-type: UserSqlserverUserDetails
         type:
           description: 'The user type. It determines the method to authenticate the
-            user during login. \\\`NATIVE\\\`: database native user. (default) \\\`CLOUD\\\_IAM\\\_USER\\\`:
+            user during login. `NATIVE`: database native user. (default) `CLOUD_IAM_USER`:
             Cloud IAM user.'
           enum:
           - NATIVE
@@ -94,10 +94,43 @@ info:
   title: Sql/User
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many User
+  apply:
+    description: The function used to apply information about a User
+    parameters:
+    - description: A full instance of a User
+      name: User
+      required: true
+  delete:
+    description: The function used to delete a User
+    parameters:
+    - description: A full instance of a User
+      name: User
+      required: true
+  deleteAll:
+    description: The function used to delete all User
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: instance
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a User
+    parameters:
+    - description: A full instance of a User
+      name: User
+      required: true
+  list:
+    description: The function used to list information about many User
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: instance
+      required: true
+      schema:
+        type: string

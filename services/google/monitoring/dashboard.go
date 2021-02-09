@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -5695,7 +5696,9 @@ func (c *Client) ApplyDashboard(ctx context.Context, rawDesired *Dashboard, opts
 	if create {
 		ops = append(ops, &createDashboardOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteDashboardOperation{})
+
 		ops = append(ops, &createDashboardOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeDashboardDesiredState(rawDesired, nil)

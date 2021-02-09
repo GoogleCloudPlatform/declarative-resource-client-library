@@ -18,11 +18,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 func (r *Job) validate() error {
@@ -61,23 +62,12 @@ func (r *Job) validate() error {
 			return err
 		}
 	}
-	if !dcl.IsEmptyValueIndirect(r.AttemptDeadline) {
-		if err := r.AttemptDeadline.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *JobLabels) validate() error {
 	return nil
 }
 func (r *JobPubsubTarget) validate() error {
 	if err := dcl.Required(r, "topicName"); err != nil {
 		return err
 	}
-	return nil
-}
-func (r *JobPubsubTargetAttributes) validate() error {
 	return nil
 }
 func (r *JobAppEngineHttpTarget) validate() error {
@@ -89,9 +79,6 @@ func (r *JobAppEngineHttpTarget) validate() error {
 	return nil
 }
 func (r *JobAppEngineHttpTargetAppEngineRouting) validate() error {
-	return nil
-}
-func (r *JobAppEngineHttpTargetHeaders) validate() error {
 	return nil
 }
 func (r *JobHttpTarget) validate() error {
@@ -110,9 +97,6 @@ func (r *JobHttpTarget) validate() error {
 	}
 	return nil
 }
-func (r *JobHttpTargetHeaders) validate() error {
-	return nil
-}
 func (r *JobHttpTargetOAuthToken) validate() error {
 	return nil
 }
@@ -126,33 +110,6 @@ func (r *JobStatusDetails) validate() error {
 	return nil
 }
 func (r *JobRetryConfig) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.MaxRetryDuration) {
-		if err := r.MaxRetryDuration.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.MinBackoffDuration) {
-		if err := r.MinBackoffDuration.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.MaxBackoffDuration) {
-		if err := r.MaxBackoffDuration.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *JobRetryConfigMaxRetryDuration) validate() error {
-	return nil
-}
-func (r *JobRetryConfigMinBackoffDuration) validate() error {
-	return nil
-}
-func (r *JobRetryConfigMaxBackoffDuration) validate() error {
-	return nil
-}
-func (r *JobAttemptDeadline) validate() error {
 	return nil
 }
 
@@ -212,11 +169,6 @@ func newUpdateJobUpdateJobRequest(ctx context.Context, f *Job, c *Client) (map[s
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
 	}
-	if v, err := expandJobLabelsSlice(c, f.Labels); err != nil {
-		return nil, fmt.Errorf("error expanding Labels into labels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["labels"] = v
-	}
 	if v, err := expandJobPubsubTarget(c, f.PubsubTarget); err != nil {
 		return nil, fmt.Errorf("error expanding PubsubTarget into pubsubTarget: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -243,9 +195,7 @@ func newUpdateJobUpdateJobRequest(ctx context.Context, f *Job, c *Client) (map[s
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["retryConfig"] = v
 	}
-	if v, err := expandJobAttemptDeadline(c, f.AttemptDeadline); err != nil {
-		return nil, fmt.Errorf("error expanding AttemptDeadline into attemptDeadline: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AttemptDeadline; !dcl.IsEmptyValueIndirect(v) {
 		req["attemptDeadline"] = v
 	}
 	return req, nil
@@ -481,12 +431,12 @@ func (c *Client) jobDiffsForRawDesired(ctx context.Context, rawDesired *Job, opt
 			c.Config.Logger.Warningf("Failed to retrieve whether a Job resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Job resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Job resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeJobDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Job: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Job: %v", rawDesired)
 
@@ -539,7 +489,6 @@ func canonicalizeJobDesiredState(rawDesired, rawInitial *Job, opts ...dcl.ApplyO
 		rawDesired.HttpTarget = canonicalizeJobHttpTarget(rawDesired.HttpTarget, nil, opts...)
 		rawDesired.Status = canonicalizeJobStatus(rawDesired.Status, nil, opts...)
 		rawDesired.RetryConfig = canonicalizeJobRetryConfig(rawDesired.RetryConfig, nil, opts...)
-		rawDesired.AttemptDeadline = canonicalizeJobAttemptDeadline(rawDesired.AttemptDeadline, nil, opts...)
 
 		return rawDesired, nil
 	}
@@ -548,9 +497,6 @@ func canonicalizeJobDesiredState(rawDesired, rawInitial *Job, opts ...dcl.ApplyO
 	}
 	if dcl.IsZeroValue(rawDesired.Description) {
 		rawDesired.Description = rawInitial.Description
-	}
-	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
 	}
 	rawDesired.PubsubTarget = canonicalizeJobPubsubTarget(rawDesired.PubsubTarget, rawInitial.PubsubTarget, opts...)
 	rawDesired.AppEngineHttpTarget = canonicalizeJobAppEngineHttpTarget(rawDesired.AppEngineHttpTarget, rawInitial.AppEngineHttpTarget, opts...)
@@ -568,21 +514,6 @@ func canonicalizeJobDesiredState(rawDesired, rawInitial *Job, opts ...dcl.ApplyO
 		rawDesired.State = rawInitial.State
 	}
 	rawDesired.Status = canonicalizeJobStatus(rawDesired.Status, rawInitial.Status, opts...)
-	if dcl.IsZeroValue(rawDesired.TotalAttemptCount) {
-		rawDesired.TotalAttemptCount = rawInitial.TotalAttemptCount
-	}
-	if dcl.IsZeroValue(rawDesired.FailedAttemptCount) {
-		rawDesired.FailedAttemptCount = rawInitial.FailedAttemptCount
-	}
-	if dcl.IsZeroValue(rawDesired.TotalExecutionCount) {
-		rawDesired.TotalExecutionCount = rawInitial.TotalExecutionCount
-	}
-	if dcl.IsZeroValue(rawDesired.FailedExecutionCount) {
-		rawDesired.FailedExecutionCount = rawInitial.FailedExecutionCount
-	}
-	if dcl.IsZeroValue(rawDesired.View) {
-		rawDesired.View = rawInitial.View
-	}
 	if dcl.IsZeroValue(rawDesired.ScheduleTime) {
 		rawDesired.ScheduleTime = rawInitial.ScheduleTime
 	}
@@ -590,7 +521,9 @@ func canonicalizeJobDesiredState(rawDesired, rawInitial *Job, opts ...dcl.ApplyO
 		rawDesired.LastAttemptTime = rawInitial.LastAttemptTime
 	}
 	rawDesired.RetryConfig = canonicalizeJobRetryConfig(rawDesired.RetryConfig, rawInitial.RetryConfig, opts...)
-	rawDesired.AttemptDeadline = canonicalizeJobAttemptDeadline(rawDesired.AttemptDeadline, rawInitial.AttemptDeadline, opts...)
+	if dcl.IsZeroValue(rawDesired.AttemptDeadline) {
+		rawDesired.AttemptDeadline = rawInitial.AttemptDeadline
+	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
@@ -613,11 +546,6 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
-	} else {
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
@@ -665,31 +593,6 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 		rawNew.Status = canonicalizeNewJobStatus(c, rawDesired.Status, rawNew.Status)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.TotalAttemptCount) && dcl.IsEmptyValueIndirect(rawDesired.TotalAttemptCount) {
-		rawNew.TotalAttemptCount = rawDesired.TotalAttemptCount
-	} else {
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.FailedAttemptCount) && dcl.IsEmptyValueIndirect(rawDesired.FailedAttemptCount) {
-		rawNew.FailedAttemptCount = rawDesired.FailedAttemptCount
-	} else {
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.TotalExecutionCount) && dcl.IsEmptyValueIndirect(rawDesired.TotalExecutionCount) {
-		rawNew.TotalExecutionCount = rawDesired.TotalExecutionCount
-	} else {
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.FailedExecutionCount) && dcl.IsEmptyValueIndirect(rawDesired.FailedExecutionCount) {
-		rawNew.FailedExecutionCount = rawDesired.FailedExecutionCount
-	} else {
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.View) && dcl.IsEmptyValueIndirect(rawDesired.View) {
-		rawNew.View = rawDesired.View
-	} else {
-	}
-
 	if dcl.IsEmptyValueIndirect(rawNew.ScheduleTime) && dcl.IsEmptyValueIndirect(rawDesired.ScheduleTime) {
 		rawNew.ScheduleTime = rawDesired.ScheduleTime
 	} else {
@@ -709,84 +612,13 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 	if dcl.IsEmptyValueIndirect(rawNew.AttemptDeadline) && dcl.IsEmptyValueIndirect(rawDesired.AttemptDeadline) {
 		rawNew.AttemptDeadline = rawDesired.AttemptDeadline
 	} else {
-		rawNew.AttemptDeadline = canonicalizeNewJobAttemptDeadline(c, rawDesired.AttemptDeadline, rawNew.AttemptDeadline)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
-	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
-		rawNew.Location = rawDesired.Location
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Location, rawNew.Location) {
-			rawNew.Location = rawDesired.Location
-		}
-	}
+	rawNew.Location = rawDesired.Location
 
 	return rawNew, nil
-}
-
-func canonicalizeJobLabels(des, initial *JobLabels, opts ...dcl.ApplyOption) *JobLabels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Job)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewJobLabels(c *Client, des, nw *JobLabels) *JobLabels {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewJobLabelsSet(c *Client, des, nw []JobLabels) []JobLabels {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []JobLabels
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareJobLabels(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
 }
 
 func canonicalizeJobPubsubTarget(des, initial *JobPubsubTarget, opts ...dcl.ApplyOption) *JobPubsubTarget {
@@ -840,64 +672,6 @@ func canonicalizeNewJobPubsubTargetSet(c *Client, des, nw []JobPubsubTarget) []J
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareJobPubsubTarget(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeJobPubsubTargetAttributes(des, initial *JobPubsubTargetAttributes, opts ...dcl.ApplyOption) *JobPubsubTargetAttributes {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Job)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewJobPubsubTargetAttributes(c *Client, des, nw *JobPubsubTargetAttributes) *JobPubsubTargetAttributes {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewJobPubsubTargetAttributesSet(c *Client, des, nw []JobPubsubTargetAttributes) []JobPubsubTargetAttributes {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []JobPubsubTargetAttributes
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareJobPubsubTargetAttributes(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -1043,64 +817,6 @@ func canonicalizeNewJobAppEngineHttpTargetAppEngineRoutingSet(c *Client, des, nw
 	return reorderedNew
 }
 
-func canonicalizeJobAppEngineHttpTargetHeaders(des, initial *JobAppEngineHttpTargetHeaders, opts ...dcl.ApplyOption) *JobAppEngineHttpTargetHeaders {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Job)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewJobAppEngineHttpTargetHeaders(c *Client, des, nw *JobAppEngineHttpTargetHeaders) *JobAppEngineHttpTargetHeaders {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewJobAppEngineHttpTargetHeadersSet(c *Client, des, nw []JobAppEngineHttpTargetHeaders) []JobAppEngineHttpTargetHeaders {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []JobAppEngineHttpTargetHeaders
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareJobAppEngineHttpTargetHeaders(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
 func canonicalizeJobHttpTarget(des, initial *JobHttpTarget, opts ...dcl.ApplyOption) *JobHttpTarget {
 	if des == nil {
 		return initial
@@ -1170,64 +886,6 @@ func canonicalizeNewJobHttpTargetSet(c *Client, des, nw []JobHttpTarget) []JobHt
 	return reorderedNew
 }
 
-func canonicalizeJobHttpTargetHeaders(des, initial *JobHttpTargetHeaders, opts ...dcl.ApplyOption) *JobHttpTargetHeaders {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Job)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewJobHttpTargetHeaders(c *Client, des, nw *JobHttpTargetHeaders) *JobHttpTargetHeaders {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewJobHttpTargetHeadersSet(c *Client, des, nw []JobHttpTargetHeaders) []JobHttpTargetHeaders {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []JobHttpTargetHeaders
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareJobHttpTargetHeaders(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
 func canonicalizeJobHttpTargetOAuthToken(des, initial *JobHttpTargetOAuthToken, opts ...dcl.ApplyOption) *JobHttpTargetOAuthToken {
 	if des == nil {
 		return initial
@@ -1245,7 +903,7 @@ func canonicalizeJobHttpTargetOAuthToken(des, initial *JobHttpTargetOAuthToken, 
 		return des
 	}
 
-	if dcl.IsZeroValue(des.ServiceAccountEmail) {
+	if dcl.NameToSelfLink(des.ServiceAccountEmail, initial.ServiceAccountEmail) || dcl.IsZeroValue(des.ServiceAccountEmail) {
 		des.ServiceAccountEmail = initial.ServiceAccountEmail
 	}
 	if dcl.IsZeroValue(des.Scope) {
@@ -1258,6 +916,10 @@ func canonicalizeJobHttpTargetOAuthToken(des, initial *JobHttpTargetOAuthToken, 
 func canonicalizeNewJobHttpTargetOAuthToken(c *Client, des, nw *JobHttpTargetOAuthToken) *JobHttpTargetOAuthToken {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.NameToSelfLink(des.ServiceAccountEmail, nw.ServiceAccountEmail) || dcl.IsZeroValue(des.ServiceAccountEmail) {
+		nw.ServiceAccountEmail = des.ServiceAccountEmail
 	}
 
 	return nw
@@ -1303,7 +965,7 @@ func canonicalizeJobHttpTargetOidcToken(des, initial *JobHttpTargetOidcToken, op
 		return des
 	}
 
-	if dcl.IsZeroValue(des.ServiceAccountEmail) {
+	if dcl.NameToSelfLink(des.ServiceAccountEmail, initial.ServiceAccountEmail) || dcl.IsZeroValue(des.ServiceAccountEmail) {
 		des.ServiceAccountEmail = initial.ServiceAccountEmail
 	}
 	if dcl.IsZeroValue(des.Audience) {
@@ -1316,6 +978,10 @@ func canonicalizeJobHttpTargetOidcToken(des, initial *JobHttpTargetOidcToken, op
 func canonicalizeNewJobHttpTargetOidcToken(c *Client, des, nw *JobHttpTargetOidcToken) *JobHttpTargetOidcToken {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.NameToSelfLink(des.ServiceAccountEmail, nw.ServiceAccountEmail) || dcl.IsZeroValue(des.ServiceAccountEmail) {
+		nw.ServiceAccountEmail = des.ServiceAccountEmail
 	}
 
 	return nw
@@ -1483,9 +1149,15 @@ func canonicalizeJobRetryConfig(des, initial *JobRetryConfig, opts ...dcl.ApplyO
 	if dcl.IsZeroValue(des.RetryCount) {
 		des.RetryCount = initial.RetryCount
 	}
-	des.MaxRetryDuration = canonicalizeJobRetryConfigMaxRetryDuration(des.MaxRetryDuration, initial.MaxRetryDuration, opts...)
-	des.MinBackoffDuration = canonicalizeJobRetryConfigMinBackoffDuration(des.MinBackoffDuration, initial.MinBackoffDuration, opts...)
-	des.MaxBackoffDuration = canonicalizeJobRetryConfigMaxBackoffDuration(des.MaxBackoffDuration, initial.MaxBackoffDuration, opts...)
+	if dcl.IsZeroValue(des.MaxRetryDuration) {
+		des.MaxRetryDuration = initial.MaxRetryDuration
+	}
+	if dcl.IsZeroValue(des.MinBackoffDuration) {
+		des.MinBackoffDuration = initial.MinBackoffDuration
+	}
+	if dcl.IsZeroValue(des.MaxBackoffDuration) {
+		des.MaxBackoffDuration = initial.MaxBackoffDuration
+	}
 	if dcl.IsZeroValue(des.MaxDoublings) {
 		des.MaxDoublings = initial.MaxDoublings
 	}
@@ -1497,10 +1169,6 @@ func canonicalizeNewJobRetryConfig(c *Client, des, nw *JobRetryConfig) *JobRetry
 	if des == nil || nw == nil {
 		return nw
 	}
-
-	nw.MaxRetryDuration = canonicalizeNewJobRetryConfigMaxRetryDuration(c, des.MaxRetryDuration, nw.MaxRetryDuration)
-	nw.MinBackoffDuration = canonicalizeNewJobRetryConfigMinBackoffDuration(c, des.MinBackoffDuration, nw.MinBackoffDuration)
-	nw.MaxBackoffDuration = canonicalizeNewJobRetryConfigMaxBackoffDuration(c, des.MaxBackoffDuration, nw.MaxBackoffDuration)
 
 	return nw
 }
@@ -1514,238 +1182,6 @@ func canonicalizeNewJobRetryConfigSet(c *Client, des, nw []JobRetryConfig) []Job
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareJobRetryConfig(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeJobRetryConfigMaxRetryDuration(des, initial *JobRetryConfigMaxRetryDuration, opts ...dcl.ApplyOption) *JobRetryConfigMaxRetryDuration {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Job)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewJobRetryConfigMaxRetryDuration(c *Client, des, nw *JobRetryConfigMaxRetryDuration) *JobRetryConfigMaxRetryDuration {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewJobRetryConfigMaxRetryDurationSet(c *Client, des, nw []JobRetryConfigMaxRetryDuration) []JobRetryConfigMaxRetryDuration {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []JobRetryConfigMaxRetryDuration
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareJobRetryConfigMaxRetryDuration(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeJobRetryConfigMinBackoffDuration(des, initial *JobRetryConfigMinBackoffDuration, opts ...dcl.ApplyOption) *JobRetryConfigMinBackoffDuration {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Job)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewJobRetryConfigMinBackoffDuration(c *Client, des, nw *JobRetryConfigMinBackoffDuration) *JobRetryConfigMinBackoffDuration {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewJobRetryConfigMinBackoffDurationSet(c *Client, des, nw []JobRetryConfigMinBackoffDuration) []JobRetryConfigMinBackoffDuration {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []JobRetryConfigMinBackoffDuration
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareJobRetryConfigMinBackoffDuration(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeJobRetryConfigMaxBackoffDuration(des, initial *JobRetryConfigMaxBackoffDuration, opts ...dcl.ApplyOption) *JobRetryConfigMaxBackoffDuration {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Job)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewJobRetryConfigMaxBackoffDuration(c *Client, des, nw *JobRetryConfigMaxBackoffDuration) *JobRetryConfigMaxBackoffDuration {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewJobRetryConfigMaxBackoffDurationSet(c *Client, des, nw []JobRetryConfigMaxBackoffDuration) []JobRetryConfigMaxBackoffDuration {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []JobRetryConfigMaxBackoffDuration
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareJobRetryConfigMaxBackoffDuration(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeJobAttemptDeadline(des, initial *JobAttemptDeadline, opts ...dcl.ApplyOption) *JobAttemptDeadline {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Job)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewJobAttemptDeadline(c *Client, des, nw *JobAttemptDeadline) *JobAttemptDeadline {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewJobAttemptDeadlineSet(c *Client, des, nw []JobAttemptDeadline) []JobAttemptDeadline {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []JobAttemptDeadline
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareJobAttemptDeadline(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -1782,7 +1218,7 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]jobDif
 
 	var diffs []jobDiff
 	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 
 		diffs = append(diffs, jobDiff{
 			UpdateOp:  &updateJobUpdateJobOperation{},
@@ -1791,7 +1227,7 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]jobDif
 
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, jobDiff{
 			UpdateOp:  &updateJobUpdateJobOperation{},
@@ -1799,17 +1235,8 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]jobDif
 		})
 
 	}
-	if compareJobLabelsSlice(c, desired.Labels, actual.Labels) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %#v\nACTUAL: %#v", desired.Labels, actual.Labels)
-
-		diffs = append(diffs, jobDiff{
-			UpdateOp:  &updateJobUpdateJobOperation{},
-			FieldName: "Labels",
-		})
-
-	}
 	if compareJobPubsubTarget(c, desired.PubsubTarget, actual.PubsubTarget) {
-		c.Config.Logger.Infof("Detected diff in PubsubTarget.\nDESIRED: %#v\nACTUAL: %#v", desired.PubsubTarget, actual.PubsubTarget)
+		c.Config.Logger.Infof("Detected diff in PubsubTarget.\nDESIRED: %v\nACTUAL: %v", desired.PubsubTarget, actual.PubsubTarget)
 
 		diffs = append(diffs, jobDiff{
 			UpdateOp:  &updateJobUpdateJobOperation{},
@@ -1818,7 +1245,7 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]jobDif
 
 	}
 	if compareJobAppEngineHttpTarget(c, desired.AppEngineHttpTarget, actual.AppEngineHttpTarget) {
-		c.Config.Logger.Infof("Detected diff in AppEngineHttpTarget.\nDESIRED: %#v\nACTUAL: %#v", desired.AppEngineHttpTarget, actual.AppEngineHttpTarget)
+		c.Config.Logger.Infof("Detected diff in AppEngineHttpTarget.\nDESIRED: %v\nACTUAL: %v", desired.AppEngineHttpTarget, actual.AppEngineHttpTarget)
 
 		diffs = append(diffs, jobDiff{
 			UpdateOp:  &updateJobUpdateJobOperation{},
@@ -1827,7 +1254,7 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]jobDif
 
 	}
 	if compareJobHttpTarget(c, desired.HttpTarget, actual.HttpTarget) {
-		c.Config.Logger.Infof("Detected diff in HttpTarget.\nDESIRED: %#v\nACTUAL: %#v", desired.HttpTarget, actual.HttpTarget)
+		c.Config.Logger.Infof("Detected diff in HttpTarget.\nDESIRED: %v\nACTUAL: %v", desired.HttpTarget, actual.HttpTarget)
 
 		diffs = append(diffs, jobDiff{
 			UpdateOp:  &updateJobUpdateJobOperation{},
@@ -1836,7 +1263,7 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]jobDif
 
 	}
 	if !dcl.IsZeroValue(desired.Schedule) && (dcl.IsZeroValue(actual.Schedule) || !reflect.DeepEqual(*desired.Schedule, *actual.Schedule)) {
-		c.Config.Logger.Infof("Detected diff in Schedule.\nDESIRED: %#v\nACTUAL: %#v", desired.Schedule, actual.Schedule)
+		c.Config.Logger.Infof("Detected diff in Schedule.\nDESIRED: %v\nACTUAL: %v", desired.Schedule, actual.Schedule)
 
 		diffs = append(diffs, jobDiff{
 			UpdateOp:  &updateJobUpdateJobOperation{},
@@ -1845,7 +1272,7 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]jobDif
 
 	}
 	if !dcl.IsZeroValue(desired.TimeZone) && (dcl.IsZeroValue(actual.TimeZone) || !reflect.DeepEqual(*desired.TimeZone, *actual.TimeZone)) {
-		c.Config.Logger.Infof("Detected diff in TimeZone.\nDESIRED: %#v\nACTUAL: %#v", desired.TimeZone, actual.TimeZone)
+		c.Config.Logger.Infof("Detected diff in TimeZone.\nDESIRED: %v\nACTUAL: %v", desired.TimeZone, actual.TimeZone)
 
 		diffs = append(diffs, jobDiff{
 			UpdateOp:  &updateJobUpdateJobOperation{},
@@ -1854,7 +1281,7 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]jobDif
 
 	}
 	if compareJobRetryConfig(c, desired.RetryConfig, actual.RetryConfig) {
-		c.Config.Logger.Infof("Detected diff in RetryConfig.\nDESIRED: %#v\nACTUAL: %#v", desired.RetryConfig, actual.RetryConfig)
+		c.Config.Logger.Infof("Detected diff in RetryConfig.\nDESIRED: %v\nACTUAL: %v", desired.RetryConfig, actual.RetryConfig)
 
 		diffs = append(diffs, jobDiff{
 			UpdateOp:  &updateJobUpdateJobOperation{},
@@ -1862,28 +1289,14 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]jobDif
 		})
 
 	}
-	if compareJobAttemptDeadline(c, desired.AttemptDeadline, actual.AttemptDeadline) {
-		c.Config.Logger.Infof("Detected diff in AttemptDeadline.\nDESIRED: %#v\nACTUAL: %#v", desired.AttemptDeadline, actual.AttemptDeadline)
+	if !dcl.IsZeroValue(desired.AttemptDeadline) && (dcl.IsZeroValue(actual.AttemptDeadline) || !reflect.DeepEqual(*desired.AttemptDeadline, *actual.AttemptDeadline)) {
+		c.Config.Logger.Infof("Detected diff in AttemptDeadline.\nDESIRED: %v\nACTUAL: %v", desired.AttemptDeadline, actual.AttemptDeadline)
 
 		diffs = append(diffs, jobDiff{
 			UpdateOp:  &updateJobUpdateJobOperation{},
 			FieldName: "AttemptDeadline",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, jobDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Location) && !dcl.NameToSelfLink(desired.Location, actual.Location) {
-		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
-		diffs = append(diffs, jobDiff{
-			RequiresRecreate: true,
-			FieldName:        "Location",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
@@ -1908,45 +1321,6 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]jobDif
 	}
 
 	return deduped, nil
-}
-func compareJobLabelsSlice(c *Client, desired, actual []JobLabels) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobLabels, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobLabels(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobLabels, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobLabels(c *Client, desired, actual *JobLabels) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
 }
 func compareJobPubsubTargetSlice(c *Client, desired, actual []JobPubsubTarget) bool {
 	if len(desired) != len(actual) {
@@ -1989,47 +1363,8 @@ func compareJobPubsubTarget(c *Client, desired, actual *JobPubsubTarget) bool {
 		c.Config.Logger.Infof("desired Attributes %s - but actually nil", dcl.SprintResource(desired.Attributes))
 		return true
 	}
-	if compareJobPubsubTargetAttributesSlice(c, desired.Attributes, actual.Attributes) && !dcl.IsZeroValue(desired.Attributes) {
+	if !reflect.DeepEqual(desired.Attributes, actual.Attributes) && !dcl.IsZeroValue(desired.Attributes) {
 		c.Config.Logger.Infof("Diff in Attributes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Attributes), dcl.SprintResource(actual.Attributes))
-		return true
-	}
-	return false
-}
-func compareJobPubsubTargetAttributesSlice(c *Client, desired, actual []JobPubsubTargetAttributes) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobPubsubTargetAttributes, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobPubsubTargetAttributes(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobPubsubTargetAttributes, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobPubsubTargetAttributes(c *Client, desired, actual *JobPubsubTargetAttributes) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -2083,7 +1418,7 @@ func compareJobAppEngineHttpTarget(c *Client, desired, actual *JobAppEngineHttpT
 		c.Config.Logger.Infof("desired Headers %s - but actually nil", dcl.SprintResource(desired.Headers))
 		return true
 	}
-	if compareJobAppEngineHttpTargetHeadersSlice(c, desired.Headers, actual.Headers) && !dcl.IsZeroValue(desired.Headers) {
+	if !reflect.DeepEqual(desired.Headers, actual.Headers) && !dcl.IsZeroValue(desired.Headers) {
 		c.Config.Logger.Infof("Diff in Headers. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Headers), dcl.SprintResource(actual.Headers))
 		return true
 	}
@@ -2144,45 +1479,6 @@ func compareJobAppEngineHttpTargetAppEngineRouting(c *Client, desired, actual *J
 	}
 	return false
 }
-func compareJobAppEngineHttpTargetHeadersSlice(c *Client, desired, actual []JobAppEngineHttpTargetHeaders) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobAppEngineHttpTargetHeaders, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobAppEngineHttpTargetHeaders(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobAppEngineHttpTargetHeaders, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobAppEngineHttpTargetHeaders(c *Client, desired, actual *JobAppEngineHttpTargetHeaders) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
 func compareJobHttpTargetSlice(c *Client, desired, actual []JobHttpTarget) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in JobHttpTarget, lengths unequal.")
@@ -2224,7 +1520,7 @@ func compareJobHttpTarget(c *Client, desired, actual *JobHttpTarget) bool {
 		c.Config.Logger.Infof("desired Headers %s - but actually nil", dcl.SprintResource(desired.Headers))
 		return true
 	}
-	if compareJobHttpTargetHeadersSlice(c, desired.Headers, actual.Headers) && !dcl.IsZeroValue(desired.Headers) {
+	if !reflect.DeepEqual(desired.Headers, actual.Headers) && !dcl.IsZeroValue(desired.Headers) {
 		c.Config.Logger.Infof("Diff in Headers. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Headers), dcl.SprintResource(actual.Headers))
 		return true
 	}
@@ -2254,45 +1550,6 @@ func compareJobHttpTarget(c *Client, desired, actual *JobHttpTarget) bool {
 	}
 	return false
 }
-func compareJobHttpTargetHeadersSlice(c *Client, desired, actual []JobHttpTargetHeaders) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobHttpTargetHeaders, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobHttpTargetHeaders(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobHttpTargetHeaders, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobHttpTargetHeaders(c *Client, desired, actual *JobHttpTargetHeaders) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
 func compareJobHttpTargetOAuthTokenSlice(c *Client, desired, actual []JobHttpTargetOAuthToken) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in JobHttpTargetOAuthToken, lengths unequal.")
@@ -2318,7 +1575,7 @@ func compareJobHttpTargetOAuthToken(c *Client, desired, actual *JobHttpTargetOAu
 		c.Config.Logger.Infof("desired ServiceAccountEmail %s - but actually nil", dcl.SprintResource(desired.ServiceAccountEmail))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ServiceAccountEmail, actual.ServiceAccountEmail) && !dcl.IsZeroValue(desired.ServiceAccountEmail) && !(dcl.IsEmptyValueIndirect(desired.ServiceAccountEmail) && dcl.IsZeroValue(actual.ServiceAccountEmail)) {
+	if !dcl.NameToSelfLink(desired.ServiceAccountEmail, actual.ServiceAccountEmail) && !dcl.IsZeroValue(desired.ServiceAccountEmail) {
 		c.Config.Logger.Infof("Diff in ServiceAccountEmail. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceAccountEmail), dcl.SprintResource(actual.ServiceAccountEmail))
 		return true
 	}
@@ -2357,7 +1614,7 @@ func compareJobHttpTargetOidcToken(c *Client, desired, actual *JobHttpTargetOidc
 		c.Config.Logger.Infof("desired ServiceAccountEmail %s - but actually nil", dcl.SprintResource(desired.ServiceAccountEmail))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ServiceAccountEmail, actual.ServiceAccountEmail) && !dcl.IsZeroValue(desired.ServiceAccountEmail) && !(dcl.IsEmptyValueIndirect(desired.ServiceAccountEmail) && dcl.IsZeroValue(actual.ServiceAccountEmail)) {
+	if !dcl.NameToSelfLink(desired.ServiceAccountEmail, actual.ServiceAccountEmail) && !dcl.IsZeroValue(desired.ServiceAccountEmail) {
 		c.Config.Logger.Infof("Diff in ServiceAccountEmail. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceAccountEmail), dcl.SprintResource(actual.ServiceAccountEmail))
 		return true
 	}
@@ -2490,7 +1747,7 @@ func compareJobRetryConfig(c *Client, desired, actual *JobRetryConfig) bool {
 		c.Config.Logger.Infof("desired MaxRetryDuration %s - but actually nil", dcl.SprintResource(desired.MaxRetryDuration))
 		return true
 	}
-	if compareJobRetryConfigMaxRetryDuration(c, desired.MaxRetryDuration, actual.MaxRetryDuration) && !dcl.IsZeroValue(desired.MaxRetryDuration) {
+	if !reflect.DeepEqual(desired.MaxRetryDuration, actual.MaxRetryDuration) && !dcl.IsZeroValue(desired.MaxRetryDuration) && !(dcl.IsEmptyValueIndirect(desired.MaxRetryDuration) && dcl.IsZeroValue(actual.MaxRetryDuration)) {
 		c.Config.Logger.Infof("Diff in MaxRetryDuration. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxRetryDuration), dcl.SprintResource(actual.MaxRetryDuration))
 		return true
 	}
@@ -2498,7 +1755,7 @@ func compareJobRetryConfig(c *Client, desired, actual *JobRetryConfig) bool {
 		c.Config.Logger.Infof("desired MinBackoffDuration %s - but actually nil", dcl.SprintResource(desired.MinBackoffDuration))
 		return true
 	}
-	if compareJobRetryConfigMinBackoffDuration(c, desired.MinBackoffDuration, actual.MinBackoffDuration) && !dcl.IsZeroValue(desired.MinBackoffDuration) {
+	if !reflect.DeepEqual(desired.MinBackoffDuration, actual.MinBackoffDuration) && !dcl.IsZeroValue(desired.MinBackoffDuration) && !(dcl.IsEmptyValueIndirect(desired.MinBackoffDuration) && dcl.IsZeroValue(actual.MinBackoffDuration)) {
 		c.Config.Logger.Infof("Diff in MinBackoffDuration. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinBackoffDuration), dcl.SprintResource(actual.MinBackoffDuration))
 		return true
 	}
@@ -2506,7 +1763,7 @@ func compareJobRetryConfig(c *Client, desired, actual *JobRetryConfig) bool {
 		c.Config.Logger.Infof("desired MaxBackoffDuration %s - but actually nil", dcl.SprintResource(desired.MaxBackoffDuration))
 		return true
 	}
-	if compareJobRetryConfigMaxBackoffDuration(c, desired.MaxBackoffDuration, actual.MaxBackoffDuration) && !dcl.IsZeroValue(desired.MaxBackoffDuration) {
+	if !reflect.DeepEqual(desired.MaxBackoffDuration, actual.MaxBackoffDuration) && !dcl.IsZeroValue(desired.MaxBackoffDuration) && !(dcl.IsEmptyValueIndirect(desired.MaxBackoffDuration) && dcl.IsZeroValue(actual.MaxBackoffDuration)) {
 		c.Config.Logger.Infof("Diff in MaxBackoffDuration. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxBackoffDuration), dcl.SprintResource(actual.MaxBackoffDuration))
 		return true
 	}
@@ -2516,162 +1773,6 @@ func compareJobRetryConfig(c *Client, desired, actual *JobRetryConfig) bool {
 	}
 	if !reflect.DeepEqual(desired.MaxDoublings, actual.MaxDoublings) && !dcl.IsZeroValue(desired.MaxDoublings) && !(dcl.IsEmptyValueIndirect(desired.MaxDoublings) && dcl.IsZeroValue(actual.MaxDoublings)) {
 		c.Config.Logger.Infof("Diff in MaxDoublings. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxDoublings), dcl.SprintResource(actual.MaxDoublings))
-		return true
-	}
-	return false
-}
-func compareJobRetryConfigMaxRetryDurationSlice(c *Client, desired, actual []JobRetryConfigMaxRetryDuration) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobRetryConfigMaxRetryDuration, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobRetryConfigMaxRetryDuration(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobRetryConfigMaxRetryDuration, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobRetryConfigMaxRetryDuration(c *Client, desired, actual *JobRetryConfigMaxRetryDuration) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-func compareJobRetryConfigMinBackoffDurationSlice(c *Client, desired, actual []JobRetryConfigMinBackoffDuration) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobRetryConfigMinBackoffDuration, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobRetryConfigMinBackoffDuration(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobRetryConfigMinBackoffDuration, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobRetryConfigMinBackoffDuration(c *Client, desired, actual *JobRetryConfigMinBackoffDuration) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-func compareJobRetryConfigMaxBackoffDurationSlice(c *Client, desired, actual []JobRetryConfigMaxBackoffDuration) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobRetryConfigMaxBackoffDuration, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobRetryConfigMaxBackoffDuration(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobRetryConfigMaxBackoffDuration, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobRetryConfigMaxBackoffDuration(c *Client, desired, actual *JobRetryConfigMaxBackoffDuration) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-func compareJobAttemptDeadlineSlice(c *Client, desired, actual []JobAttemptDeadline) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobAttemptDeadline, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobAttemptDeadline(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobAttemptDeadline, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobAttemptDeadline(c *Client, desired, actual *JobAttemptDeadline) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -2727,24 +1828,6 @@ func compareJobStateEnumSlice(c *Client, desired, actual []JobStateEnum) bool {
 }
 
 func compareJobStateEnum(c *Client, desired, actual *JobStateEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareJobViewEnumSlice(c *Client, desired, actual []JobViewEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobViewEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobViewEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobViewEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobViewEnum(c *Client, desired, actual *JobViewEnum) bool {
 	return !reflect.DeepEqual(desired, actual)
 }
 
@@ -2821,11 +1904,6 @@ func expandJob(c *Client, f *Job) (map[string]interface{}, error) {
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
 	}
-	if v, err := expandJobLabelsSlice(c, f.Labels); err != nil {
-		return nil, fmt.Errorf("error expanding Labels into labels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["labels"] = v
-	}
 	if v, err := expandJobPubsubTarget(c, f.PubsubTarget); err != nil {
 		return nil, fmt.Errorf("error expanding PubsubTarget into pubsubTarget: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2858,21 +1936,6 @@ func expandJob(c *Client, f *Job) (map[string]interface{}, error) {
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["status"] = v
 	}
-	if v := f.TotalAttemptCount; !dcl.IsEmptyValueIndirect(v) {
-		m["totalAttemptCount"] = v
-	}
-	if v := f.FailedAttemptCount; !dcl.IsEmptyValueIndirect(v) {
-		m["failedAttemptCount"] = v
-	}
-	if v := f.TotalExecutionCount; !dcl.IsEmptyValueIndirect(v) {
-		m["totalExecutionCount"] = v
-	}
-	if v := f.FailedExecutionCount; !dcl.IsEmptyValueIndirect(v) {
-		m["failedExecutionCount"] = v
-	}
-	if v := f.View; !dcl.IsEmptyValueIndirect(v) {
-		m["view"] = v
-	}
 	if v := f.ScheduleTime; !dcl.IsEmptyValueIndirect(v) {
 		m["scheduleTime"] = v
 	}
@@ -2884,9 +1947,7 @@ func expandJob(c *Client, f *Job) (map[string]interface{}, error) {
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["retryConfig"] = v
 	}
-	if v, err := expandJobAttemptDeadline(c, f.AttemptDeadline); err != nil {
-		return nil, fmt.Errorf("error expanding AttemptDeadline into attemptDeadline: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AttemptDeadline; !dcl.IsEmptyValueIndirect(v) {
 		m["attemptDeadline"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
@@ -2917,7 +1978,6 @@ func flattenJob(c *Client, i interface{}) *Job {
 	r := &Job{}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Description = dcl.FlattenString(m["description"])
-	r.Labels = flattenJobLabelsSlice(c, m["labels"])
 	r.PubsubTarget = flattenJobPubsubTarget(c, m["pubsubTarget"])
 	r.AppEngineHttpTarget = flattenJobAppEngineHttpTarget(c, m["appEngineHttpTarget"])
 	r.HttpTarget = flattenJobHttpTarget(c, m["httpTarget"])
@@ -2926,131 +1986,12 @@ func flattenJob(c *Client, i interface{}) *Job {
 	r.UserUpdateTime = dcl.FlattenString(m["userUpdateTime"])
 	r.State = flattenJobStateEnum(m["state"])
 	r.Status = flattenJobStatus(c, m["status"])
-	r.TotalAttemptCount = dcl.FlattenInteger(m["totalAttemptCount"])
-	r.FailedAttemptCount = dcl.FlattenInteger(m["failedAttemptCount"])
-	r.TotalExecutionCount = dcl.FlattenInteger(m["totalExecutionCount"])
-	r.FailedExecutionCount = dcl.FlattenInteger(m["failedExecutionCount"])
-	r.View = flattenJobViewEnum(m["view"])
 	r.ScheduleTime = dcl.FlattenString(m["scheduleTime"])
 	r.LastAttemptTime = dcl.FlattenString(m["lastAttemptTime"])
 	r.RetryConfig = flattenJobRetryConfig(c, m["retryConfig"])
-	r.AttemptDeadline = flattenJobAttemptDeadline(c, m["attemptDeadline"])
+	r.AttemptDeadline = dcl.FlattenString(m["attemptDeadline"])
 	r.Project = dcl.FlattenString(m["project"])
 	r.Location = dcl.FlattenString(m["location"])
-
-	return r
-}
-
-// expandJobLabelsMap expands the contents of JobLabels into a JSON
-// request object.
-func expandJobLabelsMap(c *Client, f map[string]JobLabels) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandJobLabels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandJobLabelsSlice expands the contents of JobLabels into a JSON
-// request object.
-func expandJobLabelsSlice(c *Client, f []JobLabels) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandJobLabels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenJobLabelsMap flattens the contents of JobLabels from a JSON
-// response object.
-func flattenJobLabelsMap(c *Client, i interface{}) map[string]JobLabels {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]JobLabels{}
-	}
-
-	if len(a) == 0 {
-		return map[string]JobLabels{}
-	}
-
-	items := make(map[string]JobLabels)
-	for k, item := range a {
-		items[k] = *flattenJobLabels(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenJobLabelsSlice flattens the contents of JobLabels from a JSON
-// response object.
-func flattenJobLabelsSlice(c *Client, i interface{}) []JobLabels {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []JobLabels{}
-	}
-
-	if len(a) == 0 {
-		return []JobLabels{}
-	}
-
-	items := make([]JobLabels, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenJobLabels(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandJobLabels expands an instance of JobLabels into a JSON
-// request object.
-func expandJobLabels(c *Client, f *JobLabels) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenJobLabels flattens an instance of JobLabels from a JSON
-// response object.
-func flattenJobLabels(c *Client, i interface{}) *JobLabels {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &JobLabels{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
 
 	return r
 }
@@ -3150,9 +2091,7 @@ func expandJobPubsubTarget(c *Client, f *JobPubsubTarget) (map[string]interface{
 	if v := f.Data; !dcl.IsEmptyValueIndirect(v) {
 		m["data"] = v
 	}
-	if v, err := expandJobPubsubTargetAttributesSlice(c, f.Attributes); err != nil {
-		return nil, fmt.Errorf("error expanding Attributes into attributes: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Attributes; !dcl.IsEmptyValueIndirect(v) {
 		m["attributes"] = v
 	}
 
@@ -3170,121 +2109,7 @@ func flattenJobPubsubTarget(c *Client, i interface{}) *JobPubsubTarget {
 	r := &JobPubsubTarget{}
 	r.TopicName = dcl.FlattenString(m["topicName"])
 	r.Data = dcl.FlattenString(m["data"])
-	r.Attributes = flattenJobPubsubTargetAttributesSlice(c, m["attributes"])
-
-	return r
-}
-
-// expandJobPubsubTargetAttributesMap expands the contents of JobPubsubTargetAttributes into a JSON
-// request object.
-func expandJobPubsubTargetAttributesMap(c *Client, f map[string]JobPubsubTargetAttributes) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandJobPubsubTargetAttributes(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandJobPubsubTargetAttributesSlice expands the contents of JobPubsubTargetAttributes into a JSON
-// request object.
-func expandJobPubsubTargetAttributesSlice(c *Client, f []JobPubsubTargetAttributes) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandJobPubsubTargetAttributes(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenJobPubsubTargetAttributesMap flattens the contents of JobPubsubTargetAttributes from a JSON
-// response object.
-func flattenJobPubsubTargetAttributesMap(c *Client, i interface{}) map[string]JobPubsubTargetAttributes {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]JobPubsubTargetAttributes{}
-	}
-
-	if len(a) == 0 {
-		return map[string]JobPubsubTargetAttributes{}
-	}
-
-	items := make(map[string]JobPubsubTargetAttributes)
-	for k, item := range a {
-		items[k] = *flattenJobPubsubTargetAttributes(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenJobPubsubTargetAttributesSlice flattens the contents of JobPubsubTargetAttributes from a JSON
-// response object.
-func flattenJobPubsubTargetAttributesSlice(c *Client, i interface{}) []JobPubsubTargetAttributes {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []JobPubsubTargetAttributes{}
-	}
-
-	if len(a) == 0 {
-		return []JobPubsubTargetAttributes{}
-	}
-
-	items := make([]JobPubsubTargetAttributes, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenJobPubsubTargetAttributes(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandJobPubsubTargetAttributes expands an instance of JobPubsubTargetAttributes into a JSON
-// request object.
-func expandJobPubsubTargetAttributes(c *Client, f *JobPubsubTargetAttributes) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenJobPubsubTargetAttributes flattens an instance of JobPubsubTargetAttributes from a JSON
-// response object.
-func flattenJobPubsubTargetAttributes(c *Client, i interface{}) *JobPubsubTargetAttributes {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &JobPubsubTargetAttributes{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
+	r.Attributes = dcl.FlattenKeyValuePairs(m["attributes"])
 
 	return r
 }
@@ -3389,9 +2214,7 @@ func expandJobAppEngineHttpTarget(c *Client, f *JobAppEngineHttpTarget) (map[str
 	if v := f.RelativeUri; !dcl.IsEmptyValueIndirect(v) {
 		m["relativeUri"] = v
 	}
-	if v, err := expandJobAppEngineHttpTargetHeadersSlice(c, f.Headers); err != nil {
-		return nil, fmt.Errorf("error expanding Headers into headers: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Headers; !dcl.IsEmptyValueIndirect(v) {
 		m["headers"] = v
 	}
 	if v := f.Body; !dcl.IsEmptyValueIndirect(v) {
@@ -3413,7 +2236,7 @@ func flattenJobAppEngineHttpTarget(c *Client, i interface{}) *JobAppEngineHttpTa
 	r.HttpMethod = flattenJobAppEngineHttpTargetHttpMethodEnum(m["httpMethod"])
 	r.AppEngineRouting = flattenJobAppEngineHttpTargetAppEngineRouting(c, m["appEngineRouting"])
 	r.RelativeUri = dcl.FlattenString(m["relativeUri"])
-	r.Headers = flattenJobAppEngineHttpTargetHeadersSlice(c, m["headers"])
+	r.Headers = dcl.FlattenKeyValuePairs(m["headers"])
 	r.Body = dcl.FlattenString(m["body"])
 
 	return r
@@ -3541,120 +2364,6 @@ func flattenJobAppEngineHttpTargetAppEngineRouting(c *Client, i interface{}) *Jo
 	return r
 }
 
-// expandJobAppEngineHttpTargetHeadersMap expands the contents of JobAppEngineHttpTargetHeaders into a JSON
-// request object.
-func expandJobAppEngineHttpTargetHeadersMap(c *Client, f map[string]JobAppEngineHttpTargetHeaders) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandJobAppEngineHttpTargetHeaders(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandJobAppEngineHttpTargetHeadersSlice expands the contents of JobAppEngineHttpTargetHeaders into a JSON
-// request object.
-func expandJobAppEngineHttpTargetHeadersSlice(c *Client, f []JobAppEngineHttpTargetHeaders) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandJobAppEngineHttpTargetHeaders(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenJobAppEngineHttpTargetHeadersMap flattens the contents of JobAppEngineHttpTargetHeaders from a JSON
-// response object.
-func flattenJobAppEngineHttpTargetHeadersMap(c *Client, i interface{}) map[string]JobAppEngineHttpTargetHeaders {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]JobAppEngineHttpTargetHeaders{}
-	}
-
-	if len(a) == 0 {
-		return map[string]JobAppEngineHttpTargetHeaders{}
-	}
-
-	items := make(map[string]JobAppEngineHttpTargetHeaders)
-	for k, item := range a {
-		items[k] = *flattenJobAppEngineHttpTargetHeaders(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenJobAppEngineHttpTargetHeadersSlice flattens the contents of JobAppEngineHttpTargetHeaders from a JSON
-// response object.
-func flattenJobAppEngineHttpTargetHeadersSlice(c *Client, i interface{}) []JobAppEngineHttpTargetHeaders {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []JobAppEngineHttpTargetHeaders{}
-	}
-
-	if len(a) == 0 {
-		return []JobAppEngineHttpTargetHeaders{}
-	}
-
-	items := make([]JobAppEngineHttpTargetHeaders, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenJobAppEngineHttpTargetHeaders(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandJobAppEngineHttpTargetHeaders expands an instance of JobAppEngineHttpTargetHeaders into a JSON
-// request object.
-func expandJobAppEngineHttpTargetHeaders(c *Client, f *JobAppEngineHttpTargetHeaders) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenJobAppEngineHttpTargetHeaders flattens an instance of JobAppEngineHttpTargetHeaders from a JSON
-// response object.
-func flattenJobAppEngineHttpTargetHeaders(c *Client, i interface{}) *JobAppEngineHttpTargetHeaders {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &JobAppEngineHttpTargetHeaders{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
-
-	return r
-}
-
 // expandJobHttpTargetMap expands the contents of JobHttpTarget into a JSON
 // request object.
 func expandJobHttpTargetMap(c *Client, f map[string]JobHttpTarget) (map[string]interface{}, error) {
@@ -3750,9 +2459,7 @@ func expandJobHttpTarget(c *Client, f *JobHttpTarget) (map[string]interface{}, e
 	if v := f.HttpMethod; !dcl.IsEmptyValueIndirect(v) {
 		m["httpMethod"] = v
 	}
-	if v, err := expandJobHttpTargetHeadersSlice(c, f.Headers); err != nil {
-		return nil, fmt.Errorf("error expanding Headers into headers: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Headers; !dcl.IsEmptyValueIndirect(v) {
 		m["headers"] = v
 	}
 	if v := f.Body; !dcl.IsEmptyValueIndirect(v) {
@@ -3783,124 +2490,10 @@ func flattenJobHttpTarget(c *Client, i interface{}) *JobHttpTarget {
 	r := &JobHttpTarget{}
 	r.Uri = dcl.FlattenString(m["uri"])
 	r.HttpMethod = flattenJobHttpTargetHttpMethodEnum(m["httpMethod"])
-	r.Headers = flattenJobHttpTargetHeadersSlice(c, m["headers"])
+	r.Headers = dcl.FlattenKeyValuePairs(m["headers"])
 	r.Body = dcl.FlattenString(m["body"])
 	r.OAuthToken = flattenJobHttpTargetOAuthToken(c, m["oauthToken"])
 	r.OidcToken = flattenJobHttpTargetOidcToken(c, m["oidcToken"])
-
-	return r
-}
-
-// expandJobHttpTargetHeadersMap expands the contents of JobHttpTargetHeaders into a JSON
-// request object.
-func expandJobHttpTargetHeadersMap(c *Client, f map[string]JobHttpTargetHeaders) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandJobHttpTargetHeaders(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandJobHttpTargetHeadersSlice expands the contents of JobHttpTargetHeaders into a JSON
-// request object.
-func expandJobHttpTargetHeadersSlice(c *Client, f []JobHttpTargetHeaders) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandJobHttpTargetHeaders(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenJobHttpTargetHeadersMap flattens the contents of JobHttpTargetHeaders from a JSON
-// response object.
-func flattenJobHttpTargetHeadersMap(c *Client, i interface{}) map[string]JobHttpTargetHeaders {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]JobHttpTargetHeaders{}
-	}
-
-	if len(a) == 0 {
-		return map[string]JobHttpTargetHeaders{}
-	}
-
-	items := make(map[string]JobHttpTargetHeaders)
-	for k, item := range a {
-		items[k] = *flattenJobHttpTargetHeaders(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenJobHttpTargetHeadersSlice flattens the contents of JobHttpTargetHeaders from a JSON
-// response object.
-func flattenJobHttpTargetHeadersSlice(c *Client, i interface{}) []JobHttpTargetHeaders {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []JobHttpTargetHeaders{}
-	}
-
-	if len(a) == 0 {
-		return []JobHttpTargetHeaders{}
-	}
-
-	items := make([]JobHttpTargetHeaders, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenJobHttpTargetHeaders(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandJobHttpTargetHeaders expands an instance of JobHttpTargetHeaders into a JSON
-// request object.
-func expandJobHttpTargetHeaders(c *Client, f *JobHttpTargetHeaders) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenJobHttpTargetHeaders flattens an instance of JobHttpTargetHeaders from a JSON
-// response object.
-func flattenJobHttpTargetHeaders(c *Client, i interface{}) *JobHttpTargetHeaders {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &JobHttpTargetHeaders{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
 
 	return r
 }
@@ -4459,19 +3052,13 @@ func expandJobRetryConfig(c *Client, f *JobRetryConfig) (map[string]interface{},
 	if v := f.RetryCount; !dcl.IsEmptyValueIndirect(v) {
 		m["retryCount"] = v
 	}
-	if v, err := expandJobRetryConfigMaxRetryDuration(c, f.MaxRetryDuration); err != nil {
-		return nil, fmt.Errorf("error expanding MaxRetryDuration into maxRetryDuration: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.MaxRetryDuration; !dcl.IsEmptyValueIndirect(v) {
 		m["maxRetryDuration"] = v
 	}
-	if v, err := expandJobRetryConfigMinBackoffDuration(c, f.MinBackoffDuration); err != nil {
-		return nil, fmt.Errorf("error expanding MinBackoffDuration into minBackoffDuration: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.MinBackoffDuration; !dcl.IsEmptyValueIndirect(v) {
 		m["minBackoffDuration"] = v
 	}
-	if v, err := expandJobRetryConfigMaxBackoffDuration(c, f.MaxBackoffDuration); err != nil {
-		return nil, fmt.Errorf("error expanding MaxBackoffDuration into maxBackoffDuration: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.MaxBackoffDuration; !dcl.IsEmptyValueIndirect(v) {
 		m["maxBackoffDuration"] = v
 	}
 	if v := f.MaxDoublings; !dcl.IsEmptyValueIndirect(v) {
@@ -4491,466 +3078,10 @@ func flattenJobRetryConfig(c *Client, i interface{}) *JobRetryConfig {
 
 	r := &JobRetryConfig{}
 	r.RetryCount = dcl.FlattenInteger(m["retryCount"])
-	r.MaxRetryDuration = flattenJobRetryConfigMaxRetryDuration(c, m["maxRetryDuration"])
-	r.MinBackoffDuration = flattenJobRetryConfigMinBackoffDuration(c, m["minBackoffDuration"])
-	r.MaxBackoffDuration = flattenJobRetryConfigMaxBackoffDuration(c, m["maxBackoffDuration"])
+	r.MaxRetryDuration = dcl.FlattenString(m["maxRetryDuration"])
+	r.MinBackoffDuration = dcl.FlattenString(m["minBackoffDuration"])
+	r.MaxBackoffDuration = dcl.FlattenString(m["maxBackoffDuration"])
 	r.MaxDoublings = dcl.FlattenInteger(m["maxDoublings"])
-
-	return r
-}
-
-// expandJobRetryConfigMaxRetryDurationMap expands the contents of JobRetryConfigMaxRetryDuration into a JSON
-// request object.
-func expandJobRetryConfigMaxRetryDurationMap(c *Client, f map[string]JobRetryConfigMaxRetryDuration) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandJobRetryConfigMaxRetryDuration(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandJobRetryConfigMaxRetryDurationSlice expands the contents of JobRetryConfigMaxRetryDuration into a JSON
-// request object.
-func expandJobRetryConfigMaxRetryDurationSlice(c *Client, f []JobRetryConfigMaxRetryDuration) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandJobRetryConfigMaxRetryDuration(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenJobRetryConfigMaxRetryDurationMap flattens the contents of JobRetryConfigMaxRetryDuration from a JSON
-// response object.
-func flattenJobRetryConfigMaxRetryDurationMap(c *Client, i interface{}) map[string]JobRetryConfigMaxRetryDuration {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]JobRetryConfigMaxRetryDuration{}
-	}
-
-	if len(a) == 0 {
-		return map[string]JobRetryConfigMaxRetryDuration{}
-	}
-
-	items := make(map[string]JobRetryConfigMaxRetryDuration)
-	for k, item := range a {
-		items[k] = *flattenJobRetryConfigMaxRetryDuration(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenJobRetryConfigMaxRetryDurationSlice flattens the contents of JobRetryConfigMaxRetryDuration from a JSON
-// response object.
-func flattenJobRetryConfigMaxRetryDurationSlice(c *Client, i interface{}) []JobRetryConfigMaxRetryDuration {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []JobRetryConfigMaxRetryDuration{}
-	}
-
-	if len(a) == 0 {
-		return []JobRetryConfigMaxRetryDuration{}
-	}
-
-	items := make([]JobRetryConfigMaxRetryDuration, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenJobRetryConfigMaxRetryDuration(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandJobRetryConfigMaxRetryDuration expands an instance of JobRetryConfigMaxRetryDuration into a JSON
-// request object.
-func expandJobRetryConfigMaxRetryDuration(c *Client, f *JobRetryConfigMaxRetryDuration) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenJobRetryConfigMaxRetryDuration flattens an instance of JobRetryConfigMaxRetryDuration from a JSON
-// response object.
-func flattenJobRetryConfigMaxRetryDuration(c *Client, i interface{}) *JobRetryConfigMaxRetryDuration {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &JobRetryConfigMaxRetryDuration{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
-
-	return r
-}
-
-// expandJobRetryConfigMinBackoffDurationMap expands the contents of JobRetryConfigMinBackoffDuration into a JSON
-// request object.
-func expandJobRetryConfigMinBackoffDurationMap(c *Client, f map[string]JobRetryConfigMinBackoffDuration) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandJobRetryConfigMinBackoffDuration(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandJobRetryConfigMinBackoffDurationSlice expands the contents of JobRetryConfigMinBackoffDuration into a JSON
-// request object.
-func expandJobRetryConfigMinBackoffDurationSlice(c *Client, f []JobRetryConfigMinBackoffDuration) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandJobRetryConfigMinBackoffDuration(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenJobRetryConfigMinBackoffDurationMap flattens the contents of JobRetryConfigMinBackoffDuration from a JSON
-// response object.
-func flattenJobRetryConfigMinBackoffDurationMap(c *Client, i interface{}) map[string]JobRetryConfigMinBackoffDuration {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]JobRetryConfigMinBackoffDuration{}
-	}
-
-	if len(a) == 0 {
-		return map[string]JobRetryConfigMinBackoffDuration{}
-	}
-
-	items := make(map[string]JobRetryConfigMinBackoffDuration)
-	for k, item := range a {
-		items[k] = *flattenJobRetryConfigMinBackoffDuration(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenJobRetryConfigMinBackoffDurationSlice flattens the contents of JobRetryConfigMinBackoffDuration from a JSON
-// response object.
-func flattenJobRetryConfigMinBackoffDurationSlice(c *Client, i interface{}) []JobRetryConfigMinBackoffDuration {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []JobRetryConfigMinBackoffDuration{}
-	}
-
-	if len(a) == 0 {
-		return []JobRetryConfigMinBackoffDuration{}
-	}
-
-	items := make([]JobRetryConfigMinBackoffDuration, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenJobRetryConfigMinBackoffDuration(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandJobRetryConfigMinBackoffDuration expands an instance of JobRetryConfigMinBackoffDuration into a JSON
-// request object.
-func expandJobRetryConfigMinBackoffDuration(c *Client, f *JobRetryConfigMinBackoffDuration) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenJobRetryConfigMinBackoffDuration flattens an instance of JobRetryConfigMinBackoffDuration from a JSON
-// response object.
-func flattenJobRetryConfigMinBackoffDuration(c *Client, i interface{}) *JobRetryConfigMinBackoffDuration {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &JobRetryConfigMinBackoffDuration{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
-
-	return r
-}
-
-// expandJobRetryConfigMaxBackoffDurationMap expands the contents of JobRetryConfigMaxBackoffDuration into a JSON
-// request object.
-func expandJobRetryConfigMaxBackoffDurationMap(c *Client, f map[string]JobRetryConfigMaxBackoffDuration) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandJobRetryConfigMaxBackoffDuration(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandJobRetryConfigMaxBackoffDurationSlice expands the contents of JobRetryConfigMaxBackoffDuration into a JSON
-// request object.
-func expandJobRetryConfigMaxBackoffDurationSlice(c *Client, f []JobRetryConfigMaxBackoffDuration) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandJobRetryConfigMaxBackoffDuration(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenJobRetryConfigMaxBackoffDurationMap flattens the contents of JobRetryConfigMaxBackoffDuration from a JSON
-// response object.
-func flattenJobRetryConfigMaxBackoffDurationMap(c *Client, i interface{}) map[string]JobRetryConfigMaxBackoffDuration {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]JobRetryConfigMaxBackoffDuration{}
-	}
-
-	if len(a) == 0 {
-		return map[string]JobRetryConfigMaxBackoffDuration{}
-	}
-
-	items := make(map[string]JobRetryConfigMaxBackoffDuration)
-	for k, item := range a {
-		items[k] = *flattenJobRetryConfigMaxBackoffDuration(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenJobRetryConfigMaxBackoffDurationSlice flattens the contents of JobRetryConfigMaxBackoffDuration from a JSON
-// response object.
-func flattenJobRetryConfigMaxBackoffDurationSlice(c *Client, i interface{}) []JobRetryConfigMaxBackoffDuration {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []JobRetryConfigMaxBackoffDuration{}
-	}
-
-	if len(a) == 0 {
-		return []JobRetryConfigMaxBackoffDuration{}
-	}
-
-	items := make([]JobRetryConfigMaxBackoffDuration, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenJobRetryConfigMaxBackoffDuration(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandJobRetryConfigMaxBackoffDuration expands an instance of JobRetryConfigMaxBackoffDuration into a JSON
-// request object.
-func expandJobRetryConfigMaxBackoffDuration(c *Client, f *JobRetryConfigMaxBackoffDuration) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenJobRetryConfigMaxBackoffDuration flattens an instance of JobRetryConfigMaxBackoffDuration from a JSON
-// response object.
-func flattenJobRetryConfigMaxBackoffDuration(c *Client, i interface{}) *JobRetryConfigMaxBackoffDuration {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &JobRetryConfigMaxBackoffDuration{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
-
-	return r
-}
-
-// expandJobAttemptDeadlineMap expands the contents of JobAttemptDeadline into a JSON
-// request object.
-func expandJobAttemptDeadlineMap(c *Client, f map[string]JobAttemptDeadline) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandJobAttemptDeadline(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandJobAttemptDeadlineSlice expands the contents of JobAttemptDeadline into a JSON
-// request object.
-func expandJobAttemptDeadlineSlice(c *Client, f []JobAttemptDeadline) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandJobAttemptDeadline(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenJobAttemptDeadlineMap flattens the contents of JobAttemptDeadline from a JSON
-// response object.
-func flattenJobAttemptDeadlineMap(c *Client, i interface{}) map[string]JobAttemptDeadline {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]JobAttemptDeadline{}
-	}
-
-	if len(a) == 0 {
-		return map[string]JobAttemptDeadline{}
-	}
-
-	items := make(map[string]JobAttemptDeadline)
-	for k, item := range a {
-		items[k] = *flattenJobAttemptDeadline(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenJobAttemptDeadlineSlice flattens the contents of JobAttemptDeadline from a JSON
-// response object.
-func flattenJobAttemptDeadlineSlice(c *Client, i interface{}) []JobAttemptDeadline {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []JobAttemptDeadline{}
-	}
-
-	if len(a) == 0 {
-		return []JobAttemptDeadline{}
-	}
-
-	items := make([]JobAttemptDeadline, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenJobAttemptDeadline(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandJobAttemptDeadline expands an instance of JobAttemptDeadline into a JSON
-// request object.
-func expandJobAttemptDeadline(c *Client, f *JobAttemptDeadline) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenJobAttemptDeadline flattens an instance of JobAttemptDeadline from a JSON
-// response object.
-func flattenJobAttemptDeadline(c *Client, i interface{}) *JobAttemptDeadline {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &JobAttemptDeadline{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
 	return r
 }
@@ -5046,37 +3177,6 @@ func flattenJobStateEnum(i interface{}) *JobStateEnum {
 	}
 
 	return JobStateEnumRef(s)
-}
-
-// flattenJobViewEnumSlice flattens the contents of JobViewEnum from a JSON
-// response object.
-func flattenJobViewEnumSlice(c *Client, i interface{}) []JobViewEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []JobViewEnum{}
-	}
-
-	if len(a) == 0 {
-		return []JobViewEnum{}
-	}
-
-	items := make([]JobViewEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenJobViewEnum(item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// flattenJobViewEnum asserts that an interface is a string, and returns a
-// pointer to a *JobViewEnum with the same value as that string.
-func flattenJobViewEnum(i interface{}) *JobViewEnum {
-	s, ok := i.(string)
-	if !ok {
-		return JobViewEnumRef("")
-	}
-
-	return JobViewEnumRef(s)
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource

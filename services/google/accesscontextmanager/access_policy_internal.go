@@ -18,19 +18,17 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *AccessPolicy) validate() error {
 
-	if err := dcl.RequiredParameter(r.Organization, "Organization"); err != nil {
-		return err
-	}
 	if err := dcl.Required(r, "title"); err != nil {
 		return err
 	}
@@ -39,9 +37,9 @@ func (r *AccessPolicy) validate() error {
 
 func accessPolicyGetURL(userBasePath string, r *AccessPolicy) (string, error) {
 	params := map[string]interface{}{
-		"name": dcl.ValueOrEmptyString(r.Name),
+		"parent": dcl.ValueOrEmptyString(r.Parent),
 	}
-	return dcl.URL("accessPolicies/{{name}}", "https://accesscontextmanager.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("accessPolicies?parent={{parent}}", "https://accesscontextmanager.googleapis.com/v1/", userBasePath, params), nil
 }
 
 func accessPolicyListURL(userBasePath, parent string) (string, error) {
@@ -130,7 +128,7 @@ func (op *updateAccessPolicyUpdateOperation) do(ctx context.Context, r *AccessPo
 		return err
 	}
 
-	var o operations.AcmOperation
+	var o operations.StandardGCPOperation
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
@@ -242,7 +240,7 @@ func (op *deleteAccessPolicyOperation) do(ctx context.Context, r *AccessPolicy, 
 	}
 
 	// wait for object to be deleted.
-	var o operations.AcmOperation
+	var o operations.StandardGCPOperation
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
@@ -279,7 +277,7 @@ func (op *createAccessPolicyOperation) do(ctx context.Context, r *AccessPolicy, 
 		return err
 	}
 	// wait for object to be created.
-	var o operations.AcmOperation
+	var o operations.StandardGCPOperation
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
@@ -288,11 +286,6 @@ func (op *createAccessPolicyOperation) do(ctx context.Context, r *AccessPolicy, 
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
-
-	r.Name, err = o.FetchName()
-	if err != nil {
-		return fmt.Errorf("error trying to retrieve Name: %w", err)
-	}
 
 	if _, err := c.GetAccessPolicy(ctx, r.urlNormalized()); err != nil {
 		return err
@@ -317,6 +310,10 @@ func (c *Client) getAccessPolicyRaw(ctx context.Context, r *AccessPolicy) ([]byt
 		return nil, err
 	}
 
+	b, err = dcl.ExtractElementFromList(b, "accessPolicies", r.matcher(c))
+	if err != nil {
+		return nil, err
+	}
 	return b, nil
 }
 
@@ -344,6 +341,7 @@ func (c *Client) accessPolicyDiffsForRawDesired(ctx context.Context, rawDesired 
 		desired, err := canonicalizeAccessPolicyDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
+
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetAccessPolicy(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -351,12 +349,12 @@ func (c *Client) accessPolicyDiffsForRawDesired(ctx context.Context, rawDesired 
 			c.Config.Logger.Warningf("Failed to retrieve whether a AccessPolicy resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve AccessPolicy resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that AccessPolicy resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeAccessPolicyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for AccessPolicy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for AccessPolicy: %v", rawDesired)
 
@@ -413,9 +411,6 @@ func canonicalizeAccessPolicyDesiredState(rawDesired, rawInitial *AccessPolicy, 
 	if dcl.IsZeroValue(rawDesired.Parent) {
 		rawDesired.Parent = rawInitial.Parent
 	}
-	if dcl.NameToSelfLink(rawDesired.Organization, rawInitial.Organization) {
-		rawDesired.Organization = rawInitial.Organization
-	}
 	if dcl.IsZeroValue(rawDesired.Title) {
 		rawDesired.Title = rawInitial.Title
 	}
@@ -442,14 +437,6 @@ func canonicalizeAccessPolicyNewState(c *Client, rawNew, rawDesired *AccessPolic
 	if dcl.IsEmptyValueIndirect(rawNew.Parent) && dcl.IsEmptyValueIndirect(rawDesired.Parent) {
 		rawNew.Parent = rawDesired.Parent
 	} else {
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.Organization) && dcl.IsEmptyValueIndirect(rawDesired.Organization) {
-		rawNew.Organization = rawDesired.Organization
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Organization, rawNew.Organization) {
-			rawNew.Organization = rawDesired.Organization
-		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Title) && dcl.IsEmptyValueIndirect(rawDesired.Title) {
@@ -491,22 +478,15 @@ func diffAccessPolicy(c *Client, desired, actual *AccessPolicy, opts ...dcl.Appl
 	}
 
 	var diffs []accessPolicyDiff
-	if !dcl.PartialSelfLinkToSelfLink(desired.Parent, actual.Parent) {
-		c.Config.Logger.Infof("Detected diff in Parent.\nDESIRED: %#v\nACTUAL: %#v", desired.Parent, actual.Parent)
+	if !dcl.IsZeroValue(desired.Parent) && (dcl.IsZeroValue(actual.Parent) || !reflect.DeepEqual(*desired.Parent, *actual.Parent)) {
+		c.Config.Logger.Infof("Detected diff in Parent.\nDESIRED: %v\nACTUAL: %v", desired.Parent, actual.Parent)
 		diffs = append(diffs, accessPolicyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Parent",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Organization) && !dcl.NameToSelfLink(desired.Organization, actual.Organization) {
-		c.Config.Logger.Infof("Detected diff in Organization.\nDESIRED: %#v\nACTUAL: %#v", desired.Organization, actual.Organization)
-		diffs = append(diffs, accessPolicyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Organization",
-		})
-	}
 	if !dcl.IsZeroValue(desired.Title) && (dcl.IsZeroValue(actual.Title) || !reflect.DeepEqual(*desired.Title, *actual.Title)) {
-		c.Config.Logger.Infof("Detected diff in Title.\nDESIRED: %#v\nACTUAL: %#v", desired.Title, actual.Title)
+		c.Config.Logger.Infof("Detected diff in Title.\nDESIRED: %v\nACTUAL: %v", desired.Title, actual.Title)
 
 		diffs = append(diffs, accessPolicyDiff{
 			UpdateOp:  &updateAccessPolicyUpdateOperation{},
@@ -545,13 +525,12 @@ func diffAccessPolicy(c *Client, desired, actual *AccessPolicy, opts ...dcl.Appl
 func (r *AccessPolicy) urlNormalized() *AccessPolicy {
 	normalized := deepcopy.Copy(*r).(AccessPolicy)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Organization = dcl.SelfLinkToName(r.Organization)
 	return &normalized
 }
 
 func (r *AccessPolicy) getFields() string {
 	n := r.urlNormalized()
-	return dcl.ValueOrEmptyString(n.Name)
+	return dcl.ValueOrEmptyString(n.Parent)
 }
 
 func (r *AccessPolicy) createFields() string {
@@ -603,15 +582,8 @@ func expandAccessPolicy(c *Client, f *AccessPolicy) (map[string]interface{}, err
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v, err := dcl.OrganizationName(f.Organization); err != nil {
-		return nil, fmt.Errorf("error expanding Parent into parent: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Parent; !dcl.IsEmptyValueIndirect(v) {
 		m["parent"] = v
-	}
-	if v, err := dcl.EmptyValue(); err != nil {
-		return nil, fmt.Errorf("error expanding Organization into organization: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["organization"] = v
 	}
 	if v := f.Title; !dcl.IsEmptyValueIndirect(v) {
 		m["title"] = v
@@ -638,9 +610,8 @@ func flattenAccessPolicy(c *Client, i interface{}) *AccessPolicy {
 	}
 
 	r := &AccessPolicy{}
-	r.Name = dcl.FlattenSecretValue(m["name"])
+	r.Name = dcl.FlattenString(m["name"])
 	r.Parent = dcl.FlattenString(m["parent"])
-	r.Organization = dcl.FlattenString(m["organization"])
 	r.Title = dcl.FlattenString(m["title"])
 	r.CreateTime = dcl.FlattenString(m["createTime"])
 	r.UpdateTime = dcl.FlattenString(m["updateTime"])
@@ -662,12 +633,12 @@ func (r *AccessPolicy) matcher(c *Client) func([]byte) bool {
 		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
-		if nr.Name == nil && ncr.Name == nil {
-			c.Config.Logger.Info("Both Name fields null - considering equal.")
-		} else if nr.Name == nil || ncr.Name == nil {
-			c.Config.Logger.Info("Only one Name field is null - considering unequal.")
+		if nr.Parent == nil && ncr.Parent == nil {
+			c.Config.Logger.Info("Both Parent fields null - considering equal.")
+		} else if nr.Parent == nil || ncr.Parent == nil {
+			c.Config.Logger.Info("Only one Parent field is null - considering unequal.")
 			return false
-		} else if *nr.Name != *ncr.Name {
+		} else if *nr.Parent != *ncr.Parent {
 			return false
 		}
 		return true

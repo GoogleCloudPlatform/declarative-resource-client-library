@@ -102,11 +102,13 @@ func (s *RepoServer) ApplySourcerepoRepo(ctx context.Context, request *sourcerep
 
 // DeleteRepo handles the gRPC request by passing it to the underlying Repo Delete() method.
 func (s *RepoServer) DeleteSourcerepoRepo(ctx context.Context, request *sourcerepopb.DeleteSourcerepoRepoRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigRepo(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteRepo(ctx, ProtoToRepo(request.GetResource()))
+
 }
 
 // ListRepo handles the gRPC request by passing it to the underlying RepoList() method.

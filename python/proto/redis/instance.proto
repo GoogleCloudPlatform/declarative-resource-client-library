@@ -67,7 +67,7 @@ enum RedisInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum {
 message RedisInstance {
   string name = 1;
   string display_name = 2;
-  repeated RedisInstanceLabels labels = 3;
+  map<string, string> labels = 3;
   string location_id = 4;
   string alternative_location_id = 5;
   string redis_version = 6;
@@ -78,7 +78,7 @@ message RedisInstance {
   string create_time = 11;
   RedisInstanceStateEnum state = 12;
   string status_message = 13;
-  repeated RedisInstanceRedisConfigs redis_configs = 14;
+  map<string, string> redis_configs = 14;
   RedisInstanceTierEnum tier = 15;
   int64 memory_size_gb = 16;
   string authorized_network = 17;
@@ -92,16 +92,6 @@ message RedisInstance {
   string project = 25;
   string location = 26;
   string region = 27;
-}
-
-message RedisInstanceLabels {
-  string key = 1;
-  string value = 2;
-}
-
-message RedisInstanceRedisConfigs {
-  string key = 1;
-  string value = 2;
 }
 
 message RedisInstanceServerCaCerts {
@@ -122,7 +112,7 @@ message RedisInstanceMaintenancePolicy {
 message RedisInstanceMaintenancePolicyWeeklyMaintenanceWindow {
   RedisInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum day = 1;
   RedisInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime start_time = 2;
-  RedisInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration duration = 3;
+  string duration = 3;
 }
 
 message RedisInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime {
@@ -130,11 +120,6 @@ message RedisInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime {
   int64 minutes = 2;
   int64 seconds = 3;
   int64 nanos = 4;
-}
-
-message RedisInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration {
-  int64 seconds = 1;
-  int64 nanos = 2;
 }
 
 message RedisInstanceMaintenanceSchedule {

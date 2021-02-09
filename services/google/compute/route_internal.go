@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Route) validate() error {
@@ -282,12 +283,12 @@ func (c *Client) routeDiffsForRawDesired(ctx context.Context, rawDesired *Route,
 			c.Config.Logger.Warningf("Failed to retrieve whether a Route resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Route resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Route resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeRouteDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Route: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Route: %v", rawDesired)
 
@@ -488,13 +489,7 @@ func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, er
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -582,94 +577,87 @@ func diffRoute(c *Client, desired, actual *Route, opts ...dcl.ApplyOption) ([]ro
 
 	var diffs []routeDiff
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, routeDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, routeDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Network) && !dcl.PartialSelfLinkToSelfLink(desired.Network, actual.Network) {
-		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %#v\nACTUAL: %#v", desired.Network, actual.Network)
+		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
 		diffs = append(diffs, routeDiff{
 			RequiresRecreate: true,
 			FieldName:        "Network",
 		})
 	}
 	if !dcl.SliceEquals(desired.Tag, actual.Tag) {
-		c.Config.Logger.Infof("Detected diff in Tag.\nDESIRED: %#v\nACTUAL: %#v", desired.Tag, actual.Tag)
+		c.Config.Logger.Infof("Detected diff in Tag.\nDESIRED: %v\nACTUAL: %v", desired.Tag, actual.Tag)
 		diffs = append(diffs, routeDiff{
 			RequiresRecreate: true,
 			FieldName:        "Tag",
 		})
 	}
 	if !dcl.IsZeroValue(desired.DestRange) && (dcl.IsZeroValue(actual.DestRange) || !reflect.DeepEqual(*desired.DestRange, *actual.DestRange)) {
-		c.Config.Logger.Infof("Detected diff in DestRange.\nDESIRED: %#v\nACTUAL: %#v", desired.DestRange, actual.DestRange)
+		c.Config.Logger.Infof("Detected diff in DestRange.\nDESIRED: %v\nACTUAL: %v", desired.DestRange, actual.DestRange)
 		diffs = append(diffs, routeDiff{
 			RequiresRecreate: true,
 			FieldName:        "DestRange",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Priority) && (dcl.IsZeroValue(actual.Priority) || !reflect.DeepEqual(*desired.Priority, *actual.Priority)) {
-		c.Config.Logger.Infof("Detected diff in Priority.\nDESIRED: %#v\nACTUAL: %#v", desired.Priority, actual.Priority)
+		c.Config.Logger.Infof("Detected diff in Priority.\nDESIRED: %v\nACTUAL: %v", desired.Priority, actual.Priority)
 		diffs = append(diffs, routeDiff{
 			RequiresRecreate: true,
 			FieldName:        "Priority",
 		})
 	}
 	if !dcl.IsZeroValue(desired.NextHopInstance) && !dcl.PartialSelfLinkToSelfLink(desired.NextHopInstance, actual.NextHopInstance) {
-		c.Config.Logger.Infof("Detected diff in NextHopInstance.\nDESIRED: %#v\nACTUAL: %#v", desired.NextHopInstance, actual.NextHopInstance)
+		c.Config.Logger.Infof("Detected diff in NextHopInstance.\nDESIRED: %v\nACTUAL: %v", desired.NextHopInstance, actual.NextHopInstance)
 		diffs = append(diffs, routeDiff{
 			RequiresRecreate: true,
 			FieldName:        "NextHopInstance",
 		})
 	}
 	if !dcl.IsZeroValue(desired.NextHopIP) && (dcl.IsZeroValue(actual.NextHopIP) || !reflect.DeepEqual(*desired.NextHopIP, *actual.NextHopIP)) {
-		c.Config.Logger.Infof("Detected diff in NextHopIP.\nDESIRED: %#v\nACTUAL: %#v", desired.NextHopIP, actual.NextHopIP)
+		c.Config.Logger.Infof("Detected diff in NextHopIP.\nDESIRED: %v\nACTUAL: %v", desired.NextHopIP, actual.NextHopIP)
 		diffs = append(diffs, routeDiff{
 			RequiresRecreate: true,
 			FieldName:        "NextHopIP",
 		})
 	}
 	if !dcl.IsZeroValue(desired.NextHopNetwork) && (dcl.IsZeroValue(actual.NextHopNetwork) || !reflect.DeepEqual(*desired.NextHopNetwork, *actual.NextHopNetwork)) {
-		c.Config.Logger.Infof("Detected diff in NextHopNetwork.\nDESIRED: %#v\nACTUAL: %#v", desired.NextHopNetwork, actual.NextHopNetwork)
+		c.Config.Logger.Infof("Detected diff in NextHopNetwork.\nDESIRED: %v\nACTUAL: %v", desired.NextHopNetwork, actual.NextHopNetwork)
 		diffs = append(diffs, routeDiff{
 			RequiresRecreate: true,
 			FieldName:        "NextHopNetwork",
 		})
 	}
 	if !dcl.IsZeroValue(desired.NextHopGateway) && !dcl.PartialSelfLinkToSelfLink(desired.NextHopGateway, actual.NextHopGateway) {
-		c.Config.Logger.Infof("Detected diff in NextHopGateway.\nDESIRED: %#v\nACTUAL: %#v", desired.NextHopGateway, actual.NextHopGateway)
+		c.Config.Logger.Infof("Detected diff in NextHopGateway.\nDESIRED: %v\nACTUAL: %v", desired.NextHopGateway, actual.NextHopGateway)
 		diffs = append(diffs, routeDiff{
 			RequiresRecreate: true,
 			FieldName:        "NextHopGateway",
 		})
 	}
 	if !dcl.IsZeroValue(desired.NextHopIlb) && (dcl.IsZeroValue(actual.NextHopIlb) || !reflect.DeepEqual(*desired.NextHopIlb, *actual.NextHopIlb)) {
-		c.Config.Logger.Infof("Detected diff in NextHopIlb.\nDESIRED: %#v\nACTUAL: %#v", desired.NextHopIlb, actual.NextHopIlb)
+		c.Config.Logger.Infof("Detected diff in NextHopIlb.\nDESIRED: %v\nACTUAL: %v", desired.NextHopIlb, actual.NextHopIlb)
 		diffs = append(diffs, routeDiff{
 			RequiresRecreate: true,
 			FieldName:        "NextHopIlb",
 		})
 	}
 	if !dcl.IsZeroValue(desired.NextHopVpnTunnel) && (dcl.IsZeroValue(actual.NextHopVpnTunnel) || !reflect.DeepEqual(*desired.NextHopVpnTunnel, *actual.NextHopVpnTunnel)) {
-		c.Config.Logger.Infof("Detected diff in NextHopVpnTunnel.\nDESIRED: %#v\nACTUAL: %#v", desired.NextHopVpnTunnel, actual.NextHopVpnTunnel)
+		c.Config.Logger.Infof("Detected diff in NextHopVpnTunnel.\nDESIRED: %v\nACTUAL: %v", desired.NextHopVpnTunnel, actual.NextHopVpnTunnel)
 		diffs = append(diffs, routeDiff{
 			RequiresRecreate: true,
 			FieldName:        "NextHopVpnTunnel",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, routeDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.

@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -407,7 +408,9 @@ func (c *Client) ApplyForwardingRule(ctx context.Context, rawDesired *Forwarding
 	if create {
 		ops = append(ops, &createForwardingRuleOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteForwardingRuleOperation{})
+
 		ops = append(ops, &createForwardingRuleOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeForwardingRuleDesiredState(rawDesired, nil)

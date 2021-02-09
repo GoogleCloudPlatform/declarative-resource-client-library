@@ -23,7 +23,7 @@ class Instance(object):
         self,
         name: str = None,
         display_name: str = None,
-        labels: list = None,
+        labels: dict = None,
         location_id: str = None,
         alternative_location_id: str = None,
         redis_version: str = None,
@@ -34,7 +34,7 @@ class Instance(object):
         create_time: str = None,
         state: str = None,
         status_message: str = None,
-        redis_configs: list = None,
+        redis_configs: dict = None,
         tier: str = None,
         memory_size_gb: int = None,
         authorized_network: str = None,
@@ -81,8 +81,9 @@ class Instance(object):
         if Primitive.to_proto(self.display_name):
             request.resource.display_name = Primitive.to_proto(self.display_name)
 
-        if InstanceLabelsArray.to_proto(self.labels):
-            request.resource.labels.extend(InstanceLabelsArray.to_proto(self.labels))
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
         if Primitive.to_proto(self.location_id):
             request.resource.location_id = Primitive.to_proto(self.location_id)
 
@@ -99,10 +100,9 @@ class Instance(object):
                 self.reserved_ip_range
             )
 
-        if InstanceRedisConfigsArray.to_proto(self.redis_configs):
-            request.resource.redis_configs.extend(
-                InstanceRedisConfigsArray.to_proto(self.redis_configs)
-            )
+        if Primitive.to_proto(self.redis_configs):
+            request.resource.redis_configs = Primitive.to_proto(self.redis_configs)
+
         if InstanceTierEnum.to_proto(self.tier):
             request.resource.tier = InstanceTierEnum.to_proto(self.tier)
 
@@ -147,7 +147,7 @@ class Instance(object):
         response = stub.ApplyRedisInstance(request)
         self.name = Primitive.from_proto(response.name)
         self.display_name = Primitive.from_proto(response.display_name)
-        self.labels = InstanceLabelsArray.from_proto(response.labels)
+        self.labels = Primitive.from_proto(response.labels)
         self.location_id = Primitive.from_proto(response.location_id)
         self.alternative_location_id = Primitive.from_proto(
             response.alternative_location_id
@@ -160,9 +160,7 @@ class Instance(object):
         self.create_time = Primitive.from_proto(response.create_time)
         self.state = InstanceStateEnum.from_proto(response.state)
         self.status_message = Primitive.from_proto(response.status_message)
-        self.redis_configs = InstanceRedisConfigsArray.from_proto(
-            response.redis_configs
-        )
+        self.redis_configs = Primitive.from_proto(response.redis_configs)
         self.tier = InstanceTierEnum.from_proto(response.tier)
         self.memory_size_gb = Primitive.from_proto(response.memory_size_gb)
         self.authorized_network = Primitive.from_proto(response.authorized_network)
@@ -196,8 +194,9 @@ class Instance(object):
         if Primitive.to_proto(self.display_name):
             request.resource.display_name = Primitive.to_proto(self.display_name)
 
-        if InstanceLabelsArray.to_proto(self.labels):
-            request.resource.labels.extend(InstanceLabelsArray.to_proto(self.labels))
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
         if Primitive.to_proto(self.location_id):
             request.resource.location_id = Primitive.to_proto(self.location_id)
 
@@ -214,10 +213,9 @@ class Instance(object):
                 self.reserved_ip_range
             )
 
-        if InstanceRedisConfigsArray.to_proto(self.redis_configs):
-            request.resource.redis_configs.extend(
-                InstanceRedisConfigsArray.to_proto(self.redis_configs)
-            )
+        if Primitive.to_proto(self.redis_configs):
+            request.resource.redis_configs = Primitive.to_proto(self.redis_configs)
+
         if InstanceTierEnum.to_proto(self.tier):
             request.resource.tier = InstanceTierEnum.to_proto(self.tier)
 
@@ -293,7 +291,7 @@ class Instance(object):
         res = Instance()
         res.name = Primitive.from_proto(res_proto.name)
         res.display_name = Primitive.from_proto(res_proto.display_name)
-        res.labels = InstanceLabelsArray.from_proto(res_proto.labels)
+        res.labels = Primitive.from_proto(res_proto.labels)
         res.location_id = Primitive.from_proto(res_proto.location_id)
         res.alternative_location_id = Primitive.from_proto(
             res_proto.alternative_location_id
@@ -306,9 +304,7 @@ class Instance(object):
         res.create_time = Primitive.from_proto(res_proto.create_time)
         res.state = InstanceStateEnum.from_proto(res_proto.state)
         res.status_message = Primitive.from_proto(res_proto.status_message)
-        res.redis_configs = InstanceRedisConfigsArray.from_proto(
-            res_proto.redis_configs
-        )
+        res.redis_configs = Primitive.from_proto(res_proto.redis_configs)
         res.tier = InstanceTierEnum.from_proto(res_proto.tier)
         res.memory_size_gb = Primitive.from_proto(res_proto.memory_size_gb)
         res.authorized_network = Primitive.from_proto(res_proto.authorized_network)
@@ -333,80 +329,6 @@ class Instance(object):
         res.location = Primitive.from_proto(res_proto.location)
         res.region = Primitive.from_proto(res_proto.region)
         return res
-
-
-class InstanceLabels(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = instance_pb2.RedisInstanceLabels()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceLabels(key=resource.key, value=resource.value,)
-
-
-class InstanceLabelsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [InstanceLabels.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [InstanceLabels.from_proto(i) for i in resources]
-
-
-class InstanceRedisConfigs(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = instance_pb2.RedisInstanceRedisConfigs()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceRedisConfigs(key=resource.key, value=resource.value,)
-
-
-class InstanceRedisConfigsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [InstanceRedisConfigs.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [InstanceRedisConfigs.from_proto(i) for i in resources]
 
 
 class InstanceServerCaCerts(object):
@@ -529,7 +451,7 @@ class InstanceMaintenancePolicyArray(object):
 
 
 class InstanceMaintenancePolicyWeeklyMaintenanceWindow(object):
-    def __init__(self, day: str = None, start_time: dict = None, duration: dict = None):
+    def __init__(self, day: str = None, start_time: dict = None, duration: str = None):
         self.day = day
         self.start_time = start_time
         self.duration = duration
@@ -556,16 +478,8 @@ class InstanceMaintenancePolicyWeeklyMaintenanceWindow(object):
             )
         else:
             res.ClearField("start_time")
-        if InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration.to_proto(
-            resource.duration
-        ):
-            res.duration.CopyFrom(
-                InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration.to_proto(
-                    resource.duration
-                )
-            )
-        else:
-            res.ClearField("duration")
+        if Primitive.to_proto(resource.duration):
+            res.duration = Primitive.to_proto(resource.duration)
         return res
 
     @classmethod
@@ -656,53 +570,6 @@ class InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTimeArray(object):
     def from_proto(self, resources):
         return [
             InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime.from_proto(i)
-            for i in resources
-        ]
-
-
-class InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.RedisInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration()
-        )
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class InstanceMaintenancePolicyWeeklyMaintenanceWindowDurationArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration.to_proto(i)
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration.from_proto(i)
             for i in resources
         ]
 

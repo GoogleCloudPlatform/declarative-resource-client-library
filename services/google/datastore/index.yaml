@@ -17,7 +17,7 @@ components:
       properties:
         ancestor:
           default: NONE
-          description: The index's ancestor mode.
+          description: 'The index''s ancestor mode. Possible values: NONE, ALL_ANCESTORS'
           enum:
           - NONE
           - ALL_ANCESTORS
@@ -47,7 +47,8 @@ components:
           items:
             properties:
               direction:
-                description: The indexed property's direction.
+                description: 'The indexed property''s direction. Possible values:
+                  ASCENDING, DESCENDING'
                 enum:
                 - ASCENDING
                 - DESCENDING
@@ -70,7 +71,8 @@ components:
           x-dcl-list-type: list
           x-kubernetes-immutable: true
         state:
-          description: Output only. The state of the index.
+          description: 'Output only. The state of the index. Possible values: CREATING,
+            READY, DELETING, ERROR'
           enum:
           - CREATING
           - READY
@@ -96,8 +98,35 @@ info:
   title: Datastore/Index
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Index
+  apply:
+    description: The function used to apply information about a Index
+    parameters:
+    - description: A full instance of a Index
+      name: Index
+      required: true
+  delete:
+    description: The function used to delete a Index
+    parameters:
+    - description: A full instance of a Index
+      name: Index
+      required: true
+  deleteAll:
+    description: The function used to delete all Index
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Index
+    parameters:
+    - description: A full instance of a Index
+      name: Index
+      required: true
+  list:
+    description: The function used to list information about many Index
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

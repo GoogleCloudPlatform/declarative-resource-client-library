@@ -122,11 +122,13 @@ func (s *RouterPeerServer) ApplyComputeRouterPeer(ctx context.Context, request *
 
 // DeleteRouterPeer handles the gRPC request by passing it to the underlying RouterPeer Delete() method.
 func (s *RouterPeerServer) DeleteComputeRouterPeer(ctx context.Context, request *computepb.DeleteComputeRouterPeerRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigRouterPeer(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteRouterPeer(ctx, ProtoToRouterPeer(request.GetResource()))
+
 }
 
 // ListRouterPeer handles the gRPC request by passing it to the underlying RouterPeerList() method.

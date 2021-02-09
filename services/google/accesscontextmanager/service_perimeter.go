@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -331,7 +332,9 @@ func (c *Client) ApplyServicePerimeter(ctx context.Context, rawDesired *ServiceP
 	if create {
 		ops = append(ops, &createServicePerimeterOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteServicePerimeterOperation{})
+
 		ops = append(ops, &createServicePerimeterOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeServicePerimeterDesiredState(rawDesired, nil)

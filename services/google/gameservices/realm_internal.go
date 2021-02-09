@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Realm) validate() error {
@@ -359,12 +360,12 @@ func (c *Client) realmDiffsForRawDesired(ctx context.Context, rawDesired *Realm,
 			c.Config.Logger.Warningf("Failed to retrieve whether a Realm resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Realm resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Realm resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeRealmDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Realm: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Realm: %v", rawDesired)
 
@@ -475,21 +476,9 @@ func canonicalizeRealmNewState(c *Client, rawNew, rawDesired *Realm) (*Realm, er
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
-		rawNew.Location = rawDesired.Location
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Location, rawNew.Location) {
-			rawNew.Location = rawDesired.Location
-		}
-	}
+	rawNew.Location = rawDesired.Location
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -516,14 +505,14 @@ func diffRealm(c *Client, desired, actual *Realm, opts ...dcl.ApplyOption) ([]re
 
 	var diffs []realmDiff
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, realmDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %#v\nACTUAL: %#v", desired.Labels, actual.Labels)
+		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, realmDiff{
 			UpdateOp:  &updateRealmUpdateOperation{},
@@ -532,7 +521,7 @@ func diffRealm(c *Client, desired, actual *Realm, opts ...dcl.ApplyOption) ([]re
 
 	}
 	if !dcl.IsZeroValue(desired.TimeZone) && (dcl.IsZeroValue(actual.TimeZone) || !reflect.DeepEqual(*desired.TimeZone, *actual.TimeZone)) {
-		c.Config.Logger.Infof("Detected diff in TimeZone.\nDESIRED: %#v\nACTUAL: %#v", desired.TimeZone, actual.TimeZone)
+		c.Config.Logger.Infof("Detected diff in TimeZone.\nDESIRED: %v\nACTUAL: %v", desired.TimeZone, actual.TimeZone)
 
 		diffs = append(diffs, realmDiff{
 			UpdateOp:  &updateRealmUpdateOperation{},
@@ -541,27 +530,13 @@ func diffRealm(c *Client, desired, actual *Realm, opts ...dcl.ApplyOption) ([]re
 
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, realmDiff{
 			UpdateOp:  &updateRealmUpdateOperation{},
 			FieldName: "Description",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Location) && !dcl.NameToSelfLink(desired.Location, actual.Location) {
-		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
-		diffs = append(diffs, realmDiff{
-			RequiresRecreate: true,
-			FieldName:        "Location",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, realmDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,

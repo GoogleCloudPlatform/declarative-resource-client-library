@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -228,7 +229,9 @@ func (c *Client) ApplyBackendBucket(ctx context.Context, rawDesired *BackendBuck
 	if create {
 		ops = append(ops, &createBackendBucketOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteBackendBucketOperation{})
+
 		ops = append(ops, &createBackendBucketOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeBackendBucketDesiredState(rawDesired, nil)

@@ -25,102 +25,6 @@ import (
 // Server implements the gRPC interface for WorkflowTemplate.
 type WorkflowTemplateServer struct{}
 
-// ProtoToWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum converts a WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum enum from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum(e dataprocpb.DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum) *dataproc.WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := dataprocpb.DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum_name[int32(e)]; ok {
-		e := dataproc.WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum(n[len("WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum"):])
-		return &e
-	}
-	return nil
-}
-
-// ProtoToWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum converts a WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum enum from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum(e dataprocpb.DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum) *dataproc.WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := dataprocpb.DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum_name[int32(e)]; ok {
-		e := dataproc.WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum(n[len("WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum"):])
-		return &e
-	}
-	return nil
-}
-
-// ProtoToWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum converts a WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum enum from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum(e dataprocpb.DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum) *dataproc.WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := dataprocpb.DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum_name[int32(e)]; ok {
-		e := dataproc.WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum(n[len("WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum"):])
-		return &e
-	}
-	return nil
-}
-
-// ProtoToWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum converts a WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum enum from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum(e dataprocpb.DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum) *dataproc.WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := dataprocpb.DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum_name[int32(e)]; ok {
-		e := dataproc.WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum(n[len("WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum"):])
-		return &e
-	}
-	return nil
-}
-
-// ProtoToWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum converts a WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum enum from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum(e dataprocpb.DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum) *dataproc.WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := dataprocpb.DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum_name[int32(e)]; ok {
-		e := dataproc.WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum(n[len("WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum"):])
-		return &e
-	}
-	return nil
-}
-
-// ProtoToWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum converts a WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum enum from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum(e dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum) *dataproc.WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum_name[int32(e)]; ok {
-		e := dataproc.WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum(n[len("WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum"):])
-		return &e
-	}
-	return nil
-}
-
-// ProtoToWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum converts a WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum enum from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum(e dataprocpb.DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum) *dataproc.WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := dataprocpb.DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum_name[int32(e)]; ok {
-		e := dataproc.WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum(n[len("WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum"):])
-		return &e
-	}
-	return nil
-}
-
-// ProtoToWorkflowTemplateLabels converts a WorkflowTemplateLabels resource from its proto representation.
-func ProtoToDataprocWorkflowTemplateLabels(p *dataprocpb.DataprocWorkflowTemplateLabels) *dataproc.WorkflowTemplateLabels {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.WorkflowTemplateLabels{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
 // ProtoToWorkflowTemplatePlacement converts a WorkflowTemplatePlacement resource from its proto representation.
 func ProtoToDataprocWorkflowTemplatePlacement(p *dataprocpb.DataprocWorkflowTemplatePlacement) *dataproc.WorkflowTemplatePlacement {
 	if p == nil {
@@ -142,21 +46,6 @@ func ProtoToDataprocWorkflowTemplatePlacementManagedCluster(p *dataprocpb.Datapr
 		ClusterName: dcl.StringOrNil(p.ClusterName),
 		Config:      ProtoToDataprocClusterClusterConfig(p.GetConfig()),
 	}
-	for _, r := range p.GetLabels() {
-		obj.Labels = append(obj.Labels, *ProtoToDataprocWorkflowTemplatePlacementManagedClusterLabels(r))
-	}
-	return obj
-}
-
-// ProtoToWorkflowTemplatePlacementManagedClusterLabels converts a WorkflowTemplatePlacementManagedClusterLabels resource from its proto representation.
-func ProtoToDataprocWorkflowTemplatePlacementManagedClusterLabels(p *dataprocpb.DataprocWorkflowTemplatePlacementManagedClusterLabels) *dataproc.WorkflowTemplatePlacementManagedClusterLabels {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.WorkflowTemplatePlacementManagedClusterLabels{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
 	return obj
 }
 
@@ -167,21 +56,6 @@ func ProtoToDataprocWorkflowTemplatePlacementClusterSelector(p *dataprocpb.Datap
 	}
 	obj := &dataproc.WorkflowTemplatePlacementClusterSelector{
 		Zone: dcl.StringOrNil(p.Zone),
-	}
-	for _, r := range p.GetClusterLabels() {
-		obj.ClusterLabels = append(obj.ClusterLabels, *ProtoToDataprocWorkflowTemplatePlacementClusterSelectorClusterLabels(r))
-	}
-	return obj
-}
-
-// ProtoToWorkflowTemplatePlacementClusterSelectorClusterLabels converts a WorkflowTemplatePlacementClusterSelectorClusterLabels resource from its proto representation.
-func ProtoToDataprocWorkflowTemplatePlacementClusterSelectorClusterLabels(p *dataprocpb.DataprocWorkflowTemplatePlacementClusterSelectorClusterLabels) *dataproc.WorkflowTemplatePlacementClusterSelectorClusterLabels {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.WorkflowTemplatePlacementClusterSelectorClusterLabels{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
 	}
 	return obj
 }
@@ -202,9 +76,6 @@ func ProtoToDataprocWorkflowTemplateJobs(p *dataprocpb.DataprocWorkflowTemplateJ
 		SparkSqlJob: ProtoToDataprocWorkflowTemplateJobsSparkSqlJob(p.GetSparkSqlJob()),
 		PrestoJob:   ProtoToDataprocWorkflowTemplateJobsPrestoJob(p.GetPrestoJob()),
 		Scheduling:  ProtoToDataprocWorkflowTemplateJobsScheduling(p.GetScheduling()),
-	}
-	for _, r := range p.GetLabels() {
-		obj.Labels = append(obj.Labels, *ProtoToDataprocWorkflowTemplateJobsLabels(r))
 	}
 	for _, r := range p.GetPrerequisiteStepIds() {
 		obj.PrerequisiteStepIds = append(obj.PrerequisiteStepIds, r)
@@ -234,21 +105,6 @@ func ProtoToDataprocWorkflowTemplateJobsHadoopJob(p *dataprocpb.DataprocWorkflow
 	for _, r := range p.GetArchiveUris() {
 		obj.ArchiveUris = append(obj.ArchiveUris, r)
 	}
-	for _, r := range p.GetProperties() {
-		obj.Properties = append(obj.Properties, *ProtoToDataprocWorkflowTemplateJobsHadoopJobProperties(r))
-	}
-	return obj
-}
-
-// ProtoToWorkflowTemplateJobsHadoopJobProperties converts a WorkflowTemplateJobsHadoopJobProperties resource from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsHadoopJobProperties(p *dataprocpb.DataprocWorkflowTemplateJobsHadoopJobProperties) *dataproc.WorkflowTemplateJobsHadoopJobProperties {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.WorkflowTemplateJobsHadoopJobProperties{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
 	return obj
 }
 
@@ -258,21 +114,6 @@ func ProtoToDataprocWorkflowTemplateJobsHadoopJobLoggingConfig(p *dataprocpb.Dat
 		return nil
 	}
 	obj := &dataproc.WorkflowTemplateJobsHadoopJobLoggingConfig{}
-	for _, r := range p.GetDriverLogLevels() {
-		obj.DriverLogLevels = append(obj.DriverLogLevels, *ProtoToDataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels(r))
-	}
-	return obj
-}
-
-// ProtoToWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels converts a WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels resource from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels(p *dataprocpb.DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels) *dataproc.WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: ProtoToDataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum(p.GetValue()),
-	}
 	return obj
 }
 
@@ -298,21 +139,6 @@ func ProtoToDataprocWorkflowTemplateJobsSparkJob(p *dataprocpb.DataprocWorkflowT
 	for _, r := range p.GetArchiveUris() {
 		obj.ArchiveUris = append(obj.ArchiveUris, r)
 	}
-	for _, r := range p.GetProperties() {
-		obj.Properties = append(obj.Properties, *ProtoToDataprocWorkflowTemplateJobsSparkJobProperties(r))
-	}
-	return obj
-}
-
-// ProtoToWorkflowTemplateJobsSparkJobProperties converts a WorkflowTemplateJobsSparkJobProperties resource from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsSparkJobProperties(p *dataprocpb.DataprocWorkflowTemplateJobsSparkJobProperties) *dataproc.WorkflowTemplateJobsSparkJobProperties {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.WorkflowTemplateJobsSparkJobProperties{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
 	return obj
 }
 
@@ -322,21 +148,6 @@ func ProtoToDataprocWorkflowTemplateJobsSparkJobLoggingConfig(p *dataprocpb.Data
 		return nil
 	}
 	obj := &dataproc.WorkflowTemplateJobsSparkJobLoggingConfig{}
-	for _, r := range p.GetDriverLogLevels() {
-		obj.DriverLogLevels = append(obj.DriverLogLevels, *ProtoToDataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels(r))
-	}
-	return obj
-}
-
-// ProtoToWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels converts a WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels resource from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels(p *dataprocpb.DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels) *dataproc.WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: ProtoToDataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum(p.GetValue()),
-	}
 	return obj
 }
 
@@ -364,21 +175,6 @@ func ProtoToDataprocWorkflowTemplateJobsPysparkJob(p *dataprocpb.DataprocWorkflo
 	for _, r := range p.GetArchiveUris() {
 		obj.ArchiveUris = append(obj.ArchiveUris, r)
 	}
-	for _, r := range p.GetProperties() {
-		obj.Properties = append(obj.Properties, *ProtoToDataprocWorkflowTemplateJobsPysparkJobProperties(r))
-	}
-	return obj
-}
-
-// ProtoToWorkflowTemplateJobsPysparkJobProperties converts a WorkflowTemplateJobsPysparkJobProperties resource from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsPysparkJobProperties(p *dataprocpb.DataprocWorkflowTemplateJobsPysparkJobProperties) *dataproc.WorkflowTemplateJobsPysparkJobProperties {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.WorkflowTemplateJobsPysparkJobProperties{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
 	return obj
 }
 
@@ -388,21 +184,6 @@ func ProtoToDataprocWorkflowTemplateJobsPysparkJobLoggingConfig(p *dataprocpb.Da
 		return nil
 	}
 	obj := &dataproc.WorkflowTemplateJobsPysparkJobLoggingConfig{}
-	for _, r := range p.GetDriverLogLevels() {
-		obj.DriverLogLevels = append(obj.DriverLogLevels, *ProtoToDataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels(r))
-	}
-	return obj
-}
-
-// ProtoToWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels converts a WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels resource from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels(p *dataprocpb.DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels) *dataproc.WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: ProtoToDataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum(p.GetValue()),
-	}
 	return obj
 }
 
@@ -415,12 +196,6 @@ func ProtoToDataprocWorkflowTemplateJobsHiveJob(p *dataprocpb.DataprocWorkflowTe
 		QueryFileUri:      dcl.StringOrNil(p.QueryFileUri),
 		QueryList:         ProtoToDataprocWorkflowTemplateJobsHiveJobQueryList(p.GetQueryList()),
 		ContinueOnFailure: dcl.Bool(p.ContinueOnFailure),
-	}
-	for _, r := range p.GetScriptVariables() {
-		obj.ScriptVariables = append(obj.ScriptVariables, *ProtoToDataprocWorkflowTemplateJobsHiveJobScriptVariables(r))
-	}
-	for _, r := range p.GetProperties() {
-		obj.Properties = append(obj.Properties, *ProtoToDataprocWorkflowTemplateJobsHiveJobProperties(r))
 	}
 	for _, r := range p.GetJarFileUris() {
 		obj.JarFileUris = append(obj.JarFileUris, r)
@@ -440,30 +215,6 @@ func ProtoToDataprocWorkflowTemplateJobsHiveJobQueryList(p *dataprocpb.DataprocW
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsHiveJobScriptVariables converts a WorkflowTemplateJobsHiveJobScriptVariables resource from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsHiveJobScriptVariables(p *dataprocpb.DataprocWorkflowTemplateJobsHiveJobScriptVariables) *dataproc.WorkflowTemplateJobsHiveJobScriptVariables {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.WorkflowTemplateJobsHiveJobScriptVariables{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
-// ProtoToWorkflowTemplateJobsHiveJobProperties converts a WorkflowTemplateJobsHiveJobProperties resource from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsHiveJobProperties(p *dataprocpb.DataprocWorkflowTemplateJobsHiveJobProperties) *dataproc.WorkflowTemplateJobsHiveJobProperties {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.WorkflowTemplateJobsHiveJobProperties{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
 // ProtoToWorkflowTemplateJobsPigJob converts a WorkflowTemplateJobsPigJob resource from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsPigJob(p *dataprocpb.DataprocWorkflowTemplateJobsPigJob) *dataproc.WorkflowTemplateJobsPigJob {
 	if p == nil {
@@ -474,12 +225,6 @@ func ProtoToDataprocWorkflowTemplateJobsPigJob(p *dataprocpb.DataprocWorkflowTem
 		QueryList:         ProtoToDataprocWorkflowTemplateJobsPigJobQueryList(p.GetQueryList()),
 		ContinueOnFailure: dcl.Bool(p.ContinueOnFailure),
 		LoggingConfig:     ProtoToDataprocWorkflowTemplateJobsPigJobLoggingConfig(p.GetLoggingConfig()),
-	}
-	for _, r := range p.GetScriptVariables() {
-		obj.ScriptVariables = append(obj.ScriptVariables, *ProtoToDataprocWorkflowTemplateJobsPigJobScriptVariables(r))
-	}
-	for _, r := range p.GetProperties() {
-		obj.Properties = append(obj.Properties, *ProtoToDataprocWorkflowTemplateJobsPigJobProperties(r))
 	}
 	for _, r := range p.GetJarFileUris() {
 		obj.JarFileUris = append(obj.JarFileUris, r)
@@ -499,51 +244,12 @@ func ProtoToDataprocWorkflowTemplateJobsPigJobQueryList(p *dataprocpb.DataprocWo
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsPigJobScriptVariables converts a WorkflowTemplateJobsPigJobScriptVariables resource from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsPigJobScriptVariables(p *dataprocpb.DataprocWorkflowTemplateJobsPigJobScriptVariables) *dataproc.WorkflowTemplateJobsPigJobScriptVariables {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.WorkflowTemplateJobsPigJobScriptVariables{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
-// ProtoToWorkflowTemplateJobsPigJobProperties converts a WorkflowTemplateJobsPigJobProperties resource from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsPigJobProperties(p *dataprocpb.DataprocWorkflowTemplateJobsPigJobProperties) *dataproc.WorkflowTemplateJobsPigJobProperties {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.WorkflowTemplateJobsPigJobProperties{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
 // ProtoToWorkflowTemplateJobsPigJobLoggingConfig converts a WorkflowTemplateJobsPigJobLoggingConfig resource from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsPigJobLoggingConfig(p *dataprocpb.DataprocWorkflowTemplateJobsPigJobLoggingConfig) *dataproc.WorkflowTemplateJobsPigJobLoggingConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &dataproc.WorkflowTemplateJobsPigJobLoggingConfig{}
-	for _, r := range p.GetDriverLogLevels() {
-		obj.DriverLogLevels = append(obj.DriverLogLevels, *ProtoToDataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels(r))
-	}
-	return obj
-}
-
-// ProtoToWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels converts a WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels resource from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels(p *dataprocpb.DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels) *dataproc.WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: ProtoToDataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum(p.GetValue()),
-	}
 	return obj
 }
 
@@ -565,21 +271,6 @@ func ProtoToDataprocWorkflowTemplateJobsSparkRJob(p *dataprocpb.DataprocWorkflow
 	for _, r := range p.GetArchiveUris() {
 		obj.ArchiveUris = append(obj.ArchiveUris, r)
 	}
-	for _, r := range p.GetProperties() {
-		obj.Properties = append(obj.Properties, *ProtoToDataprocWorkflowTemplateJobsSparkRJobProperties(r))
-	}
-	return obj
-}
-
-// ProtoToWorkflowTemplateJobsSparkRJobProperties converts a WorkflowTemplateJobsSparkRJobProperties resource from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsSparkRJobProperties(p *dataprocpb.DataprocWorkflowTemplateJobsSparkRJobProperties) *dataproc.WorkflowTemplateJobsSparkRJobProperties {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.WorkflowTemplateJobsSparkRJobProperties{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
 	return obj
 }
 
@@ -589,21 +280,6 @@ func ProtoToDataprocWorkflowTemplateJobsSparkRJobLoggingConfig(p *dataprocpb.Dat
 		return nil
 	}
 	obj := &dataproc.WorkflowTemplateJobsSparkRJobLoggingConfig{}
-	for _, r := range p.GetDriverLogLevels() {
-		obj.DriverLogLevels = append(obj.DriverLogLevels, *ProtoToDataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels(r))
-	}
-	return obj
-}
-
-// ProtoToWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels converts a WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels resource from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels(p *dataprocpb.DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels) *dataproc.WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: ProtoToDataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum(p.GetValue()),
-	}
 	return obj
 }
 
@@ -616,12 +292,6 @@ func ProtoToDataprocWorkflowTemplateJobsSparkSqlJob(p *dataprocpb.DataprocWorkfl
 		QueryFileUri:  dcl.StringOrNil(p.QueryFileUri),
 		QueryList:     ProtoToDataprocWorkflowTemplateJobsSparkSqlJobQueryList(p.GetQueryList()),
 		LoggingConfig: ProtoToDataprocWorkflowTemplateJobsSparkSqlJobLoggingConfig(p.GetLoggingConfig()),
-	}
-	for _, r := range p.GetScriptVariables() {
-		obj.ScriptVariables = append(obj.ScriptVariables, *ProtoToDataprocWorkflowTemplateJobsSparkSqlJobScriptVariables(r))
-	}
-	for _, r := range p.GetProperties() {
-		obj.Properties = append(obj.Properties, *ProtoToDataprocWorkflowTemplateJobsSparkSqlJobProperties(r))
 	}
 	for _, r := range p.GetJarFileUris() {
 		obj.JarFileUris = append(obj.JarFileUris, r)
@@ -641,51 +311,12 @@ func ProtoToDataprocWorkflowTemplateJobsSparkSqlJobQueryList(p *dataprocpb.Datap
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsSparkSqlJobScriptVariables converts a WorkflowTemplateJobsSparkSqlJobScriptVariables resource from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsSparkSqlJobScriptVariables(p *dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobScriptVariables) *dataproc.WorkflowTemplateJobsSparkSqlJobScriptVariables {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.WorkflowTemplateJobsSparkSqlJobScriptVariables{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
-// ProtoToWorkflowTemplateJobsSparkSqlJobProperties converts a WorkflowTemplateJobsSparkSqlJobProperties resource from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsSparkSqlJobProperties(p *dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobProperties) *dataproc.WorkflowTemplateJobsSparkSqlJobProperties {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.WorkflowTemplateJobsSparkSqlJobProperties{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
 // ProtoToWorkflowTemplateJobsSparkSqlJobLoggingConfig converts a WorkflowTemplateJobsSparkSqlJobLoggingConfig resource from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsSparkSqlJobLoggingConfig(p *dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfig) *dataproc.WorkflowTemplateJobsSparkSqlJobLoggingConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &dataproc.WorkflowTemplateJobsSparkSqlJobLoggingConfig{}
-	for _, r := range p.GetDriverLogLevels() {
-		obj.DriverLogLevels = append(obj.DriverLogLevels, *ProtoToDataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels(r))
-	}
-	return obj
-}
-
-// ProtoToWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels converts a WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels resource from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels(p *dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels) *dataproc.WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: ProtoToDataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum(p.GetValue()),
-	}
 	return obj
 }
 
@@ -704,9 +335,6 @@ func ProtoToDataprocWorkflowTemplateJobsPrestoJob(p *dataprocpb.DataprocWorkflow
 	for _, r := range p.GetClientTags() {
 		obj.ClientTags = append(obj.ClientTags, r)
 	}
-	for _, r := range p.GetProperties() {
-		obj.Properties = append(obj.Properties, *ProtoToDataprocWorkflowTemplateJobsPrestoJobProperties(r))
-	}
 	return obj
 }
 
@@ -722,51 +350,12 @@ func ProtoToDataprocWorkflowTemplateJobsPrestoJobQueryList(p *dataprocpb.Datapro
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsPrestoJobProperties converts a WorkflowTemplateJobsPrestoJobProperties resource from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsPrestoJobProperties(p *dataprocpb.DataprocWorkflowTemplateJobsPrestoJobProperties) *dataproc.WorkflowTemplateJobsPrestoJobProperties {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.WorkflowTemplateJobsPrestoJobProperties{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
 // ProtoToWorkflowTemplateJobsPrestoJobLoggingConfig converts a WorkflowTemplateJobsPrestoJobLoggingConfig resource from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsPrestoJobLoggingConfig(p *dataprocpb.DataprocWorkflowTemplateJobsPrestoJobLoggingConfig) *dataproc.WorkflowTemplateJobsPrestoJobLoggingConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &dataproc.WorkflowTemplateJobsPrestoJobLoggingConfig{}
-	for _, r := range p.GetDriverLogLevels() {
-		obj.DriverLogLevels = append(obj.DriverLogLevels, *ProtoToDataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels(r))
-	}
-	return obj
-}
-
-// ProtoToWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels converts a WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels resource from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels(p *dataprocpb.DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels) *dataproc.WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: ProtoToDataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum(p.GetValue()),
-	}
-	return obj
-}
-
-// ProtoToWorkflowTemplateJobsLabels converts a WorkflowTemplateJobsLabels resource from its proto representation.
-func ProtoToDataprocWorkflowTemplateJobsLabels(p *dataprocpb.DataprocWorkflowTemplateJobsLabels) *dataproc.WorkflowTemplateJobsLabels {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.WorkflowTemplateJobsLabels{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
 	return obj
 }
 
@@ -845,9 +434,6 @@ func ProtoToWorkflowTemplate(p *dataprocpb.DataprocWorkflowTemplate) *dataproc.W
 		Project:    dcl.StringOrNil(p.Project),
 		Location:   dcl.StringOrNil(p.Location),
 	}
-	for _, r := range p.GetLabels() {
-		obj.Labels = append(obj.Labels, *ProtoToDataprocWorkflowTemplateLabels(r))
-	}
 	for _, r := range p.GetJobs() {
 		obj.Jobs = append(obj.Jobs, *ProtoToDataprocWorkflowTemplateJobs(r))
 	}
@@ -855,95 +441,6 @@ func ProtoToWorkflowTemplate(p *dataprocpb.DataprocWorkflowTemplate) *dataproc.W
 		obj.Parameters = append(obj.Parameters, *ProtoToDataprocWorkflowTemplateParameters(r))
 	}
 	return obj
-}
-
-// WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnumToProto converts a WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum enum to its proto representation.
-func DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnumToProto(e *dataproc.WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum) dataprocpb.DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum {
-	if e == nil {
-		return dataprocpb.DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum(0)
-	}
-	if v, ok := dataprocpb.DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum_value["WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum"+string(*e)]; ok {
-		return dataprocpb.DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum(v)
-	}
-	return dataprocpb.DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum(0)
-}
-
-// WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnumToProto converts a WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum enum to its proto representation.
-func DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnumToProto(e *dataproc.WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum) dataprocpb.DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum {
-	if e == nil {
-		return dataprocpb.DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum(0)
-	}
-	if v, ok := dataprocpb.DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum_value["WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum"+string(*e)]; ok {
-		return dataprocpb.DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum(v)
-	}
-	return dataprocpb.DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum(0)
-}
-
-// WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnumToProto converts a WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum enum to its proto representation.
-func DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnumToProto(e *dataproc.WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum) dataprocpb.DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum {
-	if e == nil {
-		return dataprocpb.DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum(0)
-	}
-	if v, ok := dataprocpb.DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum_value["WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum"+string(*e)]; ok {
-		return dataprocpb.DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum(v)
-	}
-	return dataprocpb.DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum(0)
-}
-
-// WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnumToProto converts a WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum enum to its proto representation.
-func DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnumToProto(e *dataproc.WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum) dataprocpb.DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum {
-	if e == nil {
-		return dataprocpb.DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum(0)
-	}
-	if v, ok := dataprocpb.DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum_value["WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum"+string(*e)]; ok {
-		return dataprocpb.DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum(v)
-	}
-	return dataprocpb.DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum(0)
-}
-
-// WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnumToProto converts a WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum enum to its proto representation.
-func DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnumToProto(e *dataproc.WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum) dataprocpb.DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum {
-	if e == nil {
-		return dataprocpb.DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum(0)
-	}
-	if v, ok := dataprocpb.DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum_value["WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum"+string(*e)]; ok {
-		return dataprocpb.DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum(v)
-	}
-	return dataprocpb.DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum(0)
-}
-
-// WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnumToProto converts a WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum enum to its proto representation.
-func DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnumToProto(e *dataproc.WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum) dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum {
-	if e == nil {
-		return dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum(0)
-	}
-	if v, ok := dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum_value["WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum"+string(*e)]; ok {
-		return dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum(v)
-	}
-	return dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum(0)
-}
-
-// WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnumToProto converts a WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum enum to its proto representation.
-func DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnumToProto(e *dataproc.WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum) dataprocpb.DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum {
-	if e == nil {
-		return dataprocpb.DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum(0)
-	}
-	if v, ok := dataprocpb.DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum_value["WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum"+string(*e)]; ok {
-		return dataprocpb.DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum(v)
-	}
-	return dataprocpb.DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum(0)
-}
-
-// WorkflowTemplateLabelsToProto converts a WorkflowTemplateLabels resource to its proto representation.
-func DataprocWorkflowTemplateLabelsToProto(o *dataproc.WorkflowTemplateLabels) *dataprocpb.DataprocWorkflowTemplateLabels {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocWorkflowTemplateLabels{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
-	}
-	return p
 }
 
 // WorkflowTemplatePlacementToProto converts a WorkflowTemplatePlacement resource to its proto representation.
@@ -967,20 +464,9 @@ func DataprocWorkflowTemplatePlacementManagedClusterToProto(o *dataproc.Workflow
 		ClusterName: dcl.ValueOrEmptyString(o.ClusterName),
 		Config:      DataprocClusterClusterConfigToProto(o.Config),
 	}
-	for _, r := range o.Labels {
-		p.Labels = append(p.Labels, DataprocWorkflowTemplatePlacementManagedClusterLabelsToProto(&r))
-	}
-	return p
-}
-
-// WorkflowTemplatePlacementManagedClusterLabelsToProto converts a WorkflowTemplatePlacementManagedClusterLabels resource to its proto representation.
-func DataprocWorkflowTemplatePlacementManagedClusterLabelsToProto(o *dataproc.WorkflowTemplatePlacementManagedClusterLabels) *dataprocpb.DataprocWorkflowTemplatePlacementManagedClusterLabels {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocWorkflowTemplatePlacementManagedClusterLabels{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }
@@ -993,20 +479,9 @@ func DataprocWorkflowTemplatePlacementClusterSelectorToProto(o *dataproc.Workflo
 	p := &dataprocpb.DataprocWorkflowTemplatePlacementClusterSelector{
 		Zone: dcl.ValueOrEmptyString(o.Zone),
 	}
-	for _, r := range o.ClusterLabels {
-		p.ClusterLabels = append(p.ClusterLabels, DataprocWorkflowTemplatePlacementClusterSelectorClusterLabelsToProto(&r))
-	}
-	return p
-}
-
-// WorkflowTemplatePlacementClusterSelectorClusterLabelsToProto converts a WorkflowTemplatePlacementClusterSelectorClusterLabels resource to its proto representation.
-func DataprocWorkflowTemplatePlacementClusterSelectorClusterLabelsToProto(o *dataproc.WorkflowTemplatePlacementClusterSelectorClusterLabels) *dataprocpb.DataprocWorkflowTemplatePlacementClusterSelectorClusterLabels {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocWorkflowTemplatePlacementClusterSelectorClusterLabels{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
+	p.ClusterLabels = make(map[string]string)
+	for k, r := range o.ClusterLabels {
+		p.ClusterLabels[k] = r
 	}
 	return p
 }
@@ -1028,8 +503,9 @@ func DataprocWorkflowTemplateJobsToProto(o *dataproc.WorkflowTemplateJobs) *data
 		PrestoJob:   DataprocWorkflowTemplateJobsPrestoJobToProto(o.PrestoJob),
 		Scheduling:  DataprocWorkflowTemplateJobsSchedulingToProto(o.Scheduling),
 	}
-	for _, r := range o.Labels {
-		p.Labels = append(p.Labels, DataprocWorkflowTemplateJobsLabelsToProto(&r))
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	for _, r := range o.PrerequisiteStepIds {
 		p.PrerequisiteStepIds = append(p.PrerequisiteStepIds, r)
@@ -1059,20 +535,9 @@ func DataprocWorkflowTemplateJobsHadoopJobToProto(o *dataproc.WorkflowTemplateJo
 	for _, r := range o.ArchiveUris {
 		p.ArchiveUris = append(p.ArchiveUris, r)
 	}
-	for _, r := range o.Properties {
-		p.Properties = append(p.Properties, DataprocWorkflowTemplateJobsHadoopJobPropertiesToProto(&r))
-	}
-	return p
-}
-
-// WorkflowTemplateJobsHadoopJobPropertiesToProto converts a WorkflowTemplateJobsHadoopJobProperties resource to its proto representation.
-func DataprocWorkflowTemplateJobsHadoopJobPropertiesToProto(o *dataproc.WorkflowTemplateJobsHadoopJobProperties) *dataprocpb.DataprocWorkflowTemplateJobsHadoopJobProperties {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsHadoopJobProperties{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
+	p.Properties = make(map[string]string)
+	for k, r := range o.Properties {
+		p.Properties[k] = r
 	}
 	return p
 }
@@ -1083,20 +548,9 @@ func DataprocWorkflowTemplateJobsHadoopJobLoggingConfigToProto(o *dataproc.Workf
 		return nil
 	}
 	p := &dataprocpb.DataprocWorkflowTemplateJobsHadoopJobLoggingConfig{}
-	for _, r := range o.DriverLogLevels {
-		p.DriverLogLevels = append(p.DriverLogLevels, DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsToProto(&r))
-	}
-	return p
-}
-
-// WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsToProto converts a WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels resource to its proto representation.
-func DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsToProto(o *dataproc.WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels) *dataprocpb.DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnumToProto(o.Value),
+	p.DriverLogLevels = make(map[string]string)
+	for k, r := range o.DriverLogLevels {
+		p.DriverLogLevels[k] = r
 	}
 	return p
 }
@@ -1123,20 +577,9 @@ func DataprocWorkflowTemplateJobsSparkJobToProto(o *dataproc.WorkflowTemplateJob
 	for _, r := range o.ArchiveUris {
 		p.ArchiveUris = append(p.ArchiveUris, r)
 	}
-	for _, r := range o.Properties {
-		p.Properties = append(p.Properties, DataprocWorkflowTemplateJobsSparkJobPropertiesToProto(&r))
-	}
-	return p
-}
-
-// WorkflowTemplateJobsSparkJobPropertiesToProto converts a WorkflowTemplateJobsSparkJobProperties resource to its proto representation.
-func DataprocWorkflowTemplateJobsSparkJobPropertiesToProto(o *dataproc.WorkflowTemplateJobsSparkJobProperties) *dataprocpb.DataprocWorkflowTemplateJobsSparkJobProperties {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsSparkJobProperties{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
+	p.Properties = make(map[string]string)
+	for k, r := range o.Properties {
+		p.Properties[k] = r
 	}
 	return p
 }
@@ -1147,20 +590,9 @@ func DataprocWorkflowTemplateJobsSparkJobLoggingConfigToProto(o *dataproc.Workfl
 		return nil
 	}
 	p := &dataprocpb.DataprocWorkflowTemplateJobsSparkJobLoggingConfig{}
-	for _, r := range o.DriverLogLevels {
-		p.DriverLogLevels = append(p.DriverLogLevels, DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsToProto(&r))
-	}
-	return p
-}
-
-// WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsToProto converts a WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels resource to its proto representation.
-func DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsToProto(o *dataproc.WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels) *dataprocpb.DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnumToProto(o.Value),
+	p.DriverLogLevels = make(map[string]string)
+	for k, r := range o.DriverLogLevels {
+		p.DriverLogLevels[k] = r
 	}
 	return p
 }
@@ -1189,20 +621,9 @@ func DataprocWorkflowTemplateJobsPysparkJobToProto(o *dataproc.WorkflowTemplateJ
 	for _, r := range o.ArchiveUris {
 		p.ArchiveUris = append(p.ArchiveUris, r)
 	}
-	for _, r := range o.Properties {
-		p.Properties = append(p.Properties, DataprocWorkflowTemplateJobsPysparkJobPropertiesToProto(&r))
-	}
-	return p
-}
-
-// WorkflowTemplateJobsPysparkJobPropertiesToProto converts a WorkflowTemplateJobsPysparkJobProperties resource to its proto representation.
-func DataprocWorkflowTemplateJobsPysparkJobPropertiesToProto(o *dataproc.WorkflowTemplateJobsPysparkJobProperties) *dataprocpb.DataprocWorkflowTemplateJobsPysparkJobProperties {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsPysparkJobProperties{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
+	p.Properties = make(map[string]string)
+	for k, r := range o.Properties {
+		p.Properties[k] = r
 	}
 	return p
 }
@@ -1213,20 +634,9 @@ func DataprocWorkflowTemplateJobsPysparkJobLoggingConfigToProto(o *dataproc.Work
 		return nil
 	}
 	p := &dataprocpb.DataprocWorkflowTemplateJobsPysparkJobLoggingConfig{}
-	for _, r := range o.DriverLogLevels {
-		p.DriverLogLevels = append(p.DriverLogLevels, DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsToProto(&r))
-	}
-	return p
-}
-
-// WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsToProto converts a WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels resource to its proto representation.
-func DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsToProto(o *dataproc.WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels) *dataprocpb.DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnumToProto(o.Value),
+	p.DriverLogLevels = make(map[string]string)
+	for k, r := range o.DriverLogLevels {
+		p.DriverLogLevels[k] = r
 	}
 	return p
 }
@@ -1241,11 +651,13 @@ func DataprocWorkflowTemplateJobsHiveJobToProto(o *dataproc.WorkflowTemplateJobs
 		QueryList:         DataprocWorkflowTemplateJobsHiveJobQueryListToProto(o.QueryList),
 		ContinueOnFailure: dcl.ValueOrEmptyBool(o.ContinueOnFailure),
 	}
-	for _, r := range o.ScriptVariables {
-		p.ScriptVariables = append(p.ScriptVariables, DataprocWorkflowTemplateJobsHiveJobScriptVariablesToProto(&r))
+	p.ScriptVariables = make(map[string]string)
+	for k, r := range o.ScriptVariables {
+		p.ScriptVariables[k] = r
 	}
-	for _, r := range o.Properties {
-		p.Properties = append(p.Properties, DataprocWorkflowTemplateJobsHiveJobPropertiesToProto(&r))
+	p.Properties = make(map[string]string)
+	for k, r := range o.Properties {
+		p.Properties[k] = r
 	}
 	for _, r := range o.JarFileUris {
 		p.JarFileUris = append(p.JarFileUris, r)
@@ -1265,30 +677,6 @@ func DataprocWorkflowTemplateJobsHiveJobQueryListToProto(o *dataproc.WorkflowTem
 	return p
 }
 
-// WorkflowTemplateJobsHiveJobScriptVariablesToProto converts a WorkflowTemplateJobsHiveJobScriptVariables resource to its proto representation.
-func DataprocWorkflowTemplateJobsHiveJobScriptVariablesToProto(o *dataproc.WorkflowTemplateJobsHiveJobScriptVariables) *dataprocpb.DataprocWorkflowTemplateJobsHiveJobScriptVariables {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsHiveJobScriptVariables{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
-	}
-	return p
-}
-
-// WorkflowTemplateJobsHiveJobPropertiesToProto converts a WorkflowTemplateJobsHiveJobProperties resource to its proto representation.
-func DataprocWorkflowTemplateJobsHiveJobPropertiesToProto(o *dataproc.WorkflowTemplateJobsHiveJobProperties) *dataprocpb.DataprocWorkflowTemplateJobsHiveJobProperties {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsHiveJobProperties{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
-	}
-	return p
-}
-
 // WorkflowTemplateJobsPigJobToProto converts a WorkflowTemplateJobsPigJob resource to its proto representation.
 func DataprocWorkflowTemplateJobsPigJobToProto(o *dataproc.WorkflowTemplateJobsPigJob) *dataprocpb.DataprocWorkflowTemplateJobsPigJob {
 	if o == nil {
@@ -1300,11 +688,13 @@ func DataprocWorkflowTemplateJobsPigJobToProto(o *dataproc.WorkflowTemplateJobsP
 		ContinueOnFailure: dcl.ValueOrEmptyBool(o.ContinueOnFailure),
 		LoggingConfig:     DataprocWorkflowTemplateJobsPigJobLoggingConfigToProto(o.LoggingConfig),
 	}
-	for _, r := range o.ScriptVariables {
-		p.ScriptVariables = append(p.ScriptVariables, DataprocWorkflowTemplateJobsPigJobScriptVariablesToProto(&r))
+	p.ScriptVariables = make(map[string]string)
+	for k, r := range o.ScriptVariables {
+		p.ScriptVariables[k] = r
 	}
-	for _, r := range o.Properties {
-		p.Properties = append(p.Properties, DataprocWorkflowTemplateJobsPigJobPropertiesToProto(&r))
+	p.Properties = make(map[string]string)
+	for k, r := range o.Properties {
+		p.Properties[k] = r
 	}
 	for _, r := range o.JarFileUris {
 		p.JarFileUris = append(p.JarFileUris, r)
@@ -1324,50 +714,15 @@ func DataprocWorkflowTemplateJobsPigJobQueryListToProto(o *dataproc.WorkflowTemp
 	return p
 }
 
-// WorkflowTemplateJobsPigJobScriptVariablesToProto converts a WorkflowTemplateJobsPigJobScriptVariables resource to its proto representation.
-func DataprocWorkflowTemplateJobsPigJobScriptVariablesToProto(o *dataproc.WorkflowTemplateJobsPigJobScriptVariables) *dataprocpb.DataprocWorkflowTemplateJobsPigJobScriptVariables {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsPigJobScriptVariables{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
-	}
-	return p
-}
-
-// WorkflowTemplateJobsPigJobPropertiesToProto converts a WorkflowTemplateJobsPigJobProperties resource to its proto representation.
-func DataprocWorkflowTemplateJobsPigJobPropertiesToProto(o *dataproc.WorkflowTemplateJobsPigJobProperties) *dataprocpb.DataprocWorkflowTemplateJobsPigJobProperties {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsPigJobProperties{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
-	}
-	return p
-}
-
 // WorkflowTemplateJobsPigJobLoggingConfigToProto converts a WorkflowTemplateJobsPigJobLoggingConfig resource to its proto representation.
 func DataprocWorkflowTemplateJobsPigJobLoggingConfigToProto(o *dataproc.WorkflowTemplateJobsPigJobLoggingConfig) *dataprocpb.DataprocWorkflowTemplateJobsPigJobLoggingConfig {
 	if o == nil {
 		return nil
 	}
 	p := &dataprocpb.DataprocWorkflowTemplateJobsPigJobLoggingConfig{}
-	for _, r := range o.DriverLogLevels {
-		p.DriverLogLevels = append(p.DriverLogLevels, DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsToProto(&r))
-	}
-	return p
-}
-
-// WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsToProto converts a WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels resource to its proto representation.
-func DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsToProto(o *dataproc.WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels) *dataprocpb.DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnumToProto(o.Value),
+	p.DriverLogLevels = make(map[string]string)
+	for k, r := range o.DriverLogLevels {
+		p.DriverLogLevels[k] = r
 	}
 	return p
 }
@@ -1390,20 +745,9 @@ func DataprocWorkflowTemplateJobsSparkRJobToProto(o *dataproc.WorkflowTemplateJo
 	for _, r := range o.ArchiveUris {
 		p.ArchiveUris = append(p.ArchiveUris, r)
 	}
-	for _, r := range o.Properties {
-		p.Properties = append(p.Properties, DataprocWorkflowTemplateJobsSparkRJobPropertiesToProto(&r))
-	}
-	return p
-}
-
-// WorkflowTemplateJobsSparkRJobPropertiesToProto converts a WorkflowTemplateJobsSparkRJobProperties resource to its proto representation.
-func DataprocWorkflowTemplateJobsSparkRJobPropertiesToProto(o *dataproc.WorkflowTemplateJobsSparkRJobProperties) *dataprocpb.DataprocWorkflowTemplateJobsSparkRJobProperties {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsSparkRJobProperties{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
+	p.Properties = make(map[string]string)
+	for k, r := range o.Properties {
+		p.Properties[k] = r
 	}
 	return p
 }
@@ -1414,20 +758,9 @@ func DataprocWorkflowTemplateJobsSparkRJobLoggingConfigToProto(o *dataproc.Workf
 		return nil
 	}
 	p := &dataprocpb.DataprocWorkflowTemplateJobsSparkRJobLoggingConfig{}
-	for _, r := range o.DriverLogLevels {
-		p.DriverLogLevels = append(p.DriverLogLevels, DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsToProto(&r))
-	}
-	return p
-}
-
-// WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsToProto converts a WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels resource to its proto representation.
-func DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsToProto(o *dataproc.WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels) *dataprocpb.DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnumToProto(o.Value),
+	p.DriverLogLevels = make(map[string]string)
+	for k, r := range o.DriverLogLevels {
+		p.DriverLogLevels[k] = r
 	}
 	return p
 }
@@ -1442,11 +775,13 @@ func DataprocWorkflowTemplateJobsSparkSqlJobToProto(o *dataproc.WorkflowTemplate
 		QueryList:     DataprocWorkflowTemplateJobsSparkSqlJobQueryListToProto(o.QueryList),
 		LoggingConfig: DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigToProto(o.LoggingConfig),
 	}
-	for _, r := range o.ScriptVariables {
-		p.ScriptVariables = append(p.ScriptVariables, DataprocWorkflowTemplateJobsSparkSqlJobScriptVariablesToProto(&r))
+	p.ScriptVariables = make(map[string]string)
+	for k, r := range o.ScriptVariables {
+		p.ScriptVariables[k] = r
 	}
-	for _, r := range o.Properties {
-		p.Properties = append(p.Properties, DataprocWorkflowTemplateJobsSparkSqlJobPropertiesToProto(&r))
+	p.Properties = make(map[string]string)
+	for k, r := range o.Properties {
+		p.Properties[k] = r
 	}
 	for _, r := range o.JarFileUris {
 		p.JarFileUris = append(p.JarFileUris, r)
@@ -1466,50 +801,15 @@ func DataprocWorkflowTemplateJobsSparkSqlJobQueryListToProto(o *dataproc.Workflo
 	return p
 }
 
-// WorkflowTemplateJobsSparkSqlJobScriptVariablesToProto converts a WorkflowTemplateJobsSparkSqlJobScriptVariables resource to its proto representation.
-func DataprocWorkflowTemplateJobsSparkSqlJobScriptVariablesToProto(o *dataproc.WorkflowTemplateJobsSparkSqlJobScriptVariables) *dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobScriptVariables {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobScriptVariables{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
-	}
-	return p
-}
-
-// WorkflowTemplateJobsSparkSqlJobPropertiesToProto converts a WorkflowTemplateJobsSparkSqlJobProperties resource to its proto representation.
-func DataprocWorkflowTemplateJobsSparkSqlJobPropertiesToProto(o *dataproc.WorkflowTemplateJobsSparkSqlJobProperties) *dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobProperties {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobProperties{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
-	}
-	return p
-}
-
 // WorkflowTemplateJobsSparkSqlJobLoggingConfigToProto converts a WorkflowTemplateJobsSparkSqlJobLoggingConfig resource to its proto representation.
 func DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigToProto(o *dataproc.WorkflowTemplateJobsSparkSqlJobLoggingConfig) *dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfig {
 	if o == nil {
 		return nil
 	}
 	p := &dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfig{}
-	for _, r := range o.DriverLogLevels {
-		p.DriverLogLevels = append(p.DriverLogLevels, DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsToProto(&r))
-	}
-	return p
-}
-
-// WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsToProto converts a WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels resource to its proto representation.
-func DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsToProto(o *dataproc.WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels) *dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnumToProto(o.Value),
+	p.DriverLogLevels = make(map[string]string)
+	for k, r := range o.DriverLogLevels {
+		p.DriverLogLevels[k] = r
 	}
 	return p
 }
@@ -1529,8 +829,9 @@ func DataprocWorkflowTemplateJobsPrestoJobToProto(o *dataproc.WorkflowTemplateJo
 	for _, r := range o.ClientTags {
 		p.ClientTags = append(p.ClientTags, r)
 	}
-	for _, r := range o.Properties {
-		p.Properties = append(p.Properties, DataprocWorkflowTemplateJobsPrestoJobPropertiesToProto(&r))
+	p.Properties = make(map[string]string)
+	for k, r := range o.Properties {
+		p.Properties[k] = r
 	}
 	return p
 }
@@ -1547,50 +848,15 @@ func DataprocWorkflowTemplateJobsPrestoJobQueryListToProto(o *dataproc.WorkflowT
 	return p
 }
 
-// WorkflowTemplateJobsPrestoJobPropertiesToProto converts a WorkflowTemplateJobsPrestoJobProperties resource to its proto representation.
-func DataprocWorkflowTemplateJobsPrestoJobPropertiesToProto(o *dataproc.WorkflowTemplateJobsPrestoJobProperties) *dataprocpb.DataprocWorkflowTemplateJobsPrestoJobProperties {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsPrestoJobProperties{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
-	}
-	return p
-}
-
 // WorkflowTemplateJobsPrestoJobLoggingConfigToProto converts a WorkflowTemplateJobsPrestoJobLoggingConfig resource to its proto representation.
 func DataprocWorkflowTemplateJobsPrestoJobLoggingConfigToProto(o *dataproc.WorkflowTemplateJobsPrestoJobLoggingConfig) *dataprocpb.DataprocWorkflowTemplateJobsPrestoJobLoggingConfig {
 	if o == nil {
 		return nil
 	}
 	p := &dataprocpb.DataprocWorkflowTemplateJobsPrestoJobLoggingConfig{}
-	for _, r := range o.DriverLogLevels {
-		p.DriverLogLevels = append(p.DriverLogLevels, DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsToProto(&r))
-	}
-	return p
-}
-
-// WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsToProto converts a WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels resource to its proto representation.
-func DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsToProto(o *dataproc.WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels) *dataprocpb.DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnumToProto(o.Value),
-	}
-	return p
-}
-
-// WorkflowTemplateJobsLabelsToProto converts a WorkflowTemplateJobsLabels resource to its proto representation.
-func DataprocWorkflowTemplateJobsLabelsToProto(o *dataproc.WorkflowTemplateJobsLabels) *dataprocpb.DataprocWorkflowTemplateJobsLabels {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsLabels{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
+	p.DriverLogLevels = make(map[string]string)
+	for k, r := range o.DriverLogLevels {
+		p.DriverLogLevels[k] = r
 	}
 	return p
 }
@@ -1670,9 +936,6 @@ func WorkflowTemplateToProto(resource *dataproc.WorkflowTemplate) *dataprocpb.Da
 		Project:    dcl.ValueOrEmptyString(resource.Project),
 		Location:   dcl.ValueOrEmptyString(resource.Location),
 	}
-	for _, r := range resource.Labels {
-		p.Labels = append(p.Labels, DataprocWorkflowTemplateLabelsToProto(&r))
-	}
 	for _, r := range resource.Jobs {
 		p.Jobs = append(p.Jobs, DataprocWorkflowTemplateJobsToProto(&r))
 	}
@@ -1705,11 +968,13 @@ func (s *WorkflowTemplateServer) ApplyDataprocWorkflowTemplate(ctx context.Conte
 
 // DeleteWorkflowTemplate handles the gRPC request by passing it to the underlying WorkflowTemplate Delete() method.
 func (s *WorkflowTemplateServer) DeleteDataprocWorkflowTemplate(ctx context.Context, request *dataprocpb.DeleteDataprocWorkflowTemplateRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigWorkflowTemplate(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteWorkflowTemplate(ctx, ProtoToWorkflowTemplate(request.GetResource()))
+
 }
 
 // ListWorkflowTemplate handles the gRPC request by passing it to the underlying WorkflowTemplateList() method.

@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -373,7 +374,9 @@ func (c *Client) ApplySubnetwork(ctx context.Context, rawDesired *Subnetwork, op
 	if create {
 		ops = append(ops, &createSubnetworkOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteSubnetworkOperation{})
+
 		ops = append(ops, &createSubnetworkOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeSubnetworkDesiredState(rawDesired, nil)

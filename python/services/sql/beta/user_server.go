@@ -129,11 +129,13 @@ func (s *UserServer) ApplySqlBetaUser(ctx context.Context, request *betapb.Apply
 
 // DeleteUser handles the gRPC request by passing it to the underlying User Delete() method.
 func (s *UserServer) DeleteSqlBetaUser(ctx context.Context, request *betapb.DeleteSqlBetaUserRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigUser(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteUser(ctx, ProtoToUser(request.GetResource()))
+
 }
 
 // ListUser handles the gRPC request by passing it to the underlying UserList() method.

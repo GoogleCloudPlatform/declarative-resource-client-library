@@ -158,8 +158,35 @@ info:
   title: Compute/SslPolicy
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many SslPolicy
+  apply:
+    description: The function used to apply information about a SslPolicy
+    parameters:
+    - description: A full instance of a SslPolicy
+      name: SslPolicy
+      required: true
+  delete:
+    description: The function used to delete a SslPolicy
+    parameters:
+    - description: A full instance of a SslPolicy
+      name: SslPolicy
+      required: true
+  deleteAll:
+    description: The function used to delete all SslPolicy
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a SslPolicy
+    parameters:
+    - description: A full instance of a SslPolicy
+      name: SslPolicy
+      required: true
+  list:
+    description: The function used to list information about many SslPolicy
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

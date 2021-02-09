@@ -238,11 +238,13 @@ func (s *ReservationServer) ApplyComputeReservation(ctx context.Context, request
 
 // DeleteReservation handles the gRPC request by passing it to the underlying Reservation Delete() method.
 func (s *ReservationServer) DeleteComputeReservation(ctx context.Context, request *computepb.DeleteComputeReservationRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigReservation(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteReservation(ctx, ProtoToReservation(request.GetResource()))
+
 }
 
 // ListReservation handles the gRPC request by passing it to the underlying ReservationList() method.

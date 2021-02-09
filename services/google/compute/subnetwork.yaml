@@ -94,7 +94,8 @@ components:
               default: INCLUDE_ALL_METADATA
               description: 'Can only be specified if VPC flow logging for this subnetwork
                 is enabled. Configures whether metadata fields should be added to
-                the reported VPC flow logs. Default is `INCLUDE_ALL_METADATA`. '
+                the reported VPC flow logs. Default is `INCLUDE_ALL_METADATA`.  Possible
+                values: EXCLUDE_ALL_METADATA, INCLUDE_ALL_METADATA'
               enum:
               - EXCLUDE_ALL_METADATA
               - INCLUDE_ALL_METADATA
@@ -201,7 +202,7 @@ components:
           x-dcl-list-type: list
           x-dcl-server-default: true
         selfLink:
-          description: \[Output Only\] Server-defined URL for the resource.
+          description: '[Output Only] Server-defined URL for the resource.'
           readOnly: true
           type: string
           x-dcl-go-name: SelfLink
@@ -223,10 +224,43 @@ info:
   title: Compute/Subnetwork
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Subnetwork
+  apply:
+    description: The function used to apply information about a Subnetwork
+    parameters:
+    - description: A full instance of a Subnetwork
+      name: Subnetwork
+      required: true
+  delete:
+    description: The function used to delete a Subnetwork
+    parameters:
+    - description: A full instance of a Subnetwork
+      name: Subnetwork
+      required: true
+  deleteAll:
+    description: The function used to delete all Subnetwork
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: region
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Subnetwork
+    parameters:
+    - description: A full instance of a Subnetwork
+      name: Subnetwork
+      required: true
+  list:
+    description: The function used to list information about many Subnetwork
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: region
+      required: true
+      schema:
+        type: string

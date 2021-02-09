@@ -54,9 +54,10 @@ components:
                 items:
                   properties:
                     accessMode:
-                      description: Either READ_ONLY, for allowing only read requests
+                      description: 'Either READ_ONLY, for allowing only read requests
                         on the exported directory, or READ_WRITE, for allowing both
-                        read and write requests. The default is READ_WRITE.
+                        read and write requests. The default is READ_WRITE. Possible
+                        values: ACCESS_MODE_UNSPECIFIED, READ_ONLY, READ_WRITE'
                       enum:
                       - ACCESS_MODE_UNSPECIFIED
                       - READ_ONLY
@@ -99,9 +100,10 @@ components:
                       x-dcl-list-type: list
                       x-kubernetes-immutable: true
                     squashMode:
-                      description: Either NO_ROOT_SQUASH, for allowing root access
+                      description: 'Either NO_ROOT_SQUASH, for allowing root access
                         on the exported directory, or ROOT_SQUASH, for not allowing
-                        root access. The default is NO_ROOT_SQUASH.
+                        root access. The default is NO_ROOT_SQUASH. Possible values:
+                        SQUASH_MODE_UNSPECIFIED, NO_ROOT_SQUASH, ROOT_SQUASH'
                       enum:
                       - SQUASH_MODE_UNSPECIFIED
                       - NO_ROOT_SQUASH
@@ -131,22 +133,14 @@ components:
           x-dcl-go-name: FileShares
           x-dcl-list-type: list
         labels:
+          additionalProperties:
+            type: string
           description: Resource labels to represent user provided metadata.
           items:
-            properties:
-              key:
-                type: string
-                x-dcl-go-name: Key
-                x-kubernetes-immutable: true
-              value:
-                type: string
-                x-dcl-go-name: Value
-                x-kubernetes-immutable: true
-            type: object
-            x-dcl-go-type: InstanceLabels
-          type: array
+            type: string
+            x-dcl-go-type: string
+          type: object
           x-dcl-go-name: Labels
-          x-dcl-list-type: list
         location:
           description: The location for the resource
           type: string
@@ -210,7 +204,8 @@ components:
           x-dcl-go-name: Project
           x-kubernetes-immutable: true
         state:
-          description: Output only. The instance state.
+          description: 'Output only. The instance state. Possible values: STATE_UNSPECIFIED,
+            CREATING, READY, REPAIRING, DELETING, ERROR'
           enum:
           - STATE_UNSPECIFIED
           - CREATING
@@ -229,7 +224,8 @@ components:
           type: string
           x-dcl-go-name: StatusMessage
         tier:
-          description: The service tier of the instance.
+          description: 'The service tier of the instance. Possible values: TIER_UNSPECIFIED,
+            STANDARD, PREMIUM, BASIC_HDD, BASIC_SSD, HIGH_SCALE_SSD'
           enum:
           - TIER_UNSPECIFIED
           - STANDARD
@@ -256,10 +252,43 @@ info:
   title: File/Instance
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Instance
+  apply:
+    description: The function used to apply information about a Instance
+    parameters:
+    - description: A full instance of a Instance
+      name: Instance
+      required: true
+  delete:
+    description: The function used to delete a Instance
+    parameters:
+    - description: A full instance of a Instance
+      name: Instance
+      required: true
+  deleteAll:
+    description: The function used to delete all Instance
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: location
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Instance
+    parameters:
+    - description: A full instance of a Instance
+      name: Instance
+      required: true
+  list:
+    description: The function used to list information about many Instance
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string

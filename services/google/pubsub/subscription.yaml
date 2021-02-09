@@ -22,8 +22,8 @@ components:
             it is considered to be _outstanding_. During that time period, the message
             will not be redelivered (on a best-effort basis). For pull subscriptions,
             this value is used as the initial value for the ack deadline. To override
-            this value for a given message, call \`ModifyAckDeadline\` with the corresponding
-            \`ack\_id\` if using non-streaming pull or send the \`ack\_id\` in a \`StreamingModifyAckDeadlineRequest\`
+            this value for a given message, call `ModifyAckDeadline` with the corresponding
+            `ack_id` if using non-streaming pull or send the `ack_id` in a `StreamingModifyAckDeadlineRequest`
             if using streaming pull. The minimum custom deadline you can specify is
             10 seconds. The maximum custom deadline you can specify is 600 seconds
             (10 minutes). If this parameter is 0, a default value of 10 seconds is
@@ -36,16 +36,16 @@ components:
           x-kubernetes-immutable: true
         deadLetterPolicy:
           description: A policy that specifies the conditions for dead lettering messages
-            in this subscription. If dead\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_letter\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_policy
-            is not set, dead lettering is disabled. The Cloud Pub/Sub service account
-            associated with this subscriptions's parent project (i.e., service-{project\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_number}@gcp-sa-pubsub.iam.gserviceaccount.com)
+            in this subscription. If dead_letter_policy is not set, dead lettering
+            is disabled. The Cloud Pub/Sub service account associated with this subscriptions's
+            parent project (i.e., service-{project_number}@gcp-sa-pubsub.iam.gserviceaccount.com)
             must have permission to Acknowledge() messages on this subscription.
           properties:
             deadLetterTopic:
               description: The name of the topic to which dead letter messages should
-                be published. Format is \`projects/{project}/topics/{topic}\`.The
-                Cloud Pub/Sub service account associated with the enclosing subscription's
-                parent project (i.e., service-{project\_number}@gcp-sa-pubsub.iam.gserviceaccount.com)
+                be published. Format is `projects/{project}/topics/{topic}`.The Cloud
+                Pub/Sub service account associated with the enclosing subscription's
+                parent project (i.e., service-{project_number}@gcp-sa-pubsub.iam.gserviceaccount.com)
                 must have permission to Publish() to this topic. The operation will
                 fail if the topic does not exist. Users should ensure that there is
                 a subscription attached to this topic since messages published to
@@ -62,7 +62,7 @@ components:
                 is defined as 1 + (the sum of number of NACKs and number of times
                 the acknowledgement deadline has been exceeded for the message). A
                 NACK is any call to ModifyAckDeadline with a 0 deadline. Note that
-                client libraries may automatically extend ack\_deadlines. This field
+                client libraries may automatically extend ack_deadlines. This field
                 will be honored on a best effort basis. If this parameter is 0, a
                 default value of 5 is used.
               format: int64
@@ -99,6 +99,9 @@ components:
           additionalProperties:
             type: string
           description: 'A set of key/value label pairs to assign to this Subscription. '
+          items:
+            type: string
+            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         messageRetentionDuration:
@@ -123,7 +126,7 @@ components:
           x-kubernetes-immutable: true
         pushConfig:
           description: If push delivery is used with this subscription, this field
-            is used to configure it. An empty \`pushConfig\` signifies that the subscriber
+            is used to configure it. An empty `pushConfig` signifies that the subscriber
             will pull and ack messages using API methods.
           properties:
             attributes:
@@ -131,16 +134,19 @@ components:
                 type: string
               default: '{"x-goog-version":"v1"}'
               description: |-
-                Endpoint configuration attributes that can be used to control different aspects of the message delivery. The only currently supported attribute is \`x-goog-version\`, which you can use to change the format of the pushed message. This attribute indicates the version of the data expected by the endpoint. This controls the shape of the pushed message (i.e., its fields and metadata). If not present during the \`CreateSubscription\` call, it will default to the version of the Pub/Sub API used to make such call. If not present in a \`ModifyPushConfig\` call, its value will not be changed. \`GetSubscription\` calls will always return a valid version, even if the subscription was created without this attribute. The only supported values for the \`x-goog-version\` attribute are: \* \`v1beta1\`: uses the push format defined in the v1beta1 Pub/Sub API. \* \`v1\` or \`v1beta2\`: uses the push format defined in the v1 Pub/Sub API. For example:
+                Endpoint configuration attributes that can be used to control different aspects of the message delivery. The only currently supported attribute is `x-goog-version`, which you can use to change the format of the pushed message. This attribute indicates the version of the data expected by the endpoint. This controls the shape of the pushed message (i.e., its fields and metadata). If not present during the `CreateSubscription` call, it will default to the version of the Pub/Sub API used to make such call. If not present in a `ModifyPushConfig` call, its value will not be changed. `GetSubscription` calls will always return a valid version, even if the subscription was created without this attribute. The only supported values for the `x-goog-version` attribute are: * `v1beta1`: uses the push format defined in the v1beta1 Pub/Sub API. * `v1` or `v1beta2`: uses the push format defined in the v1 Pub/Sub API. For example:
 
                     attributes { "x-goog-version": "v1" }
+              items:
+                type: string
+                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Attributes
               x-kubernetes-immutable: true
             oidcToken:
               description: If specified, Pub/Sub will generate and attach an OIDC
-                JWT token as an \\\\\\\`Authorization\\\\\\\` header in the HTTP request
-                for every pushed message.
+                JWT token as an `Authorization` header in the HTTP request for every
+                pushed message.
               properties:
                 audience:
                   description: 'Audience to be used when generating OIDC token. The
@@ -153,10 +159,10 @@ components:
                   x-dcl-go-name: Audience
                   x-kubernetes-immutable: true
                 serviceAccountEmail:
-                  description: \[Service account email\](https://cloud.google.com/iam/docs/service-accounts)
+                  description: '[Service account email](https://cloud.google.com/iam/docs/service-accounts)
                     to be used for generating the OIDC token. The caller (for CreateSubscription,
                     UpdateSubscription, and ModifyPushConfig RPCs) must have the iam.serviceAccounts.actAs
-                    permission for the service account.
+                    permission for the service account.'
                   type: string
                   x-dcl-go-name: ServiceAccountEmail
                   x-kubernetes-immutable: true
@@ -166,7 +172,7 @@ components:
               x-kubernetes-immutable: true
             pushEndpoint:
               description: A URL locating the endpoint to which messages should be
-                pushed. For example, a Webhook endpoint might use \`https://example.com/push\`.
+                pushed. For example, a Webhook endpoint might use `https://example.com/push`.
               type: string
               x-dcl-go-name: PushEndpoint
               x-kubernetes-immutable: true
@@ -207,8 +213,35 @@ info:
   title: Pubsub/Subscription
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Subscription
+  apply:
+    description: The function used to apply information about a Subscription
+    parameters:
+    - description: A full instance of a Subscription
+      name: Subscription
+      required: true
+  delete:
+    description: The function used to delete a Subscription
+    parameters:
+    - description: A full instance of a Subscription
+      name: Subscription
+      required: true
+  deleteAll:
+    description: The function used to delete all Subscription
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Subscription
+    parameters:
+    - description: A full instance of a Subscription
+      name: Subscription
+      required: true
+  list:
+    description: The function used to list information about many Subscription
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

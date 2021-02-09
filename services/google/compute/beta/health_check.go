@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -650,7 +651,9 @@ func (c *Client) ApplyHealthCheck(ctx context.Context, rawDesired *HealthCheck, 
 	if create {
 		ops = append(ops, &createHealthCheckOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteHealthCheckOperation{})
+
 		ops = append(ops, &createHealthCheckOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeHealthCheckDesiredState(rawDesired, nil)

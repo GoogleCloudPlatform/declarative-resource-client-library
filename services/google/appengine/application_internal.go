@@ -18,12 +18,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
+	"reflect"
+
+	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
-	"reflect"
-	"strings"
 )
 
 func (r *Application) validate() error {
@@ -196,53 +196,6 @@ func (c *Client) listApplication(ctx context.Context, pageToken string) ([]*Appl
 	return l, m.Token, nil
 }
 
-func (c *Client) deleteAllApplication(ctx context.Context, f func(*Application) bool, resources []*Application) error {
-	var errors []string
-	for _, res := range resources {
-		if f(res) {
-			// We do not want deleteAll to fail on a deletion or else it will stop deleting other resources.
-			err := c.DeleteApplication(ctx, res)
-			if err != nil {
-				errors = append(errors, err.Error())
-			}
-		}
-	}
-	if len(errors) > 0 {
-		return fmt.Errorf("%v", strings.Join(errors, "\n"))
-	} else {
-		return nil
-	}
-}
-
-type deleteApplicationOperation struct{}
-
-func (op *deleteApplicationOperation) do(ctx context.Context, r *Application, c *Client) error {
-
-	_, err := c.GetApplication(ctx, r.urlNormalized())
-
-	if err != nil {
-		if dcl.IsForbiddenOrNotFound(err) {
-			c.Config.Logger.Infof("Application not found, returning. Original error: %v", err)
-			return nil
-		}
-		c.Config.Logger.Warningf("GetApplication checking for existence. error: %v", err)
-		return err
-	}
-
-	u, err := applicationDeleteURL(c.Config.BasePath, r.urlNormalized())
-	if err != nil {
-		return err
-	}
-
-	// Delete should never have a body
-	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
-	if err != nil {
-		return fmt.Errorf("failed to delete Application: %w", err)
-	}
-	return nil
-}
-
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
@@ -324,12 +277,12 @@ func (c *Client) applicationDiffsForRawDesired(ctx context.Context, rawDesired *
 			c.Config.Logger.Warningf("Failed to retrieve whether a Application resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Application resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Application resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeApplicationDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Application: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Application: %v", rawDesired)
 
@@ -906,7 +859,7 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 
 	var diffs []applicationDiff
 	if !dcl.IsZeroValue(desired.AuthDomain) && (dcl.IsZeroValue(actual.AuthDomain) || !reflect.DeepEqual(*desired.AuthDomain, *actual.AuthDomain)) {
-		c.Config.Logger.Infof("Detected diff in AuthDomain.\nDESIRED: %#v\nACTUAL: %#v", desired.AuthDomain, actual.AuthDomain)
+		c.Config.Logger.Infof("Detected diff in AuthDomain.\nDESIRED: %v\nACTUAL: %v", desired.AuthDomain, actual.AuthDomain)
 
 		diffs = append(diffs, applicationDiff{
 			UpdateOp:  &updateApplicationUpdateApplicationOperation{},
@@ -915,7 +868,7 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 
 	}
 	if !dcl.SliceEquals(desired.BlockedAddresses, actual.BlockedAddresses) {
-		c.Config.Logger.Infof("Detected diff in BlockedAddresses.\nDESIRED: %#v\nACTUAL: %#v", desired.BlockedAddresses, actual.BlockedAddresses)
+		c.Config.Logger.Infof("Detected diff in BlockedAddresses.\nDESIRED: %v\nACTUAL: %v", desired.BlockedAddresses, actual.BlockedAddresses)
 
 		diffs = append(diffs, applicationDiff{
 			UpdateOp:  &updateApplicationUpdateApplicationOperation{},
@@ -924,56 +877,56 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 
 	}
 	if !dcl.IsZeroValue(desired.CodeBucket) && (dcl.IsZeroValue(actual.CodeBucket) || !reflect.DeepEqual(*desired.CodeBucket, *actual.CodeBucket)) {
-		c.Config.Logger.Infof("Detected diff in CodeBucket.\nDESIRED: %#v\nACTUAL: %#v", desired.CodeBucket, actual.CodeBucket)
+		c.Config.Logger.Infof("Detected diff in CodeBucket.\nDESIRED: %v\nACTUAL: %v", desired.CodeBucket, actual.CodeBucket)
 		diffs = append(diffs, applicationDiff{
 			RequiresRecreate: true,
 			FieldName:        "CodeBucket",
 		})
 	}
 	if compareApplicationConsumerProject(c, desired.ConsumerProject, actual.ConsumerProject) {
-		c.Config.Logger.Infof("Detected diff in ConsumerProject.\nDESIRED: %#v\nACTUAL: %#v", desired.ConsumerProject, actual.ConsumerProject)
+		c.Config.Logger.Infof("Detected diff in ConsumerProject.\nDESIRED: %v\nACTUAL: %v", desired.ConsumerProject, actual.ConsumerProject)
 		diffs = append(diffs, applicationDiff{
 			RequiresRecreate: true,
 			FieldName:        "ConsumerProject",
 		})
 	}
 	if !dcl.IsZeroValue(desired.DatabaseType) && (dcl.IsZeroValue(actual.DatabaseType) || !reflect.DeepEqual(*desired.DatabaseType, *actual.DatabaseType)) {
-		c.Config.Logger.Infof("Detected diff in DatabaseType.\nDESIRED: %#v\nACTUAL: %#v", desired.DatabaseType, actual.DatabaseType)
+		c.Config.Logger.Infof("Detected diff in DatabaseType.\nDESIRED: %v\nACTUAL: %v", desired.DatabaseType, actual.DatabaseType)
 		diffs = append(diffs, applicationDiff{
 			RequiresRecreate: true,
 			FieldName:        "DatabaseType",
 		})
 	}
 	if !dcl.IsZeroValue(desired.DefaultBucket) && (dcl.IsZeroValue(actual.DefaultBucket) || !reflect.DeepEqual(*desired.DefaultBucket, *actual.DefaultBucket)) {
-		c.Config.Logger.Infof("Detected diff in DefaultBucket.\nDESIRED: %#v\nACTUAL: %#v", desired.DefaultBucket, actual.DefaultBucket)
+		c.Config.Logger.Infof("Detected diff in DefaultBucket.\nDESIRED: %v\nACTUAL: %v", desired.DefaultBucket, actual.DefaultBucket)
 		diffs = append(diffs, applicationDiff{
 			RequiresRecreate: true,
 			FieldName:        "DefaultBucket",
 		})
 	}
 	if !dcl.IsZeroValue(desired.DefaultHostname) && (dcl.IsZeroValue(actual.DefaultHostname) || !reflect.DeepEqual(*desired.DefaultHostname, *actual.DefaultHostname)) {
-		c.Config.Logger.Infof("Detected diff in DefaultHostname.\nDESIRED: %#v\nACTUAL: %#v", desired.DefaultHostname, actual.DefaultHostname)
+		c.Config.Logger.Infof("Detected diff in DefaultHostname.\nDESIRED: %v\nACTUAL: %v", desired.DefaultHostname, actual.DefaultHostname)
 		diffs = append(diffs, applicationDiff{
 			RequiresRecreate: true,
 			FieldName:        "DefaultHostname",
 		})
 	}
 	if compareApplicationDispatchRulesSlice(c, desired.DispatchRules, actual.DispatchRules) {
-		c.Config.Logger.Infof("Detected diff in DispatchRules.\nDESIRED: %#v\nACTUAL: %#v", desired.DispatchRules, actual.DispatchRules)
+		c.Config.Logger.Infof("Detected diff in DispatchRules.\nDESIRED: %v\nACTUAL: %v", desired.DispatchRules, actual.DispatchRules)
 		diffs = append(diffs, applicationDiff{
 			RequiresRecreate: true,
 			FieldName:        "DispatchRules",
 		})
 	}
 	if !dcl.SliceEquals(desired.Domains, actual.Domains) {
-		c.Config.Logger.Infof("Detected diff in Domains.\nDESIRED: %#v\nACTUAL: %#v", desired.Domains, actual.Domains)
+		c.Config.Logger.Infof("Detected diff in Domains.\nDESIRED: %v\nACTUAL: %v", desired.Domains, actual.Domains)
 		diffs = append(diffs, applicationDiff{
 			RequiresRecreate: true,
 			FieldName:        "Domains",
 		})
 	}
 	if compareApplicationFeatureSettings(c, desired.FeatureSettings, actual.FeatureSettings) {
-		c.Config.Logger.Infof("Detected diff in FeatureSettings.\nDESIRED: %#v\nACTUAL: %#v", desired.FeatureSettings, actual.FeatureSettings)
+		c.Config.Logger.Infof("Detected diff in FeatureSettings.\nDESIRED: %v\nACTUAL: %v", desired.FeatureSettings, actual.FeatureSettings)
 
 		diffs = append(diffs, applicationDiff{
 			UpdateOp:  &updateApplicationUpdateApplicationOperation{},
@@ -982,35 +935,35 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 
 	}
 	if !dcl.IsZeroValue(desired.GcrDomain) && (dcl.IsZeroValue(actual.GcrDomain) || !reflect.DeepEqual(*desired.GcrDomain, *actual.GcrDomain)) {
-		c.Config.Logger.Infof("Detected diff in GcrDomain.\nDESIRED: %#v\nACTUAL: %#v", desired.GcrDomain, actual.GcrDomain)
+		c.Config.Logger.Infof("Detected diff in GcrDomain.\nDESIRED: %v\nACTUAL: %v", desired.GcrDomain, actual.GcrDomain)
 		diffs = append(diffs, applicationDiff{
 			RequiresRecreate: true,
 			FieldName:        "GcrDomain",
 		})
 	}
 	if compareApplicationIap(c, desired.Iap, actual.Iap) {
-		c.Config.Logger.Infof("Detected diff in Iap.\nDESIRED: %#v\nACTUAL: %#v", desired.Iap, actual.Iap)
+		c.Config.Logger.Infof("Detected diff in Iap.\nDESIRED: %v\nACTUAL: %v", desired.Iap, actual.Iap)
 		diffs = append(diffs, applicationDiff{
 			RequiresRecreate: true,
 			FieldName:        "Iap",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, applicationDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Location) && (dcl.IsZeroValue(actual.Location) || !reflect.DeepEqual(*desired.Location, *actual.Location)) {
-		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
+		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %v\nACTUAL: %v", desired.Location, actual.Location)
 		diffs = append(diffs, applicationDiff{
 			RequiresRecreate: true,
 			FieldName:        "Location",
 		})
 	}
 	if !dcl.IsZeroValue(desired.ServingStatus) && (dcl.IsZeroValue(actual.ServingStatus) || !reflect.DeepEqual(*desired.ServingStatus, *actual.ServingStatus)) {
-		c.Config.Logger.Infof("Detected diff in ServingStatus.\nDESIRED: %#v\nACTUAL: %#v", desired.ServingStatus, actual.ServingStatus)
+		c.Config.Logger.Infof("Detected diff in ServingStatus.\nDESIRED: %v\nACTUAL: %v", desired.ServingStatus, actual.ServingStatus)
 
 		diffs = append(diffs, applicationDiff{
 			UpdateOp:  &updateApplicationUpdateApplicationOperation{},
@@ -1019,7 +972,7 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 
 	}
 	if !dcl.IsZeroValue(desired.ServiceAccount) && (dcl.IsZeroValue(actual.ServiceAccount) || !reflect.DeepEqual(*desired.ServiceAccount, *actual.ServiceAccount)) {
-		c.Config.Logger.Infof("Detected diff in ServiceAccount.\nDESIRED: %#v\nACTUAL: %#v", desired.ServiceAccount, actual.ServiceAccount)
+		c.Config.Logger.Infof("Detected diff in ServiceAccount.\nDESIRED: %v\nACTUAL: %v", desired.ServiceAccount, actual.ServiceAccount)
 		diffs = append(diffs, applicationDiff{
 			RequiresRecreate: true,
 			FieldName:        "ServiceAccount",
@@ -1392,11 +1345,6 @@ func (r *Application) getFields() string {
 
 func (r *Application) createFields() string {
 	return ""
-}
-
-func (r *Application) deleteFields() string {
-	n := r.urlNormalized()
-	return dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Application) updateURL(userBasePath, updateName string) (string, error) {

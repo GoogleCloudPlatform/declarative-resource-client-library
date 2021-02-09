@@ -15,6 +15,7 @@ package server
 
 import (
 	"context"
+	"errors"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	appenginepb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/appengine/appengine_go_proto"
@@ -331,11 +332,9 @@ func (s *ApplicationServer) ApplyAppengineApplication(ctx context.Context, reque
 
 // DeleteApplication handles the gRPC request by passing it to the underlying Application Delete() method.
 func (s *ApplicationServer) DeleteAppengineApplication(ctx context.Context, request *appenginepb.DeleteAppengineApplicationRequest) (*emptypb.Empty, error) {
-	cl, err := createConfigApplication(ctx, request.ServiceAccountFile)
-	if err != nil {
-		return nil, err
-	}
-	return &emptypb.Empty{}, cl.DeleteApplication(ctx, ProtoToApplication(request.GetResource()))
+
+	return nil, errors.New("no delete endpoint for Application")
+
 }
 
 // ListApplication handles the gRPC request by passing it to the underlying ApplicationList() method.

@@ -114,8 +114,35 @@ info:
   title: Compute/SslCertificate
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many SslCertificate
+  apply:
+    description: The function used to apply information about a SslCertificate
+    parameters:
+    - description: A full instance of a SslCertificate
+      name: SslCertificate
+      required: true
+  delete:
+    description: The function used to delete a SslCertificate
+    parameters:
+    - description: A full instance of a SslCertificate
+      name: SslCertificate
+      required: true
+  deleteAll:
+    description: The function used to delete all SslCertificate
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a SslCertificate
+    parameters:
+    - description: A full instance of a SslCertificate
+      name: SslCertificate
+      required: true
+  list:
+    description: The function used to list information about many SslCertificate
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

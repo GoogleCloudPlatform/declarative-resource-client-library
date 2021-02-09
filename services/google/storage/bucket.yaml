@@ -245,8 +245,35 @@ info:
   title: Storage/Bucket
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Bucket
+  apply:
+    description: The function used to apply information about a Bucket
+    parameters:
+    - description: A full instance of a Bucket
+      name: Bucket
+      required: true
+  delete:
+    description: The function used to delete a Bucket
+    parameters:
+    - description: A full instance of a Bucket
+      name: Bucket
+      required: true
+  deleteAll:
+    description: The function used to delete all Bucket
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Bucket
+    parameters:
+    - description: A full instance of a Bucket
+      name: Bucket
+      required: true
+  list:
+    description: The function used to list information about many Bucket
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

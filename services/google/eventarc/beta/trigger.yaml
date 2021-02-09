@@ -79,8 +79,8 @@ components:
           x-dcl-go-name: Location
           x-kubernetes-immutable: true
         matchingCriteria:
-          description: Required. The criteria by which events are filtered. Only events
-            that match with this criteria will be sent to the destination.
+          description: Required. null The criteria by which events are filtered. Only
+            events that match with this criteria will be sent to the destination.
           items:
             properties:
               attribute:
@@ -176,7 +176,6 @@ components:
       required:
       - name
       - destination
-      - matchingCriteria
       - project
       - location
       title: Trigger
@@ -190,10 +189,43 @@ info:
   title: Eventarc/Trigger
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Trigger
+  apply:
+    description: The function used to apply information about a Trigger
+    parameters:
+    - description: A full instance of a Trigger
+      name: Trigger
+      required: true
+  delete:
+    description: The function used to delete a Trigger
+    parameters:
+    - description: A full instance of a Trigger
+      name: Trigger
+      required: true
+  deleteAll:
+    description: The function used to delete all Trigger
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: location
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Trigger
+    parameters:
+    - description: A full instance of a Trigger
+      name: Trigger
+      required: true
+  list:
+    description: The function used to list information about many Trigger
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string

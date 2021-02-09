@@ -252,11 +252,13 @@ func (s *SubnetworkServer) ComputeSubnetworkAsHcl(ctx context.Context, request *
 
 // DeleteSubnetwork handles the gRPC request by passing it to the underlying Subnetwork Delete() method.
 func (s *SubnetworkServer) DeleteComputeSubnetwork(ctx context.Context, request *computepb.DeleteComputeSubnetworkRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigSubnetwork(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteSubnetwork(ctx, ProtoToSubnetwork(request.GetResource()))
+
 }
 
 // ListSubnetwork handles the gRPC request by passing it to the underlying SubnetworkList() method.

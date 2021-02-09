@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -1096,7 +1097,9 @@ func (c *Client) ApplyCluster(ctx context.Context, rawDesired *Cluster, opts ...
 	if create {
 		ops = append(ops, &createClusterOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteClusterOperation{})
+
 		ops = append(ops, &createClusterOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeClusterDesiredState(rawDesired, nil)

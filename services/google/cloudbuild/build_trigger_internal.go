@@ -18,11 +18,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 func (r *BuildTrigger) validate() error {
@@ -470,12 +471,12 @@ func (c *Client) buildTriggerDiffsForRawDesired(ctx context.Context, rawDesired 
 			c.Config.Logger.Warningf("Failed to retrieve whether a BuildTrigger resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve BuildTrigger resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that BuildTrigger resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeBuildTriggerDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for BuildTrigger: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for BuildTrigger: %v", rawDesired)
 
@@ -500,6 +501,21 @@ func (c *Client) buildTriggerDiffsForRawDesired(ctx context.Context, rawDesired 
 
 func canonicalizeBuildTriggerInitialState(rawInitial, rawDesired *BuildTrigger) (*BuildTrigger, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
+
+	if dcl.IsZeroValue(rawInitial.Filename) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.Build) {
+			rawInitial.Filename = dcl.String("")
+		}
+	}
+
+	if dcl.IsZeroValue(rawInitial.Build) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.Filename) {
+			rawInitial.Build = EmptyBuildTriggerBuild
+		}
+	}
+
 	return rawInitial, nil
 }
 
@@ -637,13 +653,7 @@ func canonicalizeBuildTriggerNewState(c *Client, rawNew, rawDesired *BuildTrigge
 		rawNew.Github = canonicalizeNewBuildTriggerGithub(c, rawDesired.Github, rawNew.Github)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	if dcl.IsEmptyValueIndirect(rawNew.Build) && dcl.IsEmptyValueIndirect(rawDesired.Build) {
 		rawNew.Build = rawDesired.Build
@@ -1563,7 +1573,7 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 
 	var diffs []buildTriggerDiff
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 
 		diffs = append(diffs, buildTriggerDiff{
 			UpdateOp:  &updateBuildTriggerUpdateBuildTriggerOperation{},
@@ -1572,7 +1582,7 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, buildTriggerDiff{
 			UpdateOp:  &updateBuildTriggerUpdateBuildTriggerOperation{},
@@ -1581,7 +1591,7 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 
 	}
 	if !dcl.SliceEquals(desired.Tags, actual.Tags) {
-		c.Config.Logger.Infof("Detected diff in Tags.\nDESIRED: %#v\nACTUAL: %#v", desired.Tags, actual.Tags)
+		c.Config.Logger.Infof("Detected diff in Tags.\nDESIRED: %v\nACTUAL: %v", desired.Tags, actual.Tags)
 
 		diffs = append(diffs, buildTriggerDiff{
 			UpdateOp:  &updateBuildTriggerUpdateBuildTriggerOperation{},
@@ -1590,7 +1600,7 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 
 	}
 	if !dcl.IsZeroValue(desired.Disabled) && (dcl.IsZeroValue(actual.Disabled) || !reflect.DeepEqual(*desired.Disabled, *actual.Disabled)) {
-		c.Config.Logger.Infof("Detected diff in Disabled.\nDESIRED: %#v\nACTUAL: %#v", desired.Disabled, actual.Disabled)
+		c.Config.Logger.Infof("Detected diff in Disabled.\nDESIRED: %v\nACTUAL: %v", desired.Disabled, actual.Disabled)
 
 		diffs = append(diffs, buildTriggerDiff{
 			UpdateOp:  &updateBuildTriggerUpdateBuildTriggerOperation{},
@@ -1599,7 +1609,7 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 
 	}
 	if !reflect.DeepEqual(desired.Substitutions, actual.Substitutions) {
-		c.Config.Logger.Infof("Detected diff in Substitutions.\nDESIRED: %#v\nACTUAL: %#v", desired.Substitutions, actual.Substitutions)
+		c.Config.Logger.Infof("Detected diff in Substitutions.\nDESIRED: %v\nACTUAL: %v", desired.Substitutions, actual.Substitutions)
 
 		diffs = append(diffs, buildTriggerDiff{
 			UpdateOp:  &updateBuildTriggerUpdateBuildTriggerOperation{},
@@ -1608,7 +1618,7 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 
 	}
 	if !dcl.IsZeroValue(desired.Filename) && (dcl.IsZeroValue(actual.Filename) || !reflect.DeepEqual(*desired.Filename, *actual.Filename)) {
-		c.Config.Logger.Infof("Detected diff in Filename.\nDESIRED: %#v\nACTUAL: %#v", desired.Filename, actual.Filename)
+		c.Config.Logger.Infof("Detected diff in Filename.\nDESIRED: %v\nACTUAL: %v", desired.Filename, actual.Filename)
 
 		diffs = append(diffs, buildTriggerDiff{
 			UpdateOp:  &updateBuildTriggerUpdateBuildTriggerOperation{},
@@ -1617,7 +1627,7 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 
 	}
 	if !dcl.SliceEquals(desired.IgnoredFiles, actual.IgnoredFiles) {
-		c.Config.Logger.Infof("Detected diff in IgnoredFiles.\nDESIRED: %#v\nACTUAL: %#v", desired.IgnoredFiles, actual.IgnoredFiles)
+		c.Config.Logger.Infof("Detected diff in IgnoredFiles.\nDESIRED: %v\nACTUAL: %v", desired.IgnoredFiles, actual.IgnoredFiles)
 
 		diffs = append(diffs, buildTriggerDiff{
 			UpdateOp:  &updateBuildTriggerUpdateBuildTriggerOperation{},
@@ -1626,7 +1636,7 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 
 	}
 	if !dcl.SliceEquals(desired.IncludedFiles, actual.IncludedFiles) {
-		c.Config.Logger.Infof("Detected diff in IncludedFiles.\nDESIRED: %#v\nACTUAL: %#v", desired.IncludedFiles, actual.IncludedFiles)
+		c.Config.Logger.Infof("Detected diff in IncludedFiles.\nDESIRED: %v\nACTUAL: %v", desired.IncludedFiles, actual.IncludedFiles)
 
 		diffs = append(diffs, buildTriggerDiff{
 			UpdateOp:  &updateBuildTriggerUpdateBuildTriggerOperation{},
@@ -1635,7 +1645,7 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 
 	}
 	if compareBuildTriggerTriggerTemplate(c, desired.TriggerTemplate, actual.TriggerTemplate) {
-		c.Config.Logger.Infof("Detected diff in TriggerTemplate.\nDESIRED: %#v\nACTUAL: %#v", desired.TriggerTemplate, actual.TriggerTemplate)
+		c.Config.Logger.Infof("Detected diff in TriggerTemplate.\nDESIRED: %v\nACTUAL: %v", desired.TriggerTemplate, actual.TriggerTemplate)
 
 		diffs = append(diffs, buildTriggerDiff{
 			UpdateOp:  &updateBuildTriggerUpdateBuildTriggerOperation{},
@@ -1644,7 +1654,7 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 
 	}
 	if compareBuildTriggerGithub(c, desired.Github, actual.Github) {
-		c.Config.Logger.Infof("Detected diff in Github.\nDESIRED: %#v\nACTUAL: %#v", desired.Github, actual.Github)
+		c.Config.Logger.Infof("Detected diff in Github.\nDESIRED: %v\nACTUAL: %v", desired.Github, actual.Github)
 
 		diffs = append(diffs, buildTriggerDiff{
 			UpdateOp:  &updateBuildTriggerUpdateBuildTriggerOperation{},
@@ -1652,15 +1662,8 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, buildTriggerDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
 	if compareBuildTriggerBuild(c, desired.Build, actual.Build) {
-		c.Config.Logger.Infof("Detected diff in Build.\nDESIRED: %#v\nACTUAL: %#v", desired.Build, actual.Build)
+		c.Config.Logger.Infof("Detected diff in Build.\nDESIRED: %v\nACTUAL: %v", desired.Build, actual.Build)
 
 		diffs = append(diffs, buildTriggerDiff{
 			UpdateOp:  &updateBuildTriggerUpdateBuildTriggerOperation{},

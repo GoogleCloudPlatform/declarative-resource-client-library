@@ -11,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+// Package cloudresourcemanager contains support code for the CRM service.
 package cloudresourcemanager
 
 import (
@@ -37,9 +38,9 @@ func folderCreateURL(userBasePath, parent string) (string, error) {
 
 func folderGetURL(userBasePath string, r *Folder) (string, error) {
 	params := map[string]interface{}{
-		"id": dcl.ValueOrEmptyString(r.Id),
+		"name": dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("{{id}}", "https://cloudresourcemanager.googleapis.com/v2", userBasePath, params), nil
+	return dcl.URL("folders/{{name}}", "https://cloudresourcemanager.googleapis.com/v2", userBasePath, params), nil
 }
 
 func folderListURL(userBasePath, parent string) (string, error) {
@@ -53,16 +54,16 @@ func (r *Folder) updateURL(userBasePath, updateName string) (string, error) {
 	n := r.urlNormalized()
 	if updateName == "MoveFolder" {
 		fields := map[string]interface{}{
-			"id": dcl.ValueOrEmptyString(n.Id),
+			"name": dcl.ValueOrEmptyString(n.Name),
 		}
-		return dcl.URL("{{id}}:move", "https://cloudresourcemanager.googleapis.com/v2", userBasePath, fields), nil
+		return dcl.URL("folders/{{name}}:move", "https://cloudresourcemanager.googleapis.com/v2", userBasePath, fields), nil
 
 	}
 	if updateName == "UpdateFolder" {
 		fields := map[string]interface{}{
-			"id": dcl.ValueOrEmptyString(n.Id),
+			"name": dcl.ValueOrEmptyString(n.Name),
 		}
-		return dcl.URL("{{id}}?updateMask=displayName", "https://cloudresourcemanager.googleapis.com/v2", userBasePath, fields), nil
+		return dcl.URL("folders/{{name}}?updateMask=displayName", "https://cloudresourcemanager.googleapis.com/v2", userBasePath, fields), nil
 
 	}
 	return "", fmt.Errorf("unknown update name: %s", updateName)
@@ -70,9 +71,9 @@ func (r *Folder) updateURL(userBasePath, updateName string) (string, error) {
 
 func folderDeleteURL(userBasePath string, r *Folder) (string, error) {
 	params := map[string]interface{}{
-		"id": dcl.ValueOrEmptyString(r.Id),
+		"name": dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("{{id}}", "https://cloudresourcemanager.googleapis.com/v2", userBasePath, params), nil
+	return dcl.URL("folders/{{name}}", "https://cloudresourcemanager.googleapis.com/v2", userBasePath, params), nil
 }
 
 func (op *updateFolderMoveFolderOperation) do(ctx context.Context, r *Folder, c *Client) error {

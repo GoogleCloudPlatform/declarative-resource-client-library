@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *AccessLevel) validate() error {
@@ -71,7 +72,7 @@ func accessLevelListURL(userBasePath, policy string) (string, error) {
 	params := map[string]interface{}{
 		"policy": policy,
 	}
-	return dcl.URL("accessPolicies/{{policy}}/accessLevels", "https://accesscontextmanager.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("{{policy}}/accessLevels", "https://accesscontextmanager.googleapis.com/v1/", userBasePath, params), nil
 
 }
 
@@ -114,7 +115,7 @@ func newUpdateAccessLevelUpdateRequest(ctx context.Context, f *AccessLevel, c *C
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["basic"] = v
 	}
-	if v, err := dcl.DeriveField("accessPolicies/%s/accessLevels/%s", f.Name, f.Policy, f.Name); err != nil {
+	if v, err := dcl.DeriveField("%s/accessLevels/%s", f.Name, f.Policy, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["name"] = v
@@ -171,7 +172,7 @@ func (op *updateAccessLevelUpdateOperation) do(ctx context.Context, r *AccessLev
 		return err
 	}
 
-	var o operations.AcmOperation
+	var o operations.StandardGCPOperation
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
@@ -283,7 +284,7 @@ func (op *deleteAccessLevelOperation) do(ctx context.Context, r *AccessLevel, c 
 	}
 
 	// wait for object to be deleted.
-	var o operations.AcmOperation
+	var o operations.StandardGCPOperation
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
@@ -321,7 +322,7 @@ func (op *createAccessLevelOperation) do(ctx context.Context, r *AccessLevel, c 
 		return err
 	}
 	// wait for object to be created.
-	var o operations.AcmOperation
+	var o operations.StandardGCPOperation
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
@@ -379,12 +380,12 @@ func (c *Client) accessLevelDiffsForRawDesired(ctx context.Context, rawDesired *
 			c.Config.Logger.Warningf("Failed to retrieve whether a AccessLevel resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve AccessLevel resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that AccessLevel resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeAccessLevelDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for AccessLevel: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for AccessLevel: %v", rawDesired)
 
@@ -495,13 +496,7 @@ func canonicalizeAccessLevelNewState(c *Client, rawNew, rawDesired *AccessLevel)
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Policy) && dcl.IsEmptyValueIndirect(rawDesired.Policy) {
-		rawNew.Policy = rawDesired.Policy
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Policy, rawNew.Policy) {
-			rawNew.Policy = rawDesired.Policy
-		}
-	}
+	rawNew.Policy = rawDesired.Policy
 
 	return rawNew, nil
 }
@@ -795,7 +790,7 @@ func diffAccessLevel(c *Client, desired, actual *AccessLevel, opts ...dcl.ApplyO
 
 	var diffs []accessLevelDiff
 	if !dcl.IsZeroValue(desired.Title) && (dcl.IsZeroValue(actual.Title) || !reflect.DeepEqual(*desired.Title, *actual.Title)) {
-		c.Config.Logger.Infof("Detected diff in Title.\nDESIRED: %#v\nACTUAL: %#v", desired.Title, actual.Title)
+		c.Config.Logger.Infof("Detected diff in Title.\nDESIRED: %v\nACTUAL: %v", desired.Title, actual.Title)
 
 		diffs = append(diffs, accessLevelDiff{
 			UpdateOp:  &updateAccessLevelUpdateOperation{},
@@ -804,21 +799,21 @@ func diffAccessLevel(c *Client, desired, actual *AccessLevel, opts ...dcl.ApplyO
 
 	}
 	if !dcl.IsZeroValue(desired.CreateTime) && (dcl.IsZeroValue(actual.CreateTime) || !reflect.DeepEqual(*desired.CreateTime, *actual.CreateTime)) {
-		c.Config.Logger.Infof("Detected diff in CreateTime.\nDESIRED: %#v\nACTUAL: %#v", desired.CreateTime, actual.CreateTime)
+		c.Config.Logger.Infof("Detected diff in CreateTime.\nDESIRED: %v\nACTUAL: %v", desired.CreateTime, actual.CreateTime)
 		diffs = append(diffs, accessLevelDiff{
 			RequiresRecreate: true,
 			FieldName:        "CreateTime",
 		})
 	}
 	if !dcl.IsZeroValue(desired.UpdateTime) && (dcl.IsZeroValue(actual.UpdateTime) || !reflect.DeepEqual(*desired.UpdateTime, *actual.UpdateTime)) {
-		c.Config.Logger.Infof("Detected diff in UpdateTime.\nDESIRED: %#v\nACTUAL: %#v", desired.UpdateTime, actual.UpdateTime)
+		c.Config.Logger.Infof("Detected diff in UpdateTime.\nDESIRED: %v\nACTUAL: %v", desired.UpdateTime, actual.UpdateTime)
 		diffs = append(diffs, accessLevelDiff{
 			RequiresRecreate: true,
 			FieldName:        "UpdateTime",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, accessLevelDiff{
 			UpdateOp:  &updateAccessLevelUpdateOperation{},
@@ -827,7 +822,7 @@ func diffAccessLevel(c *Client, desired, actual *AccessLevel, opts ...dcl.ApplyO
 
 	}
 	if compareAccessLevelBasic(c, desired.Basic, actual.Basic) {
-		c.Config.Logger.Infof("Detected diff in Basic.\nDESIRED: %#v\nACTUAL: %#v", desired.Basic, actual.Basic)
+		c.Config.Logger.Infof("Detected diff in Basic.\nDESIRED: %v\nACTUAL: %v", desired.Basic, actual.Basic)
 
 		diffs = append(diffs, accessLevelDiff{
 			UpdateOp:  &updateAccessLevelUpdateOperation{},
@@ -836,20 +831,13 @@ func diffAccessLevel(c *Client, desired, actual *AccessLevel, opts ...dcl.ApplyO
 
 	}
 	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 
 		diffs = append(diffs, accessLevelDiff{
 			UpdateOp:  &updateAccessLevelUpdateOperation{},
 			FieldName: "Name",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Policy) && !dcl.NameToSelfLink(desired.Policy, actual.Policy) {
-		c.Config.Logger.Infof("Detected diff in Policy.\nDESIRED: %#v\nACTUAL: %#v", desired.Policy, actual.Policy)
-		diffs = append(diffs, accessLevelDiff{
-			RequiresRecreate: true,
-			FieldName:        "Policy",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
@@ -1255,7 +1243,7 @@ func expandAccessLevel(c *Client, f *AccessLevel) (map[string]interface{}, error
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["basic"] = v
 	}
-	if v, err := dcl.DeriveField("accessPolicies/%s/accessLevels/%s", f.Name, f.Policy, f.Name); err != nil {
+	if v, err := dcl.DeriveField("%s/accessLevels/%s", f.Name, f.Policy, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v

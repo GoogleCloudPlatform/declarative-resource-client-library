@@ -519,11 +519,13 @@ func (s *NodePoolServer) ApplyContainerBetaNodePool(ctx context.Context, request
 
 // DeleteNodePool handles the gRPC request by passing it to the underlying NodePool Delete() method.
 func (s *NodePoolServer) DeleteContainerBetaNodePool(ctx context.Context, request *betapb.DeleteContainerBetaNodePoolRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigNodePool(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteNodePool(ctx, ProtoToNodePool(request.GetResource()))
+
 }
 
 // ListNodePool handles the gRPC request by passing it to the underlying NodePoolList() method.

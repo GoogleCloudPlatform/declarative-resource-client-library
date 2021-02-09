@@ -568,11 +568,13 @@ func (s *BuildTriggerServer) ApplyCloudbuildBuildTrigger(ctx context.Context, re
 
 // DeleteBuildTrigger handles the gRPC request by passing it to the underlying BuildTrigger Delete() method.
 func (s *BuildTriggerServer) DeleteCloudbuildBuildTrigger(ctx context.Context, request *cloudbuildpb.DeleteCloudbuildBuildTriggerRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigBuildTrigger(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteBuildTrigger(ctx, ProtoToBuildTrigger(request.GetResource()))
+
 }
 
 // ListBuildTrigger handles the gRPC request by passing it to the underlying BuildTriggerList() method.

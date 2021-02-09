@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -26,7 +27,7 @@ type WorkflowTemplate struct {
 	Version    *int64                       `json:"version"`
 	CreateTime *string                      `json:"createTime"`
 	UpdateTime *string                      `json:"updateTime"`
-	Labels     []WorkflowTemplateLabels     `json:"labels"`
+	Labels     map[string]string            `json:"labels"`
 	Placement  *WorkflowTemplatePlacement   `json:"placement"`
 	Jobs       []WorkflowTemplateJobs       `json:"jobs"`
 	Parameters []WorkflowTemplateParameters `json:"parameters"`
@@ -36,217 +37,6 @@ type WorkflowTemplate struct {
 
 func (r *WorkflowTemplate) String() string {
 	return dcl.SprintResource(r)
-}
-
-// The enum WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum.
-type WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum string
-
-// WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnumRef returns a *WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnumRef(s string) *WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum {
-	if s == "" {
-		return nil
-	}
-
-	v := WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum(s)
-	return &v
-}
-
-func (v WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum) Validate() error {
-	for _, s := range []string{"NULL_VALUE"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
-// The enum WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum.
-type WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum string
-
-// WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnumRef returns a *WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnumRef(s string) *WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum {
-	if s == "" {
-		return nil
-	}
-
-	v := WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum(s)
-	return &v
-}
-
-func (v WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum) Validate() error {
-	for _, s := range []string{"NULL_VALUE"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
-// The enum WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum.
-type WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum string
-
-// WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnumRef returns a *WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnumRef(s string) *WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum {
-	if s == "" {
-		return nil
-	}
-
-	v := WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum(s)
-	return &v
-}
-
-func (v WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum) Validate() error {
-	for _, s := range []string{"NULL_VALUE"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
-// The enum WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum.
-type WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum string
-
-// WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnumRef returns a *WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnumRef(s string) *WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum {
-	if s == "" {
-		return nil
-	}
-
-	v := WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum(s)
-	return &v
-}
-
-func (v WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum) Validate() error {
-	for _, s := range []string{"NULL_VALUE"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
-// The enum WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum.
-type WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum string
-
-// WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnumRef returns a *WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnumRef(s string) *WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum {
-	if s == "" {
-		return nil
-	}
-
-	v := WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum(s)
-	return &v
-}
-
-func (v WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum) Validate() error {
-	for _, s := range []string{"NULL_VALUE"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
-// The enum WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum.
-type WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum string
-
-// WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnumRef returns a *WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnumRef(s string) *WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum {
-	if s == "" {
-		return nil
-	}
-
-	v := WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum(s)
-	return &v
-}
-
-func (v WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum) Validate() error {
-	for _, s := range []string{"NULL_VALUE"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
-// The enum WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum.
-type WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum string
-
-// WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnumRef returns a *WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnumRef(s string) *WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum {
-	if s == "" {
-		return nil
-	}
-
-	v := WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum(s)
-	return &v
-}
-
-func (v WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum) Validate() error {
-	for _, s := range []string{"NULL_VALUE"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
-type WorkflowTemplateLabels struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this WorkflowTemplateLabels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyWorkflowTemplateLabels *WorkflowTemplateLabels = &WorkflowTemplateLabels{empty: true}
-
-func (r *WorkflowTemplateLabels) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *WorkflowTemplateLabels) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
 }
 
 type WorkflowTemplatePlacement struct {
@@ -272,10 +62,10 @@ func (r *WorkflowTemplatePlacement) HashCode() string {
 }
 
 type WorkflowTemplatePlacementManagedCluster struct {
-	empty       bool                                            `json:"-"`
-	ClusterName *string                                         `json:"clusterName"`
-	Config      *ClusterClusterConfig                           `json:"config"`
-	Labels      []WorkflowTemplatePlacementManagedClusterLabels `json:"labels"`
+	empty       bool                  `json:"-"`
+	ClusterName *string               `json:"clusterName"`
+	Config      *ClusterClusterConfig `json:"config"`
+	Labels      map[string]string     `json:"labels"`
 }
 
 // This object is used to assert a desired state where this WorkflowTemplatePlacementManagedCluster is
@@ -294,32 +84,10 @@ func (r *WorkflowTemplatePlacementManagedCluster) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type WorkflowTemplatePlacementManagedClusterLabels struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this WorkflowTemplatePlacementManagedClusterLabels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyWorkflowTemplatePlacementManagedClusterLabels *WorkflowTemplatePlacementManagedClusterLabels = &WorkflowTemplatePlacementManagedClusterLabels{empty: true}
-
-func (r *WorkflowTemplatePlacementManagedClusterLabels) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *WorkflowTemplatePlacementManagedClusterLabels) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type WorkflowTemplatePlacementClusterSelector struct {
-	empty         bool                                                    `json:"-"`
-	Zone          *string                                                 `json:"zone"`
-	ClusterLabels []WorkflowTemplatePlacementClusterSelectorClusterLabels `json:"clusterLabels"`
+	empty         bool              `json:"-"`
+	Zone          *string           `json:"zone"`
+	ClusterLabels map[string]string `json:"clusterLabels"`
 }
 
 // This object is used to assert a desired state where this WorkflowTemplatePlacementClusterSelector is
@@ -338,28 +106,6 @@ func (r *WorkflowTemplatePlacementClusterSelector) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type WorkflowTemplatePlacementClusterSelectorClusterLabels struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this WorkflowTemplatePlacementClusterSelectorClusterLabels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyWorkflowTemplatePlacementClusterSelectorClusterLabels *WorkflowTemplatePlacementClusterSelectorClusterLabels = &WorkflowTemplatePlacementClusterSelectorClusterLabels{empty: true}
-
-func (r *WorkflowTemplatePlacementClusterSelectorClusterLabels) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *WorkflowTemplatePlacementClusterSelectorClusterLabels) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type WorkflowTemplateJobs struct {
 	empty               bool                             `json:"-"`
 	StepId              *string                          `json:"stepId"`
@@ -371,7 +117,7 @@ type WorkflowTemplateJobs struct {
 	SparkRJob           *WorkflowTemplateJobsSparkRJob   `json:"sparkRJob"`
 	SparkSqlJob         *WorkflowTemplateJobsSparkSqlJob `json:"sparkSqlJob"`
 	PrestoJob           *WorkflowTemplateJobsPrestoJob   `json:"prestoJob"`
-	Labels              []WorkflowTemplateJobsLabels     `json:"labels"`
+	Labels              map[string]string                `json:"labels"`
 	Scheduling          *WorkflowTemplateJobsScheduling  `json:"scheduling"`
 	PrerequisiteStepIds []string                         `json:"prerequisiteStepIds"`
 }
@@ -400,7 +146,7 @@ type WorkflowTemplateJobsHadoopJob struct {
 	JarFileUris    []string                                    `json:"jarFileUris"`
 	FileUris       []string                                    `json:"fileUris"`
 	ArchiveUris    []string                                    `json:"archiveUris"`
-	Properties     []WorkflowTemplateJobsHadoopJobProperties   `json:"properties"`
+	Properties     map[string]string                           `json:"properties"`
 	LoggingConfig  *WorkflowTemplateJobsHadoopJobLoggingConfig `json:"loggingConfig"`
 }
 
@@ -420,31 +166,9 @@ func (r *WorkflowTemplateJobsHadoopJob) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type WorkflowTemplateJobsHadoopJobProperties struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this WorkflowTemplateJobsHadoopJobProperties is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyWorkflowTemplateJobsHadoopJobProperties *WorkflowTemplateJobsHadoopJobProperties = &WorkflowTemplateJobsHadoopJobProperties{empty: true}
-
-func (r *WorkflowTemplateJobsHadoopJobProperties) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *WorkflowTemplateJobsHadoopJobProperties) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type WorkflowTemplateJobsHadoopJobLoggingConfig struct {
-	empty           bool                                                        `json:"-"`
-	DriverLogLevels []WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels `json:"driverLogLevels"`
+	empty           bool              `json:"-"`
+	DriverLogLevels map[string]string `json:"driverLogLevels"`
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsHadoopJobLoggingConfig is
@@ -463,28 +187,6 @@ func (r *WorkflowTemplateJobsHadoopJobLoggingConfig) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels struct {
-	empty bool                                                                `json:"-"`
-	Key   *string                                                             `json:"key"`
-	Value *WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum `json:"value"`
-}
-
-// This object is used to assert a desired state where this WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels *WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels = &WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels{empty: true}
-
-func (r *WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type WorkflowTemplateJobsSparkJob struct {
 	empty          bool                                       `json:"-"`
 	MainJarFileUri *string                                    `json:"mainJarFileUri"`
@@ -493,7 +195,7 @@ type WorkflowTemplateJobsSparkJob struct {
 	JarFileUris    []string                                   `json:"jarFileUris"`
 	FileUris       []string                                   `json:"fileUris"`
 	ArchiveUris    []string                                   `json:"archiveUris"`
-	Properties     []WorkflowTemplateJobsSparkJobProperties   `json:"properties"`
+	Properties     map[string]string                          `json:"properties"`
 	LoggingConfig  *WorkflowTemplateJobsSparkJobLoggingConfig `json:"loggingConfig"`
 }
 
@@ -513,31 +215,9 @@ func (r *WorkflowTemplateJobsSparkJob) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type WorkflowTemplateJobsSparkJobProperties struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this WorkflowTemplateJobsSparkJobProperties is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyWorkflowTemplateJobsSparkJobProperties *WorkflowTemplateJobsSparkJobProperties = &WorkflowTemplateJobsSparkJobProperties{empty: true}
-
-func (r *WorkflowTemplateJobsSparkJobProperties) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *WorkflowTemplateJobsSparkJobProperties) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type WorkflowTemplateJobsSparkJobLoggingConfig struct {
-	empty           bool                                                       `json:"-"`
-	DriverLogLevels []WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels `json:"driverLogLevels"`
+	empty           bool              `json:"-"`
+	DriverLogLevels map[string]string `json:"driverLogLevels"`
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsSparkJobLoggingConfig is
@@ -556,28 +236,6 @@ func (r *WorkflowTemplateJobsSparkJobLoggingConfig) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels struct {
-	empty bool                                                               `json:"-"`
-	Key   *string                                                            `json:"key"`
-	Value *WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum `json:"value"`
-}
-
-// This object is used to assert a desired state where this WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels *WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels = &WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels{empty: true}
-
-func (r *WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type WorkflowTemplateJobsPysparkJob struct {
 	empty             bool                                         `json:"-"`
 	MainPythonFileUri *string                                      `json:"mainPythonFileUri"`
@@ -586,7 +244,7 @@ type WorkflowTemplateJobsPysparkJob struct {
 	JarFileUris       []string                                     `json:"jarFileUris"`
 	FileUris          []string                                     `json:"fileUris"`
 	ArchiveUris       []string                                     `json:"archiveUris"`
-	Properties        []WorkflowTemplateJobsPysparkJobProperties   `json:"properties"`
+	Properties        map[string]string                            `json:"properties"`
 	LoggingConfig     *WorkflowTemplateJobsPysparkJobLoggingConfig `json:"loggingConfig"`
 }
 
@@ -606,31 +264,9 @@ func (r *WorkflowTemplateJobsPysparkJob) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type WorkflowTemplateJobsPysparkJobProperties struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this WorkflowTemplateJobsPysparkJobProperties is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyWorkflowTemplateJobsPysparkJobProperties *WorkflowTemplateJobsPysparkJobProperties = &WorkflowTemplateJobsPysparkJobProperties{empty: true}
-
-func (r *WorkflowTemplateJobsPysparkJobProperties) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *WorkflowTemplateJobsPysparkJobProperties) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type WorkflowTemplateJobsPysparkJobLoggingConfig struct {
-	empty           bool                                                         `json:"-"`
-	DriverLogLevels []WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels `json:"driverLogLevels"`
+	empty           bool              `json:"-"`
+	DriverLogLevels map[string]string `json:"driverLogLevels"`
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsPysparkJobLoggingConfig is
@@ -649,36 +285,14 @@ func (r *WorkflowTemplateJobsPysparkJobLoggingConfig) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels struct {
-	empty bool                                                                 `json:"-"`
-	Key   *string                                                              `json:"key"`
-	Value *WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum `json:"value"`
-}
-
-// This object is used to assert a desired state where this WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels *WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels = &WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels{empty: true}
-
-func (r *WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type WorkflowTemplateJobsHiveJob struct {
-	empty             bool                                         `json:"-"`
-	QueryFileUri      *string                                      `json:"queryFileUri"`
-	QueryList         *WorkflowTemplateJobsHiveJobQueryList        `json:"queryList"`
-	ContinueOnFailure *bool                                        `json:"continueOnFailure"`
-	ScriptVariables   []WorkflowTemplateJobsHiveJobScriptVariables `json:"scriptVariables"`
-	Properties        []WorkflowTemplateJobsHiveJobProperties      `json:"properties"`
-	JarFileUris       []string                                     `json:"jarFileUris"`
+	empty             bool                                  `json:"-"`
+	QueryFileUri      *string                               `json:"queryFileUri"`
+	QueryList         *WorkflowTemplateJobsHiveJobQueryList `json:"queryList"`
+	ContinueOnFailure *bool                                 `json:"continueOnFailure"`
+	ScriptVariables   map[string]string                     `json:"scriptVariables"`
+	Properties        map[string]string                     `json:"properties"`
+	JarFileUris       []string                              `json:"jarFileUris"`
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsHiveJob is
@@ -718,59 +332,15 @@ func (r *WorkflowTemplateJobsHiveJobQueryList) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type WorkflowTemplateJobsHiveJobScriptVariables struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this WorkflowTemplateJobsHiveJobScriptVariables is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyWorkflowTemplateJobsHiveJobScriptVariables *WorkflowTemplateJobsHiveJobScriptVariables = &WorkflowTemplateJobsHiveJobScriptVariables{empty: true}
-
-func (r *WorkflowTemplateJobsHiveJobScriptVariables) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *WorkflowTemplateJobsHiveJobScriptVariables) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type WorkflowTemplateJobsHiveJobProperties struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this WorkflowTemplateJobsHiveJobProperties is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyWorkflowTemplateJobsHiveJobProperties *WorkflowTemplateJobsHiveJobProperties = &WorkflowTemplateJobsHiveJobProperties{empty: true}
-
-func (r *WorkflowTemplateJobsHiveJobProperties) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *WorkflowTemplateJobsHiveJobProperties) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type WorkflowTemplateJobsPigJob struct {
-	empty             bool                                        `json:"-"`
-	QueryFileUri      *string                                     `json:"queryFileUri"`
-	QueryList         *WorkflowTemplateJobsPigJobQueryList        `json:"queryList"`
-	ContinueOnFailure *bool                                       `json:"continueOnFailure"`
-	ScriptVariables   []WorkflowTemplateJobsPigJobScriptVariables `json:"scriptVariables"`
-	Properties        []WorkflowTemplateJobsPigJobProperties      `json:"properties"`
-	JarFileUris       []string                                    `json:"jarFileUris"`
-	LoggingConfig     *WorkflowTemplateJobsPigJobLoggingConfig    `json:"loggingConfig"`
+	empty             bool                                     `json:"-"`
+	QueryFileUri      *string                                  `json:"queryFileUri"`
+	QueryList         *WorkflowTemplateJobsPigJobQueryList     `json:"queryList"`
+	ContinueOnFailure *bool                                    `json:"continueOnFailure"`
+	ScriptVariables   map[string]string                        `json:"scriptVariables"`
+	Properties        map[string]string                        `json:"properties"`
+	JarFileUris       []string                                 `json:"jarFileUris"`
+	LoggingConfig     *WorkflowTemplateJobsPigJobLoggingConfig `json:"loggingConfig"`
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsPigJob is
@@ -810,53 +380,9 @@ func (r *WorkflowTemplateJobsPigJobQueryList) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type WorkflowTemplateJobsPigJobScriptVariables struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this WorkflowTemplateJobsPigJobScriptVariables is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyWorkflowTemplateJobsPigJobScriptVariables *WorkflowTemplateJobsPigJobScriptVariables = &WorkflowTemplateJobsPigJobScriptVariables{empty: true}
-
-func (r *WorkflowTemplateJobsPigJobScriptVariables) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *WorkflowTemplateJobsPigJobScriptVariables) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type WorkflowTemplateJobsPigJobProperties struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this WorkflowTemplateJobsPigJobProperties is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyWorkflowTemplateJobsPigJobProperties *WorkflowTemplateJobsPigJobProperties = &WorkflowTemplateJobsPigJobProperties{empty: true}
-
-func (r *WorkflowTemplateJobsPigJobProperties) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *WorkflowTemplateJobsPigJobProperties) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type WorkflowTemplateJobsPigJobLoggingConfig struct {
-	empty           bool                                                     `json:"-"`
-	DriverLogLevels []WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels `json:"driverLogLevels"`
+	empty           bool              `json:"-"`
+	DriverLogLevels map[string]string `json:"driverLogLevels"`
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsPigJobLoggingConfig is
@@ -875,35 +401,13 @@ func (r *WorkflowTemplateJobsPigJobLoggingConfig) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels struct {
-	empty bool                                                             `json:"-"`
-	Key   *string                                                          `json:"key"`
-	Value *WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum `json:"value"`
-}
-
-// This object is used to assert a desired state where this WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels *WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels = &WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels{empty: true}
-
-func (r *WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type WorkflowTemplateJobsSparkRJob struct {
 	empty         bool                                        `json:"-"`
 	MainRFileUri  *string                                     `json:"mainRFileUri"`
 	Args          []string                                    `json:"args"`
 	FileUris      []string                                    `json:"fileUris"`
 	ArchiveUris   []string                                    `json:"archiveUris"`
-	Properties    []WorkflowTemplateJobsSparkRJobProperties   `json:"properties"`
+	Properties    map[string]string                           `json:"properties"`
 	LoggingConfig *WorkflowTemplateJobsSparkRJobLoggingConfig `json:"loggingConfig"`
 }
 
@@ -923,31 +427,9 @@ func (r *WorkflowTemplateJobsSparkRJob) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type WorkflowTemplateJobsSparkRJobProperties struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this WorkflowTemplateJobsSparkRJobProperties is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyWorkflowTemplateJobsSparkRJobProperties *WorkflowTemplateJobsSparkRJobProperties = &WorkflowTemplateJobsSparkRJobProperties{empty: true}
-
-func (r *WorkflowTemplateJobsSparkRJobProperties) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *WorkflowTemplateJobsSparkRJobProperties) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type WorkflowTemplateJobsSparkRJobLoggingConfig struct {
-	empty           bool                                                        `json:"-"`
-	DriverLogLevels []WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels `json:"driverLogLevels"`
+	empty           bool              `json:"-"`
+	DriverLogLevels map[string]string `json:"driverLogLevels"`
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsSparkRJobLoggingConfig is
@@ -966,36 +448,14 @@ func (r *WorkflowTemplateJobsSparkRJobLoggingConfig) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels struct {
-	empty bool                                                                `json:"-"`
-	Key   *string                                                             `json:"key"`
-	Value *WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum `json:"value"`
-}
-
-// This object is used to assert a desired state where this WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels *WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels = &WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels{empty: true}
-
-func (r *WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type WorkflowTemplateJobsSparkSqlJob struct {
-	empty           bool                                             `json:"-"`
-	QueryFileUri    *string                                          `json:"queryFileUri"`
-	QueryList       *WorkflowTemplateJobsSparkSqlJobQueryList        `json:"queryList"`
-	ScriptVariables []WorkflowTemplateJobsSparkSqlJobScriptVariables `json:"scriptVariables"`
-	Properties      []WorkflowTemplateJobsSparkSqlJobProperties      `json:"properties"`
-	JarFileUris     []string                                         `json:"jarFileUris"`
-	LoggingConfig   *WorkflowTemplateJobsSparkSqlJobLoggingConfig    `json:"loggingConfig"`
+	empty           bool                                          `json:"-"`
+	QueryFileUri    *string                                       `json:"queryFileUri"`
+	QueryList       *WorkflowTemplateJobsSparkSqlJobQueryList     `json:"queryList"`
+	ScriptVariables map[string]string                             `json:"scriptVariables"`
+	Properties      map[string]string                             `json:"properties"`
+	JarFileUris     []string                                      `json:"jarFileUris"`
+	LoggingConfig   *WorkflowTemplateJobsSparkSqlJobLoggingConfig `json:"loggingConfig"`
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsSparkSqlJob is
@@ -1035,53 +495,9 @@ func (r *WorkflowTemplateJobsSparkSqlJobQueryList) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type WorkflowTemplateJobsSparkSqlJobScriptVariables struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this WorkflowTemplateJobsSparkSqlJobScriptVariables is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyWorkflowTemplateJobsSparkSqlJobScriptVariables *WorkflowTemplateJobsSparkSqlJobScriptVariables = &WorkflowTemplateJobsSparkSqlJobScriptVariables{empty: true}
-
-func (r *WorkflowTemplateJobsSparkSqlJobScriptVariables) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *WorkflowTemplateJobsSparkSqlJobScriptVariables) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type WorkflowTemplateJobsSparkSqlJobProperties struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this WorkflowTemplateJobsSparkSqlJobProperties is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyWorkflowTemplateJobsSparkSqlJobProperties *WorkflowTemplateJobsSparkSqlJobProperties = &WorkflowTemplateJobsSparkSqlJobProperties{empty: true}
-
-func (r *WorkflowTemplateJobsSparkSqlJobProperties) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *WorkflowTemplateJobsSparkSqlJobProperties) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type WorkflowTemplateJobsSparkSqlJobLoggingConfig struct {
-	empty           bool                                                          `json:"-"`
-	DriverLogLevels []WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels `json:"driverLogLevels"`
+	empty           bool              `json:"-"`
+	DriverLogLevels map[string]string `json:"driverLogLevels"`
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsSparkSqlJobLoggingConfig is
@@ -1100,28 +516,6 @@ func (r *WorkflowTemplateJobsSparkSqlJobLoggingConfig) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels struct {
-	empty bool                                                                  `json:"-"`
-	Key   *string                                                               `json:"key"`
-	Value *WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum `json:"value"`
-}
-
-// This object is used to assert a desired state where this WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels *WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels = &WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels{empty: true}
-
-func (r *WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type WorkflowTemplateJobsPrestoJob struct {
 	empty             bool                                        `json:"-"`
 	QueryFileUri      *string                                     `json:"queryFileUri"`
@@ -1129,7 +523,7 @@ type WorkflowTemplateJobsPrestoJob struct {
 	ContinueOnFailure *bool                                       `json:"continueOnFailure"`
 	OutputFormat      *string                                     `json:"outputFormat"`
 	ClientTags        []string                                    `json:"clientTags"`
-	Properties        []WorkflowTemplateJobsPrestoJobProperties   `json:"properties"`
+	Properties        map[string]string                           `json:"properties"`
 	LoggingConfig     *WorkflowTemplateJobsPrestoJobLoggingConfig `json:"loggingConfig"`
 }
 
@@ -1170,31 +564,9 @@ func (r *WorkflowTemplateJobsPrestoJobQueryList) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type WorkflowTemplateJobsPrestoJobProperties struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this WorkflowTemplateJobsPrestoJobProperties is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyWorkflowTemplateJobsPrestoJobProperties *WorkflowTemplateJobsPrestoJobProperties = &WorkflowTemplateJobsPrestoJobProperties{empty: true}
-
-func (r *WorkflowTemplateJobsPrestoJobProperties) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *WorkflowTemplateJobsPrestoJobProperties) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type WorkflowTemplateJobsPrestoJobLoggingConfig struct {
-	empty           bool                                                        `json:"-"`
-	DriverLogLevels []WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels `json:"driverLogLevels"`
+	empty           bool              `json:"-"`
+	DriverLogLevels map[string]string `json:"driverLogLevels"`
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsPrestoJobLoggingConfig is
@@ -1207,50 +579,6 @@ func (r *WorkflowTemplateJobsPrestoJobLoggingConfig) String() string {
 }
 
 func (r *WorkflowTemplateJobsPrestoJobLoggingConfig) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels struct {
-	empty bool                                                                `json:"-"`
-	Key   *string                                                             `json:"key"`
-	Value *WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum `json:"value"`
-}
-
-// This object is used to assert a desired state where this WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels *WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels = &WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels{empty: true}
-
-func (r *WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type WorkflowTemplateJobsLabels struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this WorkflowTemplateJobsLabels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyWorkflowTemplateJobsLabels *WorkflowTemplateJobsLabels = &WorkflowTemplateJobsLabels{empty: true}
-
-func (r *WorkflowTemplateJobsLabels) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *WorkflowTemplateJobsLabels) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -1543,7 +871,9 @@ func (c *Client) ApplyWorkflowTemplate(ctx context.Context, rawDesired *Workflow
 	if create {
 		ops = append(ops, &createWorkflowTemplateOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteWorkflowTemplateOperation{})
+
 		ops = append(ops, &createWorkflowTemplateOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeWorkflowTemplateDesiredState(rawDesired, nil)

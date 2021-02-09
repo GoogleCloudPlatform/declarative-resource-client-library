@@ -21,4 +21,7 @@ import (
 // RegisterServers registers each resource with the gRPC server.
 func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterAppengineApplicationServiceServer(s, &ApplicationServer{})
+	sdkgrpc.RegisterAppengineDomainMappingServiceServer(s, &DomainMappingServer{})
+	sdkgrpc.RegisterAppengineFirewallRuleServiceServer(s, &FirewallRuleServer{})
+	sdkgrpc.RegisterAppengineVersionServiceServer(s, &VersionServer{})
 }

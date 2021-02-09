@@ -119,11 +119,13 @@ func (s *ProjectServer) ApplyCloudresourcemanagerProject(ctx context.Context, re
 
 // DeleteProject handles the gRPC request by passing it to the underlying Project Delete() method.
 func (s *ProjectServer) DeleteCloudresourcemanagerProject(ctx context.Context, request *cloudresourcemanagerpb.DeleteCloudresourcemanagerProjectRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigProject(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteProject(ctx, ProtoToProject(request.GetResource()))
+
 }
 
 // ListProject handles the gRPC request by passing it to the underlying ProjectList() method.

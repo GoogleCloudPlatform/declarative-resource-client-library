@@ -16,6 +16,7 @@ package runtimeconfig
 import (
 	"context"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -209,7 +210,9 @@ func (c *Client) ApplyVariable(ctx context.Context, rawDesired *Variable, opts .
 	if create {
 		ops = append(ops, &createVariableOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteVariableOperation{})
+
 		ops = append(ops, &createVariableOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeVariableDesiredState(rawDesired, nil)

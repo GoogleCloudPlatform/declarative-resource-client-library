@@ -241,11 +241,13 @@ func (s *ServicePerimeterServer) ApplyAccesscontextmanagerServicePerimeter(ctx c
 
 // DeleteServicePerimeter handles the gRPC request by passing it to the underlying ServicePerimeter Delete() method.
 func (s *ServicePerimeterServer) DeleteAccesscontextmanagerServicePerimeter(ctx context.Context, request *accesscontextmanagerpb.DeleteAccesscontextmanagerServicePerimeterRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigServicePerimeter(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteServicePerimeter(ctx, ProtoToServicePerimeter(request.GetResource()))
+
 }
 
 // ListServicePerimeter handles the gRPC request by passing it to the underlying ServicePerimeterList() method.

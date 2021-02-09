@@ -18,11 +18,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 func (r *Bucket) validate() error {
@@ -397,12 +398,12 @@ func (c *Client) bucketDiffsForRawDesired(ctx context.Context, rawDesired *Bucke
 			c.Config.Logger.Warningf("Failed to retrieve whether a Bucket resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Bucket resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Bucket resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeBucketDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Bucket: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Bucket: %v", rawDesired)
 
@@ -482,13 +483,7 @@ func canonicalizeBucketDesiredState(rawDesired, rawInitial *Bucket, opts ...dcl.
 
 func canonicalizeBucketNewState(c *Client, rawNew, rawDesired *Bucket) (*Bucket, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
 		rawNew.Location = rawDesired.Location
@@ -1030,29 +1025,22 @@ func diffBucket(c *Client, desired, actual *Bucket, opts ...dcl.ApplyOption) ([]
 	}
 
 	var diffs []bucketDiff
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, bucketDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
 	if !dcl.IsZeroValue(desired.Location) && (dcl.IsZeroValue(actual.Location) || !reflect.DeepEqual(*desired.Location, *actual.Location)) {
-		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
+		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %v\nACTUAL: %v", desired.Location, actual.Location)
 		diffs = append(diffs, bucketDiff{
 			RequiresRecreate: true,
 			FieldName:        "Location",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, bucketDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if compareBucketCorsSlice(c, desired.Cors, actual.Cors) {
-		c.Config.Logger.Infof("Detected diff in Cors.\nDESIRED: %#v\nACTUAL: %#v", desired.Cors, actual.Cors)
+		c.Config.Logger.Infof("Detected diff in Cors.\nDESIRED: %v\nACTUAL: %v", desired.Cors, actual.Cors)
 
 		diffs = append(diffs, bucketDiff{
 			UpdateOp:  &updateBucketUpdateOperation{},
@@ -1061,7 +1049,7 @@ func diffBucket(c *Client, desired, actual *Bucket, opts ...dcl.ApplyOption) ([]
 
 	}
 	if compareBucketLifecycle(c, desired.Lifecycle, actual.Lifecycle) {
-		c.Config.Logger.Infof("Detected diff in Lifecycle.\nDESIRED: %#v\nACTUAL: %#v", desired.Lifecycle, actual.Lifecycle)
+		c.Config.Logger.Infof("Detected diff in Lifecycle.\nDESIRED: %v\nACTUAL: %v", desired.Lifecycle, actual.Lifecycle)
 
 		diffs = append(diffs, bucketDiff{
 			UpdateOp:  &updateBucketUpdateOperation{},
@@ -1070,7 +1058,7 @@ func diffBucket(c *Client, desired, actual *Bucket, opts ...dcl.ApplyOption) ([]
 
 	}
 	if compareBucketLogging(c, desired.Logging, actual.Logging) {
-		c.Config.Logger.Infof("Detected diff in Logging.\nDESIRED: %#v\nACTUAL: %#v", desired.Logging, actual.Logging)
+		c.Config.Logger.Infof("Detected diff in Logging.\nDESIRED: %v\nACTUAL: %v", desired.Logging, actual.Logging)
 
 		diffs = append(diffs, bucketDiff{
 			UpdateOp:  &updateBucketUpdateOperation{},
@@ -1079,7 +1067,7 @@ func diffBucket(c *Client, desired, actual *Bucket, opts ...dcl.ApplyOption) ([]
 
 	}
 	if !dcl.IsZeroValue(desired.StorageClass) && (dcl.IsZeroValue(actual.StorageClass) || !reflect.DeepEqual(*desired.StorageClass, *actual.StorageClass)) {
-		c.Config.Logger.Infof("Detected diff in StorageClass.\nDESIRED: %#v\nACTUAL: %#v", desired.StorageClass, actual.StorageClass)
+		c.Config.Logger.Infof("Detected diff in StorageClass.\nDESIRED: %v\nACTUAL: %v", desired.StorageClass, actual.StorageClass)
 
 		diffs = append(diffs, bucketDiff{
 			UpdateOp:  &updateBucketUpdateOperation{},
@@ -1088,7 +1076,7 @@ func diffBucket(c *Client, desired, actual *Bucket, opts ...dcl.ApplyOption) ([]
 
 	}
 	if compareBucketVersioning(c, desired.Versioning, actual.Versioning) {
-		c.Config.Logger.Infof("Detected diff in Versioning.\nDESIRED: %#v\nACTUAL: %#v", desired.Versioning, actual.Versioning)
+		c.Config.Logger.Infof("Detected diff in Versioning.\nDESIRED: %v\nACTUAL: %v", desired.Versioning, actual.Versioning)
 
 		diffs = append(diffs, bucketDiff{
 			UpdateOp:  &updateBucketUpdateOperation{},
@@ -1097,7 +1085,7 @@ func diffBucket(c *Client, desired, actual *Bucket, opts ...dcl.ApplyOption) ([]
 
 	}
 	if compareBucketWebsite(c, desired.Website, actual.Website) {
-		c.Config.Logger.Infof("Detected diff in Website.\nDESIRED: %#v\nACTUAL: %#v", desired.Website, actual.Website)
+		c.Config.Logger.Infof("Detected diff in Website.\nDESIRED: %v\nACTUAL: %v", desired.Website, actual.Website)
 
 		diffs = append(diffs, bucketDiff{
 			UpdateOp:  &updateBucketUpdateOperation{},

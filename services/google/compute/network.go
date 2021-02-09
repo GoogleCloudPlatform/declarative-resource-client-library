@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -258,7 +259,9 @@ func (c *Client) ApplyNetwork(ctx context.Context, rawDesired *Network, opts ...
 	if create {
 		ops = append(ops, &createNetworkOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteNetworkOperation{})
+
 		ops = append(ops, &createNetworkOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeNetworkDesiredState(rawDesired, nil)

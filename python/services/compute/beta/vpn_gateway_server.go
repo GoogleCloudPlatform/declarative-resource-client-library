@@ -106,11 +106,13 @@ func (s *VpnGatewayServer) ApplyComputeBetaVpnGateway(ctx context.Context, reque
 
 // DeleteVpnGateway handles the gRPC request by passing it to the underlying VpnGateway Delete() method.
 func (s *VpnGatewayServer) DeleteComputeBetaVpnGateway(ctx context.Context, request *betapb.DeleteComputeBetaVpnGatewayRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigVpnGateway(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteVpnGateway(ctx, ProtoToVpnGateway(request.GetResource()))
+
 }
 
 // ListVpnGateway handles the gRPC request by passing it to the underlying VpnGatewayList() method.

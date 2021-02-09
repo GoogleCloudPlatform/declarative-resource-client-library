@@ -21,15 +21,7 @@ components:
           type: string
           x-dcl-go-name: Description
           x-kubernetes-immutable: true
-        displayName:
-          description: A concise name for the metric, which can be displayed in user
-            interfaces. Use sentence case without an ending period, for example "Request
-            count". This field is optional but it is recommended to be set for any
-            metrics associated with user-visible concepts, such as Quota.
-          type: string
-          x-dcl-go-name: DisplayName
-          x-kubernetes-immutable: true
-        labels:
+        descriptorLabels:
           description: The set of labels that can be used to describe a specific instance
             of this metric type. For example, the `appengine.googleapis.com/http/server/response_latencies`
             metric type has a label for the HTTP response code, `response_code`, so
@@ -52,23 +44,33 @@ components:
                 x-dcl-go-name: Key
                 x-kubernetes-immutable: true
               valueType:
-                description: The type of data that can be assigned to the label.
+                description: 'The type of data that can be assigned to the label.
+                  Possible values: STRING, BOOL, INT64'
                 enum:
                 - STRING
                 - BOOL
                 - INT64
                 type: string
                 x-dcl-go-name: ValueType
-                x-dcl-go-type: MetricDescriptorLabelsValueTypeEnum
+                x-dcl-go-type: MetricDescriptorDescriptorLabelsValueTypeEnum
                 x-kubernetes-immutable: true
             type: object
-            x-dcl-go-type: MetricDescriptorLabels
+            x-dcl-go-type: MetricDescriptorDescriptorLabels
           type: array
-          x-dcl-go-name: Labels
-          x-dcl-list-type: list
+          x-dcl-go-name: DescriptorLabels
+          x-dcl-list-type: set
+        displayName:
+          description: A concise name for the metric, which can be displayed in user
+            interfaces. Use sentence case without an ending period, for example "Request
+            count". This field is optional but it is recommended to be set for any
+            metrics associated with user-visible concepts, such as Quota.
+          type: string
+          x-dcl-go-name: DisplayName
           x-kubernetes-immutable: true
         launchStage:
-          description: Optional. The launch stage of the metric definition.
+          description: 'Optional. The launch stage of the metric definition. Possible
+            values: LAUNCH_STAGE_UNSPECIFIED, UNIMPLEMENTED, PRELAUNCH, EARLY_ACCESS,
+            ALPHA, BETA, GA, DEPRECATED'
           enum:
           - LAUNCH_STAGE_UNSPECIFIED
           - UNIMPLEMENTED
@@ -90,33 +92,12 @@ components:
               description: The delay of data points caused by ingestion. Data points
                 older than this age are guaranteed to be ingested and available to
                 be read, excluding data loss due to errors.
-              properties:
-                nanos:
-                  description: Signed fractions of a second at nanosecond resolution
-                    of the span of time. Durations less than one second are represented
-                    with a 0 `seconds` field and a positive or negative `nanos` field.
-                    For durations of one second or more, a non-zero value for the
-                    `nanos` field must be of the same sign as the `seconds` field.
-                    Must be from -999,999,999 to +999,999,999 inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
-                  x-kubernetes-immutable: true
-                seconds:
-                  description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                    to +315,576,000,000 inclusive. Note: these bounds are computed
-                    from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year *
-                    10000 years'
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
-                  x-kubernetes-immutable: true
-              type: object
+              type: string
               x-dcl-go-name: IngestDelay
-              x-dcl-go-type: MetricDescriptorMetadataIngestDelay
               x-kubernetes-immutable: true
             launchStage:
-              description: Deprecated. Must use the instead.
+              description: 'Deprecated. Must use the instead. Possible values: LAUNCH_STAGE_UNSPECIFIED,
+                UNIMPLEMENTED, PRELAUNCH, EARLY_ACCESS, ALPHA, BETA, GA, DEPRECATED'
               enum:
               - LAUNCH_STAGE_UNSPECIFIED
               - UNIMPLEMENTED
@@ -135,39 +116,18 @@ components:
                 which are written periodically, consecutive data points are stored
                 at this time interval, excluding data loss due to errors. Metrics
                 with a higher granularity have a smaller sampling period.
-              properties:
-                nanos:
-                  description: Signed fractions of a second at nanosecond resolution
-                    of the span of time. Durations less than one second are represented
-                    with a 0 `seconds` field and a positive or negative `nanos` field.
-                    For durations of one second or more, a non-zero value for the
-                    `nanos` field must be of the same sign as the `seconds` field.
-                    Must be from -999,999,999 to +999,999,999 inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
-                  x-kubernetes-immutable: true
-                seconds:
-                  description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                    to +315,576,000,000 inclusive. Note: these bounds are computed
-                    from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year *
-                    10000 years'
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
-                  x-kubernetes-immutable: true
-              type: object
+              type: string
               x-dcl-go-name: SamplePeriod
-              x-dcl-go-type: MetricDescriptorMetadataSamplePeriod
               x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: Metadata
           x-dcl-go-type: MetricDescriptorMetadata
           x-kubernetes-immutable: true
         metricKind:
-          description: Whether the metric records instantaneous values, changes to
+          description: 'Whether the metric records instantaneous values, changes to
             a value, etc. Some combinations of `metric_kind` and `value_type` might
-            not be supported.
+            not be supported. Possible values: METRIC_KIND_UNSPECIFIED, GAUGE, DELTA,
+            CUMULATIVE'
           enum:
           - METRIC_KIND_UNSPECIFIED
           - GAUGE
@@ -184,20 +144,25 @@ components:
           items:
             type: string
             x-dcl-go-type: string
+          readOnly: true
           type: array
           x-dcl-go-name: MonitoredResourceTypes
           x-dcl-list-type: list
-          x-kubernetes-immutable: true
-        name:
-          description: The resource name of the metric descriptor.
-          readOnly: true
-          type: string
-          x-dcl-go-name: Name
           x-kubernetes-immutable: true
         project:
           description: The project for the resource
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
+          x-kubernetes-immutable: true
+        selfLink:
+          description: The resource name of the metric descriptor.
+          readOnly: true
+          type: string
+          x-dcl-go-name: SelfLink
           x-kubernetes-immutable: true
         type:
           description: 'The metric type, including its DNS name prefix. The type is
@@ -240,9 +205,9 @@ components:
           x-dcl-go-name: Unit
           x-kubernetes-immutable: true
         valueType:
-          description: Whether the measurement is an integer, a floating-point number,
+          description: 'Whether the measurement is an integer, a floating-point number,
             etc. Some combinations of `metric_kind` and `value_type` might not be
-            supported.
+            supported. Possible values: STRING, BOOL, INT64'
           enum:
           - STRING
           - BOOL
@@ -252,11 +217,13 @@ components:
           x-dcl-go-type: MetricDescriptorValueTypeEnum
           x-kubernetes-immutable: true
       required:
+      - type
+      - metricKind
+      - valueType
       - project
       title: MetricDescriptor
       type: object
       x-dcl-id: v3/projects/{{project}}/metricDescriptors/{{type}}
-      x-dcl-labels: labels
       x-dcl-locations: []
       x-dcl-parent-container: project
       x-dcl-uses-state-hint: false
@@ -265,8 +232,35 @@ info:
   title: Monitoring/MetricDescriptor
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many MetricDescriptor
+  apply:
+    description: The function used to apply information about a MetricDescriptor
+    parameters:
+    - description: A full instance of a MetricDescriptor
+      name: MetricDescriptor
+      required: true
+  delete:
+    description: The function used to delete a MetricDescriptor
+    parameters:
+    - description: A full instance of a MetricDescriptor
+      name: MetricDescriptor
+      required: true
+  deleteAll:
+    description: The function used to delete all MetricDescriptor
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a MetricDescriptor
+    parameters:
+    - description: A full instance of a MetricDescriptor
+      name: MetricDescriptor
+      required: true
+  list:
+    description: The function used to list information about many MetricDescriptor
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

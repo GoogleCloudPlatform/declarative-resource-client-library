@@ -204,11 +204,13 @@ func (s *TriggerServer) ApplyEventarcBetaTrigger(ctx context.Context, request *b
 
 // DeleteTrigger handles the gRPC request by passing it to the underlying Trigger Delete() method.
 func (s *TriggerServer) DeleteEventarcBetaTrigger(ctx context.Context, request *betapb.DeleteEventarcBetaTriggerRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigTrigger(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteTrigger(ctx, ProtoToTrigger(request.GetResource()))
+
 }
 
 // ListTrigger handles the gRPC request by passing it to the underlying TriggerList() method.

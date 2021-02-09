@@ -18,11 +18,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 func (r *WorkflowTemplate) validate() error {
@@ -47,9 +48,6 @@ func (r *WorkflowTemplate) validate() error {
 			return err
 		}
 	}
-	return nil
-}
-func (r *WorkflowTemplateLabels) validate() error {
 	return nil
 }
 func (r *WorkflowTemplatePlacement) validate() error {
@@ -79,16 +77,10 @@ func (r *WorkflowTemplatePlacementManagedCluster) validate() error {
 	}
 	return nil
 }
-func (r *WorkflowTemplatePlacementManagedClusterLabels) validate() error {
-	return nil
-}
 func (r *WorkflowTemplatePlacementClusterSelector) validate() error {
 	if err := dcl.Required(r, "clusterLabels"); err != nil {
 		return err
 	}
-	return nil
-}
-func (r *WorkflowTemplatePlacementClusterSelectorClusterLabels) validate() error {
 	return nil
 }
 func (r *WorkflowTemplateJobs) validate() error {
@@ -150,13 +142,7 @@ func (r *WorkflowTemplateJobsHadoopJob) validate() error {
 	}
 	return nil
 }
-func (r *WorkflowTemplateJobsHadoopJobProperties) validate() error {
-	return nil
-}
 func (r *WorkflowTemplateJobsHadoopJobLoggingConfig) validate() error {
-	return nil
-}
-func (r *WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels) validate() error {
 	return nil
 }
 func (r *WorkflowTemplateJobsSparkJob) validate() error {
@@ -167,13 +153,7 @@ func (r *WorkflowTemplateJobsSparkJob) validate() error {
 	}
 	return nil
 }
-func (r *WorkflowTemplateJobsSparkJobProperties) validate() error {
-	return nil
-}
 func (r *WorkflowTemplateJobsSparkJobLoggingConfig) validate() error {
-	return nil
-}
-func (r *WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels) validate() error {
 	return nil
 }
 func (r *WorkflowTemplateJobsPysparkJob) validate() error {
@@ -187,13 +167,7 @@ func (r *WorkflowTemplateJobsPysparkJob) validate() error {
 	}
 	return nil
 }
-func (r *WorkflowTemplateJobsPysparkJobProperties) validate() error {
-	return nil
-}
 func (r *WorkflowTemplateJobsPysparkJobLoggingConfig) validate() error {
-	return nil
-}
-func (r *WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels) validate() error {
 	return nil
 }
 func (r *WorkflowTemplateJobsHiveJob) validate() error {
@@ -208,12 +182,6 @@ func (r *WorkflowTemplateJobsHiveJobQueryList) validate() error {
 	if err := dcl.Required(r, "queries"); err != nil {
 		return err
 	}
-	return nil
-}
-func (r *WorkflowTemplateJobsHiveJobScriptVariables) validate() error {
-	return nil
-}
-func (r *WorkflowTemplateJobsHiveJobProperties) validate() error {
 	return nil
 }
 func (r *WorkflowTemplateJobsPigJob) validate() error {
@@ -235,16 +203,7 @@ func (r *WorkflowTemplateJobsPigJobQueryList) validate() error {
 	}
 	return nil
 }
-func (r *WorkflowTemplateJobsPigJobScriptVariables) validate() error {
-	return nil
-}
-func (r *WorkflowTemplateJobsPigJobProperties) validate() error {
-	return nil
-}
 func (r *WorkflowTemplateJobsPigJobLoggingConfig) validate() error {
-	return nil
-}
-func (r *WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels) validate() error {
 	return nil
 }
 func (r *WorkflowTemplateJobsSparkRJob) validate() error {
@@ -258,13 +217,7 @@ func (r *WorkflowTemplateJobsSparkRJob) validate() error {
 	}
 	return nil
 }
-func (r *WorkflowTemplateJobsSparkRJobProperties) validate() error {
-	return nil
-}
 func (r *WorkflowTemplateJobsSparkRJobLoggingConfig) validate() error {
-	return nil
-}
-func (r *WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels) validate() error {
 	return nil
 }
 func (r *WorkflowTemplateJobsSparkSqlJob) validate() error {
@@ -286,16 +239,7 @@ func (r *WorkflowTemplateJobsSparkSqlJobQueryList) validate() error {
 	}
 	return nil
 }
-func (r *WorkflowTemplateJobsSparkSqlJobScriptVariables) validate() error {
-	return nil
-}
-func (r *WorkflowTemplateJobsSparkSqlJobProperties) validate() error {
-	return nil
-}
 func (r *WorkflowTemplateJobsSparkSqlJobLoggingConfig) validate() error {
-	return nil
-}
-func (r *WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels) validate() error {
 	return nil
 }
 func (r *WorkflowTemplateJobsPrestoJob) validate() error {
@@ -317,16 +261,7 @@ func (r *WorkflowTemplateJobsPrestoJobQueryList) validate() error {
 	}
 	return nil
 }
-func (r *WorkflowTemplateJobsPrestoJobProperties) validate() error {
-	return nil
-}
 func (r *WorkflowTemplateJobsPrestoJobLoggingConfig) validate() error {
-	return nil
-}
-func (r *WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels) validate() error {
-	return nil
-}
-func (r *WorkflowTemplateJobsLabels) validate() error {
 	return nil
 }
 func (r *WorkflowTemplateJobsScheduling) validate() error {
@@ -664,12 +599,12 @@ func (c *Client) workflowTemplateDiffsForRawDesired(ctx context.Context, rawDesi
 			c.Config.Logger.Warningf("Failed to retrieve whether a WorkflowTemplate resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve WorkflowTemplate resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that WorkflowTemplate resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeWorkflowTemplateDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for WorkflowTemplate: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for WorkflowTemplate: %v", rawDesired)
 
@@ -755,13 +690,7 @@ func canonicalizeWorkflowTemplateDesiredState(rawDesired, rawInitial *WorkflowTe
 
 func canonicalizeWorkflowTemplateNewState(c *Client, rawNew, rawDesired *WorkflowTemplate) (*WorkflowTemplate, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Name, rawNew.Name) {
-			rawNew.Name = rawDesired.Name
-		}
-	}
+	rawNew.Name = rawDesired.Name
 
 	if dcl.IsEmptyValueIndirect(rawNew.Version) && dcl.IsEmptyValueIndirect(rawDesired.Version) {
 		rawNew.Version = rawDesired.Version
@@ -799,81 +728,11 @@ func canonicalizeWorkflowTemplateNewState(c *Client, rawNew, rawDesired *Workflo
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
-	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
-		rawNew.Location = rawDesired.Location
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Location, rawNew.Location) {
-			rawNew.Location = rawDesired.Location
-		}
-	}
+	rawNew.Location = rawDesired.Location
 
 	return rawNew, nil
-}
-
-func canonicalizeWorkflowTemplateLabels(des, initial *WorkflowTemplateLabels, opts ...dcl.ApplyOption) *WorkflowTemplateLabels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewWorkflowTemplateLabels(c *Client, des, nw *WorkflowTemplateLabels) *WorkflowTemplateLabels {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewWorkflowTemplateLabelsSet(c *Client, des, nw []WorkflowTemplateLabels) []WorkflowTemplateLabels {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []WorkflowTemplateLabels
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareWorkflowTemplateLabels(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
 }
 
 func canonicalizeWorkflowTemplatePlacement(des, initial *WorkflowTemplatePlacement, opts ...dcl.ApplyOption) *WorkflowTemplatePlacement {
@@ -994,64 +853,6 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterSet(c *Client, des, n
 	return reorderedNew
 }
 
-func canonicalizeWorkflowTemplatePlacementManagedClusterLabels(des, initial *WorkflowTemplatePlacementManagedClusterLabels, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterLabels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewWorkflowTemplatePlacementManagedClusterLabels(c *Client, des, nw *WorkflowTemplatePlacementManagedClusterLabels) *WorkflowTemplatePlacementManagedClusterLabels {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewWorkflowTemplatePlacementManagedClusterLabelsSet(c *Client, des, nw []WorkflowTemplatePlacementManagedClusterLabels) []WorkflowTemplatePlacementManagedClusterLabels {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []WorkflowTemplatePlacementManagedClusterLabels
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareWorkflowTemplatePlacementManagedClusterLabels(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
 func canonicalizeWorkflowTemplatePlacementClusterSelector(des, initial *WorkflowTemplatePlacementClusterSelector, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementClusterSelector {
 	if des == nil {
 		return initial
@@ -1096,64 +897,6 @@ func canonicalizeNewWorkflowTemplatePlacementClusterSelectorSet(c *Client, des, 
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareWorkflowTemplatePlacementClusterSelector(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeWorkflowTemplatePlacementClusterSelectorClusterLabels(des, initial *WorkflowTemplatePlacementClusterSelectorClusterLabels, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementClusterSelectorClusterLabels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewWorkflowTemplatePlacementClusterSelectorClusterLabels(c *Client, des, nw *WorkflowTemplatePlacementClusterSelectorClusterLabels) *WorkflowTemplatePlacementClusterSelectorClusterLabels {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewWorkflowTemplatePlacementClusterSelectorClusterLabelsSet(c *Client, des, nw []WorkflowTemplatePlacementClusterSelectorClusterLabels) []WorkflowTemplatePlacementClusterSelectorClusterLabels {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []WorkflowTemplatePlacementClusterSelectorClusterLabels
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareWorkflowTemplatePlacementClusterSelectorClusterLabels(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -1324,64 +1067,6 @@ func canonicalizeNewWorkflowTemplateJobsHadoopJobSet(c *Client, des, nw []Workfl
 	return reorderedNew
 }
 
-func canonicalizeWorkflowTemplateJobsHadoopJobProperties(des, initial *WorkflowTemplateJobsHadoopJobProperties, opts ...dcl.ApplyOption) *WorkflowTemplateJobsHadoopJobProperties {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewWorkflowTemplateJobsHadoopJobProperties(c *Client, des, nw *WorkflowTemplateJobsHadoopJobProperties) *WorkflowTemplateJobsHadoopJobProperties {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewWorkflowTemplateJobsHadoopJobPropertiesSet(c *Client, des, nw []WorkflowTemplateJobsHadoopJobProperties) []WorkflowTemplateJobsHadoopJobProperties {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []WorkflowTemplateJobsHadoopJobProperties
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareWorkflowTemplateJobsHadoopJobProperties(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
 func canonicalizeWorkflowTemplateJobsHadoopJobLoggingConfig(des, initial *WorkflowTemplateJobsHadoopJobLoggingConfig, opts ...dcl.ApplyOption) *WorkflowTemplateJobsHadoopJobLoggingConfig {
 	if des == nil {
 		return initial
@@ -1423,64 +1108,6 @@ func canonicalizeNewWorkflowTemplateJobsHadoopJobLoggingConfigSet(c *Client, des
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareWorkflowTemplateJobsHadoopJobLoggingConfig(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels(des, initial *WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels, opts ...dcl.ApplyOption) *WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels(c *Client, des, nw *WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels) *WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsSet(c *Client, des, nw []WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels) []WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -1571,64 +1198,6 @@ func canonicalizeNewWorkflowTemplateJobsSparkJobSet(c *Client, des, nw []Workflo
 	return reorderedNew
 }
 
-func canonicalizeWorkflowTemplateJobsSparkJobProperties(des, initial *WorkflowTemplateJobsSparkJobProperties, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkJobProperties {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewWorkflowTemplateJobsSparkJobProperties(c *Client, des, nw *WorkflowTemplateJobsSparkJobProperties) *WorkflowTemplateJobsSparkJobProperties {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewWorkflowTemplateJobsSparkJobPropertiesSet(c *Client, des, nw []WorkflowTemplateJobsSparkJobProperties) []WorkflowTemplateJobsSparkJobProperties {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []WorkflowTemplateJobsSparkJobProperties
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareWorkflowTemplateJobsSparkJobProperties(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
 func canonicalizeWorkflowTemplateJobsSparkJobLoggingConfig(des, initial *WorkflowTemplateJobsSparkJobLoggingConfig, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkJobLoggingConfig {
 	if des == nil {
 		return initial
@@ -1670,64 +1239,6 @@ func canonicalizeNewWorkflowTemplateJobsSparkJobLoggingConfigSet(c *Client, des,
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareWorkflowTemplateJobsSparkJobLoggingConfig(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels(des, initial *WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels(c *Client, des, nw *WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels) *WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsSet(c *Client, des, nw []WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels) []WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -1818,64 +1329,6 @@ func canonicalizeNewWorkflowTemplateJobsPysparkJobSet(c *Client, des, nw []Workf
 	return reorderedNew
 }
 
-func canonicalizeWorkflowTemplateJobsPysparkJobProperties(des, initial *WorkflowTemplateJobsPysparkJobProperties, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPysparkJobProperties {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewWorkflowTemplateJobsPysparkJobProperties(c *Client, des, nw *WorkflowTemplateJobsPysparkJobProperties) *WorkflowTemplateJobsPysparkJobProperties {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewWorkflowTemplateJobsPysparkJobPropertiesSet(c *Client, des, nw []WorkflowTemplateJobsPysparkJobProperties) []WorkflowTemplateJobsPysparkJobProperties {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []WorkflowTemplateJobsPysparkJobProperties
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareWorkflowTemplateJobsPysparkJobProperties(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
 func canonicalizeWorkflowTemplateJobsPysparkJobLoggingConfig(des, initial *WorkflowTemplateJobsPysparkJobLoggingConfig, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPysparkJobLoggingConfig {
 	if des == nil {
 		return initial
@@ -1917,64 +1370,6 @@ func canonicalizeNewWorkflowTemplateJobsPysparkJobLoggingConfigSet(c *Client, de
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareWorkflowTemplateJobsPysparkJobLoggingConfig(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels(des, initial *WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels(c *Client, des, nw *WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels) *WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsSet(c *Client, des, nw []WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels) []WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -2100,122 +1495,6 @@ func canonicalizeNewWorkflowTemplateJobsHiveJobQueryListSet(c *Client, des, nw [
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareWorkflowTemplateJobsHiveJobQueryList(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeWorkflowTemplateJobsHiveJobScriptVariables(des, initial *WorkflowTemplateJobsHiveJobScriptVariables, opts ...dcl.ApplyOption) *WorkflowTemplateJobsHiveJobScriptVariables {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewWorkflowTemplateJobsHiveJobScriptVariables(c *Client, des, nw *WorkflowTemplateJobsHiveJobScriptVariables) *WorkflowTemplateJobsHiveJobScriptVariables {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewWorkflowTemplateJobsHiveJobScriptVariablesSet(c *Client, des, nw []WorkflowTemplateJobsHiveJobScriptVariables) []WorkflowTemplateJobsHiveJobScriptVariables {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []WorkflowTemplateJobsHiveJobScriptVariables
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareWorkflowTemplateJobsHiveJobScriptVariables(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeWorkflowTemplateJobsHiveJobProperties(des, initial *WorkflowTemplateJobsHiveJobProperties, opts ...dcl.ApplyOption) *WorkflowTemplateJobsHiveJobProperties {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewWorkflowTemplateJobsHiveJobProperties(c *Client, des, nw *WorkflowTemplateJobsHiveJobProperties) *WorkflowTemplateJobsHiveJobProperties {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewWorkflowTemplateJobsHiveJobPropertiesSet(c *Client, des, nw []WorkflowTemplateJobsHiveJobProperties) []WorkflowTemplateJobsHiveJobProperties {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []WorkflowTemplateJobsHiveJobProperties
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareWorkflowTemplateJobsHiveJobProperties(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -2357,122 +1636,6 @@ func canonicalizeNewWorkflowTemplateJobsPigJobQueryListSet(c *Client, des, nw []
 	return reorderedNew
 }
 
-func canonicalizeWorkflowTemplateJobsPigJobScriptVariables(des, initial *WorkflowTemplateJobsPigJobScriptVariables, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPigJobScriptVariables {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewWorkflowTemplateJobsPigJobScriptVariables(c *Client, des, nw *WorkflowTemplateJobsPigJobScriptVariables) *WorkflowTemplateJobsPigJobScriptVariables {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewWorkflowTemplateJobsPigJobScriptVariablesSet(c *Client, des, nw []WorkflowTemplateJobsPigJobScriptVariables) []WorkflowTemplateJobsPigJobScriptVariables {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []WorkflowTemplateJobsPigJobScriptVariables
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareWorkflowTemplateJobsPigJobScriptVariables(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeWorkflowTemplateJobsPigJobProperties(des, initial *WorkflowTemplateJobsPigJobProperties, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPigJobProperties {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewWorkflowTemplateJobsPigJobProperties(c *Client, des, nw *WorkflowTemplateJobsPigJobProperties) *WorkflowTemplateJobsPigJobProperties {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewWorkflowTemplateJobsPigJobPropertiesSet(c *Client, des, nw []WorkflowTemplateJobsPigJobProperties) []WorkflowTemplateJobsPigJobProperties {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []WorkflowTemplateJobsPigJobProperties
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareWorkflowTemplateJobsPigJobProperties(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
 func canonicalizeWorkflowTemplateJobsPigJobLoggingConfig(des, initial *WorkflowTemplateJobsPigJobLoggingConfig, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPigJobLoggingConfig {
 	if des == nil {
 		return initial
@@ -2514,64 +1677,6 @@ func canonicalizeNewWorkflowTemplateJobsPigJobLoggingConfigSet(c *Client, des, n
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareWorkflowTemplateJobsPigJobLoggingConfig(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels(des, initial *WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels(c *Client, des, nw *WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels) *WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsSet(c *Client, des, nw []WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels) []WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -2656,64 +1761,6 @@ func canonicalizeNewWorkflowTemplateJobsSparkRJobSet(c *Client, des, nw []Workfl
 	return reorderedNew
 }
 
-func canonicalizeWorkflowTemplateJobsSparkRJobProperties(des, initial *WorkflowTemplateJobsSparkRJobProperties, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkRJobProperties {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewWorkflowTemplateJobsSparkRJobProperties(c *Client, des, nw *WorkflowTemplateJobsSparkRJobProperties) *WorkflowTemplateJobsSparkRJobProperties {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewWorkflowTemplateJobsSparkRJobPropertiesSet(c *Client, des, nw []WorkflowTemplateJobsSparkRJobProperties) []WorkflowTemplateJobsSparkRJobProperties {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []WorkflowTemplateJobsSparkRJobProperties
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareWorkflowTemplateJobsSparkRJobProperties(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
 func canonicalizeWorkflowTemplateJobsSparkRJobLoggingConfig(des, initial *WorkflowTemplateJobsSparkRJobLoggingConfig, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkRJobLoggingConfig {
 	if des == nil {
 		return initial
@@ -2755,64 +1802,6 @@ func canonicalizeNewWorkflowTemplateJobsSparkRJobLoggingConfigSet(c *Client, des
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareWorkflowTemplateJobsSparkRJobLoggingConfig(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels(des, initial *WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels(c *Client, des, nw *WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels) *WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsSet(c *Client, des, nw []WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels) []WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -2951,122 +1940,6 @@ func canonicalizeNewWorkflowTemplateJobsSparkSqlJobQueryListSet(c *Client, des, 
 	return reorderedNew
 }
 
-func canonicalizeWorkflowTemplateJobsSparkSqlJobScriptVariables(des, initial *WorkflowTemplateJobsSparkSqlJobScriptVariables, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkSqlJobScriptVariables {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewWorkflowTemplateJobsSparkSqlJobScriptVariables(c *Client, des, nw *WorkflowTemplateJobsSparkSqlJobScriptVariables) *WorkflowTemplateJobsSparkSqlJobScriptVariables {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewWorkflowTemplateJobsSparkSqlJobScriptVariablesSet(c *Client, des, nw []WorkflowTemplateJobsSparkSqlJobScriptVariables) []WorkflowTemplateJobsSparkSqlJobScriptVariables {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []WorkflowTemplateJobsSparkSqlJobScriptVariables
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareWorkflowTemplateJobsSparkSqlJobScriptVariables(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeWorkflowTemplateJobsSparkSqlJobProperties(des, initial *WorkflowTemplateJobsSparkSqlJobProperties, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkSqlJobProperties {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewWorkflowTemplateJobsSparkSqlJobProperties(c *Client, des, nw *WorkflowTemplateJobsSparkSqlJobProperties) *WorkflowTemplateJobsSparkSqlJobProperties {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewWorkflowTemplateJobsSparkSqlJobPropertiesSet(c *Client, des, nw []WorkflowTemplateJobsSparkSqlJobProperties) []WorkflowTemplateJobsSparkSqlJobProperties {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []WorkflowTemplateJobsSparkSqlJobProperties
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareWorkflowTemplateJobsSparkSqlJobProperties(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
 func canonicalizeWorkflowTemplateJobsSparkSqlJobLoggingConfig(des, initial *WorkflowTemplateJobsSparkSqlJobLoggingConfig, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkSqlJobLoggingConfig {
 	if des == nil {
 		return initial
@@ -3108,64 +1981,6 @@ func canonicalizeNewWorkflowTemplateJobsSparkSqlJobLoggingConfigSet(c *Client, d
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareWorkflowTemplateJobsSparkSqlJobLoggingConfig(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels(des, initial *WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels(c *Client, des, nw *WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels) *WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsSet(c *Client, des, nw []WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels) []WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -3307,64 +2122,6 @@ func canonicalizeNewWorkflowTemplateJobsPrestoJobQueryListSet(c *Client, des, nw
 	return reorderedNew
 }
 
-func canonicalizeWorkflowTemplateJobsPrestoJobProperties(des, initial *WorkflowTemplateJobsPrestoJobProperties, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPrestoJobProperties {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewWorkflowTemplateJobsPrestoJobProperties(c *Client, des, nw *WorkflowTemplateJobsPrestoJobProperties) *WorkflowTemplateJobsPrestoJobProperties {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewWorkflowTemplateJobsPrestoJobPropertiesSet(c *Client, des, nw []WorkflowTemplateJobsPrestoJobProperties) []WorkflowTemplateJobsPrestoJobProperties {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []WorkflowTemplateJobsPrestoJobProperties
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareWorkflowTemplateJobsPrestoJobProperties(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
 func canonicalizeWorkflowTemplateJobsPrestoJobLoggingConfig(des, initial *WorkflowTemplateJobsPrestoJobLoggingConfig, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPrestoJobLoggingConfig {
 	if des == nil {
 		return initial
@@ -3406,122 +2163,6 @@ func canonicalizeNewWorkflowTemplateJobsPrestoJobLoggingConfigSet(c *Client, des
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareWorkflowTemplateJobsPrestoJobLoggingConfig(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels(des, initial *WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels(c *Client, des, nw *WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels) *WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsSet(c *Client, des, nw []WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels) []WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeWorkflowTemplateJobsLabels(des, initial *WorkflowTemplateJobsLabels, opts ...dcl.ApplyOption) *WorkflowTemplateJobsLabels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewWorkflowTemplateJobsLabels(c *Client, des, nw *WorkflowTemplateJobsLabels) *WorkflowTemplateJobsLabels {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewWorkflowTemplateJobsLabelsSet(c *Client, des, nw []WorkflowTemplateJobsLabels) []WorkflowTemplateJobsLabels {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []WorkflowTemplateJobsLabels
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareWorkflowTemplateJobsLabels(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -3846,60 +2487,39 @@ func diffWorkflowTemplate(c *Client, desired, actual *WorkflowTemplate, opts ...
 	}
 
 	var diffs []workflowTemplateDiff
-	if !dcl.IsZeroValue(desired.Name) && !dcl.NameToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
-		diffs = append(diffs, workflowTemplateDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
-	}
 	if !dcl.IsZeroValue(desired.Version) && (dcl.IsZeroValue(actual.Version) || !reflect.DeepEqual(*desired.Version, *actual.Version)) {
-		c.Config.Logger.Infof("Detected diff in Version.\nDESIRED: %#v\nACTUAL: %#v", desired.Version, actual.Version)
+		c.Config.Logger.Infof("Detected diff in Version.\nDESIRED: %v\nACTUAL: %v", desired.Version, actual.Version)
 		diffs = append(diffs, workflowTemplateDiff{
 			RequiresRecreate: true,
 			FieldName:        "Version",
 		})
 	}
-	if compareWorkflowTemplateLabelsSlice(c, desired.Labels, actual.Labels) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %#v\nACTUAL: %#v", desired.Labels, actual.Labels)
+	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
+		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 		diffs = append(diffs, workflowTemplateDiff{
 			RequiresRecreate: true,
 			FieldName:        "Labels",
 		})
 	}
 	if compareWorkflowTemplatePlacement(c, desired.Placement, actual.Placement) {
-		c.Config.Logger.Infof("Detected diff in Placement.\nDESIRED: %#v\nACTUAL: %#v", desired.Placement, actual.Placement)
+		c.Config.Logger.Infof("Detected diff in Placement.\nDESIRED: %v\nACTUAL: %v", desired.Placement, actual.Placement)
 		diffs = append(diffs, workflowTemplateDiff{
 			RequiresRecreate: true,
 			FieldName:        "Placement",
 		})
 	}
 	if compareWorkflowTemplateJobsSlice(c, desired.Jobs, actual.Jobs) {
-		c.Config.Logger.Infof("Detected diff in Jobs.\nDESIRED: %#v\nACTUAL: %#v", desired.Jobs, actual.Jobs)
+		c.Config.Logger.Infof("Detected diff in Jobs.\nDESIRED: %v\nACTUAL: %v", desired.Jobs, actual.Jobs)
 		diffs = append(diffs, workflowTemplateDiff{
 			RequiresRecreate: true,
 			FieldName:        "Jobs",
 		})
 	}
 	if compareWorkflowTemplateParametersSlice(c, desired.Parameters, actual.Parameters) {
-		c.Config.Logger.Infof("Detected diff in Parameters.\nDESIRED: %#v\nACTUAL: %#v", desired.Parameters, actual.Parameters)
+		c.Config.Logger.Infof("Detected diff in Parameters.\nDESIRED: %v\nACTUAL: %v", desired.Parameters, actual.Parameters)
 		diffs = append(diffs, workflowTemplateDiff{
 			RequiresRecreate: true,
 			FieldName:        "Parameters",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, workflowTemplateDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Location) && !dcl.NameToSelfLink(desired.Location, actual.Location) {
-		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
-		diffs = append(diffs, workflowTemplateDiff{
-			RequiresRecreate: true,
-			FieldName:        "Location",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -3925,45 +2545,6 @@ func diffWorkflowTemplate(c *Client, desired, actual *WorkflowTemplate, opts ...
 	}
 
 	return deduped, nil
-}
-func compareWorkflowTemplateLabelsSlice(c *Client, desired, actual []WorkflowTemplateLabels) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateLabels, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateLabels(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateLabels, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateLabels(c *Client, desired, actual *WorkflowTemplateLabels) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
 }
 func compareWorkflowTemplatePlacementSlice(c *Client, desired, actual []WorkflowTemplatePlacement) bool {
 	if len(desired) != len(actual) {
@@ -4045,47 +2626,8 @@ func compareWorkflowTemplatePlacementManagedCluster(c *Client, desired, actual *
 		c.Config.Logger.Infof("desired Labels %s - but actually nil", dcl.SprintResource(desired.Labels))
 		return true
 	}
-	if compareWorkflowTemplatePlacementManagedClusterLabelsSlice(c, desired.Labels, actual.Labels) && !dcl.IsZeroValue(desired.Labels) {
+	if !reflect.DeepEqual(desired.Labels, actual.Labels) && !dcl.IsZeroValue(desired.Labels) {
 		c.Config.Logger.Infof("Diff in Labels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Labels), dcl.SprintResource(actual.Labels))
-		return true
-	}
-	return false
-}
-func compareWorkflowTemplatePlacementManagedClusterLabelsSlice(c *Client, desired, actual []WorkflowTemplatePlacementManagedClusterLabels) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplatePlacementManagedClusterLabels, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplatePlacementManagedClusterLabels(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplatePlacementManagedClusterLabels, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplatePlacementManagedClusterLabels(c *Client, desired, actual *WorkflowTemplatePlacementManagedClusterLabels) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -4123,47 +2665,8 @@ func compareWorkflowTemplatePlacementClusterSelector(c *Client, desired, actual 
 		c.Config.Logger.Infof("desired ClusterLabels %s - but actually nil", dcl.SprintResource(desired.ClusterLabels))
 		return true
 	}
-	if compareWorkflowTemplatePlacementClusterSelectorClusterLabelsSlice(c, desired.ClusterLabels, actual.ClusterLabels) && !dcl.IsZeroValue(desired.ClusterLabels) {
+	if !reflect.DeepEqual(desired.ClusterLabels, actual.ClusterLabels) && !dcl.IsZeroValue(desired.ClusterLabels) {
 		c.Config.Logger.Infof("Diff in ClusterLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterLabels), dcl.SprintResource(actual.ClusterLabels))
-		return true
-	}
-	return false
-}
-func compareWorkflowTemplatePlacementClusterSelectorClusterLabelsSlice(c *Client, desired, actual []WorkflowTemplatePlacementClusterSelectorClusterLabels) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplatePlacementClusterSelectorClusterLabels, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplatePlacementClusterSelectorClusterLabels(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplatePlacementClusterSelectorClusterLabels, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplatePlacementClusterSelectorClusterLabels(c *Client, desired, actual *WorkflowTemplatePlacementClusterSelectorClusterLabels) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -4265,7 +2768,7 @@ func compareWorkflowTemplateJobs(c *Client, desired, actual *WorkflowTemplateJob
 		c.Config.Logger.Infof("desired Labels %s - but actually nil", dcl.SprintResource(desired.Labels))
 		return true
 	}
-	if compareWorkflowTemplateJobsLabelsSlice(c, desired.Labels, actual.Labels) && !dcl.IsZeroValue(desired.Labels) {
+	if !reflect.DeepEqual(desired.Labels, actual.Labels) && !dcl.IsZeroValue(desired.Labels) {
 		c.Config.Logger.Infof("Diff in Labels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Labels), dcl.SprintResource(actual.Labels))
 		return true
 	}
@@ -4360,7 +2863,7 @@ func compareWorkflowTemplateJobsHadoopJob(c *Client, desired, actual *WorkflowTe
 		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
 		return true
 	}
-	if compareWorkflowTemplateJobsHadoopJobPropertiesSlice(c, desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
+	if !reflect.DeepEqual(desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
 		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
@@ -4370,45 +2873,6 @@ func compareWorkflowTemplateJobsHadoopJob(c *Client, desired, actual *WorkflowTe
 	}
 	if compareWorkflowTemplateJobsHadoopJobLoggingConfig(c, desired.LoggingConfig, actual.LoggingConfig) && !dcl.IsZeroValue(desired.LoggingConfig) {
 		c.Config.Logger.Infof("Diff in LoggingConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
-		return true
-	}
-	return false
-}
-func compareWorkflowTemplateJobsHadoopJobPropertiesSlice(c *Client, desired, actual []WorkflowTemplateJobsHadoopJobProperties) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsHadoopJobProperties, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsHadoopJobProperties(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsHadoopJobProperties, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsHadoopJobProperties(c *Client, desired, actual *WorkflowTemplateJobsHadoopJobProperties) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -4438,47 +2902,8 @@ func compareWorkflowTemplateJobsHadoopJobLoggingConfig(c *Client, desired, actua
 		c.Config.Logger.Infof("desired DriverLogLevels %s - but actually nil", dcl.SprintResource(desired.DriverLogLevels))
 		return true
 	}
-	if compareWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsSlice(c, desired.DriverLogLevels, actual.DriverLogLevels) && !dcl.IsZeroValue(desired.DriverLogLevels) {
+	if !reflect.DeepEqual(desired.DriverLogLevels, actual.DriverLogLevels) && !dcl.IsZeroValue(desired.DriverLogLevels) {
 		c.Config.Logger.Infof("Diff in DriverLogLevels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
-		return true
-	}
-	return false
-}
-func compareWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsSlice(c *Client, desired, actual []WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels(c *Client, desired, actual *WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -4556,7 +2981,7 @@ func compareWorkflowTemplateJobsSparkJob(c *Client, desired, actual *WorkflowTem
 		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
 		return true
 	}
-	if compareWorkflowTemplateJobsSparkJobPropertiesSlice(c, desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
+	if !reflect.DeepEqual(desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
 		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
@@ -4566,45 +2991,6 @@ func compareWorkflowTemplateJobsSparkJob(c *Client, desired, actual *WorkflowTem
 	}
 	if compareWorkflowTemplateJobsSparkJobLoggingConfig(c, desired.LoggingConfig, actual.LoggingConfig) && !dcl.IsZeroValue(desired.LoggingConfig) {
 		c.Config.Logger.Infof("Diff in LoggingConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
-		return true
-	}
-	return false
-}
-func compareWorkflowTemplateJobsSparkJobPropertiesSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkJobProperties) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkJobProperties, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsSparkJobProperties(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkJobProperties, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsSparkJobProperties(c *Client, desired, actual *WorkflowTemplateJobsSparkJobProperties) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -4634,47 +3020,8 @@ func compareWorkflowTemplateJobsSparkJobLoggingConfig(c *Client, desired, actual
 		c.Config.Logger.Infof("desired DriverLogLevels %s - but actually nil", dcl.SprintResource(desired.DriverLogLevels))
 		return true
 	}
-	if compareWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsSlice(c, desired.DriverLogLevels, actual.DriverLogLevels) && !dcl.IsZeroValue(desired.DriverLogLevels) {
+	if !reflect.DeepEqual(desired.DriverLogLevels, actual.DriverLogLevels) && !dcl.IsZeroValue(desired.DriverLogLevels) {
 		c.Config.Logger.Infof("Diff in DriverLogLevels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
-		return true
-	}
-	return false
-}
-func compareWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels(c *Client, desired, actual *WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -4752,7 +3099,7 @@ func compareWorkflowTemplateJobsPysparkJob(c *Client, desired, actual *WorkflowT
 		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
 		return true
 	}
-	if compareWorkflowTemplateJobsPysparkJobPropertiesSlice(c, desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
+	if !reflect.DeepEqual(desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
 		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
@@ -4762,45 +3109,6 @@ func compareWorkflowTemplateJobsPysparkJob(c *Client, desired, actual *WorkflowT
 	}
 	if compareWorkflowTemplateJobsPysparkJobLoggingConfig(c, desired.LoggingConfig, actual.LoggingConfig) && !dcl.IsZeroValue(desired.LoggingConfig) {
 		c.Config.Logger.Infof("Diff in LoggingConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
-		return true
-	}
-	return false
-}
-func compareWorkflowTemplateJobsPysparkJobPropertiesSlice(c *Client, desired, actual []WorkflowTemplateJobsPysparkJobProperties) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPysparkJobProperties, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsPysparkJobProperties(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPysparkJobProperties, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsPysparkJobProperties(c *Client, desired, actual *WorkflowTemplateJobsPysparkJobProperties) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -4830,47 +3138,8 @@ func compareWorkflowTemplateJobsPysparkJobLoggingConfig(c *Client, desired, actu
 		c.Config.Logger.Infof("desired DriverLogLevels %s - but actually nil", dcl.SprintResource(desired.DriverLogLevels))
 		return true
 	}
-	if compareWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsSlice(c, desired.DriverLogLevels, actual.DriverLogLevels) && !dcl.IsZeroValue(desired.DriverLogLevels) {
+	if !reflect.DeepEqual(desired.DriverLogLevels, actual.DriverLogLevels) && !dcl.IsZeroValue(desired.DriverLogLevels) {
 		c.Config.Logger.Infof("Diff in DriverLogLevels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
-		return true
-	}
-	return false
-}
-func compareWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsSlice(c *Client, desired, actual []WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels(c *Client, desired, actual *WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -4924,7 +3193,7 @@ func compareWorkflowTemplateJobsHiveJob(c *Client, desired, actual *WorkflowTemp
 		c.Config.Logger.Infof("desired ScriptVariables %s - but actually nil", dcl.SprintResource(desired.ScriptVariables))
 		return true
 	}
-	if compareWorkflowTemplateJobsHiveJobScriptVariablesSlice(c, desired.ScriptVariables, actual.ScriptVariables) && !dcl.IsZeroValue(desired.ScriptVariables) {
+	if !reflect.DeepEqual(desired.ScriptVariables, actual.ScriptVariables) && !dcl.IsZeroValue(desired.ScriptVariables) {
 		c.Config.Logger.Infof("Diff in ScriptVariables. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptVariables), dcl.SprintResource(actual.ScriptVariables))
 		return true
 	}
@@ -4932,7 +3201,7 @@ func compareWorkflowTemplateJobsHiveJob(c *Client, desired, actual *WorkflowTemp
 		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
 		return true
 	}
-	if compareWorkflowTemplateJobsHiveJobPropertiesSlice(c, desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
+	if !reflect.DeepEqual(desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
 		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
@@ -4973,84 +3242,6 @@ func compareWorkflowTemplateJobsHiveJobQueryList(c *Client, desired, actual *Wor
 	}
 	if !dcl.SliceEquals(desired.Queries, actual.Queries) && !dcl.IsZeroValue(desired.Queries) {
 		c.Config.Logger.Infof("Diff in Queries. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Queries), dcl.SprintResource(actual.Queries))
-		return true
-	}
-	return false
-}
-func compareWorkflowTemplateJobsHiveJobScriptVariablesSlice(c *Client, desired, actual []WorkflowTemplateJobsHiveJobScriptVariables) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsHiveJobScriptVariables, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsHiveJobScriptVariables(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsHiveJobScriptVariables, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsHiveJobScriptVariables(c *Client, desired, actual *WorkflowTemplateJobsHiveJobScriptVariables) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
-func compareWorkflowTemplateJobsHiveJobPropertiesSlice(c *Client, desired, actual []WorkflowTemplateJobsHiveJobProperties) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsHiveJobProperties, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsHiveJobProperties(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsHiveJobProperties, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsHiveJobProperties(c *Client, desired, actual *WorkflowTemplateJobsHiveJobProperties) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -5104,7 +3295,7 @@ func compareWorkflowTemplateJobsPigJob(c *Client, desired, actual *WorkflowTempl
 		c.Config.Logger.Infof("desired ScriptVariables %s - but actually nil", dcl.SprintResource(desired.ScriptVariables))
 		return true
 	}
-	if compareWorkflowTemplateJobsPigJobScriptVariablesSlice(c, desired.ScriptVariables, actual.ScriptVariables) && !dcl.IsZeroValue(desired.ScriptVariables) {
+	if !reflect.DeepEqual(desired.ScriptVariables, actual.ScriptVariables) && !dcl.IsZeroValue(desired.ScriptVariables) {
 		c.Config.Logger.Infof("Diff in ScriptVariables. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptVariables), dcl.SprintResource(actual.ScriptVariables))
 		return true
 	}
@@ -5112,7 +3303,7 @@ func compareWorkflowTemplateJobsPigJob(c *Client, desired, actual *WorkflowTempl
 		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
 		return true
 	}
-	if compareWorkflowTemplateJobsPigJobPropertiesSlice(c, desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
+	if !reflect.DeepEqual(desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
 		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
@@ -5165,84 +3356,6 @@ func compareWorkflowTemplateJobsPigJobQueryList(c *Client, desired, actual *Work
 	}
 	return false
 }
-func compareWorkflowTemplateJobsPigJobScriptVariablesSlice(c *Client, desired, actual []WorkflowTemplateJobsPigJobScriptVariables) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPigJobScriptVariables, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsPigJobScriptVariables(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPigJobScriptVariables, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsPigJobScriptVariables(c *Client, desired, actual *WorkflowTemplateJobsPigJobScriptVariables) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
-func compareWorkflowTemplateJobsPigJobPropertiesSlice(c *Client, desired, actual []WorkflowTemplateJobsPigJobProperties) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPigJobProperties, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsPigJobProperties(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPigJobProperties, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsPigJobProperties(c *Client, desired, actual *WorkflowTemplateJobsPigJobProperties) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
 func compareWorkflowTemplateJobsPigJobLoggingConfigSlice(c *Client, desired, actual []WorkflowTemplateJobsPigJobLoggingConfig) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPigJobLoggingConfig, lengths unequal.")
@@ -5268,47 +3381,8 @@ func compareWorkflowTemplateJobsPigJobLoggingConfig(c *Client, desired, actual *
 		c.Config.Logger.Infof("desired DriverLogLevels %s - but actually nil", dcl.SprintResource(desired.DriverLogLevels))
 		return true
 	}
-	if compareWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsSlice(c, desired.DriverLogLevels, actual.DriverLogLevels) && !dcl.IsZeroValue(desired.DriverLogLevels) {
+	if !reflect.DeepEqual(desired.DriverLogLevels, actual.DriverLogLevels) && !dcl.IsZeroValue(desired.DriverLogLevels) {
 		c.Config.Logger.Infof("Diff in DriverLogLevels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
-		return true
-	}
-	return false
-}
-func compareWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsSlice(c *Client, desired, actual []WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels(c *Client, desired, actual *WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -5370,7 +3444,7 @@ func compareWorkflowTemplateJobsSparkRJob(c *Client, desired, actual *WorkflowTe
 		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
 		return true
 	}
-	if compareWorkflowTemplateJobsSparkRJobPropertiesSlice(c, desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
+	if !reflect.DeepEqual(desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
 		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
@@ -5380,45 +3454,6 @@ func compareWorkflowTemplateJobsSparkRJob(c *Client, desired, actual *WorkflowTe
 	}
 	if compareWorkflowTemplateJobsSparkRJobLoggingConfig(c, desired.LoggingConfig, actual.LoggingConfig) && !dcl.IsZeroValue(desired.LoggingConfig) {
 		c.Config.Logger.Infof("Diff in LoggingConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
-		return true
-	}
-	return false
-}
-func compareWorkflowTemplateJobsSparkRJobPropertiesSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkRJobProperties) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkRJobProperties, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsSparkRJobProperties(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkRJobProperties, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsSparkRJobProperties(c *Client, desired, actual *WorkflowTemplateJobsSparkRJobProperties) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -5448,47 +3483,8 @@ func compareWorkflowTemplateJobsSparkRJobLoggingConfig(c *Client, desired, actua
 		c.Config.Logger.Infof("desired DriverLogLevels %s - but actually nil", dcl.SprintResource(desired.DriverLogLevels))
 		return true
 	}
-	if compareWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsSlice(c, desired.DriverLogLevels, actual.DriverLogLevels) && !dcl.IsZeroValue(desired.DriverLogLevels) {
+	if !reflect.DeepEqual(desired.DriverLogLevels, actual.DriverLogLevels) && !dcl.IsZeroValue(desired.DriverLogLevels) {
 		c.Config.Logger.Infof("Diff in DriverLogLevels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
-		return true
-	}
-	return false
-}
-func compareWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels(c *Client, desired, actual *WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -5534,7 +3530,7 @@ func compareWorkflowTemplateJobsSparkSqlJob(c *Client, desired, actual *Workflow
 		c.Config.Logger.Infof("desired ScriptVariables %s - but actually nil", dcl.SprintResource(desired.ScriptVariables))
 		return true
 	}
-	if compareWorkflowTemplateJobsSparkSqlJobScriptVariablesSlice(c, desired.ScriptVariables, actual.ScriptVariables) && !dcl.IsZeroValue(desired.ScriptVariables) {
+	if !reflect.DeepEqual(desired.ScriptVariables, actual.ScriptVariables) && !dcl.IsZeroValue(desired.ScriptVariables) {
 		c.Config.Logger.Infof("Diff in ScriptVariables. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptVariables), dcl.SprintResource(actual.ScriptVariables))
 		return true
 	}
@@ -5542,7 +3538,7 @@ func compareWorkflowTemplateJobsSparkSqlJob(c *Client, desired, actual *Workflow
 		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
 		return true
 	}
-	if compareWorkflowTemplateJobsSparkSqlJobPropertiesSlice(c, desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
+	if !reflect.DeepEqual(desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
 		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
@@ -5595,84 +3591,6 @@ func compareWorkflowTemplateJobsSparkSqlJobQueryList(c *Client, desired, actual 
 	}
 	return false
 }
-func compareWorkflowTemplateJobsSparkSqlJobScriptVariablesSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkSqlJobScriptVariables) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkSqlJobScriptVariables, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsSparkSqlJobScriptVariables(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkSqlJobScriptVariables, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsSparkSqlJobScriptVariables(c *Client, desired, actual *WorkflowTemplateJobsSparkSqlJobScriptVariables) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
-func compareWorkflowTemplateJobsSparkSqlJobPropertiesSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkSqlJobProperties) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkSqlJobProperties, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsSparkSqlJobProperties(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkSqlJobProperties, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsSparkSqlJobProperties(c *Client, desired, actual *WorkflowTemplateJobsSparkSqlJobProperties) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
 func compareWorkflowTemplateJobsSparkSqlJobLoggingConfigSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkSqlJobLoggingConfig) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkSqlJobLoggingConfig, lengths unequal.")
@@ -5698,47 +3616,8 @@ func compareWorkflowTemplateJobsSparkSqlJobLoggingConfig(c *Client, desired, act
 		c.Config.Logger.Infof("desired DriverLogLevels %s - but actually nil", dcl.SprintResource(desired.DriverLogLevels))
 		return true
 	}
-	if compareWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsSlice(c, desired.DriverLogLevels, actual.DriverLogLevels) && !dcl.IsZeroValue(desired.DriverLogLevels) {
+	if !reflect.DeepEqual(desired.DriverLogLevels, actual.DriverLogLevels) && !dcl.IsZeroValue(desired.DriverLogLevels) {
 		c.Config.Logger.Infof("Diff in DriverLogLevels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
-		return true
-	}
-	return false
-}
-func compareWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels(c *Client, desired, actual *WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -5808,7 +3687,7 @@ func compareWorkflowTemplateJobsPrestoJob(c *Client, desired, actual *WorkflowTe
 		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
 		return true
 	}
-	if compareWorkflowTemplateJobsPrestoJobPropertiesSlice(c, desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
+	if !reflect.DeepEqual(desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
 		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
@@ -5853,45 +3732,6 @@ func compareWorkflowTemplateJobsPrestoJobQueryList(c *Client, desired, actual *W
 	}
 	return false
 }
-func compareWorkflowTemplateJobsPrestoJobPropertiesSlice(c *Client, desired, actual []WorkflowTemplateJobsPrestoJobProperties) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPrestoJobProperties, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsPrestoJobProperties(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPrestoJobProperties, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsPrestoJobProperties(c *Client, desired, actual *WorkflowTemplateJobsPrestoJobProperties) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
 func compareWorkflowTemplateJobsPrestoJobLoggingConfigSlice(c *Client, desired, actual []WorkflowTemplateJobsPrestoJobLoggingConfig) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPrestoJobLoggingConfig, lengths unequal.")
@@ -5917,86 +3757,8 @@ func compareWorkflowTemplateJobsPrestoJobLoggingConfig(c *Client, desired, actua
 		c.Config.Logger.Infof("desired DriverLogLevels %s - but actually nil", dcl.SprintResource(desired.DriverLogLevels))
 		return true
 	}
-	if compareWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsSlice(c, desired.DriverLogLevels, actual.DriverLogLevels) && !dcl.IsZeroValue(desired.DriverLogLevels) {
+	if !reflect.DeepEqual(desired.DriverLogLevels, actual.DriverLogLevels) && !dcl.IsZeroValue(desired.DriverLogLevels) {
 		c.Config.Logger.Infof("Diff in DriverLogLevels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
-		return true
-	}
-	return false
-}
-func compareWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsSlice(c *Client, desired, actual []WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels(c *Client, desired, actual *WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
-func compareWorkflowTemplateJobsLabelsSlice(c *Client, desired, actual []WorkflowTemplateJobsLabels) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsLabels, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsLabels(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsLabels, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsLabels(c *Client, desired, actual *WorkflowTemplateJobsLabels) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -6196,131 +3958,6 @@ func compareWorkflowTemplateParametersValidationValues(c *Client, desired, actua
 	}
 	return false
 }
-func compareWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnumSlice(c *Client, desired, actual []WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum(c *Client, desired, actual *WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnumSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum(c *Client, desired, actual *WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnumSlice(c *Client, desired, actual []WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum(c *Client, desired, actual *WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnumSlice(c *Client, desired, actual []WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum(c *Client, desired, actual *WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnumSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum(c *Client, desired, actual *WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnumSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum(c *Client, desired, actual *WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnumSlice(c *Client, desired, actual []WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum(c *Client, desired, actual *WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
 
 // urlNormalized returns a copy of the resource struct with values normalized
 // for URL substitutions. For instance, it converts long-form self-links to
@@ -6401,9 +4038,7 @@ func expandWorkflowTemplate(c *Client, f *WorkflowTemplate) (map[string]interfac
 	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["updateTime"] = v
 	}
-	if v, err := expandWorkflowTemplateLabelsSlice(c, f.Labels); err != nil {
-		return nil, fmt.Errorf("error expanding Labels into labels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
 	}
 	if v, err := expandWorkflowTemplatePlacement(c, f.Placement); err != nil {
@@ -6451,126 +4086,12 @@ func flattenWorkflowTemplate(c *Client, i interface{}) *WorkflowTemplate {
 	r.Version = dcl.FlattenInteger(m["version"])
 	r.CreateTime = dcl.FlattenString(m["createTime"])
 	r.UpdateTime = dcl.FlattenString(m["updateTime"])
-	r.Labels = flattenWorkflowTemplateLabelsSlice(c, m["labels"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	r.Placement = flattenWorkflowTemplatePlacement(c, m["placement"])
 	r.Jobs = flattenWorkflowTemplateJobsSlice(c, m["jobs"])
 	r.Parameters = flattenWorkflowTemplateParametersSlice(c, m["parameters"])
 	r.Project = dcl.FlattenString(m["project"])
 	r.Location = dcl.FlattenString(m["location"])
-
-	return r
-}
-
-// expandWorkflowTemplateLabelsMap expands the contents of WorkflowTemplateLabels into a JSON
-// request object.
-func expandWorkflowTemplateLabelsMap(c *Client, f map[string]WorkflowTemplateLabels) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandWorkflowTemplateLabels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandWorkflowTemplateLabelsSlice expands the contents of WorkflowTemplateLabels into a JSON
-// request object.
-func expandWorkflowTemplateLabelsSlice(c *Client, f []WorkflowTemplateLabels) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandWorkflowTemplateLabels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenWorkflowTemplateLabelsMap flattens the contents of WorkflowTemplateLabels from a JSON
-// response object.
-func flattenWorkflowTemplateLabelsMap(c *Client, i interface{}) map[string]WorkflowTemplateLabels {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]WorkflowTemplateLabels{}
-	}
-
-	if len(a) == 0 {
-		return map[string]WorkflowTemplateLabels{}
-	}
-
-	items := make(map[string]WorkflowTemplateLabels)
-	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateLabels(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateLabelsSlice flattens the contents of WorkflowTemplateLabels from a JSON
-// response object.
-func flattenWorkflowTemplateLabelsSlice(c *Client, i interface{}) []WorkflowTemplateLabels {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateLabels{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateLabels{}
-	}
-
-	items := make([]WorkflowTemplateLabels, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateLabels(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandWorkflowTemplateLabels expands an instance of WorkflowTemplateLabels into a JSON
-// request object.
-func expandWorkflowTemplateLabels(c *Client, f *WorkflowTemplateLabels) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenWorkflowTemplateLabels flattens an instance of WorkflowTemplateLabels from a JSON
-// response object.
-func flattenWorkflowTemplateLabels(c *Client, i interface{}) *WorkflowTemplateLabels {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &WorkflowTemplateLabels{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
 
 	return r
 }
@@ -6790,9 +4311,7 @@ func expandWorkflowTemplatePlacementManagedCluster(c *Client, f *WorkflowTemplat
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["config"] = v
 	}
-	if v, err := expandWorkflowTemplatePlacementManagedClusterLabelsSlice(c, f.Labels); err != nil {
-		return nil, fmt.Errorf("error expanding Labels into labels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
 	}
 
@@ -6810,121 +4329,7 @@ func flattenWorkflowTemplatePlacementManagedCluster(c *Client, i interface{}) *W
 	r := &WorkflowTemplatePlacementManagedCluster{}
 	r.ClusterName = dcl.FlattenString(m["clusterName"])
 	r.Config = flattenClusterClusterConfig(c, m["config"])
-	r.Labels = flattenWorkflowTemplatePlacementManagedClusterLabelsSlice(c, m["labels"])
-
-	return r
-}
-
-// expandWorkflowTemplatePlacementManagedClusterLabelsMap expands the contents of WorkflowTemplatePlacementManagedClusterLabels into a JSON
-// request object.
-func expandWorkflowTemplatePlacementManagedClusterLabelsMap(c *Client, f map[string]WorkflowTemplatePlacementManagedClusterLabels) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandWorkflowTemplatePlacementManagedClusterLabels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandWorkflowTemplatePlacementManagedClusterLabelsSlice expands the contents of WorkflowTemplatePlacementManagedClusterLabels into a JSON
-// request object.
-func expandWorkflowTemplatePlacementManagedClusterLabelsSlice(c *Client, f []WorkflowTemplatePlacementManagedClusterLabels) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandWorkflowTemplatePlacementManagedClusterLabels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenWorkflowTemplatePlacementManagedClusterLabelsMap flattens the contents of WorkflowTemplatePlacementManagedClusterLabels from a JSON
-// response object.
-func flattenWorkflowTemplatePlacementManagedClusterLabelsMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementManagedClusterLabels {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]WorkflowTemplatePlacementManagedClusterLabels{}
-	}
-
-	if len(a) == 0 {
-		return map[string]WorkflowTemplatePlacementManagedClusterLabels{}
-	}
-
-	items := make(map[string]WorkflowTemplatePlacementManagedClusterLabels)
-	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementManagedClusterLabels(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplatePlacementManagedClusterLabelsSlice flattens the contents of WorkflowTemplatePlacementManagedClusterLabels from a JSON
-// response object.
-func flattenWorkflowTemplatePlacementManagedClusterLabelsSlice(c *Client, i interface{}) []WorkflowTemplatePlacementManagedClusterLabels {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplatePlacementManagedClusterLabels{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplatePlacementManagedClusterLabels{}
-	}
-
-	items := make([]WorkflowTemplatePlacementManagedClusterLabels, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementManagedClusterLabels(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandWorkflowTemplatePlacementManagedClusterLabels expands an instance of WorkflowTemplatePlacementManagedClusterLabels into a JSON
-// request object.
-func expandWorkflowTemplatePlacementManagedClusterLabels(c *Client, f *WorkflowTemplatePlacementManagedClusterLabels) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenWorkflowTemplatePlacementManagedClusterLabels flattens an instance of WorkflowTemplatePlacementManagedClusterLabels from a JSON
-// response object.
-func flattenWorkflowTemplatePlacementManagedClusterLabels(c *Client, i interface{}) *WorkflowTemplatePlacementManagedClusterLabels {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &WorkflowTemplatePlacementManagedClusterLabels{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -7021,9 +4426,7 @@ func expandWorkflowTemplatePlacementClusterSelector(c *Client, f *WorkflowTempla
 	if v := f.Zone; !dcl.IsEmptyValueIndirect(v) {
 		m["zone"] = v
 	}
-	if v, err := expandWorkflowTemplatePlacementClusterSelectorClusterLabelsSlice(c, f.ClusterLabels); err != nil {
-		return nil, fmt.Errorf("error expanding ClusterLabels into clusterLabels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ClusterLabels; !dcl.IsEmptyValueIndirect(v) {
 		m["clusterLabels"] = v
 	}
 
@@ -7040,121 +4443,7 @@ func flattenWorkflowTemplatePlacementClusterSelector(c *Client, i interface{}) *
 
 	r := &WorkflowTemplatePlacementClusterSelector{}
 	r.Zone = dcl.FlattenString(m["zone"])
-	r.ClusterLabels = flattenWorkflowTemplatePlacementClusterSelectorClusterLabelsSlice(c, m["clusterLabels"])
-
-	return r
-}
-
-// expandWorkflowTemplatePlacementClusterSelectorClusterLabelsMap expands the contents of WorkflowTemplatePlacementClusterSelectorClusterLabels into a JSON
-// request object.
-func expandWorkflowTemplatePlacementClusterSelectorClusterLabelsMap(c *Client, f map[string]WorkflowTemplatePlacementClusterSelectorClusterLabels) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandWorkflowTemplatePlacementClusterSelectorClusterLabels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandWorkflowTemplatePlacementClusterSelectorClusterLabelsSlice expands the contents of WorkflowTemplatePlacementClusterSelectorClusterLabels into a JSON
-// request object.
-func expandWorkflowTemplatePlacementClusterSelectorClusterLabelsSlice(c *Client, f []WorkflowTemplatePlacementClusterSelectorClusterLabels) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandWorkflowTemplatePlacementClusterSelectorClusterLabels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenWorkflowTemplatePlacementClusterSelectorClusterLabelsMap flattens the contents of WorkflowTemplatePlacementClusterSelectorClusterLabels from a JSON
-// response object.
-func flattenWorkflowTemplatePlacementClusterSelectorClusterLabelsMap(c *Client, i interface{}) map[string]WorkflowTemplatePlacementClusterSelectorClusterLabels {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]WorkflowTemplatePlacementClusterSelectorClusterLabels{}
-	}
-
-	if len(a) == 0 {
-		return map[string]WorkflowTemplatePlacementClusterSelectorClusterLabels{}
-	}
-
-	items := make(map[string]WorkflowTemplatePlacementClusterSelectorClusterLabels)
-	for k, item := range a {
-		items[k] = *flattenWorkflowTemplatePlacementClusterSelectorClusterLabels(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplatePlacementClusterSelectorClusterLabelsSlice flattens the contents of WorkflowTemplatePlacementClusterSelectorClusterLabels from a JSON
-// response object.
-func flattenWorkflowTemplatePlacementClusterSelectorClusterLabelsSlice(c *Client, i interface{}) []WorkflowTemplatePlacementClusterSelectorClusterLabels {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplatePlacementClusterSelectorClusterLabels{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplatePlacementClusterSelectorClusterLabels{}
-	}
-
-	items := make([]WorkflowTemplatePlacementClusterSelectorClusterLabels, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplatePlacementClusterSelectorClusterLabels(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandWorkflowTemplatePlacementClusterSelectorClusterLabels expands an instance of WorkflowTemplatePlacementClusterSelectorClusterLabels into a JSON
-// request object.
-func expandWorkflowTemplatePlacementClusterSelectorClusterLabels(c *Client, f *WorkflowTemplatePlacementClusterSelectorClusterLabels) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenWorkflowTemplatePlacementClusterSelectorClusterLabels flattens an instance of WorkflowTemplatePlacementClusterSelectorClusterLabels from a JSON
-// response object.
-func flattenWorkflowTemplatePlacementClusterSelectorClusterLabels(c *Client, i interface{}) *WorkflowTemplatePlacementClusterSelectorClusterLabels {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &WorkflowTemplatePlacementClusterSelectorClusterLabels{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
+	r.ClusterLabels = dcl.FlattenKeyValuePairs(m["clusterLabels"])
 
 	return r
 }
@@ -7291,9 +4580,7 @@ func expandWorkflowTemplateJobs(c *Client, f *WorkflowTemplateJobs) (map[string]
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["prestoJob"] = v
 	}
-	if v, err := expandWorkflowTemplateJobsLabelsSlice(c, f.Labels); err != nil {
-		return nil, fmt.Errorf("error expanding Labels into labels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
 	}
 	if v, err := expandWorkflowTemplateJobsScheduling(c, f.Scheduling); err != nil {
@@ -7326,7 +4613,7 @@ func flattenWorkflowTemplateJobs(c *Client, i interface{}) *WorkflowTemplateJobs
 	r.SparkRJob = flattenWorkflowTemplateJobsSparkRJob(c, m["sparkRJob"])
 	r.SparkSqlJob = flattenWorkflowTemplateJobsSparkSqlJob(c, m["sparkSqlJob"])
 	r.PrestoJob = flattenWorkflowTemplateJobsPrestoJob(c, m["prestoJob"])
-	r.Labels = flattenWorkflowTemplateJobsLabelsSlice(c, m["labels"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	r.Scheduling = flattenWorkflowTemplateJobsScheduling(c, m["scheduling"])
 	r.PrerequisiteStepIds = dcl.FlattenStringSlice(m["prerequisiteStepIds"])
 
@@ -7440,9 +4727,7 @@ func expandWorkflowTemplateJobsHadoopJob(c *Client, f *WorkflowTemplateJobsHadoo
 	if v := f.ArchiveUris; !dcl.IsEmptyValueIndirect(v) {
 		m["archiveUris"] = v
 	}
-	if v, err := expandWorkflowTemplateJobsHadoopJobPropertiesSlice(c, f.Properties); err != nil {
-		return nil, fmt.Errorf("error expanding Properties into properties: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
 		m["properties"] = v
 	}
 	if v, err := expandWorkflowTemplateJobsHadoopJobLoggingConfig(c, f.LoggingConfig); err != nil {
@@ -7469,122 +4754,8 @@ func flattenWorkflowTemplateJobsHadoopJob(c *Client, i interface{}) *WorkflowTem
 	r.JarFileUris = dcl.FlattenStringSlice(m["jarFileUris"])
 	r.FileUris = dcl.FlattenStringSlice(m["fileUris"])
 	r.ArchiveUris = dcl.FlattenStringSlice(m["archiveUris"])
-	r.Properties = flattenWorkflowTemplateJobsHadoopJobPropertiesSlice(c, m["properties"])
+	r.Properties = dcl.FlattenKeyValuePairs(m["properties"])
 	r.LoggingConfig = flattenWorkflowTemplateJobsHadoopJobLoggingConfig(c, m["loggingConfig"])
-
-	return r
-}
-
-// expandWorkflowTemplateJobsHadoopJobPropertiesMap expands the contents of WorkflowTemplateJobsHadoopJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsHadoopJobPropertiesMap(c *Client, f map[string]WorkflowTemplateJobsHadoopJobProperties) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandWorkflowTemplateJobsHadoopJobProperties(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandWorkflowTemplateJobsHadoopJobPropertiesSlice expands the contents of WorkflowTemplateJobsHadoopJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsHadoopJobPropertiesSlice(c *Client, f []WorkflowTemplateJobsHadoopJobProperties) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandWorkflowTemplateJobsHadoopJobProperties(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenWorkflowTemplateJobsHadoopJobPropertiesMap flattens the contents of WorkflowTemplateJobsHadoopJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsHadoopJobPropertiesMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsHadoopJobProperties {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]WorkflowTemplateJobsHadoopJobProperties{}
-	}
-
-	if len(a) == 0 {
-		return map[string]WorkflowTemplateJobsHadoopJobProperties{}
-	}
-
-	items := make(map[string]WorkflowTemplateJobsHadoopJobProperties)
-	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsHadoopJobProperties(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsHadoopJobPropertiesSlice flattens the contents of WorkflowTemplateJobsHadoopJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsHadoopJobPropertiesSlice(c *Client, i interface{}) []WorkflowTemplateJobsHadoopJobProperties {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsHadoopJobProperties{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsHadoopJobProperties{}
-	}
-
-	items := make([]WorkflowTemplateJobsHadoopJobProperties, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsHadoopJobProperties(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandWorkflowTemplateJobsHadoopJobProperties expands an instance of WorkflowTemplateJobsHadoopJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsHadoopJobProperties(c *Client, f *WorkflowTemplateJobsHadoopJobProperties) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenWorkflowTemplateJobsHadoopJobProperties flattens an instance of WorkflowTemplateJobsHadoopJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsHadoopJobProperties(c *Client, i interface{}) *WorkflowTemplateJobsHadoopJobProperties {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &WorkflowTemplateJobsHadoopJobProperties{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
 
 	return r
 }
@@ -7678,9 +4849,7 @@ func expandWorkflowTemplateJobsHadoopJobLoggingConfig(c *Client, f *WorkflowTemp
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsSlice(c, f.DriverLogLevels); err != nil {
-		return nil, fmt.Errorf("error expanding DriverLogLevels into driverLogLevels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DriverLogLevels; !dcl.IsEmptyValueIndirect(v) {
 		m["driverLogLevels"] = v
 	}
 
@@ -7696,121 +4865,7 @@ func flattenWorkflowTemplateJobsHadoopJobLoggingConfig(c *Client, i interface{})
 	}
 
 	r := &WorkflowTemplateJobsHadoopJobLoggingConfig{}
-	r.DriverLogLevels = flattenWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsSlice(c, m["driverLogLevels"])
-
-	return r
-}
-
-// expandWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsMap expands the contents of WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels into a JSON
-// request object.
-func expandWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsMap(c *Client, f map[string]WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsSlice expands the contents of WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels into a JSON
-// request object.
-func expandWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsSlice(c *Client, f []WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsMap flattens the contents of WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels{}
-	}
-
-	if len(a) == 0 {
-		return map[string]WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels{}
-	}
-
-	items := make(map[string]WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels)
-	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsSlice flattens the contents of WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsSlice(c *Client, i interface{}) []WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels{}
-	}
-
-	items := make([]WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels expands an instance of WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels into a JSON
-// request object.
-func expandWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels(c *Client, f *WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels flattens an instance of WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels(c *Client, i interface{}) *WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = flattenWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum(m["value"])
+	r.DriverLogLevels = dcl.FlattenKeyValuePairs(m["driverLogLevels"])
 
 	return r
 }
@@ -7922,9 +4977,7 @@ func expandWorkflowTemplateJobsSparkJob(c *Client, f *WorkflowTemplateJobsSparkJ
 	if v := f.ArchiveUris; !dcl.IsEmptyValueIndirect(v) {
 		m["archiveUris"] = v
 	}
-	if v, err := expandWorkflowTemplateJobsSparkJobPropertiesSlice(c, f.Properties); err != nil {
-		return nil, fmt.Errorf("error expanding Properties into properties: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
 		m["properties"] = v
 	}
 	if v, err := expandWorkflowTemplateJobsSparkJobLoggingConfig(c, f.LoggingConfig); err != nil {
@@ -7951,122 +5004,8 @@ func flattenWorkflowTemplateJobsSparkJob(c *Client, i interface{}) *WorkflowTemp
 	r.JarFileUris = dcl.FlattenStringSlice(m["jarFileUris"])
 	r.FileUris = dcl.FlattenStringSlice(m["fileUris"])
 	r.ArchiveUris = dcl.FlattenStringSlice(m["archiveUris"])
-	r.Properties = flattenWorkflowTemplateJobsSparkJobPropertiesSlice(c, m["properties"])
+	r.Properties = dcl.FlattenKeyValuePairs(m["properties"])
 	r.LoggingConfig = flattenWorkflowTemplateJobsSparkJobLoggingConfig(c, m["loggingConfig"])
-
-	return r
-}
-
-// expandWorkflowTemplateJobsSparkJobPropertiesMap expands the contents of WorkflowTemplateJobsSparkJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsSparkJobPropertiesMap(c *Client, f map[string]WorkflowTemplateJobsSparkJobProperties) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandWorkflowTemplateJobsSparkJobProperties(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandWorkflowTemplateJobsSparkJobPropertiesSlice expands the contents of WorkflowTemplateJobsSparkJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsSparkJobPropertiesSlice(c *Client, f []WorkflowTemplateJobsSparkJobProperties) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandWorkflowTemplateJobsSparkJobProperties(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenWorkflowTemplateJobsSparkJobPropertiesMap flattens the contents of WorkflowTemplateJobsSparkJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkJobPropertiesMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsSparkJobProperties {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]WorkflowTemplateJobsSparkJobProperties{}
-	}
-
-	if len(a) == 0 {
-		return map[string]WorkflowTemplateJobsSparkJobProperties{}
-	}
-
-	items := make(map[string]WorkflowTemplateJobsSparkJobProperties)
-	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsSparkJobProperties(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsSparkJobPropertiesSlice flattens the contents of WorkflowTemplateJobsSparkJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkJobPropertiesSlice(c *Client, i interface{}) []WorkflowTemplateJobsSparkJobProperties {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsSparkJobProperties{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsSparkJobProperties{}
-	}
-
-	items := make([]WorkflowTemplateJobsSparkJobProperties, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsSparkJobProperties(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandWorkflowTemplateJobsSparkJobProperties expands an instance of WorkflowTemplateJobsSparkJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsSparkJobProperties(c *Client, f *WorkflowTemplateJobsSparkJobProperties) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenWorkflowTemplateJobsSparkJobProperties flattens an instance of WorkflowTemplateJobsSparkJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkJobProperties(c *Client, i interface{}) *WorkflowTemplateJobsSparkJobProperties {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &WorkflowTemplateJobsSparkJobProperties{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
 
 	return r
 }
@@ -8160,9 +5099,7 @@ func expandWorkflowTemplateJobsSparkJobLoggingConfig(c *Client, f *WorkflowTempl
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsSlice(c, f.DriverLogLevels); err != nil {
-		return nil, fmt.Errorf("error expanding DriverLogLevels into driverLogLevels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DriverLogLevels; !dcl.IsEmptyValueIndirect(v) {
 		m["driverLogLevels"] = v
 	}
 
@@ -8178,121 +5115,7 @@ func flattenWorkflowTemplateJobsSparkJobLoggingConfig(c *Client, i interface{}) 
 	}
 
 	r := &WorkflowTemplateJobsSparkJobLoggingConfig{}
-	r.DriverLogLevels = flattenWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsSlice(c, m["driverLogLevels"])
-
-	return r
-}
-
-// expandWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsMap expands the contents of WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels into a JSON
-// request object.
-func expandWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsMap(c *Client, f map[string]WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsSlice expands the contents of WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels into a JSON
-// request object.
-func expandWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsSlice(c *Client, f []WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsMap flattens the contents of WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels{}
-	}
-
-	if len(a) == 0 {
-		return map[string]WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels{}
-	}
-
-	items := make(map[string]WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels)
-	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsSlice flattens the contents of WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsSlice(c *Client, i interface{}) []WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels{}
-	}
-
-	items := make([]WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels expands an instance of WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels into a JSON
-// request object.
-func expandWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels(c *Client, f *WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels flattens an instance of WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels(c *Client, i interface{}) *WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = flattenWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum(m["value"])
+	r.DriverLogLevels = dcl.FlattenKeyValuePairs(m["driverLogLevels"])
 
 	return r
 }
@@ -8404,9 +5227,7 @@ func expandWorkflowTemplateJobsPysparkJob(c *Client, f *WorkflowTemplateJobsPysp
 	if v := f.ArchiveUris; !dcl.IsEmptyValueIndirect(v) {
 		m["archiveUris"] = v
 	}
-	if v, err := expandWorkflowTemplateJobsPysparkJobPropertiesSlice(c, f.Properties); err != nil {
-		return nil, fmt.Errorf("error expanding Properties into properties: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
 		m["properties"] = v
 	}
 	if v, err := expandWorkflowTemplateJobsPysparkJobLoggingConfig(c, f.LoggingConfig); err != nil {
@@ -8433,122 +5254,8 @@ func flattenWorkflowTemplateJobsPysparkJob(c *Client, i interface{}) *WorkflowTe
 	r.JarFileUris = dcl.FlattenStringSlice(m["jarFileUris"])
 	r.FileUris = dcl.FlattenStringSlice(m["fileUris"])
 	r.ArchiveUris = dcl.FlattenStringSlice(m["archiveUris"])
-	r.Properties = flattenWorkflowTemplateJobsPysparkJobPropertiesSlice(c, m["properties"])
+	r.Properties = dcl.FlattenKeyValuePairs(m["properties"])
 	r.LoggingConfig = flattenWorkflowTemplateJobsPysparkJobLoggingConfig(c, m["loggingConfig"])
-
-	return r
-}
-
-// expandWorkflowTemplateJobsPysparkJobPropertiesMap expands the contents of WorkflowTemplateJobsPysparkJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsPysparkJobPropertiesMap(c *Client, f map[string]WorkflowTemplateJobsPysparkJobProperties) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandWorkflowTemplateJobsPysparkJobProperties(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandWorkflowTemplateJobsPysparkJobPropertiesSlice expands the contents of WorkflowTemplateJobsPysparkJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsPysparkJobPropertiesSlice(c *Client, f []WorkflowTemplateJobsPysparkJobProperties) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandWorkflowTemplateJobsPysparkJobProperties(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenWorkflowTemplateJobsPysparkJobPropertiesMap flattens the contents of WorkflowTemplateJobsPysparkJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPysparkJobPropertiesMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsPysparkJobProperties {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]WorkflowTemplateJobsPysparkJobProperties{}
-	}
-
-	if len(a) == 0 {
-		return map[string]WorkflowTemplateJobsPysparkJobProperties{}
-	}
-
-	items := make(map[string]WorkflowTemplateJobsPysparkJobProperties)
-	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsPysparkJobProperties(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsPysparkJobPropertiesSlice flattens the contents of WorkflowTemplateJobsPysparkJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPysparkJobPropertiesSlice(c *Client, i interface{}) []WorkflowTemplateJobsPysparkJobProperties {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsPysparkJobProperties{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsPysparkJobProperties{}
-	}
-
-	items := make([]WorkflowTemplateJobsPysparkJobProperties, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsPysparkJobProperties(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandWorkflowTemplateJobsPysparkJobProperties expands an instance of WorkflowTemplateJobsPysparkJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsPysparkJobProperties(c *Client, f *WorkflowTemplateJobsPysparkJobProperties) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenWorkflowTemplateJobsPysparkJobProperties flattens an instance of WorkflowTemplateJobsPysparkJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPysparkJobProperties(c *Client, i interface{}) *WorkflowTemplateJobsPysparkJobProperties {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &WorkflowTemplateJobsPysparkJobProperties{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
 
 	return r
 }
@@ -8642,9 +5349,7 @@ func expandWorkflowTemplateJobsPysparkJobLoggingConfig(c *Client, f *WorkflowTem
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsSlice(c, f.DriverLogLevels); err != nil {
-		return nil, fmt.Errorf("error expanding DriverLogLevels into driverLogLevels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DriverLogLevels; !dcl.IsEmptyValueIndirect(v) {
 		m["driverLogLevels"] = v
 	}
 
@@ -8660,121 +5365,7 @@ func flattenWorkflowTemplateJobsPysparkJobLoggingConfig(c *Client, i interface{}
 	}
 
 	r := &WorkflowTemplateJobsPysparkJobLoggingConfig{}
-	r.DriverLogLevels = flattenWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsSlice(c, m["driverLogLevels"])
-
-	return r
-}
-
-// expandWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsMap expands the contents of WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels into a JSON
-// request object.
-func expandWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsMap(c *Client, f map[string]WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsSlice expands the contents of WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels into a JSON
-// request object.
-func expandWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsSlice(c *Client, f []WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsMap flattens the contents of WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels{}
-	}
-
-	if len(a) == 0 {
-		return map[string]WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels{}
-	}
-
-	items := make(map[string]WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels)
-	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsSlice flattens the contents of WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsSlice(c *Client, i interface{}) []WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels{}
-	}
-
-	items := make([]WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels expands an instance of WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels into a JSON
-// request object.
-func expandWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels(c *Client, f *WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels flattens an instance of WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels(c *Client, i interface{}) *WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = flattenWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum(m["value"])
+	r.DriverLogLevels = dcl.FlattenKeyValuePairs(m["driverLogLevels"])
 
 	return r
 }
@@ -8879,14 +5470,10 @@ func expandWorkflowTemplateJobsHiveJob(c *Client, f *WorkflowTemplateJobsHiveJob
 	if v := f.ContinueOnFailure; !dcl.IsEmptyValueIndirect(v) {
 		m["continueOnFailure"] = v
 	}
-	if v, err := expandWorkflowTemplateJobsHiveJobScriptVariablesSlice(c, f.ScriptVariables); err != nil {
-		return nil, fmt.Errorf("error expanding ScriptVariables into scriptVariables: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ScriptVariables; !dcl.IsEmptyValueIndirect(v) {
 		m["scriptVariables"] = v
 	}
-	if v, err := expandWorkflowTemplateJobsHiveJobPropertiesSlice(c, f.Properties); err != nil {
-		return nil, fmt.Errorf("error expanding Properties into properties: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
 		m["properties"] = v
 	}
 	if v := f.JarFileUris; !dcl.IsEmptyValueIndirect(v) {
@@ -8908,8 +5495,8 @@ func flattenWorkflowTemplateJobsHiveJob(c *Client, i interface{}) *WorkflowTempl
 	r.QueryFileUri = dcl.FlattenString(m["queryFileUri"])
 	r.QueryList = flattenWorkflowTemplateJobsHiveJobQueryList(c, m["queryList"])
 	r.ContinueOnFailure = dcl.FlattenBool(m["continueOnFailure"])
-	r.ScriptVariables = flattenWorkflowTemplateJobsHiveJobScriptVariablesSlice(c, m["scriptVariables"])
-	r.Properties = flattenWorkflowTemplateJobsHiveJobPropertiesSlice(c, m["properties"])
+	r.ScriptVariables = dcl.FlattenKeyValuePairs(m["scriptVariables"])
+	r.Properties = dcl.FlattenKeyValuePairs(m["properties"])
 	r.JarFileUris = dcl.FlattenStringSlice(m["jarFileUris"])
 
 	return r
@@ -9025,234 +5612,6 @@ func flattenWorkflowTemplateJobsHiveJobQueryList(c *Client, i interface{}) *Work
 	return r
 }
 
-// expandWorkflowTemplateJobsHiveJobScriptVariablesMap expands the contents of WorkflowTemplateJobsHiveJobScriptVariables into a JSON
-// request object.
-func expandWorkflowTemplateJobsHiveJobScriptVariablesMap(c *Client, f map[string]WorkflowTemplateJobsHiveJobScriptVariables) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandWorkflowTemplateJobsHiveJobScriptVariables(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandWorkflowTemplateJobsHiveJobScriptVariablesSlice expands the contents of WorkflowTemplateJobsHiveJobScriptVariables into a JSON
-// request object.
-func expandWorkflowTemplateJobsHiveJobScriptVariablesSlice(c *Client, f []WorkflowTemplateJobsHiveJobScriptVariables) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandWorkflowTemplateJobsHiveJobScriptVariables(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenWorkflowTemplateJobsHiveJobScriptVariablesMap flattens the contents of WorkflowTemplateJobsHiveJobScriptVariables from a JSON
-// response object.
-func flattenWorkflowTemplateJobsHiveJobScriptVariablesMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsHiveJobScriptVariables {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]WorkflowTemplateJobsHiveJobScriptVariables{}
-	}
-
-	if len(a) == 0 {
-		return map[string]WorkflowTemplateJobsHiveJobScriptVariables{}
-	}
-
-	items := make(map[string]WorkflowTemplateJobsHiveJobScriptVariables)
-	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsHiveJobScriptVariables(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsHiveJobScriptVariablesSlice flattens the contents of WorkflowTemplateJobsHiveJobScriptVariables from a JSON
-// response object.
-func flattenWorkflowTemplateJobsHiveJobScriptVariablesSlice(c *Client, i interface{}) []WorkflowTemplateJobsHiveJobScriptVariables {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsHiveJobScriptVariables{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsHiveJobScriptVariables{}
-	}
-
-	items := make([]WorkflowTemplateJobsHiveJobScriptVariables, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsHiveJobScriptVariables(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandWorkflowTemplateJobsHiveJobScriptVariables expands an instance of WorkflowTemplateJobsHiveJobScriptVariables into a JSON
-// request object.
-func expandWorkflowTemplateJobsHiveJobScriptVariables(c *Client, f *WorkflowTemplateJobsHiveJobScriptVariables) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenWorkflowTemplateJobsHiveJobScriptVariables flattens an instance of WorkflowTemplateJobsHiveJobScriptVariables from a JSON
-// response object.
-func flattenWorkflowTemplateJobsHiveJobScriptVariables(c *Client, i interface{}) *WorkflowTemplateJobsHiveJobScriptVariables {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &WorkflowTemplateJobsHiveJobScriptVariables{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
-
-	return r
-}
-
-// expandWorkflowTemplateJobsHiveJobPropertiesMap expands the contents of WorkflowTemplateJobsHiveJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsHiveJobPropertiesMap(c *Client, f map[string]WorkflowTemplateJobsHiveJobProperties) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandWorkflowTemplateJobsHiveJobProperties(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandWorkflowTemplateJobsHiveJobPropertiesSlice expands the contents of WorkflowTemplateJobsHiveJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsHiveJobPropertiesSlice(c *Client, f []WorkflowTemplateJobsHiveJobProperties) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandWorkflowTemplateJobsHiveJobProperties(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenWorkflowTemplateJobsHiveJobPropertiesMap flattens the contents of WorkflowTemplateJobsHiveJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsHiveJobPropertiesMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsHiveJobProperties {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]WorkflowTemplateJobsHiveJobProperties{}
-	}
-
-	if len(a) == 0 {
-		return map[string]WorkflowTemplateJobsHiveJobProperties{}
-	}
-
-	items := make(map[string]WorkflowTemplateJobsHiveJobProperties)
-	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsHiveJobProperties(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsHiveJobPropertiesSlice flattens the contents of WorkflowTemplateJobsHiveJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsHiveJobPropertiesSlice(c *Client, i interface{}) []WorkflowTemplateJobsHiveJobProperties {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsHiveJobProperties{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsHiveJobProperties{}
-	}
-
-	items := make([]WorkflowTemplateJobsHiveJobProperties, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsHiveJobProperties(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandWorkflowTemplateJobsHiveJobProperties expands an instance of WorkflowTemplateJobsHiveJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsHiveJobProperties(c *Client, f *WorkflowTemplateJobsHiveJobProperties) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenWorkflowTemplateJobsHiveJobProperties flattens an instance of WorkflowTemplateJobsHiveJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsHiveJobProperties(c *Client, i interface{}) *WorkflowTemplateJobsHiveJobProperties {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &WorkflowTemplateJobsHiveJobProperties{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
-
-	return r
-}
-
 // expandWorkflowTemplateJobsPigJobMap expands the contents of WorkflowTemplateJobsPigJob into a JSON
 // request object.
 func expandWorkflowTemplateJobsPigJobMap(c *Client, f map[string]WorkflowTemplateJobsPigJob) (map[string]interface{}, error) {
@@ -9353,14 +5712,10 @@ func expandWorkflowTemplateJobsPigJob(c *Client, f *WorkflowTemplateJobsPigJob) 
 	if v := f.ContinueOnFailure; !dcl.IsEmptyValueIndirect(v) {
 		m["continueOnFailure"] = v
 	}
-	if v, err := expandWorkflowTemplateJobsPigJobScriptVariablesSlice(c, f.ScriptVariables); err != nil {
-		return nil, fmt.Errorf("error expanding ScriptVariables into scriptVariables: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ScriptVariables; !dcl.IsEmptyValueIndirect(v) {
 		m["scriptVariables"] = v
 	}
-	if v, err := expandWorkflowTemplateJobsPigJobPropertiesSlice(c, f.Properties); err != nil {
-		return nil, fmt.Errorf("error expanding Properties into properties: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
 		m["properties"] = v
 	}
 	if v := f.JarFileUris; !dcl.IsEmptyValueIndirect(v) {
@@ -9387,8 +5742,8 @@ func flattenWorkflowTemplateJobsPigJob(c *Client, i interface{}) *WorkflowTempla
 	r.QueryFileUri = dcl.FlattenString(m["queryFileUri"])
 	r.QueryList = flattenWorkflowTemplateJobsPigJobQueryList(c, m["queryList"])
 	r.ContinueOnFailure = dcl.FlattenBool(m["continueOnFailure"])
-	r.ScriptVariables = flattenWorkflowTemplateJobsPigJobScriptVariablesSlice(c, m["scriptVariables"])
-	r.Properties = flattenWorkflowTemplateJobsPigJobPropertiesSlice(c, m["properties"])
+	r.ScriptVariables = dcl.FlattenKeyValuePairs(m["scriptVariables"])
+	r.Properties = dcl.FlattenKeyValuePairs(m["properties"])
 	r.JarFileUris = dcl.FlattenStringSlice(m["jarFileUris"])
 	r.LoggingConfig = flattenWorkflowTemplateJobsPigJobLoggingConfig(c, m["loggingConfig"])
 
@@ -9505,234 +5860,6 @@ func flattenWorkflowTemplateJobsPigJobQueryList(c *Client, i interface{}) *Workf
 	return r
 }
 
-// expandWorkflowTemplateJobsPigJobScriptVariablesMap expands the contents of WorkflowTemplateJobsPigJobScriptVariables into a JSON
-// request object.
-func expandWorkflowTemplateJobsPigJobScriptVariablesMap(c *Client, f map[string]WorkflowTemplateJobsPigJobScriptVariables) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandWorkflowTemplateJobsPigJobScriptVariables(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandWorkflowTemplateJobsPigJobScriptVariablesSlice expands the contents of WorkflowTemplateJobsPigJobScriptVariables into a JSON
-// request object.
-func expandWorkflowTemplateJobsPigJobScriptVariablesSlice(c *Client, f []WorkflowTemplateJobsPigJobScriptVariables) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandWorkflowTemplateJobsPigJobScriptVariables(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenWorkflowTemplateJobsPigJobScriptVariablesMap flattens the contents of WorkflowTemplateJobsPigJobScriptVariables from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPigJobScriptVariablesMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsPigJobScriptVariables {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]WorkflowTemplateJobsPigJobScriptVariables{}
-	}
-
-	if len(a) == 0 {
-		return map[string]WorkflowTemplateJobsPigJobScriptVariables{}
-	}
-
-	items := make(map[string]WorkflowTemplateJobsPigJobScriptVariables)
-	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsPigJobScriptVariables(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsPigJobScriptVariablesSlice flattens the contents of WorkflowTemplateJobsPigJobScriptVariables from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPigJobScriptVariablesSlice(c *Client, i interface{}) []WorkflowTemplateJobsPigJobScriptVariables {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsPigJobScriptVariables{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsPigJobScriptVariables{}
-	}
-
-	items := make([]WorkflowTemplateJobsPigJobScriptVariables, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsPigJobScriptVariables(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandWorkflowTemplateJobsPigJobScriptVariables expands an instance of WorkflowTemplateJobsPigJobScriptVariables into a JSON
-// request object.
-func expandWorkflowTemplateJobsPigJobScriptVariables(c *Client, f *WorkflowTemplateJobsPigJobScriptVariables) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenWorkflowTemplateJobsPigJobScriptVariables flattens an instance of WorkflowTemplateJobsPigJobScriptVariables from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPigJobScriptVariables(c *Client, i interface{}) *WorkflowTemplateJobsPigJobScriptVariables {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &WorkflowTemplateJobsPigJobScriptVariables{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
-
-	return r
-}
-
-// expandWorkflowTemplateJobsPigJobPropertiesMap expands the contents of WorkflowTemplateJobsPigJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsPigJobPropertiesMap(c *Client, f map[string]WorkflowTemplateJobsPigJobProperties) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandWorkflowTemplateJobsPigJobProperties(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandWorkflowTemplateJobsPigJobPropertiesSlice expands the contents of WorkflowTemplateJobsPigJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsPigJobPropertiesSlice(c *Client, f []WorkflowTemplateJobsPigJobProperties) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandWorkflowTemplateJobsPigJobProperties(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenWorkflowTemplateJobsPigJobPropertiesMap flattens the contents of WorkflowTemplateJobsPigJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPigJobPropertiesMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsPigJobProperties {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]WorkflowTemplateJobsPigJobProperties{}
-	}
-
-	if len(a) == 0 {
-		return map[string]WorkflowTemplateJobsPigJobProperties{}
-	}
-
-	items := make(map[string]WorkflowTemplateJobsPigJobProperties)
-	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsPigJobProperties(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsPigJobPropertiesSlice flattens the contents of WorkflowTemplateJobsPigJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPigJobPropertiesSlice(c *Client, i interface{}) []WorkflowTemplateJobsPigJobProperties {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsPigJobProperties{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsPigJobProperties{}
-	}
-
-	items := make([]WorkflowTemplateJobsPigJobProperties, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsPigJobProperties(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandWorkflowTemplateJobsPigJobProperties expands an instance of WorkflowTemplateJobsPigJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsPigJobProperties(c *Client, f *WorkflowTemplateJobsPigJobProperties) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenWorkflowTemplateJobsPigJobProperties flattens an instance of WorkflowTemplateJobsPigJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPigJobProperties(c *Client, i interface{}) *WorkflowTemplateJobsPigJobProperties {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &WorkflowTemplateJobsPigJobProperties{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
-
-	return r
-}
-
 // expandWorkflowTemplateJobsPigJobLoggingConfigMap expands the contents of WorkflowTemplateJobsPigJobLoggingConfig into a JSON
 // request object.
 func expandWorkflowTemplateJobsPigJobLoggingConfigMap(c *Client, f map[string]WorkflowTemplateJobsPigJobLoggingConfig) (map[string]interface{}, error) {
@@ -9822,9 +5949,7 @@ func expandWorkflowTemplateJobsPigJobLoggingConfig(c *Client, f *WorkflowTemplat
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsSlice(c, f.DriverLogLevels); err != nil {
-		return nil, fmt.Errorf("error expanding DriverLogLevels into driverLogLevels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DriverLogLevels; !dcl.IsEmptyValueIndirect(v) {
 		m["driverLogLevels"] = v
 	}
 
@@ -9840,121 +5965,7 @@ func flattenWorkflowTemplateJobsPigJobLoggingConfig(c *Client, i interface{}) *W
 	}
 
 	r := &WorkflowTemplateJobsPigJobLoggingConfig{}
-	r.DriverLogLevels = flattenWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsSlice(c, m["driverLogLevels"])
-
-	return r
-}
-
-// expandWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsMap expands the contents of WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels into a JSON
-// request object.
-func expandWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsMap(c *Client, f map[string]WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsSlice expands the contents of WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels into a JSON
-// request object.
-func expandWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsSlice(c *Client, f []WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsMap flattens the contents of WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels{}
-	}
-
-	if len(a) == 0 {
-		return map[string]WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels{}
-	}
-
-	items := make(map[string]WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels)
-	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsSlice flattens the contents of WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsSlice(c *Client, i interface{}) []WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels{}
-	}
-
-	items := make([]WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels expands an instance of WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels into a JSON
-// request object.
-func expandWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels(c *Client, f *WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels flattens an instance of WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels(c *Client, i interface{}) *WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = flattenWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum(m["value"])
+	r.DriverLogLevels = dcl.FlattenKeyValuePairs(m["driverLogLevels"])
 
 	return r
 }
@@ -10060,9 +6071,7 @@ func expandWorkflowTemplateJobsSparkRJob(c *Client, f *WorkflowTemplateJobsSpark
 	if v := f.ArchiveUris; !dcl.IsEmptyValueIndirect(v) {
 		m["archiveUris"] = v
 	}
-	if v, err := expandWorkflowTemplateJobsSparkRJobPropertiesSlice(c, f.Properties); err != nil {
-		return nil, fmt.Errorf("error expanding Properties into properties: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
 		m["properties"] = v
 	}
 	if v, err := expandWorkflowTemplateJobsSparkRJobLoggingConfig(c, f.LoggingConfig); err != nil {
@@ -10087,122 +6096,8 @@ func flattenWorkflowTemplateJobsSparkRJob(c *Client, i interface{}) *WorkflowTem
 	r.Args = dcl.FlattenStringSlice(m["args"])
 	r.FileUris = dcl.FlattenStringSlice(m["fileUris"])
 	r.ArchiveUris = dcl.FlattenStringSlice(m["archiveUris"])
-	r.Properties = flattenWorkflowTemplateJobsSparkRJobPropertiesSlice(c, m["properties"])
+	r.Properties = dcl.FlattenKeyValuePairs(m["properties"])
 	r.LoggingConfig = flattenWorkflowTemplateJobsSparkRJobLoggingConfig(c, m["loggingConfig"])
-
-	return r
-}
-
-// expandWorkflowTemplateJobsSparkRJobPropertiesMap expands the contents of WorkflowTemplateJobsSparkRJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsSparkRJobPropertiesMap(c *Client, f map[string]WorkflowTemplateJobsSparkRJobProperties) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandWorkflowTemplateJobsSparkRJobProperties(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandWorkflowTemplateJobsSparkRJobPropertiesSlice expands the contents of WorkflowTemplateJobsSparkRJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsSparkRJobPropertiesSlice(c *Client, f []WorkflowTemplateJobsSparkRJobProperties) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandWorkflowTemplateJobsSparkRJobProperties(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenWorkflowTemplateJobsSparkRJobPropertiesMap flattens the contents of WorkflowTemplateJobsSparkRJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkRJobPropertiesMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsSparkRJobProperties {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]WorkflowTemplateJobsSparkRJobProperties{}
-	}
-
-	if len(a) == 0 {
-		return map[string]WorkflowTemplateJobsSparkRJobProperties{}
-	}
-
-	items := make(map[string]WorkflowTemplateJobsSparkRJobProperties)
-	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsSparkRJobProperties(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsSparkRJobPropertiesSlice flattens the contents of WorkflowTemplateJobsSparkRJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkRJobPropertiesSlice(c *Client, i interface{}) []WorkflowTemplateJobsSparkRJobProperties {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsSparkRJobProperties{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsSparkRJobProperties{}
-	}
-
-	items := make([]WorkflowTemplateJobsSparkRJobProperties, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsSparkRJobProperties(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandWorkflowTemplateJobsSparkRJobProperties expands an instance of WorkflowTemplateJobsSparkRJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsSparkRJobProperties(c *Client, f *WorkflowTemplateJobsSparkRJobProperties) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenWorkflowTemplateJobsSparkRJobProperties flattens an instance of WorkflowTemplateJobsSparkRJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkRJobProperties(c *Client, i interface{}) *WorkflowTemplateJobsSparkRJobProperties {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &WorkflowTemplateJobsSparkRJobProperties{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
 
 	return r
 }
@@ -10296,9 +6191,7 @@ func expandWorkflowTemplateJobsSparkRJobLoggingConfig(c *Client, f *WorkflowTemp
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsSlice(c, f.DriverLogLevels); err != nil {
-		return nil, fmt.Errorf("error expanding DriverLogLevels into driverLogLevels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DriverLogLevels; !dcl.IsEmptyValueIndirect(v) {
 		m["driverLogLevels"] = v
 	}
 
@@ -10314,121 +6207,7 @@ func flattenWorkflowTemplateJobsSparkRJobLoggingConfig(c *Client, i interface{})
 	}
 
 	r := &WorkflowTemplateJobsSparkRJobLoggingConfig{}
-	r.DriverLogLevels = flattenWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsSlice(c, m["driverLogLevels"])
-
-	return r
-}
-
-// expandWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsMap expands the contents of WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels into a JSON
-// request object.
-func expandWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsMap(c *Client, f map[string]WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsSlice expands the contents of WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels into a JSON
-// request object.
-func expandWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsSlice(c *Client, f []WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsMap flattens the contents of WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels{}
-	}
-
-	if len(a) == 0 {
-		return map[string]WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels{}
-	}
-
-	items := make(map[string]WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels)
-	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsSlice flattens the contents of WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsSlice(c *Client, i interface{}) []WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels{}
-	}
-
-	items := make([]WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels expands an instance of WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels into a JSON
-// request object.
-func expandWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels(c *Client, f *WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels flattens an instance of WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels(c *Client, i interface{}) *WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = flattenWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum(m["value"])
+	r.DriverLogLevels = dcl.FlattenKeyValuePairs(m["driverLogLevels"])
 
 	return r
 }
@@ -10530,14 +6309,10 @@ func expandWorkflowTemplateJobsSparkSqlJob(c *Client, f *WorkflowTemplateJobsSpa
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["queryList"] = v
 	}
-	if v, err := expandWorkflowTemplateJobsSparkSqlJobScriptVariablesSlice(c, f.ScriptVariables); err != nil {
-		return nil, fmt.Errorf("error expanding ScriptVariables into scriptVariables: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ScriptVariables; !dcl.IsEmptyValueIndirect(v) {
 		m["scriptVariables"] = v
 	}
-	if v, err := expandWorkflowTemplateJobsSparkSqlJobPropertiesSlice(c, f.Properties); err != nil {
-		return nil, fmt.Errorf("error expanding Properties into properties: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
 		m["properties"] = v
 	}
 	if v := f.JarFileUris; !dcl.IsEmptyValueIndirect(v) {
@@ -10563,8 +6338,8 @@ func flattenWorkflowTemplateJobsSparkSqlJob(c *Client, i interface{}) *WorkflowT
 	r := &WorkflowTemplateJobsSparkSqlJob{}
 	r.QueryFileUri = dcl.FlattenString(m["queryFileUri"])
 	r.QueryList = flattenWorkflowTemplateJobsSparkSqlJobQueryList(c, m["queryList"])
-	r.ScriptVariables = flattenWorkflowTemplateJobsSparkSqlJobScriptVariablesSlice(c, m["scriptVariables"])
-	r.Properties = flattenWorkflowTemplateJobsSparkSqlJobPropertiesSlice(c, m["properties"])
+	r.ScriptVariables = dcl.FlattenKeyValuePairs(m["scriptVariables"])
+	r.Properties = dcl.FlattenKeyValuePairs(m["properties"])
 	r.JarFileUris = dcl.FlattenStringSlice(m["jarFileUris"])
 	r.LoggingConfig = flattenWorkflowTemplateJobsSparkSqlJobLoggingConfig(c, m["loggingConfig"])
 
@@ -10681,234 +6456,6 @@ func flattenWorkflowTemplateJobsSparkSqlJobQueryList(c *Client, i interface{}) *
 	return r
 }
 
-// expandWorkflowTemplateJobsSparkSqlJobScriptVariablesMap expands the contents of WorkflowTemplateJobsSparkSqlJobScriptVariables into a JSON
-// request object.
-func expandWorkflowTemplateJobsSparkSqlJobScriptVariablesMap(c *Client, f map[string]WorkflowTemplateJobsSparkSqlJobScriptVariables) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandWorkflowTemplateJobsSparkSqlJobScriptVariables(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandWorkflowTemplateJobsSparkSqlJobScriptVariablesSlice expands the contents of WorkflowTemplateJobsSparkSqlJobScriptVariables into a JSON
-// request object.
-func expandWorkflowTemplateJobsSparkSqlJobScriptVariablesSlice(c *Client, f []WorkflowTemplateJobsSparkSqlJobScriptVariables) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandWorkflowTemplateJobsSparkSqlJobScriptVariables(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenWorkflowTemplateJobsSparkSqlJobScriptVariablesMap flattens the contents of WorkflowTemplateJobsSparkSqlJobScriptVariables from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkSqlJobScriptVariablesMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsSparkSqlJobScriptVariables {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]WorkflowTemplateJobsSparkSqlJobScriptVariables{}
-	}
-
-	if len(a) == 0 {
-		return map[string]WorkflowTemplateJobsSparkSqlJobScriptVariables{}
-	}
-
-	items := make(map[string]WorkflowTemplateJobsSparkSqlJobScriptVariables)
-	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsSparkSqlJobScriptVariables(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsSparkSqlJobScriptVariablesSlice flattens the contents of WorkflowTemplateJobsSparkSqlJobScriptVariables from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkSqlJobScriptVariablesSlice(c *Client, i interface{}) []WorkflowTemplateJobsSparkSqlJobScriptVariables {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsSparkSqlJobScriptVariables{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsSparkSqlJobScriptVariables{}
-	}
-
-	items := make([]WorkflowTemplateJobsSparkSqlJobScriptVariables, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsSparkSqlJobScriptVariables(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandWorkflowTemplateJobsSparkSqlJobScriptVariables expands an instance of WorkflowTemplateJobsSparkSqlJobScriptVariables into a JSON
-// request object.
-func expandWorkflowTemplateJobsSparkSqlJobScriptVariables(c *Client, f *WorkflowTemplateJobsSparkSqlJobScriptVariables) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenWorkflowTemplateJobsSparkSqlJobScriptVariables flattens an instance of WorkflowTemplateJobsSparkSqlJobScriptVariables from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkSqlJobScriptVariables(c *Client, i interface{}) *WorkflowTemplateJobsSparkSqlJobScriptVariables {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &WorkflowTemplateJobsSparkSqlJobScriptVariables{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
-
-	return r
-}
-
-// expandWorkflowTemplateJobsSparkSqlJobPropertiesMap expands the contents of WorkflowTemplateJobsSparkSqlJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsSparkSqlJobPropertiesMap(c *Client, f map[string]WorkflowTemplateJobsSparkSqlJobProperties) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandWorkflowTemplateJobsSparkSqlJobProperties(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandWorkflowTemplateJobsSparkSqlJobPropertiesSlice expands the contents of WorkflowTemplateJobsSparkSqlJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsSparkSqlJobPropertiesSlice(c *Client, f []WorkflowTemplateJobsSparkSqlJobProperties) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandWorkflowTemplateJobsSparkSqlJobProperties(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenWorkflowTemplateJobsSparkSqlJobPropertiesMap flattens the contents of WorkflowTemplateJobsSparkSqlJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkSqlJobPropertiesMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsSparkSqlJobProperties {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]WorkflowTemplateJobsSparkSqlJobProperties{}
-	}
-
-	if len(a) == 0 {
-		return map[string]WorkflowTemplateJobsSparkSqlJobProperties{}
-	}
-
-	items := make(map[string]WorkflowTemplateJobsSparkSqlJobProperties)
-	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsSparkSqlJobProperties(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsSparkSqlJobPropertiesSlice flattens the contents of WorkflowTemplateJobsSparkSqlJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkSqlJobPropertiesSlice(c *Client, i interface{}) []WorkflowTemplateJobsSparkSqlJobProperties {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsSparkSqlJobProperties{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsSparkSqlJobProperties{}
-	}
-
-	items := make([]WorkflowTemplateJobsSparkSqlJobProperties, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsSparkSqlJobProperties(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandWorkflowTemplateJobsSparkSqlJobProperties expands an instance of WorkflowTemplateJobsSparkSqlJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsSparkSqlJobProperties(c *Client, f *WorkflowTemplateJobsSparkSqlJobProperties) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenWorkflowTemplateJobsSparkSqlJobProperties flattens an instance of WorkflowTemplateJobsSparkSqlJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkSqlJobProperties(c *Client, i interface{}) *WorkflowTemplateJobsSparkSqlJobProperties {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &WorkflowTemplateJobsSparkSqlJobProperties{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
-
-	return r
-}
-
 // expandWorkflowTemplateJobsSparkSqlJobLoggingConfigMap expands the contents of WorkflowTemplateJobsSparkSqlJobLoggingConfig into a JSON
 // request object.
 func expandWorkflowTemplateJobsSparkSqlJobLoggingConfigMap(c *Client, f map[string]WorkflowTemplateJobsSparkSqlJobLoggingConfig) (map[string]interface{}, error) {
@@ -10998,9 +6545,7 @@ func expandWorkflowTemplateJobsSparkSqlJobLoggingConfig(c *Client, f *WorkflowTe
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsSlice(c, f.DriverLogLevels); err != nil {
-		return nil, fmt.Errorf("error expanding DriverLogLevels into driverLogLevels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DriverLogLevels; !dcl.IsEmptyValueIndirect(v) {
 		m["driverLogLevels"] = v
 	}
 
@@ -11016,121 +6561,7 @@ func flattenWorkflowTemplateJobsSparkSqlJobLoggingConfig(c *Client, i interface{
 	}
 
 	r := &WorkflowTemplateJobsSparkSqlJobLoggingConfig{}
-	r.DriverLogLevels = flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsSlice(c, m["driverLogLevels"])
-
-	return r
-}
-
-// expandWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsMap expands the contents of WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels into a JSON
-// request object.
-func expandWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsMap(c *Client, f map[string]WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsSlice expands the contents of WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels into a JSON
-// request object.
-func expandWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsSlice(c *Client, f []WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsMap flattens the contents of WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels{}
-	}
-
-	if len(a) == 0 {
-		return map[string]WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels{}
-	}
-
-	items := make(map[string]WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels)
-	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsSlice flattens the contents of WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsSlice(c *Client, i interface{}) []WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels{}
-	}
-
-	items := make([]WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels expands an instance of WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels into a JSON
-// request object.
-func expandWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels(c *Client, f *WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels flattens an instance of WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels(c *Client, i interface{}) *WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum(m["value"])
+	r.DriverLogLevels = dcl.FlattenKeyValuePairs(m["driverLogLevels"])
 
 	return r
 }
@@ -11241,9 +6672,7 @@ func expandWorkflowTemplateJobsPrestoJob(c *Client, f *WorkflowTemplateJobsPrest
 	if v := f.ClientTags; !dcl.IsEmptyValueIndirect(v) {
 		m["clientTags"] = v
 	}
-	if v, err := expandWorkflowTemplateJobsPrestoJobPropertiesSlice(c, f.Properties); err != nil {
-		return nil, fmt.Errorf("error expanding Properties into properties: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
 		m["properties"] = v
 	}
 	if v, err := expandWorkflowTemplateJobsPrestoJobLoggingConfig(c, f.LoggingConfig); err != nil {
@@ -11269,7 +6698,7 @@ func flattenWorkflowTemplateJobsPrestoJob(c *Client, i interface{}) *WorkflowTem
 	r.ContinueOnFailure = dcl.FlattenBool(m["continueOnFailure"])
 	r.OutputFormat = dcl.FlattenString(m["outputFormat"])
 	r.ClientTags = dcl.FlattenStringSlice(m["clientTags"])
-	r.Properties = flattenWorkflowTemplateJobsPrestoJobPropertiesSlice(c, m["properties"])
+	r.Properties = dcl.FlattenKeyValuePairs(m["properties"])
 	r.LoggingConfig = flattenWorkflowTemplateJobsPrestoJobLoggingConfig(c, m["loggingConfig"])
 
 	return r
@@ -11385,120 +6814,6 @@ func flattenWorkflowTemplateJobsPrestoJobQueryList(c *Client, i interface{}) *Wo
 	return r
 }
 
-// expandWorkflowTemplateJobsPrestoJobPropertiesMap expands the contents of WorkflowTemplateJobsPrestoJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsPrestoJobPropertiesMap(c *Client, f map[string]WorkflowTemplateJobsPrestoJobProperties) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandWorkflowTemplateJobsPrestoJobProperties(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandWorkflowTemplateJobsPrestoJobPropertiesSlice expands the contents of WorkflowTemplateJobsPrestoJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsPrestoJobPropertiesSlice(c *Client, f []WorkflowTemplateJobsPrestoJobProperties) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandWorkflowTemplateJobsPrestoJobProperties(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenWorkflowTemplateJobsPrestoJobPropertiesMap flattens the contents of WorkflowTemplateJobsPrestoJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPrestoJobPropertiesMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsPrestoJobProperties {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]WorkflowTemplateJobsPrestoJobProperties{}
-	}
-
-	if len(a) == 0 {
-		return map[string]WorkflowTemplateJobsPrestoJobProperties{}
-	}
-
-	items := make(map[string]WorkflowTemplateJobsPrestoJobProperties)
-	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsPrestoJobProperties(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsPrestoJobPropertiesSlice flattens the contents of WorkflowTemplateJobsPrestoJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPrestoJobPropertiesSlice(c *Client, i interface{}) []WorkflowTemplateJobsPrestoJobProperties {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsPrestoJobProperties{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsPrestoJobProperties{}
-	}
-
-	items := make([]WorkflowTemplateJobsPrestoJobProperties, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsPrestoJobProperties(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandWorkflowTemplateJobsPrestoJobProperties expands an instance of WorkflowTemplateJobsPrestoJobProperties into a JSON
-// request object.
-func expandWorkflowTemplateJobsPrestoJobProperties(c *Client, f *WorkflowTemplateJobsPrestoJobProperties) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenWorkflowTemplateJobsPrestoJobProperties flattens an instance of WorkflowTemplateJobsPrestoJobProperties from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPrestoJobProperties(c *Client, i interface{}) *WorkflowTemplateJobsPrestoJobProperties {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &WorkflowTemplateJobsPrestoJobProperties{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
-
-	return r
-}
-
 // expandWorkflowTemplateJobsPrestoJobLoggingConfigMap expands the contents of WorkflowTemplateJobsPrestoJobLoggingConfig into a JSON
 // request object.
 func expandWorkflowTemplateJobsPrestoJobLoggingConfigMap(c *Client, f map[string]WorkflowTemplateJobsPrestoJobLoggingConfig) (map[string]interface{}, error) {
@@ -11588,9 +6903,7 @@ func expandWorkflowTemplateJobsPrestoJobLoggingConfig(c *Client, f *WorkflowTemp
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsSlice(c, f.DriverLogLevels); err != nil {
-		return nil, fmt.Errorf("error expanding DriverLogLevels into driverLogLevels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DriverLogLevels; !dcl.IsEmptyValueIndirect(v) {
 		m["driverLogLevels"] = v
 	}
 
@@ -11606,235 +6919,7 @@ func flattenWorkflowTemplateJobsPrestoJobLoggingConfig(c *Client, i interface{})
 	}
 
 	r := &WorkflowTemplateJobsPrestoJobLoggingConfig{}
-	r.DriverLogLevels = flattenWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsSlice(c, m["driverLogLevels"])
-
-	return r
-}
-
-// expandWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsMap expands the contents of WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels into a JSON
-// request object.
-func expandWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsMap(c *Client, f map[string]WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsSlice expands the contents of WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels into a JSON
-// request object.
-func expandWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsSlice(c *Client, f []WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsMap flattens the contents of WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels{}
-	}
-
-	if len(a) == 0 {
-		return map[string]WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels{}
-	}
-
-	items := make(map[string]WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels)
-	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsSlice flattens the contents of WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsSlice(c *Client, i interface{}) []WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels{}
-	}
-
-	items := make([]WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels expands an instance of WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels into a JSON
-// request object.
-func expandWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels(c *Client, f *WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels flattens an instance of WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels(c *Client, i interface{}) *WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = flattenWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum(m["value"])
-
-	return r
-}
-
-// expandWorkflowTemplateJobsLabelsMap expands the contents of WorkflowTemplateJobsLabels into a JSON
-// request object.
-func expandWorkflowTemplateJobsLabelsMap(c *Client, f map[string]WorkflowTemplateJobsLabels) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandWorkflowTemplateJobsLabels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandWorkflowTemplateJobsLabelsSlice expands the contents of WorkflowTemplateJobsLabels into a JSON
-// request object.
-func expandWorkflowTemplateJobsLabelsSlice(c *Client, f []WorkflowTemplateJobsLabels) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandWorkflowTemplateJobsLabels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenWorkflowTemplateJobsLabelsMap flattens the contents of WorkflowTemplateJobsLabels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsLabelsMap(c *Client, i interface{}) map[string]WorkflowTemplateJobsLabels {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]WorkflowTemplateJobsLabels{}
-	}
-
-	if len(a) == 0 {
-		return map[string]WorkflowTemplateJobsLabels{}
-	}
-
-	items := make(map[string]WorkflowTemplateJobsLabels)
-	for k, item := range a {
-		items[k] = *flattenWorkflowTemplateJobsLabels(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsLabelsSlice flattens the contents of WorkflowTemplateJobsLabels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsLabelsSlice(c *Client, i interface{}) []WorkflowTemplateJobsLabels {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsLabels{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsLabels{}
-	}
-
-	items := make([]WorkflowTemplateJobsLabels, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsLabels(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandWorkflowTemplateJobsLabels expands an instance of WorkflowTemplateJobsLabels into a JSON
-// request object.
-func expandWorkflowTemplateJobsLabels(c *Client, f *WorkflowTemplateJobsLabels) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenWorkflowTemplateJobsLabels flattens an instance of WorkflowTemplateJobsLabels from a JSON
-// response object.
-func flattenWorkflowTemplateJobsLabels(c *Client, i interface{}) *WorkflowTemplateJobsLabels {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &WorkflowTemplateJobsLabels{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
+	r.DriverLogLevels = dcl.FlattenKeyValuePairs(m["driverLogLevels"])
 
 	return r
 }
@@ -12413,223 +7498,6 @@ func flattenWorkflowTemplateParametersValidationValues(c *Client, i interface{})
 	r.Values = dcl.FlattenStringSlice(m["values"])
 
 	return r
-}
-
-// flattenWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnumSlice flattens the contents of WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum from a JSON
-// response object.
-func flattenWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnumSlice(c *Client, i interface{}) []WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum{}
-	}
-
-	items := make([]WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum(item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum asserts that an interface is a string, and returns a
-// pointer to a *WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum with the same value as that string.
-func flattenWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum(i interface{}) *WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum {
-	s, ok := i.(string)
-	if !ok {
-		return WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnumRef("")
-	}
-
-	return WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnumRef(s)
-}
-
-// flattenWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnumSlice flattens the contents of WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnumSlice(c *Client, i interface{}) []WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum{}
-	}
-
-	items := make([]WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum(item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum asserts that an interface is a string, and returns a
-// pointer to a *WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum with the same value as that string.
-func flattenWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum(i interface{}) *WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum {
-	s, ok := i.(string)
-	if !ok {
-		return WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnumRef("")
-	}
-
-	return WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnumRef(s)
-}
-
-// flattenWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnumSlice flattens the contents of WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnumSlice(c *Client, i interface{}) []WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum{}
-	}
-
-	items := make([]WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum(item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum asserts that an interface is a string, and returns a
-// pointer to a *WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum with the same value as that string.
-func flattenWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum(i interface{}) *WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum {
-	s, ok := i.(string)
-	if !ok {
-		return WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnumRef("")
-	}
-
-	return WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnumRef(s)
-}
-
-// flattenWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnumSlice flattens the contents of WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnumSlice(c *Client, i interface{}) []WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum{}
-	}
-
-	items := make([]WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum(item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum asserts that an interface is a string, and returns a
-// pointer to a *WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum with the same value as that string.
-func flattenWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum(i interface{}) *WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum {
-	s, ok := i.(string)
-	if !ok {
-		return WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnumRef("")
-	}
-
-	return WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnumRef(s)
-}
-
-// flattenWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnumSlice flattens the contents of WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnumSlice(c *Client, i interface{}) []WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum{}
-	}
-
-	items := make([]WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum(item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum asserts that an interface is a string, and returns a
-// pointer to a *WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum with the same value as that string.
-func flattenWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum(i interface{}) *WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum {
-	s, ok := i.(string)
-	if !ok {
-		return WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnumRef("")
-	}
-
-	return WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnumRef(s)
-}
-
-// flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnumSlice flattens the contents of WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum from a JSON
-// response object.
-func flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnumSlice(c *Client, i interface{}) []WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum{}
-	}
-
-	items := make([]WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum(item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum asserts that an interface is a string, and returns a
-// pointer to a *WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum with the same value as that string.
-func flattenWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum(i interface{}) *WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum {
-	s, ok := i.(string)
-	if !ok {
-		return WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnumRef("")
-	}
-
-	return WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnumRef(s)
-}
-
-// flattenWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnumSlice flattens the contents of WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum from a JSON
-// response object.
-func flattenWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnumSlice(c *Client, i interface{}) []WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum{}
-	}
-
-	if len(a) == 0 {
-		return []WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum{}
-	}
-
-	items := make([]WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum(item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// flattenWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum asserts that an interface is a string, and returns a
-// pointer to a *WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum with the same value as that string.
-func flattenWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum(i interface{}) *WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum {
-	s, ok := i.(string)
-	if !ok {
-		return WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnumRef("")
-	}
-
-	return WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnumRef(s)
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource

@@ -16,6 +16,7 @@ package compute
 import (
 	"context"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -228,7 +229,9 @@ func (c *Client) ApplyHttpsHealthCheck(ctx context.Context, rawDesired *HttpsHea
 	if create {
 		ops = append(ops, &createHttpsHealthCheckOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteHttpsHealthCheckOperation{})
+
 		ops = append(ops, &createHttpsHealthCheckOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeHttpsHealthCheckDesiredState(rawDesired, nil)

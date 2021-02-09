@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -25,7 +26,7 @@ type Cluster struct {
 	Project       *string                `json:"project"`
 	Name          *string                `json:"name"`
 	Config        *ClusterClusterConfig  `json:"config"`
-	Labels        []ClusterLabels        `json:"labels"`
+	Labels        map[string]string      `json:"labels"`
 	Status        *ClusterStatus         `json:"status"`
 	StatusHistory []ClusterStatusHistory `json:"statusHistory"`
 	ClusterUuid   *string                `json:"clusterUuid"`
@@ -296,7 +297,7 @@ type ClusterClusterConfigGceClusterConfig struct {
 	ServiceAccount          *string                                                          `json:"serviceAccount"`
 	ServiceAccountScopes    []string                                                         `json:"serviceAccountScopes"`
 	Tags                    []string                                                         `json:"tags"`
-	Metadata                []ClusterClusterConfigGceClusterConfigMetadata                   `json:"metadata"`
+	Metadata                map[string]string                                                `json:"metadata"`
 	ReservationAffinity     *ClusterClusterConfigGceClusterConfigReservationAffinity         `json:"reservationAffinity"`
 	NodeGroupAffinity       *ClusterClusterConfigGceClusterConfigNodeGroupAffinity           `json:"nodeGroupAffinity"`
 }
@@ -311,28 +312,6 @@ func (r *ClusterClusterConfigGceClusterConfig) String() string {
 }
 
 func (r *ClusterClusterConfigGceClusterConfig) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type ClusterClusterConfigGceClusterConfigMetadata struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this ClusterClusterConfigGceClusterConfigMetadata is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyClusterClusterConfigGceClusterConfigMetadata *ClusterClusterConfigGceClusterConfigMetadata = &ClusterClusterConfigGceClusterConfigMetadata{empty: true}
-
-func (r *ClusterClusterConfigGceClusterConfigMetadata) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *ClusterClusterConfigGceClusterConfigMetadata) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -384,18 +363,17 @@ func (r *ClusterClusterConfigGceClusterConfigNodeGroupAffinity) HashCode() strin
 }
 
 type ClusterInstanceGroupConfig struct {
-	empty              bool                                           `json:"-"`
-	NumInstances       *int64                                         `json:"numInstances"`
-	InstanceNames      []string                                       `json:"instanceNames"`
-	InstanceReferences []ClusterInstanceGroupConfigInstanceReferences `json:"instanceReferences"`
-	Image              *string                                        `json:"image"`
-	MachineType        *string                                        `json:"machineType"`
-	DiskConfig         *ClusterInstanceGroupConfigDiskConfig          `json:"diskConfig"`
-	IsPreemptible      *bool                                          `json:"isPreemptible"`
-	Preemptibility     *ClusterInstanceGroupConfigPreemptibilityEnum  `json:"preemptibility"`
-	ManagedGroupConfig *ClusterInstanceGroupConfigManagedGroupConfig  `json:"managedGroupConfig"`
-	Accelerators       []ClusterInstanceGroupConfigAccelerators       `json:"accelerators"`
-	MinCpuPlatform     *string                                        `json:"minCpuPlatform"`
+	empty              bool                                          `json:"-"`
+	NumInstances       *int64                                        `json:"numInstances"`
+	InstanceNames      []string                                      `json:"instanceNames"`
+	Image              *string                                       `json:"image"`
+	MachineType        *string                                       `json:"machineType"`
+	DiskConfig         *ClusterInstanceGroupConfigDiskConfig         `json:"diskConfig"`
+	IsPreemptible      *bool                                         `json:"isPreemptible"`
+	Preemptibility     *ClusterInstanceGroupConfigPreemptibilityEnum `json:"preemptibility"`
+	ManagedGroupConfig *ClusterInstanceGroupConfigManagedGroupConfig `json:"managedGroupConfig"`
+	Accelerators       []ClusterInstanceGroupConfigAccelerators      `json:"accelerators"`
+	MinCpuPlatform     *string                                       `json:"minCpuPlatform"`
 }
 
 // This object is used to assert a desired state where this ClusterInstanceGroupConfig is
@@ -408,29 +386,6 @@ func (r *ClusterInstanceGroupConfig) String() string {
 }
 
 func (r *ClusterInstanceGroupConfig) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type ClusterInstanceGroupConfigInstanceReferences struct {
-	empty        bool    `json:"-"`
-	InstanceName *string `json:"instanceName"`
-	InstanceId   *string `json:"instanceId"`
-	PublicKey    *string `json:"publicKey"`
-}
-
-// This object is used to assert a desired state where this ClusterInstanceGroupConfigInstanceReferences is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyClusterInstanceGroupConfigInstanceReferences *ClusterInstanceGroupConfigInstanceReferences = &ClusterInstanceGroupConfigInstanceReferences{empty: true}
-
-func (r *ClusterInstanceGroupConfigInstanceReferences) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *ClusterInstanceGroupConfigInstanceReferences) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -528,9 +483,9 @@ func (r *ClusterClusterConfigSoftwareConfig) HashCode() string {
 }
 
 type ClusterClusterConfigInitializationActions struct {
-	empty            bool                                                       `json:"-"`
-	ExecutableFile   *string                                                    `json:"executableFile"`
-	ExecutionTimeout *ClusterClusterConfigInitializationActionsExecutionTimeout `json:"executionTimeout"`
+	empty            bool    `json:"-"`
+	ExecutableFile   *string `json:"executableFile"`
+	ExecutionTimeout *string `json:"executionTimeout"`
 }
 
 // This object is used to assert a desired state where this ClusterClusterConfigInitializationActions is
@@ -543,28 +498,6 @@ func (r *ClusterClusterConfigInitializationActions) String() string {
 }
 
 func (r *ClusterClusterConfigInitializationActions) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type ClusterClusterConfigInitializationActionsExecutionTimeout struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this ClusterClusterConfigInitializationActionsExecutionTimeout is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyClusterClusterConfigInitializationActionsExecutionTimeout *ClusterClusterConfigInitializationActionsExecutionTimeout = &ClusterClusterConfigInitializationActionsExecutionTimeout{empty: true}
-
-func (r *ClusterClusterConfigInitializationActionsExecutionTimeout) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *ClusterClusterConfigInitializationActionsExecutionTimeout) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -670,11 +603,11 @@ func (r *ClusterClusterConfigSecurityConfigKerberosConfig) HashCode() string {
 }
 
 type ClusterClusterConfigLifecycleConfig struct {
-	empty          bool                                              `json:"-"`
-	IdleDeleteTtl  *ClusterClusterConfigLifecycleConfigIdleDeleteTtl `json:"idleDeleteTtl"`
-	AutoDeleteTime *string                                           `json:"autoDeleteTime"`
-	AutoDeleteTtl  *ClusterClusterConfigLifecycleConfigAutoDeleteTtl `json:"autoDeleteTtl"`
-	IdleStartTime  *string                                           `json:"idleStartTime"`
+	empty          bool    `json:"-"`
+	IdleDeleteTtl  *string `json:"idleDeleteTtl"`
+	AutoDeleteTime *string `json:"autoDeleteTime"`
+	AutoDeleteTtl  *string `json:"autoDeleteTtl"`
+	IdleStartTime  *string `json:"idleStartTime"`
 }
 
 // This object is used to assert a desired state where this ClusterClusterConfigLifecycleConfig is
@@ -693,54 +626,10 @@ func (r *ClusterClusterConfigLifecycleConfig) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type ClusterClusterConfigLifecycleConfigIdleDeleteTtl struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this ClusterClusterConfigLifecycleConfigIdleDeleteTtl is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyClusterClusterConfigLifecycleConfigIdleDeleteTtl *ClusterClusterConfigLifecycleConfigIdleDeleteTtl = &ClusterClusterConfigLifecycleConfigIdleDeleteTtl{empty: true}
-
-func (r *ClusterClusterConfigLifecycleConfigIdleDeleteTtl) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *ClusterClusterConfigLifecycleConfigIdleDeleteTtl) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type ClusterClusterConfigLifecycleConfigAutoDeleteTtl struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this ClusterClusterConfigLifecycleConfigAutoDeleteTtl is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyClusterClusterConfigLifecycleConfigAutoDeleteTtl *ClusterClusterConfigLifecycleConfigAutoDeleteTtl = &ClusterClusterConfigLifecycleConfigAutoDeleteTtl{empty: true}
-
-func (r *ClusterClusterConfigLifecycleConfigAutoDeleteTtl) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *ClusterClusterConfigLifecycleConfigAutoDeleteTtl) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type ClusterClusterConfigEndpointConfig struct {
-	empty                bool                                          `json:"-"`
-	HttpPorts            []ClusterClusterConfigEndpointConfigHttpPorts `json:"httpPorts"`
-	EnableHttpPortAccess *bool                                         `json:"enableHttpPortAccess"`
+	empty                bool              `json:"-"`
+	HttpPorts            map[string]string `json:"httpPorts"`
+	EnableHttpPortAccess *bool             `json:"enableHttpPortAccess"`
 }
 
 // This object is used to assert a desired state where this ClusterClusterConfigEndpointConfig is
@@ -753,50 +642,6 @@ func (r *ClusterClusterConfigEndpointConfig) String() string {
 }
 
 func (r *ClusterClusterConfigEndpointConfig) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type ClusterClusterConfigEndpointConfigHttpPorts struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this ClusterClusterConfigEndpointConfigHttpPorts is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyClusterClusterConfigEndpointConfigHttpPorts *ClusterClusterConfigEndpointConfigHttpPorts = &ClusterClusterConfigEndpointConfigHttpPorts{empty: true}
-
-func (r *ClusterClusterConfigEndpointConfigHttpPorts) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *ClusterClusterConfigEndpointConfigHttpPorts) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type ClusterLabels struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this ClusterLabels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyClusterLabels *ClusterLabels = &ClusterLabels{empty: true}
-
-func (r *ClusterLabels) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *ClusterLabels) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -852,9 +697,9 @@ func (r *ClusterStatusHistory) HashCode() string {
 }
 
 type ClusterMetrics struct {
-	empty       bool                        `json:"-"`
-	HdfsMetrics []ClusterMetricsHdfsMetrics `json:"hdfsMetrics"`
-	YarnMetrics []ClusterMetricsYarnMetrics `json:"yarnMetrics"`
+	empty       bool              `json:"-"`
+	HdfsMetrics map[string]string `json:"hdfsMetrics"`
+	YarnMetrics map[string]string `json:"yarnMetrics"`
 }
 
 // This object is used to assert a desired state where this ClusterMetrics is
@@ -867,50 +712,6 @@ func (r *ClusterMetrics) String() string {
 }
 
 func (r *ClusterMetrics) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type ClusterMetricsHdfsMetrics struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *int64  `json:"value"`
-}
-
-// This object is used to assert a desired state where this ClusterMetricsHdfsMetrics is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyClusterMetricsHdfsMetrics *ClusterMetricsHdfsMetrics = &ClusterMetricsHdfsMetrics{empty: true}
-
-func (r *ClusterMetricsHdfsMetrics) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *ClusterMetricsHdfsMetrics) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type ClusterMetricsYarnMetrics struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *int64  `json:"value"`
-}
-
-// This object is used to assert a desired state where this ClusterMetricsYarnMetrics is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyClusterMetricsYarnMetrics *ClusterMetricsYarnMetrics = &ClusterMetricsYarnMetrics{empty: true}
-
-func (r *ClusterMetricsYarnMetrics) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *ClusterMetricsYarnMetrics) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -1093,7 +894,9 @@ func (c *Client) ApplyCluster(ctx context.Context, rawDesired *Cluster, opts ...
 	if create {
 		ops = append(ops, &createClusterOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteClusterOperation{})
+
 		ops = append(ops, &createClusterOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeClusterDesiredState(rawDesired, nil)

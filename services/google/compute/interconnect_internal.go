@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Interconnect) validate() error {
@@ -381,12 +382,12 @@ func (c *Client) interconnectDiffsForRawDesired(ctx context.Context, rawDesired 
 			c.Config.Logger.Warningf("Failed to retrieve whether a Interconnect resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Interconnect resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Interconnect resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeInterconnectDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Interconnect: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Interconnect: %v", rawDesired)
 
@@ -606,13 +607,7 @@ func canonicalizeInterconnectNewState(c *Client, rawNew, rawDesired *Interconnec
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -776,7 +771,7 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 
 	var diffs []interconnectDiff
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, interconnectDiff{
 			UpdateOp:  &updateInterconnectPatchOperation{},
@@ -785,7 +780,7 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 
 		diffs = append(diffs, interconnectDiff{
 			UpdateOp:  &updateInterconnectPatchOperation{},
@@ -794,7 +789,7 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 
 	}
 	if !dcl.IsZeroValue(desired.Location) && (dcl.IsZeroValue(actual.Location) || !reflect.DeepEqual(*desired.Location, *actual.Location)) {
-		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
+		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %v\nACTUAL: %v", desired.Location, actual.Location)
 
 		diffs = append(diffs, interconnectDiff{
 			UpdateOp:  &updateInterconnectPatchOperation{},
@@ -803,7 +798,7 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 
 	}
 	if !dcl.IsZeroValue(desired.LinkType) && (dcl.IsZeroValue(actual.LinkType) || !reflect.DeepEqual(*desired.LinkType, *actual.LinkType)) {
-		c.Config.Logger.Infof("Detected diff in LinkType.\nDESIRED: %#v\nACTUAL: %#v", desired.LinkType, actual.LinkType)
+		c.Config.Logger.Infof("Detected diff in LinkType.\nDESIRED: %v\nACTUAL: %v", desired.LinkType, actual.LinkType)
 
 		diffs = append(diffs, interconnectDiff{
 			UpdateOp:  &updateInterconnectPatchOperation{},
@@ -812,7 +807,7 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 
 	}
 	if !dcl.IsZeroValue(desired.RequestedLinkCount) && (dcl.IsZeroValue(actual.RequestedLinkCount) || !reflect.DeepEqual(*desired.RequestedLinkCount, *actual.RequestedLinkCount)) {
-		c.Config.Logger.Infof("Detected diff in RequestedLinkCount.\nDESIRED: %#v\nACTUAL: %#v", desired.RequestedLinkCount, actual.RequestedLinkCount)
+		c.Config.Logger.Infof("Detected diff in RequestedLinkCount.\nDESIRED: %v\nACTUAL: %v", desired.RequestedLinkCount, actual.RequestedLinkCount)
 
 		diffs = append(diffs, interconnectDiff{
 			UpdateOp:  &updateInterconnectPatchOperation{},
@@ -821,7 +816,7 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 
 	}
 	if !dcl.IsZeroValue(desired.InterconnectType) && (dcl.IsZeroValue(actual.InterconnectType) || !reflect.DeepEqual(*desired.InterconnectType, *actual.InterconnectType)) {
-		c.Config.Logger.Infof("Detected diff in InterconnectType.\nDESIRED: %#v\nACTUAL: %#v", desired.InterconnectType, actual.InterconnectType)
+		c.Config.Logger.Infof("Detected diff in InterconnectType.\nDESIRED: %v\nACTUAL: %v", desired.InterconnectType, actual.InterconnectType)
 
 		diffs = append(diffs, interconnectDiff{
 			UpdateOp:  &updateInterconnectPatchOperation{},
@@ -830,7 +825,7 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 
 	}
 	if !dcl.IsZeroValue(desired.AdminEnabled) && (dcl.IsZeroValue(actual.AdminEnabled) || !reflect.DeepEqual(*desired.AdminEnabled, *actual.AdminEnabled)) {
-		c.Config.Logger.Infof("Detected diff in AdminEnabled.\nDESIRED: %#v\nACTUAL: %#v", desired.AdminEnabled, actual.AdminEnabled)
+		c.Config.Logger.Infof("Detected diff in AdminEnabled.\nDESIRED: %v\nACTUAL: %v", desired.AdminEnabled, actual.AdminEnabled)
 
 		diffs = append(diffs, interconnectDiff{
 			UpdateOp:  &updateInterconnectPatchOperation{},
@@ -839,7 +834,7 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 
 	}
 	if !dcl.IsZeroValue(desired.NocContactEmail) && (dcl.IsZeroValue(actual.NocContactEmail) || !reflect.DeepEqual(*desired.NocContactEmail, *actual.NocContactEmail)) {
-		c.Config.Logger.Infof("Detected diff in NocContactEmail.\nDESIRED: %#v\nACTUAL: %#v", desired.NocContactEmail, actual.NocContactEmail)
+		c.Config.Logger.Infof("Detected diff in NocContactEmail.\nDESIRED: %v\nACTUAL: %v", desired.NocContactEmail, actual.NocContactEmail)
 
 		diffs = append(diffs, interconnectDiff{
 			UpdateOp:  &updateInterconnectPatchOperation{},
@@ -848,20 +843,13 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 
 	}
 	if !dcl.IsZeroValue(desired.CustomerName) && (dcl.IsZeroValue(actual.CustomerName) || !reflect.DeepEqual(*desired.CustomerName, *actual.CustomerName)) {
-		c.Config.Logger.Infof("Detected diff in CustomerName.\nDESIRED: %#v\nACTUAL: %#v", desired.CustomerName, actual.CustomerName)
+		c.Config.Logger.Infof("Detected diff in CustomerName.\nDESIRED: %v\nACTUAL: %v", desired.CustomerName, actual.CustomerName)
 
 		diffs = append(diffs, interconnectDiff{
 			UpdateOp:  &updateInterconnectPatchOperation{},
 			FieldName: "CustomerName",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, interconnectDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,

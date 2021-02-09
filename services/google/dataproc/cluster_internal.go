@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Cluster) validate() error {
@@ -120,9 +121,6 @@ func (r *ClusterClusterConfigGceClusterConfig) validate() error {
 	}
 	return nil
 }
-func (r *ClusterClusterConfigGceClusterConfigMetadata) validate() error {
-	return nil
-}
 func (r *ClusterClusterConfigGceClusterConfigReservationAffinity) validate() error {
 	return nil
 }
@@ -145,9 +143,6 @@ func (r *ClusterInstanceGroupConfig) validate() error {
 	}
 	return nil
 }
-func (r *ClusterInstanceGroupConfigInstanceReferences) validate() error {
-	return nil
-}
 func (r *ClusterInstanceGroupConfigDiskConfig) validate() error {
 	return nil
 }
@@ -164,14 +159,6 @@ func (r *ClusterClusterConfigInitializationActions) validate() error {
 	if err := dcl.Required(r, "executableFile"); err != nil {
 		return err
 	}
-	if !dcl.IsEmptyValueIndirect(r.ExecutionTimeout) {
-		if err := r.ExecutionTimeout.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *ClusterClusterConfigInitializationActionsExecutionTimeout) validate() error {
 	return nil
 }
 func (r *ClusterClusterConfigEncryptionConfig) validate() error {
@@ -192,31 +179,9 @@ func (r *ClusterClusterConfigSecurityConfigKerberosConfig) validate() error {
 	return nil
 }
 func (r *ClusterClusterConfigLifecycleConfig) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.IdleDeleteTtl) {
-		if err := r.IdleDeleteTtl.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.AutoDeleteTtl) {
-		if err := r.AutoDeleteTtl.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *ClusterClusterConfigLifecycleConfigIdleDeleteTtl) validate() error {
-	return nil
-}
-func (r *ClusterClusterConfigLifecycleConfigAutoDeleteTtl) validate() error {
 	return nil
 }
 func (r *ClusterClusterConfigEndpointConfig) validate() error {
-	return nil
-}
-func (r *ClusterClusterConfigEndpointConfigHttpPorts) validate() error {
-	return nil
-}
-func (r *ClusterLabels) validate() error {
 	return nil
 }
 func (r *ClusterStatus) validate() error {
@@ -226,12 +191,6 @@ func (r *ClusterStatusHistory) validate() error {
 	return nil
 }
 func (r *ClusterMetrics) validate() error {
-	return nil
-}
-func (r *ClusterMetricsHdfsMetrics) validate() error {
-	return nil
-}
-func (r *ClusterMetricsYarnMetrics) validate() error {
 	return nil
 }
 
@@ -283,9 +242,7 @@ type clusterApiOperation interface {
 func newUpdateClusterUpdateClusterRequest(ctx context.Context, f *Cluster, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	if v, err := expandClusterLabelsSlice(c, f.Labels); err != nil {
-		return nil, fmt.Errorf("error expanding Labels into labels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
 	}
 	return req, nil
@@ -544,12 +501,12 @@ func (c *Client) clusterDiffsForRawDesired(ctx context.Context, rawDesired *Clus
 			c.Config.Logger.Warningf("Failed to retrieve whether a Cluster resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Cluster resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Cluster resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeClusterDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Cluster: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Cluster: %v", rawDesired)
 
@@ -673,13 +630,7 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 		rawNew.Metrics = canonicalizeNewClusterMetrics(c, rawDesired.Metrics, rawNew.Metrics)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
-		rawNew.Location = rawDesired.Location
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Location, rawNew.Location) {
-			rawNew.Location = rawDesired.Location
-		}
-	}
+	rawNew.Location = rawDesired.Location
 
 	return rawNew, nil
 }
@@ -701,10 +652,10 @@ func canonicalizeClusterClusterConfig(des, initial *ClusterClusterConfig, opts .
 		return des
 	}
 
-	if dcl.IsZeroValue(des.StagingBucket) {
+	if dcl.NameToSelfLink(des.StagingBucket, initial.StagingBucket) || dcl.IsZeroValue(des.StagingBucket) {
 		des.StagingBucket = initial.StagingBucket
 	}
-	if dcl.IsZeroValue(des.TempBucket) {
+	if dcl.NameToSelfLink(des.TempBucket, initial.TempBucket) || dcl.IsZeroValue(des.TempBucket) {
 		des.TempBucket = initial.TempBucket
 	}
 	des.GceClusterConfig = canonicalizeClusterClusterConfigGceClusterConfig(des.GceClusterConfig, initial.GceClusterConfig, opts...)
@@ -729,6 +680,12 @@ func canonicalizeNewClusterClusterConfig(c *Client, des, nw *ClusterClusterConfi
 		return nw
 	}
 
+	if dcl.NameToSelfLink(des.StagingBucket, nw.StagingBucket) || dcl.IsZeroValue(des.StagingBucket) {
+		nw.StagingBucket = des.StagingBucket
+	}
+	if dcl.NameToSelfLink(des.TempBucket, nw.TempBucket) || dcl.IsZeroValue(des.TempBucket) {
+		nw.TempBucket = des.TempBucket
+	}
 	nw.GceClusterConfig = canonicalizeNewClusterClusterConfigGceClusterConfig(c, des.GceClusterConfig, nw.GceClusterConfig)
 	nw.MasterConfig = canonicalizeNewClusterInstanceGroupConfig(c, des.MasterConfig, nw.MasterConfig)
 	nw.WorkerConfig = canonicalizeNewClusterInstanceGroupConfig(c, des.WorkerConfig, nw.WorkerConfig)
@@ -798,7 +755,7 @@ func canonicalizeClusterClusterConfigGceClusterConfig(des, initial *ClusterClust
 	if dcl.IsZeroValue(des.PrivateIPv6GoogleAccess) {
 		des.PrivateIPv6GoogleAccess = initial.PrivateIPv6GoogleAccess
 	}
-	if dcl.IsZeroValue(des.ServiceAccount) {
+	if dcl.NameToSelfLink(des.ServiceAccount, initial.ServiceAccount) || dcl.IsZeroValue(des.ServiceAccount) {
 		des.ServiceAccount = initial.ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ServiceAccountScopes) {
@@ -830,6 +787,9 @@ func canonicalizeNewClusterClusterConfigGceClusterConfig(c *Client, des, nw *Clu
 	if dcl.NameToSelfLink(des.Subnetwork, nw.Subnetwork) || dcl.IsZeroValue(des.Subnetwork) {
 		nw.Subnetwork = des.Subnetwork
 	}
+	if dcl.NameToSelfLink(des.ServiceAccount, nw.ServiceAccount) || dcl.IsZeroValue(des.ServiceAccount) {
+		nw.ServiceAccount = des.ServiceAccount
+	}
 	nw.ReservationAffinity = canonicalizeNewClusterClusterConfigGceClusterConfigReservationAffinity(c, des.ReservationAffinity, nw.ReservationAffinity)
 	nw.NodeGroupAffinity = canonicalizeNewClusterClusterConfigGceClusterConfigNodeGroupAffinity(c, des.NodeGroupAffinity, nw.NodeGroupAffinity)
 
@@ -845,64 +805,6 @@ func canonicalizeNewClusterClusterConfigGceClusterConfigSet(c *Client, des, nw [
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareClusterClusterConfigGceClusterConfig(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeClusterClusterConfigGceClusterConfigMetadata(des, initial *ClusterClusterConfigGceClusterConfigMetadata, opts ...dcl.ApplyOption) *ClusterClusterConfigGceClusterConfigMetadata {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Cluster)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewClusterClusterConfigGceClusterConfigMetadata(c *Client, des, nw *ClusterClusterConfigGceClusterConfigMetadata) *ClusterClusterConfigGceClusterConfigMetadata {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewClusterClusterConfigGceClusterConfigMetadataSet(c *Client, des, nw []ClusterClusterConfigGceClusterConfigMetadata) []ClusterClusterConfigGceClusterConfigMetadata {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []ClusterClusterConfigGceClusterConfigMetadata
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareClusterClusterConfigGceClusterConfigMetadata(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -1060,9 +962,6 @@ func canonicalizeClusterInstanceGroupConfig(des, initial *ClusterInstanceGroupCo
 	if dcl.IsZeroValue(des.InstanceNames) {
 		des.InstanceNames = initial.InstanceNames
 	}
-	if dcl.IsZeroValue(des.InstanceReferences) {
-		des.InstanceReferences = initial.InstanceReferences
-	}
 	if dcl.NameToSelfLink(des.Image, initial.Image) || dcl.IsZeroValue(des.Image) {
 		des.Image = initial.Image
 	}
@@ -1113,67 +1012,6 @@ func canonicalizeNewClusterInstanceGroupConfigSet(c *Client, des, nw []ClusterIn
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareClusterInstanceGroupConfig(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeClusterInstanceGroupConfigInstanceReferences(des, initial *ClusterInstanceGroupConfigInstanceReferences, opts ...dcl.ApplyOption) *ClusterInstanceGroupConfigInstanceReferences {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Cluster)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.InstanceName) {
-		des.InstanceName = initial.InstanceName
-	}
-	if dcl.IsZeroValue(des.InstanceId) {
-		des.InstanceId = initial.InstanceId
-	}
-	if dcl.IsZeroValue(des.PublicKey) {
-		des.PublicKey = initial.PublicKey
-	}
-
-	return des
-}
-
-func canonicalizeNewClusterInstanceGroupConfigInstanceReferences(c *Client, des, nw *ClusterInstanceGroupConfigInstanceReferences) *ClusterInstanceGroupConfigInstanceReferences {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewClusterInstanceGroupConfigInstanceReferencesSet(c *Client, des, nw []ClusterInstanceGroupConfigInstanceReferences) []ClusterInstanceGroupConfigInstanceReferences {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []ClusterInstanceGroupConfigInstanceReferences
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareClusterInstanceGroupConfigInstanceReferences(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -1450,7 +1288,9 @@ func canonicalizeClusterClusterConfigInitializationActions(des, initial *Cluster
 	if dcl.IsZeroValue(des.ExecutableFile) {
 		des.ExecutableFile = initial.ExecutableFile
 	}
-	des.ExecutionTimeout = canonicalizeClusterClusterConfigInitializationActionsExecutionTimeout(des.ExecutionTimeout, initial.ExecutionTimeout, opts...)
+	if dcl.IsZeroValue(des.ExecutionTimeout) {
+		des.ExecutionTimeout = initial.ExecutionTimeout
+	}
 
 	return des
 }
@@ -1459,8 +1299,6 @@ func canonicalizeNewClusterClusterConfigInitializationActions(c *Client, des, nw
 	if des == nil || nw == nil {
 		return nw
 	}
-
-	nw.ExecutionTimeout = canonicalizeNewClusterClusterConfigInitializationActionsExecutionTimeout(c, des.ExecutionTimeout, nw.ExecutionTimeout)
 
 	return nw
 }
@@ -1474,64 +1312,6 @@ func canonicalizeNewClusterClusterConfigInitializationActionsSet(c *Client, des,
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareClusterClusterConfigInitializationActions(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeClusterClusterConfigInitializationActionsExecutionTimeout(des, initial *ClusterClusterConfigInitializationActionsExecutionTimeout, opts ...dcl.ApplyOption) *ClusterClusterConfigInitializationActionsExecutionTimeout {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Cluster)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewClusterClusterConfigInitializationActionsExecutionTimeout(c *Client, des, nw *ClusterClusterConfigInitializationActionsExecutionTimeout) *ClusterClusterConfigInitializationActionsExecutionTimeout {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewClusterClusterConfigInitializationActionsExecutionTimeoutSet(c *Client, des, nw []ClusterClusterConfigInitializationActionsExecutionTimeout) []ClusterClusterConfigInitializationActionsExecutionTimeout {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []ClusterClusterConfigInitializationActionsExecutionTimeout
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareClusterClusterConfigInitializationActionsExecutionTimeout(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -1563,7 +1343,7 @@ func canonicalizeClusterClusterConfigEncryptionConfig(des, initial *ClusterClust
 		return des
 	}
 
-	if dcl.IsZeroValue(des.GcePdKmsKeyName) {
+	if dcl.NameToSelfLink(des.GcePdKmsKeyName, initial.GcePdKmsKeyName) || dcl.IsZeroValue(des.GcePdKmsKeyName) {
 		des.GcePdKmsKeyName = initial.GcePdKmsKeyName
 	}
 
@@ -1573,6 +1353,10 @@ func canonicalizeClusterClusterConfigEncryptionConfig(des, initial *ClusterClust
 func canonicalizeNewClusterClusterConfigEncryptionConfig(c *Client, des, nw *ClusterClusterConfigEncryptionConfig) *ClusterClusterConfigEncryptionConfig {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.NameToSelfLink(des.GcePdKmsKeyName, nw.GcePdKmsKeyName) || dcl.IsZeroValue(des.GcePdKmsKeyName) {
+		nw.GcePdKmsKeyName = des.GcePdKmsKeyName
 	}
 
 	return nw
@@ -1857,11 +1641,15 @@ func canonicalizeClusterClusterConfigLifecycleConfig(des, initial *ClusterCluste
 		return des
 	}
 
-	des.IdleDeleteTtl = canonicalizeClusterClusterConfigLifecycleConfigIdleDeleteTtl(des.IdleDeleteTtl, initial.IdleDeleteTtl, opts...)
+	if dcl.IsZeroValue(des.IdleDeleteTtl) {
+		des.IdleDeleteTtl = initial.IdleDeleteTtl
+	}
 	if dcl.IsZeroValue(des.AutoDeleteTime) {
 		des.AutoDeleteTime = initial.AutoDeleteTime
 	}
-	des.AutoDeleteTtl = canonicalizeClusterClusterConfigLifecycleConfigAutoDeleteTtl(des.AutoDeleteTtl, initial.AutoDeleteTtl, opts...)
+	if dcl.IsZeroValue(des.AutoDeleteTtl) {
+		des.AutoDeleteTtl = initial.AutoDeleteTtl
+	}
 	if dcl.IsZeroValue(des.IdleStartTime) {
 		des.IdleStartTime = initial.IdleStartTime
 	}
@@ -1873,9 +1661,6 @@ func canonicalizeNewClusterClusterConfigLifecycleConfig(c *Client, des, nw *Clus
 	if des == nil || nw == nil {
 		return nw
 	}
-
-	nw.IdleDeleteTtl = canonicalizeNewClusterClusterConfigLifecycleConfigIdleDeleteTtl(c, des.IdleDeleteTtl, nw.IdleDeleteTtl)
-	nw.AutoDeleteTtl = canonicalizeNewClusterClusterConfigLifecycleConfigAutoDeleteTtl(c, des.AutoDeleteTtl, nw.AutoDeleteTtl)
 
 	return nw
 }
@@ -1889,122 +1674,6 @@ func canonicalizeNewClusterClusterConfigLifecycleConfigSet(c *Client, des, nw []
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareClusterClusterConfigLifecycleConfig(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeClusterClusterConfigLifecycleConfigIdleDeleteTtl(des, initial *ClusterClusterConfigLifecycleConfigIdleDeleteTtl, opts ...dcl.ApplyOption) *ClusterClusterConfigLifecycleConfigIdleDeleteTtl {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Cluster)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewClusterClusterConfigLifecycleConfigIdleDeleteTtl(c *Client, des, nw *ClusterClusterConfigLifecycleConfigIdleDeleteTtl) *ClusterClusterConfigLifecycleConfigIdleDeleteTtl {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewClusterClusterConfigLifecycleConfigIdleDeleteTtlSet(c *Client, des, nw []ClusterClusterConfigLifecycleConfigIdleDeleteTtl) []ClusterClusterConfigLifecycleConfigIdleDeleteTtl {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []ClusterClusterConfigLifecycleConfigIdleDeleteTtl
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareClusterClusterConfigLifecycleConfigIdleDeleteTtl(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeClusterClusterConfigLifecycleConfigAutoDeleteTtl(des, initial *ClusterClusterConfigLifecycleConfigAutoDeleteTtl, opts ...dcl.ApplyOption) *ClusterClusterConfigLifecycleConfigAutoDeleteTtl {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Cluster)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewClusterClusterConfigLifecycleConfigAutoDeleteTtl(c *Client, des, nw *ClusterClusterConfigLifecycleConfigAutoDeleteTtl) *ClusterClusterConfigLifecycleConfigAutoDeleteTtl {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewClusterClusterConfigLifecycleConfigAutoDeleteTtlSet(c *Client, des, nw []ClusterClusterConfigLifecycleConfigAutoDeleteTtl) []ClusterClusterConfigLifecycleConfigAutoDeleteTtl {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []ClusterClusterConfigLifecycleConfigAutoDeleteTtl
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareClusterClusterConfigLifecycleConfigAutoDeleteTtl(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -2063,122 +1732,6 @@ func canonicalizeNewClusterClusterConfigEndpointConfigSet(c *Client, des, nw []C
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareClusterClusterConfigEndpointConfig(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeClusterClusterConfigEndpointConfigHttpPorts(des, initial *ClusterClusterConfigEndpointConfigHttpPorts, opts ...dcl.ApplyOption) *ClusterClusterConfigEndpointConfigHttpPorts {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Cluster)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewClusterClusterConfigEndpointConfigHttpPorts(c *Client, des, nw *ClusterClusterConfigEndpointConfigHttpPorts) *ClusterClusterConfigEndpointConfigHttpPorts {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewClusterClusterConfigEndpointConfigHttpPortsSet(c *Client, des, nw []ClusterClusterConfigEndpointConfigHttpPorts) []ClusterClusterConfigEndpointConfigHttpPorts {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []ClusterClusterConfigEndpointConfigHttpPorts
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareClusterClusterConfigEndpointConfigHttpPorts(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeClusterLabels(des, initial *ClusterLabels, opts ...dcl.ApplyOption) *ClusterLabels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Cluster)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewClusterLabels(c *Client, des, nw *ClusterLabels) *ClusterLabels {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewClusterLabelsSet(c *Client, des, nw []ClusterLabels) []ClusterLabels {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []ClusterLabels
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareClusterLabels(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -2379,122 +1932,6 @@ func canonicalizeNewClusterMetricsSet(c *Client, des, nw []ClusterMetrics) []Clu
 	return reorderedNew
 }
 
-func canonicalizeClusterMetricsHdfsMetrics(des, initial *ClusterMetricsHdfsMetrics, opts ...dcl.ApplyOption) *ClusterMetricsHdfsMetrics {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Cluster)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewClusterMetricsHdfsMetrics(c *Client, des, nw *ClusterMetricsHdfsMetrics) *ClusterMetricsHdfsMetrics {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewClusterMetricsHdfsMetricsSet(c *Client, des, nw []ClusterMetricsHdfsMetrics) []ClusterMetricsHdfsMetrics {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []ClusterMetricsHdfsMetrics
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareClusterMetricsHdfsMetrics(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeClusterMetricsYarnMetrics(des, initial *ClusterMetricsYarnMetrics, opts ...dcl.ApplyOption) *ClusterMetricsYarnMetrics {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Cluster)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewClusterMetricsYarnMetrics(c *Client, des, nw *ClusterMetricsYarnMetrics) *ClusterMetricsYarnMetrics {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewClusterMetricsYarnMetricsSet(c *Client, des, nw []ClusterMetricsYarnMetrics) []ClusterMetricsYarnMetrics {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []ClusterMetricsYarnMetrics
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareClusterMetricsYarnMetrics(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
 type clusterDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
@@ -2517,41 +1954,34 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 
 	var diffs []clusterDiff
 	if !dcl.IsZeroValue(desired.Project) && (dcl.IsZeroValue(actual.Project) || !reflect.DeepEqual(*desired.Project, *actual.Project)) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
+		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %v\nACTUAL: %v", desired.Project, actual.Project)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "Project",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if compareClusterClusterConfig(c, desired.Config, actual.Config) {
-		c.Config.Logger.Infof("Detected diff in Config.\nDESIRED: %#v\nACTUAL: %#v", desired.Config, actual.Config)
+		c.Config.Logger.Infof("Detected diff in Config.\nDESIRED: %v\nACTUAL: %v", desired.Config, actual.Config)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "Config",
 		})
 	}
-	if compareClusterLabelsSlice(c, desired.Labels, actual.Labels) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %#v\nACTUAL: %#v", desired.Labels, actual.Labels)
+	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
+		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, clusterDiff{
 			UpdateOp:  &updateClusterUpdateClusterOperation{},
 			FieldName: "Labels",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Location) && !dcl.NameToSelfLink(desired.Location, actual.Location) {
-		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
-		diffs = append(diffs, clusterDiff{
-			RequiresRecreate: true,
-			FieldName:        "Location",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
@@ -2602,7 +2032,7 @@ func compareClusterClusterConfig(c *Client, desired, actual *ClusterClusterConfi
 		c.Config.Logger.Infof("desired StagingBucket %s - but actually nil", dcl.SprintResource(desired.StagingBucket))
 		return true
 	}
-	if !reflect.DeepEqual(desired.StagingBucket, actual.StagingBucket) && !dcl.IsZeroValue(desired.StagingBucket) && !(dcl.IsEmptyValueIndirect(desired.StagingBucket) && dcl.IsZeroValue(actual.StagingBucket)) {
+	if !dcl.NameToSelfLink(desired.StagingBucket, actual.StagingBucket) && !dcl.IsZeroValue(desired.StagingBucket) {
 		c.Config.Logger.Infof("Diff in StagingBucket. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StagingBucket), dcl.SprintResource(actual.StagingBucket))
 		return true
 	}
@@ -2610,7 +2040,7 @@ func compareClusterClusterConfig(c *Client, desired, actual *ClusterClusterConfi
 		c.Config.Logger.Infof("desired TempBucket %s - but actually nil", dcl.SprintResource(desired.TempBucket))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TempBucket, actual.TempBucket) && !dcl.IsZeroValue(desired.TempBucket) && !(dcl.IsEmptyValueIndirect(desired.TempBucket) && dcl.IsZeroValue(actual.TempBucket)) {
+	if !dcl.NameToSelfLink(desired.TempBucket, actual.TempBucket) && !dcl.IsZeroValue(desired.TempBucket) {
 		c.Config.Logger.Infof("Diff in TempBucket. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TempBucket), dcl.SprintResource(actual.TempBucket))
 		return true
 	}
@@ -2769,7 +2199,7 @@ func compareClusterClusterConfigGceClusterConfig(c *Client, desired, actual *Clu
 		c.Config.Logger.Infof("desired ServiceAccount %s - but actually nil", dcl.SprintResource(desired.ServiceAccount))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ServiceAccount, actual.ServiceAccount) && !dcl.IsZeroValue(desired.ServiceAccount) && !(dcl.IsEmptyValueIndirect(desired.ServiceAccount) && dcl.IsZeroValue(actual.ServiceAccount)) {
+	if !dcl.NameToSelfLink(desired.ServiceAccount, actual.ServiceAccount) && !dcl.IsZeroValue(desired.ServiceAccount) {
 		c.Config.Logger.Infof("Diff in ServiceAccount. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceAccount), dcl.SprintResource(actual.ServiceAccount))
 		return true
 	}
@@ -2793,7 +2223,7 @@ func compareClusterClusterConfigGceClusterConfig(c *Client, desired, actual *Clu
 		c.Config.Logger.Infof("desired Metadata %s - but actually nil", dcl.SprintResource(desired.Metadata))
 		return true
 	}
-	if compareClusterClusterConfigGceClusterConfigMetadataSlice(c, desired.Metadata, actual.Metadata) && !dcl.IsZeroValue(desired.Metadata) {
+	if !reflect.DeepEqual(desired.Metadata, actual.Metadata) && !dcl.IsZeroValue(desired.Metadata) {
 		c.Config.Logger.Infof("Diff in Metadata. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Metadata), dcl.SprintResource(actual.Metadata))
 		return true
 	}
@@ -2811,45 +2241,6 @@ func compareClusterClusterConfigGceClusterConfig(c *Client, desired, actual *Clu
 	}
 	if compareClusterClusterConfigGceClusterConfigNodeGroupAffinity(c, desired.NodeGroupAffinity, actual.NodeGroupAffinity) && !dcl.IsZeroValue(desired.NodeGroupAffinity) {
 		c.Config.Logger.Infof("Diff in NodeGroupAffinity. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NodeGroupAffinity), dcl.SprintResource(actual.NodeGroupAffinity))
-		return true
-	}
-	return false
-}
-func compareClusterClusterConfigGceClusterConfigMetadataSlice(c *Client, desired, actual []ClusterClusterConfigGceClusterConfigMetadata) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ClusterClusterConfigGceClusterConfigMetadata, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareClusterClusterConfigGceClusterConfigMetadata(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigGceClusterConfigMetadata, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareClusterClusterConfigGceClusterConfigMetadata(c *Client, desired, actual *ClusterClusterConfigGceClusterConfigMetadata) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -3007,53 +2398,6 @@ func compareClusterInstanceGroupConfig(c *Client, desired, actual *ClusterInstan
 	}
 	if !reflect.DeepEqual(desired.MinCpuPlatform, actual.MinCpuPlatform) && !dcl.IsZeroValue(desired.MinCpuPlatform) && !(dcl.IsEmptyValueIndirect(desired.MinCpuPlatform) && dcl.IsZeroValue(actual.MinCpuPlatform)) {
 		c.Config.Logger.Infof("Diff in MinCpuPlatform. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinCpuPlatform), dcl.SprintResource(actual.MinCpuPlatform))
-		return true
-	}
-	return false
-}
-func compareClusterInstanceGroupConfigInstanceReferencesSlice(c *Client, desired, actual []ClusterInstanceGroupConfigInstanceReferences) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ClusterInstanceGroupConfigInstanceReferences, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareClusterInstanceGroupConfigInstanceReferences(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterInstanceGroupConfigInstanceReferences, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareClusterInstanceGroupConfigInstanceReferences(c *Client, desired, actual *ClusterInstanceGroupConfigInstanceReferences) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.InstanceName == nil && desired.InstanceName != nil && !dcl.IsEmptyValueIndirect(desired.InstanceName) {
-		c.Config.Logger.Infof("desired InstanceName %s - but actually nil", dcl.SprintResource(desired.InstanceName))
-		return true
-	}
-	if !reflect.DeepEqual(desired.InstanceName, actual.InstanceName) && !dcl.IsZeroValue(desired.InstanceName) && !(dcl.IsEmptyValueIndirect(desired.InstanceName) && dcl.IsZeroValue(actual.InstanceName)) {
-		c.Config.Logger.Infof("Diff in InstanceName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstanceName), dcl.SprintResource(actual.InstanceName))
-		return true
-	}
-	if actual.InstanceId == nil && desired.InstanceId != nil && !dcl.IsEmptyValueIndirect(desired.InstanceId) {
-		c.Config.Logger.Infof("desired InstanceId %s - but actually nil", dcl.SprintResource(desired.InstanceId))
-		return true
-	}
-	if !reflect.DeepEqual(desired.InstanceId, actual.InstanceId) && !dcl.IsZeroValue(desired.InstanceId) && !(dcl.IsEmptyValueIndirect(desired.InstanceId) && dcl.IsZeroValue(actual.InstanceId)) {
-		c.Config.Logger.Infof("Diff in InstanceId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstanceId), dcl.SprintResource(actual.InstanceId))
-		return true
-	}
-	if actual.PublicKey == nil && desired.PublicKey != nil && !dcl.IsEmptyValueIndirect(desired.PublicKey) {
-		c.Config.Logger.Infof("desired PublicKey %s - but actually nil", dcl.SprintResource(desired.PublicKey))
-		return true
-	}
-	if !reflect.DeepEqual(desired.PublicKey, actual.PublicKey) && !dcl.IsZeroValue(desired.PublicKey) && !(dcl.IsEmptyValueIndirect(desired.PublicKey) && dcl.IsZeroValue(actual.PublicKey)) {
-		c.Config.Logger.Infof("Diff in PublicKey. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PublicKey), dcl.SprintResource(actual.PublicKey))
 		return true
 	}
 	return false
@@ -3247,47 +2591,8 @@ func compareClusterClusterConfigInitializationActions(c *Client, desired, actual
 		c.Config.Logger.Infof("desired ExecutionTimeout %s - but actually nil", dcl.SprintResource(desired.ExecutionTimeout))
 		return true
 	}
-	if compareClusterClusterConfigInitializationActionsExecutionTimeout(c, desired.ExecutionTimeout, actual.ExecutionTimeout) && !dcl.IsZeroValue(desired.ExecutionTimeout) {
+	if !reflect.DeepEqual(desired.ExecutionTimeout, actual.ExecutionTimeout) && !dcl.IsZeroValue(desired.ExecutionTimeout) && !(dcl.IsEmptyValueIndirect(desired.ExecutionTimeout) && dcl.IsZeroValue(actual.ExecutionTimeout)) {
 		c.Config.Logger.Infof("Diff in ExecutionTimeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExecutionTimeout), dcl.SprintResource(actual.ExecutionTimeout))
-		return true
-	}
-	return false
-}
-func compareClusterClusterConfigInitializationActionsExecutionTimeoutSlice(c *Client, desired, actual []ClusterClusterConfigInitializationActionsExecutionTimeout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ClusterClusterConfigInitializationActionsExecutionTimeout, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareClusterClusterConfigInitializationActionsExecutionTimeout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigInitializationActionsExecutionTimeout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareClusterClusterConfigInitializationActionsExecutionTimeout(c *Client, desired, actual *ClusterClusterConfigInitializationActionsExecutionTimeout) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -3317,7 +2622,7 @@ func compareClusterClusterConfigEncryptionConfig(c *Client, desired, actual *Clu
 		c.Config.Logger.Infof("desired GcePdKmsKeyName %s - but actually nil", dcl.SprintResource(desired.GcePdKmsKeyName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.GcePdKmsKeyName, actual.GcePdKmsKeyName) && !dcl.IsZeroValue(desired.GcePdKmsKeyName) && !(dcl.IsEmptyValueIndirect(desired.GcePdKmsKeyName) && dcl.IsZeroValue(actual.GcePdKmsKeyName)) {
+	if !dcl.NameToSelfLink(desired.GcePdKmsKeyName, actual.GcePdKmsKeyName) && !dcl.IsZeroValue(desired.GcePdKmsKeyName) {
 		c.Config.Logger.Infof("Diff in GcePdKmsKeyName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GcePdKmsKeyName), dcl.SprintResource(actual.GcePdKmsKeyName))
 		return true
 	}
@@ -3553,7 +2858,7 @@ func compareClusterClusterConfigLifecycleConfig(c *Client, desired, actual *Clus
 		c.Config.Logger.Infof("desired IdleDeleteTtl %s - but actually nil", dcl.SprintResource(desired.IdleDeleteTtl))
 		return true
 	}
-	if compareClusterClusterConfigLifecycleConfigIdleDeleteTtl(c, desired.IdleDeleteTtl, actual.IdleDeleteTtl) && !dcl.IsZeroValue(desired.IdleDeleteTtl) {
+	if !reflect.DeepEqual(desired.IdleDeleteTtl, actual.IdleDeleteTtl) && !dcl.IsZeroValue(desired.IdleDeleteTtl) && !(dcl.IsEmptyValueIndirect(desired.IdleDeleteTtl) && dcl.IsZeroValue(actual.IdleDeleteTtl)) {
 		c.Config.Logger.Infof("Diff in IdleDeleteTtl. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IdleDeleteTtl), dcl.SprintResource(actual.IdleDeleteTtl))
 		return true
 	}
@@ -3569,86 +2874,8 @@ func compareClusterClusterConfigLifecycleConfig(c *Client, desired, actual *Clus
 		c.Config.Logger.Infof("desired AutoDeleteTtl %s - but actually nil", dcl.SprintResource(desired.AutoDeleteTtl))
 		return true
 	}
-	if compareClusterClusterConfigLifecycleConfigAutoDeleteTtl(c, desired.AutoDeleteTtl, actual.AutoDeleteTtl) && !dcl.IsZeroValue(desired.AutoDeleteTtl) {
+	if !reflect.DeepEqual(desired.AutoDeleteTtl, actual.AutoDeleteTtl) && !dcl.IsZeroValue(desired.AutoDeleteTtl) && !(dcl.IsEmptyValueIndirect(desired.AutoDeleteTtl) && dcl.IsZeroValue(actual.AutoDeleteTtl)) {
 		c.Config.Logger.Infof("Diff in AutoDeleteTtl. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AutoDeleteTtl), dcl.SprintResource(actual.AutoDeleteTtl))
-		return true
-	}
-	return false
-}
-func compareClusterClusterConfigLifecycleConfigIdleDeleteTtlSlice(c *Client, desired, actual []ClusterClusterConfigLifecycleConfigIdleDeleteTtl) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ClusterClusterConfigLifecycleConfigIdleDeleteTtl, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareClusterClusterConfigLifecycleConfigIdleDeleteTtl(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigLifecycleConfigIdleDeleteTtl, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareClusterClusterConfigLifecycleConfigIdleDeleteTtl(c *Client, desired, actual *ClusterClusterConfigLifecycleConfigIdleDeleteTtl) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-func compareClusterClusterConfigLifecycleConfigAutoDeleteTtlSlice(c *Client, desired, actual []ClusterClusterConfigLifecycleConfigAutoDeleteTtl) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ClusterClusterConfigLifecycleConfigAutoDeleteTtl, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareClusterClusterConfigLifecycleConfigAutoDeleteTtl(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigLifecycleConfigAutoDeleteTtl, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareClusterClusterConfigLifecycleConfigAutoDeleteTtl(c *Client, desired, actual *ClusterClusterConfigLifecycleConfigAutoDeleteTtl) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -3680,84 +2907,6 @@ func compareClusterClusterConfigEndpointConfig(c *Client, desired, actual *Clust
 	}
 	if !reflect.DeepEqual(desired.EnableHttpPortAccess, actual.EnableHttpPortAccess) && !dcl.IsZeroValue(desired.EnableHttpPortAccess) && !(dcl.IsEmptyValueIndirect(desired.EnableHttpPortAccess) && dcl.IsZeroValue(actual.EnableHttpPortAccess)) {
 		c.Config.Logger.Infof("Diff in EnableHttpPortAccess. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableHttpPortAccess), dcl.SprintResource(actual.EnableHttpPortAccess))
-		return true
-	}
-	return false
-}
-func compareClusterClusterConfigEndpointConfigHttpPortsSlice(c *Client, desired, actual []ClusterClusterConfigEndpointConfigHttpPorts) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ClusterClusterConfigEndpointConfigHttpPorts, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareClusterClusterConfigEndpointConfigHttpPorts(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigEndpointConfigHttpPorts, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareClusterClusterConfigEndpointConfigHttpPorts(c *Client, desired, actual *ClusterClusterConfigEndpointConfigHttpPorts) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
-func compareClusterLabelsSlice(c *Client, desired, actual []ClusterLabels) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ClusterLabels, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareClusterLabels(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterLabels, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareClusterLabels(c *Client, desired, actual *ClusterLabels) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -3833,7 +2982,7 @@ func compareClusterMetrics(c *Client, desired, actual *ClusterMetrics) bool {
 		c.Config.Logger.Infof("desired HdfsMetrics %s - but actually nil", dcl.SprintResource(desired.HdfsMetrics))
 		return true
 	}
-	if compareClusterMetricsHdfsMetricsSlice(c, desired.HdfsMetrics, actual.HdfsMetrics) && !dcl.IsZeroValue(desired.HdfsMetrics) {
+	if !reflect.DeepEqual(desired.HdfsMetrics, actual.HdfsMetrics) && !dcl.IsZeroValue(desired.HdfsMetrics) {
 		c.Config.Logger.Infof("Diff in HdfsMetrics. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HdfsMetrics), dcl.SprintResource(actual.HdfsMetrics))
 		return true
 	}
@@ -3841,86 +2990,8 @@ func compareClusterMetrics(c *Client, desired, actual *ClusterMetrics) bool {
 		c.Config.Logger.Infof("desired YarnMetrics %s - but actually nil", dcl.SprintResource(desired.YarnMetrics))
 		return true
 	}
-	if compareClusterMetricsYarnMetricsSlice(c, desired.YarnMetrics, actual.YarnMetrics) && !dcl.IsZeroValue(desired.YarnMetrics) {
+	if !reflect.DeepEqual(desired.YarnMetrics, actual.YarnMetrics) && !dcl.IsZeroValue(desired.YarnMetrics) {
 		c.Config.Logger.Infof("Diff in YarnMetrics. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.YarnMetrics), dcl.SprintResource(actual.YarnMetrics))
-		return true
-	}
-	return false
-}
-func compareClusterMetricsHdfsMetricsSlice(c *Client, desired, actual []ClusterMetricsHdfsMetrics) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ClusterMetricsHdfsMetrics, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareClusterMetricsHdfsMetrics(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterMetricsHdfsMetrics, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareClusterMetricsHdfsMetrics(c *Client, desired, actual *ClusterMetricsHdfsMetrics) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
-func compareClusterMetricsYarnMetricsSlice(c *Client, desired, actual []ClusterMetricsYarnMetrics) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ClusterMetricsYarnMetrics, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareClusterMetricsYarnMetrics(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterMetricsYarnMetrics, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareClusterMetricsYarnMetrics(c *Client, desired, actual *ClusterMetricsYarnMetrics) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -4143,9 +3214,7 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["config"] = v
 	}
-	if v, err := expandClusterLabelsSlice(c, f.Labels); err != nil {
-		return nil, fmt.Errorf("error expanding Labels into labels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
 	}
 	if v, err := expandClusterStatus(c, f.Status); err != nil {
@@ -4190,7 +3259,7 @@ func flattenCluster(c *Client, i interface{}) *Cluster {
 	r.Project = dcl.FlattenString(m["projectId"])
 	r.Name = dcl.FlattenString(m["clusterName"])
 	r.Config = flattenClusterClusterConfig(c, m["config"])
-	r.Labels = flattenClusterLabelsSlice(c, m["labels"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	r.Status = flattenClusterStatus(c, m["status"])
 	r.StatusHistory = flattenClusterStatusHistorySlice(c, m["statusHistory"])
 	r.ClusterUuid = dcl.FlattenString(m["clusterUuid"])
@@ -4493,9 +3562,7 @@ func expandClusterClusterConfigGceClusterConfig(c *Client, f *ClusterClusterConf
 	if v := f.Tags; !dcl.IsEmptyValueIndirect(v) {
 		m["tags"] = v
 	}
-	if v, err := expandClusterClusterConfigGceClusterConfigMetadataSlice(c, f.Metadata); err != nil {
-		return nil, fmt.Errorf("error expanding Metadata into metadata: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Metadata; !dcl.IsEmptyValueIndirect(v) {
 		m["metadata"] = v
 	}
 	if v, err := expandClusterClusterConfigGceClusterConfigReservationAffinity(c, f.ReservationAffinity); err != nil {
@@ -4529,123 +3596,9 @@ func flattenClusterClusterConfigGceClusterConfig(c *Client, i interface{}) *Clus
 	r.ServiceAccount = dcl.FlattenString(m["serviceAccount"])
 	r.ServiceAccountScopes = dcl.FlattenStringSlice(m["serviceAccountScopes"])
 	r.Tags = dcl.FlattenStringSlice(m["tags"])
-	r.Metadata = flattenClusterClusterConfigGceClusterConfigMetadataSlice(c, m["metadata"])
+	r.Metadata = dcl.FlattenKeyValuePairs(m["metadata"])
 	r.ReservationAffinity = flattenClusterClusterConfigGceClusterConfigReservationAffinity(c, m["reservationAffinity"])
 	r.NodeGroupAffinity = flattenClusterClusterConfigGceClusterConfigNodeGroupAffinity(c, m["nodeGroupAffinity"])
-
-	return r
-}
-
-// expandClusterClusterConfigGceClusterConfigMetadataMap expands the contents of ClusterClusterConfigGceClusterConfigMetadata into a JSON
-// request object.
-func expandClusterClusterConfigGceClusterConfigMetadataMap(c *Client, f map[string]ClusterClusterConfigGceClusterConfigMetadata) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandClusterClusterConfigGceClusterConfigMetadata(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandClusterClusterConfigGceClusterConfigMetadataSlice expands the contents of ClusterClusterConfigGceClusterConfigMetadata into a JSON
-// request object.
-func expandClusterClusterConfigGceClusterConfigMetadataSlice(c *Client, f []ClusterClusterConfigGceClusterConfigMetadata) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandClusterClusterConfigGceClusterConfigMetadata(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenClusterClusterConfigGceClusterConfigMetadataMap flattens the contents of ClusterClusterConfigGceClusterConfigMetadata from a JSON
-// response object.
-func flattenClusterClusterConfigGceClusterConfigMetadataMap(c *Client, i interface{}) map[string]ClusterClusterConfigGceClusterConfigMetadata {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]ClusterClusterConfigGceClusterConfigMetadata{}
-	}
-
-	if len(a) == 0 {
-		return map[string]ClusterClusterConfigGceClusterConfigMetadata{}
-	}
-
-	items := make(map[string]ClusterClusterConfigGceClusterConfigMetadata)
-	for k, item := range a {
-		items[k] = *flattenClusterClusterConfigGceClusterConfigMetadata(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenClusterClusterConfigGceClusterConfigMetadataSlice flattens the contents of ClusterClusterConfigGceClusterConfigMetadata from a JSON
-// response object.
-func flattenClusterClusterConfigGceClusterConfigMetadataSlice(c *Client, i interface{}) []ClusterClusterConfigGceClusterConfigMetadata {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []ClusterClusterConfigGceClusterConfigMetadata{}
-	}
-
-	if len(a) == 0 {
-		return []ClusterClusterConfigGceClusterConfigMetadata{}
-	}
-
-	items := make([]ClusterClusterConfigGceClusterConfigMetadata, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenClusterClusterConfigGceClusterConfigMetadata(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandClusterClusterConfigGceClusterConfigMetadata expands an instance of ClusterClusterConfigGceClusterConfigMetadata into a JSON
-// request object.
-func expandClusterClusterConfigGceClusterConfigMetadata(c *Client, f *ClusterClusterConfigGceClusterConfigMetadata) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenClusterClusterConfigGceClusterConfigMetadata flattens an instance of ClusterClusterConfigGceClusterConfigMetadata from a JSON
-// response object.
-func flattenClusterClusterConfigGceClusterConfigMetadata(c *Client, i interface{}) *ClusterClusterConfigGceClusterConfigMetadata {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &ClusterClusterConfigGceClusterConfigMetadata{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
 
 	return r
 }
@@ -4973,11 +3926,6 @@ func expandClusterInstanceGroupConfig(c *Client, f *ClusterInstanceGroupConfig) 
 	if v := f.InstanceNames; !dcl.IsEmptyValueIndirect(v) {
 		m["instanceNames"] = v
 	}
-	if v, err := expandClusterInstanceGroupConfigInstanceReferencesSlice(c, f.InstanceReferences); err != nil {
-		return nil, fmt.Errorf("error expanding InstanceReferences into instanceReferences: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["instanceReferences"] = v
-	}
 	if v := f.Image; !dcl.IsEmptyValueIndirect(v) {
 		m["imageUri"] = v
 	}
@@ -5023,7 +3971,6 @@ func flattenClusterInstanceGroupConfig(c *Client, i interface{}) *ClusterInstanc
 	r := &ClusterInstanceGroupConfig{}
 	r.NumInstances = dcl.FlattenInteger(m["numInstances"])
 	r.InstanceNames = dcl.FlattenStringSlice(m["instanceNames"])
-	r.InstanceReferences = flattenClusterInstanceGroupConfigInstanceReferencesSlice(c, m["instanceReferences"])
 	r.Image = dcl.FlattenString(m["imageUri"])
 	r.MachineType = dcl.FlattenString(m["machineTypeUri"])
 	r.DiskConfig = flattenClusterInstanceGroupConfigDiskConfig(c, m["diskConfig"])
@@ -5032,124 +3979,6 @@ func flattenClusterInstanceGroupConfig(c *Client, i interface{}) *ClusterInstanc
 	r.ManagedGroupConfig = flattenClusterInstanceGroupConfigManagedGroupConfig(c, m["managedGroupConfig"])
 	r.Accelerators = flattenClusterInstanceGroupConfigAcceleratorsSlice(c, m["accelerators"])
 	r.MinCpuPlatform = dcl.FlattenString(m["minCpuPlatform"])
-
-	return r
-}
-
-// expandClusterInstanceGroupConfigInstanceReferencesMap expands the contents of ClusterInstanceGroupConfigInstanceReferences into a JSON
-// request object.
-func expandClusterInstanceGroupConfigInstanceReferencesMap(c *Client, f map[string]ClusterInstanceGroupConfigInstanceReferences) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandClusterInstanceGroupConfigInstanceReferences(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandClusterInstanceGroupConfigInstanceReferencesSlice expands the contents of ClusterInstanceGroupConfigInstanceReferences into a JSON
-// request object.
-func expandClusterInstanceGroupConfigInstanceReferencesSlice(c *Client, f []ClusterInstanceGroupConfigInstanceReferences) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandClusterInstanceGroupConfigInstanceReferences(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenClusterInstanceGroupConfigInstanceReferencesMap flattens the contents of ClusterInstanceGroupConfigInstanceReferences from a JSON
-// response object.
-func flattenClusterInstanceGroupConfigInstanceReferencesMap(c *Client, i interface{}) map[string]ClusterInstanceGroupConfigInstanceReferences {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]ClusterInstanceGroupConfigInstanceReferences{}
-	}
-
-	if len(a) == 0 {
-		return map[string]ClusterInstanceGroupConfigInstanceReferences{}
-	}
-
-	items := make(map[string]ClusterInstanceGroupConfigInstanceReferences)
-	for k, item := range a {
-		items[k] = *flattenClusterInstanceGroupConfigInstanceReferences(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenClusterInstanceGroupConfigInstanceReferencesSlice flattens the contents of ClusterInstanceGroupConfigInstanceReferences from a JSON
-// response object.
-func flattenClusterInstanceGroupConfigInstanceReferencesSlice(c *Client, i interface{}) []ClusterInstanceGroupConfigInstanceReferences {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []ClusterInstanceGroupConfigInstanceReferences{}
-	}
-
-	if len(a) == 0 {
-		return []ClusterInstanceGroupConfigInstanceReferences{}
-	}
-
-	items := make([]ClusterInstanceGroupConfigInstanceReferences, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenClusterInstanceGroupConfigInstanceReferences(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandClusterInstanceGroupConfigInstanceReferences expands an instance of ClusterInstanceGroupConfigInstanceReferences into a JSON
-// request object.
-func expandClusterInstanceGroupConfigInstanceReferences(c *Client, f *ClusterInstanceGroupConfigInstanceReferences) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.InstanceName; !dcl.IsEmptyValueIndirect(v) {
-		m["instanceName"] = v
-	}
-	if v := f.InstanceId; !dcl.IsEmptyValueIndirect(v) {
-		m["instanceId"] = v
-	}
-	if v := f.PublicKey; !dcl.IsEmptyValueIndirect(v) {
-		m["publicKey"] = v
-	}
-
-	return m, nil
-}
-
-// flattenClusterInstanceGroupConfigInstanceReferences flattens an instance of ClusterInstanceGroupConfigInstanceReferences from a JSON
-// response object.
-func flattenClusterInstanceGroupConfigInstanceReferences(c *Client, i interface{}) *ClusterInstanceGroupConfigInstanceReferences {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &ClusterInstanceGroupConfigInstanceReferences{}
-	r.InstanceName = dcl.FlattenString(m["instanceName"])
-	r.InstanceId = dcl.FlattenString(m["instanceId"])
-	r.PublicKey = dcl.FlattenString(m["publicKey"])
 
 	return r
 }
@@ -5710,9 +4539,7 @@ func expandClusterClusterConfigInitializationActions(c *Client, f *ClusterCluste
 	if v := f.ExecutableFile; !dcl.IsEmptyValueIndirect(v) {
 		m["executableFile"] = v
 	}
-	if v, err := expandClusterClusterConfigInitializationActionsExecutionTimeout(c, f.ExecutionTimeout); err != nil {
-		return nil, fmt.Errorf("error expanding ExecutionTimeout into executionTimeout: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ExecutionTimeout; !dcl.IsEmptyValueIndirect(v) {
 		m["executionTimeout"] = v
 	}
 
@@ -5729,121 +4556,7 @@ func flattenClusterClusterConfigInitializationActions(c *Client, i interface{}) 
 
 	r := &ClusterClusterConfigInitializationActions{}
 	r.ExecutableFile = dcl.FlattenString(m["executableFile"])
-	r.ExecutionTimeout = flattenClusterClusterConfigInitializationActionsExecutionTimeout(c, m["executionTimeout"])
-
-	return r
-}
-
-// expandClusterClusterConfigInitializationActionsExecutionTimeoutMap expands the contents of ClusterClusterConfigInitializationActionsExecutionTimeout into a JSON
-// request object.
-func expandClusterClusterConfigInitializationActionsExecutionTimeoutMap(c *Client, f map[string]ClusterClusterConfigInitializationActionsExecutionTimeout) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandClusterClusterConfigInitializationActionsExecutionTimeout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandClusterClusterConfigInitializationActionsExecutionTimeoutSlice expands the contents of ClusterClusterConfigInitializationActionsExecutionTimeout into a JSON
-// request object.
-func expandClusterClusterConfigInitializationActionsExecutionTimeoutSlice(c *Client, f []ClusterClusterConfigInitializationActionsExecutionTimeout) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandClusterClusterConfigInitializationActionsExecutionTimeout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenClusterClusterConfigInitializationActionsExecutionTimeoutMap flattens the contents of ClusterClusterConfigInitializationActionsExecutionTimeout from a JSON
-// response object.
-func flattenClusterClusterConfigInitializationActionsExecutionTimeoutMap(c *Client, i interface{}) map[string]ClusterClusterConfigInitializationActionsExecutionTimeout {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]ClusterClusterConfigInitializationActionsExecutionTimeout{}
-	}
-
-	if len(a) == 0 {
-		return map[string]ClusterClusterConfigInitializationActionsExecutionTimeout{}
-	}
-
-	items := make(map[string]ClusterClusterConfigInitializationActionsExecutionTimeout)
-	for k, item := range a {
-		items[k] = *flattenClusterClusterConfigInitializationActionsExecutionTimeout(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenClusterClusterConfigInitializationActionsExecutionTimeoutSlice flattens the contents of ClusterClusterConfigInitializationActionsExecutionTimeout from a JSON
-// response object.
-func flattenClusterClusterConfigInitializationActionsExecutionTimeoutSlice(c *Client, i interface{}) []ClusterClusterConfigInitializationActionsExecutionTimeout {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []ClusterClusterConfigInitializationActionsExecutionTimeout{}
-	}
-
-	if len(a) == 0 {
-		return []ClusterClusterConfigInitializationActionsExecutionTimeout{}
-	}
-
-	items := make([]ClusterClusterConfigInitializationActionsExecutionTimeout, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenClusterClusterConfigInitializationActionsExecutionTimeout(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandClusterClusterConfigInitializationActionsExecutionTimeout expands an instance of ClusterClusterConfigInitializationActionsExecutionTimeout into a JSON
-// request object.
-func expandClusterClusterConfigInitializationActionsExecutionTimeout(c *Client, f *ClusterClusterConfigInitializationActionsExecutionTimeout) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenClusterClusterConfigInitializationActionsExecutionTimeout flattens an instance of ClusterClusterConfigInitializationActionsExecutionTimeout from a JSON
-// response object.
-func flattenClusterClusterConfigInitializationActionsExecutionTimeout(c *Client, i interface{}) *ClusterClusterConfigInitializationActionsExecutionTimeout {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &ClusterClusterConfigInitializationActionsExecutionTimeout{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
+	r.ExecutionTimeout = dcl.FlattenString(m["executionTimeout"])
 
 	return r
 }
@@ -6435,17 +5148,13 @@ func expandClusterClusterConfigLifecycleConfig(c *Client, f *ClusterClusterConfi
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandClusterClusterConfigLifecycleConfigIdleDeleteTtl(c, f.IdleDeleteTtl); err != nil {
-		return nil, fmt.Errorf("error expanding IdleDeleteTtl into idleDeleteTtl: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.IdleDeleteTtl; !dcl.IsEmptyValueIndirect(v) {
 		m["idleDeleteTtl"] = v
 	}
 	if v := f.AutoDeleteTime; !dcl.IsEmptyValueIndirect(v) {
 		m["autoDeleteTime"] = v
 	}
-	if v, err := expandClusterClusterConfigLifecycleConfigAutoDeleteTtl(c, f.AutoDeleteTtl); err != nil {
-		return nil, fmt.Errorf("error expanding AutoDeleteTtl into autoDeleteTtl: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AutoDeleteTtl; !dcl.IsEmptyValueIndirect(v) {
 		m["autoDeleteTtl"] = v
 	}
 	if v := f.IdleStartTime; !dcl.IsEmptyValueIndirect(v) {
@@ -6464,238 +5173,10 @@ func flattenClusterClusterConfigLifecycleConfig(c *Client, i interface{}) *Clust
 	}
 
 	r := &ClusterClusterConfigLifecycleConfig{}
-	r.IdleDeleteTtl = flattenClusterClusterConfigLifecycleConfigIdleDeleteTtl(c, m["idleDeleteTtl"])
+	r.IdleDeleteTtl = dcl.FlattenString(m["idleDeleteTtl"])
 	r.AutoDeleteTime = dcl.FlattenString(m["autoDeleteTime"])
-	r.AutoDeleteTtl = flattenClusterClusterConfigLifecycleConfigAutoDeleteTtl(c, m["autoDeleteTtl"])
+	r.AutoDeleteTtl = dcl.FlattenString(m["autoDeleteTtl"])
 	r.IdleStartTime = dcl.FlattenString(m["idleStartTime"])
-
-	return r
-}
-
-// expandClusterClusterConfigLifecycleConfigIdleDeleteTtlMap expands the contents of ClusterClusterConfigLifecycleConfigIdleDeleteTtl into a JSON
-// request object.
-func expandClusterClusterConfigLifecycleConfigIdleDeleteTtlMap(c *Client, f map[string]ClusterClusterConfigLifecycleConfigIdleDeleteTtl) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandClusterClusterConfigLifecycleConfigIdleDeleteTtl(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandClusterClusterConfigLifecycleConfigIdleDeleteTtlSlice expands the contents of ClusterClusterConfigLifecycleConfigIdleDeleteTtl into a JSON
-// request object.
-func expandClusterClusterConfigLifecycleConfigIdleDeleteTtlSlice(c *Client, f []ClusterClusterConfigLifecycleConfigIdleDeleteTtl) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandClusterClusterConfigLifecycleConfigIdleDeleteTtl(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenClusterClusterConfigLifecycleConfigIdleDeleteTtlMap flattens the contents of ClusterClusterConfigLifecycleConfigIdleDeleteTtl from a JSON
-// response object.
-func flattenClusterClusterConfigLifecycleConfigIdleDeleteTtlMap(c *Client, i interface{}) map[string]ClusterClusterConfigLifecycleConfigIdleDeleteTtl {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]ClusterClusterConfigLifecycleConfigIdleDeleteTtl{}
-	}
-
-	if len(a) == 0 {
-		return map[string]ClusterClusterConfigLifecycleConfigIdleDeleteTtl{}
-	}
-
-	items := make(map[string]ClusterClusterConfigLifecycleConfigIdleDeleteTtl)
-	for k, item := range a {
-		items[k] = *flattenClusterClusterConfigLifecycleConfigIdleDeleteTtl(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenClusterClusterConfigLifecycleConfigIdleDeleteTtlSlice flattens the contents of ClusterClusterConfigLifecycleConfigIdleDeleteTtl from a JSON
-// response object.
-func flattenClusterClusterConfigLifecycleConfigIdleDeleteTtlSlice(c *Client, i interface{}) []ClusterClusterConfigLifecycleConfigIdleDeleteTtl {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []ClusterClusterConfigLifecycleConfigIdleDeleteTtl{}
-	}
-
-	if len(a) == 0 {
-		return []ClusterClusterConfigLifecycleConfigIdleDeleteTtl{}
-	}
-
-	items := make([]ClusterClusterConfigLifecycleConfigIdleDeleteTtl, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenClusterClusterConfigLifecycleConfigIdleDeleteTtl(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandClusterClusterConfigLifecycleConfigIdleDeleteTtl expands an instance of ClusterClusterConfigLifecycleConfigIdleDeleteTtl into a JSON
-// request object.
-func expandClusterClusterConfigLifecycleConfigIdleDeleteTtl(c *Client, f *ClusterClusterConfigLifecycleConfigIdleDeleteTtl) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenClusterClusterConfigLifecycleConfigIdleDeleteTtl flattens an instance of ClusterClusterConfigLifecycleConfigIdleDeleteTtl from a JSON
-// response object.
-func flattenClusterClusterConfigLifecycleConfigIdleDeleteTtl(c *Client, i interface{}) *ClusterClusterConfigLifecycleConfigIdleDeleteTtl {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &ClusterClusterConfigLifecycleConfigIdleDeleteTtl{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
-
-	return r
-}
-
-// expandClusterClusterConfigLifecycleConfigAutoDeleteTtlMap expands the contents of ClusterClusterConfigLifecycleConfigAutoDeleteTtl into a JSON
-// request object.
-func expandClusterClusterConfigLifecycleConfigAutoDeleteTtlMap(c *Client, f map[string]ClusterClusterConfigLifecycleConfigAutoDeleteTtl) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandClusterClusterConfigLifecycleConfigAutoDeleteTtl(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandClusterClusterConfigLifecycleConfigAutoDeleteTtlSlice expands the contents of ClusterClusterConfigLifecycleConfigAutoDeleteTtl into a JSON
-// request object.
-func expandClusterClusterConfigLifecycleConfigAutoDeleteTtlSlice(c *Client, f []ClusterClusterConfigLifecycleConfigAutoDeleteTtl) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandClusterClusterConfigLifecycleConfigAutoDeleteTtl(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenClusterClusterConfigLifecycleConfigAutoDeleteTtlMap flattens the contents of ClusterClusterConfigLifecycleConfigAutoDeleteTtl from a JSON
-// response object.
-func flattenClusterClusterConfigLifecycleConfigAutoDeleteTtlMap(c *Client, i interface{}) map[string]ClusterClusterConfigLifecycleConfigAutoDeleteTtl {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]ClusterClusterConfigLifecycleConfigAutoDeleteTtl{}
-	}
-
-	if len(a) == 0 {
-		return map[string]ClusterClusterConfigLifecycleConfigAutoDeleteTtl{}
-	}
-
-	items := make(map[string]ClusterClusterConfigLifecycleConfigAutoDeleteTtl)
-	for k, item := range a {
-		items[k] = *flattenClusterClusterConfigLifecycleConfigAutoDeleteTtl(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenClusterClusterConfigLifecycleConfigAutoDeleteTtlSlice flattens the contents of ClusterClusterConfigLifecycleConfigAutoDeleteTtl from a JSON
-// response object.
-func flattenClusterClusterConfigLifecycleConfigAutoDeleteTtlSlice(c *Client, i interface{}) []ClusterClusterConfigLifecycleConfigAutoDeleteTtl {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []ClusterClusterConfigLifecycleConfigAutoDeleteTtl{}
-	}
-
-	if len(a) == 0 {
-		return []ClusterClusterConfigLifecycleConfigAutoDeleteTtl{}
-	}
-
-	items := make([]ClusterClusterConfigLifecycleConfigAutoDeleteTtl, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenClusterClusterConfigLifecycleConfigAutoDeleteTtl(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandClusterClusterConfigLifecycleConfigAutoDeleteTtl expands an instance of ClusterClusterConfigLifecycleConfigAutoDeleteTtl into a JSON
-// request object.
-func expandClusterClusterConfigLifecycleConfigAutoDeleteTtl(c *Client, f *ClusterClusterConfigLifecycleConfigAutoDeleteTtl) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenClusterClusterConfigLifecycleConfigAutoDeleteTtl flattens an instance of ClusterClusterConfigLifecycleConfigAutoDeleteTtl from a JSON
-// response object.
-func flattenClusterClusterConfigLifecycleConfigAutoDeleteTtl(c *Client, i interface{}) *ClusterClusterConfigLifecycleConfigAutoDeleteTtl {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &ClusterClusterConfigLifecycleConfigAutoDeleteTtl{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
 	return r
 }
@@ -6789,9 +5270,7 @@ func expandClusterClusterConfigEndpointConfig(c *Client, f *ClusterClusterConfig
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandClusterClusterConfigEndpointConfigHttpPortsSlice(c, f.HttpPorts); err != nil {
-		return nil, fmt.Errorf("error expanding HttpPorts into httpPorts: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.HttpPorts; !dcl.IsEmptyValueIndirect(v) {
 		m["httpPorts"] = v
 	}
 	if v := f.EnableHttpPortAccess; !dcl.IsEmptyValueIndirect(v) {
@@ -6810,236 +5289,8 @@ func flattenClusterClusterConfigEndpointConfig(c *Client, i interface{}) *Cluste
 	}
 
 	r := &ClusterClusterConfigEndpointConfig{}
-	r.HttpPorts = flattenClusterClusterConfigEndpointConfigHttpPortsSlice(c, m["httpPorts"])
+	r.HttpPorts = dcl.FlattenKeyValuePairs(m["httpPorts"])
 	r.EnableHttpPortAccess = dcl.FlattenBool(m["enableHttpPortAccess"])
-
-	return r
-}
-
-// expandClusterClusterConfigEndpointConfigHttpPortsMap expands the contents of ClusterClusterConfigEndpointConfigHttpPorts into a JSON
-// request object.
-func expandClusterClusterConfigEndpointConfigHttpPortsMap(c *Client, f map[string]ClusterClusterConfigEndpointConfigHttpPorts) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandClusterClusterConfigEndpointConfigHttpPorts(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandClusterClusterConfigEndpointConfigHttpPortsSlice expands the contents of ClusterClusterConfigEndpointConfigHttpPorts into a JSON
-// request object.
-func expandClusterClusterConfigEndpointConfigHttpPortsSlice(c *Client, f []ClusterClusterConfigEndpointConfigHttpPorts) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandClusterClusterConfigEndpointConfigHttpPorts(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenClusterClusterConfigEndpointConfigHttpPortsMap flattens the contents of ClusterClusterConfigEndpointConfigHttpPorts from a JSON
-// response object.
-func flattenClusterClusterConfigEndpointConfigHttpPortsMap(c *Client, i interface{}) map[string]ClusterClusterConfigEndpointConfigHttpPorts {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]ClusterClusterConfigEndpointConfigHttpPorts{}
-	}
-
-	if len(a) == 0 {
-		return map[string]ClusterClusterConfigEndpointConfigHttpPorts{}
-	}
-
-	items := make(map[string]ClusterClusterConfigEndpointConfigHttpPorts)
-	for k, item := range a {
-		items[k] = *flattenClusterClusterConfigEndpointConfigHttpPorts(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenClusterClusterConfigEndpointConfigHttpPortsSlice flattens the contents of ClusterClusterConfigEndpointConfigHttpPorts from a JSON
-// response object.
-func flattenClusterClusterConfigEndpointConfigHttpPortsSlice(c *Client, i interface{}) []ClusterClusterConfigEndpointConfigHttpPorts {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []ClusterClusterConfigEndpointConfigHttpPorts{}
-	}
-
-	if len(a) == 0 {
-		return []ClusterClusterConfigEndpointConfigHttpPorts{}
-	}
-
-	items := make([]ClusterClusterConfigEndpointConfigHttpPorts, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenClusterClusterConfigEndpointConfigHttpPorts(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandClusterClusterConfigEndpointConfigHttpPorts expands an instance of ClusterClusterConfigEndpointConfigHttpPorts into a JSON
-// request object.
-func expandClusterClusterConfigEndpointConfigHttpPorts(c *Client, f *ClusterClusterConfigEndpointConfigHttpPorts) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenClusterClusterConfigEndpointConfigHttpPorts flattens an instance of ClusterClusterConfigEndpointConfigHttpPorts from a JSON
-// response object.
-func flattenClusterClusterConfigEndpointConfigHttpPorts(c *Client, i interface{}) *ClusterClusterConfigEndpointConfigHttpPorts {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &ClusterClusterConfigEndpointConfigHttpPorts{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
-
-	return r
-}
-
-// expandClusterLabelsMap expands the contents of ClusterLabels into a JSON
-// request object.
-func expandClusterLabelsMap(c *Client, f map[string]ClusterLabels) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandClusterLabels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandClusterLabelsSlice expands the contents of ClusterLabels into a JSON
-// request object.
-func expandClusterLabelsSlice(c *Client, f []ClusterLabels) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandClusterLabels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenClusterLabelsMap flattens the contents of ClusterLabels from a JSON
-// response object.
-func flattenClusterLabelsMap(c *Client, i interface{}) map[string]ClusterLabels {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]ClusterLabels{}
-	}
-
-	if len(a) == 0 {
-		return map[string]ClusterLabels{}
-	}
-
-	items := make(map[string]ClusterLabels)
-	for k, item := range a {
-		items[k] = *flattenClusterLabels(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenClusterLabelsSlice flattens the contents of ClusterLabels from a JSON
-// response object.
-func flattenClusterLabelsSlice(c *Client, i interface{}) []ClusterLabels {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []ClusterLabels{}
-	}
-
-	if len(a) == 0 {
-		return []ClusterLabels{}
-	}
-
-	items := make([]ClusterLabels, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenClusterLabels(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandClusterLabels expands an instance of ClusterLabels into a JSON
-// request object.
-func expandClusterLabels(c *Client, f *ClusterLabels) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenClusterLabels flattens an instance of ClusterLabels from a JSON
-// response object.
-func flattenClusterLabels(c *Client, i interface{}) *ClusterLabels {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &ClusterLabels{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
 
 	return r
 }
@@ -7377,14 +5628,10 @@ func expandClusterMetrics(c *Client, f *ClusterMetrics) (map[string]interface{},
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandClusterMetricsHdfsMetricsSlice(c, f.HdfsMetrics); err != nil {
-		return nil, fmt.Errorf("error expanding HdfsMetrics into hdfsMetrics: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.HdfsMetrics; !dcl.IsEmptyValueIndirect(v) {
 		m["hdfsMetrics"] = v
 	}
-	if v, err := expandClusterMetricsYarnMetricsSlice(c, f.YarnMetrics); err != nil {
-		return nil, fmt.Errorf("error expanding YarnMetrics into yarnMetrics: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.YarnMetrics; !dcl.IsEmptyValueIndirect(v) {
 		m["yarnMetrics"] = v
 	}
 
@@ -7400,236 +5647,8 @@ func flattenClusterMetrics(c *Client, i interface{}) *ClusterMetrics {
 	}
 
 	r := &ClusterMetrics{}
-	r.HdfsMetrics = flattenClusterMetricsHdfsMetricsSlice(c, m["hdfsMetrics"])
-	r.YarnMetrics = flattenClusterMetricsYarnMetricsSlice(c, m["yarnMetrics"])
-
-	return r
-}
-
-// expandClusterMetricsHdfsMetricsMap expands the contents of ClusterMetricsHdfsMetrics into a JSON
-// request object.
-func expandClusterMetricsHdfsMetricsMap(c *Client, f map[string]ClusterMetricsHdfsMetrics) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandClusterMetricsHdfsMetrics(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandClusterMetricsHdfsMetricsSlice expands the contents of ClusterMetricsHdfsMetrics into a JSON
-// request object.
-func expandClusterMetricsHdfsMetricsSlice(c *Client, f []ClusterMetricsHdfsMetrics) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandClusterMetricsHdfsMetrics(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenClusterMetricsHdfsMetricsMap flattens the contents of ClusterMetricsHdfsMetrics from a JSON
-// response object.
-func flattenClusterMetricsHdfsMetricsMap(c *Client, i interface{}) map[string]ClusterMetricsHdfsMetrics {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]ClusterMetricsHdfsMetrics{}
-	}
-
-	if len(a) == 0 {
-		return map[string]ClusterMetricsHdfsMetrics{}
-	}
-
-	items := make(map[string]ClusterMetricsHdfsMetrics)
-	for k, item := range a {
-		items[k] = *flattenClusterMetricsHdfsMetrics(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenClusterMetricsHdfsMetricsSlice flattens the contents of ClusterMetricsHdfsMetrics from a JSON
-// response object.
-func flattenClusterMetricsHdfsMetricsSlice(c *Client, i interface{}) []ClusterMetricsHdfsMetrics {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []ClusterMetricsHdfsMetrics{}
-	}
-
-	if len(a) == 0 {
-		return []ClusterMetricsHdfsMetrics{}
-	}
-
-	items := make([]ClusterMetricsHdfsMetrics, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenClusterMetricsHdfsMetrics(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandClusterMetricsHdfsMetrics expands an instance of ClusterMetricsHdfsMetrics into a JSON
-// request object.
-func expandClusterMetricsHdfsMetrics(c *Client, f *ClusterMetricsHdfsMetrics) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenClusterMetricsHdfsMetrics flattens an instance of ClusterMetricsHdfsMetrics from a JSON
-// response object.
-func flattenClusterMetricsHdfsMetrics(c *Client, i interface{}) *ClusterMetricsHdfsMetrics {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &ClusterMetricsHdfsMetrics{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenInteger(m["value"])
-
-	return r
-}
-
-// expandClusterMetricsYarnMetricsMap expands the contents of ClusterMetricsYarnMetrics into a JSON
-// request object.
-func expandClusterMetricsYarnMetricsMap(c *Client, f map[string]ClusterMetricsYarnMetrics) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandClusterMetricsYarnMetrics(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandClusterMetricsYarnMetricsSlice expands the contents of ClusterMetricsYarnMetrics into a JSON
-// request object.
-func expandClusterMetricsYarnMetricsSlice(c *Client, f []ClusterMetricsYarnMetrics) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandClusterMetricsYarnMetrics(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenClusterMetricsYarnMetricsMap flattens the contents of ClusterMetricsYarnMetrics from a JSON
-// response object.
-func flattenClusterMetricsYarnMetricsMap(c *Client, i interface{}) map[string]ClusterMetricsYarnMetrics {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]ClusterMetricsYarnMetrics{}
-	}
-
-	if len(a) == 0 {
-		return map[string]ClusterMetricsYarnMetrics{}
-	}
-
-	items := make(map[string]ClusterMetricsYarnMetrics)
-	for k, item := range a {
-		items[k] = *flattenClusterMetricsYarnMetrics(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenClusterMetricsYarnMetricsSlice flattens the contents of ClusterMetricsYarnMetrics from a JSON
-// response object.
-func flattenClusterMetricsYarnMetricsSlice(c *Client, i interface{}) []ClusterMetricsYarnMetrics {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []ClusterMetricsYarnMetrics{}
-	}
-
-	if len(a) == 0 {
-		return []ClusterMetricsYarnMetrics{}
-	}
-
-	items := make([]ClusterMetricsYarnMetrics, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenClusterMetricsYarnMetrics(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandClusterMetricsYarnMetrics expands an instance of ClusterMetricsYarnMetrics into a JSON
-// request object.
-func expandClusterMetricsYarnMetrics(c *Client, f *ClusterMetricsYarnMetrics) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenClusterMetricsYarnMetrics flattens an instance of ClusterMetricsYarnMetrics from a JSON
-// response object.
-func flattenClusterMetricsYarnMetrics(c *Client, i interface{}) *ClusterMetricsYarnMetrics {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &ClusterMetricsYarnMetrics{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenInteger(m["value"])
+	r.HdfsMetrics = dcl.FlattenKeyValuePairs(m["hdfsMetrics"])
+	r.YarnMetrics = dcl.FlattenKeyValuePairs(m["yarnMetrics"])
 
 	return r
 }

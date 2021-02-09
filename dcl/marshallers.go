@@ -16,6 +16,7 @@ package dcl
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
 
 	glog "github.com/golang/glog"
 )
@@ -217,12 +218,22 @@ func ConvertToMap(obj interface{}) (map[string]interface{}, error) {
 	return m, nil
 }
 
-// ValueOrEmptyString takes in the pointer to a string and returns either the empty string or its value.
-func ValueOrEmptyString(s *string) string {
-	if s == nil {
+// ValueOrEmptyString takes a scalar or pointer to a scalar and returns either the empty string or its value.
+func ValueOrEmptyString(i interface{}) string {
+	if i == nil {
 		return ""
 	}
-	return *s
+	v := reflect.ValueOf(i)
+	for v.Kind() == reflect.Ptr {
+		v = v.Elem()
+	}
+	if v.IsValid() {
+		switch v.Kind() {
+		case reflect.Bool, reflect.Int, reflect.Int64, reflect.Float64, reflect.String:
+			return fmt.Sprintf("%v", v.Interface())
+		}
+	}
+	return ""
 }
 
 // ValueOrEmptyInt64 returns the value or the default value if the pointer is nil.

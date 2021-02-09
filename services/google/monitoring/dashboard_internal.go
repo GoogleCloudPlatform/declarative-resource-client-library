@@ -18,11 +18,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 func (r *Dashboard) validate() error {
@@ -1592,12 +1593,12 @@ func (c *Client) dashboardDiffsForRawDesired(ctx context.Context, rawDesired *Da
 			c.Config.Logger.Warningf("Failed to retrieve whether a Dashboard resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Dashboard resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Dashboard resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeDashboardDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Dashboard: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Dashboard: %v", rawDesired)
 
@@ -1704,13 +1705,7 @@ func canonicalizeDashboardNewState(c *Client, rawNew, rawDesired *Dashboard) (*D
 		rawNew.MosaicLayout = canonicalizeNewDashboardMosaicLayout(c, rawDesired.MosaicLayout, rawNew.MosaicLayout)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Name, rawNew.Name) {
-			rawNew.Name = rawDesired.Name
-		}
-	}
+	rawNew.Name = rawDesired.Name
 
 	if dcl.IsEmptyValueIndirect(rawNew.RowLayout) && dcl.IsEmptyValueIndirect(rawDesired.RowLayout) {
 		rawNew.RowLayout = rawDesired.RowLayout
@@ -1724,13 +1719,7 @@ func canonicalizeDashboardNewState(c *Client, rawNew, rawDesired *Dashboard) (*D
 		rawNew.TabbedLayout = canonicalizeNewDashboardTabbedLayout(c, rawDesired.TabbedLayout, rawNew.TabbedLayout)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -11830,14 +11819,14 @@ func diffDashboard(c *Client, desired, actual *Dashboard, opts ...dcl.ApplyOptio
 
 	var diffs []dashboardDiff
 	if !dcl.IsZeroValue(desired.Category) && (dcl.IsZeroValue(actual.Category) || !reflect.DeepEqual(*desired.Category, *actual.Category)) {
-		c.Config.Logger.Infof("Detected diff in Category.\nDESIRED: %#v\nACTUAL: %#v", desired.Category, actual.Category)
+		c.Config.Logger.Infof("Detected diff in Category.\nDESIRED: %v\nACTUAL: %v", desired.Category, actual.Category)
 		diffs = append(diffs, dashboardDiff{
 			RequiresRecreate: true,
 			FieldName:        "Category",
 		})
 	}
 	if compareDashboardColumnLayout(c, desired.ColumnLayout, actual.ColumnLayout) {
-		c.Config.Logger.Infof("Detected diff in ColumnLayout.\nDESIRED: %#v\nACTUAL: %#v", desired.ColumnLayout, actual.ColumnLayout)
+		c.Config.Logger.Infof("Detected diff in ColumnLayout.\nDESIRED: %v\nACTUAL: %v", desired.ColumnLayout, actual.ColumnLayout)
 
 		diffs = append(diffs, dashboardDiff{
 			UpdateOp:  &updateDashboardUpdateOperation{},
@@ -11846,7 +11835,7 @@ func diffDashboard(c *Client, desired, actual *Dashboard, opts ...dcl.ApplyOptio
 
 	}
 	if !dcl.IsZeroValue(desired.DisplayName) && (dcl.IsZeroValue(actual.DisplayName) || !reflect.DeepEqual(*desired.DisplayName, *actual.DisplayName)) {
-		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %#v\nACTUAL: %#v", desired.DisplayName, actual.DisplayName)
+		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 
 		diffs = append(diffs, dashboardDiff{
 			UpdateOp:  &updateDashboardUpdateOperation{},
@@ -11855,7 +11844,7 @@ func diffDashboard(c *Client, desired, actual *Dashboard, opts ...dcl.ApplyOptio
 
 	}
 	if compareDashboardGridLayout(c, desired.GridLayout, actual.GridLayout) {
-		c.Config.Logger.Infof("Detected diff in GridLayout.\nDESIRED: %#v\nACTUAL: %#v", desired.GridLayout, actual.GridLayout)
+		c.Config.Logger.Infof("Detected diff in GridLayout.\nDESIRED: %v\nACTUAL: %v", desired.GridLayout, actual.GridLayout)
 
 		diffs = append(diffs, dashboardDiff{
 			UpdateOp:  &updateDashboardUpdateOperation{},
@@ -11864,7 +11853,7 @@ func diffDashboard(c *Client, desired, actual *Dashboard, opts ...dcl.ApplyOptio
 
 	}
 	if compareDashboardMosaicLayout(c, desired.MosaicLayout, actual.MosaicLayout) {
-		c.Config.Logger.Infof("Detected diff in MosaicLayout.\nDESIRED: %#v\nACTUAL: %#v", desired.MosaicLayout, actual.MosaicLayout)
+		c.Config.Logger.Infof("Detected diff in MosaicLayout.\nDESIRED: %v\nACTUAL: %v", desired.MosaicLayout, actual.MosaicLayout)
 
 		diffs = append(diffs, dashboardDiff{
 			UpdateOp:  &updateDashboardUpdateOperation{},
@@ -11872,32 +11861,18 @@ func diffDashboard(c *Client, desired, actual *Dashboard, opts ...dcl.ApplyOptio
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Name) && !dcl.NameToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
-		diffs = append(diffs, dashboardDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
-	}
 	if compareDashboardRowLayout(c, desired.RowLayout, actual.RowLayout) {
-		c.Config.Logger.Infof("Detected diff in RowLayout.\nDESIRED: %#v\nACTUAL: %#v", desired.RowLayout, actual.RowLayout)
+		c.Config.Logger.Infof("Detected diff in RowLayout.\nDESIRED: %v\nACTUAL: %v", desired.RowLayout, actual.RowLayout)
 		diffs = append(diffs, dashboardDiff{
 			RequiresRecreate: true,
 			FieldName:        "RowLayout",
 		})
 	}
 	if compareDashboardTabbedLayout(c, desired.TabbedLayout, actual.TabbedLayout) {
-		c.Config.Logger.Infof("Detected diff in TabbedLayout.\nDESIRED: %#v\nACTUAL: %#v", desired.TabbedLayout, actual.TabbedLayout)
+		c.Config.Logger.Infof("Detected diff in TabbedLayout.\nDESIRED: %v\nACTUAL: %v", desired.TabbedLayout, actual.TabbedLayout)
 		diffs = append(diffs, dashboardDiff{
 			RequiresRecreate: true,
 			FieldName:        "TabbedLayout",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, dashboardDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.

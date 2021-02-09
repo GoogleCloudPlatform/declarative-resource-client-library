@@ -343,11 +343,13 @@ func (s *InterconnectServer) ApplyComputeInterconnect(ctx context.Context, reque
 
 // DeleteInterconnect handles the gRPC request by passing it to the underlying Interconnect Delete() method.
 func (s *InterconnectServer) DeleteComputeInterconnect(ctx context.Context, request *computepb.DeleteComputeInterconnectRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigInterconnect(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteInterconnect(ctx, ProtoToInterconnect(request.GetResource()))
+
 }
 
 // ListInterconnect handles the gRPC request by passing it to the underlying InterconnectList() method.

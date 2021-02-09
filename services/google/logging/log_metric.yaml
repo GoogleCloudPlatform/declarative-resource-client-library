@@ -128,6 +128,9 @@ components:
             for an integer label its 0, and for a boolean label its `false`. Note
             that there are upper bounds on the maximum number of labels and the number
             of active time series that are allowed in a project.
+          items:
+            type: string
+            x-dcl-go-type: string
           type: object
           x-dcl-go-name: LabelExtractors
         metricDescriptor:
@@ -175,7 +178,9 @@ components:
                     x-dcl-go-name: Key
                     x-kubernetes-immutable: true
                   valueType:
-                    description: The type of data that can be assigned to the label.
+                    description: 'The type of data that can be assigned to the label.
+                      Possible values: STRING, BOOL, INT64, DOUBLE, DISTRIBUTION,
+                      MONEY'
                     enum:
                     - STRING
                     - BOOL
@@ -194,7 +199,9 @@ components:
               x-dcl-list-type: list
               x-kubernetes-immutable: true
             launchStage:
-              description: Optional. The launch stage of the metric definition.
+              description: 'Optional. The launch stage of the metric definition. Possible
+                values: LAUNCH_STAGE_UNSPECIFIED, UNIMPLEMENTED, PRELAUNCH, EARLY_ACCESS,
+                ALPHA, BETA, GA, DEPRECATED'
               enum:
               - LAUNCH_STAGE_UNSPECIFIED
               - UNIMPLEMENTED
@@ -242,7 +249,9 @@ components:
                   x-dcl-go-type: LogMetricMetricDescriptorMetadataIngestDelay
                   x-kubernetes-immutable: true
                 launchStage:
-                  description: Deprecated. Must use the instead.
+                  description: 'Deprecated. Must use the instead. Possible values:
+                    LAUNCH_STAGE_UNSPECIFIED, UNIMPLEMENTED, PRELAUNCH, EARLY_ACCESS,
+                    ALPHA, BETA, GA, DEPRECATED'
                   enum:
                   - LAUNCH_STAGE_UNSPECIFIED
                   - UNIMPLEMENTED
@@ -291,9 +300,10 @@ components:
               x-dcl-go-type: LogMetricMetricDescriptorMetadata
               x-kubernetes-immutable: true
             metricKind:
-              description: Whether the metric records instantaneous values, changes
+              description: 'Whether the metric records instantaneous values, changes
                 to a value, etc. Some combinations of `metric_kind` and `value_type`
-                might not be supported.
+                might not be supported. Possible values: METRIC_KIND_UNSPECIFIED,
+                GAUGE, DELTA, CUMULATIVE'
               enum:
               - METRIC_KIND_UNSPECIFIED
               - GAUGE
@@ -361,9 +371,10 @@ components:
               x-dcl-go-name: Unit
               x-kubernetes-immutable: true
             valueType:
-              description: Whether the measurement is an integer, a floating-point
+              description: 'Whether the measurement is an integer, a floating-point
                 number, etc. Some combinations of `metric_kind` and `value_type` might
-                not be supported.
+                not be supported. Possible values: STRING, BOOL, INT64, DOUBLE, DISTRIBUTION,
+                MONEY'
               enum:
               - STRING
               - BOOL
@@ -442,8 +453,35 @@ info:
   title: Logging/LogMetric
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many LogMetric
+  apply:
+    description: The function used to apply information about a LogMetric
+    parameters:
+    - description: A full instance of a LogMetric
+      name: LogMetric
+      required: true
+  delete:
+    description: The function used to delete a LogMetric
+    parameters:
+    - description: A full instance of a LogMetric
+      name: LogMetric
+      required: true
+  deleteAll:
+    description: The function used to delete all LogMetric
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a LogMetric
+    parameters:
+    - description: A full instance of a LogMetric
+      name: LogMetric
+      required: true
+  list:
+    description: The function used to list information about many LogMetric
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

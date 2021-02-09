@@ -34,10 +34,10 @@ components:
           x-kubernetes-immutable: true
         entity:
           description: 'The entity holding the permission, in one of the following
-            forms: \* user-{{userId}} \* user-{{email}} (such as "user-liz@example.com")
-            \* group-{{groupId}} \* group-{{email}} (such as "group-example@googlegroups.com")
-            \* domain-{{domain}} (such as "domain-example.com") \* project-team-{{projectId}}
-            \* allUsers \* allAuthenticatedUsers'
+            forms: * user-{{userId}} * user-{{email}} (such as "user-liz@example.com")
+            * group-{{groupId}} * group-{{email}} (such as "group-example@googlegroups.com")
+            * domain-{{domain}} (such as "domain-example.com") * project-team-{{projectId}}
+            * allUsers * allAuthenticatedUsers'
           type: string
           x-dcl-go-name: Entity
         entityId:
@@ -60,7 +60,7 @@ components:
               x-dcl-go-name: ProjectNumber
               x-kubernetes-immutable: true
             team:
-              description: The team.
+              description: 'The team. Possible values: editors, owners, viewers'
               enum:
               - editors
               - owners
@@ -75,7 +75,8 @@ components:
           x-dcl-go-type: DefaultObjectAccessControlProjectTeam
           x-kubernetes-immutable: true
         role:
-          description: The access permission for the entity.
+          description: 'The access permission for the entity. Possible values: OWNER,
+            READER'
           enum:
           - OWNER
           - READER
@@ -98,10 +99,43 @@ info:
   title: Storage/DefaultObjectAccessControl
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many DefaultObjectAccessControl
+  apply:
+    description: The function used to apply information about a DefaultObjectAccessControl
+    parameters:
+    - description: A full instance of a DefaultObjectAccessControl
+      name: DefaultObjectAccessControl
+      required: true
+  delete:
+    description: The function used to delete a DefaultObjectAccessControl
+    parameters:
+    - description: A full instance of a DefaultObjectAccessControl
+      name: DefaultObjectAccessControl
+      required: true
+  deleteAll:
+    description: The function used to delete all DefaultObjectAccessControl
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: bucket
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a DefaultObjectAccessControl
+    parameters:
+    - description: A full instance of a DefaultObjectAccessControl
+      name: DefaultObjectAccessControl
+      required: true
+  list:
+    description: The function used to list information about many DefaultObjectAccessControl
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: bucket
+      required: true
+      schema:
+        type: string

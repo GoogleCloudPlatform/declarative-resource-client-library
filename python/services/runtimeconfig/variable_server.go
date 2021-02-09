@@ -74,11 +74,13 @@ func (s *VariableServer) ApplyRuntimeconfigVariable(ctx context.Context, request
 
 // DeleteVariable handles the gRPC request by passing it to the underlying Variable Delete() method.
 func (s *VariableServer) DeleteRuntimeconfigVariable(ctx context.Context, request *runtimeconfigpb.DeleteRuntimeconfigVariableRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigVariable(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteVariable(ctx, ProtoToVariable(request.GetResource()))
+
 }
 
 // ListVariable handles the gRPC request by passing it to the underlying VariableList() method.

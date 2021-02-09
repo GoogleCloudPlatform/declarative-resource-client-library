@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *AlertPolicy) validate() error {
@@ -814,6 +815,7 @@ func (c *Client) alertPolicyDiffsForRawDesired(ctx context.Context, rawDesired *
 		desired, err := canonicalizeAlertPolicyDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
+
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetAlertPolicy(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -821,12 +823,12 @@ func (c *Client) alertPolicyDiffsForRawDesired(ctx context.Context, rawDesired *
 			c.Config.Logger.Warningf("Failed to retrieve whether a AlertPolicy resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve AlertPolicy resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that AlertPolicy resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeAlertPolicyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for AlertPolicy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for AlertPolicy: %v", rawDesired)
 
@@ -998,13 +1000,7 @@ func canonicalizeAlertPolicyNewState(c *Client, rawNew, rawDesired *AlertPolicy)
 		rawNew.Metadata = canonicalizeNewAlertPolicyMetadata(c, rawDesired.Metadata, rawNew.Metadata)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -4788,108 +4784,101 @@ func diffAlertPolicy(c *Client, desired, actual *AlertPolicy, opts ...dcl.ApplyO
 
 	var diffs []alertPolicyDiff
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, alertPolicyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.DisplayName) && (dcl.IsZeroValue(actual.DisplayName) || !reflect.DeepEqual(*desired.DisplayName, *actual.DisplayName)) {
-		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %#v\nACTUAL: %#v", desired.DisplayName, actual.DisplayName)
+		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 		diffs = append(diffs, alertPolicyDiff{
 			RequiresRecreate: true,
 			FieldName:        "DisplayName",
 		})
 	}
 	if compareAlertPolicyDocumentation(c, desired.Documentation, actual.Documentation) {
-		c.Config.Logger.Infof("Detected diff in Documentation.\nDESIRED: %#v\nACTUAL: %#v", desired.Documentation, actual.Documentation)
+		c.Config.Logger.Infof("Detected diff in Documentation.\nDESIRED: %v\nACTUAL: %v", desired.Documentation, actual.Documentation)
 		diffs = append(diffs, alertPolicyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Documentation",
 		})
 	}
 	if !reflect.DeepEqual(desired.UserLabels, actual.UserLabels) {
-		c.Config.Logger.Infof("Detected diff in UserLabels.\nDESIRED: %#v\nACTUAL: %#v", desired.UserLabels, actual.UserLabels)
+		c.Config.Logger.Infof("Detected diff in UserLabels.\nDESIRED: %v\nACTUAL: %v", desired.UserLabels, actual.UserLabels)
 		diffs = append(diffs, alertPolicyDiff{
 			RequiresRecreate: true,
 			FieldName:        "UserLabels",
 		})
 	}
 	if compareAlertPolicyConditionsSlice(c, desired.Conditions, actual.Conditions) {
-		c.Config.Logger.Infof("Detected diff in Conditions.\nDESIRED: %#v\nACTUAL: %#v", desired.Conditions, actual.Conditions)
+		c.Config.Logger.Infof("Detected diff in Conditions.\nDESIRED: %v\nACTUAL: %v", desired.Conditions, actual.Conditions)
 		diffs = append(diffs, alertPolicyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Conditions",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Combiner) && (dcl.IsZeroValue(actual.Combiner) || !reflect.DeepEqual(*desired.Combiner, *actual.Combiner)) {
-		c.Config.Logger.Infof("Detected diff in Combiner.\nDESIRED: %#v\nACTUAL: %#v", desired.Combiner, actual.Combiner)
+		c.Config.Logger.Infof("Detected diff in Combiner.\nDESIRED: %v\nACTUAL: %v", desired.Combiner, actual.Combiner)
 		diffs = append(diffs, alertPolicyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Combiner",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Disabled) && (dcl.IsZeroValue(actual.Disabled) || !reflect.DeepEqual(*desired.Disabled, *actual.Disabled)) {
-		c.Config.Logger.Infof("Detected diff in Disabled.\nDESIRED: %#v\nACTUAL: %#v", desired.Disabled, actual.Disabled)
+		c.Config.Logger.Infof("Detected diff in Disabled.\nDESIRED: %v\nACTUAL: %v", desired.Disabled, actual.Disabled)
 		diffs = append(diffs, alertPolicyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Disabled",
 		})
 	}
 	if compareAlertPolicyEnabled(c, desired.Enabled, actual.Enabled) {
-		c.Config.Logger.Infof("Detected diff in Enabled.\nDESIRED: %#v\nACTUAL: %#v", desired.Enabled, actual.Enabled)
+		c.Config.Logger.Infof("Detected diff in Enabled.\nDESIRED: %v\nACTUAL: %v", desired.Enabled, actual.Enabled)
 		diffs = append(diffs, alertPolicyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Enabled",
 		})
 	}
 	if compareAlertPolicyValidity(c, desired.Validity, actual.Validity) {
-		c.Config.Logger.Infof("Detected diff in Validity.\nDESIRED: %#v\nACTUAL: %#v", desired.Validity, actual.Validity)
+		c.Config.Logger.Infof("Detected diff in Validity.\nDESIRED: %v\nACTUAL: %v", desired.Validity, actual.Validity)
 		diffs = append(diffs, alertPolicyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Validity",
 		})
 	}
 	if !dcl.SliceEquals(desired.NotificationChannels, actual.NotificationChannels) {
-		c.Config.Logger.Infof("Detected diff in NotificationChannels.\nDESIRED: %#v\nACTUAL: %#v", desired.NotificationChannels, actual.NotificationChannels)
+		c.Config.Logger.Infof("Detected diff in NotificationChannels.\nDESIRED: %v\nACTUAL: %v", desired.NotificationChannels, actual.NotificationChannels)
 		diffs = append(diffs, alertPolicyDiff{
 			RequiresRecreate: true,
 			FieldName:        "NotificationChannels",
 		})
 	}
 	if compareAlertPolicyCreationRecord(c, desired.CreationRecord, actual.CreationRecord) {
-		c.Config.Logger.Infof("Detected diff in CreationRecord.\nDESIRED: %#v\nACTUAL: %#v", desired.CreationRecord, actual.CreationRecord)
+		c.Config.Logger.Infof("Detected diff in CreationRecord.\nDESIRED: %v\nACTUAL: %v", desired.CreationRecord, actual.CreationRecord)
 		diffs = append(diffs, alertPolicyDiff{
 			RequiresRecreate: true,
 			FieldName:        "CreationRecord",
 		})
 	}
 	if compareAlertPolicyMutationRecord(c, desired.MutationRecord, actual.MutationRecord) {
-		c.Config.Logger.Infof("Detected diff in MutationRecord.\nDESIRED: %#v\nACTUAL: %#v", desired.MutationRecord, actual.MutationRecord)
+		c.Config.Logger.Infof("Detected diff in MutationRecord.\nDESIRED: %v\nACTUAL: %v", desired.MutationRecord, actual.MutationRecord)
 		diffs = append(diffs, alertPolicyDiff{
 			RequiresRecreate: true,
 			FieldName:        "MutationRecord",
 		})
 	}
 	if compareAlertPolicyIncidentStrategy(c, desired.IncidentStrategy, actual.IncidentStrategy) {
-		c.Config.Logger.Infof("Detected diff in IncidentStrategy.\nDESIRED: %#v\nACTUAL: %#v", desired.IncidentStrategy, actual.IncidentStrategy)
+		c.Config.Logger.Infof("Detected diff in IncidentStrategy.\nDESIRED: %v\nACTUAL: %v", desired.IncidentStrategy, actual.IncidentStrategy)
 		diffs = append(diffs, alertPolicyDiff{
 			RequiresRecreate: true,
 			FieldName:        "IncidentStrategy",
 		})
 	}
 	if compareAlertPolicyMetadata(c, desired.Metadata, actual.Metadata) {
-		c.Config.Logger.Infof("Detected diff in Metadata.\nDESIRED: %#v\nACTUAL: %#v", desired.Metadata, actual.Metadata)
+		c.Config.Logger.Infof("Detected diff in Metadata.\nDESIRED: %v\nACTUAL: %v", desired.Metadata, actual.Metadata)
 		diffs = append(diffs, alertPolicyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Metadata",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, alertPolicyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.

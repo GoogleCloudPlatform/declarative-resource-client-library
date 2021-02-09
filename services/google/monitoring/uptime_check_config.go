@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -463,7 +464,9 @@ func (c *Client) ApplyUptimeCheckConfig(ctx context.Context, rawDesired *UptimeC
 	if create {
 		ops = append(ops, &createUptimeCheckConfigOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteUptimeCheckConfigOperation{})
+
 		ops = append(ops, &createUptimeCheckConfigOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeUptimeCheckConfigDesiredState(rawDesired, nil)

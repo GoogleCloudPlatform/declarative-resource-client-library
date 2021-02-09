@@ -37,6 +37,9 @@ components:
           description: Labels for this resource. These can only be added or modified
             by the `setLabels` method. Each label key/value pair must comply with
             [RFC1035](https://www.ietf.org/rfc/rfc1035.txt). Label values may be empty.
+          items:
+            type: string
+            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
           x-kubernetes-immutable: true
@@ -94,8 +97,8 @@ components:
                 x-dcl-go-name: Id
                 x-kubernetes-immutable: true
               ipAddress:
-                description: \[Output Only\] The external IP address for this VPN
-                  gateway interface.
+                description: '[Output Only] The external IP address for this VPN gateway
+                  interface.'
                 readOnly: true
                 type: string
                 x-dcl-go-name: IPAddress
@@ -124,10 +127,43 @@ info:
   title: Compute/VpnGateway
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many VpnGateway
+  apply:
+    description: The function used to apply information about a VpnGateway
+    parameters:
+    - description: A full instance of a VpnGateway
+      name: VpnGateway
+      required: true
+  delete:
+    description: The function used to delete a VpnGateway
+    parameters:
+    - description: A full instance of a VpnGateway
+      name: VpnGateway
+      required: true
+  deleteAll:
+    description: The function used to delete all VpnGateway
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: region
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a VpnGateway
+    parameters:
+    - description: A full instance of a VpnGateway
+      name: VpnGateway
+      required: true
+  list:
+    description: The function used to list information about many VpnGateway
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: region
+      required: true
+      schema:
+        type: string

@@ -75,8 +75,35 @@ info:
   title: Storage/HmacKey
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many HmacKey
+  apply:
+    description: The function used to apply information about a HmacKey
+    parameters:
+    - description: A full instance of a HmacKey
+      name: HmacKey
+      required: true
+  delete:
+    description: The function used to delete a HmacKey
+    parameters:
+    - description: A full instance of a HmacKey
+      name: HmacKey
+      required: true
+  deleteAll:
+    description: The function used to delete all HmacKey
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a HmacKey
+    parameters:
+    - description: A full instance of a HmacKey
+      name: HmacKey
+      required: true
+  list:
+    description: The function used to list information about many HmacKey
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

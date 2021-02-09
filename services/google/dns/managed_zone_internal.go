@@ -18,11 +18,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 func (r *ManagedZone) validate() error {
@@ -388,12 +389,12 @@ func (c *Client) managedZoneDiffsForRawDesired(ctx context.Context, rawDesired *
 			c.Config.Logger.Warningf("Failed to retrieve whether a ManagedZone resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve ManagedZone resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that ManagedZone resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeManagedZoneDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for ManagedZone: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for ManagedZone: %v", rawDesired)
 
@@ -538,13 +539,7 @@ func canonicalizeManagedZoneNewState(c *Client, rawNew, rawDesired *ManagedZone)
 		rawNew.PeeringConfig = canonicalizeNewManagedZonePeeringConfig(c, rawDesired.PeeringConfig, rawNew.PeeringConfig)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -1040,7 +1035,7 @@ func diffManagedZone(c *Client, desired, actual *ManagedZone, opts ...dcl.ApplyO
 
 	var diffs []managedZoneDiff
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, managedZoneDiff{
 			UpdateOp:  &updateManagedZoneUpdateOperation{},
@@ -1049,28 +1044,28 @@ func diffManagedZone(c *Client, desired, actual *ManagedZone, opts ...dcl.ApplyO
 
 	}
 	if !dcl.IsZeroValue(desired.DnsName) && (dcl.IsZeroValue(actual.DnsName) || !reflect.DeepEqual(*desired.DnsName, *actual.DnsName)) {
-		c.Config.Logger.Infof("Detected diff in DnsName.\nDESIRED: %#v\nACTUAL: %#v", desired.DnsName, actual.DnsName)
+		c.Config.Logger.Infof("Detected diff in DnsName.\nDESIRED: %v\nACTUAL: %v", desired.DnsName, actual.DnsName)
 		diffs = append(diffs, managedZoneDiff{
 			RequiresRecreate: true,
 			FieldName:        "DnsName",
 		})
 	}
 	if compareManagedZoneDnssecConfig(c, desired.DnssecConfig, actual.DnssecConfig) {
-		c.Config.Logger.Infof("Detected diff in DnssecConfig.\nDESIRED: %#v\nACTUAL: %#v", desired.DnssecConfig, actual.DnssecConfig)
+		c.Config.Logger.Infof("Detected diff in DnssecConfig.\nDESIRED: %v\nACTUAL: %v", desired.DnssecConfig, actual.DnssecConfig)
 		diffs = append(diffs, managedZoneDiff{
 			RequiresRecreate: true,
 			FieldName:        "DnssecConfig",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, managedZoneDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %#v\nACTUAL: %#v", desired.Labels, actual.Labels)
+		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, managedZoneDiff{
 			UpdateOp:  &updateManagedZoneUpdateOperation{},
@@ -1079,14 +1074,14 @@ func diffManagedZone(c *Client, desired, actual *ManagedZone, opts ...dcl.ApplyO
 
 	}
 	if !dcl.IsZeroValue(desired.Visibility) && (dcl.IsZeroValue(actual.Visibility) || !reflect.DeepEqual(*desired.Visibility, *actual.Visibility)) {
-		c.Config.Logger.Infof("Detected diff in Visibility.\nDESIRED: %#v\nACTUAL: %#v", desired.Visibility, actual.Visibility)
+		c.Config.Logger.Infof("Detected diff in Visibility.\nDESIRED: %v\nACTUAL: %v", desired.Visibility, actual.Visibility)
 		diffs = append(diffs, managedZoneDiff{
 			RequiresRecreate: true,
 			FieldName:        "Visibility",
 		})
 	}
 	if compareManagedZonePrivateVisibilityConfig(c, desired.PrivateVisibilityConfig, actual.PrivateVisibilityConfig) {
-		c.Config.Logger.Infof("Detected diff in PrivateVisibilityConfig.\nDESIRED: %#v\nACTUAL: %#v", desired.PrivateVisibilityConfig, actual.PrivateVisibilityConfig)
+		c.Config.Logger.Infof("Detected diff in PrivateVisibilityConfig.\nDESIRED: %v\nACTUAL: %v", desired.PrivateVisibilityConfig, actual.PrivateVisibilityConfig)
 
 		diffs = append(diffs, managedZoneDiff{
 			UpdateOp:  &updateManagedZoneUpdateOperation{},
@@ -1095,7 +1090,7 @@ func diffManagedZone(c *Client, desired, actual *ManagedZone, opts ...dcl.ApplyO
 
 	}
 	if compareManagedZoneForwardingConfig(c, desired.ForwardingConfig, actual.ForwardingConfig) {
-		c.Config.Logger.Infof("Detected diff in ForwardingConfig.\nDESIRED: %#v\nACTUAL: %#v", desired.ForwardingConfig, actual.ForwardingConfig)
+		c.Config.Logger.Infof("Detected diff in ForwardingConfig.\nDESIRED: %v\nACTUAL: %v", desired.ForwardingConfig, actual.ForwardingConfig)
 
 		diffs = append(diffs, managedZoneDiff{
 			UpdateOp:  &updateManagedZoneUpdateOperation{},
@@ -1104,20 +1099,13 @@ func diffManagedZone(c *Client, desired, actual *ManagedZone, opts ...dcl.ApplyO
 
 	}
 	if compareManagedZonePeeringConfig(c, desired.PeeringConfig, actual.PeeringConfig) {
-		c.Config.Logger.Infof("Detected diff in PeeringConfig.\nDESIRED: %#v\nACTUAL: %#v", desired.PeeringConfig, actual.PeeringConfig)
+		c.Config.Logger.Infof("Detected diff in PeeringConfig.\nDESIRED: %v\nACTUAL: %v", desired.PeeringConfig, actual.PeeringConfig)
 
 		diffs = append(diffs, managedZoneDiff{
 			UpdateOp:  &updateManagedZoneUpdateOperation{},
 			FieldName: "PeeringConfig",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, managedZoneDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,

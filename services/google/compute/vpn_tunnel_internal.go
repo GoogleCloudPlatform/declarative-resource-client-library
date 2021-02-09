@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *VpnTunnel) validate() error {
@@ -278,12 +279,12 @@ func (c *Client) vpnTunnelDiffsForRawDesired(ctx context.Context, rawDesired *Vp
 			c.Config.Logger.Warningf("Failed to retrieve whether a VpnTunnel resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve VpnTunnel resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that VpnTunnel resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeVpnTunnelDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for VpnTunnel: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for VpnTunnel: %v", rawDesired)
 
@@ -513,13 +514,7 @@ func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*V
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -546,91 +541,91 @@ func diffVpnTunnel(c *Client, desired, actual *VpnTunnel, opts ...dcl.ApplyOptio
 
 	var diffs []vpnTunnelDiff
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, vpnTunnelDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, vpnTunnelDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Region) && (dcl.IsZeroValue(actual.Region) || !reflect.DeepEqual(*desired.Region, *actual.Region)) {
-		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %#v\nACTUAL: %#v", desired.Region, actual.Region)
+		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %v\nACTUAL: %v", desired.Region, actual.Region)
 		diffs = append(diffs, vpnTunnelDiff{
 			RequiresRecreate: true,
 			FieldName:        "Region",
 		})
 	}
 	if !dcl.IsZeroValue(desired.TargetVpnGateway) && !dcl.NameToSelfLink(desired.TargetVpnGateway, actual.TargetVpnGateway) {
-		c.Config.Logger.Infof("Detected diff in TargetVpnGateway.\nDESIRED: %#v\nACTUAL: %#v", desired.TargetVpnGateway, actual.TargetVpnGateway)
+		c.Config.Logger.Infof("Detected diff in TargetVpnGateway.\nDESIRED: %v\nACTUAL: %v", desired.TargetVpnGateway, actual.TargetVpnGateway)
 		diffs = append(diffs, vpnTunnelDiff{
 			RequiresRecreate: true,
 			FieldName:        "TargetVpnGateway",
 		})
 	}
 	if !dcl.IsZeroValue(desired.VpnGateway) && !dcl.NameToSelfLink(desired.VpnGateway, actual.VpnGateway) {
-		c.Config.Logger.Infof("Detected diff in VpnGateway.\nDESIRED: %#v\nACTUAL: %#v", desired.VpnGateway, actual.VpnGateway)
+		c.Config.Logger.Infof("Detected diff in VpnGateway.\nDESIRED: %v\nACTUAL: %v", desired.VpnGateway, actual.VpnGateway)
 		diffs = append(diffs, vpnTunnelDiff{
 			RequiresRecreate: true,
 			FieldName:        "VpnGateway",
 		})
 	}
 	if !dcl.IsZeroValue(desired.VpnGatewayInterface) && (dcl.IsZeroValue(actual.VpnGatewayInterface) || !reflect.DeepEqual(*desired.VpnGatewayInterface, *actual.VpnGatewayInterface)) {
-		c.Config.Logger.Infof("Detected diff in VpnGatewayInterface.\nDESIRED: %#v\nACTUAL: %#v", desired.VpnGatewayInterface, actual.VpnGatewayInterface)
+		c.Config.Logger.Infof("Detected diff in VpnGatewayInterface.\nDESIRED: %v\nACTUAL: %v", desired.VpnGatewayInterface, actual.VpnGatewayInterface)
 		diffs = append(diffs, vpnTunnelDiff{
 			RequiresRecreate: true,
 			FieldName:        "VpnGatewayInterface",
 		})
 	}
 	if !dcl.IsZeroValue(desired.PeerExternalGateway) && (dcl.IsZeroValue(actual.PeerExternalGateway) || !reflect.DeepEqual(*desired.PeerExternalGateway, *actual.PeerExternalGateway)) {
-		c.Config.Logger.Infof("Detected diff in PeerExternalGateway.\nDESIRED: %#v\nACTUAL: %#v", desired.PeerExternalGateway, actual.PeerExternalGateway)
+		c.Config.Logger.Infof("Detected diff in PeerExternalGateway.\nDESIRED: %v\nACTUAL: %v", desired.PeerExternalGateway, actual.PeerExternalGateway)
 		diffs = append(diffs, vpnTunnelDiff{
 			RequiresRecreate: true,
 			FieldName:        "PeerExternalGateway",
 		})
 	}
 	if !dcl.IsZeroValue(desired.PeerExternalGatewayInterface) && (dcl.IsZeroValue(actual.PeerExternalGatewayInterface) || !reflect.DeepEqual(*desired.PeerExternalGatewayInterface, *actual.PeerExternalGatewayInterface)) {
-		c.Config.Logger.Infof("Detected diff in PeerExternalGatewayInterface.\nDESIRED: %#v\nACTUAL: %#v", desired.PeerExternalGatewayInterface, actual.PeerExternalGatewayInterface)
+		c.Config.Logger.Infof("Detected diff in PeerExternalGatewayInterface.\nDESIRED: %v\nACTUAL: %v", desired.PeerExternalGatewayInterface, actual.PeerExternalGatewayInterface)
 		diffs = append(diffs, vpnTunnelDiff{
 			RequiresRecreate: true,
 			FieldName:        "PeerExternalGatewayInterface",
 		})
 	}
 	if !dcl.IsZeroValue(desired.PeerGcpGateway) && (dcl.IsZeroValue(actual.PeerGcpGateway) || !reflect.DeepEqual(*desired.PeerGcpGateway, *actual.PeerGcpGateway)) {
-		c.Config.Logger.Infof("Detected diff in PeerGcpGateway.\nDESIRED: %#v\nACTUAL: %#v", desired.PeerGcpGateway, actual.PeerGcpGateway)
+		c.Config.Logger.Infof("Detected diff in PeerGcpGateway.\nDESIRED: %v\nACTUAL: %v", desired.PeerGcpGateway, actual.PeerGcpGateway)
 		diffs = append(diffs, vpnTunnelDiff{
 			RequiresRecreate: true,
 			FieldName:        "PeerGcpGateway",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Router) && !dcl.PartialSelfLinkToSelfLink(desired.Router, actual.Router) {
-		c.Config.Logger.Infof("Detected diff in Router.\nDESIRED: %#v\nACTUAL: %#v", desired.Router, actual.Router)
+		c.Config.Logger.Infof("Detected diff in Router.\nDESIRED: %v\nACTUAL: %v", desired.Router, actual.Router)
 		diffs = append(diffs, vpnTunnelDiff{
 			RequiresRecreate: true,
 			FieldName:        "Router",
 		})
 	}
 	if !dcl.IsZeroValue(desired.PeerIP) && (dcl.IsZeroValue(actual.PeerIP) || !reflect.DeepEqual(*desired.PeerIP, *actual.PeerIP)) {
-		c.Config.Logger.Infof("Detected diff in PeerIP.\nDESIRED: %#v\nACTUAL: %#v", desired.PeerIP, actual.PeerIP)
+		c.Config.Logger.Infof("Detected diff in PeerIP.\nDESIRED: %v\nACTUAL: %v", desired.PeerIP, actual.PeerIP)
 		diffs = append(diffs, vpnTunnelDiff{
 			RequiresRecreate: true,
 			FieldName:        "PeerIP",
 		})
 	}
 	if !dcl.IsZeroValue(desired.IkeVersion) && (dcl.IsZeroValue(actual.IkeVersion) || !reflect.DeepEqual(*desired.IkeVersion, *actual.IkeVersion)) {
-		c.Config.Logger.Infof("Detected diff in IkeVersion.\nDESIRED: %#v\nACTUAL: %#v", desired.IkeVersion, actual.IkeVersion)
+		c.Config.Logger.Infof("Detected diff in IkeVersion.\nDESIRED: %v\nACTUAL: %v", desired.IkeVersion, actual.IkeVersion)
 		diffs = append(diffs, vpnTunnelDiff{
 			RequiresRecreate: true,
 			FieldName:        "IkeVersion",
 		})
 	}
 	if !dcl.SliceEquals(desired.LocalTrafficSelector, actual.LocalTrafficSelector) {
-		c.Config.Logger.Infof("Detected diff in LocalTrafficSelector.\nDESIRED: %#v\nACTUAL: %#v", desired.LocalTrafficSelector, actual.LocalTrafficSelector)
+		c.Config.Logger.Infof("Detected diff in LocalTrafficSelector.\nDESIRED: %v\nACTUAL: %v", desired.LocalTrafficSelector, actual.LocalTrafficSelector)
 		toAdd, toRemove := dcl.CompareStringSets(desired.LocalTrafficSelector, actual.LocalTrafficSelector)
 		if len(toAdd) > 0 {
 			diffs = append(diffs, vpnTunnelDiff{
@@ -646,7 +641,7 @@ func diffVpnTunnel(c *Client, desired, actual *VpnTunnel, opts ...dcl.ApplyOptio
 		}
 	}
 	if !dcl.SliceEquals(desired.RemoteTrafficSelector, actual.RemoteTrafficSelector) {
-		c.Config.Logger.Infof("Detected diff in RemoteTrafficSelector.\nDESIRED: %#v\nACTUAL: %#v", desired.RemoteTrafficSelector, actual.RemoteTrafficSelector)
+		c.Config.Logger.Infof("Detected diff in RemoteTrafficSelector.\nDESIRED: %v\nACTUAL: %v", desired.RemoteTrafficSelector, actual.RemoteTrafficSelector)
 		toAdd, toRemove := dcl.CompareStringSets(desired.RemoteTrafficSelector, actual.RemoteTrafficSelector)
 		if len(toAdd) > 0 {
 			diffs = append(diffs, vpnTunnelDiff{
@@ -660,13 +655,6 @@ func diffVpnTunnel(c *Client, desired, actual *VpnTunnel, opts ...dcl.ApplyOptio
 				FieldName:        "RemoteTrafficSelector",
 			})
 		}
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, vpnTunnelDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,

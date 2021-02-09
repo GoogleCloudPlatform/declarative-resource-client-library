@@ -84,7 +84,7 @@ func (t loggingTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 
 // ApplyOption is an option that is accepted by Apply() functions.
 type ApplyOption interface {
-	apply(*applyOpts)
+	Apply(*ApplyOpts)
 }
 
 // ClientOption is an option that is accepted in client creation.
@@ -92,8 +92,8 @@ type ClientOption interface {
 	apply(*clientOpts)
 }
 
-// applyOpts refers to options that are taken in the apply function.
-type applyOpts struct {
+// ApplyOpts refers to options that are taken in the apply function.
+type ApplyOpts struct {
 	params    []LifecycleParam
 	stateHint Resource
 }
@@ -102,7 +102,7 @@ type lifecycleParamOption struct {
 	param LifecycleParam
 }
 
-func (l lifecycleParamOption) apply(o *applyOpts) {
+func (l lifecycleParamOption) Apply(o *ApplyOpts) {
 	o.params = append(o.params, l.param)
 }
 
@@ -113,9 +113,9 @@ func WithLifecycleParam(d LifecycleParam) ApplyOption {
 
 // FetchLifecycleParams returns the list of lifecycle params.
 func FetchLifecycleParams(c []ApplyOption) []LifecycleParam {
-	var o applyOpts
+	var o ApplyOpts
 	for _, p := range c {
-		p.apply(&o)
+		p.Apply(&o)
 	}
 	return o.params
 }
@@ -124,7 +124,7 @@ type stateHint struct {
 	state Resource
 }
 
-func (s stateHint) apply(o *applyOpts) {
+func (s stateHint) Apply(o *ApplyOpts) {
 	o.stateHint = s.state
 }
 
@@ -138,9 +138,9 @@ func WithStateHint(r Resource) ApplyOption {
 
 // FetchStateHint returns either nil or a dcl.Resource representing the pre-apply state.
 func FetchStateHint(c []ApplyOption) Resource {
-	var o applyOpts
+	var o ApplyOpts
 	for _, p := range c {
-		p.apply(&o)
+		p.Apply(&o)
 	}
 	return o.stateHint
 }

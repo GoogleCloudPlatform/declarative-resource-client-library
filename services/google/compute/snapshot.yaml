@@ -40,6 +40,9 @@ components:
           additionalProperties:
             type: string
           description: Labels to apply to this snapshot. Label values may be empty.
+          items:
+            type: string
+            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         license:
@@ -165,8 +168,35 @@ info:
   title: Compute/Snapshot
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Snapshot
+  apply:
+    description: The function used to apply information about a Snapshot
+    parameters:
+    - description: A full instance of a Snapshot
+      name: Snapshot
+      required: true
+  delete:
+    description: The function used to delete a Snapshot
+    parameters:
+    - description: A full instance of a Snapshot
+      name: Snapshot
+      required: true
+  deleteAll:
+    description: The function used to delete all Snapshot
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Snapshot
+    parameters:
+    - description: A full instance of a Snapshot
+      name: Snapshot
+      required: true
+  list:
+    description: The function used to list information about many Snapshot
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

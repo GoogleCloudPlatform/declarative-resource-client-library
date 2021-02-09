@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -556,7 +557,9 @@ func (c *Client) ApplyLogMetric(ctx context.Context, rawDesired *LogMetric, opts
 	if create {
 		ops = append(ops, &createLogMetricOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteLogMetricOperation{})
+
 		ops = append(ops, &createLogMetricOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeLogMetricDesiredState(rawDesired, nil)

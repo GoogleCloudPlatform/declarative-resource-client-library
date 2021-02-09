@@ -38,7 +38,7 @@ components:
           x-kubernetes-immutable: true
         name:
           description: A unique identifier for the database, which cannot be changed
-            after the instance is created. Values are of the form \[a-z\]\[-a-z0-9\]\*\[a-z0-9\].
+            after the instance is created. Values are of the form [a-z][-a-z0-9]*[a-z0-9].
           type: string
           x-dcl-go-name: Name
           x-kubernetes-immutable: true
@@ -48,7 +48,7 @@ components:
           x-dcl-go-name: Project
           x-kubernetes-immutable: true
         state:
-          description: The current database state.
+          description: 'The current database state. Possible values: CREATING, READY'
           enum:
           - CREATING
           - READY
@@ -72,10 +72,43 @@ info:
   title: Spanner/Database
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Database
+  apply:
+    description: The function used to apply information about a Database
+    parameters:
+    - description: A full instance of a Database
+      name: Database
+      required: true
+  delete:
+    description: The function used to delete a Database
+    parameters:
+    - description: A full instance of a Database
+      name: Database
+      required: true
+  deleteAll:
+    description: The function used to delete all Database
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: name
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Database
+    parameters:
+    - description: A full instance of a Database
+      name: Database
+      required: true
+  list:
+    description: The function used to list information about many Database
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: name
+      required: true
+      schema:
+        type: string

@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="cloudfunctions", resources=["cloud_function"])
+proto_package(name="cloudfunctions", resources=["function"])

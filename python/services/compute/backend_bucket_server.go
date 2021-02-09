@@ -116,11 +116,13 @@ func (s *BackendBucketServer) ComputeBackendBucketAsHcl(ctx context.Context, req
 
 // DeleteBackendBucket handles the gRPC request by passing it to the underlying BackendBucket Delete() method.
 func (s *BackendBucketServer) DeleteComputeBackendBucket(ctx context.Context, request *computepb.DeleteComputeBackendBucketRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigBackendBucket(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteBackendBucket(ctx, ProtoToBackendBucket(request.GetResource()))
+
 }
 
 // ListBackendBucket handles the gRPC request by passing it to the underlying BackendBucketList() method.

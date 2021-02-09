@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Instance) validate() error {
@@ -228,9 +229,6 @@ func (r *InstanceSettings) validate() error {
 	return nil
 }
 func (r *InstanceSettingsSettingsVersion) validate() error {
-	return nil
-}
-func (r *InstanceSettingsUserLabels) validate() error {
 	return nil
 }
 func (r *InstanceSettingsStorageAutoResizeLimit) validate() error {
@@ -621,12 +619,12 @@ func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Ins
 			c.Config.Logger.Warningf("Failed to retrieve whether a Instance resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Instance resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Instance resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeInstanceDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Instance: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Instance: %v", rawDesired)
 
@@ -805,13 +803,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	if dcl.IsEmptyValueIndirect(rawNew.Region) && dcl.IsEmptyValueIndirect(rawDesired.Region) {
 		rawNew.Region = rawDesired.Region
@@ -2069,64 +2061,6 @@ func canonicalizeNewInstanceSettingsSettingsVersionSet(c *Client, des, nw []Inst
 	return reorderedNew
 }
 
-func canonicalizeInstanceSettingsUserLabels(des, initial *InstanceSettingsUserLabels, opts ...dcl.ApplyOption) *InstanceSettingsUserLabels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Instance)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewInstanceSettingsUserLabels(c *Client, des, nw *InstanceSettingsUserLabels) *InstanceSettingsUserLabels {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstanceSettingsUserLabelsSet(c *Client, des, nw []InstanceSettingsUserLabels) []InstanceSettingsUserLabels {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceSettingsUserLabels
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareInstanceSettingsUserLabels(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
 func canonicalizeInstanceSettingsStorageAutoResizeLimit(des, initial *InstanceSettingsStorageAutoResizeLimit, opts ...dcl.ApplyOption) *InstanceSettingsStorageAutoResizeLimit {
 	if des == nil {
 		return initial
@@ -3159,147 +3093,140 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	var diffs []instanceDiff
 	if !dcl.IsZeroValue(desired.BackendType) && (dcl.IsZeroValue(actual.BackendType) || !reflect.DeepEqual(*desired.BackendType, *actual.BackendType)) {
-		c.Config.Logger.Infof("Detected diff in BackendType.\nDESIRED: %#v\nACTUAL: %#v", desired.BackendType, actual.BackendType)
+		c.Config.Logger.Infof("Detected diff in BackendType.\nDESIRED: %v\nACTUAL: %v", desired.BackendType, actual.BackendType)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "BackendType",
 		})
 	}
 	if !dcl.IsZeroValue(desired.ConnectionName) && (dcl.IsZeroValue(actual.ConnectionName) || !reflect.DeepEqual(*desired.ConnectionName, *actual.ConnectionName)) {
-		c.Config.Logger.Infof("Detected diff in ConnectionName.\nDESIRED: %#v\nACTUAL: %#v", desired.ConnectionName, actual.ConnectionName)
+		c.Config.Logger.Infof("Detected diff in ConnectionName.\nDESIRED: %v\nACTUAL: %v", desired.ConnectionName, actual.ConnectionName)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "ConnectionName",
 		})
 	}
 	if !dcl.IsZeroValue(desired.DatabaseVersion) && (dcl.IsZeroValue(actual.DatabaseVersion) || !reflect.DeepEqual(*desired.DatabaseVersion, *actual.DatabaseVersion)) {
-		c.Config.Logger.Infof("Detected diff in DatabaseVersion.\nDESIRED: %#v\nACTUAL: %#v", desired.DatabaseVersion, actual.DatabaseVersion)
+		c.Config.Logger.Infof("Detected diff in DatabaseVersion.\nDESIRED: %v\nACTUAL: %v", desired.DatabaseVersion, actual.DatabaseVersion)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "DatabaseVersion",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Etag) && (dcl.IsZeroValue(actual.Etag) || !reflect.DeepEqual(*desired.Etag, *actual.Etag)) {
-		c.Config.Logger.Infof("Detected diff in Etag.\nDESIRED: %#v\nACTUAL: %#v", desired.Etag, actual.Etag)
+		c.Config.Logger.Infof("Detected diff in Etag.\nDESIRED: %v\nACTUAL: %v", desired.Etag, actual.Etag)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "Etag",
 		})
 	}
 	if !dcl.IsZeroValue(desired.GceZone) && (dcl.IsZeroValue(actual.GceZone) || !reflect.DeepEqual(*desired.GceZone, *actual.GceZone)) {
-		c.Config.Logger.Infof("Detected diff in GceZone.\nDESIRED: %#v\nACTUAL: %#v", desired.GceZone, actual.GceZone)
+		c.Config.Logger.Infof("Detected diff in GceZone.\nDESIRED: %v\nACTUAL: %v", desired.GceZone, actual.GceZone)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "GceZone",
 		})
 	}
 	if !dcl.IsZeroValue(desired.InstanceType) && (dcl.IsZeroValue(actual.InstanceType) || !reflect.DeepEqual(*desired.InstanceType, *actual.InstanceType)) {
-		c.Config.Logger.Infof("Detected diff in InstanceType.\nDESIRED: %#v\nACTUAL: %#v", desired.InstanceType, actual.InstanceType)
+		c.Config.Logger.Infof("Detected diff in InstanceType.\nDESIRED: %v\nACTUAL: %v", desired.InstanceType, actual.InstanceType)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "InstanceType",
 		})
 	}
 	if !dcl.IsZeroValue(desired.MasterInstanceName) && (dcl.IsZeroValue(actual.MasterInstanceName) || !reflect.DeepEqual(*desired.MasterInstanceName, *actual.MasterInstanceName)) {
-		c.Config.Logger.Infof("Detected diff in MasterInstanceName.\nDESIRED: %#v\nACTUAL: %#v", desired.MasterInstanceName, actual.MasterInstanceName)
+		c.Config.Logger.Infof("Detected diff in MasterInstanceName.\nDESIRED: %v\nACTUAL: %v", desired.MasterInstanceName, actual.MasterInstanceName)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "MasterInstanceName",
 		})
 	}
 	if compareInstanceMaxDiskSize(c, desired.MaxDiskSize, actual.MaxDiskSize) {
-		c.Config.Logger.Infof("Detected diff in MaxDiskSize.\nDESIRED: %#v\nACTUAL: %#v", desired.MaxDiskSize, actual.MaxDiskSize)
+		c.Config.Logger.Infof("Detected diff in MaxDiskSize.\nDESIRED: %v\nACTUAL: %v", desired.MaxDiskSize, actual.MaxDiskSize)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "MaxDiskSize",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, instanceDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
 	if !dcl.IsZeroValue(desired.Region) && (dcl.IsZeroValue(actual.Region) || !reflect.DeepEqual(*desired.Region, *actual.Region)) {
-		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %#v\nACTUAL: %#v", desired.Region, actual.Region)
+		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %v\nACTUAL: %v", desired.Region, actual.Region)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "Region",
 		})
 	}
 	if !dcl.IsZeroValue(desired.RootPassword) && (dcl.IsZeroValue(actual.RootPassword) || !reflect.DeepEqual(*desired.RootPassword, *actual.RootPassword)) {
-		c.Config.Logger.Infof("Detected diff in RootPassword.\nDESIRED: %#v\nACTUAL: %#v", desired.RootPassword, actual.RootPassword)
+		c.Config.Logger.Infof("Detected diff in RootPassword.\nDESIRED: %v\nACTUAL: %v", desired.RootPassword, actual.RootPassword)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "RootPassword",
 		})
 	}
 	if compareInstanceCurrentDiskSize(c, desired.CurrentDiskSize, actual.CurrentDiskSize) {
-		c.Config.Logger.Infof("Detected diff in CurrentDiskSize.\nDESIRED: %#v\nACTUAL: %#v", desired.CurrentDiskSize, actual.CurrentDiskSize)
+		c.Config.Logger.Infof("Detected diff in CurrentDiskSize.\nDESIRED: %v\nACTUAL: %v", desired.CurrentDiskSize, actual.CurrentDiskSize)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "CurrentDiskSize",
 		})
 	}
 	if compareInstanceDiskEncryptionConfiguration(c, desired.DiskEncryptionConfiguration, actual.DiskEncryptionConfiguration) {
-		c.Config.Logger.Infof("Detected diff in DiskEncryptionConfiguration.\nDESIRED: %#v\nACTUAL: %#v", desired.DiskEncryptionConfiguration, actual.DiskEncryptionConfiguration)
+		c.Config.Logger.Infof("Detected diff in DiskEncryptionConfiguration.\nDESIRED: %v\nACTUAL: %v", desired.DiskEncryptionConfiguration, actual.DiskEncryptionConfiguration)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "DiskEncryptionConfiguration",
 		})
 	}
 	if compareInstanceFailoverReplica(c, desired.FailoverReplica, actual.FailoverReplica) {
-		c.Config.Logger.Infof("Detected diff in FailoverReplica.\nDESIRED: %#v\nACTUAL: %#v", desired.FailoverReplica, actual.FailoverReplica)
+		c.Config.Logger.Infof("Detected diff in FailoverReplica.\nDESIRED: %v\nACTUAL: %v", desired.FailoverReplica, actual.FailoverReplica)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "FailoverReplica",
 		})
 	}
 	if compareInstanceIPAddressesSlice(c, desired.IPAddresses, actual.IPAddresses) {
-		c.Config.Logger.Infof("Detected diff in IPAddresses.\nDESIRED: %#v\nACTUAL: %#v", desired.IPAddresses, actual.IPAddresses)
+		c.Config.Logger.Infof("Detected diff in IPAddresses.\nDESIRED: %v\nACTUAL: %v", desired.IPAddresses, actual.IPAddresses)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "IPAddresses",
 		})
 	}
 	if compareInstanceMasterInstance(c, desired.MasterInstance, actual.MasterInstance) {
-		c.Config.Logger.Infof("Detected diff in MasterInstance.\nDESIRED: %#v\nACTUAL: %#v", desired.MasterInstance, actual.MasterInstance)
+		c.Config.Logger.Infof("Detected diff in MasterInstance.\nDESIRED: %v\nACTUAL: %v", desired.MasterInstance, actual.MasterInstance)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "MasterInstance",
 		})
 	}
 	if compareInstanceReplicaConfiguration(c, desired.ReplicaConfiguration, actual.ReplicaConfiguration) {
-		c.Config.Logger.Infof("Detected diff in ReplicaConfiguration.\nDESIRED: %#v\nACTUAL: %#v", desired.ReplicaConfiguration, actual.ReplicaConfiguration)
+		c.Config.Logger.Infof("Detected diff in ReplicaConfiguration.\nDESIRED: %v\nACTUAL: %v", desired.ReplicaConfiguration, actual.ReplicaConfiguration)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "ReplicaConfiguration",
 		})
 	}
 	if compareInstanceScheduledMaintenance(c, desired.ScheduledMaintenance, actual.ScheduledMaintenance) {
-		c.Config.Logger.Infof("Detected diff in ScheduledMaintenance.\nDESIRED: %#v\nACTUAL: %#v", desired.ScheduledMaintenance, actual.ScheduledMaintenance)
+		c.Config.Logger.Infof("Detected diff in ScheduledMaintenance.\nDESIRED: %v\nACTUAL: %v", desired.ScheduledMaintenance, actual.ScheduledMaintenance)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "ScheduledMaintenance",
 		})
 	}
 	if compareInstanceSettings(c, desired.Settings, actual.Settings) {
-		c.Config.Logger.Infof("Detected diff in Settings.\nDESIRED: %#v\nACTUAL: %#v", desired.Settings, actual.Settings)
+		c.Config.Logger.Infof("Detected diff in Settings.\nDESIRED: %v\nACTUAL: %v", desired.Settings, actual.Settings)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "Settings",
 		})
 	}
 	if !dcl.IsZeroValue(desired.State) && (dcl.IsZeroValue(actual.State) || !reflect.DeepEqual(*desired.State, *actual.State)) {
-		c.Config.Logger.Infof("Detected diff in State.\nDESIRED: %#v\nACTUAL: %#v", desired.State, actual.State)
+		c.Config.Logger.Infof("Detected diff in State.\nDESIRED: %v\nACTUAL: %v", desired.State, actual.State)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateOperation{},
@@ -3308,7 +3235,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if compareInstanceReplicaInstancesSlice(c, desired.ReplicaInstances, actual.ReplicaInstances) {
-		c.Config.Logger.Infof("Detected diff in ReplicaInstances.\nDESIRED: %#v\nACTUAL: %#v", desired.ReplicaInstances, actual.ReplicaInstances)
+		c.Config.Logger.Infof("Detected diff in ReplicaInstances.\nDESIRED: %v\nACTUAL: %v", desired.ReplicaInstances, actual.ReplicaInstances)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateOperation{},
@@ -3317,7 +3244,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if compareInstanceServerCaCert(c, desired.ServerCaCert, actual.ServerCaCert) {
-		c.Config.Logger.Infof("Detected diff in ServerCaCert.\nDESIRED: %#v\nACTUAL: %#v", desired.ServerCaCert, actual.ServerCaCert)
+		c.Config.Logger.Infof("Detected diff in ServerCaCert.\nDESIRED: %v\nACTUAL: %v", desired.ServerCaCert, actual.ServerCaCert)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateOperation{},
@@ -3326,7 +3253,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.IPv6Address) && (dcl.IsZeroValue(actual.IPv6Address) || !reflect.DeepEqual(*desired.IPv6Address, *actual.IPv6Address)) {
-		c.Config.Logger.Infof("Detected diff in IPv6Address.\nDESIRED: %#v\nACTUAL: %#v", desired.IPv6Address, actual.IPv6Address)
+		c.Config.Logger.Infof("Detected diff in IPv6Address.\nDESIRED: %v\nACTUAL: %v", desired.IPv6Address, actual.IPv6Address)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateOperation{},
@@ -3335,7 +3262,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.ServiceAccountEmailAddress) && (dcl.IsZeroValue(actual.ServiceAccountEmailAddress) || !reflect.DeepEqual(*desired.ServiceAccountEmailAddress, *actual.ServiceAccountEmailAddress)) {
-		c.Config.Logger.Infof("Detected diff in ServiceAccountEmailAddress.\nDESIRED: %#v\nACTUAL: %#v", desired.ServiceAccountEmailAddress, actual.ServiceAccountEmailAddress)
+		c.Config.Logger.Infof("Detected diff in ServiceAccountEmailAddress.\nDESIRED: %v\nACTUAL: %v", desired.ServiceAccountEmailAddress, actual.ServiceAccountEmailAddress)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateOperation{},
@@ -3344,7 +3271,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if compareInstanceOnPremisesConfiguration(c, desired.OnPremisesConfiguration, actual.OnPremisesConfiguration) {
-		c.Config.Logger.Infof("Detected diff in OnPremisesConfiguration.\nDESIRED: %#v\nACTUAL: %#v", desired.OnPremisesConfiguration, actual.OnPremisesConfiguration)
+		c.Config.Logger.Infof("Detected diff in OnPremisesConfiguration.\nDESIRED: %v\nACTUAL: %v", desired.OnPremisesConfiguration, actual.OnPremisesConfiguration)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateOperation{},
@@ -3353,7 +3280,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.SliceEquals(desired.SuspensionReason, actual.SuspensionReason) {
-		c.Config.Logger.Infof("Detected diff in SuspensionReason.\nDESIRED: %#v\nACTUAL: %#v", desired.SuspensionReason, actual.SuspensionReason)
+		c.Config.Logger.Infof("Detected diff in SuspensionReason.\nDESIRED: %v\nACTUAL: %v", desired.SuspensionReason, actual.SuspensionReason)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateOperation{},
@@ -3362,7 +3289,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if compareInstanceDiskEncryptionStatus(c, desired.DiskEncryptionStatus, actual.DiskEncryptionStatus) {
-		c.Config.Logger.Infof("Detected diff in DiskEncryptionStatus.\nDESIRED: %#v\nACTUAL: %#v", desired.DiskEncryptionStatus, actual.DiskEncryptionStatus)
+		c.Config.Logger.Infof("Detected diff in DiskEncryptionStatus.\nDESIRED: %v\nACTUAL: %v", desired.DiskEncryptionStatus, actual.DiskEncryptionStatus)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateOperation{},
@@ -3371,7 +3298,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.InstanceUid) && (dcl.IsZeroValue(actual.InstanceUid) || !reflect.DeepEqual(*desired.InstanceUid, *actual.InstanceUid)) {
-		c.Config.Logger.Infof("Detected diff in InstanceUid.\nDESIRED: %#v\nACTUAL: %#v", desired.InstanceUid, actual.InstanceUid)
+		c.Config.Logger.Infof("Detected diff in InstanceUid.\nDESIRED: %v\nACTUAL: %v", desired.InstanceUid, actual.InstanceUid)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateOperation{},
@@ -4284,7 +4211,7 @@ func compareInstanceSettings(c *Client, desired, actual *InstanceSettings) bool 
 		c.Config.Logger.Infof("desired UserLabels %s - but actually nil", dcl.SprintResource(desired.UserLabels))
 		return true
 	}
-	if compareInstanceSettingsUserLabelsSlice(c, desired.UserLabels, actual.UserLabels) && !dcl.IsZeroValue(desired.UserLabels) {
+	if !reflect.DeepEqual(desired.UserLabels, actual.UserLabels) && !dcl.IsZeroValue(desired.UserLabels) {
 		c.Config.Logger.Infof("Diff in UserLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UserLabels), dcl.SprintResource(actual.UserLabels))
 		return true
 	}
@@ -4397,45 +4324,6 @@ func compareInstanceSettingsSettingsVersion(c *Client, desired, actual *Instance
 		return false
 	}
 	if actual == nil {
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
-func compareInstanceSettingsUserLabelsSlice(c *Client, desired, actual []InstanceSettingsUserLabels) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceSettingsUserLabels, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareInstanceSettingsUserLabels(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceSettingsUserLabels, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareInstanceSettingsUserLabels(c *Client, desired, actual *InstanceSettingsUserLabels) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
 		return true
 	}
 	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
@@ -7739,9 +7627,7 @@ func expandInstanceSettings(c *Client, f *InstanceSettings) (map[string]interfac
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["settingsVersion"] = v
 	}
-	if v, err := expandInstanceSettingsUserLabelsSlice(c, f.UserLabels); err != nil {
-		return nil, fmt.Errorf("error expanding UserLabels into userLabels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.UserLabels; !dcl.IsEmptyValueIndirect(v) {
 		m["userLabels"] = v
 	}
 	if v, err := expandInstanceSettingsStorageAutoResizeLimit(c, f.StorageAutoResizeLimit); err != nil {
@@ -7822,7 +7708,7 @@ func flattenInstanceSettings(c *Client, i interface{}) *InstanceSettings {
 	r.DatabaseReplicationEnabled = dcl.FlattenBool(m["databaseReplicationEnabled"])
 	r.CrashSafeReplicationEnabled = dcl.FlattenBool(m["crashSafeReplicationEnabled"])
 	r.SettingsVersion = flattenInstanceSettingsSettingsVersion(c, m["settingsVersion"])
-	r.UserLabels = flattenInstanceSettingsUserLabelsSlice(c, m["userLabels"])
+	r.UserLabels = dcl.FlattenKeyValuePairs(m["userLabels"])
 	r.StorageAutoResizeLimit = flattenInstanceSettingsStorageAutoResizeLimit(c, m["storageAutoResizeLimit"])
 	r.IPConfiguration = flattenInstanceSettingsIPConfiguration(c, m["ipConfiguration"])
 	r.LocationPreference = flattenInstanceSettingsLocationPreference(c, m["locationPreference"])
@@ -7944,120 +7830,6 @@ func flattenInstanceSettingsSettingsVersion(c *Client, i interface{}) *InstanceS
 
 	r := &InstanceSettingsSettingsVersion{}
 	r.Value = dcl.FlattenInteger(m["value"])
-
-	return r
-}
-
-// expandInstanceSettingsUserLabelsMap expands the contents of InstanceSettingsUserLabels into a JSON
-// request object.
-func expandInstanceSettingsUserLabelsMap(c *Client, f map[string]InstanceSettingsUserLabels) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceSettingsUserLabels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceSettingsUserLabelsSlice expands the contents of InstanceSettingsUserLabels into a JSON
-// request object.
-func expandInstanceSettingsUserLabelsSlice(c *Client, f []InstanceSettingsUserLabels) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceSettingsUserLabels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceSettingsUserLabelsMap flattens the contents of InstanceSettingsUserLabels from a JSON
-// response object.
-func flattenInstanceSettingsUserLabelsMap(c *Client, i interface{}) map[string]InstanceSettingsUserLabels {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceSettingsUserLabels{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceSettingsUserLabels{}
-	}
-
-	items := make(map[string]InstanceSettingsUserLabels)
-	for k, item := range a {
-		items[k] = *flattenInstanceSettingsUserLabels(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceSettingsUserLabelsSlice flattens the contents of InstanceSettingsUserLabels from a JSON
-// response object.
-func flattenInstanceSettingsUserLabelsSlice(c *Client, i interface{}) []InstanceSettingsUserLabels {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceSettingsUserLabels{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceSettingsUserLabels{}
-	}
-
-	items := make([]InstanceSettingsUserLabels, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceSettingsUserLabels(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceSettingsUserLabels expands an instance of InstanceSettingsUserLabels into a JSON
-// request object.
-func expandInstanceSettingsUserLabels(c *Client, f *InstanceSettingsUserLabels) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceSettingsUserLabels flattens an instance of InstanceSettingsUserLabels from a JSON
-// response object.
-func flattenInstanceSettingsUserLabels(c *Client, i interface{}) *InstanceSettingsUserLabels {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceSettingsUserLabels{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
 
 	return r
 }

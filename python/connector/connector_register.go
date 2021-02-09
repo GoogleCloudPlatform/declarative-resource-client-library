@@ -20,6 +20,8 @@ import (
 
 	appengine_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/appengine/connector"
 
+	cloudbilling_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbilling/connector"
+
 	cloudbuild_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/connector"
 
 	cloudfunctions_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudfunctions/connector"
@@ -50,6 +52,8 @@ import (
 
 	iam_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam/connector"
 
+	iap_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iap/connector"
+
 	monitoring_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring/connector"
 
 	pubsub_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub/connector"
@@ -63,6 +67,8 @@ import (
 	servicenetworking_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/servicenetworking/connector"
 
 	sourcerepo_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/sourcerepo/connector"
+
+	serviceusage_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/serviceusage/connector"
 
 	spanner_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/spanner/connector"
 
@@ -88,6 +94,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	accesscontextmanager_connector.RegisterServers(grpcServer)
 
 	appengine_connector.RegisterServers(grpcServer)
+
+	cloudbilling_connector.RegisterServers(grpcServer)
 
 	cloudbuild_connector.RegisterServers(grpcServer)
 
@@ -119,6 +127,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	iam_connector.RegisterServers(grpcServer)
 
+	iap_connector.RegisterServers(grpcServer)
+
 	monitoring_connector.RegisterServers(grpcServer)
 
 	pubsub_connector.RegisterServers(grpcServer)
@@ -132,6 +142,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	servicenetworking_connector.RegisterServers(grpcServer)
 
 	sourcerepo_connector.RegisterServers(grpcServer)
+
+	serviceusage_connector.RegisterServers(grpcServer)
 
 	spanner_connector.RegisterServers(grpcServer)
 

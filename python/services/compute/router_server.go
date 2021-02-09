@@ -504,11 +504,13 @@ func (s *RouterServer) ApplyComputeRouter(ctx context.Context, request *computep
 
 // DeleteRouter handles the gRPC request by passing it to the underlying Router Delete() method.
 func (s *RouterServer) DeleteComputeRouter(ctx context.Context, request *computepb.DeleteComputeRouterRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigRouter(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteRouter(ctx, ProtoToRouter(request.GetResource()))
+
 }
 
 // ListRouter handles the gRPC request by passing it to the underlying RouterList() method.

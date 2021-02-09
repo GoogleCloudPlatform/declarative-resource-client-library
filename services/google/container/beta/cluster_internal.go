@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Cluster) validate() error {
@@ -1499,12 +1500,12 @@ func (c *Client) clusterDiffsForRawDesired(ctx context.Context, rawDesired *Clus
 			c.Config.Logger.Warningf("Failed to retrieve whether a Cluster resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Cluster resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Cluster resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeClusterDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Cluster: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Cluster: %v", rawDesired)
 
@@ -1939,13 +1940,7 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -4083,35 +4078,35 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 
 	var diffs []clusterDiff
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
 	if !dcl.IsZeroValue(desired.InitialNodeCount) && (dcl.IsZeroValue(actual.InitialNodeCount) || !reflect.DeepEqual(*desired.InitialNodeCount, *actual.InitialNodeCount)) {
-		c.Config.Logger.Infof("Detected diff in InitialNodeCount.\nDESIRED: %#v\nACTUAL: %#v", desired.InitialNodeCount, actual.InitialNodeCount)
+		c.Config.Logger.Infof("Detected diff in InitialNodeCount.\nDESIRED: %v\nACTUAL: %v", desired.InitialNodeCount, actual.InitialNodeCount)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "InitialNodeCount",
 		})
 	}
 	if compareClusterMasterAuth(c, desired.MasterAuth, actual.MasterAuth) {
-		c.Config.Logger.Infof("Detected diff in MasterAuth.\nDESIRED: %#v\nACTUAL: %#v", desired.MasterAuth, actual.MasterAuth)
+		c.Config.Logger.Infof("Detected diff in MasterAuth.\nDESIRED: %v\nACTUAL: %v", desired.MasterAuth, actual.MasterAuth)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "MasterAuth",
 		})
 	}
 	if !dcl.IsZeroValue(desired.LoggingService) && (dcl.IsZeroValue(actual.LoggingService) || !reflect.DeepEqual(*desired.LoggingService, *actual.LoggingService)) {
-		c.Config.Logger.Infof("Detected diff in LoggingService.\nDESIRED: %#v\nACTUAL: %#v", desired.LoggingService, actual.LoggingService)
+		c.Config.Logger.Infof("Detected diff in LoggingService.\nDESIRED: %v\nACTUAL: %v", desired.LoggingService, actual.LoggingService)
 
 		diffs = append(diffs, clusterDiff{
 			UpdateOp:  &updateClusterUpdateMonitoringAndLoggingServiceOperation{},
@@ -4120,7 +4115,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 
 	}
 	if !dcl.IsZeroValue(desired.MonitoringService) && (dcl.IsZeroValue(actual.MonitoringService) || !reflect.DeepEqual(*desired.MonitoringService, *actual.MonitoringService)) {
-		c.Config.Logger.Infof("Detected diff in MonitoringService.\nDESIRED: %#v\nACTUAL: %#v", desired.MonitoringService, actual.MonitoringService)
+		c.Config.Logger.Infof("Detected diff in MonitoringService.\nDESIRED: %v\nACTUAL: %v", desired.MonitoringService, actual.MonitoringService)
 
 		diffs = append(diffs, clusterDiff{
 			UpdateOp:  &updateClusterUpdateMonitoringAndLoggingServiceOperation{},
@@ -4129,21 +4124,21 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 
 	}
 	if !dcl.IsZeroValue(desired.Network) && (dcl.IsZeroValue(actual.Network) || !reflect.DeepEqual(*desired.Network, *actual.Network)) {
-		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %#v\nACTUAL: %#v", desired.Network, actual.Network)
+		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "Network",
 		})
 	}
 	if !dcl.IsZeroValue(desired.ClusterIPv4Cidr) && (dcl.IsZeroValue(actual.ClusterIPv4Cidr) || !reflect.DeepEqual(*desired.ClusterIPv4Cidr, *actual.ClusterIPv4Cidr)) {
-		c.Config.Logger.Infof("Detected diff in ClusterIPv4Cidr.\nDESIRED: %#v\nACTUAL: %#v", desired.ClusterIPv4Cidr, actual.ClusterIPv4Cidr)
+		c.Config.Logger.Infof("Detected diff in ClusterIPv4Cidr.\nDESIRED: %v\nACTUAL: %v", desired.ClusterIPv4Cidr, actual.ClusterIPv4Cidr)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "ClusterIPv4Cidr",
 		})
 	}
 	if compareClusterAddonsConfig(c, desired.AddonsConfig, actual.AddonsConfig) {
-		c.Config.Logger.Infof("Detected diff in AddonsConfig.\nDESIRED: %#v\nACTUAL: %#v", desired.AddonsConfig, actual.AddonsConfig)
+		c.Config.Logger.Infof("Detected diff in AddonsConfig.\nDESIRED: %v\nACTUAL: %v", desired.AddonsConfig, actual.AddonsConfig)
 
 		diffs = append(diffs, clusterDiff{
 			UpdateOp:  &updateClusterUpdateAddonsConfigOperation{},
@@ -4152,14 +4147,14 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 
 	}
 	if !dcl.IsZeroValue(desired.Subnetwork) && (dcl.IsZeroValue(actual.Subnetwork) || !reflect.DeepEqual(*desired.Subnetwork, *actual.Subnetwork)) {
-		c.Config.Logger.Infof("Detected diff in Subnetwork.\nDESIRED: %#v\nACTUAL: %#v", desired.Subnetwork, actual.Subnetwork)
+		c.Config.Logger.Infof("Detected diff in Subnetwork.\nDESIRED: %v\nACTUAL: %v", desired.Subnetwork, actual.Subnetwork)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "Subnetwork",
 		})
 	}
 	if !dcl.SliceEquals(desired.Locations, actual.Locations) {
-		c.Config.Logger.Infof("Detected diff in Locations.\nDESIRED: %#v\nACTUAL: %#v", desired.Locations, actual.Locations)
+		c.Config.Logger.Infof("Detected diff in Locations.\nDESIRED: %v\nACTUAL: %v", desired.Locations, actual.Locations)
 
 		diffs = append(diffs, clusterDiff{
 			UpdateOp:  &updateClusterUpdateLocationsOperation{},
@@ -4168,21 +4163,21 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 
 	}
 	if !dcl.IsZeroValue(desired.EnableKubernetesAlpha) && (dcl.IsZeroValue(actual.EnableKubernetesAlpha) || !reflect.DeepEqual(*desired.EnableKubernetesAlpha, *actual.EnableKubernetesAlpha)) {
-		c.Config.Logger.Infof("Detected diff in EnableKubernetesAlpha.\nDESIRED: %#v\nACTUAL: %#v", desired.EnableKubernetesAlpha, actual.EnableKubernetesAlpha)
+		c.Config.Logger.Infof("Detected diff in EnableKubernetesAlpha.\nDESIRED: %v\nACTUAL: %v", desired.EnableKubernetesAlpha, actual.EnableKubernetesAlpha)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "EnableKubernetesAlpha",
 		})
 	}
 	if !reflect.DeepEqual(desired.ResourceLabels, actual.ResourceLabels) {
-		c.Config.Logger.Infof("Detected diff in ResourceLabels.\nDESIRED: %#v\nACTUAL: %#v", desired.ResourceLabels, actual.ResourceLabels)
+		c.Config.Logger.Infof("Detected diff in ResourceLabels.\nDESIRED: %v\nACTUAL: %v", desired.ResourceLabels, actual.ResourceLabels)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "ResourceLabels",
 		})
 	}
 	if compareClusterLegacyAbac(c, desired.LegacyAbac, actual.LegacyAbac) {
-		c.Config.Logger.Infof("Detected diff in LegacyAbac.\nDESIRED: %#v\nACTUAL: %#v", desired.LegacyAbac, actual.LegacyAbac)
+		c.Config.Logger.Infof("Detected diff in LegacyAbac.\nDESIRED: %v\nACTUAL: %v", desired.LegacyAbac, actual.LegacyAbac)
 
 		diffs = append(diffs, clusterDiff{
 			UpdateOp:  &updateClusterUpdateLegacyAbacOperation{},
@@ -4191,21 +4186,21 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 
 	}
 	if compareClusterNetworkPolicy(c, desired.NetworkPolicy, actual.NetworkPolicy) {
-		c.Config.Logger.Infof("Detected diff in NetworkPolicy.\nDESIRED: %#v\nACTUAL: %#v", desired.NetworkPolicy, actual.NetworkPolicy)
+		c.Config.Logger.Infof("Detected diff in NetworkPolicy.\nDESIRED: %v\nACTUAL: %v", desired.NetworkPolicy, actual.NetworkPolicy)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "NetworkPolicy",
 		})
 	}
 	if compareClusterIPAllocationPolicy(c, desired.IPAllocationPolicy, actual.IPAllocationPolicy) {
-		c.Config.Logger.Infof("Detected diff in IPAllocationPolicy.\nDESIRED: %#v\nACTUAL: %#v", desired.IPAllocationPolicy, actual.IPAllocationPolicy)
+		c.Config.Logger.Infof("Detected diff in IPAllocationPolicy.\nDESIRED: %v\nACTUAL: %v", desired.IPAllocationPolicy, actual.IPAllocationPolicy)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "IPAllocationPolicy",
 		})
 	}
 	if compareClusterMasterAuthorizedNetworksConfig(c, desired.MasterAuthorizedNetworksConfig, actual.MasterAuthorizedNetworksConfig) {
-		c.Config.Logger.Infof("Detected diff in MasterAuthorizedNetworksConfig.\nDESIRED: %#v\nACTUAL: %#v", desired.MasterAuthorizedNetworksConfig, actual.MasterAuthorizedNetworksConfig)
+		c.Config.Logger.Infof("Detected diff in MasterAuthorizedNetworksConfig.\nDESIRED: %v\nACTUAL: %v", desired.MasterAuthorizedNetworksConfig, actual.MasterAuthorizedNetworksConfig)
 
 		diffs = append(diffs, clusterDiff{
 			UpdateOp:  &updateClusterUpdateMasterAuthorizedNetworksConfigOperation{},
@@ -4214,7 +4209,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 
 	}
 	if compareClusterBinaryAuthorization(c, desired.BinaryAuthorization, actual.BinaryAuthorization) {
-		c.Config.Logger.Infof("Detected diff in BinaryAuthorization.\nDESIRED: %#v\nACTUAL: %#v", desired.BinaryAuthorization, actual.BinaryAuthorization)
+		c.Config.Logger.Infof("Detected diff in BinaryAuthorization.\nDESIRED: %v\nACTUAL: %v", desired.BinaryAuthorization, actual.BinaryAuthorization)
 
 		diffs = append(diffs, clusterDiff{
 			UpdateOp:  &updateClusterUpdateBinaryAuthorizationOperation{},
@@ -4223,21 +4218,21 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 
 	}
 	if compareClusterAutoscaling(c, desired.Autoscaling, actual.Autoscaling) {
-		c.Config.Logger.Infof("Detected diff in Autoscaling.\nDESIRED: %#v\nACTUAL: %#v", desired.Autoscaling, actual.Autoscaling)
+		c.Config.Logger.Infof("Detected diff in Autoscaling.\nDESIRED: %v\nACTUAL: %v", desired.Autoscaling, actual.Autoscaling)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "Autoscaling",
 		})
 	}
 	if compareClusterNetworkConfig(c, desired.NetworkConfig, actual.NetworkConfig) {
-		c.Config.Logger.Infof("Detected diff in NetworkConfig.\nDESIRED: %#v\nACTUAL: %#v", desired.NetworkConfig, actual.NetworkConfig)
+		c.Config.Logger.Infof("Detected diff in NetworkConfig.\nDESIRED: %v\nACTUAL: %v", desired.NetworkConfig, actual.NetworkConfig)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "NetworkConfig",
 		})
 	}
 	if compareClusterMaintenancePolicy(c, desired.MaintenancePolicy, actual.MaintenancePolicy) {
-		c.Config.Logger.Infof("Detected diff in MaintenancePolicy.\nDESIRED: %#v\nACTUAL: %#v", desired.MaintenancePolicy, actual.MaintenancePolicy)
+		c.Config.Logger.Infof("Detected diff in MaintenancePolicy.\nDESIRED: %v\nACTUAL: %v", desired.MaintenancePolicy, actual.MaintenancePolicy)
 
 		diffs = append(diffs, clusterDiff{
 			UpdateOp:  &updateClusterSetMaintenancePolicyOperation{},
@@ -4246,35 +4241,35 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 
 	}
 	if compareClusterDefaultMaxPodsConstraint(c, desired.DefaultMaxPodsConstraint, actual.DefaultMaxPodsConstraint) {
-		c.Config.Logger.Infof("Detected diff in DefaultMaxPodsConstraint.\nDESIRED: %#v\nACTUAL: %#v", desired.DefaultMaxPodsConstraint, actual.DefaultMaxPodsConstraint)
+		c.Config.Logger.Infof("Detected diff in DefaultMaxPodsConstraint.\nDESIRED: %v\nACTUAL: %v", desired.DefaultMaxPodsConstraint, actual.DefaultMaxPodsConstraint)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "DefaultMaxPodsConstraint",
 		})
 	}
 	if compareClusterResourceUsageExportConfig(c, desired.ResourceUsageExportConfig, actual.ResourceUsageExportConfig) {
-		c.Config.Logger.Infof("Detected diff in ResourceUsageExportConfig.\nDESIRED: %#v\nACTUAL: %#v", desired.ResourceUsageExportConfig, actual.ResourceUsageExportConfig)
+		c.Config.Logger.Infof("Detected diff in ResourceUsageExportConfig.\nDESIRED: %v\nACTUAL: %v", desired.ResourceUsageExportConfig, actual.ResourceUsageExportConfig)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "ResourceUsageExportConfig",
 		})
 	}
 	if compareClusterAuthenticatorGroupsConfig(c, desired.AuthenticatorGroupsConfig, actual.AuthenticatorGroupsConfig) {
-		c.Config.Logger.Infof("Detected diff in AuthenticatorGroupsConfig.\nDESIRED: %#v\nACTUAL: %#v", desired.AuthenticatorGroupsConfig, actual.AuthenticatorGroupsConfig)
+		c.Config.Logger.Infof("Detected diff in AuthenticatorGroupsConfig.\nDESIRED: %v\nACTUAL: %v", desired.AuthenticatorGroupsConfig, actual.AuthenticatorGroupsConfig)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "AuthenticatorGroupsConfig",
 		})
 	}
 	if compareClusterPrivateClusterConfig(c, desired.PrivateClusterConfig, actual.PrivateClusterConfig) {
-		c.Config.Logger.Infof("Detected diff in PrivateClusterConfig.\nDESIRED: %#v\nACTUAL: %#v", desired.PrivateClusterConfig, actual.PrivateClusterConfig)
+		c.Config.Logger.Infof("Detected diff in PrivateClusterConfig.\nDESIRED: %v\nACTUAL: %v", desired.PrivateClusterConfig, actual.PrivateClusterConfig)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "PrivateClusterConfig",
 		})
 	}
 	if compareClusterDatabaseEncryption(c, desired.DatabaseEncryption, actual.DatabaseEncryption) {
-		c.Config.Logger.Infof("Detected diff in DatabaseEncryption.\nDESIRED: %#v\nACTUAL: %#v", desired.DatabaseEncryption, actual.DatabaseEncryption)
+		c.Config.Logger.Infof("Detected diff in DatabaseEncryption.\nDESIRED: %v\nACTUAL: %v", desired.DatabaseEncryption, actual.DatabaseEncryption)
 
 		diffs = append(diffs, clusterDiff{
 			UpdateOp:  &updateClusterUpdateDatabaseEncryptionOperation{},
@@ -4283,7 +4278,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 
 	}
 	if compareClusterVerticalPodAutoscaling(c, desired.VerticalPodAutoscaling, actual.VerticalPodAutoscaling) {
-		c.Config.Logger.Infof("Detected diff in VerticalPodAutoscaling.\nDESIRED: %#v\nACTUAL: %#v", desired.VerticalPodAutoscaling, actual.VerticalPodAutoscaling)
+		c.Config.Logger.Infof("Detected diff in VerticalPodAutoscaling.\nDESIRED: %v\nACTUAL: %v", desired.VerticalPodAutoscaling, actual.VerticalPodAutoscaling)
 
 		diffs = append(diffs, clusterDiff{
 			UpdateOp:  &updateClusterUpdateVerticalPodAutoscalingOperation{},
@@ -4292,7 +4287,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 
 	}
 	if compareClusterShieldedNodes(c, desired.ShieldedNodes, actual.ShieldedNodes) {
-		c.Config.Logger.Infof("Detected diff in ShieldedNodes.\nDESIRED: %#v\nACTUAL: %#v", desired.ShieldedNodes, actual.ShieldedNodes)
+		c.Config.Logger.Infof("Detected diff in ShieldedNodes.\nDESIRED: %v\nACTUAL: %v", desired.ShieldedNodes, actual.ShieldedNodes)
 
 		diffs = append(diffs, clusterDiff{
 			UpdateOp:  &updateClusterUpdateShieldedNodesOperation{},
@@ -4301,7 +4296,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 
 	}
 	if !dcl.IsZeroValue(desired.MasterVersion) && !dcl.MatchingSemver(desired.MasterVersion, actual.MasterVersion) {
-		c.Config.Logger.Infof("Detected diff in MasterVersion.\nDESIRED: %#v\nACTUAL: %#v", desired.MasterVersion, actual.MasterVersion)
+		c.Config.Logger.Infof("Detected diff in MasterVersion.\nDESIRED: %v\nACTUAL: %v", desired.MasterVersion, actual.MasterVersion)
 
 		diffs = append(diffs, clusterDiff{
 			UpdateOp:  &updateClusterUpdateMasterVersionOperation{},
@@ -4310,24 +4305,17 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 
 	}
 	if !dcl.IsZeroValue(desired.Location) && (dcl.IsZeroValue(actual.Location) || !reflect.DeepEqual(*desired.Location, *actual.Location)) {
-		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
+		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %v\nACTUAL: %v", desired.Location, actual.Location)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "Location",
 		})
 	}
 	if !dcl.IsZeroValue(desired.EnableTPU) && (dcl.IsZeroValue(actual.EnableTPU) || !reflect.DeepEqual(*desired.EnableTPU, *actual.EnableTPU)) {
-		c.Config.Logger.Infof("Detected diff in EnableTPU.\nDESIRED: %#v\nACTUAL: %#v", desired.EnableTPU, actual.EnableTPU)
+		c.Config.Logger.Infof("Detected diff in EnableTPU.\nDESIRED: %v\nACTUAL: %v", desired.EnableTPU, actual.EnableTPU)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "EnableTPU",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, clusterDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.

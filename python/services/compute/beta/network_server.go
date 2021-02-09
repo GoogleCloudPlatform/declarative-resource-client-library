@@ -123,11 +123,13 @@ func (s *NetworkServer) ApplyComputeBetaNetwork(ctx context.Context, request *be
 
 // DeleteNetwork handles the gRPC request by passing it to the underlying Network Delete() method.
 func (s *NetworkServer) DeleteComputeBetaNetwork(ctx context.Context, request *betapb.DeleteComputeBetaNetworkRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigNetwork(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteNetwork(ctx, ProtoToNetwork(request.GetResource()))
+
 }
 
 // ListNetwork handles the gRPC request by passing it to the underlying NetworkList() method.

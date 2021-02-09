@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *RouterPeer) validate() error {
@@ -389,12 +390,12 @@ func (c *Client) routerPeerDiffsForRawDesired(ctx context.Context, rawDesired *R
 			c.Config.Logger.Warningf("Failed to retrieve whether a RouterPeer resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve RouterPeer resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that RouterPeer resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeRouterPeerDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for RouterPeer: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for RouterPeer: %v", rawDesired)
 
@@ -577,13 +578,7 @@ func canonicalizeRouterPeerNewState(c *Client, rawNew, rawDesired *RouterPeer) (
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Router) && dcl.IsEmptyValueIndirect(rawDesired.Router) {
-		rawNew.Router = rawDesired.Router
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Router, rawNew.Router) {
-			rawNew.Router = rawDesired.Router
-		}
-	}
+	rawNew.Router = rawDesired.Router
 
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
@@ -643,13 +638,7 @@ func canonicalizeRouterPeerNewState(c *Client, rawNew, rawDesired *RouterPeer) (
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -733,15 +722,8 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []routerPeerDiff
-	if !dcl.IsZeroValue(desired.Router) && !dcl.NameToSelfLink(desired.Router, actual.Router) {
-		c.Config.Logger.Infof("Detected diff in Router.\nDESIRED: %#v\nACTUAL: %#v", desired.Router, actual.Router)
-		diffs = append(diffs, routerPeerDiff{
-			RequiresRecreate: true,
-			FieldName:        "Router",
-		})
-	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 
 		diffs = append(diffs, routerPeerDiff{
 			UpdateOp:  &updateRouterPeerUpdateOperation{},
@@ -750,7 +732,7 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 
 	}
 	if !dcl.IsZeroValue(desired.InterfaceName) && (dcl.IsZeroValue(actual.InterfaceName) || !reflect.DeepEqual(*desired.InterfaceName, *actual.InterfaceName)) {
-		c.Config.Logger.Infof("Detected diff in InterfaceName.\nDESIRED: %#v\nACTUAL: %#v", desired.InterfaceName, actual.InterfaceName)
+		c.Config.Logger.Infof("Detected diff in InterfaceName.\nDESIRED: %v\nACTUAL: %v", desired.InterfaceName, actual.InterfaceName)
 
 		diffs = append(diffs, routerPeerDiff{
 			UpdateOp:  &updateRouterPeerUpdateOperation{},
@@ -759,7 +741,7 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 
 	}
 	if !dcl.IsZeroValue(desired.IPAddress) && (dcl.IsZeroValue(actual.IPAddress) || !reflect.DeepEqual(*desired.IPAddress, *actual.IPAddress)) {
-		c.Config.Logger.Infof("Detected diff in IPAddress.\nDESIRED: %#v\nACTUAL: %#v", desired.IPAddress, actual.IPAddress)
+		c.Config.Logger.Infof("Detected diff in IPAddress.\nDESIRED: %v\nACTUAL: %v", desired.IPAddress, actual.IPAddress)
 
 		diffs = append(diffs, routerPeerDiff{
 			UpdateOp:  &updateRouterPeerUpdateOperation{},
@@ -768,7 +750,7 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 
 	}
 	if !dcl.IsZeroValue(desired.PeerIPAddress) && (dcl.IsZeroValue(actual.PeerIPAddress) || !reflect.DeepEqual(*desired.PeerIPAddress, *actual.PeerIPAddress)) {
-		c.Config.Logger.Infof("Detected diff in PeerIPAddress.\nDESIRED: %#v\nACTUAL: %#v", desired.PeerIPAddress, actual.PeerIPAddress)
+		c.Config.Logger.Infof("Detected diff in PeerIPAddress.\nDESIRED: %v\nACTUAL: %v", desired.PeerIPAddress, actual.PeerIPAddress)
 
 		diffs = append(diffs, routerPeerDiff{
 			UpdateOp:  &updateRouterPeerUpdateOperation{},
@@ -777,7 +759,7 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 
 	}
 	if !dcl.IsZeroValue(desired.PeerAsn) && (dcl.IsZeroValue(actual.PeerAsn) || !reflect.DeepEqual(*desired.PeerAsn, *actual.PeerAsn)) {
-		c.Config.Logger.Infof("Detected diff in PeerAsn.\nDESIRED: %#v\nACTUAL: %#v", desired.PeerAsn, actual.PeerAsn)
+		c.Config.Logger.Infof("Detected diff in PeerAsn.\nDESIRED: %v\nACTUAL: %v", desired.PeerAsn, actual.PeerAsn)
 
 		diffs = append(diffs, routerPeerDiff{
 			UpdateOp:  &updateRouterPeerUpdateOperation{},
@@ -786,7 +768,7 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 
 	}
 	if !dcl.IsZeroValue(desired.AdvertisedRoutePriority) && (dcl.IsZeroValue(actual.AdvertisedRoutePriority) || !reflect.DeepEqual(*desired.AdvertisedRoutePriority, *actual.AdvertisedRoutePriority)) {
-		c.Config.Logger.Infof("Detected diff in AdvertisedRoutePriority.\nDESIRED: %#v\nACTUAL: %#v", desired.AdvertisedRoutePriority, actual.AdvertisedRoutePriority)
+		c.Config.Logger.Infof("Detected diff in AdvertisedRoutePriority.\nDESIRED: %v\nACTUAL: %v", desired.AdvertisedRoutePriority, actual.AdvertisedRoutePriority)
 
 		diffs = append(diffs, routerPeerDiff{
 			UpdateOp:  &updateRouterPeerUpdateOperation{},
@@ -795,7 +777,7 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 
 	}
 	if !dcl.IsZeroValue(desired.AdvertiseMode) && (dcl.IsZeroValue(actual.AdvertiseMode) || !reflect.DeepEqual(*desired.AdvertiseMode, *actual.AdvertiseMode)) {
-		c.Config.Logger.Infof("Detected diff in AdvertiseMode.\nDESIRED: %#v\nACTUAL: %#v", desired.AdvertiseMode, actual.AdvertiseMode)
+		c.Config.Logger.Infof("Detected diff in AdvertiseMode.\nDESIRED: %v\nACTUAL: %v", desired.AdvertiseMode, actual.AdvertiseMode)
 
 		diffs = append(diffs, routerPeerDiff{
 			UpdateOp:  &updateRouterPeerUpdateOperation{},
@@ -804,7 +786,7 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 
 	}
 	if !dcl.SliceEquals(desired.AdvertisedGroups, actual.AdvertisedGroups) {
-		c.Config.Logger.Infof("Detected diff in AdvertisedGroups.\nDESIRED: %#v\nACTUAL: %#v", desired.AdvertisedGroups, actual.AdvertisedGroups)
+		c.Config.Logger.Infof("Detected diff in AdvertisedGroups.\nDESIRED: %v\nACTUAL: %v", desired.AdvertisedGroups, actual.AdvertisedGroups)
 
 		diffs = append(diffs, routerPeerDiff{
 			UpdateOp:  &updateRouterPeerUpdateOperation{},
@@ -813,7 +795,7 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 
 	}
 	if compareRouterPeerAdvertisedIPRangesSlice(c, desired.AdvertisedIPRanges, actual.AdvertisedIPRanges) {
-		c.Config.Logger.Infof("Detected diff in AdvertisedIPRanges.\nDESIRED: %#v\nACTUAL: %#v", desired.AdvertisedIPRanges, actual.AdvertisedIPRanges)
+		c.Config.Logger.Infof("Detected diff in AdvertisedIPRanges.\nDESIRED: %v\nACTUAL: %v", desired.AdvertisedIPRanges, actual.AdvertisedIPRanges)
 
 		diffs = append(diffs, routerPeerDiff{
 			UpdateOp:  &updateRouterPeerUpdateOperation{},
@@ -822,20 +804,13 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 
 	}
 	if !dcl.IsZeroValue(desired.Region) && !dcl.NameToSelfLink(desired.Region, actual.Region) {
-		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %#v\nACTUAL: %#v", desired.Region, actual.Region)
+		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %v\nACTUAL: %v", desired.Region, actual.Region)
 
 		diffs = append(diffs, routerPeerDiff{
 			UpdateOp:  &updateRouterPeerUpdateOperation{},
 			FieldName: "Region",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, routerPeerDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,

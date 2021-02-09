@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *TargetHttpProxy) validate() error {
@@ -344,12 +345,12 @@ func (c *Client) targetHttpProxyDiffsForRawDesired(ctx context.Context, rawDesir
 			c.Config.Logger.Warningf("Failed to retrieve whether a TargetHttpProxy resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve TargetHttpProxy resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that TargetHttpProxy resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeTargetHttpProxyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for TargetHttpProxy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for TargetHttpProxy: %v", rawDesired)
 
@@ -452,13 +453,7 @@ func canonicalizeTargetHttpProxyNewState(c *Client, rawNew, rawDesired *TargetHt
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -485,34 +480,27 @@ func diffTargetHttpProxy(c *Client, desired, actual *TargetHttpProxy, opts ...dc
 
 	var diffs []targetHttpProxyDiff
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, targetHttpProxyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, targetHttpProxyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
 	if !dcl.IsZeroValue(desired.UrlMap) && !dcl.PartialSelfLinkToSelfLink(desired.UrlMap, actual.UrlMap) {
-		c.Config.Logger.Infof("Detected diff in UrlMap.\nDESIRED: %#v\nACTUAL: %#v", desired.UrlMap, actual.UrlMap)
+		c.Config.Logger.Infof("Detected diff in UrlMap.\nDESIRED: %v\nACTUAL: %v", desired.UrlMap, actual.UrlMap)
 
 		diffs = append(diffs, targetHttpProxyDiff{
 			UpdateOp:  &updateTargetHttpProxySetURLMapOperation{},
 			FieldName: "UrlMap",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, targetHttpProxyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,

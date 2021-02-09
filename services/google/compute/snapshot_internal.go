@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Snapshot) validate() error {
@@ -380,12 +381,12 @@ func (c *Client) snapshotDiffsForRawDesired(ctx context.Context, rawDesired *Sna
 			c.Config.Logger.Warningf("Failed to retrieve whether a Snapshot resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Snapshot resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Snapshot resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeSnapshotDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Snapshot: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Snapshot: %v", rawDesired)
 
@@ -526,13 +527,7 @@ func canonicalizeSnapshotNewState(c *Client, rawNew, rawDesired *Snapshot) (*Sna
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	rawNew.Zone = rawDesired.Zone
 
@@ -679,41 +674,34 @@ func diffSnapshot(c *Client, desired, actual *Snapshot, opts ...dcl.ApplyOption)
 
 	var diffs []snapshotDiff
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, snapshotDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, snapshotDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
 	if !dcl.IsZeroValue(desired.SourceDisk) && !dcl.NameToSelfLink(desired.SourceDisk, actual.SourceDisk) {
-		c.Config.Logger.Infof("Detected diff in SourceDisk.\nDESIRED: %#v\nACTUAL: %#v", desired.SourceDisk, actual.SourceDisk)
+		c.Config.Logger.Infof("Detected diff in SourceDisk.\nDESIRED: %v\nACTUAL: %v", desired.SourceDisk, actual.SourceDisk)
 		diffs = append(diffs, snapshotDiff{
 			RequiresRecreate: true,
 			FieldName:        "SourceDisk",
 		})
 	}
 	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %#v\nACTUAL: %#v", desired.Labels, actual.Labels)
+		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, snapshotDiff{
 			UpdateOp:  &updateSnapshotSetLabelsOperation{},
 			FieldName: "Labels",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, snapshotDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,

@@ -58,6 +58,9 @@ components:
                       of a build's secrets, and must be used by at least one build
                       step. Values can be at most 64 KB in size. There can be at most
                       100 secret values across all of a build's secrets.
+                    items:
+                      type: string
+                      x-dcl-go-type: string
                     type: object
                     x-dcl-go-name: SecretEnv
                 required:
@@ -111,6 +114,9 @@ components:
                         type: string
                       description: 'Substitutions to use in a triggered build. Should
                         only be used with RunBuildTrigger '
+                      items:
+                        type: string
+                        x-dcl-go-type: string
                       type: object
                       x-dcl-go-name: Substitutions
                     tagName:
@@ -250,9 +256,11 @@ components:
                     x-dcl-go-name: SecretEnv
                     x-dcl-list-type: list
                   status:
-                    description: Output only. Status of the build step. At this time,
+                    description: 'Output only. Status of the build step. At this time,
                       build step status is only updated on build completion; step
                       status is not updated in real-time as the build progresses.
+                      Possible values: STATUS_UNKNOWN, QUEUED, WORKING, SUCCESS, FAILURE,
+                      INTERNAL_ERROR, TIMEOUT, CANCELLED, EXPIRED'
                     enum:
                     - STATUS_UNKNOWN
                     - QUEUED
@@ -348,6 +356,9 @@ components:
               additionalProperties:
                 type: string
               description: Substitutions data for `Build` resource.
+              items:
+                type: string
+                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Substitutions
             tags:
@@ -420,8 +431,9 @@ components:
                   type: string
                   x-dcl-go-name: Branch
                 commentControl:
-                  description: Configure builds to run whether a repository owner
-                    or collaborator need to comment `/gcbrun`.
+                  description: 'Configure builds to run whether a repository owner
+                    or collaborator need to comment `/gcbrun`. Possible values: COMMENTS_DISABLED,
+                    COMMENTS_ENABLED, COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY'
                   enum:
                   - COMMENTS_DISABLED
                   - COMMENTS_ENABLED
@@ -474,8 +486,8 @@ components:
         ignoredFiles:
           description: ignored_files and included_files are file glob matches using
             https://golang.org/pkg/path/filepath/#Match extended with support for
-            "\\\*\\\*". If ignored_files and changed files are both empty, then they
-            are not used to determine whether or not to trigger a build. If ignored_files
+            "**". If ignored_files and changed files are both empty, then they are
+            not used to determine whether or not to trigger a build. If ignored_files
             is not empty, then we ignore any files that match any of the ignored_file
             globs. If the change has no files that are outside of the ignored_files
             globs, then we do not trigger a build.
@@ -515,6 +527,9 @@ components:
             type: string
           description: 'Substitutions for Build resource. The keys must match the
             following regular expression: `^_+$`.'
+          items:
+            type: string
+            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Substitutions
         tags:
@@ -586,8 +601,35 @@ info:
   title: Cloudbuild/BuildTrigger
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many BuildTrigger
+  apply:
+    description: The function used to apply information about a BuildTrigger
+    parameters:
+    - description: A full instance of a BuildTrigger
+      name: BuildTrigger
+      required: true
+  delete:
+    description: The function used to delete a BuildTrigger
+    parameters:
+    - description: A full instance of a BuildTrigger
+      name: BuildTrigger
+      required: true
+  deleteAll:
+    description: The function used to delete all BuildTrigger
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a BuildTrigger
+    parameters:
+    - description: A full instance of a BuildTrigger
+      name: BuildTrigger
+      required: true
+  list:
+    description: The function used to list information about many BuildTrigger
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

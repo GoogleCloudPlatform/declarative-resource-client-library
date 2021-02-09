@@ -17,165 +17,166 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
-type CloudFunction struct {
-	Name                       *string                                      `json:"name"`
-	Description                *string                                      `json:"description"`
-	SourceArchiveUrl           *string                                      `json:"sourceArchiveUrl"`
-	SourceRepository           *CloudFunctionSourceRepository               `json:"sourceRepository"`
-	HttpsTrigger               *CloudFunctionHttpsTrigger                   `json:"httpsTrigger"`
-	EventTrigger               *CloudFunctionEventTrigger                   `json:"eventTrigger"`
-	Status                     *CloudFunctionStatusEnum                     `json:"status"`
-	EntryPoint                 *string                                      `json:"entryPoint"`
-	Runtime                    *string                                      `json:"runtime"`
-	Timeout                    *int64                                       `json:"timeout"`
-	AvailableMemoryMb          *int64                                       `json:"availableMemoryMb"`
-	ServiceAccountEmail        *string                                      `json:"serviceAccountEmail"`
-	UpdateTime                 *string                                      `json:"updateTime"`
-	VersionId                  *int64                                       `json:"versionId"`
-	Labels                     map[string]string                            `json:"labels"`
-	EnvironmentVariables       map[string]string                            `json:"environmentVariables"`
-	Network                    *string                                      `json:"network"`
-	MaxInstances               *int64                                       `json:"maxInstances"`
-	VPCConnector               *string                                      `json:"vpcConnector"`
-	VPCConnectorEgressSettings *CloudFunctionVPCConnectorEgressSettingsEnum `json:"vpcConnectorEgressSettings"`
-	IngressSettings            *CloudFunctionIngressSettingsEnum            `json:"ingressSettings"`
-	Region                     *string                                      `json:"region"`
-	Project                    *string                                      `json:"project"`
+type Function struct {
+	Name                       *string                                 `json:"name"`
+	Description                *string                                 `json:"description"`
+	SourceArchiveUrl           *string                                 `json:"sourceArchiveUrl"`
+	SourceRepository           *FunctionSourceRepository               `json:"sourceRepository"`
+	HttpsTrigger               *FunctionHttpsTrigger                   `json:"httpsTrigger"`
+	EventTrigger               *FunctionEventTrigger                   `json:"eventTrigger"`
+	Status                     *FunctionStatusEnum                     `json:"status"`
+	EntryPoint                 *string                                 `json:"entryPoint"`
+	Runtime                    *string                                 `json:"runtime"`
+	Timeout                    *string                                 `json:"timeout"`
+	AvailableMemoryMb          *int64                                  `json:"availableMemoryMb"`
+	ServiceAccountEmail        *string                                 `json:"serviceAccountEmail"`
+	UpdateTime                 *string                                 `json:"updateTime"`
+	VersionId                  *int64                                  `json:"versionId"`
+	Labels                     map[string]string                       `json:"labels"`
+	EnvironmentVariables       map[string]string                       `json:"environmentVariables"`
+	Network                    *string                                 `json:"network"`
+	MaxInstances               *int64                                  `json:"maxInstances"`
+	VPCConnector               *string                                 `json:"vpcConnector"`
+	VPCConnectorEgressSettings *FunctionVPCConnectorEgressSettingsEnum `json:"vpcConnectorEgressSettings"`
+	IngressSettings            *FunctionIngressSettingsEnum            `json:"ingressSettings"`
+	Region                     *string                                 `json:"region"`
+	Project                    *string                                 `json:"project"`
 }
 
-func (r *CloudFunction) String() string {
+func (r *Function) String() string {
 	return dcl.SprintResource(r)
 }
 
-// The enum CloudFunctionStatusEnum.
-type CloudFunctionStatusEnum string
+// The enum FunctionStatusEnum.
+type FunctionStatusEnum string
 
-// CloudFunctionStatusEnumRef returns a *CloudFunctionStatusEnum with the value of string s
+// FunctionStatusEnumRef returns a *FunctionStatusEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func CloudFunctionStatusEnumRef(s string) *CloudFunctionStatusEnum {
+func FunctionStatusEnumRef(s string) *FunctionStatusEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := CloudFunctionStatusEnum(s)
+	v := FunctionStatusEnum(s)
 	return &v
 }
 
-func (v CloudFunctionStatusEnum) Validate() error {
+func (v FunctionStatusEnum) Validate() error {
 	for _, s := range []string{"CLOUD_FUNCTION_STATUS_UNSPECIFIED", "ACTIVE", "OFFLINE", "DEPLOY_IN_PROGRESS", "DELETE_IN_PROGRESS", "UNKNOWN"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "CloudFunctionStatusEnum",
+		Enum:  "FunctionStatusEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum CloudFunctionVPCConnectorEgressSettingsEnum.
-type CloudFunctionVPCConnectorEgressSettingsEnum string
+// The enum FunctionVPCConnectorEgressSettingsEnum.
+type FunctionVPCConnectorEgressSettingsEnum string
 
-// CloudFunctionVPCConnectorEgressSettingsEnumRef returns a *CloudFunctionVPCConnectorEgressSettingsEnum with the value of string s
+// FunctionVPCConnectorEgressSettingsEnumRef returns a *FunctionVPCConnectorEgressSettingsEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func CloudFunctionVPCConnectorEgressSettingsEnumRef(s string) *CloudFunctionVPCConnectorEgressSettingsEnum {
+func FunctionVPCConnectorEgressSettingsEnumRef(s string) *FunctionVPCConnectorEgressSettingsEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := CloudFunctionVPCConnectorEgressSettingsEnum(s)
+	v := FunctionVPCConnectorEgressSettingsEnum(s)
 	return &v
 }
 
-func (v CloudFunctionVPCConnectorEgressSettingsEnum) Validate() error {
+func (v FunctionVPCConnectorEgressSettingsEnum) Validate() error {
 	for _, s := range []string{"VPC_CONNECTOR_EGRESS_SETTINGS_UNSPECIFIED", "PRIVATE_RANGES_ONLY", "ALL_TRAFFIC"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "CloudFunctionVPCConnectorEgressSettingsEnum",
+		Enum:  "FunctionVPCConnectorEgressSettingsEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum CloudFunctionIngressSettingsEnum.
-type CloudFunctionIngressSettingsEnum string
+// The enum FunctionIngressSettingsEnum.
+type FunctionIngressSettingsEnum string
 
-// CloudFunctionIngressSettingsEnumRef returns a *CloudFunctionIngressSettingsEnum with the value of string s
+// FunctionIngressSettingsEnumRef returns a *FunctionIngressSettingsEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func CloudFunctionIngressSettingsEnumRef(s string) *CloudFunctionIngressSettingsEnum {
+func FunctionIngressSettingsEnumRef(s string) *FunctionIngressSettingsEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := CloudFunctionIngressSettingsEnum(s)
+	v := FunctionIngressSettingsEnum(s)
 	return &v
 }
 
-func (v CloudFunctionIngressSettingsEnum) Validate() error {
+func (v FunctionIngressSettingsEnum) Validate() error {
 	for _, s := range []string{"INGRESS_SETTINGS_UNSPECIFIED", "ALLOW_ALL", "ALLOW_INTERNAL_ONLY", "ALLOW_INTERNAL_AND_GCLB"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "CloudFunctionIngressSettingsEnum",
+		Enum:  "FunctionIngressSettingsEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-type CloudFunctionSourceRepository struct {
+type FunctionSourceRepository struct {
 	empty       bool    `json:"-"`
 	Url         *string `json:"url"`
 	DeployedUrl *string `json:"deployedUrl"`
 }
 
-// This object is used to assert a desired state where this CloudFunctionSourceRepository is
+// This object is used to assert a desired state where this FunctionSourceRepository is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyCloudFunctionSourceRepository *CloudFunctionSourceRepository = &CloudFunctionSourceRepository{empty: true}
+var EmptyFunctionSourceRepository *FunctionSourceRepository = &FunctionSourceRepository{empty: true}
 
-func (r *CloudFunctionSourceRepository) String() string {
+func (r *FunctionSourceRepository) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *CloudFunctionSourceRepository) HashCode() string {
+func (r *FunctionSourceRepository) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type CloudFunctionHttpsTrigger struct {
+type FunctionHttpsTrigger struct {
 	empty bool    `json:"-"`
 	Url   *string `json:"url"`
 }
 
-// This object is used to assert a desired state where this CloudFunctionHttpsTrigger is
+// This object is used to assert a desired state where this FunctionHttpsTrigger is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyCloudFunctionHttpsTrigger *CloudFunctionHttpsTrigger = &CloudFunctionHttpsTrigger{empty: true}
+var EmptyFunctionHttpsTrigger *FunctionHttpsTrigger = &FunctionHttpsTrigger{empty: true}
 
-func (r *CloudFunctionHttpsTrigger) String() string {
+func (r *FunctionHttpsTrigger) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *CloudFunctionHttpsTrigger) HashCode() string {
+func (r *FunctionHttpsTrigger) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type CloudFunctionEventTrigger struct {
+type FunctionEventTrigger struct {
 	empty         bool    `json:"-"`
 	EventType     *string `json:"eventType"`
 	Resource      *string `json:"resource"`
@@ -183,16 +184,16 @@ type CloudFunctionEventTrigger struct {
 	FailurePolicy *bool   `json:"failurePolicy"`
 }
 
-// This object is used to assert a desired state where this CloudFunctionEventTrigger is
+// This object is used to assert a desired state where this FunctionEventTrigger is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyCloudFunctionEventTrigger *CloudFunctionEventTrigger = &CloudFunctionEventTrigger{empty: true}
+var EmptyFunctionEventTrigger *FunctionEventTrigger = &FunctionEventTrigger{empty: true}
 
-func (r *CloudFunctionEventTrigger) String() string {
+func (r *FunctionEventTrigger) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *CloudFunctionEventTrigger) HashCode() string {
+func (r *FunctionEventTrigger) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -201,18 +202,18 @@ func (r *CloudFunctionEventTrigger) HashCode() string {
 
 // Describe returns a simple description of this resource to ensure that automated tools
 // can identify it.
-func (r *CloudFunction) Describe() dcl.ServiceTypeVersion {
+func (r *Function) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
 		Service: "cloudfunctions",
-		Type:    "CloudFunction",
+		Type:    "Function",
 		Version: "cloudfunctions",
 	}
 }
 
-const CloudFunctionMaxPage = -1
+const FunctionMaxPage = -1
 
-type CloudFunctionList struct {
-	Items []*CloudFunction
+type FunctionList struct {
+	Items []*Function
 
 	nextToken string
 
@@ -223,15 +224,15 @@ type CloudFunctionList struct {
 	region string
 }
 
-func (l *CloudFunctionList) HasNext() bool {
+func (l *FunctionList) HasNext() bool {
 	return l.nextToken != ""
 }
 
-func (l *CloudFunctionList) Next(ctx context.Context, c *Client) error {
+func (l *FunctionList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listCloudFunction(ctx, l.project, l.region, l.nextToken, l.pageSize)
+	items, token, err := c.listFunction(ctx, l.project, l.region, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -240,18 +241,18 @@ func (l *CloudFunctionList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListCloudFunction(ctx context.Context, project, region string) (*CloudFunctionList, error) {
+func (c *Client) ListFunction(ctx context.Context, project, region string) (*FunctionList, error) {
 
-	return c.ListCloudFunctionWithMaxResults(ctx, project, region, CloudFunctionMaxPage)
+	return c.ListFunctionWithMaxResults(ctx, project, region, FunctionMaxPage)
 
 }
 
-func (c *Client) ListCloudFunctionWithMaxResults(ctx context.Context, project, region string, pageSize int32) (*CloudFunctionList, error) {
-	items, token, err := c.listCloudFunction(ctx, project, region, "", pageSize)
+func (c *Client) ListFunctionWithMaxResults(ctx context.Context, project, region string, pageSize int32) (*FunctionList, error) {
+	items, token, err := c.listFunction(ctx, project, region, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
-	return &CloudFunctionList{
+	return &FunctionList{
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
@@ -262,8 +263,8 @@ func (c *Client) ListCloudFunctionWithMaxResults(ctx context.Context, project, r
 	}, nil
 }
 
-func (c *Client) GetCloudFunction(ctx context.Context, r *CloudFunction) (*CloudFunction, error) {
-	b, err := c.getCloudFunctionRaw(ctx, r)
+func (c *Client) GetFunction(ctx context.Context, r *Function) (*Function, error) {
+	b, err := c.getFunctionRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			return nil, &googleapi.Error{
@@ -273,7 +274,7 @@ func (c *Client) GetCloudFunction(ctx context.Context, r *CloudFunction) (*Cloud
 		}
 		return nil, err
 	}
-	result, err := unmarshalCloudFunction(b, c)
+	result, err := unmarshalFunction(b, c)
 	if err != nil {
 		return nil, err
 	}
@@ -283,7 +284,7 @@ func (c *Client) GetCloudFunction(ctx context.Context, r *CloudFunction) (*Cloud
 
 	c.Config.Logger.Infof("Retrieved raw result state: %v", result)
 	c.Config.Logger.Infof("Canonicalizing with specified state: %v", r)
-	result, err = canonicalizeCloudFunctionNewState(c, result, r)
+	result, err = canonicalizeFunctionNewState(c, result, r)
 	if err != nil {
 		return nil, err
 	}
@@ -292,23 +293,23 @@ func (c *Client) GetCloudFunction(ctx context.Context, r *CloudFunction) (*Cloud
 	return result, nil
 }
 
-func (c *Client) DeleteCloudFunction(ctx context.Context, r *CloudFunction) error {
+func (c *Client) DeleteFunction(ctx context.Context, r *Function) error {
 	if r == nil {
-		return fmt.Errorf("CloudFunction resource is nil")
+		return fmt.Errorf("Function resource is nil")
 	}
-	c.Config.Logger.Info("Deleting CloudFunction...")
-	deleteOp := deleteCloudFunctionOperation{}
+	c.Config.Logger.Info("Deleting Function...")
+	deleteOp := deleteFunctionOperation{}
 	return deleteOp.do(ctx, r, c)
 }
 
-// DeleteAllCloudFunction deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllCloudFunction(ctx context.Context, project, region string, filter func(*CloudFunction) bool) error {
-	listObj, err := c.ListCloudFunction(ctx, project, region)
+// DeleteAllFunction deletes all resources that the filter functions returns true on.
+func (c *Client) DeleteAllFunction(ctx context.Context, project, region string, filter func(*Function) bool) error {
+	listObj, err := c.ListFunction(ctx, project, region)
 	if err != nil {
 		return err
 	}
 
-	err = c.deleteAllCloudFunction(ctx, filter, listObj.Items)
+	err = c.deleteAllFunction(ctx, filter, listObj.Items)
 	if err != nil {
 		return err
 	}
@@ -317,7 +318,7 @@ func (c *Client) DeleteAllCloudFunction(ctx context.Context, project, region str
 		if err != nil {
 			return nil
 		}
-		err = c.deleteAllCloudFunction(ctx, filter, listObj.Items)
+		err = c.deleteAllFunction(ctx, filter, listObj.Items)
 		if err != nil {
 			return err
 		}
@@ -325,8 +326,8 @@ func (c *Client) DeleteAllCloudFunction(ctx context.Context, project, region str
 	return nil
 }
 
-func (c *Client) ApplyCloudFunction(ctx context.Context, rawDesired *CloudFunction, opts ...dcl.ApplyOption) (*CloudFunction, error) {
-	c.Config.Logger.Info("Beginning ApplyCloudFunction...")
+func (c *Client) ApplyFunction(ctx context.Context, rawDesired *Function, opts ...dcl.ApplyOption) (*Function, error) {
+	c.Config.Logger.Info("Beginning ApplyFunction...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
 	// 1.1: Validation of user-specified fields in desired state.
@@ -334,7 +335,7 @@ func (c *Client) ApplyCloudFunction(ctx context.Context, rawDesired *CloudFuncti
 		return nil, err
 	}
 
-	initial, desired, diffs, err := c.cloudFunctionDiffsForRawDesired(ctx, rawDesired, opts...)
+	initial, desired, diffs, err := c.functionDiffsForRawDesired(ctx, rawDesired, opts...)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
@@ -371,14 +372,16 @@ func (c *Client) ApplyCloudFunction(ctx context.Context, rawDesired *CloudFuncti
 	}
 
 	// 2.4 Imperative Request Planning
-	var ops []cloudFunctionApiOperation
+	var ops []functionApiOperation
 	if create {
-		ops = append(ops, &createCloudFunctionOperation{})
+		ops = append(ops, &createFunctionOperation{})
 	} else if recreate {
-		ops = append(ops, &deleteCloudFunctionOperation{})
-		ops = append(ops, &createCloudFunctionOperation{})
+
+		ops = append(ops, &deleteFunctionOperation{})
+
+		ops = append(ops, &createFunctionOperation{})
 		// We should re-canonicalize based on a nil existing resource.
-		desired, err = canonicalizeCloudFunctionDesiredState(rawDesired, nil)
+		desired, err = canonicalizeFunctionDesiredState(rawDesired, nil)
 		if err != nil {
 			return nil, err
 		}
@@ -401,26 +404,26 @@ func (c *Client) ApplyCloudFunction(ctx context.Context, rawDesired *CloudFuncti
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetCloudFunction(ctx, desired.urlNormalized())
+	rawNew, err := c.GetFunction(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}
 
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
-	newState, err := canonicalizeCloudFunctionNewState(c, rawNew, rawDesired)
+	newState, err := canonicalizeFunctionNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
-	newDesired, err := canonicalizeCloudFunctionDesiredState(rawDesired, newState)
+	newDesired, err := canonicalizeFunctionDesiredState(rawDesired, newState)
 	if err != nil {
 		return nil, err
 	}
 	c.Config.Logger.Infof("Diffing using canonicalized desired state: %v", newDesired)
-	newDiffs, err := diffCloudFunction(c, newDesired, newState)
+	newDiffs, err := diffFunction(c, newDesired, newState)
 	if err != nil {
 		return nil, err
 	}

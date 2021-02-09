@@ -38,7 +38,7 @@ components:
               x-dcl-go-name: SignedUrlCacheMaxAgeSec
               x-kubernetes-immutable: true
             signedUrlKeyNames:
-              description: \[Output Only\] Names of the keys for signing request URLs.
+              description: '[Output Only] Names of the keys for signing request URLs.'
               items:
                 type: string
                 x-dcl-go-type: string
@@ -62,10 +62,10 @@ components:
           description: Name of the resource. Provided by the client when the resource
             is created. The name must be 1-63 characters long, and comply with [RFC1035](https://www.ietf.org/rfc/rfc1035.txt).
             Specifically, the name must be 1-63 characters long and match the regular
-            expression \`\[a-z\](\[-a-z0-9\]\*\[a-z0-9\])?\` which means the first
-            character must be a lowercase letter, and all following characters must
-            be a dash, lowercase letter, or digit, except the last character, which
-            cannot be a dash.
+            expression `[a-z]([-a-z0-9]*[a-z0-9])?` which means the first character
+            must be a lowercase letter, and all following characters must be a dash,
+            lowercase letter, or digit, except the last character, which cannot be
+            a dash.
           type: string
           x-dcl-go-name: Name
         project:
@@ -91,8 +91,35 @@ info:
   title: Compute/BackendBucket
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many BackendBucket
+  apply:
+    description: The function used to apply information about a BackendBucket
+    parameters:
+    - description: A full instance of a BackendBucket
+      name: BackendBucket
+      required: true
+  delete:
+    description: The function used to delete a BackendBucket
+    parameters:
+    - description: A full instance of a BackendBucket
+      name: BackendBucket
+      required: true
+  deleteAll:
+    description: The function used to delete all BackendBucket
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a BackendBucket
+    parameters:
+    - description: A full instance of a BackendBucket
+      name: BackendBucket
+      required: true
+  list:
+    description: The function used to list information about many BackendBucket
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

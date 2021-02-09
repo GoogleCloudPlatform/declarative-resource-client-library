@@ -301,11 +301,13 @@ func (s *NodeServer) ApplyTPUNode(ctx context.Context, request *tpupb.ApplyTPUNo
 
 // DeleteNode handles the gRPC request by passing it to the underlying Node Delete() method.
 func (s *NodeServer) DeleteTPUNode(ctx context.Context, request *tpupb.DeleteTPUNodeRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigNode(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteNode(ctx, ProtoToNode(request.GetResource()))
+
 }
 
 // ListNode handles the gRPC request by passing it to the underlying NodeList() method.

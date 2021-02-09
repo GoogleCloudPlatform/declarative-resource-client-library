@@ -26,9 +26,9 @@ enum CloudresourcemanagerFolderStateEnum {
 }
 
 message CloudresourcemanagerFolder {
-  string id = 1;
+  string name = 1;
   string parent = 2;
-  string name = 3;
+  string display_name = 3;
   CloudresourcemanagerFolderStateEnum state = 4;
   string create_time = 5;
   string update_time = 6;

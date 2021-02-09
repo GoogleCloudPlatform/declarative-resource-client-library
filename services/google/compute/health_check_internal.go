@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *HealthCheck) validate() error {
@@ -440,12 +441,12 @@ func (c *Client) healthCheckDiffsForRawDesired(ctx context.Context, rawDesired *
 			c.Config.Logger.Warningf("Failed to retrieve whether a HealthCheck resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve HealthCheck resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that HealthCheck resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeHealthCheckDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for HealthCheck: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for HealthCheck: %v", rawDesired)
 
@@ -610,34 +611,16 @@ func canonicalizeHealthCheckNewState(c *Client, rawNew, rawDesired *HealthCheck)
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Region) && dcl.IsEmptyValueIndirect(rawDesired.Region) {
-		rawNew.Region = rawDesired.Region
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Region, rawNew.Region) {
-			rawNew.Region = rawDesired.Region
-		}
-	}
+	rawNew.Region = rawDesired.Region
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
-		rawNew.Location = rawDesired.Location
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Location, rawNew.Location) {
-			rawNew.Location = rawDesired.Location
-		}
-	}
+	rawNew.Location = rawDesired.Location
 
 	return rawNew, nil
 }
@@ -1023,7 +1006,7 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 
 	var diffs []healthCheckDiff
 	if !dcl.IsZeroValue(desired.CheckIntervalSec) && (dcl.IsZeroValue(actual.CheckIntervalSec) || !reflect.DeepEqual(*desired.CheckIntervalSec, *actual.CheckIntervalSec)) {
-		c.Config.Logger.Infof("Detected diff in CheckIntervalSec.\nDESIRED: %#v\nACTUAL: %#v", desired.CheckIntervalSec, actual.CheckIntervalSec)
+		c.Config.Logger.Infof("Detected diff in CheckIntervalSec.\nDESIRED: %v\nACTUAL: %v", desired.CheckIntervalSec, actual.CheckIntervalSec)
 
 		diffs = append(diffs, healthCheckDiff{
 			UpdateOp:  &updateHealthCheckUpdateOperation{},
@@ -1032,7 +1015,7 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, healthCheckDiff{
 			UpdateOp:  &updateHealthCheckUpdateOperation{},
@@ -1041,7 +1024,7 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 
 	}
 	if !dcl.IsZeroValue(desired.HealthyThreshold) && (dcl.IsZeroValue(actual.HealthyThreshold) || !reflect.DeepEqual(*desired.HealthyThreshold, *actual.HealthyThreshold)) {
-		c.Config.Logger.Infof("Detected diff in HealthyThreshold.\nDESIRED: %#v\nACTUAL: %#v", desired.HealthyThreshold, actual.HealthyThreshold)
+		c.Config.Logger.Infof("Detected diff in HealthyThreshold.\nDESIRED: %v\nACTUAL: %v", desired.HealthyThreshold, actual.HealthyThreshold)
 
 		diffs = append(diffs, healthCheckDiff{
 			UpdateOp:  &updateHealthCheckUpdateOperation{},
@@ -1050,7 +1033,7 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 
 	}
 	if compareHealthCheckHttp2HealthCheck(c, desired.Http2HealthCheck, actual.Http2HealthCheck) {
-		c.Config.Logger.Infof("Detected diff in Http2HealthCheck.\nDESIRED: %#v\nACTUAL: %#v", desired.Http2HealthCheck, actual.Http2HealthCheck)
+		c.Config.Logger.Infof("Detected diff in Http2HealthCheck.\nDESIRED: %v\nACTUAL: %v", desired.Http2HealthCheck, actual.Http2HealthCheck)
 
 		diffs = append(diffs, healthCheckDiff{
 			UpdateOp:  &updateHealthCheckUpdateOperation{},
@@ -1059,7 +1042,7 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 
 	}
 	if compareHealthCheckHttpHealthCheck(c, desired.HttpHealthCheck, actual.HttpHealthCheck) {
-		c.Config.Logger.Infof("Detected diff in HttpHealthCheck.\nDESIRED: %#v\nACTUAL: %#v", desired.HttpHealthCheck, actual.HttpHealthCheck)
+		c.Config.Logger.Infof("Detected diff in HttpHealthCheck.\nDESIRED: %v\nACTUAL: %v", desired.HttpHealthCheck, actual.HttpHealthCheck)
 
 		diffs = append(diffs, healthCheckDiff{
 			UpdateOp:  &updateHealthCheckUpdateOperation{},
@@ -1068,7 +1051,7 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 
 	}
 	if compareHealthCheckHttpsHealthCheck(c, desired.HttpsHealthCheck, actual.HttpsHealthCheck) {
-		c.Config.Logger.Infof("Detected diff in HttpsHealthCheck.\nDESIRED: %#v\nACTUAL: %#v", desired.HttpsHealthCheck, actual.HttpsHealthCheck)
+		c.Config.Logger.Infof("Detected diff in HttpsHealthCheck.\nDESIRED: %v\nACTUAL: %v", desired.HttpsHealthCheck, actual.HttpsHealthCheck)
 
 		diffs = append(diffs, healthCheckDiff{
 			UpdateOp:  &updateHealthCheckUpdateOperation{},
@@ -1077,7 +1060,7 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 
 		diffs = append(diffs, healthCheckDiff{
 			UpdateOp:  &updateHealthCheckUpdateOperation{},
@@ -1086,7 +1069,7 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 
 	}
 	if compareHealthCheckSslHealthCheck(c, desired.SslHealthCheck, actual.SslHealthCheck) {
-		c.Config.Logger.Infof("Detected diff in SslHealthCheck.\nDESIRED: %#v\nACTUAL: %#v", desired.SslHealthCheck, actual.SslHealthCheck)
+		c.Config.Logger.Infof("Detected diff in SslHealthCheck.\nDESIRED: %v\nACTUAL: %v", desired.SslHealthCheck, actual.SslHealthCheck)
 
 		diffs = append(diffs, healthCheckDiff{
 			UpdateOp:  &updateHealthCheckUpdateOperation{},
@@ -1095,7 +1078,7 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 
 	}
 	if compareHealthCheckTcpHealthCheck(c, desired.TcpHealthCheck, actual.TcpHealthCheck) {
-		c.Config.Logger.Infof("Detected diff in TcpHealthCheck.\nDESIRED: %#v\nACTUAL: %#v", desired.TcpHealthCheck, actual.TcpHealthCheck)
+		c.Config.Logger.Infof("Detected diff in TcpHealthCheck.\nDESIRED: %v\nACTUAL: %v", desired.TcpHealthCheck, actual.TcpHealthCheck)
 
 		diffs = append(diffs, healthCheckDiff{
 			UpdateOp:  &updateHealthCheckUpdateOperation{},
@@ -1104,7 +1087,7 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 
 	}
 	if !dcl.IsZeroValue(desired.Type) && (dcl.IsZeroValue(actual.Type) || !reflect.DeepEqual(*desired.Type, *actual.Type)) {
-		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %#v\nACTUAL: %#v", desired.Type, actual.Type)
+		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %v\nACTUAL: %v", desired.Type, actual.Type)
 
 		diffs = append(diffs, healthCheckDiff{
 			UpdateOp:  &updateHealthCheckUpdateOperation{},
@@ -1113,7 +1096,7 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 
 	}
 	if !dcl.IsZeroValue(desired.UnhealthyThreshold) && (dcl.IsZeroValue(actual.UnhealthyThreshold) || !reflect.DeepEqual(*desired.UnhealthyThreshold, *actual.UnhealthyThreshold)) {
-		c.Config.Logger.Infof("Detected diff in UnhealthyThreshold.\nDESIRED: %#v\nACTUAL: %#v", desired.UnhealthyThreshold, actual.UnhealthyThreshold)
+		c.Config.Logger.Infof("Detected diff in UnhealthyThreshold.\nDESIRED: %v\nACTUAL: %v", desired.UnhealthyThreshold, actual.UnhealthyThreshold)
 
 		diffs = append(diffs, healthCheckDiff{
 			UpdateOp:  &updateHealthCheckUpdateOperation{},
@@ -1122,34 +1105,13 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 
 	}
 	if !dcl.IsZeroValue(desired.TimeoutSec) && (dcl.IsZeroValue(actual.TimeoutSec) || !reflect.DeepEqual(*desired.TimeoutSec, *actual.TimeoutSec)) {
-		c.Config.Logger.Infof("Detected diff in TimeoutSec.\nDESIRED: %#v\nACTUAL: %#v", desired.TimeoutSec, actual.TimeoutSec)
+		c.Config.Logger.Infof("Detected diff in TimeoutSec.\nDESIRED: %v\nACTUAL: %v", desired.TimeoutSec, actual.TimeoutSec)
 
 		diffs = append(diffs, healthCheckDiff{
 			UpdateOp:  &updateHealthCheckUpdateOperation{},
 			FieldName: "TimeoutSec",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Region) && !dcl.NameToSelfLink(desired.Region, actual.Region) {
-		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %#v\nACTUAL: %#v", desired.Region, actual.Region)
-		diffs = append(diffs, healthCheckDiff{
-			RequiresRecreate: true,
-			FieldName:        "Region",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, healthCheckDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Location) && !dcl.NameToSelfLink(desired.Location, actual.Location) {
-		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
-		diffs = append(diffs, healthCheckDiff{
-			RequiresRecreate: true,
-			FieldName:        "Location",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,

@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *TargetVpnGateway) validate() error {
@@ -272,12 +273,12 @@ func (c *Client) targetVpnGatewayDiffsForRawDesired(ctx context.Context, rawDesi
 			c.Config.Logger.Warningf("Failed to retrieve whether a TargetVpnGateway resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve TargetVpnGateway resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that TargetVpnGateway resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeTargetVpnGatewayDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for TargetVpnGateway: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for TargetVpnGateway: %v", rawDesired)
 
@@ -409,13 +410,7 @@ func canonicalizeTargetVpnGatewayNewState(c *Client, rawNew, rawDesired *TargetV
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -442,38 +437,31 @@ func diffTargetVpnGateway(c *Client, desired, actual *TargetVpnGateway, opts ...
 
 	var diffs []targetVpnGatewayDiff
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, targetVpnGatewayDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, targetVpnGatewayDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Region) && (dcl.IsZeroValue(actual.Region) || !reflect.DeepEqual(*desired.Region, *actual.Region)) {
-		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %#v\nACTUAL: %#v", desired.Region, actual.Region)
+		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %v\nACTUAL: %v", desired.Region, actual.Region)
 		diffs = append(diffs, targetVpnGatewayDiff{
 			RequiresRecreate: true,
 			FieldName:        "Region",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Network) && (dcl.IsZeroValue(actual.Network) || !reflect.DeepEqual(*desired.Network, *actual.Network)) {
-		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %#v\nACTUAL: %#v", desired.Network, actual.Network)
+		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
 		diffs = append(diffs, targetVpnGatewayDiff{
 			RequiresRecreate: true,
 			FieldName:        "Network",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, targetVpnGatewayDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.

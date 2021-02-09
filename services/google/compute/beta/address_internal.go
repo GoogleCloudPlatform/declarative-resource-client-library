@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Address) validate() error {
@@ -366,12 +367,12 @@ func (c *Client) addressDiffsForRawDesired(ctx context.Context, rawDesired *Addr
 			c.Config.Logger.Warningf("Failed to retrieve whether a Address resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Address resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Address resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeAddressDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Address: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Address: %v", rawDesired)
 
@@ -571,13 +572,7 @@ func canonicalizeAddressNewState(c *Client, rawNew, rawDesired *Address) (*Addre
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	if dcl.IsEmptyValueIndirect(rawNew.CreationTimestamp) && dcl.IsEmptyValueIndirect(rawDesired.CreationTimestamp) {
 		rawNew.CreationTimestamp = rawDesired.CreationTimestamp
@@ -599,13 +594,7 @@ func canonicalizeAddressNewState(c *Client, rawNew, rawDesired *Address) (*Addre
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
-		rawNew.Location = rawDesired.Location
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Location, rawNew.Location) {
-			rawNew.Location = rawDesired.Location
-		}
-	}
+	rawNew.Location = rawDesired.Location
 
 	return rawNew, nil
 }
@@ -632,104 +621,90 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 
 	var diffs []addressDiff
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, addressDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, addressDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Address) && (dcl.IsZeroValue(actual.Address) || !reflect.DeepEqual(*desired.Address, *actual.Address)) {
-		c.Config.Logger.Infof("Detected diff in Address.\nDESIRED: %#v\nACTUAL: %#v", desired.Address, actual.Address)
+		c.Config.Logger.Infof("Detected diff in Address.\nDESIRED: %v\nACTUAL: %v", desired.Address, actual.Address)
 		diffs = append(diffs, addressDiff{
 			RequiresRecreate: true,
 			FieldName:        "Address",
 		})
 	}
 	if !dcl.IsZeroValue(desired.PrefixLength) && (dcl.IsZeroValue(actual.PrefixLength) || !reflect.DeepEqual(*desired.PrefixLength, *actual.PrefixLength)) {
-		c.Config.Logger.Infof("Detected diff in PrefixLength.\nDESIRED: %#v\nACTUAL: %#v", desired.PrefixLength, actual.PrefixLength)
+		c.Config.Logger.Infof("Detected diff in PrefixLength.\nDESIRED: %v\nACTUAL: %v", desired.PrefixLength, actual.PrefixLength)
 		diffs = append(diffs, addressDiff{
 			RequiresRecreate: true,
 			FieldName:        "PrefixLength",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Region) && !dcl.NameToSelfLink(desired.Region, actual.Region) {
-		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %#v\nACTUAL: %#v", desired.Region, actual.Region)
+		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %v\nACTUAL: %v", desired.Region, actual.Region)
 		diffs = append(diffs, addressDiff{
 			RequiresRecreate: true,
 			FieldName:        "Region",
 		})
 	}
 	if !dcl.IsZeroValue(desired.NetworkTier) && (dcl.IsZeroValue(actual.NetworkTier) || !reflect.DeepEqual(*desired.NetworkTier, *actual.NetworkTier)) {
-		c.Config.Logger.Infof("Detected diff in NetworkTier.\nDESIRED: %#v\nACTUAL: %#v", desired.NetworkTier, actual.NetworkTier)
+		c.Config.Logger.Infof("Detected diff in NetworkTier.\nDESIRED: %v\nACTUAL: %v", desired.NetworkTier, actual.NetworkTier)
 		diffs = append(diffs, addressDiff{
 			RequiresRecreate: true,
 			FieldName:        "NetworkTier",
 		})
 	}
 	if !dcl.IsZeroValue(desired.IPVersion) && (dcl.IsZeroValue(actual.IPVersion) || !reflect.DeepEqual(*desired.IPVersion, *actual.IPVersion)) {
-		c.Config.Logger.Infof("Detected diff in IPVersion.\nDESIRED: %#v\nACTUAL: %#v", desired.IPVersion, actual.IPVersion)
+		c.Config.Logger.Infof("Detected diff in IPVersion.\nDESIRED: %v\nACTUAL: %v", desired.IPVersion, actual.IPVersion)
 		diffs = append(diffs, addressDiff{
 			RequiresRecreate: true,
 			FieldName:        "IPVersion",
 		})
 	}
 	if !dcl.IsZeroValue(desired.AddressType) && (dcl.IsZeroValue(actual.AddressType) || !reflect.DeepEqual(*desired.AddressType, *actual.AddressType)) {
-		c.Config.Logger.Infof("Detected diff in AddressType.\nDESIRED: %#v\nACTUAL: %#v", desired.AddressType, actual.AddressType)
+		c.Config.Logger.Infof("Detected diff in AddressType.\nDESIRED: %v\nACTUAL: %v", desired.AddressType, actual.AddressType)
 		diffs = append(diffs, addressDiff{
 			RequiresRecreate: true,
 			FieldName:        "AddressType",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Purpose) && (dcl.IsZeroValue(actual.Purpose) || !reflect.DeepEqual(*desired.Purpose, *actual.Purpose)) {
-		c.Config.Logger.Infof("Detected diff in Purpose.\nDESIRED: %#v\nACTUAL: %#v", desired.Purpose, actual.Purpose)
+		c.Config.Logger.Infof("Detected diff in Purpose.\nDESIRED: %v\nACTUAL: %v", desired.Purpose, actual.Purpose)
 		diffs = append(diffs, addressDiff{
 			RequiresRecreate: true,
 			FieldName:        "Purpose",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Subnetwork) && !dcl.NameToSelfLink(desired.Subnetwork, actual.Subnetwork) {
-		c.Config.Logger.Infof("Detected diff in Subnetwork.\nDESIRED: %#v\nACTUAL: %#v", desired.Subnetwork, actual.Subnetwork)
+		c.Config.Logger.Infof("Detected diff in Subnetwork.\nDESIRED: %v\nACTUAL: %v", desired.Subnetwork, actual.Subnetwork)
 		diffs = append(diffs, addressDiff{
 			RequiresRecreate: true,
 			FieldName:        "Subnetwork",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Network) && !dcl.PartialSelfLinkToSelfLink(desired.Network, actual.Network) {
-		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %#v\nACTUAL: %#v", desired.Network, actual.Network)
+		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
 		diffs = append(diffs, addressDiff{
 			RequiresRecreate: true,
 			FieldName:        "Network",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, addressDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
 	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %#v\nACTUAL: %#v", desired.Labels, actual.Labels)
+		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, addressDiff{
 			UpdateOp:  &updateAddressSetLabelsOperation{},
 			FieldName: "Labels",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Location) && !dcl.NameToSelfLink(desired.Location, actual.Location) {
-		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
-		diffs = append(diffs, addressDiff{
-			RequiresRecreate: true,
-			FieldName:        "Location",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,

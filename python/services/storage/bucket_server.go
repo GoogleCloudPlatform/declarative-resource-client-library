@@ -381,11 +381,13 @@ func (s *BucketServer) StorageBucketAsHcl(ctx context.Context, request *storagep
 
 // DeleteBucket handles the gRPC request by passing it to the underlying Bucket Delete() method.
 func (s *BucketServer) DeleteStorageBucket(ctx context.Context, request *storagepb.DeleteStorageBucketRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigBucket(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteBucket(ctx, ProtoToBucket(request.GetResource()))
+
 }
 
 // ListBucket handles the gRPC request by passing it to the underlying BucketList() method.

@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *UptimeCheckConfig) validate() error {
@@ -438,6 +439,7 @@ func (c *Client) uptimeCheckConfigDiffsForRawDesired(ctx context.Context, rawDes
 		desired, err := canonicalizeUptimeCheckConfigDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
+
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetUptimeCheckConfig(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -445,12 +447,12 @@ func (c *Client) uptimeCheckConfigDiffsForRawDesired(ctx context.Context, rawDes
 			c.Config.Logger.Warningf("Failed to retrieve whether a UptimeCheckConfig resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve UptimeCheckConfig resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that UptimeCheckConfig resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeUptimeCheckConfigDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for UptimeCheckConfig: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for UptimeCheckConfig: %v", rawDesired)
 
@@ -605,13 +607,7 @@ func canonicalizeUptimeCheckConfigNewState(c *Client, rawNew, rawDesired *Uptime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -1035,14 +1031,14 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 
 	var diffs []uptimeCheckConfigDiff
 	if !dcl.IsZeroValue(desired.Name) && !dcl.NameToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, uptimeCheckConfigDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.DisplayName) && (dcl.IsZeroValue(actual.DisplayName) || !reflect.DeepEqual(*desired.DisplayName, *actual.DisplayName)) {
-		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %#v\nACTUAL: %#v", desired.DisplayName, actual.DisplayName)
+		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 
 		diffs = append(diffs, uptimeCheckConfigDiff{
 			UpdateOp:  &updateUptimeCheckConfigUpdateOperation{},
@@ -1051,21 +1047,21 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 
 	}
 	if compareUptimeCheckConfigMonitoredResource(c, desired.MonitoredResource, actual.MonitoredResource) {
-		c.Config.Logger.Infof("Detected diff in MonitoredResource.\nDESIRED: %#v\nACTUAL: %#v", desired.MonitoredResource, actual.MonitoredResource)
+		c.Config.Logger.Infof("Detected diff in MonitoredResource.\nDESIRED: %v\nACTUAL: %v", desired.MonitoredResource, actual.MonitoredResource)
 		diffs = append(diffs, uptimeCheckConfigDiff{
 			RequiresRecreate: true,
 			FieldName:        "MonitoredResource",
 		})
 	}
 	if compareUptimeCheckConfigResourceGroup(c, desired.ResourceGroup, actual.ResourceGroup) {
-		c.Config.Logger.Infof("Detected diff in ResourceGroup.\nDESIRED: %#v\nACTUAL: %#v", desired.ResourceGroup, actual.ResourceGroup)
+		c.Config.Logger.Infof("Detected diff in ResourceGroup.\nDESIRED: %v\nACTUAL: %v", desired.ResourceGroup, actual.ResourceGroup)
 		diffs = append(diffs, uptimeCheckConfigDiff{
 			RequiresRecreate: true,
 			FieldName:        "ResourceGroup",
 		})
 	}
 	if compareUptimeCheckConfigHttpCheck(c, desired.HttpCheck, actual.HttpCheck) {
-		c.Config.Logger.Infof("Detected diff in HttpCheck.\nDESIRED: %#v\nACTUAL: %#v", desired.HttpCheck, actual.HttpCheck)
+		c.Config.Logger.Infof("Detected diff in HttpCheck.\nDESIRED: %v\nACTUAL: %v", desired.HttpCheck, actual.HttpCheck)
 
 		diffs = append(diffs, uptimeCheckConfigDiff{
 			UpdateOp:  &updateUptimeCheckConfigUpdateOperation{},
@@ -1074,7 +1070,7 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 
 	}
 	if compareUptimeCheckConfigTcpCheck(c, desired.TcpCheck, actual.TcpCheck) {
-		c.Config.Logger.Infof("Detected diff in TcpCheck.\nDESIRED: %#v\nACTUAL: %#v", desired.TcpCheck, actual.TcpCheck)
+		c.Config.Logger.Infof("Detected diff in TcpCheck.\nDESIRED: %v\nACTUAL: %v", desired.TcpCheck, actual.TcpCheck)
 
 		diffs = append(diffs, uptimeCheckConfigDiff{
 			UpdateOp:  &updateUptimeCheckConfigUpdateOperation{},
@@ -1083,14 +1079,14 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 
 	}
 	if !dcl.IsZeroValue(desired.Period) && (dcl.IsZeroValue(actual.Period) || !reflect.DeepEqual(*desired.Period, *actual.Period)) {
-		c.Config.Logger.Infof("Detected diff in Period.\nDESIRED: %#v\nACTUAL: %#v", desired.Period, actual.Period)
+		c.Config.Logger.Infof("Detected diff in Period.\nDESIRED: %v\nACTUAL: %v", desired.Period, actual.Period)
 		diffs = append(diffs, uptimeCheckConfigDiff{
 			RequiresRecreate: true,
 			FieldName:        "Period",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Timeout) && (dcl.IsZeroValue(actual.Timeout) || !reflect.DeepEqual(*desired.Timeout, *actual.Timeout)) {
-		c.Config.Logger.Infof("Detected diff in Timeout.\nDESIRED: %#v\nACTUAL: %#v", desired.Timeout, actual.Timeout)
+		c.Config.Logger.Infof("Detected diff in Timeout.\nDESIRED: %v\nACTUAL: %v", desired.Timeout, actual.Timeout)
 
 		diffs = append(diffs, uptimeCheckConfigDiff{
 			UpdateOp:  &updateUptimeCheckConfigUpdateOperation{},
@@ -1099,7 +1095,7 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 
 	}
 	if compareUptimeCheckConfigContentMatchersSlice(c, desired.ContentMatchers, actual.ContentMatchers) {
-		c.Config.Logger.Infof("Detected diff in ContentMatchers.\nDESIRED: %#v\nACTUAL: %#v", desired.ContentMatchers, actual.ContentMatchers)
+		c.Config.Logger.Infof("Detected diff in ContentMatchers.\nDESIRED: %v\nACTUAL: %v", desired.ContentMatchers, actual.ContentMatchers)
 
 		diffs = append(diffs, uptimeCheckConfigDiff{
 			UpdateOp:  &updateUptimeCheckConfigUpdateOperation{},
@@ -1108,7 +1104,7 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 
 	}
 	if !dcl.SliceEquals(desired.PrivateCheckers, actual.PrivateCheckers) {
-		c.Config.Logger.Infof("Detected diff in PrivateCheckers.\nDESIRED: %#v\nACTUAL: %#v", desired.PrivateCheckers, actual.PrivateCheckers)
+		c.Config.Logger.Infof("Detected diff in PrivateCheckers.\nDESIRED: %v\nACTUAL: %v", desired.PrivateCheckers, actual.PrivateCheckers)
 
 		diffs = append(diffs, uptimeCheckConfigDiff{
 			UpdateOp:  &updateUptimeCheckConfigUpdateOperation{},
@@ -1117,20 +1113,13 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 
 	}
 	if !dcl.SliceEquals(desired.SelectedRegions, actual.SelectedRegions) {
-		c.Config.Logger.Infof("Detected diff in SelectedRegions.\nDESIRED: %#v\nACTUAL: %#v", desired.SelectedRegions, actual.SelectedRegions)
+		c.Config.Logger.Infof("Detected diff in SelectedRegions.\nDESIRED: %v\nACTUAL: %v", desired.SelectedRegions, actual.SelectedRegions)
 
 		diffs = append(diffs, uptimeCheckConfigDiff{
 			UpdateOp:  &updateUptimeCheckConfigUpdateOperation{},
 			FieldName: "SelectedRegions",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, uptimeCheckConfigDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
@@ -1214,14 +1203,6 @@ func compareUptimeCheckConfigResourceGroup(c *Client, desired, actual *UptimeChe
 		return false
 	}
 	if actual == nil {
-		return true
-	}
-	if actual.GroupId == nil && desired.GroupId != nil && !dcl.IsEmptyValueIndirect(desired.GroupId) {
-		c.Config.Logger.Infof("desired GroupId %s - but actually nil", dcl.SprintResource(desired.GroupId))
-		return true
-	}
-	if !dcl.NameToSelfLink(desired.GroupId, actual.GroupId) && !dcl.IsZeroValue(desired.GroupId) {
-		c.Config.Logger.Infof("Diff in GroupId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupId), dcl.SprintResource(actual.GroupId))
 		return true
 	}
 	if actual.ResourceType == nil && desired.ResourceType != nil && !dcl.IsEmptyValueIndirect(desired.ResourceType) {

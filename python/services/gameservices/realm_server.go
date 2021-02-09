@@ -76,11 +76,13 @@ func (s *RealmServer) ApplyGameservicesRealm(ctx context.Context, request *games
 
 // DeleteRealm handles the gRPC request by passing it to the underlying Realm Delete() method.
 func (s *RealmServer) DeleteGameservicesRealm(ctx context.Context, request *gameservicespb.DeleteGameservicesRealmRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigRealm(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteRealm(ctx, ProtoToRealm(request.GetResource()))
+
 }
 
 // ListRealm handles the gRPC request by passing it to the underlying RealmList() method.

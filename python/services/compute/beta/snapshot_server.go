@@ -136,11 +136,13 @@ func (s *SnapshotServer) ApplyComputeBetaSnapshot(ctx context.Context, request *
 
 // DeleteSnapshot handles the gRPC request by passing it to the underlying Snapshot Delete() method.
 func (s *SnapshotServer) DeleteComputeBetaSnapshot(ctx context.Context, request *betapb.DeleteComputeBetaSnapshotRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigSnapshot(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteSnapshot(ctx, ProtoToSnapshot(request.GetResource()))
+
 }
 
 // ListSnapshot handles the gRPC request by passing it to the underlying SnapshotList() method.

@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -297,7 +298,9 @@ func (c *Client) ApplySubscription(ctx context.Context, rawDesired *Subscription
 	if create {
 		ops = append(ops, &createSubscriptionOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteSubscriptionOperation{})
+
 		ops = append(ops, &createSubscriptionOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeSubscriptionDesiredState(rawDesired, nil)

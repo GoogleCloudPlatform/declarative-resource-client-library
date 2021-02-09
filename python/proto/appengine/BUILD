@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="appengine", resources=["application"])
+proto_package(name="appengine", resources=["application","domain_mapping","firewall_rule","version"])

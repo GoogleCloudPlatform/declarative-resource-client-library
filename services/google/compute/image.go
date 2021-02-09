@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -745,7 +746,9 @@ func (c *Client) ApplyImage(ctx context.Context, rawDesired *Image, opts ...dcl.
 	if create {
 		ops = append(ops, &createImageOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteImageOperation{})
+
 		ops = append(ops, &createImageOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeImageDesiredState(rawDesired, nil)

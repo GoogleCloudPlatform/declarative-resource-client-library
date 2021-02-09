@@ -27,7 +27,7 @@ class WorkflowTemplate(object):
         version: int = None,
         create_time: str = None,
         update_time: str = None,
-        labels: list = None,
+        labels: dict = None,
         placement: dict = None,
         jobs: list = None,
         parameters: list = None,
@@ -58,10 +58,9 @@ class WorkflowTemplate(object):
         if Primitive.to_proto(self.version):
             request.resource.version = Primitive.to_proto(self.version)
 
-        if WorkflowTemplateLabelsArray.to_proto(self.labels):
-            request.resource.labels.extend(
-                WorkflowTemplateLabelsArray.to_proto(self.labels)
-            )
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
         if WorkflowTemplatePlacement.to_proto(self.placement):
             request.resource.placement.CopyFrom(
                 WorkflowTemplatePlacement.to_proto(self.placement)
@@ -87,7 +86,7 @@ class WorkflowTemplate(object):
         self.version = Primitive.from_proto(response.version)
         self.create_time = Primitive.from_proto(response.create_time)
         self.update_time = Primitive.from_proto(response.update_time)
-        self.labels = WorkflowTemplateLabelsArray.from_proto(response.labels)
+        self.labels = Primitive.from_proto(response.labels)
         self.placement = WorkflowTemplatePlacement.from_proto(response.placement)
         self.jobs = WorkflowTemplateJobsArray.from_proto(response.jobs)
         self.parameters = WorkflowTemplateParametersArray.from_proto(
@@ -135,7 +134,7 @@ class WorkflowTemplate(object):
         res.version = Primitive.from_proto(res_proto.version)
         res.create_time = Primitive.from_proto(res_proto.create_time)
         res.update_time = Primitive.from_proto(res_proto.update_time)
-        res.labels = WorkflowTemplateLabelsArray.from_proto(res_proto.labels)
+        res.labels = Primitive.from_proto(res_proto.labels)
         res.placement = WorkflowTemplatePlacement.from_proto(res_proto.placement)
         res.jobs = WorkflowTemplateJobsArray.from_proto(res_proto.jobs)
         res.parameters = WorkflowTemplateParametersArray.from_proto(
@@ -144,43 +143,6 @@ class WorkflowTemplate(object):
         res.project = Primitive.from_proto(res_proto.project)
         res.location = Primitive.from_proto(res_proto.location)
         return res
-
-
-class WorkflowTemplateLabels(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = workflow_template_pb2.DataprocWorkflowTemplateLabels()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return WorkflowTemplateLabels(key=resource.key, value=resource.value,)
-
-
-class WorkflowTemplateLabelsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [WorkflowTemplateLabels.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [WorkflowTemplateLabels.from_proto(i) for i in resources]
 
 
 class WorkflowTemplatePlacement(object):
@@ -237,7 +199,7 @@ class WorkflowTemplatePlacementArray(object):
 
 class WorkflowTemplatePlacementManagedCluster(object):
     def __init__(
-        self, cluster_name: str = None, config: dict = None, labels: list = None
+        self, cluster_name: str = None, config: dict = None, labels: dict = None
     ):
         self.cluster_name = cluster_name
         self.config = config
@@ -255,12 +217,8 @@ class WorkflowTemplatePlacementManagedCluster(object):
             res.config.CopyFrom(ClusterClusterConfig.to_proto(resource.config))
         else:
             res.ClearField("config")
-        if WorkflowTemplatePlacementManagedClusterLabelsArray.to_proto(resource.labels):
-            res.labels.extend(
-                WorkflowTemplatePlacementManagedClusterLabelsArray.to_proto(
-                    resource.labels
-                )
-            )
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
         return res
 
     @classmethod
@@ -289,54 +247,8 @@ class WorkflowTemplatePlacementManagedClusterArray(object):
         ]
 
 
-class WorkflowTemplatePlacementManagedClusterLabels(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            workflow_template_pb2.DataprocWorkflowTemplatePlacementManagedClusterLabels()
-        )
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return WorkflowTemplatePlacementManagedClusterLabels(
-            key=resource.key, value=resource.value,
-        )
-
-
-class WorkflowTemplatePlacementManagedClusterLabelsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            WorkflowTemplatePlacementManagedClusterLabels.to_proto(i) for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            WorkflowTemplatePlacementManagedClusterLabels.from_proto(i)
-            for i in resources
-        ]
-
-
 class WorkflowTemplatePlacementClusterSelector(object):
-    def __init__(self, zone: str = None, cluster_labels: list = None):
+    def __init__(self, zone: str = None, cluster_labels: dict = None):
         self.zone = zone
         self.cluster_labels = cluster_labels
 
@@ -348,14 +260,8 @@ class WorkflowTemplatePlacementClusterSelector(object):
         res = workflow_template_pb2.DataprocWorkflowTemplatePlacementClusterSelector()
         if Primitive.to_proto(resource.zone):
             res.zone = Primitive.to_proto(resource.zone)
-        if WorkflowTemplatePlacementClusterSelectorClusterLabelsArray.to_proto(
-            resource.cluster_labels
-        ):
-            res.cluster_labels.extend(
-                WorkflowTemplatePlacementClusterSelectorClusterLabelsArray.to_proto(
-                    resource.cluster_labels
-                )
-            )
+        if Primitive.to_proto(resource.cluster_labels):
+            res.cluster_labels = Primitive.to_proto(resource.cluster_labels)
         return res
 
     @classmethod
@@ -382,53 +288,6 @@ class WorkflowTemplatePlacementClusterSelectorArray(object):
         ]
 
 
-class WorkflowTemplatePlacementClusterSelectorClusterLabels(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            workflow_template_pb2.DataprocWorkflowTemplatePlacementClusterSelectorClusterLabels()
-        )
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return WorkflowTemplatePlacementClusterSelectorClusterLabels(
-            key=resource.key, value=resource.value,
-        )
-
-
-class WorkflowTemplatePlacementClusterSelectorClusterLabelsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            WorkflowTemplatePlacementClusterSelectorClusterLabels.to_proto(i)
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            WorkflowTemplatePlacementClusterSelectorClusterLabels.from_proto(i)
-            for i in resources
-        ]
-
-
 class WorkflowTemplateJobs(object):
     def __init__(
         self,
@@ -441,7 +300,7 @@ class WorkflowTemplateJobs(object):
         spark_r_job: dict = None,
         spark_sql_job: dict = None,
         presto_job: dict = None,
-        labels: list = None,
+        labels: dict = None,
         scheduling: dict = None,
         prerequisite_step_ids: list = None,
     ):
@@ -512,8 +371,8 @@ class WorkflowTemplateJobs(object):
             )
         else:
             res.ClearField("presto_job")
-        if WorkflowTemplateJobsLabelsArray.to_proto(resource.labels):
-            res.labels.extend(WorkflowTemplateJobsLabelsArray.to_proto(resource.labels))
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
         if WorkflowTemplateJobsScheduling.to_proto(resource.scheduling):
             res.scheduling.CopyFrom(
                 WorkflowTemplateJobsScheduling.to_proto(resource.scheduling)
@@ -568,7 +427,7 @@ class WorkflowTemplateJobsHadoopJob(object):
         jar_file_uris: list = None,
         file_uris: list = None,
         archive_uris: list = None,
-        properties: list = None,
+        properties: dict = None,
         logging_config: dict = None,
     ):
         self.main_jar_file_uri = main_jar_file_uri
@@ -598,12 +457,8 @@ class WorkflowTemplateJobsHadoopJob(object):
             res.file_uris.extend(Primitive.to_proto(resource.file_uris))
         if Primitive.to_proto(resource.archive_uris):
             res.archive_uris.extend(Primitive.to_proto(resource.archive_uris))
-        if WorkflowTemplateJobsHadoopJobPropertiesArray.to_proto(resource.properties):
-            res.properties.extend(
-                WorkflowTemplateJobsHadoopJobPropertiesArray.to_proto(
-                    resource.properties
-                )
-            )
+        if Primitive.to_proto(resource.properties):
+            res.properties = Primitive.to_proto(resource.properties)
         if WorkflowTemplateJobsHadoopJobLoggingConfig.to_proto(resource.logging_config):
             res.logging_config.CopyFrom(
                 WorkflowTemplateJobsHadoopJobLoggingConfig.to_proto(
@@ -643,49 +498,8 @@ class WorkflowTemplateJobsHadoopJobArray(object):
         return [WorkflowTemplateJobsHadoopJob.from_proto(i) for i in resources]
 
 
-class WorkflowTemplateJobsHadoopJobProperties(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = workflow_template_pb2.DataprocWorkflowTemplateJobsHadoopJobProperties()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return WorkflowTemplateJobsHadoopJobProperties(
-            key=resource.key, value=resource.value,
-        )
-
-
-class WorkflowTemplateJobsHadoopJobPropertiesArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [WorkflowTemplateJobsHadoopJobProperties.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            WorkflowTemplateJobsHadoopJobProperties.from_proto(i) for i in resources
-        ]
-
-
 class WorkflowTemplateJobsHadoopJobLoggingConfig(object):
-    def __init__(self, driver_log_levels: list = None):
+    def __init__(self, driver_log_levels: dict = None):
         self.driver_log_levels = driver_log_levels
 
     @classmethod
@@ -694,14 +508,8 @@ class WorkflowTemplateJobsHadoopJobLoggingConfig(object):
             return None
 
         res = workflow_template_pb2.DataprocWorkflowTemplateJobsHadoopJobLoggingConfig()
-        if WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsArray.to_proto(
-            resource.driver_log_levels
-        ):
-            res.driver_log_levels.extend(
-                WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsArray.to_proto(
-                    resource.driver_log_levels
-                )
-            )
+        if Primitive.to_proto(resource.driver_log_levels):
+            res.driver_log_levels = Primitive.to_proto(resource.driver_log_levels)
         return res
 
     @classmethod
@@ -730,57 +538,6 @@ class WorkflowTemplateJobsHadoopJobLoggingConfigArray(object):
         ]
 
 
-class WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            workflow_template_pb2.DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels()
-        )
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum.to_proto(
-            resource.value
-        ):
-            res.value = WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum.to_proto(
-                resource.value
-            )
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels(
-            key=resource.key, value=resource.value,
-        )
-
-
-class WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels.to_proto(i)
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevels.from_proto(i)
-            for i in resources
-        ]
-
-
 class WorkflowTemplateJobsSparkJob(object):
     def __init__(
         self,
@@ -790,7 +547,7 @@ class WorkflowTemplateJobsSparkJob(object):
         jar_file_uris: list = None,
         file_uris: list = None,
         archive_uris: list = None,
-        properties: list = None,
+        properties: dict = None,
         logging_config: dict = None,
     ):
         self.main_jar_file_uri = main_jar_file_uri
@@ -820,12 +577,8 @@ class WorkflowTemplateJobsSparkJob(object):
             res.file_uris.extend(Primitive.to_proto(resource.file_uris))
         if Primitive.to_proto(resource.archive_uris):
             res.archive_uris.extend(Primitive.to_proto(resource.archive_uris))
-        if WorkflowTemplateJobsSparkJobPropertiesArray.to_proto(resource.properties):
-            res.properties.extend(
-                WorkflowTemplateJobsSparkJobPropertiesArray.to_proto(
-                    resource.properties
-                )
-            )
+        if Primitive.to_proto(resource.properties):
+            res.properties = Primitive.to_proto(resource.properties)
         if WorkflowTemplateJobsSparkJobLoggingConfig.to_proto(resource.logging_config):
             res.logging_config.CopyFrom(
                 WorkflowTemplateJobsSparkJobLoggingConfig.to_proto(
@@ -865,47 +618,8 @@ class WorkflowTemplateJobsSparkJobArray(object):
         return [WorkflowTemplateJobsSparkJob.from_proto(i) for i in resources]
 
 
-class WorkflowTemplateJobsSparkJobProperties(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = workflow_template_pb2.DataprocWorkflowTemplateJobsSparkJobProperties()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return WorkflowTemplateJobsSparkJobProperties(
-            key=resource.key, value=resource.value,
-        )
-
-
-class WorkflowTemplateJobsSparkJobPropertiesArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [WorkflowTemplateJobsSparkJobProperties.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [WorkflowTemplateJobsSparkJobProperties.from_proto(i) for i in resources]
-
-
 class WorkflowTemplateJobsSparkJobLoggingConfig(object):
-    def __init__(self, driver_log_levels: list = None):
+    def __init__(self, driver_log_levels: dict = None):
         self.driver_log_levels = driver_log_levels
 
     @classmethod
@@ -914,14 +628,8 @@ class WorkflowTemplateJobsSparkJobLoggingConfig(object):
             return None
 
         res = workflow_template_pb2.DataprocWorkflowTemplateJobsSparkJobLoggingConfig()
-        if WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsArray.to_proto(
-            resource.driver_log_levels
-        ):
-            res.driver_log_levels.extend(
-                WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsArray.to_proto(
-                    resource.driver_log_levels
-                )
-            )
+        if Primitive.to_proto(resource.driver_log_levels):
+            res.driver_log_levels = Primitive.to_proto(resource.driver_log_levels)
         return res
 
     @classmethod
@@ -950,57 +658,6 @@ class WorkflowTemplateJobsSparkJobLoggingConfigArray(object):
         ]
 
 
-class WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            workflow_template_pb2.DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels()
-        )
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum.to_proto(
-            resource.value
-        ):
-            res.value = WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum.to_proto(
-                resource.value
-            )
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels(
-            key=resource.key, value=resource.value,
-        )
-
-
-class WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels.to_proto(i)
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevels.from_proto(i)
-            for i in resources
-        ]
-
-
 class WorkflowTemplateJobsPysparkJob(object):
     def __init__(
         self,
@@ -1010,7 +667,7 @@ class WorkflowTemplateJobsPysparkJob(object):
         jar_file_uris: list = None,
         file_uris: list = None,
         archive_uris: list = None,
-        properties: list = None,
+        properties: dict = None,
         logging_config: dict = None,
     ):
         self.main_python_file_uri = main_python_file_uri
@@ -1040,12 +697,8 @@ class WorkflowTemplateJobsPysparkJob(object):
             res.file_uris.extend(Primitive.to_proto(resource.file_uris))
         if Primitive.to_proto(resource.archive_uris):
             res.archive_uris.extend(Primitive.to_proto(resource.archive_uris))
-        if WorkflowTemplateJobsPysparkJobPropertiesArray.to_proto(resource.properties):
-            res.properties.extend(
-                WorkflowTemplateJobsPysparkJobPropertiesArray.to_proto(
-                    resource.properties
-                )
-            )
+        if Primitive.to_proto(resource.properties):
+            res.properties = Primitive.to_proto(resource.properties)
         if WorkflowTemplateJobsPysparkJobLoggingConfig.to_proto(
             resource.logging_config
         ):
@@ -1087,49 +740,8 @@ class WorkflowTemplateJobsPysparkJobArray(object):
         return [WorkflowTemplateJobsPysparkJob.from_proto(i) for i in resources]
 
 
-class WorkflowTemplateJobsPysparkJobProperties(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = workflow_template_pb2.DataprocWorkflowTemplateJobsPysparkJobProperties()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return WorkflowTemplateJobsPysparkJobProperties(
-            key=resource.key, value=resource.value,
-        )
-
-
-class WorkflowTemplateJobsPysparkJobPropertiesArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [WorkflowTemplateJobsPysparkJobProperties.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            WorkflowTemplateJobsPysparkJobProperties.from_proto(i) for i in resources
-        ]
-
-
 class WorkflowTemplateJobsPysparkJobLoggingConfig(object):
-    def __init__(self, driver_log_levels: list = None):
+    def __init__(self, driver_log_levels: dict = None):
         self.driver_log_levels = driver_log_levels
 
     @classmethod
@@ -1140,14 +752,8 @@ class WorkflowTemplateJobsPysparkJobLoggingConfig(object):
         res = (
             workflow_template_pb2.DataprocWorkflowTemplateJobsPysparkJobLoggingConfig()
         )
-        if WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsArray.to_proto(
-            resource.driver_log_levels
-        ):
-            res.driver_log_levels.extend(
-                WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsArray.to_proto(
-                    resource.driver_log_levels
-                )
-            )
+        if Primitive.to_proto(resource.driver_log_levels):
+            res.driver_log_levels = Primitive.to_proto(resource.driver_log_levels)
         return res
 
     @classmethod
@@ -1176,65 +782,14 @@ class WorkflowTemplateJobsPysparkJobLoggingConfigArray(object):
         ]
 
 
-class WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            workflow_template_pb2.DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels()
-        )
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum.to_proto(
-            resource.value
-        ):
-            res.value = WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum.to_proto(
-                resource.value
-            )
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels(
-            key=resource.key, value=resource.value,
-        )
-
-
-class WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels.to_proto(i)
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevels.from_proto(i)
-            for i in resources
-        ]
-
-
 class WorkflowTemplateJobsHiveJob(object):
     def __init__(
         self,
         query_file_uri: str = None,
         query_list: dict = None,
         continue_on_failure: bool = None,
-        script_variables: list = None,
-        properties: list = None,
+        script_variables: dict = None,
+        properties: dict = None,
         jar_file_uris: list = None,
     ):
         self.query_file_uri = query_file_uri
@@ -1260,18 +815,10 @@ class WorkflowTemplateJobsHiveJob(object):
             res.ClearField("query_list")
         if Primitive.to_proto(resource.continue_on_failure):
             res.continue_on_failure = Primitive.to_proto(resource.continue_on_failure)
-        if WorkflowTemplateJobsHiveJobScriptVariablesArray.to_proto(
-            resource.script_variables
-        ):
-            res.script_variables.extend(
-                WorkflowTemplateJobsHiveJobScriptVariablesArray.to_proto(
-                    resource.script_variables
-                )
-            )
-        if WorkflowTemplateJobsHiveJobPropertiesArray.to_proto(resource.properties):
-            res.properties.extend(
-                WorkflowTemplateJobsHiveJobPropertiesArray.to_proto(resource.properties)
-            )
+        if Primitive.to_proto(resource.script_variables):
+            res.script_variables = Primitive.to_proto(resource.script_variables)
+        if Primitive.to_proto(resource.properties):
+            res.properties = Primitive.to_proto(resource.properties)
         if Primitive.to_proto(resource.jar_file_uris):
             res.jar_file_uris.extend(Primitive.to_proto(resource.jar_file_uris))
         return res
@@ -1337,96 +884,14 @@ class WorkflowTemplateJobsHiveJobQueryListArray(object):
         return [WorkflowTemplateJobsHiveJobQueryList.from_proto(i) for i in resources]
 
 
-class WorkflowTemplateJobsHiveJobScriptVariables(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = workflow_template_pb2.DataprocWorkflowTemplateJobsHiveJobScriptVariables()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return WorkflowTemplateJobsHiveJobScriptVariables(
-            key=resource.key, value=resource.value,
-        )
-
-
-class WorkflowTemplateJobsHiveJobScriptVariablesArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            WorkflowTemplateJobsHiveJobScriptVariables.to_proto(i) for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            WorkflowTemplateJobsHiveJobScriptVariables.from_proto(i) for i in resources
-        ]
-
-
-class WorkflowTemplateJobsHiveJobProperties(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = workflow_template_pb2.DataprocWorkflowTemplateJobsHiveJobProperties()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return WorkflowTemplateJobsHiveJobProperties(
-            key=resource.key, value=resource.value,
-        )
-
-
-class WorkflowTemplateJobsHiveJobPropertiesArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [WorkflowTemplateJobsHiveJobProperties.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [WorkflowTemplateJobsHiveJobProperties.from_proto(i) for i in resources]
-
-
 class WorkflowTemplateJobsPigJob(object):
     def __init__(
         self,
         query_file_uri: str = None,
         query_list: dict = None,
         continue_on_failure: bool = None,
-        script_variables: list = None,
-        properties: list = None,
+        script_variables: dict = None,
+        properties: dict = None,
         jar_file_uris: list = None,
         logging_config: dict = None,
     ):
@@ -1454,18 +919,10 @@ class WorkflowTemplateJobsPigJob(object):
             res.ClearField("query_list")
         if Primitive.to_proto(resource.continue_on_failure):
             res.continue_on_failure = Primitive.to_proto(resource.continue_on_failure)
-        if WorkflowTemplateJobsPigJobScriptVariablesArray.to_proto(
-            resource.script_variables
-        ):
-            res.script_variables.extend(
-                WorkflowTemplateJobsPigJobScriptVariablesArray.to_proto(
-                    resource.script_variables
-                )
-            )
-        if WorkflowTemplateJobsPigJobPropertiesArray.to_proto(resource.properties):
-            res.properties.extend(
-                WorkflowTemplateJobsPigJobPropertiesArray.to_proto(resource.properties)
-            )
+        if Primitive.to_proto(resource.script_variables):
+            res.script_variables = Primitive.to_proto(resource.script_variables)
+        if Primitive.to_proto(resource.properties):
+            res.properties = Primitive.to_proto(resource.properties)
         if Primitive.to_proto(resource.jar_file_uris):
             res.jar_file_uris.extend(Primitive.to_proto(resource.jar_file_uris))
         if WorkflowTemplateJobsPigJobLoggingConfig.to_proto(resource.logging_config):
@@ -1540,90 +997,8 @@ class WorkflowTemplateJobsPigJobQueryListArray(object):
         return [WorkflowTemplateJobsPigJobQueryList.from_proto(i) for i in resources]
 
 
-class WorkflowTemplateJobsPigJobScriptVariables(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = workflow_template_pb2.DataprocWorkflowTemplateJobsPigJobScriptVariables()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return WorkflowTemplateJobsPigJobScriptVariables(
-            key=resource.key, value=resource.value,
-        )
-
-
-class WorkflowTemplateJobsPigJobScriptVariablesArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            WorkflowTemplateJobsPigJobScriptVariables.to_proto(i) for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            WorkflowTemplateJobsPigJobScriptVariables.from_proto(i) for i in resources
-        ]
-
-
-class WorkflowTemplateJobsPigJobProperties(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = workflow_template_pb2.DataprocWorkflowTemplateJobsPigJobProperties()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return WorkflowTemplateJobsPigJobProperties(
-            key=resource.key, value=resource.value,
-        )
-
-
-class WorkflowTemplateJobsPigJobPropertiesArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [WorkflowTemplateJobsPigJobProperties.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [WorkflowTemplateJobsPigJobProperties.from_proto(i) for i in resources]
-
-
 class WorkflowTemplateJobsPigJobLoggingConfig(object):
-    def __init__(self, driver_log_levels: list = None):
+    def __init__(self, driver_log_levels: dict = None):
         self.driver_log_levels = driver_log_levels
 
     @classmethod
@@ -1632,14 +1007,8 @@ class WorkflowTemplateJobsPigJobLoggingConfig(object):
             return None
 
         res = workflow_template_pb2.DataprocWorkflowTemplateJobsPigJobLoggingConfig()
-        if WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsArray.to_proto(
-            resource.driver_log_levels
-        ):
-            res.driver_log_levels.extend(
-                WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsArray.to_proto(
-                    resource.driver_log_levels
-                )
-            )
+        if Primitive.to_proto(resource.driver_log_levels):
+            res.driver_log_levels = Primitive.to_proto(resource.driver_log_levels)
         return res
 
     @classmethod
@@ -1666,57 +1035,6 @@ class WorkflowTemplateJobsPigJobLoggingConfigArray(object):
         ]
 
 
-class WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            workflow_template_pb2.DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels()
-        )
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum.to_proto(
-            resource.value
-        ):
-            res.value = WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum.to_proto(
-                resource.value
-            )
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels(
-            key=resource.key, value=resource.value,
-        )
-
-
-class WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels.to_proto(i)
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevels.from_proto(i)
-            for i in resources
-        ]
-
-
 class WorkflowTemplateJobsSparkRJob(object):
     def __init__(
         self,
@@ -1724,7 +1042,7 @@ class WorkflowTemplateJobsSparkRJob(object):
         args: list = None,
         file_uris: list = None,
         archive_uris: list = None,
-        properties: list = None,
+        properties: dict = None,
         logging_config: dict = None,
     ):
         self.main_r_file_uri = main_r_file_uri
@@ -1748,12 +1066,8 @@ class WorkflowTemplateJobsSparkRJob(object):
             res.file_uris.extend(Primitive.to_proto(resource.file_uris))
         if Primitive.to_proto(resource.archive_uris):
             res.archive_uris.extend(Primitive.to_proto(resource.archive_uris))
-        if WorkflowTemplateJobsSparkRJobPropertiesArray.to_proto(resource.properties):
-            res.properties.extend(
-                WorkflowTemplateJobsSparkRJobPropertiesArray.to_proto(
-                    resource.properties
-                )
-            )
+        if Primitive.to_proto(resource.properties):
+            res.properties = Primitive.to_proto(resource.properties)
         if WorkflowTemplateJobsSparkRJobLoggingConfig.to_proto(resource.logging_config):
             res.logging_config.CopyFrom(
                 WorkflowTemplateJobsSparkRJobLoggingConfig.to_proto(
@@ -1791,49 +1105,8 @@ class WorkflowTemplateJobsSparkRJobArray(object):
         return [WorkflowTemplateJobsSparkRJob.from_proto(i) for i in resources]
 
 
-class WorkflowTemplateJobsSparkRJobProperties(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = workflow_template_pb2.DataprocWorkflowTemplateJobsSparkRJobProperties()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return WorkflowTemplateJobsSparkRJobProperties(
-            key=resource.key, value=resource.value,
-        )
-
-
-class WorkflowTemplateJobsSparkRJobPropertiesArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [WorkflowTemplateJobsSparkRJobProperties.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            WorkflowTemplateJobsSparkRJobProperties.from_proto(i) for i in resources
-        ]
-
-
 class WorkflowTemplateJobsSparkRJobLoggingConfig(object):
-    def __init__(self, driver_log_levels: list = None):
+    def __init__(self, driver_log_levels: dict = None):
         self.driver_log_levels = driver_log_levels
 
     @classmethod
@@ -1842,14 +1115,8 @@ class WorkflowTemplateJobsSparkRJobLoggingConfig(object):
             return None
 
         res = workflow_template_pb2.DataprocWorkflowTemplateJobsSparkRJobLoggingConfig()
-        if WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsArray.to_proto(
-            resource.driver_log_levels
-        ):
-            res.driver_log_levels.extend(
-                WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsArray.to_proto(
-                    resource.driver_log_levels
-                )
-            )
+        if Primitive.to_proto(resource.driver_log_levels):
+            res.driver_log_levels = Primitive.to_proto(resource.driver_log_levels)
         return res
 
     @classmethod
@@ -1878,64 +1145,13 @@ class WorkflowTemplateJobsSparkRJobLoggingConfigArray(object):
         ]
 
 
-class WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            workflow_template_pb2.DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels()
-        )
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum.to_proto(
-            resource.value
-        ):
-            res.value = WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum.to_proto(
-                resource.value
-            )
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels(
-            key=resource.key, value=resource.value,
-        )
-
-
-class WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels.to_proto(i)
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevels.from_proto(i)
-            for i in resources
-        ]
-
-
 class WorkflowTemplateJobsSparkSqlJob(object):
     def __init__(
         self,
         query_file_uri: str = None,
         query_list: dict = None,
-        script_variables: list = None,
-        properties: list = None,
+        script_variables: dict = None,
+        properties: dict = None,
         jar_file_uris: list = None,
         logging_config: dict = None,
     ):
@@ -1960,20 +1176,10 @@ class WorkflowTemplateJobsSparkSqlJob(object):
             )
         else:
             res.ClearField("query_list")
-        if WorkflowTemplateJobsSparkSqlJobScriptVariablesArray.to_proto(
-            resource.script_variables
-        ):
-            res.script_variables.extend(
-                WorkflowTemplateJobsSparkSqlJobScriptVariablesArray.to_proto(
-                    resource.script_variables
-                )
-            )
-        if WorkflowTemplateJobsSparkSqlJobPropertiesArray.to_proto(resource.properties):
-            res.properties.extend(
-                WorkflowTemplateJobsSparkSqlJobPropertiesArray.to_proto(
-                    resource.properties
-                )
-            )
+        if Primitive.to_proto(resource.script_variables):
+            res.script_variables = Primitive.to_proto(resource.script_variables)
+        if Primitive.to_proto(resource.properties):
+            res.properties = Primitive.to_proto(resource.properties)
         if Primitive.to_proto(resource.jar_file_uris):
             res.jar_file_uris.extend(Primitive.to_proto(resource.jar_file_uris))
         if WorkflowTemplateJobsSparkSqlJobLoggingConfig.to_proto(
@@ -2051,98 +1257,8 @@ class WorkflowTemplateJobsSparkSqlJobQueryListArray(object):
         ]
 
 
-class WorkflowTemplateJobsSparkSqlJobScriptVariables(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            workflow_template_pb2.DataprocWorkflowTemplateJobsSparkSqlJobScriptVariables()
-        )
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return WorkflowTemplateJobsSparkSqlJobScriptVariables(
-            key=resource.key, value=resource.value,
-        )
-
-
-class WorkflowTemplateJobsSparkSqlJobScriptVariablesArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            WorkflowTemplateJobsSparkSqlJobScriptVariables.to_proto(i)
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            WorkflowTemplateJobsSparkSqlJobScriptVariables.from_proto(i)
-            for i in resources
-        ]
-
-
-class WorkflowTemplateJobsSparkSqlJobProperties(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = workflow_template_pb2.DataprocWorkflowTemplateJobsSparkSqlJobProperties()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return WorkflowTemplateJobsSparkSqlJobProperties(
-            key=resource.key, value=resource.value,
-        )
-
-
-class WorkflowTemplateJobsSparkSqlJobPropertiesArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            WorkflowTemplateJobsSparkSqlJobProperties.to_proto(i) for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            WorkflowTemplateJobsSparkSqlJobProperties.from_proto(i) for i in resources
-        ]
-
-
 class WorkflowTemplateJobsSparkSqlJobLoggingConfig(object):
-    def __init__(self, driver_log_levels: list = None):
+    def __init__(self, driver_log_levels: dict = None):
         self.driver_log_levels = driver_log_levels
 
     @classmethod
@@ -2153,14 +1269,8 @@ class WorkflowTemplateJobsSparkSqlJobLoggingConfig(object):
         res = (
             workflow_template_pb2.DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfig()
         )
-        if WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsArray.to_proto(
-            resource.driver_log_levels
-        ):
-            res.driver_log_levels.extend(
-                WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsArray.to_proto(
-                    resource.driver_log_levels
-                )
-            )
+        if Primitive.to_proto(resource.driver_log_levels):
+            res.driver_log_levels = Primitive.to_proto(resource.driver_log_levels)
         return res
 
     @classmethod
@@ -2190,57 +1300,6 @@ class WorkflowTemplateJobsSparkSqlJobLoggingConfigArray(object):
         ]
 
 
-class WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            workflow_template_pb2.DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels()
-        )
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum.to_proto(
-            resource.value
-        ):
-            res.value = WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum.to_proto(
-                resource.value
-            )
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels(
-            key=resource.key, value=resource.value,
-        )
-
-
-class WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels.to_proto(i)
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevels.from_proto(i)
-            for i in resources
-        ]
-
-
 class WorkflowTemplateJobsPrestoJob(object):
     def __init__(
         self,
@@ -2249,7 +1308,7 @@ class WorkflowTemplateJobsPrestoJob(object):
         continue_on_failure: bool = None,
         output_format: str = None,
         client_tags: list = None,
-        properties: list = None,
+        properties: dict = None,
         logging_config: dict = None,
     ):
         self.query_file_uri = query_file_uri
@@ -2280,12 +1339,8 @@ class WorkflowTemplateJobsPrestoJob(object):
             res.output_format = Primitive.to_proto(resource.output_format)
         if Primitive.to_proto(resource.client_tags):
             res.client_tags.extend(Primitive.to_proto(resource.client_tags))
-        if WorkflowTemplateJobsPrestoJobPropertiesArray.to_proto(resource.properties):
-            res.properties.extend(
-                WorkflowTemplateJobsPrestoJobPropertiesArray.to_proto(
-                    resource.properties
-                )
-            )
+        if Primitive.to_proto(resource.properties):
+            res.properties = Primitive.to_proto(resource.properties)
         if WorkflowTemplateJobsPrestoJobLoggingConfig.to_proto(resource.logging_config):
             res.logging_config.CopyFrom(
                 WorkflowTemplateJobsPrestoJobLoggingConfig.to_proto(
@@ -2358,49 +1413,8 @@ class WorkflowTemplateJobsPrestoJobQueryListArray(object):
         return [WorkflowTemplateJobsPrestoJobQueryList.from_proto(i) for i in resources]
 
 
-class WorkflowTemplateJobsPrestoJobProperties(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = workflow_template_pb2.DataprocWorkflowTemplateJobsPrestoJobProperties()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return WorkflowTemplateJobsPrestoJobProperties(
-            key=resource.key, value=resource.value,
-        )
-
-
-class WorkflowTemplateJobsPrestoJobPropertiesArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [WorkflowTemplateJobsPrestoJobProperties.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            WorkflowTemplateJobsPrestoJobProperties.from_proto(i) for i in resources
-        ]
-
-
 class WorkflowTemplateJobsPrestoJobLoggingConfig(object):
-    def __init__(self, driver_log_levels: list = None):
+    def __init__(self, driver_log_levels: dict = None):
         self.driver_log_levels = driver_log_levels
 
     @classmethod
@@ -2409,14 +1423,8 @@ class WorkflowTemplateJobsPrestoJobLoggingConfig(object):
             return None
 
         res = workflow_template_pb2.DataprocWorkflowTemplateJobsPrestoJobLoggingConfig()
-        if WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsArray.to_proto(
-            resource.driver_log_levels
-        ):
-            res.driver_log_levels.extend(
-                WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsArray.to_proto(
-                    resource.driver_log_levels
-                )
-            )
+        if Primitive.to_proto(resource.driver_log_levels):
+            res.driver_log_levels = Primitive.to_proto(resource.driver_log_levels)
         return res
 
     @classmethod
@@ -2443,94 +1451,6 @@ class WorkflowTemplateJobsPrestoJobLoggingConfigArray(object):
         return [
             WorkflowTemplateJobsPrestoJobLoggingConfig.from_proto(i) for i in resources
         ]
-
-
-class WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            workflow_template_pb2.DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels()
-        )
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum.to_proto(
-            resource.value
-        ):
-            res.value = WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum.to_proto(
-                resource.value
-            )
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels(
-            key=resource.key, value=resource.value,
-        )
-
-
-class WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels.to_proto(i)
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevels.from_proto(i)
-            for i in resources
-        ]
-
-
-class WorkflowTemplateJobsLabels(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = workflow_template_pb2.DataprocWorkflowTemplateJobsLabels()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return WorkflowTemplateJobsLabels(key=resource.key, value=resource.value,)
-
-
-class WorkflowTemplateJobsLabelsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [WorkflowTemplateJobsLabels.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [WorkflowTemplateJobsLabels.from_proto(i) for i in resources]
 
 
 class WorkflowTemplateJobsScheduling(object):
@@ -2755,167 +1675,6 @@ class WorkflowTemplateParametersValidationValuesArray(object):
     def from_proto(self, resources):
         return [
             WorkflowTemplateParametersValidationValues.from_proto(i) for i in resources
-        ]
-
-
-class WorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return workflow_template_pb2.DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum.Value(
-            "DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum%s"
-            % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return workflow_template_pb2.DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum.Name(
-            resource
-        )[
-            len(
-                "DataprocWorkflowTemplateJobsHadoopJobLoggingConfigDriverLogLevelsValueEnum"
-            ) :
-        ]
-
-
-class WorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return workflow_template_pb2.DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum.Value(
-            "DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum%s"
-            % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return workflow_template_pb2.DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum.Name(
-            resource
-        )[
-            len(
-                "DataprocWorkflowTemplateJobsSparkJobLoggingConfigDriverLogLevelsValueEnum"
-            ) :
-        ]
-
-
-class WorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return workflow_template_pb2.DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum.Value(
-            "DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum%s"
-            % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return workflow_template_pb2.DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum.Name(
-            resource
-        )[
-            len(
-                "DataprocWorkflowTemplateJobsPysparkJobLoggingConfigDriverLogLevelsValueEnum"
-            ) :
-        ]
-
-
-class WorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return workflow_template_pb2.DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum.Value(
-            "DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum%s"
-            % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return workflow_template_pb2.DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum.Name(
-            resource
-        )[
-            len(
-                "DataprocWorkflowTemplateJobsPigJobLoggingConfigDriverLogLevelsValueEnum"
-            ) :
-        ]
-
-
-class WorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return workflow_template_pb2.DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum.Value(
-            "DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum%s"
-            % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return workflow_template_pb2.DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum.Name(
-            resource
-        )[
-            len(
-                "DataprocWorkflowTemplateJobsSparkRJobLoggingConfigDriverLogLevelsValueEnum"
-            ) :
-        ]
-
-
-class WorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return workflow_template_pb2.DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum.Value(
-            "DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum%s"
-            % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return workflow_template_pb2.DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum.Name(
-            resource
-        )[
-            len(
-                "DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigDriverLogLevelsValueEnum"
-            ) :
-        ]
-
-
-class WorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return workflow_template_pb2.DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum.Value(
-            "DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum%s"
-            % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return workflow_template_pb2.DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum.Name(
-            resource
-        )[
-            len(
-                "DataprocWorkflowTemplateJobsPrestoJobLoggingConfigDriverLogLevelsValueEnum"
-            ) :
         ]
 
 

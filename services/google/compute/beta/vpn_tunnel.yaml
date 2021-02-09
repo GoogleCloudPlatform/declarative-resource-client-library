@@ -48,6 +48,9 @@ components:
           additionalProperties:
             type: string
           description: Labels for this VPN Tunnel
+          items:
+            type: string
+            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         localTrafficSelector:
@@ -237,10 +240,43 @@ info:
   title: Compute/VpnTunnel
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many VpnTunnel
+  apply:
+    description: The function used to apply information about a VpnTunnel
+    parameters:
+    - description: A full instance of a VpnTunnel
+      name: VpnTunnel
+      required: true
+  delete:
+    description: The function used to delete a VpnTunnel
+    parameters:
+    - description: A full instance of a VpnTunnel
+      name: VpnTunnel
+      required: true
+  deleteAll:
+    description: The function used to delete all VpnTunnel
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: region
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a VpnTunnel
+    parameters:
+    - description: A full instance of a VpnTunnel
+      name: VpnTunnel
+      required: true
+  list:
+    description: The function used to list information about many VpnTunnel
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: region
+      required: true
+      schema:
+        type: string

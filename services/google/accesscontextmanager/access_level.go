@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -411,7 +412,9 @@ func (c *Client) ApplyAccessLevel(ctx context.Context, rawDesired *AccessLevel, 
 	if create {
 		ops = append(ops, &createAccessLevelOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteAccessLevelOperation{})
+
 		ops = append(ops, &createAccessLevelOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeAccessLevelDesiredState(rawDesired, nil)

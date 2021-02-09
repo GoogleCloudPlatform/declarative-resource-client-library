@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *TargetPool) validate() error {
@@ -665,12 +666,12 @@ func (c *Client) targetPoolDiffsForRawDesired(ctx context.Context, rawDesired *T
 			c.Config.Logger.Warningf("Failed to retrieve whether a TargetPool resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve TargetPool resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that TargetPool resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeTargetPoolDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for TargetPool: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for TargetPool: %v", rawDesired)
 
@@ -835,7 +836,7 @@ func diffTargetPool(c *Client, desired, actual *TargetPool, opts ...dcl.ApplyOpt
 
 	var diffs []targetPoolDiff
 	if !dcl.IsZeroValue(desired.BackupPool) && (dcl.IsZeroValue(actual.BackupPool) || !reflect.DeepEqual(*desired.BackupPool, *actual.BackupPool)) {
-		c.Config.Logger.Infof("Detected diff in BackupPool.\nDESIRED: %#v\nACTUAL: %#v", desired.BackupPool, actual.BackupPool)
+		c.Config.Logger.Infof("Detected diff in BackupPool.\nDESIRED: %v\nACTUAL: %v", desired.BackupPool, actual.BackupPool)
 
 		diffs = append(diffs, targetPoolDiff{
 			UpdateOp:  &updateTargetPoolSetBackupOperation{},
@@ -844,21 +845,21 @@ func diffTargetPool(c *Client, desired, actual *TargetPool, opts ...dcl.ApplyOpt
 
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, targetPoolDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
 	if !dcl.IsZeroValue(desired.FailoverRatio) && (dcl.IsZeroValue(actual.FailoverRatio) || !reflect.DeepEqual(*desired.FailoverRatio, *actual.FailoverRatio)) {
-		c.Config.Logger.Infof("Detected diff in FailoverRatio.\nDESIRED: %#v\nACTUAL: %#v", desired.FailoverRatio, actual.FailoverRatio)
+		c.Config.Logger.Infof("Detected diff in FailoverRatio.\nDESIRED: %v\nACTUAL: %v", desired.FailoverRatio, actual.FailoverRatio)
 		diffs = append(diffs, targetPoolDiff{
 			RequiresRecreate: true,
 			FieldName:        "FailoverRatio",
 		})
 	}
 	if !dcl.IsZeroValue(desired.HealthCheck) && !dcl.PartialSelfLinkToSelfLinkArray(desired.HealthCheck, actual.HealthCheck) {
-		c.Config.Logger.Infof("Detected diff in HealthCheck.\nDESIRED: %#v\nACTUAL: %#v", desired.HealthCheck, actual.HealthCheck)
+		c.Config.Logger.Infof("Detected diff in HealthCheck.\nDESIRED: %v\nACTUAL: %v", desired.HealthCheck, actual.HealthCheck)
 		toAdd, toRemove := dcl.CompareStringSets(desired.HealthCheck, actual.HealthCheck)
 		if len(toAdd) > 0 {
 			diffs = append(diffs, targetPoolDiff{
@@ -874,7 +875,7 @@ func diffTargetPool(c *Client, desired, actual *TargetPool, opts ...dcl.ApplyOpt
 		}
 	}
 	if !dcl.SliceEquals(desired.Instance, actual.Instance) {
-		c.Config.Logger.Infof("Detected diff in Instance.\nDESIRED: %#v\nACTUAL: %#v", desired.Instance, actual.Instance)
+		c.Config.Logger.Infof("Detected diff in Instance.\nDESIRED: %v\nACTUAL: %v", desired.Instance, actual.Instance)
 		toAdd, toRemove := dcl.CompareStringSets(desired.Instance, actual.Instance)
 		if len(toAdd) > 0 {
 			diffs = append(diffs, targetPoolDiff{
@@ -890,35 +891,35 @@ func diffTargetPool(c *Client, desired, actual *TargetPool, opts ...dcl.ApplyOpt
 		}
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, targetPoolDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Region) && (dcl.IsZeroValue(actual.Region) || !reflect.DeepEqual(*desired.Region, *actual.Region)) {
-		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %#v\nACTUAL: %#v", desired.Region, actual.Region)
+		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %v\nACTUAL: %v", desired.Region, actual.Region)
 		diffs = append(diffs, targetPoolDiff{
 			RequiresRecreate: true,
 			FieldName:        "Region",
 		})
 	}
 	if !dcl.IsZeroValue(desired.SelfLink) && (dcl.IsZeroValue(actual.SelfLink) || !reflect.DeepEqual(*desired.SelfLink, *actual.SelfLink)) {
-		c.Config.Logger.Infof("Detected diff in SelfLink.\nDESIRED: %#v\nACTUAL: %#v", desired.SelfLink, actual.SelfLink)
+		c.Config.Logger.Infof("Detected diff in SelfLink.\nDESIRED: %v\nACTUAL: %v", desired.SelfLink, actual.SelfLink)
 		diffs = append(diffs, targetPoolDiff{
 			RequiresRecreate: true,
 			FieldName:        "SelfLink",
 		})
 	}
 	if !dcl.IsZeroValue(desired.SessionAffinity) && (dcl.IsZeroValue(actual.SessionAffinity) || !reflect.DeepEqual(*desired.SessionAffinity, *actual.SessionAffinity)) {
-		c.Config.Logger.Infof("Detected diff in SessionAffinity.\nDESIRED: %#v\nACTUAL: %#v", desired.SessionAffinity, actual.SessionAffinity)
+		c.Config.Logger.Infof("Detected diff in SessionAffinity.\nDESIRED: %v\nACTUAL: %v", desired.SessionAffinity, actual.SessionAffinity)
 		diffs = append(diffs, targetPoolDiff{
 			RequiresRecreate: true,
 			FieldName:        "SessionAffinity",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Project) && (dcl.IsZeroValue(actual.Project) || !reflect.DeepEqual(*desired.Project, *actual.Project)) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
+		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %v\nACTUAL: %v", desired.Project, actual.Project)
 		diffs = append(diffs, targetPoolDiff{
 			RequiresRecreate: true,
 			FieldName:        "Project",

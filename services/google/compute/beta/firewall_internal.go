@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Firewall) validate() error {
@@ -401,12 +402,12 @@ func (c *Client) firewallDiffsForRawDesired(ctx context.Context, rawDesired *Fir
 			c.Config.Logger.Warningf("Failed to retrieve whether a Firewall resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Firewall resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Firewall resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeFirewallDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Firewall: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Firewall: %v", rawDesired)
 
@@ -574,13 +575,7 @@ func canonicalizeFirewallNewState(c *Client, rawNew, rawDesired *Firewall) (*Fir
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	if dcl.IsEmptyValueIndirect(rawNew.Allowed) && dcl.IsEmptyValueIndirect(rawDesired.Allowed) {
 		rawNew.Allowed = rawDesired.Allowed
@@ -826,21 +821,21 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 
 	var diffs []firewallDiff
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, firewallDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Direction) && (dcl.IsZeroValue(actual.Direction) || !reflect.DeepEqual(*desired.Direction, *actual.Direction)) {
-		c.Config.Logger.Infof("Detected diff in Direction.\nDESIRED: %#v\nACTUAL: %#v", desired.Direction, actual.Direction)
+		c.Config.Logger.Infof("Detected diff in Direction.\nDESIRED: %v\nACTUAL: %v", desired.Direction, actual.Direction)
 		diffs = append(diffs, firewallDiff{
 			RequiresRecreate: true,
 			FieldName:        "Direction",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Disabled) && (dcl.IsZeroValue(actual.Disabled) || !reflect.DeepEqual(*desired.Disabled, *actual.Disabled)) {
-		c.Config.Logger.Infof("Detected diff in Disabled.\nDESIRED: %#v\nACTUAL: %#v", desired.Disabled, actual.Disabled)
+		c.Config.Logger.Infof("Detected diff in Disabled.\nDESIRED: %v\nACTUAL: %v", desired.Disabled, actual.Disabled)
 
 		diffs = append(diffs, firewallDiff{
 			UpdateOp:  &updateFirewallUpdateOperation{},
@@ -849,7 +844,7 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.Id) && (dcl.IsZeroValue(actual.Id) || !reflect.DeepEqual(*desired.Id, *actual.Id)) {
-		c.Config.Logger.Infof("Detected diff in Id.\nDESIRED: %#v\nACTUAL: %#v", desired.Id, actual.Id)
+		c.Config.Logger.Infof("Detected diff in Id.\nDESIRED: %v\nACTUAL: %v", desired.Id, actual.Id)
 
 		diffs = append(diffs, firewallDiff{
 			UpdateOp:  &updateFirewallUpdateOperation{},
@@ -858,7 +853,7 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 
 	}
 	if compareFirewallLogConfig(c, desired.LogConfig, actual.LogConfig) {
-		c.Config.Logger.Infof("Detected diff in LogConfig.\nDESIRED: %#v\nACTUAL: %#v", desired.LogConfig, actual.LogConfig)
+		c.Config.Logger.Infof("Detected diff in LogConfig.\nDESIRED: %v\nACTUAL: %v", desired.LogConfig, actual.LogConfig)
 
 		diffs = append(diffs, firewallDiff{
 			UpdateOp:  &updateFirewallUpdateOperation{},
@@ -867,14 +862,14 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, firewallDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Network) && (dcl.IsZeroValue(actual.Network) || !reflect.DeepEqual(*desired.Network, *actual.Network)) {
-		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %#v\nACTUAL: %#v", desired.Network, actual.Network)
+		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
 
 		diffs = append(diffs, firewallDiff{
 			UpdateOp:  &updateFirewallUpdateOperation{},
@@ -883,7 +878,7 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.Priority) && (dcl.IsZeroValue(actual.Priority) || !reflect.DeepEqual(*desired.Priority, *actual.Priority)) {
-		c.Config.Logger.Infof("Detected diff in Priority.\nDESIRED: %#v\nACTUAL: %#v", desired.Priority, actual.Priority)
+		c.Config.Logger.Infof("Detected diff in Priority.\nDESIRED: %v\nACTUAL: %v", desired.Priority, actual.Priority)
 
 		diffs = append(diffs, firewallDiff{
 			UpdateOp:  &updateFirewallUpdateOperation{},
@@ -891,15 +886,8 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, firewallDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
 	if compareFirewallAllowedSlice(c, desired.Allowed, actual.Allowed) {
-		c.Config.Logger.Infof("Detected diff in Allowed.\nDESIRED: %#v\nACTUAL: %#v", desired.Allowed, actual.Allowed)
+		c.Config.Logger.Infof("Detected diff in Allowed.\nDESIRED: %v\nACTUAL: %v", desired.Allowed, actual.Allowed)
 
 		toAdd, toRemove := compareFirewallAllowedSets(c, desired.Allowed, actual.Allowed)
 		c.Config.Logger.Infof("diff in Allowed is a set field - recomparing with set logic. \nto add: %#v\nto remove: %#v", toAdd, toRemove)
@@ -913,7 +901,7 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 
 	}
 	if compareFirewallDeniedSlice(c, desired.Denied, actual.Denied) {
-		c.Config.Logger.Infof("Detected diff in Denied.\nDESIRED: %#v\nACTUAL: %#v", desired.Denied, actual.Denied)
+		c.Config.Logger.Infof("Detected diff in Denied.\nDESIRED: %v\nACTUAL: %v", desired.Denied, actual.Denied)
 
 		toAdd, toRemove := compareFirewallDeniedSets(c, desired.Denied, actual.Denied)
 		c.Config.Logger.Infof("diff in Denied is a set field - recomparing with set logic. \nto add: %#v\nto remove: %#v", toAdd, toRemove)
@@ -927,7 +915,7 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.SliceEquals(desired.DestinationRanges, actual.DestinationRanges) {
-		c.Config.Logger.Infof("Detected diff in DestinationRanges.\nDESIRED: %#v\nACTUAL: %#v", desired.DestinationRanges, actual.DestinationRanges)
+		c.Config.Logger.Infof("Detected diff in DestinationRanges.\nDESIRED: %v\nACTUAL: %v", desired.DestinationRanges, actual.DestinationRanges)
 		toAdd, toRemove := dcl.CompareStringSets(desired.DestinationRanges, actual.DestinationRanges)
 		if len(toAdd) > 0 {
 			diffs = append(diffs, firewallDiff{
@@ -943,7 +931,7 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 		}
 	}
 	if !dcl.SliceEquals(desired.SourceRanges, actual.SourceRanges) {
-		c.Config.Logger.Infof("Detected diff in SourceRanges.\nDESIRED: %#v\nACTUAL: %#v", desired.SourceRanges, actual.SourceRanges)
+		c.Config.Logger.Infof("Detected diff in SourceRanges.\nDESIRED: %v\nACTUAL: %v", desired.SourceRanges, actual.SourceRanges)
 
 		toAdd, toRemove := dcl.CompareStringSets(desired.SourceRanges, actual.SourceRanges)
 		c.Config.Logger.Infof("diff in SourceRanges is a set field - recomparing with set logic. \nto add: %#v\nto remove: %#v", toAdd, toRemove)
@@ -957,7 +945,7 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.SliceEquals(desired.SourceServiceAccounts, actual.SourceServiceAccounts) {
-		c.Config.Logger.Infof("Detected diff in SourceServiceAccounts.\nDESIRED: %#v\nACTUAL: %#v", desired.SourceServiceAccounts, actual.SourceServiceAccounts)
+		c.Config.Logger.Infof("Detected diff in SourceServiceAccounts.\nDESIRED: %v\nACTUAL: %v", desired.SourceServiceAccounts, actual.SourceServiceAccounts)
 
 		toAdd, toRemove := dcl.CompareStringSets(desired.SourceServiceAccounts, actual.SourceServiceAccounts)
 		c.Config.Logger.Infof("diff in SourceServiceAccounts is a set field - recomparing with set logic. \nto add: %#v\nto remove: %#v", toAdd, toRemove)
@@ -971,7 +959,7 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.SliceEquals(desired.SourceTags, actual.SourceTags) {
-		c.Config.Logger.Infof("Detected diff in SourceTags.\nDESIRED: %#v\nACTUAL: %#v", desired.SourceTags, actual.SourceTags)
+		c.Config.Logger.Infof("Detected diff in SourceTags.\nDESIRED: %v\nACTUAL: %v", desired.SourceTags, actual.SourceTags)
 
 		toAdd, toRemove := dcl.CompareStringSets(desired.SourceTags, actual.SourceTags)
 		c.Config.Logger.Infof("diff in SourceTags is a set field - recomparing with set logic. \nto add: %#v\nto remove: %#v", toAdd, toRemove)
@@ -985,7 +973,7 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.SliceEquals(desired.TargetServiceAccounts, actual.TargetServiceAccounts) {
-		c.Config.Logger.Infof("Detected diff in TargetServiceAccounts.\nDESIRED: %#v\nACTUAL: %#v", desired.TargetServiceAccounts, actual.TargetServiceAccounts)
+		c.Config.Logger.Infof("Detected diff in TargetServiceAccounts.\nDESIRED: %v\nACTUAL: %v", desired.TargetServiceAccounts, actual.TargetServiceAccounts)
 
 		toAdd, toRemove := dcl.CompareStringSets(desired.TargetServiceAccounts, actual.TargetServiceAccounts)
 		c.Config.Logger.Infof("diff in TargetServiceAccounts is a set field - recomparing with set logic. \nto add: %#v\nto remove: %#v", toAdd, toRemove)
@@ -999,7 +987,7 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.SliceEquals(desired.TargetTags, actual.TargetTags) {
-		c.Config.Logger.Infof("Detected diff in TargetTags.\nDESIRED: %#v\nACTUAL: %#v", desired.TargetTags, actual.TargetTags)
+		c.Config.Logger.Infof("Detected diff in TargetTags.\nDESIRED: %v\nACTUAL: %v", desired.TargetTags, actual.TargetTags)
 
 		toAdd, toRemove := dcl.CompareStringSets(desired.TargetTags, actual.TargetTags)
 		c.Config.Logger.Infof("diff in TargetTags is a set field - recomparing with set logic. \nto add: %#v\nto remove: %#v", toAdd, toRemove)

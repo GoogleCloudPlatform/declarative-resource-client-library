@@ -581,18 +581,12 @@ func regexFromPattern(pattern string) (*regexp.Regexp, error) {
 	return regexp.Compile(re)
 }
 
-// OrganizationName takes in an organization name and returns it in the form organizations/{org_id}
-func OrganizationName(orgVal *string) (*string, error) {
-	var currentOrgValue string
-	if orgVal == nil {
-		currentOrgValue = ""
-	} else {
-		currentOrgValue = *orgVal
+// NameFromSelfLink takes in a self link string and returns the name.
+func NameFromSelfLink(sl *string) (*string, error) {
+	if sl == nil {
+		return nil, nil
 	}
-
-	if strings.HasPrefix(currentOrgValue, "organizations/") {
-		return &currentOrgValue, nil
-	}
-	val := fmt.Sprintf("organizations/%s", currentOrgValue)
+	curNameParts := strings.Split(*sl, "/")
+	val := curNameParts[len(curNameParts)-1]
 	return &val, nil
 }

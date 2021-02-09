@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -587,7 +588,9 @@ func (c *Client) ApplyBuildTrigger(ctx context.Context, rawDesired *BuildTrigger
 	if create {
 		ops = append(ops, &createBuildTriggerOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteBuildTriggerOperation{})
+
 		ops = append(ops, &createBuildTriggerOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeBuildTriggerDesiredState(rawDesired, nil)

@@ -23,9 +23,9 @@ from typing import List
 class Folder(object):
     def __init__(
         self,
-        id: str = None,
-        parent: str = None,
         name: str = None,
+        parent: str = None,
+        display_name: str = None,
         state: str = None,
         create_time: str = None,
         update_time: str = None,
@@ -36,7 +36,7 @@ class Folder(object):
 
         channel.initialize()
         self.parent = parent
-        self.name = name
+        self.display_name = display_name
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -45,15 +45,15 @@ class Folder(object):
         if Primitive.to_proto(self.parent):
             request.resource.parent = Primitive.to_proto(self.parent)
 
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.display_name):
+            request.resource.display_name = Primitive.to_proto(self.display_name)
 
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyCloudresourcemanagerFolder(request)
-        self.id = Primitive.from_proto(response.id)
-        self.parent = Primitive.from_proto(response.parent)
         self.name = Primitive.from_proto(response.name)
+        self.parent = Primitive.from_proto(response.parent)
+        self.display_name = Primitive.from_proto(response.display_name)
         self.state = FolderStateEnum.from_proto(response.state)
         self.create_time = Primitive.from_proto(response.create_time)
         self.update_time = Primitive.from_proto(response.update_time)
@@ -61,11 +61,11 @@ class Folder(object):
         self.etag = Primitive.from_proto(response.etag)
 
     @classmethod
-    def delete(self, id, service_account_file=""):
+    def delete(self, name, service_account_file=""):
         stub = folder_pb2_grpc.CloudresourcemanagerFolderServiceStub(channel.Channel())
         request = folder_pb2.DeleteCloudresourcemanagerFolderRequest()
         request.service_account_file = service_account_file
-        request.Id = id
+        request.Name = name
 
         response = stub.DeleteCloudresourcemanagerFolder(request)
 
@@ -85,9 +85,9 @@ class Folder(object):
         any_proto.Unpack(res_proto)
 
         res = Folder()
-        res.id = Primitive.from_proto(res_proto.id)
-        res.parent = Primitive.from_proto(res_proto.parent)
         res.name = Primitive.from_proto(res_proto.name)
+        res.parent = Primitive.from_proto(res_proto.parent)
+        res.display_name = Primitive.from_proto(res_proto.display_name)
         res.state = FolderStateEnum.from_proto(res_proto.state)
         res.create_time = Primitive.from_proto(res_proto.create_time)
         res.update_time = Primitive.from_proto(res_proto.update_time)

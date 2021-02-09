@@ -145,8 +145,8 @@ components:
                     nanos:
                       description: Span of time that's a fraction of a second at nanosecond
                         resolution. Durations less than one second are represented
-                        with a 0 \`seconds\` field and a positive \`nanos\` field.
-                        Must be from 0 to 999,999,999 inclusive.
+                        with a 0 `seconds` field and a positive `nanos` field. Must
+                        be from 0 to 999,999,999 inclusive.
                       format: int64
                       type: integer
                       x-dcl-go-name: Nanos
@@ -154,8 +154,8 @@ components:
                     seconds:
                       description: 'Span of time at a resolution of a second. Must
                         be from 0 to 315,576,000,000 inclusive. Note: these bounds
-                        are computed from: 60 sec/min \* 60 min/hr \* 24 hr/day \*
-                        365.25 days/year \* 10000 years'
+                        are computed from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25
+                        days/year * 10000 years'
                       format: int64
                       type: integer
                       x-dcl-go-name: Seconds
@@ -217,8 +217,8 @@ components:
                 nanos:
                   description: Span of time that's a fraction of a second at nanosecond
                     resolution. Durations less than one second are represented with
-                    a 0 \`seconds\` field and a positive \`nanos\` field. Must be
-                    from 0 to 999,999,999 inclusive.
+                    a 0 `seconds` field and a positive `nanos` field. Must be from
+                    0 to 999,999,999 inclusive.
                   format: int64
                   type: integer
                   x-dcl-go-name: Nanos
@@ -226,8 +226,8 @@ components:
                 seconds:
                   description: 'Span of time at a resolution of a second. Must be
                     from 0 to 315,576,000,000 inclusive. Note: these bounds are computed
-                    from: 60 sec/min \* 60 min/hr \* 24 hr/day \* 365.25 days/year
-                    \* 10000 years'
+                    from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year *
+                    10000 years'
                   format: int64
                   type: integer
                   x-dcl-go-name: Seconds
@@ -245,7 +245,7 @@ components:
 
                 *   `connect-failure`: Loadbalancer will retry on failures connecting to backend services, for example due to connection timeouts.
                 *   `retriable-4xx`: Loadbalancer will retry for retriable 4xx response codes. Currently the only retriable error supported is 409.
-                *   `refused-stream`:Loadbalancer will retry if the backend service resets the stream with a REFUSED\_STREAM error code. This reset type indicates that it is safe to retry.
+                *   `refused-stream`:Loadbalancer will retry if the backend service resets the stream with a REFUSED_STREAM error code. This reset type indicates that it is safe to retry.
                 *   `cancelled`Loadbalancer will retry if the gRPC status code in the response header is set to `cancelled`
                 *   `deadline-exceeded`: Loadbalancer will retry if the gRPC status code in the response header is set to `deadline-exceeded`
                 *   `resource-exhausted`: Loadbalancer will retry if the gRPC status code in the response header is set to `resource-exhausted`
@@ -270,8 +270,8 @@ components:
             nanos:
               description: Span of time that's a fraction of a second at nanosecond
                 resolution. Durations less than one second are represented with a
-                0 \`seconds\` field and a positive \`nanos\` field. Must be from 0
-                to 999,999,999 inclusive.
+                0 `seconds` field and a positive `nanos` field. Must be from 0 to
+                999,999,999 inclusive.
               format: int64
               type: integer
               x-dcl-go-name: Nanos
@@ -279,8 +279,7 @@ components:
             seconds:
               description: 'Span of time at a resolution of a second. Must be from
                 0 to 315,576,000,000 inclusive. Note: these bounds are computed from:
-                60 sec/min \* 60 min/hr \* 24 hr/day \* 365.25 days/year \* 10000
-                years'
+                60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years'
               format: int64
               type: integer
               x-dcl-go-name: Seconds
@@ -505,11 +504,11 @@ components:
 
                 Supported values are:
 
-                *   MOVED\_PERMANENTLY\_DEFAULT, which is the default value and corresponds to 301.
+                *   MOVED_PERMANENTLY_DEFAULT, which is the default value and corresponds to 301.
                 *   FOUND, which corresponds to 302.
-                *   SEE\_OTHER which corresponds to 303.
-                *   TEMPORARY\_REDIRECT, which corresponds to 307. In this case, the request method will be retained.
-                *   PERMANENT\_REDIRECT, which corresponds to 308. In this case, the request method will be retained.
+                *   SEE_OTHER which corresponds to 303.
+                *   TEMPORARY_REDIRECT, which corresponds to 307. In this case, the request method will be retained.
+                *   PERMANENT_REDIRECT, which corresponds to 308. In this case, the request method will be retained.
               enum:
               - MOVED_PERMANENTLY_DEFAULT
               - FOUND
@@ -577,10 +576,10 @@ components:
           description: Name of the resource. Provided by the client when the resource
             is created. The name must be 1-63 characters long, and comply with [RFC1035](https://www.ietf.org/rfc/rfc1035.txt).
             Specifically, the name must be 1-63 characters long and match the regular
-            expression \`\[a-z\](\[-a-z0-9\]\*\[a-z0-9\])?\` which means the first
-            character must be a lowercase letter, and all following characters must
-            be a dash, lowercase letter, or digit, except the last character, which
-            cannot be a dash.
+            expression `[a-z]([-a-z0-9]*[a-z0-9])?` which means the first character
+            must be a lowercase letter, and all following characters must be a dash,
+            lowercase letter, or digit, except the last character, which cannot be
+            a dash.
           type: string
           x-dcl-go-name: Name
         pathMatcher:
@@ -602,7 +601,7 @@ components:
 
                   Only one of `defaultService`, `defaultUrlRedirect` or `defaultRouteAction.weightedBackendService` must be set.
 
-                  Authorization requires one or more of the following [Google IAM](https://cloud.google.com/iam) permissions on the specified resource default\_service:
+                  Authorization requires one or more of the following [Google IAM](https://cloud.google.com/iam) permissions on the specified resource default_service:
 
                   *   compute.backendBuckets.use
                   *   compute.backendServices.use
@@ -659,11 +658,11 @@ components:
 
                       Supported values are:
 
-                      *   MOVED\_PERMANENTLY\_DEFAULT, which is the default value and corresponds to 301.
+                      *   MOVED_PERMANENTLY_DEFAULT, which is the default value and corresponds to 301.
                       *   FOUND, which corresponds to 302.
-                      *   SEE\_OTHER which corresponds to 303.
-                      *   TEMPORARY\_REDIRECT, which corresponds to 307. In this case, the request method will be retained.
-                      *   PERMANENT\_REDIRECT, which corresponds to 308. In this case, the request method will be retained.
+                      *   SEE_OTHER which corresponds to 303.
+                      *   TEMPORARY_REDIRECT, which corresponds to 307. In this case, the request method will be retained.
+                      *   PERMANENT_REDIRECT, which corresponds to 308. In this case, the request method will be retained.
                     enum:
                     - MOVED_PERMANENTLY_DEFAULT
                     - FOUND
@@ -705,7 +704,7 @@ components:
                 description: |-
                   The list of path rules. Use this list instead of `routeRules` when routing based on simple path matching is all that's required. The order by which path rules are specified does not matter. Matches are always done on the longest-path-first basis.
 
-                  For example: a `pathRule` with a path /a/b/c/\* will match before /a/b/\* irrespective of the order in which those paths appear in this list.
+                  For example: a `pathRule` with a path /a/b/c/* will match before /a/b/* irrespective of the order in which those paths appear in this list.
 
                   Within a given `pathMatcher`, only one of `pathRules` or routeRules must be set.
                 items:
@@ -868,7 +867,7 @@ components:
                                       description: Span of time that's a fraction
                                         of a second at nanosecond resolution. Durations
                                         less than one second are represented with
-                                        a 0 \`seconds\` field and a positive \`nanos\`
+                                        a 0 `seconds` field and a positive `nanos`
                                         field. Must be from 0 to 999,999,999 inclusive.
                                       format: int64
                                       type: integer
@@ -878,8 +877,8 @@ components:
                                       description: 'Span of time at a resolution of
                                         a second. Must be from 0 to 315,576,000,000
                                         inclusive. Note: these bounds are computed
-                                        from: 60 sec/min \* 60 min/hr \* 24 hr/day
-                                        \* 365.25 days/year \* 10000 years'
+                                        from: 60 sec/min * 60 min/hr * 24 hr/day *
+                                        365.25 days/year * 10000 years'
                                       format: int64
                                       type: integer
                                       x-dcl-go-name: Seconds
@@ -944,9 +943,9 @@ components:
                                 nanos:
                                   description: Span of time that's a fraction of a
                                     second at nanosecond resolution. Durations less
-                                    than one second are represented with a 0 \`seconds\`
-                                    field and a positive \`nanos\` field. Must be
-                                    from 0 to 999,999,999 inclusive.
+                                    than one second are represented with a 0 `seconds`
+                                    field and a positive `nanos` field. Must be from
+                                    0 to 999,999,999 inclusive.
                                   format: int64
                                   type: integer
                                   x-dcl-go-name: Nanos
@@ -955,8 +954,8 @@ components:
                                   description: 'Span of time at a resolution of a
                                     second. Must be from 0 to 315,576,000,000 inclusive.
                                     Note: these bounds are computed from: 60 sec/min
-                                    \* 60 min/hr \* 24 hr/day \* 365.25 days/year
-                                    \* 10000 years'
+                                    * 60 min/hr * 24 hr/day * 365.25 days/year * 10000
+                                    years'
                                   format: int64
                                   type: integer
                                   x-dcl-go-name: Seconds
@@ -974,7 +973,7 @@ components:
 
                                 *   `connect-failure`: Loadbalancer will retry on failures connecting to backend services, for example due to connection timeouts.
                                 *   `retriable-4xx`: Loadbalancer will retry for retriable 4xx response codes. Currently the only retriable error supported is 409.
-                                *   `refused-stream`:Loadbalancer will retry if the backend service resets the stream with a REFUSED\_STREAM error code. This reset type indicates that it is safe to retry.
+                                *   `refused-stream`:Loadbalancer will retry if the backend service resets the stream with a REFUSED_STREAM error code. This reset type indicates that it is safe to retry.
                                 *   `cancelled`Loadbalancer will retry if the gRPC status code in the response header is set to `cancelled`
                                 *   `deadline-exceeded`: Loadbalancer will retry if the gRPC status code in the response header is set to `deadline-exceeded`
                                 *   `resource-exhausted`: Loadbalancer will retry if the gRPC status code in the response header is set to `resource-exhausted`
@@ -999,9 +998,9 @@ components:
                             nanos:
                               description: Span of time that's a fraction of a second
                                 at nanosecond resolution. Durations less than one
-                                second are represented with a 0 \`seconds\` field
-                                and a positive \`nanos\` field. Must be from 0 to
-                                999,999,999 inclusive.
+                                second are represented with a 0 `seconds` field and
+                                a positive `nanos` field. Must be from 0 to 999,999,999
+                                inclusive.
                               format: int64
                               type: integer
                               x-dcl-go-name: Nanos
@@ -1009,8 +1008,8 @@ components:
                             seconds:
                               description: 'Span of time at a resolution of a second.
                                 Must be from 0 to 315,576,000,000 inclusive. Note:
-                                these bounds are computed from: 60 sec/min \* 60 min/hr
-                                \* 24 hr/day \* 365.25 days/year \* 10000 years'
+                                these bounds are computed from: 60 sec/min * 60 min/hr
+                                * 24 hr/day * 365.25 days/year * 10000 years'
                               format: int64
                               type: integer
                               x-dcl-go-name: Seconds
@@ -1133,11 +1132,11 @@ components:
 
                             Supported values are:
 
-                            *   MOVED\_PERMANENTLY\_DEFAULT, which is the default value and corresponds to 301.
+                            *   MOVED_PERMANENTLY_DEFAULT, which is the default value and corresponds to 301.
                             *   FOUND, which corresponds to 302.
-                            *   SEE\_OTHER which corresponds to 303.
-                            *   TEMPORARY\_REDIRECT, which corresponds to 307. In this case, the request method will be retained.
-                            *   PERMANENT\_REDIRECT, which corresponds to 308. In this case, the request method will be retained.
+                            *   SEE_OTHER which corresponds to 303.
+                            *   TEMPORARY_REDIRECT, which corresponds to 307. In this case, the request method will be retained.
+                            *   PERMANENT_REDIRECT, which corresponds to 308. In this case, the request method will be retained.
                           enum:
                           - MOVED_PERMANENTLY_DEFAULT
                           - FOUND
@@ -1258,12 +1257,12 @@ components:
                                   description: |-
                                     The header value must be an integer and its value must be in the range specified in `rangeMatch`. If the header does not contain an integer, number or is empty, the match fails.
 
-                                    For example for a range \[-5, 0\]
+                                    For example for a range [-5, 0]
 
-                                    *   \-3 will match.
+                                    *   -3 will match.
                                     *   0 will not match.
                                     *   0.25 will not match.
-                                    *   \-3someString will not match.
+                                    *   -3someString will not match.
 
                                     Only one of exactMatch, prefixMatch, suffixMatch, regexMatch, presentMatch or rangeMatch must be set.
 
@@ -1327,7 +1326,7 @@ components:
                             description: |-
                               Opaque filter criteria used by Loadbalancer to restrict routing configuration to a limited set of [xDS](https://github.com/envoyproxy/data-plane-api/blob/master/XDS_PROTOCOL.md) compliant clients. In their xDS requests to Loadbalancer, xDS clients present [node metadata](https://github.com/envoyproxy/data-plane-api/search?q=%22message+Node%22+in%3A%2Fenvoy%2Fapi%2Fv2%2Fcore%2Fbase.proto&). If a match takes place, the relevant routing configuration is made available to those proxies.
 
-                              For each `metadataFilter` in this list, if its `filterMatchCriteria` is set to MATCH\_ANY, at least one of the `filterLabel`s must match the corresponding label provided in the metadata. If its `filterMatchCriteria` is set to MATCH\_ALL, then all of its `filterLabel`s must match with corresponding labels provided in the metadata.
+                              For each `metadataFilter` in this list, if its `filterMatchCriteria` is set to MATCH_ANY, at least one of the `filterLabel`s must match the corresponding label provided in the metadata. If its `filterMatchCriteria` is set to MATCH_ALL, then all of its `filterLabel`s must match with corresponding labels provided in the metadata.
 
                               `metadataFilters` specified here will be applied after those specified in `ForwardingRule` that refers to the `UrlMap` this ``HttpRouteRuleMatch `belongs to.` ``
 
@@ -1369,8 +1368,8 @@ components:
 
                                     Supported values are:
 
-                                    *   MATCH\_ANY: At least one of the `filterLabels` must have a matching label in the provided metadata.
-                                    *   MATCH\_ALL: All `filterLabels` must have matching labels in the provided metadata.
+                                    *   MATCH_ANY: At least one of the `filterLabels` must have a matching label in the provided metadata.
+                                    *   MATCH_ALL: All `filterLabels` must have matching labels in the provided metadata. Possible values: NOT_SET, MATCH_ALL, MATCH_ANY
                                   enum:
                                   - NOT_SET
                                   - MATCH_ALL
@@ -1604,7 +1603,7 @@ components:
                                       description: Span of time that's a fraction
                                         of a second at nanosecond resolution. Durations
                                         less than one second are represented with
-                                        a 0 \`seconds\` field and a positive \`nanos\`
+                                        a 0 `seconds` field and a positive `nanos`
                                         field. Must be from 0 to 999,999,999 inclusive.
                                       format: int64
                                       type: integer
@@ -1614,8 +1613,8 @@ components:
                                       description: 'Span of time at a resolution of
                                         a second. Must be from 0 to 315,576,000,000
                                         inclusive. Note: these bounds are computed
-                                        from: 60 sec/min \* 60 min/hr \* 24 hr/day
-                                        \* 365.25 days/year \* 10000 years'
+                                        from: 60 sec/min * 60 min/hr * 24 hr/day *
+                                        365.25 days/year * 10000 years'
                                       format: int64
                                       type: integer
                                       x-dcl-go-name: Seconds
@@ -1680,9 +1679,9 @@ components:
                                 nanos:
                                   description: Span of time that's a fraction of a
                                     second at nanosecond resolution. Durations less
-                                    than one second are represented with a 0 \`seconds\`
-                                    field and a positive \`nanos\` field. Must be
-                                    from 0 to 999,999,999 inclusive.
+                                    than one second are represented with a 0 `seconds`
+                                    field and a positive `nanos` field. Must be from
+                                    0 to 999,999,999 inclusive.
                                   format: int64
                                   type: integer
                                   x-dcl-go-name: Nanos
@@ -1691,8 +1690,8 @@ components:
                                   description: 'Span of time at a resolution of a
                                     second. Must be from 0 to 315,576,000,000 inclusive.
                                     Note: these bounds are computed from: 60 sec/min
-                                    \* 60 min/hr \* 24 hr/day \* 365.25 days/year
-                                    \* 10000 years'
+                                    * 60 min/hr * 24 hr/day * 365.25 days/year * 10000
+                                    years'
                                   format: int64
                                   type: integer
                                   x-dcl-go-name: Seconds
@@ -1710,7 +1709,7 @@ components:
 
                                 *   `connect-failure`: Loadbalancer will retry on failures connecting to backend services, for example due to connection timeouts.
                                 *   `retriable-4xx`: Loadbalancer will retry for retriable 4xx response codes. Currently the only retriable error supported is 409.
-                                *   `refused-stream`:Loadbalancer will retry if the backend service resets the stream with a REFUSED\_STREAM error code. This reset type indicates that it is safe to retry.
+                                *   `refused-stream`:Loadbalancer will retry if the backend service resets the stream with a REFUSED_STREAM error code. This reset type indicates that it is safe to retry.
                                 *   `cancelled`Loadbalancer will retry if the gRPC status code in the response header is set to `cancelled`
                                 *   `deadline-exceeded`: Loadbalancer will retry if the gRPC status code in the response header is set to `deadline-exceeded`
                                 *   `resource-exhausted`: Loadbalancer will retry if the gRPC status code in the response header is set to `resource-exhausted`
@@ -1735,9 +1734,9 @@ components:
                             nanos:
                               description: Span of time that's a fraction of a second
                                 at nanosecond resolution. Durations less than one
-                                second are represented with a 0 \`seconds\` field
-                                and a positive \`nanos\` field. Must be from 0 to
-                                999,999,999 inclusive.
+                                second are represented with a 0 `seconds` field and
+                                a positive `nanos` field. Must be from 0 to 999,999,999
+                                inclusive.
                               format: int64
                               type: integer
                               x-dcl-go-name: Nanos
@@ -1745,8 +1744,8 @@ components:
                             seconds:
                               description: 'Span of time at a resolution of a second.
                                 Must be from 0 to 315,576,000,000 inclusive. Note:
-                                these bounds are computed from: 60 sec/min \* 60 min/hr
-                                \* 24 hr/day \* 365.25 days/year \* 10000 years'
+                                these bounds are computed from: 60 sec/min * 60 min/hr
+                                * 24 hr/day * 365.25 days/year * 10000 years'
                               format: int64
                               type: integer
                               x-dcl-go-name: Seconds
@@ -1869,11 +1868,11 @@ components:
 
                             Supported values are:
 
-                            *   MOVED\_PERMANENTLY\_DEFAULT, which is the default value and corresponds to 301.
+                            *   MOVED_PERMANENTLY_DEFAULT, which is the default value and corresponds to 301.
                             *   FOUND, which corresponds to 302.
-                            *   SEE\_OTHER which corresponds to 303.
-                            *   TEMPORARY\_REDIRECT, which corresponds to 307. In this case, the request method will be retained.
-                            *   PERMANENT\_REDIRECT, which corresponds to 308. In this case, the request method will be retained.
+                            *   SEE_OTHER which corresponds to 303.
+                            *   TEMPORARY_REDIRECT, which corresponds to 307. In this case, the request method will be retained.
+                            *   PERMANENT_REDIRECT, which corresponds to 308. In this case, the request method will be retained.
                           enum:
                           - MOVED_PERMANENTLY_DEFAULT
                           - FOUND
@@ -1913,10 +1912,10 @@ components:
           x-dcl-go-name: Project
           x-kubernetes-immutable: true
         region:
-          description: \[Output Only\] URL of the region where the regional URL map
+          description: '[Output Only] URL of the region where the regional URL map
             resides. This field is not applicable to global URL maps. You must specify
             this field as part of the HTTP request URL. It is not settable as a field
-            in the request body.
+            in the request body.'
           type: string
           x-dcl-go-name: Region
           x-kubernetes-immutable: true
@@ -1965,8 +1964,35 @@ info:
   title: Compute/UrlMap
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many UrlMap
+  apply:
+    description: The function used to apply information about a UrlMap
+    parameters:
+    - description: A full instance of a UrlMap
+      name: UrlMap
+      required: true
+  delete:
+    description: The function used to delete a UrlMap
+    parameters:
+    - description: A full instance of a UrlMap
+      name: UrlMap
+      required: true
+  deleteAll:
+    description: The function used to delete all UrlMap
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a UrlMap
+    parameters:
+    - description: A full instance of a UrlMap
+      name: UrlMap
+      required: true
+  list:
+    description: The function used to list information about many UrlMap
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

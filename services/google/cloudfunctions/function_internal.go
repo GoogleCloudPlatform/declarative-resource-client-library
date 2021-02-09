@@ -18,15 +18,16 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
-func (r *CloudFunction) validate() error {
+func (r *Function) validate() error {
 
 	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"SourceArchiveUrl", "SourceRepository"}, r.SourceArchiveUrl, r.SourceRepository); err != nil {
 		return err
@@ -60,16 +61,16 @@ func (r *CloudFunction) validate() error {
 	}
 	return nil
 }
-func (r *CloudFunctionSourceRepository) validate() error {
+func (r *FunctionSourceRepository) validate() error {
 	if err := dcl.Required(r, "url"); err != nil {
 		return err
 	}
 	return nil
 }
-func (r *CloudFunctionHttpsTrigger) validate() error {
+func (r *FunctionHttpsTrigger) validate() error {
 	return nil
 }
-func (r *CloudFunctionEventTrigger) validate() error {
+func (r *FunctionEventTrigger) validate() error {
 	if err := dcl.Required(r, "eventType"); err != nil {
 		return err
 	}
@@ -79,7 +80,7 @@ func (r *CloudFunctionEventTrigger) validate() error {
 	return nil
 }
 
-func cloudFunctionGetURL(userBasePath string, r *CloudFunction) (string, error) {
+func functionGetURL(userBasePath string, r *Function) (string, error) {
 	params := map[string]interface{}{
 		"project": dcl.ValueOrEmptyString(r.Project),
 		"region":  dcl.ValueOrEmptyString(r.Region),
@@ -88,7 +89,7 @@ func cloudFunctionGetURL(userBasePath string, r *CloudFunction) (string, error) 
 	return dcl.URL("projects/{{project}}/locations/{{region}}/functions/{{name}}", "https://cloudfunctions.googleapis.com/v1/", userBasePath, params), nil
 }
 
-func cloudFunctionListURL(userBasePath, project, region string) (string, error) {
+func functionListURL(userBasePath, project, region string) (string, error) {
 	params := map[string]interface{}{
 		"project": project,
 		"region":  region,
@@ -97,7 +98,7 @@ func cloudFunctionListURL(userBasePath, project, region string) (string, error) 
 
 }
 
-func cloudFunctionCreateURL(userBasePath, project, region string) (string, error) {
+func functionCreateURL(userBasePath, project, region string) (string, error) {
 	params := map[string]interface{}{
 		"project": project,
 		"region":  region,
@@ -106,7 +107,7 @@ func cloudFunctionCreateURL(userBasePath, project, region string) (string, error
 
 }
 
-func cloudFunctionDeleteURL(userBasePath string, r *CloudFunction) (string, error) {
+func functionDeleteURL(userBasePath string, r *Function) (string, error) {
 	params := map[string]interface{}{
 		"project": dcl.ValueOrEmptyString(r.Project),
 		"region":  dcl.ValueOrEmptyString(r.Region),
@@ -115,16 +116,16 @@ func cloudFunctionDeleteURL(userBasePath string, r *CloudFunction) (string, erro
 	return dcl.URL("projects/{{project}}/locations/{{region}}/functions/{{name}}", "https://cloudfunctions.googleapis.com/v1/", userBasePath, params), nil
 }
 
-// cloudFunctionApiOperation represents a mutable operation in the underlying REST
+// functionApiOperation represents a mutable operation in the underlying REST
 // API such as Create, Update, or Delete.
-type cloudFunctionApiOperation interface {
-	do(context.Context, *CloudFunction, *Client) error
+type functionApiOperation interface {
+	do(context.Context, *Function, *Client) error
 }
 
-// newUpdateCloudFunctionUpdateRequest creates a request for an
-// CloudFunction resource's update update type by filling in the update
+// newUpdateFunctionUpdateRequest creates a request for an
+// Function resource's update update type by filling in the update
 // fields based on the intended state of the resource.
-func newUpdateCloudFunctionUpdateRequest(ctx context.Context, f *CloudFunction, c *Client) (map[string]interface{}, error) {
+func newUpdateFunctionUpdateRequest(ctx context.Context, f *Function, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
@@ -133,9 +134,7 @@ func newUpdateCloudFunctionUpdateRequest(ctx context.Context, f *CloudFunction, 
 	if v := f.Runtime; !dcl.IsEmptyValueIndirect(v) {
 		req["runtime"] = v
 	}
-	if v, err := ExpandCloudFunctionTimeout(f, f.Timeout); err != nil {
-		return nil, fmt.Errorf("error expanding Timeout into timeout: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Timeout; !dcl.IsEmptyValueIndirect(v) {
 		req["timeout"] = v
 	}
 	if v := f.AvailableMemoryMb; !dcl.IsEmptyValueIndirect(v) {
@@ -159,14 +158,14 @@ func newUpdateCloudFunctionUpdateRequest(ctx context.Context, f *CloudFunction, 
 	return req, nil
 }
 
-// marshalUpdateCloudFunctionUpdateRequest converts the update into
+// marshalUpdateFunctionUpdateRequest converts the update into
 // the final JSON request body.
-func marshalUpdateCloudFunctionUpdateRequest(c *Client, m map[string]interface{}) ([]byte, error) {
+func marshalUpdateFunctionUpdateRequest(c *Client, m map[string]interface{}) ([]byte, error) {
 
 	return json.Marshal(m)
 }
 
-type updateCloudFunctionUpdateOperation struct {
+type updateFunctionUpdateOperation struct {
 	// If the update operation has the REQUIRES_APPLY_OPTIONS trait, this will be populated.
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
@@ -177,8 +176,8 @@ type updateCloudFunctionUpdateOperation struct {
 // do will transcribe a subset of the resource into a request object and send a
 // PUT request to a single URL.
 
-func (op *updateCloudFunctionUpdateOperation) do(ctx context.Context, r *CloudFunction, c *Client) error {
-	_, err := c.GetCloudFunction(ctx, r.urlNormalized())
+func (op *updateFunctionUpdateOperation) do(ctx context.Context, r *Function, c *Client) error {
+	_, err := c.GetFunction(ctx, r.urlNormalized())
 	if err != nil {
 		return err
 	}
@@ -193,13 +192,13 @@ func (op *updateCloudFunctionUpdateOperation) do(ctx context.Context, r *CloudFu
 		return err
 	}
 
-	req, err := newUpdateCloudFunctionUpdateRequest(ctx, r, c)
+	req, err := newUpdateFunctionUpdateRequest(ctx, r, c)
 	if err != nil {
 		return err
 	}
 
 	c.Config.Logger.Infof("Created update: %#v", req)
-	body, err := marshalUpdateCloudFunctionUpdateRequest(c, req)
+	body, err := marshalUpdateFunctionUpdateRequest(c, req)
 	if err != nil {
 		return err
 	}
@@ -221,8 +220,8 @@ func (op *updateCloudFunctionUpdateOperation) do(ctx context.Context, r *CloudFu
 	return nil
 }
 
-func (c *Client) listCloudFunctionRaw(ctx context.Context, project, region, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := cloudFunctionListURL(c.Config.BasePath, project, region)
+func (c *Client) listFunctionRaw(ctx context.Context, project, region, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := functionListURL(c.Config.BasePath, project, region)
 	if err != nil {
 		return nil, err
 	}
@@ -232,7 +231,7 @@ func (c *Client) listCloudFunctionRaw(ctx context.Context, project, region, page
 		m["pageToken"] = pageToken
 	}
 
-	if pageSize != CloudFunctionMaxPage {
+	if pageSize != FunctionMaxPage {
 		m["pageSize"] = fmt.Sprintf("%v", pageSize)
 	}
 
@@ -248,25 +247,25 @@ func (c *Client) listCloudFunctionRaw(ctx context.Context, project, region, page
 	return ioutil.ReadAll(resp.Response.Body)
 }
 
-type listCloudFunctionOperation struct {
+type listFunctionOperation struct {
 	Instances []map[string]interface{} `json:"instances"`
 	Token     string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listCloudFunction(ctx context.Context, project, region, pageToken string, pageSize int32) ([]*CloudFunction, string, error) {
-	b, err := c.listCloudFunctionRaw(ctx, project, region, pageToken, pageSize)
+func (c *Client) listFunction(ctx context.Context, project, region, pageToken string, pageSize int32) ([]*Function, string, error) {
+	b, err := c.listFunctionRaw(ctx, project, region, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
 
-	var m listCloudFunctionOperation
+	var m listFunctionOperation
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, "", err
 	}
 
-	var l []*CloudFunction
+	var l []*Function
 	for _, v := range m.Instances {
-		res := flattenCloudFunction(c, v)
+		res := flattenFunction(c, v)
 		res.Project = &project
 		res.Region = &region
 		l = append(l, res)
@@ -275,12 +274,12 @@ func (c *Client) listCloudFunction(ctx context.Context, project, region, pageTok
 	return l, m.Token, nil
 }
 
-func (c *Client) deleteAllCloudFunction(ctx context.Context, f func(*CloudFunction) bool, resources []*CloudFunction) error {
+func (c *Client) deleteAllFunction(ctx context.Context, f func(*Function) bool, resources []*Function) error {
 	var errors []string
 	for _, res := range resources {
 		if f(res) {
 			// We do not want deleteAll to fail on a deletion or else it will stop deleting other resources.
-			err := c.DeleteCloudFunction(ctx, res)
+			err := c.DeleteFunction(ctx, res)
 			if err != nil {
 				errors = append(errors, err.Error())
 			}
@@ -293,22 +292,22 @@ func (c *Client) deleteAllCloudFunction(ctx context.Context, f func(*CloudFuncti
 	}
 }
 
-type deleteCloudFunctionOperation struct{}
+type deleteFunctionOperation struct{}
 
-func (op *deleteCloudFunctionOperation) do(ctx context.Context, r *CloudFunction, c *Client) error {
+func (op *deleteFunctionOperation) do(ctx context.Context, r *Function, c *Client) error {
 
-	_, err := c.GetCloudFunction(ctx, r.urlNormalized())
+	_, err := c.GetFunction(ctx, r.urlNormalized())
 
 	if err != nil {
 		if dcl.IsNotFound(err) {
-			c.Config.Logger.Infof("CloudFunction not found, returning. Original error: %v", err)
+			c.Config.Logger.Infof("Function not found, returning. Original error: %v", err)
 			return nil
 		}
-		c.Config.Logger.Warningf("GetCloudFunction checking for existence. error: %v", err)
+		c.Config.Logger.Warningf("GetFunction checking for existence. error: %v", err)
 		return err
 	}
 
-	u, err := cloudFunctionDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := functionDeleteURL(c.Config.BasePath, r.urlNormalized())
 	if err != nil {
 		return err
 	}
@@ -328,7 +327,7 @@ func (op *deleteCloudFunctionOperation) do(ctx context.Context, r *CloudFunction
 	if err := o.Wait(ctx, c.Config, "https://cloudfunctions.googleapis.com/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetCloudFunction(ctx, r.urlNormalized())
+	_, err = c.GetFunction(ctx, r.urlNormalized())
 	if !dcl.IsNotFound(err) {
 		return dcl.NotDeletedError{ExistingResource: r}
 	}
@@ -338,13 +337,13 @@ func (op *deleteCloudFunctionOperation) do(ctx context.Context, r *CloudFunction
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createCloudFunctionOperation struct{}
+type createFunctionOperation struct{}
 
-func (op *createCloudFunctionOperation) do(ctx context.Context, r *CloudFunction, c *Client) error {
+func (op *createFunctionOperation) do(ctx context.Context, r *Function, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
 
 	project, region := r.createFields()
-	u, err := cloudFunctionCreateURL(c.Config.BasePath, project, region)
+	u, err := functionCreateURL(c.Config.BasePath, project, region)
 
 	if err != nil {
 		return err
@@ -369,16 +368,16 @@ func (op *createCloudFunctionOperation) do(ctx context.Context, r *CloudFunction
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 
-	if _, err := c.GetCloudFunction(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetFunction(ctx, r.urlNormalized()); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (c *Client) getCloudFunctionRaw(ctx context.Context, r *CloudFunction) ([]byte, error) {
+func (c *Client) getFunctionRaw(ctx context.Context, r *Function) ([]byte, error) {
 
-	u, err := cloudFunctionGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := functionGetURL(c.Config.BasePath, r.urlNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -395,13 +394,13 @@ func (c *Client) getCloudFunctionRaw(ctx context.Context, r *CloudFunction) ([]b
 	return b, nil
 }
 
-func (c *Client) cloudFunctionDiffsForRawDesired(ctx context.Context, rawDesired *CloudFunction, opts ...dcl.ApplyOption) (initial, desired *CloudFunction, diffs []cloudFunctionDiff, err error) {
+func (c *Client) functionDiffsForRawDesired(ctx context.Context, rawDesired *Function, opts ...dcl.ApplyOption) (initial, desired *Function, diffs []functionDiff, err error) {
 	c.Config.Logger.Info("Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
-	var fetchState *CloudFunction
+	var fetchState *Function
 	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*CloudFunction); !ok {
-			c.Config.Logger.Warningf("Initial state hint was of the wrong type; expected CloudFunction, got %T", sh)
+		if r, ok := sh.(*Function); !ok {
+			c.Config.Logger.Warningf("Initial state hint was of the wrong type; expected Function, got %T", sh)
 		} else {
 			fetchState = r
 		}
@@ -411,42 +410,71 @@ func (c *Client) cloudFunctionDiffsForRawDesired(ctx context.Context, rawDesired
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetCloudFunction(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetFunction(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
-			c.Config.Logger.Warningf("Failed to retrieve whether a CloudFunction resource already exists: %s", err)
-			return nil, nil, nil, fmt.Errorf("failed to retrieve CloudFunction resource: %v", err)
+			c.Config.Logger.Warningf("Failed to retrieve whether a Function resource already exists: %s", err)
+			return nil, nil, nil, fmt.Errorf("failed to retrieve Function resource: %v", err)
 		}
-
-		c.Config.Logger.Info("Found that CloudFunction resource did not exist.")
+		c.Config.Logger.Info("Found that Function resource did not exist.")
 		// Perform canonicalization to pick up defaults.
-		desired, err = canonicalizeCloudFunctionDesiredState(rawDesired, rawInitial)
+		desired, err = canonicalizeFunctionDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-	c.Config.Logger.Infof("Found initial state for CloudFunction: %v", rawInitial)
-	c.Config.Logger.Infof("Initial desired state for CloudFunction: %v", rawDesired)
+
+	c.Config.Logger.Infof("Found initial state for Function: %v", rawInitial)
+	c.Config.Logger.Infof("Initial desired state for Function: %v", rawDesired)
 
 	// 1.3: Canonicalize raw initial state into initial state.
-	initial, err = canonicalizeCloudFunctionInitialState(rawInitial, rawDesired)
+	initial, err = canonicalizeFunctionInitialState(rawInitial, rawDesired)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized initial state for CloudFunction: %v", initial)
+	c.Config.Logger.Infof("Canonicalized initial state for Function: %v", initial)
 
 	// 1.4: Canonicalize raw desired state into desired state.
-	desired, err = canonicalizeCloudFunctionDesiredState(rawDesired, rawInitial, opts...)
+	desired, err = canonicalizeFunctionDesiredState(rawDesired, rawInitial, opts...)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized desired state for CloudFunction: %v", desired)
+	c.Config.Logger.Infof("Canonicalized desired state for Function: %v", desired)
 
 	// 2.1: Comparison of initial and desired state.
-	diffs, err = diffCloudFunction(c, desired, initial, opts...)
+	diffs, err = diffFunction(c, desired, initial, opts...)
 	return initial, desired, diffs, err
 }
 
-func canonicalizeCloudFunctionInitialState(rawInitial, rawDesired *CloudFunction) (*CloudFunction, error) {
+func canonicalizeFunctionInitialState(rawInitial, rawDesired *Function) (*Function, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
+
+	if dcl.IsZeroValue(rawInitial.SourceArchiveUrl) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.SourceRepository) {
+			rawInitial.SourceArchiveUrl = dcl.String("")
+		}
+	}
+
+	if dcl.IsZeroValue(rawInitial.SourceRepository) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.SourceArchiveUrl) {
+			rawInitial.SourceRepository = EmptyFunctionSourceRepository
+		}
+	}
+
+	if dcl.IsZeroValue(rawInitial.EventTrigger) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.HttpsTrigger) {
+			rawInitial.EventTrigger = EmptyFunctionEventTrigger
+		}
+	}
+
+	if dcl.IsZeroValue(rawInitial.HttpsTrigger) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.EventTrigger) {
+			rawInitial.HttpsTrigger = EmptyFunctionHttpsTrigger
+		}
+	}
+
 	return rawInitial, nil
 }
 
@@ -457,7 +485,7 @@ func canonicalizeCloudFunctionInitialState(rawInitial, rawDesired *CloudFunction
 * GCP API response to a standard format that can be used for difference checking.
 * */
 
-func canonicalizeCloudFunctionDesiredState(rawDesired, rawInitial *CloudFunction, opts ...dcl.ApplyOption) (*CloudFunction, error) {
+func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...dcl.ApplyOption) (*Function, error) {
 
 	if dcl.IsZeroValue(rawDesired.SourceArchiveUrl) {
 		// check if anything else is set
@@ -469,27 +497,27 @@ func canonicalizeCloudFunctionDesiredState(rawDesired, rawInitial *CloudFunction
 	if dcl.IsZeroValue(rawDesired.SourceRepository) {
 		// check if anything else is set
 		if dcl.AnySet(rawDesired.SourceArchiveUrl) {
-			rawDesired.SourceRepository = EmptyCloudFunctionSourceRepository
+			rawDesired.SourceRepository = EmptyFunctionSourceRepository
 		}
 	}
 
 	if dcl.IsZeroValue(rawDesired.EventTrigger) {
 		// check if anything else is set
 		if dcl.AnySet(rawDesired.HttpsTrigger) {
-			rawDesired.EventTrigger = EmptyCloudFunctionEventTrigger
+			rawDesired.EventTrigger = EmptyFunctionEventTrigger
 		}
 	}
 
 	if dcl.IsZeroValue(rawDesired.HttpsTrigger) {
 		// check if anything else is set
 		if dcl.AnySet(rawDesired.EventTrigger) {
-			rawDesired.HttpsTrigger = EmptyCloudFunctionHttpsTrigger
+			rawDesired.HttpsTrigger = EmptyFunctionHttpsTrigger
 		}
 	}
 
 	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*CloudFunction); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected CloudFunction, got %T", sh)
+		if r, ok := sh.(*Function); !ok {
+			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Function, got %T", sh)
 		} else {
 			_ = r
 		}
@@ -498,9 +526,9 @@ func canonicalizeCloudFunctionDesiredState(rawDesired, rawInitial *CloudFunction
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
-		rawDesired.SourceRepository = canonicalizeCloudFunctionSourceRepository(rawDesired.SourceRepository, nil, opts...)
-		rawDesired.HttpsTrigger = canonicalizeCloudFunctionHttpsTrigger(rawDesired.HttpsTrigger, nil, opts...)
-		rawDesired.EventTrigger = canonicalizeCloudFunctionEventTrigger(rawDesired.EventTrigger, nil, opts...)
+		rawDesired.SourceRepository = canonicalizeFunctionSourceRepository(rawDesired.SourceRepository, nil, opts...)
+		rawDesired.HttpsTrigger = canonicalizeFunctionHttpsTrigger(rawDesired.HttpsTrigger, nil, opts...)
+		rawDesired.EventTrigger = canonicalizeFunctionEventTrigger(rawDesired.EventTrigger, nil, opts...)
 
 		return rawDesired, nil
 	}
@@ -513,9 +541,9 @@ func canonicalizeCloudFunctionDesiredState(rawDesired, rawInitial *CloudFunction
 	if dcl.IsZeroValue(rawDesired.SourceArchiveUrl) {
 		rawDesired.SourceArchiveUrl = rawInitial.SourceArchiveUrl
 	}
-	rawDesired.SourceRepository = canonicalizeCloudFunctionSourceRepository(rawDesired.SourceRepository, rawInitial.SourceRepository, opts...)
-	rawDesired.HttpsTrigger = canonicalizeCloudFunctionHttpsTrigger(rawDesired.HttpsTrigger, rawInitial.HttpsTrigger, opts...)
-	rawDesired.EventTrigger = canonicalizeCloudFunctionEventTrigger(rawDesired.EventTrigger, rawInitial.EventTrigger, opts...)
+	rawDesired.SourceRepository = canonicalizeFunctionSourceRepository(rawDesired.SourceRepository, rawInitial.SourceRepository, opts...)
+	rawDesired.HttpsTrigger = canonicalizeFunctionHttpsTrigger(rawDesired.HttpsTrigger, rawInitial.HttpsTrigger, opts...)
+	rawDesired.EventTrigger = canonicalizeFunctionEventTrigger(rawDesired.EventTrigger, rawInitial.EventTrigger, opts...)
 	if dcl.IsZeroValue(rawDesired.Status) {
 		rawDesired.Status = rawInitial.Status
 	}
@@ -531,7 +559,7 @@ func canonicalizeCloudFunctionDesiredState(rawDesired, rawInitial *CloudFunction
 	if dcl.IsZeroValue(rawDesired.AvailableMemoryMb) {
 		rawDesired.AvailableMemoryMb = rawInitial.AvailableMemoryMb
 	}
-	if dcl.IsZeroValue(rawDesired.ServiceAccountEmail) {
+	if dcl.NameToSelfLink(rawDesired.ServiceAccountEmail, rawInitial.ServiceAccountEmail) {
 		rawDesired.ServiceAccountEmail = rawInitial.ServiceAccountEmail
 	}
 	if dcl.IsZeroValue(rawDesired.UpdateTime) {
@@ -571,7 +599,7 @@ func canonicalizeCloudFunctionDesiredState(rawDesired, rawInitial *CloudFunction
 	return rawDesired, nil
 }
 
-func canonicalizeCloudFunctionNewState(c *Client, rawNew, rawDesired *CloudFunction) (*CloudFunction, error) {
+func canonicalizeFunctionNewState(c *Client, rawNew, rawDesired *Function) (*Function, error) {
 
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
@@ -594,19 +622,19 @@ func canonicalizeCloudFunctionNewState(c *Client, rawNew, rawDesired *CloudFunct
 	if dcl.IsEmptyValueIndirect(rawNew.SourceRepository) && dcl.IsEmptyValueIndirect(rawDesired.SourceRepository) {
 		rawNew.SourceRepository = rawDesired.SourceRepository
 	} else {
-		rawNew.SourceRepository = canonicalizeNewCloudFunctionSourceRepository(c, rawDesired.SourceRepository, rawNew.SourceRepository)
+		rawNew.SourceRepository = canonicalizeNewFunctionSourceRepository(c, rawDesired.SourceRepository, rawNew.SourceRepository)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.HttpsTrigger) && dcl.IsEmptyValueIndirect(rawDesired.HttpsTrigger) {
 		rawNew.HttpsTrigger = rawDesired.HttpsTrigger
 	} else {
-		rawNew.HttpsTrigger = canonicalizeNewCloudFunctionHttpsTrigger(c, rawDesired.HttpsTrigger, rawNew.HttpsTrigger)
+		rawNew.HttpsTrigger = canonicalizeNewFunctionHttpsTrigger(c, rawDesired.HttpsTrigger, rawNew.HttpsTrigger)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.EventTrigger) && dcl.IsEmptyValueIndirect(rawDesired.EventTrigger) {
 		rawNew.EventTrigger = rawDesired.EventTrigger
 	} else {
-		rawNew.EventTrigger = canonicalizeNewCloudFunctionEventTrigger(c, rawDesired.EventTrigger, rawNew.EventTrigger)
+		rawNew.EventTrigger = canonicalizeNewFunctionEventTrigger(c, rawDesired.EventTrigger, rawNew.EventTrigger)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Status) && dcl.IsEmptyValueIndirect(rawDesired.Status) {
@@ -637,6 +665,9 @@ func canonicalizeCloudFunctionNewState(c *Client, rawNew, rawDesired *CloudFunct
 	if dcl.IsEmptyValueIndirect(rawNew.ServiceAccountEmail) && dcl.IsEmptyValueIndirect(rawDesired.ServiceAccountEmail) {
 		rawNew.ServiceAccountEmail = rawDesired.ServiceAccountEmail
 	} else {
+		if dcl.NameToSelfLink(rawDesired.ServiceAccountEmail, rawNew.ServiceAccountEmail) {
+			rawNew.ServiceAccountEmail = rawDesired.ServiceAccountEmail
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
@@ -690,26 +721,14 @@ func canonicalizeCloudFunctionNewState(c *Client, rawNew, rawDesired *CloudFunct
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Region) && dcl.IsEmptyValueIndirect(rawDesired.Region) {
-		rawNew.Region = rawDesired.Region
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Region, rawNew.Region) {
-			rawNew.Region = rawDesired.Region
-		}
-	}
+	rawNew.Region = rawDesired.Region
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
 
-func canonicalizeCloudFunctionSourceRepository(des, initial *CloudFunctionSourceRepository, opts ...dcl.ApplyOption) *CloudFunctionSourceRepository {
+func canonicalizeFunctionSourceRepository(des, initial *FunctionSourceRepository, opts ...dcl.ApplyOption) *FunctionSourceRepository {
 	if des == nil {
 		return initial
 	}
@@ -718,7 +737,7 @@ func canonicalizeCloudFunctionSourceRepository(des, initial *CloudFunctionSource
 	}
 
 	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*CloudFunction)
+		r := sh.(*Function)
 		_ = r
 	}
 
@@ -736,7 +755,7 @@ func canonicalizeCloudFunctionSourceRepository(des, initial *CloudFunctionSource
 	return des
 }
 
-func canonicalizeNewCloudFunctionSourceRepository(c *Client, des, nw *CloudFunctionSourceRepository) *CloudFunctionSourceRepository {
+func canonicalizeNewFunctionSourceRepository(c *Client, des, nw *FunctionSourceRepository) *FunctionSourceRepository {
 	if des == nil || nw == nil {
 		return nw
 	}
@@ -744,15 +763,15 @@ func canonicalizeNewCloudFunctionSourceRepository(c *Client, des, nw *CloudFunct
 	return nw
 }
 
-func canonicalizeNewCloudFunctionSourceRepositorySet(c *Client, des, nw []CloudFunctionSourceRepository) []CloudFunctionSourceRepository {
+func canonicalizeNewFunctionSourceRepositorySet(c *Client, des, nw []FunctionSourceRepository) []FunctionSourceRepository {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []CloudFunctionSourceRepository
+	var reorderedNew []FunctionSourceRepository
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareCloudFunctionSourceRepository(c, &d, &n) {
+			if !compareFunctionSourceRepository(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -767,7 +786,7 @@ func canonicalizeNewCloudFunctionSourceRepositorySet(c *Client, des, nw []CloudF
 	return reorderedNew
 }
 
-func canonicalizeCloudFunctionHttpsTrigger(des, initial *CloudFunctionHttpsTrigger, opts ...dcl.ApplyOption) *CloudFunctionHttpsTrigger {
+func canonicalizeFunctionHttpsTrigger(des, initial *FunctionHttpsTrigger, opts ...dcl.ApplyOption) *FunctionHttpsTrigger {
 	if des == nil {
 		return initial
 	}
@@ -776,7 +795,7 @@ func canonicalizeCloudFunctionHttpsTrigger(des, initial *CloudFunctionHttpsTrigg
 	}
 
 	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*CloudFunction)
+		r := sh.(*Function)
 		_ = r
 	}
 
@@ -791,7 +810,7 @@ func canonicalizeCloudFunctionHttpsTrigger(des, initial *CloudFunctionHttpsTrigg
 	return des
 }
 
-func canonicalizeNewCloudFunctionHttpsTrigger(c *Client, des, nw *CloudFunctionHttpsTrigger) *CloudFunctionHttpsTrigger {
+func canonicalizeNewFunctionHttpsTrigger(c *Client, des, nw *FunctionHttpsTrigger) *FunctionHttpsTrigger {
 	if des == nil || nw == nil {
 		return nw
 	}
@@ -799,15 +818,15 @@ func canonicalizeNewCloudFunctionHttpsTrigger(c *Client, des, nw *CloudFunctionH
 	return nw
 }
 
-func canonicalizeNewCloudFunctionHttpsTriggerSet(c *Client, des, nw []CloudFunctionHttpsTrigger) []CloudFunctionHttpsTrigger {
+func canonicalizeNewFunctionHttpsTriggerSet(c *Client, des, nw []FunctionHttpsTrigger) []FunctionHttpsTrigger {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []CloudFunctionHttpsTrigger
+	var reorderedNew []FunctionHttpsTrigger
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareCloudFunctionHttpsTrigger(c, &d, &n) {
+			if !compareFunctionHttpsTrigger(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -822,7 +841,7 @@ func canonicalizeNewCloudFunctionHttpsTriggerSet(c *Client, des, nw []CloudFunct
 	return reorderedNew
 }
 
-func canonicalizeCloudFunctionEventTrigger(des, initial *CloudFunctionEventTrigger, opts ...dcl.ApplyOption) *CloudFunctionEventTrigger {
+func canonicalizeFunctionEventTrigger(des, initial *FunctionEventTrigger, opts ...dcl.ApplyOption) *FunctionEventTrigger {
 	if des == nil {
 		return initial
 	}
@@ -831,7 +850,7 @@ func canonicalizeCloudFunctionEventTrigger(des, initial *CloudFunctionEventTrigg
 	}
 
 	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*CloudFunction)
+		r := sh.(*Function)
 		_ = r
 	}
 
@@ -855,7 +874,7 @@ func canonicalizeCloudFunctionEventTrigger(des, initial *CloudFunctionEventTrigg
 	return des
 }
 
-func canonicalizeNewCloudFunctionEventTrigger(c *Client, des, nw *CloudFunctionEventTrigger) *CloudFunctionEventTrigger {
+func canonicalizeNewFunctionEventTrigger(c *Client, des, nw *FunctionEventTrigger) *FunctionEventTrigger {
 	if des == nil || nw == nil {
 		return nw
 	}
@@ -863,15 +882,15 @@ func canonicalizeNewCloudFunctionEventTrigger(c *Client, des, nw *CloudFunctionE
 	return nw
 }
 
-func canonicalizeNewCloudFunctionEventTriggerSet(c *Client, des, nw []CloudFunctionEventTrigger) []CloudFunctionEventTrigger {
+func canonicalizeNewFunctionEventTriggerSet(c *Client, des, nw []FunctionEventTrigger) []FunctionEventTrigger {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []CloudFunctionEventTrigger
+	var reorderedNew []FunctionEventTrigger
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareCloudFunctionEventTrigger(c, &d, &n) {
+			if !compareFunctionEventTrigger(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -886,10 +905,10 @@ func canonicalizeNewCloudFunctionEventTriggerSet(c *Client, des, nw []CloudFunct
 	return reorderedNew
 }
 
-type cloudFunctionDiff struct {
+type functionDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
-	UpdateOp         cloudFunctionApiOperation
+	UpdateOp         functionApiOperation
 	// This is for reporting only.
 	FieldName string
 }
@@ -901,169 +920,155 @@ type cloudFunctionDiff struct {
 // value. This empty value indicates that the user does not care about the state for
 // the field. Empty fields on the actual object will cause diffs.
 // TODO(magic-modules-eng): for efficiency in some resources, add batching.
-func diffCloudFunction(c *Client, desired, actual *CloudFunction, opts ...dcl.ApplyOption) ([]cloudFunctionDiff, error) {
+func diffFunction(c *Client, desired, actual *Function, opts ...dcl.ApplyOption) ([]functionDiff, error) {
 	if desired == nil || actual == nil {
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
-	var diffs []cloudFunctionDiff
+	var diffs []functionDiff
 	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
-		diffs = append(diffs, cloudFunctionDiff{
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
+		diffs = append(diffs, functionDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
-		diffs = append(diffs, cloudFunctionDiff{
-			UpdateOp:  &updateCloudFunctionUpdateOperation{},
+		diffs = append(diffs, functionDiff{
+			UpdateOp:  &updateFunctionUpdateOperation{},
 			FieldName: "Description",
 		})
 
 	}
 	if !dcl.IsZeroValue(desired.SourceArchiveUrl) && (dcl.IsZeroValue(actual.SourceArchiveUrl) || !reflect.DeepEqual(*desired.SourceArchiveUrl, *actual.SourceArchiveUrl)) {
-		c.Config.Logger.Infof("Detected diff in SourceArchiveUrl.\nDESIRED: %#v\nACTUAL: %#v", desired.SourceArchiveUrl, actual.SourceArchiveUrl)
-		diffs = append(diffs, cloudFunctionDiff{
+		c.Config.Logger.Infof("Detected diff in SourceArchiveUrl.\nDESIRED: %v\nACTUAL: %v", desired.SourceArchiveUrl, actual.SourceArchiveUrl)
+		diffs = append(diffs, functionDiff{
 			RequiresRecreate: true,
 			FieldName:        "SourceArchiveUrl",
 		})
 	}
-	if compareCloudFunctionSourceRepository(c, desired.SourceRepository, actual.SourceRepository) {
-		c.Config.Logger.Infof("Detected diff in SourceRepository.\nDESIRED: %#v\nACTUAL: %#v", desired.SourceRepository, actual.SourceRepository)
-		diffs = append(diffs, cloudFunctionDiff{
+	if compareFunctionSourceRepository(c, desired.SourceRepository, actual.SourceRepository) {
+		c.Config.Logger.Infof("Detected diff in SourceRepository.\nDESIRED: %v\nACTUAL: %v", desired.SourceRepository, actual.SourceRepository)
+		diffs = append(diffs, functionDiff{
 			RequiresRecreate: true,
 			FieldName:        "SourceRepository",
 		})
 	}
-	if compareCloudFunctionHttpsTrigger(c, desired.HttpsTrigger, actual.HttpsTrigger) {
-		c.Config.Logger.Infof("Detected diff in HttpsTrigger.\nDESIRED: %#v\nACTUAL: %#v", desired.HttpsTrigger, actual.HttpsTrigger)
-		diffs = append(diffs, cloudFunctionDiff{
+	if compareFunctionHttpsTrigger(c, desired.HttpsTrigger, actual.HttpsTrigger) {
+		c.Config.Logger.Infof("Detected diff in HttpsTrigger.\nDESIRED: %v\nACTUAL: %v", desired.HttpsTrigger, actual.HttpsTrigger)
+		diffs = append(diffs, functionDiff{
 			RequiresRecreate: true,
 			FieldName:        "HttpsTrigger",
 		})
 	}
-	if compareCloudFunctionEventTrigger(c, desired.EventTrigger, actual.EventTrigger) {
-		c.Config.Logger.Infof("Detected diff in EventTrigger.\nDESIRED: %#v\nACTUAL: %#v", desired.EventTrigger, actual.EventTrigger)
-		diffs = append(diffs, cloudFunctionDiff{
+	if compareFunctionEventTrigger(c, desired.EventTrigger, actual.EventTrigger) {
+		c.Config.Logger.Infof("Detected diff in EventTrigger.\nDESIRED: %v\nACTUAL: %v", desired.EventTrigger, actual.EventTrigger)
+		diffs = append(diffs, functionDiff{
 			RequiresRecreate: true,
 			FieldName:        "EventTrigger",
 		})
 	}
 	if !dcl.IsZeroValue(desired.EntryPoint) && (dcl.IsZeroValue(actual.EntryPoint) || !reflect.DeepEqual(*desired.EntryPoint, *actual.EntryPoint)) {
-		c.Config.Logger.Infof("Detected diff in EntryPoint.\nDESIRED: %#v\nACTUAL: %#v", desired.EntryPoint, actual.EntryPoint)
-		diffs = append(diffs, cloudFunctionDiff{
+		c.Config.Logger.Infof("Detected diff in EntryPoint.\nDESIRED: %v\nACTUAL: %v", desired.EntryPoint, actual.EntryPoint)
+		diffs = append(diffs, functionDiff{
 			RequiresRecreate: true,
 			FieldName:        "EntryPoint",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Runtime) && (dcl.IsZeroValue(actual.Runtime) || !reflect.DeepEqual(*desired.Runtime, *actual.Runtime)) {
-		c.Config.Logger.Infof("Detected diff in Runtime.\nDESIRED: %#v\nACTUAL: %#v", desired.Runtime, actual.Runtime)
+		c.Config.Logger.Infof("Detected diff in Runtime.\nDESIRED: %v\nACTUAL: %v", desired.Runtime, actual.Runtime)
 
-		diffs = append(diffs, cloudFunctionDiff{
-			UpdateOp:  &updateCloudFunctionUpdateOperation{},
+		diffs = append(diffs, functionDiff{
+			UpdateOp:  &updateFunctionUpdateOperation{},
 			FieldName: "Runtime",
 		})
 
 	}
 	if !dcl.IsZeroValue(desired.Timeout) && (dcl.IsZeroValue(actual.Timeout) || !reflect.DeepEqual(*desired.Timeout, *actual.Timeout)) {
-		c.Config.Logger.Infof("Detected diff in Timeout.\nDESIRED: %#v\nACTUAL: %#v", desired.Timeout, actual.Timeout)
+		c.Config.Logger.Infof("Detected diff in Timeout.\nDESIRED: %v\nACTUAL: %v", desired.Timeout, actual.Timeout)
 
-		diffs = append(diffs, cloudFunctionDiff{
-			UpdateOp:  &updateCloudFunctionUpdateOperation{},
+		diffs = append(diffs, functionDiff{
+			UpdateOp:  &updateFunctionUpdateOperation{},
 			FieldName: "Timeout",
 		})
 
 	}
 	if !dcl.IsZeroValue(desired.AvailableMemoryMb) && (dcl.IsZeroValue(actual.AvailableMemoryMb) || !reflect.DeepEqual(*desired.AvailableMemoryMb, *actual.AvailableMemoryMb)) {
-		c.Config.Logger.Infof("Detected diff in AvailableMemoryMb.\nDESIRED: %#v\nACTUAL: %#v", desired.AvailableMemoryMb, actual.AvailableMemoryMb)
+		c.Config.Logger.Infof("Detected diff in AvailableMemoryMb.\nDESIRED: %v\nACTUAL: %v", desired.AvailableMemoryMb, actual.AvailableMemoryMb)
 
-		diffs = append(diffs, cloudFunctionDiff{
-			UpdateOp:  &updateCloudFunctionUpdateOperation{},
+		diffs = append(diffs, functionDiff{
+			UpdateOp:  &updateFunctionUpdateOperation{},
 			FieldName: "AvailableMemoryMb",
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.ServiceAccountEmail) && (dcl.IsZeroValue(actual.ServiceAccountEmail) || !reflect.DeepEqual(*desired.ServiceAccountEmail, *actual.ServiceAccountEmail)) {
-		c.Config.Logger.Infof("Detected diff in ServiceAccountEmail.\nDESIRED: %#v\nACTUAL: %#v", desired.ServiceAccountEmail, actual.ServiceAccountEmail)
-		diffs = append(diffs, cloudFunctionDiff{
+	if !dcl.IsZeroValue(desired.ServiceAccountEmail) && !dcl.NameToSelfLink(desired.ServiceAccountEmail, actual.ServiceAccountEmail) {
+		c.Config.Logger.Infof("Detected diff in ServiceAccountEmail.\nDESIRED: %v\nACTUAL: %v", desired.ServiceAccountEmail, actual.ServiceAccountEmail)
+		diffs = append(diffs, functionDiff{
 			RequiresRecreate: true,
 			FieldName:        "ServiceAccountEmail",
 		})
 	}
 	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %#v\nACTUAL: %#v", desired.Labels, actual.Labels)
+		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
-		diffs = append(diffs, cloudFunctionDiff{
-			UpdateOp:  &updateCloudFunctionUpdateOperation{},
+		diffs = append(diffs, functionDiff{
+			UpdateOp:  &updateFunctionUpdateOperation{},
 			FieldName: "Labels",
 		})
 
 	}
 	if !reflect.DeepEqual(desired.EnvironmentVariables, actual.EnvironmentVariables) {
-		c.Config.Logger.Infof("Detected diff in EnvironmentVariables.\nDESIRED: %#v\nACTUAL: %#v", desired.EnvironmentVariables, actual.EnvironmentVariables)
+		c.Config.Logger.Infof("Detected diff in EnvironmentVariables.\nDESIRED: %v\nACTUAL: %v", desired.EnvironmentVariables, actual.EnvironmentVariables)
 
-		diffs = append(diffs, cloudFunctionDiff{
-			UpdateOp:  &updateCloudFunctionUpdateOperation{},
+		diffs = append(diffs, functionDiff{
+			UpdateOp:  &updateFunctionUpdateOperation{},
 			FieldName: "EnvironmentVariables",
 		})
 
 	}
 	if !dcl.IsZeroValue(desired.Network) && !dcl.NameToSelfLink(desired.Network, actual.Network) {
-		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %#v\nACTUAL: %#v", desired.Network, actual.Network)
-		diffs = append(diffs, cloudFunctionDiff{
+		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
+		diffs = append(diffs, functionDiff{
 			RequiresRecreate: true,
 			FieldName:        "Network",
 		})
 	}
 	if !dcl.IsZeroValue(desired.MaxInstances) && (dcl.IsZeroValue(actual.MaxInstances) || !reflect.DeepEqual(*desired.MaxInstances, *actual.MaxInstances)) {
-		c.Config.Logger.Infof("Detected diff in MaxInstances.\nDESIRED: %#v\nACTUAL: %#v", desired.MaxInstances, actual.MaxInstances)
+		c.Config.Logger.Infof("Detected diff in MaxInstances.\nDESIRED: %v\nACTUAL: %v", desired.MaxInstances, actual.MaxInstances)
 
-		diffs = append(diffs, cloudFunctionDiff{
-			UpdateOp:  &updateCloudFunctionUpdateOperation{},
+		diffs = append(diffs, functionDiff{
+			UpdateOp:  &updateFunctionUpdateOperation{},
 			FieldName: "MaxInstances",
 		})
 
 	}
 	if !dcl.IsZeroValue(desired.VPCConnector) && !dcl.NameToSelfLink(desired.VPCConnector, actual.VPCConnector) {
-		c.Config.Logger.Infof("Detected diff in VPCConnector.\nDESIRED: %#v\nACTUAL: %#v", desired.VPCConnector, actual.VPCConnector)
-		diffs = append(diffs, cloudFunctionDiff{
+		c.Config.Logger.Infof("Detected diff in VPCConnector.\nDESIRED: %v\nACTUAL: %v", desired.VPCConnector, actual.VPCConnector)
+		diffs = append(diffs, functionDiff{
 			RequiresRecreate: true,
 			FieldName:        "VPCConnector",
 		})
 	}
 	if !dcl.IsZeroValue(desired.VPCConnectorEgressSettings) && (dcl.IsZeroValue(actual.VPCConnectorEgressSettings) || !reflect.DeepEqual(*desired.VPCConnectorEgressSettings, *actual.VPCConnectorEgressSettings)) {
-		c.Config.Logger.Infof("Detected diff in VPCConnectorEgressSettings.\nDESIRED: %#v\nACTUAL: %#v", desired.VPCConnectorEgressSettings, actual.VPCConnectorEgressSettings)
+		c.Config.Logger.Infof("Detected diff in VPCConnectorEgressSettings.\nDESIRED: %v\nACTUAL: %v", desired.VPCConnectorEgressSettings, actual.VPCConnectorEgressSettings)
 
-		diffs = append(diffs, cloudFunctionDiff{
-			UpdateOp:  &updateCloudFunctionUpdateOperation{},
+		diffs = append(diffs, functionDiff{
+			UpdateOp:  &updateFunctionUpdateOperation{},
 			FieldName: "VPCConnectorEgressSettings",
 		})
 
 	}
 	if !dcl.IsZeroValue(desired.IngressSettings) && (dcl.IsZeroValue(actual.IngressSettings) || !reflect.DeepEqual(*desired.IngressSettings, *actual.IngressSettings)) {
-		c.Config.Logger.Infof("Detected diff in IngressSettings.\nDESIRED: %#v\nACTUAL: %#v", desired.IngressSettings, actual.IngressSettings)
+		c.Config.Logger.Infof("Detected diff in IngressSettings.\nDESIRED: %v\nACTUAL: %v", desired.IngressSettings, actual.IngressSettings)
 
-		diffs = append(diffs, cloudFunctionDiff{
-			UpdateOp:  &updateCloudFunctionUpdateOperation{},
+		diffs = append(diffs, functionDiff{
+			UpdateOp:  &updateFunctionUpdateOperation{},
 			FieldName: "IngressSettings",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Region) && !dcl.NameToSelfLink(desired.Region, actual.Region) {
-		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %#v\nACTUAL: %#v", desired.Region, actual.Region)
-		diffs = append(diffs, cloudFunctionDiff{
-			RequiresRecreate: true,
-			FieldName:        "Region",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, cloudFunctionDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
@@ -1075,7 +1080,7 @@ func diffCloudFunction(c *Client, desired, actual *CloudFunction, opts ...dcl.Ap
 	// This is O(n^2) in the number of operations, but n will always be very small,
 	// even 10 would be an extremely high number.
 	var opTypes []string
-	var deduped []cloudFunctionDiff
+	var deduped []functionDiff
 	for _, d := range diffs {
 		// Two operations are considered identical if they have the same type.
 		// The type of an operation is derived from the name of the update method.
@@ -1089,21 +1094,21 @@ func diffCloudFunction(c *Client, desired, actual *CloudFunction, opts ...dcl.Ap
 
 	return deduped, nil
 }
-func compareCloudFunctionSourceRepositorySlice(c *Client, desired, actual []CloudFunctionSourceRepository) bool {
+func compareFunctionSourceRepositorySlice(c *Client, desired, actual []FunctionSourceRepository) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in CloudFunctionSourceRepository, lengths unequal.")
+		c.Config.Logger.Info("Diff in FunctionSourceRepository, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareCloudFunctionSourceRepository(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in CloudFunctionSourceRepository, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareFunctionSourceRepository(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in FunctionSourceRepository, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
 	return false
 }
 
-func compareCloudFunctionSourceRepository(c *Client, desired, actual *CloudFunctionSourceRepository) bool {
+func compareFunctionSourceRepository(c *Client, desired, actual *FunctionSourceRepository) bool {
 	if desired == nil {
 		return false
 	}
@@ -1120,21 +1125,21 @@ func compareCloudFunctionSourceRepository(c *Client, desired, actual *CloudFunct
 	}
 	return false
 }
-func compareCloudFunctionHttpsTriggerSlice(c *Client, desired, actual []CloudFunctionHttpsTrigger) bool {
+func compareFunctionHttpsTriggerSlice(c *Client, desired, actual []FunctionHttpsTrigger) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in CloudFunctionHttpsTrigger, lengths unequal.")
+		c.Config.Logger.Info("Diff in FunctionHttpsTrigger, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareCloudFunctionHttpsTrigger(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in CloudFunctionHttpsTrigger, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareFunctionHttpsTrigger(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in FunctionHttpsTrigger, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
 	return false
 }
 
-func compareCloudFunctionHttpsTrigger(c *Client, desired, actual *CloudFunctionHttpsTrigger) bool {
+func compareFunctionHttpsTrigger(c *Client, desired, actual *FunctionHttpsTrigger) bool {
 	if desired == nil {
 		return false
 	}
@@ -1143,21 +1148,21 @@ func compareCloudFunctionHttpsTrigger(c *Client, desired, actual *CloudFunctionH
 	}
 	return false
 }
-func compareCloudFunctionEventTriggerSlice(c *Client, desired, actual []CloudFunctionEventTrigger) bool {
+func compareFunctionEventTriggerSlice(c *Client, desired, actual []FunctionEventTrigger) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in CloudFunctionEventTrigger, lengths unequal.")
+		c.Config.Logger.Info("Diff in FunctionEventTrigger, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareCloudFunctionEventTrigger(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in CloudFunctionEventTrigger, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareFunctionEventTrigger(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in FunctionEventTrigger, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
 	return false
 }
 
-func compareCloudFunctionEventTrigger(c *Client, desired, actual *CloudFunctionEventTrigger) bool {
+func compareFunctionEventTrigger(c *Client, desired, actual *FunctionEventTrigger) bool {
 	if desired == nil {
 		return false
 	}
@@ -1198,66 +1203,67 @@ func compareCloudFunctionEventTrigger(c *Client, desired, actual *CloudFunctionE
 	}
 	return false
 }
-func compareCloudFunctionStatusEnumSlice(c *Client, desired, actual []CloudFunctionStatusEnum) bool {
+func compareFunctionStatusEnumSlice(c *Client, desired, actual []FunctionStatusEnum) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in CloudFunctionStatusEnum, lengths unequal.")
+		c.Config.Logger.Info("Diff in FunctionStatusEnum, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareCloudFunctionStatusEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in CloudFunctionStatusEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareFunctionStatusEnum(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in FunctionStatusEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
 	return false
 }
 
-func compareCloudFunctionStatusEnum(c *Client, desired, actual *CloudFunctionStatusEnum) bool {
+func compareFunctionStatusEnum(c *Client, desired, actual *FunctionStatusEnum) bool {
 	return !reflect.DeepEqual(desired, actual)
 }
 
-func compareCloudFunctionVPCConnectorEgressSettingsEnumSlice(c *Client, desired, actual []CloudFunctionVPCConnectorEgressSettingsEnum) bool {
+func compareFunctionVPCConnectorEgressSettingsEnumSlice(c *Client, desired, actual []FunctionVPCConnectorEgressSettingsEnum) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in CloudFunctionVPCConnectorEgressSettingsEnum, lengths unequal.")
+		c.Config.Logger.Info("Diff in FunctionVPCConnectorEgressSettingsEnum, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareCloudFunctionVPCConnectorEgressSettingsEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in CloudFunctionVPCConnectorEgressSettingsEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareFunctionVPCConnectorEgressSettingsEnum(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in FunctionVPCConnectorEgressSettingsEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
 	return false
 }
 
-func compareCloudFunctionVPCConnectorEgressSettingsEnum(c *Client, desired, actual *CloudFunctionVPCConnectorEgressSettingsEnum) bool {
+func compareFunctionVPCConnectorEgressSettingsEnum(c *Client, desired, actual *FunctionVPCConnectorEgressSettingsEnum) bool {
 	return !reflect.DeepEqual(desired, actual)
 }
 
-func compareCloudFunctionIngressSettingsEnumSlice(c *Client, desired, actual []CloudFunctionIngressSettingsEnum) bool {
+func compareFunctionIngressSettingsEnumSlice(c *Client, desired, actual []FunctionIngressSettingsEnum) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in CloudFunctionIngressSettingsEnum, lengths unequal.")
+		c.Config.Logger.Info("Diff in FunctionIngressSettingsEnum, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareCloudFunctionIngressSettingsEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in CloudFunctionIngressSettingsEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareFunctionIngressSettingsEnum(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in FunctionIngressSettingsEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
 	return false
 }
 
-func compareCloudFunctionIngressSettingsEnum(c *Client, desired, actual *CloudFunctionIngressSettingsEnum) bool {
+func compareFunctionIngressSettingsEnum(c *Client, desired, actual *FunctionIngressSettingsEnum) bool {
 	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
-func (r *CloudFunction) urlNormalized() *CloudFunction {
-	normalized := deepcopy.Copy(*r).(CloudFunction)
+func (r *Function) urlNormalized() *Function {
+	normalized := deepcopy.Copy(*r).(Function)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.ServiceAccountEmail = dcl.SelfLinkToName(r.ServiceAccountEmail)
 	normalized.Network = dcl.SelfLinkToName(r.Network)
 	normalized.VPCConnector = dcl.SelfLinkToName(r.VPCConnector)
 	normalized.Region = dcl.SelfLinkToName(r.Region)
@@ -1265,22 +1271,22 @@ func (r *CloudFunction) urlNormalized() *CloudFunction {
 	return &normalized
 }
 
-func (r *CloudFunction) getFields() (string, string, string) {
+func (r *Function) getFields() (string, string, string) {
 	n := r.urlNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Region), dcl.ValueOrEmptyString(n.Name)
 }
 
-func (r *CloudFunction) createFields() (string, string) {
+func (r *Function) createFields() (string, string) {
 	n := r.urlNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Region)
 }
 
-func (r *CloudFunction) deleteFields() (string, string, string) {
+func (r *Function) deleteFields() (string, string, string) {
 	n := r.urlNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Region), dcl.ValueOrEmptyString(n.Name)
 }
 
-func (r *CloudFunction) updateURL(userBasePath, updateName string) (string, error) {
+func (r *Function) updateURL(userBasePath, updateName string) (string, error) {
 	n := r.urlNormalized()
 	if updateName == "update" {
 		fields := map[string]interface{}{
@@ -1294,30 +1300,30 @@ func (r *CloudFunction) updateURL(userBasePath, updateName string) (string, erro
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
-// marshal encodes the CloudFunction resource into JSON for a Create request, and
+// marshal encodes the Function resource into JSON for a Create request, and
 // performs transformations from the resource schema to the API schema if
 // necessary.
-func (r *CloudFunction) marshal(c *Client) ([]byte, error) {
-	m, err := expandCloudFunction(c, r)
+func (r *Function) marshal(c *Client) ([]byte, error) {
+	m, err := expandFunction(c, r)
 	if err != nil {
-		return nil, fmt.Errorf("error marshalling CloudFunction: %w", err)
+		return nil, fmt.Errorf("error marshalling Function: %w", err)
 	}
 
 	return json.Marshal(m)
 }
 
-// unmarshalCloudFunction decodes JSON responses into the CloudFunction resource schema.
-func unmarshalCloudFunction(b []byte, c *Client) (*CloudFunction, error) {
+// unmarshalFunction decodes JSON responses into the Function resource schema.
+func unmarshalFunction(b []byte, c *Client) (*Function, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
 
-	return flattenCloudFunction(c, m), nil
+	return flattenFunction(c, m), nil
 }
 
-// expandCloudFunction expands CloudFunction into a JSON request object.
-func expandCloudFunction(c *Client, f *CloudFunction) (map[string]interface{}, error) {
+// expandFunction expands Function into a JSON request object.
+func expandFunction(c *Client, f *Function) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/functions/%s", f.Name, f.Project, f.Region, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
@@ -1330,17 +1336,17 @@ func expandCloudFunction(c *Client, f *CloudFunction) (map[string]interface{}, e
 	if v := f.SourceArchiveUrl; !dcl.IsEmptyValueIndirect(v) {
 		m["sourceArchiveUrl"] = v
 	}
-	if v, err := expandCloudFunctionSourceRepository(c, f.SourceRepository); err != nil {
+	if v, err := expandFunctionSourceRepository(c, f.SourceRepository); err != nil {
 		return nil, fmt.Errorf("error expanding SourceRepository into sourceRepository: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["sourceRepository"] = v
 	}
-	if v, err := expandCloudFunctionHttpsTrigger(c, f.HttpsTrigger); err != nil {
+	if v, err := expandFunctionHttpsTrigger(c, f.HttpsTrigger); err != nil {
 		return nil, fmt.Errorf("error expanding HttpsTrigger into httpsTrigger: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["httpsTrigger"] = v
 	}
-	if v, err := expandCloudFunctionEventTrigger(c, f.EventTrigger); err != nil {
+	if v, err := expandFunctionEventTrigger(c, f.EventTrigger); err != nil {
 		return nil, fmt.Errorf("error expanding EventTrigger into eventTrigger: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["eventTrigger"] = v
@@ -1354,9 +1360,7 @@ func expandCloudFunction(c *Client, f *CloudFunction) (map[string]interface{}, e
 	if v := f.Runtime; !dcl.IsEmptyValueIndirect(v) {
 		m["runtime"] = v
 	}
-	if v, err := ExpandCloudFunctionTimeout(f, f.Timeout); err != nil {
-		return nil, fmt.Errorf("error expanding Timeout into timeout: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Timeout; !dcl.IsEmptyValueIndirect(v) {
 		m["timeout"] = v
 	}
 	if v := f.AvailableMemoryMb; !dcl.IsEmptyValueIndirect(v) {
@@ -1406,9 +1410,9 @@ func expandCloudFunction(c *Client, f *CloudFunction) (map[string]interface{}, e
 	return m, nil
 }
 
-// flattenCloudFunction flattens CloudFunction from a JSON request object into the
-// CloudFunction type.
-func flattenCloudFunction(c *Client, i interface{}) *CloudFunction {
+// flattenFunction flattens Function from a JSON request object into the
+// Function type.
+func flattenFunction(c *Client, i interface{}) *Function {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -1417,17 +1421,17 @@ func flattenCloudFunction(c *Client, i interface{}) *CloudFunction {
 		return nil
 	}
 
-	r := &CloudFunction{}
+	r := &Function{}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Description = dcl.FlattenString(m["description"])
 	r.SourceArchiveUrl = dcl.FlattenString(m["sourceArchiveUrl"])
-	r.SourceRepository = flattenCloudFunctionSourceRepository(c, m["sourceRepository"])
-	r.HttpsTrigger = flattenCloudFunctionHttpsTrigger(c, m["httpsTrigger"])
-	r.EventTrigger = flattenCloudFunctionEventTrigger(c, m["eventTrigger"])
-	r.Status = flattenCloudFunctionStatusEnum(m["status"])
+	r.SourceRepository = flattenFunctionSourceRepository(c, m["sourceRepository"])
+	r.HttpsTrigger = flattenFunctionHttpsTrigger(c, m["httpsTrigger"])
+	r.EventTrigger = flattenFunctionEventTrigger(c, m["eventTrigger"])
+	r.Status = flattenFunctionStatusEnum(m["status"])
 	r.EntryPoint = dcl.FlattenString(m["entryPoint"])
 	r.Runtime = dcl.FlattenString(m["runtime"])
-	r.Timeout = FlattenCloudFunctionTimeout(m["timeout"])
+	r.Timeout = dcl.FlattenString(m["timeout"])
 	r.AvailableMemoryMb = dcl.FlattenInteger(m["availableMemoryMb"])
 	r.ServiceAccountEmail = dcl.FlattenString(m["serviceAccountEmail"])
 	r.UpdateTime = dcl.FlattenString(m["updateTime"])
@@ -1437,24 +1441,24 @@ func flattenCloudFunction(c *Client, i interface{}) *CloudFunction {
 	r.Network = dcl.FlattenString(m["network"])
 	r.MaxInstances = dcl.FlattenInteger(m["maxInstances"])
 	r.VPCConnector = dcl.FlattenString(m["vpcConnector"])
-	r.VPCConnectorEgressSettings = flattenCloudFunctionVPCConnectorEgressSettingsEnum(m["vpcConnectorEgressSettings"])
-	r.IngressSettings = flattenCloudFunctionIngressSettingsEnum(m["ingressSettings"])
+	r.VPCConnectorEgressSettings = flattenFunctionVPCConnectorEgressSettingsEnum(m["vpcConnectorEgressSettings"])
+	r.IngressSettings = flattenFunctionIngressSettingsEnum(m["ingressSettings"])
 	r.Region = dcl.FlattenString(m["region"])
 	r.Project = dcl.FlattenString(m["project"])
 
 	return r
 }
 
-// expandCloudFunctionSourceRepositoryMap expands the contents of CloudFunctionSourceRepository into a JSON
+// expandFunctionSourceRepositoryMap expands the contents of FunctionSourceRepository into a JSON
 // request object.
-func expandCloudFunctionSourceRepositoryMap(c *Client, f map[string]CloudFunctionSourceRepository) (map[string]interface{}, error) {
+func expandFunctionSourceRepositoryMap(c *Client, f map[string]FunctionSourceRepository) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCloudFunctionSourceRepository(c, &item)
+		i, err := expandFunctionSourceRepository(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -1466,16 +1470,16 @@ func expandCloudFunctionSourceRepositoryMap(c *Client, f map[string]CloudFunctio
 	return items, nil
 }
 
-// expandCloudFunctionSourceRepositorySlice expands the contents of CloudFunctionSourceRepository into a JSON
+// expandFunctionSourceRepositorySlice expands the contents of FunctionSourceRepository into a JSON
 // request object.
-func expandCloudFunctionSourceRepositorySlice(c *Client, f []CloudFunctionSourceRepository) ([]map[string]interface{}, error) {
+func expandFunctionSourceRepositorySlice(c *Client, f []FunctionSourceRepository) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCloudFunctionSourceRepository(c, &item)
+		i, err := expandFunctionSourceRepository(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -1486,49 +1490,49 @@ func expandCloudFunctionSourceRepositorySlice(c *Client, f []CloudFunctionSource
 	return items, nil
 }
 
-// flattenCloudFunctionSourceRepositoryMap flattens the contents of CloudFunctionSourceRepository from a JSON
+// flattenFunctionSourceRepositoryMap flattens the contents of FunctionSourceRepository from a JSON
 // response object.
-func flattenCloudFunctionSourceRepositoryMap(c *Client, i interface{}) map[string]CloudFunctionSourceRepository {
+func flattenFunctionSourceRepositoryMap(c *Client, i interface{}) map[string]FunctionSourceRepository {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]CloudFunctionSourceRepository{}
+		return map[string]FunctionSourceRepository{}
 	}
 
 	if len(a) == 0 {
-		return map[string]CloudFunctionSourceRepository{}
+		return map[string]FunctionSourceRepository{}
 	}
 
-	items := make(map[string]CloudFunctionSourceRepository)
+	items := make(map[string]FunctionSourceRepository)
 	for k, item := range a {
-		items[k] = *flattenCloudFunctionSourceRepository(c, item.(map[string]interface{}))
+		items[k] = *flattenFunctionSourceRepository(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenCloudFunctionSourceRepositorySlice flattens the contents of CloudFunctionSourceRepository from a JSON
+// flattenFunctionSourceRepositorySlice flattens the contents of FunctionSourceRepository from a JSON
 // response object.
-func flattenCloudFunctionSourceRepositorySlice(c *Client, i interface{}) []CloudFunctionSourceRepository {
+func flattenFunctionSourceRepositorySlice(c *Client, i interface{}) []FunctionSourceRepository {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []CloudFunctionSourceRepository{}
+		return []FunctionSourceRepository{}
 	}
 
 	if len(a) == 0 {
-		return []CloudFunctionSourceRepository{}
+		return []FunctionSourceRepository{}
 	}
 
-	items := make([]CloudFunctionSourceRepository, 0, len(a))
+	items := make([]FunctionSourceRepository, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCloudFunctionSourceRepository(c, item.(map[string]interface{})))
+		items = append(items, *flattenFunctionSourceRepository(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandCloudFunctionSourceRepository expands an instance of CloudFunctionSourceRepository into a JSON
+// expandFunctionSourceRepository expands an instance of FunctionSourceRepository into a JSON
 // request object.
-func expandCloudFunctionSourceRepository(c *Client, f *CloudFunctionSourceRepository) (map[string]interface{}, error) {
+func expandFunctionSourceRepository(c *Client, f *FunctionSourceRepository) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1544,31 +1548,31 @@ func expandCloudFunctionSourceRepository(c *Client, f *CloudFunctionSourceReposi
 	return m, nil
 }
 
-// flattenCloudFunctionSourceRepository flattens an instance of CloudFunctionSourceRepository from a JSON
+// flattenFunctionSourceRepository flattens an instance of FunctionSourceRepository from a JSON
 // response object.
-func flattenCloudFunctionSourceRepository(c *Client, i interface{}) *CloudFunctionSourceRepository {
+func flattenFunctionSourceRepository(c *Client, i interface{}) *FunctionSourceRepository {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &CloudFunctionSourceRepository{}
+	r := &FunctionSourceRepository{}
 	r.Url = dcl.FlattenString(m["url"])
 	r.DeployedUrl = dcl.FlattenString(m["deployedUrl"])
 
 	return r
 }
 
-// expandCloudFunctionHttpsTriggerMap expands the contents of CloudFunctionHttpsTrigger into a JSON
+// expandFunctionHttpsTriggerMap expands the contents of FunctionHttpsTrigger into a JSON
 // request object.
-func expandCloudFunctionHttpsTriggerMap(c *Client, f map[string]CloudFunctionHttpsTrigger) (map[string]interface{}, error) {
+func expandFunctionHttpsTriggerMap(c *Client, f map[string]FunctionHttpsTrigger) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCloudFunctionHttpsTrigger(c, &item)
+		i, err := expandFunctionHttpsTrigger(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -1580,16 +1584,16 @@ func expandCloudFunctionHttpsTriggerMap(c *Client, f map[string]CloudFunctionHtt
 	return items, nil
 }
 
-// expandCloudFunctionHttpsTriggerSlice expands the contents of CloudFunctionHttpsTrigger into a JSON
+// expandFunctionHttpsTriggerSlice expands the contents of FunctionHttpsTrigger into a JSON
 // request object.
-func expandCloudFunctionHttpsTriggerSlice(c *Client, f []CloudFunctionHttpsTrigger) ([]map[string]interface{}, error) {
+func expandFunctionHttpsTriggerSlice(c *Client, f []FunctionHttpsTrigger) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCloudFunctionHttpsTrigger(c, &item)
+		i, err := expandFunctionHttpsTrigger(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -1600,49 +1604,49 @@ func expandCloudFunctionHttpsTriggerSlice(c *Client, f []CloudFunctionHttpsTrigg
 	return items, nil
 }
 
-// flattenCloudFunctionHttpsTriggerMap flattens the contents of CloudFunctionHttpsTrigger from a JSON
+// flattenFunctionHttpsTriggerMap flattens the contents of FunctionHttpsTrigger from a JSON
 // response object.
-func flattenCloudFunctionHttpsTriggerMap(c *Client, i interface{}) map[string]CloudFunctionHttpsTrigger {
+func flattenFunctionHttpsTriggerMap(c *Client, i interface{}) map[string]FunctionHttpsTrigger {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]CloudFunctionHttpsTrigger{}
+		return map[string]FunctionHttpsTrigger{}
 	}
 
 	if len(a) == 0 {
-		return map[string]CloudFunctionHttpsTrigger{}
+		return map[string]FunctionHttpsTrigger{}
 	}
 
-	items := make(map[string]CloudFunctionHttpsTrigger)
+	items := make(map[string]FunctionHttpsTrigger)
 	for k, item := range a {
-		items[k] = *flattenCloudFunctionHttpsTrigger(c, item.(map[string]interface{}))
+		items[k] = *flattenFunctionHttpsTrigger(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenCloudFunctionHttpsTriggerSlice flattens the contents of CloudFunctionHttpsTrigger from a JSON
+// flattenFunctionHttpsTriggerSlice flattens the contents of FunctionHttpsTrigger from a JSON
 // response object.
-func flattenCloudFunctionHttpsTriggerSlice(c *Client, i interface{}) []CloudFunctionHttpsTrigger {
+func flattenFunctionHttpsTriggerSlice(c *Client, i interface{}) []FunctionHttpsTrigger {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []CloudFunctionHttpsTrigger{}
+		return []FunctionHttpsTrigger{}
 	}
 
 	if len(a) == 0 {
-		return []CloudFunctionHttpsTrigger{}
+		return []FunctionHttpsTrigger{}
 	}
 
-	items := make([]CloudFunctionHttpsTrigger, 0, len(a))
+	items := make([]FunctionHttpsTrigger, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCloudFunctionHttpsTrigger(c, item.(map[string]interface{})))
+		items = append(items, *flattenFunctionHttpsTrigger(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandCloudFunctionHttpsTrigger expands an instance of CloudFunctionHttpsTrigger into a JSON
+// expandFunctionHttpsTrigger expands an instance of FunctionHttpsTrigger into a JSON
 // request object.
-func expandCloudFunctionHttpsTrigger(c *Client, f *CloudFunctionHttpsTrigger) (map[string]interface{}, error) {
+func expandFunctionHttpsTrigger(c *Client, f *FunctionHttpsTrigger) (map[string]interface{}, error) {
 	if f == nil || f.empty {
 		return nil, nil
 	}
@@ -1655,30 +1659,30 @@ func expandCloudFunctionHttpsTrigger(c *Client, f *CloudFunctionHttpsTrigger) (m
 	return m, nil
 }
 
-// flattenCloudFunctionHttpsTrigger flattens an instance of CloudFunctionHttpsTrigger from a JSON
+// flattenFunctionHttpsTrigger flattens an instance of FunctionHttpsTrigger from a JSON
 // response object.
-func flattenCloudFunctionHttpsTrigger(c *Client, i interface{}) *CloudFunctionHttpsTrigger {
+func flattenFunctionHttpsTrigger(c *Client, i interface{}) *FunctionHttpsTrigger {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &CloudFunctionHttpsTrigger{}
+	r := &FunctionHttpsTrigger{}
 	r.Url = dcl.FlattenString(m["url"])
 
 	return r
 }
 
-// expandCloudFunctionEventTriggerMap expands the contents of CloudFunctionEventTrigger into a JSON
+// expandFunctionEventTriggerMap expands the contents of FunctionEventTrigger into a JSON
 // request object.
-func expandCloudFunctionEventTriggerMap(c *Client, f map[string]CloudFunctionEventTrigger) (map[string]interface{}, error) {
+func expandFunctionEventTriggerMap(c *Client, f map[string]FunctionEventTrigger) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandCloudFunctionEventTrigger(c, &item)
+		i, err := expandFunctionEventTrigger(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -1690,16 +1694,16 @@ func expandCloudFunctionEventTriggerMap(c *Client, f map[string]CloudFunctionEve
 	return items, nil
 }
 
-// expandCloudFunctionEventTriggerSlice expands the contents of CloudFunctionEventTrigger into a JSON
+// expandFunctionEventTriggerSlice expands the contents of FunctionEventTrigger into a JSON
 // request object.
-func expandCloudFunctionEventTriggerSlice(c *Client, f []CloudFunctionEventTrigger) ([]map[string]interface{}, error) {
+func expandFunctionEventTriggerSlice(c *Client, f []FunctionEventTrigger) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandCloudFunctionEventTrigger(c, &item)
+		i, err := expandFunctionEventTrigger(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -1710,49 +1714,49 @@ func expandCloudFunctionEventTriggerSlice(c *Client, f []CloudFunctionEventTrigg
 	return items, nil
 }
 
-// flattenCloudFunctionEventTriggerMap flattens the contents of CloudFunctionEventTrigger from a JSON
+// flattenFunctionEventTriggerMap flattens the contents of FunctionEventTrigger from a JSON
 // response object.
-func flattenCloudFunctionEventTriggerMap(c *Client, i interface{}) map[string]CloudFunctionEventTrigger {
+func flattenFunctionEventTriggerMap(c *Client, i interface{}) map[string]FunctionEventTrigger {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]CloudFunctionEventTrigger{}
+		return map[string]FunctionEventTrigger{}
 	}
 
 	if len(a) == 0 {
-		return map[string]CloudFunctionEventTrigger{}
+		return map[string]FunctionEventTrigger{}
 	}
 
-	items := make(map[string]CloudFunctionEventTrigger)
+	items := make(map[string]FunctionEventTrigger)
 	for k, item := range a {
-		items[k] = *flattenCloudFunctionEventTrigger(c, item.(map[string]interface{}))
+		items[k] = *flattenFunctionEventTrigger(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenCloudFunctionEventTriggerSlice flattens the contents of CloudFunctionEventTrigger from a JSON
+// flattenFunctionEventTriggerSlice flattens the contents of FunctionEventTrigger from a JSON
 // response object.
-func flattenCloudFunctionEventTriggerSlice(c *Client, i interface{}) []CloudFunctionEventTrigger {
+func flattenFunctionEventTriggerSlice(c *Client, i interface{}) []FunctionEventTrigger {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []CloudFunctionEventTrigger{}
+		return []FunctionEventTrigger{}
 	}
 
 	if len(a) == 0 {
-		return []CloudFunctionEventTrigger{}
+		return []FunctionEventTrigger{}
 	}
 
-	items := make([]CloudFunctionEventTrigger, 0, len(a))
+	items := make([]FunctionEventTrigger, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCloudFunctionEventTrigger(c, item.(map[string]interface{})))
+		items = append(items, *flattenFunctionEventTrigger(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandCloudFunctionEventTrigger expands an instance of CloudFunctionEventTrigger into a JSON
+// expandFunctionEventTrigger expands an instance of FunctionEventTrigger into a JSON
 // request object.
-func expandCloudFunctionEventTrigger(c *Client, f *CloudFunctionEventTrigger) (map[string]interface{}, error) {
+func expandFunctionEventTrigger(c *Client, f *FunctionEventTrigger) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1767,7 +1771,7 @@ func expandCloudFunctionEventTrigger(c *Client, f *CloudFunctionEventTrigger) (m
 	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
 		m["service"] = v
 	}
-	if v, err := ExpandCloudFunctionEventRetry(f, f.FailurePolicy); err != nil {
+	if v, err := ExpandFunctionEventRetry(f, f.FailurePolicy); err != nil {
 		return nil, fmt.Errorf("error expanding FailurePolicy into failurePolicy: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["failurePolicy"] = v
@@ -1776,122 +1780,122 @@ func expandCloudFunctionEventTrigger(c *Client, f *CloudFunctionEventTrigger) (m
 	return m, nil
 }
 
-// flattenCloudFunctionEventTrigger flattens an instance of CloudFunctionEventTrigger from a JSON
+// flattenFunctionEventTrigger flattens an instance of FunctionEventTrigger from a JSON
 // response object.
-func flattenCloudFunctionEventTrigger(c *Client, i interface{}) *CloudFunctionEventTrigger {
+func flattenFunctionEventTrigger(c *Client, i interface{}) *FunctionEventTrigger {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &CloudFunctionEventTrigger{}
+	r := &FunctionEventTrigger{}
 	r.EventType = dcl.FlattenString(m["eventType"])
 	r.Resource = dcl.FlattenString(m["resource"])
 	r.Service = dcl.FlattenString(m["service"])
-	r.FailurePolicy = FlattenCloudFunctionEventRetry(m["failurePolicy"])
+	r.FailurePolicy = FlattenFunctionEventRetry(m["failurePolicy"])
 
 	return r
 }
 
-// flattenCloudFunctionStatusEnumSlice flattens the contents of CloudFunctionStatusEnum from a JSON
+// flattenFunctionStatusEnumSlice flattens the contents of FunctionStatusEnum from a JSON
 // response object.
-func flattenCloudFunctionStatusEnumSlice(c *Client, i interface{}) []CloudFunctionStatusEnum {
+func flattenFunctionStatusEnumSlice(c *Client, i interface{}) []FunctionStatusEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []CloudFunctionStatusEnum{}
+		return []FunctionStatusEnum{}
 	}
 
 	if len(a) == 0 {
-		return []CloudFunctionStatusEnum{}
+		return []FunctionStatusEnum{}
 	}
 
-	items := make([]CloudFunctionStatusEnum, 0, len(a))
+	items := make([]FunctionStatusEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCloudFunctionStatusEnum(item.(map[string]interface{})))
+		items = append(items, *flattenFunctionStatusEnum(item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// flattenCloudFunctionStatusEnum asserts that an interface is a string, and returns a
-// pointer to a *CloudFunctionStatusEnum with the same value as that string.
-func flattenCloudFunctionStatusEnum(i interface{}) *CloudFunctionStatusEnum {
+// flattenFunctionStatusEnum asserts that an interface is a string, and returns a
+// pointer to a *FunctionStatusEnum with the same value as that string.
+func flattenFunctionStatusEnum(i interface{}) *FunctionStatusEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CloudFunctionStatusEnumRef("")
+		return FunctionStatusEnumRef("")
 	}
 
-	return CloudFunctionStatusEnumRef(s)
+	return FunctionStatusEnumRef(s)
 }
 
-// flattenCloudFunctionVPCConnectorEgressSettingsEnumSlice flattens the contents of CloudFunctionVPCConnectorEgressSettingsEnum from a JSON
+// flattenFunctionVPCConnectorEgressSettingsEnumSlice flattens the contents of FunctionVPCConnectorEgressSettingsEnum from a JSON
 // response object.
-func flattenCloudFunctionVPCConnectorEgressSettingsEnumSlice(c *Client, i interface{}) []CloudFunctionVPCConnectorEgressSettingsEnum {
+func flattenFunctionVPCConnectorEgressSettingsEnumSlice(c *Client, i interface{}) []FunctionVPCConnectorEgressSettingsEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []CloudFunctionVPCConnectorEgressSettingsEnum{}
+		return []FunctionVPCConnectorEgressSettingsEnum{}
 	}
 
 	if len(a) == 0 {
-		return []CloudFunctionVPCConnectorEgressSettingsEnum{}
+		return []FunctionVPCConnectorEgressSettingsEnum{}
 	}
 
-	items := make([]CloudFunctionVPCConnectorEgressSettingsEnum, 0, len(a))
+	items := make([]FunctionVPCConnectorEgressSettingsEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCloudFunctionVPCConnectorEgressSettingsEnum(item.(map[string]interface{})))
+		items = append(items, *flattenFunctionVPCConnectorEgressSettingsEnum(item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// flattenCloudFunctionVPCConnectorEgressSettingsEnum asserts that an interface is a string, and returns a
-// pointer to a *CloudFunctionVPCConnectorEgressSettingsEnum with the same value as that string.
-func flattenCloudFunctionVPCConnectorEgressSettingsEnum(i interface{}) *CloudFunctionVPCConnectorEgressSettingsEnum {
+// flattenFunctionVPCConnectorEgressSettingsEnum asserts that an interface is a string, and returns a
+// pointer to a *FunctionVPCConnectorEgressSettingsEnum with the same value as that string.
+func flattenFunctionVPCConnectorEgressSettingsEnum(i interface{}) *FunctionVPCConnectorEgressSettingsEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CloudFunctionVPCConnectorEgressSettingsEnumRef("")
+		return FunctionVPCConnectorEgressSettingsEnumRef("")
 	}
 
-	return CloudFunctionVPCConnectorEgressSettingsEnumRef(s)
+	return FunctionVPCConnectorEgressSettingsEnumRef(s)
 }
 
-// flattenCloudFunctionIngressSettingsEnumSlice flattens the contents of CloudFunctionIngressSettingsEnum from a JSON
+// flattenFunctionIngressSettingsEnumSlice flattens the contents of FunctionIngressSettingsEnum from a JSON
 // response object.
-func flattenCloudFunctionIngressSettingsEnumSlice(c *Client, i interface{}) []CloudFunctionIngressSettingsEnum {
+func flattenFunctionIngressSettingsEnumSlice(c *Client, i interface{}) []FunctionIngressSettingsEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []CloudFunctionIngressSettingsEnum{}
+		return []FunctionIngressSettingsEnum{}
 	}
 
 	if len(a) == 0 {
-		return []CloudFunctionIngressSettingsEnum{}
+		return []FunctionIngressSettingsEnum{}
 	}
 
-	items := make([]CloudFunctionIngressSettingsEnum, 0, len(a))
+	items := make([]FunctionIngressSettingsEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenCloudFunctionIngressSettingsEnum(item.(map[string]interface{})))
+		items = append(items, *flattenFunctionIngressSettingsEnum(item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// flattenCloudFunctionIngressSettingsEnum asserts that an interface is a string, and returns a
-// pointer to a *CloudFunctionIngressSettingsEnum with the same value as that string.
-func flattenCloudFunctionIngressSettingsEnum(i interface{}) *CloudFunctionIngressSettingsEnum {
+// flattenFunctionIngressSettingsEnum asserts that an interface is a string, and returns a
+// pointer to a *FunctionIngressSettingsEnum with the same value as that string.
+func flattenFunctionIngressSettingsEnum(i interface{}) *FunctionIngressSettingsEnum {
 	s, ok := i.(string)
 	if !ok {
-		return CloudFunctionIngressSettingsEnumRef("")
+		return FunctionIngressSettingsEnumRef("")
 	}
 
-	return CloudFunctionIngressSettingsEnumRef(s)
+	return FunctionIngressSettingsEnumRef(s)
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
 // in its parameters (as defined by the fields in a Get, which definitionally define resource
 // identity).  This is useful in extracting the element from a List call.
-func (r *CloudFunction) matcher(c *Client) func([]byte) bool {
+func (r *Function) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalCloudFunction(b, c)
+		cr, err := unmarshalFunction(b, c)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false

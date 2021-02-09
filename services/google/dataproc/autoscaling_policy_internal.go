@@ -18,11 +18,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 func (r *AutoscalingPolicy) validate() error {
@@ -391,12 +392,12 @@ func (c *Client) autoscalingPolicyDiffsForRawDesired(ctx context.Context, rawDes
 			c.Config.Logger.Warningf("Failed to retrieve whether a AutoscalingPolicy resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve AutoscalingPolicy resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that AutoscalingPolicy resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeAutoscalingPolicyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for AutoscalingPolicy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for AutoscalingPolicy: %v", rawDesired)
 
@@ -491,21 +492,9 @@ func canonicalizeAutoscalingPolicyNewState(c *Client, rawNew, rawDesired *Autosc
 		rawNew.SecondaryWorkerConfig = canonicalizeNewAutoscalingPolicySecondaryWorkerConfig(c, rawDesired.SecondaryWorkerConfig, rawNew.SecondaryWorkerConfig)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
-	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
-		rawNew.Location = rawDesired.Location
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Location, rawNew.Location) {
-			rawNew.Location = rawDesired.Location
-		}
-	}
+	rawNew.Location = rawDesired.Location
 
 	return rawNew, nil
 }
@@ -779,14 +768,14 @@ func diffAutoscalingPolicy(c *Client, desired, actual *AutoscalingPolicy, opts .
 
 	var diffs []autoscalingPolicyDiff
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, autoscalingPolicyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if compareAutoscalingPolicyBasicAlgorithm(c, desired.BasicAlgorithm, actual.BasicAlgorithm) {
-		c.Config.Logger.Infof("Detected diff in BasicAlgorithm.\nDESIRED: %#v\nACTUAL: %#v", desired.BasicAlgorithm, actual.BasicAlgorithm)
+		c.Config.Logger.Infof("Detected diff in BasicAlgorithm.\nDESIRED: %v\nACTUAL: %v", desired.BasicAlgorithm, actual.BasicAlgorithm)
 
 		diffs = append(diffs, autoscalingPolicyDiff{
 			UpdateOp:  &updateAutoscalingPolicyUpdateAutoscalingPolicyOperation{},
@@ -795,7 +784,7 @@ func diffAutoscalingPolicy(c *Client, desired, actual *AutoscalingPolicy, opts .
 
 	}
 	if compareAutoscalingPolicyWorkerConfig(c, desired.WorkerConfig, actual.WorkerConfig) {
-		c.Config.Logger.Infof("Detected diff in WorkerConfig.\nDESIRED: %#v\nACTUAL: %#v", desired.WorkerConfig, actual.WorkerConfig)
+		c.Config.Logger.Infof("Detected diff in WorkerConfig.\nDESIRED: %v\nACTUAL: %v", desired.WorkerConfig, actual.WorkerConfig)
 
 		diffs = append(diffs, autoscalingPolicyDiff{
 			UpdateOp:  &updateAutoscalingPolicyUpdateAutoscalingPolicyOperation{},
@@ -804,27 +793,13 @@ func diffAutoscalingPolicy(c *Client, desired, actual *AutoscalingPolicy, opts .
 
 	}
 	if compareAutoscalingPolicySecondaryWorkerConfig(c, desired.SecondaryWorkerConfig, actual.SecondaryWorkerConfig) {
-		c.Config.Logger.Infof("Detected diff in SecondaryWorkerConfig.\nDESIRED: %#v\nACTUAL: %#v", desired.SecondaryWorkerConfig, actual.SecondaryWorkerConfig)
+		c.Config.Logger.Infof("Detected diff in SecondaryWorkerConfig.\nDESIRED: %v\nACTUAL: %v", desired.SecondaryWorkerConfig, actual.SecondaryWorkerConfig)
 
 		diffs = append(diffs, autoscalingPolicyDiff{
 			UpdateOp:  &updateAutoscalingPolicyUpdateAutoscalingPolicyOperation{},
 			FieldName: "SecondaryWorkerConfig",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, autoscalingPolicyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Location) && !dcl.NameToSelfLink(desired.Location, actual.Location) {
-		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
-		diffs = append(diffs, autoscalingPolicyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Location",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,

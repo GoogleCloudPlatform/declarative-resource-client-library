@@ -1108,11 +1108,13 @@ func (s *NoteServer) ApplyContaineranalysisBetaNote(ctx context.Context, request
 
 // DeleteNote handles the gRPC request by passing it to the underlying Note Delete() method.
 func (s *NoteServer) DeleteContaineranalysisBetaNote(ctx context.Context, request *betapb.DeleteContaineranalysisBetaNoteRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigNote(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteNote(ctx, ProtoToNote(request.GetResource()))
+
 }
 
 // ListNote handles the gRPC request by passing it to the underlying NoteList() method.

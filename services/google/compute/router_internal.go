@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Router) validate() error {
@@ -398,12 +399,12 @@ func (c *Client) routerDiffsForRawDesired(ctx context.Context, rawDesired *Route
 			c.Config.Logger.Warningf("Failed to retrieve whether a Router resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Router resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Router resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeRouterDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Router: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Router: %v", rawDesired)
 
@@ -544,13 +545,7 @@ func canonicalizeRouterNewState(c *Client, rawNew, rawDesired *Router) (*Router,
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
@@ -1119,7 +1114,7 @@ func diffRouter(c *Client, desired, actual *Router, opts ...dcl.ApplyOption) ([]
 
 	var diffs []routerDiff
 	if compareRouterNatsSlice(c, desired.Nats, actual.Nats) {
-		c.Config.Logger.Infof("Detected diff in Nats.\nDESIRED: %#v\nACTUAL: %#v", desired.Nats, actual.Nats)
+		c.Config.Logger.Infof("Detected diff in Nats.\nDESIRED: %v\nACTUAL: %v", desired.Nats, actual.Nats)
 
 		diffs = append(diffs, routerDiff{
 			UpdateOp:  &updateRouterUpdateOperation{},
@@ -1128,7 +1123,7 @@ func diffRouter(c *Client, desired, actual *Router, opts ...dcl.ApplyOption) ([]
 
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 
 		diffs = append(diffs, routerDiff{
 			UpdateOp:  &updateRouterUpdateOperation{},
@@ -1137,14 +1132,14 @@ func diffRouter(c *Client, desired, actual *Router, opts ...dcl.ApplyOption) ([]
 
 	}
 	if !dcl.IsZeroValue(desired.Network) && !dcl.NameToSelfLink(desired.Network, actual.Network) {
-		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %#v\nACTUAL: %#v", desired.Network, actual.Network)
+		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
 		diffs = append(diffs, routerDiff{
 			RequiresRecreate: true,
 			FieldName:        "Network",
 		})
 	}
 	if compareRouterInterfacesSlice(c, desired.Interfaces, actual.Interfaces) {
-		c.Config.Logger.Infof("Detected diff in Interfaces.\nDESIRED: %#v\nACTUAL: %#v", desired.Interfaces, actual.Interfaces)
+		c.Config.Logger.Infof("Detected diff in Interfaces.\nDESIRED: %v\nACTUAL: %v", desired.Interfaces, actual.Interfaces)
 
 		diffs = append(diffs, routerDiff{
 			UpdateOp:  &updateRouterUpdateOperation{},
@@ -1153,7 +1148,7 @@ func diffRouter(c *Client, desired, actual *Router, opts ...dcl.ApplyOption) ([]
 
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, routerDiff{
 			UpdateOp:  &updateRouterUpdateOperation{},
@@ -1162,7 +1157,7 @@ func diffRouter(c *Client, desired, actual *Router, opts ...dcl.ApplyOption) ([]
 
 	}
 	if compareRouterBgpPeersSlice(c, desired.BgpPeers, actual.BgpPeers) {
-		c.Config.Logger.Infof("Detected diff in BgpPeers.\nDESIRED: %#v\nACTUAL: %#v", desired.BgpPeers, actual.BgpPeers)
+		c.Config.Logger.Infof("Detected diff in BgpPeers.\nDESIRED: %v\nACTUAL: %v", desired.BgpPeers, actual.BgpPeers)
 
 		diffs = append(diffs, routerDiff{
 			UpdateOp:  &updateRouterUpdateOperation{},
@@ -1171,7 +1166,7 @@ func diffRouter(c *Client, desired, actual *Router, opts ...dcl.ApplyOption) ([]
 
 	}
 	if compareRouterBgp(c, desired.Bgp, actual.Bgp) {
-		c.Config.Logger.Infof("Detected diff in Bgp.\nDESIRED: %#v\nACTUAL: %#v", desired.Bgp, actual.Bgp)
+		c.Config.Logger.Infof("Detected diff in Bgp.\nDESIRED: %v\nACTUAL: %v", desired.Bgp, actual.Bgp)
 
 		diffs = append(diffs, routerDiff{
 			UpdateOp:  &updateRouterUpdateOperation{},
@@ -1180,20 +1175,13 @@ func diffRouter(c *Client, desired, actual *Router, opts ...dcl.ApplyOption) ([]
 
 	}
 	if !dcl.IsZeroValue(desired.Region) && !dcl.NameToSelfLink(desired.Region, actual.Region) {
-		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %#v\nACTUAL: %#v", desired.Region, actual.Region)
+		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %v\nACTUAL: %v", desired.Region, actual.Region)
 
 		diffs = append(diffs, routerDiff{
 			UpdateOp:  &updateRouterUpdateOperation{},
 			FieldName: "Region",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, routerDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,

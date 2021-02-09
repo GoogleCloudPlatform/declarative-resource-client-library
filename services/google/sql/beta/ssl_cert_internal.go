@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *SslCert) validate() error {
@@ -279,6 +280,7 @@ func (c *Client) sslCertDiffsForRawDesired(ctx context.Context, rawDesired *SslC
 		desired, err := canonicalizeSslCertDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
+
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetSslCert(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -286,12 +288,12 @@ func (c *Client) sslCertDiffsForRawDesired(ctx context.Context, rawDesired *SslC
 			c.Config.Logger.Warningf("Failed to retrieve whether a SslCert resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve SslCert resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that SslCert resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeSslCertDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for SslCert: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for SslCert: %v", rawDesired)
 
@@ -407,13 +409,7 @@ func canonicalizeSslCertNewState(c *Client, rawNew, rawDesired *SslCert) (*SslCe
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -440,24 +436,24 @@ func diffSslCert(c *Client, desired, actual *SslCert, opts ...dcl.ApplyOption) (
 
 	var diffs []sslCertDiff
 	if !dcl.IsZeroValue(desired.CommonName) && (dcl.IsZeroValue(actual.CommonName) || !reflect.DeepEqual(*desired.CommonName, *actual.CommonName)) {
-		c.Config.Logger.Infof("Detected diff in CommonName.\nDESIRED: %#v\nACTUAL: %#v", desired.CommonName, actual.CommonName)
+		c.Config.Logger.Infof("Detected diff in CommonName.\nDESIRED: %v\nACTUAL: %v", desired.CommonName, actual.CommonName)
 		diffs = append(diffs, sslCertDiff{
 			RequiresRecreate: true,
 			FieldName:        "CommonName",
 		})
 	}
+	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
+		diffs = append(diffs, sslCertDiff{
+			RequiresRecreate: true,
+			FieldName:        "Name",
+		})
+	}
 	if !dcl.IsZeroValue(desired.Instance) && (dcl.IsZeroValue(actual.Instance) || !reflect.DeepEqual(*desired.Instance, *actual.Instance)) {
-		c.Config.Logger.Infof("Detected diff in Instance.\nDESIRED: %#v\nACTUAL: %#v", desired.Instance, actual.Instance)
+		c.Config.Logger.Infof("Detected diff in Instance.\nDESIRED: %v\nACTUAL: %v", desired.Instance, actual.Instance)
 		diffs = append(diffs, sslCertDiff{
 			RequiresRecreate: true,
 			FieldName:        "Instance",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, sslCertDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.

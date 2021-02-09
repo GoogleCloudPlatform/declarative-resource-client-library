@@ -18,11 +18,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 func (r *Subscription) validate() error {
@@ -392,12 +393,12 @@ func (c *Client) subscriptionDiffsForRawDesired(ctx context.Context, rawDesired 
 			c.Config.Logger.Warningf("Failed to retrieve whether a Subscription resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Subscription resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Subscription resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeSubscriptionDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Subscription: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Subscription: %v", rawDesired)
 
@@ -481,13 +482,7 @@ func canonicalizeSubscriptionDesiredState(rawDesired, rawInitial *Subscription, 
 
 func canonicalizeSubscriptionNewState(c *Client, rawNew, rawDesired *Subscription) (*Subscription, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Name, rawNew.Name) {
-			rawNew.Name = rawDesired.Name
-		}
-	}
+	rawNew.Name = rawDesired.Name
 
 	if dcl.IsEmptyValueIndirect(rawNew.Topic) && dcl.IsEmptyValueIndirect(rawDesired.Topic) {
 		rawNew.Topic = rawDesired.Topic
@@ -518,13 +513,7 @@ func canonicalizeSubscriptionNewState(c *Client, rawNew, rawDesired *Subscriptio
 		rawNew.ExpirationPolicy = canonicalizeNewSubscriptionExpirationPolicy(c, rawDesired.ExpirationPolicy, rawNew.ExpirationPolicy)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	if dcl.IsEmptyValueIndirect(rawNew.DeadLetterPolicy) && dcl.IsEmptyValueIndirect(rawDesired.DeadLetterPolicy) {
 		rawNew.DeadLetterPolicy = rawDesired.DeadLetterPolicy
@@ -811,22 +800,15 @@ func diffSubscription(c *Client, desired, actual *Subscription, opts ...dcl.Appl
 	}
 
 	var diffs []subscriptionDiff
-	if !dcl.IsZeroValue(desired.Name) && !dcl.NameToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
-		diffs = append(diffs, subscriptionDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
-	}
 	if !dcl.IsZeroValue(desired.Topic) && !dcl.PartialSelfLinkToSelfLink(desired.Topic, actual.Topic) {
-		c.Config.Logger.Infof("Detected diff in Topic.\nDESIRED: %#v\nACTUAL: %#v", desired.Topic, actual.Topic)
+		c.Config.Logger.Infof("Detected diff in Topic.\nDESIRED: %v\nACTUAL: %v", desired.Topic, actual.Topic)
 		diffs = append(diffs, subscriptionDiff{
 			RequiresRecreate: true,
 			FieldName:        "Topic",
 		})
 	}
 	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %#v\nACTUAL: %#v", desired.Labels, actual.Labels)
+		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, subscriptionDiff{
 			UpdateOp:  &updateSubscriptionUpdateOperation{},
@@ -835,7 +817,7 @@ func diffSubscription(c *Client, desired, actual *Subscription, opts ...dcl.Appl
 
 	}
 	if !dcl.IsZeroValue(desired.MessageRetentionDuration) && (dcl.IsZeroValue(actual.MessageRetentionDuration) || !reflect.DeepEqual(*desired.MessageRetentionDuration, *actual.MessageRetentionDuration)) {
-		c.Config.Logger.Infof("Detected diff in MessageRetentionDuration.\nDESIRED: %#v\nACTUAL: %#v", desired.MessageRetentionDuration, actual.MessageRetentionDuration)
+		c.Config.Logger.Infof("Detected diff in MessageRetentionDuration.\nDESIRED: %v\nACTUAL: %v", desired.MessageRetentionDuration, actual.MessageRetentionDuration)
 
 		diffs = append(diffs, subscriptionDiff{
 			UpdateOp:  &updateSubscriptionUpdateOperation{},
@@ -844,7 +826,7 @@ func diffSubscription(c *Client, desired, actual *Subscription, opts ...dcl.Appl
 
 	}
 	if !dcl.IsZeroValue(desired.RetainAckedMessages) && (dcl.IsZeroValue(actual.RetainAckedMessages) || !reflect.DeepEqual(*desired.RetainAckedMessages, *actual.RetainAckedMessages)) {
-		c.Config.Logger.Infof("Detected diff in RetainAckedMessages.\nDESIRED: %#v\nACTUAL: %#v", desired.RetainAckedMessages, actual.RetainAckedMessages)
+		c.Config.Logger.Infof("Detected diff in RetainAckedMessages.\nDESIRED: %v\nACTUAL: %v", desired.RetainAckedMessages, actual.RetainAckedMessages)
 
 		diffs = append(diffs, subscriptionDiff{
 			UpdateOp:  &updateSubscriptionUpdateOperation{},
@@ -853,7 +835,7 @@ func diffSubscription(c *Client, desired, actual *Subscription, opts ...dcl.Appl
 
 	}
 	if compareSubscriptionExpirationPolicy(c, desired.ExpirationPolicy, actual.ExpirationPolicy) {
-		c.Config.Logger.Infof("Detected diff in ExpirationPolicy.\nDESIRED: %#v\nACTUAL: %#v", desired.ExpirationPolicy, actual.ExpirationPolicy)
+		c.Config.Logger.Infof("Detected diff in ExpirationPolicy.\nDESIRED: %v\nACTUAL: %v", desired.ExpirationPolicy, actual.ExpirationPolicy)
 
 		diffs = append(diffs, subscriptionDiff{
 			UpdateOp:  &updateSubscriptionUpdateOperation{},
@@ -861,29 +843,22 @@ func diffSubscription(c *Client, desired, actual *Subscription, opts ...dcl.Appl
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, subscriptionDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
 	if compareSubscriptionDeadLetterPolicy(c, desired.DeadLetterPolicy, actual.DeadLetterPolicy) {
-		c.Config.Logger.Infof("Detected diff in DeadLetterPolicy.\nDESIRED: %#v\nACTUAL: %#v", desired.DeadLetterPolicy, actual.DeadLetterPolicy)
+		c.Config.Logger.Infof("Detected diff in DeadLetterPolicy.\nDESIRED: %v\nACTUAL: %v", desired.DeadLetterPolicy, actual.DeadLetterPolicy)
 		diffs = append(diffs, subscriptionDiff{
 			RequiresRecreate: true,
 			FieldName:        "DeadLetterPolicy",
 		})
 	}
 	if compareSubscriptionPushConfig(c, desired.PushConfig, actual.PushConfig) {
-		c.Config.Logger.Infof("Detected diff in PushConfig.\nDESIRED: %#v\nACTUAL: %#v", desired.PushConfig, actual.PushConfig)
+		c.Config.Logger.Infof("Detected diff in PushConfig.\nDESIRED: %v\nACTUAL: %v", desired.PushConfig, actual.PushConfig)
 		diffs = append(diffs, subscriptionDiff{
 			RequiresRecreate: true,
 			FieldName:        "PushConfig",
 		})
 	}
 	if !dcl.IsZeroValue(desired.AckDeadlineSeconds) && (dcl.IsZeroValue(actual.AckDeadlineSeconds) || !reflect.DeepEqual(*desired.AckDeadlineSeconds, *actual.AckDeadlineSeconds)) {
-		c.Config.Logger.Infof("Detected diff in AckDeadlineSeconds.\nDESIRED: %#v\nACTUAL: %#v", desired.AckDeadlineSeconds, actual.AckDeadlineSeconds)
+		c.Config.Logger.Infof("Detected diff in AckDeadlineSeconds.\nDESIRED: %v\nACTUAL: %v", desired.AckDeadlineSeconds, actual.AckDeadlineSeconds)
 		diffs = append(diffs, subscriptionDiff{
 			RequiresRecreate: true,
 			FieldName:        "AckDeadlineSeconds",

@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *User) validate() error {
@@ -360,12 +361,12 @@ func (c *Client) userDiffsForRawDesired(ctx context.Context, rawDesired *User, o
 			c.Config.Logger.Warningf("Failed to retrieve whether a User resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve User resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that User resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeUserDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for User: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for User: %v", rawDesired)
 
@@ -452,21 +453,9 @@ func canonicalizeUserNewState(c *Client, rawNew, rawDesired *User) (*User, error
 
 	rawNew.Password = rawDesired.Password
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
-	if dcl.IsEmptyValueIndirect(rawNew.Instance) && dcl.IsEmptyValueIndirect(rawDesired.Instance) {
-		rawNew.Instance = rawDesired.Instance
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Instance, rawNew.Instance) {
-			rawNew.Instance = rawDesired.Instance
-		}
-	}
+	rawNew.Instance = rawDesired.Instance
 
 	if dcl.IsEmptyValueIndirect(rawNew.SqlserverUserDetails) && dcl.IsEmptyValueIndirect(rawDesired.SqlserverUserDetails) {
 		rawNew.SqlserverUserDetails = rawDesired.SqlserverUserDetails
@@ -572,28 +561,14 @@ func diffUser(c *Client, desired, actual *User, opts ...dcl.ApplyOption) ([]user
 
 	var diffs []userDiff
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, userDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, userDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Instance) && !dcl.NameToSelfLink(desired.Instance, actual.Instance) {
-		c.Config.Logger.Infof("Detected diff in Instance.\nDESIRED: %#v\nACTUAL: %#v", desired.Instance, actual.Instance)
-		diffs = append(diffs, userDiff{
-			RequiresRecreate: true,
-			FieldName:        "Instance",
-		})
-	}
 	if compareUserSqlserverUserDetails(c, desired.SqlserverUserDetails, actual.SqlserverUserDetails) {
-		c.Config.Logger.Infof("Detected diff in SqlserverUserDetails.\nDESIRED: %#v\nACTUAL: %#v", desired.SqlserverUserDetails, actual.SqlserverUserDetails)
+		c.Config.Logger.Infof("Detected diff in SqlserverUserDetails.\nDESIRED: %v\nACTUAL: %v", desired.SqlserverUserDetails, actual.SqlserverUserDetails)
 
 		diffs = append(diffs, userDiff{
 			UpdateOp:  &updateUserUpdateOperation{},
@@ -602,7 +577,7 @@ func diffUser(c *Client, desired, actual *User, opts ...dcl.ApplyOption) ([]user
 
 	}
 	if !dcl.IsZeroValue(desired.Type) && (dcl.IsZeroValue(actual.Type) || !reflect.DeepEqual(*desired.Type, *actual.Type)) {
-		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %#v\nACTUAL: %#v", desired.Type, actual.Type)
+		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %v\nACTUAL: %v", desired.Type, actual.Type)
 
 		diffs = append(diffs, userDiff{
 			UpdateOp:  &updateUserUpdateOperation{},
@@ -611,14 +586,14 @@ func diffUser(c *Client, desired, actual *User, opts ...dcl.ApplyOption) ([]user
 
 	}
 	if !dcl.IsZeroValue(desired.Etag) && (dcl.IsZeroValue(actual.Etag) || !reflect.DeepEqual(*desired.Etag, *actual.Etag)) {
-		c.Config.Logger.Infof("Detected diff in Etag.\nDESIRED: %#v\nACTUAL: %#v", desired.Etag, actual.Etag)
+		c.Config.Logger.Infof("Detected diff in Etag.\nDESIRED: %v\nACTUAL: %v", desired.Etag, actual.Etag)
 		diffs = append(diffs, userDiff{
 			RequiresRecreate: true,
 			FieldName:        "Etag",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Host) && (dcl.IsZeroValue(actual.Host) || !reflect.DeepEqual(*desired.Host, *actual.Host)) {
-		c.Config.Logger.Infof("Detected diff in Host.\nDESIRED: %#v\nACTUAL: %#v", desired.Host, actual.Host)
+		c.Config.Logger.Infof("Detected diff in Host.\nDESIRED: %v\nACTUAL: %v", desired.Host, actual.Host)
 		diffs = append(diffs, userDiff{
 			RequiresRecreate: true,
 			FieldName:        "Host",

@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *UrlMap) validate() error {
@@ -773,12 +774,12 @@ func (c *Client) urlMapDiffsForRawDesired(ctx context.Context, rawDesired *UrlMa
 			c.Config.Logger.Warningf("Failed to retrieve whether a UrlMap resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve UrlMap resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that UrlMap resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeUrlMapDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for UrlMap: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for UrlMap: %v", rawDesired)
 
@@ -920,13 +921,7 @@ func canonicalizeUrlMapNewState(c *Client, rawNew, rawDesired *UrlMap) (*UrlMap,
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -4320,7 +4315,7 @@ func diffUrlMap(c *Client, desired, actual *UrlMap, opts ...dcl.ApplyOption) ([]
 
 	var diffs []urlMapDiff
 	if compareUrlMapDefaultRouteAction(c, desired.DefaultRouteAction, actual.DefaultRouteAction) {
-		c.Config.Logger.Infof("Detected diff in DefaultRouteAction.\nDESIRED: %#v\nACTUAL: %#v", desired.DefaultRouteAction, actual.DefaultRouteAction)
+		c.Config.Logger.Infof("Detected diff in DefaultRouteAction.\nDESIRED: %v\nACTUAL: %v", desired.DefaultRouteAction, actual.DefaultRouteAction)
 
 		diffs = append(diffs, urlMapDiff{
 			UpdateOp:  &updateUrlMapUpdateOperation{},
@@ -4329,7 +4324,7 @@ func diffUrlMap(c *Client, desired, actual *UrlMap, opts ...dcl.ApplyOption) ([]
 
 	}
 	if !dcl.IsZeroValue(desired.DefaultService) && (dcl.IsZeroValue(actual.DefaultService) || !reflect.DeepEqual(*desired.DefaultService, *actual.DefaultService)) {
-		c.Config.Logger.Infof("Detected diff in DefaultService.\nDESIRED: %#v\nACTUAL: %#v", desired.DefaultService, actual.DefaultService)
+		c.Config.Logger.Infof("Detected diff in DefaultService.\nDESIRED: %v\nACTUAL: %v", desired.DefaultService, actual.DefaultService)
 
 		diffs = append(diffs, urlMapDiff{
 			UpdateOp:  &updateUrlMapUpdateOperation{},
@@ -4338,7 +4333,7 @@ func diffUrlMap(c *Client, desired, actual *UrlMap, opts ...dcl.ApplyOption) ([]
 
 	}
 	if compareUrlMapDefaultUrlRedirect(c, desired.DefaultUrlRedirect, actual.DefaultUrlRedirect) {
-		c.Config.Logger.Infof("Detected diff in DefaultUrlRedirect.\nDESIRED: %#v\nACTUAL: %#v", desired.DefaultUrlRedirect, actual.DefaultUrlRedirect)
+		c.Config.Logger.Infof("Detected diff in DefaultUrlRedirect.\nDESIRED: %v\nACTUAL: %v", desired.DefaultUrlRedirect, actual.DefaultUrlRedirect)
 
 		diffs = append(diffs, urlMapDiff{
 			UpdateOp:  &updateUrlMapUpdateOperation{},
@@ -4347,7 +4342,7 @@ func diffUrlMap(c *Client, desired, actual *UrlMap, opts ...dcl.ApplyOption) ([]
 
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, urlMapDiff{
 			UpdateOp:  &updateUrlMapUpdateOperation{},
@@ -4356,7 +4351,7 @@ func diffUrlMap(c *Client, desired, actual *UrlMap, opts ...dcl.ApplyOption) ([]
 
 	}
 	if compareUrlMapHeaderAction(c, desired.HeaderAction, actual.HeaderAction) {
-		c.Config.Logger.Infof("Detected diff in HeaderAction.\nDESIRED: %#v\nACTUAL: %#v", desired.HeaderAction, actual.HeaderAction)
+		c.Config.Logger.Infof("Detected diff in HeaderAction.\nDESIRED: %v\nACTUAL: %v", desired.HeaderAction, actual.HeaderAction)
 
 		diffs = append(diffs, urlMapDiff{
 			UpdateOp:  &updateUrlMapUpdateOperation{},
@@ -4365,7 +4360,7 @@ func diffUrlMap(c *Client, desired, actual *UrlMap, opts ...dcl.ApplyOption) ([]
 
 	}
 	if compareUrlMapHostRuleSlice(c, desired.HostRule, actual.HostRule) {
-		c.Config.Logger.Infof("Detected diff in HostRule.\nDESIRED: %#v\nACTUAL: %#v", desired.HostRule, actual.HostRule)
+		c.Config.Logger.Infof("Detected diff in HostRule.\nDESIRED: %v\nACTUAL: %v", desired.HostRule, actual.HostRule)
 
 		toAdd, toRemove := compareUrlMapHostRuleSets(c, desired.HostRule, actual.HostRule)
 		c.Config.Logger.Infof("diff in HostRule is a set field - recomparing with set logic. \nto add: %#v\nto remove: %#v", toAdd, toRemove)
@@ -4379,7 +4374,7 @@ func diffUrlMap(c *Client, desired, actual *UrlMap, opts ...dcl.ApplyOption) ([]
 
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 
 		diffs = append(diffs, urlMapDiff{
 			UpdateOp:  &updateUrlMapUpdateOperation{},
@@ -4388,7 +4383,7 @@ func diffUrlMap(c *Client, desired, actual *UrlMap, opts ...dcl.ApplyOption) ([]
 
 	}
 	if compareUrlMapPathMatcherSlice(c, desired.PathMatcher, actual.PathMatcher) {
-		c.Config.Logger.Infof("Detected diff in PathMatcher.\nDESIRED: %#v\nACTUAL: %#v", desired.PathMatcher, actual.PathMatcher)
+		c.Config.Logger.Infof("Detected diff in PathMatcher.\nDESIRED: %v\nACTUAL: %v", desired.PathMatcher, actual.PathMatcher)
 
 		toAdd, toRemove := compareUrlMapPathMatcherSets(c, desired.PathMatcher, actual.PathMatcher)
 		c.Config.Logger.Infof("diff in PathMatcher is a set field - recomparing with set logic. \nto add: %#v\nto remove: %#v", toAdd, toRemove)
@@ -4402,27 +4397,20 @@ func diffUrlMap(c *Client, desired, actual *UrlMap, opts ...dcl.ApplyOption) ([]
 
 	}
 	if !dcl.IsZeroValue(desired.Region) && (dcl.IsZeroValue(actual.Region) || !reflect.DeepEqual(*desired.Region, *actual.Region)) {
-		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %#v\nACTUAL: %#v", desired.Region, actual.Region)
+		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %v\nACTUAL: %v", desired.Region, actual.Region)
 		diffs = append(diffs, urlMapDiff{
 			RequiresRecreate: true,
 			FieldName:        "Region",
 		})
 	}
 	if compareUrlMapTestSlice(c, desired.Test, actual.Test) {
-		c.Config.Logger.Infof("Detected diff in Test.\nDESIRED: %#v\nACTUAL: %#v", desired.Test, actual.Test)
+		c.Config.Logger.Infof("Detected diff in Test.\nDESIRED: %v\nACTUAL: %v", desired.Test, actual.Test)
 
 		diffs = append(diffs, urlMapDiff{
 			UpdateOp:  &updateUrlMapUpdateOperation{},
 			FieldName: "Test",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, urlMapDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,

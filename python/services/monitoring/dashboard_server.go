@@ -5993,11 +5993,13 @@ func (s *DashboardServer) ApplyMonitoringDashboard(ctx context.Context, request 
 
 // DeleteDashboard handles the gRPC request by passing it to the underlying Dashboard Delete() method.
 func (s *DashboardServer) DeleteMonitoringDashboard(ctx context.Context, request *monitoringpb.DeleteMonitoringDashboardRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigDashboard(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteDashboard(ctx, ProtoToDashboard(request.GetResource()))
+
 }
 
 // ListDashboard handles the gRPC request by passing it to the underlying DashboardList() method.

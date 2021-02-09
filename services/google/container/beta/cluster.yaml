@@ -256,7 +256,8 @@ components:
               type: string
               x-dcl-go-name: KeyName
             state:
-              description: Denotes the state of etcd encryption.
+              description: 'Denotes the state of etcd encryption. Possible values:
+                UNKNOWN, ENCRYPTED, DECRYPTED'
               enum:
               - UNKNOWN
               - ENCRYPTED
@@ -661,7 +662,8 @@ components:
               x-dcl-go-name: Enabled
               x-kubernetes-immutable: true
             provider:
-              description: The selected network policy provider.
+              description: 'The selected network policy provider. Possible values:
+                PROVIDER_UNSPECIFIED, CALICO'
               enum:
               - PROVIDER_UNSPECIFIED
               - CALICO
@@ -755,6 +757,9 @@ components:
             type: string
           description: 'The resource labels for the cluster to use to annotate any
             related Google Compute Engine resources. '
+          items:
+            type: string
+            x-dcl-go-type: string
           type: object
           x-dcl-go-name: ResourceLabels
           x-kubernetes-immutable: true
@@ -864,10 +869,43 @@ info:
   title: Container/Cluster
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Cluster
+  apply:
+    description: The function used to apply information about a Cluster
+    parameters:
+    - description: A full instance of a Cluster
+      name: Cluster
+      required: true
+  delete:
+    description: The function used to delete a Cluster
+    parameters:
+    - description: A full instance of a Cluster
+      name: Cluster
+      required: true
+  deleteAll:
+    description: The function used to delete all Cluster
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: location
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Cluster
+    parameters:
+    - description: A full instance of a Cluster
+      name: Cluster
+      required: true
+  list:
+    description: The function used to list information about many Cluster
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string

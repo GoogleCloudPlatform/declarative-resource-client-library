@@ -1239,7 +1239,7 @@ class InstanceSettings(object):
         database_replication_enabled: bool = None,
         crash_safe_replication_enabled: bool = None,
         settings_version: dict = None,
-        user_labels: list = None,
+        user_labels: dict = None,
         storage_auto_resize_limit: dict = None,
         ip_configuration: dict = None,
         location_preference: dict = None,
@@ -1327,10 +1327,8 @@ class InstanceSettings(object):
             )
         else:
             res.ClearField("settings_version")
-        if InstanceSettingsUserLabelsArray.to_proto(resource.user_labels):
-            res.user_labels.extend(
-                InstanceSettingsUserLabelsArray.to_proto(resource.user_labels)
-            )
+        if Primitive.to_proto(resource.user_labels):
+            res.user_labels = Primitive.to_proto(resource.user_labels)
         if InstanceSettingsStorageAutoResizeLimit.to_proto(
             resource.storage_auto_resize_limit
         ):
@@ -1484,43 +1482,6 @@ class InstanceSettingsSettingsVersionArray(object):
     @classmethod
     def from_proto(self, resources):
         return [InstanceSettingsSettingsVersion.from_proto(i) for i in resources]
-
-
-class InstanceSettingsUserLabels(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = instance_pb2.SqlBetaInstanceSettingsUserLabels()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceSettingsUserLabels(key=resource.key, value=resource.value,)
-
-
-class InstanceSettingsUserLabelsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [InstanceSettingsUserLabels.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [InstanceSettingsUserLabels.from_proto(i) for i in resources]
 
 
 class InstanceSettingsStorageAutoResizeLimit(object):

@@ -58,7 +58,9 @@ components:
           items:
             properties:
               code:
-                description: Machine-friendly representation of the condition
+                description: 'Machine-friendly representation of the condition Possible
+                  values: UNKNOWN, GCE_STOCKOUT, GKE_SERVICE_ACCOUNT_DELETED, GCE_QUOTA_EXCEEDED,
+                  SET_BY_OPERATOR'
                 enum:
                 - UNKNOWN
                 - GCE_STOCKOUT
@@ -140,6 +142,9 @@ components:
                 see:   http://kubernetes.io/v1.1/docs/user-guide/labels.html  An object
                 containing a list of "key": value pairs. Example: { "name": "wrench",
                 "mass": "1.3kg", "count": "3" }. '
+              items:
+                type: string
+                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Labels
               x-kubernetes-immutable: true
@@ -173,6 +178,9 @@ components:
                 to 32 KB.  The total size of all keys and values must be less than
                 512 KB.  An object containing a list of "key": value pairs. Example:
                 { "name": "wrench", "mass": "1.3kg", "count": "3" }. '
+              items:
+                type: string
+                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Metadata
               x-kubernetes-immutable: true
@@ -209,7 +217,8 @@ components:
                 apply the specified Zonal Compute Reservation to this node pool.
               properties:
                 consumeReservationType:
-                  description: Corresponds to the type of reservation consumption.
+                  description: 'Corresponds to the type of reservation consumption.
+                    Possible values: NO_RESERVATION, ANY_RESERVATION, SPECIFIC_RESERVATION'
                   enum:
                   - NO_RESERVATION
                   - ANY_RESERVATION
@@ -240,7 +249,8 @@ components:
               description: Sandbox configuration for this node.
               properties:
                 type:
-                  description: Type of the sandbox to use for the node
+                  description: 'Type of the sandbox to use for the node Possible values:
+                    GVISOR'
                   enum:
                   - GVISOR
                   type: string
@@ -473,12 +483,51 @@ info:
   title: Container/NodePool
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many NodePool
+  apply:
+    description: The function used to apply information about a NodePool
+    parameters:
+    - description: A full instance of a NodePool
+      name: NodePool
+      required: true
+  delete:
+    description: The function used to delete a NodePool
+    parameters:
+    - description: A full instance of a NodePool
+      name: NodePool
+      required: true
+  deleteAll:
+    description: The function used to delete all NodePool
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: location
       required: true
+      schema:
+        type: string
     - name: cluster
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a NodePool
+    parameters:
+    - description: A full instance of a NodePool
+      name: NodePool
+      required: true
+  list:
+    description: The function used to list information about many NodePool
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string
+    - name: cluster
+      required: true
+      schema:
+        type: string

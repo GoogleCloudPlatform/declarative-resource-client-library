@@ -109,8 +109,35 @@ info:
   title: Compute/Network
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Network
+  apply:
+    description: The function used to apply information about a Network
+    parameters:
+    - description: A full instance of a Network
+      name: Network
+      required: true
+  delete:
+    description: The function used to delete a Network
+    parameters:
+    - description: A full instance of a Network
+      name: Network
+      required: true
+  deleteAll:
+    description: The function used to delete all Network
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Network
+    parameters:
+    - description: A full instance of a Network
+      name: Network
+      required: true
+  list:
+    description: The function used to list information about many Network
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

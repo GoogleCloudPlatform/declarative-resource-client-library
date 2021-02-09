@@ -86,7 +86,7 @@ components:
         status:
           description: |-
             [Output Only] The status of the VPN gateway,
-            which can be one of the following: CREATING, READY, FAILED, or DELETING.
+            which can be one of the following: CREATING, READY, FAILED, or DELETING. Possible values: PENDING, RUNNING, DONE
           enum:
           - PENDING
           - RUNNING
@@ -123,10 +123,43 @@ info:
   title: Compute/TargetVpnGateway
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many TargetVpnGateway
+  apply:
+    description: The function used to apply information about a TargetVpnGateway
+    parameters:
+    - description: A full instance of a TargetVpnGateway
+      name: TargetVpnGateway
+      required: true
+  delete:
+    description: The function used to delete a TargetVpnGateway
+    parameters:
+    - description: A full instance of a TargetVpnGateway
+      name: TargetVpnGateway
+      required: true
+  deleteAll:
+    description: The function used to delete all TargetVpnGateway
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: region
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a TargetVpnGateway
+    parameters:
+    - description: A full instance of a TargetVpnGateway
+      name: TargetVpnGateway
+      required: true
+  list:
+    description: The function used to list information about many TargetVpnGateway
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: region
+      required: true
+      schema:
+        type: string

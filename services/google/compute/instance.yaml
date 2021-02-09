@@ -269,6 +269,9 @@ components:
           additionalProperties:
             type: string
           description: 'Labels to apply to this instance.  A list of key->value pairs. '
+          items:
+            type: string
+            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         machineType:
@@ -284,6 +287,9 @@ components:
           description: 'The metadata key/value pairs to assign to instances that are
             created from this template. These pairs can consist of custom metadata
             or predefined keys. '
+          items:
+            type: string
+            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Metadata
         minCpuPlatform:
@@ -570,10 +576,43 @@ info:
   title: Compute/Instance
   x-dcl-has-iam: true
 paths:
-  list:
-    description: The function called used to list information about many Instance
+  apply:
+    description: The function used to apply information about a Instance
+    parameters:
+    - description: A full instance of a Instance
+      name: Instance
+      required: true
+  delete:
+    description: The function used to delete a Instance
+    parameters:
+    - description: A full instance of a Instance
+      name: Instance
+      required: true
+  deleteAll:
+    description: The function used to delete all Instance
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: zone
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Instance
+    parameters:
+    - description: A full instance of a Instance
+      name: Instance
+      required: true
+  list:
+    description: The function used to list information about many Instance
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: zone
+      required: true
+      schema:
+        type: string

@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Subnetwork) validate() error {
@@ -518,12 +519,12 @@ func (c *Client) subnetworkDiffsForRawDesired(ctx context.Context, rawDesired *S
 			c.Config.Logger.Warningf("Failed to retrieve whether a Subnetwork resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Subnetwork resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Subnetwork resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeSubnetworkDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Subnetwork: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Subnetwork: %v", rawDesired)
 
@@ -685,13 +686,7 @@ func canonicalizeSubnetworkNewState(c *Client, rawNew, rawDesired *Subnetwork) (
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Region) && dcl.IsEmptyValueIndirect(rawDesired.Region) {
-		rawNew.Region = rawDesired.Region
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Region, rawNew.Region) {
-			rawNew.Region = rawDesired.Region
-		}
-	}
+	rawNew.Region = rawDesired.Region
 
 	if dcl.IsEmptyValueIndirect(rawNew.LogConfig) && dcl.IsEmptyValueIndirect(rawDesired.LogConfig) {
 		rawNew.LogConfig = rawDesired.LogConfig
@@ -699,13 +694,7 @@ func canonicalizeSubnetworkNewState(c *Client, rawNew, rawDesired *Subnetwork) (
 		rawNew.LogConfig = canonicalizeNewSubnetworkLogConfig(c, rawDesired.LogConfig, rawNew.LogConfig)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
@@ -885,14 +874,14 @@ func diffSubnetwork(c *Client, desired, actual *Subnetwork, opts ...dcl.ApplyOpt
 
 	var diffs []subnetworkDiff
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, subnetworkDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
 	if !dcl.IsZeroValue(desired.IPCidrRange) && (dcl.IsZeroValue(actual.IPCidrRange) || !reflect.DeepEqual(*desired.IPCidrRange, *actual.IPCidrRange)) {
-		c.Config.Logger.Infof("Detected diff in IPCidrRange.\nDESIRED: %#v\nACTUAL: %#v", desired.IPCidrRange, actual.IPCidrRange)
+		c.Config.Logger.Infof("Detected diff in IPCidrRange.\nDESIRED: %v\nACTUAL: %v", desired.IPCidrRange, actual.IPCidrRange)
 
 		diffs = append(diffs, subnetworkDiff{
 			UpdateOp:  &updateSubnetworkExpandIpCidrRangeOperation{},
@@ -901,28 +890,28 @@ func diffSubnetwork(c *Client, desired, actual *Subnetwork, opts ...dcl.ApplyOpt
 
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, subnetworkDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Network) && !dcl.NameToSelfLink(desired.Network, actual.Network) {
-		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %#v\nACTUAL: %#v", desired.Network, actual.Network)
+		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
 		diffs = append(diffs, subnetworkDiff{
 			RequiresRecreate: true,
 			FieldName:        "Network",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Purpose) && (dcl.IsZeroValue(actual.Purpose) || !reflect.DeepEqual(*desired.Purpose, *actual.Purpose)) {
-		c.Config.Logger.Infof("Detected diff in Purpose.\nDESIRED: %#v\nACTUAL: %#v", desired.Purpose, actual.Purpose)
+		c.Config.Logger.Infof("Detected diff in Purpose.\nDESIRED: %v\nACTUAL: %v", desired.Purpose, actual.Purpose)
 		diffs = append(diffs, subnetworkDiff{
 			RequiresRecreate: true,
 			FieldName:        "Purpose",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Role) && (dcl.IsZeroValue(actual.Role) || !reflect.DeepEqual(*desired.Role, *actual.Role)) {
-		c.Config.Logger.Infof("Detected diff in Role.\nDESIRED: %#v\nACTUAL: %#v", desired.Role, actual.Role)
+		c.Config.Logger.Infof("Detected diff in Role.\nDESIRED: %v\nACTUAL: %v", desired.Role, actual.Role)
 
 		diffs = append(diffs, subnetworkDiff{
 			UpdateOp:  &updateSubnetworkUpdateOperation{},
@@ -931,7 +920,7 @@ func diffSubnetwork(c *Client, desired, actual *Subnetwork, opts ...dcl.ApplyOpt
 
 	}
 	if compareSubnetworkSecondaryIPRangeSlice(c, desired.SecondaryIPRange, actual.SecondaryIPRange) {
-		c.Config.Logger.Infof("Detected diff in SecondaryIPRange.\nDESIRED: %#v\nACTUAL: %#v", desired.SecondaryIPRange, actual.SecondaryIPRange)
+		c.Config.Logger.Infof("Detected diff in SecondaryIPRange.\nDESIRED: %v\nACTUAL: %v", desired.SecondaryIPRange, actual.SecondaryIPRange)
 
 		diffs = append(diffs, subnetworkDiff{
 			UpdateOp:  &updateSubnetworkUpdateOperation{},
@@ -940,7 +929,7 @@ func diffSubnetwork(c *Client, desired, actual *Subnetwork, opts ...dcl.ApplyOpt
 
 	}
 	if !dcl.IsZeroValue(desired.PrivateIPGoogleAccess) && (dcl.IsZeroValue(actual.PrivateIPGoogleAccess) || !reflect.DeepEqual(*desired.PrivateIPGoogleAccess, *actual.PrivateIPGoogleAccess)) {
-		c.Config.Logger.Infof("Detected diff in PrivateIPGoogleAccess.\nDESIRED: %#v\nACTUAL: %#v", desired.PrivateIPGoogleAccess, actual.PrivateIPGoogleAccess)
+		c.Config.Logger.Infof("Detected diff in PrivateIPGoogleAccess.\nDESIRED: %v\nACTUAL: %v", desired.PrivateIPGoogleAccess, actual.PrivateIPGoogleAccess)
 
 		diffs = append(diffs, subnetworkDiff{
 			UpdateOp:  &updateSubnetworkSetPrivateIpGoogleAccessOperation{},
@@ -948,15 +937,8 @@ func diffSubnetwork(c *Client, desired, actual *Subnetwork, opts ...dcl.ApplyOpt
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Region) && !dcl.NameToSelfLink(desired.Region, actual.Region) {
-		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %#v\nACTUAL: %#v", desired.Region, actual.Region)
-		diffs = append(diffs, subnetworkDiff{
-			RequiresRecreate: true,
-			FieldName:        "Region",
-		})
-	}
 	if compareSubnetworkLogConfig(c, desired.LogConfig, actual.LogConfig) {
-		c.Config.Logger.Infof("Detected diff in LogConfig.\nDESIRED: %#v\nACTUAL: %#v", desired.LogConfig, actual.LogConfig)
+		c.Config.Logger.Infof("Detected diff in LogConfig.\nDESIRED: %v\nACTUAL: %v", desired.LogConfig, actual.LogConfig)
 
 		diffs = append(diffs, subnetworkDiff{
 			UpdateOp:  &updateSubnetworkUpdateOperation{},
@@ -964,15 +946,8 @@ func diffSubnetwork(c *Client, desired, actual *Subnetwork, opts ...dcl.ApplyOpt
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, subnetworkDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
 	if !dcl.IsZeroValue(desired.EnableFlowLogs) && (dcl.IsZeroValue(actual.EnableFlowLogs) || !reflect.DeepEqual(*desired.EnableFlowLogs, *actual.EnableFlowLogs)) {
-		c.Config.Logger.Infof("Detected diff in EnableFlowLogs.\nDESIRED: %#v\nACTUAL: %#v", desired.EnableFlowLogs, actual.EnableFlowLogs)
+		c.Config.Logger.Infof("Detected diff in EnableFlowLogs.\nDESIRED: %v\nACTUAL: %v", desired.EnableFlowLogs, actual.EnableFlowLogs)
 		diffs = append(diffs, subnetworkDiff{
 			RequiresRecreate: true,
 			FieldName:        "EnableFlowLogs",

@@ -1100,11 +1100,13 @@ func (s *ClusterServer) ApplyContainerCluster(ctx context.Context, request *cont
 
 // DeleteCluster handles the gRPC request by passing it to the underlying Cluster Delete() method.
 func (s *ClusterServer) DeleteContainerCluster(ctx context.Context, request *containerpb.DeleteContainerClusterRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigCluster(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteCluster(ctx, ProtoToCluster(request.GetResource()))
+
 }
 
 // ListCluster handles the gRPC request by passing it to the underlying ClusterList() method.

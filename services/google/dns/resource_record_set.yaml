@@ -68,10 +68,43 @@ info:
   title: Dns/ResourceRecordSet
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many ResourceRecordSet
+  apply:
+    description: The function used to apply information about a ResourceRecordSet
+    parameters:
+    - description: A full instance of a ResourceRecordSet
+      name: ResourceRecordSet
+      required: true
+  delete:
+    description: The function used to delete a ResourceRecordSet
+    parameters:
+    - description: A full instance of a ResourceRecordSet
+      name: ResourceRecordSet
+      required: true
+  deleteAll:
+    description: The function used to delete all ResourceRecordSet
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: managedzone
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a ResourceRecordSet
+    parameters:
+    - description: A full instance of a ResourceRecordSet
+      name: ResourceRecordSet
+      required: true
+  list:
+    description: The function used to list information about many ResourceRecordSet
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: managedzone
+      required: true
+      schema:
+        type: string

@@ -285,11 +285,13 @@ func (s *ForwardingRuleServer) ApplyComputeForwardingRule(ctx context.Context, r
 
 // DeleteForwardingRule handles the gRPC request by passing it to the underlying ForwardingRule Delete() method.
 func (s *ForwardingRuleServer) DeleteComputeForwardingRule(ctx context.Context, request *computepb.DeleteComputeForwardingRuleRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigForwardingRule(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteForwardingRule(ctx, ProtoToForwardingRule(request.GetResource()))
+
 }
 
 // ListForwardingRule handles the gRPC request by passing it to the underlying ForwardingRuleList() method.

@@ -85,30 +85,6 @@ func ProtoToRedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum(e b
 	return nil
 }
 
-// ProtoToInstanceLabels converts a InstanceLabels resource from its proto representation.
-func ProtoToRedisBetaInstanceLabels(p *betapb.RedisBetaInstanceLabels) *beta.InstanceLabels {
-	if p == nil {
-		return nil
-	}
-	obj := &beta.InstanceLabels{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
-// ProtoToInstanceRedisConfigs converts a InstanceRedisConfigs resource from its proto representation.
-func ProtoToRedisBetaInstanceRedisConfigs(p *betapb.RedisBetaInstanceRedisConfigs) *beta.InstanceRedisConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &beta.InstanceRedisConfigs{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
 // ProtoToInstanceServerCaCerts converts a InstanceServerCaCerts resource from its proto representation.
 func ProtoToRedisBetaInstanceServerCaCerts(p *betapb.RedisBetaInstanceServerCaCerts) *beta.InstanceServerCaCerts {
 	if p == nil {
@@ -148,7 +124,7 @@ func ProtoToRedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindow(p *betapb.
 	obj := &beta.InstanceMaintenancePolicyWeeklyMaintenanceWindow{
 		Day:       ProtoToRedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum(p.GetDay()),
 		StartTime: ProtoToRedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(p.GetStartTime()),
-		Duration:  ProtoToRedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration(p.GetDuration()),
+		Duration:  dcl.StringOrNil(p.Duration),
 	}
 	return obj
 }
@@ -161,18 +137,6 @@ func ProtoToRedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(p
 	obj := &beta.InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime{
 		Hours:   dcl.Int64OrNil(p.Hours),
 		Minutes: dcl.Int64OrNil(p.Minutes),
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
-	}
-	return obj
-}
-
-// ProtoToInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration converts a InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration resource from its proto representation.
-func ProtoToRedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration(p *betapb.RedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration) *beta.InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration {
-	if p == nil {
-		return nil
-	}
-	obj := &beta.InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration{
 		Seconds: dcl.Int64OrNil(p.Seconds),
 		Nanos:   dcl.Int64OrNil(p.Nanos),
 	}
@@ -219,12 +183,6 @@ func ProtoToInstance(p *betapb.RedisBetaInstance) *beta.Instance {
 		Project:                dcl.StringOrNil(p.Project),
 		Location:               dcl.StringOrNil(p.Location),
 		Region:                 dcl.StringOrNil(p.Region),
-	}
-	for _, r := range p.GetLabels() {
-		obj.Labels = append(obj.Labels, *ProtoToRedisBetaInstanceLabels(r))
-	}
-	for _, r := range p.GetRedisConfigs() {
-		obj.RedisConfigs = append(obj.RedisConfigs, *ProtoToRedisBetaInstanceRedisConfigs(r))
 	}
 	for _, r := range p.GetServerCaCerts() {
 		obj.ServerCaCerts = append(obj.ServerCaCerts, *ProtoToRedisBetaInstanceServerCaCerts(r))
@@ -287,30 +245,6 @@ func RedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnumToProto(e *
 	return betapb.RedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum(0)
 }
 
-// InstanceLabelsToProto converts a InstanceLabels resource to its proto representation.
-func RedisBetaInstanceLabelsToProto(o *beta.InstanceLabels) *betapb.RedisBetaInstanceLabels {
-	if o == nil {
-		return nil
-	}
-	p := &betapb.RedisBetaInstanceLabels{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
-	}
-	return p
-}
-
-// InstanceRedisConfigsToProto converts a InstanceRedisConfigs resource to its proto representation.
-func RedisBetaInstanceRedisConfigsToProto(o *beta.InstanceRedisConfigs) *betapb.RedisBetaInstanceRedisConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &betapb.RedisBetaInstanceRedisConfigs{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
-	}
-	return p
-}
-
 // InstanceServerCaCertsToProto converts a InstanceServerCaCerts resource to its proto representation.
 func RedisBetaInstanceServerCaCertsToProto(o *beta.InstanceServerCaCerts) *betapb.RedisBetaInstanceServerCaCerts {
 	if o == nil {
@@ -350,7 +284,7 @@ func RedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindowToProto(o *beta.In
 	p := &betapb.RedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindow{
 		Day:       RedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnumToProto(o.Day),
 		StartTime: RedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTimeToProto(o.StartTime),
-		Duration:  RedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindowDurationToProto(o.Duration),
+		Duration:  dcl.ValueOrEmptyString(o.Duration),
 	}
 	return p
 }
@@ -363,18 +297,6 @@ func RedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTimeToProto(o
 	p := &betapb.RedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime{
 		Hours:   dcl.ValueOrEmptyInt64(o.Hours),
 		Minutes: dcl.ValueOrEmptyInt64(o.Minutes),
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
-	}
-	return p
-}
-
-// InstanceMaintenancePolicyWeeklyMaintenanceWindowDurationToProto converts a InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration resource to its proto representation.
-func RedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindowDurationToProto(o *beta.InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration) *betapb.RedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration {
-	if o == nil {
-		return nil
-	}
-	p := &betapb.RedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration{
 		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
 		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
 	}
@@ -422,12 +344,6 @@ func InstanceToProto(resource *beta.Instance) *betapb.RedisBetaInstance {
 		Location:               dcl.ValueOrEmptyString(resource.Location),
 		Region:                 dcl.ValueOrEmptyString(resource.Region),
 	}
-	for _, r := range resource.Labels {
-		p.Labels = append(p.Labels, RedisBetaInstanceLabelsToProto(&r))
-	}
-	for _, r := range resource.RedisConfigs {
-		p.RedisConfigs = append(p.RedisConfigs, RedisBetaInstanceRedisConfigsToProto(&r))
-	}
 	for _, r := range resource.ServerCaCerts {
 		p.ServerCaCerts = append(p.ServerCaCerts, RedisBetaInstanceServerCaCertsToProto(&r))
 	}
@@ -457,11 +373,13 @@ func (s *InstanceServer) ApplyRedisBetaInstance(ctx context.Context, request *be
 
 // DeleteInstance handles the gRPC request by passing it to the underlying Instance Delete() method.
 func (s *InstanceServer) DeleteRedisBetaInstance(ctx context.Context, request *betapb.DeleteRedisBetaInstanceRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteInstance(ctx, ProtoToInstance(request.GetResource()))
+
 }
 
 // ListInstance handles the gRPC request by passing it to the underlying InstanceList() method.

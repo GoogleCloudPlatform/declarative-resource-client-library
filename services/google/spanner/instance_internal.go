@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Instance) validate() error {
@@ -350,12 +351,12 @@ func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Ins
 			c.Config.Logger.Warningf("Failed to retrieve whether a Instance resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Instance resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Instance resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeInstanceDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Instance: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Instance: %v", rawDesired)
 
@@ -438,13 +439,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	if dcl.IsEmptyValueIndirect(rawNew.Config) && dcl.IsEmptyValueIndirect(rawDesired.Config) {
 		rawNew.Config = rawDesired.Config
@@ -499,21 +494,14 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	var diffs []instanceDiff
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, instanceDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
 	if !dcl.IsZeroValue(desired.Config) && !dcl.PartialSelfLinkToSelfLink(desired.Config, actual.Config) {
-		c.Config.Logger.Infof("Detected diff in Config.\nDESIRED: %#v\nACTUAL: %#v", desired.Config, actual.Config)
+		c.Config.Logger.Infof("Detected diff in Config.\nDESIRED: %v\nACTUAL: %v", desired.Config, actual.Config)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
@@ -522,7 +510,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.DisplayName) && (dcl.IsZeroValue(actual.DisplayName) || !reflect.DeepEqual(*desired.DisplayName, *actual.DisplayName)) {
-		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %#v\nACTUAL: %#v", desired.DisplayName, actual.DisplayName)
+		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
@@ -531,7 +519,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.NodeCount) && (dcl.IsZeroValue(actual.NodeCount) || !reflect.DeepEqual(*desired.NodeCount, *actual.NodeCount)) {
-		c.Config.Logger.Infof("Detected diff in NodeCount.\nDESIRED: %#v\nACTUAL: %#v", desired.NodeCount, actual.NodeCount)
+		c.Config.Logger.Infof("Detected diff in NodeCount.\nDESIRED: %v\nACTUAL: %v", desired.NodeCount, actual.NodeCount)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
@@ -540,7 +528,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %#v\nACTUAL: %#v", desired.Labels, actual.Labels)
+		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},

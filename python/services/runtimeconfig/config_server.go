@@ -68,11 +68,13 @@ func (s *ConfigServer) ApplyRuntimeconfigConfig(ctx context.Context, request *ru
 
 // DeleteConfig handles the gRPC request by passing it to the underlying Config Delete() method.
 func (s *ConfigServer) DeleteRuntimeconfigConfig(ctx context.Context, request *runtimeconfigpb.DeleteRuntimeconfigConfigRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigConfig(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteConfig(ctx, ProtoToConfig(request.GetResource()))
+
 }
 
 // ListConfig handles the gRPC request by passing it to the underlying ConfigList() method.

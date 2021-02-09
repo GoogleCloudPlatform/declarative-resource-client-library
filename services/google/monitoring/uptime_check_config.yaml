@@ -29,6 +29,8 @@ components:
                 x-dcl-go-name: Content
               matcher:
                 default: CONTAINS_STRING
+                description: ' Possible values: CONTENT_MATCHER_OPTION_UNSPECIFIED,
+                  CONTAINS_STRING, NOT_CONTAINS_STRING, MATCHES_REGEX, NOT_MATCHES_REGEX'
                 enum:
                 - CONTENT_MATCHER_OPTION_UNSPECIFIED
                 - CONTAINS_STRING
@@ -86,8 +88,9 @@ components:
               type: string
               x-dcl-go-name: Body
             contentType:
-              description: |
+              description: |-
                 The content type to use for the check.
+                 Possible values: TYPE_UNSPECIFIED, URL_ENCODED
               enum:
               - TYPE_UNSPECIFIED
               - URL_ENCODED
@@ -106,6 +109,9 @@ components:
                 Entering two separate headers with the same key in a Create call will
                 cause the first to be overwritten by the second.
                 The maximum number of headers allowed is 100.
+              items:
+                type: string
+                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Headers
               x-dcl-server-default: true
@@ -184,6 +190,9 @@ components:
             filterLabels:
               additionalProperties:
                 type: string
+              items:
+                type: string
+                x-dcl-go-type: string
               type: object
               x-dcl-go-name: FilterLabels
               x-kubernetes-immutable: true
@@ -257,7 +266,8 @@ components:
                 resource: Monitoring/Group
               x-kubernetes-immutable: true
             resourceType:
-              description: The resource type of the group members.
+              description: 'The resource type of the group members. Possible values:
+                RESOURCE_TYPE_UNSPECIFIED, INSTANCE, AWS_ELB_LOAD_BALANCER'
               enum:
               - RESOURCE_TYPE_UNSPECIFIED
               - INSTANCE
@@ -320,8 +330,35 @@ info:
   title: Monitoring/UptimeCheckConfig
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many UptimeCheckConfig
+  apply:
+    description: The function used to apply information about a UptimeCheckConfig
+    parameters:
+    - description: A full instance of a UptimeCheckConfig
+      name: UptimeCheckConfig
+      required: true
+  delete:
+    description: The function used to delete a UptimeCheckConfig
+    parameters:
+    - description: A full instance of a UptimeCheckConfig
+      name: UptimeCheckConfig
+      required: true
+  deleteAll:
+    description: The function used to delete all UptimeCheckConfig
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a UptimeCheckConfig
+    parameters:
+    - description: A full instance of a UptimeCheckConfig
+      name: UptimeCheckConfig
+      required: true
+  list:
+    description: The function used to list information about many UptimeCheckConfig
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

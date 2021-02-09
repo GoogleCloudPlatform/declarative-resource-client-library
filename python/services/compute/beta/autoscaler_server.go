@@ -376,11 +376,13 @@ func (s *AutoscalerServer) ApplyComputeBetaAutoscaler(ctx context.Context, reque
 
 // DeleteAutoscaler handles the gRPC request by passing it to the underlying Autoscaler Delete() method.
 func (s *AutoscalerServer) DeleteComputeBetaAutoscaler(ctx context.Context, request *betapb.DeleteComputeBetaAutoscalerRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigAutoscaler(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteAutoscaler(ctx, ProtoToAutoscaler(request.GetResource()))
+
 }
 
 // ListAutoscaler handles the gRPC request by passing it to the underlying AutoscalerList() method.

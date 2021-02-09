@@ -83,18 +83,27 @@ components:
           description: The name of the role. When Role is used in CreateRole, the
             role name must not be set. When Role is used in output and other input
             such as UpdateRole, the role name is the complete path, e.g., roles/logging.viewer
-            for predefined roles and organizations/{ORGANIZATION\_ID}/roles/logging.viewer
+            for predefined roles and organizations/{ORGANIZATION_ID}/roles/logging.viewer
             for custom roles.
           type: string
           x-dcl-go-name: Name
           x-kubernetes-immutable: true
         parent:
+          description: 'The parent parameter''s value depends on the target resource
+            for the request, namely projects or organizations. Each resource type''s
+            parent value format is described below: projects.roles.create(): projects/{PROJECT_ID}.
+            This method creates project-level custom roles. Example request URL: https://iam.googleapis.com/v1/projects/{PROJECT_ID}/roles
+            organizations.roles.create(): organizations/{ORGANIZATION_ID}. This method
+            creates organization-level custom roles. Example request URL: https://iam.googleapis.com/v1/organizations/{ORGANIZATION_ID}/roles
+            Note: Wildcard (*) values are invalid; you must specify a complete project
+            ID or organization ID. Authorization requires the following IAM permission
+            on the specified resource parent: iam.roles.create'
           type: string
           x-dcl-go-name: Parent
           x-kubernetes-immutable: true
         stage:
-          description: The current launch stage of the role. If the \`ALPHA\` launch
-            stage has been selected for a role, the \`stage\` field will not be included
+          description: The current launch stage of the role. If the `ALPHA` launch
+            stage has been selected for a role, the `stage` field will not be included
             in the returned definition for the role.
           enum:
           - ALPHA
@@ -124,8 +133,35 @@ info:
   title: Iam/Role
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Role
+  apply:
+    description: The function used to apply information about a Role
+    parameters:
+    - description: A full instance of a Role
+      name: Role
+      required: true
+  delete:
+    description: The function used to delete a Role
+    parameters:
+    - description: A full instance of a Role
+      name: Role
+      required: true
+  deleteAll:
+    description: The function used to delete all Role
     parameters:
     - name: parent
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Role
+    parameters:
+    - description: A full instance of a Role
+      name: Role
+      required: true
+  list:
+    description: The function used to list information about many Role
+    parameters:
+    - name: parent
+      required: true
+      schema:
+        type: string

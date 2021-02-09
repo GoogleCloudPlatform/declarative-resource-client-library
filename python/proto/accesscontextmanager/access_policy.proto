@@ -21,10 +21,9 @@ import "proto/empty.proto";
 message AccesscontextmanagerAccessPolicy {
   string name = 1;
   string parent = 2;
-  string organization = 3;
-  string title = 4;
-  string create_time = 5;
-  string update_time = 6;
+  string title = 3;
+  string create_time = 4;
+  string update_time = 5;
 }
 
 message ApplyAccesscontextmanagerAccessPolicyRequest {

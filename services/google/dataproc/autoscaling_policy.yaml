@@ -99,10 +99,10 @@ components:
           x-kubernetes-immutable: true
         name:
           description: 'The "resource name" of the autoscaling policy, as described
-            in https://cloud.google.com/apis/design/resource\_names. \* For \`projects.regions.autoscalingPolicies\`,
-            the resource name of the policy has the following format: \`projects/{project\_id}/regions/{region}/autoscalingPolicies/{policy\_id}\`
-            \* For \`projects.locations.autoscalingPolicies\`, the resource name of
-            the policy has the following format: \`projects/{project\_id}/locations/{location}/autoscalingPolicies/{policy\_id}\`'
+            in https://cloud.google.com/apis/design/resource_names. * For `projects.regions.autoscalingPolicies`,
+            the resource name of the policy has the following format: `projects/{project_id}/regions/{region}/autoscalingPolicies/{policy_id}`
+            * For `projects.locations.autoscalingPolicies`, the resource name of the
+            policy has the following format: `projects/{project_id}/locations/{location}/autoscalingPolicies/{policy_id}`'
           type: string
           x-dcl-go-name: Name
           x-kubernetes-immutable: true
@@ -119,8 +119,8 @@ components:
               description: 'Required. Maximum number of instances for this group.
                 Required for primary workers. Note that by default, clusters will
                 not use secondary workers. Required for secondary workers if the minimum
-                secondary instances is set. Primary workers - Bounds: [min\_instances,
-                ). Secondary workers - Bounds: [min\_instances, ). Default: 0.'
+                secondary instances is set. Primary workers - Bounds: [min_instances,
+                ). Secondary workers - Bounds: [min_instances, ). Default: 0.'
               format: int64
               type: integer
               x-dcl-go-name: MaxInstances
@@ -139,9 +139,9 @@ components:
                 secondary workers have weight 1, the cluster will have approximately
                 2 primary workers for each secondary worker. The cluster may not reach
                 the specified balance if constrained by min/max bounds or other autoscaling
-                settings. For example, if \`max\_instances\` for secondary workers
-                is 0, then only primary workers will be added. The cluster can also
-                be out of balance when created. If weight is not set on any instance
+                settings. For example, if `max_instances` for secondary workers is
+                0, then only primary workers will be added. The cluster can also be
+                out of balance when created. If weight is not set on any instance
                 group, the cluster will default to equal weight for all groups: the
                 cluster will attempt to maintain an equal number of workers in each
                 group within the configured size bounds for each group. If weight
@@ -165,8 +165,8 @@ components:
               description: 'Required. Maximum number of instances for this group.
                 Required for primary workers. Note that by default, clusters will
                 not use secondary workers. Required for secondary workers if the minimum
-                secondary instances is set. Primary workers - Bounds: [min\_instances,
-                ). Secondary workers - Bounds: [min\_instances, ). Default: 0.'
+                secondary instances is set. Primary workers - Bounds: [min_instances,
+                ). Secondary workers - Bounds: [min_instances, ). Default: 0.'
               format: int64
               type: integer
               x-dcl-go-name: MaxInstances
@@ -185,9 +185,9 @@ components:
                 secondary workers have weight 1, the cluster will have approximately
                 2 primary workers for each secondary worker. The cluster may not reach
                 the specified balance if constrained by min/max bounds or other autoscaling
-                settings. For example, if \`max\_instances\` for secondary workers
-                is 0, then only primary workers will be added. The cluster can also
-                be out of balance when created. If weight is not set on any instance
+                settings. For example, if `max_instances` for secondary workers is
+                0, then only primary workers will be added. The cluster can also be
+                out of balance when created. If weight is not set on any instance
                 group, the cluster will default to equal weight for all groups: the
                 cluster will attempt to maintain an equal number of workers in each
                 group within the configured size bounds for each group. If weight
@@ -220,10 +220,43 @@ info:
   title: Dataproc/AutoscalingPolicy
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many AutoscalingPolicy
+  apply:
+    description: The function used to apply information about a AutoscalingPolicy
+    parameters:
+    - description: A full instance of a AutoscalingPolicy
+      name: AutoscalingPolicy
+      required: true
+  delete:
+    description: The function used to delete a AutoscalingPolicy
+    parameters:
+    - description: A full instance of a AutoscalingPolicy
+      name: AutoscalingPolicy
+      required: true
+  deleteAll:
+    description: The function used to delete all AutoscalingPolicy
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: location
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a AutoscalingPolicy
+    parameters:
+    - description: A full instance of a AutoscalingPolicy
+      name: AutoscalingPolicy
+      required: true
+  list:
+    description: The function used to list information about many AutoscalingPolicy
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string

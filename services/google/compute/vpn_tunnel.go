@@ -16,6 +16,7 @@ package compute
 import (
 	"context"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -254,7 +255,9 @@ func (c *Client) ApplyVpnTunnel(ctx context.Context, rawDesired *VpnTunnel, opts
 	if create {
 		ops = append(ops, &createVpnTunnelOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteVpnTunnelOperation{})
+
 		ops = append(ops, &createVpnTunnelOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeVpnTunnelDesiredState(rawDesired, nil)

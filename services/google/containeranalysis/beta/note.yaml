@@ -120,8 +120,9 @@ components:
                   x-dcl-go-name: KeyId
                   x-kubernetes-immutable: true
                 keyType:
-                  description: The type of the key, either stored in `public_key`
-                    or referenced in `key_id`.
+                  description: 'The type of the key, either stored in `public_key`
+                    or referenced in `key_id`. Possible values: KEY_TYPE_UNSPECIFIED,
+                    PGP_ASCII_ARMORED, PKIX_PEM'
                   enum:
                   - KEY_TYPE_UNSPECIFIED
                   - PGP_ASCII_ARMORED
@@ -205,8 +206,9 @@ components:
           description: A note describing the initial analysis of a resource.
           properties:
             analysisKind:
-              description: Required. Immutable. The kind of analysis that is handled
-                by this discovery.
+              description: 'Required. Immutable. The kind of analysis that is handled
+                by this discovery. Possible values: NOTE_KIND_UNSPECIFIED, VULNERABILITY,
+                BUILD, IMAGE, PACKAGE, DEPLOYMENT, DISCOVERY, ATTESTATION, UPGRADE'
               enum:
               - NOTE_KIND_UNSPECIFIED
               - VULNERABILITY
@@ -303,8 +305,9 @@ components:
               items:
                 properties:
                   architecture:
-                    description: The CPU architecture for which packages in this distribution
-                      channel were built.
+                    description: 'The CPU architecture for which packages in this
+                      distribution channel were built. Possible values: ARCHITECTURE_UNSPECIFIED,
+                      X86, X64'
                     enum:
                     - ARCHITECTURE_UNSPECIFIED
                     - X86
@@ -343,8 +346,10 @@ components:
                         x-dcl-go-name: FullName
                         x-kubernetes-immutable: true
                       kind:
-                        description: Required. Distinguishes between sentinel MIN/MAX
-                          versions and normal versions.
+                        description: 'Required. Distinguishes between sentinel MIN/MAX
+                          versions and normal versions. Possible values: NOTE_KIND_UNSPECIFIED,
+                          VULNERABILITY, BUILD, IMAGE, PACKAGE, DEPLOYMENT, DISCOVERY,
+                          ATTESTATION, UPGRADE'
                         enum:
                         - NOTE_KIND_UNSPECIFIED
                         - VULNERABILITY
@@ -473,6 +478,8 @@ components:
               description: The full description of the CVSSv3 for this vulnerability.
               properties:
                 attackComplexity:
+                  description: ' Possible values: ATTACK_COMPLEXITY_UNSPECIFIED, ATTACK_COMPLEXITY_LOW,
+                    ATTACK_COMPLEXITY_HIGH'
                   enum:
                   - ATTACK_COMPLEXITY_UNSPECIFIED
                   - ATTACK_COMPLEXITY_LOW
@@ -482,9 +489,10 @@ components:
                   x-dcl-go-type: NoteVulnerabilityCvssV3AttackComplexityEnum
                   x-kubernetes-immutable: true
                 attackVector:
-                  description: Base Metrics Represents the intrinsic characteristics
+                  description: 'Base Metrics Represents the intrinsic characteristics
                     of a vulnerability that are constant over time and across user
-                    environments.
+                    environments. Possible values: ATTACK_VECTOR_UNSPECIFIED, ATTACK_VECTOR_NETWORK,
+                    ATTACK_VECTOR_ADJACENT, ATTACK_VECTOR_LOCAL, ATTACK_VECTOR_PHYSICAL'
                   enum:
                   - ATTACK_VECTOR_UNSPECIFIED
                   - ATTACK_VECTOR_NETWORK
@@ -496,6 +504,8 @@ components:
                   x-dcl-go-type: NoteVulnerabilityCvssV3AttackVectorEnum
                   x-kubernetes-immutable: true
                 availabilityImpact:
+                  description: ' Possible values: IMPACT_UNSPECIFIED, IMPACT_HIGH,
+                    IMPACT_LOW, IMPACT_NONE'
                   enum:
                   - IMPACT_UNSPECIFIED
                   - IMPACT_HIGH
@@ -512,6 +522,8 @@ components:
                   x-dcl-go-name: BaseScore
                   x-kubernetes-immutable: true
                 confidentialityImpact:
+                  description: ' Possible values: IMPACT_UNSPECIFIED, IMPACT_HIGH,
+                    IMPACT_LOW, IMPACT_NONE'
                   enum:
                   - IMPACT_UNSPECIFIED
                   - IMPACT_HIGH
@@ -532,6 +544,8 @@ components:
                   x-dcl-go-name: ImpactScore
                   x-kubernetes-immutable: true
                 integrityImpact:
+                  description: ' Possible values: IMPACT_UNSPECIFIED, IMPACT_HIGH,
+                    IMPACT_LOW, IMPACT_NONE'
                   enum:
                   - IMPACT_UNSPECIFIED
                   - IMPACT_HIGH
@@ -542,6 +556,8 @@ components:
                   x-dcl-go-type: NoteVulnerabilityCvssV3IntegrityImpactEnum
                   x-kubernetes-immutable: true
                 privilegesRequired:
+                  description: ' Possible values: PRIVILEGES_REQUIRED_UNSPECIFIED,
+                    PRIVILEGES_REQUIRED_NONE, PRIVILEGES_REQUIRED_LOW, PRIVILEGES_REQUIRED_HIGH'
                   enum:
                   - PRIVILEGES_REQUIRED_UNSPECIFIED
                   - PRIVILEGES_REQUIRED_NONE
@@ -552,6 +568,8 @@ components:
                   x-dcl-go-type: NoteVulnerabilityCvssV3PrivilegesRequiredEnum
                   x-kubernetes-immutable: true
                 scope:
+                  description: ' Possible values: SCOPE_UNSPECIFIED, SCOPE_UNCHANGED,
+                    SCOPE_CHANGED'
                   enum:
                   - SCOPE_UNSPECIFIED
                   - SCOPE_UNCHANGED
@@ -561,6 +579,8 @@ components:
                   x-dcl-go-type: NoteVulnerabilityCvssV3ScopeEnum
                   x-kubernetes-immutable: true
                 userInteraction:
+                  description: ' Possible values: USER_INTERACTION_UNSPECIFIED, USER_INTERACTION_NONE,
+                    USER_INTERACTION_REQUIRED'
                   enum:
                   - USER_INTERACTION_UNSPECIFIED
                   - USER_INTERACTION_NONE
@@ -612,8 +632,10 @@ components:
                         x-dcl-go-name: FullName
                         x-kubernetes-immutable: true
                       kind:
-                        description: Required. Distinguishes between sentinel MIN/MAX
-                          versions and normal versions.
+                        description: 'Required. Distinguishes between sentinel MIN/MAX
+                          versions and normal versions. Possible values: NOTE_KIND_UNSPECIFIED,
+                          VULNERABILITY, BUILD, IMAGE, PACKAGE, DEPLOYMENT, DISCOVERY,
+                          ATTESTATION, UPGRADE'
                         enum:
                         - NOTE_KIND_UNSPECIFIED
                         - VULNERABILITY
@@ -669,8 +691,10 @@ components:
                         x-dcl-go-name: FullName
                         x-kubernetes-immutable: true
                       kind:
-                        description: Required. Distinguishes between sentinel MIN/MAX
-                          versions and normal versions.
+                        description: 'Required. Distinguishes between sentinel MIN/MAX
+                          versions and normal versions. Possible values: NOTE_KIND_UNSPECIFIED,
+                          VULNERABILITY, BUILD, IMAGE, PACKAGE, DEPLOYMENT, DISCOVERY,
+                          ATTESTATION, UPGRADE'
                         enum:
                         - NOTE_KIND_UNSPECIFIED
                         - VULNERABILITY
@@ -741,8 +765,10 @@ components:
                         x-dcl-go-name: FullName
                         x-kubernetes-immutable: true
                       kind:
-                        description: Required. Distinguishes between sentinel MIN/MAX
-                          versions and normal versions.
+                        description: 'Required. Distinguishes between sentinel MIN/MAX
+                          versions and normal versions. Possible values: NOTE_KIND_UNSPECIFIED,
+                          VULNERABILITY, BUILD, IMAGE, PACKAGE, DEPLOYMENT, DISCOVERY,
+                          ATTESTATION, UPGRADE'
                         enum:
                         - NOTE_KIND_UNSPECIFIED
                         - VULNERABILITY
@@ -810,7 +836,9 @@ components:
               x-dcl-list-type: list
               x-kubernetes-immutable: true
             severity:
-              description: The note provider assigned severity of this vulnerability.
+              description: 'The note provider assigned severity of this vulnerability.
+                Possible values: SEVERITY_UNSPECIFIED, MINIMAL, LOW, MEDIUM, HIGH,
+                CRITICAL'
               enum:
               - SEVERITY_UNSPECIFIED
               - MINIMAL
@@ -911,8 +939,35 @@ info:
   title: Containeranalysis/Note
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Note
+  apply:
+    description: The function used to apply information about a Note
+    parameters:
+    - description: A full instance of a Note
+      name: Note
+      required: true
+  delete:
+    description: The function used to delete a Note
+    parameters:
+    - description: A full instance of a Note
+      name: Note
+      required: true
+  deleteAll:
+    description: The function used to delete all Note
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Note
+    parameters:
+    - description: A full instance of a Note
+      name: Note
+      required: true
+  list:
+    description: The function used to list information about many Note
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

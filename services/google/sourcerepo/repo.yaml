@@ -83,8 +83,35 @@ info:
   title: Sourcerepo/Repo
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Repo
+  apply:
+    description: The function used to apply information about a Repo
+    parameters:
+    - description: A full instance of a Repo
+      name: Repo
+      required: true
+  delete:
+    description: The function used to delete a Repo
+    parameters:
+    - description: A full instance of a Repo
+      name: Repo
+      required: true
+  deleteAll:
+    description: The function used to delete all Repo
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Repo
+    parameters:
+    - description: A full instance of a Repo
+      name: Repo
+      required: true
+  list:
+    description: The function used to list information about many Repo
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

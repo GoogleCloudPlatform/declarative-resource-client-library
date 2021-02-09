@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -24,7 +25,7 @@ import (
 type Instance struct {
 	Name                   *string                            `json:"name"`
 	DisplayName            *string                            `json:"displayName"`
-	Labels                 []InstanceLabels                   `json:"labels"`
+	Labels                 map[string]string                  `json:"labels"`
 	LocationId             *string                            `json:"locationId"`
 	AlternativeLocationId  *string                            `json:"alternativeLocationId"`
 	RedisVersion           *string                            `json:"redisVersion"`
@@ -35,7 +36,7 @@ type Instance struct {
 	CreateTime             *string                            `json:"createTime"`
 	State                  *InstanceStateEnum                 `json:"state"`
 	StatusMessage          *string                            `json:"statusMessage"`
-	RedisConfigs           []InstanceRedisConfigs             `json:"redisConfigs"`
+	RedisConfigs           map[string]string                  `json:"redisConfigs"`
 	Tier                   *InstanceTierEnum                  `json:"tier"`
 	MemorySizeGb           *int64                             `json:"memorySizeGb"`
 	AuthorizedNetwork      *string                            `json:"authorizedNetwork"`
@@ -190,50 +191,6 @@ func (v InstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum) Validate() erro
 	}
 }
 
-type InstanceLabels struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this InstanceLabels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceLabels *InstanceLabels = &InstanceLabels{empty: true}
-
-func (r *InstanceLabels) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceLabels) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceRedisConfigs struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this InstanceRedisConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceRedisConfigs *InstanceRedisConfigs = &InstanceRedisConfigs{empty: true}
-
-func (r *InstanceRedisConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceRedisConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type InstanceServerCaCerts struct {
 	empty           bool    `json:"-"`
 	SerialNumber    *string `json:"serialNumber"`
@@ -287,7 +244,7 @@ type InstanceMaintenancePolicyWeeklyMaintenanceWindow struct {
 	empty     bool                                                       `json:"-"`
 	Day       *InstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum   `json:"day"`
 	StartTime *InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime `json:"startTime"`
-	Duration  *InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration  `json:"duration"`
+	Duration  *string                                                    `json:"duration"`
 }
 
 // This object is used to assert a desired state where this InstanceMaintenancePolicyWeeklyMaintenanceWindow is
@@ -324,28 +281,6 @@ func (r *InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime) String() str
 }
 
 func (r *InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceMaintenancePolicyWeeklyMaintenanceWindowDuration *InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration = &InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration{empty: true}
-
-func (r *InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceMaintenancePolicyWeeklyMaintenanceWindowDuration) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -551,7 +486,9 @@ func (c *Client) ApplyInstance(ctx context.Context, rawDesired *Instance, opts .
 	if create {
 		ops = append(ops, &createInstanceOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteInstanceOperation{})
+
 		ops = append(ops, &createInstanceOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeInstanceDesiredState(rawDesired, nil)

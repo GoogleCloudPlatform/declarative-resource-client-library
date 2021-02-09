@@ -74,11 +74,13 @@ func (s *DatabaseServer) ApplySqlBetaDatabase(ctx context.Context, request *beta
 
 // DeleteDatabase handles the gRPC request by passing it to the underlying Database Delete() method.
 func (s *DatabaseServer) DeleteSqlBetaDatabase(ctx context.Context, request *betapb.DeleteSqlBetaDatabaseRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigDatabase(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteDatabase(ctx, ProtoToDatabase(request.GetResource()))
+
 }
 
 // ListDatabase handles the gRPC request by passing it to the underlying DatabaseList() method.

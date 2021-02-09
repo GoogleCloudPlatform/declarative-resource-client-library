@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -460,7 +461,9 @@ func (c *Client) ApplyInterconnect(ctx context.Context, rawDesired *Interconnect
 	if create {
 		ops = append(ops, &createInterconnectOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteInterconnectOperation{})
+
 		ops = append(ops, &createInterconnectOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeInterconnectDesiredState(rawDesired, nil)

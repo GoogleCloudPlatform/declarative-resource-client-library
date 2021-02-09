@@ -23,7 +23,6 @@ class Job(object):
         self,
         name: str = None,
         description: str = None,
-        labels: list = None,
         pubsub_target: dict = None,
         app_engine_http_target: dict = None,
         http_target: dict = None,
@@ -32,15 +31,10 @@ class Job(object):
         user_update_time: str = None,
         state: str = None,
         status: dict = None,
-        total_attempt_count: int = None,
-        failed_attempt_count: int = None,
-        total_execution_count: int = None,
-        failed_execution_count: int = None,
-        view: str = None,
         schedule_time: str = None,
         last_attempt_time: str = None,
         retry_config: dict = None,
-        attempt_deadline: dict = None,
+        attempt_deadline: str = None,
         project: str = None,
         location: str = None,
         service_account_file: str = "",
@@ -49,7 +43,6 @@ class Job(object):
         channel.initialize()
         self.name = name
         self.description = description
-        self.labels = labels
         self.pubsub_target = pubsub_target
         self.app_engine_http_target = app_engine_http_target
         self.http_target = http_target
@@ -70,8 +63,6 @@ class Job(object):
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
-        if JobLabelsArray.to_proto(self.labels):
-            request.resource.labels.extend(JobLabelsArray.to_proto(self.labels))
         if JobPubsubTarget.to_proto(self.pubsub_target):
             request.resource.pubsub_target.CopyFrom(
                 JobPubsubTarget.to_proto(self.pubsub_target)
@@ -102,12 +93,11 @@ class Job(object):
             )
         else:
             request.resource.ClearField("retry_config")
-        if JobAttemptDeadline.to_proto(self.attempt_deadline):
-            request.resource.attempt_deadline.CopyFrom(
-                JobAttemptDeadline.to_proto(self.attempt_deadline)
+        if Primitive.to_proto(self.attempt_deadline):
+            request.resource.attempt_deadline = Primitive.to_proto(
+                self.attempt_deadline
             )
-        else:
-            request.resource.ClearField("attempt_deadline")
+
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -119,7 +109,6 @@ class Job(object):
         response = stub.ApplyCloudschedulerJob(request)
         self.name = Primitive.from_proto(response.name)
         self.description = Primitive.from_proto(response.description)
-        self.labels = JobLabelsArray.from_proto(response.labels)
         self.pubsub_target = JobPubsubTarget.from_proto(response.pubsub_target)
         self.app_engine_http_target = JobAppEngineHttpTarget.from_proto(
             response.app_engine_http_target
@@ -130,19 +119,10 @@ class Job(object):
         self.user_update_time = Primitive.from_proto(response.user_update_time)
         self.state = JobStateEnum.from_proto(response.state)
         self.status = JobStatus.from_proto(response.status)
-        self.total_attempt_count = Primitive.from_proto(response.total_attempt_count)
-        self.failed_attempt_count = Primitive.from_proto(response.failed_attempt_count)
-        self.total_execution_count = Primitive.from_proto(
-            response.total_execution_count
-        )
-        self.failed_execution_count = Primitive.from_proto(
-            response.failed_execution_count
-        )
-        self.view = JobViewEnum.from_proto(response.view)
         self.schedule_time = Primitive.from_proto(response.schedule_time)
         self.last_attempt_time = Primitive.from_proto(response.last_attempt_time)
         self.retry_config = JobRetryConfig.from_proto(response.retry_config)
-        self.attempt_deadline = JobAttemptDeadline.from_proto(response.attempt_deadline)
+        self.attempt_deadline = Primitive.from_proto(response.attempt_deadline)
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
 
@@ -179,7 +159,6 @@ class Job(object):
         res = Job()
         res.name = Primitive.from_proto(res_proto.name)
         res.description = Primitive.from_proto(res_proto.description)
-        res.labels = JobLabelsArray.from_proto(res_proto.labels)
         res.pubsub_target = JobPubsubTarget.from_proto(res_proto.pubsub_target)
         res.app_engine_http_target = JobAppEngineHttpTarget.from_proto(
             res_proto.app_engine_http_target
@@ -190,64 +169,18 @@ class Job(object):
         res.user_update_time = Primitive.from_proto(res_proto.user_update_time)
         res.state = JobStateEnum.from_proto(res_proto.state)
         res.status = JobStatus.from_proto(res_proto.status)
-        res.total_attempt_count = Primitive.from_proto(res_proto.total_attempt_count)
-        res.failed_attempt_count = Primitive.from_proto(res_proto.failed_attempt_count)
-        res.total_execution_count = Primitive.from_proto(
-            res_proto.total_execution_count
-        )
-        res.failed_execution_count = Primitive.from_proto(
-            res_proto.failed_execution_count
-        )
-        res.view = JobViewEnum.from_proto(res_proto.view)
         res.schedule_time = Primitive.from_proto(res_proto.schedule_time)
         res.last_attempt_time = Primitive.from_proto(res_proto.last_attempt_time)
         res.retry_config = JobRetryConfig.from_proto(res_proto.retry_config)
-        res.attempt_deadline = JobAttemptDeadline.from_proto(res_proto.attempt_deadline)
+        res.attempt_deadline = Primitive.from_proto(res_proto.attempt_deadline)
         res.project = Primitive.from_proto(res_proto.project)
         res.location = Primitive.from_proto(res_proto.location)
         return res
 
 
-class JobLabels(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = job_pb2.CloudschedulerJobLabels()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return JobLabels(key=resource.key, value=resource.value,)
-
-
-class JobLabelsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [JobLabels.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [JobLabels.from_proto(i) for i in resources]
-
-
 class JobPubsubTarget(object):
     def __init__(
-        self, topic_name: str = None, data: str = None, attributes: list = None
+        self, topic_name: str = None, data: str = None, attributes: dict = None
     ):
         self.topic_name = topic_name
         self.data = data
@@ -263,10 +196,8 @@ class JobPubsubTarget(object):
             res.topic_name = Primitive.to_proto(resource.topic_name)
         if Primitive.to_proto(resource.data):
             res.data = Primitive.to_proto(resource.data)
-        if JobPubsubTargetAttributesArray.to_proto(resource.attributes):
-            res.attributes.extend(
-                JobPubsubTargetAttributesArray.to_proto(resource.attributes)
-            )
+        if Primitive.to_proto(resource.attributes):
+            res.attributes = Primitive.to_proto(resource.attributes)
         return res
 
     @classmethod
@@ -293,50 +224,13 @@ class JobPubsubTargetArray(object):
         return [JobPubsubTarget.from_proto(i) for i in resources]
 
 
-class JobPubsubTargetAttributes(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = job_pb2.CloudschedulerJobPubsubTargetAttributes()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return JobPubsubTargetAttributes(key=resource.key, value=resource.value,)
-
-
-class JobPubsubTargetAttributesArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [JobPubsubTargetAttributes.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [JobPubsubTargetAttributes.from_proto(i) for i in resources]
-
-
 class JobAppEngineHttpTarget(object):
     def __init__(
         self,
         http_method: str = None,
         app_engine_routing: dict = None,
         relative_uri: str = None,
-        headers: list = None,
+        headers: dict = None,
         body: str = None,
     ):
         self.http_method = http_method
@@ -365,10 +259,8 @@ class JobAppEngineHttpTarget(object):
             res.ClearField("app_engine_routing")
         if Primitive.to_proto(resource.relative_uri):
             res.relative_uri = Primitive.to_proto(resource.relative_uri)
-        if JobAppEngineHttpTargetHeadersArray.to_proto(resource.headers):
-            res.headers.extend(
-                JobAppEngineHttpTargetHeadersArray.to_proto(resource.headers)
-            )
+        if Primitive.to_proto(resource.headers):
+            res.headers = Primitive.to_proto(resource.headers)
         if Primitive.to_proto(resource.body):
             res.body = Primitive.to_proto(resource.body)
         return res
@@ -453,49 +345,12 @@ class JobAppEngineHttpTargetAppEngineRoutingArray(object):
         return [JobAppEngineHttpTargetAppEngineRouting.from_proto(i) for i in resources]
 
 
-class JobAppEngineHttpTargetHeaders(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = job_pb2.CloudschedulerJobAppEngineHttpTargetHeaders()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return JobAppEngineHttpTargetHeaders(key=resource.key, value=resource.value,)
-
-
-class JobAppEngineHttpTargetHeadersArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [JobAppEngineHttpTargetHeaders.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [JobAppEngineHttpTargetHeaders.from_proto(i) for i in resources]
-
-
 class JobHttpTarget(object):
     def __init__(
         self,
         uri: str = None,
         http_method: str = None,
-        headers: list = None,
+        headers: dict = None,
         body: str = None,
         oauth_token: dict = None,
         oidc_token: dict = None,
@@ -517,8 +372,8 @@ class JobHttpTarget(object):
             res.uri = Primitive.to_proto(resource.uri)
         if JobHttpTargetHttpMethodEnum.to_proto(resource.http_method):
             res.http_method = JobHttpTargetHttpMethodEnum.to_proto(resource.http_method)
-        if JobHttpTargetHeadersArray.to_proto(resource.headers):
-            res.headers.extend(JobHttpTargetHeadersArray.to_proto(resource.headers))
+        if Primitive.to_proto(resource.headers):
+            res.headers = Primitive.to_proto(resource.headers)
         if Primitive.to_proto(resource.body):
             res.body = Primitive.to_proto(resource.body)
         if JobHttpTargetOAuthToken.to_proto(resource.oauth_token):
@@ -560,43 +415,6 @@ class JobHttpTargetArray(object):
     @classmethod
     def from_proto(self, resources):
         return [JobHttpTarget.from_proto(i) for i in resources]
-
-
-class JobHttpTargetHeaders(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = job_pb2.CloudschedulerJobHttpTargetHeaders()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return JobHttpTargetHeaders(key=resource.key, value=resource.value,)
-
-
-class JobHttpTargetHeadersArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [JobHttpTargetHeaders.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [JobHttpTargetHeaders.from_proto(i) for i in resources]
 
 
 class JobHttpTargetOAuthToken(object):
@@ -765,9 +583,9 @@ class JobRetryConfig(object):
     def __init__(
         self,
         retry_count: int = None,
-        max_retry_duration: dict = None,
-        min_backoff_duration: dict = None,
-        max_backoff_duration: dict = None,
+        max_retry_duration: str = None,
+        min_backoff_duration: str = None,
+        max_backoff_duration: str = None,
         max_doublings: int = None,
     ):
         self.retry_count = retry_count
@@ -784,24 +602,12 @@ class JobRetryConfig(object):
         res = job_pb2.CloudschedulerJobRetryConfig()
         if Primitive.to_proto(resource.retry_count):
             res.retry_count = Primitive.to_proto(resource.retry_count)
-        if JobRetryConfigMaxRetryDuration.to_proto(resource.max_retry_duration):
-            res.max_retry_duration.CopyFrom(
-                JobRetryConfigMaxRetryDuration.to_proto(resource.max_retry_duration)
-            )
-        else:
-            res.ClearField("max_retry_duration")
-        if JobRetryConfigMinBackoffDuration.to_proto(resource.min_backoff_duration):
-            res.min_backoff_duration.CopyFrom(
-                JobRetryConfigMinBackoffDuration.to_proto(resource.min_backoff_duration)
-            )
-        else:
-            res.ClearField("min_backoff_duration")
-        if JobRetryConfigMaxBackoffDuration.to_proto(resource.max_backoff_duration):
-            res.max_backoff_duration.CopyFrom(
-                JobRetryConfigMaxBackoffDuration.to_proto(resource.max_backoff_duration)
-            )
-        else:
-            res.ClearField("max_backoff_duration")
+        if Primitive.to_proto(resource.max_retry_duration):
+            res.max_retry_duration = Primitive.to_proto(resource.max_retry_duration)
+        if Primitive.to_proto(resource.min_backoff_duration):
+            res.min_backoff_duration = Primitive.to_proto(resource.min_backoff_duration)
+        if Primitive.to_proto(resource.max_backoff_duration):
+            res.max_backoff_duration = Primitive.to_proto(resource.max_backoff_duration)
         if Primitive.to_proto(resource.max_doublings):
             res.max_doublings = Primitive.to_proto(resource.max_doublings)
         return res
@@ -830,160 +636,6 @@ class JobRetryConfigArray(object):
     @classmethod
     def from_proto(self, resources):
         return [JobRetryConfig.from_proto(i) for i in resources]
-
-
-class JobRetryConfigMaxRetryDuration(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = job_pb2.CloudschedulerJobRetryConfigMaxRetryDuration()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return JobRetryConfigMaxRetryDuration(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class JobRetryConfigMaxRetryDurationArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [JobRetryConfigMaxRetryDuration.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [JobRetryConfigMaxRetryDuration.from_proto(i) for i in resources]
-
-
-class JobRetryConfigMinBackoffDuration(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = job_pb2.CloudschedulerJobRetryConfigMinBackoffDuration()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return JobRetryConfigMinBackoffDuration(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class JobRetryConfigMinBackoffDurationArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [JobRetryConfigMinBackoffDuration.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [JobRetryConfigMinBackoffDuration.from_proto(i) for i in resources]
-
-
-class JobRetryConfigMaxBackoffDuration(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = job_pb2.CloudschedulerJobRetryConfigMaxBackoffDuration()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return JobRetryConfigMaxBackoffDuration(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class JobRetryConfigMaxBackoffDurationArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [JobRetryConfigMaxBackoffDuration.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [JobRetryConfigMaxBackoffDuration.from_proto(i) for i in resources]
-
-
-class JobAttemptDeadline(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = job_pb2.CloudschedulerJobAttemptDeadline()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return JobAttemptDeadline(seconds=resource.seconds, nanos=resource.nanos,)
-
-
-class JobAttemptDeadlineArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [JobAttemptDeadline.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [JobAttemptDeadline.from_proto(i) for i in resources]
 
 
 class JobAppEngineHttpTargetHttpMethodEnum(object):
@@ -1037,24 +689,6 @@ class JobStateEnum(object):
             return resource
         return job_pb2.CloudschedulerJobStateEnum.Name(resource)[
             len("CloudschedulerJobStateEnum") :
-        ]
-
-
-class JobViewEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return job_pb2.CloudschedulerJobViewEnum.Value(
-            "CloudschedulerJobViewEnum%s" % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return job_pb2.CloudschedulerJobViewEnum.Name(resource)[
-            len("CloudschedulerJobViewEnum") :
         ]
 
 

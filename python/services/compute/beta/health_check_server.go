@@ -513,11 +513,13 @@ func (s *HealthCheckServer) ApplyComputeBetaHealthCheck(ctx context.Context, req
 
 // DeleteHealthCheck handles the gRPC request by passing it to the underlying HealthCheck Delete() method.
 func (s *HealthCheckServer) DeleteComputeBetaHealthCheck(ctx context.Context, request *betapb.DeleteComputeBetaHealthCheckRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigHealthCheck(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteHealthCheck(ctx, ProtoToHealthCheck(request.GetResource()))
+
 }
 
 // ListHealthCheck handles the gRPC request by passing it to the underlying HealthCheckList() method.

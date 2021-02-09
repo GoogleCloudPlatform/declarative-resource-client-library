@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Instance) validate() error {
@@ -37,9 +38,6 @@ func (r *Instance) validate() error {
 	if err := dcl.RequiredParameter(r.Location, "Location"); err != nil {
 		return err
 	}
-	return nil
-}
-func (r *InstanceLabels) validate() error {
 	return nil
 }
 func (r *InstanceFileShares) validate() error {
@@ -116,9 +114,7 @@ func newUpdateInstanceUpdateInstanceRequest(ctx context.Context, f *Instance, c 
 	if v := f.Tier; !dcl.IsEmptyValueIndirect(v) {
 		req["tier"] = v
 	}
-	if v, err := expandInstanceLabelsSlice(c, f.Labels); err != nil {
-		return nil, fmt.Errorf("error expanding Labels into labels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
 	}
 	if v, err := expandInstanceFileSharesSlice(c, f.FileShares); err != nil {
@@ -390,12 +386,12 @@ func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Ins
 			c.Config.Logger.Warningf("Failed to retrieve whether a Instance resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Instance resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Instance resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeInstanceDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Instance: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Instance: %v", rawDesired)
 
@@ -488,13 +484,7 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 
 func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Instance, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Name, rawNew.Name) {
-			rawNew.Name = rawDesired.Name
-		}
-	}
+	rawNew.Name = rawDesired.Name
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
@@ -541,81 +531,11 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
-	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
-		rawNew.Location = rawDesired.Location
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Location, rawNew.Location) {
-			rawNew.Location = rawDesired.Location
-		}
-	}
+	rawNew.Location = rawDesired.Location
 
 	return rawNew, nil
-}
-
-func canonicalizeInstanceLabels(des, initial *InstanceLabels, opts ...dcl.ApplyOption) *InstanceLabels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Instance)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewInstanceLabels(c *Client, des, nw *InstanceLabels) *InstanceLabels {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstanceLabelsSet(c *Client, des, nw []InstanceLabels) []InstanceLabels {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceLabels
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareInstanceLabels(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
 }
 
 func canonicalizeInstanceFileShares(des, initial *InstanceFileShares, opts ...dcl.ApplyOption) *InstanceFileShares {
@@ -838,15 +758,8 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []instanceDiff
-	if !dcl.IsZeroValue(desired.Name) && !dcl.NameToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
-		diffs = append(diffs, instanceDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
-	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
@@ -855,7 +768,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.Tier) && (dcl.IsZeroValue(actual.Tier) || !reflect.DeepEqual(*desired.Tier, *actual.Tier)) {
-		c.Config.Logger.Infof("Detected diff in Tier.\nDESIRED: %#v\nACTUAL: %#v", desired.Tier, actual.Tier)
+		c.Config.Logger.Infof("Detected diff in Tier.\nDESIRED: %v\nACTUAL: %v", desired.Tier, actual.Tier)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
@@ -863,8 +776,8 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if compareInstanceLabelsSlice(c, desired.Labels, actual.Labels) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %#v\nACTUAL: %#v", desired.Labels, actual.Labels)
+	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
+		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
@@ -873,7 +786,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if compareInstanceFileSharesSlice(c, desired.FileShares, actual.FileShares) {
-		c.Config.Logger.Infof("Detected diff in FileShares.\nDESIRED: %#v\nACTUAL: %#v", desired.FileShares, actual.FileShares)
+		c.Config.Logger.Infof("Detected diff in FileShares.\nDESIRED: %v\nACTUAL: %v", desired.FileShares, actual.FileShares)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
@@ -882,7 +795,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if compareInstanceNetworksSlice(c, desired.Networks, actual.Networks) {
-		c.Config.Logger.Infof("Detected diff in Networks.\nDESIRED: %#v\nACTUAL: %#v", desired.Networks, actual.Networks)
+		c.Config.Logger.Infof("Detected diff in Networks.\nDESIRED: %v\nACTUAL: %v", desired.Networks, actual.Networks)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
@@ -891,27 +804,13 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.Etag) && (dcl.IsZeroValue(actual.Etag) || !reflect.DeepEqual(*desired.Etag, *actual.Etag)) {
-		c.Config.Logger.Infof("Detected diff in Etag.\nDESIRED: %#v\nACTUAL: %#v", desired.Etag, actual.Etag)
+		c.Config.Logger.Infof("Detected diff in Etag.\nDESIRED: %v\nACTUAL: %v", desired.Etag, actual.Etag)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
 			FieldName: "Etag",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, instanceDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Location) && !dcl.NameToSelfLink(desired.Location, actual.Location) {
-		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
-		diffs = append(diffs, instanceDiff{
-			RequiresRecreate: true,
-			FieldName:        "Location",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
@@ -936,45 +835,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 	}
 
 	return deduped, nil
-}
-func compareInstanceLabelsSlice(c *Client, desired, actual []InstanceLabels) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceLabels, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareInstanceLabels(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceLabels, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareInstanceLabels(c *Client, desired, actual *InstanceLabels) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
 }
 func compareInstanceFileSharesSlice(c *Client, desired, actual []InstanceFileShares) bool {
 	if len(desired) != len(actual) {
@@ -1316,9 +1176,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	if v := f.Tier; !dcl.IsEmptyValueIndirect(v) {
 		m["tier"] = v
 	}
-	if v, err := expandInstanceLabelsSlice(c, f.Labels); err != nil {
-		return nil, fmt.Errorf("error expanding Labels into labels: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
 	}
 	if v, err := expandInstanceFileSharesSlice(c, f.FileShares); err != nil {
@@ -1366,126 +1224,12 @@ func flattenInstance(c *Client, i interface{}) *Instance {
 	r.StatusMessage = dcl.FlattenString(m["statusMessage"])
 	r.CreateTime = dcl.FlattenString(m["createTime"])
 	r.Tier = flattenInstanceTierEnum(m["tier"])
-	r.Labels = flattenInstanceLabelsSlice(c, m["labels"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	r.FileShares = flattenInstanceFileSharesSlice(c, m["fileShares"])
 	r.Networks = flattenInstanceNetworksSlice(c, m["networks"])
 	r.Etag = dcl.FlattenString(m["etag"])
 	r.Project = dcl.FlattenString(m["project"])
 	r.Location = dcl.FlattenString(m["location"])
-
-	return r
-}
-
-// expandInstanceLabelsMap expands the contents of InstanceLabels into a JSON
-// request object.
-func expandInstanceLabelsMap(c *Client, f map[string]InstanceLabels) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceLabels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceLabelsSlice expands the contents of InstanceLabels into a JSON
-// request object.
-func expandInstanceLabelsSlice(c *Client, f []InstanceLabels) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceLabels(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceLabelsMap flattens the contents of InstanceLabels from a JSON
-// response object.
-func flattenInstanceLabelsMap(c *Client, i interface{}) map[string]InstanceLabels {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceLabels{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceLabels{}
-	}
-
-	items := make(map[string]InstanceLabels)
-	for k, item := range a {
-		items[k] = *flattenInstanceLabels(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceLabelsSlice flattens the contents of InstanceLabels from a JSON
-// response object.
-func flattenInstanceLabelsSlice(c *Client, i interface{}) []InstanceLabels {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceLabels{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceLabels{}
-	}
-
-	items := make([]InstanceLabels, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceLabels(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceLabels expands an instance of InstanceLabels into a JSON
-// request object.
-func expandInstanceLabels(c *Client, f *InstanceLabels) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceLabels flattens an instance of InstanceLabels from a JSON
-// response object.
-func flattenInstanceLabels(c *Client, i interface{}) *InstanceLabels {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceLabels{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
 
 	return r
 }

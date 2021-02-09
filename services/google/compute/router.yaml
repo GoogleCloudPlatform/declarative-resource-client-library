@@ -185,7 +185,8 @@ components:
                 - field: selfLink
                   resource: Compute/VpnTunnel
               managementType:
-                description: The resource that configures and manages this interface.
+                description: 'The resource that configures and manages this interface.
+                  Possible values: MANAGED_BY_USER, MANAGED_BY_ATTACHMENT'
                 enum:
                 - MANAGED_BY_USER
                 - MANAGED_BY_ATTACHMENT
@@ -242,9 +243,10 @@ components:
                     type: boolean
                     x-dcl-go-name: Enable
                   filter:
-                    description: Specify the desired filtering of logs on this NAT.
+                    description: 'Specify the desired filtering of logs on this NAT.
                       If unspecified, logs are exported for all connections handled
-                      by this NAT.
+                      by this NAT. Possible values: ERRORS_ONLY, TRANSLATIONS_ONLY,
+                      ALL'
                     enum:
                     - ERRORS_ONLY
                     - TRANSLATIONS_ONLY
@@ -287,7 +289,8 @@ components:
                 x-dcl-go-name: NatIps
                 x-dcl-list-type: list
               sourceSubnetworkIPRangesToNat:
-                description: Unique name of this Nat service
+                description: 'Unique name of this Nat service Possible values: ALL_SUBNETWORKS_ALL_IP_RANGES,
+                  ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES, LIST_OF_SUBNETWORKS'
                 enum:
                 - ALL_SUBNETWORKS_ALL_IP_RANGES
                 - ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES
@@ -381,10 +384,43 @@ info:
   title: Compute/Router
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Router
+  apply:
+    description: The function used to apply information about a Router
+    parameters:
+    - description: A full instance of a Router
+      name: Router
+      required: true
+  delete:
+    description: The function used to delete a Router
+    parameters:
+    - description: A full instance of a Router
+      name: Router
+      required: true
+  deleteAll:
+    description: The function used to delete all Router
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: region
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Router
+    parameters:
+    - description: A full instance of a Router
+      name: Router
+      required: true
+  list:
+    description: The function used to list information about many Router
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: region
+      required: true
+      schema:
+        type: string

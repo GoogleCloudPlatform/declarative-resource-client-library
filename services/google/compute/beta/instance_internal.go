@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Instance) validate() error {
@@ -1030,12 +1031,12 @@ func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Ins
 			c.Config.Logger.Warningf("Failed to retrieve whether a Instance resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Instance resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Instance resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeInstanceDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Instance: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Instance: %v", rawDesired)
 
@@ -1277,13 +1278,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
@@ -2022,14 +2017,14 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	var diffs []instanceDiff
 	if !dcl.IsZeroValue(desired.CanIPForward) && (dcl.IsZeroValue(actual.CanIPForward) || !reflect.DeepEqual(*desired.CanIPForward, *actual.CanIPForward)) {
-		c.Config.Logger.Infof("Detected diff in CanIPForward.\nDESIRED: %#v\nACTUAL: %#v", desired.CanIPForward, actual.CanIPForward)
+		c.Config.Logger.Infof("Detected diff in CanIPForward.\nDESIRED: %v\nACTUAL: %v", desired.CanIPForward, actual.CanIPForward)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "CanIPForward",
 		})
 	}
 	if !dcl.IsZeroValue(desired.DeletionProtection) && (dcl.IsZeroValue(actual.DeletionProtection) || !reflect.DeepEqual(*desired.DeletionProtection, *actual.DeletionProtection)) {
-		c.Config.Logger.Infof("Detected diff in DeletionProtection.\nDESIRED: %#v\nACTUAL: %#v", desired.DeletionProtection, actual.DeletionProtection)
+		c.Config.Logger.Infof("Detected diff in DeletionProtection.\nDESIRED: %v\nACTUAL: %v", desired.DeletionProtection, actual.DeletionProtection)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceSetDeletionProtectionOperation{},
@@ -2038,28 +2033,28 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
 	if compareInstanceGuestAcceleratorsSlice(c, desired.GuestAccelerators, actual.GuestAccelerators) {
-		c.Config.Logger.Infof("Detected diff in GuestAccelerators.\nDESIRED: %#v\nACTUAL: %#v", desired.GuestAccelerators, actual.GuestAccelerators)
+		c.Config.Logger.Infof("Detected diff in GuestAccelerators.\nDESIRED: %v\nACTUAL: %v", desired.GuestAccelerators, actual.GuestAccelerators)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "GuestAccelerators",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Hostname) && (dcl.IsZeroValue(actual.Hostname) || !reflect.DeepEqual(*desired.Hostname, *actual.Hostname)) {
-		c.Config.Logger.Infof("Detected diff in Hostname.\nDESIRED: %#v\nACTUAL: %#v", desired.Hostname, actual.Hostname)
+		c.Config.Logger.Infof("Detected diff in Hostname.\nDESIRED: %v\nACTUAL: %v", desired.Hostname, actual.Hostname)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "Hostname",
 		})
 	}
 	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %#v\nACTUAL: %#v", desired.Labels, actual.Labels)
+		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceSetLabelsOperation{},
@@ -2068,7 +2063,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !reflect.DeepEqual(desired.Metadata, actual.Metadata) {
-		c.Config.Logger.Infof("Detected diff in Metadata.\nDESIRED: %#v\nACTUAL: %#v", desired.Metadata, actual.Metadata)
+		c.Config.Logger.Infof("Detected diff in Metadata.\nDESIRED: %v\nACTUAL: %v", desired.Metadata, actual.Metadata)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceSetMetadataOperation{},
@@ -2077,7 +2072,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.MachineType) && !dcl.PartialSelfLinkToSelfLink(desired.MachineType, actual.MachineType) {
-		c.Config.Logger.Infof("Detected diff in MachineType.\nDESIRED: %#v\nACTUAL: %#v", desired.MachineType, actual.MachineType)
+		c.Config.Logger.Infof("Detected diff in MachineType.\nDESIRED: %v\nACTUAL: %v", desired.MachineType, actual.MachineType)
 		switch *desired.Status {
 		case "TERMINATED":
 		case "RUNNING":
@@ -2107,42 +2102,42 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		}
 	}
 	if !dcl.IsZeroValue(desired.MinCpuPlatform) && (dcl.IsZeroValue(actual.MinCpuPlatform) || !reflect.DeepEqual(*desired.MinCpuPlatform, *actual.MinCpuPlatform)) {
-		c.Config.Logger.Infof("Detected diff in MinCpuPlatform.\nDESIRED: %#v\nACTUAL: %#v", desired.MinCpuPlatform, actual.MinCpuPlatform)
+		c.Config.Logger.Infof("Detected diff in MinCpuPlatform.\nDESIRED: %v\nACTUAL: %v", desired.MinCpuPlatform, actual.MinCpuPlatform)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "MinCpuPlatform",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if compareInstanceNetworkInterfacesSlice(c, desired.NetworkInterfaces, actual.NetworkInterfaces) {
-		c.Config.Logger.Infof("Detected diff in NetworkInterfaces.\nDESIRED: %#v\nACTUAL: %#v", desired.NetworkInterfaces, actual.NetworkInterfaces)
+		c.Config.Logger.Infof("Detected diff in NetworkInterfaces.\nDESIRED: %v\nACTUAL: %v", desired.NetworkInterfaces, actual.NetworkInterfaces)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "NetworkInterfaces",
 		})
 	}
 	if compareInstanceScheduling(c, desired.Scheduling, actual.Scheduling) {
-		c.Config.Logger.Infof("Detected diff in Scheduling.\nDESIRED: %#v\nACTUAL: %#v", desired.Scheduling, actual.Scheduling)
+		c.Config.Logger.Infof("Detected diff in Scheduling.\nDESIRED: %v\nACTUAL: %v", desired.Scheduling, actual.Scheduling)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "Scheduling",
 		})
 	}
 	if compareInstanceServiceAccountsSlice(c, desired.ServiceAccounts, actual.ServiceAccounts) {
-		c.Config.Logger.Infof("Detected diff in ServiceAccounts.\nDESIRED: %#v\nACTUAL: %#v", desired.ServiceAccounts, actual.ServiceAccounts)
+		c.Config.Logger.Infof("Detected diff in ServiceAccounts.\nDESIRED: %v\nACTUAL: %v", desired.ServiceAccounts, actual.ServiceAccounts)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "ServiceAccounts",
 		})
 	}
 	if compareInstanceShieldedInstanceConfig(c, desired.ShieldedInstanceConfig, actual.ShieldedInstanceConfig) {
-		c.Config.Logger.Infof("Detected diff in ShieldedInstanceConfig.\nDESIRED: %#v\nACTUAL: %#v", desired.ShieldedInstanceConfig, actual.ShieldedInstanceConfig)
+		c.Config.Logger.Infof("Detected diff in ShieldedInstanceConfig.\nDESIRED: %v\nACTUAL: %v", desired.ShieldedInstanceConfig, actual.ShieldedInstanceConfig)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateShieldedInstanceConfigOperation{},
@@ -2151,14 +2146,14 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.Status) && (dcl.IsZeroValue(actual.Status) || !reflect.DeepEqual(*desired.Status, *actual.Status)) {
-		c.Config.Logger.Infof("Detected diff in Status.\nDESIRED: %#v\nACTUAL: %#v", desired.Status, actual.Status)
+		c.Config.Logger.Infof("Detected diff in Status.\nDESIRED: %v\nACTUAL: %v", desired.Status, actual.Status)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "Status",
 		})
 	}
 	if !dcl.SliceEquals(desired.Tags, actual.Tags) {
-		c.Config.Logger.Infof("Detected diff in Tags.\nDESIRED: %#v\nACTUAL: %#v", desired.Tags, actual.Tags)
+		c.Config.Logger.Infof("Detected diff in Tags.\nDESIRED: %v\nACTUAL: %v", desired.Tags, actual.Tags)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceSetTagsOperation{},
@@ -2167,17 +2162,10 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.Zone) && !dcl.NameToSelfLink(desired.Zone, actual.Zone) {
-		c.Config.Logger.Infof("Detected diff in Zone.\nDESIRED: %#v\nACTUAL: %#v", desired.Zone, actual.Zone)
+		c.Config.Logger.Infof("Detected diff in Zone.\nDESIRED: %v\nACTUAL: %v", desired.Zone, actual.Zone)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "Zone",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, instanceDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.

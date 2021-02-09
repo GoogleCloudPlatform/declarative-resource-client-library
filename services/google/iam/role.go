@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -261,7 +262,9 @@ func (c *Client) ApplyRole(ctx context.Context, rawDesired *Role, opts ...dcl.Ap
 	if create {
 		ops = append(ops, &createRoleOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteRoleOperation{})
+
 		ops = append(ops, &createRoleOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeRoleDesiredState(rawDesired, nil)

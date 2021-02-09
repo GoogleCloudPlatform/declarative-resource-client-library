@@ -162,12 +162,10 @@ class Application(object):
         self.service_account = Primitive.from_proto(response.service_account)
 
     @classmethod
-    def delete(self, name, service_account_file=""):
+    def delete(self, service_account_file=""):
         stub = application_pb2_grpc.AppengineApplicationServiceStub(channel.Channel())
         request = application_pb2.DeleteAppengineApplicationRequest()
         request.service_account_file = service_account_file
-        request.Name = name
-
         response = stub.DeleteAppengineApplication(request)
 
     @classmethod

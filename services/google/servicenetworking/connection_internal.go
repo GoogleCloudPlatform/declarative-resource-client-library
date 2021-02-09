@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Connection) validate() error {
@@ -328,6 +329,7 @@ func (c *Client) connectionDiffsForRawDesired(ctx context.Context, rawDesired *C
 		desired, err := canonicalizeConnectionDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
+
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetConnection(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -335,12 +337,12 @@ func (c *Client) connectionDiffsForRawDesired(ctx context.Context, rawDesired *C
 			c.Config.Logger.Warningf("Failed to retrieve whether a Connection resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Connection resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Connection resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeConnectionDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Connection: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Connection: %v", rawDesired)
 
@@ -424,13 +426,7 @@ func canonicalizeConnectionNewState(c *Client, rawNew, rawDesired *Connection) (
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
@@ -475,7 +471,7 @@ func diffConnection(c *Client, desired, actual *Connection, opts ...dcl.ApplyOpt
 
 	var diffs []connectionDiff
 	if !dcl.IsZeroValue(desired.Network) && !dcl.PartialSelfLinkToSelfLink(desired.Network, actual.Network) {
-		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %#v\nACTUAL: %#v", desired.Network, actual.Network)
+		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
 
 		diffs = append(diffs, connectionDiff{
 			UpdateOp:  &updateConnectionPatchOperation{},
@@ -483,15 +479,8 @@ func diffConnection(c *Client, desired, actual *Connection, opts ...dcl.ApplyOpt
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, connectionDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
 	if !dcl.IsZeroValue(desired.ReservedPeeringRanges) && !reflect.DeepEqual(desired.ReservedPeeringRanges, actual.ReservedPeeringRanges) {
-		c.Config.Logger.Infof("Detected diff in ReservedPeeringRanges.\nDESIRED: %#v\nACTUAL: %#v", desired.ReservedPeeringRanges, actual.ReservedPeeringRanges)
+		c.Config.Logger.Infof("Detected diff in ReservedPeeringRanges.\nDESIRED: %v\nACTUAL: %v", desired.ReservedPeeringRanges, actual.ReservedPeeringRanges)
 
 		diffs = append(diffs, connectionDiff{
 			UpdateOp:  &updateConnectionPatchOperation{},
@@ -500,7 +489,7 @@ func diffConnection(c *Client, desired, actual *Connection, opts ...dcl.ApplyOpt
 
 	}
 	if !dcl.IsZeroValue(desired.Service) && !dcl.PartialSelfLinkToSelfLink(desired.Service, actual.Service) {
-		c.Config.Logger.Infof("Detected diff in Service.\nDESIRED: %#v\nACTUAL: %#v", desired.Service, actual.Service)
+		c.Config.Logger.Infof("Detected diff in Service.\nDESIRED: %v\nACTUAL: %v", desired.Service, actual.Service)
 
 		diffs = append(diffs, connectionDiff{
 			UpdateOp:  &updateConnectionPatchOperation{},

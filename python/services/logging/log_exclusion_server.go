@@ -76,11 +76,13 @@ func (s *LogExclusionServer) ApplyLoggingLogExclusion(ctx context.Context, reque
 
 // DeleteLogExclusion handles the gRPC request by passing it to the underlying LogExclusion Delete() method.
 func (s *LogExclusionServer) DeleteLoggingLogExclusion(ctx context.Context, request *loggingpb.DeleteLoggingLogExclusionRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigLogExclusion(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteLogExclusion(ctx, ProtoToLogExclusion(request.GetResource()))
+
 }
 
 // ListLogExclusion handles the gRPC request by passing it to the underlying LogExclusionList() method.

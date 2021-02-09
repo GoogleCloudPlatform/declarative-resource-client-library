@@ -18,11 +18,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 func (r *ResourceRecordSet) validate() error {
@@ -251,12 +252,12 @@ func (c *Client) resourceRecordSetDiffsForRawDesired(ctx context.Context, rawDes
 			c.Config.Logger.Warningf("Failed to retrieve whether a ResourceRecordSet resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve ResourceRecordSet resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that ResourceRecordSet resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeResourceRecordSetDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for ResourceRecordSet: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for ResourceRecordSet: %v", rawDesired)
 
@@ -354,21 +355,9 @@ func canonicalizeResourceRecordSetNewState(c *Client, rawNew, rawDesired *Resour
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ManagedZone) && dcl.IsEmptyValueIndirect(rawDesired.ManagedZone) {
-		rawNew.ManagedZone = rawDesired.ManagedZone
-	} else {
-		if dcl.NameToSelfLink(rawDesired.ManagedZone, rawNew.ManagedZone) {
-			rawNew.ManagedZone = rawDesired.ManagedZone
-		}
-	}
+	rawNew.ManagedZone = rawDesired.ManagedZone
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -395,7 +384,7 @@ func diffResourceRecordSet(c *Client, desired, actual *ResourceRecordSet, opts .
 
 	var diffs []resourceRecordSetDiff
 	if !dcl.IsZeroValue(desired.DnsName) && (dcl.IsZeroValue(actual.DnsName) || !reflect.DeepEqual(*desired.DnsName, *actual.DnsName)) {
-		c.Config.Logger.Infof("Detected diff in DnsName.\nDESIRED: %#v\nACTUAL: %#v", desired.DnsName, actual.DnsName)
+		c.Config.Logger.Infof("Detected diff in DnsName.\nDESIRED: %v\nACTUAL: %v", desired.DnsName, actual.DnsName)
 
 		diffs = append(diffs, resourceRecordSetDiff{
 			UpdateOp:  &updateResourceRecordSetUpdateOperation{ApplyOptions: opts},
@@ -404,7 +393,7 @@ func diffResourceRecordSet(c *Client, desired, actual *ResourceRecordSet, opts .
 
 	}
 	if !dcl.IsZeroValue(desired.DnsType) && (dcl.IsZeroValue(actual.DnsType) || !reflect.DeepEqual(*desired.DnsType, *actual.DnsType)) {
-		c.Config.Logger.Infof("Detected diff in DnsType.\nDESIRED: %#v\nACTUAL: %#v", desired.DnsType, actual.DnsType)
+		c.Config.Logger.Infof("Detected diff in DnsType.\nDESIRED: %v\nACTUAL: %v", desired.DnsType, actual.DnsType)
 
 		diffs = append(diffs, resourceRecordSetDiff{
 			UpdateOp:  &updateResourceRecordSetUpdateOperation{ApplyOptions: opts},
@@ -413,7 +402,7 @@ func diffResourceRecordSet(c *Client, desired, actual *ResourceRecordSet, opts .
 
 	}
 	if !dcl.IsZeroValue(desired.Ttl) && (dcl.IsZeroValue(actual.Ttl) || !reflect.DeepEqual(*desired.Ttl, *actual.Ttl)) {
-		c.Config.Logger.Infof("Detected diff in Ttl.\nDESIRED: %#v\nACTUAL: %#v", desired.Ttl, actual.Ttl)
+		c.Config.Logger.Infof("Detected diff in Ttl.\nDESIRED: %v\nACTUAL: %v", desired.Ttl, actual.Ttl)
 
 		diffs = append(diffs, resourceRecordSetDiff{
 			UpdateOp:  &updateResourceRecordSetUpdateOperation{ApplyOptions: opts},
@@ -422,27 +411,13 @@ func diffResourceRecordSet(c *Client, desired, actual *ResourceRecordSet, opts .
 
 	}
 	if !dcl.IsZeroValue(desired.Target) && !dcl.QuoteAndCaseInsensitiveStringArray(desired.Target, actual.Target) {
-		c.Config.Logger.Infof("Detected diff in Target.\nDESIRED: %#v\nACTUAL: %#v", desired.Target, actual.Target)
+		c.Config.Logger.Infof("Detected diff in Target.\nDESIRED: %v\nACTUAL: %v", desired.Target, actual.Target)
 
 		diffs = append(diffs, resourceRecordSetDiff{
 			UpdateOp:  &updateResourceRecordSetUpdateOperation{ApplyOptions: opts},
 			FieldName: "Target",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.ManagedZone) && !dcl.NameToSelfLink(desired.ManagedZone, actual.ManagedZone) {
-		c.Config.Logger.Infof("Detected diff in ManagedZone.\nDESIRED: %#v\nACTUAL: %#v", desired.ManagedZone, actual.ManagedZone)
-		diffs = append(diffs, resourceRecordSetDiff{
-			RequiresRecreate: true,
-			FieldName:        "ManagedZone",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, resourceRecordSetDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,

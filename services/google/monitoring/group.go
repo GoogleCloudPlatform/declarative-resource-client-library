@@ -16,6 +16,7 @@ package monitoring
 import (
 	"context"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -206,7 +207,9 @@ func (c *Client) ApplyGroup(ctx context.Context, rawDesired *Group, opts ...dcl.
 	if create {
 		ops = append(ops, &createGroupOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteGroupOperation{})
+
 		ops = append(ops, &createGroupOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeGroupDesiredState(rawDesired, nil)

@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -1618,7 +1619,9 @@ func (c *Client) ApplyUrlMap(ctx context.Context, rawDesired *UrlMap, opts ...dc
 	if create {
 		ops = append(ops, &createUrlMapOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteUrlMapOperation{})
+
 		ops = append(ops, &createUrlMapOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeUrlMapDesiredState(rawDesired, nil)

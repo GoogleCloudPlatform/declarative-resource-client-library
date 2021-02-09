@@ -47,7 +47,8 @@ components:
             those are governed entirely by the regular perimeter that resource is
             in.  Perimeter Bridges are typically useful when building more complex
             topologies with many independent perimeters that need to share some data
-            with a common perimeter, but should not be able to share data among themselves. '
+            with a common perimeter, but should not be able to share data among themselves.  Possible
+            values: PERIMETER_TYPE_REGULAR, PERIMETER_TYPE_BRIDGE'
           enum:
           - PERIMETER_TYPE_REGULAR
           - PERIMETER_TYPE_BRIDGE
@@ -225,8 +226,35 @@ info:
   title: AccessContextManager/ServicePerimeter
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many ServicePerimeter
+  apply:
+    description: The function used to apply information about a ServicePerimeter
+    parameters:
+    - description: A full instance of a ServicePerimeter
+      name: ServicePerimeter
+      required: true
+  delete:
+    description: The function used to delete a ServicePerimeter
+    parameters:
+    - description: A full instance of a ServicePerimeter
+      name: ServicePerimeter
+      required: true
+  deleteAll:
+    description: The function used to delete all ServicePerimeter
     parameters:
     - name: policy
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a ServicePerimeter
+    parameters:
+    - description: A full instance of a ServicePerimeter
+      name: ServicePerimeter
+      required: true
+  list:
+    description: The function used to list information about many ServicePerimeter
+    parameters:
+    - name: policy
+      required: true
+      schema:
+        type: string

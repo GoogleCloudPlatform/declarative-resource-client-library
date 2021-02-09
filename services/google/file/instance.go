@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -28,7 +29,7 @@ type Instance struct {
 	StatusMessage *string              `json:"statusMessage"`
 	CreateTime    *string              `json:"createTime"`
 	Tier          *InstanceTierEnum    `json:"tier"`
-	Labels        []InstanceLabels     `json:"labels"`
+	Labels        map[string]string    `json:"labels"`
 	FileShares    []InstanceFileShares `json:"fileShares"`
 	Networks      []InstanceNetworks   `json:"networks"`
 	Etag          *string              `json:"etag"`
@@ -173,28 +174,6 @@ func (v InstanceNetworksModesEnum) Validate() error {
 		Value: string(v),
 		Valid: []string{},
 	}
-}
-
-type InstanceLabels struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this InstanceLabels is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceLabels *InstanceLabels = &InstanceLabels{empty: true}
-
-func (r *InstanceLabels) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceLabels) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
 }
 
 type InstanceFileShares struct {
@@ -446,7 +425,9 @@ func (c *Client) ApplyInstance(ctx context.Context, rawDesired *Instance, opts .
 	if create {
 		ops = append(ops, &createInstanceOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteInstanceOperation{})
+
 		ops = append(ops, &createInstanceOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeInstanceDesiredState(rawDesired, nil)

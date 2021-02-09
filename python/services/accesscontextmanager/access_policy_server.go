@@ -28,12 +28,11 @@ type AccessPolicyServer struct{}
 // ProtoToAccessPolicy converts a AccessPolicy resource from its proto representation.
 func ProtoToAccessPolicy(p *accesscontextmanagerpb.AccesscontextmanagerAccessPolicy) *accesscontextmanager.AccessPolicy {
 	obj := &accesscontextmanager.AccessPolicy{
-		Name:         dcl.StringOrNil(p.Name),
-		Parent:       dcl.StringOrNil(p.Parent),
-		Organization: dcl.StringOrNil(p.Organization),
-		Title:        dcl.StringOrNil(p.Title),
-		CreateTime:   dcl.StringOrNil(p.GetCreateTime()),
-		UpdateTime:   dcl.StringOrNil(p.GetUpdateTime()),
+		Name:       dcl.StringOrNil(p.Name),
+		Parent:     dcl.StringOrNil(p.Parent),
+		Title:      dcl.StringOrNil(p.Title),
+		CreateTime: dcl.StringOrNil(p.GetCreateTime()),
+		UpdateTime: dcl.StringOrNil(p.GetUpdateTime()),
 	}
 	return obj
 }
@@ -41,12 +40,11 @@ func ProtoToAccessPolicy(p *accesscontextmanagerpb.AccesscontextmanagerAccessPol
 // AccessPolicyToProto converts a AccessPolicy resource to its proto representation.
 func AccessPolicyToProto(resource *accesscontextmanager.AccessPolicy) *accesscontextmanagerpb.AccesscontextmanagerAccessPolicy {
 	p := &accesscontextmanagerpb.AccesscontextmanagerAccessPolicy{
-		Name:         dcl.ValueOrEmptyString(resource.Name),
-		Parent:       dcl.ValueOrEmptyString(resource.Parent),
-		Organization: dcl.ValueOrEmptyString(resource.Organization),
-		Title:        dcl.ValueOrEmptyString(resource.Title),
-		CreateTime:   dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:   dcl.ValueOrEmptyString(resource.UpdateTime),
+		Name:       dcl.ValueOrEmptyString(resource.Name),
+		Parent:     dcl.ValueOrEmptyString(resource.Parent),
+		Title:      dcl.ValueOrEmptyString(resource.Title),
+		CreateTime: dcl.ValueOrEmptyString(resource.CreateTime),
+		UpdateTime: dcl.ValueOrEmptyString(resource.UpdateTime),
 	}
 
 	return p
@@ -74,11 +72,13 @@ func (s *AccessPolicyServer) ApplyAccesscontextmanagerAccessPolicy(ctx context.C
 
 // DeleteAccessPolicy handles the gRPC request by passing it to the underlying AccessPolicy Delete() method.
 func (s *AccessPolicyServer) DeleteAccesscontextmanagerAccessPolicy(ctx context.Context, request *accesscontextmanagerpb.DeleteAccesscontextmanagerAccessPolicyRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigAccessPolicy(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteAccessPolicy(ctx, ProtoToAccessPolicy(request.GetResource()))
+
 }
 
 // ListAccessPolicy handles the gRPC request by passing it to the underlying AccessPolicyList() method.

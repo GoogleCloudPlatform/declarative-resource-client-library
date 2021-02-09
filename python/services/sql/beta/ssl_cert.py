@@ -34,6 +34,7 @@ class SslCert(object):
 
         channel.initialize()
         self.common_name = common_name
+        self.name = name
         self.instance = instance
         self.project = project
         self.service_account_file = service_account_file
@@ -43,6 +44,9 @@ class SslCert(object):
         request = ssl_cert_pb2.ApplySqlBetaSslCertRequest()
         if Primitive.to_proto(self.common_name):
             request.resource.common_name = Primitive.to_proto(self.common_name)
+
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
         if Primitive.to_proto(self.instance):
             request.resource.instance = Primitive.to_proto(self.instance)

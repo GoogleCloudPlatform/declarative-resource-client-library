@@ -74,11 +74,13 @@ func (s *GroupServer) ApplyMonitoringGroup(ctx context.Context, request *monitor
 
 // DeleteGroup handles the gRPC request by passing it to the underlying Group Delete() method.
 func (s *GroupServer) DeleteMonitoringGroup(ctx context.Context, request *monitoringpb.DeleteMonitoringGroupRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigGroup(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteGroup(ctx, ProtoToGroup(request.GetResource()))
+
 }
 
 // ListGroup handles the gRPC request by passing it to the underlying GroupList() method.

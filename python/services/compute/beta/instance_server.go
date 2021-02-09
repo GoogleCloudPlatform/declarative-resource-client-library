@@ -555,11 +555,13 @@ func (s *InstanceServer) ApplyComputeBetaInstance(ctx context.Context, request *
 
 // DeleteInstance handles the gRPC request by passing it to the underlying Instance Delete() method.
 func (s *InstanceServer) DeleteComputeBetaInstance(ctx context.Context, request *betapb.DeleteComputeBetaInstanceRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteInstance(ctx, ProtoToInstance(request.GetResource()))
+
 }
 
 // ListInstance handles the gRPC request by passing it to the underlying InstanceList() method.

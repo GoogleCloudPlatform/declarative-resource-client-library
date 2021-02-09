@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -313,7 +314,9 @@ func (c *Client) ApplyIndex(ctx context.Context, rawDesired *Index, opts ...dcl.
 	if create {
 		ops = append(ops, &createIndexOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteIndexOperation{})
+
 		ops = append(ops, &createIndexOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeIndexDesiredState(rawDesired, nil)

@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -209,7 +210,9 @@ func (c *Client) ApplyDatabase(ctx context.Context, rawDesired *Database, opts .
 	if create {
 		ops = append(ops, &createDatabaseOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteDatabaseOperation{})
+
 		ops = append(ops, &createDatabaseOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeDatabaseDesiredState(rawDesired, nil)

@@ -78,11 +78,13 @@ func (s *ResourceRecordSetServer) ApplyDnsResourceRecordSet(ctx context.Context,
 
 // DeleteResourceRecordSet handles the gRPC request by passing it to the underlying ResourceRecordSet Delete() method.
 func (s *ResourceRecordSetServer) DeleteDnsResourceRecordSet(ctx context.Context, request *dnspb.DeleteDnsResourceRecordSetRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigResourceRecordSet(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteResourceRecordSet(ctx, ProtoToResourceRecordSet(request.GetResource()))
+
 }
 
 // ListResourceRecordSet handles the gRPC request by passing it to the underlying ResourceRecordSetList() method.

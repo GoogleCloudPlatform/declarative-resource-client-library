@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -581,7 +582,9 @@ func (c *Client) ApplyNodePool(ctx context.Context, rawDesired *NodePool, opts .
 	if create {
 		ops = append(ops, &createNodePoolOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteNodePoolOperation{})
+
 		ops = append(ops, &createNodePoolOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeNodePoolDesiredState(rawDesired, nil)

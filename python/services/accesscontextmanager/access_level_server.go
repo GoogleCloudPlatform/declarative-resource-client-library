@@ -314,11 +314,13 @@ func (s *AccessLevelServer) ApplyAccesscontextmanagerAccessLevel(ctx context.Con
 
 // DeleteAccessLevel handles the gRPC request by passing it to the underlying AccessLevel Delete() method.
 func (s *AccessLevelServer) DeleteAccesscontextmanagerAccessLevel(ctx context.Context, request *accesscontextmanagerpb.DeleteAccesscontextmanagerAccessLevelRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigAccessLevel(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteAccessLevel(ctx, ProtoToAccessLevel(request.GetResource()))
+
 }
 
 // ListAccessLevel handles the gRPC request by passing it to the underlying AccessLevelList() method.

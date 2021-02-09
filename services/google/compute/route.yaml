@@ -157,7 +157,7 @@ components:
                 description: |-
                   [Output Only] A warning code, if applicable. For example, Compute
                   Engine returns <code>NO_RESULTS_ON_PAGE</code> if there
-                  are no results in the response.
+                  are no results in the response. Possible values: BAD_REQUEST, FORBIDDEN, NOT_FOUND, CONFLICT, GONE, PRECONDITION_FAILED, INTERNAL_ERROR, SERVICE_UNAVAILABLE
                 enum:
                 - BAD_REQUEST
                 - FORBIDDEN
@@ -183,6 +183,9 @@ components:
                      "key": "scope",
                      "value": "zones/us-east1-d"
                     }</pre>
+                items:
+                  type: string
+                  x-dcl-go-type: string
                 readOnly: true
                 type: object
                 x-dcl-go-name: Data
@@ -218,8 +221,35 @@ info:
   title: Compute/Route
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Route
+  apply:
+    description: The function used to apply information about a Route
+    parameters:
+    - description: A full instance of a Route
+      name: Route
+      required: true
+  delete:
+    description: The function used to delete a Route
+    parameters:
+    - description: A full instance of a Route
+      name: Route
+      required: true
+  deleteAll:
+    description: The function used to delete all Route
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Route
+    parameters:
+    - description: A full instance of a Route
+      name: Route
+      required: true
+  list:
+    description: The function used to list information about many Route
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

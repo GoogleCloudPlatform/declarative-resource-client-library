@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *NodePool) validate() error {
@@ -682,12 +683,12 @@ func (c *Client) nodePoolDiffsForRawDesired(ctx context.Context, rawDesired *Nod
 			c.Config.Logger.Warningf("Failed to retrieve whether a NodePool resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve NodePool resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that NodePool resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeNodePoolDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for NodePool: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for NodePool: %v", rawDesired)
 
@@ -748,6 +749,21 @@ func nodePoolWaitForRestingState(ctx context.Context, r *NodePool, c *Client) er
 
 func canonicalizeNodePoolInitialState(rawInitial, rawDesired *NodePool) (*NodePool, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
+
+	if dcl.IsZeroValue(rawInitial.NodeCount) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.Autoscaling) {
+			rawInitial.NodeCount = dcl.Int64(0)
+		}
+	}
+
+	if dcl.IsZeroValue(rawInitial.Autoscaling) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.NodeCount) {
+			rawInitial.Autoscaling = EmptyNodePoolAutoscaling
+		}
+	}
+
 	return rawInitial, nil
 }
 
@@ -907,29 +923,11 @@ func canonicalizeNodePoolNewState(c *Client, rawNew, rawDesired *NodePool) (*Nod
 		rawNew.UpgradeSettings = canonicalizeNewNodePoolUpgradeSettings(c, rawDesired.UpgradeSettings, rawNew.UpgradeSettings)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Cluster) && dcl.IsEmptyValueIndirect(rawDesired.Cluster) {
-		rawNew.Cluster = rawDesired.Cluster
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Cluster, rawNew.Cluster) {
-			rawNew.Cluster = rawDesired.Cluster
-		}
-	}
+	rawNew.Cluster = rawDesired.Cluster
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
-	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
-		rawNew.Location = rawDesired.Location
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Location, rawNew.Location) {
-			rawNew.Location = rawDesired.Location
-		}
-	}
+	rawNew.Location = rawDesired.Location
 
 	return rawNew, nil
 }
@@ -1704,21 +1702,21 @@ func diffNodePool(c *Client, desired, actual *NodePool, opts ...dcl.ApplyOption)
 
 	var diffs []nodePoolDiff
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, nodePoolDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if compareNodePoolConfig(c, desired.Config, actual.Config) {
-		c.Config.Logger.Infof("Detected diff in Config.\nDESIRED: %#v\nACTUAL: %#v", desired.Config, actual.Config)
+		c.Config.Logger.Infof("Detected diff in Config.\nDESIRED: %v\nACTUAL: %v", desired.Config, actual.Config)
 		diffs = append(diffs, nodePoolDiff{
 			RequiresRecreate: true,
 			FieldName:        "Config",
 		})
 	}
 	if !dcl.IsZeroValue(desired.NodeCount) && (dcl.IsZeroValue(actual.NodeCount) || !reflect.DeepEqual(*desired.NodeCount, *actual.NodeCount)) {
-		c.Config.Logger.Infof("Detected diff in NodeCount.\nDESIRED: %#v\nACTUAL: %#v", desired.NodeCount, actual.NodeCount)
+		c.Config.Logger.Infof("Detected diff in NodeCount.\nDESIRED: %v\nACTUAL: %v", desired.NodeCount, actual.NodeCount)
 
 		diffs = append(diffs, nodePoolDiff{
 			UpdateOp:  &updateNodePoolSetSizeOperation{},
@@ -1727,14 +1725,14 @@ func diffNodePool(c *Client, desired, actual *NodePool, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.Version) && (dcl.IsZeroValue(actual.Version) || !reflect.DeepEqual(*desired.Version, *actual.Version)) {
-		c.Config.Logger.Infof("Detected diff in Version.\nDESIRED: %#v\nACTUAL: %#v", desired.Version, actual.Version)
+		c.Config.Logger.Infof("Detected diff in Version.\nDESIRED: %v\nACTUAL: %v", desired.Version, actual.Version)
 		diffs = append(diffs, nodePoolDiff{
 			RequiresRecreate: true,
 			FieldName:        "Version",
 		})
 	}
 	if !dcl.SliceEquals(desired.Locations, actual.Locations) {
-		c.Config.Logger.Infof("Detected diff in Locations.\nDESIRED: %#v\nACTUAL: %#v", desired.Locations, actual.Locations)
+		c.Config.Logger.Infof("Detected diff in Locations.\nDESIRED: %v\nACTUAL: %v", desired.Locations, actual.Locations)
 
 		diffs = append(diffs, nodePoolDiff{
 			UpdateOp:  &updateNodePoolUpdateOperation{},
@@ -1743,7 +1741,7 @@ func diffNodePool(c *Client, desired, actual *NodePool, opts ...dcl.ApplyOption)
 
 	}
 	if compareNodePoolAutoscaling(c, desired.Autoscaling, actual.Autoscaling) {
-		c.Config.Logger.Infof("Detected diff in Autoscaling.\nDESIRED: %#v\nACTUAL: %#v", desired.Autoscaling, actual.Autoscaling)
+		c.Config.Logger.Infof("Detected diff in Autoscaling.\nDESIRED: %v\nACTUAL: %v", desired.Autoscaling, actual.Autoscaling)
 
 		diffs = append(diffs, nodePoolDiff{
 			UpdateOp:  &updateNodePoolSetAutoscalingOperation{},
@@ -1752,7 +1750,7 @@ func diffNodePool(c *Client, desired, actual *NodePool, opts ...dcl.ApplyOption)
 
 	}
 	if compareNodePoolManagement(c, desired.Management, actual.Management) {
-		c.Config.Logger.Infof("Detected diff in Management.\nDESIRED: %#v\nACTUAL: %#v", desired.Management, actual.Management)
+		c.Config.Logger.Infof("Detected diff in Management.\nDESIRED: %v\nACTUAL: %v", desired.Management, actual.Management)
 
 		diffs = append(diffs, nodePoolDiff{
 			UpdateOp:  &updateNodePoolSetManagementOperation{},
@@ -1761,38 +1759,17 @@ func diffNodePool(c *Client, desired, actual *NodePool, opts ...dcl.ApplyOption)
 
 	}
 	if compareNodePoolMaxPodsConstraint(c, desired.MaxPodsConstraint, actual.MaxPodsConstraint) {
-		c.Config.Logger.Infof("Detected diff in MaxPodsConstraint.\nDESIRED: %#v\nACTUAL: %#v", desired.MaxPodsConstraint, actual.MaxPodsConstraint)
+		c.Config.Logger.Infof("Detected diff in MaxPodsConstraint.\nDESIRED: %v\nACTUAL: %v", desired.MaxPodsConstraint, actual.MaxPodsConstraint)
 		diffs = append(diffs, nodePoolDiff{
 			RequiresRecreate: true,
 			FieldName:        "MaxPodsConstraint",
 		})
 	}
 	if compareNodePoolUpgradeSettings(c, desired.UpgradeSettings, actual.UpgradeSettings) {
-		c.Config.Logger.Infof("Detected diff in UpgradeSettings.\nDESIRED: %#v\nACTUAL: %#v", desired.UpgradeSettings, actual.UpgradeSettings)
+		c.Config.Logger.Infof("Detected diff in UpgradeSettings.\nDESIRED: %v\nACTUAL: %v", desired.UpgradeSettings, actual.UpgradeSettings)
 		diffs = append(diffs, nodePoolDiff{
 			RequiresRecreate: true,
 			FieldName:        "UpgradeSettings",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Cluster) && !dcl.NameToSelfLink(desired.Cluster, actual.Cluster) {
-		c.Config.Logger.Infof("Detected diff in Cluster.\nDESIRED: %#v\nACTUAL: %#v", desired.Cluster, actual.Cluster)
-		diffs = append(diffs, nodePoolDiff{
-			RequiresRecreate: true,
-			FieldName:        "Cluster",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, nodePoolDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Location) && !dcl.NameToSelfLink(desired.Location, actual.Location) {
-		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
-		diffs = append(diffs, nodePoolDiff{
-			RequiresRecreate: true,
-			FieldName:        "Location",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.

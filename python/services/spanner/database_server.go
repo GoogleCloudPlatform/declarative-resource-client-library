@@ -99,11 +99,13 @@ func (s *DatabaseServer) ApplySpannerDatabase(ctx context.Context, request *span
 
 // DeleteDatabase handles the gRPC request by passing it to the underlying Database Delete() method.
 func (s *DatabaseServer) DeleteSpannerDatabase(ctx context.Context, request *spannerpb.DeleteSpannerDatabaseRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigDatabase(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteDatabase(ctx, ProtoToDatabase(request.GetResource()))
+
 }
 
 // ListDatabase handles the gRPC request by passing it to the underlying DatabaseList() method.

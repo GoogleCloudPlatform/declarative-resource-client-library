@@ -16,6 +16,7 @@ package servicenetworking
 import (
 	"context"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -218,7 +219,9 @@ func (c *Client) ApplyConnection(ctx context.Context, rawDesired *Connection, op
 	if create {
 		ops = append(ops, &createConnectionOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteConnectionOperation{})
+
 		ops = append(ops, &createConnectionOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeConnectionDesiredState(rawDesired, nil)

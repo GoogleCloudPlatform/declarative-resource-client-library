@@ -1811,11 +1811,13 @@ func (s *UrlMapServer) ApplyComputeBetaUrlMap(ctx context.Context, request *beta
 
 // DeleteUrlMap handles the gRPC request by passing it to the underlying UrlMap Delete() method.
 func (s *UrlMapServer) DeleteComputeBetaUrlMap(ctx context.Context, request *betapb.DeleteComputeBetaUrlMapRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigUrlMap(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteUrlMap(ctx, ProtoToUrlMap(request.GetResource()))
+
 }
 
 // ListUrlMap handles the gRPC request by passing it to the underlying UrlMapList() method.

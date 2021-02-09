@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Node) validate() error {
@@ -390,12 +391,12 @@ func (c *Client) nodeDiffsForRawDesired(ctx context.Context, rawDesired *Node, o
 			c.Config.Logger.Warningf("Failed to retrieve whether a Node resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Node resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Node resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeNodeDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Node: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Node: %v", rawDesired)
 
@@ -605,21 +606,9 @@ func canonicalizeNodeNewState(c *Client, rawNew, rawDesired *Node) (*Node, error
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
-	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
-		rawNew.Location = rawDesired.Location
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Location, rawNew.Location) {
-			rawNew.Location = rawDesired.Location
-		}
-	}
+	rawNew.Location = rawDesired.Location
 
 	return rawNew, nil
 }
@@ -942,28 +931,28 @@ func diffNode(c *Client, desired, actual *Node, opts ...dcl.ApplyOption) ([]node
 
 	var diffs []nodeDiff
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, nodeDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, nodeDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
 	if !dcl.IsZeroValue(desired.AcceleratorType) && (dcl.IsZeroValue(actual.AcceleratorType) || !reflect.DeepEqual(*desired.AcceleratorType, *actual.AcceleratorType)) {
-		c.Config.Logger.Infof("Detected diff in AcceleratorType.\nDESIRED: %#v\nACTUAL: %#v", desired.AcceleratorType, actual.AcceleratorType)
+		c.Config.Logger.Infof("Detected diff in AcceleratorType.\nDESIRED: %v\nACTUAL: %v", desired.AcceleratorType, actual.AcceleratorType)
 		diffs = append(diffs, nodeDiff{
 			RequiresRecreate: true,
 			FieldName:        "AcceleratorType",
 		})
 	}
 	if !dcl.IsZeroValue(desired.TensorflowVersion) && (dcl.IsZeroValue(actual.TensorflowVersion) || !reflect.DeepEqual(*desired.TensorflowVersion, *actual.TensorflowVersion)) {
-		c.Config.Logger.Infof("Detected diff in TensorflowVersion.\nDESIRED: %#v\nACTUAL: %#v", desired.TensorflowVersion, actual.TensorflowVersion)
+		c.Config.Logger.Infof("Detected diff in TensorflowVersion.\nDESIRED: %v\nACTUAL: %v", desired.TensorflowVersion, actual.TensorflowVersion)
 
 		diffs = append(diffs, nodeDiff{
 			UpdateOp:  &updateNodeReimageNodeOperation{},
@@ -972,52 +961,38 @@ func diffNode(c *Client, desired, actual *Node, opts ...dcl.ApplyOption) ([]node
 
 	}
 	if !dcl.IsZeroValue(desired.Network) && !dcl.NameToSelfLink(desired.Network, actual.Network) {
-		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %#v\nACTUAL: %#v", desired.Network, actual.Network)
+		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
 		diffs = append(diffs, nodeDiff{
 			RequiresRecreate: true,
 			FieldName:        "Network",
 		})
 	}
 	if !dcl.IsZeroValue(desired.CidrBlock) && (dcl.IsZeroValue(actual.CidrBlock) || !reflect.DeepEqual(*desired.CidrBlock, *actual.CidrBlock)) {
-		c.Config.Logger.Infof("Detected diff in CidrBlock.\nDESIRED: %#v\nACTUAL: %#v", desired.CidrBlock, actual.CidrBlock)
+		c.Config.Logger.Infof("Detected diff in CidrBlock.\nDESIRED: %v\nACTUAL: %v", desired.CidrBlock, actual.CidrBlock)
 		diffs = append(diffs, nodeDiff{
 			RequiresRecreate: true,
 			FieldName:        "CidrBlock",
 		})
 	}
 	if compareNodeSchedulingConfig(c, desired.SchedulingConfig, actual.SchedulingConfig) {
-		c.Config.Logger.Infof("Detected diff in SchedulingConfig.\nDESIRED: %#v\nACTUAL: %#v", desired.SchedulingConfig, actual.SchedulingConfig)
+		c.Config.Logger.Infof("Detected diff in SchedulingConfig.\nDESIRED: %v\nACTUAL: %v", desired.SchedulingConfig, actual.SchedulingConfig)
 		diffs = append(diffs, nodeDiff{
 			RequiresRecreate: true,
 			FieldName:        "SchedulingConfig",
 		})
 	}
 	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %#v\nACTUAL: %#v", desired.Labels, actual.Labels)
+		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 		diffs = append(diffs, nodeDiff{
 			RequiresRecreate: true,
 			FieldName:        "Labels",
 		})
 	}
 	if !dcl.IsZeroValue(desired.UseServiceNetworking) && (dcl.IsZeroValue(actual.UseServiceNetworking) || !reflect.DeepEqual(*desired.UseServiceNetworking, *actual.UseServiceNetworking)) {
-		c.Config.Logger.Infof("Detected diff in UseServiceNetworking.\nDESIRED: %#v\nACTUAL: %#v", desired.UseServiceNetworking, actual.UseServiceNetworking)
+		c.Config.Logger.Infof("Detected diff in UseServiceNetworking.\nDESIRED: %v\nACTUAL: %v", desired.UseServiceNetworking, actual.UseServiceNetworking)
 		diffs = append(diffs, nodeDiff{
 			RequiresRecreate: true,
 			FieldName:        "UseServiceNetworking",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, nodeDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Location) && !dcl.NameToSelfLink(desired.Location, actual.Location) {
-		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
-		diffs = append(diffs, nodeDiff{
-			RequiresRecreate: true,
-			FieldName:        "Location",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.

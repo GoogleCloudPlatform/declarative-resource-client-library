@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Image) validate() error {
@@ -498,12 +499,12 @@ func (c *Client) imageDiffsForRawDesired(ctx context.Context, rawDesired *Image,
 			c.Config.Logger.Warningf("Failed to retrieve whether a Image resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Image resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Image resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeImageDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Image: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Image: %v", rawDesired)
 
@@ -760,13 +761,7 @@ func canonicalizeImageNewState(c *Client, rawNew, rawDesired *Image) (*Image, er
 		rawNew.Deprecated = canonicalizeNewImageDeprecated(c, rawDesired.Deprecated, rawNew.Deprecated)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -1536,28 +1531,28 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 
 	var diffs []imageDiff
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, imageDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
 	if !dcl.IsZeroValue(desired.DiskSizeGb) && (dcl.IsZeroValue(actual.DiskSizeGb) || !reflect.DeepEqual(*desired.DiskSizeGb, *actual.DiskSizeGb)) {
-		c.Config.Logger.Infof("Detected diff in DiskSizeGb.\nDESIRED: %#v\nACTUAL: %#v", desired.DiskSizeGb, actual.DiskSizeGb)
+		c.Config.Logger.Infof("Detected diff in DiskSizeGb.\nDESIRED: %v\nACTUAL: %v", desired.DiskSizeGb, actual.DiskSizeGb)
 		diffs = append(diffs, imageDiff{
 			RequiresRecreate: true,
 			FieldName:        "DiskSizeGb",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Family) && (dcl.IsZeroValue(actual.Family) || !reflect.DeepEqual(*desired.Family, *actual.Family)) {
-		c.Config.Logger.Infof("Detected diff in Family.\nDESIRED: %#v\nACTUAL: %#v", desired.Family, actual.Family)
+		c.Config.Logger.Infof("Detected diff in Family.\nDESIRED: %v\nACTUAL: %v", desired.Family, actual.Family)
 		diffs = append(diffs, imageDiff{
 			RequiresRecreate: true,
 			FieldName:        "Family",
 		})
 	}
 	if compareImageGuestOsFeatureSlice(c, desired.GuestOsFeature, actual.GuestOsFeature) {
-		c.Config.Logger.Infof("Detected diff in GuestOsFeature.\nDESIRED: %#v\nACTUAL: %#v", desired.GuestOsFeature, actual.GuestOsFeature)
+		c.Config.Logger.Infof("Detected diff in GuestOsFeature.\nDESIRED: %v\nACTUAL: %v", desired.GuestOsFeature, actual.GuestOsFeature)
 		toAdd, toRemove := compareImageGuestOsFeatureSets(c, desired.GuestOsFeature, actual.GuestOsFeature)
 		if len(toAdd) > 0 {
 			diffs = append(diffs, imageDiff{
@@ -1573,14 +1568,14 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 		}
 	}
 	if compareImageImageEncryptionKey(c, desired.ImageEncryptionKey, actual.ImageEncryptionKey) {
-		c.Config.Logger.Infof("Detected diff in ImageEncryptionKey.\nDESIRED: %#v\nACTUAL: %#v", desired.ImageEncryptionKey, actual.ImageEncryptionKey)
+		c.Config.Logger.Infof("Detected diff in ImageEncryptionKey.\nDESIRED: %v\nACTUAL: %v", desired.ImageEncryptionKey, actual.ImageEncryptionKey)
 		diffs = append(diffs, imageDiff{
 			RequiresRecreate: true,
 			FieldName:        "ImageEncryptionKey",
 		})
 	}
 	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %#v\nACTUAL: %#v", desired.Labels, actual.Labels)
+		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, imageDiff{
 			UpdateOp:  &updateImageSetLabelsOperation{},
@@ -1589,111 +1584,104 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 
 	}
 	if !dcl.SliceEquals(desired.License, actual.License) {
-		c.Config.Logger.Infof("Detected diff in License.\nDESIRED: %#v\nACTUAL: %#v", desired.License, actual.License)
+		c.Config.Logger.Infof("Detected diff in License.\nDESIRED: %v\nACTUAL: %v", desired.License, actual.License)
 		diffs = append(diffs, imageDiff{
 			RequiresRecreate: true,
 			FieldName:        "License",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, imageDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if compareImageShieldedInstanceInitialState(c, desired.ShieldedInstanceInitialState, actual.ShieldedInstanceInitialState) {
-		c.Config.Logger.Infof("Detected diff in ShieldedInstanceInitialState.\nDESIRED: %#v\nACTUAL: %#v", desired.ShieldedInstanceInitialState, actual.ShieldedInstanceInitialState)
+		c.Config.Logger.Infof("Detected diff in ShieldedInstanceInitialState.\nDESIRED: %v\nACTUAL: %v", desired.ShieldedInstanceInitialState, actual.ShieldedInstanceInitialState)
 		diffs = append(diffs, imageDiff{
 			RequiresRecreate: true,
 			FieldName:        "ShieldedInstanceInitialState",
 		})
 	}
 	if !dcl.IsZeroValue(desired.SourceDisk) && (dcl.IsZeroValue(actual.SourceDisk) || !reflect.DeepEqual(*desired.SourceDisk, *actual.SourceDisk)) {
-		c.Config.Logger.Infof("Detected diff in SourceDisk.\nDESIRED: %#v\nACTUAL: %#v", desired.SourceDisk, actual.SourceDisk)
+		c.Config.Logger.Infof("Detected diff in SourceDisk.\nDESIRED: %v\nACTUAL: %v", desired.SourceDisk, actual.SourceDisk)
 		diffs = append(diffs, imageDiff{
 			RequiresRecreate: true,
 			FieldName:        "SourceDisk",
 		})
 	}
 	if compareImageSourceDiskEncryptionKey(c, desired.SourceDiskEncryptionKey, actual.SourceDiskEncryptionKey) {
-		c.Config.Logger.Infof("Detected diff in SourceDiskEncryptionKey.\nDESIRED: %#v\nACTUAL: %#v", desired.SourceDiskEncryptionKey, actual.SourceDiskEncryptionKey)
+		c.Config.Logger.Infof("Detected diff in SourceDiskEncryptionKey.\nDESIRED: %v\nACTUAL: %v", desired.SourceDiskEncryptionKey, actual.SourceDiskEncryptionKey)
 		diffs = append(diffs, imageDiff{
 			RequiresRecreate: true,
 			FieldName:        "SourceDiskEncryptionKey",
 		})
 	}
 	if !dcl.IsZeroValue(desired.SourceImage) && (dcl.IsZeroValue(actual.SourceImage) || !reflect.DeepEqual(*desired.SourceImage, *actual.SourceImage)) {
-		c.Config.Logger.Infof("Detected diff in SourceImage.\nDESIRED: %#v\nACTUAL: %#v", desired.SourceImage, actual.SourceImage)
+		c.Config.Logger.Infof("Detected diff in SourceImage.\nDESIRED: %v\nACTUAL: %v", desired.SourceImage, actual.SourceImage)
 		diffs = append(diffs, imageDiff{
 			RequiresRecreate: true,
 			FieldName:        "SourceImage",
 		})
 	}
 	if compareImageSourceImageEncryptionKey(c, desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey) {
-		c.Config.Logger.Infof("Detected diff in SourceImageEncryptionKey.\nDESIRED: %#v\nACTUAL: %#v", desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey)
+		c.Config.Logger.Infof("Detected diff in SourceImageEncryptionKey.\nDESIRED: %v\nACTUAL: %v", desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey)
 		diffs = append(diffs, imageDiff{
 			RequiresRecreate: true,
 			FieldName:        "SourceImageEncryptionKey",
 		})
 	}
 	if !dcl.IsZeroValue(desired.SourceImageId) && (dcl.IsZeroValue(actual.SourceImageId) || !reflect.DeepEqual(*desired.SourceImageId, *actual.SourceImageId)) {
-		c.Config.Logger.Infof("Detected diff in SourceImageId.\nDESIRED: %#v\nACTUAL: %#v", desired.SourceImageId, actual.SourceImageId)
+		c.Config.Logger.Infof("Detected diff in SourceImageId.\nDESIRED: %v\nACTUAL: %v", desired.SourceImageId, actual.SourceImageId)
 		diffs = append(diffs, imageDiff{
 			RequiresRecreate: true,
 			FieldName:        "SourceImageId",
 		})
 	}
 	if !dcl.IsZeroValue(desired.SourceSnapshot) && (dcl.IsZeroValue(actual.SourceSnapshot) || !reflect.DeepEqual(*desired.SourceSnapshot, *actual.SourceSnapshot)) {
-		c.Config.Logger.Infof("Detected diff in SourceSnapshot.\nDESIRED: %#v\nACTUAL: %#v", desired.SourceSnapshot, actual.SourceSnapshot)
+		c.Config.Logger.Infof("Detected diff in SourceSnapshot.\nDESIRED: %v\nACTUAL: %v", desired.SourceSnapshot, actual.SourceSnapshot)
 		diffs = append(diffs, imageDiff{
 			RequiresRecreate: true,
 			FieldName:        "SourceSnapshot",
 		})
 	}
 	if compareImageSourceSnapshotEncryptionKey(c, desired.SourceSnapshotEncryptionKey, actual.SourceSnapshotEncryptionKey) {
-		c.Config.Logger.Infof("Detected diff in SourceSnapshotEncryptionKey.\nDESIRED: %#v\nACTUAL: %#v", desired.SourceSnapshotEncryptionKey, actual.SourceSnapshotEncryptionKey)
+		c.Config.Logger.Infof("Detected diff in SourceSnapshotEncryptionKey.\nDESIRED: %v\nACTUAL: %v", desired.SourceSnapshotEncryptionKey, actual.SourceSnapshotEncryptionKey)
 		diffs = append(diffs, imageDiff{
 			RequiresRecreate: true,
 			FieldName:        "SourceSnapshotEncryptionKey",
 		})
 	}
 	if !dcl.IsZeroValue(desired.SourceSnapshotId) && (dcl.IsZeroValue(actual.SourceSnapshotId) || !reflect.DeepEqual(*desired.SourceSnapshotId, *actual.SourceSnapshotId)) {
-		c.Config.Logger.Infof("Detected diff in SourceSnapshotId.\nDESIRED: %#v\nACTUAL: %#v", desired.SourceSnapshotId, actual.SourceSnapshotId)
+		c.Config.Logger.Infof("Detected diff in SourceSnapshotId.\nDESIRED: %v\nACTUAL: %v", desired.SourceSnapshotId, actual.SourceSnapshotId)
 		diffs = append(diffs, imageDiff{
 			RequiresRecreate: true,
 			FieldName:        "SourceSnapshotId",
 		})
 	}
 	if !dcl.IsZeroValue(desired.SourceType) && (dcl.IsZeroValue(actual.SourceType) || !reflect.DeepEqual(*desired.SourceType, *actual.SourceType)) {
-		c.Config.Logger.Infof("Detected diff in SourceType.\nDESIRED: %#v\nACTUAL: %#v", desired.SourceType, actual.SourceType)
+		c.Config.Logger.Infof("Detected diff in SourceType.\nDESIRED: %v\nACTUAL: %v", desired.SourceType, actual.SourceType)
 		diffs = append(diffs, imageDiff{
 			RequiresRecreate: true,
 			FieldName:        "SourceType",
 		})
 	}
 	if !dcl.SliceEquals(desired.StorageLocation, actual.StorageLocation) {
-		c.Config.Logger.Infof("Detected diff in StorageLocation.\nDESIRED: %#v\nACTUAL: %#v", desired.StorageLocation, actual.StorageLocation)
+		c.Config.Logger.Infof("Detected diff in StorageLocation.\nDESIRED: %v\nACTUAL: %v", desired.StorageLocation, actual.StorageLocation)
 		diffs = append(diffs, imageDiff{
 			RequiresRecreate: true,
 			FieldName:        "StorageLocation",
 		})
 	}
 	if compareImageDeprecated(c, desired.Deprecated, actual.Deprecated) {
-		c.Config.Logger.Infof("Detected diff in Deprecated.\nDESIRED: %#v\nACTUAL: %#v", desired.Deprecated, actual.Deprecated)
+		c.Config.Logger.Infof("Detected diff in Deprecated.\nDESIRED: %v\nACTUAL: %v", desired.Deprecated, actual.Deprecated)
 
 		diffs = append(diffs, imageDiff{
 			UpdateOp:  &updateImageDeprecateOperation{},
 			FieldName: "Deprecated",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, imageDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,

@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="appengine", resources=["application"])
+connector(name="appengine", resources=["application","domain_mapping","firewall_rule","version"])

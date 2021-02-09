@@ -20,7 +20,8 @@ components:
             Second Generation MySQL instance, PostgreSQL or SQL Server instance. EXTERNAL:
             A database server that is not managed by Google. This property is read-only;
             use the tier property in the settings object to determine the database
-            type and Second or First Generation.'
+            type and Second or First Generation. Possible values: SQL_BACKEND_TYPE_UNSPECIFIED,
+            FIRST_GEN, SECOND_GEN, EXTERNAL'
           enum:
           - SQL_BACKEND_TYPE_UNSPECIFIED
           - FIRST_GEN
@@ -58,7 +59,10 @@ components:
             MYSQL_5_7 (default), or MYSQL_5_6. PostgreSQL instances: POSTGRES_9_6,
             POSTGRES_10, POSTGRES_11, POSTGRES_12 (default), or POSTGRES_13. SQL Server
             instances: SQLSERVER_2017_STANDARD (default), SQLSERVER_2017_ENTERPRISE,
-            SQLSERVER_2017_EXPRESS, or SQLSERVER_2017_WEB.'
+            SQLSERVER_2017_EXPRESS, or SQLSERVER_2017_WEB. Possible values: SQL_DATABASE_VERSION_UNSPECIFIED,
+            MYSQL_5_6, MYSQL_5_7, MYSQL_8_0, SQLSERVER_2017_STANDARD, SQLSERVER_2017_ENTERPRISE,
+            SQLSERVER_2017_EXPRESS, SQLSERVER_2017_WEB, POSTGRES_9_6, POSTGRES_10,
+            POSTGRES_11, POSTGRES_12'
           enum:
           - SQL_DATABASE_VERSION_UNSPECIFIED
           - MYSQL_5_6
@@ -173,7 +177,8 @@ components:
           description: 'The instance type. This can be one of the following. CLOUD_SQL_INSTANCE:
             A Cloud SQL instance that is not replicating from a master. ON_PREMISES_INSTANCE:
             An instance running on the customer''s premises. READ_REPLICA_INSTANCE:
-            A Cloud SQL instance configured as a read-replica.'
+            A Cloud SQL instance configured as a read-replica. Possible values: SQL_INSTANCE_TYPE_UNSPECIFIED,
+            CLOUD_SQL_INSTANCE, ON_PREMISES_INSTANCE, READ_REPLICA_INSTANCE, READ_REPLICA_POOL_INSTANCE'
           enum:
           - SQL_INSTANCE_TYPE_UNSPECIFIED
           - CLOUD_SQL_INSTANCE
@@ -224,11 +229,12 @@ components:
                 x-dcl-go-type: InstanceIPAddressesTimeToRetire
                 x-kubernetes-immutable: true
               type:
-                description: The type of this IP address. A `PRIMARY` address is a
-                  public address that can accept incoming connections. A `PRIVATE`
+                description: 'The type of this IP address. A `PRIMARY` address is
+                  a public address that can accept incoming connections. A `PRIVATE`
                   address is a private address that can accept incoming connections.
                   An `OUTGOING` address is the source address of connections originating
-                  from the instance, if supported.
+                  from the instance, if supported. Possible values: SQL_IP_ADDRESS_TYPE_UNSPECIFIED,
+                  PRIMARY, OUTGOING, PRIVATE, MIGRATED_1ST_GEN'
                 enum:
                 - SQL_IP_ADDRESS_TYPE_UNSPECIFIED
                 - PRIMARY
@@ -695,7 +701,8 @@ components:
                 instances only. The instance responds to incoming requests, and turns
                 itself off when not in use. Instances with `PER_USE` pricing turn
                 off after 15 minutes of inactivity. Instances with `PER_PACKAGE` pricing
-                turn off after 12 hours of inactivity.'
+                turn off after 12 hours of inactivity. Possible values: SQL_ACTIVATION_POLICY_UNSPECIFIED,
+                ALWAYS, NEVER, ON_DEMAND'
               enum:
               - SQL_ACTIVATION_POLICY_UNSPECIFIED
               - ALWAYS
@@ -739,7 +746,8 @@ components:
                 zone. Outages in that zone affect data accessibility. `REGIONAL`:
                 The instance can serve data from more than one zone in a region (it
                 is highly available). For more information, see [Overview of the High
-                Availability Configuration](https://cloud.google.com/sql/docs/postgres/high-availability).'
+                Availability Configuration](https://cloud.google.com/sql/docs/postgres/high-availability).
+                Possible values: SQL_AVAILABILITY_TYPE_UNSPECIFIED, ZONAL, REGIONAL'
               enum:
               - SQL_AVAILABILITY_TYPE_UNSPECIFIED
               - ZONAL
@@ -755,15 +763,16 @@ components:
                   description: Backup retention settings.
                   properties:
                     retainedBackups:
-                      description: Depending on the value of retention\_unit, this
-                        is used to determine if a backup needs to be deleted. If retention\_unit
+                      description: Depending on the value of retention_unit, this
+                        is used to determine if a backup needs to be deleted. If retention_unit
                         is 'COUNT', we will retain this many backups.
                       format: int64
                       type: integer
                       x-dcl-go-name: RetainedBackups
                       x-kubernetes-immutable: true
                     retentionUnit:
-                      description: The unit that 'retained\_backups' represents.
+                      description: 'The unit that ''retained_backups'' represents.
+                        Possible values: RETENTION_UNIT_UNSPECIFIED, COUNT'
                       enum:
                       - RETENTION_UNIT_UNSPECIFIED
                       - COUNT
@@ -841,7 +850,8 @@ components:
               x-kubernetes-immutable: true
             dataDiskType:
               description: 'The type of data disk: `PD_SSD` (default) or `PD_HDD`.
-                Not used for First Generation instances.'
+                Not used for First Generation instances. Possible values: SQL_DATA_DISK_TYPE_UNSPECIFIED,
+                PD_SSD, PD_HDD, OBSOLETE_LOCAL_SSD'
               enum:
               - SQL_DATA_DISK_TYPE_UNSPECIFIED
               - PD_SSD
@@ -907,8 +917,8 @@ components:
                     x-kubernetes-immutable: true
                   time:
                     description: 'Time in UTC when the "deny maintenance period" starts
-                      on start\_date and ends on end\_date. The time is in format:
-                      HH:mm:SS, i.e., 00:00:00'
+                      on start_date and ends on end_date. The time is in format: HH:mm:SS,
+                      i.e., 00:00:00'
                     type: string
                     x-dcl-go-name: Time
                     x-kubernetes-immutable: true
@@ -1069,7 +1079,7 @@ components:
                   description: |-
                     Maintenance timing setting: **canary** (Earlier) or **stable** (Later).
 
-                    [Learn more](/sql/docs/db_path/instance-settings#maintenance-timing-2ndgen).
+                    [Learn more](/sql/docs/db_path/instance-settings#maintenance-timing-2ndgen). Possible values: SQL_UPDATE_TRACK_UNSPECIFIED, canary, stable
                   enum:
                   - SQL_UPDATE_TRACK_UNSPECIFIED
                   - canary
@@ -1083,9 +1093,10 @@ components:
               x-dcl-go-type: InstanceSettingsMaintenanceWindow
               x-kubernetes-immutable: true
             pricingPlan:
-              description: The pricing plan for this instance. This can be either
+              description: 'The pricing plan for this instance. This can be either
                 `PER_USE` or `PACKAGE`. Only `PER_USE` is supported for Second Generation
-                instances.
+                instances. Possible values: SQL_PRICING_PLAN_UNSPECIFIED, PACKAGE,
+                PER_USE'
               enum:
               - SQL_PRICING_PLAN_UNSPECIFIED
               - PACKAGE
@@ -1095,9 +1106,10 @@ components:
               x-dcl-go-type: InstanceSettingsPricingPlanEnum
               x-kubernetes-immutable: true
             replicationType:
-              description: The type of replication this instance uses. This can be
+              description: 'The type of replication this instance uses. This can be
                 either `ASYNCHRONOUS` or `SYNCHRONOUS`. This property is only applicable
-                to First Generation instances.
+                to First Generation instances. Possible values: SQL_REPLICATION_TYPE_UNSPECIFIED,
+                SYNCHRONOUS, ASYNCHRONOUS'
               enum:
               - SQL_REPLICATION_TYPE_UNSPECIFIED
               - SYNCHRONOUS
@@ -1153,23 +1165,15 @@ components:
               x-dcl-go-name: Tier
               x-kubernetes-immutable: true
             userLabels:
+              additionalProperties:
+                type: string
               description: User-provided labels, represented as a dictionary where
                 each label is a single key value pair.
               items:
-                properties:
-                  key:
-                    type: string
-                    x-dcl-go-name: Key
-                    x-kubernetes-immutable: true
-                  value:
-                    type: string
-                    x-dcl-go-name: Value
-                    x-kubernetes-immutable: true
-                type: object
-                x-dcl-go-type: InstanceSettingsUserLabels
-              type: array
+                type: string
+                x-dcl-go-type: string
+              type: object
               x-dcl-go-name: UserLabels
-              x-dcl-list-type: list
               x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: Settings
@@ -1179,15 +1183,15 @@ components:
           description: |-
             The current serving state of the Cloud SQL instance. This can be one of the following.
 
-            **SQL\_INSTANCE\_STATE\_UNSPECIFIED**: The state of the instance is unknown.
+            **SQL_INSTANCE_STATE_UNSPECIFIED**: The state of the instance is unknown.
 
             **RUNNABLE**: The instance has been stopped by owner. It is not currently running, but it's ready to be restarted.
 
             **SUSPENDED**: The instance is not available, for example due to problems with billing. for example due to problems with billing.
 
-            **PENDING\_DELETE**: The instance is being deleted.
+            **PENDING_DELETE**: The instance is being deleted.
 
-            **PENDING\_CREATE**: The instance is being created.
+            **PENDING_CREATE**: The instance is being created.
 
             **MAINTENANCE**: The instance is down for maintenance.
 
@@ -1217,8 +1221,35 @@ info:
   title: Sql/Instance
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Instance
+  apply:
+    description: The function used to apply information about a Instance
+    parameters:
+    - description: A full instance of a Instance
+      name: Instance
+      required: true
+  delete:
+    description: The function used to delete a Instance
+    parameters:
+    - description: A full instance of a Instance
+      name: Instance
+      required: true
+  deleteAll:
+    description: The function used to delete all Instance
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Instance
+    parameters:
+    - description: A full instance of a Instance
+      name: Instance
+      required: true
+  list:
+    description: The function used to list information about many Instance
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Trigger) validate() error {
@@ -32,9 +33,6 @@ func (r *Trigger) validate() error {
 		return err
 	}
 	if err := dcl.Required(r, "destination"); err != nil {
-		return err
-	}
-	if err := dcl.Required(r, "matchingCriteria"); err != nil {
 		return err
 	}
 	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
@@ -433,12 +431,12 @@ func (c *Client) triggerDiffsForRawDesired(ctx context.Context, rawDesired *Trig
 			c.Config.Logger.Warningf("Failed to retrieve whether a Trigger resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Trigger resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Trigger resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeTriggerDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Trigger: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Trigger: %v", rawDesired)
 
@@ -572,21 +570,9 @@ func canonicalizeTriggerNewState(c *Client, rawNew, rawDesired *Trigger) (*Trigg
 		rawNew.MatchingCriteria = canonicalizeNewTriggerMatchingCriteriaSet(c, rawDesired.MatchingCriteria, rawNew.MatchingCriteria)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
-	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
-		rawNew.Location = rawDesired.Location
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Location, rawNew.Location) {
-			rawNew.Location = rawDesired.Location
-		}
-	}
+	rawNew.Location = rawDesired.Location
 
 	return rawNew, nil
 }
@@ -904,7 +890,7 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 
 	var diffs []triggerDiff
 	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 
 		diffs = append(diffs, triggerDiff{
 			UpdateOp:  &updateTriggerUpdateTriggerOperation{},
@@ -913,7 +899,7 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 
 	}
 	if !dcl.IsZeroValue(desired.ServiceAccount) && !dcl.NameToSelfLink(desired.ServiceAccount, actual.ServiceAccount) {
-		c.Config.Logger.Infof("Detected diff in ServiceAccount.\nDESIRED: %#v\nACTUAL: %#v", desired.ServiceAccount, actual.ServiceAccount)
+		c.Config.Logger.Infof("Detected diff in ServiceAccount.\nDESIRED: %v\nACTUAL: %v", desired.ServiceAccount, actual.ServiceAccount)
 
 		diffs = append(diffs, triggerDiff{
 			UpdateOp:  &updateTriggerUpdateTriggerOperation{},
@@ -922,7 +908,7 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 
 	}
 	if compareTriggerDestination(c, desired.Destination, actual.Destination) {
-		c.Config.Logger.Infof("Detected diff in Destination.\nDESIRED: %#v\nACTUAL: %#v", desired.Destination, actual.Destination)
+		c.Config.Logger.Infof("Detected diff in Destination.\nDESIRED: %v\nACTUAL: %v", desired.Destination, actual.Destination)
 
 		diffs = append(diffs, triggerDiff{
 			UpdateOp:  &updateTriggerUpdateTriggerOperation{},
@@ -931,7 +917,7 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 
 	}
 	if compareTriggerMatchingCriteriaSlice(c, desired.MatchingCriteria, actual.MatchingCriteria) {
-		c.Config.Logger.Infof("Detected diff in MatchingCriteria.\nDESIRED: %#v\nACTUAL: %#v", desired.MatchingCriteria, actual.MatchingCriteria)
+		c.Config.Logger.Infof("Detected diff in MatchingCriteria.\nDESIRED: %v\nACTUAL: %v", desired.MatchingCriteria, actual.MatchingCriteria)
 
 		toAdd, toRemove := compareTriggerMatchingCriteriaSets(c, desired.MatchingCriteria, actual.MatchingCriteria)
 		c.Config.Logger.Infof("diff in MatchingCriteria is a set field - recomparing with set logic. \nto add: %#v\nto remove: %#v", toAdd, toRemove)
@@ -943,20 +929,6 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 			})
 		}
 
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, triggerDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Location) && !dcl.NameToSelfLink(desired.Location, actual.Location) {
-		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
-		diffs = append(diffs, triggerDiff{
-			RequiresRecreate: true,
-			FieldName:        "Location",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,

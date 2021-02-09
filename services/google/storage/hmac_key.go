@@ -16,6 +16,7 @@ package storage
 import (
 	"context"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -239,7 +240,9 @@ func (c *Client) ApplyHmacKey(ctx context.Context, rawDesired *HmacKey, opts ...
 	if create {
 		ops = append(ops, &createHmacKeyOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteHmacKeyOperation{})
+
 		ops = append(ops, &createHmacKeyOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeHmacKeyDesiredState(rawDesired, nil)

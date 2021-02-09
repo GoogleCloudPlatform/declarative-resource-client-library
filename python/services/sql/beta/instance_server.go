@@ -396,9 +396,6 @@ func ProtoToSqlBetaInstanceSettings(p *betapb.SqlBetaInstanceSettings) *beta.Ins
 	for _, r := range p.GetAuthorizedGaeApplications() {
 		obj.AuthorizedGaeApplications = append(obj.AuthorizedGaeApplications, r)
 	}
-	for _, r := range p.GetUserLabels() {
-		obj.UserLabels = append(obj.UserLabels, *ProtoToSqlBetaInstanceSettingsUserLabels(r))
-	}
 	for _, r := range p.GetDatabaseFlags() {
 		obj.DatabaseFlags = append(obj.DatabaseFlags, *ProtoToSqlBetaInstanceSettingsDatabaseFlags(r))
 	}
@@ -415,18 +412,6 @@ func ProtoToSqlBetaInstanceSettingsSettingsVersion(p *betapb.SqlBetaInstanceSett
 	}
 	obj := &beta.InstanceSettingsSettingsVersion{
 		Value: dcl.Int64OrNil(p.Value),
-	}
-	return obj
-}
-
-// ProtoToInstanceSettingsUserLabels converts a InstanceSettingsUserLabels resource from its proto representation.
-func ProtoToSqlBetaInstanceSettingsUserLabels(p *betapb.SqlBetaInstanceSettingsUserLabels) *beta.InstanceSettingsUserLabels {
-	if p == nil {
-		return nil
-	}
-	obj := &beta.InstanceSettingsUserLabels{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
 	}
 	return obj
 }
@@ -1055,8 +1040,9 @@ func SqlBetaInstanceSettingsToProto(o *beta.InstanceSettings) *betapb.SqlBetaIns
 	for _, r := range o.AuthorizedGaeApplications {
 		p.AuthorizedGaeApplications = append(p.AuthorizedGaeApplications, r)
 	}
-	for _, r := range o.UserLabels {
-		p.UserLabels = append(p.UserLabels, SqlBetaInstanceSettingsUserLabelsToProto(&r))
+	p.UserLabels = make(map[string]string)
+	for k, r := range o.UserLabels {
+		p.UserLabels[k] = r
 	}
 	for _, r := range o.DatabaseFlags {
 		p.DatabaseFlags = append(p.DatabaseFlags, SqlBetaInstanceSettingsDatabaseFlagsToProto(&r))
@@ -1074,18 +1060,6 @@ func SqlBetaInstanceSettingsSettingsVersionToProto(o *beta.InstanceSettingsSetti
 	}
 	p := &betapb.SqlBetaInstanceSettingsSettingsVersion{
 		Value: dcl.ValueOrEmptyInt64(o.Value),
-	}
-	return p
-}
-
-// InstanceSettingsUserLabelsToProto converts a InstanceSettingsUserLabels resource to its proto representation.
-func SqlBetaInstanceSettingsUserLabelsToProto(o *beta.InstanceSettingsUserLabels) *betapb.SqlBetaInstanceSettingsUserLabels {
-	if o == nil {
-		return nil
-	}
-	p := &betapb.SqlBetaInstanceSettingsUserLabels{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
 	}
 	return p
 }
@@ -1377,11 +1351,13 @@ func (s *InstanceServer) ApplySqlBetaInstance(ctx context.Context, request *beta
 
 // DeleteInstance handles the gRPC request by passing it to the underlying Instance Delete() method.
 func (s *InstanceServer) DeleteSqlBetaInstance(ctx context.Context, request *betapb.DeleteSqlBetaInstanceRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteInstance(ctx, ProtoToInstance(request.GetResource()))
+
 }
 
 // ListInstance handles the gRPC request by passing it to the underlying InstanceList() method.

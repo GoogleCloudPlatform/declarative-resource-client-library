@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Index) validate() error {
@@ -289,6 +290,7 @@ func (c *Client) indexDiffsForRawDesired(ctx context.Context, rawDesired *Index,
 		desired, err := canonicalizeIndexDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
+
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetIndex(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -296,12 +298,12 @@ func (c *Client) indexDiffsForRawDesired(ctx context.Context, rawDesired *Index,
 			c.Config.Logger.Warningf("Failed to retrieve whether a Index resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Index resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Index resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeIndexDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Index: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Index: %v", rawDesired)
 
@@ -395,13 +397,7 @@ func canonicalizeIndexNewState(c *Client, rawNew, rawDesired *Index) (*Index, er
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	if dcl.IsEmptyValueIndirect(rawNew.Properties) && dcl.IsEmptyValueIndirect(rawDesired.Properties) {
 		rawNew.Properties = rawDesired.Properties
@@ -496,28 +492,21 @@ func diffIndex(c *Client, desired, actual *Index, opts ...dcl.ApplyOption) ([]in
 
 	var diffs []indexDiff
 	if !dcl.IsZeroValue(desired.Ancestor) && (dcl.IsZeroValue(actual.Ancestor) || !reflect.DeepEqual(*desired.Ancestor, *actual.Ancestor)) {
-		c.Config.Logger.Infof("Detected diff in Ancestor.\nDESIRED: %#v\nACTUAL: %#v", desired.Ancestor, actual.Ancestor)
+		c.Config.Logger.Infof("Detected diff in Ancestor.\nDESIRED: %v\nACTUAL: %v", desired.Ancestor, actual.Ancestor)
 		diffs = append(diffs, indexDiff{
 			RequiresRecreate: true,
 			FieldName:        "Ancestor",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Kind) && (dcl.IsZeroValue(actual.Kind) || !reflect.DeepEqual(*desired.Kind, *actual.Kind)) {
-		c.Config.Logger.Infof("Detected diff in Kind.\nDESIRED: %#v\nACTUAL: %#v", desired.Kind, actual.Kind)
+		c.Config.Logger.Infof("Detected diff in Kind.\nDESIRED: %v\nACTUAL: %v", desired.Kind, actual.Kind)
 		diffs = append(diffs, indexDiff{
 			RequiresRecreate: true,
 			FieldName:        "Kind",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, indexDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
 	if compareIndexPropertiesSlice(c, desired.Properties, actual.Properties) {
-		c.Config.Logger.Infof("Detected diff in Properties.\nDESIRED: %#v\nACTUAL: %#v", desired.Properties, actual.Properties)
+		c.Config.Logger.Infof("Detected diff in Properties.\nDESIRED: %v\nACTUAL: %v", desired.Properties, actual.Properties)
 		diffs = append(diffs, indexDiff{
 			RequiresRecreate: true,
 			FieldName:        "Properties",

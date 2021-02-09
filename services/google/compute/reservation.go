@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -359,7 +360,9 @@ func (c *Client) ApplyReservation(ctx context.Context, rawDesired *Reservation, 
 	if create {
 		ops = append(ops, &createReservationOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteReservationOperation{})
+
 		ops = append(ops, &createReservationOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeReservationDesiredState(rawDesired, nil)

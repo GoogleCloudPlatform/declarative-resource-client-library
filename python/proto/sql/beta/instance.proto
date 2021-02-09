@@ -252,7 +252,7 @@ message SqlBetaInstanceSettings {
   bool database_replication_enabled = 10;
   bool crash_safe_replication_enabled = 11;
   SqlBetaInstanceSettingsSettingsVersion settings_version = 12;
-  repeated SqlBetaInstanceSettingsUserLabels user_labels = 13;
+  map<string, string> user_labels = 13;
   SqlBetaInstanceSettingsStorageAutoResizeLimit storage_auto_resize_limit = 14;
   SqlBetaInstanceSettingsIPConfiguration ip_configuration = 15;
   SqlBetaInstanceSettingsLocationPreference location_preference = 16;
@@ -268,11 +268,6 @@ message SqlBetaInstanceSettings {
 
 message SqlBetaInstanceSettingsSettingsVersion {
   int64 value = 1;
-}
-
-message SqlBetaInstanceSettingsUserLabels {
-  string key = 1;
-  string value = 2;
 }
 
 message SqlBetaInstanceSettingsStorageAutoResizeLimit {

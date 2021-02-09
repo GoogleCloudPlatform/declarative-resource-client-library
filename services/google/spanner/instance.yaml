@@ -48,6 +48,9 @@ components:
             such as JSON, which doesn''t rely upon specific characters being disallowed.  For
             example, representing labels as the string:  name + "_" + value  would
             prove problematic if we were to allow "_" in a future release.'
+          items:
+            type: string
+            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         name:
@@ -68,7 +71,7 @@ components:
           x-dcl-go-name: Project
           x-kubernetes-immutable: true
         state:
-          description: The current instance state.
+          description: 'The current instance state. Possible values: CREATING, READY'
           enum:
           - CREATING
           - READY
@@ -94,8 +97,35 @@ info:
   title: Spanner/Instance
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Instance
+  apply:
+    description: The function used to apply information about a Instance
+    parameters:
+    - description: A full instance of a Instance
+      name: Instance
+      required: true
+  delete:
+    description: The function used to delete a Instance
+    parameters:
+    - description: A full instance of a Instance
+      name: Instance
+      required: true
+  deleteAll:
+    description: The function used to delete all Instance
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Instance
+    parameters:
+    - description: A full instance of a Instance
+      name: Instance
+      required: true
+  list:
+    description: The function used to list information about many Instance
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -339,39 +340,6 @@ func (c *Client) GetApplication(ctx context.Context, r *Application) (*Applicati
 	return result, nil
 }
 
-func (c *Client) DeleteApplication(ctx context.Context, r *Application) error {
-	if r == nil {
-		return fmt.Errorf("Application resource is nil")
-	}
-	c.Config.Logger.Info("Deleting Application...")
-	deleteOp := deleteApplicationOperation{}
-	return deleteOp.do(ctx, r, c)
-}
-
-// DeleteAllApplication deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllApplication(ctx context.Context, filter func(*Application) bool) error {
-	listObj, err := c.ListApplication(ctx)
-	if err != nil {
-		return err
-	}
-
-	err = c.deleteAllApplication(ctx, filter, listObj.Items)
-	if err != nil {
-		return err
-	}
-	for listObj.HasNext() {
-		err = listObj.Next(ctx, c)
-		if err != nil {
-			return nil
-		}
-		err = c.deleteAllApplication(ctx, filter, listObj.Items)
-		if err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
 func (c *Client) ApplyApplication(ctx context.Context, rawDesired *Application, opts ...dcl.ApplyOption) (*Application, error) {
 	c.Config.Logger.Info("Beginning ApplyApplication...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
@@ -422,7 +390,7 @@ func (c *Client) ApplyApplication(ctx context.Context, rawDesired *Application, 
 	if create {
 		ops = append(ops, &createApplicationOperation{})
 	} else if recreate {
-		ops = append(ops, &deleteApplicationOperation{})
+
 		ops = append(ops, &createApplicationOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeApplicationDesiredState(rawDesired, nil)
@@ -433,10 +401,6 @@ func (c *Client) ApplyApplication(ctx context.Context, rawDesired *Application, 
 		for _, d := range diffs {
 			ops = append(ops, d.UpdateOp)
 		}
-	}
-	ops, err = PlanProjectStatus(ops)
-	if err != nil {
-		return nil, err
 	}
 	c.Config.Logger.Infof("Created plan: %#v", ops)
 

@@ -131,11 +131,13 @@ func (s *SslCertificateServer) ApplyComputeBetaSslCertificate(ctx context.Contex
 
 // DeleteSslCertificate handles the gRPC request by passing it to the underlying SslCertificate Delete() method.
 func (s *SslCertificateServer) DeleteComputeBetaSslCertificate(ctx context.Context, request *betapb.DeleteComputeBetaSslCertificateRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigSslCertificate(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteSslCertificate(ctx, ProtoToSslCertificate(request.GetResource()))
+
 }
 
 // ListSslCertificate handles the gRPC request by passing it to the underlying SslCertificateList() method.

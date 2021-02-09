@@ -27,7 +27,7 @@ class Instance(object):
         status_message: str = None,
         create_time: str = None,
         tier: str = None,
-        labels: list = None,
+        labels: dict = None,
         file_shares: list = None,
         networks: list = None,
         etag: str = None,
@@ -60,8 +60,9 @@ class Instance(object):
         if InstanceTierEnum.to_proto(self.tier):
             request.resource.tier = InstanceTierEnum.to_proto(self.tier)
 
-        if InstanceLabelsArray.to_proto(self.labels):
-            request.resource.labels.extend(InstanceLabelsArray.to_proto(self.labels))
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
         if InstanceFileSharesArray.to_proto(self.file_shares):
             request.resource.file_shares.extend(
                 InstanceFileSharesArray.to_proto(self.file_shares)
@@ -88,7 +89,7 @@ class Instance(object):
         self.status_message = Primitive.from_proto(response.status_message)
         self.create_time = Primitive.from_proto(response.create_time)
         self.tier = InstanceTierEnum.from_proto(response.tier)
-        self.labels = InstanceLabelsArray.from_proto(response.labels)
+        self.labels = Primitive.from_proto(response.labels)
         self.file_shares = InstanceFileSharesArray.from_proto(response.file_shares)
         self.networks = InstanceNetworksArray.from_proto(response.networks)
         self.etag = Primitive.from_proto(response.etag)
@@ -132,50 +133,13 @@ class Instance(object):
         res.status_message = Primitive.from_proto(res_proto.status_message)
         res.create_time = Primitive.from_proto(res_proto.create_time)
         res.tier = InstanceTierEnum.from_proto(res_proto.tier)
-        res.labels = InstanceLabelsArray.from_proto(res_proto.labels)
+        res.labels = Primitive.from_proto(res_proto.labels)
         res.file_shares = InstanceFileSharesArray.from_proto(res_proto.file_shares)
         res.networks = InstanceNetworksArray.from_proto(res_proto.networks)
         res.etag = Primitive.from_proto(res_proto.etag)
         res.project = Primitive.from_proto(res_proto.project)
         res.location = Primitive.from_proto(res_proto.location)
         return res
-
-
-class InstanceLabels(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = instance_pb2.FileInstanceLabels()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceLabels(key=resource.key, value=resource.value,)
-
-
-class InstanceLabelsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [InstanceLabels.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [InstanceLabels.from_proto(i) for i in resources]
 
 
 class InstanceFileShares(object):

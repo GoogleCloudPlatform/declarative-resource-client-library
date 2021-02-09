@@ -14,9 +14,11 @@
 package cloudresourcemanager
 
 import (
+	"bytes"
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -249,7 +251,9 @@ func (c *Client) ApplyProject(ctx context.Context, rawDesired *Project, opts ...
 	if create {
 		ops = append(ops, &createProjectOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteProjectOperation{})
+
 		ops = append(ops, &createProjectOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeProjectDesiredState(rawDesired, nil)
@@ -311,4 +315,10 @@ func (c *Client) ApplyProject(ctx context.Context, rawDesired *Project, opts ...
 	}
 	c.Config.Logger.Info("Done Apply.")
 	return newState, nil
+}
+func (r *Project) GetPolicy(basePath string) (string, string, *bytes.Buffer, error) {
+	u := r.getPolicyURL(basePath)
+	body := &bytes.Buffer{}
+	body.WriteString(fmt.Sprintf(`{"options":{"requestedPolicyVersion": %d}}`, r.IAMPolicyVersion()))
+	return u, "POST", body, nil
 }

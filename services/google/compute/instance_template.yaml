@@ -186,6 +186,9 @@ components:
                         additionalProperties:
                           type: string
                         description: Labels to apply to this disk
+                        items:
+                          type: string
+                          x-dcl-go-type: string
                         type: object
                         x-dcl-go-name: Labels
                         x-kubernetes-immutable: true
@@ -372,6 +375,9 @@ components:
                 type: string
               description: Labels to apply to this address.  A list of key->value
                 pairs.
+              items:
+                type: string
+                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Labels
               x-kubernetes-immutable: true
@@ -389,6 +395,9 @@ components:
               description: 'The metadata key/value pairs to assign to instances that
                 are created from this template. These pairs can consist of custom
                 metadata or predefined keys. '
+              items:
+                type: string
+                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Metadata
               x-kubernetes-immutable: true
@@ -434,6 +443,7 @@ components:
                             resource: Compute/Address
                           x-kubernetes-immutable: true
                         networkTier:
+                          description: ' Possible values: PREMIUM, STANDARD'
                           enum:
                           - PREMIUM
                           - STANDARD
@@ -725,8 +735,35 @@ info:
   title: Compute/InstanceTemplate
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many InstanceTemplate
+  apply:
+    description: The function used to apply information about a InstanceTemplate
+    parameters:
+    - description: A full instance of a InstanceTemplate
+      name: InstanceTemplate
+      required: true
+  delete:
+    description: The function used to delete a InstanceTemplate
+    parameters:
+    - description: A full instance of a InstanceTemplate
+      name: InstanceTemplate
+      required: true
+  deleteAll:
+    description: The function used to delete all InstanceTemplate
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a InstanceTemplate
+    parameters:
+    - description: A full instance of a InstanceTemplate
+      name: InstanceTemplate
+      required: true
+  list:
+    description: The function used to list information about many InstanceTemplate
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

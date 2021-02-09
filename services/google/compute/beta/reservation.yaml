@@ -39,8 +39,8 @@ components:
             creating the resource. The resource name must be 1-63 characters long,
             and comply with [RFC1035](https://www.ietf.org/rfc/rfc1035.txt). Specifically,
             the name must be 1-63 characters long and match the regular expression
-            \`)?\` which means the first character must be a lowercase letter, and
-            all following characters must be a dash, lowercase letter, or digit, except
+            `)?` which means the first character must be a lowercase letter, and all
+            following characters must be a dash, lowercase letter, or digit, except
             the last character, which cannot be a dash.
           type: string
           x-dcl-go-name: Name
@@ -129,7 +129,7 @@ components:
                 machineType:
                   description: Specifies type of machine (name only) which has fixed
                     number of vCPUs and fixed amount of memory. This also includes
-                    specifying custom machine type following custom-NUMBER\_OF\_CPUS-AMOUNT\_OF\_MEMORY
+                    specifying custom machine type following custom-NUMBER_OF_CPUS-AMOUNT_OF_MEMORY
                     pattern.
                   type: string
                   x-dcl-go-name: MachineType
@@ -152,7 +152,8 @@ components:
           x-dcl-go-name: SpecificReservationRequired
           x-kubernetes-immutable: true
         status:
-          description: The status of the reservation.
+          description: 'The status of the reservation. Possible values: PENDING, RUNNING,
+            DONE'
           enum:
           - PENDING
           - RUNNING
@@ -184,10 +185,43 @@ info:
   title: Compute/Reservation
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Reservation
+  apply:
+    description: The function used to apply information about a Reservation
+    parameters:
+    - description: A full instance of a Reservation
+      name: Reservation
+      required: true
+  delete:
+    description: The function used to delete a Reservation
+    parameters:
+    - description: A full instance of a Reservation
+      name: Reservation
+      required: true
+  deleteAll:
+    description: The function used to delete all Reservation
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: zone
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Reservation
+    parameters:
+    - description: A full instance of a Reservation
+      name: Reservation
+      required: true
+  list:
+    description: The function used to list information about many Reservation
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: zone
+      required: true
+      schema:
+        type: string

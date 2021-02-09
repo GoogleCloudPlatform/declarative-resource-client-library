@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -240,7 +241,9 @@ func (c *Client) ApplyTargetVpnGateway(ctx context.Context, rawDesired *TargetVp
 	if create {
 		ops = append(ops, &createTargetVpnGatewayOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteTargetVpnGatewayOperation{})
+
 		ops = append(ops, &createTargetVpnGatewayOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeTargetVpnGatewayDesiredState(rawDesired, nil)

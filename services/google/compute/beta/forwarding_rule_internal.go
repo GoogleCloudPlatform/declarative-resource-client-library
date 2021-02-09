@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *ForwardingRule) validate() error {
@@ -294,12 +295,12 @@ func (c *Client) forwardingRuleDiffsForRawDesired(ctx context.Context, rawDesire
 			c.Config.Logger.Warningf("Failed to retrieve whether a ForwardingRule resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve ForwardingRule resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that ForwardingRule resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for ForwardingRule: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for ForwardingRule: %v", rawDesired)
 
@@ -543,13 +544,7 @@ func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *Forwardin
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
-		rawNew.Location = rawDesired.Location
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Location, rawNew.Location) {
-			rawNew.Location = rawDesired.Location
-		}
-	}
+	rawNew.Location = rawDesired.Location
 
 	return rawNew, nil
 }
@@ -692,171 +687,164 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 
 	var diffs []forwardingRuleDiff
 	if !dcl.IsZeroValue(desired.AllPorts) && (dcl.IsZeroValue(actual.AllPorts) || !reflect.DeepEqual(*desired.AllPorts, *actual.AllPorts)) {
-		c.Config.Logger.Infof("Detected diff in AllPorts.\nDESIRED: %#v\nACTUAL: %#v", desired.AllPorts, actual.AllPorts)
+		c.Config.Logger.Infof("Detected diff in AllPorts.\nDESIRED: %v\nACTUAL: %v", desired.AllPorts, actual.AllPorts)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "AllPorts",
 		})
 	}
 	if !dcl.IsZeroValue(desired.AllowGlobalAccess) && (dcl.IsZeroValue(actual.AllowGlobalAccess) || !reflect.DeepEqual(*desired.AllowGlobalAccess, *actual.AllowGlobalAccess)) {
-		c.Config.Logger.Infof("Detected diff in AllowGlobalAccess.\nDESIRED: %#v\nACTUAL: %#v", desired.AllowGlobalAccess, actual.AllowGlobalAccess)
+		c.Config.Logger.Infof("Detected diff in AllowGlobalAccess.\nDESIRED: %v\nACTUAL: %v", desired.AllowGlobalAccess, actual.AllowGlobalAccess)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "AllowGlobalAccess",
 		})
 	}
 	if !dcl.IsZeroValue(desired.BackendService) && (dcl.IsZeroValue(actual.BackendService) || !reflect.DeepEqual(*desired.BackendService, *actual.BackendService)) {
-		c.Config.Logger.Infof("Detected diff in BackendService.\nDESIRED: %#v\nACTUAL: %#v", desired.BackendService, actual.BackendService)
+		c.Config.Logger.Infof("Detected diff in BackendService.\nDESIRED: %v\nACTUAL: %v", desired.BackendService, actual.BackendService)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "BackendService",
 		})
 	}
 	if !dcl.IsZeroValue(desired.CreationTimestamp) && (dcl.IsZeroValue(actual.CreationTimestamp) || !reflect.DeepEqual(*desired.CreationTimestamp, *actual.CreationTimestamp)) {
-		c.Config.Logger.Infof("Detected diff in CreationTimestamp.\nDESIRED: %#v\nACTUAL: %#v", desired.CreationTimestamp, actual.CreationTimestamp)
+		c.Config.Logger.Infof("Detected diff in CreationTimestamp.\nDESIRED: %v\nACTUAL: %v", desired.CreationTimestamp, actual.CreationTimestamp)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "CreationTimestamp",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
 	if !dcl.IsZeroValue(desired.IPAddress) && (dcl.IsZeroValue(actual.IPAddress) || !reflect.DeepEqual(*desired.IPAddress, *actual.IPAddress)) {
-		c.Config.Logger.Infof("Detected diff in IPAddress.\nDESIRED: %#v\nACTUAL: %#v", desired.IPAddress, actual.IPAddress)
+		c.Config.Logger.Infof("Detected diff in IPAddress.\nDESIRED: %v\nACTUAL: %v", desired.IPAddress, actual.IPAddress)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "IPAddress",
 		})
 	}
 	if !dcl.IsZeroValue(desired.IPProtocol) && (dcl.IsZeroValue(actual.IPProtocol) || !reflect.DeepEqual(*desired.IPProtocol, *actual.IPProtocol)) {
-		c.Config.Logger.Infof("Detected diff in IPProtocol.\nDESIRED: %#v\nACTUAL: %#v", desired.IPProtocol, actual.IPProtocol)
+		c.Config.Logger.Infof("Detected diff in IPProtocol.\nDESIRED: %v\nACTUAL: %v", desired.IPProtocol, actual.IPProtocol)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "IPProtocol",
 		})
 	}
 	if !dcl.IsZeroValue(desired.IPVersion) && (dcl.IsZeroValue(actual.IPVersion) || !reflect.DeepEqual(*desired.IPVersion, *actual.IPVersion)) {
-		c.Config.Logger.Infof("Detected diff in IPVersion.\nDESIRED: %#v\nACTUAL: %#v", desired.IPVersion, actual.IPVersion)
+		c.Config.Logger.Infof("Detected diff in IPVersion.\nDESIRED: %v\nACTUAL: %v", desired.IPVersion, actual.IPVersion)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "IPVersion",
 		})
 	}
 	if !dcl.IsZeroValue(desired.IsMirroringCollector) && (dcl.IsZeroValue(actual.IsMirroringCollector) || !reflect.DeepEqual(*desired.IsMirroringCollector, *actual.IsMirroringCollector)) {
-		c.Config.Logger.Infof("Detected diff in IsMirroringCollector.\nDESIRED: %#v\nACTUAL: %#v", desired.IsMirroringCollector, actual.IsMirroringCollector)
+		c.Config.Logger.Infof("Detected diff in IsMirroringCollector.\nDESIRED: %v\nACTUAL: %v", desired.IsMirroringCollector, actual.IsMirroringCollector)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "IsMirroringCollector",
 		})
 	}
 	if !dcl.IsZeroValue(desired.LoadBalancingScheme) && (dcl.IsZeroValue(actual.LoadBalancingScheme) || !reflect.DeepEqual(*desired.LoadBalancingScheme, *actual.LoadBalancingScheme)) {
-		c.Config.Logger.Infof("Detected diff in LoadBalancingScheme.\nDESIRED: %#v\nACTUAL: %#v", desired.LoadBalancingScheme, actual.LoadBalancingScheme)
+		c.Config.Logger.Infof("Detected diff in LoadBalancingScheme.\nDESIRED: %v\nACTUAL: %v", desired.LoadBalancingScheme, actual.LoadBalancingScheme)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "LoadBalancingScheme",
 		})
 	}
 	if compareForwardingRuleMetadataFilterSlice(c, desired.MetadataFilter, actual.MetadataFilter) {
-		c.Config.Logger.Infof("Detected diff in MetadataFilter.\nDESIRED: %#v\nACTUAL: %#v", desired.MetadataFilter, actual.MetadataFilter)
+		c.Config.Logger.Infof("Detected diff in MetadataFilter.\nDESIRED: %v\nACTUAL: %v", desired.MetadataFilter, actual.MetadataFilter)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "MetadataFilter",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Network) && (dcl.IsZeroValue(actual.Network) || !reflect.DeepEqual(*desired.Network, *actual.Network)) {
-		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %#v\nACTUAL: %#v", desired.Network, actual.Network)
+		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Network",
 		})
 	}
 	if !dcl.IsZeroValue(desired.NetworkTier) && (dcl.IsZeroValue(actual.NetworkTier) || !reflect.DeepEqual(*desired.NetworkTier, *actual.NetworkTier)) {
-		c.Config.Logger.Infof("Detected diff in NetworkTier.\nDESIRED: %#v\nACTUAL: %#v", desired.NetworkTier, actual.NetworkTier)
+		c.Config.Logger.Infof("Detected diff in NetworkTier.\nDESIRED: %v\nACTUAL: %v", desired.NetworkTier, actual.NetworkTier)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "NetworkTier",
 		})
 	}
 	if !dcl.IsZeroValue(desired.PortRange) && (dcl.IsZeroValue(actual.PortRange) || !reflect.DeepEqual(*desired.PortRange, *actual.PortRange)) {
-		c.Config.Logger.Infof("Detected diff in PortRange.\nDESIRED: %#v\nACTUAL: %#v", desired.PortRange, actual.PortRange)
+		c.Config.Logger.Infof("Detected diff in PortRange.\nDESIRED: %v\nACTUAL: %v", desired.PortRange, actual.PortRange)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "PortRange",
 		})
 	}
 	if !dcl.SliceEquals(desired.Ports, actual.Ports) {
-		c.Config.Logger.Infof("Detected diff in Ports.\nDESIRED: %#v\nACTUAL: %#v", desired.Ports, actual.Ports)
+		c.Config.Logger.Infof("Detected diff in Ports.\nDESIRED: %v\nACTUAL: %v", desired.Ports, actual.Ports)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Ports",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Region) && (dcl.IsZeroValue(actual.Region) || !reflect.DeepEqual(*desired.Region, *actual.Region)) {
-		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %#v\nACTUAL: %#v", desired.Region, actual.Region)
+		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %v\nACTUAL: %v", desired.Region, actual.Region)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Region",
 		})
 	}
 	if !dcl.IsZeroValue(desired.SelfLink) && (dcl.IsZeroValue(actual.SelfLink) || !reflect.DeepEqual(*desired.SelfLink, *actual.SelfLink)) {
-		c.Config.Logger.Infof("Detected diff in SelfLink.\nDESIRED: %#v\nACTUAL: %#v", desired.SelfLink, actual.SelfLink)
+		c.Config.Logger.Infof("Detected diff in SelfLink.\nDESIRED: %v\nACTUAL: %v", desired.SelfLink, actual.SelfLink)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "SelfLink",
 		})
 	}
 	if !dcl.IsZeroValue(desired.ServiceLabel) && (dcl.IsZeroValue(actual.ServiceLabel) || !reflect.DeepEqual(*desired.ServiceLabel, *actual.ServiceLabel)) {
-		c.Config.Logger.Infof("Detected diff in ServiceLabel.\nDESIRED: %#v\nACTUAL: %#v", desired.ServiceLabel, actual.ServiceLabel)
+		c.Config.Logger.Infof("Detected diff in ServiceLabel.\nDESIRED: %v\nACTUAL: %v", desired.ServiceLabel, actual.ServiceLabel)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "ServiceLabel",
 		})
 	}
 	if !dcl.IsZeroValue(desired.ServiceName) && (dcl.IsZeroValue(actual.ServiceName) || !reflect.DeepEqual(*desired.ServiceName, *actual.ServiceName)) {
-		c.Config.Logger.Infof("Detected diff in ServiceName.\nDESIRED: %#v\nACTUAL: %#v", desired.ServiceName, actual.ServiceName)
+		c.Config.Logger.Infof("Detected diff in ServiceName.\nDESIRED: %v\nACTUAL: %v", desired.ServiceName, actual.ServiceName)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "ServiceName",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Subnetwork) && (dcl.IsZeroValue(actual.Subnetwork) || !reflect.DeepEqual(*desired.Subnetwork, *actual.Subnetwork)) {
-		c.Config.Logger.Infof("Detected diff in Subnetwork.\nDESIRED: %#v\nACTUAL: %#v", desired.Subnetwork, actual.Subnetwork)
+		c.Config.Logger.Infof("Detected diff in Subnetwork.\nDESIRED: %v\nACTUAL: %v", desired.Subnetwork, actual.Subnetwork)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Subnetwork",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Target) && (dcl.IsZeroValue(actual.Target) || !reflect.DeepEqual(*desired.Target, *actual.Target)) {
-		c.Config.Logger.Infof("Detected diff in Target.\nDESIRED: %#v\nACTUAL: %#v", desired.Target, actual.Target)
+		c.Config.Logger.Infof("Detected diff in Target.\nDESIRED: %v\nACTUAL: %v", desired.Target, actual.Target)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Target",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Project) && (dcl.IsZeroValue(actual.Project) || !reflect.DeepEqual(*desired.Project, *actual.Project)) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
+		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %v\nACTUAL: %v", desired.Project, actual.Project)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Project",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Location) && !dcl.NameToSelfLink(desired.Location, actual.Location) {
-		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %#v\nACTUAL: %#v", desired.Location, actual.Location)
-		diffs = append(diffs, forwardingRuleDiff{
-			RequiresRecreate: true,
-			FieldName:        "Location",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.

@@ -282,7 +282,8 @@ components:
             UNPROVISIONED: The Interconnect has not completed turnup. No attachments
             may be provisioned on this Interconnect. UNDER_MAINTENANCE: The Interconnect
             is undergoing internal maintenance. No attachments may be provisioned
-            or updated on this Interconnect.'
+            or updated on this Interconnect. Possible values: DEPRECATED, OBSOLETE,
+            DELETED, ACTIVE'
           enum:
           - DEPRECATED
           - OBSOLETE
@@ -312,8 +313,35 @@ info:
   title: Compute/Interconnect
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Interconnect
+  apply:
+    description: The function used to apply information about a Interconnect
+    parameters:
+    - description: A full instance of a Interconnect
+      name: Interconnect
+      required: true
+  delete:
+    description: The function used to delete a Interconnect
+    parameters:
+    - description: A full instance of a Interconnect
+      name: Interconnect
+      required: true
+  deleteAll:
+    description: The function used to delete all Interconnect
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Interconnect
+    parameters:
+    - description: A full instance of a Interconnect
+      name: Interconnect
+      required: true
+  list:
+    description: The function used to list information about many Interconnect
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

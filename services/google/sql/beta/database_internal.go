@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Database) validate() error {
@@ -347,12 +348,12 @@ func (c *Client) databaseDiffsForRawDesired(ctx context.Context, rawDesired *Dat
 			c.Config.Logger.Warningf("Failed to retrieve whether a Database resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Database resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Database resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeDatabaseDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Database: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Database: %v", rawDesired)
 
@@ -482,7 +483,7 @@ func diffDatabase(c *Client, desired, actual *Database, opts ...dcl.ApplyOption)
 
 	var diffs []databaseDiff
 	if !dcl.IsZeroValue(desired.Charset) && (dcl.IsZeroValue(actual.Charset) || !reflect.DeepEqual(*desired.Charset, *actual.Charset)) {
-		c.Config.Logger.Infof("Detected diff in Charset.\nDESIRED: %#v\nACTUAL: %#v", desired.Charset, actual.Charset)
+		c.Config.Logger.Infof("Detected diff in Charset.\nDESIRED: %v\nACTUAL: %v", desired.Charset, actual.Charset)
 
 		diffs = append(diffs, databaseDiff{
 			UpdateOp:  &updateDatabaseUpdateOperation{},
@@ -491,7 +492,7 @@ func diffDatabase(c *Client, desired, actual *Database, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.Collation) && (dcl.IsZeroValue(actual.Collation) || !reflect.DeepEqual(*desired.Collation, *actual.Collation)) {
-		c.Config.Logger.Infof("Detected diff in Collation.\nDESIRED: %#v\nACTUAL: %#v", desired.Collation, actual.Collation)
+		c.Config.Logger.Infof("Detected diff in Collation.\nDESIRED: %v\nACTUAL: %v", desired.Collation, actual.Collation)
 
 		diffs = append(diffs, databaseDiff{
 			UpdateOp:  &updateDatabaseUpdateOperation{},
@@ -500,21 +501,21 @@ func diffDatabase(c *Client, desired, actual *Database, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.Instance) && (dcl.IsZeroValue(actual.Instance) || !reflect.DeepEqual(*desired.Instance, *actual.Instance)) {
-		c.Config.Logger.Infof("Detected diff in Instance.\nDESIRED: %#v\nACTUAL: %#v", desired.Instance, actual.Instance)
+		c.Config.Logger.Infof("Detected diff in Instance.\nDESIRED: %v\nACTUAL: %v", desired.Instance, actual.Instance)
 		diffs = append(diffs, databaseDiff{
 			RequiresRecreate: true,
 			FieldName:        "Instance",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, databaseDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Project) && (dcl.IsZeroValue(actual.Project) || !reflect.DeepEqual(*desired.Project, *actual.Project)) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
+		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %v\nACTUAL: %v", desired.Project, actual.Project)
 		diffs = append(diffs, databaseDiff{
 			RequiresRecreate: true,
 			FieldName:        "Project",

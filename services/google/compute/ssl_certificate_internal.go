@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *SslCertificate) validate() error {
@@ -281,12 +282,12 @@ func (c *Client) sslCertificateDiffsForRawDesired(ctx context.Context, rawDesire
 			c.Config.Logger.Warningf("Failed to retrieve whether a SslCertificate resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve SslCertificate resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that SslCertificate resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeSslCertificateDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for SslCertificate: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for SslCertificate: %v", rawDesired)
 
@@ -414,13 +415,7 @@ func canonicalizeSslCertificateNewState(c *Client, rawNew, rawDesired *SslCertif
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -505,38 +500,31 @@ func diffSslCertificate(c *Client, desired, actual *SslCertificate, opts ...dcl.
 
 	var diffs []sslCertificateDiff
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, sslCertificateDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, sslCertificateDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
 	if compareSslCertificateSelfManaged(c, desired.SelfManaged, actual.SelfManaged) {
-		c.Config.Logger.Infof("Detected diff in SelfManaged.\nDESIRED: %#v\nACTUAL: %#v", desired.SelfManaged, actual.SelfManaged)
+		c.Config.Logger.Infof("Detected diff in SelfManaged.\nDESIRED: %v\nACTUAL: %v", desired.SelfManaged, actual.SelfManaged)
 		diffs = append(diffs, sslCertificateDiff{
 			RequiresRecreate: true,
 			FieldName:        "SelfManaged",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Type) && (dcl.IsZeroValue(actual.Type) || !reflect.DeepEqual(*desired.Type, *actual.Type)) {
-		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %#v\nACTUAL: %#v", desired.Type, actual.Type)
+		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %v\nACTUAL: %v", desired.Type, actual.Type)
 		diffs = append(diffs, sslCertificateDiff{
 			RequiresRecreate: true,
 			FieldName:        "Type",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, sslCertificateDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.

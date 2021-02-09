@@ -17,19 +17,20 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 type Folder struct {
-	Id         *string          `json:"id"`
-	Parent     *string          `json:"parent"`
-	Name       *string          `json:"name"`
-	State      *FolderStateEnum `json:"state"`
-	CreateTime *string          `json:"createTime"`
-	UpdateTime *string          `json:"updateTime"`
-	DeleteTime *string          `json:"deleteTime"`
-	Etag       *string          `json:"etag"`
+	Name        *string          `json:"name"`
+	Parent      *string          `json:"parent"`
+	DisplayName *string          `json:"displayName"`
+	State       *FolderStateEnum `json:"state"`
+	CreateTime  *string          `json:"createTime"`
+	UpdateTime  *string          `json:"updateTime"`
+	DeleteTime  *string          `json:"deleteTime"`
+	Etag        *string          `json:"etag"`
 }
 
 func (r *Folder) String() string {
@@ -137,9 +138,9 @@ func (c *Client) GetFolder(ctx context.Context, r *Folder) (*Folder, error) {
 	if err != nil {
 		return nil, err
 	}
-	result.Id = r.Id
+	result.Name = r.Name
 
-	result.Id = r.Id
+	result.Name = r.Name
 
 	c.Config.Logger.Infof("Retrieved raw result state: %v", result)
 	c.Config.Logger.Infof("Canonicalizing with specified state: %v", r)
@@ -235,7 +236,9 @@ func (c *Client) ApplyFolder(ctx context.Context, rawDesired *Folder, opts ...dc
 	if create {
 		ops = append(ops, &createFolderOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteFolderOperation{})
+
 		ops = append(ops, &createFolderOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeFolderDesiredState(rawDesired, nil)

@@ -25,10 +25,10 @@ components:
           x-kubernetes-immutable: true
         network:
           description: 'The name of service consumer''s VPC network that''s connected
-            with service producer network, in the following format: \\\`projects/{project}/global/networks/{network}\\\`.
-            \\\`{project}\\\` is a project number, such as in \\\`12345\\\` that includes
-            the VPC service consumer''s VPC network. \\\`{network}\\\` is the name
-            of the service consumer''s VPC network.'
+            with service producer network, in the following format: `projects/{project}/global/networks/{network}`.
+            `{project}` is a project number, such as in `12345` that includes the
+            VPC service consumer''s VPC network. `{network}` is the name of the service
+            consumer''s VPC network.'
           type: string
           x-dcl-go-name: Network
           x-dcl-references:
@@ -42,7 +42,7 @@ components:
           x-kubernetes-immutable: true
         reservedPeeringRanges:
           description: The name of one or more allocated IP address ranges for this
-            service producer of type \\\`PEERING\\\`. Note that invoking CreateConnection
+            service producer of type `PEERING`. Note that invoking CreateConnection
             method with a different range when connection is already established will
             not modify already provisioned service producer subnetworks. If CreateConnection
             method is invoked repeatedly to reconnect when peering connection had
@@ -79,12 +79,51 @@ info:
   title: Servicenetworking/Connection
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Connection
+  apply:
+    description: The function used to apply information about a Connection
+    parameters:
+    - description: A full instance of a Connection
+      name: Connection
+      required: true
+  delete:
+    description: The function used to delete a Connection
+    parameters:
+    - description: A full instance of a Connection
+      name: Connection
+      required: true
+  deleteAll:
+    description: The function used to delete all Connection
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: network
       required: true
+      schema:
+        type: string
     - name: service
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Connection
+    parameters:
+    - description: A full instance of a Connection
+      name: Connection
+      required: true
+  list:
+    description: The function used to list information about many Connection
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: network
+      required: true
+      schema:
+        type: string
+    - name: service
+      required: true
+      schema:
+        type: string

@@ -52,7 +52,9 @@ components:
         parent:
           description: 'The parent resource in which to create the exclusion: "projects/[PROJECT_ID]"
             "organizations/[ORGANIZATION_ID]" "billingAccounts/[BILLING_ACCOUNT_ID]"
-            "folders/[FOLDER_ID]" Example: "projects/my-project-id".'
+            "folders/[FOLDER_ID]" Examples: "projects/my-logging-project", "organizations/123456789".
+            Authorization requires the following IAM permission on the specified resource
+            parent: logging.exclusions.create'
           type: string
           x-dcl-go-name: Parent
           x-kubernetes-immutable: true
@@ -67,7 +69,6 @@ components:
       required:
       - name
       - filter
-      - parent
       title: LogExclusion
       type: object
       x-dcl-id: '{{parent}}/exclusions/{{name}}'
@@ -79,8 +80,35 @@ info:
   title: Logging/LogExclusion
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many LogExclusion
+  apply:
+    description: The function used to apply information about a LogExclusion
+    parameters:
+    - description: A full instance of a LogExclusion
+      name: LogExclusion
+      required: true
+  delete:
+    description: The function used to delete a LogExclusion
+    parameters:
+    - description: A full instance of a LogExclusion
+      name: LogExclusion
+      required: true
+  deleteAll:
+    description: The function used to delete all LogExclusion
     parameters:
     - name: parent
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a LogExclusion
+    parameters:
+    - description: A full instance of a LogExclusion
+      name: LogExclusion
+      required: true
+  list:
+    description: The function used to list information about many LogExclusion
+    parameters:
+    - name: parent
+      required: true
+      schema:
+        type: string

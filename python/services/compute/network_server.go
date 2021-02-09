@@ -135,11 +135,13 @@ func (s *NetworkServer) ComputeNetworkAsHcl(ctx context.Context, request *comput
 
 // DeleteNetwork handles the gRPC request by passing it to the underlying Network Delete() method.
 func (s *NetworkServer) DeleteComputeNetwork(ctx context.Context, request *computepb.DeleteComputeNetworkRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigNetwork(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteNetwork(ctx, ProtoToNetwork(request.GetResource()))
+
 }
 
 // ListNetwork handles the gRPC request by passing it to the underlying NetworkList() method.

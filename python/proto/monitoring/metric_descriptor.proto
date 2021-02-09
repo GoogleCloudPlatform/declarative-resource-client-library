@@ -18,11 +18,11 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
-enum MonitoringMetricDescriptorLabelsValueTypeEnum {
-  MonitoringMetricDescriptorLabelsValueTypeEnumNO_VALUE_DO_NOT_USE = 0;
-  MonitoringMetricDescriptorLabelsValueTypeEnumSTRING = 1;
-  MonitoringMetricDescriptorLabelsValueTypeEnumBOOL = 2;
-  MonitoringMetricDescriptorLabelsValueTypeEnumINT64 = 3;
+enum MonitoringMetricDescriptorDescriptorLabelsValueTypeEnum {
+  MonitoringMetricDescriptorDescriptorLabelsValueTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  MonitoringMetricDescriptorDescriptorLabelsValueTypeEnumSTRING = 1;
+  MonitoringMetricDescriptorDescriptorLabelsValueTypeEnumBOOL = 2;
+  MonitoringMetricDescriptorDescriptorLabelsValueTypeEnumINT64 = 3;
 }
 
 enum MonitoringMetricDescriptorMetricKindEnum {
@@ -65,9 +65,9 @@ enum MonitoringMetricDescriptorLaunchStageEnum {
 }
 
 message MonitoringMetricDescriptor {
-  string name = 1;
+  string self_link = 1;
   string type = 2;
-  repeated MonitoringMetricDescriptorLabels labels = 3;
+  repeated MonitoringMetricDescriptorDescriptorLabels descriptor_labels = 3;
   MonitoringMetricDescriptorMetricKindEnum metric_kind = 4;
   MonitoringMetricDescriptorValueTypeEnum value_type = 5;
   string unit = 6;
@@ -79,26 +79,16 @@ message MonitoringMetricDescriptor {
   string project = 12;
 }
 
-message MonitoringMetricDescriptorLabels {
+message MonitoringMetricDescriptorDescriptorLabels {
   string key = 1;
-  MonitoringMetricDescriptorLabelsValueTypeEnum value_type = 2;
+  MonitoringMetricDescriptorDescriptorLabelsValueTypeEnum value_type = 2;
   string description = 3;
 }
 
 message MonitoringMetricDescriptorMetadata {
   MonitoringMetricDescriptorMetadataLaunchStageEnum launch_stage = 1;
-  MonitoringMetricDescriptorMetadataSamplePeriod sample_period = 2;
-  MonitoringMetricDescriptorMetadataIngestDelay ingest_delay = 3;
-}
-
-message MonitoringMetricDescriptorMetadataSamplePeriod {
-  int64 seconds = 1;
-  int64 nanos = 2;
-}
-
-message MonitoringMetricDescriptorMetadataIngestDelay {
-  int64 seconds = 1;
-  int64 nanos = 2;
+  string sample_period = 2;
+  string ingest_delay = 3;
 }
 
 message ApplyMonitoringMetricDescriptorRequest {

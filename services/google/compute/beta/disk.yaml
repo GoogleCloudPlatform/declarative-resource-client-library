@@ -32,9 +32,11 @@ components:
           items:
             properties:
               type:
-                description: The ID of a supported feature. Read [Enabling guest operating
-                  system features](/compute/docs/images/create-delete-deprecate-private-images#guest-os-features)
-                  to see a list of available options.
+                description: 'The ID of a supported feature. Read [Enabling guest
+                  operating system features](/compute/docs/images/create-delete-deprecate-private-images#guest-os-features)
+                  to see a list of available options. Possible values: FEATURE_TYPE_UNSPECIFIED,
+                  VIRTIO_SCSI_MULTIQUEUE, WINDOWS, MULTI_IP_SUBNET, UEFI_COMPATIBLE,
+                  SECURE_BOOT'
                 enum:
                 - FEATURE_TYPE_UNSPECIFIED
                 - VIRTIO_SCSI_MULTIQUEUE
@@ -71,9 +73,10 @@ components:
           items:
             properties:
               type:
-                description: The ID of a supported feature. Read [Enabling guest operating
-                  system features](/compute/docs/images/create-delete-deprecate-private-images#guest-os-features)
-                  to see a list of available options.
+                description: 'The ID of a supported feature. Read [Enabling guest
+                  operating system features](/compute/docs/images/create-delete-deprecate-private-images#guest-os-features)
+                  to see a list of available options. Possible values: PATH, OTHER,
+                  PARAMETER'
                 enum:
                 - PATH
                 - OTHER
@@ -117,6 +120,9 @@ components:
             type: string
           description: Labels to apply to this disk. These can be later modified by
             the `setLabels` method.
+          items:
+            type: string
+            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         lastAttachTimestamp:
@@ -172,10 +178,10 @@ components:
           description: Name of the resource. Provided by the client when the resource
             is created. The name must be 1-63 characters long, and comply with [RFC1035](https://www.ietf.org/rfc/rfc1035.txt).
             Specifically, the name must be 1-63 characters long and match the regular
-            expression \`\[a-z\](\[-a-z0-9\]\*\[a-z0-9\])?\` which means the first
-            character must be a lowercase letter, and all following characters must
-            be a dash, lowercase letter, or digit, except the last character, which
-            cannot be a dash.
+            expression `[a-z]([-a-z0-9]*[a-z0-9])?` which means the first character
+            must be a lowercase letter, and all following characters must be a dash,
+            lowercase letter, or digit, except the last character, which cannot be
+            a dash.
           type: string
           x-dcl-go-name: Name
           x-kubernetes-immutable: true
@@ -201,10 +207,10 @@ components:
           x-dcl-go-name: Project
           x-kubernetes-immutable: true
         region:
-          description: \[Output Only\] URL of the region where the disk resides. Only
+          description: '[Output Only] URL of the region where the disk resides. Only
             applicable for regional resources. You must specify this field as part
             of the HTTP request URL. It is not settable as a field in the request
-            body.
+            body.'
           type: string
           x-dcl-go-name: Region
           x-kubernetes-immutable: true
@@ -301,12 +307,12 @@ components:
           $ref: '#/components/schemas/EncryptionKey'
           x-dcl-go-name: SourceImageEncryptionKey
         sourceImageId:
-          description: \[Output Only\] The ID value of the image used to create this
+          description: '[Output Only] The ID value of the image used to create this
             disk. This value identifies the exact image that was used to create this
             persistent disk. For example, if you created the persistent disk from
             an image that was later deleted and recreated under the same name, the
             source image ID would identify the exact version of the image that was
-            used.
+            used.'
           readOnly: true
           type: string
           x-dcl-go-name: SourceImageId
@@ -325,12 +331,12 @@ components:
           $ref: '#/components/schemas/EncryptionKey'
           x-dcl-go-name: SourceSnapshotEncryptionKey
         sourceSnapshotId:
-          description: \[Output Only\] The unique ID of the snapshot used to create
+          description: '[Output Only] The unique ID of the snapshot used to create
             this disk. This value identifies the exact snapshot that was used to create
             this persistent disk. For example, if you created the persistent disk
             from a snapshot that was later deleted and recreated under the same name,
             the source snapshot ID would identify the exact version of the snapshot
-            that was used.
+            that was used.'
           readOnly: true
           type: string
           x-dcl-go-name: SourceSnapshotId
@@ -338,7 +344,8 @@ components:
         status:
           description: 'The status of disk creation. CREATING: Disk is provisioning.
             RESTORING: Source data is being copied into the disk. FAILED: Disk creation
-            failed. READY: Disk is ready for use. DELETING: Disk is deleting.'
+            failed. READY: Disk is ready for use. DELETING: Disk is deleting. Possible
+            values: PENDING, RUNNING, DONE'
           enum:
           - PENDING
           - RUNNING
@@ -370,9 +377,9 @@ components:
           x-dcl-list-type: list
           x-kubernetes-immutable: true
         zone:
-          description: \[Output Only\] URL of the zone where the disk resides. You
+          description: '[Output Only] URL of the zone where the disk resides. You
             must specify this field as part of the HTTP request URL. It is not settable
-            as a field in the request body.
+            as a field in the request body.'
           readOnly: true
           type: string
           x-dcl-go-name: Zone
@@ -416,9 +423,9 @@ components:
           x-dcl-sensitive: true
           x-kubernetes-immutable: true
         sha256:
-          description: \[Output only\] The [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
+          description: '[Output only] The [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
             encoded SHA-256 hash of the [customer-supplied encryption key](/compute/docs/disks/customer-supplied-encryption)
-            that protects this resource.
+            that protects this resource.'
           readOnly: true
           type: string
           x-dcl-go-name: Sha256
@@ -432,10 +439,43 @@ info:
   title: Compute/Disk
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Disk
+  apply:
+    description: The function used to apply information about a Disk
+    parameters:
+    - description: A full instance of a Disk
+      name: Disk
+      required: true
+  delete:
+    description: The function used to delete a Disk
+    parameters:
+    - description: A full instance of a Disk
+      name: Disk
+      required: true
+  deleteAll:
+    description: The function used to delete all Disk
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: location
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Disk
+    parameters:
+    - description: A full instance of a Disk
+      name: Disk
+      required: true
+  list:
+    description: The function used to list information about many Disk
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string

@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -488,7 +489,9 @@ func (c *Client) ApplyAutoscaler(ctx context.Context, rawDesired *Autoscaler, op
 	if create {
 		ops = append(ops, &createAutoscalerOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteAutoscalerOperation{})
+
 		ops = append(ops, &createAutoscalerOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeAutoscalerDesiredState(rawDesired, nil)

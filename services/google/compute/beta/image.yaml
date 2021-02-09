@@ -107,9 +107,11 @@ components:
           items:
             properties:
               type:
-                description: The ID of a supported feature. Read [Enabling guest operating
-                  system features](/compute/docs/images/create-delete-deprecate-private-images#guest-os-features)
-                  to see a list of available options.
+                description: 'The ID of a supported feature. Read [Enabling guest
+                  operating system features](/compute/docs/images/create-delete-deprecate-private-images#guest-os-features)
+                  to see a list of available options. Possible values: FEATURE_TYPE_UNSPECIFIED,
+                  VIRTIO_SCSI_MULTIQUEUE, WINDOWS, MULTI_IP_SUBNET, UEFI_COMPATIBLE,
+                  SECURE_BOOT, SEV_CAPABLE'
                 enum:
                 - FEATURE_TYPE_UNSPECIFIED
                 - VIRTIO_SCSI_MULTIQUEUE
@@ -158,9 +160,9 @@ components:
               x-dcl-go-name: RawKey
               x-kubernetes-immutable: true
             sha256:
-              description: \[Output only\] The [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
+              description: '[Output only] The [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
                 encoded SHA-256 hash of the [customer-supplied encryption key](/compute/docs/disks/customer-supplied-encryption)
-                that protects this resource.
+                that protects this resource.'
               type: string
               x-dcl-go-name: Sha256
               x-kubernetes-immutable: true
@@ -173,6 +175,9 @@ components:
             type: string
           description: Labels to apply to this image. These can be later modified
             by the `setLabels` method.
+          items:
+            type: string
+            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         license:
@@ -189,10 +194,10 @@ components:
           description: Name of the resource; provided by the client when the resource
             is created. The name must be 1-63 characters long, and comply with [RFC1035](https://www.ietf.org/rfc/rfc1035.txt).
             Specifically, the name must be 1-63 characters long and match the regular
-            expression \`\[a-z\](\[-a-z0-9\]\*\[a-z0-9\])?\` which means the first
-            character must be a lowercase letter, and all following characters must
-            be a dash, lowercase letter, or digit, except the last character, which
-            cannot be a dash.
+            expression `[a-z]([-a-z0-9]*[a-z0-9])?` which means the first character
+            must be a lowercase letter, and all following characters must be a dash,
+            lowercase letter, or digit, except the last character, which cannot be
+            a dash.
           type: string
           x-dcl-go-name: Name
           x-kubernetes-immutable: true
@@ -217,9 +222,9 @@ components:
               x-dcl-go-type: ImageRawDiskContainerTypeEnum
               x-kubernetes-immutable: true
             sha1Checksum:
-              description: \[Deprecated\] This field is deprecated. An optional SHA1
+              description: '[Deprecated] This field is deprecated. An optional SHA1
                 checksum of the disk image before unpackaging provided by the client
-                when the disk image is created.
+                when the disk image is created.'
               type: string
               x-dcl-go-name: Sha1Checksum
               x-kubernetes-immutable: true
@@ -253,7 +258,8 @@ components:
                     x-dcl-go-name: Content
                     x-kubernetes-immutable: true
                   fileType:
-                    description: The file type of source file.
+                    description: 'The file type of source file. Possible values: UNDEFINED,
+                      BIN, X509'
                     enum:
                     - UNDEFINED
                     - BIN
@@ -278,7 +284,8 @@ components:
                     x-dcl-go-name: Content
                     x-kubernetes-immutable: true
                   fileType:
-                    description: The file type of source file.
+                    description: 'The file type of source file. Possible values: UNDEFINED,
+                      BIN, X509'
                     enum:
                     - UNDEFINED
                     - BIN
@@ -303,7 +310,8 @@ components:
                     x-dcl-go-name: Content
                     x-kubernetes-immutable: true
                   fileType:
-                    description: The file type of source file.
+                    description: 'The file type of source file. Possible values: UNDEFINED,
+                      BIN, X509'
                     enum:
                     - UNDEFINED
                     - BIN
@@ -327,7 +335,8 @@ components:
                   x-dcl-go-name: Content
                   x-kubernetes-immutable: true
                 fileType:
-                  description: The file type of source file.
+                  description: 'The file type of source file. Possible values: UNDEFINED,
+                    BIN, X509'
                   enum:
                   - UNDEFINED
                   - BIN
@@ -380,9 +389,9 @@ components:
               x-dcl-go-name: RawKey
               x-kubernetes-immutable: true
             sha256:
-              description: \[Output only\] The [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
+              description: '[Output only] The [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
                 encoded SHA-256 hash of the [customer-supplied encryption key](/compute/docs/disks/customer-supplied-encryption)
-                that protects this resource.
+                that protects this resource.'
               type: string
               x-dcl-go-name: Sha256
               x-kubernetes-immutable: true
@@ -391,9 +400,9 @@ components:
           x-dcl-go-type: ImageSourceDiskEncryptionKey
           x-kubernetes-immutable: true
         sourceDiskId:
-          description: \[Output Only\] The ID value of the disk used to create this
+          description: '[Output Only] The ID value of the disk used to create this
             image. This value may be used to determine whether the image was taken
-            from the current or a previous instance of a given disk name.
+            from the current or a previous instance of a given disk name.'
           readOnly: true
           type: string
           x-dcl-go-name: SourceDiskId
@@ -434,9 +443,9 @@ components:
               x-dcl-go-name: RawKey
               x-kubernetes-immutable: true
             sha256:
-              description: \[Output only\] The [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
+              description: '[Output only] The [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
                 encoded SHA-256 hash of the [customer-supplied encryption key](/compute/docs/disks/customer-supplied-encryption)
-                that protects this resource.
+                that protects this resource.'
               type: string
               x-dcl-go-name: Sha256
               x-kubernetes-immutable: true
@@ -445,9 +454,9 @@ components:
           x-dcl-go-type: ImageSourceImageEncryptionKey
           x-kubernetes-immutable: true
         sourceImageId:
-          description: \[Output Only\] The ID value of the image used to create this
+          description: '[Output Only] The ID value of the image used to create this
             image. This value may be used to determine whether the image was taken
-            from the current or a previous instance of a given image name.
+            from the current or a previous instance of a given image name.'
           type: string
           x-dcl-go-name: SourceImageId
           x-kubernetes-immutable: true
@@ -489,9 +498,9 @@ components:
               x-dcl-go-name: RawKey
               x-kubernetes-immutable: true
             sha256:
-              description: \[Output only\] The [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
+              description: '[Output only] The [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
                 encoded SHA-256 hash of the [customer-supplied encryption key](/compute/docs/disks/customer-supplied-encryption)
-                that protects this resource.
+                that protects this resource.'
               type: string
               x-dcl-go-name: Sha256
               x-kubernetes-immutable: true
@@ -500,9 +509,9 @@ components:
           x-dcl-go-type: ImageSourceSnapshotEncryptionKey
           x-kubernetes-immutable: true
         sourceSnapshotId:
-          description: \[Output Only\] The ID value of the snapshot used to create
+          description: '[Output Only] The ID value of the snapshot used to create
             this image. This value may be used to determine whether the snapshot was
-            taken from the current or a previous instance of a given snapshot name.
+            taken from the current or a previous instance of a given snapshot name.'
           type: string
           x-dcl-go-name: SourceSnapshotId
           x-kubernetes-immutable: true
@@ -517,10 +526,10 @@ components:
           x-dcl-server-default: true
           x-kubernetes-immutable: true
         status:
-          description: \[Output Only\] The status of the image. An image can be used
+          description: '[Output Only] The status of the image. An image can be used
             to create other resources, such as instances, only after the image has
             been successfully created and the `status` is set to `READY`. Possible
-            values are `FAILED`, `PENDING`, or `READY`.
+            values are `FAILED`, `PENDING`, or `READY`.'
           enum:
           - PENDING
           - READY
@@ -555,8 +564,35 @@ info:
   title: Compute/Image
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Image
+  apply:
+    description: The function used to apply information about a Image
+    parameters:
+    - description: A full instance of a Image
+      name: Image
+      required: true
+  delete:
+    description: The function used to delete a Image
+    parameters:
+    - description: A full instance of a Image
+      name: Image
+      required: true
+  deleteAll:
+    description: The function used to delete all Image
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Image
+    parameters:
+    - description: A full instance of a Image
+      name: Image
+      required: true
+  list:
+    description: The function used to list information about many Image
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

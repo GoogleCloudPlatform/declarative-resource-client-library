@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *NotificationChannel) validate() error {
@@ -353,6 +354,7 @@ func (c *Client) notificationChannelDiffsForRawDesired(ctx context.Context, rawD
 		desired, err := canonicalizeNotificationChannelDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
+
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetNotificationChannel(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -360,12 +362,12 @@ func (c *Client) notificationChannelDiffsForRawDesired(ctx context.Context, rawD
 			c.Config.Logger.Warningf("Failed to retrieve whether a NotificationChannel resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve NotificationChannel resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that NotificationChannel resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeNotificationChannelDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for NotificationChannel: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for NotificationChannel: %v", rawDesired)
 
@@ -496,13 +498,7 @@ func canonicalizeNotificationChannelNewState(c *Client, rawNew, rawDesired *Noti
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -529,7 +525,7 @@ func diffNotificationChannel(c *Client, desired, actual *NotificationChannel, op
 
 	var diffs []notificationChannelDiff
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, notificationChannelDiff{
 			UpdateOp:  &updateNotificationChannelUpdateOperation{},
@@ -538,7 +534,7 @@ func diffNotificationChannel(c *Client, desired, actual *NotificationChannel, op
 
 	}
 	if !dcl.IsZeroValue(desired.DisplayName) && (dcl.IsZeroValue(actual.DisplayName) || !reflect.DeepEqual(*desired.DisplayName, *actual.DisplayName)) {
-		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %#v\nACTUAL: %#v", desired.DisplayName, actual.DisplayName)
+		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 
 		diffs = append(diffs, notificationChannelDiff{
 			UpdateOp:  &updateNotificationChannelUpdateOperation{},
@@ -547,7 +543,7 @@ func diffNotificationChannel(c *Client, desired, actual *NotificationChannel, op
 
 	}
 	if !dcl.IsZeroValue(desired.Enabled) && (dcl.IsZeroValue(actual.Enabled) || !reflect.DeepEqual(*desired.Enabled, *actual.Enabled)) {
-		c.Config.Logger.Infof("Detected diff in Enabled.\nDESIRED: %#v\nACTUAL: %#v", desired.Enabled, actual.Enabled)
+		c.Config.Logger.Infof("Detected diff in Enabled.\nDESIRED: %v\nACTUAL: %v", desired.Enabled, actual.Enabled)
 
 		diffs = append(diffs, notificationChannelDiff{
 			UpdateOp:  &updateNotificationChannelUpdateOperation{},
@@ -556,7 +552,7 @@ func diffNotificationChannel(c *Client, desired, actual *NotificationChannel, op
 
 	}
 	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %#v\nACTUAL: %#v", desired.Labels, actual.Labels)
+		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, notificationChannelDiff{
 			UpdateOp:  &updateNotificationChannelUpdateOperation{},
@@ -565,7 +561,7 @@ func diffNotificationChannel(c *Client, desired, actual *NotificationChannel, op
 
 	}
 	if !dcl.IsZeroValue(desired.Type) && (dcl.IsZeroValue(actual.Type) || !reflect.DeepEqual(*desired.Type, *actual.Type)) {
-		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %#v\nACTUAL: %#v", desired.Type, actual.Type)
+		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %v\nACTUAL: %v", desired.Type, actual.Type)
 
 		diffs = append(diffs, notificationChannelDiff{
 			UpdateOp:  &updateNotificationChannelUpdateOperation{},
@@ -574,20 +570,13 @@ func diffNotificationChannel(c *Client, desired, actual *NotificationChannel, op
 
 	}
 	if !reflect.DeepEqual(desired.UserLabels, actual.UserLabels) {
-		c.Config.Logger.Infof("Detected diff in UserLabels.\nDESIRED: %#v\nACTUAL: %#v", desired.UserLabels, actual.UserLabels)
+		c.Config.Logger.Infof("Detected diff in UserLabels.\nDESIRED: %v\nACTUAL: %v", desired.UserLabels, actual.UserLabels)
 
 		diffs = append(diffs, notificationChannelDiff{
 			UpdateOp:  &updateNotificationChannelUpdateOperation{},
 			FieldName: "UserLabels",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, notificationChannelDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,

@@ -18,11 +18,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 func (r *Role) validate() error {
@@ -327,12 +328,12 @@ func (c *Client) roleDiffsForRawDesired(ctx context.Context, rawDesired *Role, o
 			c.Config.Logger.Warningf("Failed to retrieve whether a Role resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Role resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Role resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeRoleDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Role: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Role: %v", rawDesired)
 
@@ -491,13 +492,7 @@ func canonicalizeRoleNewState(c *Client, rawNew, rawDesired *Role) (*Role, error
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Parent) && dcl.IsEmptyValueIndirect(rawDesired.Parent) {
-		rawNew.Parent = rawDesired.Parent
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Parent, rawNew.Parent) {
-			rawNew.Parent = rawDesired.Parent
-		}
-	}
+	rawNew.Parent = rawDesired.Parent
 
 	return rawNew, nil
 }
@@ -582,94 +577,87 @@ func diffRole(c *Client, desired, actual *Role, opts ...dcl.ApplyOption) ([]role
 
 	var diffs []roleDiff
 	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, roleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Title) && (dcl.IsZeroValue(actual.Title) || !reflect.DeepEqual(*desired.Title, *actual.Title)) {
-		c.Config.Logger.Infof("Detected diff in Title.\nDESIRED: %#v\nACTUAL: %#v", desired.Title, actual.Title)
+		c.Config.Logger.Infof("Detected diff in Title.\nDESIRED: %v\nACTUAL: %v", desired.Title, actual.Title)
 		diffs = append(diffs, roleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Title",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, roleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
 	if compareRoleLocalizedValues(c, desired.LocalizedValues, actual.LocalizedValues) {
-		c.Config.Logger.Infof("Detected diff in LocalizedValues.\nDESIRED: %#v\nACTUAL: %#v", desired.LocalizedValues, actual.LocalizedValues)
+		c.Config.Logger.Infof("Detected diff in LocalizedValues.\nDESIRED: %v\nACTUAL: %v", desired.LocalizedValues, actual.LocalizedValues)
 		diffs = append(diffs, roleDiff{
 			RequiresRecreate: true,
 			FieldName:        "LocalizedValues",
 		})
 	}
 	if !dcl.IsZeroValue(desired.LifecyclePhase) && (dcl.IsZeroValue(actual.LifecyclePhase) || !reflect.DeepEqual(*desired.LifecyclePhase, *actual.LifecyclePhase)) {
-		c.Config.Logger.Infof("Detected diff in LifecyclePhase.\nDESIRED: %#v\nACTUAL: %#v", desired.LifecyclePhase, actual.LifecyclePhase)
+		c.Config.Logger.Infof("Detected diff in LifecyclePhase.\nDESIRED: %v\nACTUAL: %v", desired.LifecyclePhase, actual.LifecyclePhase)
 		diffs = append(diffs, roleDiff{
 			RequiresRecreate: true,
 			FieldName:        "LifecyclePhase",
 		})
 	}
 	if !dcl.IsZeroValue(desired.GroupName) && (dcl.IsZeroValue(actual.GroupName) || !reflect.DeepEqual(*desired.GroupName, *actual.GroupName)) {
-		c.Config.Logger.Infof("Detected diff in GroupName.\nDESIRED: %#v\nACTUAL: %#v", desired.GroupName, actual.GroupName)
+		c.Config.Logger.Infof("Detected diff in GroupName.\nDESIRED: %v\nACTUAL: %v", desired.GroupName, actual.GroupName)
 		diffs = append(diffs, roleDiff{
 			RequiresRecreate: true,
 			FieldName:        "GroupName",
 		})
 	}
 	if !dcl.IsZeroValue(desired.GroupTitle) && (dcl.IsZeroValue(actual.GroupTitle) || !reflect.DeepEqual(*desired.GroupTitle, *actual.GroupTitle)) {
-		c.Config.Logger.Infof("Detected diff in GroupTitle.\nDESIRED: %#v\nACTUAL: %#v", desired.GroupTitle, actual.GroupTitle)
+		c.Config.Logger.Infof("Detected diff in GroupTitle.\nDESIRED: %v\nACTUAL: %v", desired.GroupTitle, actual.GroupTitle)
 		diffs = append(diffs, roleDiff{
 			RequiresRecreate: true,
 			FieldName:        "GroupTitle",
 		})
 	}
 	if !dcl.SliceEquals(desired.IncludedPermissions, actual.IncludedPermissions) {
-		c.Config.Logger.Infof("Detected diff in IncludedPermissions.\nDESIRED: %#v\nACTUAL: %#v", desired.IncludedPermissions, actual.IncludedPermissions)
+		c.Config.Logger.Infof("Detected diff in IncludedPermissions.\nDESIRED: %v\nACTUAL: %v", desired.IncludedPermissions, actual.IncludedPermissions)
 		diffs = append(diffs, roleDiff{
 			RequiresRecreate: true,
 			FieldName:        "IncludedPermissions",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Stage) && (dcl.IsZeroValue(actual.Stage) || !reflect.DeepEqual(*desired.Stage, *actual.Stage)) {
-		c.Config.Logger.Infof("Detected diff in Stage.\nDESIRED: %#v\nACTUAL: %#v", desired.Stage, actual.Stage)
+		c.Config.Logger.Infof("Detected diff in Stage.\nDESIRED: %v\nACTUAL: %v", desired.Stage, actual.Stage)
 		diffs = append(diffs, roleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Stage",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Etag) && (dcl.IsZeroValue(actual.Etag) || !reflect.DeepEqual(*desired.Etag, *actual.Etag)) {
-		c.Config.Logger.Infof("Detected diff in Etag.\nDESIRED: %#v\nACTUAL: %#v", desired.Etag, actual.Etag)
+		c.Config.Logger.Infof("Detected diff in Etag.\nDESIRED: %v\nACTUAL: %v", desired.Etag, actual.Etag)
 		diffs = append(diffs, roleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Etag",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Deleted) && (dcl.IsZeroValue(actual.Deleted) || !reflect.DeepEqual(*desired.Deleted, *actual.Deleted)) {
-		c.Config.Logger.Infof("Detected diff in Deleted.\nDESIRED: %#v\nACTUAL: %#v", desired.Deleted, actual.Deleted)
+		c.Config.Logger.Infof("Detected diff in Deleted.\nDESIRED: %v\nACTUAL: %v", desired.Deleted, actual.Deleted)
 		diffs = append(diffs, roleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Deleted",
 		})
 	}
 	if !dcl.SliceEquals(desired.IncludedRoles, actual.IncludedRoles) {
-		c.Config.Logger.Infof("Detected diff in IncludedRoles.\nDESIRED: %#v\nACTUAL: %#v", desired.IncludedRoles, actual.IncludedRoles)
+		c.Config.Logger.Infof("Detected diff in IncludedRoles.\nDESIRED: %v\nACTUAL: %v", desired.IncludedRoles, actual.IncludedRoles)
 		diffs = append(diffs, roleDiff{
 			RequiresRecreate: true,
 			FieldName:        "IncludedRoles",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Parent) && !dcl.NameToSelfLink(desired.Parent, actual.Parent) {
-		c.Config.Logger.Infof("Detected diff in Parent.\nDESIRED: %#v\nACTUAL: %#v", desired.Parent, actual.Parent)
-		diffs = append(diffs, roleDiff{
-			RequiresRecreate: true,
-			FieldName:        "Parent",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.

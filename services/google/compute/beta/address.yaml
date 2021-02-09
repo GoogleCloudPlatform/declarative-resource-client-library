@@ -73,6 +73,9 @@ components:
           additionalProperties:
             type: string
           description: Labels to apply to this address.  A list of key->value pairs.
+          items:
+            type: string
+            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         location:
@@ -84,10 +87,9 @@ components:
           description: Name of the resource. Provided by the client when the resource
             is created. The name must be 1-63 characters long, and comply with [RFC1035](https://www.ietf.org/rfc/rfc1035.txt).
             Specifically, the name must be 1-63 characters long and match the regular
-            expression \`)?\`. The first character must be a lowercase letter, and
-            all following characters (except for the last character) must be a dash,
-            lowercase letter, or digit. The last character must be a lowercase letter
-            or digit.
+            expression `)?`. The first character must be a lowercase letter, and all
+            following characters (except for the last character) must be a dash, lowercase
+            letter, or digit. The last character must be a lowercase letter or digit.
           type: string
           x-dcl-go-name: Name
           x-kubernetes-immutable: true
@@ -132,10 +134,10 @@ components:
           description: |-
             The purpose of this resource, which can be one of the following values:
 
-            - \`GCE\_ENDPOINT\` for addresses that are used by VM instances, alias IP ranges, internal load balancers, and similar resources.
-            - \`DNS\_RESOLVER\` for a DNS resolver address in a subnetwork
-            - \`VPC\_PEERING\` for addresses that are reserved for VPC peer networks.
-            - \`NAT\_AUTO\` for addresses that are external IP addresses automatically reserved for Cloud NAT.
+            - `GCE_ENDPOINT` for addresses that are used by VM instances, alias IP ranges, internal load balancers, and similar resources.
+            - `DNS_RESOLVER` for a DNS resolver address in a subnetwork
+            - `VPC_PEERING` for addresses that are reserved for VPC peer networks.
+            - `NAT_AUTO` for addresses that are external IP addresses automatically reserved for Cloud NAT.
           enum:
           - GCE_ENDPOINT
           - DNS_RESOLVER
@@ -160,11 +162,11 @@ components:
           x-dcl-go-name: SelfLink
           x-kubernetes-immutable: true
         status:
-          description: The status of the address, which can be one of `RESERVING`,
+          description: 'The status of the address, which can be one of `RESERVING`,
             `RESERVED`, or `IN_USE`. An address that is `RESERVING` is currently in
             the process of being reserved. A `RESERVED` address is currently reserved
             and available to use. An `IN_USE` address is currently being used by another
-            resource and is not available.
+            resource and is not available. Possible values: PENDING, RUNNING, DONE'
           enum:
           - PENDING
           - RUNNING
@@ -213,10 +215,43 @@ info:
   title: Compute/Address
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Address
+  apply:
+    description: The function used to apply information about a Address
+    parameters:
+    - description: A full instance of a Address
+      name: Address
+      required: true
+  delete:
+    description: The function used to delete a Address
+    parameters:
+    - description: A full instance of a Address
+      name: Address
+      required: true
+  deleteAll:
+    description: The function used to delete all Address
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: location
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Address
+    parameters:
+    - description: A full instance of a Address
+      name: Address
+      required: true
+  list:
+    description: The function used to list information about many Address
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string

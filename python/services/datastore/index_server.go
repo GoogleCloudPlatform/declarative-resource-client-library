@@ -171,11 +171,13 @@ func (s *IndexServer) ApplyDatastoreIndex(ctx context.Context, request *datastor
 
 // DeleteIndex handles the gRPC request by passing it to the underlying Index Delete() method.
 func (s *IndexServer) DeleteDatastoreIndex(ctx context.Context, request *datastorepb.DeleteDatastoreIndexRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigIndex(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteIndex(ctx, ProtoToIndex(request.GetResource()))
+
 }
 
 // ListIndex handles the gRPC request by passing it to the underlying IndexList() method.

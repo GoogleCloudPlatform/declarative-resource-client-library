@@ -206,11 +206,13 @@ func (s *SslPolicyServer) ComputeSslPolicyAsHcl(ctx context.Context, request *co
 
 // DeleteSslPolicy handles the gRPC request by passing it to the underlying SslPolicy Delete() method.
 func (s *SslPolicyServer) DeleteComputeSslPolicy(ctx context.Context, request *computepb.DeleteComputeSslPolicyRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigSslPolicy(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteSslPolicy(ctx, ProtoToSslPolicy(request.GetResource()))
+
 }
 
 // ListSslPolicy handles the gRPC request by passing it to the underlying SslPolicyList() method.

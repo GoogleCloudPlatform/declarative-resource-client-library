@@ -18,11 +18,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 func (r *ObjectAccessControl) validate() error {
@@ -351,12 +352,12 @@ func (c *Client) objectAccessControlDiffsForRawDesired(ctx context.Context, rawD
 			c.Config.Logger.Warningf("Failed to retrieve whether a ObjectAccessControl resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve ObjectAccessControl resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that ObjectAccessControl resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeObjectAccessControlDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for ObjectAccessControl: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for ObjectAccessControl: %v", rawDesired)
 
@@ -445,13 +446,7 @@ func canonicalizeObjectAccessControlDesiredState(rawDesired, rawInitial *ObjectA
 
 func canonicalizeObjectAccessControlNewState(c *Client, rawNew, rawDesired *ObjectAccessControl) (*ObjectAccessControl, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	if dcl.IsEmptyValueIndirect(rawNew.Bucket) && dcl.IsEmptyValueIndirect(rawDesired.Bucket) {
 		rawNew.Bucket = rawDesired.Bucket
@@ -589,15 +584,8 @@ func diffObjectAccessControl(c *Client, desired, actual *ObjectAccessControl, op
 	}
 
 	var diffs []objectAccessControlDiff
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, objectAccessControlDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
 	if !dcl.IsZeroValue(desired.Bucket) && !dcl.NameToSelfLink(desired.Bucket, actual.Bucket) {
-		c.Config.Logger.Infof("Detected diff in Bucket.\nDESIRED: %#v\nACTUAL: %#v", desired.Bucket, actual.Bucket)
+		c.Config.Logger.Infof("Detected diff in Bucket.\nDESIRED: %v\nACTUAL: %v", desired.Bucket, actual.Bucket)
 
 		diffs = append(diffs, objectAccessControlDiff{
 			UpdateOp:  &updateObjectAccessControlUpdateOperation{},
@@ -606,7 +594,7 @@ func diffObjectAccessControl(c *Client, desired, actual *ObjectAccessControl, op
 
 	}
 	if !dcl.IsZeroValue(desired.Entity) && (dcl.IsZeroValue(actual.Entity) || !reflect.DeepEqual(*desired.Entity, *actual.Entity)) {
-		c.Config.Logger.Infof("Detected diff in Entity.\nDESIRED: %#v\nACTUAL: %#v", desired.Entity, actual.Entity)
+		c.Config.Logger.Infof("Detected diff in Entity.\nDESIRED: %v\nACTUAL: %v", desired.Entity, actual.Entity)
 
 		diffs = append(diffs, objectAccessControlDiff{
 			UpdateOp:  &updateObjectAccessControlUpdateOperation{},
@@ -615,7 +603,7 @@ func diffObjectAccessControl(c *Client, desired, actual *ObjectAccessControl, op
 
 	}
 	if !dcl.IsZeroValue(desired.Role) && (dcl.IsZeroValue(actual.Role) || !reflect.DeepEqual(*desired.Role, *actual.Role)) {
-		c.Config.Logger.Infof("Detected diff in Role.\nDESIRED: %#v\nACTUAL: %#v", desired.Role, actual.Role)
+		c.Config.Logger.Infof("Detected diff in Role.\nDESIRED: %v\nACTUAL: %v", desired.Role, actual.Role)
 
 		diffs = append(diffs, objectAccessControlDiff{
 			UpdateOp:  &updateObjectAccessControlUpdateOperation{},
@@ -624,7 +612,7 @@ func diffObjectAccessControl(c *Client, desired, actual *ObjectAccessControl, op
 
 	}
 	if !dcl.IsZeroValue(desired.Object) && (dcl.IsZeroValue(actual.Object) || !reflect.DeepEqual(*desired.Object, *actual.Object)) {
-		c.Config.Logger.Infof("Detected diff in Object.\nDESIRED: %#v\nACTUAL: %#v", desired.Object, actual.Object)
+		c.Config.Logger.Infof("Detected diff in Object.\nDESIRED: %v\nACTUAL: %v", desired.Object, actual.Object)
 
 		diffs = append(diffs, objectAccessControlDiff{
 			UpdateOp:  &updateObjectAccessControlUpdateOperation{},

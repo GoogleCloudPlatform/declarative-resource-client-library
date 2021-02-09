@@ -107,11 +107,13 @@ func (s *TargetSslProxyServer) ApplyComputeBetaTargetSslProxy(ctx context.Contex
 
 // DeleteTargetSslProxy handles the gRPC request by passing it to the underlying TargetSslProxy Delete() method.
 func (s *TargetSslProxyServer) DeleteComputeBetaTargetSslProxy(ctx context.Context, request *betapb.DeleteComputeBetaTargetSslProxyRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigTargetSslProxy(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteTargetSslProxy(ctx, ProtoToTargetSslProxy(request.GetResource()))
+
 }
 
 // ListTargetSslProxy handles the gRPC request by passing it to the underlying TargetSslProxyList() method.

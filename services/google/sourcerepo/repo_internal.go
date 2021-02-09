@@ -18,11 +18,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 func (r *Repo) validate() error {
@@ -332,12 +333,12 @@ func (c *Client) repoDiffsForRawDesired(ctx context.Context, rawDesired *Repo, o
 			c.Config.Logger.Warningf("Failed to retrieve whether a Repo resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Repo resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Repo resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeRepoDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Repo: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Repo: %v", rawDesired)
 
@@ -433,13 +434,7 @@ func canonicalizeRepoNewState(c *Client, rawNew, rawDesired *Repo) (*Repo, error
 		rawNew.PubsubConfigs = canonicalizeNewRepoPubsubConfigsSet(c, rawDesired.PubsubConfigs, rawNew.PubsubConfigs)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -527,14 +522,14 @@ func diffRepo(c *Client, desired, actual *Repo, opts ...dcl.ApplyOption) ([]repo
 
 	var diffs []repoDiff
 	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, repoDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if compareRepoPubsubConfigsSlice(c, desired.PubsubConfigs, actual.PubsubConfigs) {
-		c.Config.Logger.Infof("Detected diff in PubsubConfigs.\nDESIRED: %#v\nACTUAL: %#v", desired.PubsubConfigs, actual.PubsubConfigs)
+		c.Config.Logger.Infof("Detected diff in PubsubConfigs.\nDESIRED: %v\nACTUAL: %v", desired.PubsubConfigs, actual.PubsubConfigs)
 
 		toAdd, toRemove := compareRepoPubsubConfigsSets(c, desired.PubsubConfigs, actual.PubsubConfigs)
 		c.Config.Logger.Infof("diff in PubsubConfigs is a set field - recomparing with set logic. \nto add: %#v\nto remove: %#v", toAdd, toRemove)
@@ -546,13 +541,6 @@ func diffRepo(c *Client, desired, actual *Repo, opts ...dcl.ApplyOption) ([]repo
 			})
 		}
 
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, repoDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,

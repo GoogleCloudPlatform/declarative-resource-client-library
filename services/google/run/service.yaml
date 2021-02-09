@@ -47,6 +47,9 @@ components:
                 may be set by external tools to store and retrieve arbitrary metadata. They
                 are not queryable and should be preserved when modifying objects. More
                 info: http://kubernetes.io/docs/user-guide/annotations
+              items:
+                type: string
+                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Annotations
               x-kubernetes-immutable: true
@@ -241,6 +244,9 @@ components:
                 (scope and select) objects. May match selectors of replication controllers
                 and routes.
                 More info: http://kubernetes.io/docs/user-guide/labels
+              items:
+                type: string
+                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Labels
               x-kubernetes-immutable: true
@@ -415,6 +421,9 @@ components:
                         may be set by external tools to store and retrieve arbitrary metadata. They
                         are not queryable and should be preserved when modifying objects. More
                         info: http://kubernetes.io/docs/user-guide/annotations
+                      items:
+                        type: string
+                        x-dcl-go-type: string
                       type: object
                       x-dcl-go-name: Annotations
                       x-kubernetes-immutable: true
@@ -609,6 +618,9 @@ components:
                         (scope and select) objects. May match selectors of replication controllers
                         and routes.
                         More info: http://kubernetes.io/docs/user-guide/labels
+                      items:
+                        type: string
+                        x-dcl-go-type: string
                       type: object
                       x-dcl-go-name: Labels
                       x-kubernetes-immutable: true
@@ -1793,6 +1805,9 @@ components:
                                   Limits describes the maximum amount of compute resources allowed.
                                   The values of the map is string form of the 'quantity' k8s type:
                                   https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apimachinery/pkg/api/resource/quantity.go
+                                items:
+                                  type: string
+                                  x-dcl-go-type: string
                                 type: object
                                 x-dcl-go-name: Limits
                                 x-kubernetes-immutable: true
@@ -1812,6 +1827,9 @@ components:
                                   explicitly specified, otherwise to an implementation-defined value.
                                   The values of the map is string form of the 'quantity' k8s type:
                                   https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apimachinery/pkg/api/resource/quantity.go
+                                items:
+                                  type: string
+                                  x-dcl-go-type: string
                                 type: object
                                 x-dcl-go-name: Requests
                                 x-kubernetes-immutable: true
@@ -2558,10 +2576,43 @@ info:
   title: Run/Service
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Service
+  apply:
+    description: The function used to apply information about a Service
+    parameters:
+    - description: A full instance of a Service
+      name: Service
+      required: true
+  delete:
+    description: The function used to delete a Service
+    parameters:
+    - description: A full instance of a Service
+      name: Service
+      required: true
+  deleteAll:
+    description: The function used to delete all Service
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: location
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Service
+    parameters:
+    - description: A full instance of a Service
+      name: Service
+      required: true
+  list:
+    description: The function used to list information about many Service
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string

@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -269,7 +270,9 @@ func (c *Client) ApplyRoute(ctx context.Context, rawDesired *Route, opts ...dcl.
 	if create {
 		ops = append(ops, &createRouteOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteRouteOperation{})
+
 		ops = append(ops, &createRouteOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeRouteDesiredState(rawDesired, nil)

@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Reservation) validate() error {
@@ -300,12 +301,12 @@ func (c *Client) reservationDiffsForRawDesired(ctx context.Context, rawDesired *
 			c.Config.Logger.Warningf("Failed to retrieve whether a Reservation resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Reservation resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Reservation resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeReservationDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Reservation: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Reservation: %v", rawDesired)
 
@@ -437,13 +438,7 @@ func canonicalizeReservationNewState(c *Client, rawNew, rawDesired *Reservation)
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -715,59 +710,52 @@ func diffReservation(c *Client, desired, actual *Reservation, opts ...dcl.ApplyO
 
 	var diffs []reservationDiff
 	if !dcl.IsZeroValue(desired.Id) && (dcl.IsZeroValue(actual.Id) || !reflect.DeepEqual(*desired.Id, *actual.Id)) {
-		c.Config.Logger.Infof("Detected diff in Id.\nDESIRED: %#v\nACTUAL: %#v", desired.Id, actual.Id)
+		c.Config.Logger.Infof("Detected diff in Id.\nDESIRED: %v\nACTUAL: %v", desired.Id, actual.Id)
 		diffs = append(diffs, reservationDiff{
 			RequiresRecreate: true,
 			FieldName:        "Id",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Zone) && (dcl.IsZeroValue(actual.Zone) || !reflect.DeepEqual(*desired.Zone, *actual.Zone)) {
-		c.Config.Logger.Infof("Detected diff in Zone.\nDESIRED: %#v\nACTUAL: %#v", desired.Zone, actual.Zone)
+		c.Config.Logger.Infof("Detected diff in Zone.\nDESIRED: %v\nACTUAL: %v", desired.Zone, actual.Zone)
 		diffs = append(diffs, reservationDiff{
 			RequiresRecreate: true,
 			FieldName:        "Zone",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, reservationDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, reservationDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if compareReservationSpecificReservation(c, desired.SpecificReservation, actual.SpecificReservation) {
-		c.Config.Logger.Infof("Detected diff in SpecificReservation.\nDESIRED: %#v\nACTUAL: %#v", desired.SpecificReservation, actual.SpecificReservation)
+		c.Config.Logger.Infof("Detected diff in SpecificReservation.\nDESIRED: %v\nACTUAL: %v", desired.SpecificReservation, actual.SpecificReservation)
 		diffs = append(diffs, reservationDiff{
 			RequiresRecreate: true,
 			FieldName:        "SpecificReservation",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Commitment) && (dcl.IsZeroValue(actual.Commitment) || !reflect.DeepEqual(*desired.Commitment, *actual.Commitment)) {
-		c.Config.Logger.Infof("Detected diff in Commitment.\nDESIRED: %#v\nACTUAL: %#v", desired.Commitment, actual.Commitment)
+		c.Config.Logger.Infof("Detected diff in Commitment.\nDESIRED: %v\nACTUAL: %v", desired.Commitment, actual.Commitment)
 		diffs = append(diffs, reservationDiff{
 			RequiresRecreate: true,
 			FieldName:        "Commitment",
 		})
 	}
 	if !dcl.IsZeroValue(desired.SpecificReservationRequired) && (dcl.IsZeroValue(actual.SpecificReservationRequired) || !reflect.DeepEqual(*desired.SpecificReservationRequired, *actual.SpecificReservationRequired)) {
-		c.Config.Logger.Infof("Detected diff in SpecificReservationRequired.\nDESIRED: %#v\nACTUAL: %#v", desired.SpecificReservationRequired, actual.SpecificReservationRequired)
+		c.Config.Logger.Infof("Detected diff in SpecificReservationRequired.\nDESIRED: %v\nACTUAL: %v", desired.SpecificReservationRequired, actual.SpecificReservationRequired)
 		diffs = append(diffs, reservationDiff{
 			RequiresRecreate: true,
 			FieldName:        "SpecificReservationRequired",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, reservationDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.

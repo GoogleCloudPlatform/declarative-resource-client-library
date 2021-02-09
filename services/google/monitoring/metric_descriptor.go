@@ -17,51 +17,52 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 type MetricDescriptor struct {
-	Name                   *string                          `json:"name"`
-	Type                   *string                          `json:"type"`
-	Labels                 []MetricDescriptorLabels         `json:"labels"`
-	MetricKind             *MetricDescriptorMetricKindEnum  `json:"metricKind"`
-	ValueType              *MetricDescriptorValueTypeEnum   `json:"valueType"`
-	Unit                   *string                          `json:"unit"`
-	Description            *string                          `json:"description"`
-	DisplayName            *string                          `json:"displayName"`
-	Metadata               *MetricDescriptorMetadata        `json:"metadata"`
-	LaunchStage            *MetricDescriptorLaunchStageEnum `json:"launchStage"`
-	MonitoredResourceTypes []string                         `json:"monitoredResourceTypes"`
-	Project                *string                          `json:"project"`
+	SelfLink               *string                            `json:"selfLink"`
+	Type                   *string                            `json:"type"`
+	DescriptorLabels       []MetricDescriptorDescriptorLabels `json:"descriptorLabels"`
+	MetricKind             *MetricDescriptorMetricKindEnum    `json:"metricKind"`
+	ValueType              *MetricDescriptorValueTypeEnum     `json:"valueType"`
+	Unit                   *string                            `json:"unit"`
+	Description            *string                            `json:"description"`
+	DisplayName            *string                            `json:"displayName"`
+	Metadata               *MetricDescriptorMetadata          `json:"metadata"`
+	LaunchStage            *MetricDescriptorLaunchStageEnum   `json:"launchStage"`
+	MonitoredResourceTypes []string                           `json:"monitoredResourceTypes"`
+	Project                *string                            `json:"project"`
 }
 
 func (r *MetricDescriptor) String() string {
 	return dcl.SprintResource(r)
 }
 
-// The enum MetricDescriptorLabelsValueTypeEnum.
-type MetricDescriptorLabelsValueTypeEnum string
+// The enum MetricDescriptorDescriptorLabelsValueTypeEnum.
+type MetricDescriptorDescriptorLabelsValueTypeEnum string
 
-// MetricDescriptorLabelsValueTypeEnumRef returns a *MetricDescriptorLabelsValueTypeEnum with the value of string s
+// MetricDescriptorDescriptorLabelsValueTypeEnumRef returns a *MetricDescriptorDescriptorLabelsValueTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func MetricDescriptorLabelsValueTypeEnumRef(s string) *MetricDescriptorLabelsValueTypeEnum {
+func MetricDescriptorDescriptorLabelsValueTypeEnumRef(s string) *MetricDescriptorDescriptorLabelsValueTypeEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := MetricDescriptorLabelsValueTypeEnum(s)
+	v := MetricDescriptorDescriptorLabelsValueTypeEnum(s)
 	return &v
 }
 
-func (v MetricDescriptorLabelsValueTypeEnum) Validate() error {
+func (v MetricDescriptorDescriptorLabelsValueTypeEnum) Validate() error {
 	for _, s := range []string{"STRING", "BOOL", "INT64"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "MetricDescriptorLabelsValueTypeEnum",
+		Enum:  "MetricDescriptorDescriptorLabelsValueTypeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -175,23 +176,23 @@ func (v MetricDescriptorLaunchStageEnum) Validate() error {
 	}
 }
 
-type MetricDescriptorLabels struct {
-	empty       bool                                 `json:"-"`
-	Key         *string                              `json:"key"`
-	ValueType   *MetricDescriptorLabelsValueTypeEnum `json:"valueType"`
-	Description *string                              `json:"description"`
+type MetricDescriptorDescriptorLabels struct {
+	empty       bool                                           `json:"-"`
+	Key         *string                                        `json:"key"`
+	ValueType   *MetricDescriptorDescriptorLabelsValueTypeEnum `json:"valueType"`
+	Description *string                                        `json:"description"`
 }
 
-// This object is used to assert a desired state where this MetricDescriptorLabels is
+// This object is used to assert a desired state where this MetricDescriptorDescriptorLabels is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyMetricDescriptorLabels *MetricDescriptorLabels = &MetricDescriptorLabels{empty: true}
+var EmptyMetricDescriptorDescriptorLabels *MetricDescriptorDescriptorLabels = &MetricDescriptorDescriptorLabels{empty: true}
 
-func (r *MetricDescriptorLabels) String() string {
+func (r *MetricDescriptorDescriptorLabels) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *MetricDescriptorLabels) HashCode() string {
+func (r *MetricDescriptorDescriptorLabels) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -201,8 +202,8 @@ func (r *MetricDescriptorLabels) HashCode() string {
 type MetricDescriptorMetadata struct {
 	empty        bool                                     `json:"-"`
 	LaunchStage  *MetricDescriptorMetadataLaunchStageEnum `json:"launchStage"`
-	SamplePeriod *MetricDescriptorMetadataSamplePeriod    `json:"samplePeriod"`
-	IngestDelay  *MetricDescriptorMetadataIngestDelay     `json:"ingestDelay"`
+	SamplePeriod *string                                  `json:"samplePeriod"`
+	IngestDelay  *string                                  `json:"ingestDelay"`
 }
 
 // This object is used to assert a desired state where this MetricDescriptorMetadata is
@@ -215,50 +216,6 @@ func (r *MetricDescriptorMetadata) String() string {
 }
 
 func (r *MetricDescriptorMetadata) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type MetricDescriptorMetadataSamplePeriod struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this MetricDescriptorMetadataSamplePeriod is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyMetricDescriptorMetadataSamplePeriod *MetricDescriptorMetadataSamplePeriod = &MetricDescriptorMetadataSamplePeriod{empty: true}
-
-func (r *MetricDescriptorMetadataSamplePeriod) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *MetricDescriptorMetadataSamplePeriod) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type MetricDescriptorMetadataIngestDelay struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this MetricDescriptorMetadataIngestDelay is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyMetricDescriptorMetadataIngestDelay *MetricDescriptorMetadataIngestDelay = &MetricDescriptorMetadataIngestDelay{empty: true}
-
-func (r *MetricDescriptorMetadataIngestDelay) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *MetricDescriptorMetadataIngestDelay) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -436,7 +393,9 @@ func (c *Client) ApplyMetricDescriptor(ctx context.Context, rawDesired *MetricDe
 	if create {
 		ops = append(ops, &createMetricDescriptorOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteMetricDescriptorOperation{})
+
 		ops = append(ops, &createMetricDescriptorOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeMetricDescriptorDesiredState(rawDesired, nil)

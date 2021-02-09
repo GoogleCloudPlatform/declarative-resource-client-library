@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -2024,7 +2025,9 @@ func (c *Client) ApplyAlertPolicy(ctx context.Context, rawDesired *AlertPolicy, 
 	if create {
 		ops = append(ops, &createAlertPolicyOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteAlertPolicyOperation{})
+
 		ops = append(ops, &createAlertPolicyOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeAlertPolicyDesiredState(rawDesired, nil)

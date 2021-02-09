@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *HttpsHealthCheck) validate() error {
@@ -378,12 +379,12 @@ func (c *Client) httpsHealthCheckDiffsForRawDesired(ctx context.Context, rawDesi
 			c.Config.Logger.Warningf("Failed to retrieve whether a HttpsHealthCheck resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve HttpsHealthCheck resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that HttpsHealthCheck resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeHttpsHealthCheckDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for HttpsHealthCheck: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for HttpsHealthCheck: %v", rawDesired)
 
@@ -545,13 +546,7 @@ func canonicalizeHttpsHealthCheckNewState(c *Client, rawNew, rawDesired *HttpsHe
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
@@ -588,7 +583,7 @@ func diffHttpsHealthCheck(c *Client, desired, actual *HttpsHealthCheck, opts ...
 
 	var diffs []httpsHealthCheckDiff
 	if !dcl.IsZeroValue(desired.CheckIntervalSec) && (dcl.IsZeroValue(actual.CheckIntervalSec) || !reflect.DeepEqual(*desired.CheckIntervalSec, *actual.CheckIntervalSec)) {
-		c.Config.Logger.Infof("Detected diff in CheckIntervalSec.\nDESIRED: %#v\nACTUAL: %#v", desired.CheckIntervalSec, actual.CheckIntervalSec)
+		c.Config.Logger.Infof("Detected diff in CheckIntervalSec.\nDESIRED: %v\nACTUAL: %v", desired.CheckIntervalSec, actual.CheckIntervalSec)
 
 		diffs = append(diffs, httpsHealthCheckDiff{
 			UpdateOp:  &updateHttpsHealthCheckUpdateOperation{},
@@ -597,7 +592,7 @@ func diffHttpsHealthCheck(c *Client, desired, actual *HttpsHealthCheck, opts ...
 
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, httpsHealthCheckDiff{
 			UpdateOp:  &updateHttpsHealthCheckUpdateOperation{},
@@ -606,7 +601,7 @@ func diffHttpsHealthCheck(c *Client, desired, actual *HttpsHealthCheck, opts ...
 
 	}
 	if !dcl.IsZeroValue(desired.HealthyThreshold) && (dcl.IsZeroValue(actual.HealthyThreshold) || !reflect.DeepEqual(*desired.HealthyThreshold, *actual.HealthyThreshold)) {
-		c.Config.Logger.Infof("Detected diff in HealthyThreshold.\nDESIRED: %#v\nACTUAL: %#v", desired.HealthyThreshold, actual.HealthyThreshold)
+		c.Config.Logger.Infof("Detected diff in HealthyThreshold.\nDESIRED: %v\nACTUAL: %v", desired.HealthyThreshold, actual.HealthyThreshold)
 
 		diffs = append(diffs, httpsHealthCheckDiff{
 			UpdateOp:  &updateHttpsHealthCheckUpdateOperation{},
@@ -615,7 +610,7 @@ func diffHttpsHealthCheck(c *Client, desired, actual *HttpsHealthCheck, opts ...
 
 	}
 	if !dcl.IsZeroValue(desired.Host) && (dcl.IsZeroValue(actual.Host) || !reflect.DeepEqual(*desired.Host, *actual.Host)) {
-		c.Config.Logger.Infof("Detected diff in Host.\nDESIRED: %#v\nACTUAL: %#v", desired.Host, actual.Host)
+		c.Config.Logger.Infof("Detected diff in Host.\nDESIRED: %v\nACTUAL: %v", desired.Host, actual.Host)
 
 		diffs = append(diffs, httpsHealthCheckDiff{
 			UpdateOp:  &updateHttpsHealthCheckUpdateOperation{},
@@ -624,14 +619,14 @@ func diffHttpsHealthCheck(c *Client, desired, actual *HttpsHealthCheck, opts ...
 
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, httpsHealthCheckDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Port) && (dcl.IsZeroValue(actual.Port) || !reflect.DeepEqual(*desired.Port, *actual.Port)) {
-		c.Config.Logger.Infof("Detected diff in Port.\nDESIRED: %#v\nACTUAL: %#v", desired.Port, actual.Port)
+		c.Config.Logger.Infof("Detected diff in Port.\nDESIRED: %v\nACTUAL: %v", desired.Port, actual.Port)
 
 		diffs = append(diffs, httpsHealthCheckDiff{
 			UpdateOp:  &updateHttpsHealthCheckUpdateOperation{},
@@ -640,7 +635,7 @@ func diffHttpsHealthCheck(c *Client, desired, actual *HttpsHealthCheck, opts ...
 
 	}
 	if !dcl.IsZeroValue(desired.RequestPath) && (dcl.IsZeroValue(actual.RequestPath) || !reflect.DeepEqual(*desired.RequestPath, *actual.RequestPath)) {
-		c.Config.Logger.Infof("Detected diff in RequestPath.\nDESIRED: %#v\nACTUAL: %#v", desired.RequestPath, actual.RequestPath)
+		c.Config.Logger.Infof("Detected diff in RequestPath.\nDESIRED: %v\nACTUAL: %v", desired.RequestPath, actual.RequestPath)
 
 		diffs = append(diffs, httpsHealthCheckDiff{
 			UpdateOp:  &updateHttpsHealthCheckUpdateOperation{},
@@ -649,7 +644,7 @@ func diffHttpsHealthCheck(c *Client, desired, actual *HttpsHealthCheck, opts ...
 
 	}
 	if !dcl.IsZeroValue(desired.TimeoutSec) && (dcl.IsZeroValue(actual.TimeoutSec) || !reflect.DeepEqual(*desired.TimeoutSec, *actual.TimeoutSec)) {
-		c.Config.Logger.Infof("Detected diff in TimeoutSec.\nDESIRED: %#v\nACTUAL: %#v", desired.TimeoutSec, actual.TimeoutSec)
+		c.Config.Logger.Infof("Detected diff in TimeoutSec.\nDESIRED: %v\nACTUAL: %v", desired.TimeoutSec, actual.TimeoutSec)
 
 		diffs = append(diffs, httpsHealthCheckDiff{
 			UpdateOp:  &updateHttpsHealthCheckUpdateOperation{},
@@ -658,20 +653,13 @@ func diffHttpsHealthCheck(c *Client, desired, actual *HttpsHealthCheck, opts ...
 
 	}
 	if !dcl.IsZeroValue(desired.UnhealthyThreshold) && (dcl.IsZeroValue(actual.UnhealthyThreshold) || !reflect.DeepEqual(*desired.UnhealthyThreshold, *actual.UnhealthyThreshold)) {
-		c.Config.Logger.Infof("Detected diff in UnhealthyThreshold.\nDESIRED: %#v\nACTUAL: %#v", desired.UnhealthyThreshold, actual.UnhealthyThreshold)
+		c.Config.Logger.Infof("Detected diff in UnhealthyThreshold.\nDESIRED: %v\nACTUAL: %v", desired.UnhealthyThreshold, actual.UnhealthyThreshold)
 
 		diffs = append(diffs, httpsHealthCheckDiff{
 			UpdateOp:  &updateHttpsHealthCheckUpdateOperation{},
 			FieldName: "UnhealthyThreshold",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, httpsHealthCheckDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,

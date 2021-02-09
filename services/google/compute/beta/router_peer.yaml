@@ -126,10 +126,43 @@ info:
   title: Compute/RouterPeer
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many RouterPeer
+  apply:
+    description: The function used to apply information about a RouterPeer
+    parameters:
+    - description: A full instance of a RouterPeer
+      name: RouterPeer
+      required: true
+  delete:
+    description: The function used to delete a RouterPeer
+    parameters:
+    - description: A full instance of a RouterPeer
+      name: RouterPeer
+      required: true
+  deleteAll:
+    description: The function used to delete all RouterPeer
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: region
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a RouterPeer
+    parameters:
+    - description: A full instance of a RouterPeer
+      name: RouterPeer
+      required: true
+  list:
+    description: The function used to list information about many RouterPeer
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: region
+      required: true
+      schema:
+        type: string

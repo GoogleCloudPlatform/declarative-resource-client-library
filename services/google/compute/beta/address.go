@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -361,7 +362,9 @@ func (c *Client) ApplyAddress(ctx context.Context, rawDesired *Address, opts ...
 	if create {
 		ops = append(ops, &createAddressOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteAddressOperation{})
+
 		ops = append(ops, &createAddressOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeAddressDesiredState(rawDesired, nil)

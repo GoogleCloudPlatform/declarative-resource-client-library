@@ -18,11 +18,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 func (r *LogMetric) validate() error {
@@ -410,12 +411,12 @@ func (c *Client) logMetricDiffsForRawDesired(ctx context.Context, rawDesired *Lo
 			c.Config.Logger.Warningf("Failed to retrieve whether a LogMetric resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve LogMetric resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that LogMetric resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeLogMetricDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for LogMetric: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for LogMetric: %v", rawDesired)
 
@@ -563,13 +564,7 @@ func canonicalizeLogMetricNewState(c *Client, rawNew, rawDesired *LogMetric) (*L
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -1151,14 +1146,14 @@ func diffLogMetric(c *Client, desired, actual *LogMetric, opts ...dcl.ApplyOptio
 
 	var diffs []logMetricDiff
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, logMetricDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, logMetricDiff{
 			UpdateOp:  &updateLogMetricUpdateOperation{},
@@ -1167,7 +1162,7 @@ func diffLogMetric(c *Client, desired, actual *LogMetric, opts ...dcl.ApplyOptio
 
 	}
 	if !dcl.IsZeroValue(desired.Filter) && (dcl.IsZeroValue(actual.Filter) || !reflect.DeepEqual(*desired.Filter, *actual.Filter)) {
-		c.Config.Logger.Infof("Detected diff in Filter.\nDESIRED: %#v\nACTUAL: %#v", desired.Filter, actual.Filter)
+		c.Config.Logger.Infof("Detected diff in Filter.\nDESIRED: %v\nACTUAL: %v", desired.Filter, actual.Filter)
 
 		diffs = append(diffs, logMetricDiff{
 			UpdateOp:  &updateLogMetricUpdateOperation{},
@@ -1176,7 +1171,7 @@ func diffLogMetric(c *Client, desired, actual *LogMetric, opts ...dcl.ApplyOptio
 
 	}
 	if !dcl.IsZeroValue(desired.Disabled) && (dcl.IsZeroValue(actual.Disabled) || !reflect.DeepEqual(*desired.Disabled, *actual.Disabled)) {
-		c.Config.Logger.Infof("Detected diff in Disabled.\nDESIRED: %#v\nACTUAL: %#v", desired.Disabled, actual.Disabled)
+		c.Config.Logger.Infof("Detected diff in Disabled.\nDESIRED: %v\nACTUAL: %v", desired.Disabled, actual.Disabled)
 
 		diffs = append(diffs, logMetricDiff{
 			UpdateOp:  &updateLogMetricUpdateOperation{},
@@ -1185,7 +1180,7 @@ func diffLogMetric(c *Client, desired, actual *LogMetric, opts ...dcl.ApplyOptio
 
 	}
 	if compareLogMetricMetricDescriptor(c, desired.MetricDescriptor, actual.MetricDescriptor) {
-		c.Config.Logger.Infof("Detected diff in MetricDescriptor.\nDESIRED: %#v\nACTUAL: %#v", desired.MetricDescriptor, actual.MetricDescriptor)
+		c.Config.Logger.Infof("Detected diff in MetricDescriptor.\nDESIRED: %v\nACTUAL: %v", desired.MetricDescriptor, actual.MetricDescriptor)
 
 		diffs = append(diffs, logMetricDiff{
 			UpdateOp:  &updateLogMetricUpdateOperation{},
@@ -1194,7 +1189,7 @@ func diffLogMetric(c *Client, desired, actual *LogMetric, opts ...dcl.ApplyOptio
 
 	}
 	if !dcl.IsZeroValue(desired.ValueExtractor) && (dcl.IsZeroValue(actual.ValueExtractor) || !reflect.DeepEqual(*desired.ValueExtractor, *actual.ValueExtractor)) {
-		c.Config.Logger.Infof("Detected diff in ValueExtractor.\nDESIRED: %#v\nACTUAL: %#v", desired.ValueExtractor, actual.ValueExtractor)
+		c.Config.Logger.Infof("Detected diff in ValueExtractor.\nDESIRED: %v\nACTUAL: %v", desired.ValueExtractor, actual.ValueExtractor)
 
 		diffs = append(diffs, logMetricDiff{
 			UpdateOp:  &updateLogMetricUpdateOperation{},
@@ -1203,7 +1198,7 @@ func diffLogMetric(c *Client, desired, actual *LogMetric, opts ...dcl.ApplyOptio
 
 	}
 	if !reflect.DeepEqual(desired.LabelExtractors, actual.LabelExtractors) {
-		c.Config.Logger.Infof("Detected diff in LabelExtractors.\nDESIRED: %#v\nACTUAL: %#v", desired.LabelExtractors, actual.LabelExtractors)
+		c.Config.Logger.Infof("Detected diff in LabelExtractors.\nDESIRED: %v\nACTUAL: %v", desired.LabelExtractors, actual.LabelExtractors)
 
 		diffs = append(diffs, logMetricDiff{
 			UpdateOp:  &updateLogMetricUpdateOperation{},
@@ -1212,7 +1207,7 @@ func diffLogMetric(c *Client, desired, actual *LogMetric, opts ...dcl.ApplyOptio
 
 	}
 	if compareLogMetricBucketOptions(c, desired.BucketOptions, actual.BucketOptions) {
-		c.Config.Logger.Infof("Detected diff in BucketOptions.\nDESIRED: %#v\nACTUAL: %#v", desired.BucketOptions, actual.BucketOptions)
+		c.Config.Logger.Infof("Detected diff in BucketOptions.\nDESIRED: %v\nACTUAL: %v", desired.BucketOptions, actual.BucketOptions)
 
 		diffs = append(diffs, logMetricDiff{
 			UpdateOp:  &updateLogMetricUpdateOperation{},
@@ -1221,20 +1216,13 @@ func diffLogMetric(c *Client, desired, actual *LogMetric, opts ...dcl.ApplyOptio
 
 	}
 	if !dcl.IsZeroValue(desired.Resolution) && (dcl.IsZeroValue(actual.Resolution) || !reflect.DeepEqual(*desired.Resolution, *actual.Resolution)) {
-		c.Config.Logger.Infof("Detected diff in Resolution.\nDESIRED: %#v\nACTUAL: %#v", desired.Resolution, actual.Resolution)
+		c.Config.Logger.Infof("Detected diff in Resolution.\nDESIRED: %v\nACTUAL: %v", desired.Resolution, actual.Resolution)
 
 		diffs = append(diffs, logMetricDiff{
 			UpdateOp:  &updateLogMetricUpdateOperation{},
 			FieldName: "Resolution",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, logMetricDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,

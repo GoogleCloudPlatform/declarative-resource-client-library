@@ -27,7 +27,6 @@ class AccessPolicy(object):
         self,
         name: str = None,
         parent: str = None,
-        organization: str = None,
         title: str = None,
         create_time: str = None,
         update_time: str = None,
@@ -36,7 +35,6 @@ class AccessPolicy(object):
 
         channel.initialize()
         self.parent = parent
-        self.organization = organization
         self.title = title
         self.service_account_file = service_account_file
 
@@ -48,9 +46,6 @@ class AccessPolicy(object):
         if Primitive.to_proto(self.parent):
             request.resource.parent = Primitive.to_proto(self.parent)
 
-        if Primitive.to_proto(self.organization):
-            request.resource.organization = Primitive.to_proto(self.organization)
-
         if Primitive.to_proto(self.title):
             request.resource.title = Primitive.to_proto(self.title)
 
@@ -59,7 +54,6 @@ class AccessPolicy(object):
         response = stub.ApplyAccesscontextmanagerAccessPolicy(request)
         self.name = Primitive.from_proto(response.name)
         self.parent = Primitive.from_proto(response.parent)
-        self.organization = Primitive.from_proto(response.organization)
         self.title = Primitive.from_proto(response.title)
         self.create_time = Primitive.from_proto(response.create_time)
         self.update_time = Primitive.from_proto(response.update_time)
@@ -95,7 +89,6 @@ class AccessPolicy(object):
         res = AccessPolicy()
         res.name = Primitive.from_proto(res_proto.name)
         res.parent = Primitive.from_proto(res_proto.parent)
-        res.organization = Primitive.from_proto(res_proto.organization)
         res.title = Primitive.from_proto(res_proto.title)
         res.create_time = Primitive.from_proto(res_proto.create_time)
         res.update_time = Primitive.from_proto(res_proto.update_time)

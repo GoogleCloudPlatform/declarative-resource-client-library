@@ -16,7 +16,8 @@ components:
     Dashboard:
       properties:
         category:
-          description: Immutable. The type of dashboard. One of custom, group or homepage.
+          description: 'Immutable. The type of dashboard. One of custom, group or
+            homepage. Possible values: CATEGORY_UNSPECIFIED, CUSTOM, GROUP, HOMEPAGE'
           enum:
           - CATEGORY_UNSPECIFIED
           - CUSTOM
@@ -121,8 +122,14 @@ components:
                                       x-dcl-list-type: list
                                       x-kubernetes-immutable: true
                                     reducer:
-                                      description: How to aggregate the time series
-                                        data while grouping.
+                                      description: 'How to aggregate the time series
+                                        data while grouping. Possible values: REDUCE_NONE,
+                                        REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX, REDUCE_SUM,
+                                        REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE,
+                                        REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE,
+                                        REDUCE_PERCENTILE_99, REDUCE_PERCENTILE_95,
+                                        REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05,
+                                        REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION'
                                       enum:
                                       - REDUCE_NONE
                                       - REDUCE_MEAN
@@ -174,8 +181,10 @@ components:
                                         x-dcl-go-name: Label
                                         x-kubernetes-immutable: true
                                       logicalOperator:
-                                        description: The operator that defines how
+                                        description: 'The operator that defines how
                                           value restrictions on the label are joined.
+                                          Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
+                                          AND, OR'
                                         enum:
                                         - LOGICAL_OPERATOR_UNSPECIFIED
                                         - AND
@@ -190,8 +199,10 @@ components:
                                         items:
                                           properties:
                                             comparator:
-                                              description: The operator that determines
+                                              description: 'The operator that determines
                                                 how the matching values are evaluated.
+                                                Possible values: COMPARATOR_UNSPECIFIED,
+                                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
                                               enum:
                                               - COMPARATOR_UNSPECIFIED
                                               - EQUALS
@@ -279,9 +290,10 @@ components:
                                         x-dcl-go-name: Label
                                         x-kubernetes-immutable: true
                                       logicalOperator:
-                                        description: The logical operator that defines
+                                        description: 'The logical operator that defines
                                           how all the value restrictions on the label
-                                          are joined.
+                                          are joined. Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
+                                          AND, OR'
                                         enum:
                                         - LOGICAL_OPERATOR_UNSPECIFIED
                                         - AND
@@ -297,8 +309,10 @@ components:
                                         items:
                                           properties:
                                             comparator:
-                                              description: The operator that determines
+                                              description: 'The operator that determines
                                                 how the matching values are evaluated.
+                                                Possible values: COMPARATOR_UNSPECIFIED,
+                                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
                                               enum:
                                               - COMPARATOR_UNSPECIFIED
                                               - EQUALS
@@ -343,8 +357,10 @@ components:
                                         x-dcl-go-name: Label
                                         x-kubernetes-immutable: true
                                       logicalOperator:
-                                        description: The operator that defines how
+                                        description: 'The operator that defines how
                                           value restrictions on the label are joined.
+                                          Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
+                                          AND, OR'
                                         enum:
                                         - LOGICAL_OPERATOR_UNSPECIFIED
                                         - AND
@@ -360,8 +376,10 @@ components:
                                         items:
                                           properties:
                                             comparator:
-                                              description: The operator that determines
+                                              description: 'The operator that determines
                                                 how the matching values are evaluated.
+                                                Possible values: COMPARATOR_UNSPECIFIED,
+                                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
                                               enum:
                                               - COMPARATOR_UNSPECIFIED
                                               - EQUALS
@@ -408,8 +426,10 @@ components:
                                         x-dcl-go-name: Label
                                         x-kubernetes-immutable: true
                                       logicalOperator:
-                                        description: The operator that defines how
+                                        description: 'The operator that defines how
                                           value restrictions on the label are joined.
+                                          Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
+                                          AND, OR'
                                         enum:
                                         - LOGICAL_OPERATOR_UNSPECIFIED
                                         - AND
@@ -424,8 +444,10 @@ components:
                                         items:
                                           properties:
                                             comparator:
-                                              description: The operator that determines
+                                              description: 'The operator that determines
                                                 how the matching values are evaluated.
+                                                Possible values: COMPARATOR_UNSPECIFIED,
+                                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
                                               enum:
                                               - COMPARATOR_UNSPECIFIED
                                               - EQUALS
@@ -558,8 +580,9 @@ components:
                                   x-dcl-go-type: DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod
                                   x-kubernetes-immutable: true
                                 sparkChartType:
-                                  description: Required. The type of sparkchart to
-                                    show in this chartView.
+                                  description: 'Required. The type of sparkchart to
+                                    show in this chartView. Possible values: SPARK_CHART_TYPE_UNSPECIFIED,
+                                    SPARK_LINE, SPARK_BAR'
                                   enum:
                                   - SPARK_CHART_TYPE_UNSPECIFIED
                                   - SPARK_LINE
@@ -597,8 +620,10 @@ components:
                               items:
                                 properties:
                                   color:
-                                    description: The state color for this threshold.
-                                      Color is not allowed in a XyChart.
+                                    description: 'The state color for this threshold.
+                                      Color is not allowed in a XyChart. Possible
+                                      values: COLOR_UNSPECIFIED, GREY, BLUE, GREEN,
+                                      YELLOW, ORANGE, RED'
                                     enum:
                                     - COLOR_UNSPECIFIED
                                     - GREY
@@ -612,8 +637,9 @@ components:
                                     x-dcl-go-type: DashboardWidgetScorecardThresholdsColorEnum
                                     x-kubernetes-immutable: true
                                   direction:
-                                    description: The direction for the current threshold.
-                                      Direction is not allowed in a XyChart.
+                                    description: 'The direction for the current threshold.
+                                      Direction is not allowed in a XyChart. Possible
+                                      values: DIRECTION_UNSPECIFIED, ABOVE, BELOW'
                                     enum:
                                     - DIRECTION_UNSPECIFIED
                                     - ABOVE
@@ -646,10 +672,10 @@ components:
                                 data from the Stackdriver metrics API.
                               properties:
                                 apiSource:
-                                  description: The API against which queries should
+                                  description: 'The API against which queries should
                                     be executed. This field is used exclusively by
                                     the Stackdriver application and will not be made
-                                    public.
+                                    public. Possible values: DEFAULT_CLOUD, AUTO'
                                   enum:
                                   - DEFAULT_CLOUD
                                   - AUTO
@@ -712,7 +738,7 @@ components:
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod
                                           x-kubernetes-immutable: true
                                         crossSeriesReducer:
-                                          description: The reduction operation to
+                                          description: 'The reduction operation to
                                             be used to combine time series into a
                                             single time series, where the value of
                                             each data point in the resulting series
@@ -731,7 +757,14 @@ components:
                                             specified, then `per_series_aligner` must
                                             be specified, and must not be `ALIGN_NONE`.
                                             An `alignment_period` must also be specified;
-                                            otherwise, an error is returned.
+                                            otherwise, an error is returned. Possible
+                                            values: REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN,
+                                            REDUCE_MAX, REDUCE_SUM, REDUCE_STDDEV,
+                                            REDUCE_COUNT, REDUCE_COUNT_TRUE, REDUCE_COUNT_FALSE,
+                                            REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99,
+                                            REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50,
+                                            REDUCE_PERCENTILE_05, REDUCE_FRACTION_LESS_THAN,
+                                            REDUCE_MAKE_DISTRIBUTION'
                                           enum:
                                           - REDUCE_NONE
                                           - REDUCE_MEAN
@@ -967,8 +1000,10 @@ components:
                                       description: Ranking based time series filter.
                                       properties:
                                         direction:
-                                          description: How to use the ranking to select
-                                            time series that pass through the filter.
+                                          description: 'How to use the ranking to
+                                            select time series that pass through the
+                                            filter. Possible values: DIRECTION_UNSPECIFIED,
+                                            TOP, BOTTOM'
                                           enum:
                                           - DIRECTION_UNSPECIFIED
                                           - TOP
@@ -988,7 +1023,9 @@ components:
                                           description: '`ranking_method` is applied
                                             to each time series independently to produce
                                             the value which will be used to compare
-                                            the time series to other time series.'
+                                            the time series to other time series.
+                                            Possible values: METHOD_UNSPECIFIED, METHOD_MEAN,
+                                            METHOD_MAX, METHOD_MIN, METHOD_SUM, METHOD_LATEST'
                                           enum:
                                           - METHOD_UNSPECIFIED
                                           - METHOD_MEAN
@@ -1054,7 +1091,7 @@ components:
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod
                                           x-kubernetes-immutable: true
                                         crossSeriesReducer:
-                                          description: The reduction operation to
+                                          description: 'The reduction operation to
                                             be used to combine time series into a
                                             single time series, where the value of
                                             each data point in the resulting series
@@ -1073,7 +1110,14 @@ components:
                                             specified, then `per_series_aligner` must
                                             be specified, and must not be `ALIGN_NONE`.
                                             An `alignment_period` must also be specified;
-                                            otherwise, an error is returned.
+                                            otherwise, an error is returned. Possible
+                                            values: REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN,
+                                            REDUCE_MAX, REDUCE_SUM, REDUCE_STDDEV,
+                                            REDUCE_COUNT, REDUCE_COUNT_TRUE, REDUCE_COUNT_FALSE,
+                                            REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99,
+                                            REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50,
+                                            REDUCE_PERCENTILE_05, REDUCE_FRACTION_LESS_THAN,
+                                            REDUCE_MAKE_DISTRIBUTION'
                                           enum:
                                           - REDUCE_NONE
                                           - REDUCE_MEAN
@@ -1365,7 +1409,7 @@ components:
                                               x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod
                                               x-kubernetes-immutable: true
                                             crossSeriesReducer:
-                                              description: The reduction operation
+                                              description: 'The reduction operation
                                                 to be used to combine time series
                                                 into a single time series, where the
                                                 value of each data point in the resulting
@@ -1386,7 +1430,14 @@ components:
                                                 must be specified, and must not be
                                                 `ALIGN_NONE`. An `alignment_period`
                                                 must also be specified; otherwise,
-                                                an error is returned.
+                                                an error is returned. Possible values:
+                                                REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN,
+                                                REDUCE_MAX, REDUCE_SUM, REDUCE_STDDEV,
+                                                REDUCE_COUNT, REDUCE_COUNT_TRUE, REDUCE_COUNT_FALSE,
+                                                REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99,
+                                                REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50,
+                                                REDUCE_PERCENTILE_05, REDUCE_FRACTION_LESS_THAN,
+                                                REDUCE_MAKE_DISTRIBUTION'
                                               enum:
                                               - REDUCE_NONE
                                               - REDUCE_MEAN
@@ -1687,7 +1738,7 @@ components:
                                               x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod
                                               x-kubernetes-immutable: true
                                             crossSeriesReducer:
-                                              description: The reduction operation
+                                              description: 'The reduction operation
                                                 to be used to combine time series
                                                 into a single time series, where the
                                                 value of each data point in the resulting
@@ -1708,7 +1759,14 @@ components:
                                                 must be specified, and must not be
                                                 `ALIGN_NONE`. An `alignment_period`
                                                 must also be specified; otherwise,
-                                                an error is returned.
+                                                an error is returned. Possible values:
+                                                REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN,
+                                                REDUCE_MAX, REDUCE_SUM, REDUCE_STDDEV,
+                                                REDUCE_COUNT, REDUCE_COUNT_TRUE, REDUCE_COUNT_FALSE,
+                                                REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99,
+                                                REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50,
+                                                REDUCE_PERCENTILE_05, REDUCE_FRACTION_LESS_THAN,
+                                                REDUCE_MAKE_DISTRIBUTION'
                                               enum:
                                               - REDUCE_NONE
                                               - REDUCE_MEAN
@@ -1954,8 +2012,10 @@ components:
                                       description: Ranking based time series filter.
                                       properties:
                                         direction:
-                                          description: How to use the ranking to select
-                                            time series that pass through the filter.
+                                          description: 'How to use the ranking to
+                                            select time series that pass through the
+                                            filter. Possible values: DIRECTION_UNSPECIFIED,
+                                            TOP, BOTTOM'
                                           enum:
                                           - DIRECTION_UNSPECIFIED
                                           - TOP
@@ -1975,7 +2035,9 @@ components:
                                           description: '`ranking_method` is applied
                                             to each time series independently to produce
                                             the value which will be used to compare
-                                            the time series to other time series.'
+                                            the time series to other time series.
+                                            Possible values: METHOD_UNSPECIFIED, METHOD_MEAN,
+                                            METHOD_MAX, METHOD_MIN, METHOD_SUM, METHOD_LATEST'
                                           enum:
                                           - METHOD_UNSPECIFIED
                                           - METHOD_MEAN
@@ -2041,7 +2103,7 @@ components:
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod
                                           x-kubernetes-immutable: true
                                         crossSeriesReducer:
-                                          description: The reduction operation to
+                                          description: 'The reduction operation to
                                             be used to combine time series into a
                                             single time series, where the value of
                                             each data point in the resulting series
@@ -2060,7 +2122,14 @@ components:
                                             specified, then `per_series_aligner` must
                                             be specified, and must not be `ALIGN_NONE`.
                                             An `alignment_period` must also be specified;
-                                            otherwise, an error is returned.
+                                            otherwise, an error is returned. Possible
+                                            values: REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN,
+                                            REDUCE_MAX, REDUCE_SUM, REDUCE_STDDEV,
+                                            REDUCE_COUNT, REDUCE_COUNT_TRUE, REDUCE_COUNT_FALSE,
+                                            REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99,
+                                            REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50,
+                                            REDUCE_PERCENTILE_05, REDUCE_FRACTION_LESS_THAN,
+                                            REDUCE_MAKE_DISTRIBUTION'
                                           enum:
                                           - REDUCE_NONE
                                           - REDUCE_MEAN
@@ -2321,7 +2390,8 @@ components:
                               x-dcl-go-name: Content
                               x-kubernetes-immutable: true
                             format:
-                              description: How the text content is formatted.
+                              description: 'How the text content is formatted. Possible
+                                values: FORMAT_UNSPECIFIED, MARKDOWN, RAW'
                               enum:
                               - FORMAT_UNSPECIFIED
                               - MARKDOWN
@@ -2346,7 +2416,8 @@ components:
                               description: Display options for the chart.
                               properties:
                                 mode:
-                                  description: The chart mode.
+                                  description: 'The chart mode. Possible values: MODE_UNSPECIFIED,
+                                    COLOR, X_RAY, STATS'
                                   enum:
                                   - MODE_UNSPECIFIED
                                   - COLOR
@@ -2417,8 +2488,9 @@ components:
                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsMinAlignmentPeriod
                                     x-kubernetes-immutable: true
                                   plotType:
-                                    description: How this data should be plotted on
-                                      the chart.
+                                    description: 'How this data should be plotted
+                                      on the chart. Possible values: PLOT_TYPE_UNSPECIFIED,
+                                      LINE, STACKED_AREA, STACKED_BAR, HEATMAP'
                                     enum:
                                     - PLOT_TYPE_UNSPECIFIED
                                     - LINE
@@ -2434,10 +2506,11 @@ components:
                                       series data from the Stackdriver metrics API.
                                     properties:
                                       apiSource:
-                                        description: The API against which queries
+                                        description: 'The API against which queries
                                           should be executed. This field is used exclusively
                                           by the Stackdriver application and will
-                                          not be made public.
+                                          not be made public. Possible values: DEFAULT_CLOUD,
+                                          AUTO'
                                         enum:
                                         - DEFAULT_CLOUD
                                         - AUTO
@@ -2506,7 +2579,7 @@ components:
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod
                                                 x-kubernetes-immutable: true
                                               crossSeriesReducer:
-                                                description: The reduction operation
+                                                description: 'The reduction operation
                                                   to be used to combine time series
                                                   into a single time series, where
                                                   the value of each data point in
@@ -2528,7 +2601,14 @@ components:
                                                   must be specified, and must not
                                                   be `ALIGN_NONE`. An `alignment_period`
                                                   must also be specified; otherwise,
-                                                  an error is returned.
+                                                  an error is returned. Possible values:
+                                                  REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN,
+                                                  REDUCE_MAX, REDUCE_SUM, REDUCE_STDDEV,
+                                                  REDUCE_COUNT, REDUCE_COUNT_TRUE,
+                                                  REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE,
+                                                  REDUCE_PERCENTILE_99, REDUCE_PERCENTILE_95,
+                                                  REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05,
+                                                  REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION'
                                                 enum:
                                                 - REDUCE_NONE
                                                 - REDUCE_MEAN
@@ -2777,9 +2857,10 @@ components:
                                               filter.
                                             properties:
                                               direction:
-                                                description: How to use the ranking
+                                                description: 'How to use the ranking
                                                   to select time series that pass
-                                                  through the filter.
+                                                  through the filter. Possible values:
+                                                  DIRECTION_UNSPECIFIED, TOP, BOTTOM'
                                                 enum:
                                                 - DIRECTION_UNSPECIFIED
                                                 - TOP
@@ -2800,7 +2881,10 @@ components:
                                                   applied to each time series independently
                                                   to produce the value which will
                                                   be used to compare the time series
-                                                  to other time series.'
+                                                  to other time series. Possible values:
+                                                  METHOD_UNSPECIFIED, METHOD_MEAN,
+                                                  METHOD_MAX, METHOD_MIN, METHOD_SUM,
+                                                  METHOD_LATEST'
                                                 enum:
                                                 - METHOD_UNSPECIFIED
                                                 - METHOD_MEAN
@@ -2871,7 +2955,7 @@ components:
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod
                                                 x-kubernetes-immutable: true
                                               crossSeriesReducer:
-                                                description: The reduction operation
+                                                description: 'The reduction operation
                                                   to be used to combine time series
                                                   into a single time series, where
                                                   the value of each data point in
@@ -2893,7 +2977,14 @@ components:
                                                   must be specified, and must not
                                                   be `ALIGN_NONE`. An `alignment_period`
                                                   must also be specified; otherwise,
-                                                  an error is returned.
+                                                  an error is returned. Possible values:
+                                                  REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN,
+                                                  REDUCE_MAX, REDUCE_SUM, REDUCE_STDDEV,
+                                                  REDUCE_COUNT, REDUCE_COUNT_TRUE,
+                                                  REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE,
+                                                  REDUCE_PERCENTILE_99, REDUCE_PERCENTILE_95,
+                                                  REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05,
+                                                  REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION'
                                                 enum:
                                                 - REDUCE_NONE
                                                 - REDUCE_MEAN
@@ -3201,7 +3292,7 @@ components:
                                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod
                                                     x-kubernetes-immutable: true
                                                   crossSeriesReducer:
-                                                    description: The reduction operation
+                                                    description: 'The reduction operation
                                                       to be used to combine time series
                                                       into a single time series, where
                                                       the value of each data point
@@ -3225,7 +3316,15 @@ components:
                                                       must be specified, and must
                                                       not be `ALIGN_NONE`. An `alignment_period`
                                                       must also be specified; otherwise,
-                                                      an error is returned.
+                                                      an error is returned. Possible
+                                                      values: REDUCE_NONE, REDUCE_MEAN,
+                                                      REDUCE_MIN, REDUCE_MAX, REDUCE_SUM,
+                                                      REDUCE_STDDEV, REDUCE_COUNT,
+                                                      REDUCE_COUNT_TRUE, REDUCE_COUNT_FALSE,
+                                                      REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99,
+                                                      REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50,
+                                                      REDUCE_PERCENTILE_05, REDUCE_FRACTION_LESS_THAN,
+                                                      REDUCE_MAKE_DISTRIBUTION'
                                                     enum:
                                                     - REDUCE_NONE
                                                     - REDUCE_MEAN
@@ -3550,7 +3649,7 @@ components:
                                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod
                                                     x-kubernetes-immutable: true
                                                   crossSeriesReducer:
-                                                    description: The reduction operation
+                                                    description: 'The reduction operation
                                                       to be used to combine time series
                                                       into a single time series, where
                                                       the value of each data point
@@ -3574,7 +3673,15 @@ components:
                                                       must be specified, and must
                                                       not be `ALIGN_NONE`. An `alignment_period`
                                                       must also be specified; otherwise,
-                                                      an error is returned.
+                                                      an error is returned. Possible
+                                                      values: REDUCE_NONE, REDUCE_MEAN,
+                                                      REDUCE_MIN, REDUCE_MAX, REDUCE_SUM,
+                                                      REDUCE_STDDEV, REDUCE_COUNT,
+                                                      REDUCE_COUNT_TRUE, REDUCE_COUNT_FALSE,
+                                                      REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99,
+                                                      REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50,
+                                                      REDUCE_PERCENTILE_05, REDUCE_FRACTION_LESS_THAN,
+                                                      REDUCE_MAKE_DISTRIBUTION'
                                                     enum:
                                                     - REDUCE_NONE
                                                     - REDUCE_MEAN
@@ -3840,9 +3947,10 @@ components:
                                               filter.
                                             properties:
                                               direction:
-                                                description: How to use the ranking
+                                                description: 'How to use the ranking
                                                   to select time series that pass
-                                                  through the filter.
+                                                  through the filter. Possible values:
+                                                  DIRECTION_UNSPECIFIED, TOP, BOTTOM'
                                                 enum:
                                                 - DIRECTION_UNSPECIFIED
                                                 - TOP
@@ -3863,7 +3971,10 @@ components:
                                                   applied to each time series independently
                                                   to produce the value which will
                                                   be used to compare the time series
-                                                  to other time series.'
+                                                  to other time series. Possible values:
+                                                  METHOD_UNSPECIFIED, METHOD_MEAN,
+                                                  METHOD_MAX, METHOD_MIN, METHOD_SUM,
+                                                  METHOD_LATEST'
                                                 enum:
                                                 - METHOD_UNSPECIFIED
                                                 - METHOD_MEAN
@@ -3934,7 +4045,7 @@ components:
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod
                                                 x-kubernetes-immutable: true
                                               crossSeriesReducer:
-                                                description: The reduction operation
+                                                description: 'The reduction operation
                                                   to be used to combine time series
                                                   into a single time series, where
                                                   the value of each data point in
@@ -3956,7 +4067,14 @@ components:
                                                   must be specified, and must not
                                                   be `ALIGN_NONE`. An `alignment_period`
                                                   must also be specified; otherwise,
-                                                  an error is returned.
+                                                  an error is returned. Possible values:
+                                                  REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN,
+                                                  REDUCE_MAX, REDUCE_SUM, REDUCE_STDDEV,
+                                                  REDUCE_COUNT, REDUCE_COUNT_TRUE,
+                                                  REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE,
+                                                  REDUCE_PERCENTILE_99, REDUCE_PERCENTILE_95,
+                                                  REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05,
+                                                  REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION'
                                                 enum:
                                                 - REDUCE_NONE
                                                 - REDUCE_MEAN
@@ -4261,8 +4379,14 @@ components:
                                       x-dcl-list-type: list
                                       x-kubernetes-immutable: true
                                     reducer:
-                                      description: How to aggregate the time series
-                                        data while grouping.
+                                      description: 'How to aggregate the time series
+                                        data while grouping. Possible values: REDUCE_NONE,
+                                        REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX, REDUCE_SUM,
+                                        REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE,
+                                        REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE,
+                                        REDUCE_PERCENTILE_99, REDUCE_PERCENTILE_95,
+                                        REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05,
+                                        REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION'
                                       enum:
                                       - REDUCE_NONE
                                       - REDUCE_MEAN
@@ -4314,8 +4438,10 @@ components:
                                         x-dcl-go-name: Label
                                         x-kubernetes-immutable: true
                                       logicalOperator:
-                                        description: The operator that defines how
+                                        description: 'The operator that defines how
                                           value restrictions on the label are joined.
+                                          Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
+                                          AND, OR'
                                         enum:
                                         - LOGICAL_OPERATOR_UNSPECIFIED
                                         - AND
@@ -4330,8 +4456,10 @@ components:
                                         items:
                                           properties:
                                             comparator:
-                                              description: The operator that determines
+                                              description: 'The operator that determines
                                                 how the matching values are evaluated.
+                                                Possible values: COMPARATOR_UNSPECIFIED,
+                                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
                                               enum:
                                               - COMPARATOR_UNSPECIFIED
                                               - EQUALS
@@ -4419,9 +4547,10 @@ components:
                                         x-dcl-go-name: Label
                                         x-kubernetes-immutable: true
                                       logicalOperator:
-                                        description: The logical operator that defines
+                                        description: 'The logical operator that defines
                                           how all the value restrictions on the label
-                                          are joined.
+                                          are joined. Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
+                                          AND, OR'
                                         enum:
                                         - LOGICAL_OPERATOR_UNSPECIFIED
                                         - AND
@@ -4437,8 +4566,10 @@ components:
                                         items:
                                           properties:
                                             comparator:
-                                              description: The operator that determines
+                                              description: 'The operator that determines
                                                 how the matching values are evaluated.
+                                                Possible values: COMPARATOR_UNSPECIFIED,
+                                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
                                               enum:
                                               - COMPARATOR_UNSPECIFIED
                                               - EQUALS
@@ -4483,8 +4614,10 @@ components:
                                         x-dcl-go-name: Label
                                         x-kubernetes-immutable: true
                                       logicalOperator:
-                                        description: The operator that defines how
+                                        description: 'The operator that defines how
                                           value restrictions on the label are joined.
+                                          Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
+                                          AND, OR'
                                         enum:
                                         - LOGICAL_OPERATOR_UNSPECIFIED
                                         - AND
@@ -4500,8 +4633,10 @@ components:
                                         items:
                                           properties:
                                             comparator:
-                                              description: The operator that determines
+                                              description: 'The operator that determines
                                                 how the matching values are evaluated.
+                                                Possible values: COMPARATOR_UNSPECIFIED,
+                                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
                                               enum:
                                               - COMPARATOR_UNSPECIFIED
                                               - EQUALS
@@ -4548,8 +4683,10 @@ components:
                                         x-dcl-go-name: Label
                                         x-kubernetes-immutable: true
                                       logicalOperator:
-                                        description: The operator that defines how
+                                        description: 'The operator that defines how
                                           value restrictions on the label are joined.
+                                          Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
+                                          AND, OR'
                                         enum:
                                         - LOGICAL_OPERATOR_UNSPECIFIED
                                         - AND
@@ -4564,8 +4701,10 @@ components:
                                         items:
                                           properties:
                                             comparator:
-                                              description: The operator that determines
+                                              description: 'The operator that determines
                                                 how the matching values are evaluated.
+                                                Possible values: COMPARATOR_UNSPECIFIED,
+                                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
                                               enum:
                                               - COMPARATOR_UNSPECIFIED
                                               - EQUALS
@@ -4662,8 +4801,10 @@ components:
                               items:
                                 properties:
                                   color:
-                                    description: The state color for this threshold.
-                                      Color is not allowed in a XyChart.
+                                    description: 'The state color for this threshold.
+                                      Color is not allowed in a XyChart. Possible
+                                      values: COLOR_UNSPECIFIED, GREY, BLUE, GREEN,
+                                      YELLOW, ORANGE, RED'
                                     enum:
                                     - COLOR_UNSPECIFIED
                                     - GREY
@@ -4677,8 +4818,9 @@ components:
                                     x-dcl-go-type: DashboardWidgetXyChartThresholdsColorEnum
                                     x-kubernetes-immutable: true
                                   direction:
-                                    description: The direction for the current threshold.
-                                      Direction is not allowed in a XyChart.
+                                    description: 'The direction for the current threshold.
+                                      Direction is not allowed in a XyChart. Possible
+                                      values: DIRECTION_UNSPECIFIED, ABOVE, BELOW'
                                     enum:
                                     - DIRECTION_UNSPECIFIED
                                     - ABOVE
@@ -4750,8 +4892,9 @@ components:
                                   x-dcl-go-name: Label
                                   x-kubernetes-immutable: true
                                 scale:
-                                  description: The axis scale. By default, a linear
-                                    scale is used.
+                                  description: 'The axis scale. By default, a linear
+                                    scale is used. Possible values: SCALE_UNSPECIFIED,
+                                    LINEAR, LOG10'
                                   enum:
                                   - SCALE_UNSPECIFIED
                                   - LINEAR
@@ -4773,8 +4916,9 @@ components:
                                   x-dcl-go-name: Label
                                   x-kubernetes-immutable: true
                                 scale:
-                                  description: The axis scale. By default, a linear
-                                    scale is used.
+                                  description: 'The axis scale. By default, a linear
+                                    scale is used. Possible values: SCALE_UNSPECIFIED,
+                                    LINEAR, LOG10'
                                   enum:
                                   - SCALE_UNSPECIFIED
                                   - LINEAR
@@ -5267,7 +5411,12 @@ components:
                       x-dcl-list-type: list
                       x-kubernetes-immutable: true
                     reducer:
-                      description: How to aggregate the time series data while grouping.
+                      description: 'How to aggregate the time series data while grouping.
+                        Possible values: REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX,
+                        REDUCE_SUM, REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE,
+                        REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99,
+                        REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05,
+                        REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION'
                       enum:
                       - REDUCE_NONE
                       - REDUCE_MEAN
@@ -5316,8 +5465,9 @@ components:
                         x-dcl-go-name: Label
                         x-kubernetes-immutable: true
                       logicalOperator:
-                        description: The operator that defines how value restrictions
-                          on the label are joined.
+                        description: 'The operator that defines how value restrictions
+                          on the label are joined. Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
+                          AND, OR'
                         enum:
                         - LOGICAL_OPERATOR_UNSPECIFIED
                         - AND
@@ -5332,8 +5482,9 @@ components:
                         items:
                           properties:
                             comparator:
-                              description: The operator that determines how the matching
-                                values are evaluated.
+                              description: 'The operator that determines how the matching
+                                values are evaluated. Possible values: COMPARATOR_UNSPECIFIED,
+                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
                               enum:
                               - COMPARATOR_UNSPECIFIED
                               - EQUALS
@@ -5416,8 +5567,9 @@ components:
                         x-dcl-go-name: Label
                         x-kubernetes-immutable: true
                       logicalOperator:
-                        description: The logical operator that defines how all the
-                          value restrictions on the label are joined.
+                        description: 'The logical operator that defines how all the
+                          value restrictions on the label are joined. Possible values:
+                          LOGICAL_OPERATOR_UNSPECIFIED, AND, OR'
                         enum:
                         - LOGICAL_OPERATOR_UNSPECIFIED
                         - AND
@@ -5432,8 +5584,9 @@ components:
                         items:
                           properties:
                             comparator:
-                              description: The operator that determines how the matching
-                                values are evaluated.
+                              description: 'The operator that determines how the matching
+                                values are evaluated. Possible values: COMPARATOR_UNSPECIFIED,
+                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
                               enum:
                               - COMPARATOR_UNSPECIFIED
                               - EQUALS
@@ -5475,8 +5628,9 @@ components:
                         x-dcl-go-name: Label
                         x-kubernetes-immutable: true
                       logicalOperator:
-                        description: The operator that defines how value restrictions
-                          on the label are joined.
+                        description: 'The operator that defines how value restrictions
+                          on the label are joined. Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
+                          AND, OR'
                         enum:
                         - LOGICAL_OPERATOR_UNSPECIFIED
                         - AND
@@ -5491,8 +5645,9 @@ components:
                         items:
                           properties:
                             comparator:
-                              description: The operator that determines how the matching
-                                values are evaluated.
+                              description: 'The operator that determines how the matching
+                                values are evaluated. Possible values: COMPARATOR_UNSPECIFIED,
+                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
                               enum:
                               - COMPARATOR_UNSPECIFIED
                               - EQUALS
@@ -5535,8 +5690,9 @@ components:
                         x-dcl-go-name: Label
                         x-kubernetes-immutable: true
                       logicalOperator:
-                        description: The operator that defines how value restrictions
-                          on the label are joined.
+                        description: 'The operator that defines how value restrictions
+                          on the label are joined. Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
+                          AND, OR'
                         enum:
                         - LOGICAL_OPERATOR_UNSPECIFIED
                         - AND
@@ -5551,8 +5707,9 @@ components:
                         items:
                           properties:
                             comparator:
-                              description: The operator that determines how the matching
-                                values are evaluated.
+                              description: 'The operator that determines how the matching
+                                values are evaluated. Possible values: COMPARATOR_UNSPECIFIED,
+                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
                               enum:
                               - COMPARATOR_UNSPECIFIED
                               - EQUALS
@@ -5674,7 +5831,8 @@ components:
                   x-dcl-go-type: DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod
                   x-kubernetes-immutable: true
                 sparkChartType:
-                  description: Required. The type of sparkchart to show in this chartView.
+                  description: 'Required. The type of sparkchart to show in this chartView.
+                    Possible values: SPARK_CHART_TYPE_UNSPECIFIED, SPARK_LINE, SPARK_BAR'
                   enum:
                   - SPARK_CHART_TYPE_UNSPECIFIED
                   - SPARK_LINE
@@ -5707,8 +5865,9 @@ components:
               items:
                 properties:
                   color:
-                    description: The state color for this threshold. Color is not
-                      allowed in a XyChart.
+                    description: 'The state color for this threshold. Color is not
+                      allowed in a XyChart. Possible values: COLOR_UNSPECIFIED, GREY,
+                      BLUE, GREEN, YELLOW, ORANGE, RED'
                     enum:
                     - COLOR_UNSPECIFIED
                     - GREY
@@ -5722,8 +5881,9 @@ components:
                     x-dcl-go-type: DashboardWidgetScorecardThresholdsColorEnum
                     x-kubernetes-immutable: true
                   direction:
-                    description: The direction for the current threshold. Direction
-                      is not allowed in a XyChart.
+                    description: 'The direction for the current threshold. Direction
+                      is not allowed in a XyChart. Possible values: DIRECTION_UNSPECIFIED,
+                      ABOVE, BELOW'
                     enum:
                     - DIRECTION_UNSPECIFIED
                     - ABOVE
@@ -5755,9 +5915,9 @@ components:
                 Stackdriver metrics API.
               properties:
                 apiSource:
-                  description: The API against which queries should be executed. This
-                    field is used exclusively by the Stackdriver application and will
-                    not be made public.
+                  description: 'The API against which queries should be executed.
+                    This field is used exclusively by the Stackdriver application
+                    and will not be made public. Possible values: DEFAULT_CLOUD, AUTO'
                   enum:
                   - DEFAULT_CLOUD
                   - AUTO
@@ -5811,7 +5971,7 @@ components:
                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod
                           x-kubernetes-immutable: true
                         crossSeriesReducer:
-                          description: The reduction operation to be used to combine
+                          description: 'The reduction operation to be used to combine
                             time series into a single time series, where the value
                             of each data point in the resulting series is a function
                             of all the already aligned values in the input time series.  Not
@@ -5824,7 +5984,12 @@ components:
                             in order to perform cross-time series reduction. If `cross_series_reducer`
                             is specified, then `per_series_aligner` must be specified,
                             and must not be `ALIGN_NONE`. An `alignment_period` must
-                            also be specified; otherwise, an error is returned.
+                            also be specified; otherwise, an error is returned. Possible
+                            values: REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX,
+                            REDUCE_SUM, REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE,
+                            REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99,
+                            REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05,
+                            REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION'
                           enum:
                           - REDUCE_NONE
                           - REDUCE_MEAN
@@ -6038,8 +6203,9 @@ components:
                       description: Ranking based time series filter.
                       properties:
                         direction:
-                          description: How to use the ranking to select time series
-                            that pass through the filter.
+                          description: 'How to use the ranking to select time series
+                            that pass through the filter. Possible values: DIRECTION_UNSPECIFIED,
+                            TOP, BOTTOM'
                           enum:
                           - DIRECTION_UNSPECIFIED
                           - TOP
@@ -6058,7 +6224,9 @@ components:
                         rankingMethod:
                           description: '`ranking_method` is applied to each time series
                             independently to produce the value which will be used
-                            to compare the time series to other time series.'
+                            to compare the time series to other time series. Possible
+                            values: METHOD_UNSPECIFIED, METHOD_MEAN, METHOD_MAX, METHOD_MIN,
+                            METHOD_SUM, METHOD_LATEST'
                           enum:
                           - METHOD_UNSPECIFIED
                           - METHOD_MEAN
@@ -6116,7 +6284,7 @@ components:
                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod
                           x-kubernetes-immutable: true
                         crossSeriesReducer:
-                          description: The reduction operation to be used to combine
+                          description: 'The reduction operation to be used to combine
                             time series into a single time series, where the value
                             of each data point in the resulting series is a function
                             of all the already aligned values in the input time series.  Not
@@ -6129,7 +6297,12 @@ components:
                             in order to perform cross-time series reduction. If `cross_series_reducer`
                             is specified, then `per_series_aligner` must be specified,
                             and must not be `ALIGN_NONE`. An `alignment_period` must
-                            also be specified; otherwise, an error is returned.
+                            also be specified; otherwise, an error is returned. Possible
+                            values: REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX,
+                            REDUCE_SUM, REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE,
+                            REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99,
+                            REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05,
+                            REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION'
                           enum:
                           - REDUCE_NONE
                           - REDUCE_MEAN
@@ -6388,21 +6561,26 @@ components:
                               x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod
                               x-kubernetes-immutable: true
                             crossSeriesReducer:
-                              description: The reduction operation to be used to combine
-                                time series into a single time series, where the value
-                                of each data point in the resulting series is a function
-                                of all the already aligned values in the input time
-                                series.  Not all reducer operations can be applied
-                                to all time series. The valid choices depend on the
-                                `metric_kind` and the `value_type` of the original
-                                time series. Reduction can yield a time series with
-                                a different `metric_kind` or `value_type` than the
-                                input time series.  Time series data must first be
-                                aligned (see `per_series_aligner`) in order to perform
-                                cross-time series reduction. If `cross_series_reducer`
+                              description: 'The reduction operation to be used to
+                                combine time series into a single time series, where
+                                the value of each data point in the resulting series
+                                is a function of all the already aligned values in
+                                the input time series.  Not all reducer operations
+                                can be applied to all time series. The valid choices
+                                depend on the `metric_kind` and the `value_type` of
+                                the original time series. Reduction can yield a time
+                                series with a different `metric_kind` or `value_type`
+                                than the input time series.  Time series data must
+                                first be aligned (see `per_series_aligner`) in order
+                                to perform cross-time series reduction. If `cross_series_reducer`
                                 is specified, then `per_series_aligner` must be specified,
                                 and must not be `ALIGN_NONE`. An `alignment_period`
                                 must also be specified; otherwise, an error is returned.
+                                Possible values: REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN,
+                                REDUCE_MAX, REDUCE_SUM, REDUCE_STDDEV, REDUCE_COUNT,
+                                REDUCE_COUNT_TRUE, REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE,
+                                REDUCE_PERCENTILE_99, REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50,
+                                REDUCE_PERCENTILE_05, REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION'
                               enum:
                               - REDUCE_NONE
                               - REDUCE_MEAN
@@ -6667,21 +6845,26 @@ components:
                               x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod
                               x-kubernetes-immutable: true
                             crossSeriesReducer:
-                              description: The reduction operation to be used to combine
-                                time series into a single time series, where the value
-                                of each data point in the resulting series is a function
-                                of all the already aligned values in the input time
-                                series.  Not all reducer operations can be applied
-                                to all time series. The valid choices depend on the
-                                `metric_kind` and the `value_type` of the original
-                                time series. Reduction can yield a time series with
-                                a different `metric_kind` or `value_type` than the
-                                input time series.  Time series data must first be
-                                aligned (see `per_series_aligner`) in order to perform
-                                cross-time series reduction. If `cross_series_reducer`
+                              description: 'The reduction operation to be used to
+                                combine time series into a single time series, where
+                                the value of each data point in the resulting series
+                                is a function of all the already aligned values in
+                                the input time series.  Not all reducer operations
+                                can be applied to all time series. The valid choices
+                                depend on the `metric_kind` and the `value_type` of
+                                the original time series. Reduction can yield a time
+                                series with a different `metric_kind` or `value_type`
+                                than the input time series.  Time series data must
+                                first be aligned (see `per_series_aligner`) in order
+                                to perform cross-time series reduction. If `cross_series_reducer`
                                 is specified, then `per_series_aligner` must be specified,
                                 and must not be `ALIGN_NONE`. An `alignment_period`
                                 must also be specified; otherwise, an error is returned.
+                                Possible values: REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN,
+                                REDUCE_MAX, REDUCE_SUM, REDUCE_STDDEV, REDUCE_COUNT,
+                                REDUCE_COUNT_TRUE, REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE,
+                                REDUCE_PERCENTILE_99, REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50,
+                                REDUCE_PERCENTILE_05, REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION'
                               enum:
                               - REDUCE_NONE
                               - REDUCE_MEAN
@@ -6902,8 +7085,9 @@ components:
                       description: Ranking based time series filter.
                       properties:
                         direction:
-                          description: How to use the ranking to select time series
-                            that pass through the filter.
+                          description: 'How to use the ranking to select time series
+                            that pass through the filter. Possible values: DIRECTION_UNSPECIFIED,
+                            TOP, BOTTOM'
                           enum:
                           - DIRECTION_UNSPECIFIED
                           - TOP
@@ -6922,7 +7106,9 @@ components:
                         rankingMethod:
                           description: '`ranking_method` is applied to each time series
                             independently to produce the value which will be used
-                            to compare the time series to other time series.'
+                            to compare the time series to other time series. Possible
+                            values: METHOD_UNSPECIFIED, METHOD_MEAN, METHOD_MAX, METHOD_MIN,
+                            METHOD_SUM, METHOD_LATEST'
                           enum:
                           - METHOD_UNSPECIFIED
                           - METHOD_MEAN
@@ -6979,7 +7165,7 @@ components:
                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod
                           x-kubernetes-immutable: true
                         crossSeriesReducer:
-                          description: The reduction operation to be used to combine
+                          description: 'The reduction operation to be used to combine
                             time series into a single time series, where the value
                             of each data point in the resulting series is a function
                             of all the already aligned values in the input time series.  Not
@@ -6992,7 +7178,12 @@ components:
                             in order to perform cross-time series reduction. If `cross_series_reducer`
                             is specified, then `per_series_aligner` must be specified,
                             and must not be `ALIGN_NONE`. An `alignment_period` must
-                            also be specified; otherwise, an error is returned.
+                            also be specified; otherwise, an error is returned. Possible
+                            values: REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX,
+                            REDUCE_SUM, REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE,
+                            REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99,
+                            REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05,
+                            REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION'
                           enum:
                           - REDUCE_NONE
                           - REDUCE_MEAN
@@ -7229,7 +7420,8 @@ components:
               x-dcl-go-name: Content
               x-kubernetes-immutable: true
             format:
-              description: How the text content is formatted.
+              description: 'How the text content is formatted. Possible values: FORMAT_UNSPECIFIED,
+                MARKDOWN, RAW'
               enum:
               - FORMAT_UNSPECIFIED
               - MARKDOWN
@@ -7254,7 +7446,8 @@ components:
               description: Display options for the chart.
               properties:
                 mode:
-                  description: The chart mode.
+                  description: 'The chart mode. Possible values: MODE_UNSPECIFIED,
+                    COLOR, X_RAY, STATS'
                   enum:
                   - MODE_UNSPECIFIED
                   - COLOR
@@ -7319,7 +7512,9 @@ components:
                     x-dcl-go-type: DashboardWidgetXyChartDataSetsMinAlignmentPeriod
                     x-kubernetes-immutable: true
                   plotType:
-                    description: How this data should be plotted on the chart.
+                    description: 'How this data should be plotted on the chart. Possible
+                      values: PLOT_TYPE_UNSPECIFIED, LINE, STACKED_AREA, STACKED_BAR,
+                      HEATMAP'
                     enum:
                     - PLOT_TYPE_UNSPECIFIED
                     - LINE
@@ -7335,9 +7530,10 @@ components:
                       the Stackdriver metrics API.
                     properties:
                       apiSource:
-                        description: The API against which queries should be executed.
+                        description: 'The API against which queries should be executed.
                           This field is used exclusively by the Stackdriver application
-                          and will not be made public.
+                          and will not be made public. Possible values: DEFAULT_CLOUD,
+                          AUTO'
                         enum:
                         - DEFAULT_CLOUD
                         - AUTO
@@ -7394,7 +7590,7 @@ components:
                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod
                                 x-kubernetes-immutable: true
                               crossSeriesReducer:
-                                description: The reduction operation to be used to
+                                description: 'The reduction operation to be used to
                                   combine time series into a single time series, where
                                   the value of each data point in the resulting series
                                   is a function of all the already aligned values
@@ -7409,7 +7605,12 @@ components:
                                   If `cross_series_reducer` is specified, then `per_series_aligner`
                                   must be specified, and must not be `ALIGN_NONE`.
                                   An `alignment_period` must also be specified; otherwise,
-                                  an error is returned.
+                                  an error is returned. Possible values: REDUCE_NONE,
+                                  REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX, REDUCE_SUM,
+                                  REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE,
+                                  REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99,
+                                  REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05,
+                                  REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION'
                                 enum:
                                 - REDUCE_NONE
                                 - REDUCE_MEAN
@@ -7628,8 +7829,9 @@ components:
                             description: Ranking based time series filter.
                             properties:
                               direction:
-                                description: How to use the ranking to select time
-                                  series that pass through the filter.
+                                description: 'How to use the ranking to select time
+                                  series that pass through the filter. Possible values:
+                                  DIRECTION_UNSPECIFIED, TOP, BOTTOM'
                                 enum:
                                 - DIRECTION_UNSPECIFIED
                                 - TOP
@@ -7649,7 +7851,9 @@ components:
                                 description: '`ranking_method` is applied to each
                                   time series independently to produce the value which
                                   will be used to compare the time series to other
-                                  time series.'
+                                  time series. Possible values: METHOD_UNSPECIFIED,
+                                  METHOD_MEAN, METHOD_MAX, METHOD_MIN, METHOD_SUM,
+                                  METHOD_LATEST'
                                 enum:
                                 - METHOD_UNSPECIFIED
                                 - METHOD_MEAN
@@ -7710,7 +7914,7 @@ components:
                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod
                                 x-kubernetes-immutable: true
                               crossSeriesReducer:
-                                description: The reduction operation to be used to
+                                description: 'The reduction operation to be used to
                                   combine time series into a single time series, where
                                   the value of each data point in the resulting series
                                   is a function of all the already aligned values
@@ -7725,7 +7929,12 @@ components:
                                   If `cross_series_reducer` is specified, then `per_series_aligner`
                                   must be specified, and must not be `ALIGN_NONE`.
                                   An `alignment_period` must also be specified; otherwise,
-                                  an error is returned.
+                                  an error is returned. Possible values: REDUCE_NONE,
+                                  REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX, REDUCE_SUM,
+                                  REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE,
+                                  REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99,
+                                  REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05,
+                                  REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION'
                                 enum:
                                 - REDUCE_NONE
                                 - REDUCE_MEAN
@@ -7991,7 +8200,7 @@ components:
                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod
                                     x-kubernetes-immutable: true
                                   crossSeriesReducer:
-                                    description: The reduction operation to be used
+                                    description: 'The reduction operation to be used
                                       to combine time series into a single time series,
                                       where the value of each data point in the resulting
                                       series is a function of all the already aligned
@@ -8007,7 +8216,13 @@ components:
                                       is specified, then `per_series_aligner` must
                                       be specified, and must not be `ALIGN_NONE`.
                                       An `alignment_period` must also be specified;
-                                      otherwise, an error is returned.
+                                      otherwise, an error is returned. Possible values:
+                                      REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX,
+                                      REDUCE_SUM, REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE,
+                                      REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99,
+                                      REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50,
+                                      REDUCE_PERCENTILE_05, REDUCE_FRACTION_LESS_THAN,
+                                      REDUCE_MAKE_DISTRIBUTION'
                                     enum:
                                     - REDUCE_NONE
                                     - REDUCE_MEAN
@@ -8283,7 +8498,7 @@ components:
                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod
                                     x-kubernetes-immutable: true
                                   crossSeriesReducer:
-                                    description: The reduction operation to be used
+                                    description: 'The reduction operation to be used
                                       to combine time series into a single time series,
                                       where the value of each data point in the resulting
                                       series is a function of all the already aligned
@@ -8299,7 +8514,13 @@ components:
                                       is specified, then `per_series_aligner` must
                                       be specified, and must not be `ALIGN_NONE`.
                                       An `alignment_period` must also be specified;
-                                      otherwise, an error is returned.
+                                      otherwise, an error is returned. Possible values:
+                                      REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX,
+                                      REDUCE_SUM, REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE,
+                                      REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99,
+                                      REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50,
+                                      REDUCE_PERCENTILE_05, REDUCE_FRACTION_LESS_THAN,
+                                      REDUCE_MAKE_DISTRIBUTION'
                                     enum:
                                     - REDUCE_NONE
                                     - REDUCE_MEAN
@@ -8529,8 +8750,9 @@ components:
                             description: Ranking based time series filter.
                             properties:
                               direction:
-                                description: How to use the ranking to select time
-                                  series that pass through the filter.
+                                description: 'How to use the ranking to select time
+                                  series that pass through the filter. Possible values:
+                                  DIRECTION_UNSPECIFIED, TOP, BOTTOM'
                                 enum:
                                 - DIRECTION_UNSPECIFIED
                                 - TOP
@@ -8550,7 +8772,9 @@ components:
                                 description: '`ranking_method` is applied to each
                                   time series independently to produce the value which
                                   will be used to compare the time series to other
-                                  time series.'
+                                  time series. Possible values: METHOD_UNSPECIFIED,
+                                  METHOD_MEAN, METHOD_MAX, METHOD_MIN, METHOD_SUM,
+                                  METHOD_LATEST'
                                 enum:
                                 - METHOD_UNSPECIFIED
                                 - METHOD_MEAN
@@ -8611,7 +8835,7 @@ components:
                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod
                                 x-kubernetes-immutable: true
                               crossSeriesReducer:
-                                description: The reduction operation to be used to
+                                description: 'The reduction operation to be used to
                                   combine time series into a single time series, where
                                   the value of each data point in the resulting series
                                   is a function of all the already aligned values
@@ -8626,7 +8850,12 @@ components:
                                   If `cross_series_reducer` is specified, then `per_series_aligner`
                                   must be specified, and must not be `ALIGN_NONE`.
                                   An `alignment_period` must also be specified; otherwise,
-                                  an error is returned.
+                                  an error is returned. Possible values: REDUCE_NONE,
+                                  REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX, REDUCE_SUM,
+                                  REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE,
+                                  REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99,
+                                  REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05,
+                                  REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION'
                                 enum:
                                 - REDUCE_NONE
                                 - REDUCE_MEAN
@@ -8901,7 +9130,12 @@ components:
                       x-dcl-list-type: list
                       x-kubernetes-immutable: true
                     reducer:
-                      description: How to aggregate the time series data while grouping.
+                      description: 'How to aggregate the time series data while grouping.
+                        Possible values: REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX,
+                        REDUCE_SUM, REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE,
+                        REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99,
+                        REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05,
+                        REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION'
                       enum:
                       - REDUCE_NONE
                       - REDUCE_MEAN
@@ -8950,8 +9184,9 @@ components:
                         x-dcl-go-name: Label
                         x-kubernetes-immutable: true
                       logicalOperator:
-                        description: The operator that defines how value restrictions
-                          on the label are joined.
+                        description: 'The operator that defines how value restrictions
+                          on the label are joined. Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
+                          AND, OR'
                         enum:
                         - LOGICAL_OPERATOR_UNSPECIFIED
                         - AND
@@ -8966,8 +9201,9 @@ components:
                         items:
                           properties:
                             comparator:
-                              description: The operator that determines how the matching
-                                values are evaluated.
+                              description: 'The operator that determines how the matching
+                                values are evaluated. Possible values: COMPARATOR_UNSPECIFIED,
+                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
                               enum:
                               - COMPARATOR_UNSPECIFIED
                               - EQUALS
@@ -9050,8 +9286,9 @@ components:
                         x-dcl-go-name: Label
                         x-kubernetes-immutable: true
                       logicalOperator:
-                        description: The logical operator that defines how all the
-                          value restrictions on the label are joined.
+                        description: 'The logical operator that defines how all the
+                          value restrictions on the label are joined. Possible values:
+                          LOGICAL_OPERATOR_UNSPECIFIED, AND, OR'
                         enum:
                         - LOGICAL_OPERATOR_UNSPECIFIED
                         - AND
@@ -9066,8 +9303,9 @@ components:
                         items:
                           properties:
                             comparator:
-                              description: The operator that determines how the matching
-                                values are evaluated.
+                              description: 'The operator that determines how the matching
+                                values are evaluated. Possible values: COMPARATOR_UNSPECIFIED,
+                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
                               enum:
                               - COMPARATOR_UNSPECIFIED
                               - EQUALS
@@ -9109,8 +9347,9 @@ components:
                         x-dcl-go-name: Label
                         x-kubernetes-immutable: true
                       logicalOperator:
-                        description: The operator that defines how value restrictions
-                          on the label are joined.
+                        description: 'The operator that defines how value restrictions
+                          on the label are joined. Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
+                          AND, OR'
                         enum:
                         - LOGICAL_OPERATOR_UNSPECIFIED
                         - AND
@@ -9125,8 +9364,9 @@ components:
                         items:
                           properties:
                             comparator:
-                              description: The operator that determines how the matching
-                                values are evaluated.
+                              description: 'The operator that determines how the matching
+                                values are evaluated. Possible values: COMPARATOR_UNSPECIFIED,
+                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
                               enum:
                               - COMPARATOR_UNSPECIFIED
                               - EQUALS
@@ -9169,8 +9409,9 @@ components:
                         x-dcl-go-name: Label
                         x-kubernetes-immutable: true
                       logicalOperator:
-                        description: The operator that defines how value restrictions
-                          on the label are joined.
+                        description: 'The operator that defines how value restrictions
+                          on the label are joined. Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
+                          AND, OR'
                         enum:
                         - LOGICAL_OPERATOR_UNSPECIFIED
                         - AND
@@ -9185,8 +9426,9 @@ components:
                         items:
                           properties:
                             comparator:
-                              description: The operator that determines how the matching
-                                values are evaluated.
+                              description: 'The operator that determines how the matching
+                                values are evaluated. Possible values: COMPARATOR_UNSPECIFIED,
+                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
                               enum:
                               - COMPARATOR_UNSPECIFIED
                               - EQUALS
@@ -9277,8 +9519,9 @@ components:
               items:
                 properties:
                   color:
-                    description: The state color for this threshold. Color is not
-                      allowed in a XyChart.
+                    description: 'The state color for this threshold. Color is not
+                      allowed in a XyChart. Possible values: COLOR_UNSPECIFIED, GREY,
+                      BLUE, GREEN, YELLOW, ORANGE, RED'
                     enum:
                     - COLOR_UNSPECIFIED
                     - GREY
@@ -9292,8 +9535,9 @@ components:
                     x-dcl-go-type: DashboardWidgetXyChartThresholdsColorEnum
                     x-kubernetes-immutable: true
                   direction:
-                    description: The direction for the current threshold. Direction
-                      is not allowed in a XyChart.
+                    description: 'The direction for the current threshold. Direction
+                      is not allowed in a XyChart. Possible values: DIRECTION_UNSPECIFIED,
+                      ABOVE, BELOW'
                     enum:
                     - DIRECTION_UNSPECIFIED
                     - ABOVE
@@ -9359,7 +9603,8 @@ components:
                   x-dcl-go-name: Label
                   x-kubernetes-immutable: true
                 scale:
-                  description: The axis scale. By default, a linear scale is used.
+                  description: 'The axis scale. By default, a linear scale is used.
+                    Possible values: SCALE_UNSPECIFIED, LINEAR, LOG10'
                   enum:
                   - SCALE_UNSPECIFIED
                   - LINEAR
@@ -9381,7 +9626,8 @@ components:
                   x-dcl-go-name: Label
                   x-kubernetes-immutable: true
                 scale:
-                  description: The axis scale. By default, a linear scale is used.
+                  description: 'The axis scale. By default, a linear scale is used.
+                    Possible values: SCALE_UNSPECIFIED, LINEAR, LOG10'
                   enum:
                   - SCALE_UNSPECIFIED
                   - LINEAR
@@ -9407,8 +9653,35 @@ info:
   title: Monitoring/Dashboard
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Dashboard
+  apply:
+    description: The function used to apply information about a Dashboard
+    parameters:
+    - description: A full instance of a Dashboard
+      name: Dashboard
+      required: true
+  delete:
+    description: The function used to delete a Dashboard
+    parameters:
+    - description: A full instance of a Dashboard
+      name: Dashboard
+      required: true
+  deleteAll:
+    description: The function used to delete all Dashboard
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Dashboard
+    parameters:
+    - description: A full instance of a Dashboard
+      name: Dashboard
+      required: true
+  list:
+    description: The function used to list information about many Dashboard
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

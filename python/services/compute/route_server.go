@@ -167,11 +167,13 @@ func (s *RouteServer) ComputeRouteAsHcl(ctx context.Context, request *computepb.
 
 // DeleteRoute handles the gRPC request by passing it to the underlying Route Delete() method.
 func (s *RouteServer) DeleteComputeRoute(ctx context.Context, request *computepb.DeleteComputeRouteRequest) (*emptypb.Empty, error) {
+
 	cl, err := createConfigRoute(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, cl.DeleteRoute(ctx, ProtoToRoute(request.GetResource()))
+
 }
 
 // ListRoute handles the gRPC request by passing it to the underlying RouteList() method.

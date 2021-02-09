@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Group) validate() error {
@@ -357,6 +358,7 @@ func (c *Client) groupDiffsForRawDesired(ctx context.Context, rawDesired *Group,
 		desired, err := canonicalizeGroupDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
+
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetGroup(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -364,12 +366,12 @@ func (c *Client) groupDiffsForRawDesired(ctx context.Context, rawDesired *Group,
 			c.Config.Logger.Warningf("Failed to retrieve whether a Group resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Group resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Group resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeGroupDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Group: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Group: %v", rawDesired)
 
@@ -472,13 +474,7 @@ func canonicalizeGroupNewState(c *Client, rawNew, rawDesired *Group) (*Group, er
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -505,7 +501,7 @@ func diffGroup(c *Client, desired, actual *Group, opts ...dcl.ApplyOption) ([]gr
 
 	var diffs []groupDiff
 	if !dcl.IsZeroValue(desired.DisplayName) && (dcl.IsZeroValue(actual.DisplayName) || !reflect.DeepEqual(*desired.DisplayName, *actual.DisplayName)) {
-		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %#v\nACTUAL: %#v", desired.DisplayName, actual.DisplayName)
+		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 
 		diffs = append(diffs, groupDiff{
 			UpdateOp:  &updateGroupUpdateOperation{},
@@ -514,7 +510,7 @@ func diffGroup(c *Client, desired, actual *Group, opts ...dcl.ApplyOption) ([]gr
 
 	}
 	if !dcl.IsZeroValue(desired.Filter) && (dcl.IsZeroValue(actual.Filter) || !reflect.DeepEqual(*desired.Filter, *actual.Filter)) {
-		c.Config.Logger.Infof("Detected diff in Filter.\nDESIRED: %#v\nACTUAL: %#v", desired.Filter, actual.Filter)
+		c.Config.Logger.Infof("Detected diff in Filter.\nDESIRED: %v\nACTUAL: %v", desired.Filter, actual.Filter)
 
 		diffs = append(diffs, groupDiff{
 			UpdateOp:  &updateGroupUpdateOperation{},
@@ -523,7 +519,7 @@ func diffGroup(c *Client, desired, actual *Group, opts ...dcl.ApplyOption) ([]gr
 
 	}
 	if !dcl.IsZeroValue(desired.IsCluster) && (dcl.IsZeroValue(actual.IsCluster) || !reflect.DeepEqual(*desired.IsCluster, *actual.IsCluster)) {
-		c.Config.Logger.Infof("Detected diff in IsCluster.\nDESIRED: %#v\nACTUAL: %#v", desired.IsCluster, actual.IsCluster)
+		c.Config.Logger.Infof("Detected diff in IsCluster.\nDESIRED: %v\nACTUAL: %v", desired.IsCluster, actual.IsCluster)
 
 		diffs = append(diffs, groupDiff{
 			UpdateOp:  &updateGroupUpdateOperation{},
@@ -532,27 +528,20 @@ func diffGroup(c *Client, desired, actual *Group, opts ...dcl.ApplyOption) ([]gr
 
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, groupDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.ParentName) && !dcl.PartialSelfLinkToSelfLink(desired.ParentName, actual.ParentName) {
-		c.Config.Logger.Infof("Detected diff in ParentName.\nDESIRED: %#v\nACTUAL: %#v", desired.ParentName, actual.ParentName)
+		c.Config.Logger.Infof("Detected diff in ParentName.\nDESIRED: %v\nACTUAL: %v", desired.ParentName, actual.ParentName)
 
 		diffs = append(diffs, groupDiff{
 			UpdateOp:  &updateGroupUpdateOperation{},
 			FieldName: "ParentName",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, groupDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,

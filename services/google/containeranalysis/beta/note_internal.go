@@ -18,11 +18,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 func (r *Note) validate() error {
@@ -596,12 +597,12 @@ func (c *Client) noteDiffsForRawDesired(ctx context.Context, rawDesired *Note, o
 			c.Config.Logger.Warningf("Failed to retrieve whether a Note resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Note resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Note resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeNoteDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Note: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Note: %v", rawDesired)
 
@@ -626,6 +627,56 @@ func (c *Client) noteDiffsForRawDesired(ctx context.Context, rawDesired *Note, o
 
 func canonicalizeNoteInitialState(rawInitial, rawDesired *Note) (*Note, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
+
+	if dcl.IsZeroValue(rawInitial.Vulnerability) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.Build, rawInitial.BaseImage, rawInitial.Package, rawInitial.Deployable, rawInitial.Discovery, rawInitial.AttestationAuthority) {
+			rawInitial.Vulnerability = EmptyNoteVulnerability
+		}
+	}
+
+	if dcl.IsZeroValue(rawInitial.Build) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.BaseImage, rawInitial.Package, rawInitial.Deployable, rawInitial.Discovery, rawInitial.AttestationAuthority) {
+			rawInitial.Build = EmptyNoteBuild
+		}
+	}
+
+	if dcl.IsZeroValue(rawInitial.BaseImage) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.Package, rawInitial.Deployable, rawInitial.Discovery, rawInitial.AttestationAuthority) {
+			rawInitial.BaseImage = EmptyNoteBaseImage
+		}
+	}
+
+	if dcl.IsZeroValue(rawInitial.Package) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.BaseImage, rawInitial.Deployable, rawInitial.Discovery, rawInitial.AttestationAuthority) {
+			rawInitial.Package = EmptyNotePackage
+		}
+	}
+
+	if dcl.IsZeroValue(rawInitial.Deployable) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.BaseImage, rawInitial.Package, rawInitial.Discovery, rawInitial.AttestationAuthority) {
+			rawInitial.Deployable = EmptyNoteDeployable
+		}
+	}
+
+	if dcl.IsZeroValue(rawInitial.Discovery) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.BaseImage, rawInitial.Package, rawInitial.Deployable, rawInitial.AttestationAuthority) {
+			rawInitial.Discovery = EmptyNoteDiscovery
+		}
+	}
+
+	if dcl.IsZeroValue(rawInitial.AttestationAuthority) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.BaseImage, rawInitial.Package, rawInitial.Deployable, rawInitial.Discovery) {
+			rawInitial.AttestationAuthority = EmptyNoteAttestationAuthority
+		}
+	}
+
 	return rawInitial, nil
 }
 
@@ -841,13 +892,7 @@ func canonicalizeNoteNewState(c *Client, rawNew, rawDesired *Note) (*Note, error
 		rawNew.AttestationAuthority = canonicalizeNewNoteAttestationAuthority(c, rawDesired.AttestationAuthority, rawNew.AttestationAuthority)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -2271,14 +2316,14 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 
 	var diffs []noteDiff
 	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, noteDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.ShortDescription) && (dcl.IsZeroValue(actual.ShortDescription) || !reflect.DeepEqual(*desired.ShortDescription, *actual.ShortDescription)) {
-		c.Config.Logger.Infof("Detected diff in ShortDescription.\nDESIRED: %#v\nACTUAL: %#v", desired.ShortDescription, actual.ShortDescription)
+		c.Config.Logger.Infof("Detected diff in ShortDescription.\nDESIRED: %v\nACTUAL: %v", desired.ShortDescription, actual.ShortDescription)
 
 		diffs = append(diffs, noteDiff{
 			UpdateOp:  &updateNoteUpdateNoteOperation{},
@@ -2287,7 +2332,7 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 
 	}
 	if !dcl.IsZeroValue(desired.LongDescription) && (dcl.IsZeroValue(actual.LongDescription) || !reflect.DeepEqual(*desired.LongDescription, *actual.LongDescription)) {
-		c.Config.Logger.Infof("Detected diff in LongDescription.\nDESIRED: %#v\nACTUAL: %#v", desired.LongDescription, actual.LongDescription)
+		c.Config.Logger.Infof("Detected diff in LongDescription.\nDESIRED: %v\nACTUAL: %v", desired.LongDescription, actual.LongDescription)
 
 		diffs = append(diffs, noteDiff{
 			UpdateOp:  &updateNoteUpdateNoteOperation{},
@@ -2296,7 +2341,7 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 
 	}
 	if compareNoteRelatedUrlSlice(c, desired.RelatedUrl, actual.RelatedUrl) {
-		c.Config.Logger.Infof("Detected diff in RelatedUrl.\nDESIRED: %#v\nACTUAL: %#v", desired.RelatedUrl, actual.RelatedUrl)
+		c.Config.Logger.Infof("Detected diff in RelatedUrl.\nDESIRED: %v\nACTUAL: %v", desired.RelatedUrl, actual.RelatedUrl)
 
 		diffs = append(diffs, noteDiff{
 			UpdateOp:  &updateNoteUpdateNoteOperation{},
@@ -2305,7 +2350,7 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 
 	}
 	if !dcl.IsZeroValue(desired.ExpirationTime) && (dcl.IsZeroValue(actual.ExpirationTime) || !reflect.DeepEqual(*desired.ExpirationTime, *actual.ExpirationTime)) {
-		c.Config.Logger.Infof("Detected diff in ExpirationTime.\nDESIRED: %#v\nACTUAL: %#v", desired.ExpirationTime, actual.ExpirationTime)
+		c.Config.Logger.Infof("Detected diff in ExpirationTime.\nDESIRED: %v\nACTUAL: %v", desired.ExpirationTime, actual.ExpirationTime)
 
 		diffs = append(diffs, noteDiff{
 			UpdateOp:  &updateNoteUpdateNoteOperation{},
@@ -2314,7 +2359,7 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 
 	}
 	if !dcl.SliceEquals(desired.RelatedNoteNames, actual.RelatedNoteNames) {
-		c.Config.Logger.Infof("Detected diff in RelatedNoteNames.\nDESIRED: %#v\nACTUAL: %#v", desired.RelatedNoteNames, actual.RelatedNoteNames)
+		c.Config.Logger.Infof("Detected diff in RelatedNoteNames.\nDESIRED: %v\nACTUAL: %v", desired.RelatedNoteNames, actual.RelatedNoteNames)
 
 		diffs = append(diffs, noteDiff{
 			UpdateOp:  &updateNoteUpdateNoteOperation{},
@@ -2323,7 +2368,7 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 
 	}
 	if compareNoteVulnerability(c, desired.Vulnerability, actual.Vulnerability) {
-		c.Config.Logger.Infof("Detected diff in Vulnerability.\nDESIRED: %#v\nACTUAL: %#v", desired.Vulnerability, actual.Vulnerability)
+		c.Config.Logger.Infof("Detected diff in Vulnerability.\nDESIRED: %v\nACTUAL: %v", desired.Vulnerability, actual.Vulnerability)
 
 		diffs = append(diffs, noteDiff{
 			UpdateOp:  &updateNoteUpdateNoteOperation{},
@@ -2332,7 +2377,7 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 
 	}
 	if compareNoteBuild(c, desired.Build, actual.Build) {
-		c.Config.Logger.Infof("Detected diff in Build.\nDESIRED: %#v\nACTUAL: %#v", desired.Build, actual.Build)
+		c.Config.Logger.Infof("Detected diff in Build.\nDESIRED: %v\nACTUAL: %v", desired.Build, actual.Build)
 
 		diffs = append(diffs, noteDiff{
 			UpdateOp:  &updateNoteUpdateNoteOperation{},
@@ -2341,7 +2386,7 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 
 	}
 	if compareNoteImage(c, desired.Image, actual.Image) {
-		c.Config.Logger.Infof("Detected diff in Image.\nDESIRED: %#v\nACTUAL: %#v", desired.Image, actual.Image)
+		c.Config.Logger.Infof("Detected diff in Image.\nDESIRED: %v\nACTUAL: %v", desired.Image, actual.Image)
 
 		diffs = append(diffs, noteDiff{
 			UpdateOp:  &updateNoteUpdateNoteOperation{},
@@ -2350,7 +2395,7 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 
 	}
 	if compareNotePackage(c, desired.Package, actual.Package) {
-		c.Config.Logger.Infof("Detected diff in Package.\nDESIRED: %#v\nACTUAL: %#v", desired.Package, actual.Package)
+		c.Config.Logger.Infof("Detected diff in Package.\nDESIRED: %v\nACTUAL: %v", desired.Package, actual.Package)
 
 		diffs = append(diffs, noteDiff{
 			UpdateOp:  &updateNoteUpdateNoteOperation{},
@@ -2359,7 +2404,7 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 
 	}
 	if compareNoteDiscovery(c, desired.Discovery, actual.Discovery) {
-		c.Config.Logger.Infof("Detected diff in Discovery.\nDESIRED: %#v\nACTUAL: %#v", desired.Discovery, actual.Discovery)
+		c.Config.Logger.Infof("Detected diff in Discovery.\nDESIRED: %v\nACTUAL: %v", desired.Discovery, actual.Discovery)
 
 		diffs = append(diffs, noteDiff{
 			UpdateOp:  &updateNoteUpdateNoteOperation{},
@@ -2368,7 +2413,7 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 
 	}
 	if compareNoteBaseImage(c, desired.BaseImage, actual.BaseImage) {
-		c.Config.Logger.Infof("Detected diff in BaseImage.\nDESIRED: %#v\nACTUAL: %#v", desired.BaseImage, actual.BaseImage)
+		c.Config.Logger.Infof("Detected diff in BaseImage.\nDESIRED: %v\nACTUAL: %v", desired.BaseImage, actual.BaseImage)
 
 		diffs = append(diffs, noteDiff{
 			UpdateOp:  &updateNoteUpdateNoteOperation{},
@@ -2377,7 +2422,7 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 
 	}
 	if compareNoteDeployable(c, desired.Deployable, actual.Deployable) {
-		c.Config.Logger.Infof("Detected diff in Deployable.\nDESIRED: %#v\nACTUAL: %#v", desired.Deployable, actual.Deployable)
+		c.Config.Logger.Infof("Detected diff in Deployable.\nDESIRED: %v\nACTUAL: %v", desired.Deployable, actual.Deployable)
 
 		diffs = append(diffs, noteDiff{
 			UpdateOp:  &updateNoteUpdateNoteOperation{},
@@ -2386,20 +2431,13 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 
 	}
 	if compareNoteAttestationAuthority(c, desired.AttestationAuthority, actual.AttestationAuthority) {
-		c.Config.Logger.Infof("Detected diff in AttestationAuthority.\nDESIRED: %#v\nACTUAL: %#v", desired.AttestationAuthority, actual.AttestationAuthority)
+		c.Config.Logger.Infof("Detected diff in AttestationAuthority.\nDESIRED: %v\nACTUAL: %v", desired.AttestationAuthority, actual.AttestationAuthority)
 
 		diffs = append(diffs, noteDiff{
 			UpdateOp:  &updateNoteUpdateNoteOperation{},
 			FieldName: "AttestationAuthority",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, noteDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
 	}
 	diffs = analyzeNoteDiff(desired, actual, diffs)
 	// We need to ensure that this list does not contain identical operations *most of the time*.

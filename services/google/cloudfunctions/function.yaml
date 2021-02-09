@@ -13,7 +13,7 @@
 # limitations under the License.
 components:
   schemas:
-    CloudFunction:
+    Function:
       properties:
         availableMemoryMb:
           description: 'Memory (in MB), available to the function. Default value is
@@ -41,6 +41,9 @@ components:
             type: string
           description: Environment variables that shall be available during function
             execution.
+          items:
+            type: string
+            x-dcl-go-type: string
           type: object
           x-dcl-go-name: EnvironmentVariables
         eventTrigger:
@@ -81,7 +84,7 @@ components:
 
                 1. The authorization model must support it. Google Cloud Functions
                    only allows EventTriggers to be deployed that observe resources in the
-                   same project as the `CloudFunction`.
+                   same project as the `Function`.
                 2. The resource type must match the pattern expected for an
                    `event_type`. For example, an `EventTrigger` that has an
                    `event_type` of "google.pubsub.topic.publish" should have a resource
@@ -112,7 +115,7 @@ components:
           x-dcl-conflicts:
           - httpsTrigger
           x-dcl-go-name: EventTrigger
-          x-dcl-go-type: CloudFunctionEventTrigger
+          x-dcl-go-type: FunctionEventTrigger
           x-kubernetes-immutable: true
         httpsTrigger:
           description: An HTTPS endpoint type of source that can be triggered via
@@ -128,13 +131,13 @@ components:
           x-dcl-conflicts:
           - eventTrigger
           x-dcl-go-name: HttpsTrigger
-          x-dcl-go-type: CloudFunctionHttpsTrigger
+          x-dcl-go-type: FunctionHttpsTrigger
           x-dcl-send-empty: true
           x-kubernetes-immutable: true
         ingressSettings:
           description: |-
             The ingress settings for the function, controlling what traffic can reach
-            it.
+            it. Possible values: INGRESS_SETTINGS_UNSPECIFIED, ALLOW_ALL, ALLOW_INTERNAL_ONLY, ALLOW_INTERNAL_AND_GCLB
           enum:
           - INGRESS_SETTINGS_UNSPECIFIED
           - ALLOW_ALL
@@ -142,11 +145,14 @@ components:
           - ALLOW_INTERNAL_AND_GCLB
           type: string
           x-dcl-go-name: IngressSettings
-          x-dcl-go-type: CloudFunctionIngressSettingsEnum
+          x-dcl-go-type: FunctionIngressSettingsEnum
         labels:
           additionalProperties:
             type: string
           description: Labels associated with this Cloud Function.
+          items:
+            type: string
+            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         maxInstances:
@@ -190,6 +196,10 @@ components:
           description: The project id of the function.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         region:
           description: The name of the Cloud Functions region of the function.
@@ -211,6 +221,9 @@ components:
             `{project_id}@appspot.gserviceaccount.com`.
           type: string
           x-dcl-go-name: ServiceAccountEmail
+          x-dcl-references:
+          - field: email
+            resource: Iam/ServiceAccount
           x-kubernetes-immutable: true
         sourceArchiveUrl:
           description: The Google Cloud Storage URL, starting with gs://, pointing
@@ -257,10 +270,12 @@ components:
           x-dcl-conflicts:
           - sourceArchiveUrl
           x-dcl-go-name: SourceRepository
-          x-dcl-go-type: CloudFunctionSourceRepository
+          x-dcl-go-type: FunctionSourceRepository
           x-kubernetes-immutable: true
         status:
-          description: Output only. Status of the function deployment.
+          description: 'Output only. Status of the function deployment. Possible values:
+            CLOUD_FUNCTION_STATUS_UNSPECIFIED, ACTIVE, OFFLINE, DEPLOY_IN_PROGRESS,
+            DELETE_IN_PROGRESS, UNKNOWN'
           enum:
           - CLOUD_FUNCTION_STATUS_UNSPECIFIED
           - ACTIVE
@@ -271,15 +286,14 @@ components:
           readOnly: true
           type: string
           x-dcl-go-name: Status
-          x-dcl-go-type: CloudFunctionStatusEnum
+          x-dcl-go-type: FunctionStatusEnum
           x-kubernetes-immutable: true
         timeout:
           description: |-
             The function execution timeout. Execution is considered failed and
             can be terminated if the function is not completed at the end of the
             timeout period. Defaults to 60 seconds.
-          format: int64
-          type: integer
+          type: string
           x-dcl-go-name: Timeout
         updateTime:
           description: Output only. The last update timestamp of a Cloud Function
@@ -314,26 +328,26 @@ components:
           type: string
           x-dcl-go-name: VPCConnector
           x-dcl-references:
-          - field: selfLink
-            resource: Compute/Network
+          - field: name
+            resource: Vpcaccess/Connector
           x-dcl-server-default: true
           x-kubernetes-immutable: true
         vpcConnectorEgressSettings:
           description: |-
             The egress settings for the connector, controlling what traffic is diverted
-            through it.
+            through it. Possible values: VPC_CONNECTOR_EGRESS_SETTINGS_UNSPECIFIED, PRIVATE_RANGES_ONLY, ALL_TRAFFIC
           enum:
           - VPC_CONNECTOR_EGRESS_SETTINGS_UNSPECIFIED
           - PRIVATE_RANGES_ONLY
           - ALL_TRAFFIC
           type: string
           x-dcl-go-name: VPCConnectorEgressSettings
-          x-dcl-go-type: CloudFunctionVPCConnectorEgressSettingsEnum
+          x-dcl-go-type: FunctionVPCConnectorEgressSettingsEnum
       required:
       - name
       - region
       - project
-      title: CloudFunction
+      title: Function
       type: object
       x-dcl-id: projects/{{project}}/locations/{{region}}/functions/{{name}}
       x-dcl-labels: labels
@@ -342,14 +356,47 @@ components:
       x-dcl-parent-container: project
       x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Cloudfunctions CloudFunction resource
-  title: Cloudfunctions/CloudFunction
+  description: DCL Specification for the Cloudfunctions Function resource
+  title: Cloudfunctions/Function
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many CloudFunction
+  apply:
+    description: The function used to apply information about a Function
+    parameters:
+    - description: A full instance of a Function
+      name: Function
+      required: true
+  delete:
+    description: The function used to delete a Function
+    parameters:
+    - description: A full instance of a Function
+      name: Function
+      required: true
+  deleteAll:
+    description: The function used to delete all Function
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: region
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Function
+    parameters:
+    - description: A full instance of a Function
+      name: Function
+      required: true
+  list:
+    description: The function used to list information about many Function
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: region
+      required: true
+      schema:
+        type: string

@@ -63,7 +63,8 @@ components:
           x-dcl-go-name: Description
           x-kubernetes-immutable: true
         health:
-          description: The health status of the TPU node.
+          description: 'The health status of the TPU node. Possible values: HEALTH_UNSPECIFIED,
+            HEALTHY, DEPRECATED_UNHEALTHY, TIMEOUT, UNHEALTHY_TENSORFLOW, UNHEALTHY_MAINTENANCE'
           enum:
           - HEALTH_UNSPECIFIED
           - HEALTHY
@@ -84,7 +85,7 @@ components:
           x-dcl-go-name: HealthDescription
           x-kubernetes-immutable: true
         ipAddress:
-          description: Output only. DEPRECATED! Use network\_endpoints instead. The
+          description: Output only. DEPRECATED! Use network_endpoints instead. The
             network address for the TPU Node as visible to Compute Engine instances.
           readOnly: true
           type: string
@@ -94,6 +95,9 @@ components:
           additionalProperties:
             type: string
           description: Resource labels to represent user-provided metadata.
+          items:
+            type: string
+            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
           x-kubernetes-immutable: true
@@ -146,7 +150,7 @@ components:
           x-dcl-list-type: list
           x-kubernetes-immutable: true
         port:
-          description: Output only. DEPRECATED! Use network\_endpoints instead. The
+          description: Output only. DEPRECATED! Use network_endpoints instead. The
             network port for the TPU Node as visible to Compute Engine instances.
           readOnly: true
           type: string
@@ -185,7 +189,10 @@ components:
           x-dcl-go-name: ServiceAccount
           x-kubernetes-immutable: true
         state:
-          description: Output only. The current state for the TPU Node.
+          description: 'Output only. The current state for the TPU Node. Possible
+            values: STATE_UNSPECIFIED, CREATING, READY, RESTARTING, REIMAGING, DELETING,
+            REPAIRING, STOPPED, STOPPING, STARTING, PREEMPTED, TERMINATED, HIDING,
+            HIDDEN, UNHIDING'
           enum:
           - STATE_UNSPECIFIED
           - CREATING
@@ -240,7 +247,8 @@ components:
                 x-dcl-go-name: Details
                 x-kubernetes-immutable: true
               symptomType:
-                description: Type of the Symptom.
+                description: 'Type of the Symptom. Possible values: SYMPTOM_TYPE_UNSPECIFIED,
+                  LOW_MEMORY, OUT_OF_MEMORY, EXECUTE_TIMED_OUT, MESH_BUILD_FAIL, HBM_OUT_OF_MEMORY'
                 enum:
                 - SYMPTOM_TYPE_UNSPECIFIED
                 - LOW_MEMORY
@@ -272,7 +280,7 @@ components:
         useServiceNetworking:
           description: Whether the VPC peering for the node is set up through Service
             Networking API. The VPC Peering should be set up before provisioning the
-            node. If this field is set, cidr\_block field should not be specified.
+            node. If this field is set, cidr_block field should not be specified.
             If the network, that you want to peer the TPU Node to, is Shared VPC networks,
             the node must be created with this this field enabled.
           type: boolean
@@ -297,10 +305,43 @@ info:
   title: TPU/Node
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Node
+  apply:
+    description: The function used to apply information about a Node
+    parameters:
+    - description: A full instance of a Node
+      name: Node
+      required: true
+  delete:
+    description: The function used to delete a Node
+    parameters:
+    - description: A full instance of a Node
+      name: Node
+      required: true
+  deleteAll:
+    description: The function used to delete all Node
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: location
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Node
+    parameters:
+    - description: A full instance of a Node
+      name: Node
+      required: true
+  list:
+    description: The function used to list information about many Node
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string

@@ -66,6 +66,8 @@ components:
               x-dcl-go-name: Body
               x-kubernetes-immutable: true
             headers:
+              additionalProperties:
+                type: string
               description: 'HTTP request headers. This map contains the header field
                 names and values. Headers can be set when the job is created. Cloud
                 Scheduler sets some headers to default values: * `User-Agent`: By
@@ -78,24 +80,15 @@ components:
                 use only. In addition, some Appengine headers, which contain job-specific
                 information, are also be sent to the job handler.'
               items:
-                properties:
-                  key:
-                    type: string
-                    x-dcl-go-name: Key
-                    x-kubernetes-immutable: true
-                  value:
-                    type: string
-                    x-dcl-go-name: Value
-                    x-kubernetes-immutable: true
-                type: object
-                x-dcl-go-type: JobAppEngineHttpTargetHeaders
-              type: array
+                type: string
+                x-dcl-go-type: string
+              type: object
               x-dcl-go-name: Headers
-              x-dcl-list-type: list
               x-kubernetes-immutable: true
             httpMethod:
-              description: The HTTP method to use for the request. PATCH and OPTIONS
-                are not permitted.
+              description: 'The HTTP method to use for the request. PATCH and OPTIONS
+                are not permitted. Possible values: HTTP_METHOD_UNSPECIFIED, POST,
+                GET, HEAD, PUT, DELETE, PATCH, OPTIONS'
               enum:
               - HTTP_METHOD_UNSPECIFIED
               - POST
@@ -127,50 +120,14 @@ components:
             is marked as a `DEADLINE_EXCEEDED` failure. The failed attempt can be
             viewed in execution logs. Cloud Scheduler will retry the job according
             to the RetryConfig, between 15 seconds and 24 hours.
-          properties:
-            nanos:
-              description: Signed fractions of a second at nanosecond resolution of
-                the span of time. Durations less than one second are represented with
-                a 0 `seconds` field and a positive or negative `nanos` field. For
-                durations of one second or more, a non-zero value for the `nanos`
-                field must be of the same sign as the `seconds` field. Must be from
-                -999,999,999 to +999,999,999 inclusive.
-              format: int64
-              type: integer
-              x-dcl-go-name: Nanos
-              x-kubernetes-immutable: true
-            seconds:
-              description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                to +315,576,000,000 inclusive. Note: these bounds are computed from:
-                60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years'
-              format: int64
-              type: integer
-              x-dcl-go-name: Seconds
-              x-kubernetes-immutable: true
-          type: object
+          type: string
           x-dcl-go-name: AttemptDeadline
-          x-dcl-go-type: JobAttemptDeadline
         description:
           description: Optionally caller-specified in jobs.create or jobs.patch. A
             human-readable description for the job. This string must not contain more
             than 500 characters.
           type: string
           x-dcl-go-name: Description
-        failedAttemptCount:
-          description: Output only. The number of attempts which have failed.
-          format: int64
-          readOnly: true
-          type: integer
-          x-dcl-go-name: FailedAttemptCount
-          x-kubernetes-immutable: true
-        failedExecutionCount:
-          description: Output only. The total number of times this job's executions
-            have failed.
-          format: int64
-          readOnly: true
-          type: integer
-          x-dcl-go-name: FailedExecutionCount
-          x-kubernetes-immutable: true
         httpTarget:
           description: HTTP target.
           properties:
@@ -182,6 +139,8 @@ components:
               x-dcl-go-name: Body
               x-kubernetes-immutable: true
             headers:
+              additionalProperties:
+                type: string
               description: 'The user can specify HTTP request headers to send with
                 the job''s HTTP request. This map contains the header field names
                 and values. Repeated headers are not supported, but a header value
@@ -194,23 +153,14 @@ components:
                 * `X-Google-*`: Google internal use only. * `X-Appengine-*`: Google
                 internal use only. The total size of headers must be less than 80KB.'
               items:
-                properties:
-                  key:
-                    type: string
-                    x-dcl-go-name: Key
-                    x-kubernetes-immutable: true
-                  value:
-                    type: string
-                    x-dcl-go-name: Value
-                    x-kubernetes-immutable: true
-                type: object
-                x-dcl-go-type: JobHttpTargetHeaders
-              type: array
+                type: string
+                x-dcl-go-type: string
+              type: object
               x-dcl-go-name: Headers
-              x-dcl-list-type: list
               x-kubernetes-immutable: true
             httpMethod:
-              description: Which HTTP method to use for the request.
+              description: 'Which HTTP method to use for the request. Possible values:
+                HTTP_METHOD_UNSPECIFIED, POST, GET, HEAD, PUT, DELETE, PATCH, OPTIONS'
               enum:
               - HTTP_METHOD_UNSPECIFIED
               - POST
@@ -244,6 +194,9 @@ components:
                     permission for the service account.
                   type: string
                   x-dcl-go-name: ServiceAccountEmail
+                  x-dcl-references:
+                  - field: email
+                    resource: Iam/ServiceAccount
                   x-kubernetes-immutable: true
               type: object
               x-dcl-go-name: OAuthToken
@@ -269,6 +222,9 @@ components:
                     permission for the service account.
                   type: string
                   x-dcl-go-name: ServiceAccountEmail
+                  x-dcl-references:
+                  - field: email
+                    resource: Iam/ServiceAccount
                   x-kubernetes-immutable: true
               type: object
               x-dcl-go-name: OidcToken
@@ -288,23 +244,6 @@ components:
           type: object
           x-dcl-go-name: HttpTarget
           x-dcl-go-type: JobHttpTarget
-        labels:
-          description: Labels for this job.
-          items:
-            properties:
-              key:
-                type: string
-                x-dcl-go-name: Key
-                x-kubernetes-immutable: true
-              value:
-                type: string
-                x-dcl-go-name: Value
-                x-kubernetes-immutable: true
-            type: object
-            x-dcl-go-type: JobLabels
-          type: array
-          x-dcl-go-name: Labels
-          x-dcl-list-type: list
         lastAttemptTime:
           description: Output only. The time the last job attempt started.
           format: date-time
@@ -338,23 +277,15 @@ components:
           description: Pub/Sub target.
           properties:
             attributes:
+              additionalProperties:
+                type: string
               description: Attributes for PubsubMessage. Pubsub message must contain
                 either non-empty data, or at least one attribute.
               items:
-                properties:
-                  key:
-                    type: string
-                    x-dcl-go-name: Key
-                    x-kubernetes-immutable: true
-                  value:
-                    type: string
-                    x-dcl-go-name: Value
-                    x-kubernetes-immutable: true
-                type: object
-                x-dcl-go-type: JobPubsubTargetAttributes
-              type: array
+                type: string
+                x-dcl-go-type: string
+              type: object
               x-dcl-go-name: Attributes
-              x-dcl-list-type: list
               x-kubernetes-immutable: true
             data:
               description: The message payload for PubsubMessage. Pubsub message must
@@ -371,7 +302,7 @@ components:
               type: string
               x-dcl-go-name: TopicName
               x-dcl-references:
-              - field: selfLink
+              - field: name
                 resource: Pubsub/Topic
               x-kubernetes-immutable: true
           required:
@@ -385,30 +316,8 @@ components:
             maxBackoffDuration:
               description: The maximum amount of time to wait before retrying a job
                 after it fails. The default value of this field is 1 hour.
-              properties:
-                nanos:
-                  description: Signed fractions of a second at nanosecond resolution
-                    of the span of time. Durations less than one second are represented
-                    with a 0 `seconds` field and a positive or negative `nanos` field.
-                    For durations of one second or more, a non-zero value for the
-                    `nanos` field must be of the same sign as the `seconds` field.
-                    Must be from -999,999,999 to +999,999,999 inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
-                  x-kubernetes-immutable: true
-                seconds:
-                  description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                    to +315,576,000,000 inclusive. Note: these bounds are computed
-                    from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year *
-                    10000 years'
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
-                  x-kubernetes-immutable: true
-              type: object
+              type: string
               x-dcl-go-name: MaxBackoffDuration
-              x-dcl-go-type: JobRetryConfigMaxBackoffDuration
               x-kubernetes-immutable: true
             maxDoublings:
               description: The time between retries will double `max_doublings` times.
@@ -425,58 +334,14 @@ components:
                 the job will be retried until both limits are reached. The default
                 value for max_retry_duration is zero, which means retry duration is
                 unlimited.
-              properties:
-                nanos:
-                  description: Signed fractions of a second at nanosecond resolution
-                    of the span of time. Durations less than one second are represented
-                    with a 0 `seconds` field and a positive or negative `nanos` field.
-                    For durations of one second or more, a non-zero value for the
-                    `nanos` field must be of the same sign as the `seconds` field.
-                    Must be from -999,999,999 to +999,999,999 inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
-                  x-kubernetes-immutable: true
-                seconds:
-                  description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                    to +315,576,000,000 inclusive. Note: these bounds are computed
-                    from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year *
-                    10000 years'
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
-                  x-kubernetes-immutable: true
-              type: object
+              type: string
               x-dcl-go-name: MaxRetryDuration
-              x-dcl-go-type: JobRetryConfigMaxRetryDuration
               x-kubernetes-immutable: true
             minBackoffDuration:
               description: The minimum amount of time to wait before retrying a job
                 after it fails. The default value of this field is 5 seconds.
-              properties:
-                nanos:
-                  description: Signed fractions of a second at nanosecond resolution
-                    of the span of time. Durations less than one second are represented
-                    with a 0 `seconds` field and a positive or negative `nanos` field.
-                    For durations of one second or more, a non-zero value for the
-                    `nanos` field must be of the same sign as the `seconds` field.
-                    Must be from -999,999,999 to +999,999,999 inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
-                  x-kubernetes-immutable: true
-                seconds:
-                  description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                    to +315,576,000,000 inclusive. Note: these bounds are computed
-                    from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year *
-                    10000 years'
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
-                  x-kubernetes-immutable: true
-              type: object
+              type: string
               x-dcl-go-name: MinBackoffDuration
-              x-dcl-go-type: JobRetryConfigMinBackoffDuration
               x-kubernetes-immutable: true
             retryCount:
               description: The number of attempts that the system will make to run
@@ -510,7 +375,8 @@ components:
           x-dcl-go-name: ScheduleTime
           x-kubernetes-immutable: true
         state:
-          description: Output only. State of the job.
+          description: 'Output only. State of the job. Possible values: STATE_UNSPECIFIED,
+            ENABLED, PAUSED, DISABLED, UPDATE_FAILED'
           enum:
           - STATE_UNSPECIFIED
           - ENABLED
@@ -594,40 +460,12 @@ components:
             will be in UTC (also known as GMT).
           type: string
           x-dcl-go-name: TimeZone
-        totalAttemptCount:
-          description: Output only. The total number of times this job has been attempted.
-            Includes attempts that ended in success and failure.
-          format: int64
-          readOnly: true
-          type: integer
-          x-dcl-go-name: TotalAttemptCount
-          x-kubernetes-immutable: true
-        totalExecutionCount:
-          description: Output only. The total number of times this job has been executed.
-            Includes executions which ended in success and executions which failed.
-          format: int64
-          readOnly: true
-          type: integer
-          x-dcl-go-name: TotalExecutionCount
-          x-kubernetes-immutable: true
         userUpdateTime:
           description: Output only. The creation time of the job.
           format: date-time
           readOnly: true
           type: string
           x-dcl-go-name: UserUpdateTime
-          x-kubernetes-immutable: true
-        view:
-          description: Output only. The view specifies which subset of the has been
-            returned.
-          enum:
-          - VIEW_UNSPECIFIED
-          - BASIC
-          - FULL
-          readOnly: true
-          type: string
-          x-dcl-go-name: View
-          x-dcl-go-type: JobViewEnum
           x-kubernetes-immutable: true
       required:
       - name
@@ -636,7 +474,6 @@ components:
       title: Job
       type: object
       x-dcl-id: projects/{{project}}/locations/{{location}}/jobs/{{name}}
-      x-dcl-labels: labels
       x-dcl-locations: []
       x-dcl-parent-container: project
       x-dcl-uses-state-hint: false
@@ -645,10 +482,43 @@ info:
   title: Cloudscheduler/Job
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many Job
+  apply:
+    description: The function used to apply information about a Job
+    parameters:
+    - description: A full instance of a Job
+      name: Job
+      required: true
+  delete:
+    description: The function used to delete a Job
+    parameters:
+    - description: A full instance of a Job
+      name: Job
+      required: true
+  deleteAll:
+    description: The function used to delete all Job
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: location
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Job
+    parameters:
+    - description: A full instance of a Job
+      name: Job
+      required: true
+  list:
+    description: The function used to list information about many Job
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string

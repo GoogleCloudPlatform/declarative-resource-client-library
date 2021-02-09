@@ -25,7 +25,7 @@ components:
                 x-dcl-go-name: HealthCheck
                 x-dcl-references:
                 - field: selfLink
-                  resource: Compute/Healthcheck
+                  resource: Compute/HealthCheck
                 x-kubernetes-immutable: true
               initialDelaySec:
                 description: The number of seconds that the managed instance group
@@ -239,11 +239,9 @@ components:
           x-kubernetes-immutable: true
         region:
           description: The region the managed instance group resides in
+          readOnly: true
           type: string
           x-dcl-go-name: Region
-          x-dcl-references:
-          - field: name
-            resource: Compute/Region
           x-kubernetes-immutable: true
         status:
           description: The status of this managed instance group.
@@ -308,8 +306,8 @@ components:
           description: The update policy for this managed instance group.
           properties:
             instanceRedistributionType:
-              description: The instance redistribution policy for regional managed
-                instance groups.
+              description: 'The instance redistribution policy for regional managed
+                instance groups. Possible values: PROACTIVE, NONE'
               enum:
               - PROACTIVE
               - NONE
@@ -378,7 +376,8 @@ components:
               x-dcl-go-type: InstanceGroupManagerUpdatePolicyMaxSurge
               x-kubernetes-immutable: true
             minimalAction:
-              description: Minimal action to be taken on an instance.
+              description: 'Minimal action to be taken on an instance. Possible values:
+                RESTART, REPLACE'
               enum:
               - RESTART
               - REPLACE
@@ -449,11 +448,9 @@ components:
           x-kubernetes-immutable: true
         zone:
           description: The zone the managed instance group resides.
+          readOnly: true
           type: string
           x-dcl-go-name: Zone
-          x-dcl-references:
-          - field: name
-            resource: Compute/Zone
           x-kubernetes-immutable: true
       required:
       - baseInstanceName
@@ -473,10 +470,43 @@ info:
   title: Compute/InstanceGroupManager
   x-dcl-has-iam: false
 paths:
-  list:
-    description: The function called used to list information about many InstanceGroupManager
+  apply:
+    description: The function used to apply information about a InstanceGroupManager
+    parameters:
+    - description: A full instance of a InstanceGroupManager
+      name: InstanceGroupManager
+      required: true
+  delete:
+    description: The function used to delete a InstanceGroupManager
+    parameters:
+    - description: A full instance of a InstanceGroupManager
+      name: InstanceGroupManager
+      required: true
+  deleteAll:
+    description: The function used to delete all InstanceGroupManager
     parameters:
     - name: project
       required: true
+      schema:
+        type: string
     - name: location
       required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a InstanceGroupManager
+    parameters:
+    - description: A full instance of a InstanceGroupManager
+      name: InstanceGroupManager
+      required: true
+  list:
+    description: The function used to list information about many InstanceGroupManager
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string

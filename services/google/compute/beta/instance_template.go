@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -764,7 +765,9 @@ func (c *Client) ApplyInstanceTemplate(ctx context.Context, rawDesired *Instance
 	if create {
 		ops = append(ops, &createInstanceTemplateOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteInstanceTemplateOperation{})
+
 		ops = append(ops, &createInstanceTemplateOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeInstanceTemplateDesiredState(rawDesired, nil)

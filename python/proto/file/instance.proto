@@ -65,17 +65,12 @@ message FileInstance {
   string status_message = 4;
   string create_time = 5;
   FileInstanceTierEnum tier = 6;
-  repeated FileInstanceLabels labels = 7;
+  map<string, string> labels = 7;
   repeated FileInstanceFileShares file_shares = 8;
   repeated FileInstanceNetworks networks = 9;
   string etag = 10;
   string project = 11;
   string location = 12;
-}
-
-message FileInstanceLabels {
-  string key = 1;
-  string value = 2;
 }
 
 message FileInstanceFileShares {

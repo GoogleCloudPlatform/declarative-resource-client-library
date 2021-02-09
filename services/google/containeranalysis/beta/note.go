@@ -17,6 +17,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -1173,7 +1174,9 @@ func (c *Client) ApplyNote(ctx context.Context, rawDesired *Note, opts ...dcl.Ap
 	if create {
 		ops = append(ops, &createNoteOperation{})
 	} else if recreate {
+
 		ops = append(ops, &deleteNoteOperation{})
+
 		ops = append(ops, &createNoteOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeNoteDesiredState(rawDesired, nil)

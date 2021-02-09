@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Folder) validate() error {
@@ -37,17 +38,17 @@ func (r *Folder) validate() error {
 func (r *Folder) SetPolicyURL(userBasePath string) string {
 	n := r.urlNormalized()
 	fields := map[string]interface{}{
-		"id": *n.Id,
+		"name": *n.Name,
 	}
-	return dcl.URL("v2/{{id}}:setIamPolicy", "https://cloudresourcemanager.googleapis.com/", userBasePath, fields)
+	return dcl.URL("v2/folders/{{name}}:setIamPolicy", "https://cloudresourcemanager.googleapis.com/", userBasePath, fields)
 }
 
 func (r *Folder) getPolicyURL(userBasePath string) string {
 	n := r.urlNormalized()
 	fields := map[string]interface{}{
-		"id": *n.Id,
+		"name": *n.Name,
 	}
-	return dcl.URL("v2/{{id}}:getIamPolicy", "https://cloudresourcemanager.googleapis.com/", userBasePath, fields)
+	return dcl.URL("v2/folders/{{name}}:getIamPolicy", "https://cloudresourcemanager.googleapis.com/", userBasePath, fields)
 }
 
 func (r *Folder) IAMPolicyVersion() int {
@@ -95,7 +96,7 @@ type updateFolderMoveFolderOperation struct {
 func newUpdateFolderUpdateFolderRequest(ctx context.Context, f *Folder, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
 	}
 	return req, nil
@@ -292,9 +293,9 @@ func (op *createFolderOperation) do(ctx context.Context, r *Folder, c *Client) e
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 
-	r.Id, err = o.FetchResponseValue("name")
+	r.Name, err = o.FetchResponseValue("name")
 	if err != nil {
-		return fmt.Errorf("error trying to retrieve Id: %w", err)
+		return fmt.Errorf("error trying to retrieve Name: %w", err)
 	}
 
 	if _, err := c.GetFolder(ctx, r.urlNormalized()); err != nil {
@@ -338,12 +339,13 @@ func (c *Client) folderDiffsForRawDesired(ctx context.Context, rawDesired *Folde
 		fetchState = rawDesired
 	}
 
-	if fetchState.Id == nil {
+	if fetchState.Name == nil {
 		// We cannot perform a get because of lack of information. We have to assume
 		// that this is being created for the first time.
 		desired, err := canonicalizeFolderDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
+
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetFolder(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -351,12 +353,12 @@ func (c *Client) folderDiffsForRawDesired(ctx context.Context, rawDesired *Folde
 			c.Config.Logger.Warningf("Failed to retrieve whether a Folder resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Folder resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Folder resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeFolderDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Folder: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Folder: %v", rawDesired)
 
@@ -407,14 +409,14 @@ func canonicalizeFolderDesiredState(rawDesired, rawInitial *Folder, opts ...dcl.
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Id) {
-		rawDesired.Id = rawInitial.Id
+	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
+		rawDesired.Name = rawInitial.Name
 	}
 	if dcl.IsZeroValue(rawDesired.Parent) {
 		rawDesired.Parent = rawInitial.Parent
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
-		rawDesired.Name = rawInitial.Name
+	if dcl.IsZeroValue(rawDesired.DisplayName) {
+		rawDesired.DisplayName = rawInitial.DisplayName
 	}
 	if dcl.IsZeroValue(rawDesired.State) {
 		rawDesired.State = rawInitial.State
@@ -437,9 +439,12 @@ func canonicalizeFolderDesiredState(rawDesired, rawInitial *Folder, opts ...dcl.
 
 func canonicalizeFolderNewState(c *Client, rawNew, rawDesired *Folder) (*Folder, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Id) && dcl.IsEmptyValueIndirect(rawDesired.Id) {
-		rawNew.Id = rawDesired.Id
+	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.NameToSelfLink(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Parent) && dcl.IsEmptyValueIndirect(rawDesired.Parent) {
@@ -447,8 +452,8 @@ func canonicalizeFolderNewState(c *Client, rawNew, rawDesired *Folder) (*Folder,
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
+		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 	}
 
@@ -502,7 +507,7 @@ func diffFolder(c *Client, desired, actual *Folder, opts ...dcl.ApplyOption) ([]
 
 	var diffs []folderDiff
 	if !dcl.IsZeroValue(desired.Parent) && (dcl.IsZeroValue(actual.Parent) || !reflect.DeepEqual(*desired.Parent, *actual.Parent)) {
-		c.Config.Logger.Infof("Detected diff in Parent.\nDESIRED: %#v\nACTUAL: %#v", desired.Parent, actual.Parent)
+		c.Config.Logger.Infof("Detected diff in Parent.\nDESIRED: %v\nACTUAL: %v", desired.Parent, actual.Parent)
 
 		diffs = append(diffs, folderDiff{
 			UpdateOp:  &updateFolderMoveFolderOperation{},
@@ -510,12 +515,12 @@ func diffFolder(c *Client, desired, actual *Folder, opts ...dcl.ApplyOption) ([]
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+	if !dcl.IsZeroValue(desired.DisplayName) && (dcl.IsZeroValue(actual.DisplayName) || !reflect.DeepEqual(*desired.DisplayName, *actual.DisplayName)) {
+		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 
 		diffs = append(diffs, folderDiff{
 			UpdateOp:  &updateFolderUpdateFolderOperation{},
-			FieldName: "Name",
+			FieldName: "DisplayName",
 		})
 
 	}
@@ -566,12 +571,13 @@ func compareFolderStateEnum(c *Client, desired, actual *FolderStateEnum) bool {
 // short-form so they can be substituted in.
 func (r *Folder) urlNormalized() *Folder {
 	normalized := deepcopy.Copy(*r).(Folder)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
 	return &normalized
 }
 
 func (r *Folder) getFields() string {
 	n := r.urlNormalized()
-	return dcl.ValueOrEmptyString(n.Id)
+	return dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Folder) createFields() string {
@@ -581,7 +587,7 @@ func (r *Folder) createFields() string {
 
 func (r *Folder) deleteFields() string {
 	n := r.urlNormalized()
-	return dcl.ValueOrEmptyString(n.Id)
+	return dcl.ValueOrEmptyString(n.Name)
 }
 
 // marshal encodes the Folder resource into JSON for a Create request, and
@@ -609,13 +615,13 @@ func unmarshalFolder(b []byte, c *Client) (*Folder, error) {
 // expandFolder expands Folder into a JSON request object.
 func expandFolder(c *Client, f *Folder) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Parent; !dcl.IsEmptyValueIndirect(v) {
 		m["parent"] = v
 	}
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		m["displayName"] = v
 	}
 	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
@@ -649,9 +655,9 @@ func flattenFolder(c *Client, i interface{}) *Folder {
 	}
 
 	r := &Folder{}
-	r.Id = dcl.FlattenSecretValue(m["name"])
+	r.Name = dcl.FlattenSecretValue(m["name"])
 	r.Parent = dcl.FlattenString(m["parent"])
-	r.Name = dcl.FlattenString(m["displayName"])
+	r.DisplayName = dcl.FlattenString(m["displayName"])
 	r.State = flattenFolderStateEnum(m["state"])
 	r.CreateTime = dcl.FlattenString(m["createTime"])
 	r.UpdateTime = dcl.FlattenString(m["updateTime"])
@@ -706,12 +712,12 @@ func (r *Folder) matcher(c *Client) func([]byte) bool {
 		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
-		if nr.Id == nil && ncr.Id == nil {
-			c.Config.Logger.Info("Both Id fields null - considering equal.")
-		} else if nr.Id == nil || ncr.Id == nil {
-			c.Config.Logger.Info("Only one Id field is null - considering unequal.")
+		if nr.Name == nil && ncr.Name == nil {
+			c.Config.Logger.Info("Both Name fields null - considering equal.")
+		} else if nr.Name == nil || ncr.Name == nil {
+			c.Config.Logger.Info("Only one Name field is null - considering unequal.")
 			return false
-		} else if *nr.Id != *ncr.Id {
+		} else if *nr.Name != *ncr.Name {
 			return false
 		}
 		return true

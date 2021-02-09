@@ -18,11 +18,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 func (r *Variable) validate() error {
@@ -331,12 +332,12 @@ func (c *Client) variableDiffsForRawDesired(ctx context.Context, rawDesired *Var
 			c.Config.Logger.Warningf("Failed to retrieve whether a Variable resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Variable resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that Variable resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeVariableDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Variable: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Variable: %v", rawDesired)
 
@@ -361,6 +362,21 @@ func (c *Client) variableDiffsForRawDesired(ctx context.Context, rawDesired *Var
 
 func canonicalizeVariableInitialState(rawInitial, rawDesired *Variable) (*Variable, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
+
+	if dcl.IsZeroValue(rawInitial.Text) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.Value) {
+			rawInitial.Text = dcl.String("")
+		}
+	}
+
+	if dcl.IsZeroValue(rawInitial.Value) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.Text) {
+			rawInitial.Value = dcl.String("")
+		}
+	}
+
 	return rawInitial, nil
 }
 
@@ -433,13 +449,7 @@ func canonicalizeVariableNewState(c *Client, rawNew, rawDesired *Variable) (*Var
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.RuntimeConfig) && dcl.IsEmptyValueIndirect(rawDesired.RuntimeConfig) {
-		rawNew.RuntimeConfig = rawDesired.RuntimeConfig
-	} else {
-		if dcl.NameToSelfLink(rawDesired.RuntimeConfig, rawNew.RuntimeConfig) {
-			rawNew.RuntimeConfig = rawDesired.RuntimeConfig
-		}
-	}
+	rawNew.RuntimeConfig = rawDesired.RuntimeConfig
 
 	if dcl.IsEmptyValueIndirect(rawNew.Text) && dcl.IsEmptyValueIndirect(rawDesired.Text) {
 		rawNew.Text = rawDesired.Text
@@ -456,13 +466,7 @@ func canonicalizeVariableNewState(c *Client, rawNew, rawDesired *Variable) (*Var
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -489,21 +493,14 @@ func diffVariable(c *Client, desired, actual *Variable, opts ...dcl.ApplyOption)
 
 	var diffs []variableDiff
 	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, variableDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.RuntimeConfig) && !dcl.NameToSelfLink(desired.RuntimeConfig, actual.RuntimeConfig) {
-		c.Config.Logger.Infof("Detected diff in RuntimeConfig.\nDESIRED: %#v\nACTUAL: %#v", desired.RuntimeConfig, actual.RuntimeConfig)
-		diffs = append(diffs, variableDiff{
-			RequiresRecreate: true,
-			FieldName:        "RuntimeConfig",
-		})
-	}
 	if !dcl.IsZeroValue(desired.Text) && (dcl.IsZeroValue(actual.Text) || !reflect.DeepEqual(*desired.Text, *actual.Text)) {
-		c.Config.Logger.Infof("Detected diff in Text.\nDESIRED: %#v\nACTUAL: %#v", desired.Text, actual.Text)
+		c.Config.Logger.Infof("Detected diff in Text.\nDESIRED: %v\nACTUAL: %v", desired.Text, actual.Text)
 
 		diffs = append(diffs, variableDiff{
 			UpdateOp:  &updateVariableUpdateOperation{},
@@ -512,20 +509,13 @@ func diffVariable(c *Client, desired, actual *Variable, opts ...dcl.ApplyOption)
 
 	}
 	if !dcl.IsZeroValue(desired.Value) && (dcl.IsZeroValue(actual.Value) || !reflect.DeepEqual(*desired.Value, *actual.Value)) {
-		c.Config.Logger.Infof("Detected diff in Value.\nDESIRED: %#v\nACTUAL: %#v", desired.Value, actual.Value)
+		c.Config.Logger.Infof("Detected diff in Value.\nDESIRED: %v\nACTUAL: %v", desired.Value, actual.Value)
 
 		diffs = append(diffs, variableDiff{
 			UpdateOp:  &updateVariableUpdateOperation{},
 			FieldName: "Value",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, variableDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,

@@ -18,22 +18,23 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 func (r *LogExclusion) validate() error {
 
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string(nil)); err != nil {
+		return err
+	}
 	if err := dcl.Required(r, "name"); err != nil {
 		return err
 	}
 	if err := dcl.Required(r, "filter"); err != nil {
-		return err
-	}
-	if err := dcl.RequiredParameter(r.Parent, "Parent"); err != nil {
 		return err
 	}
 	return nil
@@ -318,12 +319,12 @@ func (c *Client) logExclusionDiffsForRawDesired(ctx context.Context, rawDesired 
 			c.Config.Logger.Warningf("Failed to retrieve whether a LogExclusion resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve LogExclusion resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that LogExclusion resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeLogExclusionDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for LogExclusion: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for LogExclusion: %v", rawDesired)
 
@@ -348,6 +349,7 @@ func (c *Client) logExclusionDiffsForRawDesired(ctx context.Context, rawDesired 
 
 func canonicalizeLogExclusionInitialState(rawInitial, rawDesired *LogExclusion) (*LogExclusion, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
+
 	return rawInitial, nil
 }
 
@@ -431,13 +433,7 @@ func canonicalizeLogExclusionNewState(c *Client, rawNew, rawDesired *LogExclusio
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Parent) && dcl.IsEmptyValueIndirect(rawDesired.Parent) {
-		rawNew.Parent = rawDesired.Parent
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Parent, rawNew.Parent) {
-			rawNew.Parent = rawDesired.Parent
-		}
-	}
+	rawNew.Parent = rawDesired.Parent
 
 	return rawNew, nil
 }
@@ -464,7 +460,7 @@ func diffLogExclusion(c *Client, desired, actual *LogExclusion, opts ...dcl.Appl
 
 	var diffs []logExclusionDiff
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 
 		diffs = append(diffs, logExclusionDiff{
 			UpdateOp:  &updateLogExclusionUpdateExclusionOperation{},
@@ -473,31 +469,24 @@ func diffLogExclusion(c *Client, desired, actual *LogExclusion, opts ...dcl.Appl
 
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, logExclusionDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Filter) && (dcl.IsZeroValue(actual.Filter) || !reflect.DeepEqual(*desired.Filter, *actual.Filter)) {
-		c.Config.Logger.Infof("Detected diff in Filter.\nDESIRED: %#v\nACTUAL: %#v", desired.Filter, actual.Filter)
+		c.Config.Logger.Infof("Detected diff in Filter.\nDESIRED: %v\nACTUAL: %v", desired.Filter, actual.Filter)
 		diffs = append(diffs, logExclusionDiff{
 			RequiresRecreate: true,
 			FieldName:        "Filter",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Disabled) && (dcl.IsZeroValue(actual.Disabled) || !reflect.DeepEqual(*desired.Disabled, *actual.Disabled)) {
-		c.Config.Logger.Infof("Detected diff in Disabled.\nDESIRED: %#v\nACTUAL: %#v", desired.Disabled, actual.Disabled)
+		c.Config.Logger.Infof("Detected diff in Disabled.\nDESIRED: %v\nACTUAL: %v", desired.Disabled, actual.Disabled)
 		diffs = append(diffs, logExclusionDiff{
 			RequiresRecreate: true,
 			FieldName:        "Disabled",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Parent) && !dcl.NameToSelfLink(desired.Parent, actual.Parent) {
-		c.Config.Logger.Infof("Detected diff in Parent.\nDESIRED: %#v\nACTUAL: %#v", desired.Parent, actual.Parent)
-		diffs = append(diffs, logExclusionDiff{
-			RequiresRecreate: true,
-			FieldName:        "Parent",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.

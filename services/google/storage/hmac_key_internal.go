@@ -18,11 +18,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
 func (r *HmacKey) validate() error {
@@ -332,6 +333,7 @@ func (c *Client) hmacKeyDiffsForRawDesired(ctx context.Context, rawDesired *Hmac
 		desired, err := canonicalizeHmacKeyDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
+
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetHmacKey(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -339,12 +341,12 @@ func (c *Client) hmacKeyDiffsForRawDesired(ctx context.Context, rawDesired *Hmac
 			c.Config.Logger.Warningf("Failed to retrieve whether a HmacKey resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve HmacKey resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that HmacKey resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeHmacKeyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for HmacKey: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for HmacKey: %v", rawDesired)
 
@@ -451,13 +453,7 @@ func canonicalizeHmacKeyNewState(c *Client, rawNew, rawDesired *HmacKey) (*HmacK
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	if dcl.IsEmptyValueIndirect(rawNew.ServiceAccountEmail) && dcl.IsEmptyValueIndirect(rawDesired.ServiceAccountEmail) {
 		rawNew.ServiceAccountEmail = rawDesired.ServiceAccountEmail
@@ -489,14 +485,14 @@ func diffHmacKey(c *Client, desired, actual *HmacKey, opts ...dcl.ApplyOption) (
 
 	var diffs []hmacKeyDiff
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, hmacKeyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.State) && (dcl.IsZeroValue(actual.State) || !reflect.DeepEqual(*desired.State, *actual.State)) {
-		c.Config.Logger.Infof("Detected diff in State.\nDESIRED: %#v\nACTUAL: %#v", desired.State, actual.State)
+		c.Config.Logger.Infof("Detected diff in State.\nDESIRED: %v\nACTUAL: %v", desired.State, actual.State)
 
 		diffs = append(diffs, hmacKeyDiff{
 			UpdateOp:  &updateHmacKeyUpdateOperation{},
@@ -504,15 +500,8 @@ func diffHmacKey(c *Client, desired, actual *HmacKey, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, hmacKeyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
 	if !dcl.IsZeroValue(desired.ServiceAccountEmail) && (dcl.IsZeroValue(actual.ServiceAccountEmail) || !reflect.DeepEqual(*desired.ServiceAccountEmail, *actual.ServiceAccountEmail)) {
-		c.Config.Logger.Infof("Detected diff in ServiceAccountEmail.\nDESIRED: %#v\nACTUAL: %#v", desired.ServiceAccountEmail, actual.ServiceAccountEmail)
+		c.Config.Logger.Infof("Detected diff in ServiceAccountEmail.\nDESIRED: %v\nACTUAL: %v", desired.ServiceAccountEmail, actual.ServiceAccountEmail)
 		diffs = append(diffs, hmacKeyDiff{
 			RequiresRecreate: true,
 			FieldName:        "ServiceAccountEmail",

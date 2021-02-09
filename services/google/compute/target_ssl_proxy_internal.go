@@ -18,12 +18,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mohae/deepcopy"
 	"io/ioutil"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 	"reflect"
 	"strings"
+
+	"github.com/mohae/deepcopy"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *TargetSslProxy) validate() error {
@@ -273,12 +274,12 @@ func (c *Client) targetSslProxyDiffsForRawDesired(ctx context.Context, rawDesire
 			c.Config.Logger.Warningf("Failed to retrieve whether a TargetSslProxy resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve TargetSslProxy resource: %v", err)
 		}
-
 		c.Config.Logger.Info("Found that TargetSslProxy resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeTargetSslProxyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for TargetSslProxy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for TargetSslProxy: %v", rawDesired)
 
@@ -406,13 +407,7 @@ func canonicalizeTargetSslProxyNewState(c *Client, rawNew, rawDesired *TargetSsl
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
-	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
-	}
+	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
 }
@@ -439,59 +434,52 @@ func diffTargetSslProxy(c *Client, desired, actual *TargetSslProxy, opts ...dcl.
 
 	var diffs []targetSslProxyDiff
 	if !dcl.IsZeroValue(desired.Id) && (dcl.IsZeroValue(actual.Id) || !reflect.DeepEqual(*desired.Id, *actual.Id)) {
-		c.Config.Logger.Infof("Detected diff in Id.\nDESIRED: %#v\nACTUAL: %#v", desired.Id, actual.Id)
+		c.Config.Logger.Infof("Detected diff in Id.\nDESIRED: %v\nACTUAL: %v", desired.Id, actual.Id)
 		diffs = append(diffs, targetSslProxyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Id",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %#v\nACTUAL: %#v", desired.Name, actual.Name)
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, targetSslProxyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %#v\nACTUAL: %#v", desired.Description, actual.Description)
+		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, targetSslProxyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
 	if !dcl.IsZeroValue(desired.Service) && (dcl.IsZeroValue(actual.Service) || !reflect.DeepEqual(*desired.Service, *actual.Service)) {
-		c.Config.Logger.Infof("Detected diff in Service.\nDESIRED: %#v\nACTUAL: %#v", desired.Service, actual.Service)
+		c.Config.Logger.Infof("Detected diff in Service.\nDESIRED: %v\nACTUAL: %v", desired.Service, actual.Service)
 		diffs = append(diffs, targetSslProxyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Service",
 		})
 	}
 	if !dcl.IsZeroValue(desired.SslCertificates) && !reflect.DeepEqual(desired.SslCertificates, actual.SslCertificates) {
-		c.Config.Logger.Infof("Detected diff in SslCertificates.\nDESIRED: %#v\nACTUAL: %#v", desired.SslCertificates, actual.SslCertificates)
+		c.Config.Logger.Infof("Detected diff in SslCertificates.\nDESIRED: %v\nACTUAL: %v", desired.SslCertificates, actual.SslCertificates)
 		diffs = append(diffs, targetSslProxyDiff{
 			RequiresRecreate: true,
 			FieldName:        "SslCertificates",
 		})
 	}
 	if !dcl.IsZeroValue(desired.ProxyHeader) && (dcl.IsZeroValue(actual.ProxyHeader) || !reflect.DeepEqual(*desired.ProxyHeader, *actual.ProxyHeader)) {
-		c.Config.Logger.Infof("Detected diff in ProxyHeader.\nDESIRED: %#v\nACTUAL: %#v", desired.ProxyHeader, actual.ProxyHeader)
+		c.Config.Logger.Infof("Detected diff in ProxyHeader.\nDESIRED: %v\nACTUAL: %v", desired.ProxyHeader, actual.ProxyHeader)
 		diffs = append(diffs, targetSslProxyDiff{
 			RequiresRecreate: true,
 			FieldName:        "ProxyHeader",
 		})
 	}
 	if !dcl.IsZeroValue(desired.SslPolicy) && (dcl.IsZeroValue(actual.SslPolicy) || !reflect.DeepEqual(*desired.SslPolicy, *actual.SslPolicy)) {
-		c.Config.Logger.Infof("Detected diff in SslPolicy.\nDESIRED: %#v\nACTUAL: %#v", desired.SslPolicy, actual.SslPolicy)
+		c.Config.Logger.Infof("Detected diff in SslPolicy.\nDESIRED: %v\nACTUAL: %v", desired.SslPolicy, actual.SslPolicy)
 		diffs = append(diffs, targetSslProxyDiff{
 			RequiresRecreate: true,
 			FieldName:        "SslPolicy",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.NameToSelfLink(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %#v\nACTUAL: %#v", desired.Project, actual.Project)
-		diffs = append(diffs, targetSslProxyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.

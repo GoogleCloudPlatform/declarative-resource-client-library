@@ -60,8 +60,6 @@ class InstanceGroupManager(object):
         self.autohealing_policies = autohealing_policies
         self.update_policy = update_policy
         self.target_size = target_size
-        self.zone = zone
-        self.region = region
         self.project = project
         self.location = location
         self.service_account_file = service_account_file
@@ -121,12 +119,6 @@ class InstanceGroupManager(object):
             request.resource.ClearField("update_policy")
         if Primitive.to_proto(self.target_size):
             request.resource.target_size = Primitive.to_proto(self.target_size)
-
-        if Primitive.to_proto(self.zone):
-            request.resource.zone = Primitive.to_proto(self.zone)
-
-        if Primitive.to_proto(self.region):
-            request.resource.region = Primitive.to_proto(self.region)
 
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
