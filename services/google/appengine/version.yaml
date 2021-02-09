@@ -91,60 +91,16 @@ components:
                 This prevents the autoscaler from collecting information when the
                 instance is initializing, during which the collected usage would not
                 be reliable. Only applicable in the App Engine flexible environment.
-              properties:
-                nanos:
-                  description: Signed fractions of a second at nanosecond resolution
-                    of the span of time. Durations less than one second are represented
-                    with a 0 `seconds` field and a positive or negative `nanos` field.
-                    For durations of one second or more, a non-zero value for the
-                    `nanos` field must be of the same sign as the `seconds` field.
-                    Must be from -999,999,999 to +999,999,999 inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
-                  x-kubernetes-immutable: true
-                seconds:
-                  description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                    to +315,576,000,000 inclusive. Note: these bounds are computed
-                    from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year *
-                    10000 years'
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
-                  x-kubernetes-immutable: true
-              type: object
+              type: string
               x-dcl-go-name: CoolDownPeriod
-              x-dcl-go-type: VersionAutomaticScalingCoolDownPeriod
               x-kubernetes-immutable: true
             cpuUtilization:
               description: Target scaling by CPU usage.
               properties:
                 aggregationWindowLength:
                   description: Period of time over which CPU utilization is calculated.
-                  properties:
-                    nanos:
-                      description: Signed fractions of a second at nanosecond resolution
-                        of the span of time. Durations less than one second are represented
-                        with a 0 `seconds` field and a positive or negative `nanos`
-                        field. For durations of one second or more, a non-zero value
-                        for the `nanos` field must be of the same sign as the `seconds`
-                        field. Must be from -999,999,999 to +999,999,999 inclusive.
-                      format: int64
-                      type: integer
-                      x-dcl-go-name: Nanos
-                      x-kubernetes-immutable: true
-                    seconds:
-                      description: 'Signed seconds of the span of time. Must be from
-                        -315,576,000,000 to +315,576,000,000 inclusive. Note: these
-                        bounds are computed from: 60 sec/min * 60 min/hr * 24 hr/day
-                        * 365.25 days/year * 10000 years'
-                      format: int64
-                      type: integer
-                      x-dcl-go-name: Seconds
-                      x-kubernetes-immutable: true
-                  type: object
+                  type: string
                   x-dcl-go-name: AggregationWindowLength
-                  x-dcl-go-type: VersionAutomaticScalingCpuUtilizationAggregationWindowLength
                   x-kubernetes-immutable: true
                 targetUtilization:
                   description: Target CPU utilization ratio to maintain when scaling.
@@ -206,30 +162,8 @@ components:
             maxPendingLatency:
               description: Maximum amount of time that a request should wait in the
                 pending queue before starting a new instance to handle it.
-              properties:
-                nanos:
-                  description: Signed fractions of a second at nanosecond resolution
-                    of the span of time. Durations less than one second are represented
-                    with a 0 `seconds` field and a positive or negative `nanos` field.
-                    For durations of one second or more, a non-zero value for the
-                    `nanos` field must be of the same sign as the `seconds` field.
-                    Must be from -999,999,999 to +999,999,999 inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
-                  x-kubernetes-immutable: true
-                seconds:
-                  description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                    to +315,576,000,000 inclusive. Note: these bounds are computed
-                    from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year *
-                    10000 years'
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
-                  x-kubernetes-immutable: true
-              type: object
+              type: string
               x-dcl-go-name: MaxPendingLatency
-              x-dcl-go-type: VersionAutomaticScalingMaxPendingLatency
               x-kubernetes-immutable: true
             maxTotalInstances:
               description: Maximum number of instances that should be started to handle
@@ -248,30 +182,8 @@ components:
             minPendingLatency:
               description: Minimum amount of time a request should wait in the pending
                 queue before starting a new instance to handle it.
-              properties:
-                nanos:
-                  description: Signed fractions of a second at nanosecond resolution
-                    of the span of time. Durations less than one second are represented
-                    with a 0 `seconds` field and a positive or negative `nanos` field.
-                    For durations of one second or more, a non-zero value for the
-                    `nanos` field must be of the same sign as the `seconds` field.
-                    Must be from -999,999,999 to +999,999,999 inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
-                  x-kubernetes-immutable: true
-                seconds:
-                  description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                    to +315,576,000,000 inclusive. Note: these bounds are computed
-                    from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year *
-                    10000 years'
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
-                  x-kubernetes-immutable: true
-              type: object
+              type: string
               x-dcl-go-name: MinPendingLatency
-              x-dcl-go-type: VersionAutomaticScalingMinPendingLatency
               x-kubernetes-immutable: true
             minTotalInstances:
               description: Minimum number of running instances that should be maintained
@@ -376,30 +288,8 @@ components:
             idleTimeout:
               description: Duration of time after the last request that an instance
                 must wait before the instance is shut down.
-              properties:
-                nanos:
-                  description: Signed fractions of a second at nanosecond resolution
-                    of the span of time. Durations less than one second are represented
-                    with a 0 `seconds` field and a positive or negative `nanos` field.
-                    For durations of one second or more, a non-zero value for the
-                    `nanos` field must be of the same sign as the `seconds` field.
-                    Must be from -999,999,999 to +999,999,999 inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
-                  x-kubernetes-immutable: true
-                seconds:
-                  description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                    to +315,576,000,000 inclusive. Note: these bounds are computed
-                    from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year *
-                    10000 years'
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
-                  x-kubernetes-immutable: true
-              type: object
+              type: string
               x-dcl-go-name: IdleTimeout
-              x-dcl-go-type: VersionBasicScalingIdleTimeout
               x-kubernetes-immutable: true
             maxInstances:
               description: Maximum number of instances to create for this version.
@@ -411,41 +301,25 @@ components:
           x-dcl-go-name: BasicScaling
           x-dcl-go-type: VersionBasicScaling
         betaSettings:
+          additionalProperties:
+            type: string
           description: Metadata settings that are supplied to this version to enable
             beta runtime features.
           items:
-            properties:
-              key:
-                type: string
-                x-dcl-go-name: Key
-                x-kubernetes-immutable: true
-              value:
-                type: string
-                x-dcl-go-name: Value
-                x-kubernetes-immutable: true
-            type: object
-            x-dcl-go-type: VersionBetaSettings
-          type: array
+            type: string
+            x-dcl-go-type: string
+          type: object
           x-dcl-go-name: BetaSettings
-          x-dcl-list-type: list
         buildEnvVariables:
+          additionalProperties:
+            type: string
           description: Environment variables available to the build environment. Only
             returned in `GET` requests if `view=FULL` is set.
           items:
-            properties:
-              key:
-                type: string
-                x-dcl-go-name: Key
-                x-kubernetes-immutable: true
-              value:
-                type: string
-                x-dcl-go-name: Value
-                x-kubernetes-immutable: true
-            type: object
-            x-dcl-go-type: VersionBuildEnvVariables
-          type: array
+            type: string
+            x-dcl-go-type: string
+          type: object
           x-dcl-go-name: BuildEnvVariables
-          x-dcl-list-type: list
         consumerName:
           description: 'For a detailed description of this field, see consumer_name:
             http://google3/apphosting/base/engine.proto?l=224&rcl=311008486'
@@ -465,29 +339,8 @@ components:
             and browsers. Only applicable if the corresponding (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1alpha/apps.services.versions#StaticFilesHandler)
             does not specify its own expiration time. Only returned in `GET` requests
             if `view=FULL` is set.
-          properties:
-            nanos:
-              description: Signed fractions of a second at nanosecond resolution of
-                the span of time. Durations less than one second are represented with
-                a 0 `seconds` field and a positive or negative `nanos` field. For
-                durations of one second or more, a non-zero value for the `nanos`
-                field must be of the same sign as the `seconds` field. Must be from
-                -999,999,999 to +999,999,999 inclusive.
-              format: int64
-              type: integer
-              x-dcl-go-name: Nanos
-              x-kubernetes-immutable: true
-            seconds:
-              description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                to +315,576,000,000 inclusive. Note: these bounds are computed from:
-                60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years'
-              format: int64
-              type: integer
-              x-dcl-go-name: Seconds
-              x-kubernetes-immutable: true
-          type: object
+          type: string
           x-dcl-go-name: DefaultExpiration
-          x-dcl-go-type: VersionDefaultExpiration
         deployment:
           description: Code and application artifacts that make up this version. Only
             returned in \\\`GET\\\` requests if \\\`view=FULL\\\` is set.
@@ -509,30 +362,8 @@ components:
                 cloudBuildTimeout:
                   description: The Cloud Build timeout used as part of any dependent
                     builds performed by version creation. Defaults to 10 minutes.
-                  properties:
-                    nanos:
-                      description: Signed fractions of a second at nanosecond resolution
-                        of the span of time. Durations less than one second are represented
-                        with a 0 `seconds` field and a positive or negative `nanos`
-                        field. For durations of one second or more, a non-zero value
-                        for the `nanos` field must be of the same sign as the `seconds`
-                        field. Must be from -999,999,999 to +999,999,999 inclusive.
-                      format: int64
-                      type: integer
-                      x-dcl-go-name: Nanos
-                      x-kubernetes-immutable: true
-                    seconds:
-                      description: 'Signed seconds of the span of time. Must be from
-                        -315,576,000,000 to +315,576,000,000 inclusive. Note: these
-                        bounds are computed from: 60 sec/min * 60 min/hr * 24 hr/day
-                        * 365.25 days/year * 10000 years'
-                      format: int64
-                      type: integer
-                      x-dcl-go-name: Seconds
-                      x-kubernetes-immutable: true
-                  type: object
+                  type: string
                   x-dcl-go-name: CloudBuildTimeout
-                  x-dcl-go-type: VersionDeploymentCloudBuildOptionsCloudBuildTimeout
                   x-kubernetes-immutable: true
               type: object
               x-dcl-go-name: CloudBuildOptions
@@ -633,23 +464,15 @@ components:
           type: string
           x-dcl-go-name: Env
         envVariables:
+          additionalProperties:
+            type: string
           description: Environment variables available to the application. Only returned
             in `GET` requests if `view=FULL` is set.
           items:
-            properties:
-              key:
-                type: string
-                x-dcl-go-name: Key
-                x-kubernetes-immutable: true
-              value:
-                type: string
-                x-dcl-go-name: Value
-                x-kubernetes-immutable: true
-            type: object
-            x-dcl-go-type: VersionEnvVariables
-          type: array
+            type: string
+            x-dcl-go-type: string
+          type: object
           x-dcl-go-name: EnvVariables
-          x-dcl-list-type: list
         errorHandlers:
           description: Custom static error pages. Limited to 10KB per page. Only returned
             in `GET` requests if `view=FULL` is set.
@@ -787,50 +610,19 @@ components:
                   expiration:
                     description: Time a static file served by this handler should
                       be cached by web proxies and browsers.
-                    properties:
-                      nanos:
-                        description: Signed fractions of a second at nanosecond resolution
-                          of the span of time. Durations less than one second are
-                          represented with a 0 `seconds` field and a positive or negative
-                          `nanos` field. For durations of one second or more, a non-zero
-                          value for the `nanos` field must be of the same sign as
-                          the `seconds` field. Must be from -999,999,999 to +999,999,999
-                          inclusive.
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Nanos
-                        x-kubernetes-immutable: true
-                      seconds:
-                        description: 'Signed seconds of the span of time. Must be
-                          from -315,576,000,000 to +315,576,000,000 inclusive. Note:
-                          these bounds are computed from: 60 sec/min * 60 min/hr *
-                          24 hr/day * 365.25 days/year * 10000 years'
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Seconds
-                        x-kubernetes-immutable: true
-                    type: object
+                    type: string
                     x-dcl-go-name: Expiration
-                    x-dcl-go-type: VersionHandlersStaticFilesExpiration
                     x-kubernetes-immutable: true
                   httpHeaders:
+                    additionalProperties:
+                      type: string
                     description: HTTP headers to use for all responses from these
                       URLs.
                     items:
-                      properties:
-                        key:
-                          type: string
-                          x-dcl-go-name: Key
-                          x-kubernetes-immutable: true
-                        value:
-                          type: string
-                          x-dcl-go-name: Value
-                          x-kubernetes-immutable: true
-                      type: object
-                      x-dcl-go-type: VersionHandlersStaticFilesHttpHeaders
-                    type: array
+                      type: string
+                      x-dcl-go-type: string
+                    type: object
                     x-dcl-go-name: HttpHeaders
-                    x-dcl-list-type: list
                     x-kubernetes-immutable: true
                   mimeType:
                     description: MIME type used to serve all files served by this
@@ -884,30 +676,8 @@ components:
           properties:
             checkInterval:
               description: Interval between health checks.
-              properties:
-                nanos:
-                  description: Signed fractions of a second at nanosecond resolution
-                    of the span of time. Durations less than one second are represented
-                    with a 0 `seconds` field and a positive or negative `nanos` field.
-                    For durations of one second or more, a non-zero value for the
-                    `nanos` field must be of the same sign as the `seconds` field.
-                    Must be from -999,999,999 to +999,999,999 inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
-                  x-kubernetes-immutable: true
-                seconds:
-                  description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                    to +315,576,000,000 inclusive. Note: these bounds are computed
-                    from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year *
-                    10000 years'
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
-                  x-kubernetes-immutable: true
-              type: object
+              type: string
               x-dcl-go-name: CheckInterval
-              x-dcl-go-type: VersionHealthCheckCheckInterval
               x-kubernetes-immutable: true
             disableHealthCheck:
               description: Whether to explicitly disable health checks for this instance.
@@ -936,30 +706,8 @@ components:
               x-kubernetes-immutable: true
             timeout:
               description: Time before the health check is considered failed.
-              properties:
-                nanos:
-                  description: Signed fractions of a second at nanosecond resolution
-                    of the span of time. Durations less than one second are represented
-                    with a 0 `seconds` field and a positive or negative `nanos` field.
-                    For durations of one second or more, a non-zero value for the
-                    `nanos` field must be of the same sign as the `seconds` field.
-                    Must be from -999,999,999 to +999,999,999 inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
-                  x-kubernetes-immutable: true
-                seconds:
-                  description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                    to +315,576,000,000 inclusive. Note: these bounds are computed
-                    from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year *
-                    10000 years'
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
-                  x-kubernetes-immutable: true
-              type: object
+              type: string
               x-dcl-go-name: Timeout
-              x-dcl-go-type: VersionHealthCheckTimeout
               x-kubernetes-immutable: true
             unhealthyThreshold:
               description: Number of consecutive failed health checks required before
@@ -1092,30 +840,8 @@ components:
               description: Deadline for individual instances of the job. If unspecified,
                 the overall job deadline will apply. This deadline applies to each
                 attempted execution of an instance.
-              properties:
-                nanos:
-                  description: Signed fractions of a second at nanosecond resolution
-                    of the span of time. Durations less than one second are represented
-                    with a 0 `seconds` field and a positive or negative `nanos` field.
-                    For durations of one second or more, a non-zero value for the
-                    `nanos` field must be of the same sign as the `seconds` field.
-                    Must be from -999,999,999 to +999,999,999 inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
-                  x-kubernetes-immutable: true
-                seconds:
-                  description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                    to +315,576,000,000 inclusive. Note: these bounds are computed
-                    from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year *
-                    10000 years'
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
-                  x-kubernetes-immutable: true
-              type: object
+              type: string
               x-dcl-go-name: InstanceDeadline
-              x-dcl-go-type: VersionJobScalingInstanceDeadline
               x-kubernetes-immutable: true
             instanceRetries:
               description: Number of allowed retries per instance on an unclean exit.
@@ -1131,59 +857,15 @@ components:
               description: The duration between SIGTERM and SIGKILL when instances
                 of the job are shut down due to the instance deadline or job deadline.
                 If left unspecified, a window > 0 will be chosen by the infrastructure.
-              properties:
-                nanos:
-                  description: Signed fractions of a second at nanosecond resolution
-                    of the span of time. Durations less than one second are represented
-                    with a 0 `seconds` field and a positive or negative `nanos` field.
-                    For durations of one second or more, a non-zero value for the
-                    `nanos` field must be of the same sign as the `seconds` field.
-                    Must be from -999,999,999 to +999,999,999 inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
-                  x-kubernetes-immutable: true
-                seconds:
-                  description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                    to +315,576,000,000 inclusive. Note: these bounds are computed
-                    from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year *
-                    10000 years'
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
-                  x-kubernetes-immutable: true
-              type: object
+              type: string
               x-dcl-go-name: InstanceTerminationWindow
-              x-dcl-go-type: VersionJobScalingInstanceTerminationWindow
               x-kubernetes-immutable: true
             jobDeadline:
               description: Overall deadline for the job. If the job has not finished
                 after this amount of time, its instances are terminated and the job
                 is considered failed.
-              properties:
-                nanos:
-                  description: Signed fractions of a second at nanosecond resolution
-                    of the span of time. Durations less than one second are represented
-                    with a 0 `seconds` field and a positive or negative `nanos` field.
-                    For durations of one second or more, a non-zero value for the
-                    `nanos` field must be of the same sign as the `seconds` field.
-                    Must be from -999,999,999 to +999,999,999 inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
-                  x-kubernetes-immutable: true
-                seconds:
-                  description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                    to +315,576,000,000 inclusive. Note: these bounds are computed
-                    from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year *
-                    10000 years'
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
-                  x-kubernetes-immutable: true
-              type: object
+              type: string
               x-dcl-go-name: JobDeadline
-              x-dcl-go-type: VersionJobScalingJobDeadline
               x-kubernetes-immutable: true
             parallelism:
               description: The maximum parallelism (number of simultaneously running
@@ -1224,30 +906,8 @@ components:
           properties:
             checkInterval:
               description: Interval between health checks.
-              properties:
-                nanos:
-                  description: Signed fractions of a second at nanosecond resolution
-                    of the span of time. Durations less than one second are represented
-                    with a 0 `seconds` field and a positive or negative `nanos` field.
-                    For durations of one second or more, a non-zero value for the
-                    `nanos` field must be of the same sign as the `seconds` field.
-                    Must be from -999,999,999 to +999,999,999 inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
-                  x-kubernetes-immutable: true
-                seconds:
-                  description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                    to +315,576,000,000 inclusive. Note: these bounds are computed
-                    from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year *
-                    10000 years'
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
-                  x-kubernetes-immutable: true
-              type: object
+              type: string
               x-dcl-go-name: CheckInterval
-              x-dcl-go-type: VersionLivenessCheckCheckInterval
               x-kubernetes-immutable: true
             failureThreshold:
               description: Number of consecutive failed checks required before considering
@@ -1264,30 +924,8 @@ components:
               x-kubernetes-immutable: true
             initialDelay:
               description: The initial delay before starting to execute the checks.
-              properties:
-                nanos:
-                  description: Signed fractions of a second at nanosecond resolution
-                    of the span of time. Durations less than one second are represented
-                    with a 0 `seconds` field and a positive or negative `nanos` field.
-                    For durations of one second or more, a non-zero value for the
-                    `nanos` field must be of the same sign as the `seconds` field.
-                    Must be from -999,999,999 to +999,999,999 inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
-                  x-kubernetes-immutable: true
-                seconds:
-                  description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                    to +315,576,000,000 inclusive. Note: these bounds are computed
-                    from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year *
-                    10000 years'
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
-                  x-kubernetes-immutable: true
-              type: object
+              type: string
               x-dcl-go-name: InitialDelay
-              x-dcl-go-type: VersionLivenessCheckInitialDelay
               x-kubernetes-immutable: true
             path:
               description: The request path.
@@ -1303,30 +941,8 @@ components:
               x-kubernetes-immutable: true
             timeout:
               description: Time before the check is considered failed.
-              properties:
-                nanos:
-                  description: Signed fractions of a second at nanosecond resolution
-                    of the span of time. Durations less than one second are represented
-                    with a 0 `seconds` field and a positive or negative `nanos` field.
-                    For durations of one second or more, a non-zero value for the
-                    `nanos` field must be of the same sign as the `seconds` field.
-                    Must be from -999,999,999 to +999,999,999 inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
-                  x-kubernetes-immutable: true
-                seconds:
-                  description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                    to +315,576,000,000 inclusive. Note: these bounds are computed
-                    from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year *
-                    10000 years'
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
-                  x-kubernetes-immutable: true
-              type: object
+              type: string
               x-dcl-go-name: Timeout
-              x-dcl-go-type: VersionLivenessCheckTimeout
               x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: LivenessCheck
@@ -1472,57 +1088,13 @@ components:
               description: A maximum time limit on application initialization, measured
                 from moment the application successfully replies to a healthcheck
                 until it is ready to serve traffic.
-              properties:
-                nanos:
-                  description: Signed fractions of a second at nanosecond resolution
-                    of the span of time. Durations less than one second are represented
-                    with a 0 `seconds` field and a positive or negative `nanos` field.
-                    For durations of one second or more, a non-zero value for the
-                    `nanos` field must be of the same sign as the `seconds` field.
-                    Must be from -999,999,999 to +999,999,999 inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
-                  x-kubernetes-immutable: true
-                seconds:
-                  description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                    to +315,576,000,000 inclusive. Note: these bounds are computed
-                    from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year *
-                    10000 years'
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
-                  x-kubernetes-immutable: true
-              type: object
+              type: string
               x-dcl-go-name: AppStartTimeout
-              x-dcl-go-type: VersionReadinessCheckAppStartTimeout
               x-kubernetes-immutable: true
             checkInterval:
               description: Interval between health checks.
-              properties:
-                nanos:
-                  description: Signed fractions of a second at nanosecond resolution
-                    of the span of time. Durations less than one second are represented
-                    with a 0 `seconds` field and a positive or negative `nanos` field.
-                    For durations of one second or more, a non-zero value for the
-                    `nanos` field must be of the same sign as the `seconds` field.
-                    Must be from -999,999,999 to +999,999,999 inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
-                  x-kubernetes-immutable: true
-                seconds:
-                  description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                    to +315,576,000,000 inclusive. Note: these bounds are computed
-                    from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year *
-                    10000 years'
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
-                  x-kubernetes-immutable: true
-              type: object
+              type: string
               x-dcl-go-name: CheckInterval
-              x-dcl-go-type: VersionReadinessCheckCheckInterval
               x-kubernetes-immutable: true
             failureThreshold:
               description: Number of consecutive failed checks required before removing
@@ -1551,30 +1123,8 @@ components:
               x-kubernetes-immutable: true
             timeout:
               description: Time before the check is considered failed.
-              properties:
-                nanos:
-                  description: Signed fractions of a second at nanosecond resolution
-                    of the span of time. Durations less than one second are represented
-                    with a 0 `seconds` field and a positive or negative `nanos` field.
-                    For durations of one second or more, a non-zero value for the
-                    `nanos` field must be of the same sign as the `seconds` field.
-                    Must be from -999,999,999 to +999,999,999 inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
-                  x-kubernetes-immutable: true
-                seconds:
-                  description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                    to +315,576,000,000 inclusive. Note: these bounds are computed
-                    from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year *
-                    10000 years'
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
-                  x-kubernetes-immutable: true
-              type: object
+              type: string
               x-dcl-go-name: Timeout
-              x-dcl-go-type: VersionReadinessCheckTimeout
               x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: ReadinessCheck

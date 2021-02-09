@@ -187,31 +187,19 @@ func ProtoToAppengineVersionAutomaticScaling(p *appenginepb.AppengineVersionAuto
 		return nil
 	}
 	obj := &appengine.VersionAutomaticScaling{
-		CoolDownPeriod:            ProtoToAppengineVersionAutomaticScalingCoolDownPeriod(p.GetCoolDownPeriod()),
+		CoolDownPeriod:            dcl.StringOrNil(p.CoolDownPeriod),
 		CpuUtilization:            ProtoToAppengineVersionAutomaticScalingCpuUtilization(p.GetCpuUtilization()),
 		MaxConcurrentRequests:     dcl.Int64OrNil(p.MaxConcurrentRequests),
 		MaxIdleInstances:          dcl.Int64OrNil(p.MaxIdleInstances),
 		MaxTotalInstances:         dcl.Int64OrNil(p.MaxTotalInstances),
-		MaxPendingLatency:         ProtoToAppengineVersionAutomaticScalingMaxPendingLatency(p.GetMaxPendingLatency()),
+		MaxPendingLatency:         dcl.StringOrNil(p.MaxPendingLatency),
 		MinIdleInstances:          dcl.Int64OrNil(p.MinIdleInstances),
 		MinTotalInstances:         dcl.Int64OrNil(p.MinTotalInstances),
-		MinPendingLatency:         ProtoToAppengineVersionAutomaticScalingMinPendingLatency(p.GetMinPendingLatency()),
+		MinPendingLatency:         dcl.StringOrNil(p.MinPendingLatency),
 		RequestUtilization:        ProtoToAppengineVersionAutomaticScalingRequestUtilization(p.GetRequestUtilization()),
 		DiskUtilization:           ProtoToAppengineVersionAutomaticScalingDiskUtilization(p.GetDiskUtilization()),
 		NetworkUtilization:        ProtoToAppengineVersionAutomaticScalingNetworkUtilization(p.GetNetworkUtilization()),
 		StandardSchedulerSettings: ProtoToAppengineVersionAutomaticScalingStandardSchedulerSettings(p.GetStandardSchedulerSettings()),
-	}
-	return obj
-}
-
-// ProtoToVersionAutomaticScalingCoolDownPeriod converts a VersionAutomaticScalingCoolDownPeriod resource from its proto representation.
-func ProtoToAppengineVersionAutomaticScalingCoolDownPeriod(p *appenginepb.AppengineVersionAutomaticScalingCoolDownPeriod) *appengine.VersionAutomaticScalingCoolDownPeriod {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionAutomaticScalingCoolDownPeriod{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
 	}
 	return obj
 }
@@ -222,44 +210,8 @@ func ProtoToAppengineVersionAutomaticScalingCpuUtilization(p *appenginepb.Appeng
 		return nil
 	}
 	obj := &appengine.VersionAutomaticScalingCpuUtilization{
-		AggregationWindowLength: ProtoToAppengineVersionAutomaticScalingCpuUtilizationAggregationWindowLength(p.GetAggregationWindowLength()),
+		AggregationWindowLength: dcl.StringOrNil(p.AggregationWindowLength),
 		TargetUtilization:       dcl.Float64OrNil(p.TargetUtilization),
-	}
-	return obj
-}
-
-// ProtoToVersionAutomaticScalingCpuUtilizationAggregationWindowLength converts a VersionAutomaticScalingCpuUtilizationAggregationWindowLength resource from its proto representation.
-func ProtoToAppengineVersionAutomaticScalingCpuUtilizationAggregationWindowLength(p *appenginepb.AppengineVersionAutomaticScalingCpuUtilizationAggregationWindowLength) *appengine.VersionAutomaticScalingCpuUtilizationAggregationWindowLength {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionAutomaticScalingCpuUtilizationAggregationWindowLength{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
-	}
-	return obj
-}
-
-// ProtoToVersionAutomaticScalingMaxPendingLatency converts a VersionAutomaticScalingMaxPendingLatency resource from its proto representation.
-func ProtoToAppengineVersionAutomaticScalingMaxPendingLatency(p *appenginepb.AppengineVersionAutomaticScalingMaxPendingLatency) *appengine.VersionAutomaticScalingMaxPendingLatency {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionAutomaticScalingMaxPendingLatency{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
-	}
-	return obj
-}
-
-// ProtoToVersionAutomaticScalingMinPendingLatency converts a VersionAutomaticScalingMinPendingLatency resource from its proto representation.
-func ProtoToAppengineVersionAutomaticScalingMinPendingLatency(p *appenginepb.AppengineVersionAutomaticScalingMinPendingLatency) *appengine.VersionAutomaticScalingMinPendingLatency {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionAutomaticScalingMinPendingLatency{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
 	}
 	return obj
 }
@@ -324,20 +276,8 @@ func ProtoToAppengineVersionBasicScaling(p *appenginepb.AppengineVersionBasicSca
 		return nil
 	}
 	obj := &appengine.VersionBasicScaling{
-		IdleTimeout:  ProtoToAppengineVersionBasicScalingIdleTimeout(p.GetIdleTimeout()),
+		IdleTimeout:  dcl.StringOrNil(p.IdleTimeout),
 		MaxInstances: dcl.Int64OrNil(p.MaxInstances),
-	}
-	return obj
-}
-
-// ProtoToVersionBasicScalingIdleTimeout converts a VersionBasicScalingIdleTimeout resource from its proto representation.
-func ProtoToAppengineVersionBasicScalingIdleTimeout(p *appenginepb.AppengineVersionBasicScalingIdleTimeout) *appengine.VersionBasicScalingIdleTimeout {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionBasicScalingIdleTimeout{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
 	}
 	return obj
 }
@@ -361,46 +301,10 @@ func ProtoToAppengineVersionJobScaling(p *appenginepb.AppengineVersionJobScaling
 	obj := &appengine.VersionJobScaling{
 		Completions:               dcl.Int64OrNil(p.Completions),
 		Parallelism:               dcl.Int64OrNil(p.Parallelism),
-		JobDeadline:               ProtoToAppengineVersionJobScalingJobDeadline(p.GetJobDeadline()),
+		JobDeadline:               dcl.StringOrNil(p.JobDeadline),
 		InstanceRetries:           dcl.Int64OrNil(p.InstanceRetries),
-		InstanceDeadline:          ProtoToAppengineVersionJobScalingInstanceDeadline(p.GetInstanceDeadline()),
-		InstanceTerminationWindow: ProtoToAppengineVersionJobScalingInstanceTerminationWindow(p.GetInstanceTerminationWindow()),
-	}
-	return obj
-}
-
-// ProtoToVersionJobScalingJobDeadline converts a VersionJobScalingJobDeadline resource from its proto representation.
-func ProtoToAppengineVersionJobScalingJobDeadline(p *appenginepb.AppengineVersionJobScalingJobDeadline) *appengine.VersionJobScalingJobDeadline {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionJobScalingJobDeadline{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
-	}
-	return obj
-}
-
-// ProtoToVersionJobScalingInstanceDeadline converts a VersionJobScalingInstanceDeadline resource from its proto representation.
-func ProtoToAppengineVersionJobScalingInstanceDeadline(p *appenginepb.AppengineVersionJobScalingInstanceDeadline) *appengine.VersionJobScalingInstanceDeadline {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionJobScalingInstanceDeadline{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
-	}
-	return obj
-}
-
-// ProtoToVersionJobScalingInstanceTerminationWindow converts a VersionJobScalingInstanceTerminationWindow resource from its proto representation.
-func ProtoToAppengineVersionJobScalingInstanceTerminationWindow(p *appenginepb.AppengineVersionJobScalingInstanceTerminationWindow) *appengine.VersionJobScalingInstanceTerminationWindow {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionJobScalingInstanceTerminationWindow{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
+		InstanceDeadline:          dcl.StringOrNil(p.InstanceDeadline),
+		InstanceTerminationWindow: dcl.StringOrNil(p.InstanceTerminationWindow),
 	}
 	return obj
 }
@@ -465,18 +369,6 @@ func ProtoToAppengineVersionResourcesVolumes(p *appenginepb.AppengineVersionReso
 	return obj
 }
 
-// ProtoToVersionBetaSettings converts a VersionBetaSettings resource from its proto representation.
-func ProtoToAppengineVersionBetaSettings(p *appenginepb.AppengineVersionBetaSettings) *appengine.VersionBetaSettings {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionBetaSettings{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
 // ProtoToVersionHandlers converts a VersionHandlers resource from its proto representation.
 func ProtoToAppengineVersionHandlers(p *appenginepb.AppengineVersionHandlers) *appengine.VersionHandlers {
 	if p == nil {
@@ -504,36 +396,9 @@ func ProtoToAppengineVersionHandlersStaticFiles(p *appenginepb.AppengineVersionH
 		Path:                dcl.StringOrNil(p.Path),
 		UploadPathRegex:     dcl.StringOrNil(p.UploadPathRegex),
 		MimeType:            dcl.StringOrNil(p.MimeType),
-		Expiration:          ProtoToAppengineVersionHandlersStaticFilesExpiration(p.GetExpiration()),
+		Expiration:          dcl.StringOrNil(p.Expiration),
 		RequireMatchingFile: dcl.Bool(p.RequireMatchingFile),
 		ApplicationReadable: dcl.Bool(p.ApplicationReadable),
-	}
-	for _, r := range p.GetHttpHeaders() {
-		obj.HttpHeaders = append(obj.HttpHeaders, *ProtoToAppengineVersionHandlersStaticFilesHttpHeaders(r))
-	}
-	return obj
-}
-
-// ProtoToVersionHandlersStaticFilesHttpHeaders converts a VersionHandlersStaticFilesHttpHeaders resource from its proto representation.
-func ProtoToAppengineVersionHandlersStaticFilesHttpHeaders(p *appenginepb.AppengineVersionHandlersStaticFilesHttpHeaders) *appengine.VersionHandlersStaticFilesHttpHeaders {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionHandlersStaticFilesHttpHeaders{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
-// ProtoToVersionHandlersStaticFilesExpiration converts a VersionHandlersStaticFilesExpiration resource from its proto representation.
-func ProtoToAppengineVersionHandlersStaticFilesExpiration(p *appenginepb.AppengineVersionHandlersStaticFilesExpiration) *appengine.VersionHandlersStaticFilesExpiration {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionHandlersStaticFilesExpiration{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
 	}
 	return obj
 }
@@ -600,42 +465,6 @@ func ProtoToAppengineVersionApiConfig(p *appenginepb.AppengineVersionApiConfig) 
 	return obj
 }
 
-// ProtoToVersionEnvVariables converts a VersionEnvVariables resource from its proto representation.
-func ProtoToAppengineVersionEnvVariables(p *appenginepb.AppengineVersionEnvVariables) *appengine.VersionEnvVariables {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionEnvVariables{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
-// ProtoToVersionBuildEnvVariables converts a VersionBuildEnvVariables resource from its proto representation.
-func ProtoToAppengineVersionBuildEnvVariables(p *appenginepb.AppengineVersionBuildEnvVariables) *appengine.VersionBuildEnvVariables {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionBuildEnvVariables{
-		Key:   dcl.StringOrNil(p.Key),
-		Value: dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
-// ProtoToVersionDefaultExpiration converts a VersionDefaultExpiration resource from its proto representation.
-func ProtoToAppengineVersionDefaultExpiration(p *appenginepb.AppengineVersionDefaultExpiration) *appengine.VersionDefaultExpiration {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionDefaultExpiration{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
-	}
-	return obj
-}
-
 // ProtoToVersionDeployment converts a VersionDeployment resource from its proto representation.
 func ProtoToAppengineVersionDeployment(p *appenginepb.AppengineVersionDeployment) *appengine.VersionDeployment {
 	if p == nil {
@@ -692,19 +521,7 @@ func ProtoToAppengineVersionDeploymentCloudBuildOptions(p *appenginepb.Appengine
 	}
 	obj := &appengine.VersionDeploymentCloudBuildOptions{
 		AppYamlPath:       dcl.StringOrNil(p.AppYamlPath),
-		CloudBuildTimeout: ProtoToAppengineVersionDeploymentCloudBuildOptionsCloudBuildTimeout(p.GetCloudBuildTimeout()),
-	}
-	return obj
-}
-
-// ProtoToVersionDeploymentCloudBuildOptionsCloudBuildTimeout converts a VersionDeploymentCloudBuildOptionsCloudBuildTimeout resource from its proto representation.
-func ProtoToAppengineVersionDeploymentCloudBuildOptionsCloudBuildTimeout(p *appenginepb.AppengineVersionDeploymentCloudBuildOptionsCloudBuildTimeout) *appengine.VersionDeploymentCloudBuildOptionsCloudBuildTimeout {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionDeploymentCloudBuildOptionsCloudBuildTimeout{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
+		CloudBuildTimeout: dcl.StringOrNil(p.CloudBuildTimeout),
 	}
 	return obj
 }
@@ -720,32 +537,8 @@ func ProtoToAppengineVersionHealthCheck(p *appenginepb.AppengineVersionHealthChe
 		HealthyThreshold:   dcl.Int64OrNil(p.HealthyThreshold),
 		UnhealthyThreshold: dcl.Int64OrNil(p.UnhealthyThreshold),
 		RestartThreshold:   dcl.Int64OrNil(p.RestartThreshold),
-		CheckInterval:      ProtoToAppengineVersionHealthCheckCheckInterval(p.GetCheckInterval()),
-		Timeout:            ProtoToAppengineVersionHealthCheckTimeout(p.GetTimeout()),
-	}
-	return obj
-}
-
-// ProtoToVersionHealthCheckCheckInterval converts a VersionHealthCheckCheckInterval resource from its proto representation.
-func ProtoToAppengineVersionHealthCheckCheckInterval(p *appenginepb.AppengineVersionHealthCheckCheckInterval) *appengine.VersionHealthCheckCheckInterval {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionHealthCheckCheckInterval{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
-	}
-	return obj
-}
-
-// ProtoToVersionHealthCheckTimeout converts a VersionHealthCheckTimeout resource from its proto representation.
-func ProtoToAppengineVersionHealthCheckTimeout(p *appenginepb.AppengineVersionHealthCheckTimeout) *appengine.VersionHealthCheckTimeout {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionHealthCheckTimeout{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
+		CheckInterval:      dcl.StringOrNil(p.CheckInterval),
+		Timeout:            dcl.StringOrNil(p.Timeout),
 	}
 	return obj
 }
@@ -760,45 +553,9 @@ func ProtoToAppengineVersionReadinessCheck(p *appenginepb.AppengineVersionReadin
 		Host:             dcl.StringOrNil(p.Host),
 		FailureThreshold: dcl.Int64OrNil(p.FailureThreshold),
 		SuccessThreshold: dcl.Int64OrNil(p.SuccessThreshold),
-		CheckInterval:    ProtoToAppengineVersionReadinessCheckCheckInterval(p.GetCheckInterval()),
-		Timeout:          ProtoToAppengineVersionReadinessCheckTimeout(p.GetTimeout()),
-		AppStartTimeout:  ProtoToAppengineVersionReadinessCheckAppStartTimeout(p.GetAppStartTimeout()),
-	}
-	return obj
-}
-
-// ProtoToVersionReadinessCheckCheckInterval converts a VersionReadinessCheckCheckInterval resource from its proto representation.
-func ProtoToAppengineVersionReadinessCheckCheckInterval(p *appenginepb.AppengineVersionReadinessCheckCheckInterval) *appengine.VersionReadinessCheckCheckInterval {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionReadinessCheckCheckInterval{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
-	}
-	return obj
-}
-
-// ProtoToVersionReadinessCheckTimeout converts a VersionReadinessCheckTimeout resource from its proto representation.
-func ProtoToAppengineVersionReadinessCheckTimeout(p *appenginepb.AppengineVersionReadinessCheckTimeout) *appengine.VersionReadinessCheckTimeout {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionReadinessCheckTimeout{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
-	}
-	return obj
-}
-
-// ProtoToVersionReadinessCheckAppStartTimeout converts a VersionReadinessCheckAppStartTimeout resource from its proto representation.
-func ProtoToAppengineVersionReadinessCheckAppStartTimeout(p *appenginepb.AppengineVersionReadinessCheckAppStartTimeout) *appengine.VersionReadinessCheckAppStartTimeout {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionReadinessCheckAppStartTimeout{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
+		CheckInterval:    dcl.StringOrNil(p.CheckInterval),
+		Timeout:          dcl.StringOrNil(p.Timeout),
+		AppStartTimeout:  dcl.StringOrNil(p.AppStartTimeout),
 	}
 	return obj
 }
@@ -813,45 +570,9 @@ func ProtoToAppengineVersionLivenessCheck(p *appenginepb.AppengineVersionLivenes
 		Host:             dcl.StringOrNil(p.Host),
 		FailureThreshold: dcl.Int64OrNil(p.FailureThreshold),
 		SuccessThreshold: dcl.Int64OrNil(p.SuccessThreshold),
-		CheckInterval:    ProtoToAppengineVersionLivenessCheckCheckInterval(p.GetCheckInterval()),
-		Timeout:          ProtoToAppengineVersionLivenessCheckTimeout(p.GetTimeout()),
-		InitialDelay:     ProtoToAppengineVersionLivenessCheckInitialDelay(p.GetInitialDelay()),
-	}
-	return obj
-}
-
-// ProtoToVersionLivenessCheckCheckInterval converts a VersionLivenessCheckCheckInterval resource from its proto representation.
-func ProtoToAppengineVersionLivenessCheckCheckInterval(p *appenginepb.AppengineVersionLivenessCheckCheckInterval) *appengine.VersionLivenessCheckCheckInterval {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionLivenessCheckCheckInterval{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
-	}
-	return obj
-}
-
-// ProtoToVersionLivenessCheckTimeout converts a VersionLivenessCheckTimeout resource from its proto representation.
-func ProtoToAppengineVersionLivenessCheckTimeout(p *appenginepb.AppengineVersionLivenessCheckTimeout) *appengine.VersionLivenessCheckTimeout {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionLivenessCheckTimeout{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
-	}
-	return obj
-}
-
-// ProtoToVersionLivenessCheckInitialDelay converts a VersionLivenessCheckInitialDelay resource from its proto representation.
-func ProtoToAppengineVersionLivenessCheckInitialDelay(p *appenginepb.AppengineVersionLivenessCheckInitialDelay) *appengine.VersionLivenessCheckInitialDelay {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionLivenessCheckInitialDelay{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
+		CheckInterval:    dcl.StringOrNil(p.CheckInterval),
+		Timeout:          dcl.StringOrNil(p.Timeout),
+		InitialDelay:     dcl.StringOrNil(p.InitialDelay),
 	}
 	return obj
 }
@@ -1015,7 +736,7 @@ func ProtoToVersion(p *appenginepb.AppengineVersion) *appengine.Version {
 		RuntimeApiVersion:         dcl.StringOrNil(p.RuntimeApiVersion),
 		RuntimeMainExecutablePath: dcl.StringOrNil(p.RuntimeMainExecutablePath),
 		ApiConfig:                 ProtoToAppengineVersionApiConfig(p.GetApiConfig()),
-		DefaultExpiration:         ProtoToAppengineVersionDefaultExpiration(p.GetDefaultExpiration()),
+		DefaultExpiration:         dcl.StringOrNil(p.DefaultExpiration),
 		Deployment:                ProtoToAppengineVersionDeployment(p.GetDeployment()),
 		HealthCheck:               ProtoToAppengineVersionHealthCheck(p.GetHealthCheck()),
 		ReadinessCheck:            ProtoToAppengineVersionReadinessCheck(p.GetReadinessCheck()),
@@ -1038,9 +759,6 @@ func ProtoToVersion(p *appenginepb.AppengineVersion) *appengine.Version {
 	for _, r := range p.GetZones() {
 		obj.Zones = append(obj.Zones, r)
 	}
-	for _, r := range p.GetBetaSettings() {
-		obj.BetaSettings = append(obj.BetaSettings, *ProtoToAppengineVersionBetaSettings(r))
-	}
 	for _, r := range p.GetHandlers() {
 		obj.Handlers = append(obj.Handlers, *ProtoToAppengineVersionHandlers(r))
 	}
@@ -1049,12 +767,6 @@ func ProtoToVersion(p *appenginepb.AppengineVersion) *appengine.Version {
 	}
 	for _, r := range p.GetLibraries() {
 		obj.Libraries = append(obj.Libraries, *ProtoToAppengineVersionLibraries(r))
-	}
-	for _, r := range p.GetEnvVariables() {
-		obj.EnvVariables = append(obj.EnvVariables, *ProtoToAppengineVersionEnvVariables(r))
-	}
-	for _, r := range p.GetBuildEnvVariables() {
-		obj.BuildEnvVariables = append(obj.BuildEnvVariables, *ProtoToAppengineVersionBuildEnvVariables(r))
 	}
 	return obj
 }
@@ -1208,31 +920,19 @@ func AppengineVersionAutomaticScalingToProto(o *appengine.VersionAutomaticScalin
 		return nil
 	}
 	p := &appenginepb.AppengineVersionAutomaticScaling{
-		CoolDownPeriod:            AppengineVersionAutomaticScalingCoolDownPeriodToProto(o.CoolDownPeriod),
+		CoolDownPeriod:            dcl.ValueOrEmptyString(o.CoolDownPeriod),
 		CpuUtilization:            AppengineVersionAutomaticScalingCpuUtilizationToProto(o.CpuUtilization),
 		MaxConcurrentRequests:     dcl.ValueOrEmptyInt64(o.MaxConcurrentRequests),
 		MaxIdleInstances:          dcl.ValueOrEmptyInt64(o.MaxIdleInstances),
 		MaxTotalInstances:         dcl.ValueOrEmptyInt64(o.MaxTotalInstances),
-		MaxPendingLatency:         AppengineVersionAutomaticScalingMaxPendingLatencyToProto(o.MaxPendingLatency),
+		MaxPendingLatency:         dcl.ValueOrEmptyString(o.MaxPendingLatency),
 		MinIdleInstances:          dcl.ValueOrEmptyInt64(o.MinIdleInstances),
 		MinTotalInstances:         dcl.ValueOrEmptyInt64(o.MinTotalInstances),
-		MinPendingLatency:         AppengineVersionAutomaticScalingMinPendingLatencyToProto(o.MinPendingLatency),
+		MinPendingLatency:         dcl.ValueOrEmptyString(o.MinPendingLatency),
 		RequestUtilization:        AppengineVersionAutomaticScalingRequestUtilizationToProto(o.RequestUtilization),
 		DiskUtilization:           AppengineVersionAutomaticScalingDiskUtilizationToProto(o.DiskUtilization),
 		NetworkUtilization:        AppengineVersionAutomaticScalingNetworkUtilizationToProto(o.NetworkUtilization),
 		StandardSchedulerSettings: AppengineVersionAutomaticScalingStandardSchedulerSettingsToProto(o.StandardSchedulerSettings),
-	}
-	return p
-}
-
-// VersionAutomaticScalingCoolDownPeriodToProto converts a VersionAutomaticScalingCoolDownPeriod resource to its proto representation.
-func AppengineVersionAutomaticScalingCoolDownPeriodToProto(o *appengine.VersionAutomaticScalingCoolDownPeriod) *appenginepb.AppengineVersionAutomaticScalingCoolDownPeriod {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionAutomaticScalingCoolDownPeriod{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
 	}
 	return p
 }
@@ -1243,44 +943,8 @@ func AppengineVersionAutomaticScalingCpuUtilizationToProto(o *appengine.VersionA
 		return nil
 	}
 	p := &appenginepb.AppengineVersionAutomaticScalingCpuUtilization{
-		AggregationWindowLength: AppengineVersionAutomaticScalingCpuUtilizationAggregationWindowLengthToProto(o.AggregationWindowLength),
+		AggregationWindowLength: dcl.ValueOrEmptyString(o.AggregationWindowLength),
 		TargetUtilization:       dcl.ValueOrEmptyDouble(o.TargetUtilization),
-	}
-	return p
-}
-
-// VersionAutomaticScalingCpuUtilizationAggregationWindowLengthToProto converts a VersionAutomaticScalingCpuUtilizationAggregationWindowLength resource to its proto representation.
-func AppengineVersionAutomaticScalingCpuUtilizationAggregationWindowLengthToProto(o *appengine.VersionAutomaticScalingCpuUtilizationAggregationWindowLength) *appenginepb.AppengineVersionAutomaticScalingCpuUtilizationAggregationWindowLength {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionAutomaticScalingCpuUtilizationAggregationWindowLength{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
-	}
-	return p
-}
-
-// VersionAutomaticScalingMaxPendingLatencyToProto converts a VersionAutomaticScalingMaxPendingLatency resource to its proto representation.
-func AppengineVersionAutomaticScalingMaxPendingLatencyToProto(o *appengine.VersionAutomaticScalingMaxPendingLatency) *appenginepb.AppengineVersionAutomaticScalingMaxPendingLatency {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionAutomaticScalingMaxPendingLatency{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
-	}
-	return p
-}
-
-// VersionAutomaticScalingMinPendingLatencyToProto converts a VersionAutomaticScalingMinPendingLatency resource to its proto representation.
-func AppengineVersionAutomaticScalingMinPendingLatencyToProto(o *appengine.VersionAutomaticScalingMinPendingLatency) *appenginepb.AppengineVersionAutomaticScalingMinPendingLatency {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionAutomaticScalingMinPendingLatency{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
 	}
 	return p
 }
@@ -1345,20 +1009,8 @@ func AppengineVersionBasicScalingToProto(o *appengine.VersionBasicScaling) *appe
 		return nil
 	}
 	p := &appenginepb.AppengineVersionBasicScaling{
-		IdleTimeout:  AppengineVersionBasicScalingIdleTimeoutToProto(o.IdleTimeout),
+		IdleTimeout:  dcl.ValueOrEmptyString(o.IdleTimeout),
 		MaxInstances: dcl.ValueOrEmptyInt64(o.MaxInstances),
-	}
-	return p
-}
-
-// VersionBasicScalingIdleTimeoutToProto converts a VersionBasicScalingIdleTimeout resource to its proto representation.
-func AppengineVersionBasicScalingIdleTimeoutToProto(o *appengine.VersionBasicScalingIdleTimeout) *appenginepb.AppengineVersionBasicScalingIdleTimeout {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionBasicScalingIdleTimeout{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
 	}
 	return p
 }
@@ -1382,46 +1034,10 @@ func AppengineVersionJobScalingToProto(o *appengine.VersionJobScaling) *appengin
 	p := &appenginepb.AppengineVersionJobScaling{
 		Completions:               dcl.ValueOrEmptyInt64(o.Completions),
 		Parallelism:               dcl.ValueOrEmptyInt64(o.Parallelism),
-		JobDeadline:               AppengineVersionJobScalingJobDeadlineToProto(o.JobDeadline),
+		JobDeadline:               dcl.ValueOrEmptyString(o.JobDeadline),
 		InstanceRetries:           dcl.ValueOrEmptyInt64(o.InstanceRetries),
-		InstanceDeadline:          AppengineVersionJobScalingInstanceDeadlineToProto(o.InstanceDeadline),
-		InstanceTerminationWindow: AppengineVersionJobScalingInstanceTerminationWindowToProto(o.InstanceTerminationWindow),
-	}
-	return p
-}
-
-// VersionJobScalingJobDeadlineToProto converts a VersionJobScalingJobDeadline resource to its proto representation.
-func AppengineVersionJobScalingJobDeadlineToProto(o *appengine.VersionJobScalingJobDeadline) *appenginepb.AppengineVersionJobScalingJobDeadline {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionJobScalingJobDeadline{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
-	}
-	return p
-}
-
-// VersionJobScalingInstanceDeadlineToProto converts a VersionJobScalingInstanceDeadline resource to its proto representation.
-func AppengineVersionJobScalingInstanceDeadlineToProto(o *appengine.VersionJobScalingInstanceDeadline) *appenginepb.AppengineVersionJobScalingInstanceDeadline {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionJobScalingInstanceDeadline{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
-	}
-	return p
-}
-
-// VersionJobScalingInstanceTerminationWindowToProto converts a VersionJobScalingInstanceTerminationWindow resource to its proto representation.
-func AppengineVersionJobScalingInstanceTerminationWindowToProto(o *appengine.VersionJobScalingInstanceTerminationWindow) *appenginepb.AppengineVersionJobScalingInstanceTerminationWindow {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionJobScalingInstanceTerminationWindow{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
+		InstanceDeadline:          dcl.ValueOrEmptyString(o.InstanceDeadline),
+		InstanceTerminationWindow: dcl.ValueOrEmptyString(o.InstanceTerminationWindow),
 	}
 	return p
 }
@@ -1486,18 +1102,6 @@ func AppengineVersionResourcesVolumesToProto(o *appengine.VersionResourcesVolume
 	return p
 }
 
-// VersionBetaSettingsToProto converts a VersionBetaSettings resource to its proto representation.
-func AppengineVersionBetaSettingsToProto(o *appengine.VersionBetaSettings) *appenginepb.AppengineVersionBetaSettings {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionBetaSettings{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
-	}
-	return p
-}
-
 // VersionHandlersToProto converts a VersionHandlers resource to its proto representation.
 func AppengineVersionHandlersToProto(o *appengine.VersionHandlers) *appenginepb.AppengineVersionHandlers {
 	if o == nil {
@@ -1525,36 +1129,13 @@ func AppengineVersionHandlersStaticFilesToProto(o *appengine.VersionHandlersStat
 		Path:                dcl.ValueOrEmptyString(o.Path),
 		UploadPathRegex:     dcl.ValueOrEmptyString(o.UploadPathRegex),
 		MimeType:            dcl.ValueOrEmptyString(o.MimeType),
-		Expiration:          AppengineVersionHandlersStaticFilesExpirationToProto(o.Expiration),
+		Expiration:          dcl.ValueOrEmptyString(o.Expiration),
 		RequireMatchingFile: dcl.ValueOrEmptyBool(o.RequireMatchingFile),
 		ApplicationReadable: dcl.ValueOrEmptyBool(o.ApplicationReadable),
 	}
-	for _, r := range o.HttpHeaders {
-		p.HttpHeaders = append(p.HttpHeaders, AppengineVersionHandlersStaticFilesHttpHeadersToProto(&r))
-	}
-	return p
-}
-
-// VersionHandlersStaticFilesHttpHeadersToProto converts a VersionHandlersStaticFilesHttpHeaders resource to its proto representation.
-func AppengineVersionHandlersStaticFilesHttpHeadersToProto(o *appengine.VersionHandlersStaticFilesHttpHeaders) *appenginepb.AppengineVersionHandlersStaticFilesHttpHeaders {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionHandlersStaticFilesHttpHeaders{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
-	}
-	return p
-}
-
-// VersionHandlersStaticFilesExpirationToProto converts a VersionHandlersStaticFilesExpiration resource to its proto representation.
-func AppengineVersionHandlersStaticFilesExpirationToProto(o *appengine.VersionHandlersStaticFilesExpiration) *appenginepb.AppengineVersionHandlersStaticFilesExpiration {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionHandlersStaticFilesExpiration{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
+	p.HttpHeaders = make(map[string]string)
+	for k, r := range o.HttpHeaders {
+		p.HttpHeaders[k] = r
 	}
 	return p
 }
@@ -1621,42 +1202,6 @@ func AppengineVersionApiConfigToProto(o *appengine.VersionApiConfig) *appenginep
 	return p
 }
 
-// VersionEnvVariablesToProto converts a VersionEnvVariables resource to its proto representation.
-func AppengineVersionEnvVariablesToProto(o *appengine.VersionEnvVariables) *appenginepb.AppengineVersionEnvVariables {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionEnvVariables{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
-	}
-	return p
-}
-
-// VersionBuildEnvVariablesToProto converts a VersionBuildEnvVariables resource to its proto representation.
-func AppengineVersionBuildEnvVariablesToProto(o *appengine.VersionBuildEnvVariables) *appenginepb.AppengineVersionBuildEnvVariables {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionBuildEnvVariables{
-		Key:   dcl.ValueOrEmptyString(o.Key),
-		Value: dcl.ValueOrEmptyString(o.Value),
-	}
-	return p
-}
-
-// VersionDefaultExpirationToProto converts a VersionDefaultExpiration resource to its proto representation.
-func AppengineVersionDefaultExpirationToProto(o *appengine.VersionDefaultExpiration) *appenginepb.AppengineVersionDefaultExpiration {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionDefaultExpiration{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
-	}
-	return p
-}
-
 // VersionDeploymentToProto converts a VersionDeployment resource to its proto representation.
 func AppengineVersionDeploymentToProto(o *appengine.VersionDeployment) *appenginepb.AppengineVersionDeployment {
 	if o == nil {
@@ -1717,19 +1262,7 @@ func AppengineVersionDeploymentCloudBuildOptionsToProto(o *appengine.VersionDepl
 	}
 	p := &appenginepb.AppengineVersionDeploymentCloudBuildOptions{
 		AppYamlPath:       dcl.ValueOrEmptyString(o.AppYamlPath),
-		CloudBuildTimeout: AppengineVersionDeploymentCloudBuildOptionsCloudBuildTimeoutToProto(o.CloudBuildTimeout),
-	}
-	return p
-}
-
-// VersionDeploymentCloudBuildOptionsCloudBuildTimeoutToProto converts a VersionDeploymentCloudBuildOptionsCloudBuildTimeout resource to its proto representation.
-func AppengineVersionDeploymentCloudBuildOptionsCloudBuildTimeoutToProto(o *appengine.VersionDeploymentCloudBuildOptionsCloudBuildTimeout) *appenginepb.AppengineVersionDeploymentCloudBuildOptionsCloudBuildTimeout {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionDeploymentCloudBuildOptionsCloudBuildTimeout{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
+		CloudBuildTimeout: dcl.ValueOrEmptyString(o.CloudBuildTimeout),
 	}
 	return p
 }
@@ -1745,32 +1278,8 @@ func AppengineVersionHealthCheckToProto(o *appengine.VersionHealthCheck) *appeng
 		HealthyThreshold:   dcl.ValueOrEmptyInt64(o.HealthyThreshold),
 		UnhealthyThreshold: dcl.ValueOrEmptyInt64(o.UnhealthyThreshold),
 		RestartThreshold:   dcl.ValueOrEmptyInt64(o.RestartThreshold),
-		CheckInterval:      AppengineVersionHealthCheckCheckIntervalToProto(o.CheckInterval),
-		Timeout:            AppengineVersionHealthCheckTimeoutToProto(o.Timeout),
-	}
-	return p
-}
-
-// VersionHealthCheckCheckIntervalToProto converts a VersionHealthCheckCheckInterval resource to its proto representation.
-func AppengineVersionHealthCheckCheckIntervalToProto(o *appengine.VersionHealthCheckCheckInterval) *appenginepb.AppengineVersionHealthCheckCheckInterval {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionHealthCheckCheckInterval{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
-	}
-	return p
-}
-
-// VersionHealthCheckTimeoutToProto converts a VersionHealthCheckTimeout resource to its proto representation.
-func AppengineVersionHealthCheckTimeoutToProto(o *appengine.VersionHealthCheckTimeout) *appenginepb.AppengineVersionHealthCheckTimeout {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionHealthCheckTimeout{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
+		CheckInterval:      dcl.ValueOrEmptyString(o.CheckInterval),
+		Timeout:            dcl.ValueOrEmptyString(o.Timeout),
 	}
 	return p
 }
@@ -1785,45 +1294,9 @@ func AppengineVersionReadinessCheckToProto(o *appengine.VersionReadinessCheck) *
 		Host:             dcl.ValueOrEmptyString(o.Host),
 		FailureThreshold: dcl.ValueOrEmptyInt64(o.FailureThreshold),
 		SuccessThreshold: dcl.ValueOrEmptyInt64(o.SuccessThreshold),
-		CheckInterval:    AppengineVersionReadinessCheckCheckIntervalToProto(o.CheckInterval),
-		Timeout:          AppengineVersionReadinessCheckTimeoutToProto(o.Timeout),
-		AppStartTimeout:  AppengineVersionReadinessCheckAppStartTimeoutToProto(o.AppStartTimeout),
-	}
-	return p
-}
-
-// VersionReadinessCheckCheckIntervalToProto converts a VersionReadinessCheckCheckInterval resource to its proto representation.
-func AppengineVersionReadinessCheckCheckIntervalToProto(o *appengine.VersionReadinessCheckCheckInterval) *appenginepb.AppengineVersionReadinessCheckCheckInterval {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionReadinessCheckCheckInterval{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
-	}
-	return p
-}
-
-// VersionReadinessCheckTimeoutToProto converts a VersionReadinessCheckTimeout resource to its proto representation.
-func AppengineVersionReadinessCheckTimeoutToProto(o *appengine.VersionReadinessCheckTimeout) *appenginepb.AppengineVersionReadinessCheckTimeout {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionReadinessCheckTimeout{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
-	}
-	return p
-}
-
-// VersionReadinessCheckAppStartTimeoutToProto converts a VersionReadinessCheckAppStartTimeout resource to its proto representation.
-func AppengineVersionReadinessCheckAppStartTimeoutToProto(o *appengine.VersionReadinessCheckAppStartTimeout) *appenginepb.AppengineVersionReadinessCheckAppStartTimeout {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionReadinessCheckAppStartTimeout{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
+		CheckInterval:    dcl.ValueOrEmptyString(o.CheckInterval),
+		Timeout:          dcl.ValueOrEmptyString(o.Timeout),
+		AppStartTimeout:  dcl.ValueOrEmptyString(o.AppStartTimeout),
 	}
 	return p
 }
@@ -1838,45 +1311,9 @@ func AppengineVersionLivenessCheckToProto(o *appengine.VersionLivenessCheck) *ap
 		Host:             dcl.ValueOrEmptyString(o.Host),
 		FailureThreshold: dcl.ValueOrEmptyInt64(o.FailureThreshold),
 		SuccessThreshold: dcl.ValueOrEmptyInt64(o.SuccessThreshold),
-		CheckInterval:    AppengineVersionLivenessCheckCheckIntervalToProto(o.CheckInterval),
-		Timeout:          AppengineVersionLivenessCheckTimeoutToProto(o.Timeout),
-		InitialDelay:     AppengineVersionLivenessCheckInitialDelayToProto(o.InitialDelay),
-	}
-	return p
-}
-
-// VersionLivenessCheckCheckIntervalToProto converts a VersionLivenessCheckCheckInterval resource to its proto representation.
-func AppengineVersionLivenessCheckCheckIntervalToProto(o *appengine.VersionLivenessCheckCheckInterval) *appenginepb.AppengineVersionLivenessCheckCheckInterval {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionLivenessCheckCheckInterval{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
-	}
-	return p
-}
-
-// VersionLivenessCheckTimeoutToProto converts a VersionLivenessCheckTimeout resource to its proto representation.
-func AppengineVersionLivenessCheckTimeoutToProto(o *appengine.VersionLivenessCheckTimeout) *appenginepb.AppengineVersionLivenessCheckTimeout {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionLivenessCheckTimeout{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
-	}
-	return p
-}
-
-// VersionLivenessCheckInitialDelayToProto converts a VersionLivenessCheckInitialDelay resource to its proto representation.
-func AppengineVersionLivenessCheckInitialDelayToProto(o *appengine.VersionLivenessCheckInitialDelay) *appenginepb.AppengineVersionLivenessCheckInitialDelay {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionLivenessCheckInitialDelay{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
+		CheckInterval:    dcl.ValueOrEmptyString(o.CheckInterval),
+		Timeout:          dcl.ValueOrEmptyString(o.Timeout),
+		InitialDelay:     dcl.ValueOrEmptyString(o.InitialDelay),
 	}
 	return p
 }
@@ -2040,7 +1477,7 @@ func VersionToProto(resource *appengine.Version) *appenginepb.AppengineVersion {
 		RuntimeApiVersion:         dcl.ValueOrEmptyString(resource.RuntimeApiVersion),
 		RuntimeMainExecutablePath: dcl.ValueOrEmptyString(resource.RuntimeMainExecutablePath),
 		ApiConfig:                 AppengineVersionApiConfigToProto(resource.ApiConfig),
-		DefaultExpiration:         AppengineVersionDefaultExpirationToProto(resource.DefaultExpiration),
+		DefaultExpiration:         dcl.ValueOrEmptyString(resource.DefaultExpiration),
 		Deployment:                AppengineVersionDeploymentToProto(resource.Deployment),
 		HealthCheck:               AppengineVersionHealthCheckToProto(resource.HealthCheck),
 		ReadinessCheck:            AppengineVersionReadinessCheckToProto(resource.ReadinessCheck),
@@ -2063,9 +1500,6 @@ func VersionToProto(resource *appengine.Version) *appenginepb.AppengineVersion {
 	for _, r := range resource.Zones {
 		p.Zones = append(p.Zones, r)
 	}
-	for _, r := range resource.BetaSettings {
-		p.BetaSettings = append(p.BetaSettings, AppengineVersionBetaSettingsToProto(&r))
-	}
 	for _, r := range resource.Handlers {
 		p.Handlers = append(p.Handlers, AppengineVersionHandlersToProto(&r))
 	}
@@ -2074,12 +1508,6 @@ func VersionToProto(resource *appengine.Version) *appenginepb.AppengineVersion {
 	}
 	for _, r := range resource.Libraries {
 		p.Libraries = append(p.Libraries, AppengineVersionLibrariesToProto(&r))
-	}
-	for _, r := range resource.EnvVariables {
-		p.EnvVariables = append(p.EnvVariables, AppengineVersionEnvVariablesToProto(&r))
-	}
-	for _, r := range resource.BuildEnvVariables {
-		p.BuildEnvVariables = append(p.BuildEnvVariables, AppengineVersionBuildEnvVariablesToProto(&r))
 	}
 
 	return p

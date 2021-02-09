@@ -37,7 +37,7 @@ class Version(object):
         runtime_channel: str = None,
         threadsafe: bool = None,
         vm: bool = None,
-        beta_settings: list = None,
+        beta_settings: dict = None,
         env: str = None,
         serving_status: str = None,
         created_by: str = None,
@@ -49,9 +49,9 @@ class Version(object):
         error_handlers: list = None,
         libraries: list = None,
         api_config: dict = None,
-        env_variables: list = None,
-        build_env_variables: list = None,
-        default_expiration: dict = None,
+        env_variables: dict = None,
+        build_env_variables: dict = None,
+        default_expiration: str = None,
         deployment: dict = None,
         health_check: dict = None,
         readiness_check: dict = None,
@@ -189,10 +189,9 @@ class Version(object):
         if Primitive.to_proto(self.vm):
             request.resource.vm = Primitive.to_proto(self.vm)
 
-        if VersionBetaSettingsArray.to_proto(self.beta_settings):
-            request.resource.beta_settings.extend(
-                VersionBetaSettingsArray.to_proto(self.beta_settings)
-            )
+        if Primitive.to_proto(self.beta_settings):
+            request.resource.beta_settings = Primitive.to_proto(self.beta_settings)
+
         if Primitive.to_proto(self.env):
             request.resource.env = Primitive.to_proto(self.env)
 
@@ -240,20 +239,19 @@ class Version(object):
             )
         else:
             request.resource.ClearField("api_config")
-        if VersionEnvVariablesArray.to_proto(self.env_variables):
-            request.resource.env_variables.extend(
-                VersionEnvVariablesArray.to_proto(self.env_variables)
+        if Primitive.to_proto(self.env_variables):
+            request.resource.env_variables = Primitive.to_proto(self.env_variables)
+
+        if Primitive.to_proto(self.build_env_variables):
+            request.resource.build_env_variables = Primitive.to_proto(
+                self.build_env_variables
             )
-        if VersionBuildEnvVariablesArray.to_proto(self.build_env_variables):
-            request.resource.build_env_variables.extend(
-                VersionBuildEnvVariablesArray.to_proto(self.build_env_variables)
+
+        if Primitive.to_proto(self.default_expiration):
+            request.resource.default_expiration = Primitive.to_proto(
+                self.default_expiration
             )
-        if VersionDefaultExpiration.to_proto(self.default_expiration):
-            request.resource.default_expiration.CopyFrom(
-                VersionDefaultExpiration.to_proto(self.default_expiration)
-            )
-        else:
-            request.resource.ClearField("default_expiration")
+
         if VersionDeployment.to_proto(self.deployment):
             request.resource.deployment.CopyFrom(
                 VersionDeployment.to_proto(self.deployment)
@@ -354,7 +352,7 @@ class Version(object):
         self.runtime_channel = Primitive.from_proto(response.runtime_channel)
         self.threadsafe = Primitive.from_proto(response.threadsafe)
         self.vm = Primitive.from_proto(response.vm)
-        self.beta_settings = VersionBetaSettingsArray.from_proto(response.beta_settings)
+        self.beta_settings = Primitive.from_proto(response.beta_settings)
         self.env = Primitive.from_proto(response.env)
         self.serving_status = VersionServingStatusEnum.from_proto(
             response.serving_status
@@ -372,13 +370,9 @@ class Version(object):
         )
         self.libraries = VersionLibrariesArray.from_proto(response.libraries)
         self.api_config = VersionApiConfig.from_proto(response.api_config)
-        self.env_variables = VersionEnvVariablesArray.from_proto(response.env_variables)
-        self.build_env_variables = VersionBuildEnvVariablesArray.from_proto(
-            response.build_env_variables
-        )
-        self.default_expiration = VersionDefaultExpiration.from_proto(
-            response.default_expiration
-        )
+        self.env_variables = Primitive.from_proto(response.env_variables)
+        self.build_env_variables = Primitive.from_proto(response.build_env_variables)
+        self.default_expiration = Primitive.from_proto(response.default_expiration)
         self.deployment = VersionDeployment.from_proto(response.deployment)
         self.health_check = VersionHealthCheck.from_proto(response.health_check)
         self.readiness_check = VersionReadinessCheck.from_proto(
@@ -456,7 +450,7 @@ class Version(object):
         res.runtime_channel = Primitive.from_proto(res_proto.runtime_channel)
         res.threadsafe = Primitive.from_proto(res_proto.threadsafe)
         res.vm = Primitive.from_proto(res_proto.vm)
-        res.beta_settings = VersionBetaSettingsArray.from_proto(res_proto.beta_settings)
+        res.beta_settings = Primitive.from_proto(res_proto.beta_settings)
         res.env = Primitive.from_proto(res_proto.env)
         res.serving_status = VersionServingStatusEnum.from_proto(
             res_proto.serving_status
@@ -474,13 +468,9 @@ class Version(object):
         )
         res.libraries = VersionLibrariesArray.from_proto(res_proto.libraries)
         res.api_config = VersionApiConfig.from_proto(res_proto.api_config)
-        res.env_variables = VersionEnvVariablesArray.from_proto(res_proto.env_variables)
-        res.build_env_variables = VersionBuildEnvVariablesArray.from_proto(
-            res_proto.build_env_variables
-        )
-        res.default_expiration = VersionDefaultExpiration.from_proto(
-            res_proto.default_expiration
-        )
+        res.env_variables = Primitive.from_proto(res_proto.env_variables)
+        res.build_env_variables = Primitive.from_proto(res_proto.build_env_variables)
+        res.default_expiration = Primitive.from_proto(res_proto.default_expiration)
         res.deployment = VersionDeployment.from_proto(res_proto.deployment)
         res.health_check = VersionHealthCheck.from_proto(res_proto.health_check)
         res.readiness_check = VersionReadinessCheck.from_proto(
@@ -512,15 +502,15 @@ class Version(object):
 class VersionAutomaticScaling(object):
     def __init__(
         self,
-        cool_down_period: dict = None,
+        cool_down_period: str = None,
         cpu_utilization: dict = None,
         max_concurrent_requests: int = None,
         max_idle_instances: int = None,
         max_total_instances: int = None,
-        max_pending_latency: dict = None,
+        max_pending_latency: str = None,
         min_idle_instances: int = None,
         min_total_instances: int = None,
-        min_pending_latency: dict = None,
+        min_pending_latency: str = None,
         request_utilization: dict = None,
         disk_utilization: dict = None,
         network_utilization: dict = None,
@@ -546,14 +536,8 @@ class VersionAutomaticScaling(object):
             return None
 
         res = version_pb2.AppengineVersionAutomaticScaling()
-        if VersionAutomaticScalingCoolDownPeriod.to_proto(resource.cool_down_period):
-            res.cool_down_period.CopyFrom(
-                VersionAutomaticScalingCoolDownPeriod.to_proto(
-                    resource.cool_down_period
-                )
-            )
-        else:
-            res.ClearField("cool_down_period")
+        if Primitive.to_proto(resource.cool_down_period):
+            res.cool_down_period = Primitive.to_proto(resource.cool_down_period)
         if VersionAutomaticScalingCpuUtilization.to_proto(resource.cpu_utilization):
             res.cpu_utilization.CopyFrom(
                 VersionAutomaticScalingCpuUtilization.to_proto(resource.cpu_utilization)
@@ -568,30 +552,14 @@ class VersionAutomaticScaling(object):
             res.max_idle_instances = Primitive.to_proto(resource.max_idle_instances)
         if Primitive.to_proto(resource.max_total_instances):
             res.max_total_instances = Primitive.to_proto(resource.max_total_instances)
-        if VersionAutomaticScalingMaxPendingLatency.to_proto(
-            resource.max_pending_latency
-        ):
-            res.max_pending_latency.CopyFrom(
-                VersionAutomaticScalingMaxPendingLatency.to_proto(
-                    resource.max_pending_latency
-                )
-            )
-        else:
-            res.ClearField("max_pending_latency")
+        if Primitive.to_proto(resource.max_pending_latency):
+            res.max_pending_latency = Primitive.to_proto(resource.max_pending_latency)
         if Primitive.to_proto(resource.min_idle_instances):
             res.min_idle_instances = Primitive.to_proto(resource.min_idle_instances)
         if Primitive.to_proto(resource.min_total_instances):
             res.min_total_instances = Primitive.to_proto(resource.min_total_instances)
-        if VersionAutomaticScalingMinPendingLatency.to_proto(
-            resource.min_pending_latency
-        ):
-            res.min_pending_latency.CopyFrom(
-                VersionAutomaticScalingMinPendingLatency.to_proto(
-                    resource.min_pending_latency
-                )
-            )
-        else:
-            res.ClearField("min_pending_latency")
+        if Primitive.to_proto(resource.min_pending_latency):
+            res.min_pending_latency = Primitive.to_proto(resource.min_pending_latency)
         if VersionAutomaticScalingRequestUtilization.to_proto(
             resource.request_utilization
         ):
@@ -666,48 +634,9 @@ class VersionAutomaticScalingArray(object):
         return [VersionAutomaticScaling.from_proto(i) for i in resources]
 
 
-class VersionAutomaticScalingCoolDownPeriod(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionAutomaticScalingCoolDownPeriod()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionAutomaticScalingCoolDownPeriod(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class VersionAutomaticScalingCoolDownPeriodArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionAutomaticScalingCoolDownPeriod.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionAutomaticScalingCoolDownPeriod.from_proto(i) for i in resources]
-
-
 class VersionAutomaticScalingCpuUtilization(object):
     def __init__(
-        self, aggregation_window_length: dict = None, target_utilization: float = None
+        self, aggregation_window_length: str = None, target_utilization: float = None
     ):
         self.aggregation_window_length = aggregation_window_length
         self.target_utilization = target_utilization
@@ -718,16 +647,10 @@ class VersionAutomaticScalingCpuUtilization(object):
             return None
 
         res = version_pb2.AppengineVersionAutomaticScalingCpuUtilization()
-        if VersionAutomaticScalingCpuUtilizationAggregationWindowLength.to_proto(
-            resource.aggregation_window_length
-        ):
-            res.aggregation_window_length.CopyFrom(
-                VersionAutomaticScalingCpuUtilizationAggregationWindowLength.to_proto(
-                    resource.aggregation_window_length
-                )
+        if Primitive.to_proto(resource.aggregation_window_length):
+            res.aggregation_window_length = Primitive.to_proto(
+                resource.aggregation_window_length
             )
-        else:
-            res.ClearField("aggregation_window_length")
         if Primitive.to_proto(resource.target_utilization):
             res.target_utilization = Primitive.to_proto(resource.target_utilization)
         return res
@@ -753,135 +676,6 @@ class VersionAutomaticScalingCpuUtilizationArray(object):
     @classmethod
     def from_proto(self, resources):
         return [VersionAutomaticScalingCpuUtilization.from_proto(i) for i in resources]
-
-
-class VersionAutomaticScalingCpuUtilizationAggregationWindowLength(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            version_pb2.AppengineVersionAutomaticScalingCpuUtilizationAggregationWindowLength()
-        )
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionAutomaticScalingCpuUtilizationAggregationWindowLength(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class VersionAutomaticScalingCpuUtilizationAggregationWindowLengthArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            VersionAutomaticScalingCpuUtilizationAggregationWindowLength.to_proto(i)
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            VersionAutomaticScalingCpuUtilizationAggregationWindowLength.from_proto(i)
-            for i in resources
-        ]
-
-
-class VersionAutomaticScalingMaxPendingLatency(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionAutomaticScalingMaxPendingLatency()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionAutomaticScalingMaxPendingLatency(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class VersionAutomaticScalingMaxPendingLatencyArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionAutomaticScalingMaxPendingLatency.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            VersionAutomaticScalingMaxPendingLatency.from_proto(i) for i in resources
-        ]
-
-
-class VersionAutomaticScalingMinPendingLatency(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionAutomaticScalingMinPendingLatency()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionAutomaticScalingMinPendingLatency(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class VersionAutomaticScalingMinPendingLatencyArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionAutomaticScalingMinPendingLatency.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            VersionAutomaticScalingMinPendingLatency.from_proto(i) for i in resources
-        ]
 
 
 class VersionAutomaticScalingRequestUtilization(object):
@@ -1129,7 +923,7 @@ class VersionAutomaticScalingStandardSchedulerSettingsArray(object):
 
 
 class VersionBasicScaling(object):
-    def __init__(self, idle_timeout: dict = None, max_instances: int = None):
+    def __init__(self, idle_timeout: str = None, max_instances: int = None):
         self.idle_timeout = idle_timeout
         self.max_instances = max_instances
 
@@ -1139,12 +933,8 @@ class VersionBasicScaling(object):
             return None
 
         res = version_pb2.AppengineVersionBasicScaling()
-        if VersionBasicScalingIdleTimeout.to_proto(resource.idle_timeout):
-            res.idle_timeout.CopyFrom(
-                VersionBasicScalingIdleTimeout.to_proto(resource.idle_timeout)
-            )
-        else:
-            res.ClearField("idle_timeout")
+        if Primitive.to_proto(resource.idle_timeout):
+            res.idle_timeout = Primitive.to_proto(resource.idle_timeout)
         if Primitive.to_proto(resource.max_instances):
             res.max_instances = Primitive.to_proto(resource.max_instances)
         return res
@@ -1169,45 +959,6 @@ class VersionBasicScalingArray(object):
     @classmethod
     def from_proto(self, resources):
         return [VersionBasicScaling.from_proto(i) for i in resources]
-
-
-class VersionBasicScalingIdleTimeout(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionBasicScalingIdleTimeout()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionBasicScalingIdleTimeout(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class VersionBasicScalingIdleTimeoutArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionBasicScalingIdleTimeout.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionBasicScalingIdleTimeout.from_proto(i) for i in resources]
 
 
 class VersionManualScaling(object):
@@ -1249,10 +1000,10 @@ class VersionJobScaling(object):
         self,
         completions: int = None,
         parallelism: int = None,
-        job_deadline: dict = None,
+        job_deadline: str = None,
         instance_retries: int = None,
-        instance_deadline: dict = None,
-        instance_termination_window: dict = None,
+        instance_deadline: str = None,
+        instance_termination_window: str = None,
     ):
         self.completions = completions
         self.parallelism = parallelism
@@ -1271,30 +1022,16 @@ class VersionJobScaling(object):
             res.completions = Primitive.to_proto(resource.completions)
         if Primitive.to_proto(resource.parallelism):
             res.parallelism = Primitive.to_proto(resource.parallelism)
-        if VersionJobScalingJobDeadline.to_proto(resource.job_deadline):
-            res.job_deadline.CopyFrom(
-                VersionJobScalingJobDeadline.to_proto(resource.job_deadline)
-            )
-        else:
-            res.ClearField("job_deadline")
+        if Primitive.to_proto(resource.job_deadline):
+            res.job_deadline = Primitive.to_proto(resource.job_deadline)
         if Primitive.to_proto(resource.instance_retries):
             res.instance_retries = Primitive.to_proto(resource.instance_retries)
-        if VersionJobScalingInstanceDeadline.to_proto(resource.instance_deadline):
-            res.instance_deadline.CopyFrom(
-                VersionJobScalingInstanceDeadline.to_proto(resource.instance_deadline)
+        if Primitive.to_proto(resource.instance_deadline):
+            res.instance_deadline = Primitive.to_proto(resource.instance_deadline)
+        if Primitive.to_proto(resource.instance_termination_window):
+            res.instance_termination_window = Primitive.to_proto(
+                resource.instance_termination_window
             )
-        else:
-            res.ClearField("instance_deadline")
-        if VersionJobScalingInstanceTerminationWindow.to_proto(
-            resource.instance_termination_window
-        ):
-            res.instance_termination_window.CopyFrom(
-                VersionJobScalingInstanceTerminationWindow.to_proto(
-                    resource.instance_termination_window
-                )
-            )
-        else:
-            res.ClearField("instance_termination_window")
         return res
 
     @classmethod
@@ -1322,127 +1059,6 @@ class VersionJobScalingArray(object):
     @classmethod
     def from_proto(self, resources):
         return [VersionJobScaling.from_proto(i) for i in resources]
-
-
-class VersionJobScalingJobDeadline(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionJobScalingJobDeadline()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionJobScalingJobDeadline(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class VersionJobScalingJobDeadlineArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionJobScalingJobDeadline.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionJobScalingJobDeadline.from_proto(i) for i in resources]
-
-
-class VersionJobScalingInstanceDeadline(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionJobScalingInstanceDeadline()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionJobScalingInstanceDeadline(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class VersionJobScalingInstanceDeadlineArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionJobScalingInstanceDeadline.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionJobScalingInstanceDeadline.from_proto(i) for i in resources]
-
-
-class VersionJobScalingInstanceTerminationWindow(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionJobScalingInstanceTerminationWindow()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionJobScalingInstanceTerminationWindow(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class VersionJobScalingInstanceTerminationWindowArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            VersionJobScalingInstanceTerminationWindow.to_proto(i) for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            VersionJobScalingInstanceTerminationWindow.from_proto(i) for i in resources
-        ]
 
 
 class VersionPoolScaling(object):
@@ -1655,43 +1271,6 @@ class VersionResourcesVolumesArray(object):
         return [VersionResourcesVolumes.from_proto(i) for i in resources]
 
 
-class VersionBetaSettings(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionBetaSettings()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionBetaSettings(key=resource.key, value=resource.value,)
-
-
-class VersionBetaSettingsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionBetaSettings.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionBetaSettings.from_proto(i) for i in resources]
-
-
 class VersionHandlers(object):
     def __init__(
         self,
@@ -1789,9 +1368,9 @@ class VersionHandlersStaticFiles(object):
         self,
         path: str = None,
         upload_path_regex: str = None,
-        http_headers: list = None,
+        http_headers: dict = None,
         mime_type: str = None,
-        expiration: dict = None,
+        expiration: str = None,
         require_matching_file: bool = None,
         application_readable: bool = None,
     ):
@@ -1813,20 +1392,12 @@ class VersionHandlersStaticFiles(object):
             res.path = Primitive.to_proto(resource.path)
         if Primitive.to_proto(resource.upload_path_regex):
             res.upload_path_regex = Primitive.to_proto(resource.upload_path_regex)
-        if VersionHandlersStaticFilesHttpHeadersArray.to_proto(resource.http_headers):
-            res.http_headers.extend(
-                VersionHandlersStaticFilesHttpHeadersArray.to_proto(
-                    resource.http_headers
-                )
-            )
+        if Primitive.to_proto(resource.http_headers):
+            res.http_headers = Primitive.to_proto(resource.http_headers)
         if Primitive.to_proto(resource.mime_type):
             res.mime_type = Primitive.to_proto(resource.mime_type)
-        if VersionHandlersStaticFilesExpiration.to_proto(resource.expiration):
-            res.expiration.CopyFrom(
-                VersionHandlersStaticFilesExpiration.to_proto(resource.expiration)
-            )
-        else:
-            res.ClearField("expiration")
+        if Primitive.to_proto(resource.expiration):
+            res.expiration = Primitive.to_proto(resource.expiration)
         if Primitive.to_proto(resource.require_matching_file):
             res.require_matching_file = Primitive.to_proto(
                 resource.require_matching_file
@@ -1861,84 +1432,6 @@ class VersionHandlersStaticFilesArray(object):
     @classmethod
     def from_proto(self, resources):
         return [VersionHandlersStaticFiles.from_proto(i) for i in resources]
-
-
-class VersionHandlersStaticFilesHttpHeaders(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionHandlersStaticFilesHttpHeaders()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionHandlersStaticFilesHttpHeaders(
-            key=resource.key, value=resource.value,
-        )
-
-
-class VersionHandlersStaticFilesHttpHeadersArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionHandlersStaticFilesHttpHeaders.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionHandlersStaticFilesHttpHeaders.from_proto(i) for i in resources]
-
-
-class VersionHandlersStaticFilesExpiration(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionHandlersStaticFilesExpiration()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionHandlersStaticFilesExpiration(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class VersionHandlersStaticFilesExpirationArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionHandlersStaticFilesExpiration.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionHandlersStaticFilesExpiration.from_proto(i) for i in resources]
 
 
 class VersionHandlersScript(object):
@@ -2157,117 +1650,6 @@ class VersionApiConfigArray(object):
         return [VersionApiConfig.from_proto(i) for i in resources]
 
 
-class VersionEnvVariables(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionEnvVariables()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionEnvVariables(key=resource.key, value=resource.value,)
-
-
-class VersionEnvVariablesArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionEnvVariables.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionEnvVariables.from_proto(i) for i in resources]
-
-
-class VersionBuildEnvVariables(object):
-    def __init__(self, key: str = None, value: str = None):
-        self.key = key
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionBuildEnvVariables()
-        if Primitive.to_proto(resource.key):
-            res.key = Primitive.to_proto(resource.key)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionBuildEnvVariables(key=resource.key, value=resource.value,)
-
-
-class VersionBuildEnvVariablesArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionBuildEnvVariables.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionBuildEnvVariables.from_proto(i) for i in resources]
-
-
-class VersionDefaultExpiration(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionDefaultExpiration()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionDefaultExpiration(seconds=resource.seconds, nanos=resource.nanos,)
-
-
-class VersionDefaultExpirationArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionDefaultExpiration.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionDefaultExpiration.from_proto(i) for i in resources]
-
-
 class VersionDeployment(object):
     def __init__(
         self,
@@ -2454,7 +1836,7 @@ class VersionDeploymentZipArray(object):
 
 
 class VersionDeploymentCloudBuildOptions(object):
-    def __init__(self, app_yaml_path: str = None, cloud_build_timeout: dict = None):
+    def __init__(self, app_yaml_path: str = None, cloud_build_timeout: str = None):
         self.app_yaml_path = app_yaml_path
         self.cloud_build_timeout = cloud_build_timeout
 
@@ -2466,16 +1848,8 @@ class VersionDeploymentCloudBuildOptions(object):
         res = version_pb2.AppengineVersionDeploymentCloudBuildOptions()
         if Primitive.to_proto(resource.app_yaml_path):
             res.app_yaml_path = Primitive.to_proto(resource.app_yaml_path)
-        if VersionDeploymentCloudBuildOptionsCloudBuildTimeout.to_proto(
-            resource.cloud_build_timeout
-        ):
-            res.cloud_build_timeout.CopyFrom(
-                VersionDeploymentCloudBuildOptionsCloudBuildTimeout.to_proto(
-                    resource.cloud_build_timeout
-                )
-            )
-        else:
-            res.ClearField("cloud_build_timeout")
+        if Primitive.to_proto(resource.cloud_build_timeout):
+            res.cloud_build_timeout = Primitive.to_proto(resource.cloud_build_timeout)
         return res
 
     @classmethod
@@ -2501,51 +1875,6 @@ class VersionDeploymentCloudBuildOptionsArray(object):
         return [VersionDeploymentCloudBuildOptions.from_proto(i) for i in resources]
 
 
-class VersionDeploymentCloudBuildOptionsCloudBuildTimeout(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionDeploymentCloudBuildOptionsCloudBuildTimeout()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionDeploymentCloudBuildOptionsCloudBuildTimeout(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class VersionDeploymentCloudBuildOptionsCloudBuildTimeoutArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            VersionDeploymentCloudBuildOptionsCloudBuildTimeout.to_proto(i)
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            VersionDeploymentCloudBuildOptionsCloudBuildTimeout.from_proto(i)
-            for i in resources
-        ]
-
-
 class VersionHealthCheck(object):
     def __init__(
         self,
@@ -2554,8 +1883,8 @@ class VersionHealthCheck(object):
         healthy_threshold: int = None,
         unhealthy_threshold: int = None,
         restart_threshold: int = None,
-        check_interval: dict = None,
-        timeout: dict = None,
+        check_interval: str = None,
+        timeout: str = None,
     ):
         self.disable_health_check = disable_health_check
         self.host = host
@@ -2581,16 +1910,10 @@ class VersionHealthCheck(object):
             res.unhealthy_threshold = Primitive.to_proto(resource.unhealthy_threshold)
         if Primitive.to_proto(resource.restart_threshold):
             res.restart_threshold = Primitive.to_proto(resource.restart_threshold)
-        if VersionHealthCheckCheckInterval.to_proto(resource.check_interval):
-            res.check_interval.CopyFrom(
-                VersionHealthCheckCheckInterval.to_proto(resource.check_interval)
-            )
-        else:
-            res.ClearField("check_interval")
-        if VersionHealthCheckTimeout.to_proto(resource.timeout):
-            res.timeout.CopyFrom(VersionHealthCheckTimeout.to_proto(resource.timeout))
-        else:
-            res.ClearField("timeout")
+        if Primitive.to_proto(resource.check_interval):
+            res.check_interval = Primitive.to_proto(resource.check_interval)
+        if Primitive.to_proto(resource.timeout):
+            res.timeout = Primitive.to_proto(resource.timeout)
         return res
 
     @classmethod
@@ -2621,84 +1944,6 @@ class VersionHealthCheckArray(object):
         return [VersionHealthCheck.from_proto(i) for i in resources]
 
 
-class VersionHealthCheckCheckInterval(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionHealthCheckCheckInterval()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionHealthCheckCheckInterval(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class VersionHealthCheckCheckIntervalArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionHealthCheckCheckInterval.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionHealthCheckCheckInterval.from_proto(i) for i in resources]
-
-
-class VersionHealthCheckTimeout(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionHealthCheckTimeout()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionHealthCheckTimeout(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class VersionHealthCheckTimeoutArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionHealthCheckTimeout.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionHealthCheckTimeout.from_proto(i) for i in resources]
-
-
 class VersionReadinessCheck(object):
     def __init__(
         self,
@@ -2706,9 +1951,9 @@ class VersionReadinessCheck(object):
         host: str = None,
         failure_threshold: int = None,
         success_threshold: int = None,
-        check_interval: dict = None,
-        timeout: dict = None,
-        app_start_timeout: dict = None,
+        check_interval: str = None,
+        timeout: str = None,
+        app_start_timeout: str = None,
     ):
         self.path = path
         self.host = host
@@ -2732,26 +1977,12 @@ class VersionReadinessCheck(object):
             res.failure_threshold = Primitive.to_proto(resource.failure_threshold)
         if Primitive.to_proto(resource.success_threshold):
             res.success_threshold = Primitive.to_proto(resource.success_threshold)
-        if VersionReadinessCheckCheckInterval.to_proto(resource.check_interval):
-            res.check_interval.CopyFrom(
-                VersionReadinessCheckCheckInterval.to_proto(resource.check_interval)
-            )
-        else:
-            res.ClearField("check_interval")
-        if VersionReadinessCheckTimeout.to_proto(resource.timeout):
-            res.timeout.CopyFrom(
-                VersionReadinessCheckTimeout.to_proto(resource.timeout)
-            )
-        else:
-            res.ClearField("timeout")
-        if VersionReadinessCheckAppStartTimeout.to_proto(resource.app_start_timeout):
-            res.app_start_timeout.CopyFrom(
-                VersionReadinessCheckAppStartTimeout.to_proto(
-                    resource.app_start_timeout
-                )
-            )
-        else:
-            res.ClearField("app_start_timeout")
+        if Primitive.to_proto(resource.check_interval):
+            res.check_interval = Primitive.to_proto(resource.check_interval)
+        if Primitive.to_proto(resource.timeout):
+            res.timeout = Primitive.to_proto(resource.timeout)
+        if Primitive.to_proto(resource.app_start_timeout):
+            res.app_start_timeout = Primitive.to_proto(resource.app_start_timeout)
         return res
 
     @classmethod
@@ -2782,123 +2013,6 @@ class VersionReadinessCheckArray(object):
         return [VersionReadinessCheck.from_proto(i) for i in resources]
 
 
-class VersionReadinessCheckCheckInterval(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionReadinessCheckCheckInterval()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionReadinessCheckCheckInterval(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class VersionReadinessCheckCheckIntervalArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionReadinessCheckCheckInterval.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionReadinessCheckCheckInterval.from_proto(i) for i in resources]
-
-
-class VersionReadinessCheckTimeout(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionReadinessCheckTimeout()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionReadinessCheckTimeout(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class VersionReadinessCheckTimeoutArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionReadinessCheckTimeout.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionReadinessCheckTimeout.from_proto(i) for i in resources]
-
-
-class VersionReadinessCheckAppStartTimeout(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionReadinessCheckAppStartTimeout()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionReadinessCheckAppStartTimeout(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class VersionReadinessCheckAppStartTimeoutArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionReadinessCheckAppStartTimeout.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionReadinessCheckAppStartTimeout.from_proto(i) for i in resources]
-
-
 class VersionLivenessCheck(object):
     def __init__(
         self,
@@ -2906,9 +2020,9 @@ class VersionLivenessCheck(object):
         host: str = None,
         failure_threshold: int = None,
         success_threshold: int = None,
-        check_interval: dict = None,
-        timeout: dict = None,
-        initial_delay: dict = None,
+        check_interval: str = None,
+        timeout: str = None,
+        initial_delay: str = None,
     ):
         self.path = path
         self.host = host
@@ -2932,22 +2046,12 @@ class VersionLivenessCheck(object):
             res.failure_threshold = Primitive.to_proto(resource.failure_threshold)
         if Primitive.to_proto(resource.success_threshold):
             res.success_threshold = Primitive.to_proto(resource.success_threshold)
-        if VersionLivenessCheckCheckInterval.to_proto(resource.check_interval):
-            res.check_interval.CopyFrom(
-                VersionLivenessCheckCheckInterval.to_proto(resource.check_interval)
-            )
-        else:
-            res.ClearField("check_interval")
-        if VersionLivenessCheckTimeout.to_proto(resource.timeout):
-            res.timeout.CopyFrom(VersionLivenessCheckTimeout.to_proto(resource.timeout))
-        else:
-            res.ClearField("timeout")
-        if VersionLivenessCheckInitialDelay.to_proto(resource.initial_delay):
-            res.initial_delay.CopyFrom(
-                VersionLivenessCheckInitialDelay.to_proto(resource.initial_delay)
-            )
-        else:
-            res.ClearField("initial_delay")
+        if Primitive.to_proto(resource.check_interval):
+            res.check_interval = Primitive.to_proto(resource.check_interval)
+        if Primitive.to_proto(resource.timeout):
+            res.timeout = Primitive.to_proto(resource.timeout)
+        if Primitive.to_proto(resource.initial_delay):
+            res.initial_delay = Primitive.to_proto(resource.initial_delay)
         return res
 
     @classmethod
@@ -2976,123 +2080,6 @@ class VersionLivenessCheckArray(object):
     @classmethod
     def from_proto(self, resources):
         return [VersionLivenessCheck.from_proto(i) for i in resources]
-
-
-class VersionLivenessCheckCheckInterval(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionLivenessCheckCheckInterval()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionLivenessCheckCheckInterval(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class VersionLivenessCheckCheckIntervalArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionLivenessCheckCheckInterval.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionLivenessCheckCheckInterval.from_proto(i) for i in resources]
-
-
-class VersionLivenessCheckTimeout(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionLivenessCheckTimeout()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionLivenessCheckTimeout(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class VersionLivenessCheckTimeoutArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionLivenessCheckTimeout.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionLivenessCheckTimeout.from_proto(i) for i in resources]
-
-
-class VersionLivenessCheckInitialDelay(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionLivenessCheckInitialDelay()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionLivenessCheckInitialDelay(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class VersionLivenessCheckInitialDelayArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionLivenessCheckInitialDelay.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionLivenessCheckInitialDelay.from_proto(i) for i in resources]
 
 
 class VersionServiceAuthSpec(object):

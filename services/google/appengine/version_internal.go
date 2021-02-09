@@ -84,11 +84,6 @@ func (r *Version) validate() error {
 			return err
 		}
 	}
-	if !dcl.IsEmptyValueIndirect(r.DefaultExpiration) {
-		if err := r.DefaultExpiration.validate(); err != nil {
-			return err
-		}
-	}
 	if !dcl.IsEmptyValueIndirect(r.Deployment) {
 		if err := r.Deployment.validate(); err != nil {
 			return err
@@ -142,23 +137,8 @@ func (r *Version) validate() error {
 	return nil
 }
 func (r *VersionAutomaticScaling) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.CoolDownPeriod) {
-		if err := r.CoolDownPeriod.validate(); err != nil {
-			return err
-		}
-	}
 	if !dcl.IsEmptyValueIndirect(r.CpuUtilization) {
 		if err := r.CpuUtilization.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.MaxPendingLatency) {
-		if err := r.MaxPendingLatency.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.MinPendingLatency) {
-		if err := r.MinPendingLatency.validate(); err != nil {
 			return err
 		}
 	}
@@ -184,24 +164,7 @@ func (r *VersionAutomaticScaling) validate() error {
 	}
 	return nil
 }
-func (r *VersionAutomaticScalingCoolDownPeriod) validate() error {
-	return nil
-}
 func (r *VersionAutomaticScalingCpuUtilization) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.AggregationWindowLength) {
-		if err := r.AggregationWindowLength.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *VersionAutomaticScalingCpuUtilizationAggregationWindowLength) validate() error {
-	return nil
-}
-func (r *VersionAutomaticScalingMaxPendingLatency) validate() error {
-	return nil
-}
-func (r *VersionAutomaticScalingMinPendingLatency) validate() error {
 	return nil
 }
 func (r *VersionAutomaticScalingRequestUtilization) validate() error {
@@ -217,44 +180,12 @@ func (r *VersionAutomaticScalingStandardSchedulerSettings) validate() error {
 	return nil
 }
 func (r *VersionBasicScaling) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.IdleTimeout) {
-		if err := r.IdleTimeout.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *VersionBasicScalingIdleTimeout) validate() error {
 	return nil
 }
 func (r *VersionManualScaling) validate() error {
 	return nil
 }
 func (r *VersionJobScaling) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.JobDeadline) {
-		if err := r.JobDeadline.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.InstanceDeadline) {
-		if err := r.InstanceDeadline.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.InstanceTerminationWindow) {
-		if err := r.InstanceTerminationWindow.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *VersionJobScalingJobDeadline) validate() error {
-	return nil
-}
-func (r *VersionJobScalingInstanceDeadline) validate() error {
-	return nil
-}
-func (r *VersionJobScalingInstanceTerminationWindow) validate() error {
 	return nil
 }
 func (r *VersionPoolScaling) validate() error {
@@ -267,9 +198,6 @@ func (r *VersionResources) validate() error {
 	return nil
 }
 func (r *VersionResourcesVolumes) validate() error {
-	return nil
-}
-func (r *VersionBetaSettings) validate() error {
 	return nil
 }
 func (r *VersionHandlers) validate() error {
@@ -291,17 +219,6 @@ func (r *VersionHandlers) validate() error {
 	return nil
 }
 func (r *VersionHandlersStaticFiles) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.Expiration) {
-		if err := r.Expiration.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *VersionHandlersStaticFilesHttpHeaders) validate() error {
-	return nil
-}
-func (r *VersionHandlersStaticFilesExpiration) validate() error {
 	return nil
 }
 func (r *VersionHandlersScript) validate() error {
@@ -317,15 +234,6 @@ func (r *VersionLibraries) validate() error {
 	return nil
 }
 func (r *VersionApiConfig) validate() error {
-	return nil
-}
-func (r *VersionEnvVariables) validate() error {
-	return nil
-}
-func (r *VersionBuildEnvVariables) validate() error {
-	return nil
-}
-func (r *VersionDefaultExpiration) validate() error {
 	return nil
 }
 func (r *VersionDeployment) validate() error {
@@ -356,87 +264,15 @@ func (r *VersionDeploymentZip) validate() error {
 	return nil
 }
 func (r *VersionDeploymentCloudBuildOptions) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.CloudBuildTimeout) {
-		if err := r.CloudBuildTimeout.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *VersionDeploymentCloudBuildOptionsCloudBuildTimeout) validate() error {
 	return nil
 }
 func (r *VersionHealthCheck) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.CheckInterval) {
-		if err := r.CheckInterval.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.Timeout) {
-		if err := r.Timeout.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *VersionHealthCheckCheckInterval) validate() error {
-	return nil
-}
-func (r *VersionHealthCheckTimeout) validate() error {
 	return nil
 }
 func (r *VersionReadinessCheck) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.CheckInterval) {
-		if err := r.CheckInterval.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.Timeout) {
-		if err := r.Timeout.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.AppStartTimeout) {
-		if err := r.AppStartTimeout.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *VersionReadinessCheckCheckInterval) validate() error {
-	return nil
-}
-func (r *VersionReadinessCheckTimeout) validate() error {
-	return nil
-}
-func (r *VersionReadinessCheckAppStartTimeout) validate() error {
 	return nil
 }
 func (r *VersionLivenessCheck) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.CheckInterval) {
-		if err := r.CheckInterval.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.Timeout) {
-		if err := r.Timeout.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.InitialDelay) {
-		if err := r.InitialDelay.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *VersionLivenessCheckCheckInterval) validate() error {
-	return nil
-}
-func (r *VersionLivenessCheckTimeout) validate() error {
-	return nil
-}
-func (r *VersionLivenessCheckInitialDelay) validate() error {
 	return nil
 }
 func (r *VersionServiceAuthSpec) validate() error {
@@ -577,9 +413,7 @@ func newUpdateVersionPatchVersionRequest(ctx context.Context, f *Version, c *Cli
 	if v := f.Vm; !dcl.IsEmptyValueIndirect(v) {
 		req["vm"] = v
 	}
-	if v, err := expandVersionBetaSettingsSlice(c, f.BetaSettings); err != nil {
-		return nil, fmt.Errorf("error expanding BetaSettings into betaSettings: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.BetaSettings; !dcl.IsEmptyValueIndirect(v) {
 		req["betaSettings"] = v
 	}
 	if v := f.Env; !dcl.IsEmptyValueIndirect(v) {
@@ -623,19 +457,13 @@ func newUpdateVersionPatchVersionRequest(ctx context.Context, f *Version, c *Cli
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["apiConfig"] = v
 	}
-	if v, err := expandVersionEnvVariablesSlice(c, f.EnvVariables); err != nil {
-		return nil, fmt.Errorf("error expanding EnvVariables into envVariables: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.EnvVariables; !dcl.IsEmptyValueIndirect(v) {
 		req["envVariables"] = v
 	}
-	if v, err := expandVersionBuildEnvVariablesSlice(c, f.BuildEnvVariables); err != nil {
-		return nil, fmt.Errorf("error expanding BuildEnvVariables into buildEnvVariables: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.BuildEnvVariables; !dcl.IsEmptyValueIndirect(v) {
 		req["buildEnvVariables"] = v
 	}
-	if v, err := expandVersionDefaultExpiration(c, f.DefaultExpiration); err != nil {
-		return nil, fmt.Errorf("error expanding DefaultExpiration into defaultExpiration: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DefaultExpiration; !dcl.IsEmptyValueIndirect(v) {
 		req["defaultExpiration"] = v
 	}
 	if v, err := expandVersionHealthCheck(c, f.HealthCheck); err != nil {
@@ -1009,7 +837,6 @@ func canonicalizeVersionDesiredState(rawDesired, rawInitial *Version, opts ...dc
 		rawDesired.Network = canonicalizeVersionNetwork(rawDesired.Network, nil, opts...)
 		rawDesired.Resources = canonicalizeVersionResources(rawDesired.Resources, nil, opts...)
 		rawDesired.ApiConfig = canonicalizeVersionApiConfig(rawDesired.ApiConfig, nil, opts...)
-		rawDesired.DefaultExpiration = canonicalizeVersionDefaultExpiration(rawDesired.DefaultExpiration, nil, opts...)
 		rawDesired.Deployment = canonicalizeVersionDeployment(rawDesired.Deployment, nil, opts...)
 		rawDesired.HealthCheck = canonicalizeVersionHealthCheck(rawDesired.HealthCheck, nil, opts...)
 		rawDesired.ReadinessCheck = canonicalizeVersionReadinessCheck(rawDesired.ReadinessCheck, nil, opts...)
@@ -1097,7 +924,9 @@ func canonicalizeVersionDesiredState(rawDesired, rawInitial *Version, opts ...dc
 	if dcl.IsZeroValue(rawDesired.BuildEnvVariables) {
 		rawDesired.BuildEnvVariables = rawInitial.BuildEnvVariables
 	}
-	rawDesired.DefaultExpiration = canonicalizeVersionDefaultExpiration(rawDesired.DefaultExpiration, rawInitial.DefaultExpiration, opts...)
+	if dcl.IsZeroValue(rawDesired.DefaultExpiration) {
+		rawDesired.DefaultExpiration = rawInitial.DefaultExpiration
+	}
 	rawDesired.Deployment = canonicalizeVersionDeployment(rawDesired.Deployment, rawInitial.Deployment, opts...)
 	rawDesired.HealthCheck = canonicalizeVersionHealthCheck(rawDesired.HealthCheck, rawInitial.HealthCheck, opts...)
 	rawDesired.ReadinessCheck = canonicalizeVersionReadinessCheck(rawDesired.ReadinessCheck, rawInitial.ReadinessCheck, opts...)
@@ -1290,7 +1119,6 @@ func canonicalizeVersionNewState(c *Client, rawNew, rawDesired *Version) (*Versi
 	if dcl.IsEmptyValueIndirect(rawNew.DefaultExpiration) && dcl.IsEmptyValueIndirect(rawDesired.DefaultExpiration) {
 		rawNew.DefaultExpiration = rawDesired.DefaultExpiration
 	} else {
-		rawNew.DefaultExpiration = canonicalizeNewVersionDefaultExpiration(c, rawDesired.DefaultExpiration, rawNew.DefaultExpiration)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Deployment) && dcl.IsEmptyValueIndirect(rawDesired.Deployment) {
@@ -1392,7 +1220,9 @@ func canonicalizeVersionAutomaticScaling(des, initial *VersionAutomaticScaling, 
 		return des
 	}
 
-	des.CoolDownPeriod = canonicalizeVersionAutomaticScalingCoolDownPeriod(des.CoolDownPeriod, initial.CoolDownPeriod, opts...)
+	if dcl.IsZeroValue(des.CoolDownPeriod) {
+		des.CoolDownPeriod = initial.CoolDownPeriod
+	}
 	des.CpuUtilization = canonicalizeVersionAutomaticScalingCpuUtilization(des.CpuUtilization, initial.CpuUtilization, opts...)
 	if dcl.IsZeroValue(des.MaxConcurrentRequests) {
 		des.MaxConcurrentRequests = initial.MaxConcurrentRequests
@@ -1403,14 +1233,18 @@ func canonicalizeVersionAutomaticScaling(des, initial *VersionAutomaticScaling, 
 	if dcl.IsZeroValue(des.MaxTotalInstances) {
 		des.MaxTotalInstances = initial.MaxTotalInstances
 	}
-	des.MaxPendingLatency = canonicalizeVersionAutomaticScalingMaxPendingLatency(des.MaxPendingLatency, initial.MaxPendingLatency, opts...)
+	if dcl.IsZeroValue(des.MaxPendingLatency) {
+		des.MaxPendingLatency = initial.MaxPendingLatency
+	}
 	if dcl.IsZeroValue(des.MinIdleInstances) {
 		des.MinIdleInstances = initial.MinIdleInstances
 	}
 	if dcl.IsZeroValue(des.MinTotalInstances) {
 		des.MinTotalInstances = initial.MinTotalInstances
 	}
-	des.MinPendingLatency = canonicalizeVersionAutomaticScalingMinPendingLatency(des.MinPendingLatency, initial.MinPendingLatency, opts...)
+	if dcl.IsZeroValue(des.MinPendingLatency) {
+		des.MinPendingLatency = initial.MinPendingLatency
+	}
 	des.RequestUtilization = canonicalizeVersionAutomaticScalingRequestUtilization(des.RequestUtilization, initial.RequestUtilization, opts...)
 	des.DiskUtilization = canonicalizeVersionAutomaticScalingDiskUtilization(des.DiskUtilization, initial.DiskUtilization, opts...)
 	des.NetworkUtilization = canonicalizeVersionAutomaticScalingNetworkUtilization(des.NetworkUtilization, initial.NetworkUtilization, opts...)
@@ -1424,10 +1258,7 @@ func canonicalizeNewVersionAutomaticScaling(c *Client, des, nw *VersionAutomatic
 		return nw
 	}
 
-	nw.CoolDownPeriod = canonicalizeNewVersionAutomaticScalingCoolDownPeriod(c, des.CoolDownPeriod, nw.CoolDownPeriod)
 	nw.CpuUtilization = canonicalizeNewVersionAutomaticScalingCpuUtilization(c, des.CpuUtilization, nw.CpuUtilization)
-	nw.MaxPendingLatency = canonicalizeNewVersionAutomaticScalingMaxPendingLatency(c, des.MaxPendingLatency, nw.MaxPendingLatency)
-	nw.MinPendingLatency = canonicalizeNewVersionAutomaticScalingMinPendingLatency(c, des.MinPendingLatency, nw.MinPendingLatency)
 	nw.RequestUtilization = canonicalizeNewVersionAutomaticScalingRequestUtilization(c, des.RequestUtilization, nw.RequestUtilization)
 	nw.DiskUtilization = canonicalizeNewVersionAutomaticScalingDiskUtilization(c, des.DiskUtilization, nw.DiskUtilization)
 	nw.NetworkUtilization = canonicalizeNewVersionAutomaticScalingNetworkUtilization(c, des.NetworkUtilization, nw.NetworkUtilization)
@@ -1459,64 +1290,6 @@ func canonicalizeNewVersionAutomaticScalingSet(c *Client, des, nw []VersionAutom
 	return reorderedNew
 }
 
-func canonicalizeVersionAutomaticScalingCoolDownPeriod(des, initial *VersionAutomaticScalingCoolDownPeriod, opts ...dcl.ApplyOption) *VersionAutomaticScalingCoolDownPeriod {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionAutomaticScalingCoolDownPeriod(c *Client, des, nw *VersionAutomaticScalingCoolDownPeriod) *VersionAutomaticScalingCoolDownPeriod {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionAutomaticScalingCoolDownPeriodSet(c *Client, des, nw []VersionAutomaticScalingCoolDownPeriod) []VersionAutomaticScalingCoolDownPeriod {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionAutomaticScalingCoolDownPeriod
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionAutomaticScalingCoolDownPeriod(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
 func canonicalizeVersionAutomaticScalingCpuUtilization(des, initial *VersionAutomaticScalingCpuUtilization, opts ...dcl.ApplyOption) *VersionAutomaticScalingCpuUtilization {
 	if des == nil {
 		return initial
@@ -1534,7 +1307,9 @@ func canonicalizeVersionAutomaticScalingCpuUtilization(des, initial *VersionAuto
 		return des
 	}
 
-	des.AggregationWindowLength = canonicalizeVersionAutomaticScalingCpuUtilizationAggregationWindowLength(des.AggregationWindowLength, initial.AggregationWindowLength, opts...)
+	if dcl.IsZeroValue(des.AggregationWindowLength) {
+		des.AggregationWindowLength = initial.AggregationWindowLength
+	}
 	if dcl.IsZeroValue(des.TargetUtilization) {
 		des.TargetUtilization = initial.TargetUtilization
 	}
@@ -1546,8 +1321,6 @@ func canonicalizeNewVersionAutomaticScalingCpuUtilization(c *Client, des, nw *Ve
 	if des == nil || nw == nil {
 		return nw
 	}
-
-	nw.AggregationWindowLength = canonicalizeNewVersionAutomaticScalingCpuUtilizationAggregationWindowLength(c, des.AggregationWindowLength, nw.AggregationWindowLength)
 
 	return nw
 }
@@ -1561,180 +1334,6 @@ func canonicalizeNewVersionAutomaticScalingCpuUtilizationSet(c *Client, des, nw 
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareVersionAutomaticScalingCpuUtilization(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionAutomaticScalingCpuUtilizationAggregationWindowLength(des, initial *VersionAutomaticScalingCpuUtilizationAggregationWindowLength, opts ...dcl.ApplyOption) *VersionAutomaticScalingCpuUtilizationAggregationWindowLength {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionAutomaticScalingCpuUtilizationAggregationWindowLength(c *Client, des, nw *VersionAutomaticScalingCpuUtilizationAggregationWindowLength) *VersionAutomaticScalingCpuUtilizationAggregationWindowLength {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionAutomaticScalingCpuUtilizationAggregationWindowLengthSet(c *Client, des, nw []VersionAutomaticScalingCpuUtilizationAggregationWindowLength) []VersionAutomaticScalingCpuUtilizationAggregationWindowLength {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionAutomaticScalingCpuUtilizationAggregationWindowLength
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionAutomaticScalingCpuUtilizationAggregationWindowLength(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionAutomaticScalingMaxPendingLatency(des, initial *VersionAutomaticScalingMaxPendingLatency, opts ...dcl.ApplyOption) *VersionAutomaticScalingMaxPendingLatency {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionAutomaticScalingMaxPendingLatency(c *Client, des, nw *VersionAutomaticScalingMaxPendingLatency) *VersionAutomaticScalingMaxPendingLatency {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionAutomaticScalingMaxPendingLatencySet(c *Client, des, nw []VersionAutomaticScalingMaxPendingLatency) []VersionAutomaticScalingMaxPendingLatency {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionAutomaticScalingMaxPendingLatency
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionAutomaticScalingMaxPendingLatency(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionAutomaticScalingMinPendingLatency(des, initial *VersionAutomaticScalingMinPendingLatency, opts ...dcl.ApplyOption) *VersionAutomaticScalingMinPendingLatency {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionAutomaticScalingMinPendingLatency(c *Client, des, nw *VersionAutomaticScalingMinPendingLatency) *VersionAutomaticScalingMinPendingLatency {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionAutomaticScalingMinPendingLatencySet(c *Client, des, nw []VersionAutomaticScalingMinPendingLatency) []VersionAutomaticScalingMinPendingLatency {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionAutomaticScalingMinPendingLatency
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionAutomaticScalingMinPendingLatency(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -2016,7 +1615,9 @@ func canonicalizeVersionBasicScaling(des, initial *VersionBasicScaling, opts ...
 		return des
 	}
 
-	des.IdleTimeout = canonicalizeVersionBasicScalingIdleTimeout(des.IdleTimeout, initial.IdleTimeout, opts...)
+	if dcl.IsZeroValue(des.IdleTimeout) {
+		des.IdleTimeout = initial.IdleTimeout
+	}
 	if dcl.IsZeroValue(des.MaxInstances) {
 		des.MaxInstances = initial.MaxInstances
 	}
@@ -2028,8 +1629,6 @@ func canonicalizeNewVersionBasicScaling(c *Client, des, nw *VersionBasicScaling)
 	if des == nil || nw == nil {
 		return nw
 	}
-
-	nw.IdleTimeout = canonicalizeNewVersionBasicScalingIdleTimeout(c, des.IdleTimeout, nw.IdleTimeout)
 
 	return nw
 }
@@ -2043,64 +1642,6 @@ func canonicalizeNewVersionBasicScalingSet(c *Client, des, nw []VersionBasicScal
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareVersionBasicScaling(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionBasicScalingIdleTimeout(des, initial *VersionBasicScalingIdleTimeout, opts ...dcl.ApplyOption) *VersionBasicScalingIdleTimeout {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionBasicScalingIdleTimeout(c *Client, des, nw *VersionBasicScalingIdleTimeout) *VersionBasicScalingIdleTimeout {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionBasicScalingIdleTimeoutSet(c *Client, des, nw []VersionBasicScalingIdleTimeout) []VersionBasicScalingIdleTimeout {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionBasicScalingIdleTimeout
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionBasicScalingIdleTimeout(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -2193,12 +1734,18 @@ func canonicalizeVersionJobScaling(des, initial *VersionJobScaling, opts ...dcl.
 	if dcl.IsZeroValue(des.Parallelism) {
 		des.Parallelism = initial.Parallelism
 	}
-	des.JobDeadline = canonicalizeVersionJobScalingJobDeadline(des.JobDeadline, initial.JobDeadline, opts...)
+	if dcl.IsZeroValue(des.JobDeadline) {
+		des.JobDeadline = initial.JobDeadline
+	}
 	if dcl.IsZeroValue(des.InstanceRetries) {
 		des.InstanceRetries = initial.InstanceRetries
 	}
-	des.InstanceDeadline = canonicalizeVersionJobScalingInstanceDeadline(des.InstanceDeadline, initial.InstanceDeadline, opts...)
-	des.InstanceTerminationWindow = canonicalizeVersionJobScalingInstanceTerminationWindow(des.InstanceTerminationWindow, initial.InstanceTerminationWindow, opts...)
+	if dcl.IsZeroValue(des.InstanceDeadline) {
+		des.InstanceDeadline = initial.InstanceDeadline
+	}
+	if dcl.IsZeroValue(des.InstanceTerminationWindow) {
+		des.InstanceTerminationWindow = initial.InstanceTerminationWindow
+	}
 
 	return des
 }
@@ -2207,10 +1754,6 @@ func canonicalizeNewVersionJobScaling(c *Client, des, nw *VersionJobScaling) *Ve
 	if des == nil || nw == nil {
 		return nw
 	}
-
-	nw.JobDeadline = canonicalizeNewVersionJobScalingJobDeadline(c, des.JobDeadline, nw.JobDeadline)
-	nw.InstanceDeadline = canonicalizeNewVersionJobScalingInstanceDeadline(c, des.InstanceDeadline, nw.InstanceDeadline)
-	nw.InstanceTerminationWindow = canonicalizeNewVersionJobScalingInstanceTerminationWindow(c, des.InstanceTerminationWindow, nw.InstanceTerminationWindow)
 
 	return nw
 }
@@ -2224,180 +1767,6 @@ func canonicalizeNewVersionJobScalingSet(c *Client, des, nw []VersionJobScaling)
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareVersionJobScaling(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionJobScalingJobDeadline(des, initial *VersionJobScalingJobDeadline, opts ...dcl.ApplyOption) *VersionJobScalingJobDeadline {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionJobScalingJobDeadline(c *Client, des, nw *VersionJobScalingJobDeadline) *VersionJobScalingJobDeadline {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionJobScalingJobDeadlineSet(c *Client, des, nw []VersionJobScalingJobDeadline) []VersionJobScalingJobDeadline {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionJobScalingJobDeadline
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionJobScalingJobDeadline(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionJobScalingInstanceDeadline(des, initial *VersionJobScalingInstanceDeadline, opts ...dcl.ApplyOption) *VersionJobScalingInstanceDeadline {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionJobScalingInstanceDeadline(c *Client, des, nw *VersionJobScalingInstanceDeadline) *VersionJobScalingInstanceDeadline {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionJobScalingInstanceDeadlineSet(c *Client, des, nw []VersionJobScalingInstanceDeadline) []VersionJobScalingInstanceDeadline {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionJobScalingInstanceDeadline
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionJobScalingInstanceDeadline(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionJobScalingInstanceTerminationWindow(des, initial *VersionJobScalingInstanceTerminationWindow, opts ...dcl.ApplyOption) *VersionJobScalingInstanceTerminationWindow {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionJobScalingInstanceTerminationWindow(c *Client, des, nw *VersionJobScalingInstanceTerminationWindow) *VersionJobScalingInstanceTerminationWindow {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionJobScalingInstanceTerminationWindowSet(c *Client, des, nw []VersionJobScalingInstanceTerminationWindow) []VersionJobScalingInstanceTerminationWindow {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionJobScalingInstanceTerminationWindow
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionJobScalingInstanceTerminationWindow(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -2668,64 +2037,6 @@ func canonicalizeNewVersionResourcesVolumesSet(c *Client, des, nw []VersionResou
 	return reorderedNew
 }
 
-func canonicalizeVersionBetaSettings(des, initial *VersionBetaSettings, opts ...dcl.ApplyOption) *VersionBetaSettings {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionBetaSettings(c *Client, des, nw *VersionBetaSettings) *VersionBetaSettings {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionBetaSettingsSet(c *Client, des, nw []VersionBetaSettings) []VersionBetaSettings {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionBetaSettings
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionBetaSettings(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
 func canonicalizeVersionHandlers(des, initial *VersionHandlers, opts ...dcl.ApplyOption) *VersionHandlers {
 	if des == nil {
 		return initial
@@ -2829,7 +2140,9 @@ func canonicalizeVersionHandlersStaticFiles(des, initial *VersionHandlersStaticF
 	if dcl.IsZeroValue(des.MimeType) {
 		des.MimeType = initial.MimeType
 	}
-	des.Expiration = canonicalizeVersionHandlersStaticFilesExpiration(des.Expiration, initial.Expiration, opts...)
+	if dcl.IsZeroValue(des.Expiration) {
+		des.Expiration = initial.Expiration
+	}
 	if dcl.IsZeroValue(des.RequireMatchingFile) {
 		des.RequireMatchingFile = initial.RequireMatchingFile
 	}
@@ -2845,8 +2158,6 @@ func canonicalizeNewVersionHandlersStaticFiles(c *Client, des, nw *VersionHandle
 		return nw
 	}
 
-	nw.Expiration = canonicalizeNewVersionHandlersStaticFilesExpiration(c, des.Expiration, nw.Expiration)
-
 	return nw
 }
 
@@ -2859,122 +2170,6 @@ func canonicalizeNewVersionHandlersStaticFilesSet(c *Client, des, nw []VersionHa
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareVersionHandlersStaticFiles(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionHandlersStaticFilesHttpHeaders(des, initial *VersionHandlersStaticFilesHttpHeaders, opts ...dcl.ApplyOption) *VersionHandlersStaticFilesHttpHeaders {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionHandlersStaticFilesHttpHeaders(c *Client, des, nw *VersionHandlersStaticFilesHttpHeaders) *VersionHandlersStaticFilesHttpHeaders {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionHandlersStaticFilesHttpHeadersSet(c *Client, des, nw []VersionHandlersStaticFilesHttpHeaders) []VersionHandlersStaticFilesHttpHeaders {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionHandlersStaticFilesHttpHeaders
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionHandlersStaticFilesHttpHeaders(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionHandlersStaticFilesExpiration(des, initial *VersionHandlersStaticFilesExpiration, opts ...dcl.ApplyOption) *VersionHandlersStaticFilesExpiration {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionHandlersStaticFilesExpiration(c *Client, des, nw *VersionHandlersStaticFilesExpiration) *VersionHandlersStaticFilesExpiration {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionHandlersStaticFilesExpirationSet(c *Client, des, nw []VersionHandlersStaticFilesExpiration) []VersionHandlersStaticFilesExpiration {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionHandlersStaticFilesExpiration
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionHandlersStaticFilesExpiration(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -3285,180 +2480,6 @@ func canonicalizeNewVersionApiConfigSet(c *Client, des, nw []VersionApiConfig) [
 	return reorderedNew
 }
 
-func canonicalizeVersionEnvVariables(des, initial *VersionEnvVariables, opts ...dcl.ApplyOption) *VersionEnvVariables {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionEnvVariables(c *Client, des, nw *VersionEnvVariables) *VersionEnvVariables {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionEnvVariablesSet(c *Client, des, nw []VersionEnvVariables) []VersionEnvVariables {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionEnvVariables
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionEnvVariables(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionBuildEnvVariables(des, initial *VersionBuildEnvVariables, opts ...dcl.ApplyOption) *VersionBuildEnvVariables {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
-	}
-	if dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionBuildEnvVariables(c *Client, des, nw *VersionBuildEnvVariables) *VersionBuildEnvVariables {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionBuildEnvVariablesSet(c *Client, des, nw []VersionBuildEnvVariables) []VersionBuildEnvVariables {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionBuildEnvVariables
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionBuildEnvVariables(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionDefaultExpiration(des, initial *VersionDefaultExpiration, opts ...dcl.ApplyOption) *VersionDefaultExpiration {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionDefaultExpiration(c *Client, des, nw *VersionDefaultExpiration) *VersionDefaultExpiration {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionDefaultExpirationSet(c *Client, des, nw []VersionDefaultExpiration) []VersionDefaultExpiration {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionDefaultExpiration
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionDefaultExpiration(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
 func canonicalizeVersionDeployment(des, initial *VersionDeployment, opts ...dcl.ApplyOption) *VersionDeployment {
 	if des == nil {
 		return initial
@@ -3715,7 +2736,9 @@ func canonicalizeVersionDeploymentCloudBuildOptions(des, initial *VersionDeploym
 	if dcl.IsZeroValue(des.AppYamlPath) {
 		des.AppYamlPath = initial.AppYamlPath
 	}
-	des.CloudBuildTimeout = canonicalizeVersionDeploymentCloudBuildOptionsCloudBuildTimeout(des.CloudBuildTimeout, initial.CloudBuildTimeout, opts...)
+	if dcl.IsZeroValue(des.CloudBuildTimeout) {
+		des.CloudBuildTimeout = initial.CloudBuildTimeout
+	}
 
 	return des
 }
@@ -3724,8 +2747,6 @@ func canonicalizeNewVersionDeploymentCloudBuildOptions(c *Client, des, nw *Versi
 	if des == nil || nw == nil {
 		return nw
 	}
-
-	nw.CloudBuildTimeout = canonicalizeNewVersionDeploymentCloudBuildOptionsCloudBuildTimeout(c, des.CloudBuildTimeout, nw.CloudBuildTimeout)
 
 	return nw
 }
@@ -3739,64 +2760,6 @@ func canonicalizeNewVersionDeploymentCloudBuildOptionsSet(c *Client, des, nw []V
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareVersionDeploymentCloudBuildOptions(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionDeploymentCloudBuildOptionsCloudBuildTimeout(des, initial *VersionDeploymentCloudBuildOptionsCloudBuildTimeout, opts ...dcl.ApplyOption) *VersionDeploymentCloudBuildOptionsCloudBuildTimeout {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionDeploymentCloudBuildOptionsCloudBuildTimeout(c *Client, des, nw *VersionDeploymentCloudBuildOptionsCloudBuildTimeout) *VersionDeploymentCloudBuildOptionsCloudBuildTimeout {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionDeploymentCloudBuildOptionsCloudBuildTimeoutSet(c *Client, des, nw []VersionDeploymentCloudBuildOptionsCloudBuildTimeout) []VersionDeploymentCloudBuildOptionsCloudBuildTimeout {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionDeploymentCloudBuildOptionsCloudBuildTimeout
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionDeploymentCloudBuildOptionsCloudBuildTimeout(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -3843,8 +2806,12 @@ func canonicalizeVersionHealthCheck(des, initial *VersionHealthCheck, opts ...dc
 	if dcl.IsZeroValue(des.RestartThreshold) {
 		des.RestartThreshold = initial.RestartThreshold
 	}
-	des.CheckInterval = canonicalizeVersionHealthCheckCheckInterval(des.CheckInterval, initial.CheckInterval, opts...)
-	des.Timeout = canonicalizeVersionHealthCheckTimeout(des.Timeout, initial.Timeout, opts...)
+	if dcl.IsZeroValue(des.CheckInterval) {
+		des.CheckInterval = initial.CheckInterval
+	}
+	if dcl.IsZeroValue(des.Timeout) {
+		des.Timeout = initial.Timeout
+	}
 
 	return des
 }
@@ -3853,9 +2820,6 @@ func canonicalizeNewVersionHealthCheck(c *Client, des, nw *VersionHealthCheck) *
 	if des == nil || nw == nil {
 		return nw
 	}
-
-	nw.CheckInterval = canonicalizeNewVersionHealthCheckCheckInterval(c, des.CheckInterval, nw.CheckInterval)
-	nw.Timeout = canonicalizeNewVersionHealthCheckTimeout(c, des.Timeout, nw.Timeout)
 
 	return nw
 }
@@ -3869,122 +2833,6 @@ func canonicalizeNewVersionHealthCheckSet(c *Client, des, nw []VersionHealthChec
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareVersionHealthCheck(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionHealthCheckCheckInterval(des, initial *VersionHealthCheckCheckInterval, opts ...dcl.ApplyOption) *VersionHealthCheckCheckInterval {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionHealthCheckCheckInterval(c *Client, des, nw *VersionHealthCheckCheckInterval) *VersionHealthCheckCheckInterval {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionHealthCheckCheckIntervalSet(c *Client, des, nw []VersionHealthCheckCheckInterval) []VersionHealthCheckCheckInterval {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionHealthCheckCheckInterval
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionHealthCheckCheckInterval(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionHealthCheckTimeout(des, initial *VersionHealthCheckTimeout, opts ...dcl.ApplyOption) *VersionHealthCheckTimeout {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionHealthCheckTimeout(c *Client, des, nw *VersionHealthCheckTimeout) *VersionHealthCheckTimeout {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionHealthCheckTimeoutSet(c *Client, des, nw []VersionHealthCheckTimeout) []VersionHealthCheckTimeout {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionHealthCheckTimeout
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionHealthCheckTimeout(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -4028,9 +2876,15 @@ func canonicalizeVersionReadinessCheck(des, initial *VersionReadinessCheck, opts
 	if dcl.IsZeroValue(des.SuccessThreshold) {
 		des.SuccessThreshold = initial.SuccessThreshold
 	}
-	des.CheckInterval = canonicalizeVersionReadinessCheckCheckInterval(des.CheckInterval, initial.CheckInterval, opts...)
-	des.Timeout = canonicalizeVersionReadinessCheckTimeout(des.Timeout, initial.Timeout, opts...)
-	des.AppStartTimeout = canonicalizeVersionReadinessCheckAppStartTimeout(des.AppStartTimeout, initial.AppStartTimeout, opts...)
+	if dcl.IsZeroValue(des.CheckInterval) {
+		des.CheckInterval = initial.CheckInterval
+	}
+	if dcl.IsZeroValue(des.Timeout) {
+		des.Timeout = initial.Timeout
+	}
+	if dcl.IsZeroValue(des.AppStartTimeout) {
+		des.AppStartTimeout = initial.AppStartTimeout
+	}
 
 	return des
 }
@@ -4039,10 +2893,6 @@ func canonicalizeNewVersionReadinessCheck(c *Client, des, nw *VersionReadinessCh
 	if des == nil || nw == nil {
 		return nw
 	}
-
-	nw.CheckInterval = canonicalizeNewVersionReadinessCheckCheckInterval(c, des.CheckInterval, nw.CheckInterval)
-	nw.Timeout = canonicalizeNewVersionReadinessCheckTimeout(c, des.Timeout, nw.Timeout)
-	nw.AppStartTimeout = canonicalizeNewVersionReadinessCheckAppStartTimeout(c, des.AppStartTimeout, nw.AppStartTimeout)
 
 	return nw
 }
@@ -4056,180 +2906,6 @@ func canonicalizeNewVersionReadinessCheckSet(c *Client, des, nw []VersionReadine
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareVersionReadinessCheck(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionReadinessCheckCheckInterval(des, initial *VersionReadinessCheckCheckInterval, opts ...dcl.ApplyOption) *VersionReadinessCheckCheckInterval {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionReadinessCheckCheckInterval(c *Client, des, nw *VersionReadinessCheckCheckInterval) *VersionReadinessCheckCheckInterval {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionReadinessCheckCheckIntervalSet(c *Client, des, nw []VersionReadinessCheckCheckInterval) []VersionReadinessCheckCheckInterval {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionReadinessCheckCheckInterval
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionReadinessCheckCheckInterval(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionReadinessCheckTimeout(des, initial *VersionReadinessCheckTimeout, opts ...dcl.ApplyOption) *VersionReadinessCheckTimeout {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionReadinessCheckTimeout(c *Client, des, nw *VersionReadinessCheckTimeout) *VersionReadinessCheckTimeout {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionReadinessCheckTimeoutSet(c *Client, des, nw []VersionReadinessCheckTimeout) []VersionReadinessCheckTimeout {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionReadinessCheckTimeout
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionReadinessCheckTimeout(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionReadinessCheckAppStartTimeout(des, initial *VersionReadinessCheckAppStartTimeout, opts ...dcl.ApplyOption) *VersionReadinessCheckAppStartTimeout {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionReadinessCheckAppStartTimeout(c *Client, des, nw *VersionReadinessCheckAppStartTimeout) *VersionReadinessCheckAppStartTimeout {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionReadinessCheckAppStartTimeoutSet(c *Client, des, nw []VersionReadinessCheckAppStartTimeout) []VersionReadinessCheckAppStartTimeout {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionReadinessCheckAppStartTimeout
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionReadinessCheckAppStartTimeout(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -4273,9 +2949,15 @@ func canonicalizeVersionLivenessCheck(des, initial *VersionLivenessCheck, opts .
 	if dcl.IsZeroValue(des.SuccessThreshold) {
 		des.SuccessThreshold = initial.SuccessThreshold
 	}
-	des.CheckInterval = canonicalizeVersionLivenessCheckCheckInterval(des.CheckInterval, initial.CheckInterval, opts...)
-	des.Timeout = canonicalizeVersionLivenessCheckTimeout(des.Timeout, initial.Timeout, opts...)
-	des.InitialDelay = canonicalizeVersionLivenessCheckInitialDelay(des.InitialDelay, initial.InitialDelay, opts...)
+	if dcl.IsZeroValue(des.CheckInterval) {
+		des.CheckInterval = initial.CheckInterval
+	}
+	if dcl.IsZeroValue(des.Timeout) {
+		des.Timeout = initial.Timeout
+	}
+	if dcl.IsZeroValue(des.InitialDelay) {
+		des.InitialDelay = initial.InitialDelay
+	}
 
 	return des
 }
@@ -4284,10 +2966,6 @@ func canonicalizeNewVersionLivenessCheck(c *Client, des, nw *VersionLivenessChec
 	if des == nil || nw == nil {
 		return nw
 	}
-
-	nw.CheckInterval = canonicalizeNewVersionLivenessCheckCheckInterval(c, des.CheckInterval, nw.CheckInterval)
-	nw.Timeout = canonicalizeNewVersionLivenessCheckTimeout(c, des.Timeout, nw.Timeout)
-	nw.InitialDelay = canonicalizeNewVersionLivenessCheckInitialDelay(c, des.InitialDelay, nw.InitialDelay)
 
 	return nw
 }
@@ -4301,180 +2979,6 @@ func canonicalizeNewVersionLivenessCheckSet(c *Client, des, nw []VersionLiveness
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareVersionLivenessCheck(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionLivenessCheckCheckInterval(des, initial *VersionLivenessCheckCheckInterval, opts ...dcl.ApplyOption) *VersionLivenessCheckCheckInterval {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionLivenessCheckCheckInterval(c *Client, des, nw *VersionLivenessCheckCheckInterval) *VersionLivenessCheckCheckInterval {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionLivenessCheckCheckIntervalSet(c *Client, des, nw []VersionLivenessCheckCheckInterval) []VersionLivenessCheckCheckInterval {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionLivenessCheckCheckInterval
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionLivenessCheckCheckInterval(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionLivenessCheckTimeout(des, initial *VersionLivenessCheckTimeout, opts ...dcl.ApplyOption) *VersionLivenessCheckTimeout {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionLivenessCheckTimeout(c *Client, des, nw *VersionLivenessCheckTimeout) *VersionLivenessCheckTimeout {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionLivenessCheckTimeoutSet(c *Client, des, nw []VersionLivenessCheckTimeout) []VersionLivenessCheckTimeout {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionLivenessCheckTimeout
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionLivenessCheckTimeout(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionLivenessCheckInitialDelay(des, initial *VersionLivenessCheckInitialDelay, opts ...dcl.ApplyOption) *VersionLivenessCheckInitialDelay {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionLivenessCheckInitialDelay(c *Client, des, nw *VersionLivenessCheckInitialDelay) *VersionLivenessCheckInitialDelay {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionLivenessCheckInitialDelaySet(c *Client, des, nw []VersionLivenessCheckInitialDelay) []VersionLivenessCheckInitialDelay {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionLivenessCheckInitialDelay
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionLivenessCheckInitialDelay(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -5206,7 +3710,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if compareVersionBetaSettingsSlice(c, desired.BetaSettings, actual.BetaSettings) {
+	if !reflect.DeepEqual(desired.BetaSettings, actual.BetaSettings) {
 		c.Config.Logger.Infof("Detected diff in BetaSettings.\nDESIRED: %v\nACTUAL: %v", desired.BetaSettings, actual.BetaSettings)
 
 		diffs = append(diffs, versionDiff{
@@ -5314,7 +3818,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if compareVersionEnvVariablesSlice(c, desired.EnvVariables, actual.EnvVariables) {
+	if !reflect.DeepEqual(desired.EnvVariables, actual.EnvVariables) {
 		c.Config.Logger.Infof("Detected diff in EnvVariables.\nDESIRED: %v\nACTUAL: %v", desired.EnvVariables, actual.EnvVariables)
 
 		diffs = append(diffs, versionDiff{
@@ -5323,7 +3827,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if compareVersionBuildEnvVariablesSlice(c, desired.BuildEnvVariables, actual.BuildEnvVariables) {
+	if !reflect.DeepEqual(desired.BuildEnvVariables, actual.BuildEnvVariables) {
 		c.Config.Logger.Infof("Detected diff in BuildEnvVariables.\nDESIRED: %v\nACTUAL: %v", desired.BuildEnvVariables, actual.BuildEnvVariables)
 
 		diffs = append(diffs, versionDiff{
@@ -5332,7 +3836,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if compareVersionDefaultExpiration(c, desired.DefaultExpiration, actual.DefaultExpiration) {
+	if !dcl.IsZeroValue(desired.DefaultExpiration) && (dcl.IsZeroValue(actual.DefaultExpiration) || !reflect.DeepEqual(*desired.DefaultExpiration, *actual.DefaultExpiration)) {
 		c.Config.Logger.Infof("Detected diff in DefaultExpiration.\nDESIRED: %v\nACTUAL: %v", desired.DefaultExpiration, actual.DefaultExpiration)
 
 		diffs = append(diffs, versionDiff{
@@ -5505,7 +4009,7 @@ func compareVersionAutomaticScaling(c *Client, desired, actual *VersionAutomatic
 		c.Config.Logger.Infof("desired CoolDownPeriod %s - but actually nil", dcl.SprintResource(desired.CoolDownPeriod))
 		return true
 	}
-	if compareVersionAutomaticScalingCoolDownPeriod(c, desired.CoolDownPeriod, actual.CoolDownPeriod) && !dcl.IsZeroValue(desired.CoolDownPeriod) {
+	if !reflect.DeepEqual(desired.CoolDownPeriod, actual.CoolDownPeriod) && !dcl.IsZeroValue(desired.CoolDownPeriod) && !(dcl.IsEmptyValueIndirect(desired.CoolDownPeriod) && dcl.IsZeroValue(actual.CoolDownPeriod)) {
 		c.Config.Logger.Infof("Diff in CoolDownPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CoolDownPeriod), dcl.SprintResource(actual.CoolDownPeriod))
 		return true
 	}
@@ -5545,7 +4049,7 @@ func compareVersionAutomaticScaling(c *Client, desired, actual *VersionAutomatic
 		c.Config.Logger.Infof("desired MaxPendingLatency %s - but actually nil", dcl.SprintResource(desired.MaxPendingLatency))
 		return true
 	}
-	if compareVersionAutomaticScalingMaxPendingLatency(c, desired.MaxPendingLatency, actual.MaxPendingLatency) && !dcl.IsZeroValue(desired.MaxPendingLatency) {
+	if !reflect.DeepEqual(desired.MaxPendingLatency, actual.MaxPendingLatency) && !dcl.IsZeroValue(desired.MaxPendingLatency) && !(dcl.IsEmptyValueIndirect(desired.MaxPendingLatency) && dcl.IsZeroValue(actual.MaxPendingLatency)) {
 		c.Config.Logger.Infof("Diff in MaxPendingLatency. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxPendingLatency), dcl.SprintResource(actual.MaxPendingLatency))
 		return true
 	}
@@ -5569,7 +4073,7 @@ func compareVersionAutomaticScaling(c *Client, desired, actual *VersionAutomatic
 		c.Config.Logger.Infof("desired MinPendingLatency %s - but actually nil", dcl.SprintResource(desired.MinPendingLatency))
 		return true
 	}
-	if compareVersionAutomaticScalingMinPendingLatency(c, desired.MinPendingLatency, actual.MinPendingLatency) && !dcl.IsZeroValue(desired.MinPendingLatency) {
+	if !reflect.DeepEqual(desired.MinPendingLatency, actual.MinPendingLatency) && !dcl.IsZeroValue(desired.MinPendingLatency) && !(dcl.IsEmptyValueIndirect(desired.MinPendingLatency) && dcl.IsZeroValue(actual.MinPendingLatency)) {
 		c.Config.Logger.Infof("Diff in MinPendingLatency. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinPendingLatency), dcl.SprintResource(actual.MinPendingLatency))
 		return true
 	}
@@ -5607,45 +4111,6 @@ func compareVersionAutomaticScaling(c *Client, desired, actual *VersionAutomatic
 	}
 	return false
 }
-func compareVersionAutomaticScalingCoolDownPeriodSlice(c *Client, desired, actual []VersionAutomaticScalingCoolDownPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionAutomaticScalingCoolDownPeriod, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionAutomaticScalingCoolDownPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingCoolDownPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionAutomaticScalingCoolDownPeriod(c *Client, desired, actual *VersionAutomaticScalingCoolDownPeriod) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
 func compareVersionAutomaticScalingCpuUtilizationSlice(c *Client, desired, actual []VersionAutomaticScalingCpuUtilization) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in VersionAutomaticScalingCpuUtilization, lengths unequal.")
@@ -5671,7 +4136,7 @@ func compareVersionAutomaticScalingCpuUtilization(c *Client, desired, actual *Ve
 		c.Config.Logger.Infof("desired AggregationWindowLength %s - but actually nil", dcl.SprintResource(desired.AggregationWindowLength))
 		return true
 	}
-	if compareVersionAutomaticScalingCpuUtilizationAggregationWindowLength(c, desired.AggregationWindowLength, actual.AggregationWindowLength) && !dcl.IsZeroValue(desired.AggregationWindowLength) {
+	if !reflect.DeepEqual(desired.AggregationWindowLength, actual.AggregationWindowLength) && !dcl.IsZeroValue(desired.AggregationWindowLength) && !(dcl.IsEmptyValueIndirect(desired.AggregationWindowLength) && dcl.IsZeroValue(actual.AggregationWindowLength)) {
 		c.Config.Logger.Infof("Diff in AggregationWindowLength. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AggregationWindowLength), dcl.SprintResource(actual.AggregationWindowLength))
 		return true
 	}
@@ -5681,123 +4146,6 @@ func compareVersionAutomaticScalingCpuUtilization(c *Client, desired, actual *Ve
 	}
 	if !reflect.DeepEqual(desired.TargetUtilization, actual.TargetUtilization) && !dcl.IsZeroValue(desired.TargetUtilization) && !(dcl.IsEmptyValueIndirect(desired.TargetUtilization) && dcl.IsZeroValue(actual.TargetUtilization)) {
 		c.Config.Logger.Infof("Diff in TargetUtilization. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetUtilization), dcl.SprintResource(actual.TargetUtilization))
-		return true
-	}
-	return false
-}
-func compareVersionAutomaticScalingCpuUtilizationAggregationWindowLengthSlice(c *Client, desired, actual []VersionAutomaticScalingCpuUtilizationAggregationWindowLength) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionAutomaticScalingCpuUtilizationAggregationWindowLength, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionAutomaticScalingCpuUtilizationAggregationWindowLength(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingCpuUtilizationAggregationWindowLength, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionAutomaticScalingCpuUtilizationAggregationWindowLength(c *Client, desired, actual *VersionAutomaticScalingCpuUtilizationAggregationWindowLength) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-func compareVersionAutomaticScalingMaxPendingLatencySlice(c *Client, desired, actual []VersionAutomaticScalingMaxPendingLatency) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionAutomaticScalingMaxPendingLatency, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionAutomaticScalingMaxPendingLatency(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingMaxPendingLatency, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionAutomaticScalingMaxPendingLatency(c *Client, desired, actual *VersionAutomaticScalingMaxPendingLatency) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-func compareVersionAutomaticScalingMinPendingLatencySlice(c *Client, desired, actual []VersionAutomaticScalingMinPendingLatency) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionAutomaticScalingMinPendingLatency, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionAutomaticScalingMinPendingLatency(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingMinPendingLatency, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionAutomaticScalingMinPendingLatency(c *Client, desired, actual *VersionAutomaticScalingMinPendingLatency) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -6031,7 +4379,7 @@ func compareVersionBasicScaling(c *Client, desired, actual *VersionBasicScaling)
 		c.Config.Logger.Infof("desired IdleTimeout %s - but actually nil", dcl.SprintResource(desired.IdleTimeout))
 		return true
 	}
-	if compareVersionBasicScalingIdleTimeout(c, desired.IdleTimeout, actual.IdleTimeout) && !dcl.IsZeroValue(desired.IdleTimeout) {
+	if !reflect.DeepEqual(desired.IdleTimeout, actual.IdleTimeout) && !dcl.IsZeroValue(desired.IdleTimeout) && !(dcl.IsEmptyValueIndirect(desired.IdleTimeout) && dcl.IsZeroValue(actual.IdleTimeout)) {
 		c.Config.Logger.Infof("Diff in IdleTimeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IdleTimeout), dcl.SprintResource(actual.IdleTimeout))
 		return true
 	}
@@ -6041,45 +4389,6 @@ func compareVersionBasicScaling(c *Client, desired, actual *VersionBasicScaling)
 	}
 	if !reflect.DeepEqual(desired.MaxInstances, actual.MaxInstances) && !dcl.IsZeroValue(desired.MaxInstances) && !(dcl.IsEmptyValueIndirect(desired.MaxInstances) && dcl.IsZeroValue(actual.MaxInstances)) {
 		c.Config.Logger.Infof("Diff in MaxInstances. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxInstances), dcl.SprintResource(actual.MaxInstances))
-		return true
-	}
-	return false
-}
-func compareVersionBasicScalingIdleTimeoutSlice(c *Client, desired, actual []VersionBasicScalingIdleTimeout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionBasicScalingIdleTimeout, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionBasicScalingIdleTimeout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionBasicScalingIdleTimeout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionBasicScalingIdleTimeout(c *Client, desired, actual *VersionBasicScalingIdleTimeout) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -6156,7 +4465,7 @@ func compareVersionJobScaling(c *Client, desired, actual *VersionJobScaling) boo
 		c.Config.Logger.Infof("desired JobDeadline %s - but actually nil", dcl.SprintResource(desired.JobDeadline))
 		return true
 	}
-	if compareVersionJobScalingJobDeadline(c, desired.JobDeadline, actual.JobDeadline) && !dcl.IsZeroValue(desired.JobDeadline) {
+	if !reflect.DeepEqual(desired.JobDeadline, actual.JobDeadline) && !dcl.IsZeroValue(desired.JobDeadline) && !(dcl.IsEmptyValueIndirect(desired.JobDeadline) && dcl.IsZeroValue(actual.JobDeadline)) {
 		c.Config.Logger.Infof("Diff in JobDeadline. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JobDeadline), dcl.SprintResource(actual.JobDeadline))
 		return true
 	}
@@ -6172,7 +4481,7 @@ func compareVersionJobScaling(c *Client, desired, actual *VersionJobScaling) boo
 		c.Config.Logger.Infof("desired InstanceDeadline %s - but actually nil", dcl.SprintResource(desired.InstanceDeadline))
 		return true
 	}
-	if compareVersionJobScalingInstanceDeadline(c, desired.InstanceDeadline, actual.InstanceDeadline) && !dcl.IsZeroValue(desired.InstanceDeadline) {
+	if !reflect.DeepEqual(desired.InstanceDeadline, actual.InstanceDeadline) && !dcl.IsZeroValue(desired.InstanceDeadline) && !(dcl.IsEmptyValueIndirect(desired.InstanceDeadline) && dcl.IsZeroValue(actual.InstanceDeadline)) {
 		c.Config.Logger.Infof("Diff in InstanceDeadline. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstanceDeadline), dcl.SprintResource(actual.InstanceDeadline))
 		return true
 	}
@@ -6180,125 +4489,8 @@ func compareVersionJobScaling(c *Client, desired, actual *VersionJobScaling) boo
 		c.Config.Logger.Infof("desired InstanceTerminationWindow %s - but actually nil", dcl.SprintResource(desired.InstanceTerminationWindow))
 		return true
 	}
-	if compareVersionJobScalingInstanceTerminationWindow(c, desired.InstanceTerminationWindow, actual.InstanceTerminationWindow) && !dcl.IsZeroValue(desired.InstanceTerminationWindow) {
+	if !reflect.DeepEqual(desired.InstanceTerminationWindow, actual.InstanceTerminationWindow) && !dcl.IsZeroValue(desired.InstanceTerminationWindow) && !(dcl.IsEmptyValueIndirect(desired.InstanceTerminationWindow) && dcl.IsZeroValue(actual.InstanceTerminationWindow)) {
 		c.Config.Logger.Infof("Diff in InstanceTerminationWindow. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstanceTerminationWindow), dcl.SprintResource(actual.InstanceTerminationWindow))
-		return true
-	}
-	return false
-}
-func compareVersionJobScalingJobDeadlineSlice(c *Client, desired, actual []VersionJobScalingJobDeadline) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionJobScalingJobDeadline, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionJobScalingJobDeadline(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionJobScalingJobDeadline, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionJobScalingJobDeadline(c *Client, desired, actual *VersionJobScalingJobDeadline) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-func compareVersionJobScalingInstanceDeadlineSlice(c *Client, desired, actual []VersionJobScalingInstanceDeadline) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionJobScalingInstanceDeadline, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionJobScalingInstanceDeadline(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionJobScalingInstanceDeadline, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionJobScalingInstanceDeadline(c *Client, desired, actual *VersionJobScalingInstanceDeadline) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-func compareVersionJobScalingInstanceTerminationWindowSlice(c *Client, desired, actual []VersionJobScalingInstanceTerminationWindow) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionJobScalingInstanceTerminationWindow, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionJobScalingInstanceTerminationWindow(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionJobScalingInstanceTerminationWindow, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionJobScalingInstanceTerminationWindow(c *Client, desired, actual *VersionJobScalingInstanceTerminationWindow) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -6523,45 +4715,6 @@ func compareVersionResourcesVolumes(c *Client, desired, actual *VersionResources
 	}
 	return false
 }
-func compareVersionBetaSettingsSlice(c *Client, desired, actual []VersionBetaSettings) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionBetaSettings, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionBetaSettings(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionBetaSettings, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionBetaSettings(c *Client, desired, actual *VersionBetaSettings) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
 func compareVersionHandlersSlice(c *Client, desired, actual []VersionHandlers) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in VersionHandlers, lengths unequal.")
@@ -6690,7 +4843,7 @@ func compareVersionHandlersStaticFiles(c *Client, desired, actual *VersionHandle
 		c.Config.Logger.Infof("desired HttpHeaders %s - but actually nil", dcl.SprintResource(desired.HttpHeaders))
 		return true
 	}
-	if compareVersionHandlersStaticFilesHttpHeadersSlice(c, desired.HttpHeaders, actual.HttpHeaders) && !dcl.IsZeroValue(desired.HttpHeaders) {
+	if !reflect.DeepEqual(desired.HttpHeaders, actual.HttpHeaders) && !dcl.IsZeroValue(desired.HttpHeaders) {
 		c.Config.Logger.Infof("Diff in HttpHeaders. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpHeaders), dcl.SprintResource(actual.HttpHeaders))
 		return true
 	}
@@ -6706,7 +4859,7 @@ func compareVersionHandlersStaticFiles(c *Client, desired, actual *VersionHandle
 		c.Config.Logger.Infof("desired Expiration %s - but actually nil", dcl.SprintResource(desired.Expiration))
 		return true
 	}
-	if compareVersionHandlersStaticFilesExpiration(c, desired.Expiration, actual.Expiration) && !dcl.IsZeroValue(desired.Expiration) {
+	if !reflect.DeepEqual(desired.Expiration, actual.Expiration) && !dcl.IsZeroValue(desired.Expiration) && !(dcl.IsEmptyValueIndirect(desired.Expiration) && dcl.IsZeroValue(actual.Expiration)) {
 		c.Config.Logger.Infof("Diff in Expiration. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Expiration), dcl.SprintResource(actual.Expiration))
 		return true
 	}
@@ -6724,84 +4877,6 @@ func compareVersionHandlersStaticFiles(c *Client, desired, actual *VersionHandle
 	}
 	if !reflect.DeepEqual(desired.ApplicationReadable, actual.ApplicationReadable) && !dcl.IsZeroValue(desired.ApplicationReadable) && !(dcl.IsEmptyValueIndirect(desired.ApplicationReadable) && dcl.IsZeroValue(actual.ApplicationReadable)) {
 		c.Config.Logger.Infof("Diff in ApplicationReadable. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ApplicationReadable), dcl.SprintResource(actual.ApplicationReadable))
-		return true
-	}
-	return false
-}
-func compareVersionHandlersStaticFilesHttpHeadersSlice(c *Client, desired, actual []VersionHandlersStaticFilesHttpHeaders) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHandlersStaticFilesHttpHeaders, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionHandlersStaticFilesHttpHeaders(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionHandlersStaticFilesHttpHeaders, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionHandlersStaticFilesHttpHeaders(c *Client, desired, actual *VersionHandlersStaticFilesHttpHeaders) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
-func compareVersionHandlersStaticFilesExpirationSlice(c *Client, desired, actual []VersionHandlersStaticFilesExpiration) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHandlersStaticFilesExpiration, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionHandlersStaticFilesExpiration(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionHandlersStaticFilesExpiration, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionHandlersStaticFilesExpiration(c *Client, desired, actual *VersionHandlersStaticFilesExpiration) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -7017,123 +5092,6 @@ func compareVersionApiConfig(c *Client, desired, actual *VersionApiConfig) bool 
 	}
 	return false
 }
-func compareVersionEnvVariablesSlice(c *Client, desired, actual []VersionEnvVariables) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionEnvVariables, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionEnvVariables(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionEnvVariables, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionEnvVariables(c *Client, desired, actual *VersionEnvVariables) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
-func compareVersionBuildEnvVariablesSlice(c *Client, desired, actual []VersionBuildEnvVariables) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionBuildEnvVariables, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionBuildEnvVariables(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionBuildEnvVariables, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionBuildEnvVariables(c *Client, desired, actual *VersionBuildEnvVariables) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
-func compareVersionDefaultExpirationSlice(c *Client, desired, actual []VersionDefaultExpiration) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionDefaultExpiration, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionDefaultExpiration(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionDefaultExpiration, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionDefaultExpiration(c *Client, desired, actual *VersionDefaultExpiration) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
 func compareVersionDeploymentSlice(c *Client, desired, actual []VersionDeployment) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in VersionDeployment, lengths unequal.")
@@ -7331,47 +5289,8 @@ func compareVersionDeploymentCloudBuildOptions(c *Client, desired, actual *Versi
 		c.Config.Logger.Infof("desired CloudBuildTimeout %s - but actually nil", dcl.SprintResource(desired.CloudBuildTimeout))
 		return true
 	}
-	if compareVersionDeploymentCloudBuildOptionsCloudBuildTimeout(c, desired.CloudBuildTimeout, actual.CloudBuildTimeout) && !dcl.IsZeroValue(desired.CloudBuildTimeout) {
+	if !reflect.DeepEqual(desired.CloudBuildTimeout, actual.CloudBuildTimeout) && !dcl.IsZeroValue(desired.CloudBuildTimeout) && !(dcl.IsEmptyValueIndirect(desired.CloudBuildTimeout) && dcl.IsZeroValue(actual.CloudBuildTimeout)) {
 		c.Config.Logger.Infof("Diff in CloudBuildTimeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CloudBuildTimeout), dcl.SprintResource(actual.CloudBuildTimeout))
-		return true
-	}
-	return false
-}
-func compareVersionDeploymentCloudBuildOptionsCloudBuildTimeoutSlice(c *Client, desired, actual []VersionDeploymentCloudBuildOptionsCloudBuildTimeout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionDeploymentCloudBuildOptionsCloudBuildTimeout, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionDeploymentCloudBuildOptionsCloudBuildTimeout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionDeploymentCloudBuildOptionsCloudBuildTimeout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionDeploymentCloudBuildOptionsCloudBuildTimeout(c *Client, desired, actual *VersionDeploymentCloudBuildOptionsCloudBuildTimeout) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -7441,7 +5360,7 @@ func compareVersionHealthCheck(c *Client, desired, actual *VersionHealthCheck) b
 		c.Config.Logger.Infof("desired CheckInterval %s - but actually nil", dcl.SprintResource(desired.CheckInterval))
 		return true
 	}
-	if compareVersionHealthCheckCheckInterval(c, desired.CheckInterval, actual.CheckInterval) && !dcl.IsZeroValue(desired.CheckInterval) {
+	if !reflect.DeepEqual(desired.CheckInterval, actual.CheckInterval) && !dcl.IsZeroValue(desired.CheckInterval) && !(dcl.IsEmptyValueIndirect(desired.CheckInterval) && dcl.IsZeroValue(actual.CheckInterval)) {
 		c.Config.Logger.Infof("Diff in CheckInterval. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CheckInterval), dcl.SprintResource(actual.CheckInterval))
 		return true
 	}
@@ -7449,86 +5368,8 @@ func compareVersionHealthCheck(c *Client, desired, actual *VersionHealthCheck) b
 		c.Config.Logger.Infof("desired Timeout %s - but actually nil", dcl.SprintResource(desired.Timeout))
 		return true
 	}
-	if compareVersionHealthCheckTimeout(c, desired.Timeout, actual.Timeout) && !dcl.IsZeroValue(desired.Timeout) {
+	if !reflect.DeepEqual(desired.Timeout, actual.Timeout) && !dcl.IsZeroValue(desired.Timeout) && !(dcl.IsEmptyValueIndirect(desired.Timeout) && dcl.IsZeroValue(actual.Timeout)) {
 		c.Config.Logger.Infof("Diff in Timeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Timeout), dcl.SprintResource(actual.Timeout))
-		return true
-	}
-	return false
-}
-func compareVersionHealthCheckCheckIntervalSlice(c *Client, desired, actual []VersionHealthCheckCheckInterval) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHealthCheckCheckInterval, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionHealthCheckCheckInterval(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionHealthCheckCheckInterval, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionHealthCheckCheckInterval(c *Client, desired, actual *VersionHealthCheckCheckInterval) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-func compareVersionHealthCheckTimeoutSlice(c *Client, desired, actual []VersionHealthCheckTimeout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHealthCheckTimeout, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionHealthCheckTimeout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionHealthCheckTimeout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionHealthCheckTimeout(c *Client, desired, actual *VersionHealthCheckTimeout) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -7590,7 +5431,7 @@ func compareVersionReadinessCheck(c *Client, desired, actual *VersionReadinessCh
 		c.Config.Logger.Infof("desired CheckInterval %s - but actually nil", dcl.SprintResource(desired.CheckInterval))
 		return true
 	}
-	if compareVersionReadinessCheckCheckInterval(c, desired.CheckInterval, actual.CheckInterval) && !dcl.IsZeroValue(desired.CheckInterval) {
+	if !reflect.DeepEqual(desired.CheckInterval, actual.CheckInterval) && !dcl.IsZeroValue(desired.CheckInterval) && !(dcl.IsEmptyValueIndirect(desired.CheckInterval) && dcl.IsZeroValue(actual.CheckInterval)) {
 		c.Config.Logger.Infof("Diff in CheckInterval. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CheckInterval), dcl.SprintResource(actual.CheckInterval))
 		return true
 	}
@@ -7598,7 +5439,7 @@ func compareVersionReadinessCheck(c *Client, desired, actual *VersionReadinessCh
 		c.Config.Logger.Infof("desired Timeout %s - but actually nil", dcl.SprintResource(desired.Timeout))
 		return true
 	}
-	if compareVersionReadinessCheckTimeout(c, desired.Timeout, actual.Timeout) && !dcl.IsZeroValue(desired.Timeout) {
+	if !reflect.DeepEqual(desired.Timeout, actual.Timeout) && !dcl.IsZeroValue(desired.Timeout) && !(dcl.IsEmptyValueIndirect(desired.Timeout) && dcl.IsZeroValue(actual.Timeout)) {
 		c.Config.Logger.Infof("Diff in Timeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Timeout), dcl.SprintResource(actual.Timeout))
 		return true
 	}
@@ -7606,125 +5447,8 @@ func compareVersionReadinessCheck(c *Client, desired, actual *VersionReadinessCh
 		c.Config.Logger.Infof("desired AppStartTimeout %s - but actually nil", dcl.SprintResource(desired.AppStartTimeout))
 		return true
 	}
-	if compareVersionReadinessCheckAppStartTimeout(c, desired.AppStartTimeout, actual.AppStartTimeout) && !dcl.IsZeroValue(desired.AppStartTimeout) {
+	if !reflect.DeepEqual(desired.AppStartTimeout, actual.AppStartTimeout) && !dcl.IsZeroValue(desired.AppStartTimeout) && !(dcl.IsEmptyValueIndirect(desired.AppStartTimeout) && dcl.IsZeroValue(actual.AppStartTimeout)) {
 		c.Config.Logger.Infof("Diff in AppStartTimeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AppStartTimeout), dcl.SprintResource(actual.AppStartTimeout))
-		return true
-	}
-	return false
-}
-func compareVersionReadinessCheckCheckIntervalSlice(c *Client, desired, actual []VersionReadinessCheckCheckInterval) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionReadinessCheckCheckInterval, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionReadinessCheckCheckInterval(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionReadinessCheckCheckInterval, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionReadinessCheckCheckInterval(c *Client, desired, actual *VersionReadinessCheckCheckInterval) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-func compareVersionReadinessCheckTimeoutSlice(c *Client, desired, actual []VersionReadinessCheckTimeout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionReadinessCheckTimeout, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionReadinessCheckTimeout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionReadinessCheckTimeout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionReadinessCheckTimeout(c *Client, desired, actual *VersionReadinessCheckTimeout) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-func compareVersionReadinessCheckAppStartTimeoutSlice(c *Client, desired, actual []VersionReadinessCheckAppStartTimeout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionReadinessCheckAppStartTimeout, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionReadinessCheckAppStartTimeout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionReadinessCheckAppStartTimeout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionReadinessCheckAppStartTimeout(c *Client, desired, actual *VersionReadinessCheckAppStartTimeout) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -7786,7 +5510,7 @@ func compareVersionLivenessCheck(c *Client, desired, actual *VersionLivenessChec
 		c.Config.Logger.Infof("desired CheckInterval %s - but actually nil", dcl.SprintResource(desired.CheckInterval))
 		return true
 	}
-	if compareVersionLivenessCheckCheckInterval(c, desired.CheckInterval, actual.CheckInterval) && !dcl.IsZeroValue(desired.CheckInterval) {
+	if !reflect.DeepEqual(desired.CheckInterval, actual.CheckInterval) && !dcl.IsZeroValue(desired.CheckInterval) && !(dcl.IsEmptyValueIndirect(desired.CheckInterval) && dcl.IsZeroValue(actual.CheckInterval)) {
 		c.Config.Logger.Infof("Diff in CheckInterval. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CheckInterval), dcl.SprintResource(actual.CheckInterval))
 		return true
 	}
@@ -7794,7 +5518,7 @@ func compareVersionLivenessCheck(c *Client, desired, actual *VersionLivenessChec
 		c.Config.Logger.Infof("desired Timeout %s - but actually nil", dcl.SprintResource(desired.Timeout))
 		return true
 	}
-	if compareVersionLivenessCheckTimeout(c, desired.Timeout, actual.Timeout) && !dcl.IsZeroValue(desired.Timeout) {
+	if !reflect.DeepEqual(desired.Timeout, actual.Timeout) && !dcl.IsZeroValue(desired.Timeout) && !(dcl.IsEmptyValueIndirect(desired.Timeout) && dcl.IsZeroValue(actual.Timeout)) {
 		c.Config.Logger.Infof("Diff in Timeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Timeout), dcl.SprintResource(actual.Timeout))
 		return true
 	}
@@ -7802,125 +5526,8 @@ func compareVersionLivenessCheck(c *Client, desired, actual *VersionLivenessChec
 		c.Config.Logger.Infof("desired InitialDelay %s - but actually nil", dcl.SprintResource(desired.InitialDelay))
 		return true
 	}
-	if compareVersionLivenessCheckInitialDelay(c, desired.InitialDelay, actual.InitialDelay) && !dcl.IsZeroValue(desired.InitialDelay) {
+	if !reflect.DeepEqual(desired.InitialDelay, actual.InitialDelay) && !dcl.IsZeroValue(desired.InitialDelay) && !(dcl.IsEmptyValueIndirect(desired.InitialDelay) && dcl.IsZeroValue(actual.InitialDelay)) {
 		c.Config.Logger.Infof("Diff in InitialDelay. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InitialDelay), dcl.SprintResource(actual.InitialDelay))
-		return true
-	}
-	return false
-}
-func compareVersionLivenessCheckCheckIntervalSlice(c *Client, desired, actual []VersionLivenessCheckCheckInterval) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionLivenessCheckCheckInterval, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionLivenessCheckCheckInterval(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionLivenessCheckCheckInterval, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionLivenessCheckCheckInterval(c *Client, desired, actual *VersionLivenessCheckCheckInterval) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-func compareVersionLivenessCheckTimeoutSlice(c *Client, desired, actual []VersionLivenessCheckTimeout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionLivenessCheckTimeout, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionLivenessCheckTimeout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionLivenessCheckTimeout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionLivenessCheckTimeout(c *Client, desired, actual *VersionLivenessCheckTimeout) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-func compareVersionLivenessCheckInitialDelaySlice(c *Client, desired, actual []VersionLivenessCheckInitialDelay) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionLivenessCheckInitialDelay, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionLivenessCheckInitialDelay(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionLivenessCheckInitialDelay, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionLivenessCheckInitialDelay(c *Client, desired, actual *VersionLivenessCheckInitialDelay) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -8716,9 +6323,7 @@ func expandVersion(c *Client, f *Version) (map[string]interface{}, error) {
 	if v := f.Vm; !dcl.IsEmptyValueIndirect(v) {
 		m["vm"] = v
 	}
-	if v, err := expandVersionBetaSettingsSlice(c, f.BetaSettings); err != nil {
-		return nil, fmt.Errorf("error expanding BetaSettings into betaSettings: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.BetaSettings; !dcl.IsEmptyValueIndirect(v) {
 		m["betaSettings"] = v
 	}
 	if v := f.Env; !dcl.IsEmptyValueIndirect(v) {
@@ -8762,19 +6367,13 @@ func expandVersion(c *Client, f *Version) (map[string]interface{}, error) {
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiConfig"] = v
 	}
-	if v, err := expandVersionEnvVariablesSlice(c, f.EnvVariables); err != nil {
-		return nil, fmt.Errorf("error expanding EnvVariables into envVariables: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.EnvVariables; !dcl.IsEmptyValueIndirect(v) {
 		m["envVariables"] = v
 	}
-	if v, err := expandVersionBuildEnvVariablesSlice(c, f.BuildEnvVariables); err != nil {
-		return nil, fmt.Errorf("error expanding BuildEnvVariables into buildEnvVariables: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.BuildEnvVariables; !dcl.IsEmptyValueIndirect(v) {
 		m["buildEnvVariables"] = v
 	}
-	if v, err := expandVersionDefaultExpiration(c, f.DefaultExpiration); err != nil {
-		return nil, fmt.Errorf("error expanding DefaultExpiration into defaultExpiration: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DefaultExpiration; !dcl.IsEmptyValueIndirect(v) {
 		m["defaultExpiration"] = v
 	}
 	if v, err := expandVersionDeployment(c, f.Deployment); err != nil {
@@ -8878,7 +6477,7 @@ func flattenVersion(c *Client, i interface{}) *Version {
 	r.RuntimeChannel = dcl.FlattenString(m["runtimeChannel"])
 	r.Threadsafe = dcl.FlattenBool(m["threadsafe"])
 	r.Vm = dcl.FlattenBool(m["vm"])
-	r.BetaSettings = flattenVersionBetaSettingsSlice(c, m["betaSettings"])
+	r.BetaSettings = dcl.FlattenKeyValuePairs(m["betaSettings"])
 	r.Env = dcl.FlattenString(m["env"])
 	r.ServingStatus = flattenVersionServingStatusEnum(m["servingStatus"])
 	r.CreatedBy = dcl.FlattenString(m["createdBy"])
@@ -8890,9 +6489,9 @@ func flattenVersion(c *Client, i interface{}) *Version {
 	r.ErrorHandlers = flattenVersionErrorHandlersSlice(c, m["errorHandlers"])
 	r.Libraries = flattenVersionLibrariesSlice(c, m["libraries"])
 	r.ApiConfig = flattenVersionApiConfig(c, m["apiConfig"])
-	r.EnvVariables = flattenVersionEnvVariablesSlice(c, m["envVariables"])
-	r.BuildEnvVariables = flattenVersionBuildEnvVariablesSlice(c, m["buildEnvVariables"])
-	r.DefaultExpiration = flattenVersionDefaultExpiration(c, m["defaultExpiration"])
+	r.EnvVariables = dcl.FlattenKeyValuePairs(m["envVariables"])
+	r.BuildEnvVariables = dcl.FlattenKeyValuePairs(m["buildEnvVariables"])
+	r.DefaultExpiration = dcl.FlattenString(m["defaultExpiration"])
 	r.Deployment = flattenVersionDeployment(c, m["deployment"])
 	r.HealthCheck = flattenVersionHealthCheck(c, m["healthCheck"])
 	r.ReadinessCheck = flattenVersionReadinessCheck(c, m["readinessCheck"])
@@ -9001,9 +6600,7 @@ func expandVersionAutomaticScaling(c *Client, f *VersionAutomaticScaling) (map[s
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandVersionAutomaticScalingCoolDownPeriod(c, f.CoolDownPeriod); err != nil {
-		return nil, fmt.Errorf("error expanding CoolDownPeriod into coolDownPeriod: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.CoolDownPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["coolDownPeriod"] = v
 	}
 	if v, err := expandVersionAutomaticScalingCpuUtilization(c, f.CpuUtilization); err != nil {
@@ -9020,9 +6617,7 @@ func expandVersionAutomaticScaling(c *Client, f *VersionAutomaticScaling) (map[s
 	if v := f.MaxTotalInstances; !dcl.IsEmptyValueIndirect(v) {
 		m["maxTotalInstances"] = v
 	}
-	if v, err := expandVersionAutomaticScalingMaxPendingLatency(c, f.MaxPendingLatency); err != nil {
-		return nil, fmt.Errorf("error expanding MaxPendingLatency into maxPendingLatency: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.MaxPendingLatency; !dcl.IsEmptyValueIndirect(v) {
 		m["maxPendingLatency"] = v
 	}
 	if v := f.MinIdleInstances; !dcl.IsEmptyValueIndirect(v) {
@@ -9031,9 +6626,7 @@ func expandVersionAutomaticScaling(c *Client, f *VersionAutomaticScaling) (map[s
 	if v := f.MinTotalInstances; !dcl.IsEmptyValueIndirect(v) {
 		m["minTotalInstances"] = v
 	}
-	if v, err := expandVersionAutomaticScalingMinPendingLatency(c, f.MinPendingLatency); err != nil {
-		return nil, fmt.Errorf("error expanding MinPendingLatency into minPendingLatency: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.MinPendingLatency; !dcl.IsEmptyValueIndirect(v) {
 		m["minPendingLatency"] = v
 	}
 	if v, err := expandVersionAutomaticScalingRequestUtilization(c, f.RequestUtilization); err != nil {
@@ -9069,133 +6662,19 @@ func flattenVersionAutomaticScaling(c *Client, i interface{}) *VersionAutomaticS
 	}
 
 	r := &VersionAutomaticScaling{}
-	r.CoolDownPeriod = flattenVersionAutomaticScalingCoolDownPeriod(c, m["coolDownPeriod"])
+	r.CoolDownPeriod = dcl.FlattenString(m["coolDownPeriod"])
 	r.CpuUtilization = flattenVersionAutomaticScalingCpuUtilization(c, m["cpuUtilization"])
 	r.MaxConcurrentRequests = dcl.FlattenInteger(m["maxConcurrentRequests"])
 	r.MaxIdleInstances = dcl.FlattenInteger(m["maxIdleInstances"])
 	r.MaxTotalInstances = dcl.FlattenInteger(m["maxTotalInstances"])
-	r.MaxPendingLatency = flattenVersionAutomaticScalingMaxPendingLatency(c, m["maxPendingLatency"])
+	r.MaxPendingLatency = dcl.FlattenString(m["maxPendingLatency"])
 	r.MinIdleInstances = dcl.FlattenInteger(m["minIdleInstances"])
 	r.MinTotalInstances = dcl.FlattenInteger(m["minTotalInstances"])
-	r.MinPendingLatency = flattenVersionAutomaticScalingMinPendingLatency(c, m["minPendingLatency"])
+	r.MinPendingLatency = dcl.FlattenString(m["minPendingLatency"])
 	r.RequestUtilization = flattenVersionAutomaticScalingRequestUtilization(c, m["requestUtilization"])
 	r.DiskUtilization = flattenVersionAutomaticScalingDiskUtilization(c, m["diskUtilization"])
 	r.NetworkUtilization = flattenVersionAutomaticScalingNetworkUtilization(c, m["networkUtilization"])
 	r.StandardSchedulerSettings = flattenVersionAutomaticScalingStandardSchedulerSettings(c, m["standardSchedulerSettings"])
-
-	return r
-}
-
-// expandVersionAutomaticScalingCoolDownPeriodMap expands the contents of VersionAutomaticScalingCoolDownPeriod into a JSON
-// request object.
-func expandVersionAutomaticScalingCoolDownPeriodMap(c *Client, f map[string]VersionAutomaticScalingCoolDownPeriod) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionAutomaticScalingCoolDownPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionAutomaticScalingCoolDownPeriodSlice expands the contents of VersionAutomaticScalingCoolDownPeriod into a JSON
-// request object.
-func expandVersionAutomaticScalingCoolDownPeriodSlice(c *Client, f []VersionAutomaticScalingCoolDownPeriod) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionAutomaticScalingCoolDownPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionAutomaticScalingCoolDownPeriodMap flattens the contents of VersionAutomaticScalingCoolDownPeriod from a JSON
-// response object.
-func flattenVersionAutomaticScalingCoolDownPeriodMap(c *Client, i interface{}) map[string]VersionAutomaticScalingCoolDownPeriod {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionAutomaticScalingCoolDownPeriod{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionAutomaticScalingCoolDownPeriod{}
-	}
-
-	items := make(map[string]VersionAutomaticScalingCoolDownPeriod)
-	for k, item := range a {
-		items[k] = *flattenVersionAutomaticScalingCoolDownPeriod(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionAutomaticScalingCoolDownPeriodSlice flattens the contents of VersionAutomaticScalingCoolDownPeriod from a JSON
-// response object.
-func flattenVersionAutomaticScalingCoolDownPeriodSlice(c *Client, i interface{}) []VersionAutomaticScalingCoolDownPeriod {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionAutomaticScalingCoolDownPeriod{}
-	}
-
-	if len(a) == 0 {
-		return []VersionAutomaticScalingCoolDownPeriod{}
-	}
-
-	items := make([]VersionAutomaticScalingCoolDownPeriod, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionAutomaticScalingCoolDownPeriod(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionAutomaticScalingCoolDownPeriod expands an instance of VersionAutomaticScalingCoolDownPeriod into a JSON
-// request object.
-func expandVersionAutomaticScalingCoolDownPeriod(c *Client, f *VersionAutomaticScalingCoolDownPeriod) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionAutomaticScalingCoolDownPeriod flattens an instance of VersionAutomaticScalingCoolDownPeriod from a JSON
-// response object.
-func flattenVersionAutomaticScalingCoolDownPeriod(c *Client, i interface{}) *VersionAutomaticScalingCoolDownPeriod {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionAutomaticScalingCoolDownPeriod{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
 	return r
 }
@@ -9289,9 +6768,7 @@ func expandVersionAutomaticScalingCpuUtilization(c *Client, f *VersionAutomaticS
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandVersionAutomaticScalingCpuUtilizationAggregationWindowLength(c, f.AggregationWindowLength); err != nil {
-		return nil, fmt.Errorf("error expanding AggregationWindowLength into aggregationWindowLength: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AggregationWindowLength; !dcl.IsEmptyValueIndirect(v) {
 		m["aggregationWindowLength"] = v
 	}
 	if v := f.TargetUtilization; !dcl.IsEmptyValueIndirect(v) {
@@ -9310,350 +6787,8 @@ func flattenVersionAutomaticScalingCpuUtilization(c *Client, i interface{}) *Ver
 	}
 
 	r := &VersionAutomaticScalingCpuUtilization{}
-	r.AggregationWindowLength = flattenVersionAutomaticScalingCpuUtilizationAggregationWindowLength(c, m["aggregationWindowLength"])
+	r.AggregationWindowLength = dcl.FlattenString(m["aggregationWindowLength"])
 	r.TargetUtilization = dcl.FlattenDouble(m["targetUtilization"])
-
-	return r
-}
-
-// expandVersionAutomaticScalingCpuUtilizationAggregationWindowLengthMap expands the contents of VersionAutomaticScalingCpuUtilizationAggregationWindowLength into a JSON
-// request object.
-func expandVersionAutomaticScalingCpuUtilizationAggregationWindowLengthMap(c *Client, f map[string]VersionAutomaticScalingCpuUtilizationAggregationWindowLength) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionAutomaticScalingCpuUtilizationAggregationWindowLength(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionAutomaticScalingCpuUtilizationAggregationWindowLengthSlice expands the contents of VersionAutomaticScalingCpuUtilizationAggregationWindowLength into a JSON
-// request object.
-func expandVersionAutomaticScalingCpuUtilizationAggregationWindowLengthSlice(c *Client, f []VersionAutomaticScalingCpuUtilizationAggregationWindowLength) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionAutomaticScalingCpuUtilizationAggregationWindowLength(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionAutomaticScalingCpuUtilizationAggregationWindowLengthMap flattens the contents of VersionAutomaticScalingCpuUtilizationAggregationWindowLength from a JSON
-// response object.
-func flattenVersionAutomaticScalingCpuUtilizationAggregationWindowLengthMap(c *Client, i interface{}) map[string]VersionAutomaticScalingCpuUtilizationAggregationWindowLength {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionAutomaticScalingCpuUtilizationAggregationWindowLength{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionAutomaticScalingCpuUtilizationAggregationWindowLength{}
-	}
-
-	items := make(map[string]VersionAutomaticScalingCpuUtilizationAggregationWindowLength)
-	for k, item := range a {
-		items[k] = *flattenVersionAutomaticScalingCpuUtilizationAggregationWindowLength(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionAutomaticScalingCpuUtilizationAggregationWindowLengthSlice flattens the contents of VersionAutomaticScalingCpuUtilizationAggregationWindowLength from a JSON
-// response object.
-func flattenVersionAutomaticScalingCpuUtilizationAggregationWindowLengthSlice(c *Client, i interface{}) []VersionAutomaticScalingCpuUtilizationAggregationWindowLength {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionAutomaticScalingCpuUtilizationAggregationWindowLength{}
-	}
-
-	if len(a) == 0 {
-		return []VersionAutomaticScalingCpuUtilizationAggregationWindowLength{}
-	}
-
-	items := make([]VersionAutomaticScalingCpuUtilizationAggregationWindowLength, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionAutomaticScalingCpuUtilizationAggregationWindowLength(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionAutomaticScalingCpuUtilizationAggregationWindowLength expands an instance of VersionAutomaticScalingCpuUtilizationAggregationWindowLength into a JSON
-// request object.
-func expandVersionAutomaticScalingCpuUtilizationAggregationWindowLength(c *Client, f *VersionAutomaticScalingCpuUtilizationAggregationWindowLength) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionAutomaticScalingCpuUtilizationAggregationWindowLength flattens an instance of VersionAutomaticScalingCpuUtilizationAggregationWindowLength from a JSON
-// response object.
-func flattenVersionAutomaticScalingCpuUtilizationAggregationWindowLength(c *Client, i interface{}) *VersionAutomaticScalingCpuUtilizationAggregationWindowLength {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionAutomaticScalingCpuUtilizationAggregationWindowLength{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
-
-	return r
-}
-
-// expandVersionAutomaticScalingMaxPendingLatencyMap expands the contents of VersionAutomaticScalingMaxPendingLatency into a JSON
-// request object.
-func expandVersionAutomaticScalingMaxPendingLatencyMap(c *Client, f map[string]VersionAutomaticScalingMaxPendingLatency) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionAutomaticScalingMaxPendingLatency(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionAutomaticScalingMaxPendingLatencySlice expands the contents of VersionAutomaticScalingMaxPendingLatency into a JSON
-// request object.
-func expandVersionAutomaticScalingMaxPendingLatencySlice(c *Client, f []VersionAutomaticScalingMaxPendingLatency) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionAutomaticScalingMaxPendingLatency(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionAutomaticScalingMaxPendingLatencyMap flattens the contents of VersionAutomaticScalingMaxPendingLatency from a JSON
-// response object.
-func flattenVersionAutomaticScalingMaxPendingLatencyMap(c *Client, i interface{}) map[string]VersionAutomaticScalingMaxPendingLatency {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionAutomaticScalingMaxPendingLatency{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionAutomaticScalingMaxPendingLatency{}
-	}
-
-	items := make(map[string]VersionAutomaticScalingMaxPendingLatency)
-	for k, item := range a {
-		items[k] = *flattenVersionAutomaticScalingMaxPendingLatency(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionAutomaticScalingMaxPendingLatencySlice flattens the contents of VersionAutomaticScalingMaxPendingLatency from a JSON
-// response object.
-func flattenVersionAutomaticScalingMaxPendingLatencySlice(c *Client, i interface{}) []VersionAutomaticScalingMaxPendingLatency {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionAutomaticScalingMaxPendingLatency{}
-	}
-
-	if len(a) == 0 {
-		return []VersionAutomaticScalingMaxPendingLatency{}
-	}
-
-	items := make([]VersionAutomaticScalingMaxPendingLatency, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionAutomaticScalingMaxPendingLatency(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionAutomaticScalingMaxPendingLatency expands an instance of VersionAutomaticScalingMaxPendingLatency into a JSON
-// request object.
-func expandVersionAutomaticScalingMaxPendingLatency(c *Client, f *VersionAutomaticScalingMaxPendingLatency) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionAutomaticScalingMaxPendingLatency flattens an instance of VersionAutomaticScalingMaxPendingLatency from a JSON
-// response object.
-func flattenVersionAutomaticScalingMaxPendingLatency(c *Client, i interface{}) *VersionAutomaticScalingMaxPendingLatency {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionAutomaticScalingMaxPendingLatency{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
-
-	return r
-}
-
-// expandVersionAutomaticScalingMinPendingLatencyMap expands the contents of VersionAutomaticScalingMinPendingLatency into a JSON
-// request object.
-func expandVersionAutomaticScalingMinPendingLatencyMap(c *Client, f map[string]VersionAutomaticScalingMinPendingLatency) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionAutomaticScalingMinPendingLatency(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionAutomaticScalingMinPendingLatencySlice expands the contents of VersionAutomaticScalingMinPendingLatency into a JSON
-// request object.
-func expandVersionAutomaticScalingMinPendingLatencySlice(c *Client, f []VersionAutomaticScalingMinPendingLatency) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionAutomaticScalingMinPendingLatency(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionAutomaticScalingMinPendingLatencyMap flattens the contents of VersionAutomaticScalingMinPendingLatency from a JSON
-// response object.
-func flattenVersionAutomaticScalingMinPendingLatencyMap(c *Client, i interface{}) map[string]VersionAutomaticScalingMinPendingLatency {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionAutomaticScalingMinPendingLatency{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionAutomaticScalingMinPendingLatency{}
-	}
-
-	items := make(map[string]VersionAutomaticScalingMinPendingLatency)
-	for k, item := range a {
-		items[k] = *flattenVersionAutomaticScalingMinPendingLatency(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionAutomaticScalingMinPendingLatencySlice flattens the contents of VersionAutomaticScalingMinPendingLatency from a JSON
-// response object.
-func flattenVersionAutomaticScalingMinPendingLatencySlice(c *Client, i interface{}) []VersionAutomaticScalingMinPendingLatency {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionAutomaticScalingMinPendingLatency{}
-	}
-
-	if len(a) == 0 {
-		return []VersionAutomaticScalingMinPendingLatency{}
-	}
-
-	items := make([]VersionAutomaticScalingMinPendingLatency, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionAutomaticScalingMinPendingLatency(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionAutomaticScalingMinPendingLatency expands an instance of VersionAutomaticScalingMinPendingLatency into a JSON
-// request object.
-func expandVersionAutomaticScalingMinPendingLatency(c *Client, f *VersionAutomaticScalingMinPendingLatency) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionAutomaticScalingMinPendingLatency flattens an instance of VersionAutomaticScalingMinPendingLatency from a JSON
-// response object.
-func flattenVersionAutomaticScalingMinPendingLatency(c *Client, i interface{}) *VersionAutomaticScalingMinPendingLatency {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionAutomaticScalingMinPendingLatency{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
 	return r
 }
@@ -10227,9 +7362,7 @@ func expandVersionBasicScaling(c *Client, f *VersionBasicScaling) (map[string]in
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandVersionBasicScalingIdleTimeout(c, f.IdleTimeout); err != nil {
-		return nil, fmt.Errorf("error expanding IdleTimeout into idleTimeout: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.IdleTimeout; !dcl.IsEmptyValueIndirect(v) {
 		m["idleTimeout"] = v
 	}
 	if v := f.MaxInstances; !dcl.IsEmptyValueIndirect(v) {
@@ -10248,122 +7381,8 @@ func flattenVersionBasicScaling(c *Client, i interface{}) *VersionBasicScaling {
 	}
 
 	r := &VersionBasicScaling{}
-	r.IdleTimeout = flattenVersionBasicScalingIdleTimeout(c, m["idleTimeout"])
+	r.IdleTimeout = dcl.FlattenString(m["idleTimeout"])
 	r.MaxInstances = dcl.FlattenInteger(m["maxInstances"])
-
-	return r
-}
-
-// expandVersionBasicScalingIdleTimeoutMap expands the contents of VersionBasicScalingIdleTimeout into a JSON
-// request object.
-func expandVersionBasicScalingIdleTimeoutMap(c *Client, f map[string]VersionBasicScalingIdleTimeout) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionBasicScalingIdleTimeout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionBasicScalingIdleTimeoutSlice expands the contents of VersionBasicScalingIdleTimeout into a JSON
-// request object.
-func expandVersionBasicScalingIdleTimeoutSlice(c *Client, f []VersionBasicScalingIdleTimeout) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionBasicScalingIdleTimeout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionBasicScalingIdleTimeoutMap flattens the contents of VersionBasicScalingIdleTimeout from a JSON
-// response object.
-func flattenVersionBasicScalingIdleTimeoutMap(c *Client, i interface{}) map[string]VersionBasicScalingIdleTimeout {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionBasicScalingIdleTimeout{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionBasicScalingIdleTimeout{}
-	}
-
-	items := make(map[string]VersionBasicScalingIdleTimeout)
-	for k, item := range a {
-		items[k] = *flattenVersionBasicScalingIdleTimeout(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionBasicScalingIdleTimeoutSlice flattens the contents of VersionBasicScalingIdleTimeout from a JSON
-// response object.
-func flattenVersionBasicScalingIdleTimeoutSlice(c *Client, i interface{}) []VersionBasicScalingIdleTimeout {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionBasicScalingIdleTimeout{}
-	}
-
-	if len(a) == 0 {
-		return []VersionBasicScalingIdleTimeout{}
-	}
-
-	items := make([]VersionBasicScalingIdleTimeout, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionBasicScalingIdleTimeout(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionBasicScalingIdleTimeout expands an instance of VersionBasicScalingIdleTimeout into a JSON
-// request object.
-func expandVersionBasicScalingIdleTimeout(c *Client, f *VersionBasicScalingIdleTimeout) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionBasicScalingIdleTimeout flattens an instance of VersionBasicScalingIdleTimeout from a JSON
-// response object.
-func flattenVersionBasicScalingIdleTimeout(c *Client, i interface{}) *VersionBasicScalingIdleTimeout {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionBasicScalingIdleTimeout{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
 	return r
 }
@@ -10573,22 +7592,16 @@ func expandVersionJobScaling(c *Client, f *VersionJobScaling) (map[string]interf
 	if v := f.Parallelism; !dcl.IsEmptyValueIndirect(v) {
 		m["parallelism"] = v
 	}
-	if v, err := expandVersionJobScalingJobDeadline(c, f.JobDeadline); err != nil {
-		return nil, fmt.Errorf("error expanding JobDeadline into jobDeadline: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.JobDeadline; !dcl.IsEmptyValueIndirect(v) {
 		m["jobDeadline"] = v
 	}
 	if v := f.InstanceRetries; !dcl.IsEmptyValueIndirect(v) {
 		m["instanceRetries"] = v
 	}
-	if v, err := expandVersionJobScalingInstanceDeadline(c, f.InstanceDeadline); err != nil {
-		return nil, fmt.Errorf("error expanding InstanceDeadline into instanceDeadline: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.InstanceDeadline; !dcl.IsEmptyValueIndirect(v) {
 		m["instanceDeadline"] = v
 	}
-	if v, err := expandVersionJobScalingInstanceTerminationWindow(c, f.InstanceTerminationWindow); err != nil {
-		return nil, fmt.Errorf("error expanding InstanceTerminationWindow into instanceTerminationWindow: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.InstanceTerminationWindow; !dcl.IsEmptyValueIndirect(v) {
 		m["instanceTerminationWindow"] = v
 	}
 
@@ -10606,352 +7619,10 @@ func flattenVersionJobScaling(c *Client, i interface{}) *VersionJobScaling {
 	r := &VersionJobScaling{}
 	r.Completions = dcl.FlattenInteger(m["completions"])
 	r.Parallelism = dcl.FlattenInteger(m["parallelism"])
-	r.JobDeadline = flattenVersionJobScalingJobDeadline(c, m["jobDeadline"])
+	r.JobDeadline = dcl.FlattenString(m["jobDeadline"])
 	r.InstanceRetries = dcl.FlattenInteger(m["instanceRetries"])
-	r.InstanceDeadline = flattenVersionJobScalingInstanceDeadline(c, m["instanceDeadline"])
-	r.InstanceTerminationWindow = flattenVersionJobScalingInstanceTerminationWindow(c, m["instanceTerminationWindow"])
-
-	return r
-}
-
-// expandVersionJobScalingJobDeadlineMap expands the contents of VersionJobScalingJobDeadline into a JSON
-// request object.
-func expandVersionJobScalingJobDeadlineMap(c *Client, f map[string]VersionJobScalingJobDeadline) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionJobScalingJobDeadline(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionJobScalingJobDeadlineSlice expands the contents of VersionJobScalingJobDeadline into a JSON
-// request object.
-func expandVersionJobScalingJobDeadlineSlice(c *Client, f []VersionJobScalingJobDeadline) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionJobScalingJobDeadline(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionJobScalingJobDeadlineMap flattens the contents of VersionJobScalingJobDeadline from a JSON
-// response object.
-func flattenVersionJobScalingJobDeadlineMap(c *Client, i interface{}) map[string]VersionJobScalingJobDeadline {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionJobScalingJobDeadline{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionJobScalingJobDeadline{}
-	}
-
-	items := make(map[string]VersionJobScalingJobDeadline)
-	for k, item := range a {
-		items[k] = *flattenVersionJobScalingJobDeadline(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionJobScalingJobDeadlineSlice flattens the contents of VersionJobScalingJobDeadline from a JSON
-// response object.
-func flattenVersionJobScalingJobDeadlineSlice(c *Client, i interface{}) []VersionJobScalingJobDeadline {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionJobScalingJobDeadline{}
-	}
-
-	if len(a) == 0 {
-		return []VersionJobScalingJobDeadline{}
-	}
-
-	items := make([]VersionJobScalingJobDeadline, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionJobScalingJobDeadline(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionJobScalingJobDeadline expands an instance of VersionJobScalingJobDeadline into a JSON
-// request object.
-func expandVersionJobScalingJobDeadline(c *Client, f *VersionJobScalingJobDeadline) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionJobScalingJobDeadline flattens an instance of VersionJobScalingJobDeadline from a JSON
-// response object.
-func flattenVersionJobScalingJobDeadline(c *Client, i interface{}) *VersionJobScalingJobDeadline {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionJobScalingJobDeadline{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
-
-	return r
-}
-
-// expandVersionJobScalingInstanceDeadlineMap expands the contents of VersionJobScalingInstanceDeadline into a JSON
-// request object.
-func expandVersionJobScalingInstanceDeadlineMap(c *Client, f map[string]VersionJobScalingInstanceDeadline) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionJobScalingInstanceDeadline(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionJobScalingInstanceDeadlineSlice expands the contents of VersionJobScalingInstanceDeadline into a JSON
-// request object.
-func expandVersionJobScalingInstanceDeadlineSlice(c *Client, f []VersionJobScalingInstanceDeadline) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionJobScalingInstanceDeadline(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionJobScalingInstanceDeadlineMap flattens the contents of VersionJobScalingInstanceDeadline from a JSON
-// response object.
-func flattenVersionJobScalingInstanceDeadlineMap(c *Client, i interface{}) map[string]VersionJobScalingInstanceDeadline {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionJobScalingInstanceDeadline{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionJobScalingInstanceDeadline{}
-	}
-
-	items := make(map[string]VersionJobScalingInstanceDeadline)
-	for k, item := range a {
-		items[k] = *flattenVersionJobScalingInstanceDeadline(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionJobScalingInstanceDeadlineSlice flattens the contents of VersionJobScalingInstanceDeadline from a JSON
-// response object.
-func flattenVersionJobScalingInstanceDeadlineSlice(c *Client, i interface{}) []VersionJobScalingInstanceDeadline {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionJobScalingInstanceDeadline{}
-	}
-
-	if len(a) == 0 {
-		return []VersionJobScalingInstanceDeadline{}
-	}
-
-	items := make([]VersionJobScalingInstanceDeadline, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionJobScalingInstanceDeadline(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionJobScalingInstanceDeadline expands an instance of VersionJobScalingInstanceDeadline into a JSON
-// request object.
-func expandVersionJobScalingInstanceDeadline(c *Client, f *VersionJobScalingInstanceDeadline) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionJobScalingInstanceDeadline flattens an instance of VersionJobScalingInstanceDeadline from a JSON
-// response object.
-func flattenVersionJobScalingInstanceDeadline(c *Client, i interface{}) *VersionJobScalingInstanceDeadline {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionJobScalingInstanceDeadline{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
-
-	return r
-}
-
-// expandVersionJobScalingInstanceTerminationWindowMap expands the contents of VersionJobScalingInstanceTerminationWindow into a JSON
-// request object.
-func expandVersionJobScalingInstanceTerminationWindowMap(c *Client, f map[string]VersionJobScalingInstanceTerminationWindow) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionJobScalingInstanceTerminationWindow(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionJobScalingInstanceTerminationWindowSlice expands the contents of VersionJobScalingInstanceTerminationWindow into a JSON
-// request object.
-func expandVersionJobScalingInstanceTerminationWindowSlice(c *Client, f []VersionJobScalingInstanceTerminationWindow) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionJobScalingInstanceTerminationWindow(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionJobScalingInstanceTerminationWindowMap flattens the contents of VersionJobScalingInstanceTerminationWindow from a JSON
-// response object.
-func flattenVersionJobScalingInstanceTerminationWindowMap(c *Client, i interface{}) map[string]VersionJobScalingInstanceTerminationWindow {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionJobScalingInstanceTerminationWindow{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionJobScalingInstanceTerminationWindow{}
-	}
-
-	items := make(map[string]VersionJobScalingInstanceTerminationWindow)
-	for k, item := range a {
-		items[k] = *flattenVersionJobScalingInstanceTerminationWindow(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionJobScalingInstanceTerminationWindowSlice flattens the contents of VersionJobScalingInstanceTerminationWindow from a JSON
-// response object.
-func flattenVersionJobScalingInstanceTerminationWindowSlice(c *Client, i interface{}) []VersionJobScalingInstanceTerminationWindow {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionJobScalingInstanceTerminationWindow{}
-	}
-
-	if len(a) == 0 {
-		return []VersionJobScalingInstanceTerminationWindow{}
-	}
-
-	items := make([]VersionJobScalingInstanceTerminationWindow, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionJobScalingInstanceTerminationWindow(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionJobScalingInstanceTerminationWindow expands an instance of VersionJobScalingInstanceTerminationWindow into a JSON
-// request object.
-func expandVersionJobScalingInstanceTerminationWindow(c *Client, f *VersionJobScalingInstanceTerminationWindow) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionJobScalingInstanceTerminationWindow flattens an instance of VersionJobScalingInstanceTerminationWindow from a JSON
-// response object.
-func flattenVersionJobScalingInstanceTerminationWindow(c *Client, i interface{}) *VersionJobScalingInstanceTerminationWindow {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionJobScalingInstanceTerminationWindow{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
+	r.InstanceDeadline = dcl.FlattenString(m["instanceDeadline"])
+	r.InstanceTerminationWindow = dcl.FlattenString(m["instanceTerminationWindow"])
 
 	return r
 }
@@ -11446,120 +8117,6 @@ func flattenVersionResourcesVolumes(c *Client, i interface{}) *VersionResourcesV
 	return r
 }
 
-// expandVersionBetaSettingsMap expands the contents of VersionBetaSettings into a JSON
-// request object.
-func expandVersionBetaSettingsMap(c *Client, f map[string]VersionBetaSettings) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionBetaSettings(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionBetaSettingsSlice expands the contents of VersionBetaSettings into a JSON
-// request object.
-func expandVersionBetaSettingsSlice(c *Client, f []VersionBetaSettings) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionBetaSettings(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionBetaSettingsMap flattens the contents of VersionBetaSettings from a JSON
-// response object.
-func flattenVersionBetaSettingsMap(c *Client, i interface{}) map[string]VersionBetaSettings {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionBetaSettings{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionBetaSettings{}
-	}
-
-	items := make(map[string]VersionBetaSettings)
-	for k, item := range a {
-		items[k] = *flattenVersionBetaSettings(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionBetaSettingsSlice flattens the contents of VersionBetaSettings from a JSON
-// response object.
-func flattenVersionBetaSettingsSlice(c *Client, i interface{}) []VersionBetaSettings {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionBetaSettings{}
-	}
-
-	if len(a) == 0 {
-		return []VersionBetaSettings{}
-	}
-
-	items := make([]VersionBetaSettings, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionBetaSettings(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionBetaSettings expands an instance of VersionBetaSettings into a JSON
-// request object.
-func expandVersionBetaSettings(c *Client, f *VersionBetaSettings) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionBetaSettings flattens an instance of VersionBetaSettings from a JSON
-// response object.
-func flattenVersionBetaSettings(c *Client, i interface{}) *VersionBetaSettings {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionBetaSettings{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
-
-	return r
-}
-
 // expandVersionHandlersMap expands the contents of VersionHandlers into a JSON
 // request object.
 func expandVersionHandlersMap(c *Client, f map[string]VersionHandlers) (map[string]interface{}, error) {
@@ -11799,17 +8356,13 @@ func expandVersionHandlersStaticFiles(c *Client, f *VersionHandlersStaticFiles) 
 	if v := f.UploadPathRegex; !dcl.IsEmptyValueIndirect(v) {
 		m["uploadPathRegex"] = v
 	}
-	if v, err := expandVersionHandlersStaticFilesHttpHeadersSlice(c, f.HttpHeaders); err != nil {
-		return nil, fmt.Errorf("error expanding HttpHeaders into httpHeaders: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.HttpHeaders; !dcl.IsEmptyValueIndirect(v) {
 		m["httpHeaders"] = v
 	}
 	if v := f.MimeType; !dcl.IsEmptyValueIndirect(v) {
 		m["mimeType"] = v
 	}
-	if v, err := expandVersionHandlersStaticFilesExpiration(c, f.Expiration); err != nil {
-		return nil, fmt.Errorf("error expanding Expiration into expiration: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Expiration; !dcl.IsEmptyValueIndirect(v) {
 		m["expiration"] = v
 	}
 	if v := f.RequireMatchingFile; !dcl.IsEmptyValueIndirect(v) {
@@ -11833,239 +8386,11 @@ func flattenVersionHandlersStaticFiles(c *Client, i interface{}) *VersionHandler
 	r := &VersionHandlersStaticFiles{}
 	r.Path = dcl.FlattenString(m["path"])
 	r.UploadPathRegex = dcl.FlattenString(m["uploadPathRegex"])
-	r.HttpHeaders = flattenVersionHandlersStaticFilesHttpHeadersSlice(c, m["httpHeaders"])
+	r.HttpHeaders = dcl.FlattenKeyValuePairs(m["httpHeaders"])
 	r.MimeType = dcl.FlattenString(m["mimeType"])
-	r.Expiration = flattenVersionHandlersStaticFilesExpiration(c, m["expiration"])
+	r.Expiration = dcl.FlattenString(m["expiration"])
 	r.RequireMatchingFile = dcl.FlattenBool(m["requireMatchingFile"])
 	r.ApplicationReadable = dcl.FlattenBool(m["applicationReadable"])
-
-	return r
-}
-
-// expandVersionHandlersStaticFilesHttpHeadersMap expands the contents of VersionHandlersStaticFilesHttpHeaders into a JSON
-// request object.
-func expandVersionHandlersStaticFilesHttpHeadersMap(c *Client, f map[string]VersionHandlersStaticFilesHttpHeaders) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionHandlersStaticFilesHttpHeaders(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionHandlersStaticFilesHttpHeadersSlice expands the contents of VersionHandlersStaticFilesHttpHeaders into a JSON
-// request object.
-func expandVersionHandlersStaticFilesHttpHeadersSlice(c *Client, f []VersionHandlersStaticFilesHttpHeaders) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionHandlersStaticFilesHttpHeaders(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionHandlersStaticFilesHttpHeadersMap flattens the contents of VersionHandlersStaticFilesHttpHeaders from a JSON
-// response object.
-func flattenVersionHandlersStaticFilesHttpHeadersMap(c *Client, i interface{}) map[string]VersionHandlersStaticFilesHttpHeaders {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionHandlersStaticFilesHttpHeaders{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionHandlersStaticFilesHttpHeaders{}
-	}
-
-	items := make(map[string]VersionHandlersStaticFilesHttpHeaders)
-	for k, item := range a {
-		items[k] = *flattenVersionHandlersStaticFilesHttpHeaders(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionHandlersStaticFilesHttpHeadersSlice flattens the contents of VersionHandlersStaticFilesHttpHeaders from a JSON
-// response object.
-func flattenVersionHandlersStaticFilesHttpHeadersSlice(c *Client, i interface{}) []VersionHandlersStaticFilesHttpHeaders {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionHandlersStaticFilesHttpHeaders{}
-	}
-
-	if len(a) == 0 {
-		return []VersionHandlersStaticFilesHttpHeaders{}
-	}
-
-	items := make([]VersionHandlersStaticFilesHttpHeaders, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionHandlersStaticFilesHttpHeaders(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionHandlersStaticFilesHttpHeaders expands an instance of VersionHandlersStaticFilesHttpHeaders into a JSON
-// request object.
-func expandVersionHandlersStaticFilesHttpHeaders(c *Client, f *VersionHandlersStaticFilesHttpHeaders) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionHandlersStaticFilesHttpHeaders flattens an instance of VersionHandlersStaticFilesHttpHeaders from a JSON
-// response object.
-func flattenVersionHandlersStaticFilesHttpHeaders(c *Client, i interface{}) *VersionHandlersStaticFilesHttpHeaders {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionHandlersStaticFilesHttpHeaders{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
-
-	return r
-}
-
-// expandVersionHandlersStaticFilesExpirationMap expands the contents of VersionHandlersStaticFilesExpiration into a JSON
-// request object.
-func expandVersionHandlersStaticFilesExpirationMap(c *Client, f map[string]VersionHandlersStaticFilesExpiration) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionHandlersStaticFilesExpiration(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionHandlersStaticFilesExpirationSlice expands the contents of VersionHandlersStaticFilesExpiration into a JSON
-// request object.
-func expandVersionHandlersStaticFilesExpirationSlice(c *Client, f []VersionHandlersStaticFilesExpiration) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionHandlersStaticFilesExpiration(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionHandlersStaticFilesExpirationMap flattens the contents of VersionHandlersStaticFilesExpiration from a JSON
-// response object.
-func flattenVersionHandlersStaticFilesExpirationMap(c *Client, i interface{}) map[string]VersionHandlersStaticFilesExpiration {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionHandlersStaticFilesExpiration{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionHandlersStaticFilesExpiration{}
-	}
-
-	items := make(map[string]VersionHandlersStaticFilesExpiration)
-	for k, item := range a {
-		items[k] = *flattenVersionHandlersStaticFilesExpiration(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionHandlersStaticFilesExpirationSlice flattens the contents of VersionHandlersStaticFilesExpiration from a JSON
-// response object.
-func flattenVersionHandlersStaticFilesExpirationSlice(c *Client, i interface{}) []VersionHandlersStaticFilesExpiration {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionHandlersStaticFilesExpiration{}
-	}
-
-	if len(a) == 0 {
-		return []VersionHandlersStaticFilesExpiration{}
-	}
-
-	items := make([]VersionHandlersStaticFilesExpiration, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionHandlersStaticFilesExpiration(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionHandlersStaticFilesExpiration expands an instance of VersionHandlersStaticFilesExpiration into a JSON
-// request object.
-func expandVersionHandlersStaticFilesExpiration(c *Client, f *VersionHandlersStaticFilesExpiration) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionHandlersStaticFilesExpiration flattens an instance of VersionHandlersStaticFilesExpiration from a JSON
-// response object.
-func flattenVersionHandlersStaticFilesExpiration(c *Client, i interface{}) *VersionHandlersStaticFilesExpiration {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionHandlersStaticFilesExpiration{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
 	return r
 }
@@ -12648,348 +8973,6 @@ func flattenVersionApiConfig(c *Client, i interface{}) *VersionApiConfig {
 	return r
 }
 
-// expandVersionEnvVariablesMap expands the contents of VersionEnvVariables into a JSON
-// request object.
-func expandVersionEnvVariablesMap(c *Client, f map[string]VersionEnvVariables) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionEnvVariables(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionEnvVariablesSlice expands the contents of VersionEnvVariables into a JSON
-// request object.
-func expandVersionEnvVariablesSlice(c *Client, f []VersionEnvVariables) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionEnvVariables(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionEnvVariablesMap flattens the contents of VersionEnvVariables from a JSON
-// response object.
-func flattenVersionEnvVariablesMap(c *Client, i interface{}) map[string]VersionEnvVariables {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionEnvVariables{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionEnvVariables{}
-	}
-
-	items := make(map[string]VersionEnvVariables)
-	for k, item := range a {
-		items[k] = *flattenVersionEnvVariables(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionEnvVariablesSlice flattens the contents of VersionEnvVariables from a JSON
-// response object.
-func flattenVersionEnvVariablesSlice(c *Client, i interface{}) []VersionEnvVariables {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionEnvVariables{}
-	}
-
-	if len(a) == 0 {
-		return []VersionEnvVariables{}
-	}
-
-	items := make([]VersionEnvVariables, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionEnvVariables(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionEnvVariables expands an instance of VersionEnvVariables into a JSON
-// request object.
-func expandVersionEnvVariables(c *Client, f *VersionEnvVariables) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionEnvVariables flattens an instance of VersionEnvVariables from a JSON
-// response object.
-func flattenVersionEnvVariables(c *Client, i interface{}) *VersionEnvVariables {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionEnvVariables{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
-
-	return r
-}
-
-// expandVersionBuildEnvVariablesMap expands the contents of VersionBuildEnvVariables into a JSON
-// request object.
-func expandVersionBuildEnvVariablesMap(c *Client, f map[string]VersionBuildEnvVariables) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionBuildEnvVariables(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionBuildEnvVariablesSlice expands the contents of VersionBuildEnvVariables into a JSON
-// request object.
-func expandVersionBuildEnvVariablesSlice(c *Client, f []VersionBuildEnvVariables) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionBuildEnvVariables(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionBuildEnvVariablesMap flattens the contents of VersionBuildEnvVariables from a JSON
-// response object.
-func flattenVersionBuildEnvVariablesMap(c *Client, i interface{}) map[string]VersionBuildEnvVariables {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionBuildEnvVariables{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionBuildEnvVariables{}
-	}
-
-	items := make(map[string]VersionBuildEnvVariables)
-	for k, item := range a {
-		items[k] = *flattenVersionBuildEnvVariables(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionBuildEnvVariablesSlice flattens the contents of VersionBuildEnvVariables from a JSON
-// response object.
-func flattenVersionBuildEnvVariablesSlice(c *Client, i interface{}) []VersionBuildEnvVariables {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionBuildEnvVariables{}
-	}
-
-	if len(a) == 0 {
-		return []VersionBuildEnvVariables{}
-	}
-
-	items := make([]VersionBuildEnvVariables, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionBuildEnvVariables(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionBuildEnvVariables expands an instance of VersionBuildEnvVariables into a JSON
-// request object.
-func expandVersionBuildEnvVariables(c *Client, f *VersionBuildEnvVariables) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
-		m["key"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionBuildEnvVariables flattens an instance of VersionBuildEnvVariables from a JSON
-// response object.
-func flattenVersionBuildEnvVariables(c *Client, i interface{}) *VersionBuildEnvVariables {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionBuildEnvVariables{}
-	r.Key = dcl.FlattenString(m["key"])
-	r.Value = dcl.FlattenString(m["value"])
-
-	return r
-}
-
-// expandVersionDefaultExpirationMap expands the contents of VersionDefaultExpiration into a JSON
-// request object.
-func expandVersionDefaultExpirationMap(c *Client, f map[string]VersionDefaultExpiration) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionDefaultExpiration(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionDefaultExpirationSlice expands the contents of VersionDefaultExpiration into a JSON
-// request object.
-func expandVersionDefaultExpirationSlice(c *Client, f []VersionDefaultExpiration) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionDefaultExpiration(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionDefaultExpirationMap flattens the contents of VersionDefaultExpiration from a JSON
-// response object.
-func flattenVersionDefaultExpirationMap(c *Client, i interface{}) map[string]VersionDefaultExpiration {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionDefaultExpiration{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionDefaultExpiration{}
-	}
-
-	items := make(map[string]VersionDefaultExpiration)
-	for k, item := range a {
-		items[k] = *flattenVersionDefaultExpiration(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionDefaultExpirationSlice flattens the contents of VersionDefaultExpiration from a JSON
-// response object.
-func flattenVersionDefaultExpirationSlice(c *Client, i interface{}) []VersionDefaultExpiration {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionDefaultExpiration{}
-	}
-
-	if len(a) == 0 {
-		return []VersionDefaultExpiration{}
-	}
-
-	items := make([]VersionDefaultExpiration, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionDefaultExpiration(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionDefaultExpiration expands an instance of VersionDefaultExpiration into a JSON
-// request object.
-func expandVersionDefaultExpiration(c *Client, f *VersionDefaultExpiration) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionDefaultExpiration flattens an instance of VersionDefaultExpiration from a JSON
-// response object.
-func flattenVersionDefaultExpiration(c *Client, i interface{}) *VersionDefaultExpiration {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionDefaultExpiration{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
-
-	return r
-}
-
 // expandVersionDeploymentMap expands the contents of VersionDeployment into a JSON
 // request object.
 func expandVersionDeploymentMap(c *Client, f map[string]VersionDeployment) (map[string]interface{}, error) {
@@ -13554,9 +9537,7 @@ func expandVersionDeploymentCloudBuildOptions(c *Client, f *VersionDeploymentClo
 	if v := f.AppYamlPath; !dcl.IsEmptyValueIndirect(v) {
 		m["appYamlPath"] = v
 	}
-	if v, err := expandVersionDeploymentCloudBuildOptionsCloudBuildTimeout(c, f.CloudBuildTimeout); err != nil {
-		return nil, fmt.Errorf("error expanding CloudBuildTimeout into cloudBuildTimeout: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.CloudBuildTimeout; !dcl.IsEmptyValueIndirect(v) {
 		m["cloudBuildTimeout"] = v
 	}
 
@@ -13573,121 +9554,7 @@ func flattenVersionDeploymentCloudBuildOptions(c *Client, i interface{}) *Versio
 
 	r := &VersionDeploymentCloudBuildOptions{}
 	r.AppYamlPath = dcl.FlattenString(m["appYamlPath"])
-	r.CloudBuildTimeout = flattenVersionDeploymentCloudBuildOptionsCloudBuildTimeout(c, m["cloudBuildTimeout"])
-
-	return r
-}
-
-// expandVersionDeploymentCloudBuildOptionsCloudBuildTimeoutMap expands the contents of VersionDeploymentCloudBuildOptionsCloudBuildTimeout into a JSON
-// request object.
-func expandVersionDeploymentCloudBuildOptionsCloudBuildTimeoutMap(c *Client, f map[string]VersionDeploymentCloudBuildOptionsCloudBuildTimeout) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionDeploymentCloudBuildOptionsCloudBuildTimeout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionDeploymentCloudBuildOptionsCloudBuildTimeoutSlice expands the contents of VersionDeploymentCloudBuildOptionsCloudBuildTimeout into a JSON
-// request object.
-func expandVersionDeploymentCloudBuildOptionsCloudBuildTimeoutSlice(c *Client, f []VersionDeploymentCloudBuildOptionsCloudBuildTimeout) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionDeploymentCloudBuildOptionsCloudBuildTimeout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionDeploymentCloudBuildOptionsCloudBuildTimeoutMap flattens the contents of VersionDeploymentCloudBuildOptionsCloudBuildTimeout from a JSON
-// response object.
-func flattenVersionDeploymentCloudBuildOptionsCloudBuildTimeoutMap(c *Client, i interface{}) map[string]VersionDeploymentCloudBuildOptionsCloudBuildTimeout {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionDeploymentCloudBuildOptionsCloudBuildTimeout{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionDeploymentCloudBuildOptionsCloudBuildTimeout{}
-	}
-
-	items := make(map[string]VersionDeploymentCloudBuildOptionsCloudBuildTimeout)
-	for k, item := range a {
-		items[k] = *flattenVersionDeploymentCloudBuildOptionsCloudBuildTimeout(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionDeploymentCloudBuildOptionsCloudBuildTimeoutSlice flattens the contents of VersionDeploymentCloudBuildOptionsCloudBuildTimeout from a JSON
-// response object.
-func flattenVersionDeploymentCloudBuildOptionsCloudBuildTimeoutSlice(c *Client, i interface{}) []VersionDeploymentCloudBuildOptionsCloudBuildTimeout {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionDeploymentCloudBuildOptionsCloudBuildTimeout{}
-	}
-
-	if len(a) == 0 {
-		return []VersionDeploymentCloudBuildOptionsCloudBuildTimeout{}
-	}
-
-	items := make([]VersionDeploymentCloudBuildOptionsCloudBuildTimeout, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionDeploymentCloudBuildOptionsCloudBuildTimeout(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionDeploymentCloudBuildOptionsCloudBuildTimeout expands an instance of VersionDeploymentCloudBuildOptionsCloudBuildTimeout into a JSON
-// request object.
-func expandVersionDeploymentCloudBuildOptionsCloudBuildTimeout(c *Client, f *VersionDeploymentCloudBuildOptionsCloudBuildTimeout) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionDeploymentCloudBuildOptionsCloudBuildTimeout flattens an instance of VersionDeploymentCloudBuildOptionsCloudBuildTimeout from a JSON
-// response object.
-func flattenVersionDeploymentCloudBuildOptionsCloudBuildTimeout(c *Client, i interface{}) *VersionDeploymentCloudBuildOptionsCloudBuildTimeout {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionDeploymentCloudBuildOptionsCloudBuildTimeout{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
+	r.CloudBuildTimeout = dcl.FlattenString(m["cloudBuildTimeout"])
 
 	return r
 }
@@ -13796,14 +9663,10 @@ func expandVersionHealthCheck(c *Client, f *VersionHealthCheck) (map[string]inte
 	if v := f.RestartThreshold; !dcl.IsEmptyValueIndirect(v) {
 		m["restartThreshold"] = v
 	}
-	if v, err := expandVersionHealthCheckCheckInterval(c, f.CheckInterval); err != nil {
-		return nil, fmt.Errorf("error expanding CheckInterval into checkInterval: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.CheckInterval; !dcl.IsEmptyValueIndirect(v) {
 		m["checkInterval"] = v
 	}
-	if v, err := expandVersionHealthCheckTimeout(c, f.Timeout); err != nil {
-		return nil, fmt.Errorf("error expanding Timeout into timeout: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Timeout; !dcl.IsEmptyValueIndirect(v) {
 		m["timeout"] = v
 	}
 
@@ -13824,236 +9687,8 @@ func flattenVersionHealthCheck(c *Client, i interface{}) *VersionHealthCheck {
 	r.HealthyThreshold = dcl.FlattenInteger(m["healthyThreshold"])
 	r.UnhealthyThreshold = dcl.FlattenInteger(m["unhealthyThreshold"])
 	r.RestartThreshold = dcl.FlattenInteger(m["restartThreshold"])
-	r.CheckInterval = flattenVersionHealthCheckCheckInterval(c, m["checkInterval"])
-	r.Timeout = flattenVersionHealthCheckTimeout(c, m["timeout"])
-
-	return r
-}
-
-// expandVersionHealthCheckCheckIntervalMap expands the contents of VersionHealthCheckCheckInterval into a JSON
-// request object.
-func expandVersionHealthCheckCheckIntervalMap(c *Client, f map[string]VersionHealthCheckCheckInterval) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionHealthCheckCheckInterval(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionHealthCheckCheckIntervalSlice expands the contents of VersionHealthCheckCheckInterval into a JSON
-// request object.
-func expandVersionHealthCheckCheckIntervalSlice(c *Client, f []VersionHealthCheckCheckInterval) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionHealthCheckCheckInterval(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionHealthCheckCheckIntervalMap flattens the contents of VersionHealthCheckCheckInterval from a JSON
-// response object.
-func flattenVersionHealthCheckCheckIntervalMap(c *Client, i interface{}) map[string]VersionHealthCheckCheckInterval {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionHealthCheckCheckInterval{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionHealthCheckCheckInterval{}
-	}
-
-	items := make(map[string]VersionHealthCheckCheckInterval)
-	for k, item := range a {
-		items[k] = *flattenVersionHealthCheckCheckInterval(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionHealthCheckCheckIntervalSlice flattens the contents of VersionHealthCheckCheckInterval from a JSON
-// response object.
-func flattenVersionHealthCheckCheckIntervalSlice(c *Client, i interface{}) []VersionHealthCheckCheckInterval {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionHealthCheckCheckInterval{}
-	}
-
-	if len(a) == 0 {
-		return []VersionHealthCheckCheckInterval{}
-	}
-
-	items := make([]VersionHealthCheckCheckInterval, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionHealthCheckCheckInterval(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionHealthCheckCheckInterval expands an instance of VersionHealthCheckCheckInterval into a JSON
-// request object.
-func expandVersionHealthCheckCheckInterval(c *Client, f *VersionHealthCheckCheckInterval) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionHealthCheckCheckInterval flattens an instance of VersionHealthCheckCheckInterval from a JSON
-// response object.
-func flattenVersionHealthCheckCheckInterval(c *Client, i interface{}) *VersionHealthCheckCheckInterval {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionHealthCheckCheckInterval{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
-
-	return r
-}
-
-// expandVersionHealthCheckTimeoutMap expands the contents of VersionHealthCheckTimeout into a JSON
-// request object.
-func expandVersionHealthCheckTimeoutMap(c *Client, f map[string]VersionHealthCheckTimeout) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionHealthCheckTimeout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionHealthCheckTimeoutSlice expands the contents of VersionHealthCheckTimeout into a JSON
-// request object.
-func expandVersionHealthCheckTimeoutSlice(c *Client, f []VersionHealthCheckTimeout) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionHealthCheckTimeout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionHealthCheckTimeoutMap flattens the contents of VersionHealthCheckTimeout from a JSON
-// response object.
-func flattenVersionHealthCheckTimeoutMap(c *Client, i interface{}) map[string]VersionHealthCheckTimeout {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionHealthCheckTimeout{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionHealthCheckTimeout{}
-	}
-
-	items := make(map[string]VersionHealthCheckTimeout)
-	for k, item := range a {
-		items[k] = *flattenVersionHealthCheckTimeout(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionHealthCheckTimeoutSlice flattens the contents of VersionHealthCheckTimeout from a JSON
-// response object.
-func flattenVersionHealthCheckTimeoutSlice(c *Client, i interface{}) []VersionHealthCheckTimeout {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionHealthCheckTimeout{}
-	}
-
-	if len(a) == 0 {
-		return []VersionHealthCheckTimeout{}
-	}
-
-	items := make([]VersionHealthCheckTimeout, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionHealthCheckTimeout(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionHealthCheckTimeout expands an instance of VersionHealthCheckTimeout into a JSON
-// request object.
-func expandVersionHealthCheckTimeout(c *Client, f *VersionHealthCheckTimeout) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionHealthCheckTimeout flattens an instance of VersionHealthCheckTimeout from a JSON
-// response object.
-func flattenVersionHealthCheckTimeout(c *Client, i interface{}) *VersionHealthCheckTimeout {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionHealthCheckTimeout{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
+	r.CheckInterval = dcl.FlattenString(m["checkInterval"])
+	r.Timeout = dcl.FlattenString(m["timeout"])
 
 	return r
 }
@@ -14159,19 +9794,13 @@ func expandVersionReadinessCheck(c *Client, f *VersionReadinessCheck) (map[strin
 	if v := f.SuccessThreshold; !dcl.IsEmptyValueIndirect(v) {
 		m["successThreshold"] = v
 	}
-	if v, err := expandVersionReadinessCheckCheckInterval(c, f.CheckInterval); err != nil {
-		return nil, fmt.Errorf("error expanding CheckInterval into checkInterval: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.CheckInterval; !dcl.IsEmptyValueIndirect(v) {
 		m["checkInterval"] = v
 	}
-	if v, err := expandVersionReadinessCheckTimeout(c, f.Timeout); err != nil {
-		return nil, fmt.Errorf("error expanding Timeout into timeout: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Timeout; !dcl.IsEmptyValueIndirect(v) {
 		m["timeout"] = v
 	}
-	if v, err := expandVersionReadinessCheckAppStartTimeout(c, f.AppStartTimeout); err != nil {
-		return nil, fmt.Errorf("error expanding AppStartTimeout into appStartTimeout: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AppStartTimeout; !dcl.IsEmptyValueIndirect(v) {
 		m["appStartTimeout"] = v
 	}
 
@@ -14191,351 +9820,9 @@ func flattenVersionReadinessCheck(c *Client, i interface{}) *VersionReadinessChe
 	r.Host = dcl.FlattenString(m["host"])
 	r.FailureThreshold = dcl.FlattenInteger(m["failureThreshold"])
 	r.SuccessThreshold = dcl.FlattenInteger(m["successThreshold"])
-	r.CheckInterval = flattenVersionReadinessCheckCheckInterval(c, m["checkInterval"])
-	r.Timeout = flattenVersionReadinessCheckTimeout(c, m["timeout"])
-	r.AppStartTimeout = flattenVersionReadinessCheckAppStartTimeout(c, m["appStartTimeout"])
-
-	return r
-}
-
-// expandVersionReadinessCheckCheckIntervalMap expands the contents of VersionReadinessCheckCheckInterval into a JSON
-// request object.
-func expandVersionReadinessCheckCheckIntervalMap(c *Client, f map[string]VersionReadinessCheckCheckInterval) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionReadinessCheckCheckInterval(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionReadinessCheckCheckIntervalSlice expands the contents of VersionReadinessCheckCheckInterval into a JSON
-// request object.
-func expandVersionReadinessCheckCheckIntervalSlice(c *Client, f []VersionReadinessCheckCheckInterval) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionReadinessCheckCheckInterval(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionReadinessCheckCheckIntervalMap flattens the contents of VersionReadinessCheckCheckInterval from a JSON
-// response object.
-func flattenVersionReadinessCheckCheckIntervalMap(c *Client, i interface{}) map[string]VersionReadinessCheckCheckInterval {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionReadinessCheckCheckInterval{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionReadinessCheckCheckInterval{}
-	}
-
-	items := make(map[string]VersionReadinessCheckCheckInterval)
-	for k, item := range a {
-		items[k] = *flattenVersionReadinessCheckCheckInterval(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionReadinessCheckCheckIntervalSlice flattens the contents of VersionReadinessCheckCheckInterval from a JSON
-// response object.
-func flattenVersionReadinessCheckCheckIntervalSlice(c *Client, i interface{}) []VersionReadinessCheckCheckInterval {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionReadinessCheckCheckInterval{}
-	}
-
-	if len(a) == 0 {
-		return []VersionReadinessCheckCheckInterval{}
-	}
-
-	items := make([]VersionReadinessCheckCheckInterval, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionReadinessCheckCheckInterval(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionReadinessCheckCheckInterval expands an instance of VersionReadinessCheckCheckInterval into a JSON
-// request object.
-func expandVersionReadinessCheckCheckInterval(c *Client, f *VersionReadinessCheckCheckInterval) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionReadinessCheckCheckInterval flattens an instance of VersionReadinessCheckCheckInterval from a JSON
-// response object.
-func flattenVersionReadinessCheckCheckInterval(c *Client, i interface{}) *VersionReadinessCheckCheckInterval {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionReadinessCheckCheckInterval{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
-
-	return r
-}
-
-// expandVersionReadinessCheckTimeoutMap expands the contents of VersionReadinessCheckTimeout into a JSON
-// request object.
-func expandVersionReadinessCheckTimeoutMap(c *Client, f map[string]VersionReadinessCheckTimeout) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionReadinessCheckTimeout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionReadinessCheckTimeoutSlice expands the contents of VersionReadinessCheckTimeout into a JSON
-// request object.
-func expandVersionReadinessCheckTimeoutSlice(c *Client, f []VersionReadinessCheckTimeout) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionReadinessCheckTimeout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionReadinessCheckTimeoutMap flattens the contents of VersionReadinessCheckTimeout from a JSON
-// response object.
-func flattenVersionReadinessCheckTimeoutMap(c *Client, i interface{}) map[string]VersionReadinessCheckTimeout {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionReadinessCheckTimeout{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionReadinessCheckTimeout{}
-	}
-
-	items := make(map[string]VersionReadinessCheckTimeout)
-	for k, item := range a {
-		items[k] = *flattenVersionReadinessCheckTimeout(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionReadinessCheckTimeoutSlice flattens the contents of VersionReadinessCheckTimeout from a JSON
-// response object.
-func flattenVersionReadinessCheckTimeoutSlice(c *Client, i interface{}) []VersionReadinessCheckTimeout {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionReadinessCheckTimeout{}
-	}
-
-	if len(a) == 0 {
-		return []VersionReadinessCheckTimeout{}
-	}
-
-	items := make([]VersionReadinessCheckTimeout, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionReadinessCheckTimeout(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionReadinessCheckTimeout expands an instance of VersionReadinessCheckTimeout into a JSON
-// request object.
-func expandVersionReadinessCheckTimeout(c *Client, f *VersionReadinessCheckTimeout) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionReadinessCheckTimeout flattens an instance of VersionReadinessCheckTimeout from a JSON
-// response object.
-func flattenVersionReadinessCheckTimeout(c *Client, i interface{}) *VersionReadinessCheckTimeout {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionReadinessCheckTimeout{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
-
-	return r
-}
-
-// expandVersionReadinessCheckAppStartTimeoutMap expands the contents of VersionReadinessCheckAppStartTimeout into a JSON
-// request object.
-func expandVersionReadinessCheckAppStartTimeoutMap(c *Client, f map[string]VersionReadinessCheckAppStartTimeout) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionReadinessCheckAppStartTimeout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionReadinessCheckAppStartTimeoutSlice expands the contents of VersionReadinessCheckAppStartTimeout into a JSON
-// request object.
-func expandVersionReadinessCheckAppStartTimeoutSlice(c *Client, f []VersionReadinessCheckAppStartTimeout) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionReadinessCheckAppStartTimeout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionReadinessCheckAppStartTimeoutMap flattens the contents of VersionReadinessCheckAppStartTimeout from a JSON
-// response object.
-func flattenVersionReadinessCheckAppStartTimeoutMap(c *Client, i interface{}) map[string]VersionReadinessCheckAppStartTimeout {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionReadinessCheckAppStartTimeout{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionReadinessCheckAppStartTimeout{}
-	}
-
-	items := make(map[string]VersionReadinessCheckAppStartTimeout)
-	for k, item := range a {
-		items[k] = *flattenVersionReadinessCheckAppStartTimeout(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionReadinessCheckAppStartTimeoutSlice flattens the contents of VersionReadinessCheckAppStartTimeout from a JSON
-// response object.
-func flattenVersionReadinessCheckAppStartTimeoutSlice(c *Client, i interface{}) []VersionReadinessCheckAppStartTimeout {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionReadinessCheckAppStartTimeout{}
-	}
-
-	if len(a) == 0 {
-		return []VersionReadinessCheckAppStartTimeout{}
-	}
-
-	items := make([]VersionReadinessCheckAppStartTimeout, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionReadinessCheckAppStartTimeout(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionReadinessCheckAppStartTimeout expands an instance of VersionReadinessCheckAppStartTimeout into a JSON
-// request object.
-func expandVersionReadinessCheckAppStartTimeout(c *Client, f *VersionReadinessCheckAppStartTimeout) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionReadinessCheckAppStartTimeout flattens an instance of VersionReadinessCheckAppStartTimeout from a JSON
-// response object.
-func flattenVersionReadinessCheckAppStartTimeout(c *Client, i interface{}) *VersionReadinessCheckAppStartTimeout {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionReadinessCheckAppStartTimeout{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
+	r.CheckInterval = dcl.FlattenString(m["checkInterval"])
+	r.Timeout = dcl.FlattenString(m["timeout"])
+	r.AppStartTimeout = dcl.FlattenString(m["appStartTimeout"])
 
 	return r
 }
@@ -14641,19 +9928,13 @@ func expandVersionLivenessCheck(c *Client, f *VersionLivenessCheck) (map[string]
 	if v := f.SuccessThreshold; !dcl.IsEmptyValueIndirect(v) {
 		m["successThreshold"] = v
 	}
-	if v, err := expandVersionLivenessCheckCheckInterval(c, f.CheckInterval); err != nil {
-		return nil, fmt.Errorf("error expanding CheckInterval into checkInterval: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.CheckInterval; !dcl.IsEmptyValueIndirect(v) {
 		m["checkInterval"] = v
 	}
-	if v, err := expandVersionLivenessCheckTimeout(c, f.Timeout); err != nil {
-		return nil, fmt.Errorf("error expanding Timeout into timeout: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Timeout; !dcl.IsEmptyValueIndirect(v) {
 		m["timeout"] = v
 	}
-	if v, err := expandVersionLivenessCheckInitialDelay(c, f.InitialDelay); err != nil {
-		return nil, fmt.Errorf("error expanding InitialDelay into initialDelay: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.InitialDelay; !dcl.IsEmptyValueIndirect(v) {
 		m["initialDelay"] = v
 	}
 
@@ -14673,351 +9954,9 @@ func flattenVersionLivenessCheck(c *Client, i interface{}) *VersionLivenessCheck
 	r.Host = dcl.FlattenString(m["host"])
 	r.FailureThreshold = dcl.FlattenInteger(m["failureThreshold"])
 	r.SuccessThreshold = dcl.FlattenInteger(m["successThreshold"])
-	r.CheckInterval = flattenVersionLivenessCheckCheckInterval(c, m["checkInterval"])
-	r.Timeout = flattenVersionLivenessCheckTimeout(c, m["timeout"])
-	r.InitialDelay = flattenVersionLivenessCheckInitialDelay(c, m["initialDelay"])
-
-	return r
-}
-
-// expandVersionLivenessCheckCheckIntervalMap expands the contents of VersionLivenessCheckCheckInterval into a JSON
-// request object.
-func expandVersionLivenessCheckCheckIntervalMap(c *Client, f map[string]VersionLivenessCheckCheckInterval) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionLivenessCheckCheckInterval(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionLivenessCheckCheckIntervalSlice expands the contents of VersionLivenessCheckCheckInterval into a JSON
-// request object.
-func expandVersionLivenessCheckCheckIntervalSlice(c *Client, f []VersionLivenessCheckCheckInterval) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionLivenessCheckCheckInterval(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionLivenessCheckCheckIntervalMap flattens the contents of VersionLivenessCheckCheckInterval from a JSON
-// response object.
-func flattenVersionLivenessCheckCheckIntervalMap(c *Client, i interface{}) map[string]VersionLivenessCheckCheckInterval {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionLivenessCheckCheckInterval{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionLivenessCheckCheckInterval{}
-	}
-
-	items := make(map[string]VersionLivenessCheckCheckInterval)
-	for k, item := range a {
-		items[k] = *flattenVersionLivenessCheckCheckInterval(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionLivenessCheckCheckIntervalSlice flattens the contents of VersionLivenessCheckCheckInterval from a JSON
-// response object.
-func flattenVersionLivenessCheckCheckIntervalSlice(c *Client, i interface{}) []VersionLivenessCheckCheckInterval {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionLivenessCheckCheckInterval{}
-	}
-
-	if len(a) == 0 {
-		return []VersionLivenessCheckCheckInterval{}
-	}
-
-	items := make([]VersionLivenessCheckCheckInterval, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionLivenessCheckCheckInterval(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionLivenessCheckCheckInterval expands an instance of VersionLivenessCheckCheckInterval into a JSON
-// request object.
-func expandVersionLivenessCheckCheckInterval(c *Client, f *VersionLivenessCheckCheckInterval) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionLivenessCheckCheckInterval flattens an instance of VersionLivenessCheckCheckInterval from a JSON
-// response object.
-func flattenVersionLivenessCheckCheckInterval(c *Client, i interface{}) *VersionLivenessCheckCheckInterval {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionLivenessCheckCheckInterval{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
-
-	return r
-}
-
-// expandVersionLivenessCheckTimeoutMap expands the contents of VersionLivenessCheckTimeout into a JSON
-// request object.
-func expandVersionLivenessCheckTimeoutMap(c *Client, f map[string]VersionLivenessCheckTimeout) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionLivenessCheckTimeout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionLivenessCheckTimeoutSlice expands the contents of VersionLivenessCheckTimeout into a JSON
-// request object.
-func expandVersionLivenessCheckTimeoutSlice(c *Client, f []VersionLivenessCheckTimeout) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionLivenessCheckTimeout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionLivenessCheckTimeoutMap flattens the contents of VersionLivenessCheckTimeout from a JSON
-// response object.
-func flattenVersionLivenessCheckTimeoutMap(c *Client, i interface{}) map[string]VersionLivenessCheckTimeout {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionLivenessCheckTimeout{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionLivenessCheckTimeout{}
-	}
-
-	items := make(map[string]VersionLivenessCheckTimeout)
-	for k, item := range a {
-		items[k] = *flattenVersionLivenessCheckTimeout(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionLivenessCheckTimeoutSlice flattens the contents of VersionLivenessCheckTimeout from a JSON
-// response object.
-func flattenVersionLivenessCheckTimeoutSlice(c *Client, i interface{}) []VersionLivenessCheckTimeout {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionLivenessCheckTimeout{}
-	}
-
-	if len(a) == 0 {
-		return []VersionLivenessCheckTimeout{}
-	}
-
-	items := make([]VersionLivenessCheckTimeout, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionLivenessCheckTimeout(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionLivenessCheckTimeout expands an instance of VersionLivenessCheckTimeout into a JSON
-// request object.
-func expandVersionLivenessCheckTimeout(c *Client, f *VersionLivenessCheckTimeout) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionLivenessCheckTimeout flattens an instance of VersionLivenessCheckTimeout from a JSON
-// response object.
-func flattenVersionLivenessCheckTimeout(c *Client, i interface{}) *VersionLivenessCheckTimeout {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionLivenessCheckTimeout{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
-
-	return r
-}
-
-// expandVersionLivenessCheckInitialDelayMap expands the contents of VersionLivenessCheckInitialDelay into a JSON
-// request object.
-func expandVersionLivenessCheckInitialDelayMap(c *Client, f map[string]VersionLivenessCheckInitialDelay) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionLivenessCheckInitialDelay(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionLivenessCheckInitialDelaySlice expands the contents of VersionLivenessCheckInitialDelay into a JSON
-// request object.
-func expandVersionLivenessCheckInitialDelaySlice(c *Client, f []VersionLivenessCheckInitialDelay) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionLivenessCheckInitialDelay(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionLivenessCheckInitialDelayMap flattens the contents of VersionLivenessCheckInitialDelay from a JSON
-// response object.
-func flattenVersionLivenessCheckInitialDelayMap(c *Client, i interface{}) map[string]VersionLivenessCheckInitialDelay {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionLivenessCheckInitialDelay{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionLivenessCheckInitialDelay{}
-	}
-
-	items := make(map[string]VersionLivenessCheckInitialDelay)
-	for k, item := range a {
-		items[k] = *flattenVersionLivenessCheckInitialDelay(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionLivenessCheckInitialDelaySlice flattens the contents of VersionLivenessCheckInitialDelay from a JSON
-// response object.
-func flattenVersionLivenessCheckInitialDelaySlice(c *Client, i interface{}) []VersionLivenessCheckInitialDelay {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionLivenessCheckInitialDelay{}
-	}
-
-	if len(a) == 0 {
-		return []VersionLivenessCheckInitialDelay{}
-	}
-
-	items := make([]VersionLivenessCheckInitialDelay, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionLivenessCheckInitialDelay(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionLivenessCheckInitialDelay expands an instance of VersionLivenessCheckInitialDelay into a JSON
-// request object.
-func expandVersionLivenessCheckInitialDelay(c *Client, f *VersionLivenessCheckInitialDelay) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionLivenessCheckInitialDelay flattens an instance of VersionLivenessCheckInitialDelay from a JSON
-// response object.
-func flattenVersionLivenessCheckInitialDelay(c *Client, i interface{}) *VersionLivenessCheckInitialDelay {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionLivenessCheckInitialDelay{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
+	r.CheckInterval = dcl.FlattenString(m["checkInterval"])
+	r.Timeout = dcl.FlattenString(m["timeout"])
+	r.InitialDelay = dcl.FlattenString(m["initialDelay"])
 
 	return r
 }

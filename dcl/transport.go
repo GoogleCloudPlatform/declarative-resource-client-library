@@ -75,9 +75,14 @@ func SendRequest(ctx context.Context, c *Config, verb, url string, body *bytes.B
 	if _, ok := httpClient.Transport.(loggingTransport); !ok {
 		// In cases where the config has been created using WithHTTPClient() we want to
 		// replace the default transport with our logging transport only once.
-		httpClient.Transport = loggingTransport{
-			underlyingTransport: httpClient.Transport,
-			logger:              c.Logger,
+		httpClient = &http.Client{
+			Transport: loggingTransport{
+				underlyingTransport: httpClient.Transport,
+				logger:              c.Logger,
+			},
+			CheckRedirect: httpClient.CheckRedirect,
+			Jar:           httpClient.Jar,
+			Timeout:       httpClient.Timeout,
 		}
 	}
 

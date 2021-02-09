@@ -145,7 +145,7 @@ message AppengineVersion {
   string runtime_channel = 14;
   bool threadsafe = 15;
   bool vm = 16;
-  repeated AppengineVersionBetaSettings beta_settings = 17;
+  map<string, string> beta_settings = 17;
   string env = 18;
   AppengineVersionServingStatusEnum serving_status = 19;
   string created_by = 20;
@@ -157,9 +157,9 @@ message AppengineVersion {
   repeated AppengineVersionErrorHandlers error_handlers = 26;
   repeated AppengineVersionLibraries libraries = 27;
   AppengineVersionApiConfig api_config = 28;
-  repeated AppengineVersionEnvVariables env_variables = 29;
-  repeated AppengineVersionBuildEnvVariables build_env_variables = 30;
-  AppengineVersionDefaultExpiration default_expiration = 31;
+  map<string, string> env_variables = 29;
+  map<string, string> build_env_variables = 30;
+  string default_expiration = 31;
   AppengineVersionDeployment deployment = 32;
   AppengineVersionHealthCheck health_check = 33;
   AppengineVersionReadinessCheck readiness_check = 34;
@@ -178,44 +178,24 @@ message AppengineVersion {
 }
 
 message AppengineVersionAutomaticScaling {
-  AppengineVersionAutomaticScalingCoolDownPeriod cool_down_period = 1;
+  string cool_down_period = 1;
   AppengineVersionAutomaticScalingCpuUtilization cpu_utilization = 2;
   int64 max_concurrent_requests = 3;
   int64 max_idle_instances = 4;
   int64 max_total_instances = 5;
-  AppengineVersionAutomaticScalingMaxPendingLatency max_pending_latency = 6;
+  string max_pending_latency = 6;
   int64 min_idle_instances = 7;
   int64 min_total_instances = 8;
-  AppengineVersionAutomaticScalingMinPendingLatency min_pending_latency = 9;
+  string min_pending_latency = 9;
   AppengineVersionAutomaticScalingRequestUtilization request_utilization = 10;
   AppengineVersionAutomaticScalingDiskUtilization disk_utilization = 11;
   AppengineVersionAutomaticScalingNetworkUtilization network_utilization = 12;
   AppengineVersionAutomaticScalingStandardSchedulerSettings standard_scheduler_settings = 13;
 }
 
-message AppengineVersionAutomaticScalingCoolDownPeriod {
-  int64 seconds = 1;
-  int64 nanos = 2;
-}
-
 message AppengineVersionAutomaticScalingCpuUtilization {
-  AppengineVersionAutomaticScalingCpuUtilizationAggregationWindowLength aggregation_window_length = 1;
+  string aggregation_window_length = 1;
   double target_utilization = 2;
-}
-
-message AppengineVersionAutomaticScalingCpuUtilizationAggregationWindowLength {
-  int64 seconds = 1;
-  int64 nanos = 2;
-}
-
-message AppengineVersionAutomaticScalingMaxPendingLatency {
-  int64 seconds = 1;
-  int64 nanos = 2;
-}
-
-message AppengineVersionAutomaticScalingMinPendingLatency {
-  int64 seconds = 1;
-  int64 nanos = 2;
 }
 
 message AppengineVersionAutomaticScalingRequestUtilization {
@@ -245,13 +225,8 @@ message AppengineVersionAutomaticScalingStandardSchedulerSettings {
 }
 
 message AppengineVersionBasicScaling {
-  AppengineVersionBasicScalingIdleTimeout idle_timeout = 1;
+  string idle_timeout = 1;
   int64 max_instances = 2;
-}
-
-message AppengineVersionBasicScalingIdleTimeout {
-  int64 seconds = 1;
-  int64 nanos = 2;
 }
 
 message AppengineVersionManualScaling {
@@ -261,25 +236,10 @@ message AppengineVersionManualScaling {
 message AppengineVersionJobScaling {
   int64 completions = 1;
   int64 parallelism = 2;
-  AppengineVersionJobScalingJobDeadline job_deadline = 3;
+  string job_deadline = 3;
   int64 instance_retries = 4;
-  AppengineVersionJobScalingInstanceDeadline instance_deadline = 5;
-  AppengineVersionJobScalingInstanceTerminationWindow instance_termination_window = 6;
-}
-
-message AppengineVersionJobScalingJobDeadline {
-  int64 seconds = 1;
-  int64 nanos = 2;
-}
-
-message AppengineVersionJobScalingInstanceDeadline {
-  int64 seconds = 1;
-  int64 nanos = 2;
-}
-
-message AppengineVersionJobScalingInstanceTerminationWindow {
-  int64 seconds = 1;
-  int64 nanos = 2;
+  string instance_deadline = 5;
+  string instance_termination_window = 6;
 }
 
 message AppengineVersionPoolScaling {
@@ -310,11 +270,6 @@ message AppengineVersionResourcesVolumes {
   double size_gb = 3;
 }
 
-message AppengineVersionBetaSettings {
-  string key = 1;
-  string value = 2;
-}
-
 message AppengineVersionHandlers {
   string url_regex = 1;
   AppengineVersionHandlersStaticFiles static_files = 2;
@@ -329,21 +284,11 @@ message AppengineVersionHandlers {
 message AppengineVersionHandlersStaticFiles {
   string path = 1;
   string upload_path_regex = 2;
-  repeated AppengineVersionHandlersStaticFilesHttpHeaders http_headers = 3;
+  map<string, string> http_headers = 3;
   string mime_type = 4;
-  AppengineVersionHandlersStaticFilesExpiration expiration = 5;
+  string expiration = 5;
   bool require_matching_file = 6;
   bool application_readable = 7;
-}
-
-message AppengineVersionHandlersStaticFilesHttpHeaders {
-  string key = 1;
-  string value = 2;
-}
-
-message AppengineVersionHandlersStaticFilesExpiration {
-  int64 seconds = 1;
-  int64 nanos = 2;
 }
 
 message AppengineVersionHandlersScript {
@@ -373,21 +318,6 @@ message AppengineVersionApiConfig {
   string url = 5;
 }
 
-message AppengineVersionEnvVariables {
-  string key = 1;
-  string value = 2;
-}
-
-message AppengineVersionBuildEnvVariables {
-  string key = 1;
-  string value = 2;
-}
-
-message AppengineVersionDefaultExpiration {
-  int64 seconds = 1;
-  int64 nanos = 2;
-}
-
 message AppengineVersionDeployment {
   map<string, AppengineVersionDeploymentFiles> files = 1;
   AppengineVersionDeploymentContainer container = 2;
@@ -412,12 +342,7 @@ message AppengineVersionDeploymentZip {
 
 message AppengineVersionDeploymentCloudBuildOptions {
   string app_yaml_path = 1;
-  AppengineVersionDeploymentCloudBuildOptionsCloudBuildTimeout cloud_build_timeout = 2;
-}
-
-message AppengineVersionDeploymentCloudBuildOptionsCloudBuildTimeout {
-  int64 seconds = 1;
-  int64 nanos = 2;
+  string cloud_build_timeout = 2;
 }
 
 message AppengineVersionHealthCheck {
@@ -426,18 +351,8 @@ message AppengineVersionHealthCheck {
   int64 healthy_threshold = 3;
   int64 unhealthy_threshold = 4;
   int64 restart_threshold = 5;
-  AppengineVersionHealthCheckCheckInterval check_interval = 6;
-  AppengineVersionHealthCheckTimeout timeout = 7;
-}
-
-message AppengineVersionHealthCheckCheckInterval {
-  int64 seconds = 1;
-  int64 nanos = 2;
-}
-
-message AppengineVersionHealthCheckTimeout {
-  int64 seconds = 1;
-  int64 nanos = 2;
+  string check_interval = 6;
+  string timeout = 7;
 }
 
 message AppengineVersionReadinessCheck {
@@ -445,24 +360,9 @@ message AppengineVersionReadinessCheck {
   string host = 2;
   int64 failure_threshold = 3;
   int64 success_threshold = 4;
-  AppengineVersionReadinessCheckCheckInterval check_interval = 5;
-  AppengineVersionReadinessCheckTimeout timeout = 6;
-  AppengineVersionReadinessCheckAppStartTimeout app_start_timeout = 7;
-}
-
-message AppengineVersionReadinessCheckCheckInterval {
-  int64 seconds = 1;
-  int64 nanos = 2;
-}
-
-message AppengineVersionReadinessCheckTimeout {
-  int64 seconds = 1;
-  int64 nanos = 2;
-}
-
-message AppengineVersionReadinessCheckAppStartTimeout {
-  int64 seconds = 1;
-  int64 nanos = 2;
+  string check_interval = 5;
+  string timeout = 6;
+  string app_start_timeout = 7;
 }
 
 message AppengineVersionLivenessCheck {
@@ -470,24 +370,9 @@ message AppengineVersionLivenessCheck {
   string host = 2;
   int64 failure_threshold = 3;
   int64 success_threshold = 4;
-  AppengineVersionLivenessCheckCheckInterval check_interval = 5;
-  AppengineVersionLivenessCheckTimeout timeout = 6;
-  AppengineVersionLivenessCheckInitialDelay initial_delay = 7;
-}
-
-message AppengineVersionLivenessCheckCheckInterval {
-  int64 seconds = 1;
-  int64 nanos = 2;
-}
-
-message AppengineVersionLivenessCheckTimeout {
-  int64 seconds = 1;
-  int64 nanos = 2;
-}
-
-message AppengineVersionLivenessCheckInitialDelay {
-  int64 seconds = 1;
-  int64 nanos = 2;
+  string check_interval = 5;
+  string timeout = 6;
+  string initial_delay = 7;
 }
 
 message AppengineVersionServiceAuthSpec {

@@ -39,7 +39,7 @@ type Version struct {
 	RuntimeChannel            *string                      `json:"runtimeChannel"`
 	Threadsafe                *bool                        `json:"threadsafe"`
 	Vm                        *bool                        `json:"vm"`
-	BetaSettings              []VersionBetaSettings        `json:"betaSettings"`
+	BetaSettings              map[string]string            `json:"betaSettings"`
 	Env                       *string                      `json:"env"`
 	ServingStatus             *VersionServingStatusEnum    `json:"servingStatus"`
 	CreatedBy                 *string                      `json:"createdBy"`
@@ -51,9 +51,9 @@ type Version struct {
 	ErrorHandlers             []VersionErrorHandlers       `json:"errorHandlers"`
 	Libraries                 []VersionLibraries           `json:"libraries"`
 	ApiConfig                 *VersionApiConfig            `json:"apiConfig"`
-	EnvVariables              []VersionEnvVariables        `json:"envVariables"`
-	BuildEnvVariables         []VersionBuildEnvVariables   `json:"buildEnvVariables"`
-	DefaultExpiration         *VersionDefaultExpiration    `json:"defaultExpiration"`
+	EnvVariables              map[string]string            `json:"envVariables"`
+	BuildEnvVariables         map[string]string            `json:"buildEnvVariables"`
+	DefaultExpiration         *string                      `json:"defaultExpiration"`
 	Deployment                *VersionDeployment           `json:"deployment"`
 	HealthCheck               *VersionHealthCheck          `json:"healthCheck"`
 	ReadinessCheck            *VersionReadinessCheck       `json:"readinessCheck"`
@@ -428,15 +428,15 @@ func (v VersionInstanceSpecPortsProtocolEnum) Validate() error {
 
 type VersionAutomaticScaling struct {
 	empty                     bool                                              `json:"-"`
-	CoolDownPeriod            *VersionAutomaticScalingCoolDownPeriod            `json:"coolDownPeriod"`
+	CoolDownPeriod            *string                                           `json:"coolDownPeriod"`
 	CpuUtilization            *VersionAutomaticScalingCpuUtilization            `json:"cpuUtilization"`
 	MaxConcurrentRequests     *int64                                            `json:"maxConcurrentRequests"`
 	MaxIdleInstances          *int64                                            `json:"maxIdleInstances"`
 	MaxTotalInstances         *int64                                            `json:"maxTotalInstances"`
-	MaxPendingLatency         *VersionAutomaticScalingMaxPendingLatency         `json:"maxPendingLatency"`
+	MaxPendingLatency         *string                                           `json:"maxPendingLatency"`
 	MinIdleInstances          *int64                                            `json:"minIdleInstances"`
 	MinTotalInstances         *int64                                            `json:"minTotalInstances"`
-	MinPendingLatency         *VersionAutomaticScalingMinPendingLatency         `json:"minPendingLatency"`
+	MinPendingLatency         *string                                           `json:"minPendingLatency"`
 	RequestUtilization        *VersionAutomaticScalingRequestUtilization        `json:"requestUtilization"`
 	DiskUtilization           *VersionAutomaticScalingDiskUtilization           `json:"diskUtilization"`
 	NetworkUtilization        *VersionAutomaticScalingNetworkUtilization        `json:"networkUtilization"`
@@ -459,32 +459,10 @@ func (r *VersionAutomaticScaling) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type VersionAutomaticScalingCoolDownPeriod struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this VersionAutomaticScalingCoolDownPeriod is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionAutomaticScalingCoolDownPeriod *VersionAutomaticScalingCoolDownPeriod = &VersionAutomaticScalingCoolDownPeriod{empty: true}
-
-func (r *VersionAutomaticScalingCoolDownPeriod) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionAutomaticScalingCoolDownPeriod) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type VersionAutomaticScalingCpuUtilization struct {
-	empty                   bool                                                          `json:"-"`
-	AggregationWindowLength *VersionAutomaticScalingCpuUtilizationAggregationWindowLength `json:"aggregationWindowLength"`
-	TargetUtilization       *float64                                                      `json:"targetUtilization"`
+	empty                   bool     `json:"-"`
+	AggregationWindowLength *string  `json:"aggregationWindowLength"`
+	TargetUtilization       *float64 `json:"targetUtilization"`
 }
 
 // This object is used to assert a desired state where this VersionAutomaticScalingCpuUtilization is
@@ -497,72 +475,6 @@ func (r *VersionAutomaticScalingCpuUtilization) String() string {
 }
 
 func (r *VersionAutomaticScalingCpuUtilization) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionAutomaticScalingCpuUtilizationAggregationWindowLength struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this VersionAutomaticScalingCpuUtilizationAggregationWindowLength is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionAutomaticScalingCpuUtilizationAggregationWindowLength *VersionAutomaticScalingCpuUtilizationAggregationWindowLength = &VersionAutomaticScalingCpuUtilizationAggregationWindowLength{empty: true}
-
-func (r *VersionAutomaticScalingCpuUtilizationAggregationWindowLength) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionAutomaticScalingCpuUtilizationAggregationWindowLength) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionAutomaticScalingMaxPendingLatency struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this VersionAutomaticScalingMaxPendingLatency is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionAutomaticScalingMaxPendingLatency *VersionAutomaticScalingMaxPendingLatency = &VersionAutomaticScalingMaxPendingLatency{empty: true}
-
-func (r *VersionAutomaticScalingMaxPendingLatency) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionAutomaticScalingMaxPendingLatency) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionAutomaticScalingMinPendingLatency struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this VersionAutomaticScalingMinPendingLatency is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionAutomaticScalingMinPendingLatency *VersionAutomaticScalingMinPendingLatency = &VersionAutomaticScalingMinPendingLatency{empty: true}
-
-func (r *VersionAutomaticScalingMinPendingLatency) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionAutomaticScalingMinPendingLatency) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -664,9 +576,9 @@ func (r *VersionAutomaticScalingStandardSchedulerSettings) HashCode() string {
 }
 
 type VersionBasicScaling struct {
-	empty        bool                            `json:"-"`
-	IdleTimeout  *VersionBasicScalingIdleTimeout `json:"idleTimeout"`
-	MaxInstances *int64                          `json:"maxInstances"`
+	empty        bool    `json:"-"`
+	IdleTimeout  *string `json:"idleTimeout"`
+	MaxInstances *int64  `json:"maxInstances"`
 }
 
 // This object is used to assert a desired state where this VersionBasicScaling is
@@ -679,28 +591,6 @@ func (r *VersionBasicScaling) String() string {
 }
 
 func (r *VersionBasicScaling) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionBasicScalingIdleTimeout struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this VersionBasicScalingIdleTimeout is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionBasicScalingIdleTimeout *VersionBasicScalingIdleTimeout = &VersionBasicScalingIdleTimeout{empty: true}
-
-func (r *VersionBasicScalingIdleTimeout) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionBasicScalingIdleTimeout) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -729,13 +619,13 @@ func (r *VersionManualScaling) HashCode() string {
 }
 
 type VersionJobScaling struct {
-	empty                     bool                                        `json:"-"`
-	Completions               *int64                                      `json:"completions"`
-	Parallelism               *int64                                      `json:"parallelism"`
-	JobDeadline               *VersionJobScalingJobDeadline               `json:"jobDeadline"`
-	InstanceRetries           *int64                                      `json:"instanceRetries"`
-	InstanceDeadline          *VersionJobScalingInstanceDeadline          `json:"instanceDeadline"`
-	InstanceTerminationWindow *VersionJobScalingInstanceTerminationWindow `json:"instanceTerminationWindow"`
+	empty                     bool    `json:"-"`
+	Completions               *int64  `json:"completions"`
+	Parallelism               *int64  `json:"parallelism"`
+	JobDeadline               *string `json:"jobDeadline"`
+	InstanceRetries           *int64  `json:"instanceRetries"`
+	InstanceDeadline          *string `json:"instanceDeadline"`
+	InstanceTerminationWindow *string `json:"instanceTerminationWindow"`
 }
 
 // This object is used to assert a desired state where this VersionJobScaling is
@@ -748,72 +638,6 @@ func (r *VersionJobScaling) String() string {
 }
 
 func (r *VersionJobScaling) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionJobScalingJobDeadline struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this VersionJobScalingJobDeadline is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionJobScalingJobDeadline *VersionJobScalingJobDeadline = &VersionJobScalingJobDeadline{empty: true}
-
-func (r *VersionJobScalingJobDeadline) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionJobScalingJobDeadline) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionJobScalingInstanceDeadline struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this VersionJobScalingInstanceDeadline is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionJobScalingInstanceDeadline *VersionJobScalingInstanceDeadline = &VersionJobScalingInstanceDeadline{empty: true}
-
-func (r *VersionJobScalingInstanceDeadline) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionJobScalingInstanceDeadline) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionJobScalingInstanceTerminationWindow struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this VersionJobScalingInstanceTerminationWindow is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionJobScalingInstanceTerminationWindow *VersionJobScalingInstanceTerminationWindow = &VersionJobScalingInstanceTerminationWindow{empty: true}
-
-func (r *VersionJobScalingInstanceTerminationWindow) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionJobScalingInstanceTerminationWindow) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -916,28 +740,6 @@ func (r *VersionResourcesVolumes) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type VersionBetaSettings struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this VersionBetaSettings is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionBetaSettings *VersionBetaSettings = &VersionBetaSettings{empty: true}
-
-func (r *VersionBetaSettings) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionBetaSettings) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type VersionHandlers struct {
 	empty                    bool                                         `json:"-"`
 	UrlRegex                 *string                                      `json:"urlRegex"`
@@ -967,14 +769,14 @@ func (r *VersionHandlers) HashCode() string {
 }
 
 type VersionHandlersStaticFiles struct {
-	empty               bool                                    `json:"-"`
-	Path                *string                                 `json:"path"`
-	UploadPathRegex     *string                                 `json:"uploadPathRegex"`
-	HttpHeaders         []VersionHandlersStaticFilesHttpHeaders `json:"httpHeaders"`
-	MimeType            *string                                 `json:"mimeType"`
-	Expiration          *VersionHandlersStaticFilesExpiration   `json:"expiration"`
-	RequireMatchingFile *bool                                   `json:"requireMatchingFile"`
-	ApplicationReadable *bool                                   `json:"applicationReadable"`
+	empty               bool              `json:"-"`
+	Path                *string           `json:"path"`
+	UploadPathRegex     *string           `json:"uploadPathRegex"`
+	HttpHeaders         map[string]string `json:"httpHeaders"`
+	MimeType            *string           `json:"mimeType"`
+	Expiration          *string           `json:"expiration"`
+	RequireMatchingFile *bool             `json:"requireMatchingFile"`
+	ApplicationReadable *bool             `json:"applicationReadable"`
 }
 
 // This object is used to assert a desired state where this VersionHandlersStaticFiles is
@@ -987,50 +789,6 @@ func (r *VersionHandlersStaticFiles) String() string {
 }
 
 func (r *VersionHandlersStaticFiles) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionHandlersStaticFilesHttpHeaders struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this VersionHandlersStaticFilesHttpHeaders is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionHandlersStaticFilesHttpHeaders *VersionHandlersStaticFilesHttpHeaders = &VersionHandlersStaticFilesHttpHeaders{empty: true}
-
-func (r *VersionHandlersStaticFilesHttpHeaders) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionHandlersStaticFilesHttpHeaders) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionHandlersStaticFilesExpiration struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this VersionHandlersStaticFilesExpiration is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionHandlersStaticFilesExpiration *VersionHandlersStaticFilesExpiration = &VersionHandlersStaticFilesExpiration{empty: true}
-
-func (r *VersionHandlersStaticFilesExpiration) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionHandlersStaticFilesExpiration) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -1149,72 +907,6 @@ func (r *VersionApiConfig) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type VersionEnvVariables struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this VersionEnvVariables is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionEnvVariables *VersionEnvVariables = &VersionEnvVariables{empty: true}
-
-func (r *VersionEnvVariables) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionEnvVariables) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionBuildEnvVariables struct {
-	empty bool    `json:"-"`
-	Key   *string `json:"key"`
-	Value *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this VersionBuildEnvVariables is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionBuildEnvVariables *VersionBuildEnvVariables = &VersionBuildEnvVariables{empty: true}
-
-func (r *VersionBuildEnvVariables) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionBuildEnvVariables) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionDefaultExpiration struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this VersionDefaultExpiration is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionDefaultExpiration *VersionDefaultExpiration = &VersionDefaultExpiration{empty: true}
-
-func (r *VersionDefaultExpiration) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionDefaultExpiration) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type VersionDeployment struct {
 	empty             bool                                `json:"-"`
 	Files             map[string]VersionDeploymentFiles   `json:"files"`
@@ -1306,9 +998,9 @@ func (r *VersionDeploymentZip) HashCode() string {
 }
 
 type VersionDeploymentCloudBuildOptions struct {
-	empty             bool                                                 `json:"-"`
-	AppYamlPath       *string                                              `json:"appYamlPath"`
-	CloudBuildTimeout *VersionDeploymentCloudBuildOptionsCloudBuildTimeout `json:"cloudBuildTimeout"`
+	empty             bool    `json:"-"`
+	AppYamlPath       *string `json:"appYamlPath"`
+	CloudBuildTimeout *string `json:"cloudBuildTimeout"`
 }
 
 // This object is used to assert a desired state where this VersionDeploymentCloudBuildOptions is
@@ -1327,37 +1019,15 @@ func (r *VersionDeploymentCloudBuildOptions) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type VersionDeploymentCloudBuildOptionsCloudBuildTimeout struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this VersionDeploymentCloudBuildOptionsCloudBuildTimeout is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionDeploymentCloudBuildOptionsCloudBuildTimeout *VersionDeploymentCloudBuildOptionsCloudBuildTimeout = &VersionDeploymentCloudBuildOptionsCloudBuildTimeout{empty: true}
-
-func (r *VersionDeploymentCloudBuildOptionsCloudBuildTimeout) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionDeploymentCloudBuildOptionsCloudBuildTimeout) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type VersionHealthCheck struct {
-	empty              bool                             `json:"-"`
-	DisableHealthCheck *bool                            `json:"disableHealthCheck"`
-	Host               *string                          `json:"host"`
-	HealthyThreshold   *int64                           `json:"healthyThreshold"`
-	UnhealthyThreshold *int64                           `json:"unhealthyThreshold"`
-	RestartThreshold   *int64                           `json:"restartThreshold"`
-	CheckInterval      *VersionHealthCheckCheckInterval `json:"checkInterval"`
-	Timeout            *VersionHealthCheckTimeout       `json:"timeout"`
+	empty              bool    `json:"-"`
+	DisableHealthCheck *bool   `json:"disableHealthCheck"`
+	Host               *string `json:"host"`
+	HealthyThreshold   *int64  `json:"healthyThreshold"`
+	UnhealthyThreshold *int64  `json:"unhealthyThreshold"`
+	RestartThreshold   *int64  `json:"restartThreshold"`
+	CheckInterval      *string `json:"checkInterval"`
+	Timeout            *string `json:"timeout"`
 }
 
 // This object is used to assert a desired state where this VersionHealthCheck is
@@ -1376,59 +1046,15 @@ func (r *VersionHealthCheck) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type VersionHealthCheckCheckInterval struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this VersionHealthCheckCheckInterval is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionHealthCheckCheckInterval *VersionHealthCheckCheckInterval = &VersionHealthCheckCheckInterval{empty: true}
-
-func (r *VersionHealthCheckCheckInterval) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionHealthCheckCheckInterval) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionHealthCheckTimeout struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this VersionHealthCheckTimeout is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionHealthCheckTimeout *VersionHealthCheckTimeout = &VersionHealthCheckTimeout{empty: true}
-
-func (r *VersionHealthCheckTimeout) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionHealthCheckTimeout) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type VersionReadinessCheck struct {
-	empty            bool                                  `json:"-"`
-	Path             *string                               `json:"path"`
-	Host             *string                               `json:"host"`
-	FailureThreshold *int64                                `json:"failureThreshold"`
-	SuccessThreshold *int64                                `json:"successThreshold"`
-	CheckInterval    *VersionReadinessCheckCheckInterval   `json:"checkInterval"`
-	Timeout          *VersionReadinessCheckTimeout         `json:"timeout"`
-	AppStartTimeout  *VersionReadinessCheckAppStartTimeout `json:"appStartTimeout"`
+	empty            bool    `json:"-"`
+	Path             *string `json:"path"`
+	Host             *string `json:"host"`
+	FailureThreshold *int64  `json:"failureThreshold"`
+	SuccessThreshold *int64  `json:"successThreshold"`
+	CheckInterval    *string `json:"checkInterval"`
+	Timeout          *string `json:"timeout"`
+	AppStartTimeout  *string `json:"appStartTimeout"`
 }
 
 // This object is used to assert a desired state where this VersionReadinessCheck is
@@ -1447,81 +1073,15 @@ func (r *VersionReadinessCheck) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type VersionReadinessCheckCheckInterval struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this VersionReadinessCheckCheckInterval is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionReadinessCheckCheckInterval *VersionReadinessCheckCheckInterval = &VersionReadinessCheckCheckInterval{empty: true}
-
-func (r *VersionReadinessCheckCheckInterval) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionReadinessCheckCheckInterval) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionReadinessCheckTimeout struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this VersionReadinessCheckTimeout is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionReadinessCheckTimeout *VersionReadinessCheckTimeout = &VersionReadinessCheckTimeout{empty: true}
-
-func (r *VersionReadinessCheckTimeout) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionReadinessCheckTimeout) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionReadinessCheckAppStartTimeout struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this VersionReadinessCheckAppStartTimeout is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionReadinessCheckAppStartTimeout *VersionReadinessCheckAppStartTimeout = &VersionReadinessCheckAppStartTimeout{empty: true}
-
-func (r *VersionReadinessCheckAppStartTimeout) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionReadinessCheckAppStartTimeout) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type VersionLivenessCheck struct {
-	empty            bool                               `json:"-"`
-	Path             *string                            `json:"path"`
-	Host             *string                            `json:"host"`
-	FailureThreshold *int64                             `json:"failureThreshold"`
-	SuccessThreshold *int64                             `json:"successThreshold"`
-	CheckInterval    *VersionLivenessCheckCheckInterval `json:"checkInterval"`
-	Timeout          *VersionLivenessCheckTimeout       `json:"timeout"`
-	InitialDelay     *VersionLivenessCheckInitialDelay  `json:"initialDelay"`
+	empty            bool    `json:"-"`
+	Path             *string `json:"path"`
+	Host             *string `json:"host"`
+	FailureThreshold *int64  `json:"failureThreshold"`
+	SuccessThreshold *int64  `json:"successThreshold"`
+	CheckInterval    *string `json:"checkInterval"`
+	Timeout          *string `json:"timeout"`
+	InitialDelay     *string `json:"initialDelay"`
 }
 
 // This object is used to assert a desired state where this VersionLivenessCheck is
@@ -1534,72 +1094,6 @@ func (r *VersionLivenessCheck) String() string {
 }
 
 func (r *VersionLivenessCheck) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionLivenessCheckCheckInterval struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this VersionLivenessCheckCheckInterval is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionLivenessCheckCheckInterval *VersionLivenessCheckCheckInterval = &VersionLivenessCheckCheckInterval{empty: true}
-
-func (r *VersionLivenessCheckCheckInterval) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionLivenessCheckCheckInterval) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionLivenessCheckTimeout struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this VersionLivenessCheckTimeout is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionLivenessCheckTimeout *VersionLivenessCheckTimeout = &VersionLivenessCheckTimeout{empty: true}
-
-func (r *VersionLivenessCheckTimeout) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionLivenessCheckTimeout) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionLivenessCheckInitialDelay struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this VersionLivenessCheckInitialDelay is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionLivenessCheckInitialDelay *VersionLivenessCheckInitialDelay = &VersionLivenessCheckInitialDelay{empty: true}
-
-func (r *VersionLivenessCheckInitialDelay) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionLivenessCheckInitialDelay) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
