@@ -147,7 +147,7 @@ func (op *updateInstanceUpdateInstanceOperation) do(ctx context.Context, r *Inst
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -184,7 +184,7 @@ func (c *Client) listInstanceRaw(ctx context.Context, project, pageToken string,
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -193,8 +193,8 @@ func (c *Client) listInstanceRaw(ctx context.Context, project, pageToken string,
 }
 
 type listInstanceOperation struct {
-	Items []map[string]interface{} `json:"items"`
-	Token string                   `json:"nextPageToken"`
+	Instances []map[string]interface{} `json:"instances"`
+	Token     string                   `json:"nextPageToken"`
 }
 
 func (c *Client) listInstance(ctx context.Context, project, pageToken string, pageSize int32) ([]*Instance, string, error) {
@@ -209,7 +209,7 @@ func (c *Client) listInstance(ctx context.Context, project, pageToken string, pa
 	}
 
 	var l []*Instance
-	for _, v := range m.Items {
+	for _, v := range m.Instances {
 		res := flattenInstance(c, v)
 		res.Project = &project
 		l = append(l, res)
@@ -258,7 +258,7 @@ func (op *deleteInstanceOperation) do(ctx context.Context, r *Instance, c *Clien
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return fmt.Errorf("failed to delete Instance: %w", err)
 	}
@@ -272,7 +272,13 @@ func (op *deleteInstanceOperation) do(ctx context.Context, r *Instance, c *Clien
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createInstanceOperation struct{}
+type createInstanceOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createInstanceOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createInstanceOperation) do(ctx context.Context, r *Instance, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -288,7 +294,7 @@ func (op *createInstanceOperation) do(ctx context.Context, r *Instance, c *Clien
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -302,8 +308,10 @@ func (op *createInstanceOperation) do(ctx context.Context, r *Instance, c *Clien
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetInstance(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -316,7 +324,7 @@ func (c *Client) getInstanceRaw(ctx context.Context, r *Instance) ([]byte, error
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -393,21 +401,13 @@ func canonicalizeInstanceInitialState(rawInitial, rawDesired *Instance) (*Instan
 
 func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...dcl.ApplyOption) (*Instance, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Instance); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Instance, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
@@ -416,7 +416,7 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Config, rawInitial.Config) {
 		rawDesired.Config = rawInitial.Config
 	}
-	if dcl.IsZeroValue(rawDesired.DisplayName) {
+	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
 		rawDesired.DisplayName = rawInitial.DisplayName
 	}
 	if dcl.IsZeroValue(rawDesired.NodeCount) {
@@ -437,6 +437,9 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -452,6 +455,9 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
 		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
+		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.NodeCount) && dcl.IsEmptyValueIndirect(rawDesired.NodeCount) {
@@ -493,7 +499,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []instanceDiff
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
@@ -509,7 +515,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.DisplayName) && (dcl.IsZeroValue(actual.DisplayName) || !reflect.DeepEqual(*desired.DisplayName, *actual.DisplayName)) {
+	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
 		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 
 		diffs = append(diffs, instanceDiff{
@@ -518,7 +524,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.NodeCount) && (dcl.IsZeroValue(actual.NodeCount) || !reflect.DeepEqual(*desired.NodeCount, *actual.NodeCount)) {
+	if !reflect.DeepEqual(desired.NodeCount, actual.NodeCount) {
 		c.Config.Logger.Infof("Detected diff in NodeCount.\nDESIRED: %v\nACTUAL: %v", desired.NodeCount, actual.NodeCount)
 
 		diffs = append(diffs, instanceDiff{
@@ -527,7 +533,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
+	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
 		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, instanceDiff{
@@ -583,8 +589,10 @@ func compareInstanceStateEnum(c *Client, desired, actual *InstanceStateEnum) boo
 // short-form so they can be substituted in.
 func (r *Instance) urlNormalized() *Instance {
 	normalized := deepcopy.Copy(*r).(Instance)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Config = dcl.SelfLinkToName(r.Config)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	return &normalized
 }
 
@@ -635,6 +643,10 @@ func unmarshalInstance(b []byte, c *Client) (*Instance, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapInstance(m, c)
+}
+
+func unmarshalMapInstance(m map[string]interface{}, c *Client) (*Instance, error) {
 
 	return flattenInstance(c, m), nil
 }
@@ -708,7 +720,7 @@ func flattenInstanceStateEnumSlice(c *Client, i interface{}) []InstanceStateEnum
 
 	items := make([]InstanceStateEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceStateEnum(item.(map[string]interface{})))
+		items = append(items, *flattenInstanceStateEnum(item.(interface{})))
 	}
 
 	return items

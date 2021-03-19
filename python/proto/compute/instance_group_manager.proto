@@ -44,7 +44,7 @@ message ComputeInstanceGroupManager {
   repeated ComputeInstanceGroupManagerNamedPorts named_ports = 11;
   ComputeInstanceGroupManagerStatus status = 12;
   repeated string target_pools = 13;
-  repeated ComputeInstanceGroupManagerAutohealingPolicies autohealing_policies = 14;
+  repeated ComputeInstanceGroupManagerAutoHealingPolicies auto_healing_policies = 14;
   ComputeInstanceGroupManagerUpdatePolicy update_policy = 15;
   int64 target_size = 16;
   string zone = 17;
@@ -99,7 +99,7 @@ message ComputeInstanceGroupManagerStatusVersionTarget {
   bool is_reached = 1;
 }
 
-message ComputeInstanceGroupManagerAutohealingPolicies {
+message ComputeInstanceGroupManagerAutoHealingPolicies {
   string health_check = 1;
   int64 initial_delay_sec = 2;
 }
@@ -143,6 +143,7 @@ message ListComputeInstanceGroupManagerRequest {
 message ListComputeInstanceGroupManagerResponse {
   repeated ComputeInstanceGroupManager items = 1;
 }
+
 service ComputeInstanceGroupManagerService {
   rpc ApplyComputeInstanceGroupManager(ApplyComputeInstanceGroupManagerRequest) returns (ComputeInstanceGroupManager);
   rpc DeleteComputeInstanceGroupManager(DeleteComputeInstanceGroupManagerRequest) returns (google.protobuf.Empty);

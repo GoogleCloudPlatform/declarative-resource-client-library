@@ -44,7 +44,7 @@ message ComputeBetaInstanceGroupManager {
   repeated ComputeBetaInstanceGroupManagerNamedPorts named_ports = 11;
   ComputeBetaInstanceGroupManagerStatus status = 12;
   repeated string target_pools = 13;
-  repeated ComputeBetaInstanceGroupManagerAutohealingPolicies autohealing_policies = 14;
+  repeated ComputeBetaInstanceGroupManagerAutoHealingPolicies auto_healing_policies = 14;
   ComputeBetaInstanceGroupManagerUpdatePolicy update_policy = 15;
   int64 target_size = 16;
   string zone = 17;
@@ -99,7 +99,7 @@ message ComputeBetaInstanceGroupManagerStatusVersionTarget {
   bool is_reached = 1;
 }
 
-message ComputeBetaInstanceGroupManagerAutohealingPolicies {
+message ComputeBetaInstanceGroupManagerAutoHealingPolicies {
   string health_check = 1;
   int64 initial_delay_sec = 2;
 }
@@ -143,6 +143,7 @@ message ListComputeBetaInstanceGroupManagerRequest {
 message ListComputeBetaInstanceGroupManagerResponse {
   repeated ComputeBetaInstanceGroupManager items = 1;
 }
+
 service ComputeBetaInstanceGroupManagerService {
   rpc ApplyComputeBetaInstanceGroupManager(ApplyComputeBetaInstanceGroupManagerRequest) returns (ComputeBetaInstanceGroupManager);
   rpc DeleteComputeBetaInstanceGroupManager(DeleteComputeBetaInstanceGroupManagerRequest) returns (google.protobuf.Empty);

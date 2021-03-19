@@ -17,9 +17,10 @@ package serviceusage
 import (
 	"bytes"
 	"context"
-	"time"
+	"encoding/json"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 // Do creates a create request and creates a service.
@@ -28,10 +29,23 @@ func (op *createServiceOperation) do(ctx context.Context, r *Service, c *Client)
 	if err != nil {
 		return err
 	}
-	_, err = dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer([]byte{}), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer([]byte{}), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
+
+	var o operations.StandardGCPOperation
+	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+		return err
+	}
+	// The initial request may return an operation already in the "done" state.
+	if !o.Done {
+		if err := o.Wait(ctx, c.Config, "https://serviceusage.googleapis.com/v1", "GET"); err != nil {
+			c.Config.Logger.Warningf("Enable %q failed after waiting for operation: %v", dcl.ValueOrEmptyString(r.Name), err)
+			return err
+		}
+	}
+
 	err = r.waitForServiceEnabled(ctx, c)
 	if err != nil {
 		return err
@@ -40,13 +54,17 @@ func (op *createServiceOperation) do(ctx context.Context, r *Service, c *Client)
 	return nil
 }
 
-// Do deletes a delete request and deletes a service.
+// Do creates a delete request and deletes a service.
 func (op *deleteServiceOperation) do(ctx context.Context, r *Service, c *Client) error {
 	u, err := serviceDeleteURL(c.Config.BasePath, r)
 	if err != nil {
 		return err
 	}
-	_, err = dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer([]byte{}), c.Config.Retry)
+	body, err := json.Marshal(map[string]bool{"disableDependentServices": true})
+	if err != nil {
+		return err
+	}
+	_, err = dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -55,10 +73,17 @@ func (op *deleteServiceOperation) do(ctx context.Context, r *Service, c *Client)
 }
 
 // contains returns true if a service with the given name exists in the service list.
-func (list *ServiceList) contains(name string) bool {
+func (list *ServiceList) hasEnabled(name string, c *Client) bool {
 	for _, service := range list.Items {
-		if *dcl.SelfLinkToName(service.Name) == name {
-			return true
+		selfLinkName := dcl.SelfLinkToName(service.Name)
+		if selfLinkName != nil && *selfLinkName == name {
+			state := dcl.ValueOrEmptyString(service.State)
+			if state == "ENABLED" {
+				c.Config.Logger.Infof("Service %q is enabled", name)
+				return true
+			}
+			c.Config.Logger.Infof("Service %q is not yet enabled: state = %q", name, state)
+			return false
 		}
 	}
 	return false
@@ -66,23 +91,23 @@ func (list *ServiceList) contains(name string) bool {
 
 // waitForServiceEnabled waits for the service to appear in the list of enabled services.
 func (r *Service) waitForServiceEnabled(ctx context.Context, c *Client) error {
-	for {
+	return dcl.Do(ctx, func(ctc context.Context) (*dcl.RetryDetails, error) {
 		list, err := c.ListService(ctx, *r.Project)
 		if err != nil {
-			return err
+			return nil, err
 		}
-		if list.contains(*r.Name) {
-			return nil
+		if list.hasEnabled(*r.Name, c) {
+			return nil, nil
 		}
 		for list.HasNext() {
 			err = list.Next(ctx, c)
 			if err != nil {
-				return err
+				return nil, err
 			}
-			if list.contains(*r.Name) {
-				return nil
+			if list.hasEnabled(*r.Name, c) {
+				return nil, nil
 			}
 		}
-		time.Sleep(time.Second)
-	}
+		return &dcl.RetryDetails{}, dcl.OperationNotDone{}
+	}, c.Config.RetryProvider)
 }

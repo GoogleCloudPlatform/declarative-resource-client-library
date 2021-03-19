@@ -173,6 +173,7 @@ message ListCloudbuildBuildTriggerRequest {
 message ListCloudbuildBuildTriggerResponse {
   repeated CloudbuildBuildTrigger items = 1;
 }
+
 service CloudbuildBuildTriggerService {
   rpc ApplyCloudbuildBuildTrigger(ApplyCloudbuildBuildTriggerRequest) returns (CloudbuildBuildTrigger);
   rpc DeleteCloudbuildBuildTrigger(DeleteCloudbuildBuildTriggerRequest) returns (google.protobuf.Empty);

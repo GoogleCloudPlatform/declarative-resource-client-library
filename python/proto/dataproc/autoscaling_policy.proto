@@ -72,6 +72,7 @@ message ListDataprocAutoscalingPolicyRequest {
 message ListDataprocAutoscalingPolicyResponse {
   repeated DataprocAutoscalingPolicy items = 1;
 }
+
 service DataprocAutoscalingPolicyService {
   rpc ApplyDataprocAutoscalingPolicy(ApplyDataprocAutoscalingPolicyRequest) returns (DataprocAutoscalingPolicy);
   rpc DeleteDataprocAutoscalingPolicy(DeleteDataprocAutoscalingPolicyRequest) returns (google.protobuf.Empty);

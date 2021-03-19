@@ -143,7 +143,7 @@ func (op *updateBackendBucketUpdateOperation) do(ctx context.Context, r *Backend
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -180,7 +180,7 @@ func (c *Client) listBackendBucketRaw(ctx context.Context, project, pageToken st
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -254,7 +254,7 @@ func (op *deleteBackendBucketOperation) do(ctx context.Context, r *BackendBucket
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -277,7 +277,13 @@ func (op *deleteBackendBucketOperation) do(ctx context.Context, r *BackendBucket
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createBackendBucketOperation struct{}
+type createBackendBucketOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createBackendBucketOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createBackendBucketOperation) do(ctx context.Context, r *BackendBucket, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -293,7 +299,7 @@ func (op *createBackendBucketOperation) do(ctx context.Context, r *BackendBucket
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -307,8 +313,10 @@ func (op *createBackendBucketOperation) do(ctx context.Context, r *BackendBucket
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetBackendBucket(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -321,7 +329,7 @@ func (c *Client) getBackendBucketRaw(ctx context.Context, r *BackendBucket) ([]b
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -398,14 +406,6 @@ func canonicalizeBackendBucketInitialState(rawInitial, rawDesired *BackendBucket
 
 func canonicalizeBackendBucketDesiredState(rawDesired, rawInitial *BackendBucket, opts ...dcl.ApplyOption) (*BackendBucket, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*BackendBucket); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected BackendBucket, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -417,19 +417,19 @@ func canonicalizeBackendBucketDesiredState(rawDesired, rawInitial *BackendBucket
 		rawDesired.BucketName = rawInitial.BucketName
 	}
 	rawDesired.CdnPolicy = canonicalizeBackendBucketCdnPolicy(rawDesired.CdnPolicy, rawInitial.CdnPolicy, opts...)
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
 	if dcl.IsZeroValue(rawDesired.EnableCdn) {
 		rawDesired.EnableCdn = rawInitial.EnableCdn
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
-	if dcl.IsZeroValue(rawDesired.SelfLink) {
+	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}
 
@@ -455,6 +455,9 @@ func canonicalizeBackendBucketNewState(c *Client, rawNew, rawDesired *BackendBuc
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.EnableCdn) && dcl.IsEmptyValueIndirect(rawDesired.EnableCdn) {
@@ -465,6 +468,9 @@ func canonicalizeBackendBucketNewState(c *Client, rawNew, rawDesired *BackendBuc
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -472,6 +478,9 @@ func canonicalizeBackendBucketNewState(c *Client, rawNew, rawDesired *BackendBuc
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	}
 
 	return rawNew, nil
@@ -483,11 +492,6 @@ func canonicalizeBackendBucketCdnPolicy(des, initial *BackendBucketCdnPolicy, op
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*BackendBucket)
-		_ = r
 	}
 
 	if initial == nil {
@@ -574,7 +578,7 @@ func diffBackendBucket(c *Client, desired, actual *BackendBucket, opts ...dcl.Ap
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, backendBucketDiff{
@@ -583,7 +587,7 @@ func diffBackendBucket(c *Client, desired, actual *BackendBucket, opts ...dcl.Ap
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.EnableCdn) && (dcl.IsZeroValue(actual.EnableCdn) || !reflect.DeepEqual(*desired.EnableCdn, *actual.EnableCdn)) {
+	if !reflect.DeepEqual(desired.EnableCdn, actual.EnableCdn) {
 		c.Config.Logger.Infof("Detected diff in EnableCdn.\nDESIRED: %v\nACTUAL: %v", desired.EnableCdn, actual.EnableCdn)
 
 		diffs = append(diffs, backendBucketDiff{
@@ -592,7 +596,7 @@ func diffBackendBucket(c *Client, desired, actual *BackendBucket, opts ...dcl.Ap
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 
 		diffs = append(diffs, backendBucketDiff{
@@ -625,6 +629,32 @@ func diffBackendBucket(c *Client, desired, actual *BackendBucket, opts ...dcl.Ap
 
 	return deduped, nil
 }
+func compareBackendBucketCdnPolicy(c *Client, desired, actual *BackendBucketCdnPolicy) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.SignedUrlKeyNames == nil && desired.SignedUrlKeyNames != nil && !dcl.IsEmptyValueIndirect(desired.SignedUrlKeyNames) {
+		c.Config.Logger.Infof("desired SignedUrlKeyNames %s - but actually nil", dcl.SprintResource(desired.SignedUrlKeyNames))
+		return true
+	}
+	if !dcl.StringSliceEquals(desired.SignedUrlKeyNames, actual.SignedUrlKeyNames) && !dcl.IsZeroValue(desired.SignedUrlKeyNames) {
+		c.Config.Logger.Infof("Diff in SignedUrlKeyNames. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SignedUrlKeyNames), dcl.SprintResource(actual.SignedUrlKeyNames))
+		return true
+	}
+	if actual.SignedUrlCacheMaxAgeSec == nil && desired.SignedUrlCacheMaxAgeSec != nil && !dcl.IsEmptyValueIndirect(desired.SignedUrlCacheMaxAgeSec) {
+		c.Config.Logger.Infof("desired SignedUrlCacheMaxAgeSec %s - but actually nil", dcl.SprintResource(desired.SignedUrlCacheMaxAgeSec))
+		return true
+	}
+	if !reflect.DeepEqual(desired.SignedUrlCacheMaxAgeSec, actual.SignedUrlCacheMaxAgeSec) && !dcl.IsZeroValue(desired.SignedUrlCacheMaxAgeSec) {
+		c.Config.Logger.Infof("Diff in SignedUrlCacheMaxAgeSec. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SignedUrlCacheMaxAgeSec), dcl.SprintResource(actual.SignedUrlCacheMaxAgeSec))
+		return true
+	}
+	return false
+}
+
 func compareBackendBucketCdnPolicySlice(c *Client, desired, actual []BackendBucketCdnPolicy) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in BackendBucketCdnPolicy, lengths unequal.")
@@ -639,28 +669,21 @@ func compareBackendBucketCdnPolicySlice(c *Client, desired, actual []BackendBuck
 	return false
 }
 
-func compareBackendBucketCdnPolicy(c *Client, desired, actual *BackendBucketCdnPolicy) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
+func compareBackendBucketCdnPolicyMap(c *Client, desired, actual map[string]BackendBucketCdnPolicy) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in BackendBucketCdnPolicy, lengths unequal.")
 		return true
 	}
-	if actual.SignedUrlKeyNames == nil && desired.SignedUrlKeyNames != nil && !dcl.IsEmptyValueIndirect(desired.SignedUrlKeyNames) {
-		c.Config.Logger.Infof("desired SignedUrlKeyNames %s - but actually nil", dcl.SprintResource(desired.SignedUrlKeyNames))
-		return true
-	}
-	if !dcl.SliceEquals(desired.SignedUrlKeyNames, actual.SignedUrlKeyNames) && !dcl.IsZeroValue(desired.SignedUrlKeyNames) {
-		c.Config.Logger.Infof("Diff in SignedUrlKeyNames. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SignedUrlKeyNames), dcl.SprintResource(actual.SignedUrlKeyNames))
-		return true
-	}
-	if actual.SignedUrlCacheMaxAgeSec == nil && desired.SignedUrlCacheMaxAgeSec != nil && !dcl.IsEmptyValueIndirect(desired.SignedUrlCacheMaxAgeSec) {
-		c.Config.Logger.Infof("desired SignedUrlCacheMaxAgeSec %s - but actually nil", dcl.SprintResource(desired.SignedUrlCacheMaxAgeSec))
-		return true
-	}
-	if !reflect.DeepEqual(desired.SignedUrlCacheMaxAgeSec, actual.SignedUrlCacheMaxAgeSec) && !dcl.IsZeroValue(desired.SignedUrlCacheMaxAgeSec) && !(dcl.IsEmptyValueIndirect(desired.SignedUrlCacheMaxAgeSec) && dcl.IsZeroValue(actual.SignedUrlCacheMaxAgeSec)) {
-		c.Config.Logger.Infof("Diff in SignedUrlCacheMaxAgeSec. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SignedUrlCacheMaxAgeSec), dcl.SprintResource(actual.SignedUrlCacheMaxAgeSec))
-		return true
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in BackendBucketCdnPolicy, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareBackendBucketCdnPolicy(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in BackendBucketCdnPolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
 	}
 	return false
 }
@@ -671,7 +694,10 @@ func compareBackendBucketCdnPolicy(c *Client, desired, actual *BackendBucketCdnP
 func (r *BackendBucket) urlNormalized() *BackendBucket {
 	normalized := deepcopy.Copy(*r).(BackendBucket)
 	normalized.BucketName = dcl.SelfLinkToName(r.BucketName)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	return &normalized
 }
 
@@ -721,6 +747,10 @@ func unmarshalBackendBucket(b []byte, c *Client) (*BackendBucket, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapBackendBucket(m, c)
+}
+
+func unmarshalMapBackendBucket(m map[string]interface{}, c *Client) (*BackendBucket, error) {
 
 	return flattenBackendBucket(c, m), nil
 }

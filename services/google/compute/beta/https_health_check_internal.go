@@ -148,7 +148,7 @@ func (op *updateHttpsHealthCheckUpdateOperation) do(ctx context.Context, r *Http
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -185,7 +185,7 @@ func (c *Client) listHttpsHealthCheckRaw(ctx context.Context, project, pageToken
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -259,7 +259,7 @@ func (op *deleteHttpsHealthCheckOperation) do(ctx context.Context, r *HttpsHealt
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -282,7 +282,13 @@ func (op *deleteHttpsHealthCheckOperation) do(ctx context.Context, r *HttpsHealt
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createHttpsHealthCheckOperation struct{}
+type createHttpsHealthCheckOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createHttpsHealthCheckOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createHttpsHealthCheckOperation) do(ctx context.Context, r *HttpsHealthCheck, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -298,7 +304,7 @@ func (op *createHttpsHealthCheckOperation) do(ctx context.Context, r *HttpsHealt
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -312,8 +318,10 @@ func (op *createHttpsHealthCheckOperation) do(ctx context.Context, r *HttpsHealt
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetHttpsHealthCheck(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -344,7 +352,7 @@ func (c *Client) getHttpsHealthCheckRaw(ctx context.Context, r *HttpsHealthCheck
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -445,14 +453,6 @@ func canonicalizeHttpsHealthCheckDesiredState(rawDesired, rawInitial *HttpsHealt
 		rawDesired.UnhealthyThreshold = dcl.Int64(2)
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*HttpsHealthCheck); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected HttpsHealthCheck, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -462,22 +462,22 @@ func canonicalizeHttpsHealthCheckDesiredState(rawDesired, rawInitial *HttpsHealt
 	if dcl.IsZeroValue(rawDesired.CheckIntervalSec) {
 		rawDesired.CheckIntervalSec = rawInitial.CheckIntervalSec
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
 	if dcl.IsZeroValue(rawDesired.HealthyThreshold) {
 		rawDesired.HealthyThreshold = rawInitial.HealthyThreshold
 	}
-	if dcl.IsZeroValue(rawDesired.Host) {
+	if dcl.StringCanonicalize(rawDesired.Host, rawInitial.Host) {
 		rawDesired.Host = rawInitial.Host
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
 	if dcl.IsZeroValue(rawDesired.Port) {
 		rawDesired.Port = rawInitial.Port
 	}
-	if dcl.IsZeroValue(rawDesired.RequestPath) {
+	if dcl.StringCanonicalize(rawDesired.RequestPath, rawInitial.RequestPath) {
 		rawDesired.RequestPath = rawInitial.RequestPath
 	}
 	if dcl.IsZeroValue(rawDesired.TimeoutSec) {
@@ -489,10 +489,10 @@ func canonicalizeHttpsHealthCheckDesiredState(rawDesired, rawInitial *HttpsHealt
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
-	if dcl.IsZeroValue(rawDesired.SelfLink) {
+	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}
-	if dcl.IsZeroValue(rawDesired.CreationTimestamp) {
+	if dcl.StringCanonicalize(rawDesired.CreationTimestamp, rawInitial.CreationTimestamp) {
 		rawDesired.CreationTimestamp = rawInitial.CreationTimestamp
 	}
 
@@ -509,6 +509,9 @@ func canonicalizeHttpsHealthCheckNewState(c *Client, rawNew, rawDesired *HttpsHe
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.HealthyThreshold) && dcl.IsEmptyValueIndirect(rawDesired.HealthyThreshold) {
@@ -519,11 +522,17 @@ func canonicalizeHttpsHealthCheckNewState(c *Client, rawNew, rawDesired *HttpsHe
 	if dcl.IsEmptyValueIndirect(rawNew.Host) && dcl.IsEmptyValueIndirect(rawDesired.Host) {
 		rawNew.Host = rawDesired.Host
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Host, rawNew.Host) {
+			rawNew.Host = rawDesired.Host
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Port) && dcl.IsEmptyValueIndirect(rawDesired.Port) {
@@ -534,6 +543,9 @@ func canonicalizeHttpsHealthCheckNewState(c *Client, rawNew, rawDesired *HttpsHe
 	if dcl.IsEmptyValueIndirect(rawNew.RequestPath) && dcl.IsEmptyValueIndirect(rawDesired.RequestPath) {
 		rawNew.RequestPath = rawDesired.RequestPath
 	} else {
+		if dcl.StringCanonicalize(rawDesired.RequestPath, rawNew.RequestPath) {
+			rawNew.RequestPath = rawDesired.RequestPath
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.TimeoutSec) && dcl.IsEmptyValueIndirect(rawDesired.TimeoutSec) {
@@ -551,11 +563,17 @@ func canonicalizeHttpsHealthCheckNewState(c *Client, rawNew, rawDesired *HttpsHe
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.CreationTimestamp) && dcl.IsEmptyValueIndirect(rawDesired.CreationTimestamp) {
 		rawNew.CreationTimestamp = rawDesired.CreationTimestamp
 	} else {
+		if dcl.StringCanonicalize(rawDesired.CreationTimestamp, rawNew.CreationTimestamp) {
+			rawNew.CreationTimestamp = rawDesired.CreationTimestamp
+		}
 	}
 
 	return rawNew, nil
@@ -582,7 +600,7 @@ func diffHttpsHealthCheck(c *Client, desired, actual *HttpsHealthCheck, opts ...
 	}
 
 	var diffs []httpsHealthCheckDiff
-	if !dcl.IsZeroValue(desired.CheckIntervalSec) && (dcl.IsZeroValue(actual.CheckIntervalSec) || !reflect.DeepEqual(*desired.CheckIntervalSec, *actual.CheckIntervalSec)) {
+	if !reflect.DeepEqual(desired.CheckIntervalSec, actual.CheckIntervalSec) {
 		c.Config.Logger.Infof("Detected diff in CheckIntervalSec.\nDESIRED: %v\nACTUAL: %v", desired.CheckIntervalSec, actual.CheckIntervalSec)
 
 		diffs = append(diffs, httpsHealthCheckDiff{
@@ -591,7 +609,7 @@ func diffHttpsHealthCheck(c *Client, desired, actual *HttpsHealthCheck, opts ...
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, httpsHealthCheckDiff{
@@ -600,7 +618,7 @@ func diffHttpsHealthCheck(c *Client, desired, actual *HttpsHealthCheck, opts ...
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.HealthyThreshold) && (dcl.IsZeroValue(actual.HealthyThreshold) || !reflect.DeepEqual(*desired.HealthyThreshold, *actual.HealthyThreshold)) {
+	if !reflect.DeepEqual(desired.HealthyThreshold, actual.HealthyThreshold) {
 		c.Config.Logger.Infof("Detected diff in HealthyThreshold.\nDESIRED: %v\nACTUAL: %v", desired.HealthyThreshold, actual.HealthyThreshold)
 
 		diffs = append(diffs, httpsHealthCheckDiff{
@@ -609,7 +627,7 @@ func diffHttpsHealthCheck(c *Client, desired, actual *HttpsHealthCheck, opts ...
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Host) && (dcl.IsZeroValue(actual.Host) || !reflect.DeepEqual(*desired.Host, *actual.Host)) {
+	if !dcl.IsZeroValue(desired.Host) && !dcl.StringCanonicalize(desired.Host, actual.Host) {
 		c.Config.Logger.Infof("Detected diff in Host.\nDESIRED: %v\nACTUAL: %v", desired.Host, actual.Host)
 
 		diffs = append(diffs, httpsHealthCheckDiff{
@@ -618,14 +636,14 @@ func diffHttpsHealthCheck(c *Client, desired, actual *HttpsHealthCheck, opts ...
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, httpsHealthCheckDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Port) && (dcl.IsZeroValue(actual.Port) || !reflect.DeepEqual(*desired.Port, *actual.Port)) {
+	if !reflect.DeepEqual(desired.Port, actual.Port) {
 		c.Config.Logger.Infof("Detected diff in Port.\nDESIRED: %v\nACTUAL: %v", desired.Port, actual.Port)
 
 		diffs = append(diffs, httpsHealthCheckDiff{
@@ -634,7 +652,7 @@ func diffHttpsHealthCheck(c *Client, desired, actual *HttpsHealthCheck, opts ...
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.RequestPath) && (dcl.IsZeroValue(actual.RequestPath) || !reflect.DeepEqual(*desired.RequestPath, *actual.RequestPath)) {
+	if !dcl.IsZeroValue(desired.RequestPath) && !dcl.StringCanonicalize(desired.RequestPath, actual.RequestPath) {
 		c.Config.Logger.Infof("Detected diff in RequestPath.\nDESIRED: %v\nACTUAL: %v", desired.RequestPath, actual.RequestPath)
 
 		diffs = append(diffs, httpsHealthCheckDiff{
@@ -643,7 +661,7 @@ func diffHttpsHealthCheck(c *Client, desired, actual *HttpsHealthCheck, opts ...
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.TimeoutSec) && (dcl.IsZeroValue(actual.TimeoutSec) || !reflect.DeepEqual(*desired.TimeoutSec, *actual.TimeoutSec)) {
+	if !reflect.DeepEqual(desired.TimeoutSec, actual.TimeoutSec) {
 		c.Config.Logger.Infof("Detected diff in TimeoutSec.\nDESIRED: %v\nACTUAL: %v", desired.TimeoutSec, actual.TimeoutSec)
 
 		diffs = append(diffs, httpsHealthCheckDiff{
@@ -652,7 +670,7 @@ func diffHttpsHealthCheck(c *Client, desired, actual *HttpsHealthCheck, opts ...
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.UnhealthyThreshold) && (dcl.IsZeroValue(actual.UnhealthyThreshold) || !reflect.DeepEqual(*desired.UnhealthyThreshold, *actual.UnhealthyThreshold)) {
+	if !reflect.DeepEqual(desired.UnhealthyThreshold, actual.UnhealthyThreshold) {
 		c.Config.Logger.Infof("Detected diff in UnhealthyThreshold.\nDESIRED: %v\nACTUAL: %v", desired.UnhealthyThreshold, actual.UnhealthyThreshold)
 
 		diffs = append(diffs, httpsHealthCheckDiff{
@@ -691,7 +709,13 @@ func diffHttpsHealthCheck(c *Client, desired, actual *HttpsHealthCheck, opts ...
 // short-form so they can be substituted in.
 func (r *HttpsHealthCheck) urlNormalized() *HttpsHealthCheck {
 	normalized := deepcopy.Copy(*r).(HttpsHealthCheck)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Host = dcl.SelfLinkToName(r.Host)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.RequestPath = dcl.SelfLinkToName(r.RequestPath)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.CreationTimestamp = dcl.SelfLinkToName(r.CreationTimestamp)
 	return &normalized
 }
 
@@ -741,6 +765,10 @@ func unmarshalHttpsHealthCheck(b []byte, c *Client) (*HttpsHealthCheck, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapHttpsHealthCheck(m, c)
+}
+
+func unmarshalMapHttpsHealthCheck(m map[string]interface{}, c *Client) (*HttpsHealthCheck, error) {
 
 	return flattenHttpsHealthCheck(c, m), nil
 }

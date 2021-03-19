@@ -1,0 +1,18 @@
+{
+  "name": "{{instance_name}}",
+  "description": "Test instance",
+  "fileShares": [
+    {
+      "capacityGb": 1024,
+      "name": "my_share"
+    }
+  ],
+  "location": "{{zone}}",
+  "networks": [
+    {
+      "network": "default"
+    }
+  ],
+  "project": "{{project}}",
+  "tier": "STANDARD"
+}

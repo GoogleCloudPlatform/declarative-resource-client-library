@@ -154,6 +154,9 @@ func (l *SubscriptionList) HasNext() bool {
 }
 
 func (l *SubscriptionList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -167,12 +170,17 @@ func (l *SubscriptionList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListSubscription(ctx context.Context, project string) (*SubscriptionList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListSubscriptionWithMaxResults(ctx, project, SubscriptionMaxPage)
 
 }
 
 func (c *Client) ListSubscriptionWithMaxResults(ctx context.Context, project string, pageSize int32) (*SubscriptionList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listSubscription(ctx, project, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -187,6 +195,9 @@ func (c *Client) ListSubscriptionWithMaxResults(ctx context.Context, project str
 }
 
 func (c *Client) GetSubscription(ctx context.Context, r *Subscription) (*Subscription, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getSubscriptionRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -216,6 +227,9 @@ func (c *Client) GetSubscription(ctx context.Context, r *Subscription) (*Subscri
 }
 
 func (c *Client) DeleteSubscription(ctx context.Context, r *Subscription) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Subscription resource is nil")
 	}
@@ -226,6 +240,9 @@ func (c *Client) DeleteSubscription(ctx context.Context, r *Subscription) error 
 
 // DeleteAllSubscription deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllSubscription(ctx context.Context, project string, filter func(*Subscription) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListSubscription(ctx, project)
 	if err != nil {
 		return err
@@ -251,6 +268,9 @@ func (c *Client) DeleteAllSubscription(ctx context.Context, project string, filt
 func (c *Client) ApplySubscription(ctx context.Context, rawDesired *Subscription, opts ...dcl.ApplyOption) (*Subscription, error) {
 	c.Config.Logger.Info("Beginning ApplySubscription...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -331,12 +351,35 @@ func (c *Client) ApplySubscription(ctx context.Context, rawDesired *Subscription
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createSubscriptionOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapSubscription(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeSubscriptionNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeSubscriptionNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

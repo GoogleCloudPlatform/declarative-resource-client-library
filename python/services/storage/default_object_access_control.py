@@ -78,20 +78,27 @@ class DefaultObjectAccessControl(object):
         )
         self.role = DefaultObjectAccessControlRoleEnum.from_proto(response.role)
 
-    @classmethod
-    def delete(self, project, bucket, entity, service_account_file=""):
+    def delete(self):
         stub = default_object_access_control_pb2_grpc.StorageDefaultObjectAccessControlServiceStub(
             channel.Channel()
         )
         request = (
             default_object_access_control_pb2.DeleteStorageDefaultObjectAccessControlRequest()
         )
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
-        request.Bucket = bucket
+        if Primitive.to_proto(self.bucket):
+            request.resource.bucket = Primitive.to_proto(self.bucket)
 
-        request.Entity = entity
+        if Primitive.to_proto(self.entity):
+            request.resource.entity = Primitive.to_proto(self.entity)
+
+        if DefaultObjectAccessControlRoleEnum.to_proto(self.role):
+            request.resource.role = DefaultObjectAccessControlRoleEnum.to_proto(
+                self.role
+            )
 
         response = stub.DeleteStorageDefaultObjectAccessControl(request)
 
@@ -130,6 +137,18 @@ class DefaultObjectAccessControl(object):
         )
         res.role = DefaultObjectAccessControlRoleEnum.from_proto(res_proto.role)
         return res
+
+    def to_proto(self):
+        resource = default_object_access_control_pb2.StorageDefaultObjectAccessControl()
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.bucket):
+            resource.bucket = Primitive.to_proto(self.bucket)
+        if Primitive.to_proto(self.entity):
+            resource.entity = Primitive.to_proto(self.entity)
+        if DefaultObjectAccessControlRoleEnum.to_proto(self.role):
+            resource.role = DefaultObjectAccessControlRoleEnum.to_proto(self.role)
+        return resource
 
 
 class DefaultObjectAccessControlProjectTeam(object):

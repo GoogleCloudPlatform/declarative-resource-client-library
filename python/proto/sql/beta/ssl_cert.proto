@@ -49,6 +49,7 @@ message ListSqlBetaSslCertRequest {
 message ListSqlBetaSslCertResponse {
   repeated SqlBetaSslCert items = 1;
 }
+
 service SqlBetaSslCertService {
   rpc ApplySqlBetaSslCert(ApplySqlBetaSslCertRequest) returns (SqlBetaSslCert);
   rpc DeleteSqlBetaSslCert(DeleteSqlBetaSslCertRequest) returns (google.protobuf.Empty);

@@ -126,16 +126,56 @@ class Job(object):
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
 
-    @classmethod
-    def delete(self, project, location, name, service_account_file=""):
+    def delete(self):
         stub = job_pb2_grpc.CloudschedulerJobServiceStub(channel.Channel())
         request = job_pb2.DeleteCloudschedulerJobRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
 
-        request.Name = name
+        if JobPubsubTarget.to_proto(self.pubsub_target):
+            request.resource.pubsub_target.CopyFrom(
+                JobPubsubTarget.to_proto(self.pubsub_target)
+            )
+        else:
+            request.resource.ClearField("pubsub_target")
+        if JobAppEngineHttpTarget.to_proto(self.app_engine_http_target):
+            request.resource.app_engine_http_target.CopyFrom(
+                JobAppEngineHttpTarget.to_proto(self.app_engine_http_target)
+            )
+        else:
+            request.resource.ClearField("app_engine_http_target")
+        if JobHttpTarget.to_proto(self.http_target):
+            request.resource.http_target.CopyFrom(
+                JobHttpTarget.to_proto(self.http_target)
+            )
+        else:
+            request.resource.ClearField("http_target")
+        if Primitive.to_proto(self.schedule):
+            request.resource.schedule = Primitive.to_proto(self.schedule)
+
+        if Primitive.to_proto(self.time_zone):
+            request.resource.time_zone = Primitive.to_proto(self.time_zone)
+
+        if JobRetryConfig.to_proto(self.retry_config):
+            request.resource.retry_config.CopyFrom(
+                JobRetryConfig.to_proto(self.retry_config)
+            )
+        else:
+            request.resource.ClearField("retry_config")
+        if Primitive.to_proto(self.attempt_deadline):
+            request.resource.attempt_deadline = Primitive.to_proto(
+                self.attempt_deadline
+            )
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         response = stub.DeleteCloudschedulerJob(request)
 
@@ -176,6 +216,44 @@ class Job(object):
         res.project = Primitive.from_proto(res_proto.project)
         res.location = Primitive.from_proto(res_proto.location)
         return res
+
+    def to_proto(self):
+        resource = job_pb2.CloudschedulerJob()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if JobPubsubTarget.to_proto(self.pubsub_target):
+            resource.pubsub_target.CopyFrom(
+                JobPubsubTarget.to_proto(self.pubsub_target)
+            )
+        else:
+            resource.ClearField("pubsub_target")
+        if JobAppEngineHttpTarget.to_proto(self.app_engine_http_target):
+            resource.app_engine_http_target.CopyFrom(
+                JobAppEngineHttpTarget.to_proto(self.app_engine_http_target)
+            )
+        else:
+            resource.ClearField("app_engine_http_target")
+        if JobHttpTarget.to_proto(self.http_target):
+            resource.http_target.CopyFrom(JobHttpTarget.to_proto(self.http_target))
+        else:
+            resource.ClearField("http_target")
+        if Primitive.to_proto(self.schedule):
+            resource.schedule = Primitive.to_proto(self.schedule)
+        if Primitive.to_proto(self.time_zone):
+            resource.time_zone = Primitive.to_proto(self.time_zone)
+        if JobRetryConfig.to_proto(self.retry_config):
+            resource.retry_config.CopyFrom(JobRetryConfig.to_proto(self.retry_config))
+        else:
+            resource.ClearField("retry_config")
+        if Primitive.to_proto(self.attempt_deadline):
+            resource.attempt_deadline = Primitive.to_proto(self.attempt_deadline)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
+        return resource
 
 
 class JobPubsubTarget(object):

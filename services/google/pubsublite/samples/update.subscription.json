@@ -1,0 +1,9 @@
+{
+  "name": "{{ref:basic.subscription.json:name}}",
+  "topic": "{{ref:basic.pubsublite.topic.json:name}}",
+  "deliveryConfig": {
+    "deliveryRequirement": "DELIVER_IMMEDIATELY"
+  },
+  "project": "{{ref:basic.pubsublite.topic.json:project}}",
+  "location": "{{zone}}"
+}

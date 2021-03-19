@@ -143,7 +143,7 @@ func (op *updateConnectionPatchOperation) do(ctx context.Context, r *Connection,
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -180,7 +180,7 @@ func (c *Client) listConnectionRaw(ctx context.Context, project, network, servic
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -239,7 +239,13 @@ type deleteConnectionOperation struct{}
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createConnectionOperation struct{}
+type createConnectionOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createConnectionOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createConnectionOperation) do(ctx context.Context, r *Connection, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -255,7 +261,7 @@ func (op *createConnectionOperation) do(ctx context.Context, r *Connection, c *C
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -269,13 +275,17 @@ func (op *createConnectionOperation) do(ctx context.Context, r *Connection, c *C
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
-	r.Name, err = o.FetchResponseValue("peering")
-	if err != nil {
-		return fmt.Errorf("error trying to retrieve Name: %w", err)
+	// Include Name in URL substitution for initial GET request.
+	name, ok := op.response["peering"].(string)
+	if !ok {
+		return fmt.Errorf("expected peering to be a string")
 	}
+	r.Name = &name
 
 	if _, err := c.GetConnection(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -291,7 +301,7 @@ func (c *Client) getConnectionRaw(ctx context.Context, r *Connection) ([]byte, e
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -383,14 +393,6 @@ func canonicalizeConnectionDesiredState(rawDesired, rawInitial *Connection, opts
 		rawDesired.Service = dcl.String("services/servicenetworking.googleapis.com")
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Connection); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Connection, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -479,7 +481,7 @@ func diffConnection(c *Client, desired, actual *Connection, opts ...dcl.ApplyOpt
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.ReservedPeeringRanges) && !reflect.DeepEqual(desired.ReservedPeeringRanges, actual.ReservedPeeringRanges) {
+	if !reflect.DeepEqual(desired.ReservedPeeringRanges, actual.ReservedPeeringRanges) {
 		c.Config.Logger.Infof("Detected diff in ReservedPeeringRanges.\nDESIRED: %v\nACTUAL: %v", desired.ReservedPeeringRanges, actual.ReservedPeeringRanges)
 
 		diffs = append(diffs, connectionDiff{
@@ -529,6 +531,7 @@ func (r *Connection) urlNormalized() *Connection {
 	normalized := deepcopy.Copy(*r).(Connection)
 	normalized.Network = dcl.SelfLinkToName(r.Network)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Service = dcl.SelfLinkToName(r.Service)
 	return &normalized
 }
@@ -578,6 +581,10 @@ func unmarshalConnection(b []byte, c *Client) (*Connection, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapConnection(m, c)
+}
+
+func unmarshalMapConnection(m map[string]interface{}, c *Client) (*Connection, error) {
 
 	return flattenConnection(c, m), nil
 }
@@ -624,7 +631,7 @@ func flattenConnection(c *Client, i interface{}) *Connection {
 	r := &Connection{}
 	r.Network = dcl.FlattenString(m["network"])
 	r.Project = dcl.FlattenString(m["project"])
-	r.Name = dcl.FlattenSecretValue(m["peering"])
+	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["peering"]))
 	r.ReservedPeeringRanges = dcl.FlattenStringSlice(m["reservedPeeringRanges"])
 	r.Service = dcl.FlattenString(m["service"])
 	if _, ok := m["service"]; !ok {

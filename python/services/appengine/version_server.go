@@ -145,42 +145,6 @@ func ProtoToAppengineVersionApiConfigSecurityLevelEnum(e appenginepb.AppengineVe
 	return nil
 }
 
-// ProtoToVersionVPCAccessConnectorEgressSettingEnum converts a VersionVPCAccessConnectorEgressSettingEnum enum from its proto representation.
-func ProtoToAppengineVersionVPCAccessConnectorEgressSettingEnum(e appenginepb.AppengineVersionVPCAccessConnectorEgressSettingEnum) *appengine.VersionVPCAccessConnectorEgressSettingEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := appenginepb.AppengineVersionVPCAccessConnectorEgressSettingEnum_name[int32(e)]; ok {
-		e := appengine.VersionVPCAccessConnectorEgressSettingEnum(n[len("VersionVPCAccessConnectorEgressSettingEnum"):])
-		return &e
-	}
-	return nil
-}
-
-// ProtoToVersionNetworkSettingsIngressTrafficAllowedEnum converts a VersionNetworkSettingsIngressTrafficAllowedEnum enum from its proto representation.
-func ProtoToAppengineVersionNetworkSettingsIngressTrafficAllowedEnum(e appenginepb.AppengineVersionNetworkSettingsIngressTrafficAllowedEnum) *appengine.VersionNetworkSettingsIngressTrafficAllowedEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := appenginepb.AppengineVersionNetworkSettingsIngressTrafficAllowedEnum_name[int32(e)]; ok {
-		e := appengine.VersionNetworkSettingsIngressTrafficAllowedEnum(n[len("VersionNetworkSettingsIngressTrafficAllowedEnum"):])
-		return &e
-	}
-	return nil
-}
-
-// ProtoToVersionInstanceSpecPortsProtocolEnum converts a VersionInstanceSpecPortsProtocolEnum enum from its proto representation.
-func ProtoToAppengineVersionInstanceSpecPortsProtocolEnum(e appenginepb.AppengineVersionInstanceSpecPortsProtocolEnum) *appengine.VersionInstanceSpecPortsProtocolEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := appenginepb.AppengineVersionInstanceSpecPortsProtocolEnum_name[int32(e)]; ok {
-		e := appengine.VersionInstanceSpecPortsProtocolEnum(n[len("VersionInstanceSpecPortsProtocolEnum"):])
-		return &e
-	}
-	return nil
-}
-
 // ProtoToVersionAutomaticScaling converts a VersionAutomaticScaling resource from its proto representation.
 func ProtoToAppengineVersionAutomaticScaling(p *appenginepb.AppengineVersionAutomaticScaling) *appengine.VersionAutomaticScaling {
 	if p == nil {
@@ -293,35 +257,6 @@ func ProtoToAppengineVersionManualScaling(p *appenginepb.AppengineVersionManualS
 	return obj
 }
 
-// ProtoToVersionJobScaling converts a VersionJobScaling resource from its proto representation.
-func ProtoToAppengineVersionJobScaling(p *appenginepb.AppengineVersionJobScaling) *appengine.VersionJobScaling {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionJobScaling{
-		Completions:               dcl.Int64OrNil(p.Completions),
-		Parallelism:               dcl.Int64OrNil(p.Parallelism),
-		JobDeadline:               dcl.StringOrNil(p.JobDeadline),
-		InstanceRetries:           dcl.Int64OrNil(p.InstanceRetries),
-		InstanceDeadline:          dcl.StringOrNil(p.InstanceDeadline),
-		InstanceTerminationWindow: dcl.StringOrNil(p.InstanceTerminationWindow),
-	}
-	return obj
-}
-
-// ProtoToVersionPoolScaling converts a VersionPoolScaling resource from its proto representation.
-func ProtoToAppengineVersionPoolScaling(p *appenginepb.AppengineVersionPoolScaling) *appengine.VersionPoolScaling {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionPoolScaling{
-		Replicas:       dcl.Int64OrNil(p.Replicas),
-		MaxUnavailable: dcl.Int64OrNil(p.MaxUnavailable),
-		MaxSurge:       dcl.Int64OrNil(p.MaxSurge),
-	}
-	return obj
-}
-
 // ProtoToVersionNetwork converts a VersionNetwork resource from its proto representation.
 func ProtoToAppengineVersionNetwork(p *appenginepb.AppengineVersionNetwork) *appengine.VersionNetwork {
 	if p == nil {
@@ -345,10 +280,9 @@ func ProtoToAppengineVersionResources(p *appenginepb.AppengineVersionResources) 
 		return nil
 	}
 	obj := &appengine.VersionResources{
-		Cpu:             dcl.Float64OrNil(p.Cpu),
-		DiskGb:          dcl.Float64OrNil(p.DiskGb),
-		MemoryGb:        dcl.Float64OrNil(p.MemoryGb),
-		KmsKeyReference: dcl.StringOrNil(p.KmsKeyReference),
+		Cpu:      dcl.Float64OrNil(p.Cpu),
+		DiskGb:   dcl.Float64OrNil(p.DiskGb),
+		MemoryGb: dcl.Float64OrNil(p.MemoryGb),
 	}
 	for _, r := range p.GetVolumes() {
 		obj.Volumes = append(obj.Volumes, *ProtoToAppengineVersionResourcesVolumes(r))
@@ -577,50 +511,6 @@ func ProtoToAppengineVersionLivenessCheck(p *appenginepb.AppengineVersionLivenes
 	return obj
 }
 
-// ProtoToVersionServiceAuthSpec converts a VersionServiceAuthSpec resource from its proto representation.
-func ProtoToAppengineVersionServiceAuthSpec(p *appenginepb.AppengineVersionServiceAuthSpec) *appengine.VersionServiceAuthSpec {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionServiceAuthSpec{
-		IamServiceName:       dcl.StringOrNil(p.IamServiceName),
-		IamResourceName:      dcl.StringOrNil(p.IamResourceName),
-		IamPolicyId:          dcl.StringOrNil(p.IamPolicyId),
-		IamPolicyType:        dcl.StringOrNil(p.IamPolicyType),
-		IamPermission:        dcl.StringOrNil(p.IamPermission),
-		AcceptGcloudClientId: dcl.Bool(p.AcceptGcloudClientId),
-		Clear:                dcl.Bool(p.Clear),
-	}
-	for _, r := range p.GetAudiences() {
-		obj.Audiences = append(obj.Audiences, r)
-	}
-	return obj
-}
-
-// ProtoToVersionServiceCorsSpec converts a VersionServiceCorsSpec resource from its proto representation.
-func ProtoToAppengineVersionServiceCorsSpec(p *appenginepb.AppengineVersionServiceCorsSpec) *appengine.VersionServiceCorsSpec {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionServiceCorsSpec{
-		AllowCredential: dcl.Bool(p.AllowCredential),
-		MaxAgeSeconds:   dcl.Int64OrNil(p.MaxAgeSeconds),
-	}
-	for _, r := range p.GetOrigin() {
-		obj.Origin = append(obj.Origin, r)
-	}
-	for _, r := range p.GetMethod() {
-		obj.Method = append(obj.Method, r)
-	}
-	for _, r := range p.GetHeader() {
-		obj.Header = append(obj.Header, r)
-	}
-	for _, r := range p.GetExposedHeader() {
-		obj.ExposedHeader = append(obj.ExposedHeader, r)
-	}
-	return obj
-}
-
 // ProtoToVersionEntrypoint converts a VersionEntrypoint resource from its proto representation.
 func ProtoToAppengineVersionEntrypoint(p *appenginepb.AppengineVersionEntrypoint) *appengine.VersionEntrypoint {
 	if p == nil {
@@ -638,75 +528,7 @@ func ProtoToAppengineVersionVPCAccessConnector(p *appenginepb.AppengineVersionVP
 		return nil
 	}
 	obj := &appengine.VersionVPCAccessConnector{
-		Name:          dcl.StringOrNil(p.Name),
-		EgressSetting: ProtoToAppengineVersionVPCAccessConnectorEgressSettingEnum(p.GetEgressSetting()),
-	}
-	return obj
-}
-
-// ProtoToVersionNetworkSettings converts a VersionNetworkSettings resource from its proto representation.
-func ProtoToAppengineVersionNetworkSettings(p *appenginepb.AppengineVersionNetworkSettings) *appengine.VersionNetworkSettings {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionNetworkSettings{
-		IngressTrafficAllowed: ProtoToAppengineVersionNetworkSettingsIngressTrafficAllowedEnum(p.GetIngressTrafficAllowed()),
-	}
-	return obj
-}
-
-// ProtoToVersionInstanceSpec converts a VersionInstanceSpec resource from its proto representation.
-func ProtoToAppengineVersionInstanceSpec(p *appenginepb.AppengineVersionInstanceSpec) *appengine.VersionInstanceSpec {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionInstanceSpec{}
-	for _, r := range p.GetSandboxes() {
-		obj.Sandboxes = append(obj.Sandboxes, *ProtoToAppengineVersionInstanceSpecSandboxes(r))
-	}
-	for _, r := range p.GetPorts() {
-		obj.Ports = append(obj.Ports, *ProtoToAppengineVersionInstanceSpecPorts(r))
-	}
-	return obj
-}
-
-// ProtoToVersionInstanceSpecSandboxes converts a VersionInstanceSpecSandboxes resource from its proto representation.
-func ProtoToAppengineVersionInstanceSpecSandboxes(p *appenginepb.AppengineVersionInstanceSpecSandboxes) *appengine.VersionInstanceSpecSandboxes {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionInstanceSpecSandboxes{
 		Name: dcl.StringOrNil(p.Name),
-	}
-	for _, r := range p.GetContainers() {
-		obj.Containers = append(obj.Containers, *ProtoToAppengineVersionInstanceSpecSandboxesContainers(r))
-	}
-	return obj
-}
-
-// ProtoToVersionInstanceSpecSandboxesContainers converts a VersionInstanceSpecSandboxesContainers resource from its proto representation.
-func ProtoToAppengineVersionInstanceSpecSandboxesContainers(p *appenginepb.AppengineVersionInstanceSpecSandboxesContainers) *appengine.VersionInstanceSpecSandboxesContainers {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionInstanceSpecSandboxesContainers{}
-	for _, r := range p.GetPorts() {
-		obj.Ports = append(obj.Ports, r)
-	}
-	return obj
-}
-
-// ProtoToVersionInstanceSpecPorts converts a VersionInstanceSpecPorts resource from its proto representation.
-func ProtoToAppengineVersionInstanceSpecPorts(p *appenginepb.AppengineVersionInstanceSpecPorts) *appengine.VersionInstanceSpecPorts {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.VersionInstanceSpecPorts{
-		Name:      dcl.StringOrNil(p.Name),
-		Sandbox:   dcl.StringOrNil(p.Sandbox),
-		Port:      dcl.Int64OrNil(p.Port),
-		Protocol:  ProtoToAppengineVersionInstanceSpecPortsProtocolEnum(p.GetProtocol()),
-		IsDefault: dcl.Bool(p.IsDefault),
 	}
 	return obj
 }
@@ -719,8 +541,6 @@ func ProtoToVersion(p *appenginepb.AppengineVersion) *appengine.Version {
 		AutomaticScaling:          ProtoToAppengineVersionAutomaticScaling(p.GetAutomaticScaling()),
 		BasicScaling:              ProtoToAppengineVersionBasicScaling(p.GetBasicScaling()),
 		ManualScaling:             ProtoToAppengineVersionManualScaling(p.GetManualScaling()),
-		JobScaling:                ProtoToAppengineVersionJobScaling(p.GetJobScaling()),
-		PoolScaling:               ProtoToAppengineVersionPoolScaling(p.GetPoolScaling()),
 		InstanceClass:             dcl.StringOrNil(p.InstanceClass),
 		Network:                   ProtoToAppengineVersionNetwork(p.GetNetwork()),
 		Resources:                 ProtoToAppengineVersionResources(p.GetResources()),
@@ -743,13 +563,8 @@ func ProtoToVersion(p *appenginepb.AppengineVersion) *appengine.Version {
 		LivenessCheck:             ProtoToAppengineVersionLivenessCheck(p.GetLivenessCheck()),
 		NobuildFilesRegex:         dcl.StringOrNil(p.NobuildFilesRegex),
 		VersionUrl:                dcl.StringOrNil(p.VersionUrl),
-		ServiceAuthSpec:           ProtoToAppengineVersionServiceAuthSpec(p.GetServiceAuthSpec()),
-		ServiceCorsSpec:           ProtoToAppengineVersionServiceCorsSpec(p.GetServiceCorsSpec()),
-		RouteHash:                 dcl.StringOrNil(p.RouteHash),
 		Entrypoint:                ProtoToAppengineVersionEntrypoint(p.GetEntrypoint()),
 		VPCAccessConnector:        ProtoToAppengineVersionVPCAccessConnector(p.GetVpcAccessConnector()),
-		NetworkSettings:           ProtoToAppengineVersionNetworkSettings(p.GetNetworkSettings()),
-		InstanceSpec:              ProtoToAppengineVersionInstanceSpec(p.GetInstanceSpec()),
 		App:                       dcl.StringOrNil(p.App),
 		Service:                   dcl.StringOrNil(p.Service),
 	}
@@ -881,39 +696,6 @@ func AppengineVersionApiConfigSecurityLevelEnumToProto(e *appengine.VersionApiCo
 	return appenginepb.AppengineVersionApiConfigSecurityLevelEnum(0)
 }
 
-// VersionVPCAccessConnectorEgressSettingEnumToProto converts a VersionVPCAccessConnectorEgressSettingEnum enum to its proto representation.
-func AppengineVersionVPCAccessConnectorEgressSettingEnumToProto(e *appengine.VersionVPCAccessConnectorEgressSettingEnum) appenginepb.AppengineVersionVPCAccessConnectorEgressSettingEnum {
-	if e == nil {
-		return appenginepb.AppengineVersionVPCAccessConnectorEgressSettingEnum(0)
-	}
-	if v, ok := appenginepb.AppengineVersionVPCAccessConnectorEgressSettingEnum_value["VersionVPCAccessConnectorEgressSettingEnum"+string(*e)]; ok {
-		return appenginepb.AppengineVersionVPCAccessConnectorEgressSettingEnum(v)
-	}
-	return appenginepb.AppengineVersionVPCAccessConnectorEgressSettingEnum(0)
-}
-
-// VersionNetworkSettingsIngressTrafficAllowedEnumToProto converts a VersionNetworkSettingsIngressTrafficAllowedEnum enum to its proto representation.
-func AppengineVersionNetworkSettingsIngressTrafficAllowedEnumToProto(e *appengine.VersionNetworkSettingsIngressTrafficAllowedEnum) appenginepb.AppengineVersionNetworkSettingsIngressTrafficAllowedEnum {
-	if e == nil {
-		return appenginepb.AppengineVersionNetworkSettingsIngressTrafficAllowedEnum(0)
-	}
-	if v, ok := appenginepb.AppengineVersionNetworkSettingsIngressTrafficAllowedEnum_value["VersionNetworkSettingsIngressTrafficAllowedEnum"+string(*e)]; ok {
-		return appenginepb.AppengineVersionNetworkSettingsIngressTrafficAllowedEnum(v)
-	}
-	return appenginepb.AppengineVersionNetworkSettingsIngressTrafficAllowedEnum(0)
-}
-
-// VersionInstanceSpecPortsProtocolEnumToProto converts a VersionInstanceSpecPortsProtocolEnum enum to its proto representation.
-func AppengineVersionInstanceSpecPortsProtocolEnumToProto(e *appengine.VersionInstanceSpecPortsProtocolEnum) appenginepb.AppengineVersionInstanceSpecPortsProtocolEnum {
-	if e == nil {
-		return appenginepb.AppengineVersionInstanceSpecPortsProtocolEnum(0)
-	}
-	if v, ok := appenginepb.AppengineVersionInstanceSpecPortsProtocolEnum_value["VersionInstanceSpecPortsProtocolEnum"+string(*e)]; ok {
-		return appenginepb.AppengineVersionInstanceSpecPortsProtocolEnum(v)
-	}
-	return appenginepb.AppengineVersionInstanceSpecPortsProtocolEnum(0)
-}
-
 // VersionAutomaticScalingToProto converts a VersionAutomaticScaling resource to its proto representation.
 func AppengineVersionAutomaticScalingToProto(o *appengine.VersionAutomaticScaling) *appenginepb.AppengineVersionAutomaticScaling {
 	if o == nil {
@@ -1026,35 +808,6 @@ func AppengineVersionManualScalingToProto(o *appengine.VersionManualScaling) *ap
 	return p
 }
 
-// VersionJobScalingToProto converts a VersionJobScaling resource to its proto representation.
-func AppengineVersionJobScalingToProto(o *appengine.VersionJobScaling) *appenginepb.AppengineVersionJobScaling {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionJobScaling{
-		Completions:               dcl.ValueOrEmptyInt64(o.Completions),
-		Parallelism:               dcl.ValueOrEmptyInt64(o.Parallelism),
-		JobDeadline:               dcl.ValueOrEmptyString(o.JobDeadline),
-		InstanceRetries:           dcl.ValueOrEmptyInt64(o.InstanceRetries),
-		InstanceDeadline:          dcl.ValueOrEmptyString(o.InstanceDeadline),
-		InstanceTerminationWindow: dcl.ValueOrEmptyString(o.InstanceTerminationWindow),
-	}
-	return p
-}
-
-// VersionPoolScalingToProto converts a VersionPoolScaling resource to its proto representation.
-func AppengineVersionPoolScalingToProto(o *appengine.VersionPoolScaling) *appenginepb.AppengineVersionPoolScaling {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionPoolScaling{
-		Replicas:       dcl.ValueOrEmptyInt64(o.Replicas),
-		MaxUnavailable: dcl.ValueOrEmptyInt64(o.MaxUnavailable),
-		MaxSurge:       dcl.ValueOrEmptyInt64(o.MaxSurge),
-	}
-	return p
-}
-
 // VersionNetworkToProto converts a VersionNetwork resource to its proto representation.
 func AppengineVersionNetworkToProto(o *appengine.VersionNetwork) *appenginepb.AppengineVersionNetwork {
 	if o == nil {
@@ -1078,10 +831,9 @@ func AppengineVersionResourcesToProto(o *appengine.VersionResources) *appenginep
 		return nil
 	}
 	p := &appenginepb.AppengineVersionResources{
-		Cpu:             dcl.ValueOrEmptyDouble(o.Cpu),
-		DiskGb:          dcl.ValueOrEmptyDouble(o.DiskGb),
-		MemoryGb:        dcl.ValueOrEmptyDouble(o.MemoryGb),
-		KmsKeyReference: dcl.ValueOrEmptyString(o.KmsKeyReference),
+		Cpu:      dcl.ValueOrEmptyDouble(o.Cpu),
+		DiskGb:   dcl.ValueOrEmptyDouble(o.DiskGb),
+		MemoryGb: dcl.ValueOrEmptyDouble(o.MemoryGb),
 	}
 	for _, r := range o.Volumes {
 		p.Volumes = append(p.Volumes, AppengineVersionResourcesVolumesToProto(&r))
@@ -1318,50 +1070,6 @@ func AppengineVersionLivenessCheckToProto(o *appengine.VersionLivenessCheck) *ap
 	return p
 }
 
-// VersionServiceAuthSpecToProto converts a VersionServiceAuthSpec resource to its proto representation.
-func AppengineVersionServiceAuthSpecToProto(o *appengine.VersionServiceAuthSpec) *appenginepb.AppengineVersionServiceAuthSpec {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionServiceAuthSpec{
-		IamServiceName:       dcl.ValueOrEmptyString(o.IamServiceName),
-		IamResourceName:      dcl.ValueOrEmptyString(o.IamResourceName),
-		IamPolicyId:          dcl.ValueOrEmptyString(o.IamPolicyId),
-		IamPolicyType:        dcl.ValueOrEmptyString(o.IamPolicyType),
-		IamPermission:        dcl.ValueOrEmptyString(o.IamPermission),
-		AcceptGcloudClientId: dcl.ValueOrEmptyBool(o.AcceptGcloudClientId),
-		Clear:                dcl.ValueOrEmptyBool(o.Clear),
-	}
-	for _, r := range o.Audiences {
-		p.Audiences = append(p.Audiences, r)
-	}
-	return p
-}
-
-// VersionServiceCorsSpecToProto converts a VersionServiceCorsSpec resource to its proto representation.
-func AppengineVersionServiceCorsSpecToProto(o *appengine.VersionServiceCorsSpec) *appenginepb.AppengineVersionServiceCorsSpec {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionServiceCorsSpec{
-		AllowCredential: dcl.ValueOrEmptyBool(o.AllowCredential),
-		MaxAgeSeconds:   dcl.ValueOrEmptyInt64(o.MaxAgeSeconds),
-	}
-	for _, r := range o.Origin {
-		p.Origin = append(p.Origin, r)
-	}
-	for _, r := range o.Method {
-		p.Method = append(p.Method, r)
-	}
-	for _, r := range o.Header {
-		p.Header = append(p.Header, r)
-	}
-	for _, r := range o.ExposedHeader {
-		p.ExposedHeader = append(p.ExposedHeader, r)
-	}
-	return p
-}
-
 // VersionEntrypointToProto converts a VersionEntrypoint resource to its proto representation.
 func AppengineVersionEntrypointToProto(o *appengine.VersionEntrypoint) *appenginepb.AppengineVersionEntrypoint {
 	if o == nil {
@@ -1379,75 +1087,7 @@ func AppengineVersionVPCAccessConnectorToProto(o *appengine.VersionVPCAccessConn
 		return nil
 	}
 	p := &appenginepb.AppengineVersionVPCAccessConnector{
-		Name:          dcl.ValueOrEmptyString(o.Name),
-		EgressSetting: AppengineVersionVPCAccessConnectorEgressSettingEnumToProto(o.EgressSetting),
-	}
-	return p
-}
-
-// VersionNetworkSettingsToProto converts a VersionNetworkSettings resource to its proto representation.
-func AppengineVersionNetworkSettingsToProto(o *appengine.VersionNetworkSettings) *appenginepb.AppengineVersionNetworkSettings {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionNetworkSettings{
-		IngressTrafficAllowed: AppengineVersionNetworkSettingsIngressTrafficAllowedEnumToProto(o.IngressTrafficAllowed),
-	}
-	return p
-}
-
-// VersionInstanceSpecToProto converts a VersionInstanceSpec resource to its proto representation.
-func AppengineVersionInstanceSpecToProto(o *appengine.VersionInstanceSpec) *appenginepb.AppengineVersionInstanceSpec {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionInstanceSpec{}
-	for _, r := range o.Sandboxes {
-		p.Sandboxes = append(p.Sandboxes, AppengineVersionInstanceSpecSandboxesToProto(&r))
-	}
-	for _, r := range o.Ports {
-		p.Ports = append(p.Ports, AppengineVersionInstanceSpecPortsToProto(&r))
-	}
-	return p
-}
-
-// VersionInstanceSpecSandboxesToProto converts a VersionInstanceSpecSandboxes resource to its proto representation.
-func AppengineVersionInstanceSpecSandboxesToProto(o *appengine.VersionInstanceSpecSandboxes) *appenginepb.AppengineVersionInstanceSpecSandboxes {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionInstanceSpecSandboxes{
 		Name: dcl.ValueOrEmptyString(o.Name),
-	}
-	for _, r := range o.Containers {
-		p.Containers = append(p.Containers, AppengineVersionInstanceSpecSandboxesContainersToProto(&r))
-	}
-	return p
-}
-
-// VersionInstanceSpecSandboxesContainersToProto converts a VersionInstanceSpecSandboxesContainers resource to its proto representation.
-func AppengineVersionInstanceSpecSandboxesContainersToProto(o *appengine.VersionInstanceSpecSandboxesContainers) *appenginepb.AppengineVersionInstanceSpecSandboxesContainers {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionInstanceSpecSandboxesContainers{}
-	for _, r := range o.Ports {
-		p.Ports = append(p.Ports, r)
-	}
-	return p
-}
-
-// VersionInstanceSpecPortsToProto converts a VersionInstanceSpecPorts resource to its proto representation.
-func AppengineVersionInstanceSpecPortsToProto(o *appengine.VersionInstanceSpecPorts) *appenginepb.AppengineVersionInstanceSpecPorts {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineVersionInstanceSpecPorts{
-		Name:      dcl.ValueOrEmptyString(o.Name),
-		Sandbox:   dcl.ValueOrEmptyString(o.Sandbox),
-		Port:      dcl.ValueOrEmptyInt64(o.Port),
-		Protocol:  AppengineVersionInstanceSpecPortsProtocolEnumToProto(o.Protocol),
-		IsDefault: dcl.ValueOrEmptyBool(o.IsDefault),
 	}
 	return p
 }
@@ -1460,8 +1100,6 @@ func VersionToProto(resource *appengine.Version) *appenginepb.AppengineVersion {
 		AutomaticScaling:          AppengineVersionAutomaticScalingToProto(resource.AutomaticScaling),
 		BasicScaling:              AppengineVersionBasicScalingToProto(resource.BasicScaling),
 		ManualScaling:             AppengineVersionManualScalingToProto(resource.ManualScaling),
-		JobScaling:                AppengineVersionJobScalingToProto(resource.JobScaling),
-		PoolScaling:               AppengineVersionPoolScalingToProto(resource.PoolScaling),
 		InstanceClass:             dcl.ValueOrEmptyString(resource.InstanceClass),
 		Network:                   AppengineVersionNetworkToProto(resource.Network),
 		Resources:                 AppengineVersionResourcesToProto(resource.Resources),
@@ -1484,13 +1122,8 @@ func VersionToProto(resource *appengine.Version) *appenginepb.AppengineVersion {
 		LivenessCheck:             AppengineVersionLivenessCheckToProto(resource.LivenessCheck),
 		NobuildFilesRegex:         dcl.ValueOrEmptyString(resource.NobuildFilesRegex),
 		VersionUrl:                dcl.ValueOrEmptyString(resource.VersionUrl),
-		ServiceAuthSpec:           AppengineVersionServiceAuthSpecToProto(resource.ServiceAuthSpec),
-		ServiceCorsSpec:           AppengineVersionServiceCorsSpecToProto(resource.ServiceCorsSpec),
-		RouteHash:                 dcl.ValueOrEmptyString(resource.RouteHash),
 		Entrypoint:                AppengineVersionEntrypointToProto(resource.Entrypoint),
 		VpcAccessConnector:        AppengineVersionVPCAccessConnectorToProto(resource.VPCAccessConnector),
-		NetworkSettings:           AppengineVersionNetworkSettingsToProto(resource.NetworkSettings),
-		InstanceSpec:              AppengineVersionInstanceSpecToProto(resource.InstanceSpec),
 		App:                       dcl.ValueOrEmptyString(resource.App),
 		Service:                   dcl.ValueOrEmptyString(resource.Service),
 	}

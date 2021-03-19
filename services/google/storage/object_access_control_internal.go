@@ -160,7 +160,7 @@ func (op *updateObjectAccessControlUpdateOperation) do(ctx context.Context, r *O
 	if err != nil {
 		return err
 	}
-	_, err = dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -187,7 +187,7 @@ func (c *Client) listObjectAccessControlRaw(ctx context.Context, project, bucket
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -263,7 +263,7 @@ func (op *deleteObjectAccessControlOperation) do(ctx context.Context, r *ObjectA
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return fmt.Errorf("failed to delete ObjectAccessControl: %w", err)
 	}
@@ -277,7 +277,13 @@ func (op *deleteObjectAccessControlOperation) do(ctx context.Context, r *ObjectA
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createObjectAccessControlOperation struct{}
+type createObjectAccessControlOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createObjectAccessControlOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createObjectAccessControlOperation) do(ctx context.Context, r *ObjectAccessControl, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -293,7 +299,7 @@ func (op *createObjectAccessControlOperation) do(ctx context.Context, r *ObjectA
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -302,9 +308,10 @@ func (op *createObjectAccessControlOperation) do(ctx context.Context, r *ObjectA
 	if err != nil {
 		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
-	_ = o // We might not use resp- this will stop Go complaining
+	op.response = o
 
 	if _, err := c.GetObjectAccessControl(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -317,7 +324,7 @@ func (c *Client) getObjectAccessControlRaw(ctx context.Context, r *ObjectAccessC
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -394,14 +401,6 @@ func canonicalizeObjectAccessControlInitialState(rawInitial, rawDesired *ObjectA
 
 func canonicalizeObjectAccessControlDesiredState(rawDesired, rawInitial *ObjectAccessControl, opts ...dcl.ApplyOption) (*ObjectAccessControl, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*ObjectAccessControl); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected ObjectAccessControl, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -415,26 +414,26 @@ func canonicalizeObjectAccessControlDesiredState(rawDesired, rawInitial *ObjectA
 	if dcl.NameToSelfLink(rawDesired.Bucket, rawInitial.Bucket) {
 		rawDesired.Bucket = rawInitial.Bucket
 	}
-	if dcl.IsZeroValue(rawDesired.Domain) {
+	if dcl.StringCanonicalize(rawDesired.Domain, rawInitial.Domain) {
 		rawDesired.Domain = rawInitial.Domain
 	}
-	if dcl.IsZeroValue(rawDesired.Email) {
+	if dcl.StringCanonicalize(rawDesired.Email, rawInitial.Email) {
 		rawDesired.Email = rawInitial.Email
 	}
-	if dcl.IsZeroValue(rawDesired.Entity) {
+	if dcl.StringCanonicalize(rawDesired.Entity, rawInitial.Entity) {
 		rawDesired.Entity = rawInitial.Entity
 	}
-	if dcl.IsZeroValue(rawDesired.EntityId) {
+	if dcl.StringCanonicalize(rawDesired.EntityId, rawInitial.EntityId) {
 		rawDesired.EntityId = rawInitial.EntityId
 	}
 	rawDesired.ProjectTeam = canonicalizeObjectAccessControlProjectTeam(rawDesired.ProjectTeam, rawInitial.ProjectTeam, opts...)
 	if dcl.IsZeroValue(rawDesired.Role) {
 		rawDesired.Role = rawInitial.Role
 	}
-	if dcl.IsZeroValue(rawDesired.Id) {
+	if dcl.StringCanonicalize(rawDesired.Id, rawInitial.Id) {
 		rawDesired.Id = rawInitial.Id
 	}
-	if dcl.IsZeroValue(rawDesired.Object) {
+	if dcl.StringCanonicalize(rawDesired.Object, rawInitial.Object) {
 		rawDesired.Object = rawInitial.Object
 	}
 	if dcl.IsZeroValue(rawDesired.Generation) {
@@ -459,21 +458,33 @@ func canonicalizeObjectAccessControlNewState(c *Client, rawNew, rawDesired *Obje
 	if dcl.IsEmptyValueIndirect(rawNew.Domain) && dcl.IsEmptyValueIndirect(rawDesired.Domain) {
 		rawNew.Domain = rawDesired.Domain
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Domain, rawNew.Domain) {
+			rawNew.Domain = rawDesired.Domain
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Email) && dcl.IsEmptyValueIndirect(rawDesired.Email) {
 		rawNew.Email = rawDesired.Email
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Email, rawNew.Email) {
+			rawNew.Email = rawDesired.Email
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Entity) && dcl.IsEmptyValueIndirect(rawDesired.Entity) {
 		rawNew.Entity = rawDesired.Entity
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Entity, rawNew.Entity) {
+			rawNew.Entity = rawDesired.Entity
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.EntityId) && dcl.IsEmptyValueIndirect(rawDesired.EntityId) {
 		rawNew.EntityId = rawDesired.EntityId
 	} else {
+		if dcl.StringCanonicalize(rawDesired.EntityId, rawNew.EntityId) {
+			rawNew.EntityId = rawDesired.EntityId
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ProjectTeam) && dcl.IsEmptyValueIndirect(rawDesired.ProjectTeam) {
@@ -490,11 +501,17 @@ func canonicalizeObjectAccessControlNewState(c *Client, rawNew, rawDesired *Obje
 	if dcl.IsEmptyValueIndirect(rawNew.Id) && dcl.IsEmptyValueIndirect(rawDesired.Id) {
 		rawNew.Id = rawDesired.Id
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Id, rawNew.Id) {
+			rawNew.Id = rawDesired.Id
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Object) && dcl.IsEmptyValueIndirect(rawDesired.Object) {
 		rawNew.Object = rawDesired.Object
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Object, rawNew.Object) {
+			rawNew.Object = rawDesired.Object
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Generation) && dcl.IsEmptyValueIndirect(rawDesired.Generation) {
@@ -513,16 +530,11 @@ func canonicalizeObjectAccessControlProjectTeam(des, initial *ObjectAccessContro
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*ObjectAccessControl)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.ProjectNumber) {
+	if dcl.StringCanonicalize(des.ProjectNumber, initial.ProjectNumber) || dcl.IsZeroValue(des.ProjectNumber) {
 		des.ProjectNumber = initial.ProjectNumber
 	}
 	if dcl.IsZeroValue(des.Team) {
@@ -535,6 +547,10 @@ func canonicalizeObjectAccessControlProjectTeam(des, initial *ObjectAccessContro
 func canonicalizeNewObjectAccessControlProjectTeam(c *Client, des, nw *ObjectAccessControlProjectTeam) *ObjectAccessControlProjectTeam {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.ProjectNumber, nw.ProjectNumber) || dcl.IsZeroValue(des.ProjectNumber) {
+		nw.ProjectNumber = des.ProjectNumber
 	}
 
 	return nw
@@ -593,7 +609,7 @@ func diffObjectAccessControl(c *Client, desired, actual *ObjectAccessControl, op
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Entity) && (dcl.IsZeroValue(actual.Entity) || !reflect.DeepEqual(*desired.Entity, *actual.Entity)) {
+	if !dcl.IsZeroValue(desired.Entity) && !dcl.StringCanonicalize(desired.Entity, actual.Entity) {
 		c.Config.Logger.Infof("Detected diff in Entity.\nDESIRED: %v\nACTUAL: %v", desired.Entity, actual.Entity)
 
 		diffs = append(diffs, objectAccessControlDiff{
@@ -602,7 +618,7 @@ func diffObjectAccessControl(c *Client, desired, actual *ObjectAccessControl, op
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Role) && (dcl.IsZeroValue(actual.Role) || !reflect.DeepEqual(*desired.Role, *actual.Role)) {
+	if !reflect.DeepEqual(desired.Role, actual.Role) {
 		c.Config.Logger.Infof("Detected diff in Role.\nDESIRED: %v\nACTUAL: %v", desired.Role, actual.Role)
 
 		diffs = append(diffs, objectAccessControlDiff{
@@ -611,7 +627,7 @@ func diffObjectAccessControl(c *Client, desired, actual *ObjectAccessControl, op
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Object) && (dcl.IsZeroValue(actual.Object) || !reflect.DeepEqual(*desired.Object, *actual.Object)) {
+	if !dcl.IsZeroValue(desired.Object) && !dcl.StringCanonicalize(desired.Object, actual.Object) {
 		c.Config.Logger.Infof("Detected diff in Object.\nDESIRED: %v\nACTUAL: %v", desired.Object, actual.Object)
 
 		diffs = append(diffs, objectAccessControlDiff{
@@ -644,6 +660,32 @@ func diffObjectAccessControl(c *Client, desired, actual *ObjectAccessControl, op
 
 	return deduped, nil
 }
+func compareObjectAccessControlProjectTeam(c *Client, desired, actual *ObjectAccessControlProjectTeam) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.ProjectNumber == nil && desired.ProjectNumber != nil && !dcl.IsEmptyValueIndirect(desired.ProjectNumber) {
+		c.Config.Logger.Infof("desired ProjectNumber %s - but actually nil", dcl.SprintResource(desired.ProjectNumber))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.ProjectNumber, actual.ProjectNumber) && !dcl.IsZeroValue(desired.ProjectNumber) {
+		c.Config.Logger.Infof("Diff in ProjectNumber. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProjectNumber), dcl.SprintResource(actual.ProjectNumber))
+		return true
+	}
+	if actual.Team == nil && desired.Team != nil && !dcl.IsEmptyValueIndirect(desired.Team) {
+		c.Config.Logger.Infof("desired Team %s - but actually nil", dcl.SprintResource(desired.Team))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Team, actual.Team) && !dcl.IsZeroValue(desired.Team) {
+		c.Config.Logger.Infof("Diff in Team. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Team), dcl.SprintResource(actual.Team))
+		return true
+	}
+	return false
+}
+
 func compareObjectAccessControlProjectTeamSlice(c *Client, desired, actual []ObjectAccessControlProjectTeam) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in ObjectAccessControlProjectTeam, lengths unequal.")
@@ -658,31 +700,25 @@ func compareObjectAccessControlProjectTeamSlice(c *Client, desired, actual []Obj
 	return false
 }
 
-func compareObjectAccessControlProjectTeam(c *Client, desired, actual *ObjectAccessControlProjectTeam) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
+func compareObjectAccessControlProjectTeamMap(c *Client, desired, actual map[string]ObjectAccessControlProjectTeam) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ObjectAccessControlProjectTeam, lengths unequal.")
 		return true
 	}
-	if actual.ProjectNumber == nil && desired.ProjectNumber != nil && !dcl.IsEmptyValueIndirect(desired.ProjectNumber) {
-		c.Config.Logger.Infof("desired ProjectNumber %s - but actually nil", dcl.SprintResource(desired.ProjectNumber))
-		return true
-	}
-	if !reflect.DeepEqual(desired.ProjectNumber, actual.ProjectNumber) && !dcl.IsZeroValue(desired.ProjectNumber) && !(dcl.IsEmptyValueIndirect(desired.ProjectNumber) && dcl.IsZeroValue(actual.ProjectNumber)) {
-		c.Config.Logger.Infof("Diff in ProjectNumber. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProjectNumber), dcl.SprintResource(actual.ProjectNumber))
-		return true
-	}
-	if actual.Team == nil && desired.Team != nil && !dcl.IsEmptyValueIndirect(desired.Team) {
-		c.Config.Logger.Infof("desired Team %s - but actually nil", dcl.SprintResource(desired.Team))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Team, actual.Team) && !dcl.IsZeroValue(desired.Team) && !(dcl.IsEmptyValueIndirect(desired.Team) && dcl.IsZeroValue(actual.Team)) {
-		c.Config.Logger.Infof("Diff in Team. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Team), dcl.SprintResource(actual.Team))
-		return true
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in ObjectAccessControlProjectTeam, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareObjectAccessControlProjectTeam(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in ObjectAccessControlProjectTeam, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
 	}
 	return false
 }
+
 func compareObjectAccessControlProjectTeamTeamEnumSlice(c *Client, desired, actual []ObjectAccessControlProjectTeamTeamEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in ObjectAccessControlProjectTeamTeamEnum, lengths unequal.")
@@ -726,6 +762,12 @@ func (r *ObjectAccessControl) urlNormalized() *ObjectAccessControl {
 	normalized := deepcopy.Copy(*r).(ObjectAccessControl)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Bucket = dcl.SelfLinkToName(r.Bucket)
+	normalized.Domain = dcl.SelfLinkToName(r.Domain)
+	normalized.Email = dcl.SelfLinkToName(r.Email)
+	normalized.Entity = dcl.SelfLinkToName(r.Entity)
+	normalized.EntityId = dcl.SelfLinkToName(r.EntityId)
+	normalized.Id = dcl.SelfLinkToName(r.Id)
+	normalized.Object = dcl.SelfLinkToName(r.Object)
 	return &normalized
 }
 
@@ -777,6 +819,10 @@ func unmarshalObjectAccessControl(b []byte, c *Client) (*ObjectAccessControl, er
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapObjectAccessControl(m, c)
+}
+
+func unmarshalMapObjectAccessControl(m map[string]interface{}, c *Client) (*ObjectAccessControl, error) {
 
 	return flattenObjectAccessControl(c, m), nil
 }
@@ -980,7 +1026,7 @@ func flattenObjectAccessControlProjectTeamTeamEnumSlice(c *Client, i interface{}
 
 	items := make([]ObjectAccessControlProjectTeamTeamEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenObjectAccessControlProjectTeamTeamEnum(item.(map[string]interface{})))
+		items = append(items, *flattenObjectAccessControlProjectTeamTeamEnum(item.(interface{})))
 	}
 
 	return items
@@ -1011,7 +1057,7 @@ func flattenObjectAccessControlRoleEnumSlice(c *Client, i interface{}) []ObjectA
 
 	items := make([]ObjectAccessControlRoleEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenObjectAccessControlRoleEnum(item.(map[string]interface{})))
+		items = append(items, *flattenObjectAccessControlRoleEnum(item.(interface{})))
 	}
 
 	return items

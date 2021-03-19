@@ -60,6 +60,9 @@ func (l *AccessPolicyList) HasNext() bool {
 }
 
 func (l *AccessPolicyList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -73,12 +76,17 @@ func (l *AccessPolicyList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListAccessPolicy(ctx context.Context, parent string) (*AccessPolicyList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListAccessPolicyWithMaxResults(ctx, parent, AccessPolicyMaxPage)
 
 }
 
 func (c *Client) ListAccessPolicyWithMaxResults(ctx context.Context, parent string, pageSize int32) (*AccessPolicyList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listAccessPolicy(ctx, parent, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -93,6 +101,9 @@ func (c *Client) ListAccessPolicyWithMaxResults(ctx context.Context, parent stri
 }
 
 func (c *Client) GetAccessPolicy(ctx context.Context, r *AccessPolicy) (*AccessPolicy, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getAccessPolicyRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -121,6 +132,9 @@ func (c *Client) GetAccessPolicy(ctx context.Context, r *AccessPolicy) (*AccessP
 }
 
 func (c *Client) DeleteAccessPolicy(ctx context.Context, r *AccessPolicy) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("AccessPolicy resource is nil")
 	}
@@ -136,6 +150,9 @@ func (c *Client) DeleteAccessPolicy(ctx context.Context, r *AccessPolicy) error 
 
 // DeleteAllAccessPolicy deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllAccessPolicy(ctx context.Context, parent string, filter func(*AccessPolicy) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListAccessPolicy(ctx, parent)
 	if err != nil {
 		return err
@@ -161,6 +178,9 @@ func (c *Client) DeleteAllAccessPolicy(ctx context.Context, parent string, filte
 func (c *Client) ApplyAccessPolicy(ctx context.Context, rawDesired *AccessPolicy, opts ...dcl.ApplyOption) (*AccessPolicy, error) {
 	c.Config.Logger.Info("Beginning ApplyAccessPolicy...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -241,12 +261,35 @@ func (c *Client) ApplyAccessPolicy(ctx context.Context, rawDesired *AccessPolicy
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createAccessPolicyOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapAccessPolicy(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeAccessPolicyNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeAccessPolicyNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

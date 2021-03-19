@@ -62,6 +62,7 @@ message ListComputeTargetPoolRequest {
 message ListComputeTargetPoolResponse {
   repeated ComputeTargetPool items = 1;
 }
+
 service ComputeTargetPoolService {
   rpc ApplyComputeTargetPool(ApplyComputeTargetPoolRequest) returns (ComputeTargetPool);
   rpc DeleteComputeTargetPool(DeleteComputeTargetPoolRequest) returns (google.protobuf.Empty);

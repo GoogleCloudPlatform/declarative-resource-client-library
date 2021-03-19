@@ -177,16 +177,77 @@ class Instance(object):
         self.project = Primitive.from_proto(response.project)
         self.self_link = Primitive.from_proto(response.self_link)
 
-    @classmethod
-    def delete(self, project, zone, name, service_account_file=""):
+    def delete(self):
         stub = instance_pb2_grpc.ComputeBetaInstanceServiceStub(channel.Channel())
         request = instance_pb2.DeleteComputeBetaInstanceRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.can_ip_forward):
+            request.resource.can_ip_forward = Primitive.to_proto(self.can_ip_forward)
 
-        request.Zone = zone
+        if Primitive.to_proto(self.deletion_protection):
+            request.resource.deletion_protection = Primitive.to_proto(
+                self.deletion_protection
+            )
 
-        request.Name = name
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if InstanceDisksArray.to_proto(self.disks):
+            request.resource.disks.extend(InstanceDisksArray.to_proto(self.disks))
+        if InstanceGuestAcceleratorsArray.to_proto(self.guest_accelerators):
+            request.resource.guest_accelerators.extend(
+                InstanceGuestAcceleratorsArray.to_proto(self.guest_accelerators)
+            )
+        if Primitive.to_proto(self.hostname):
+            request.resource.hostname = Primitive.to_proto(self.hostname)
+
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
+        if Primitive.to_proto(self.metadata):
+            request.resource.metadata = Primitive.to_proto(self.metadata)
+
+        if Primitive.to_proto(self.machine_type):
+            request.resource.machine_type = Primitive.to_proto(self.machine_type)
+
+        if Primitive.to_proto(self.min_cpu_platform):
+            request.resource.min_cpu_platform = Primitive.to_proto(
+                self.min_cpu_platform
+            )
+
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if InstanceNetworkInterfacesArray.to_proto(self.network_interfaces):
+            request.resource.network_interfaces.extend(
+                InstanceNetworkInterfacesArray.to_proto(self.network_interfaces)
+            )
+        if InstanceScheduling.to_proto(self.scheduling):
+            request.resource.scheduling.CopyFrom(
+                InstanceScheduling.to_proto(self.scheduling)
+            )
+        else:
+            request.resource.ClearField("scheduling")
+        if InstanceServiceAccountsArray.to_proto(self.service_accounts):
+            request.resource.service_accounts.extend(
+                InstanceServiceAccountsArray.to_proto(self.service_accounts)
+            )
+        if InstanceShieldedInstanceConfig.to_proto(self.shielded_instance_config):
+            request.resource.shielded_instance_config.CopyFrom(
+                InstanceShieldedInstanceConfig.to_proto(self.shielded_instance_config)
+            )
+        else:
+            request.resource.ClearField("shielded_instance_config")
+        if InstanceStatusEnum.to_proto(self.status):
+            request.resource.status = InstanceStatusEnum.to_proto(self.status)
+
+        if Primitive.to_proto(self.tags):
+            request.resource.tags.extend(Primitive.to_proto(self.tags))
+        if Primitive.to_proto(self.zone):
+            request.resource.zone = Primitive.to_proto(self.zone)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteComputeBetaInstance(request)
 
@@ -241,6 +302,60 @@ class Instance(object):
         res.project = Primitive.from_proto(res_proto.project)
         res.self_link = Primitive.from_proto(res_proto.self_link)
         return res
+
+    def to_proto(self):
+        resource = instance_pb2.ComputeBetaInstance()
+        if Primitive.to_proto(self.can_ip_forward):
+            resource.can_ip_forward = Primitive.to_proto(self.can_ip_forward)
+        if Primitive.to_proto(self.deletion_protection):
+            resource.deletion_protection = Primitive.to_proto(self.deletion_protection)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if InstanceDisksArray.to_proto(self.disks):
+            resource.disks.extend(InstanceDisksArray.to_proto(self.disks))
+        if InstanceGuestAcceleratorsArray.to_proto(self.guest_accelerators):
+            resource.guest_accelerators.extend(
+                InstanceGuestAcceleratorsArray.to_proto(self.guest_accelerators)
+            )
+        if Primitive.to_proto(self.hostname):
+            resource.hostname = Primitive.to_proto(self.hostname)
+        if Primitive.to_proto(self.labels):
+            resource.labels = Primitive.to_proto(self.labels)
+        if Primitive.to_proto(self.metadata):
+            resource.metadata = Primitive.to_proto(self.metadata)
+        if Primitive.to_proto(self.machine_type):
+            resource.machine_type = Primitive.to_proto(self.machine_type)
+        if Primitive.to_proto(self.min_cpu_platform):
+            resource.min_cpu_platform = Primitive.to_proto(self.min_cpu_platform)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if InstanceNetworkInterfacesArray.to_proto(self.network_interfaces):
+            resource.network_interfaces.extend(
+                InstanceNetworkInterfacesArray.to_proto(self.network_interfaces)
+            )
+        if InstanceScheduling.to_proto(self.scheduling):
+            resource.scheduling.CopyFrom(InstanceScheduling.to_proto(self.scheduling))
+        else:
+            resource.ClearField("scheduling")
+        if InstanceServiceAccountsArray.to_proto(self.service_accounts):
+            resource.service_accounts.extend(
+                InstanceServiceAccountsArray.to_proto(self.service_accounts)
+            )
+        if InstanceShieldedInstanceConfig.to_proto(self.shielded_instance_config):
+            resource.shielded_instance_config.CopyFrom(
+                InstanceShieldedInstanceConfig.to_proto(self.shielded_instance_config)
+            )
+        else:
+            resource.ClearField("shielded_instance_config")
+        if InstanceStatusEnum.to_proto(self.status):
+            resource.status = InstanceStatusEnum.to_proto(self.status)
+        if Primitive.to_proto(self.tags):
+            resource.tags.extend(Primitive.to_proto(self.tags))
+        if Primitive.to_proto(self.zone):
+            resource.zone = Primitive.to_proto(self.zone)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class InstanceDisks(object):

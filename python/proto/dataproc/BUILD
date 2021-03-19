@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="dataproc", resources=["autoscaling_policy","cluster","workflow_template"])
+proto_package(name="dataproc", resources=["autoscaling_policy","cluster","job","workflow_template"])

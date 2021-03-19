@@ -20,8 +20,6 @@ import (
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
 	pubsubpb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/pubsub/pubsub_go_proto"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub"
-
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/serialization"
 )
 
 // Server implements the gRPC interface for Subscription.
@@ -176,16 +174,6 @@ func (s *SubscriptionServer) ApplyPubsubSubscription(ctx context.Context, reques
 		return nil, err
 	}
 	return s.applySubscription(ctx, cl, request)
-}
-
-func (s *SubscriptionServer) PubsubSubscriptionAsHcl(ctx context.Context, request *pubsubpb.PubsubSubscriptionAsHclRequest) (*pubsubpb.PubsubSubscriptionAsHclResponse, error) {
-	p := ProtoToSubscription(request.GetResource())
-	resStr, err := serialization.PubsubSubscriptionAsHCL(*p)
-	if err != nil {
-		return nil, err
-	}
-
-	return &pubsubpb.PubsubSubscriptionAsHclResponse{Hcl: resStr}, nil
 }
 
 // DeleteSubscription handles the gRPC request by passing it to the underlying Subscription Delete() method.

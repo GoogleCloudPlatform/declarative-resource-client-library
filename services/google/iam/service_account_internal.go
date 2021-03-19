@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 
 	"github.com/mohae/deepcopy"
@@ -135,7 +134,7 @@ func (op *updateServiceAccountPatchServiceAccountOperation) do(ctx context.Conte
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -172,7 +171,7 @@ func (c *Client) listServiceAccountRaw(ctx context.Context, project, pageToken s
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -246,7 +245,7 @@ func (op *deleteServiceAccountOperation) do(ctx context.Context, r *ServiceAccou
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return fmt.Errorf("failed to delete ServiceAccount: %w", err)
 	}
@@ -260,7 +259,13 @@ func (op *deleteServiceAccountOperation) do(ctx context.Context, r *ServiceAccou
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createServiceAccountOperation struct{}
+type createServiceAccountOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createServiceAccountOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createServiceAccountOperation) do(ctx context.Context, r *ServiceAccount, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -276,7 +281,7 @@ func (op *createServiceAccountOperation) do(ctx context.Context, r *ServiceAccou
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -285,9 +290,10 @@ func (op *createServiceAccountOperation) do(ctx context.Context, r *ServiceAccou
 	if err != nil {
 		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
-	_ = o // We might not use resp- this will stop Go complaining
+	op.response = o
 
 	if _, err := c.GetServiceAccount(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -300,7 +306,7 @@ func (c *Client) getServiceAccountRaw(ctx context.Context, r *ServiceAccount) ([
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -377,14 +383,6 @@ func canonicalizeServiceAccountInitialState(rawInitial, rawDesired *ServiceAccou
 
 func canonicalizeServiceAccountDesiredState(rawDesired, rawInitial *ServiceAccount, opts ...dcl.ApplyOption) (*ServiceAccount, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*ServiceAccount); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected ServiceAccount, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -395,22 +393,22 @@ func canonicalizeServiceAccountDesiredState(rawDesired, rawInitial *ServiceAccou
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Project) {
+	if dcl.StringCanonicalize(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
-	if dcl.IsZeroValue(rawDesired.UniqueId) {
+	if dcl.StringCanonicalize(rawDesired.UniqueId, rawInitial.UniqueId) {
 		rawDesired.UniqueId = rawInitial.UniqueId
 	}
-	if dcl.IsZeroValue(rawDesired.Email) {
+	if dcl.StringCanonicalize(rawDesired.Email, rawInitial.Email) {
 		rawDesired.Email = rawInitial.Email
 	}
-	if dcl.IsZeroValue(rawDesired.DisplayName) {
+	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
 		rawDesired.DisplayName = rawInitial.DisplayName
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.IsZeroValue(rawDesired.OAuth2ClientId) {
+	if dcl.StringCanonicalize(rawDesired.OAuth2ClientId, rawInitial.OAuth2ClientId) {
 		rawDesired.OAuth2ClientId = rawInitial.OAuth2ClientId
 	}
 	rawDesired.ActasResources = canonicalizeServiceAccountActasResources(rawDesired.ActasResources, rawInitial.ActasResources, opts...)
@@ -434,31 +432,49 @@ func canonicalizeServiceAccountNewState(c *Client, rawNew, rawDesired *ServiceAc
 	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
 		rawNew.Project = rawDesired.Project
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Project, rawNew.Project) {
+			rawNew.Project = rawDesired.Project
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.UniqueId) && dcl.IsEmptyValueIndirect(rawDesired.UniqueId) {
 		rawNew.UniqueId = rawDesired.UniqueId
 	} else {
+		if dcl.StringCanonicalize(rawDesired.UniqueId, rawNew.UniqueId) {
+			rawNew.UniqueId = rawDesired.UniqueId
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Email) && dcl.IsEmptyValueIndirect(rawDesired.Email) {
 		rawNew.Email = rawDesired.Email
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Email, rawNew.Email) {
+			rawNew.Email = rawDesired.Email
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
 		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
+		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.OAuth2ClientId) && dcl.IsEmptyValueIndirect(rawDesired.OAuth2ClientId) {
 		rawNew.OAuth2ClientId = rawDesired.OAuth2ClientId
 	} else {
+		if dcl.StringCanonicalize(rawDesired.OAuth2ClientId, rawNew.OAuth2ClientId) {
+			rawNew.OAuth2ClientId = rawDesired.OAuth2ClientId
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ActasResources) && dcl.IsEmptyValueIndirect(rawDesired.ActasResources) {
@@ -481,11 +497,6 @@ func canonicalizeServiceAccountActasResources(des, initial *ServiceAccountActasR
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*ServiceAccount)
-		_ = r
 	}
 
 	if initial == nil {
@@ -538,16 +549,11 @@ func canonicalizeServiceAccountActasResourcesResources(des, initial *ServiceAcco
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*ServiceAccount)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.FullResourceName) {
+	if dcl.StringCanonicalize(des.FullResourceName, initial.FullResourceName) || dcl.IsZeroValue(des.FullResourceName) {
 		des.FullResourceName = initial.FullResourceName
 	}
 
@@ -557,6 +563,10 @@ func canonicalizeServiceAccountActasResourcesResources(des, initial *ServiceAcco
 func canonicalizeNewServiceAccountActasResourcesResources(c *Client, des, nw *ServiceAccountActasResourcesResources) *ServiceAccountActasResourcesResources {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.FullResourceName, nw.FullResourceName) || dcl.IsZeroValue(des.FullResourceName) {
+		nw.FullResourceName = des.FullResourceName
 	}
 
 	return nw
@@ -613,7 +623,7 @@ func diffServiceAccount(c *Client, desired, actual *ServiceAccount, opts ...dcl.
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.DisplayName) && (dcl.IsZeroValue(actual.DisplayName) || !reflect.DeepEqual(*desired.DisplayName, *actual.DisplayName)) {
+	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
 		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 
 		diffs = append(diffs, serviceAccountDiff{
@@ -622,7 +632,7 @@ func diffServiceAccount(c *Client, desired, actual *ServiceAccount, opts ...dcl.
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, serviceAccountDiff{
@@ -662,20 +672,6 @@ func diffServiceAccount(c *Client, desired, actual *ServiceAccount, opts ...dcl.
 
 	return deduped, nil
 }
-func compareServiceAccountActasResourcesSlice(c *Client, desired, actual []ServiceAccountActasResources) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceAccountActasResources, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceAccountActasResources(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceAccountActasResources, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
 func compareServiceAccountActasResources(c *Client, desired, actual *ServiceAccountActasResources) bool {
 	if desired == nil {
 		return false
@@ -693,14 +689,34 @@ func compareServiceAccountActasResources(c *Client, desired, actual *ServiceAcco
 	}
 	return false
 }
-func compareServiceAccountActasResourcesResourcesSlice(c *Client, desired, actual []ServiceAccountActasResourcesResources) bool {
+
+func compareServiceAccountActasResourcesSlice(c *Client, desired, actual []ServiceAccountActasResources) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceAccountActasResourcesResources, lengths unequal.")
+		c.Config.Logger.Info("Diff in ServiceAccountActasResources, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareServiceAccountActasResourcesResources(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceAccountActasResourcesResources, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareServiceAccountActasResources(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceAccountActasResources, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceAccountActasResourcesMap(c *Client, desired, actual map[string]ServiceAccountActasResources) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceAccountActasResources, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in ServiceAccountActasResources, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareServiceAccountActasResources(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in ServiceAccountActasResources, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -718,9 +734,42 @@ func compareServiceAccountActasResourcesResources(c *Client, desired, actual *Se
 		c.Config.Logger.Infof("desired FullResourceName %s - but actually nil", dcl.SprintResource(desired.FullResourceName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.FullResourceName, actual.FullResourceName) && !dcl.IsZeroValue(desired.FullResourceName) && !(dcl.IsEmptyValueIndirect(desired.FullResourceName) && dcl.IsZeroValue(actual.FullResourceName)) {
+	if !dcl.StringCanonicalize(desired.FullResourceName, actual.FullResourceName) && !dcl.IsZeroValue(desired.FullResourceName) {
 		c.Config.Logger.Infof("Diff in FullResourceName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FullResourceName), dcl.SprintResource(actual.FullResourceName))
 		return true
+	}
+	return false
+}
+
+func compareServiceAccountActasResourcesResourcesSlice(c *Client, desired, actual []ServiceAccountActasResourcesResources) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceAccountActasResourcesResources, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareServiceAccountActasResourcesResources(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ServiceAccountActasResourcesResources, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareServiceAccountActasResourcesResourcesMap(c *Client, desired, actual map[string]ServiceAccountActasResourcesResources) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ServiceAccountActasResourcesResources, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in ServiceAccountActasResourcesResources, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareServiceAccountActasResourcesResources(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in ServiceAccountActasResourcesResources, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
 	}
 	return false
 }
@@ -731,6 +780,12 @@ func compareServiceAccountActasResourcesResources(c *Client, desired, actual *Se
 func (r *ServiceAccount) urlNormalized() *ServiceAccount {
 	normalized := deepcopy.Copy(*r).(ServiceAccount)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.UniqueId = dcl.SelfLinkToName(r.UniqueId)
+	normalized.Email = dcl.SelfLinkToName(r.Email)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.OAuth2ClientId = dcl.SelfLinkToName(r.OAuth2ClientId)
 	return &normalized
 }
 
@@ -791,6 +846,10 @@ func unmarshalServiceAccount(b []byte, c *Client) (*ServiceAccount, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapServiceAccount(m, c)
+}
+
+func unmarshalMapServiceAccount(m map[string]interface{}, c *Client) (*ServiceAccount, error) {
 
 	return flattenServiceAccount(c, m), nil
 }

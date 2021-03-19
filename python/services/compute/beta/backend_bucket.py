@@ -77,16 +77,32 @@ class BackendBucket(object):
         self.project = Primitive.from_proto(response.project)
         self.self_link = Primitive.from_proto(response.self_link)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = backend_bucket_pb2_grpc.ComputeBetaBackendBucketServiceStub(
             channel.Channel()
         )
         request = backend_bucket_pb2.DeleteComputeBetaBackendBucketRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.bucket_name):
+            request.resource.bucket_name = Primitive.to_proto(self.bucket_name)
 
-        request.Name = name
+        if BackendBucketCdnPolicy.to_proto(self.cdn_policy):
+            request.resource.cdn_policy.CopyFrom(
+                BackendBucketCdnPolicy.to_proto(self.cdn_policy)
+            )
+        else:
+            request.resource.ClearField("cdn_policy")
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if Primitive.to_proto(self.enable_cdn):
+            request.resource.enable_cdn = Primitive.to_proto(self.enable_cdn)
+
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteComputeBetaBackendBucket(request)
 
@@ -116,6 +132,26 @@ class BackendBucket(object):
         res.project = Primitive.from_proto(res_proto.project)
         res.self_link = Primitive.from_proto(res_proto.self_link)
         return res
+
+    def to_proto(self):
+        resource = backend_bucket_pb2.ComputeBetaBackendBucket()
+        if Primitive.to_proto(self.bucket_name):
+            resource.bucket_name = Primitive.to_proto(self.bucket_name)
+        if BackendBucketCdnPolicy.to_proto(self.cdn_policy):
+            resource.cdn_policy.CopyFrom(
+                BackendBucketCdnPolicy.to_proto(self.cdn_policy)
+            )
+        else:
+            resource.ClearField("cdn_policy")
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.enable_cdn):
+            resource.enable_cdn = Primitive.to_proto(self.enable_cdn)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class BackendBucketCdnPolicy(object):

@@ -444,6 +444,9 @@ func (l *BuildTriggerList) HasNext() bool {
 }
 
 func (l *BuildTriggerList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -457,12 +460,17 @@ func (l *BuildTriggerList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListBuildTrigger(ctx context.Context, project string) (*BuildTriggerList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListBuildTriggerWithMaxResults(ctx, project, BuildTriggerMaxPage)
 
 }
 
 func (c *Client) ListBuildTriggerWithMaxResults(ctx context.Context, project string, pageSize int32) (*BuildTriggerList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listBuildTrigger(ctx, project, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -477,6 +485,9 @@ func (c *Client) ListBuildTriggerWithMaxResults(ctx context.Context, project str
 }
 
 func (c *Client) GetBuildTrigger(ctx context.Context, r *BuildTrigger) (*BuildTrigger, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getBuildTriggerRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -506,6 +517,9 @@ func (c *Client) GetBuildTrigger(ctx context.Context, r *BuildTrigger) (*BuildTr
 }
 
 func (c *Client) DeleteBuildTrigger(ctx context.Context, r *BuildTrigger) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("BuildTrigger resource is nil")
 	}
@@ -516,6 +530,9 @@ func (c *Client) DeleteBuildTrigger(ctx context.Context, r *BuildTrigger) error 
 
 // DeleteAllBuildTrigger deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllBuildTrigger(ctx context.Context, project string, filter func(*BuildTrigger) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListBuildTrigger(ctx, project)
 	if err != nil {
 		return err
@@ -541,6 +558,9 @@ func (c *Client) DeleteAllBuildTrigger(ctx context.Context, project string, filt
 func (c *Client) ApplyBuildTrigger(ctx context.Context, rawDesired *BuildTrigger, opts ...dcl.ApplyOption) (*BuildTrigger, error) {
 	c.Config.Logger.Info("Beginning ApplyBuildTrigger...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -621,12 +641,35 @@ func (c *Client) ApplyBuildTrigger(ctx context.Context, rawDesired *BuildTrigger
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createBuildTriggerOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapBuildTrigger(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeBuildTriggerNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeBuildTriggerNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

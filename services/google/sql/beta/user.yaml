@@ -52,6 +52,10 @@ components:
             since it is already specified on the URL.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         sqlserverUserDetails:
           properties:
@@ -59,7 +63,6 @@ components:
               description: If the user has been disabled
               type: boolean
               x-dcl-go-name: Disabled
-              x-kubernetes-immutable: true
             serverRoles:
               description: The server roles for this user
               items:
@@ -68,7 +71,6 @@ components:
               type: array
               x-dcl-go-name: ServerRoles
               x-dcl-list-type: list
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: SqlserverUserDetails
           x-dcl-go-type: UserSqlserverUserDetails

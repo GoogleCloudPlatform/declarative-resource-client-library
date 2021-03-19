@@ -33,7 +33,6 @@ components:
                 will not change unless the client explicitly changes it.
               type: string
               x-dcl-go-name: Deleted
-              x-kubernetes-immutable: true
             deprecated:
               description: An optional [RFC3339](http://www.ietf.org/rfc/rfc3339.txt)
                 timestamp on or after which the state of this resource is intended
@@ -41,7 +40,6 @@ components:
                 will not change unless the client explicitly changes it.
               type: string
               x-dcl-go-name: Deprecated
-              x-kubernetes-immutable: true
             obsolete:
               description: An optional [RFC3339](http://www.ietf.org/rfc/rfc3339.txt)
                 timestamp on or after which the state of this resource is intended
@@ -49,14 +47,12 @@ components:
                 will not change unless the client explicitly changes it.
               type: string
               x-dcl-go-name: Obsolete
-              x-kubernetes-immutable: true
             replacement:
               description: The URL of the suggested replacement for a deprecated resource.
                 The suggested replacement resource must be the same kind of resource
                 as the deprecated resource.
               type: string
               x-dcl-go-name: Replacement
-              x-kubernetes-immutable: true
             state:
               description: The deprecation state of this resource. This can be `ACTIVE`,
                 `DEPRECATED`, `OBSOLETE`, or `DELETED`. Operations which communicate
@@ -73,7 +69,6 @@ components:
               type: string
               x-dcl-go-name: State
               x-dcl-go-type: ImageDeprecatedStateEnum
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: Deprecated
           x-dcl-go-type: ImageDeprecated
@@ -175,9 +170,6 @@ components:
             type: string
           description: Labels to apply to this image. These can be later modified
             by the `setLabels` method.
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         license:
@@ -205,6 +197,10 @@ components:
           description: The project for this image.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         rawDisk:
           description: The parameters of the raw disk image.

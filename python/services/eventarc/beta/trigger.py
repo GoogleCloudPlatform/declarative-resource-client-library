@@ -27,6 +27,7 @@ class Trigger(object):
         service_account: str = None,
         destination: dict = None,
         transport: dict = None,
+        labels: dict = None,
         etag: str = None,
         matching_criteria: list = None,
         project: str = None,
@@ -38,6 +39,8 @@ class Trigger(object):
         self.name = name
         self.service_account = service_account
         self.destination = destination
+        self.transport = transport
+        self.labels = labels
         self.matching_criteria = matching_criteria
         self.project = project
         self.location = location
@@ -58,6 +61,15 @@ class Trigger(object):
             )
         else:
             request.resource.ClearField("destination")
+        if TriggerTransport.to_proto(self.transport):
+            request.resource.transport.CopyFrom(
+                TriggerTransport.to_proto(self.transport)
+            )
+        else:
+            request.resource.ClearField("transport")
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
         if TriggerMatchingCriteriaArray.to_proto(self.matching_criteria):
             request.resource.matching_criteria.extend(
                 TriggerMatchingCriteriaArray.to_proto(self.matching_criteria)
@@ -77,6 +89,7 @@ class Trigger(object):
         self.service_account = Primitive.from_proto(response.service_account)
         self.destination = TriggerDestination.from_proto(response.destination)
         self.transport = TriggerTransport.from_proto(response.transport)
+        self.labels = Primitive.from_proto(response.labels)
         self.etag = Primitive.from_proto(response.etag)
         self.matching_criteria = TriggerMatchingCriteriaArray.from_proto(
             response.matching_criteria
@@ -84,16 +97,40 @@ class Trigger(object):
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
 
-    @classmethod
-    def delete(self, project, location, name, service_account_file=""):
+    def delete(self):
         stub = trigger_pb2_grpc.EventarcBetaTriggerServiceStub(channel.Channel())
         request = trigger_pb2.DeleteEventarcBetaTriggerRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if Primitive.to_proto(self.service_account):
+            request.resource.service_account = Primitive.to_proto(self.service_account)
 
-        request.Name = name
+        if TriggerDestination.to_proto(self.destination):
+            request.resource.destination.CopyFrom(
+                TriggerDestination.to_proto(self.destination)
+            )
+        else:
+            request.resource.ClearField("destination")
+        if TriggerTransport.to_proto(self.transport):
+            request.resource.transport.CopyFrom(
+                TriggerTransport.to_proto(self.transport)
+            )
+        else:
+            request.resource.ClearField("transport")
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
+        if TriggerMatchingCriteriaArray.to_proto(self.matching_criteria):
+            request.resource.matching_criteria.extend(
+                TriggerMatchingCriteriaArray.to_proto(self.matching_criteria)
+            )
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         response = stub.DeleteEventarcBetaTrigger(request)
 
@@ -121,6 +158,7 @@ class Trigger(object):
         res.service_account = Primitive.from_proto(res_proto.service_account)
         res.destination = TriggerDestination.from_proto(res_proto.destination)
         res.transport = TriggerTransport.from_proto(res_proto.transport)
+        res.labels = Primitive.from_proto(res_proto.labels)
         res.etag = Primitive.from_proto(res_proto.etag)
         res.matching_criteria = TriggerMatchingCriteriaArray.from_proto(
             res_proto.matching_criteria
@@ -128,6 +166,32 @@ class Trigger(object):
         res.project = Primitive.from_proto(res_proto.project)
         res.location = Primitive.from_proto(res_proto.location)
         return res
+
+    def to_proto(self):
+        resource = trigger_pb2.EventarcBetaTrigger()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.service_account):
+            resource.service_account = Primitive.to_proto(self.service_account)
+        if TriggerDestination.to_proto(self.destination):
+            resource.destination.CopyFrom(TriggerDestination.to_proto(self.destination))
+        else:
+            resource.ClearField("destination")
+        if TriggerTransport.to_proto(self.transport):
+            resource.transport.CopyFrom(TriggerTransport.to_proto(self.transport))
+        else:
+            resource.ClearField("transport")
+        if Primitive.to_proto(self.labels):
+            resource.labels = Primitive.to_proto(self.labels)
+        if TriggerMatchingCriteriaArray.to_proto(self.matching_criteria):
+            resource.matching_criteria.extend(
+                TriggerMatchingCriteriaArray.to_proto(self.matching_criteria)
+            )
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
+        return resource
 
 
 class TriggerDestination(object):

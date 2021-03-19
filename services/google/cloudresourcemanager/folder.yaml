@@ -52,6 +52,7 @@ components:
           description: Output only. The resource name of the Folder.
           readOnly: true
           type: string
+          x-dcl-forward-slash-allowed: true
           x-dcl-go-name: Name
           x-dcl-server-generated-parameter: true
           x-kubernetes-immutable: true
@@ -59,6 +60,7 @@ components:
           description: Required. The Folder's parent's resource name. Updates to the
             folder's parent must be performed via MoveFolder.
           type: string
+          x-dcl-forward-slash-allowed: true
           x-dcl-go-name: Parent
         state:
           description: 'Output only. The lifecycle state of the folder. Possible values:
@@ -83,9 +85,8 @@ components:
       - parent
       title: Folder
       type: object
-      x-dcl-id: folders/{{name}}
+      x-dcl-id: '{{name}}'
       x-dcl-locations: []
-      x-dcl-parent-container: organization
       x-dcl-uses-state-hint: false
 info:
   description: DCL Specification for the Cloudresourcemanager Folder resource

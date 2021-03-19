@@ -124,9 +124,10 @@ class ManagedZone(object):
         )
         self.project = Primitive.from_proto(response.project)
 
-    def hcl(self):
+    def delete(self):
         stub = managed_zone_pb2_grpc.DnsManagedZoneServiceStub(channel.Channel())
-        request = managed_zone_pb2.DnsManagedZoneAsHclRequest()
+        request = managed_zone_pb2.DeleteDnsManagedZoneRequest()
+        request.service_account_file = self.service_account_file
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
@@ -176,18 +177,6 @@ class ManagedZone(object):
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
-        response = stub.DnsManagedZoneAsHcl(request)
-        return response.hcl
-
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
-        stub = managed_zone_pb2_grpc.DnsManagedZoneServiceStub(channel.Channel())
-        request = managed_zone_pb2.DeleteDnsManagedZoneRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
-
-        request.Name = name
-
         response = stub.DeleteDnsManagedZone(request)
 
     @classmethod
@@ -225,6 +214,50 @@ class ManagedZone(object):
         )
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = managed_zone_pb2.DnsManagedZone()
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.dns_name):
+            resource.dns_name = Primitive.to_proto(self.dns_name)
+        if ManagedZoneDnssecConfig.to_proto(self.dnssec_config):
+            resource.dnssec_config.CopyFrom(
+                ManagedZoneDnssecConfig.to_proto(self.dnssec_config)
+            )
+        else:
+            resource.ClearField("dnssec_config")
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.labels):
+            resource.labels = Primitive.to_proto(self.labels)
+        if ManagedZoneVisibilityEnum.to_proto(self.visibility):
+            resource.visibility = ManagedZoneVisibilityEnum.to_proto(self.visibility)
+        if ManagedZonePrivateVisibilityConfig.to_proto(self.private_visibility_config):
+            resource.private_visibility_config.CopyFrom(
+                ManagedZonePrivateVisibilityConfig.to_proto(
+                    self.private_visibility_config
+                )
+            )
+        else:
+            resource.ClearField("private_visibility_config")
+        if ManagedZoneForwardingConfig.to_proto(self.forwarding_config):
+            resource.forwarding_config.CopyFrom(
+                ManagedZoneForwardingConfig.to_proto(self.forwarding_config)
+            )
+        else:
+            resource.ClearField("forwarding_config")
+        if Primitive.to_proto(self.reverse_lookup):
+            resource.reverse_lookup = Primitive.to_proto(self.reverse_lookup)
+        if ManagedZonePeeringConfig.to_proto(self.peering_config):
+            resource.peering_config.CopyFrom(
+                ManagedZonePeeringConfig.to_proto(self.peering_config)
+            )
+        else:
+            resource.ClearField("peering_config")
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class ManagedZoneDnssecConfig(object):

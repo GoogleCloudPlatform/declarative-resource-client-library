@@ -202,7 +202,7 @@ func (op *updateFunctionUpdateOperation) do(ctx context.Context, r *Function, c 
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -239,7 +239,7 @@ func (c *Client) listFunctionRaw(ctx context.Context, project, region, pageToken
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -248,7 +248,7 @@ func (c *Client) listFunctionRaw(ctx context.Context, project, region, pageToken
 }
 
 type listFunctionOperation struct {
-	Instances []map[string]interface{} `json:"instances"`
+	Functions []map[string]interface{} `json:"functions"`
 	Token     string                   `json:"nextPageToken"`
 }
 
@@ -264,7 +264,7 @@ func (c *Client) listFunction(ctx context.Context, project, region, pageToken st
 	}
 
 	var l []*Function
-	for _, v := range m.Instances {
+	for _, v := range m.Functions {
 		res := flattenFunction(c, v)
 		res.Project = &project
 		res.Region = &region
@@ -314,7 +314,7 @@ func (op *deleteFunctionOperation) do(ctx context.Context, r *Function, c *Clien
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -337,7 +337,13 @@ func (op *deleteFunctionOperation) do(ctx context.Context, r *Function, c *Clien
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createFunctionOperation struct{}
+type createFunctionOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createFunctionOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createFunctionOperation) do(ctx context.Context, r *Function, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -353,7 +359,7 @@ func (op *createFunctionOperation) do(ctx context.Context, r *Function, c *Clien
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -367,8 +373,10 @@ func (op *createFunctionOperation) do(ctx context.Context, r *Function, c *Clien
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetFunction(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -381,7 +389,7 @@ func (c *Client) getFunctionRaw(ctx context.Context, r *Function) ([]byte, error
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -515,14 +523,6 @@ func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...
 		}
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Function); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Function, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -535,10 +535,10 @@ func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.IsZeroValue(rawDesired.SourceArchiveUrl) {
+	if dcl.StringCanonicalize(rawDesired.SourceArchiveUrl, rawInitial.SourceArchiveUrl) {
 		rawDesired.SourceArchiveUrl = rawInitial.SourceArchiveUrl
 	}
 	rawDesired.SourceRepository = canonicalizeFunctionSourceRepository(rawDesired.SourceRepository, rawInitial.SourceRepository, opts...)
@@ -547,13 +547,13 @@ func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...
 	if dcl.IsZeroValue(rawDesired.Status) {
 		rawDesired.Status = rawInitial.Status
 	}
-	if dcl.IsZeroValue(rawDesired.EntryPoint) {
+	if dcl.StringCanonicalize(rawDesired.EntryPoint, rawInitial.EntryPoint) {
 		rawDesired.EntryPoint = rawInitial.EntryPoint
 	}
-	if dcl.IsZeroValue(rawDesired.Runtime) {
+	if dcl.StringCanonicalize(rawDesired.Runtime, rawInitial.Runtime) {
 		rawDesired.Runtime = rawInitial.Runtime
 	}
-	if dcl.IsZeroValue(rawDesired.Timeout) {
+	if dcl.StringCanonicalize(rawDesired.Timeout, rawInitial.Timeout) {
 		rawDesired.Timeout = rawInitial.Timeout
 	}
 	if dcl.IsZeroValue(rawDesired.AvailableMemoryMb) {
@@ -562,7 +562,7 @@ func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...
 	if dcl.NameToSelfLink(rawDesired.ServiceAccountEmail, rawInitial.ServiceAccountEmail) {
 		rawDesired.ServiceAccountEmail = rawInitial.ServiceAccountEmail
 	}
-	if dcl.IsZeroValue(rawDesired.UpdateTime) {
+	if dcl.StringCanonicalize(rawDesired.UpdateTime, rawInitial.UpdateTime) {
 		rawDesired.UpdateTime = rawInitial.UpdateTime
 	}
 	if dcl.IsZeroValue(rawDesired.VersionId) {
@@ -612,11 +612,17 @@ func canonicalizeFunctionNewState(c *Client, rawNew, rawDesired *Function) (*Fun
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.SourceArchiveUrl) && dcl.IsEmptyValueIndirect(rawDesired.SourceArchiveUrl) {
 		rawNew.SourceArchiveUrl = rawDesired.SourceArchiveUrl
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SourceArchiveUrl, rawNew.SourceArchiveUrl) {
+			rawNew.SourceArchiveUrl = rawDesired.SourceArchiveUrl
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.SourceRepository) && dcl.IsEmptyValueIndirect(rawDesired.SourceRepository) {
@@ -645,16 +651,25 @@ func canonicalizeFunctionNewState(c *Client, rawNew, rawDesired *Function) (*Fun
 	if dcl.IsEmptyValueIndirect(rawNew.EntryPoint) && dcl.IsEmptyValueIndirect(rawDesired.EntryPoint) {
 		rawNew.EntryPoint = rawDesired.EntryPoint
 	} else {
+		if dcl.StringCanonicalize(rawDesired.EntryPoint, rawNew.EntryPoint) {
+			rawNew.EntryPoint = rawDesired.EntryPoint
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Runtime) && dcl.IsEmptyValueIndirect(rawDesired.Runtime) {
 		rawNew.Runtime = rawDesired.Runtime
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Runtime, rawNew.Runtime) {
+			rawNew.Runtime = rawDesired.Runtime
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Timeout) && dcl.IsEmptyValueIndirect(rawDesired.Timeout) {
 		rawNew.Timeout = rawDesired.Timeout
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Timeout, rawNew.Timeout) {
+			rawNew.Timeout = rawDesired.Timeout
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.AvailableMemoryMb) && dcl.IsEmptyValueIndirect(rawDesired.AvailableMemoryMb) {
@@ -673,6 +688,9 @@ func canonicalizeFunctionNewState(c *Client, rawNew, rawDesired *Function) (*Fun
 	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
+		if dcl.StringCanonicalize(rawDesired.UpdateTime, rawNew.UpdateTime) {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.VersionId) && dcl.IsEmptyValueIndirect(rawDesired.VersionId) {
@@ -736,19 +754,14 @@ func canonicalizeFunctionSourceRepository(des, initial *FunctionSourceRepository
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Function)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
 		des.Url = initial.Url
 	}
-	if dcl.IsZeroValue(des.DeployedUrl) {
+	if dcl.StringCanonicalize(des.DeployedUrl, initial.DeployedUrl) || dcl.IsZeroValue(des.DeployedUrl) {
 		des.DeployedUrl = initial.DeployedUrl
 	}
 
@@ -758,6 +771,13 @@ func canonicalizeFunctionSourceRepository(des, initial *FunctionSourceRepository
 func canonicalizeNewFunctionSourceRepository(c *Client, des, nw *FunctionSourceRepository) *FunctionSourceRepository {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Url, nw.Url) || dcl.IsZeroValue(des.Url) {
+		nw.Url = des.Url
+	}
+	if dcl.StringCanonicalize(des.DeployedUrl, nw.DeployedUrl) || dcl.IsZeroValue(des.DeployedUrl) {
+		nw.DeployedUrl = des.DeployedUrl
 	}
 
 	return nw
@@ -794,16 +814,11 @@ func canonicalizeFunctionHttpsTrigger(des, initial *FunctionHttpsTrigger, opts .
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Function)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
 		des.Url = initial.Url
 	}
 
@@ -813,6 +828,10 @@ func canonicalizeFunctionHttpsTrigger(des, initial *FunctionHttpsTrigger, opts .
 func canonicalizeNewFunctionHttpsTrigger(c *Client, des, nw *FunctionHttpsTrigger) *FunctionHttpsTrigger {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Url, nw.Url) || dcl.IsZeroValue(des.Url) {
+		nw.Url = des.Url
 	}
 
 	return nw
@@ -849,22 +868,17 @@ func canonicalizeFunctionEventTrigger(des, initial *FunctionEventTrigger, opts .
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Function)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.EventType) {
+	if dcl.StringCanonicalize(des.EventType, initial.EventType) || dcl.IsZeroValue(des.EventType) {
 		des.EventType = initial.EventType
 	}
-	if dcl.IsZeroValue(des.Resource) {
+	if dcl.NameToSelfLink(des.Resource, initial.Resource) || dcl.IsZeroValue(des.Resource) {
 		des.Resource = initial.Resource
 	}
-	if dcl.IsZeroValue(des.Service) {
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
 		des.Service = initial.Service
 	}
 	if dcl.IsZeroValue(des.FailurePolicy) {
@@ -877,6 +891,16 @@ func canonicalizeFunctionEventTrigger(des, initial *FunctionEventTrigger, opts .
 func canonicalizeNewFunctionEventTrigger(c *Client, des, nw *FunctionEventTrigger) *FunctionEventTrigger {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.EventType, nw.EventType) || dcl.IsZeroValue(des.EventType) {
+		nw.EventType = des.EventType
+	}
+	if dcl.NameToSelfLink(des.Resource, nw.Resource) || dcl.IsZeroValue(des.Resource) {
+		nw.Resource = des.Resource
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) || dcl.IsZeroValue(des.Service) {
+		nw.Service = des.Service
 	}
 
 	return nw
@@ -933,7 +957,7 @@ func diffFunction(c *Client, desired, actual *Function, opts ...dcl.ApplyOption)
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, functionDiff{
@@ -942,7 +966,7 @@ func diffFunction(c *Client, desired, actual *Function, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.SourceArchiveUrl) && (dcl.IsZeroValue(actual.SourceArchiveUrl) || !reflect.DeepEqual(*desired.SourceArchiveUrl, *actual.SourceArchiveUrl)) {
+	if !dcl.IsZeroValue(desired.SourceArchiveUrl) && !dcl.StringCanonicalize(desired.SourceArchiveUrl, actual.SourceArchiveUrl) {
 		c.Config.Logger.Infof("Detected diff in SourceArchiveUrl.\nDESIRED: %v\nACTUAL: %v", desired.SourceArchiveUrl, actual.SourceArchiveUrl)
 		diffs = append(diffs, functionDiff{
 			RequiresRecreate: true,
@@ -970,14 +994,14 @@ func diffFunction(c *Client, desired, actual *Function, opts ...dcl.ApplyOption)
 			FieldName:        "EventTrigger",
 		})
 	}
-	if !dcl.IsZeroValue(desired.EntryPoint) && (dcl.IsZeroValue(actual.EntryPoint) || !reflect.DeepEqual(*desired.EntryPoint, *actual.EntryPoint)) {
+	if !dcl.IsZeroValue(desired.EntryPoint) && !dcl.StringCanonicalize(desired.EntryPoint, actual.EntryPoint) {
 		c.Config.Logger.Infof("Detected diff in EntryPoint.\nDESIRED: %v\nACTUAL: %v", desired.EntryPoint, actual.EntryPoint)
 		diffs = append(diffs, functionDiff{
 			RequiresRecreate: true,
 			FieldName:        "EntryPoint",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Runtime) && (dcl.IsZeroValue(actual.Runtime) || !reflect.DeepEqual(*desired.Runtime, *actual.Runtime)) {
+	if !dcl.IsZeroValue(desired.Runtime) && !dcl.StringCanonicalize(desired.Runtime, actual.Runtime) {
 		c.Config.Logger.Infof("Detected diff in Runtime.\nDESIRED: %v\nACTUAL: %v", desired.Runtime, actual.Runtime)
 
 		diffs = append(diffs, functionDiff{
@@ -986,7 +1010,7 @@ func diffFunction(c *Client, desired, actual *Function, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Timeout) && (dcl.IsZeroValue(actual.Timeout) || !reflect.DeepEqual(*desired.Timeout, *actual.Timeout)) {
+	if !dcl.IsZeroValue(desired.Timeout) && !dcl.StringCanonicalize(desired.Timeout, actual.Timeout) {
 		c.Config.Logger.Infof("Detected diff in Timeout.\nDESIRED: %v\nACTUAL: %v", desired.Timeout, actual.Timeout)
 
 		diffs = append(diffs, functionDiff{
@@ -995,7 +1019,7 @@ func diffFunction(c *Client, desired, actual *Function, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.AvailableMemoryMb) && (dcl.IsZeroValue(actual.AvailableMemoryMb) || !reflect.DeepEqual(*desired.AvailableMemoryMb, *actual.AvailableMemoryMb)) {
+	if !reflect.DeepEqual(desired.AvailableMemoryMb, actual.AvailableMemoryMb) {
 		c.Config.Logger.Infof("Detected diff in AvailableMemoryMb.\nDESIRED: %v\nACTUAL: %v", desired.AvailableMemoryMb, actual.AvailableMemoryMb)
 
 		diffs = append(diffs, functionDiff{
@@ -1011,7 +1035,7 @@ func diffFunction(c *Client, desired, actual *Function, opts ...dcl.ApplyOption)
 			FieldName:        "ServiceAccountEmail",
 		})
 	}
-	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
+	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
 		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, functionDiff{
@@ -1020,7 +1044,7 @@ func diffFunction(c *Client, desired, actual *Function, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !reflect.DeepEqual(desired.EnvironmentVariables, actual.EnvironmentVariables) {
+	if !dcl.MapEquals(desired.EnvironmentVariables, actual.EnvironmentVariables, []string(nil)) {
 		c.Config.Logger.Infof("Detected diff in EnvironmentVariables.\nDESIRED: %v\nACTUAL: %v", desired.EnvironmentVariables, actual.EnvironmentVariables)
 
 		diffs = append(diffs, functionDiff{
@@ -1036,7 +1060,7 @@ func diffFunction(c *Client, desired, actual *Function, opts ...dcl.ApplyOption)
 			FieldName:        "Network",
 		})
 	}
-	if !dcl.IsZeroValue(desired.MaxInstances) && (dcl.IsZeroValue(actual.MaxInstances) || !reflect.DeepEqual(*desired.MaxInstances, *actual.MaxInstances)) {
+	if !reflect.DeepEqual(desired.MaxInstances, actual.MaxInstances) {
 		c.Config.Logger.Infof("Detected diff in MaxInstances.\nDESIRED: %v\nACTUAL: %v", desired.MaxInstances, actual.MaxInstances)
 
 		diffs = append(diffs, functionDiff{
@@ -1052,7 +1076,7 @@ func diffFunction(c *Client, desired, actual *Function, opts ...dcl.ApplyOption)
 			FieldName:        "VPCConnector",
 		})
 	}
-	if !dcl.IsZeroValue(desired.VPCConnectorEgressSettings) && (dcl.IsZeroValue(actual.VPCConnectorEgressSettings) || !reflect.DeepEqual(*desired.VPCConnectorEgressSettings, *actual.VPCConnectorEgressSettings)) {
+	if !reflect.DeepEqual(desired.VPCConnectorEgressSettings, actual.VPCConnectorEgressSettings) {
 		c.Config.Logger.Infof("Detected diff in VPCConnectorEgressSettings.\nDESIRED: %v\nACTUAL: %v", desired.VPCConnectorEgressSettings, actual.VPCConnectorEgressSettings)
 
 		diffs = append(diffs, functionDiff{
@@ -1061,7 +1085,7 @@ func diffFunction(c *Client, desired, actual *Function, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.IngressSettings) && (dcl.IsZeroValue(actual.IngressSettings) || !reflect.DeepEqual(*desired.IngressSettings, *actual.IngressSettings)) {
+	if !reflect.DeepEqual(desired.IngressSettings, actual.IngressSettings) {
 		c.Config.Logger.Infof("Detected diff in IngressSettings.\nDESIRED: %v\nACTUAL: %v", desired.IngressSettings, actual.IngressSettings)
 
 		diffs = append(diffs, functionDiff{
@@ -1094,6 +1118,24 @@ func diffFunction(c *Client, desired, actual *Function, opts ...dcl.ApplyOption)
 
 	return deduped, nil
 }
+func compareFunctionSourceRepository(c *Client, desired, actual *FunctionSourceRepository) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Url == nil && desired.Url != nil && !dcl.IsEmptyValueIndirect(desired.Url) {
+		c.Config.Logger.Infof("desired Url %s - but actually nil", dcl.SprintResource(desired.Url))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Url, actual.Url) && !dcl.IsZeroValue(desired.Url) {
+		c.Config.Logger.Infof("Diff in Url. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Url), dcl.SprintResource(actual.Url))
+		return true
+	}
+	return false
+}
+
 func compareFunctionSourceRepositorySlice(c *Client, desired, actual []FunctionSourceRepository) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in FunctionSourceRepository, lengths unequal.")
@@ -1108,31 +1150,19 @@ func compareFunctionSourceRepositorySlice(c *Client, desired, actual []FunctionS
 	return false
 }
 
-func compareFunctionSourceRepository(c *Client, desired, actual *FunctionSourceRepository) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Url == nil && desired.Url != nil && !dcl.IsEmptyValueIndirect(desired.Url) {
-		c.Config.Logger.Infof("desired Url %s - but actually nil", dcl.SprintResource(desired.Url))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Url, actual.Url) && !dcl.IsZeroValue(desired.Url) && !(dcl.IsEmptyValueIndirect(desired.Url) && dcl.IsZeroValue(actual.Url)) {
-		c.Config.Logger.Infof("Diff in Url. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Url), dcl.SprintResource(actual.Url))
-		return true
-	}
-	return false
-}
-func compareFunctionHttpsTriggerSlice(c *Client, desired, actual []FunctionHttpsTrigger) bool {
+func compareFunctionSourceRepositoryMap(c *Client, desired, actual map[string]FunctionSourceRepository) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FunctionHttpsTrigger, lengths unequal.")
+		c.Config.Logger.Info("Diff in FunctionSourceRepository, lengths unequal.")
 		return true
 	}
-	for i := 0; i < len(desired); i++ {
-		if compareFunctionHttpsTrigger(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in FunctionHttpsTrigger, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in FunctionSourceRepository, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareFunctionSourceRepository(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in FunctionSourceRepository, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1148,14 +1178,34 @@ func compareFunctionHttpsTrigger(c *Client, desired, actual *FunctionHttpsTrigge
 	}
 	return false
 }
-func compareFunctionEventTriggerSlice(c *Client, desired, actual []FunctionEventTrigger) bool {
+
+func compareFunctionHttpsTriggerSlice(c *Client, desired, actual []FunctionHttpsTrigger) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FunctionEventTrigger, lengths unequal.")
+		c.Config.Logger.Info("Diff in FunctionHttpsTrigger, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareFunctionEventTrigger(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in FunctionEventTrigger, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareFunctionHttpsTrigger(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in FunctionHttpsTrigger, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareFunctionHttpsTriggerMap(c *Client, desired, actual map[string]FunctionHttpsTrigger) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in FunctionHttpsTrigger, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in FunctionHttpsTrigger, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareFunctionHttpsTrigger(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in FunctionHttpsTrigger, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1173,7 +1223,7 @@ func compareFunctionEventTrigger(c *Client, desired, actual *FunctionEventTrigge
 		c.Config.Logger.Infof("desired EventType %s - but actually nil", dcl.SprintResource(desired.EventType))
 		return true
 	}
-	if !reflect.DeepEqual(desired.EventType, actual.EventType) && !dcl.IsZeroValue(desired.EventType) && !(dcl.IsEmptyValueIndirect(desired.EventType) && dcl.IsZeroValue(actual.EventType)) {
+	if !dcl.StringCanonicalize(desired.EventType, actual.EventType) && !dcl.IsZeroValue(desired.EventType) {
 		c.Config.Logger.Infof("Diff in EventType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EventType), dcl.SprintResource(actual.EventType))
 		return true
 	}
@@ -1181,7 +1231,7 @@ func compareFunctionEventTrigger(c *Client, desired, actual *FunctionEventTrigge
 		c.Config.Logger.Infof("desired Resource %s - but actually nil", dcl.SprintResource(desired.Resource))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Resource, actual.Resource) && !dcl.IsZeroValue(desired.Resource) && !(dcl.IsEmptyValueIndirect(desired.Resource) && dcl.IsZeroValue(actual.Resource)) {
+	if !dcl.NameToSelfLink(desired.Resource, actual.Resource) && !dcl.IsZeroValue(desired.Resource) {
 		c.Config.Logger.Infof("Diff in Resource. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Resource), dcl.SprintResource(actual.Resource))
 		return true
 	}
@@ -1189,7 +1239,7 @@ func compareFunctionEventTrigger(c *Client, desired, actual *FunctionEventTrigge
 		c.Config.Logger.Infof("desired Service %s - but actually nil", dcl.SprintResource(desired.Service))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Service, actual.Service) && !dcl.IsZeroValue(desired.Service) && !(dcl.IsEmptyValueIndirect(desired.Service) && dcl.IsZeroValue(actual.Service)) {
+	if !dcl.StringCanonicalize(desired.Service, actual.Service) && !dcl.IsZeroValue(desired.Service) {
 		c.Config.Logger.Infof("Diff in Service. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Service), dcl.SprintResource(actual.Service))
 		return true
 	}
@@ -1197,12 +1247,46 @@ func compareFunctionEventTrigger(c *Client, desired, actual *FunctionEventTrigge
 		c.Config.Logger.Infof("desired FailurePolicy %s - but actually nil", dcl.SprintResource(desired.FailurePolicy))
 		return true
 	}
-	if !reflect.DeepEqual(desired.FailurePolicy, actual.FailurePolicy) && !dcl.IsZeroValue(desired.FailurePolicy) && !(dcl.IsEmptyValueIndirect(desired.FailurePolicy) && dcl.IsZeroValue(actual.FailurePolicy)) {
+	if !reflect.DeepEqual(desired.FailurePolicy, actual.FailurePolicy) && !dcl.IsZeroValue(desired.FailurePolicy) {
 		c.Config.Logger.Infof("Diff in FailurePolicy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FailurePolicy), dcl.SprintResource(actual.FailurePolicy))
 		return true
 	}
 	return false
 }
+
+func compareFunctionEventTriggerSlice(c *Client, desired, actual []FunctionEventTrigger) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in FunctionEventTrigger, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareFunctionEventTrigger(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in FunctionEventTrigger, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareFunctionEventTriggerMap(c *Client, desired, actual map[string]FunctionEventTrigger) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in FunctionEventTrigger, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in FunctionEventTrigger, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareFunctionEventTrigger(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in FunctionEventTrigger, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
 func compareFunctionStatusEnumSlice(c *Client, desired, actual []FunctionStatusEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in FunctionStatusEnum, lengths unequal.")
@@ -1263,7 +1347,13 @@ func compareFunctionIngressSettingsEnum(c *Client, desired, actual *FunctionIngr
 func (r *Function) urlNormalized() *Function {
 	normalized := deepcopy.Copy(*r).(Function)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.SourceArchiveUrl = dcl.SelfLinkToName(r.SourceArchiveUrl)
+	normalized.EntryPoint = dcl.SelfLinkToName(r.EntryPoint)
+	normalized.Runtime = dcl.SelfLinkToName(r.Runtime)
+	normalized.Timeout = dcl.SelfLinkToName(r.Timeout)
 	normalized.ServiceAccountEmail = dcl.SelfLinkToName(r.ServiceAccountEmail)
+	normalized.UpdateTime = dcl.SelfLinkToName(r.UpdateTime)
 	normalized.Network = dcl.SelfLinkToName(r.Network)
 	normalized.VPCConnector = dcl.SelfLinkToName(r.VPCConnector)
 	normalized.Region = dcl.SelfLinkToName(r.Region)
@@ -1318,6 +1408,10 @@ func unmarshalFunction(b []byte, c *Client) (*Function, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapFunction(m, c)
+}
+
+func unmarshalMapFunction(m map[string]interface{}, c *Client) (*Function, error) {
 
 	return flattenFunction(c, m), nil
 }
@@ -1811,7 +1905,7 @@ func flattenFunctionStatusEnumSlice(c *Client, i interface{}) []FunctionStatusEn
 
 	items := make([]FunctionStatusEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFunctionStatusEnum(item.(map[string]interface{})))
+		items = append(items, *flattenFunctionStatusEnum(item.(interface{})))
 	}
 
 	return items
@@ -1842,7 +1936,7 @@ func flattenFunctionVPCConnectorEgressSettingsEnumSlice(c *Client, i interface{}
 
 	items := make([]FunctionVPCConnectorEgressSettingsEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFunctionVPCConnectorEgressSettingsEnum(item.(map[string]interface{})))
+		items = append(items, *flattenFunctionVPCConnectorEgressSettingsEnum(item.(interface{})))
 	}
 
 	return items
@@ -1873,7 +1967,7 @@ func flattenFunctionIngressSettingsEnumSlice(c *Client, i interface{}) []Functio
 
 	items := make([]FunctionIngressSettingsEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFunctionIngressSettingsEnum(item.(map[string]interface{})))
+		items = append(items, *flattenFunctionIngressSettingsEnum(item.(interface{})))
 	}
 
 	return items

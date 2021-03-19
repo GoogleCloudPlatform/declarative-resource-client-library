@@ -1,0 +1,19 @@
+{
+  "name": "{{instance}}",
+  "project": "{{project}}",
+  "machineType": "zones/us-west1-a/machineTypes/e2-medium",
+  "disks": [
+    {
+      "boot": true,
+      "initializeParams": {
+        "sourceImage": "{{ref:basic.image.json:selfLink}}"
+      }
+    }
+  ],
+  "networkInterfaces": [
+    {
+      "subnetwork": "{{ref:basic.subnetwork.json:selfLink}}"
+    }
+  ],
+  "zone": "us-west1-a"
+}

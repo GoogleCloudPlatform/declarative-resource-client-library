@@ -397,7 +397,7 @@ func (op *updateWorkflowTemplateUpdateWorkflowTemplateOperation) do(ctx context.
 	if err != nil {
 		return err
 	}
-	_, err = dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -424,7 +424,7 @@ func (c *Client) listWorkflowTemplateRaw(ctx context.Context, project, location,
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -433,8 +433,8 @@ func (c *Client) listWorkflowTemplateRaw(ctx context.Context, project, location,
 }
 
 type listWorkflowTemplateOperation struct {
-	Items []map[string]interface{} `json:"items"`
-	Token string                   `json:"nextPageToken"`
+	Templates []map[string]interface{} `json:"templates"`
+	Token     string                   `json:"nextPageToken"`
 }
 
 func (c *Client) listWorkflowTemplate(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*WorkflowTemplate, string, error) {
@@ -449,7 +449,7 @@ func (c *Client) listWorkflowTemplate(ctx context.Context, project, location, pa
 	}
 
 	var l []*WorkflowTemplate
-	for _, v := range m.Items {
+	for _, v := range m.Templates {
 		res := flattenWorkflowTemplate(c, v)
 		res.Project = &project
 		res.Location = &location
@@ -499,7 +499,7 @@ func (op *deleteWorkflowTemplateOperation) do(ctx context.Context, r *WorkflowTe
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return fmt.Errorf("failed to delete WorkflowTemplate: %w", err)
 	}
@@ -513,7 +513,13 @@ func (op *deleteWorkflowTemplateOperation) do(ctx context.Context, r *WorkflowTe
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createWorkflowTemplateOperation struct{}
+type createWorkflowTemplateOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createWorkflowTemplateOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createWorkflowTemplateOperation) do(ctx context.Context, r *WorkflowTemplate, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -540,7 +546,7 @@ func (op *createWorkflowTemplateOperation) do(ctx context.Context, r *WorkflowTe
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -549,9 +555,10 @@ func (op *createWorkflowTemplateOperation) do(ctx context.Context, r *WorkflowTe
 	if err != nil {
 		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
-	_ = o // We might not use resp- this will stop Go complaining
+	op.response = o
 
 	if _, err := c.GetWorkflowTemplate(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -564,7 +571,7 @@ func (c *Client) getWorkflowTemplateRaw(ctx context.Context, r *WorkflowTemplate
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -640,14 +647,6 @@ func canonicalizeWorkflowTemplateInitialState(rawInitial, rawDesired *WorkflowTe
 * */
 
 func canonicalizeWorkflowTemplateDesiredState(rawDesired, rawInitial *WorkflowTemplate, opts ...dcl.ApplyOption) (*WorkflowTemplate, error) {
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*WorkflowTemplate); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected WorkflowTemplate, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
 
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
@@ -743,11 +742,6 @@ func canonicalizeWorkflowTemplatePlacement(des, initial *WorkflowTemplatePlaceme
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -800,16 +794,11 @@ func canonicalizeWorkflowTemplatePlacementManagedCluster(des, initial *WorkflowT
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.ClusterName) {
+	if dcl.StringCanonicalize(des.ClusterName, initial.ClusterName) || dcl.IsZeroValue(des.ClusterName) {
 		des.ClusterName = initial.ClusterName
 	}
 	des.Config = canonicalizeClusterClusterConfig(des.Config, initial.Config, opts...)
@@ -825,6 +814,9 @@ func canonicalizeNewWorkflowTemplatePlacementManagedCluster(c *Client, des, nw *
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.ClusterName, nw.ClusterName) || dcl.IsZeroValue(des.ClusterName) {
+		nw.ClusterName = des.ClusterName
+	}
 	nw.Config = canonicalizeNewClusterClusterConfig(c, des.Config, nw.Config)
 
 	return nw
@@ -861,16 +853,11 @@ func canonicalizeWorkflowTemplatePlacementClusterSelector(des, initial *Workflow
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Zone) {
+	if dcl.StringCanonicalize(des.Zone, initial.Zone) || dcl.IsZeroValue(des.Zone) {
 		des.Zone = initial.Zone
 	}
 	if dcl.IsZeroValue(des.ClusterLabels) {
@@ -883,6 +870,10 @@ func canonicalizeWorkflowTemplatePlacementClusterSelector(des, initial *Workflow
 func canonicalizeNewWorkflowTemplatePlacementClusterSelector(c *Client, des, nw *WorkflowTemplatePlacementClusterSelector) *WorkflowTemplatePlacementClusterSelector {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Zone, nw.Zone) || dcl.IsZeroValue(des.Zone) {
+		nw.Zone = des.Zone
 	}
 
 	return nw
@@ -919,16 +910,11 @@ func canonicalizeWorkflowTemplateJobs(des, initial *WorkflowTemplateJobs, opts .
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.StepId) {
+	if dcl.StringCanonicalize(des.StepId, initial.StepId) || dcl.IsZeroValue(des.StepId) {
 		des.StepId = initial.StepId
 	}
 	des.HadoopJob = canonicalizeWorkflowTemplateJobsHadoopJob(des.HadoopJob, initial.HadoopJob, opts...)
@@ -955,6 +941,9 @@ func canonicalizeNewWorkflowTemplateJobs(c *Client, des, nw *WorkflowTemplateJob
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.StepId, nw.StepId) || dcl.IsZeroValue(des.StepId) {
+		nw.StepId = des.StepId
+	}
 	nw.HadoopJob = canonicalizeNewWorkflowTemplateJobsHadoopJob(c, des.HadoopJob, nw.HadoopJob)
 	nw.SparkJob = canonicalizeNewWorkflowTemplateJobsSparkJob(c, des.SparkJob, nw.SparkJob)
 	nw.PysparkJob = canonicalizeNewWorkflowTemplateJobsPysparkJob(c, des.PysparkJob, nw.PysparkJob)
@@ -999,19 +988,14 @@ func canonicalizeWorkflowTemplateJobsHadoopJob(des, initial *WorkflowTemplateJob
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.MainJarFileUri) {
+	if dcl.StringCanonicalize(des.MainJarFileUri, initial.MainJarFileUri) || dcl.IsZeroValue(des.MainJarFileUri) {
 		des.MainJarFileUri = initial.MainJarFileUri
 	}
-	if dcl.IsZeroValue(des.MainClass) {
+	if dcl.StringCanonicalize(des.MainClass, initial.MainClass) || dcl.IsZeroValue(des.MainClass) {
 		des.MainClass = initial.MainClass
 	}
 	if dcl.IsZeroValue(des.Args) {
@@ -1039,6 +1023,12 @@ func canonicalizeNewWorkflowTemplateJobsHadoopJob(c *Client, des, nw *WorkflowTe
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.MainJarFileUri, nw.MainJarFileUri) || dcl.IsZeroValue(des.MainJarFileUri) {
+		nw.MainJarFileUri = des.MainJarFileUri
+	}
+	if dcl.StringCanonicalize(des.MainClass, nw.MainClass) || dcl.IsZeroValue(des.MainClass) {
+		nw.MainClass = des.MainClass
+	}
 	nw.LoggingConfig = canonicalizeNewWorkflowTemplateJobsHadoopJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
 	return nw
@@ -1073,11 +1063,6 @@ func canonicalizeWorkflowTemplateJobsHadoopJobLoggingConfig(des, initial *Workfl
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1130,19 +1115,14 @@ func canonicalizeWorkflowTemplateJobsSparkJob(des, initial *WorkflowTemplateJobs
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.MainJarFileUri) {
+	if dcl.StringCanonicalize(des.MainJarFileUri, initial.MainJarFileUri) || dcl.IsZeroValue(des.MainJarFileUri) {
 		des.MainJarFileUri = initial.MainJarFileUri
 	}
-	if dcl.IsZeroValue(des.MainClass) {
+	if dcl.StringCanonicalize(des.MainClass, initial.MainClass) || dcl.IsZeroValue(des.MainClass) {
 		des.MainClass = initial.MainClass
 	}
 	if dcl.IsZeroValue(des.Args) {
@@ -1170,6 +1150,12 @@ func canonicalizeNewWorkflowTemplateJobsSparkJob(c *Client, des, nw *WorkflowTem
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.MainJarFileUri, nw.MainJarFileUri) || dcl.IsZeroValue(des.MainJarFileUri) {
+		nw.MainJarFileUri = des.MainJarFileUri
+	}
+	if dcl.StringCanonicalize(des.MainClass, nw.MainClass) || dcl.IsZeroValue(des.MainClass) {
+		nw.MainClass = des.MainClass
+	}
 	nw.LoggingConfig = canonicalizeNewWorkflowTemplateJobsSparkJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
 	return nw
@@ -1204,11 +1190,6 @@ func canonicalizeWorkflowTemplateJobsSparkJobLoggingConfig(des, initial *Workflo
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1261,16 +1242,11 @@ func canonicalizeWorkflowTemplateJobsPysparkJob(des, initial *WorkflowTemplateJo
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.MainPythonFileUri) {
+	if dcl.StringCanonicalize(des.MainPythonFileUri, initial.MainPythonFileUri) || dcl.IsZeroValue(des.MainPythonFileUri) {
 		des.MainPythonFileUri = initial.MainPythonFileUri
 	}
 	if dcl.IsZeroValue(des.Args) {
@@ -1301,6 +1277,9 @@ func canonicalizeNewWorkflowTemplateJobsPysparkJob(c *Client, des, nw *WorkflowT
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.MainPythonFileUri, nw.MainPythonFileUri) || dcl.IsZeroValue(des.MainPythonFileUri) {
+		nw.MainPythonFileUri = des.MainPythonFileUri
+	}
 	nw.LoggingConfig = canonicalizeNewWorkflowTemplateJobsPysparkJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
 	return nw
@@ -1335,11 +1314,6 @@ func canonicalizeWorkflowTemplateJobsPysparkJobLoggingConfig(des, initial *Workf
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1392,16 +1366,11 @@ func canonicalizeWorkflowTemplateJobsHiveJob(des, initial *WorkflowTemplateJobsH
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.QueryFileUri) {
+	if dcl.StringCanonicalize(des.QueryFileUri, initial.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
 		des.QueryFileUri = initial.QueryFileUri
 	}
 	des.QueryList = canonicalizeWorkflowTemplateJobsHiveJobQueryList(des.QueryList, initial.QueryList, opts...)
@@ -1426,6 +1395,9 @@ func canonicalizeNewWorkflowTemplateJobsHiveJob(c *Client, des, nw *WorkflowTemp
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.QueryFileUri, nw.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
+		nw.QueryFileUri = des.QueryFileUri
+	}
 	nw.QueryList = canonicalizeNewWorkflowTemplateJobsHiveJobQueryList(c, des.QueryList, nw.QueryList)
 
 	return nw
@@ -1460,11 +1432,6 @@ func canonicalizeWorkflowTemplateJobsHiveJobQueryList(des, initial *WorkflowTemp
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1517,16 +1484,11 @@ func canonicalizeWorkflowTemplateJobsPigJob(des, initial *WorkflowTemplateJobsPi
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.QueryFileUri) {
+	if dcl.StringCanonicalize(des.QueryFileUri, initial.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
 		des.QueryFileUri = initial.QueryFileUri
 	}
 	des.QueryList = canonicalizeWorkflowTemplateJobsPigJobQueryList(des.QueryList, initial.QueryList, opts...)
@@ -1552,6 +1514,9 @@ func canonicalizeNewWorkflowTemplateJobsPigJob(c *Client, des, nw *WorkflowTempl
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.QueryFileUri, nw.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
+		nw.QueryFileUri = des.QueryFileUri
+	}
 	nw.QueryList = canonicalizeNewWorkflowTemplateJobsPigJobQueryList(c, des.QueryList, nw.QueryList)
 	nw.LoggingConfig = canonicalizeNewWorkflowTemplateJobsPigJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
@@ -1587,11 +1552,6 @@ func canonicalizeWorkflowTemplateJobsPigJobQueryList(des, initial *WorkflowTempl
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1644,11 +1604,6 @@ func canonicalizeWorkflowTemplateJobsPigJobLoggingConfig(des, initial *WorkflowT
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -1699,16 +1654,11 @@ func canonicalizeWorkflowTemplateJobsSparkRJob(des, initial *WorkflowTemplateJob
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.MainRFileUri) {
+	if dcl.StringCanonicalize(des.MainRFileUri, initial.MainRFileUri) || dcl.IsZeroValue(des.MainRFileUri) {
 		des.MainRFileUri = initial.MainRFileUri
 	}
 	if dcl.IsZeroValue(des.Args) {
@@ -1733,6 +1683,9 @@ func canonicalizeNewWorkflowTemplateJobsSparkRJob(c *Client, des, nw *WorkflowTe
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.MainRFileUri, nw.MainRFileUri) || dcl.IsZeroValue(des.MainRFileUri) {
+		nw.MainRFileUri = des.MainRFileUri
+	}
 	nw.LoggingConfig = canonicalizeNewWorkflowTemplateJobsSparkRJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
 	return nw
@@ -1767,11 +1720,6 @@ func canonicalizeWorkflowTemplateJobsSparkRJobLoggingConfig(des, initial *Workfl
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1824,16 +1772,11 @@ func canonicalizeWorkflowTemplateJobsSparkSqlJob(des, initial *WorkflowTemplateJ
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.QueryFileUri) {
+	if dcl.StringCanonicalize(des.QueryFileUri, initial.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
 		des.QueryFileUri = initial.QueryFileUri
 	}
 	des.QueryList = canonicalizeWorkflowTemplateJobsSparkSqlJobQueryList(des.QueryList, initial.QueryList, opts...)
@@ -1856,6 +1799,9 @@ func canonicalizeNewWorkflowTemplateJobsSparkSqlJob(c *Client, des, nw *Workflow
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.QueryFileUri, nw.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
+		nw.QueryFileUri = des.QueryFileUri
+	}
 	nw.QueryList = canonicalizeNewWorkflowTemplateJobsSparkSqlJobQueryList(c, des.QueryList, nw.QueryList)
 	nw.LoggingConfig = canonicalizeNewWorkflowTemplateJobsSparkSqlJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
@@ -1891,11 +1837,6 @@ func canonicalizeWorkflowTemplateJobsSparkSqlJobQueryList(des, initial *Workflow
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1948,11 +1889,6 @@ func canonicalizeWorkflowTemplateJobsSparkSqlJobLoggingConfig(des, initial *Work
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -2003,23 +1939,18 @@ func canonicalizeWorkflowTemplateJobsPrestoJob(des, initial *WorkflowTemplateJob
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.QueryFileUri) {
+	if dcl.StringCanonicalize(des.QueryFileUri, initial.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
 		des.QueryFileUri = initial.QueryFileUri
 	}
 	des.QueryList = canonicalizeWorkflowTemplateJobsPrestoJobQueryList(des.QueryList, initial.QueryList, opts...)
 	if dcl.IsZeroValue(des.ContinueOnFailure) {
 		des.ContinueOnFailure = initial.ContinueOnFailure
 	}
-	if dcl.IsZeroValue(des.OutputFormat) {
+	if dcl.StringCanonicalize(des.OutputFormat, initial.OutputFormat) || dcl.IsZeroValue(des.OutputFormat) {
 		des.OutputFormat = initial.OutputFormat
 	}
 	if dcl.IsZeroValue(des.ClientTags) {
@@ -2038,7 +1969,13 @@ func canonicalizeNewWorkflowTemplateJobsPrestoJob(c *Client, des, nw *WorkflowTe
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.QueryFileUri, nw.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
+		nw.QueryFileUri = des.QueryFileUri
+	}
 	nw.QueryList = canonicalizeNewWorkflowTemplateJobsPrestoJobQueryList(c, des.QueryList, nw.QueryList)
+	if dcl.StringCanonicalize(des.OutputFormat, nw.OutputFormat) || dcl.IsZeroValue(des.OutputFormat) {
+		nw.OutputFormat = des.OutputFormat
+	}
 	nw.LoggingConfig = canonicalizeNewWorkflowTemplateJobsPrestoJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
 	return nw
@@ -2073,11 +2010,6 @@ func canonicalizeWorkflowTemplateJobsPrestoJobQueryList(des, initial *WorkflowTe
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
 	}
 
 	if initial == nil {
@@ -2130,11 +2062,6 @@ func canonicalizeWorkflowTemplateJobsPrestoJobLoggingConfig(des, initial *Workfl
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -2183,11 +2110,6 @@ func canonicalizeWorkflowTemplateJobsScheduling(des, initial *WorkflowTemplateJo
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
 	}
 
 	if initial == nil {
@@ -2243,22 +2165,17 @@ func canonicalizeWorkflowTemplateParameters(des, initial *WorkflowTemplateParame
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
 	if dcl.IsZeroValue(des.Fields) {
 		des.Fields = initial.Fields
 	}
-	if dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
 		des.Description = initial.Description
 	}
 	des.Validation = canonicalizeWorkflowTemplateParametersValidation(des.Validation, initial.Validation, opts...)
@@ -2271,6 +2188,12 @@ func canonicalizeNewWorkflowTemplateParameters(c *Client, des, nw *WorkflowTempl
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+		nw.Description = des.Description
+	}
 	nw.Validation = canonicalizeNewWorkflowTemplateParametersValidation(c, des.Validation, nw.Validation)
 
 	return nw
@@ -2305,11 +2228,6 @@ func canonicalizeWorkflowTemplateParametersValidation(des, initial *WorkflowTemp
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
 	}
 
 	if initial == nil {
@@ -2364,11 +2282,6 @@ func canonicalizeWorkflowTemplateParametersValidationRegex(des, initial *Workflo
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -2417,11 +2330,6 @@ func canonicalizeWorkflowTemplateParametersValidationValues(des, initial *Workfl
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*WorkflowTemplate)
-		_ = r
 	}
 
 	if initial == nil {
@@ -2487,14 +2395,14 @@ func diffWorkflowTemplate(c *Client, desired, actual *WorkflowTemplate, opts ...
 	}
 
 	var diffs []workflowTemplateDiff
-	if !dcl.IsZeroValue(desired.Version) && (dcl.IsZeroValue(actual.Version) || !reflect.DeepEqual(*desired.Version, *actual.Version)) {
+	if !reflect.DeepEqual(desired.Version, actual.Version) {
 		c.Config.Logger.Infof("Detected diff in Version.\nDESIRED: %v\nACTUAL: %v", desired.Version, actual.Version)
 		diffs = append(diffs, workflowTemplateDiff{
 			RequiresRecreate: true,
 			FieldName:        "Version",
 		})
 	}
-	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
+	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
 		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 		diffs = append(diffs, workflowTemplateDiff{
 			RequiresRecreate: true,
@@ -2546,20 +2454,6 @@ func diffWorkflowTemplate(c *Client, desired, actual *WorkflowTemplate, opts ...
 
 	return deduped, nil
 }
-func compareWorkflowTemplatePlacementSlice(c *Client, desired, actual []WorkflowTemplatePlacement) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplatePlacement, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplatePlacement(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplatePlacement, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
 func compareWorkflowTemplatePlacement(c *Client, desired, actual *WorkflowTemplatePlacement) bool {
 	if desired == nil {
 		return false
@@ -2585,14 +2479,34 @@ func compareWorkflowTemplatePlacement(c *Client, desired, actual *WorkflowTempla
 	}
 	return false
 }
-func compareWorkflowTemplatePlacementManagedClusterSlice(c *Client, desired, actual []WorkflowTemplatePlacementManagedCluster) bool {
+
+func compareWorkflowTemplatePlacementSlice(c *Client, desired, actual []WorkflowTemplatePlacement) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplatePlacementManagedCluster, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplatePlacement, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplatePlacementManagedCluster(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplatePlacementManagedCluster, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplatePlacement(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplatePlacement, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplatePlacementMap(c *Client, desired, actual map[string]WorkflowTemplatePlacement) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplatePlacement, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplatePlacement, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplatePlacement(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplatePlacement, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2610,7 +2524,7 @@ func compareWorkflowTemplatePlacementManagedCluster(c *Client, desired, actual *
 		c.Config.Logger.Infof("desired ClusterName %s - but actually nil", dcl.SprintResource(desired.ClusterName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ClusterName, actual.ClusterName) && !dcl.IsZeroValue(desired.ClusterName) && !(dcl.IsEmptyValueIndirect(desired.ClusterName) && dcl.IsZeroValue(actual.ClusterName)) {
+	if !dcl.StringCanonicalize(desired.ClusterName, actual.ClusterName) && !dcl.IsZeroValue(desired.ClusterName) {
 		c.Config.Logger.Infof("Diff in ClusterName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterName), dcl.SprintResource(actual.ClusterName))
 		return true
 	}
@@ -2626,20 +2540,40 @@ func compareWorkflowTemplatePlacementManagedCluster(c *Client, desired, actual *
 		c.Config.Logger.Infof("desired Labels %s - but actually nil", dcl.SprintResource(desired.Labels))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Labels, actual.Labels) && !dcl.IsZeroValue(desired.Labels) {
+	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) && !dcl.IsZeroValue(desired.Labels) {
 		c.Config.Logger.Infof("Diff in Labels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Labels), dcl.SprintResource(actual.Labels))
 		return true
 	}
 	return false
 }
-func compareWorkflowTemplatePlacementClusterSelectorSlice(c *Client, desired, actual []WorkflowTemplatePlacementClusterSelector) bool {
+
+func compareWorkflowTemplatePlacementManagedClusterSlice(c *Client, desired, actual []WorkflowTemplatePlacementManagedCluster) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplatePlacementClusterSelector, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplatePlacementManagedCluster, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplatePlacementClusterSelector(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplatePlacementClusterSelector, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplatePlacementManagedCluster(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplatePlacementManagedCluster, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplatePlacementManagedClusterMap(c *Client, desired, actual map[string]WorkflowTemplatePlacementManagedCluster) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplatePlacementManagedCluster, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplatePlacementManagedCluster, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplatePlacementManagedCluster(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplatePlacementManagedCluster, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2657,7 +2591,7 @@ func compareWorkflowTemplatePlacementClusterSelector(c *Client, desired, actual 
 		c.Config.Logger.Infof("desired Zone %s - but actually nil", dcl.SprintResource(desired.Zone))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Zone, actual.Zone) && !dcl.IsZeroValue(desired.Zone) && !(dcl.IsEmptyValueIndirect(desired.Zone) && dcl.IsZeroValue(actual.Zone)) {
+	if !dcl.StringCanonicalize(desired.Zone, actual.Zone) && !dcl.IsZeroValue(desired.Zone) {
 		c.Config.Logger.Infof("Diff in Zone. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Zone), dcl.SprintResource(actual.Zone))
 		return true
 	}
@@ -2665,20 +2599,40 @@ func compareWorkflowTemplatePlacementClusterSelector(c *Client, desired, actual 
 		c.Config.Logger.Infof("desired ClusterLabels %s - but actually nil", dcl.SprintResource(desired.ClusterLabels))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ClusterLabels, actual.ClusterLabels) && !dcl.IsZeroValue(desired.ClusterLabels) {
+	if !dcl.MapEquals(desired.ClusterLabels, actual.ClusterLabels, []string(nil)) && !dcl.IsZeroValue(desired.ClusterLabels) {
 		c.Config.Logger.Infof("Diff in ClusterLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterLabels), dcl.SprintResource(actual.ClusterLabels))
 		return true
 	}
 	return false
 }
-func compareWorkflowTemplateJobsSlice(c *Client, desired, actual []WorkflowTemplateJobs) bool {
+
+func compareWorkflowTemplatePlacementClusterSelectorSlice(c *Client, desired, actual []WorkflowTemplatePlacementClusterSelector) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobs, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplatePlacementClusterSelector, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobs(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobs, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplatePlacementClusterSelector(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplatePlacementClusterSelector, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplatePlacementClusterSelectorMap(c *Client, desired, actual map[string]WorkflowTemplatePlacementClusterSelector) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplatePlacementClusterSelector, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplatePlacementClusterSelector, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplatePlacementClusterSelector(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplatePlacementClusterSelector, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2696,7 +2650,7 @@ func compareWorkflowTemplateJobs(c *Client, desired, actual *WorkflowTemplateJob
 		c.Config.Logger.Infof("desired StepId %s - but actually nil", dcl.SprintResource(desired.StepId))
 		return true
 	}
-	if !reflect.DeepEqual(desired.StepId, actual.StepId) && !dcl.IsZeroValue(desired.StepId) && !(dcl.IsEmptyValueIndirect(desired.StepId) && dcl.IsZeroValue(actual.StepId)) {
+	if !dcl.StringCanonicalize(desired.StepId, actual.StepId) && !dcl.IsZeroValue(desired.StepId) {
 		c.Config.Logger.Infof("Diff in StepId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StepId), dcl.SprintResource(actual.StepId))
 		return true
 	}
@@ -2768,7 +2722,7 @@ func compareWorkflowTemplateJobs(c *Client, desired, actual *WorkflowTemplateJob
 		c.Config.Logger.Infof("desired Labels %s - but actually nil", dcl.SprintResource(desired.Labels))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Labels, actual.Labels) && !dcl.IsZeroValue(desired.Labels) {
+	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) && !dcl.IsZeroValue(desired.Labels) {
 		c.Config.Logger.Infof("Diff in Labels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Labels), dcl.SprintResource(actual.Labels))
 		return true
 	}
@@ -2784,20 +2738,40 @@ func compareWorkflowTemplateJobs(c *Client, desired, actual *WorkflowTemplateJob
 		c.Config.Logger.Infof("desired PrerequisiteStepIds %s - but actually nil", dcl.SprintResource(desired.PrerequisiteStepIds))
 		return true
 	}
-	if !dcl.SliceEquals(desired.PrerequisiteStepIds, actual.PrerequisiteStepIds) && !dcl.IsZeroValue(desired.PrerequisiteStepIds) {
+	if !dcl.StringSliceEquals(desired.PrerequisiteStepIds, actual.PrerequisiteStepIds) && !dcl.IsZeroValue(desired.PrerequisiteStepIds) {
 		c.Config.Logger.Infof("Diff in PrerequisiteStepIds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PrerequisiteStepIds), dcl.SprintResource(actual.PrerequisiteStepIds))
 		return true
 	}
 	return false
 }
-func compareWorkflowTemplateJobsHadoopJobSlice(c *Client, desired, actual []WorkflowTemplateJobsHadoopJob) bool {
+
+func compareWorkflowTemplateJobsSlice(c *Client, desired, actual []WorkflowTemplateJobs) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsHadoopJob, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobs, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsHadoopJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsHadoopJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateJobs(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobs, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateJobsMap(c *Client, desired, actual map[string]WorkflowTemplateJobs) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobs, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobs, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateJobs(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobs, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2815,7 +2789,7 @@ func compareWorkflowTemplateJobsHadoopJob(c *Client, desired, actual *WorkflowTe
 		c.Config.Logger.Infof("desired MainJarFileUri %s - but actually nil", dcl.SprintResource(desired.MainJarFileUri))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MainJarFileUri, actual.MainJarFileUri) && !dcl.IsZeroValue(desired.MainJarFileUri) && !(dcl.IsEmptyValueIndirect(desired.MainJarFileUri) && dcl.IsZeroValue(actual.MainJarFileUri)) {
+	if !dcl.StringCanonicalize(desired.MainJarFileUri, actual.MainJarFileUri) && !dcl.IsZeroValue(desired.MainJarFileUri) {
 		c.Config.Logger.Infof("Diff in MainJarFileUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainJarFileUri), dcl.SprintResource(actual.MainJarFileUri))
 		return true
 	}
@@ -2823,7 +2797,7 @@ func compareWorkflowTemplateJobsHadoopJob(c *Client, desired, actual *WorkflowTe
 		c.Config.Logger.Infof("desired MainClass %s - but actually nil", dcl.SprintResource(desired.MainClass))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MainClass, actual.MainClass) && !dcl.IsZeroValue(desired.MainClass) && !(dcl.IsEmptyValueIndirect(desired.MainClass) && dcl.IsZeroValue(actual.MainClass)) {
+	if !dcl.StringCanonicalize(desired.MainClass, actual.MainClass) && !dcl.IsZeroValue(desired.MainClass) {
 		c.Config.Logger.Infof("Diff in MainClass. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainClass), dcl.SprintResource(actual.MainClass))
 		return true
 	}
@@ -2831,7 +2805,7 @@ func compareWorkflowTemplateJobsHadoopJob(c *Client, desired, actual *WorkflowTe
 		c.Config.Logger.Infof("desired Args %s - but actually nil", dcl.SprintResource(desired.Args))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
+	if !dcl.StringSliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
 		c.Config.Logger.Infof("Diff in Args. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
 		return true
 	}
@@ -2839,7 +2813,7 @@ func compareWorkflowTemplateJobsHadoopJob(c *Client, desired, actual *WorkflowTe
 		c.Config.Logger.Infof("desired JarFileUris %s - but actually nil", dcl.SprintResource(desired.JarFileUris))
 		return true
 	}
-	if !dcl.SliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
+	if !dcl.StringSliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
 		c.Config.Logger.Infof("Diff in JarFileUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
 		return true
 	}
@@ -2847,7 +2821,7 @@ func compareWorkflowTemplateJobsHadoopJob(c *Client, desired, actual *WorkflowTe
 		c.Config.Logger.Infof("desired FileUris %s - but actually nil", dcl.SprintResource(desired.FileUris))
 		return true
 	}
-	if !dcl.SliceEquals(desired.FileUris, actual.FileUris) && !dcl.IsZeroValue(desired.FileUris) {
+	if !dcl.StringSliceEquals(desired.FileUris, actual.FileUris) && !dcl.IsZeroValue(desired.FileUris) {
 		c.Config.Logger.Infof("Diff in FileUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileUris), dcl.SprintResource(actual.FileUris))
 		return true
 	}
@@ -2855,7 +2829,7 @@ func compareWorkflowTemplateJobsHadoopJob(c *Client, desired, actual *WorkflowTe
 		c.Config.Logger.Infof("desired ArchiveUris %s - but actually nil", dcl.SprintResource(desired.ArchiveUris))
 		return true
 	}
-	if !dcl.SliceEquals(desired.ArchiveUris, actual.ArchiveUris) && !dcl.IsZeroValue(desired.ArchiveUris) {
+	if !dcl.StringSliceEquals(desired.ArchiveUris, actual.ArchiveUris) && !dcl.IsZeroValue(desired.ArchiveUris) {
 		c.Config.Logger.Infof("Diff in ArchiveUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveUris), dcl.SprintResource(actual.ArchiveUris))
 		return true
 	}
@@ -2863,7 +2837,7 @@ func compareWorkflowTemplateJobsHadoopJob(c *Client, desired, actual *WorkflowTe
 		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
+	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
 		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
@@ -2877,14 +2851,34 @@ func compareWorkflowTemplateJobsHadoopJob(c *Client, desired, actual *WorkflowTe
 	}
 	return false
 }
-func compareWorkflowTemplateJobsHadoopJobLoggingConfigSlice(c *Client, desired, actual []WorkflowTemplateJobsHadoopJobLoggingConfig) bool {
+
+func compareWorkflowTemplateJobsHadoopJobSlice(c *Client, desired, actual []WorkflowTemplateJobsHadoopJob) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsHadoopJobLoggingConfig, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsHadoopJob, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsHadoopJobLoggingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsHadoopJobLoggingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateJobsHadoopJob(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsHadoopJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateJobsHadoopJobMap(c *Client, desired, actual map[string]WorkflowTemplateJobsHadoopJob) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsHadoopJob, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsHadoopJob, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateJobsHadoopJob(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsHadoopJob, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2902,20 +2896,40 @@ func compareWorkflowTemplateJobsHadoopJobLoggingConfig(c *Client, desired, actua
 		c.Config.Logger.Infof("desired DriverLogLevels %s - but actually nil", dcl.SprintResource(desired.DriverLogLevels))
 		return true
 	}
-	if !reflect.DeepEqual(desired.DriverLogLevels, actual.DriverLogLevels) && !dcl.IsZeroValue(desired.DriverLogLevels) {
+	if !dcl.MapEquals(desired.DriverLogLevels, actual.DriverLogLevels, []string(nil)) && !dcl.IsZeroValue(desired.DriverLogLevels) {
 		c.Config.Logger.Infof("Diff in DriverLogLevels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
 		return true
 	}
 	return false
 }
-func compareWorkflowTemplateJobsSparkJobSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkJob) bool {
+
+func compareWorkflowTemplateJobsHadoopJobLoggingConfigSlice(c *Client, desired, actual []WorkflowTemplateJobsHadoopJobLoggingConfig) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkJob, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsHadoopJobLoggingConfig, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsSparkJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateJobsHadoopJobLoggingConfig(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsHadoopJobLoggingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateJobsHadoopJobLoggingConfigMap(c *Client, desired, actual map[string]WorkflowTemplateJobsHadoopJobLoggingConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsHadoopJobLoggingConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsHadoopJobLoggingConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateJobsHadoopJobLoggingConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsHadoopJobLoggingConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2933,7 +2947,7 @@ func compareWorkflowTemplateJobsSparkJob(c *Client, desired, actual *WorkflowTem
 		c.Config.Logger.Infof("desired MainJarFileUri %s - but actually nil", dcl.SprintResource(desired.MainJarFileUri))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MainJarFileUri, actual.MainJarFileUri) && !dcl.IsZeroValue(desired.MainJarFileUri) && !(dcl.IsEmptyValueIndirect(desired.MainJarFileUri) && dcl.IsZeroValue(actual.MainJarFileUri)) {
+	if !dcl.StringCanonicalize(desired.MainJarFileUri, actual.MainJarFileUri) && !dcl.IsZeroValue(desired.MainJarFileUri) {
 		c.Config.Logger.Infof("Diff in MainJarFileUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainJarFileUri), dcl.SprintResource(actual.MainJarFileUri))
 		return true
 	}
@@ -2941,7 +2955,7 @@ func compareWorkflowTemplateJobsSparkJob(c *Client, desired, actual *WorkflowTem
 		c.Config.Logger.Infof("desired MainClass %s - but actually nil", dcl.SprintResource(desired.MainClass))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MainClass, actual.MainClass) && !dcl.IsZeroValue(desired.MainClass) && !(dcl.IsEmptyValueIndirect(desired.MainClass) && dcl.IsZeroValue(actual.MainClass)) {
+	if !dcl.StringCanonicalize(desired.MainClass, actual.MainClass) && !dcl.IsZeroValue(desired.MainClass) {
 		c.Config.Logger.Infof("Diff in MainClass. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainClass), dcl.SprintResource(actual.MainClass))
 		return true
 	}
@@ -2949,7 +2963,7 @@ func compareWorkflowTemplateJobsSparkJob(c *Client, desired, actual *WorkflowTem
 		c.Config.Logger.Infof("desired Args %s - but actually nil", dcl.SprintResource(desired.Args))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
+	if !dcl.StringSliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
 		c.Config.Logger.Infof("Diff in Args. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
 		return true
 	}
@@ -2957,7 +2971,7 @@ func compareWorkflowTemplateJobsSparkJob(c *Client, desired, actual *WorkflowTem
 		c.Config.Logger.Infof("desired JarFileUris %s - but actually nil", dcl.SprintResource(desired.JarFileUris))
 		return true
 	}
-	if !dcl.SliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
+	if !dcl.StringSliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
 		c.Config.Logger.Infof("Diff in JarFileUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
 		return true
 	}
@@ -2965,7 +2979,7 @@ func compareWorkflowTemplateJobsSparkJob(c *Client, desired, actual *WorkflowTem
 		c.Config.Logger.Infof("desired FileUris %s - but actually nil", dcl.SprintResource(desired.FileUris))
 		return true
 	}
-	if !dcl.SliceEquals(desired.FileUris, actual.FileUris) && !dcl.IsZeroValue(desired.FileUris) {
+	if !dcl.StringSliceEquals(desired.FileUris, actual.FileUris) && !dcl.IsZeroValue(desired.FileUris) {
 		c.Config.Logger.Infof("Diff in FileUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileUris), dcl.SprintResource(actual.FileUris))
 		return true
 	}
@@ -2973,7 +2987,7 @@ func compareWorkflowTemplateJobsSparkJob(c *Client, desired, actual *WorkflowTem
 		c.Config.Logger.Infof("desired ArchiveUris %s - but actually nil", dcl.SprintResource(desired.ArchiveUris))
 		return true
 	}
-	if !dcl.SliceEquals(desired.ArchiveUris, actual.ArchiveUris) && !dcl.IsZeroValue(desired.ArchiveUris) {
+	if !dcl.StringSliceEquals(desired.ArchiveUris, actual.ArchiveUris) && !dcl.IsZeroValue(desired.ArchiveUris) {
 		c.Config.Logger.Infof("Diff in ArchiveUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveUris), dcl.SprintResource(actual.ArchiveUris))
 		return true
 	}
@@ -2981,7 +2995,7 @@ func compareWorkflowTemplateJobsSparkJob(c *Client, desired, actual *WorkflowTem
 		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
+	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
 		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
@@ -2995,14 +3009,34 @@ func compareWorkflowTemplateJobsSparkJob(c *Client, desired, actual *WorkflowTem
 	}
 	return false
 }
-func compareWorkflowTemplateJobsSparkJobLoggingConfigSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkJobLoggingConfig) bool {
+
+func compareWorkflowTemplateJobsSparkJobSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkJob) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkJobLoggingConfig, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkJob, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsSparkJobLoggingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkJobLoggingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateJobsSparkJob(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateJobsSparkJobMap(c *Client, desired, actual map[string]WorkflowTemplateJobsSparkJob) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkJob, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkJob, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateJobsSparkJob(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkJob, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3020,20 +3054,40 @@ func compareWorkflowTemplateJobsSparkJobLoggingConfig(c *Client, desired, actual
 		c.Config.Logger.Infof("desired DriverLogLevels %s - but actually nil", dcl.SprintResource(desired.DriverLogLevels))
 		return true
 	}
-	if !reflect.DeepEqual(desired.DriverLogLevels, actual.DriverLogLevels) && !dcl.IsZeroValue(desired.DriverLogLevels) {
+	if !dcl.MapEquals(desired.DriverLogLevels, actual.DriverLogLevels, []string(nil)) && !dcl.IsZeroValue(desired.DriverLogLevels) {
 		c.Config.Logger.Infof("Diff in DriverLogLevels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
 		return true
 	}
 	return false
 }
-func compareWorkflowTemplateJobsPysparkJobSlice(c *Client, desired, actual []WorkflowTemplateJobsPysparkJob) bool {
+
+func compareWorkflowTemplateJobsSparkJobLoggingConfigSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkJobLoggingConfig) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPysparkJob, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkJobLoggingConfig, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsPysparkJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPysparkJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateJobsSparkJobLoggingConfig(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkJobLoggingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateJobsSparkJobLoggingConfigMap(c *Client, desired, actual map[string]WorkflowTemplateJobsSparkJobLoggingConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkJobLoggingConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkJobLoggingConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateJobsSparkJobLoggingConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkJobLoggingConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3051,7 +3105,7 @@ func compareWorkflowTemplateJobsPysparkJob(c *Client, desired, actual *WorkflowT
 		c.Config.Logger.Infof("desired MainPythonFileUri %s - but actually nil", dcl.SprintResource(desired.MainPythonFileUri))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MainPythonFileUri, actual.MainPythonFileUri) && !dcl.IsZeroValue(desired.MainPythonFileUri) && !(dcl.IsEmptyValueIndirect(desired.MainPythonFileUri) && dcl.IsZeroValue(actual.MainPythonFileUri)) {
+	if !dcl.StringCanonicalize(desired.MainPythonFileUri, actual.MainPythonFileUri) && !dcl.IsZeroValue(desired.MainPythonFileUri) {
 		c.Config.Logger.Infof("Diff in MainPythonFileUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainPythonFileUri), dcl.SprintResource(actual.MainPythonFileUri))
 		return true
 	}
@@ -3059,7 +3113,7 @@ func compareWorkflowTemplateJobsPysparkJob(c *Client, desired, actual *WorkflowT
 		c.Config.Logger.Infof("desired Args %s - but actually nil", dcl.SprintResource(desired.Args))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
+	if !dcl.StringSliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
 		c.Config.Logger.Infof("Diff in Args. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
 		return true
 	}
@@ -3067,7 +3121,7 @@ func compareWorkflowTemplateJobsPysparkJob(c *Client, desired, actual *WorkflowT
 		c.Config.Logger.Infof("desired PythonFileUris %s - but actually nil", dcl.SprintResource(desired.PythonFileUris))
 		return true
 	}
-	if !dcl.SliceEquals(desired.PythonFileUris, actual.PythonFileUris) && !dcl.IsZeroValue(desired.PythonFileUris) {
+	if !dcl.StringSliceEquals(desired.PythonFileUris, actual.PythonFileUris) && !dcl.IsZeroValue(desired.PythonFileUris) {
 		c.Config.Logger.Infof("Diff in PythonFileUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PythonFileUris), dcl.SprintResource(actual.PythonFileUris))
 		return true
 	}
@@ -3075,7 +3129,7 @@ func compareWorkflowTemplateJobsPysparkJob(c *Client, desired, actual *WorkflowT
 		c.Config.Logger.Infof("desired JarFileUris %s - but actually nil", dcl.SprintResource(desired.JarFileUris))
 		return true
 	}
-	if !dcl.SliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
+	if !dcl.StringSliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
 		c.Config.Logger.Infof("Diff in JarFileUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
 		return true
 	}
@@ -3083,7 +3137,7 @@ func compareWorkflowTemplateJobsPysparkJob(c *Client, desired, actual *WorkflowT
 		c.Config.Logger.Infof("desired FileUris %s - but actually nil", dcl.SprintResource(desired.FileUris))
 		return true
 	}
-	if !dcl.SliceEquals(desired.FileUris, actual.FileUris) && !dcl.IsZeroValue(desired.FileUris) {
+	if !dcl.StringSliceEquals(desired.FileUris, actual.FileUris) && !dcl.IsZeroValue(desired.FileUris) {
 		c.Config.Logger.Infof("Diff in FileUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileUris), dcl.SprintResource(actual.FileUris))
 		return true
 	}
@@ -3091,7 +3145,7 @@ func compareWorkflowTemplateJobsPysparkJob(c *Client, desired, actual *WorkflowT
 		c.Config.Logger.Infof("desired ArchiveUris %s - but actually nil", dcl.SprintResource(desired.ArchiveUris))
 		return true
 	}
-	if !dcl.SliceEquals(desired.ArchiveUris, actual.ArchiveUris) && !dcl.IsZeroValue(desired.ArchiveUris) {
+	if !dcl.StringSliceEquals(desired.ArchiveUris, actual.ArchiveUris) && !dcl.IsZeroValue(desired.ArchiveUris) {
 		c.Config.Logger.Infof("Diff in ArchiveUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveUris), dcl.SprintResource(actual.ArchiveUris))
 		return true
 	}
@@ -3099,7 +3153,7 @@ func compareWorkflowTemplateJobsPysparkJob(c *Client, desired, actual *WorkflowT
 		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
+	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
 		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
@@ -3113,14 +3167,34 @@ func compareWorkflowTemplateJobsPysparkJob(c *Client, desired, actual *WorkflowT
 	}
 	return false
 }
-func compareWorkflowTemplateJobsPysparkJobLoggingConfigSlice(c *Client, desired, actual []WorkflowTemplateJobsPysparkJobLoggingConfig) bool {
+
+func compareWorkflowTemplateJobsPysparkJobSlice(c *Client, desired, actual []WorkflowTemplateJobsPysparkJob) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPysparkJobLoggingConfig, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPysparkJob, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsPysparkJobLoggingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPysparkJobLoggingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateJobsPysparkJob(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPysparkJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateJobsPysparkJobMap(c *Client, desired, actual map[string]WorkflowTemplateJobsPysparkJob) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPysparkJob, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPysparkJob, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateJobsPysparkJob(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPysparkJob, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3138,20 +3212,40 @@ func compareWorkflowTemplateJobsPysparkJobLoggingConfig(c *Client, desired, actu
 		c.Config.Logger.Infof("desired DriverLogLevels %s - but actually nil", dcl.SprintResource(desired.DriverLogLevels))
 		return true
 	}
-	if !reflect.DeepEqual(desired.DriverLogLevels, actual.DriverLogLevels) && !dcl.IsZeroValue(desired.DriverLogLevels) {
+	if !dcl.MapEquals(desired.DriverLogLevels, actual.DriverLogLevels, []string(nil)) && !dcl.IsZeroValue(desired.DriverLogLevels) {
 		c.Config.Logger.Infof("Diff in DriverLogLevels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
 		return true
 	}
 	return false
 }
-func compareWorkflowTemplateJobsHiveJobSlice(c *Client, desired, actual []WorkflowTemplateJobsHiveJob) bool {
+
+func compareWorkflowTemplateJobsPysparkJobLoggingConfigSlice(c *Client, desired, actual []WorkflowTemplateJobsPysparkJobLoggingConfig) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsHiveJob, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPysparkJobLoggingConfig, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsHiveJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsHiveJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateJobsPysparkJobLoggingConfig(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPysparkJobLoggingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateJobsPysparkJobLoggingConfigMap(c *Client, desired, actual map[string]WorkflowTemplateJobsPysparkJobLoggingConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPysparkJobLoggingConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPysparkJobLoggingConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateJobsPysparkJobLoggingConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPysparkJobLoggingConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3169,7 +3263,7 @@ func compareWorkflowTemplateJobsHiveJob(c *Client, desired, actual *WorkflowTemp
 		c.Config.Logger.Infof("desired QueryFileUri %s - but actually nil", dcl.SprintResource(desired.QueryFileUri))
 		return true
 	}
-	if !reflect.DeepEqual(desired.QueryFileUri, actual.QueryFileUri) && !dcl.IsZeroValue(desired.QueryFileUri) && !(dcl.IsEmptyValueIndirect(desired.QueryFileUri) && dcl.IsZeroValue(actual.QueryFileUri)) {
+	if !dcl.StringCanonicalize(desired.QueryFileUri, actual.QueryFileUri) && !dcl.IsZeroValue(desired.QueryFileUri) {
 		c.Config.Logger.Infof("Diff in QueryFileUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryFileUri), dcl.SprintResource(actual.QueryFileUri))
 		return true
 	}
@@ -3185,7 +3279,7 @@ func compareWorkflowTemplateJobsHiveJob(c *Client, desired, actual *WorkflowTemp
 		c.Config.Logger.Infof("desired ContinueOnFailure %s - but actually nil", dcl.SprintResource(desired.ContinueOnFailure))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) && !(dcl.IsEmptyValueIndirect(desired.ContinueOnFailure) && dcl.IsZeroValue(actual.ContinueOnFailure)) {
+	if !reflect.DeepEqual(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) {
 		c.Config.Logger.Infof("Diff in ContinueOnFailure. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContinueOnFailure), dcl.SprintResource(actual.ContinueOnFailure))
 		return true
 	}
@@ -3193,7 +3287,7 @@ func compareWorkflowTemplateJobsHiveJob(c *Client, desired, actual *WorkflowTemp
 		c.Config.Logger.Infof("desired ScriptVariables %s - but actually nil", dcl.SprintResource(desired.ScriptVariables))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ScriptVariables, actual.ScriptVariables) && !dcl.IsZeroValue(desired.ScriptVariables) {
+	if !dcl.MapEquals(desired.ScriptVariables, actual.ScriptVariables, []string(nil)) && !dcl.IsZeroValue(desired.ScriptVariables) {
 		c.Config.Logger.Infof("Diff in ScriptVariables. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptVariables), dcl.SprintResource(actual.ScriptVariables))
 		return true
 	}
@@ -3201,7 +3295,7 @@ func compareWorkflowTemplateJobsHiveJob(c *Client, desired, actual *WorkflowTemp
 		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
+	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
 		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
@@ -3209,20 +3303,40 @@ func compareWorkflowTemplateJobsHiveJob(c *Client, desired, actual *WorkflowTemp
 		c.Config.Logger.Infof("desired JarFileUris %s - but actually nil", dcl.SprintResource(desired.JarFileUris))
 		return true
 	}
-	if !dcl.SliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
+	if !dcl.StringSliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
 		c.Config.Logger.Infof("Diff in JarFileUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
 		return true
 	}
 	return false
 }
-func compareWorkflowTemplateJobsHiveJobQueryListSlice(c *Client, desired, actual []WorkflowTemplateJobsHiveJobQueryList) bool {
+
+func compareWorkflowTemplateJobsHiveJobSlice(c *Client, desired, actual []WorkflowTemplateJobsHiveJob) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsHiveJobQueryList, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsHiveJob, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsHiveJobQueryList(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsHiveJobQueryList, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateJobsHiveJob(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsHiveJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateJobsHiveJobMap(c *Client, desired, actual map[string]WorkflowTemplateJobsHiveJob) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsHiveJob, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsHiveJob, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateJobsHiveJob(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsHiveJob, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3240,20 +3354,40 @@ func compareWorkflowTemplateJobsHiveJobQueryList(c *Client, desired, actual *Wor
 		c.Config.Logger.Infof("desired Queries %s - but actually nil", dcl.SprintResource(desired.Queries))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Queries, actual.Queries) && !dcl.IsZeroValue(desired.Queries) {
+	if !dcl.StringSliceEquals(desired.Queries, actual.Queries) && !dcl.IsZeroValue(desired.Queries) {
 		c.Config.Logger.Infof("Diff in Queries. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Queries), dcl.SprintResource(actual.Queries))
 		return true
 	}
 	return false
 }
-func compareWorkflowTemplateJobsPigJobSlice(c *Client, desired, actual []WorkflowTemplateJobsPigJob) bool {
+
+func compareWorkflowTemplateJobsHiveJobQueryListSlice(c *Client, desired, actual []WorkflowTemplateJobsHiveJobQueryList) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPigJob, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsHiveJobQueryList, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsPigJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPigJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateJobsHiveJobQueryList(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsHiveJobQueryList, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateJobsHiveJobQueryListMap(c *Client, desired, actual map[string]WorkflowTemplateJobsHiveJobQueryList) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsHiveJobQueryList, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsHiveJobQueryList, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateJobsHiveJobQueryList(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsHiveJobQueryList, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3271,7 +3405,7 @@ func compareWorkflowTemplateJobsPigJob(c *Client, desired, actual *WorkflowTempl
 		c.Config.Logger.Infof("desired QueryFileUri %s - but actually nil", dcl.SprintResource(desired.QueryFileUri))
 		return true
 	}
-	if !reflect.DeepEqual(desired.QueryFileUri, actual.QueryFileUri) && !dcl.IsZeroValue(desired.QueryFileUri) && !(dcl.IsEmptyValueIndirect(desired.QueryFileUri) && dcl.IsZeroValue(actual.QueryFileUri)) {
+	if !dcl.StringCanonicalize(desired.QueryFileUri, actual.QueryFileUri) && !dcl.IsZeroValue(desired.QueryFileUri) {
 		c.Config.Logger.Infof("Diff in QueryFileUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryFileUri), dcl.SprintResource(actual.QueryFileUri))
 		return true
 	}
@@ -3287,7 +3421,7 @@ func compareWorkflowTemplateJobsPigJob(c *Client, desired, actual *WorkflowTempl
 		c.Config.Logger.Infof("desired ContinueOnFailure %s - but actually nil", dcl.SprintResource(desired.ContinueOnFailure))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) && !(dcl.IsEmptyValueIndirect(desired.ContinueOnFailure) && dcl.IsZeroValue(actual.ContinueOnFailure)) {
+	if !reflect.DeepEqual(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) {
 		c.Config.Logger.Infof("Diff in ContinueOnFailure. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContinueOnFailure), dcl.SprintResource(actual.ContinueOnFailure))
 		return true
 	}
@@ -3295,7 +3429,7 @@ func compareWorkflowTemplateJobsPigJob(c *Client, desired, actual *WorkflowTempl
 		c.Config.Logger.Infof("desired ScriptVariables %s - but actually nil", dcl.SprintResource(desired.ScriptVariables))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ScriptVariables, actual.ScriptVariables) && !dcl.IsZeroValue(desired.ScriptVariables) {
+	if !dcl.MapEquals(desired.ScriptVariables, actual.ScriptVariables, []string(nil)) && !dcl.IsZeroValue(desired.ScriptVariables) {
 		c.Config.Logger.Infof("Diff in ScriptVariables. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptVariables), dcl.SprintResource(actual.ScriptVariables))
 		return true
 	}
@@ -3303,7 +3437,7 @@ func compareWorkflowTemplateJobsPigJob(c *Client, desired, actual *WorkflowTempl
 		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
+	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
 		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
@@ -3311,7 +3445,7 @@ func compareWorkflowTemplateJobsPigJob(c *Client, desired, actual *WorkflowTempl
 		c.Config.Logger.Infof("desired JarFileUris %s - but actually nil", dcl.SprintResource(desired.JarFileUris))
 		return true
 	}
-	if !dcl.SliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
+	if !dcl.StringSliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
 		c.Config.Logger.Infof("Diff in JarFileUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
 		return true
 	}
@@ -3325,14 +3459,34 @@ func compareWorkflowTemplateJobsPigJob(c *Client, desired, actual *WorkflowTempl
 	}
 	return false
 }
-func compareWorkflowTemplateJobsPigJobQueryListSlice(c *Client, desired, actual []WorkflowTemplateJobsPigJobQueryList) bool {
+
+func compareWorkflowTemplateJobsPigJobSlice(c *Client, desired, actual []WorkflowTemplateJobsPigJob) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPigJobQueryList, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPigJob, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsPigJobQueryList(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPigJobQueryList, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateJobsPigJob(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPigJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateJobsPigJobMap(c *Client, desired, actual map[string]WorkflowTemplateJobsPigJob) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPigJob, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPigJob, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateJobsPigJob(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPigJob, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3350,20 +3504,40 @@ func compareWorkflowTemplateJobsPigJobQueryList(c *Client, desired, actual *Work
 		c.Config.Logger.Infof("desired Queries %s - but actually nil", dcl.SprintResource(desired.Queries))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Queries, actual.Queries) && !dcl.IsZeroValue(desired.Queries) {
+	if !dcl.StringSliceEquals(desired.Queries, actual.Queries) && !dcl.IsZeroValue(desired.Queries) {
 		c.Config.Logger.Infof("Diff in Queries. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Queries), dcl.SprintResource(actual.Queries))
 		return true
 	}
 	return false
 }
-func compareWorkflowTemplateJobsPigJobLoggingConfigSlice(c *Client, desired, actual []WorkflowTemplateJobsPigJobLoggingConfig) bool {
+
+func compareWorkflowTemplateJobsPigJobQueryListSlice(c *Client, desired, actual []WorkflowTemplateJobsPigJobQueryList) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPigJobLoggingConfig, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPigJobQueryList, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsPigJobLoggingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPigJobLoggingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateJobsPigJobQueryList(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPigJobQueryList, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateJobsPigJobQueryListMap(c *Client, desired, actual map[string]WorkflowTemplateJobsPigJobQueryList) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPigJobQueryList, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPigJobQueryList, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateJobsPigJobQueryList(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPigJobQueryList, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3381,20 +3555,40 @@ func compareWorkflowTemplateJobsPigJobLoggingConfig(c *Client, desired, actual *
 		c.Config.Logger.Infof("desired DriverLogLevels %s - but actually nil", dcl.SprintResource(desired.DriverLogLevels))
 		return true
 	}
-	if !reflect.DeepEqual(desired.DriverLogLevels, actual.DriverLogLevels) && !dcl.IsZeroValue(desired.DriverLogLevels) {
+	if !dcl.MapEquals(desired.DriverLogLevels, actual.DriverLogLevels, []string(nil)) && !dcl.IsZeroValue(desired.DriverLogLevels) {
 		c.Config.Logger.Infof("Diff in DriverLogLevels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
 		return true
 	}
 	return false
 }
-func compareWorkflowTemplateJobsSparkRJobSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkRJob) bool {
+
+func compareWorkflowTemplateJobsPigJobLoggingConfigSlice(c *Client, desired, actual []WorkflowTemplateJobsPigJobLoggingConfig) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkRJob, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPigJobLoggingConfig, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsSparkRJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkRJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateJobsPigJobLoggingConfig(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPigJobLoggingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateJobsPigJobLoggingConfigMap(c *Client, desired, actual map[string]WorkflowTemplateJobsPigJobLoggingConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPigJobLoggingConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPigJobLoggingConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateJobsPigJobLoggingConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPigJobLoggingConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3412,7 +3606,7 @@ func compareWorkflowTemplateJobsSparkRJob(c *Client, desired, actual *WorkflowTe
 		c.Config.Logger.Infof("desired MainRFileUri %s - but actually nil", dcl.SprintResource(desired.MainRFileUri))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MainRFileUri, actual.MainRFileUri) && !dcl.IsZeroValue(desired.MainRFileUri) && !(dcl.IsEmptyValueIndirect(desired.MainRFileUri) && dcl.IsZeroValue(actual.MainRFileUri)) {
+	if !dcl.StringCanonicalize(desired.MainRFileUri, actual.MainRFileUri) && !dcl.IsZeroValue(desired.MainRFileUri) {
 		c.Config.Logger.Infof("Diff in MainRFileUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainRFileUri), dcl.SprintResource(actual.MainRFileUri))
 		return true
 	}
@@ -3420,7 +3614,7 @@ func compareWorkflowTemplateJobsSparkRJob(c *Client, desired, actual *WorkflowTe
 		c.Config.Logger.Infof("desired Args %s - but actually nil", dcl.SprintResource(desired.Args))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
+	if !dcl.StringSliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
 		c.Config.Logger.Infof("Diff in Args. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
 		return true
 	}
@@ -3428,7 +3622,7 @@ func compareWorkflowTemplateJobsSparkRJob(c *Client, desired, actual *WorkflowTe
 		c.Config.Logger.Infof("desired FileUris %s - but actually nil", dcl.SprintResource(desired.FileUris))
 		return true
 	}
-	if !dcl.SliceEquals(desired.FileUris, actual.FileUris) && !dcl.IsZeroValue(desired.FileUris) {
+	if !dcl.StringSliceEquals(desired.FileUris, actual.FileUris) && !dcl.IsZeroValue(desired.FileUris) {
 		c.Config.Logger.Infof("Diff in FileUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileUris), dcl.SprintResource(actual.FileUris))
 		return true
 	}
@@ -3436,7 +3630,7 @@ func compareWorkflowTemplateJobsSparkRJob(c *Client, desired, actual *WorkflowTe
 		c.Config.Logger.Infof("desired ArchiveUris %s - but actually nil", dcl.SprintResource(desired.ArchiveUris))
 		return true
 	}
-	if !dcl.SliceEquals(desired.ArchiveUris, actual.ArchiveUris) && !dcl.IsZeroValue(desired.ArchiveUris) {
+	if !dcl.StringSliceEquals(desired.ArchiveUris, actual.ArchiveUris) && !dcl.IsZeroValue(desired.ArchiveUris) {
 		c.Config.Logger.Infof("Diff in ArchiveUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveUris), dcl.SprintResource(actual.ArchiveUris))
 		return true
 	}
@@ -3444,7 +3638,7 @@ func compareWorkflowTemplateJobsSparkRJob(c *Client, desired, actual *WorkflowTe
 		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
+	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
 		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
@@ -3458,14 +3652,34 @@ func compareWorkflowTemplateJobsSparkRJob(c *Client, desired, actual *WorkflowTe
 	}
 	return false
 }
-func compareWorkflowTemplateJobsSparkRJobLoggingConfigSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkRJobLoggingConfig) bool {
+
+func compareWorkflowTemplateJobsSparkRJobSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkRJob) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkRJobLoggingConfig, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkRJob, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsSparkRJobLoggingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkRJobLoggingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateJobsSparkRJob(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkRJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateJobsSparkRJobMap(c *Client, desired, actual map[string]WorkflowTemplateJobsSparkRJob) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkRJob, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkRJob, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateJobsSparkRJob(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkRJob, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3483,20 +3697,40 @@ func compareWorkflowTemplateJobsSparkRJobLoggingConfig(c *Client, desired, actua
 		c.Config.Logger.Infof("desired DriverLogLevels %s - but actually nil", dcl.SprintResource(desired.DriverLogLevels))
 		return true
 	}
-	if !reflect.DeepEqual(desired.DriverLogLevels, actual.DriverLogLevels) && !dcl.IsZeroValue(desired.DriverLogLevels) {
+	if !dcl.MapEquals(desired.DriverLogLevels, actual.DriverLogLevels, []string(nil)) && !dcl.IsZeroValue(desired.DriverLogLevels) {
 		c.Config.Logger.Infof("Diff in DriverLogLevels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
 		return true
 	}
 	return false
 }
-func compareWorkflowTemplateJobsSparkSqlJobSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkSqlJob) bool {
+
+func compareWorkflowTemplateJobsSparkRJobLoggingConfigSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkRJobLoggingConfig) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkSqlJob, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkRJobLoggingConfig, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsSparkSqlJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkSqlJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateJobsSparkRJobLoggingConfig(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkRJobLoggingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateJobsSparkRJobLoggingConfigMap(c *Client, desired, actual map[string]WorkflowTemplateJobsSparkRJobLoggingConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkRJobLoggingConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkRJobLoggingConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateJobsSparkRJobLoggingConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkRJobLoggingConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3514,7 +3748,7 @@ func compareWorkflowTemplateJobsSparkSqlJob(c *Client, desired, actual *Workflow
 		c.Config.Logger.Infof("desired QueryFileUri %s - but actually nil", dcl.SprintResource(desired.QueryFileUri))
 		return true
 	}
-	if !reflect.DeepEqual(desired.QueryFileUri, actual.QueryFileUri) && !dcl.IsZeroValue(desired.QueryFileUri) && !(dcl.IsEmptyValueIndirect(desired.QueryFileUri) && dcl.IsZeroValue(actual.QueryFileUri)) {
+	if !dcl.StringCanonicalize(desired.QueryFileUri, actual.QueryFileUri) && !dcl.IsZeroValue(desired.QueryFileUri) {
 		c.Config.Logger.Infof("Diff in QueryFileUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryFileUri), dcl.SprintResource(actual.QueryFileUri))
 		return true
 	}
@@ -3530,7 +3764,7 @@ func compareWorkflowTemplateJobsSparkSqlJob(c *Client, desired, actual *Workflow
 		c.Config.Logger.Infof("desired ScriptVariables %s - but actually nil", dcl.SprintResource(desired.ScriptVariables))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ScriptVariables, actual.ScriptVariables) && !dcl.IsZeroValue(desired.ScriptVariables) {
+	if !dcl.MapEquals(desired.ScriptVariables, actual.ScriptVariables, []string(nil)) && !dcl.IsZeroValue(desired.ScriptVariables) {
 		c.Config.Logger.Infof("Diff in ScriptVariables. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptVariables), dcl.SprintResource(actual.ScriptVariables))
 		return true
 	}
@@ -3538,7 +3772,7 @@ func compareWorkflowTemplateJobsSparkSqlJob(c *Client, desired, actual *Workflow
 		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
+	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
 		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
@@ -3546,7 +3780,7 @@ func compareWorkflowTemplateJobsSparkSqlJob(c *Client, desired, actual *Workflow
 		c.Config.Logger.Infof("desired JarFileUris %s - but actually nil", dcl.SprintResource(desired.JarFileUris))
 		return true
 	}
-	if !dcl.SliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
+	if !dcl.StringSliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
 		c.Config.Logger.Infof("Diff in JarFileUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
 		return true
 	}
@@ -3560,14 +3794,34 @@ func compareWorkflowTemplateJobsSparkSqlJob(c *Client, desired, actual *Workflow
 	}
 	return false
 }
-func compareWorkflowTemplateJobsSparkSqlJobQueryListSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkSqlJobQueryList) bool {
+
+func compareWorkflowTemplateJobsSparkSqlJobSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkSqlJob) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkSqlJobQueryList, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkSqlJob, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsSparkSqlJobQueryList(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkSqlJobQueryList, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateJobsSparkSqlJob(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkSqlJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateJobsSparkSqlJobMap(c *Client, desired, actual map[string]WorkflowTemplateJobsSparkSqlJob) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkSqlJob, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkSqlJob, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateJobsSparkSqlJob(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkSqlJob, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3585,20 +3839,40 @@ func compareWorkflowTemplateJobsSparkSqlJobQueryList(c *Client, desired, actual 
 		c.Config.Logger.Infof("desired Queries %s - but actually nil", dcl.SprintResource(desired.Queries))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Queries, actual.Queries) && !dcl.IsZeroValue(desired.Queries) {
+	if !dcl.StringSliceEquals(desired.Queries, actual.Queries) && !dcl.IsZeroValue(desired.Queries) {
 		c.Config.Logger.Infof("Diff in Queries. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Queries), dcl.SprintResource(actual.Queries))
 		return true
 	}
 	return false
 }
-func compareWorkflowTemplateJobsSparkSqlJobLoggingConfigSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkSqlJobLoggingConfig) bool {
+
+func compareWorkflowTemplateJobsSparkSqlJobQueryListSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkSqlJobQueryList) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkSqlJobLoggingConfig, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkSqlJobQueryList, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsSparkSqlJobLoggingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkSqlJobLoggingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateJobsSparkSqlJobQueryList(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkSqlJobQueryList, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateJobsSparkSqlJobQueryListMap(c *Client, desired, actual map[string]WorkflowTemplateJobsSparkSqlJobQueryList) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkSqlJobQueryList, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkSqlJobQueryList, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateJobsSparkSqlJobQueryList(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkSqlJobQueryList, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3616,20 +3890,40 @@ func compareWorkflowTemplateJobsSparkSqlJobLoggingConfig(c *Client, desired, act
 		c.Config.Logger.Infof("desired DriverLogLevels %s - but actually nil", dcl.SprintResource(desired.DriverLogLevels))
 		return true
 	}
-	if !reflect.DeepEqual(desired.DriverLogLevels, actual.DriverLogLevels) && !dcl.IsZeroValue(desired.DriverLogLevels) {
+	if !dcl.MapEquals(desired.DriverLogLevels, actual.DriverLogLevels, []string(nil)) && !dcl.IsZeroValue(desired.DriverLogLevels) {
 		c.Config.Logger.Infof("Diff in DriverLogLevels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
 		return true
 	}
 	return false
 }
-func compareWorkflowTemplateJobsPrestoJobSlice(c *Client, desired, actual []WorkflowTemplateJobsPrestoJob) bool {
+
+func compareWorkflowTemplateJobsSparkSqlJobLoggingConfigSlice(c *Client, desired, actual []WorkflowTemplateJobsSparkSqlJobLoggingConfig) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPrestoJob, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkSqlJobLoggingConfig, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsPrestoJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPrestoJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateJobsSparkSqlJobLoggingConfig(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkSqlJobLoggingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateJobsSparkSqlJobLoggingConfigMap(c *Client, desired, actual map[string]WorkflowTemplateJobsSparkSqlJobLoggingConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsSparkSqlJobLoggingConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkSqlJobLoggingConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateJobsSparkSqlJobLoggingConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsSparkSqlJobLoggingConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3647,7 +3941,7 @@ func compareWorkflowTemplateJobsPrestoJob(c *Client, desired, actual *WorkflowTe
 		c.Config.Logger.Infof("desired QueryFileUri %s - but actually nil", dcl.SprintResource(desired.QueryFileUri))
 		return true
 	}
-	if !reflect.DeepEqual(desired.QueryFileUri, actual.QueryFileUri) && !dcl.IsZeroValue(desired.QueryFileUri) && !(dcl.IsEmptyValueIndirect(desired.QueryFileUri) && dcl.IsZeroValue(actual.QueryFileUri)) {
+	if !dcl.StringCanonicalize(desired.QueryFileUri, actual.QueryFileUri) && !dcl.IsZeroValue(desired.QueryFileUri) {
 		c.Config.Logger.Infof("Diff in QueryFileUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryFileUri), dcl.SprintResource(actual.QueryFileUri))
 		return true
 	}
@@ -3663,7 +3957,7 @@ func compareWorkflowTemplateJobsPrestoJob(c *Client, desired, actual *WorkflowTe
 		c.Config.Logger.Infof("desired ContinueOnFailure %s - but actually nil", dcl.SprintResource(desired.ContinueOnFailure))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) && !(dcl.IsEmptyValueIndirect(desired.ContinueOnFailure) && dcl.IsZeroValue(actual.ContinueOnFailure)) {
+	if !reflect.DeepEqual(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) {
 		c.Config.Logger.Infof("Diff in ContinueOnFailure. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContinueOnFailure), dcl.SprintResource(actual.ContinueOnFailure))
 		return true
 	}
@@ -3671,7 +3965,7 @@ func compareWorkflowTemplateJobsPrestoJob(c *Client, desired, actual *WorkflowTe
 		c.Config.Logger.Infof("desired OutputFormat %s - but actually nil", dcl.SprintResource(desired.OutputFormat))
 		return true
 	}
-	if !reflect.DeepEqual(desired.OutputFormat, actual.OutputFormat) && !dcl.IsZeroValue(desired.OutputFormat) && !(dcl.IsEmptyValueIndirect(desired.OutputFormat) && dcl.IsZeroValue(actual.OutputFormat)) {
+	if !dcl.StringCanonicalize(desired.OutputFormat, actual.OutputFormat) && !dcl.IsZeroValue(desired.OutputFormat) {
 		c.Config.Logger.Infof("Diff in OutputFormat. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OutputFormat), dcl.SprintResource(actual.OutputFormat))
 		return true
 	}
@@ -3679,7 +3973,7 @@ func compareWorkflowTemplateJobsPrestoJob(c *Client, desired, actual *WorkflowTe
 		c.Config.Logger.Infof("desired ClientTags %s - but actually nil", dcl.SprintResource(desired.ClientTags))
 		return true
 	}
-	if !dcl.SliceEquals(desired.ClientTags, actual.ClientTags) && !dcl.IsZeroValue(desired.ClientTags) {
+	if !dcl.StringSliceEquals(desired.ClientTags, actual.ClientTags) && !dcl.IsZeroValue(desired.ClientTags) {
 		c.Config.Logger.Infof("Diff in ClientTags. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClientTags), dcl.SprintResource(actual.ClientTags))
 		return true
 	}
@@ -3687,7 +3981,7 @@ func compareWorkflowTemplateJobsPrestoJob(c *Client, desired, actual *WorkflowTe
 		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Properties, actual.Properties) && !dcl.IsZeroValue(desired.Properties) {
+	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
 		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
@@ -3701,14 +3995,34 @@ func compareWorkflowTemplateJobsPrestoJob(c *Client, desired, actual *WorkflowTe
 	}
 	return false
 }
-func compareWorkflowTemplateJobsPrestoJobQueryListSlice(c *Client, desired, actual []WorkflowTemplateJobsPrestoJobQueryList) bool {
+
+func compareWorkflowTemplateJobsPrestoJobSlice(c *Client, desired, actual []WorkflowTemplateJobsPrestoJob) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPrestoJobQueryList, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPrestoJob, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsPrestoJobQueryList(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPrestoJobQueryList, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateJobsPrestoJob(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPrestoJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateJobsPrestoJobMap(c *Client, desired, actual map[string]WorkflowTemplateJobsPrestoJob) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPrestoJob, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPrestoJob, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateJobsPrestoJob(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPrestoJob, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3726,20 +4040,40 @@ func compareWorkflowTemplateJobsPrestoJobQueryList(c *Client, desired, actual *W
 		c.Config.Logger.Infof("desired Queries %s - but actually nil", dcl.SprintResource(desired.Queries))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Queries, actual.Queries) && !dcl.IsZeroValue(desired.Queries) {
+	if !dcl.StringSliceEquals(desired.Queries, actual.Queries) && !dcl.IsZeroValue(desired.Queries) {
 		c.Config.Logger.Infof("Diff in Queries. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Queries), dcl.SprintResource(actual.Queries))
 		return true
 	}
 	return false
 }
-func compareWorkflowTemplateJobsPrestoJobLoggingConfigSlice(c *Client, desired, actual []WorkflowTemplateJobsPrestoJobLoggingConfig) bool {
+
+func compareWorkflowTemplateJobsPrestoJobQueryListSlice(c *Client, desired, actual []WorkflowTemplateJobsPrestoJobQueryList) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPrestoJobLoggingConfig, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPrestoJobQueryList, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsPrestoJobLoggingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPrestoJobLoggingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateJobsPrestoJobQueryList(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPrestoJobQueryList, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateJobsPrestoJobQueryListMap(c *Client, desired, actual map[string]WorkflowTemplateJobsPrestoJobQueryList) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPrestoJobQueryList, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPrestoJobQueryList, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateJobsPrestoJobQueryList(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPrestoJobQueryList, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3757,20 +4091,40 @@ func compareWorkflowTemplateJobsPrestoJobLoggingConfig(c *Client, desired, actua
 		c.Config.Logger.Infof("desired DriverLogLevels %s - but actually nil", dcl.SprintResource(desired.DriverLogLevels))
 		return true
 	}
-	if !reflect.DeepEqual(desired.DriverLogLevels, actual.DriverLogLevels) && !dcl.IsZeroValue(desired.DriverLogLevels) {
+	if !dcl.MapEquals(desired.DriverLogLevels, actual.DriverLogLevels, []string(nil)) && !dcl.IsZeroValue(desired.DriverLogLevels) {
 		c.Config.Logger.Infof("Diff in DriverLogLevels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
 		return true
 	}
 	return false
 }
-func compareWorkflowTemplateJobsSchedulingSlice(c *Client, desired, actual []WorkflowTemplateJobsScheduling) bool {
+
+func compareWorkflowTemplateJobsPrestoJobLoggingConfigSlice(c *Client, desired, actual []WorkflowTemplateJobsPrestoJobLoggingConfig) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateJobsScheduling, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPrestoJobLoggingConfig, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateJobsScheduling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsScheduling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateJobsPrestoJobLoggingConfig(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPrestoJobLoggingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateJobsPrestoJobLoggingConfigMap(c *Client, desired, actual map[string]WorkflowTemplateJobsPrestoJobLoggingConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsPrestoJobLoggingConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPrestoJobLoggingConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateJobsPrestoJobLoggingConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsPrestoJobLoggingConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3788,7 +4142,7 @@ func compareWorkflowTemplateJobsScheduling(c *Client, desired, actual *WorkflowT
 		c.Config.Logger.Infof("desired MaxFailuresPerHour %s - but actually nil", dcl.SprintResource(desired.MaxFailuresPerHour))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MaxFailuresPerHour, actual.MaxFailuresPerHour) && !dcl.IsZeroValue(desired.MaxFailuresPerHour) && !(dcl.IsEmptyValueIndirect(desired.MaxFailuresPerHour) && dcl.IsZeroValue(actual.MaxFailuresPerHour)) {
+	if !reflect.DeepEqual(desired.MaxFailuresPerHour, actual.MaxFailuresPerHour) && !dcl.IsZeroValue(desired.MaxFailuresPerHour) {
 		c.Config.Logger.Infof("Diff in MaxFailuresPerHour. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxFailuresPerHour), dcl.SprintResource(actual.MaxFailuresPerHour))
 		return true
 	}
@@ -3796,20 +4150,40 @@ func compareWorkflowTemplateJobsScheduling(c *Client, desired, actual *WorkflowT
 		c.Config.Logger.Infof("desired MaxFailuresTotal %s - but actually nil", dcl.SprintResource(desired.MaxFailuresTotal))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MaxFailuresTotal, actual.MaxFailuresTotal) && !dcl.IsZeroValue(desired.MaxFailuresTotal) && !(dcl.IsEmptyValueIndirect(desired.MaxFailuresTotal) && dcl.IsZeroValue(actual.MaxFailuresTotal)) {
+	if !reflect.DeepEqual(desired.MaxFailuresTotal, actual.MaxFailuresTotal) && !dcl.IsZeroValue(desired.MaxFailuresTotal) {
 		c.Config.Logger.Infof("Diff in MaxFailuresTotal. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxFailuresTotal), dcl.SprintResource(actual.MaxFailuresTotal))
 		return true
 	}
 	return false
 }
-func compareWorkflowTemplateParametersSlice(c *Client, desired, actual []WorkflowTemplateParameters) bool {
+
+func compareWorkflowTemplateJobsSchedulingSlice(c *Client, desired, actual []WorkflowTemplateJobsScheduling) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateParameters, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsScheduling, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateParameters(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateParameters, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateJobsScheduling(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsScheduling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateJobsSchedulingMap(c *Client, desired, actual map[string]WorkflowTemplateJobsScheduling) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateJobsScheduling, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsScheduling, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateJobsScheduling(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateJobsScheduling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3827,7 +4201,7 @@ func compareWorkflowTemplateParameters(c *Client, desired, actual *WorkflowTempl
 		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
 		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
@@ -3835,7 +4209,7 @@ func compareWorkflowTemplateParameters(c *Client, desired, actual *WorkflowTempl
 		c.Config.Logger.Infof("desired Fields %s - but actually nil", dcl.SprintResource(desired.Fields))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Fields, actual.Fields) && !dcl.IsZeroValue(desired.Fields) {
+	if !dcl.StringSliceEquals(desired.Fields, actual.Fields) && !dcl.IsZeroValue(desired.Fields) {
 		c.Config.Logger.Infof("Diff in Fields. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Fields), dcl.SprintResource(actual.Fields))
 		return true
 	}
@@ -3843,7 +4217,7 @@ func compareWorkflowTemplateParameters(c *Client, desired, actual *WorkflowTempl
 		c.Config.Logger.Infof("desired Description %s - but actually nil", dcl.SprintResource(desired.Description))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) && !(dcl.IsEmptyValueIndirect(desired.Description) && dcl.IsZeroValue(actual.Description)) {
+	if !dcl.StringCanonicalize(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) {
 		c.Config.Logger.Infof("Diff in Description. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
 		return true
 	}
@@ -3857,14 +4231,34 @@ func compareWorkflowTemplateParameters(c *Client, desired, actual *WorkflowTempl
 	}
 	return false
 }
-func compareWorkflowTemplateParametersValidationSlice(c *Client, desired, actual []WorkflowTemplateParametersValidation) bool {
+
+func compareWorkflowTemplateParametersSlice(c *Client, desired, actual []WorkflowTemplateParameters) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateParametersValidation, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateParameters, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateParametersValidation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateParametersValidation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateParameters(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateParameters, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateParametersMap(c *Client, desired, actual map[string]WorkflowTemplateParameters) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateParameters, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateParameters, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateParameters(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateParameters, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3896,14 +4290,34 @@ func compareWorkflowTemplateParametersValidation(c *Client, desired, actual *Wor
 	}
 	return false
 }
-func compareWorkflowTemplateParametersValidationRegexSlice(c *Client, desired, actual []WorkflowTemplateParametersValidationRegex) bool {
+
+func compareWorkflowTemplateParametersValidationSlice(c *Client, desired, actual []WorkflowTemplateParametersValidation) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateParametersValidationRegex, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateParametersValidation, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateParametersValidationRegex(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateParametersValidationRegex, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateParametersValidation(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateParametersValidation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateParametersValidationMap(c *Client, desired, actual map[string]WorkflowTemplateParametersValidation) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateParametersValidation, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateParametersValidation, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateParametersValidation(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateParametersValidation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3921,20 +4335,40 @@ func compareWorkflowTemplateParametersValidationRegex(c *Client, desired, actual
 		c.Config.Logger.Infof("desired Regexes %s - but actually nil", dcl.SprintResource(desired.Regexes))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Regexes, actual.Regexes) && !dcl.IsZeroValue(desired.Regexes) {
+	if !dcl.StringSliceEquals(desired.Regexes, actual.Regexes) && !dcl.IsZeroValue(desired.Regexes) {
 		c.Config.Logger.Infof("Diff in Regexes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Regexes), dcl.SprintResource(actual.Regexes))
 		return true
 	}
 	return false
 }
-func compareWorkflowTemplateParametersValidationValuesSlice(c *Client, desired, actual []WorkflowTemplateParametersValidationValues) bool {
+
+func compareWorkflowTemplateParametersValidationRegexSlice(c *Client, desired, actual []WorkflowTemplateParametersValidationRegex) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkflowTemplateParametersValidationValues, lengths unequal.")
+		c.Config.Logger.Info("Diff in WorkflowTemplateParametersValidationRegex, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareWorkflowTemplateParametersValidationValues(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkflowTemplateParametersValidationValues, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareWorkflowTemplateParametersValidationRegex(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateParametersValidationRegex, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateParametersValidationRegexMap(c *Client, desired, actual map[string]WorkflowTemplateParametersValidationRegex) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateParametersValidationRegex, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateParametersValidationRegex, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateParametersValidationRegex(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateParametersValidationRegex, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3952,9 +4386,42 @@ func compareWorkflowTemplateParametersValidationValues(c *Client, desired, actua
 		c.Config.Logger.Infof("desired Values %s - but actually nil", dcl.SprintResource(desired.Values))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Values, actual.Values) && !dcl.IsZeroValue(desired.Values) {
+	if !dcl.StringSliceEquals(desired.Values, actual.Values) && !dcl.IsZeroValue(desired.Values) {
 		c.Config.Logger.Infof("Diff in Values. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Values), dcl.SprintResource(actual.Values))
 		return true
+	}
+	return false
+}
+
+func compareWorkflowTemplateParametersValidationValuesSlice(c *Client, desired, actual []WorkflowTemplateParametersValidationValues) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateParametersValidationValues, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareWorkflowTemplateParametersValidationValues(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateParametersValidationValues, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkflowTemplateParametersValidationValuesMap(c *Client, desired, actual map[string]WorkflowTemplateParametersValidationValues) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkflowTemplateParametersValidationValues, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateParametersValidationValues, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkflowTemplateParametersValidationValues(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkflowTemplateParametersValidationValues, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
 	}
 	return false
 }
@@ -4017,6 +4484,10 @@ func unmarshalWorkflowTemplate(b []byte, c *Client) (*WorkflowTemplate, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapWorkflowTemplate(m, c)
+}
+
+func unmarshalMapWorkflowTemplate(m map[string]interface{}, c *Client) (*WorkflowTemplate, error) {
 
 	return flattenWorkflowTemplate(c, m), nil
 }

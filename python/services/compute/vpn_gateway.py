@@ -78,16 +78,27 @@ class VpnGateway(object):
             response.vpn_interface
         )
 
-    @classmethod
-    def delete(self, project, region, name, service_account_file=""):
+    def delete(self):
         stub = vpn_gateway_pb2_grpc.ComputeVpnGatewayServiceStub(channel.Channel())
         request = vpn_gateway_pb2.DeleteComputeVpnGatewayRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Region = region
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
 
-        request.Name = name
+        if Primitive.to_proto(self.region):
+            request.resource.region = Primitive.to_proto(self.region)
+
+        if Primitive.to_proto(self.network):
+            request.resource.network = Primitive.to_proto(self.network)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
 
         response = stub.DeleteComputeVpnGateway(request)
 
@@ -121,6 +132,22 @@ class VpnGateway(object):
             res_proto.vpn_interface
         )
         return res
+
+    def to_proto(self):
+        resource = vpn_gateway_pb2.ComputeVpnGateway()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.region):
+            resource.region = Primitive.to_proto(self.region)
+        if Primitive.to_proto(self.network):
+            resource.network = Primitive.to_proto(self.network)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.labels):
+            resource.labels = Primitive.to_proto(self.labels)
+        return resource
 
 
 class VpnGatewayVpnInterface(object):

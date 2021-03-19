@@ -79,16 +79,29 @@ class SslCertificate(object):
         self.expire_time = Primitive.from_proto(response.expire_time)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = ssl_certificate_pb2_grpc.ComputeBetaSslCertificateServiceStub(
             channel.Channel()
         )
         request = ssl_certificate_pb2.DeleteComputeBetaSslCertificateRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Name = name
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if SslCertificateSelfManaged.to_proto(self.self_managed):
+            request.resource.self_managed.CopyFrom(
+                SslCertificateSelfManaged.to_proto(self.self_managed)
+            )
+        else:
+            request.resource.ClearField("self_managed")
+        if SslCertificateTypeEnum.to_proto(self.type):
+            request.resource.type = SslCertificateTypeEnum.to_proto(self.type)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteComputeBetaSslCertificate(request)
 
@@ -122,6 +135,24 @@ class SslCertificate(object):
         res.expire_time = Primitive.from_proto(res_proto.expire_time)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = ssl_certificate_pb2.ComputeBetaSslCertificate()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if SslCertificateSelfManaged.to_proto(self.self_managed):
+            resource.self_managed.CopyFrom(
+                SslCertificateSelfManaged.to_proto(self.self_managed)
+            )
+        else:
+            resource.ClearField("self_managed")
+        if SslCertificateTypeEnum.to_proto(self.type):
+            resource.type = SslCertificateTypeEnum.to_proto(self.type)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class SslCertificateSelfManaged(object):

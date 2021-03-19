@@ -70,14 +70,27 @@ class Group(object):
         self.parent_name = Primitive.from_proto(response.parent_name)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = group_pb2_grpc.MonitoringGroupServiceStub(channel.Channel())
         request = group_pb2.DeleteMonitoringGroupRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.display_name):
+            request.resource.display_name = Primitive.to_proto(self.display_name)
 
-        request.Name = name
+        if Primitive.to_proto(self.filter):
+            request.resource.filter = Primitive.to_proto(self.filter)
+
+        if Primitive.to_proto(self.is_cluster):
+            request.resource.is_cluster = Primitive.to_proto(self.is_cluster)
+
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.parent_name):
+            request.resource.parent_name = Primitive.to_proto(self.parent_name)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteMonitoringGroup(request)
 
@@ -104,6 +117,22 @@ class Group(object):
         res.parent_name = Primitive.from_proto(res_proto.parent_name)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = group_pb2.MonitoringGroup()
+        if Primitive.to_proto(self.display_name):
+            resource.display_name = Primitive.to_proto(self.display_name)
+        if Primitive.to_proto(self.filter):
+            resource.filter = Primitive.to_proto(self.filter)
+        if Primitive.to_proto(self.is_cluster):
+            resource.is_cluster = Primitive.to_proto(self.is_cluster)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.parent_name):
+            resource.parent_name = Primitive.to_proto(self.parent_name)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class Primitive(object):

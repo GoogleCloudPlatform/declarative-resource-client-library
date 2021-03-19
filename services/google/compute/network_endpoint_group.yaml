@@ -1,0 +1,281 @@
+# Copyright 2021 Google LLC. All Rights Reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+components:
+  schemas:
+    NetworkEndpointGroup:
+      properties:
+        annotations:
+          additionalProperties:
+            type: string
+          description: Metadata defined as annotations on the network endpoint group.
+          type: object
+          x-dcl-go-name: Annotations
+          x-kubernetes-immutable: true
+        appEngine:
+          description: Only valid when `networkEndpointType` is "SERVERLESS". Only
+            one of `cloudRun`, `appEngine` or `cloudFunction` may be set.
+          properties:
+            service:
+              description: 'Optional serving (/appengine/docs/admin-api/reference/rest/v1/apps.services).
+                The `service` name is case-sensitive and must be 1-63 characters long.
+                Example value: "default", "my-service".'
+              type: string
+              x-dcl-go-name: Service
+              x-kubernetes-immutable: true
+            urlMask:
+              description: A template to parse `service` and `version` fields from
+                a request URL. URL mask allows for routing to multiple App Engine
+                services without having to create multiple Network Endpoint Groups
+                and backend services. For example, the request URLs "`foo1-dot-appname.appspot.com/v1`"
+                and "foo1-dot-appname.appspot.com/v2" can be backed by the same Serverless
+                NEG with URL mask "`-dot-appname.appspot.com/`". The URL mask will
+                parse them to { service = "foo1", version = "v1" } and { service =
+                "foo1", version = "v2" } respectively.
+              type: string
+              x-dcl-go-name: UrlMask
+              x-kubernetes-immutable: true
+            version:
+              description: 'Optional serving (/appengine/docs/admin-api/reference/rest/v1/apps.services.versions).
+                The `version` name is case-sensitive and must be 1-100 characters
+                long. Example value: "v1", "v2".'
+              type: string
+              x-dcl-go-name: Version
+              x-dcl-references:
+              - field: name
+                resource: Appengine/Version
+              x-kubernetes-immutable: true
+          type: object
+          x-dcl-conflicts:
+          - cloudRun
+          - cloudFunction
+          x-dcl-go-name: AppEngine
+          x-dcl-go-type: NetworkEndpointGroupAppEngine
+          x-kubernetes-immutable: true
+        cloudFunction:
+          description: Only valid when `networkEndpointType` is "SERVERLESS". Only
+            one of `cloudRun`, `appEngine` or `cloudFunction` may be set.
+          properties:
+            function:
+              description: 'A user-defined name of the (/functions/docs/reference/rest/v1/projects.locations.functions).
+                The `function` name is case-sensitive and must be 1-63 characters
+                long. Example value: "func1".'
+              type: string
+              x-dcl-go-name: Function
+              x-dcl-references:
+              - field: name
+                resource: Cloudfunction/Function
+              x-kubernetes-immutable: true
+            urlMask:
+              description: A template to parse `function` field from a request URL.
+                URL mask allows for routing to multiple Cloud Functions without having
+                to create multiple Network Endpoint Groups and backend services. For
+                example, request URLs "`mydomain.com/function1`" and "`mydomain.com/function2`"
+                can be backed by the same Serverless NEG with URL mask "`/`". The
+                URL mask will parse them to { function = "function1" } and { function
+                = "function2" } respectively.
+              type: string
+              x-dcl-go-name: UrlMask
+              x-kubernetes-immutable: true
+          type: object
+          x-dcl-conflicts:
+          - cloudRun
+          - appEngine
+          x-dcl-go-name: CloudFunction
+          x-dcl-go-type: NetworkEndpointGroupCloudFunction
+          x-kubernetes-immutable: true
+        cloudRun:
+          description: Only valid when `networkEndpointType` is "SERVERLESS". Only
+            one of `cloudRun`, `appEngine` or `cloudFunction` may be set.
+          properties:
+            service:
+              description: '(https://www.ietf.org/rfc/rfc1035.txt). Example value:
+                "run-service".'
+              type: string
+              x-dcl-go-name: Service
+              x-kubernetes-immutable: true
+            tag:
+              description: 'Optional (https://www.ietf.org/rfc/rfc1035.txt). Example
+                value: "revision-0010".'
+              type: string
+              x-dcl-go-name: Tag
+              x-kubernetes-immutable: true
+            urlMask:
+              description: A template to parse `service` and `tag` fields from a request
+                URL. URL mask allows for routing to multiple Run services without
+                having to create multiple network endpoint groups and backend services.
+                For example, request URLs "foo1.domain.com/bar1" and "foo1.domain.com/bar2"
+                can be backed by the same Serverless Network Endpoint Group (NEG)
+                with URL mask "`.domain.com/`". The URL mask will parse them to {
+                service="bar1", tag="foo1" } and { service="bar2", tag="foo2" } respectively.
+              type: string
+              x-dcl-go-name: UrlMask
+              x-kubernetes-immutable: true
+          type: object
+          x-dcl-conflicts:
+          - appEngine
+          - cloudFunction
+          x-dcl-go-name: CloudRun
+          x-dcl-go-type: NetworkEndpointGroupCloudRun
+          x-kubernetes-immutable: true
+        defaultPort:
+          description: The default port used if the port number is not specified in
+            the network endpoint. This field is deprecated.
+          format: int64
+          type: integer
+          x-dcl-go-name: DefaultPort
+          x-kubernetes-immutable: true
+        description:
+          description: An optional description of this resource. Provide this property
+            when you create the resource.
+          type: string
+          x-dcl-go-name: Description
+          x-kubernetes-immutable: true
+        id:
+          description: The unique identifier for the resource. This identifier is
+            defined by the server.
+          format: int64
+          readOnly: true
+          type: integer
+          x-dcl-go-name: Id
+          x-kubernetes-immutable: true
+        location:
+          description: The location of the resource.
+          type: string
+          x-dcl-go-name: Location
+          x-kubernetes-immutable: true
+        name:
+          description: Name of the resource; provided by the client when the resource
+            is created. The name must be 1-63 characters long, and comply with (https://www.ietf.org/rfc/rfc1035.txt).
+            Specifically, the name must be 1-63 characters long and match the regular
+            expression `)?` which means the first character must be a lowercase letter,
+            and all following characters must be a dash, lowercase letter, or digit,
+            except the last character, which cannot be a dash.
+          type: string
+          x-dcl-go-name: Name
+          x-kubernetes-immutable: true
+        network:
+          description: The URL of the network to which all network endpoints in the
+            NEG belong. Uses "default" project network if unspecified. This field
+            is deprecated.
+          type: string
+          x-dcl-go-name: Network
+          x-dcl-references:
+          - field: selfLink
+            resource: Compute/Network
+          x-kubernetes-immutable: true
+        networkEndpointType:
+          description: Type of network endpoints in this network endpoint group. Can
+            be one of GCE_VM_IP_PORT, NON_GCP_PRIVATE_IP_PORT, INTERNET_FQDN_PORT,
+            INTERNET_IP_PORT, or SERVERLESS.
+          enum:
+          - GCE_VM_IP
+          - NON_GCP_PRIVATE_IP_PORT
+          - INTERNET_FQDN_PORT
+          - INTERNET_IP_PORT
+          - SERVERLESS
+          type: string
+          x-dcl-go-name: NetworkEndpointType
+          x-dcl-go-type: NetworkEndpointGroupNetworkEndpointTypeEnum
+          x-kubernetes-immutable: true
+        project:
+          description: The project for the resource
+          type: string
+          x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            resource: Cloudresourcemanager/Project
+          x-kubernetes-immutable: true
+        selfLink:
+          description: Server-defined URL for the resource.
+          readOnly: true
+          type: string
+          x-dcl-go-name: SelfLink
+          x-kubernetes-immutable: true
+        selfLinkWithId:
+          description: Server-defined URL for this resource with the resource id.
+          readOnly: true
+          type: string
+          x-dcl-go-name: SelfLinkWithId
+          x-kubernetes-immutable: true
+        size:
+          description: Number of network endpoints in the network endpoint group.
+          format: int64
+          type: integer
+          x-dcl-go-name: Size
+          x-kubernetes-immutable: true
+        subnetwork:
+          description: Optional URL of the subnetwork to which all network endpoints
+            in the NEG belong. This field is deprecated.
+          type: string
+          x-dcl-go-name: Subnetwork
+          x-dcl-references:
+          - field: selfLink
+            resource: Compute/Subnetwork
+          x-kubernetes-immutable: true
+      required:
+      - name
+      - project
+      title: NetworkEndpointGroup
+      type: object
+      x-dcl-id: ""
+      x-dcl-locations:
+      - region
+      - zone
+      x-dcl-parent-container: project
+      x-dcl-uses-state-hint: false
+info:
+  description: DCL Specification for the Compute NetworkEndpointGroup resource
+  title: Compute/NetworkEndpointGroup
+  x-dcl-has-iam: false
+paths:
+  apply:
+    description: The function used to apply information about a NetworkEndpointGroup
+    parameters:
+    - description: A full instance of a NetworkEndpointGroup
+      name: NetworkEndpointGroup
+      required: true
+  delete:
+    description: The function used to delete a NetworkEndpointGroup
+    parameters:
+    - description: A full instance of a NetworkEndpointGroup
+      name: NetworkEndpointGroup
+      required: true
+  deleteAll:
+    description: The function used to delete all NetworkEndpointGroup
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a NetworkEndpointGroup
+    parameters:
+    - description: A full instance of a NetworkEndpointGroup
+      name: NetworkEndpointGroup
+      required: true
+  list:
+    description: The function used to list information about many NetworkEndpointGroup
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string

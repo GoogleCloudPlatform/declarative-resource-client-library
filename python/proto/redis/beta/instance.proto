@@ -148,6 +148,7 @@ message ListRedisBetaInstanceRequest {
 message ListRedisBetaInstanceResponse {
   repeated RedisBetaInstance items = 1;
 }
+
 service RedisBetaInstanceService {
   rpc ApplyRedisBetaInstance(ApplyRedisBetaInstanceRequest) returns (RedisBetaInstance);
   rpc DeleteRedisBetaInstance(DeleteRedisBetaInstanceRequest) returns (google.protobuf.Empty);

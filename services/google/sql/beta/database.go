@@ -63,6 +63,9 @@ func (l *DatabaseList) HasNext() bool {
 }
 
 func (l *DatabaseList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -76,12 +79,17 @@ func (l *DatabaseList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListDatabase(ctx context.Context, project, instance string) (*DatabaseList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListDatabaseWithMaxResults(ctx, project, instance, DatabaseMaxPage)
 
 }
 
 func (c *Client) ListDatabaseWithMaxResults(ctx context.Context, project, instance string, pageSize int32) (*DatabaseList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listDatabase(ctx, project, instance, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -98,6 +106,9 @@ func (c *Client) ListDatabaseWithMaxResults(ctx context.Context, project, instan
 }
 
 func (c *Client) GetDatabase(ctx context.Context, r *Database) (*Database, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getDatabaseRaw(ctx, r)
 	if err != nil {
 		if IsNotFoundOrInstanceNotRunning(err) {
@@ -128,6 +139,9 @@ func (c *Client) GetDatabase(ctx context.Context, r *Database) (*Database, error
 }
 
 func (c *Client) DeleteDatabase(ctx context.Context, r *Database) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Database resource is nil")
 	}
@@ -138,6 +152,9 @@ func (c *Client) DeleteDatabase(ctx context.Context, r *Database) error {
 
 // DeleteAllDatabase deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllDatabase(ctx context.Context, project, instance string, filter func(*Database) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListDatabase(ctx, project, instance)
 	if err != nil {
 		return err
@@ -163,6 +180,9 @@ func (c *Client) DeleteAllDatabase(ctx context.Context, project, instance string
 func (c *Client) ApplyDatabase(ctx context.Context, rawDesired *Database, opts ...dcl.ApplyOption) (*Database, error) {
 	c.Config.Logger.Info("Beginning ApplyDatabase...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -243,12 +263,35 @@ func (c *Client) ApplyDatabase(ctx context.Context, rawDesired *Database, opts .
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createDatabaseOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapDatabase(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeDatabaseNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeDatabaseNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

@@ -1,0 +1,14 @@
+{
+  "project": "{{project}}",
+  "location": "global",
+  "name": "{{name}}",
+  "description": "description",
+  "endpoint": {
+    "gkeCluster": {
+      "resourceLink": "//container.googleapis.com/projects/{{ref:basicservice.container.cluster.json:project}}/zones/{{ref:basicservice.container.cluster.json:location}}/clusters/{{ref:basicservice.container.cluster.json:name}}"
+    }
+  },
+  "authority": {
+    "issuer": "https://container.googleapis.com/v1/projects/{{ref:basicservice.container.cluster.json:project}}/locations/{{ref:basicservice.container.cluster.json:location}}/clusters/{{ref:basicservice.container.cluster.json:name}}"
+  }
+}

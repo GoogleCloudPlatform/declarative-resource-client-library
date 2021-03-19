@@ -95,9 +95,6 @@ components:
           additionalProperties:
             type: string
           description: Resource labels to represent user-provided metadata.
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
           x-kubernetes-immutable: true
@@ -160,6 +157,10 @@ components:
           description: The project for the resource
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         schedulingConfig:
           properties:

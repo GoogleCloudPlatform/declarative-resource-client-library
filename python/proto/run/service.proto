@@ -383,6 +383,7 @@ message ListRunServiceRequest {
 message ListRunServiceResponse {
   repeated RunService items = 1;
 }
+
 service RunServiceService {
   rpc ApplyRunService(ApplyRunServiceRequest) returns (RunService);
   rpc DeleteRunService(DeleteRunServiceRequest) returns (google.protobuf.Empty);

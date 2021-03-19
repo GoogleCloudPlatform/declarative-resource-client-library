@@ -66,16 +66,24 @@ class Variable(object):
         self.update_time = Primitive.from_proto(response.update_time)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, runtimeConfig, name, service_account_file=""):
+    def delete(self):
         stub = variable_pb2_grpc.RuntimeconfigVariableServiceStub(channel.Channel())
         request = variable_pb2.DeleteRuntimeconfigVariableRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.RuntimeConfig = runtimeConfig
+        if Primitive.to_proto(self.runtime_config):
+            request.resource.runtime_config = Primitive.to_proto(self.runtime_config)
 
-        request.Name = name
+        if Primitive.to_proto(self.text):
+            request.resource.text = Primitive.to_proto(self.text)
+
+        if Primitive.to_proto(self.value):
+            request.resource.value = Primitive.to_proto(self.value)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteRuntimeconfigVariable(request)
 
@@ -104,6 +112,20 @@ class Variable(object):
         res.update_time = Primitive.from_proto(res_proto.update_time)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = variable_pb2.RuntimeconfigVariable()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.runtime_config):
+            resource.runtime_config = Primitive.to_proto(self.runtime_config)
+        if Primitive.to_proto(self.text):
+            resource.text = Primitive.to_proto(self.text)
+        if Primitive.to_proto(self.value):
+            resource.value = Primitive.to_proto(self.value)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class Primitive(object):

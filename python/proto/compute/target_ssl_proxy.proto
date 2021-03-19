@@ -55,6 +55,7 @@ message ListComputeTargetSslProxyRequest {
 message ListComputeTargetSslProxyResponse {
   repeated ComputeTargetSslProxy items = 1;
 }
+
 service ComputeTargetSslProxyService {
   rpc ApplyComputeTargetSslProxy(ApplyComputeTargetSslProxyRequest) returns (ComputeTargetSslProxy);
   rpc DeleteComputeTargetSslProxy(DeleteComputeTargetSslProxyRequest) returns (google.protobuf.Empty);

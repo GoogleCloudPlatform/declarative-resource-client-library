@@ -28,7 +28,7 @@ components:
               type: string
               x-dcl-go-name: Policy
               x-dcl-references:
-              - field: selfLink
+              - field: name
                 resource: Dataproc/AutoscalingPolicy
               x-kubernetes-immutable: true
           type: object
@@ -65,9 +65,6 @@ components:
                 type: string
               description: Output only. The map of port descriptions to URLs. Will
                 only be populated if enable_http_port_access is true.
-              items:
-                type: string
-                x-dcl-go-type: string
               readOnly: true
               type: object
               x-dcl-go-name: HttpPorts
@@ -96,9 +93,6 @@ components:
                 type: string
               description: The Compute Engine metadata entries to add to all instances
                 (see (https://cloud.google.com/compute/docs/storing-retrieving-metadata#project_and_instance_metadata)).
-              items:
-                type: string
-                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Metadata
               x-kubernetes-immutable: true
@@ -460,9 +454,6 @@ components:
                 * distcp: `distcp-default.xml` * hdfs: `hdfs-site.xml` * hive: `hive-site.xml`
                 * mapred: `mapred-site.xml` * pig: `pig.properties` * spark: `spark-defaults.conf`
                 * yarn: `yarn-site.xml` For more information, see (https://cloud.google.com/dataproc/docs/concepts/cluster-properties).'
-              items:
-                type: string
-                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Properties
               x-kubernetes-immutable: true
@@ -731,9 +722,6 @@ components:
                           may include "root" package name to configure rootLogger.
                           Examples: ''com.google = FATAL'', ''root = INFO'', ''org.apache
                           = DEBUG'''
-                        items:
-                          type: string
-                          x-dcl-go-type: string
                         type: object
                         x-dcl-go-name: DriverLogLevels
                         x-kubernetes-immutable: true
@@ -762,9 +750,6 @@ components:
                       used to configure Hadoop. Properties that conflict with values
                       set by the Dataproc API may be overwritten. Can include properties
                       set in /etc/hadoop/conf/*-site and classes in user code.
-                    items:
-                      type: string
-                      x-dcl-go-type: string
                     type: object
                     x-dcl-go-name: Properties
                     x-kubernetes-immutable: true
@@ -801,9 +786,6 @@ components:
                       set by the Dataproc API may be overwritten. Can include properties
                       set in /etc/hadoop/conf/*-site.xml, /etc/hive/conf/hive-site.xml,
                       and classes in user code.
-                    items:
-                      type: string
-                      x-dcl-go-type: string
                     type: object
                     x-dcl-go-name: Properties
                     x-kubernetes-immutable: true
@@ -840,9 +822,6 @@ components:
                       type: string
                     description: 'Optional. Mapping of query variable names to values
                       (equivalent to the Hive command: `SET name="value";`).'
-                    items:
-                      type: string
-                      x-dcl-go-type: string
                     type: object
                     x-dcl-go-name: ScriptVariables
                     x-kubernetes-immutable: true
@@ -857,9 +836,6 @@ components:
                   keys must be between 1 and 63 characters long, and must conform
                   to the following regular expression: {0,63} No more than 32 labels
                   can be associated with a given job.'
-                items:
-                  type: string
-                  x-dcl-go-type: string
                 type: object
                 x-dcl-go-name: Labels
                 x-kubernetes-immutable: true
@@ -894,9 +870,6 @@ components:
                           may include "root" package name to configure rootLogger.
                           Examples: ''com.google = FATAL'', ''root = INFO'', ''org.apache
                           = DEBUG'''
-                        items:
-                          type: string
-                          x-dcl-go-type: string
                         type: object
                         x-dcl-go-name: DriverLogLevels
                         x-kubernetes-immutable: true
@@ -912,9 +885,6 @@ components:
                       set by the Dataproc API may be overwritten. Can include properties
                       set in /etc/hadoop/conf/*-site.xml, /etc/pig/conf/pig.properties,
                       and classes in user code.
-                    items:
-                      type: string
-                      x-dcl-go-type: string
                     type: object
                     x-dcl-go-name: Properties
                     x-kubernetes-immutable: true
@@ -952,9 +922,6 @@ components:
                       type: string
                     description: 'Optional. Mapping of query variable names to values
                       (equivalent to the Pig command: `name=`).'
-                    items:
-                      type: string
-                      x-dcl-go-type: string
                     type: object
                     x-dcl-go-name: ScriptVariables
                     x-kubernetes-immutable: true
@@ -1001,9 +968,6 @@ components:
                           may include "root" package name to configure rootLogger.
                           Examples: ''com.google = FATAL'', ''root = INFO'', ''org.apache
                           = DEBUG'''
-                        items:
-                          type: string
-                          x-dcl-go-type: string
                         type: object
                         x-dcl-go-name: DriverLogLevels
                         x-kubernetes-immutable: true
@@ -1024,9 +988,6 @@ components:
                     description: Optional. A mapping of property names to values.
                       Used to set Presto (https://prestodb.io/docs/current/sql/set-session.html)
                       Equivalent to using the --session flag in the Presto CLI
-                    items:
-                      type: string
-                      x-dcl-go-type: string
                     type: object
                     x-dcl-go-name: Properties
                     x-kubernetes-immutable: true
@@ -1119,9 +1080,6 @@ components:
                           may include "root" package name to configure rootLogger.
                           Examples: ''com.google = FATAL'', ''root = INFO'', ''org.apache
                           = DEBUG'''
-                        items:
-                          type: string
-                          x-dcl-go-type: string
                         type: object
                         x-dcl-go-name: DriverLogLevels
                         x-kubernetes-immutable: true
@@ -1143,9 +1101,6 @@ components:
                       set by the Dataproc API may be overwritten. Can include properties
                       set in /etc/spark/conf/spark-defaults.conf and classes in user
                       code.
-                    items:
-                      type: string
-                      x-dcl-go-type: string
                     type: object
                     x-dcl-go-name: Properties
                     x-kubernetes-immutable: true
@@ -1248,9 +1203,6 @@ components:
                           may include "root" package name to configure rootLogger.
                           Examples: ''com.google = FATAL'', ''root = INFO'', ''org.apache
                           = DEBUG'''
-                        items:
-                          type: string
-                          x-dcl-go-type: string
                         type: object
                         x-dcl-go-name: DriverLogLevels
                         x-kubernetes-immutable: true
@@ -1279,9 +1231,6 @@ components:
                       set by the Dataproc API may be overwritten. Can include properties
                       set in /etc/spark/conf/spark-defaults.conf and classes in user
                       code.
-                    items:
-                      type: string
-                      x-dcl-go-type: string
                     type: object
                     x-dcl-go-name: Properties
                     x-kubernetes-immutable: true
@@ -1336,9 +1285,6 @@ components:
                           may include "root" package name to configure rootLogger.
                           Examples: ''com.google = FATAL'', ''root = INFO'', ''org.apache
                           = DEBUG'''
-                        items:
-                          type: string
-                          x-dcl-go-type: string
                         type: object
                         x-dcl-go-name: DriverLogLevels
                         x-kubernetes-immutable: true
@@ -1360,9 +1306,6 @@ components:
                       set by the Dataproc API may be overwritten. Can include properties
                       set in /etc/spark/conf/spark-defaults.conf and classes in user
                       code.
-                    items:
-                      type: string
-                      x-dcl-go-type: string
                     type: object
                     x-dcl-go-name: Properties
                     x-kubernetes-immutable: true
@@ -1395,9 +1338,6 @@ components:
                           may include "root" package name to configure rootLogger.
                           Examples: ''com.google = FATAL'', ''root = INFO'', ''org.apache
                           = DEBUG'''
-                        items:
-                          type: string
-                          x-dcl-go-type: string
                         type: object
                         x-dcl-go-name: DriverLogLevels
                         x-kubernetes-immutable: true
@@ -1411,9 +1351,6 @@ components:
                     description: Optional. A mapping of property names to values,
                       used to configure Spark SQL's SparkConf. Properties that conflict
                       with values set by the Dataproc API may be overwritten.
-                    items:
-                      type: string
-                      x-dcl-go-type: string
                     type: object
                     x-dcl-go-name: Properties
                     x-kubernetes-immutable: true
@@ -1450,9 +1387,6 @@ components:
                       type: string
                     description: 'Optional. Mapping of query variable names to values
                       (equivalent to the Spark SQL command: SET `name="value";`).'
-                    items:
-                      type: string
-                      x-dcl-go-type: string
                     type: object
                     x-dcl-go-name: ScriptVariables
                     x-kubernetes-immutable: true
@@ -1486,9 +1420,6 @@ components:
             instance. Label **keys** must contain 1 to 63 characters, and must conform
             to (https://www.ietf.org/rfc/rfc1035.txt). No more than 32 labels can
             be associated with a template.
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
           x-kubernetes-immutable: true
@@ -1608,9 +1539,6 @@ components:
                     type: string
                   description: Required. The cluster labels. Cluster must have all
                     labels to match.
-                  items:
-                    type: string
-                    x-dcl-go-type: string
                   type: object
                   x-dcl-go-name: ClusterLabels
                   x-kubernetes-immutable: true
@@ -1650,9 +1578,6 @@ components:
                     Label keys must be between 1 and 63 characters long, and must
                     conform to the following PCRE regular expression: {0,63} No more
                     than 32 labels can be associated with a given cluster.'
-                  items:
-                    type: string
-                    x-dcl-go-type: string
                   type: object
                   x-dcl-go-name: Labels
                   x-kubernetes-immutable: true
@@ -1671,6 +1596,10 @@ components:
           description: The project for the resource
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         updateTime:
           description: Output only. The time template was last updated.

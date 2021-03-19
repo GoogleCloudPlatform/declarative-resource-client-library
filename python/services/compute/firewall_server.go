@@ -20,8 +20,6 @@ import (
 	computepb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/compute/compute_go_proto"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute"
-
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/serialization"
 )
 
 // Server implements the gRPC interface for Firewall.
@@ -243,16 +241,6 @@ func (s *FirewallServer) ApplyComputeFirewall(ctx context.Context, request *comp
 		return nil, err
 	}
 	return s.applyFirewall(ctx, cl, request)
-}
-
-func (s *FirewallServer) ComputeFirewallAsHcl(ctx context.Context, request *computepb.ComputeFirewallAsHclRequest) (*computepb.ComputeFirewallAsHclResponse, error) {
-	p := ProtoToFirewall(request.GetResource())
-	resStr, err := serialization.ComputeFirewallAsHCL(*p)
-	if err != nil {
-		return nil, err
-	}
-
-	return &computepb.ComputeFirewallAsHclResponse{Hcl: resStr}, nil
 }
 
 // DeleteFirewall handles the gRPC request by passing it to the underlying Firewall Delete() method.

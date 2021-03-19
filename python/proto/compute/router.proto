@@ -154,6 +154,7 @@ message ListComputeRouterRequest {
 message ListComputeRouterResponse {
   repeated ComputeRouter items = 1;
 }
+
 service ComputeRouterService {
   rpc ApplyComputeRouter(ApplyComputeRouterRequest) returns (ComputeRouter);
   rpc DeleteComputeRouter(DeleteComputeRouterRequest) returns (google.protobuf.Empty);

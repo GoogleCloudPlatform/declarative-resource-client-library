@@ -18,6 +18,12 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+enum AppengineDomainMappingSslSettingsSslManagementTypeEnum {
+  AppengineDomainMappingSslSettingsSslManagementTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  AppengineDomainMappingSslSettingsSslManagementTypeEnumAUTOMATIC = 1;
+  AppengineDomainMappingSslSettingsSslManagementTypeEnumMANUAL = 2;
+}
+
 enum AppengineDomainMappingResourceRecordsTypeEnum {
   AppengineDomainMappingResourceRecordsTypeEnumNO_VALUE_DO_NOT_USE = 0;
   AppengineDomainMappingResourceRecordsTypeEnumDATABASE_TYPE_UNSPECIFIED = 1;
@@ -27,14 +33,17 @@ enum AppengineDomainMappingResourceRecordsTypeEnum {
 }
 
 message AppengineDomainMapping {
-  string name = 1;
-  AppengineDomainMappingSslSettings ssl_settings = 2;
-  repeated AppengineDomainMappingResourceRecords resource_records = 3;
-  string app = 4;
+  string self_link = 1;
+  string name = 2;
+  AppengineDomainMappingSslSettings ssl_settings = 3;
+  repeated AppengineDomainMappingResourceRecords resource_records = 4;
+  string app = 5;
 }
 
 message AppengineDomainMappingSslSettings {
-  bool is_managed_certificate = 1;
+  string certificate_id = 1;
+  AppengineDomainMappingSslSettingsSslManagementTypeEnum ssl_management_type = 2;
+  string pending_managed_certificate_id = 3;
 }
 
 message AppengineDomainMappingResourceRecords {
@@ -62,6 +71,7 @@ message ListAppengineDomainMappingRequest {
 message ListAppengineDomainMappingResponse {
   repeated AppengineDomainMapping items = 1;
 }
+
 service AppengineDomainMappingService {
   rpc ApplyAppengineDomainMapping(ApplyAppengineDomainMappingRequest) returns (AppengineDomainMapping);
   rpc DeleteAppengineDomainMapping(DeleteAppengineDomainMappingRequest) returns (google.protobuf.Empty);

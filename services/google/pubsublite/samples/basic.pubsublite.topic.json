@@ -1,0 +1,15 @@
+{
+  "name": "{{topic}}",
+  "partitionConfig": {
+    "count": 1,
+    "capacity": {
+       "publishMibPerSec": 4,
+       "subscribeMibPerSec": 8
+     }
+  },
+  "retentionConfig": {
+    "perPartitionBytes": 32212254720
+  },
+  "project": "{{ref:basic.serviceusage.service.json:project}}",
+  "location": "{{zone}}"
+}

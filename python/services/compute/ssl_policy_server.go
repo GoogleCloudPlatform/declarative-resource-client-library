@@ -20,8 +20,6 @@ import (
 	computepb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/compute/compute_go_proto"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute"
-
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/serialization"
 )
 
 // Server implements the gRPC interface for SslPolicy.
@@ -192,16 +190,6 @@ func (s *SslPolicyServer) ApplyComputeSslPolicy(ctx context.Context, request *co
 		return nil, err
 	}
 	return s.applySslPolicy(ctx, cl, request)
-}
-
-func (s *SslPolicyServer) ComputeSslPolicyAsHcl(ctx context.Context, request *computepb.ComputeSslPolicyAsHclRequest) (*computepb.ComputeSslPolicyAsHclResponse, error) {
-	p := ProtoToSslPolicy(request.GetResource())
-	resStr, err := serialization.ComputeSslPolicyAsHCL(*p)
-	if err != nil {
-		return nil, err
-	}
-
-	return &computepb.ComputeSslPolicyAsHclResponse{Hcl: resStr}, nil
 }
 
 // DeleteSslPolicy handles the gRPC request by passing it to the underlying SslPolicy Delete() method.

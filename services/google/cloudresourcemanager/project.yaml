@@ -27,9 +27,6 @@ components:
           additionalProperties:
             type: string
           description: User-specified labels.
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         lifecycleState:
@@ -91,7 +88,6 @@ components:
       x-dcl-id: v1/projects/{{name}}
       x-dcl-labels: labels
       x-dcl-locations: []
-      x-dcl-parent-container: organization
       x-dcl-uses-state-hint: false
 info:
   description: DCL Specification for the Cloudresourcemanager Project resource

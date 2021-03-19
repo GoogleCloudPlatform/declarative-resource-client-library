@@ -66,16 +66,23 @@ class TargetHttpProxy(object):
         self.url_map = Primitive.from_proto(response.url_map)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = target_http_proxy_pb2_grpc.ComputeTargetHttpProxyServiceStub(
             channel.Channel()
         )
         request = target_http_proxy_pb2.DeleteComputeTargetHttpProxyRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Name = name
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if Primitive.to_proto(self.url_map):
+            request.resource.url_map = Primitive.to_proto(self.url_map)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteComputeTargetHttpProxy(request)
 
@@ -104,6 +111,18 @@ class TargetHttpProxy(object):
         res.url_map = Primitive.from_proto(res_proto.url_map)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = target_http_proxy_pb2.ComputeTargetHttpProxy()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.url_map):
+            resource.url_map = Primitive.to_proto(self.url_map)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class Primitive(object):

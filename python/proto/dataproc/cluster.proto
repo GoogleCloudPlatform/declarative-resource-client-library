@@ -272,6 +272,7 @@ message ListDataprocClusterRequest {
 message ListDataprocClusterResponse {
   repeated DataprocCluster items = 1;
 }
+
 service DataprocClusterService {
   rpc ApplyDataprocCluster(ApplyDataprocClusterRequest) returns (DataprocCluster);
   rpc DeleteDataprocCluster(DeleteDataprocClusterRequest) returns (google.protobuf.Empty);

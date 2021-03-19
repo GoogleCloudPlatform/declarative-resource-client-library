@@ -95,7 +95,7 @@ func (c *Client) listTargetSslProxyRaw(ctx context.Context, project, pageToken s
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -169,7 +169,7 @@ func (op *deleteTargetSslProxyOperation) do(ctx context.Context, r *TargetSslPro
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -192,7 +192,13 @@ func (op *deleteTargetSslProxyOperation) do(ctx context.Context, r *TargetSslPro
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createTargetSslProxyOperation struct{}
+type createTargetSslProxyOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createTargetSslProxyOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createTargetSslProxyOperation) do(ctx context.Context, r *TargetSslProxy, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -208,7 +214,7 @@ func (op *createTargetSslProxyOperation) do(ctx context.Context, r *TargetSslPro
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -222,8 +228,10 @@ func (op *createTargetSslProxyOperation) do(ctx context.Context, r *TargetSslPro
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetTargetSslProxy(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -239,7 +247,7 @@ func (c *Client) getTargetSslProxyRaw(ctx context.Context, r *TargetSslProxy) ([
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -320,14 +328,6 @@ func canonicalizeTargetSslProxyDesiredState(rawDesired, rawInitial *TargetSslPro
 		rawDesired.ProxyHeader = TargetSslProxyProxyHeaderEnumRef("NONE")
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*TargetSslProxy); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected TargetSslProxy, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -337,16 +337,16 @@ func canonicalizeTargetSslProxyDesiredState(rawDesired, rawInitial *TargetSslPro
 	if dcl.IsZeroValue(rawDesired.Id) {
 		rawDesired.Id = rawInitial.Id
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.IsZeroValue(rawDesired.SelfLink) {
+	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}
-	if dcl.IsZeroValue(rawDesired.Service) {
+	if dcl.StringCanonicalize(rawDesired.Service, rawInitial.Service) {
 		rawDesired.Service = rawInitial.Service
 	}
 	if dcl.IsZeroValue(rawDesired.SslCertificates) {
@@ -355,7 +355,7 @@ func canonicalizeTargetSslProxyDesiredState(rawDesired, rawInitial *TargetSslPro
 	if dcl.IsZeroValue(rawDesired.ProxyHeader) {
 		rawDesired.ProxyHeader = rawInitial.ProxyHeader
 	}
-	if dcl.IsZeroValue(rawDesired.SslPolicy) {
+	if dcl.StringCanonicalize(rawDesired.SslPolicy, rawInitial.SslPolicy) {
 		rawDesired.SslPolicy = rawInitial.SslPolicy
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
@@ -375,21 +375,33 @@ func canonicalizeTargetSslProxyNewState(c *Client, rawNew, rawDesired *TargetSsl
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Service) && dcl.IsEmptyValueIndirect(rawDesired.Service) {
 		rawNew.Service = rawDesired.Service
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Service, rawNew.Service) {
+			rawNew.Service = rawDesired.Service
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.SslCertificates) && dcl.IsEmptyValueIndirect(rawDesired.SslCertificates) {
@@ -405,6 +417,9 @@ func canonicalizeTargetSslProxyNewState(c *Client, rawNew, rawDesired *TargetSsl
 	if dcl.IsEmptyValueIndirect(rawNew.SslPolicy) && dcl.IsEmptyValueIndirect(rawDesired.SslPolicy) {
 		rawNew.SslPolicy = rawDesired.SslPolicy
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SslPolicy, rawNew.SslPolicy) {
+			rawNew.SslPolicy = rawDesired.SslPolicy
+		}
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -433,49 +448,49 @@ func diffTargetSslProxy(c *Client, desired, actual *TargetSslProxy, opts ...dcl.
 	}
 
 	var diffs []targetSslProxyDiff
-	if !dcl.IsZeroValue(desired.Id) && (dcl.IsZeroValue(actual.Id) || !reflect.DeepEqual(*desired.Id, *actual.Id)) {
+	if !reflect.DeepEqual(desired.Id, actual.Id) {
 		c.Config.Logger.Infof("Detected diff in Id.\nDESIRED: %v\nACTUAL: %v", desired.Id, actual.Id)
 		diffs = append(diffs, targetSslProxyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Id",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, targetSslProxyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, targetSslProxyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Service) && (dcl.IsZeroValue(actual.Service) || !reflect.DeepEqual(*desired.Service, *actual.Service)) {
+	if !dcl.IsZeroValue(desired.Service) && !dcl.StringCanonicalize(desired.Service, actual.Service) {
 		c.Config.Logger.Infof("Detected diff in Service.\nDESIRED: %v\nACTUAL: %v", desired.Service, actual.Service)
 		diffs = append(diffs, targetSslProxyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Service",
 		})
 	}
-	if !dcl.IsZeroValue(desired.SslCertificates) && !reflect.DeepEqual(desired.SslCertificates, actual.SslCertificates) {
+	if !reflect.DeepEqual(desired.SslCertificates, actual.SslCertificates) {
 		c.Config.Logger.Infof("Detected diff in SslCertificates.\nDESIRED: %v\nACTUAL: %v", desired.SslCertificates, actual.SslCertificates)
 		diffs = append(diffs, targetSslProxyDiff{
 			RequiresRecreate: true,
 			FieldName:        "SslCertificates",
 		})
 	}
-	if !dcl.IsZeroValue(desired.ProxyHeader) && (dcl.IsZeroValue(actual.ProxyHeader) || !reflect.DeepEqual(*desired.ProxyHeader, *actual.ProxyHeader)) {
+	if !reflect.DeepEqual(desired.ProxyHeader, actual.ProxyHeader) {
 		c.Config.Logger.Infof("Detected diff in ProxyHeader.\nDESIRED: %v\nACTUAL: %v", desired.ProxyHeader, actual.ProxyHeader)
 		diffs = append(diffs, targetSslProxyDiff{
 			RequiresRecreate: true,
 			FieldName:        "ProxyHeader",
 		})
 	}
-	if !dcl.IsZeroValue(desired.SslPolicy) && (dcl.IsZeroValue(actual.SslPolicy) || !reflect.DeepEqual(*desired.SslPolicy, *actual.SslPolicy)) {
+	if !dcl.IsZeroValue(desired.SslPolicy) && !dcl.StringCanonicalize(desired.SslPolicy, actual.SslPolicy) {
 		c.Config.Logger.Infof("Detected diff in SslPolicy.\nDESIRED: %v\nACTUAL: %v", desired.SslPolicy, actual.SslPolicy)
 		diffs = append(diffs, targetSslProxyDiff{
 			RequiresRecreate: true,
@@ -529,6 +544,11 @@ func compareTargetSslProxyProxyHeaderEnum(c *Client, desired, actual *TargetSslP
 // short-form so they can be substituted in.
 func (r *TargetSslProxy) urlNormalized() *TargetSslProxy {
 	normalized := deepcopy.Copy(*r).(TargetSslProxy)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Service = dcl.SelfLinkToName(r.Service)
+	normalized.SslPolicy = dcl.SelfLinkToName(r.SslPolicy)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -570,6 +590,10 @@ func unmarshalTargetSslProxy(b []byte, c *Client) (*TargetSslProxy, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapTargetSslProxy(m, c)
+}
+
+func unmarshalMapTargetSslProxy(m map[string]interface{}, c *Client) (*TargetSslProxy, error) {
 
 	return flattenTargetSslProxy(c, m), nil
 }
@@ -653,7 +677,7 @@ func flattenTargetSslProxyProxyHeaderEnumSlice(c *Client, i interface{}) []Targe
 
 	items := make([]TargetSslProxyProxyHeaderEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenTargetSslProxyProxyHeaderEnum(item.(map[string]interface{})))
+		items = append(items, *flattenTargetSslProxyProxyHeaderEnum(item.(interface{})))
 	}
 
 	return items

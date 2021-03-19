@@ -94,6 +94,7 @@ message ListComputeBetaAddressRequest {
 message ListComputeBetaAddressResponse {
   repeated ComputeBetaAddress items = 1;
 }
+
 service ComputeBetaAddressService {
   rpc ApplyComputeBetaAddress(ApplyComputeBetaAddressRequest) returns (ComputeBetaAddress);
   rpc DeleteComputeBetaAddress(DeleteComputeBetaAddressRequest) returns (google.protobuf.Empty);

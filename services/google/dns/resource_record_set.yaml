@@ -35,6 +35,10 @@ components:
           description: The project id of the resource.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         target:
           description: 'As defined in RFC 1035 (section 5) and RFC 1034 (section 3.6.1) '

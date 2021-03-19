@@ -1392,7 +1392,7 @@ func (op *updateDashboardUpdateOperation) do(ctx context.Context, r *Dashboard, 
 	if err != nil {
 		return err
 	}
-	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -1419,7 +1419,7 @@ func (c *Client) listDashboardRaw(ctx context.Context, project, pageToken string
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -1493,7 +1493,7 @@ func (op *deleteDashboardOperation) do(ctx context.Context, r *Dashboard, c *Cli
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return fmt.Errorf("failed to delete Dashboard: %w", err)
 	}
@@ -1507,7 +1507,13 @@ func (op *deleteDashboardOperation) do(ctx context.Context, r *Dashboard, c *Cli
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createDashboardOperation struct{}
+type createDashboardOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createDashboardOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createDashboardOperation) do(ctx context.Context, r *Dashboard, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -1534,7 +1540,7 @@ func (op *createDashboardOperation) do(ctx context.Context, r *Dashboard, c *Cli
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -1543,9 +1549,10 @@ func (op *createDashboardOperation) do(ctx context.Context, r *Dashboard, c *Cli
 	if err != nil {
 		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
-	_ = o // We might not use resp- this will stop Go complaining
+	op.response = o
 
 	if _, err := c.GetDashboard(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -1558,7 +1565,7 @@ func (c *Client) getDashboardRaw(ctx context.Context, r *Dashboard) ([]byte, err
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -1635,14 +1642,6 @@ func canonicalizeDashboardInitialState(rawInitial, rawDesired *Dashboard) (*Dash
 
 func canonicalizeDashboardDesiredState(rawDesired, rawInitial *Dashboard, opts ...dcl.ApplyOption) (*Dashboard, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Dashboard); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Dashboard, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -1658,7 +1657,7 @@ func canonicalizeDashboardDesiredState(rawDesired, rawInitial *Dashboard, opts .
 		rawDesired.Category = rawInitial.Category
 	}
 	rawDesired.ColumnLayout = canonicalizeDashboardColumnLayout(rawDesired.ColumnLayout, rawInitial.ColumnLayout, opts...)
-	if dcl.IsZeroValue(rawDesired.DisplayName) {
+	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
 		rawDesired.DisplayName = rawInitial.DisplayName
 	}
 	rawDesired.GridLayout = canonicalizeDashboardGridLayout(rawDesired.GridLayout, rawInitial.GridLayout, opts...)
@@ -1691,6 +1690,9 @@ func canonicalizeDashboardNewState(c *Client, rawNew, rawDesired *Dashboard) (*D
 	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
 		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
+		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.GridLayout) && dcl.IsEmptyValueIndirect(rawDesired.GridLayout) {
@@ -1730,11 +1732,6 @@ func canonicalizeDashboardColumnLayout(des, initial *DashboardColumnLayout, opts
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1785,11 +1782,6 @@ func canonicalizeDashboardColumnLayoutColumns(des, initial *DashboardColumnLayou
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1845,16 +1837,11 @@ func canonicalizeDashboardWidget(des, initial *DashboardWidget, opts ...dcl.Appl
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Title) {
+	if dcl.StringCanonicalize(des.Title, initial.Title) || dcl.IsZeroValue(des.Title) {
 		des.Title = initial.Title
 	}
 	des.XyChart = canonicalizeDashboardWidgetXyChart(des.XyChart, initial.XyChart, opts...)
@@ -1870,6 +1857,9 @@ func canonicalizeNewDashboardWidget(c *Client, des, nw *DashboardWidget) *Dashbo
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.Title, nw.Title) || dcl.IsZeroValue(des.Title) {
+		nw.Title = des.Title
+	}
 	nw.XyChart = canonicalizeNewDashboardWidgetXyChart(c, des.XyChart, nw.XyChart)
 	nw.Scorecard = canonicalizeNewDashboardWidgetScorecard(c, des.Scorecard, nw.Scorecard)
 	nw.Text = canonicalizeNewDashboardWidgetText(c, des.Text, nw.Text)
@@ -1907,11 +1897,6 @@ func canonicalizeDashboardWidgetXyChart(des, initial *DashboardWidgetXyChart, op
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1980,11 +1965,6 @@ func canonicalizeDashboardWidgetXyChartDataSets(des, initial *DashboardWidgetXyC
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -1993,7 +1973,7 @@ func canonicalizeDashboardWidgetXyChartDataSets(des, initial *DashboardWidgetXyC
 	if dcl.IsZeroValue(des.PlotType) {
 		des.PlotType = initial.PlotType
 	}
-	if dcl.IsZeroValue(des.LegendTemplate) {
+	if dcl.StringCanonicalize(des.LegendTemplate, initial.LegendTemplate) || dcl.IsZeroValue(des.LegendTemplate) {
 		des.LegendTemplate = initial.LegendTemplate
 	}
 	des.MinAlignmentPeriod = canonicalizeDashboardWidgetXyChartDataSetsMinAlignmentPeriod(des.MinAlignmentPeriod, initial.MinAlignmentPeriod, opts...)
@@ -2007,6 +1987,9 @@ func canonicalizeNewDashboardWidgetXyChartDataSets(c *Client, des, nw *Dashboard
 	}
 
 	nw.TimeSeriesQuery = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, des.TimeSeriesQuery, nw.TimeSeriesQuery)
+	if dcl.StringCanonicalize(des.LegendTemplate, nw.LegendTemplate) || dcl.IsZeroValue(des.LegendTemplate) {
+		nw.LegendTemplate = des.LegendTemplate
+	}
 	nw.MinAlignmentPeriod = canonicalizeNewDashboardWidgetXyChartDataSetsMinAlignmentPeriod(c, des.MinAlignmentPeriod, nw.MinAlignmentPeriod)
 
 	return nw
@@ -2043,24 +2026,19 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQuery(des, initial *Das
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
 	des.TimeSeriesFilter = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(des.TimeSeriesFilter, initial.TimeSeriesFilter, opts...)
 	des.TimeSeriesFilterRatio = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(des.TimeSeriesFilterRatio, initial.TimeSeriesFilterRatio, opts...)
-	if dcl.IsZeroValue(des.TimeSeriesQueryLanguage) {
+	if dcl.StringCanonicalize(des.TimeSeriesQueryLanguage, initial.TimeSeriesQueryLanguage) || dcl.IsZeroValue(des.TimeSeriesQueryLanguage) {
 		des.TimeSeriesQueryLanguage = initial.TimeSeriesQueryLanguage
 	}
 	if dcl.IsZeroValue(des.ApiSource) {
 		des.ApiSource = initial.ApiSource
 	}
-	if dcl.IsZeroValue(des.UnitOverride) {
+	if dcl.StringCanonicalize(des.UnitOverride, initial.UnitOverride) || dcl.IsZeroValue(des.UnitOverride) {
 		des.UnitOverride = initial.UnitOverride
 	}
 
@@ -2074,6 +2052,12 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQuery(c *Client, des
 
 	nw.TimeSeriesFilter = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, des.TimeSeriesFilter, nw.TimeSeriesFilter)
 	nw.TimeSeriesFilterRatio = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c, des.TimeSeriesFilterRatio, nw.TimeSeriesFilterRatio)
+	if dcl.StringCanonicalize(des.TimeSeriesQueryLanguage, nw.TimeSeriesQueryLanguage) || dcl.IsZeroValue(des.TimeSeriesQueryLanguage) {
+		nw.TimeSeriesQueryLanguage = des.TimeSeriesQueryLanguage
+	}
+	if dcl.StringCanonicalize(des.UnitOverride, nw.UnitOverride) || dcl.IsZeroValue(des.UnitOverride) {
+		nw.UnitOverride = des.UnitOverride
+	}
 
 	return nw
 }
@@ -2109,16 +2093,11 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(d
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
 		des.Filter = initial.Filter
 	}
 	des.Aggregation = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(des.Aggregation, initial.Aggregation, opts...)
@@ -2133,6 +2112,9 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.Filter, nw.Filter) || dcl.IsZeroValue(des.Filter) {
+		nw.Filter = des.Filter
+	}
 	nw.Aggregation = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c, des.Aggregation, nw.Aggregation)
 	nw.SecondaryAggregation = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, des.SecondaryAggregation, nw.SecondaryAggregation)
 	nw.PickTimeSeriesFilter = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, des.PickTimeSeriesFilter, nw.PickTimeSeriesFilter)
@@ -2169,11 +2151,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAg
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -2239,11 +2216,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAg
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -2297,11 +2269,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAg
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -2350,11 +2317,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAg
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -2409,11 +2371,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAg
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -2466,11 +2423,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAg
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -2529,11 +2481,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAg
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -2590,11 +2537,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAg
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -2645,11 +2587,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAg
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -2698,11 +2635,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSe
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -2768,11 +2700,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSe
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -2826,11 +2753,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSe
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -2879,11 +2801,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSe
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -2938,11 +2855,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSe
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -2995,11 +2907,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSe
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -3058,11 +2965,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSe
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -3119,11 +3021,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSe
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -3174,11 +3071,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSe
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -3227,11 +3119,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPi
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -3290,11 +3177,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -3351,16 +3233,11 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
 		des.Filter = initial.Filter
 	}
 	des.Aggregation = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(des.Aggregation, initial.Aggregation, opts...)
@@ -3373,6 +3250,9 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.Filter, nw.Filter) || dcl.IsZeroValue(des.Filter) {
+		nw.Filter = des.Filter
+	}
 	nw.Aggregation = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, des.Aggregation, nw.Aggregation)
 
 	return nw
@@ -3407,11 +3287,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -3477,11 +3352,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -3535,11 +3405,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -3588,11 +3453,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -3647,11 +3507,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -3704,11 +3559,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -3767,11 +3617,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -3828,11 +3673,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -3881,11 +3721,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -3938,16 +3773,11 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
 		des.Filter = initial.Filter
 	}
 	des.Aggregation = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(des.Aggregation, initial.Aggregation, opts...)
@@ -3960,6 +3790,9 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.Filter, nw.Filter) || dcl.IsZeroValue(des.Filter) {
+		nw.Filter = des.Filter
+	}
 	nw.Aggregation = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, des.Aggregation, nw.Aggregation)
 
 	return nw
@@ -3994,11 +3827,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -4064,11 +3892,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -4122,11 +3945,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -4175,11 +3993,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -4234,11 +4047,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -4291,11 +4099,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -4354,11 +4157,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -4415,11 +4213,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -4470,11 +4263,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -4523,11 +4311,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -4593,11 +4376,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -4651,11 +4429,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -4704,11 +4477,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -4763,11 +4531,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -4820,11 +4583,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -4883,11 +4641,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -4944,11 +4697,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -4999,11 +4747,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -5052,11 +4795,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -5115,11 +4853,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsMinAlignmentPeriod(des, initial *
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -5171,11 +4904,6 @@ func canonicalizeDashboardWidgetXyChartSourceDrilldown(des, initial *DashboardWi
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -5243,11 +4971,6 @@ func canonicalizeDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown(des,
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -5298,16 +5021,11 @@ func canonicalizeDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns(de
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
 		des.Label = initial.Label
 	}
 	if dcl.IsZeroValue(des.LogicalOperator) {
@@ -5323,6 +5041,10 @@ func canonicalizeDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns(de
 func canonicalizeNewDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns(c *Client, des, nw *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns) *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
+		nw.Label = des.Label
 	}
 
 	return nw
@@ -5359,16 +5081,11 @@ func canonicalizeDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsVal
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.TargetValue) {
+	if dcl.StringCanonicalize(des.TargetValue, initial.TargetValue) || dcl.IsZeroValue(des.TargetValue) {
 		des.TargetValue = initial.TargetValue
 	}
 	if dcl.IsZeroValue(des.Comparator) {
@@ -5381,6 +5098,10 @@ func canonicalizeDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsVal
 func canonicalizeNewDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions(c *Client, des, nw *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions) *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.TargetValue, nw.TargetValue) || dcl.IsZeroValue(des.TargetValue) {
+		nw.TargetValue = des.TargetValue
 	}
 
 	return nw
@@ -5417,16 +5138,11 @@ func canonicalizeDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldo
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
 		des.Label = initial.Label
 	}
 	if dcl.IsZeroValue(des.LogicalOperator) {
@@ -5442,6 +5158,10 @@ func canonicalizeDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldo
 func canonicalizeNewDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns(c *Client, des, nw *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns) *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
+		nw.Label = des.Label
 	}
 
 	return nw
@@ -5478,16 +5198,11 @@ func canonicalizeDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldo
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.TargetValue) {
+	if dcl.StringCanonicalize(des.TargetValue, initial.TargetValue) || dcl.IsZeroValue(des.TargetValue) {
 		des.TargetValue = initial.TargetValue
 	}
 	if dcl.IsZeroValue(des.Comparator) {
@@ -5500,6 +5215,10 @@ func canonicalizeDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldo
 func canonicalizeNewDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions(c *Client, des, nw *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions) *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.TargetValue, nw.TargetValue) || dcl.IsZeroValue(des.TargetValue) {
+		nw.TargetValue = des.TargetValue
 	}
 
 	return nw
@@ -5536,16 +5255,11 @@ func canonicalizeDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldown
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
 		des.Label = initial.Label
 	}
 	if dcl.IsZeroValue(des.LogicalOperator) {
@@ -5561,6 +5275,10 @@ func canonicalizeDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldown
 func canonicalizeNewDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns(c *Client, des, nw *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns) *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
+		nw.Label = des.Label
 	}
 
 	return nw
@@ -5597,16 +5315,11 @@ func canonicalizeDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldown
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.TargetValue) {
+	if dcl.StringCanonicalize(des.TargetValue, initial.TargetValue) || dcl.IsZeroValue(des.TargetValue) {
 		des.TargetValue = initial.TargetValue
 	}
 	if dcl.IsZeroValue(des.Comparator) {
@@ -5619,6 +5332,10 @@ func canonicalizeDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldown
 func canonicalizeNewDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions(c *Client, des, nw *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions) *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.TargetValue, nw.TargetValue) || dcl.IsZeroValue(des.TargetValue) {
+		nw.TargetValue = des.TargetValue
 	}
 
 	return nw
@@ -5653,11 +5370,6 @@ func canonicalizeDashboardWidgetXyChartSourceDrilldownGroupNameDrilldown(des, in
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -5710,11 +5422,6 @@ func canonicalizeDashboardWidgetXyChartSourceDrilldownServiceNameDrilldown(des, 
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -5765,11 +5472,6 @@ func canonicalizeDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown(des, 
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -5818,11 +5520,6 @@ func canonicalizeDashboardWidgetXyChartMetricDrilldown(des, initial *DashboardWi
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -5880,16 +5577,11 @@ func canonicalizeDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown(des, i
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.TargetValue) {
+	if dcl.StringCanonicalize(des.TargetValue, initial.TargetValue) || dcl.IsZeroValue(des.TargetValue) {
 		des.TargetValue = initial.TargetValue
 	}
 
@@ -5899,6 +5591,10 @@ func canonicalizeDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown(des, i
 func canonicalizeNewDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown(c *Client, des, nw *DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown) *DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.TargetValue, nw.TargetValue) || dcl.IsZeroValue(des.TargetValue) {
+		nw.TargetValue = des.TargetValue
 	}
 
 	return nw
@@ -5935,16 +5631,11 @@ func canonicalizeDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns(des,
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
 		des.Label = initial.Label
 	}
 	if dcl.IsZeroValue(des.LogicalOperator) {
@@ -5960,6 +5651,10 @@ func canonicalizeDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns(des,
 func canonicalizeNewDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns(c *Client, des, nw *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns) *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
+		nw.Label = des.Label
 	}
 
 	return nw
@@ -5996,16 +5691,11 @@ func canonicalizeDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValue
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.TargetValue) {
+	if dcl.StringCanonicalize(des.TargetValue, initial.TargetValue) || dcl.IsZeroValue(des.TargetValue) {
 		des.TargetValue = initial.TargetValue
 	}
 	if dcl.IsZeroValue(des.Comparator) {
@@ -6018,6 +5708,10 @@ func canonicalizeDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValue
 func canonicalizeNewDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions(c *Client, des, nw *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions) *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.TargetValue, nw.TargetValue) || dcl.IsZeroValue(des.TargetValue) {
+		nw.TargetValue = des.TargetValue
 	}
 
 	return nw
@@ -6052,11 +5746,6 @@ func canonicalizeDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown(des
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -6121,11 +5810,6 @@ func canonicalizeDashboardWidgetXyChartTimeshiftDuration(des, initial *Dashboard
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -6179,16 +5863,11 @@ func canonicalizeDashboardWidgetXyChartThresholds(des, initial *DashboardWidgetX
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
 		des.Label = initial.Label
 	}
 	if dcl.IsZeroValue(des.Value) {
@@ -6207,6 +5886,10 @@ func canonicalizeDashboardWidgetXyChartThresholds(des, initial *DashboardWidgetX
 func canonicalizeNewDashboardWidgetXyChartThresholds(c *Client, des, nw *DashboardWidgetXyChartThresholds) *DashboardWidgetXyChartThresholds {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
+		nw.Label = des.Label
 	}
 
 	return nw
@@ -6243,16 +5926,11 @@ func canonicalizeDashboardWidgetXyChartXAxis(des, initial *DashboardWidgetXyChar
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
 		des.Label = initial.Label
 	}
 	if dcl.IsZeroValue(des.Scale) {
@@ -6265,6 +5943,10 @@ func canonicalizeDashboardWidgetXyChartXAxis(des, initial *DashboardWidgetXyChar
 func canonicalizeNewDashboardWidgetXyChartXAxis(c *Client, des, nw *DashboardWidgetXyChartXAxis) *DashboardWidgetXyChartXAxis {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
+		nw.Label = des.Label
 	}
 
 	return nw
@@ -6301,16 +5983,11 @@ func canonicalizeDashboardWidgetXyChartYAxis(des, initial *DashboardWidgetXyChar
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
 		des.Label = initial.Label
 	}
 	if dcl.IsZeroValue(des.Scale) {
@@ -6323,6 +6000,10 @@ func canonicalizeDashboardWidgetXyChartYAxis(des, initial *DashboardWidgetXyChar
 func canonicalizeNewDashboardWidgetXyChartYAxis(c *Client, des, nw *DashboardWidgetXyChartYAxis) *DashboardWidgetXyChartYAxis {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
+		nw.Label = des.Label
 	}
 
 	return nw
@@ -6357,11 +6038,6 @@ func canonicalizeDashboardWidgetXyChartChartOptions(des, initial *DashboardWidge
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -6415,11 +6091,6 @@ func canonicalizeDashboardWidgetScorecard(des, initial *DashboardWidgetScorecard
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -6483,24 +6154,19 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQuery(des, initial *Dashboard
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
 	des.TimeSeriesFilter = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(des.TimeSeriesFilter, initial.TimeSeriesFilter, opts...)
 	des.TimeSeriesFilterRatio = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(des.TimeSeriesFilterRatio, initial.TimeSeriesFilterRatio, opts...)
-	if dcl.IsZeroValue(des.TimeSeriesQueryLanguage) {
+	if dcl.StringCanonicalize(des.TimeSeriesQueryLanguage, initial.TimeSeriesQueryLanguage) || dcl.IsZeroValue(des.TimeSeriesQueryLanguage) {
 		des.TimeSeriesQueryLanguage = initial.TimeSeriesQueryLanguage
 	}
 	if dcl.IsZeroValue(des.ApiSource) {
 		des.ApiSource = initial.ApiSource
 	}
-	if dcl.IsZeroValue(des.UnitOverride) {
+	if dcl.StringCanonicalize(des.UnitOverride, initial.UnitOverride) || dcl.IsZeroValue(des.UnitOverride) {
 		des.UnitOverride = initial.UnitOverride
 	}
 
@@ -6514,6 +6180,12 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQuery(c *Client, des, nw *
 
 	nw.TimeSeriesFilter = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, des.TimeSeriesFilter, nw.TimeSeriesFilter)
 	nw.TimeSeriesFilterRatio = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c, des.TimeSeriesFilterRatio, nw.TimeSeriesFilterRatio)
+	if dcl.StringCanonicalize(des.TimeSeriesQueryLanguage, nw.TimeSeriesQueryLanguage) || dcl.IsZeroValue(des.TimeSeriesQueryLanguage) {
+		nw.TimeSeriesQueryLanguage = des.TimeSeriesQueryLanguage
+	}
+	if dcl.StringCanonicalize(des.UnitOverride, nw.UnitOverride) || dcl.IsZeroValue(des.UnitOverride) {
+		nw.UnitOverride = des.UnitOverride
+	}
 
 	return nw
 }
@@ -6549,16 +6221,11 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(des, in
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
 		des.Filter = initial.Filter
 	}
 	des.Aggregation = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(des.Aggregation, initial.Aggregation, opts...)
@@ -6573,6 +6240,9 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c *C
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.Filter, nw.Filter) || dcl.IsZeroValue(des.Filter) {
+		nw.Filter = des.Filter
+	}
 	nw.Aggregation = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c, des.Aggregation, nw.Aggregation)
 	nw.SecondaryAggregation = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, des.SecondaryAggregation, nw.SecondaryAggregation)
 	nw.PickTimeSeriesFilter = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, des.PickTimeSeriesFilter, nw.PickTimeSeriesFilter)
@@ -6609,11 +6279,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregat
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -6679,11 +6344,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregat
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -6737,11 +6397,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregat
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -6790,11 +6445,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregat
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -6849,11 +6499,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregat
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -6906,11 +6551,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregat
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -6969,11 +6609,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregat
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -7030,11 +6665,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregat
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -7085,11 +6715,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregat
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -7138,11 +6763,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondar
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -7208,11 +6828,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondar
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -7266,11 +6881,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondar
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -7319,11 +6929,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondar
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -7378,11 +6983,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondar
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -7435,11 +7035,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondar
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -7498,11 +7093,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondar
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -7559,11 +7149,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondar
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -7614,11 +7199,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondar
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -7667,11 +7247,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTime
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -7730,11 +7305,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(de
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -7791,16 +7361,11 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
 		des.Filter = initial.Filter
 	}
 	des.Aggregation = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(des.Aggregation, initial.Aggregation, opts...)
@@ -7813,6 +7378,9 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.Filter, nw.Filter) || dcl.IsZeroValue(des.Filter) {
+		nw.Filter = des.Filter
+	}
 	nw.Aggregation = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, des.Aggregation, nw.Aggregation)
 
 	return nw
@@ -7847,11 +7415,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -7917,11 +7480,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -7975,11 +7533,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -8028,11 +7581,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -8087,11 +7635,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -8144,11 +7687,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -8207,11 +7745,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -8268,11 +7801,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -8321,11 +7849,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -8378,16 +7901,11 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
 		des.Filter = initial.Filter
 	}
 	des.Aggregation = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(des.Aggregation, initial.Aggregation, opts...)
@@ -8400,6 +7918,9 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.Filter, nw.Filter) || dcl.IsZeroValue(des.Filter) {
+		nw.Filter = des.Filter
+	}
 	nw.Aggregation = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, des.Aggregation, nw.Aggregation)
 
 	return nw
@@ -8434,11 +7955,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -8504,11 +8020,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -8562,11 +8073,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -8615,11 +8121,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -8674,11 +8175,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -8731,11 +8227,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -8794,11 +8285,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -8855,11 +8341,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -8910,11 +8391,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -8963,11 +8439,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSec
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -9033,11 +8504,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSec
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -9091,11 +8557,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSec
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -9144,11 +8605,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSec
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -9203,11 +8659,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSec
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -9260,11 +8711,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSec
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -9323,11 +8769,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSec
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -9384,11 +8825,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSec
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -9439,11 +8875,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSec
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -9492,11 +8923,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPic
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -9553,11 +8979,6 @@ func canonicalizeDashboardWidgetScorecardSourceDrilldown(des, initial *Dashboard
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -9625,11 +9046,6 @@ func canonicalizeDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown(de
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -9680,16 +9096,11 @@ func canonicalizeDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns(
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
 		des.Label = initial.Label
 	}
 	if dcl.IsZeroValue(des.LogicalOperator) {
@@ -9705,6 +9116,10 @@ func canonicalizeDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns(
 func canonicalizeNewDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns(c *Client, des, nw *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns) *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
+		nw.Label = des.Label
 	}
 
 	return nw
@@ -9741,16 +9156,11 @@ func canonicalizeDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsV
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.TargetValue) {
+	if dcl.StringCanonicalize(des.TargetValue, initial.TargetValue) || dcl.IsZeroValue(des.TargetValue) {
 		des.TargetValue = initial.TargetValue
 	}
 	if dcl.IsZeroValue(des.Comparator) {
@@ -9763,6 +9173,10 @@ func canonicalizeDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsV
 func canonicalizeNewDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions(c *Client, des, nw *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions) *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.TargetValue, nw.TargetValue) || dcl.IsZeroValue(des.TargetValue) {
+		nw.TargetValue = des.TargetValue
 	}
 
 	return nw
@@ -9799,16 +9213,11 @@ func canonicalizeDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrill
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
 		des.Label = initial.Label
 	}
 	if dcl.IsZeroValue(des.LogicalOperator) {
@@ -9824,6 +9233,10 @@ func canonicalizeDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrill
 func canonicalizeNewDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns(c *Client, des, nw *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns) *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
+		nw.Label = des.Label
 	}
 
 	return nw
@@ -9860,16 +9273,11 @@ func canonicalizeDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrill
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.TargetValue) {
+	if dcl.StringCanonicalize(des.TargetValue, initial.TargetValue) || dcl.IsZeroValue(des.TargetValue) {
 		des.TargetValue = initial.TargetValue
 	}
 	if dcl.IsZeroValue(des.Comparator) {
@@ -9882,6 +9290,10 @@ func canonicalizeDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrill
 func canonicalizeNewDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions(c *Client, des, nw *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions) *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.TargetValue, nw.TargetValue) || dcl.IsZeroValue(des.TargetValue) {
+		nw.TargetValue = des.TargetValue
 	}
 
 	return nw
@@ -9918,16 +9330,11 @@ func canonicalizeDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldo
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
 		des.Label = initial.Label
 	}
 	if dcl.IsZeroValue(des.LogicalOperator) {
@@ -9943,6 +9350,10 @@ func canonicalizeDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldo
 func canonicalizeNewDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns(c *Client, des, nw *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns) *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
+		nw.Label = des.Label
 	}
 
 	return nw
@@ -9979,16 +9390,11 @@ func canonicalizeDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldo
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.TargetValue) {
+	if dcl.StringCanonicalize(des.TargetValue, initial.TargetValue) || dcl.IsZeroValue(des.TargetValue) {
 		des.TargetValue = initial.TargetValue
 	}
 	if dcl.IsZeroValue(des.Comparator) {
@@ -10001,6 +9407,10 @@ func canonicalizeDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldo
 func canonicalizeNewDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions(c *Client, des, nw *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions) *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.TargetValue, nw.TargetValue) || dcl.IsZeroValue(des.TargetValue) {
+		nw.TargetValue = des.TargetValue
 	}
 
 	return nw
@@ -10035,11 +9445,6 @@ func canonicalizeDashboardWidgetScorecardSourceDrilldownGroupNameDrilldown(des, 
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -10092,11 +9497,6 @@ func canonicalizeDashboardWidgetScorecardSourceDrilldownServiceNameDrilldown(des
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -10147,11 +9547,6 @@ func canonicalizeDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown(des
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -10200,11 +9595,6 @@ func canonicalizeDashboardWidgetScorecardMetricDrilldown(des, initial *Dashboard
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -10262,16 +9652,11 @@ func canonicalizeDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown(des,
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.TargetValue) {
+	if dcl.StringCanonicalize(des.TargetValue, initial.TargetValue) || dcl.IsZeroValue(des.TargetValue) {
 		des.TargetValue = initial.TargetValue
 	}
 
@@ -10281,6 +9666,10 @@ func canonicalizeDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown(des,
 func canonicalizeNewDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown(c *Client, des, nw *DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown) *DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.TargetValue, nw.TargetValue) || dcl.IsZeroValue(des.TargetValue) {
+		nw.TargetValue = des.TargetValue
 	}
 
 	return nw
@@ -10317,16 +9706,11 @@ func canonicalizeDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns(de
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
 		des.Label = initial.Label
 	}
 	if dcl.IsZeroValue(des.LogicalOperator) {
@@ -10342,6 +9726,10 @@ func canonicalizeDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns(de
 func canonicalizeNewDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns(c *Client, des, nw *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns) *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
+		nw.Label = des.Label
 	}
 
 	return nw
@@ -10378,16 +9766,11 @@ func canonicalizeDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsVal
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.TargetValue) {
+	if dcl.StringCanonicalize(des.TargetValue, initial.TargetValue) || dcl.IsZeroValue(des.TargetValue) {
 		des.TargetValue = initial.TargetValue
 	}
 	if dcl.IsZeroValue(des.Comparator) {
@@ -10400,6 +9783,10 @@ func canonicalizeDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsVal
 func canonicalizeNewDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions(c *Client, des, nw *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions) *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.TargetValue, nw.TargetValue) || dcl.IsZeroValue(des.TargetValue) {
+		nw.TargetValue = des.TargetValue
 	}
 
 	return nw
@@ -10434,11 +9821,6 @@ func canonicalizeDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown(d
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -10503,11 +9885,6 @@ func canonicalizeDashboardWidgetScorecardGaugeView(des, initial *DashboardWidget
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -10559,11 +9936,6 @@ func canonicalizeDashboardWidgetScorecardSparkChartView(des, initial *DashboardW
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -10619,11 +9991,6 @@ func canonicalizeDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(des, i
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -10677,16 +10044,11 @@ func canonicalizeDashboardWidgetScorecardThresholds(des, initial *DashboardWidge
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
 		des.Label = initial.Label
 	}
 	if dcl.IsZeroValue(des.Value) {
@@ -10705,6 +10067,10 @@ func canonicalizeDashboardWidgetScorecardThresholds(des, initial *DashboardWidge
 func canonicalizeNewDashboardWidgetScorecardThresholds(c *Client, des, nw *DashboardWidgetScorecardThresholds) *DashboardWidgetScorecardThresholds {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
+		nw.Label = des.Label
 	}
 
 	return nw
@@ -10741,16 +10107,11 @@ func canonicalizeDashboardWidgetText(des, initial *DashboardWidgetText, opts ...
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Content) {
+	if dcl.StringCanonicalize(des.Content, initial.Content) || dcl.IsZeroValue(des.Content) {
 		des.Content = initial.Content
 	}
 	if dcl.IsZeroValue(des.Format) {
@@ -10763,6 +10124,10 @@ func canonicalizeDashboardWidgetText(des, initial *DashboardWidgetText, opts ...
 func canonicalizeNewDashboardWidgetText(c *Client, des, nw *DashboardWidgetText) *DashboardWidgetText {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Content, nw.Content) || dcl.IsZeroValue(des.Content) {
+		nw.Content = des.Content
 	}
 
 	return nw
@@ -10797,11 +10162,6 @@ func canonicalizeDashboardWidgetBlank(des, initial *DashboardWidgetBlank, opts .
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -10848,11 +10208,6 @@ func canonicalizeDashboardGridLayout(des, initial *DashboardGridLayout, opts ...
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -10908,11 +10263,6 @@ func canonicalizeDashboardMosaicLayout(des, initial *DashboardMosaicLayout, opts
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -10964,11 +10314,6 @@ func canonicalizeDashboardMosaicLayoutTiles(des, initial *DashboardMosaicLayoutT
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -11033,11 +10378,6 @@ func canonicalizeDashboardRowLayout(des, initial *DashboardRowLayout, opts ...dc
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -11086,11 +10426,6 @@ func canonicalizeDashboardRowLayoutRows(des, initial *DashboardRowLayoutRows, op
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -11146,11 +10481,6 @@ func canonicalizeDashboardTabbedLayout(des, initial *DashboardTabbedLayout, opts
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -11204,19 +10534,14 @@ func canonicalizeDashboardTabbedLayoutTabs(des, initial *DashboardTabbedLayoutTa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
 		des.Label = initial.Label
 	}
-	if dcl.IsZeroValue(des.HintText) {
+	if dcl.StringCanonicalize(des.HintText, initial.HintText) || dcl.IsZeroValue(des.HintText) {
 		des.HintText = initial.HintText
 	}
 	des.GridLayout = canonicalizeDashboardTabbedLayoutTabsGridLayout(des.GridLayout, initial.GridLayout, opts...)
@@ -11232,6 +10557,12 @@ func canonicalizeNewDashboardTabbedLayoutTabs(c *Client, des, nw *DashboardTabbe
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
+		nw.Label = des.Label
+	}
+	if dcl.StringCanonicalize(des.HintText, nw.HintText) || dcl.IsZeroValue(des.HintText) {
+		nw.HintText = des.HintText
+	}
 	nw.GridLayout = canonicalizeNewDashboardTabbedLayoutTabsGridLayout(c, des.GridLayout, nw.GridLayout)
 	nw.MosaicLayout = canonicalizeNewDashboardTabbedLayoutTabsMosaicLayout(c, des.MosaicLayout, nw.MosaicLayout)
 	nw.RowLayout = canonicalizeNewDashboardTabbedLayoutTabsRowLayout(c, des.RowLayout, nw.RowLayout)
@@ -11269,11 +10600,6 @@ func canonicalizeDashboardTabbedLayoutTabsGridLayout(des, initial *DashboardTabb
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -11329,11 +10655,6 @@ func canonicalizeDashboardTabbedLayoutTabsMosaicLayout(des, initial *DashboardTa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -11385,11 +10706,6 @@ func canonicalizeDashboardTabbedLayoutTabsMosaicLayoutTiles(des, initial *Dashbo
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -11454,11 +10770,6 @@ func canonicalizeDashboardTabbedLayoutTabsRowLayout(des, initial *DashboardTabbe
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -11507,11 +10818,6 @@ func canonicalizeDashboardTabbedLayoutTabsRowLayoutRows(des, initial *DashboardT
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -11567,11 +10873,6 @@ func canonicalizeDashboardTabbedLayoutTabsColumnLayout(des, initial *DashboardTa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -11620,11 +10921,6 @@ func canonicalizeDashboardTabbedLayoutTabsColumnLayoutColumns(des, initial *Dash
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -11680,11 +10976,6 @@ func canonicalizeDashboardTabbedLayoutFeaturedMosaicLayout(des, initial *Dashboa
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -11736,11 +11027,6 @@ func canonicalizeDashboardTabbedLayoutFeaturedMosaicLayoutTiles(des, initial *Da
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Dashboard)
-		_ = r
 	}
 
 	if initial == nil {
@@ -11818,7 +11104,7 @@ func diffDashboard(c *Client, desired, actual *Dashboard, opts ...dcl.ApplyOptio
 	}
 
 	var diffs []dashboardDiff
-	if !dcl.IsZeroValue(desired.Category) && (dcl.IsZeroValue(actual.Category) || !reflect.DeepEqual(*desired.Category, *actual.Category)) {
+	if !reflect.DeepEqual(desired.Category, actual.Category) {
 		c.Config.Logger.Infof("Detected diff in Category.\nDESIRED: %v\nACTUAL: %v", desired.Category, actual.Category)
 		diffs = append(diffs, dashboardDiff{
 			RequiresRecreate: true,
@@ -11834,7 +11120,7 @@ func diffDashboard(c *Client, desired, actual *Dashboard, opts ...dcl.ApplyOptio
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.DisplayName) && (dcl.IsZeroValue(actual.DisplayName) || !reflect.DeepEqual(*desired.DisplayName, *actual.DisplayName)) {
+	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
 		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 
 		diffs = append(diffs, dashboardDiff{
@@ -11899,20 +11185,6 @@ func diffDashboard(c *Client, desired, actual *Dashboard, opts ...dcl.ApplyOptio
 
 	return deduped, nil
 }
-func compareDashboardColumnLayoutSlice(c *Client, desired, actual []DashboardColumnLayout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardColumnLayout, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardColumnLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardColumnLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
 func compareDashboardColumnLayout(c *Client, desired, actual *DashboardColumnLayout) bool {
 	if desired == nil {
 		return false
@@ -11930,14 +11202,34 @@ func compareDashboardColumnLayout(c *Client, desired, actual *DashboardColumnLay
 	}
 	return false
 }
-func compareDashboardColumnLayoutColumnsSlice(c *Client, desired, actual []DashboardColumnLayoutColumns) bool {
+
+func compareDashboardColumnLayoutSlice(c *Client, desired, actual []DashboardColumnLayout) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardColumnLayoutColumns, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardColumnLayout, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardColumnLayoutColumns(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardColumnLayoutColumns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardColumnLayout(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardColumnLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardColumnLayoutMap(c *Client, desired, actual map[string]DashboardColumnLayout) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardColumnLayout, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardColumnLayout, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardColumnLayout(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardColumnLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -11955,7 +11247,7 @@ func compareDashboardColumnLayoutColumns(c *Client, desired, actual *DashboardCo
 		c.Config.Logger.Infof("desired Weight %s - but actually nil", dcl.SprintResource(desired.Weight))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Weight, actual.Weight) && !dcl.IsZeroValue(desired.Weight) && !(dcl.IsEmptyValueIndirect(desired.Weight) && dcl.IsZeroValue(actual.Weight)) {
+	if !reflect.DeepEqual(desired.Weight, actual.Weight) && !dcl.IsZeroValue(desired.Weight) {
 		c.Config.Logger.Infof("Diff in Weight. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Weight), dcl.SprintResource(actual.Weight))
 		return true
 	}
@@ -11969,14 +11261,34 @@ func compareDashboardColumnLayoutColumns(c *Client, desired, actual *DashboardCo
 	}
 	return false
 }
-func compareDashboardWidgetSlice(c *Client, desired, actual []DashboardWidget) bool {
+
+func compareDashboardColumnLayoutColumnsSlice(c *Client, desired, actual []DashboardColumnLayoutColumns) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidget, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardColumnLayoutColumns, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidget(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidget, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardColumnLayoutColumns(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardColumnLayoutColumns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardColumnLayoutColumnsMap(c *Client, desired, actual map[string]DashboardColumnLayoutColumns) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardColumnLayoutColumns, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardColumnLayoutColumns, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardColumnLayoutColumns(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardColumnLayoutColumns, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -11994,7 +11306,7 @@ func compareDashboardWidget(c *Client, desired, actual *DashboardWidget) bool {
 		c.Config.Logger.Infof("desired Title %s - but actually nil", dcl.SprintResource(desired.Title))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Title, actual.Title) && !dcl.IsZeroValue(desired.Title) && !(dcl.IsEmptyValueIndirect(desired.Title) && dcl.IsZeroValue(actual.Title)) {
+	if !dcl.StringCanonicalize(desired.Title, actual.Title) && !dcl.IsZeroValue(desired.Title) {
 		c.Config.Logger.Infof("Diff in Title. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Title), dcl.SprintResource(actual.Title))
 		return true
 	}
@@ -12032,14 +11344,34 @@ func compareDashboardWidget(c *Client, desired, actual *DashboardWidget) bool {
 	}
 	return false
 }
-func compareDashboardWidgetXyChartSlice(c *Client, desired, actual []DashboardWidgetXyChart) bool {
+
+func compareDashboardWidgetSlice(c *Client, desired, actual []DashboardWidget) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChart, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidget, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChart(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChart, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidget(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidget, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetMap(c *Client, desired, actual map[string]DashboardWidget) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidget, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidget, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidget(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidget, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12119,14 +11451,34 @@ func compareDashboardWidgetXyChart(c *Client, desired, actual *DashboardWidgetXy
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSets) bool {
+
+func compareDashboardWidgetXyChartSlice(c *Client, desired, actual []DashboardWidgetXyChart) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChart, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChart(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChart, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartMap(c *Client, desired, actual map[string]DashboardWidgetXyChart) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChart, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChart, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChart(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChart, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12152,7 +11504,7 @@ func compareDashboardWidgetXyChartDataSets(c *Client, desired, actual *Dashboard
 		c.Config.Logger.Infof("desired PlotType %s - but actually nil", dcl.SprintResource(desired.PlotType))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PlotType, actual.PlotType) && !dcl.IsZeroValue(desired.PlotType) && !(dcl.IsEmptyValueIndirect(desired.PlotType) && dcl.IsZeroValue(actual.PlotType)) {
+	if !reflect.DeepEqual(desired.PlotType, actual.PlotType) && !dcl.IsZeroValue(desired.PlotType) {
 		c.Config.Logger.Infof("Diff in PlotType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PlotType), dcl.SprintResource(actual.PlotType))
 		return true
 	}
@@ -12160,7 +11512,7 @@ func compareDashboardWidgetXyChartDataSets(c *Client, desired, actual *Dashboard
 		c.Config.Logger.Infof("desired LegendTemplate %s - but actually nil", dcl.SprintResource(desired.LegendTemplate))
 		return true
 	}
-	if !reflect.DeepEqual(desired.LegendTemplate, actual.LegendTemplate) && !dcl.IsZeroValue(desired.LegendTemplate) && !(dcl.IsEmptyValueIndirect(desired.LegendTemplate) && dcl.IsZeroValue(actual.LegendTemplate)) {
+	if !dcl.StringCanonicalize(desired.LegendTemplate, actual.LegendTemplate) && !dcl.IsZeroValue(desired.LegendTemplate) {
 		c.Config.Logger.Infof("Diff in LegendTemplate. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LegendTemplate), dcl.SprintResource(actual.LegendTemplate))
 		return true
 	}
@@ -12174,14 +11526,34 @@ func compareDashboardWidgetXyChartDataSets(c *Client, desired, actual *Dashboard
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQuerySlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQuery) bool {
+
+func compareDashboardWidgetXyChartDataSetsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQuery, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQuery, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12215,7 +11587,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQuery(c *Client, desired, ac
 		c.Config.Logger.Infof("desired TimeSeriesQueryLanguage %s - but actually nil", dcl.SprintResource(desired.TimeSeriesQueryLanguage))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage) && !dcl.IsZeroValue(desired.TimeSeriesQueryLanguage) && !(dcl.IsEmptyValueIndirect(desired.TimeSeriesQueryLanguage) && dcl.IsZeroValue(actual.TimeSeriesQueryLanguage)) {
+	if !dcl.StringCanonicalize(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage) && !dcl.IsZeroValue(desired.TimeSeriesQueryLanguage) {
 		c.Config.Logger.Infof("Diff in TimeSeriesQueryLanguage. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeSeriesQueryLanguage), dcl.SprintResource(actual.TimeSeriesQueryLanguage))
 		return true
 	}
@@ -12223,7 +11595,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQuery(c *Client, desired, ac
 		c.Config.Logger.Infof("desired ApiSource %s - but actually nil", dcl.SprintResource(desired.ApiSource))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ApiSource, actual.ApiSource) && !dcl.IsZeroValue(desired.ApiSource) && !(dcl.IsEmptyValueIndirect(desired.ApiSource) && dcl.IsZeroValue(actual.ApiSource)) {
+	if !reflect.DeepEqual(desired.ApiSource, actual.ApiSource) && !dcl.IsZeroValue(desired.ApiSource) {
 		c.Config.Logger.Infof("Diff in ApiSource. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ApiSource), dcl.SprintResource(actual.ApiSource))
 		return true
 	}
@@ -12231,20 +11603,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQuery(c *Client, desired, ac
 		c.Config.Logger.Infof("desired UnitOverride %s - but actually nil", dcl.SprintResource(desired.UnitOverride))
 		return true
 	}
-	if !reflect.DeepEqual(desired.UnitOverride, actual.UnitOverride) && !dcl.IsZeroValue(desired.UnitOverride) && !(dcl.IsEmptyValueIndirect(desired.UnitOverride) && dcl.IsZeroValue(actual.UnitOverride)) {
+	if !dcl.StringCanonicalize(desired.UnitOverride, actual.UnitOverride) && !dcl.IsZeroValue(desired.UnitOverride) {
 		c.Config.Logger.Infof("Diff in UnitOverride. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UnitOverride), dcl.SprintResource(actual.UnitOverride))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQuerySlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQuery) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQuery, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQuery, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQuery) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQuery, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQuery, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQuery, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12262,7 +11654,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c *Cli
 		c.Config.Logger.Infof("desired Filter %s - but actually nil", dcl.SprintResource(desired.Filter))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) && !(dcl.IsEmptyValueIndirect(desired.Filter) && dcl.IsZeroValue(actual.Filter)) {
+	if !dcl.StringCanonicalize(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) {
 		c.Config.Logger.Infof("Diff in Filter. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
 		return true
 	}
@@ -12292,14 +11684,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c *Cli
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12325,7 +11737,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 		c.Config.Logger.Infof("desired PerSeriesAligner %s - but actually nil", dcl.SprintResource(desired.PerSeriesAligner))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) && !(dcl.IsEmptyValueIndirect(desired.PerSeriesAligner) && dcl.IsZeroValue(actual.PerSeriesAligner)) {
+	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
 		c.Config.Logger.Infof("Diff in PerSeriesAligner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
 		return true
 	}
@@ -12333,7 +11745,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 		c.Config.Logger.Infof("desired CrossSeriesReducer %s - but actually nil", dcl.SprintResource(desired.CrossSeriesReducer))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) && !(dcl.IsEmptyValueIndirect(desired.CrossSeriesReducer) && dcl.IsZeroValue(actual.CrossSeriesReducer)) {
+	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
 		c.Config.Logger.Infof("Diff in CrossSeriesReducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
 		return true
 	}
@@ -12341,7 +11753,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 		c.Config.Logger.Infof("desired GroupByFields %s - but actually nil", dcl.SprintResource(desired.GroupByFields))
 		return true
 	}
-	if !dcl.SliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
+	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
 		c.Config.Logger.Infof("Diff in GroupByFields. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
 		return true
 	}
@@ -12363,14 +11775,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12388,7 +11820,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
+	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
 		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
@@ -12396,20 +11828,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
+	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
 		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParamsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12427,20 +11879,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 		c.Config.Logger.Infof("desired Threshold %s - but actually nil", dcl.SprintResource(desired.Threshold))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) && !(dcl.IsEmptyValueIndirect(desired.Threshold) && dcl.IsZeroValue(actual.Threshold)) {
+	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
 		c.Config.Logger.Infof("Diff in Threshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParamsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParamsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12472,14 +11944,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12519,14 +12011,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12544,7 +12056,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) && !(dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) && dcl.IsZeroValue(actual.NumFiniteBuckets)) {
+	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
 		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
@@ -12552,7 +12064,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) && !(dcl.IsEmptyValueIndirect(desired.Width) && dcl.IsZeroValue(actual.Width)) {
+	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
 		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
@@ -12560,20 +12072,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 		c.Config.Logger.Infof("desired Offset %s - but actually nil", dcl.SprintResource(desired.Offset))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) && !(dcl.IsEmptyValueIndirect(desired.Offset) && dcl.IsZeroValue(actual.Offset)) {
+	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
 		c.Config.Logger.Infof("Diff in Offset. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12591,7 +12123,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) && !(dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) && dcl.IsZeroValue(actual.NumFiniteBuckets)) {
+	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
 		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
@@ -12599,7 +12131,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 		c.Config.Logger.Infof("desired GrowthFactor %s - but actually nil", dcl.SprintResource(desired.GrowthFactor))
 		return true
 	}
-	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) && !(dcl.IsEmptyValueIndirect(desired.GrowthFactor) && dcl.IsZeroValue(actual.GrowthFactor)) {
+	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
 		c.Config.Logger.Infof("Diff in GrowthFactor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
 		return true
 	}
@@ -12607,20 +12139,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) && !(dcl.IsEmptyValueIndirect(desired.Scale) && dcl.IsZeroValue(actual.Scale)) {
+	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
 		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12644,14 +12196,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12669,20 +12241,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 		c.Config.Logger.Infof("desired MinimumValue %s - but actually nil", dcl.SprintResource(desired.MinimumValue))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) && !(dcl.IsEmptyValueIndirect(desired.MinimumValue) && dcl.IsZeroValue(actual.MinimumValue)) {
+	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
 		c.Config.Logger.Infof("Diff in MinimumValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSamplingMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12708,7 +12300,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 		c.Config.Logger.Infof("desired PerSeriesAligner %s - but actually nil", dcl.SprintResource(desired.PerSeriesAligner))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) && !(dcl.IsEmptyValueIndirect(desired.PerSeriesAligner) && dcl.IsZeroValue(actual.PerSeriesAligner)) {
+	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
 		c.Config.Logger.Infof("Diff in PerSeriesAligner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
 		return true
 	}
@@ -12716,7 +12308,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 		c.Config.Logger.Infof("desired CrossSeriesReducer %s - but actually nil", dcl.SprintResource(desired.CrossSeriesReducer))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) && !(dcl.IsEmptyValueIndirect(desired.CrossSeriesReducer) && dcl.IsZeroValue(actual.CrossSeriesReducer)) {
+	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
 		c.Config.Logger.Infof("Diff in CrossSeriesReducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
 		return true
 	}
@@ -12724,7 +12316,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 		c.Config.Logger.Infof("desired GroupByFields %s - but actually nil", dcl.SprintResource(desired.GroupByFields))
 		return true
 	}
-	if !dcl.SliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
+	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
 		c.Config.Logger.Infof("Diff in GroupByFields. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
 		return true
 	}
@@ -12746,14 +12338,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12771,7 +12383,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
+	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
 		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
@@ -12779,20 +12391,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
+	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
 		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParamsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12810,20 +12442,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 		c.Config.Logger.Infof("desired Threshold %s - but actually nil", dcl.SprintResource(desired.Threshold))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) && !(dcl.IsEmptyValueIndirect(desired.Threshold) && dcl.IsZeroValue(actual.Threshold)) {
+	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
 		c.Config.Logger.Infof("Diff in Threshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParamsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParamsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12855,14 +12507,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12902,14 +12574,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12927,7 +12619,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) && !(dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) && dcl.IsZeroValue(actual.NumFiniteBuckets)) {
+	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
 		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
@@ -12935,7 +12627,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) && !(dcl.IsEmptyValueIndirect(desired.Width) && dcl.IsZeroValue(actual.Width)) {
+	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
 		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
@@ -12943,20 +12635,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 		c.Config.Logger.Infof("desired Offset %s - but actually nil", dcl.SprintResource(desired.Offset))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) && !(dcl.IsEmptyValueIndirect(desired.Offset) && dcl.IsZeroValue(actual.Offset)) {
+	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
 		c.Config.Logger.Infof("Diff in Offset. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12974,7 +12686,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) && !(dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) && dcl.IsZeroValue(actual.NumFiniteBuckets)) {
+	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
 		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
@@ -12982,7 +12694,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 		c.Config.Logger.Infof("desired GrowthFactor %s - but actually nil", dcl.SprintResource(desired.GrowthFactor))
 		return true
 	}
-	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) && !(dcl.IsEmptyValueIndirect(desired.GrowthFactor) && dcl.IsZeroValue(actual.GrowthFactor)) {
+	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
 		c.Config.Logger.Infof("Diff in GrowthFactor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
 		return true
 	}
@@ -12990,20 +12702,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) && !(dcl.IsEmptyValueIndirect(desired.Scale) && dcl.IsZeroValue(actual.Scale)) {
+	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
 		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13027,14 +12759,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13052,20 +12804,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 		c.Config.Logger.Infof("desired MinimumValue %s - but actually nil", dcl.SprintResource(desired.MinimumValue))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) && !(dcl.IsEmptyValueIndirect(desired.MinimumValue) && dcl.IsZeroValue(actual.MinimumValue)) {
+	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
 		c.Config.Logger.Infof("Diff in MinimumValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13083,7 +12855,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 		c.Config.Logger.Infof("desired RankingMethod %s - but actually nil", dcl.SprintResource(desired.RankingMethod))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RankingMethod, actual.RankingMethod) && !dcl.IsZeroValue(desired.RankingMethod) && !(dcl.IsEmptyValueIndirect(desired.RankingMethod) && dcl.IsZeroValue(actual.RankingMethod)) {
+	if !reflect.DeepEqual(desired.RankingMethod, actual.RankingMethod) && !dcl.IsZeroValue(desired.RankingMethod) {
 		c.Config.Logger.Infof("Diff in RankingMethod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RankingMethod), dcl.SprintResource(actual.RankingMethod))
 		return true
 	}
@@ -13091,7 +12863,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 		c.Config.Logger.Infof("desired NumTimeSeries %s - but actually nil", dcl.SprintResource(desired.NumTimeSeries))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumTimeSeries, actual.NumTimeSeries) && !dcl.IsZeroValue(desired.NumTimeSeries) && !(dcl.IsEmptyValueIndirect(desired.NumTimeSeries) && dcl.IsZeroValue(actual.NumTimeSeries)) {
+	if !reflect.DeepEqual(desired.NumTimeSeries, actual.NumTimeSeries) && !dcl.IsZeroValue(desired.NumTimeSeries) {
 		c.Config.Logger.Infof("Diff in NumTimeSeries. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumTimeSeries), dcl.SprintResource(actual.NumTimeSeries))
 		return true
 	}
@@ -13099,20 +12871,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 		c.Config.Logger.Infof("desired Direction %s - but actually nil", dcl.SprintResource(desired.Direction))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Direction, actual.Direction) && !dcl.IsZeroValue(desired.Direction) && !(dcl.IsEmptyValueIndirect(desired.Direction) && dcl.IsZeroValue(actual.Direction)) {
+	if !reflect.DeepEqual(desired.Direction, actual.Direction) && !dcl.IsZeroValue(desired.Direction) {
 		c.Config.Logger.Infof("Diff in Direction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13160,14 +12952,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13185,7 +12997,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 		c.Config.Logger.Infof("desired Filter %s - but actually nil", dcl.SprintResource(desired.Filter))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) && !(dcl.IsEmptyValueIndirect(desired.Filter) && dcl.IsZeroValue(actual.Filter)) {
+	if !dcl.StringCanonicalize(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) {
 		c.Config.Logger.Infof("Diff in Filter. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
 		return true
 	}
@@ -13199,14 +13011,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13232,7 +13064,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 		c.Config.Logger.Infof("desired PerSeriesAligner %s - but actually nil", dcl.SprintResource(desired.PerSeriesAligner))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) && !(dcl.IsEmptyValueIndirect(desired.PerSeriesAligner) && dcl.IsZeroValue(actual.PerSeriesAligner)) {
+	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
 		c.Config.Logger.Infof("Diff in PerSeriesAligner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
 		return true
 	}
@@ -13240,7 +13072,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 		c.Config.Logger.Infof("desired CrossSeriesReducer %s - but actually nil", dcl.SprintResource(desired.CrossSeriesReducer))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) && !(dcl.IsEmptyValueIndirect(desired.CrossSeriesReducer) && dcl.IsZeroValue(actual.CrossSeriesReducer)) {
+	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
 		c.Config.Logger.Infof("Diff in CrossSeriesReducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
 		return true
 	}
@@ -13248,7 +13080,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 		c.Config.Logger.Infof("desired GroupByFields %s - but actually nil", dcl.SprintResource(desired.GroupByFields))
 		return true
 	}
-	if !dcl.SliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
+	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
 		c.Config.Logger.Infof("Diff in GroupByFields. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
 		return true
 	}
@@ -13270,14 +13102,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13295,7 +13147,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
+	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
 		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
@@ -13303,20 +13155,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
+	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
 		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParamsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13334,20 +13206,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 		c.Config.Logger.Infof("desired Threshold %s - but actually nil", dcl.SprintResource(desired.Threshold))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) && !(dcl.IsEmptyValueIndirect(desired.Threshold) && dcl.IsZeroValue(actual.Threshold)) {
+	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
 		c.Config.Logger.Infof("Diff in Threshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParamsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParamsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13379,14 +13271,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13426,14 +13338,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13451,7 +13383,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) && !(dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) && dcl.IsZeroValue(actual.NumFiniteBuckets)) {
+	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
 		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
@@ -13459,7 +13391,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) && !(dcl.IsEmptyValueIndirect(desired.Width) && dcl.IsZeroValue(actual.Width)) {
+	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
 		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
@@ -13467,20 +13399,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 		c.Config.Logger.Infof("desired Offset %s - but actually nil", dcl.SprintResource(desired.Offset))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) && !(dcl.IsEmptyValueIndirect(desired.Offset) && dcl.IsZeroValue(actual.Offset)) {
+	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
 		c.Config.Logger.Infof("Diff in Offset. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13498,7 +13450,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) && !(dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) && dcl.IsZeroValue(actual.NumFiniteBuckets)) {
+	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
 		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
@@ -13506,7 +13458,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 		c.Config.Logger.Infof("desired GrowthFactor %s - but actually nil", dcl.SprintResource(desired.GrowthFactor))
 		return true
 	}
-	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) && !(dcl.IsEmptyValueIndirect(desired.GrowthFactor) && dcl.IsZeroValue(actual.GrowthFactor)) {
+	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
 		c.Config.Logger.Infof("Diff in GrowthFactor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
 		return true
 	}
@@ -13514,20 +13466,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) && !(dcl.IsEmptyValueIndirect(desired.Scale) && dcl.IsZeroValue(actual.Scale)) {
+	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
 		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13551,14 +13523,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13576,20 +13568,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 		c.Config.Logger.Infof("desired MinimumValue %s - but actually nil", dcl.SprintResource(desired.MinimumValue))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) && !(dcl.IsEmptyValueIndirect(desired.MinimumValue) && dcl.IsZeroValue(actual.MinimumValue)) {
+	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
 		c.Config.Logger.Infof("Diff in MinimumValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSamplingMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13607,7 +13619,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 		c.Config.Logger.Infof("desired Filter %s - but actually nil", dcl.SprintResource(desired.Filter))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) && !(dcl.IsEmptyValueIndirect(desired.Filter) && dcl.IsZeroValue(actual.Filter)) {
+	if !dcl.StringCanonicalize(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) {
 		c.Config.Logger.Infof("Diff in Filter. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
 		return true
 	}
@@ -13621,14 +13633,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13654,7 +13686,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 		c.Config.Logger.Infof("desired PerSeriesAligner %s - but actually nil", dcl.SprintResource(desired.PerSeriesAligner))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) && !(dcl.IsEmptyValueIndirect(desired.PerSeriesAligner) && dcl.IsZeroValue(actual.PerSeriesAligner)) {
+	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
 		c.Config.Logger.Infof("Diff in PerSeriesAligner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
 		return true
 	}
@@ -13662,7 +13694,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 		c.Config.Logger.Infof("desired CrossSeriesReducer %s - but actually nil", dcl.SprintResource(desired.CrossSeriesReducer))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) && !(dcl.IsEmptyValueIndirect(desired.CrossSeriesReducer) && dcl.IsZeroValue(actual.CrossSeriesReducer)) {
+	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
 		c.Config.Logger.Infof("Diff in CrossSeriesReducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
 		return true
 	}
@@ -13670,7 +13702,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 		c.Config.Logger.Infof("desired GroupByFields %s - but actually nil", dcl.SprintResource(desired.GroupByFields))
 		return true
 	}
-	if !dcl.SliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
+	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
 		c.Config.Logger.Infof("Diff in GroupByFields. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
 		return true
 	}
@@ -13692,14 +13724,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13717,7 +13769,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
+	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
 		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
@@ -13725,20 +13777,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
+	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
 		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParamsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13756,20 +13828,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 		c.Config.Logger.Infof("desired Threshold %s - but actually nil", dcl.SprintResource(desired.Threshold))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) && !(dcl.IsEmptyValueIndirect(desired.Threshold) && dcl.IsZeroValue(actual.Threshold)) {
+	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
 		c.Config.Logger.Infof("Diff in Threshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParamsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParamsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13801,14 +13893,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13848,14 +13960,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13873,7 +14005,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) && !(dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) && dcl.IsZeroValue(actual.NumFiniteBuckets)) {
+	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
 		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
@@ -13881,7 +14013,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) && !(dcl.IsEmptyValueIndirect(desired.Width) && dcl.IsZeroValue(actual.Width)) {
+	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
 		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
@@ -13889,20 +14021,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 		c.Config.Logger.Infof("desired Offset %s - but actually nil", dcl.SprintResource(desired.Offset))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) && !(dcl.IsEmptyValueIndirect(desired.Offset) && dcl.IsZeroValue(actual.Offset)) {
+	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
 		c.Config.Logger.Infof("Diff in Offset. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13920,7 +14072,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) && !(dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) && dcl.IsZeroValue(actual.NumFiniteBuckets)) {
+	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
 		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
@@ -13928,7 +14080,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 		c.Config.Logger.Infof("desired GrowthFactor %s - but actually nil", dcl.SprintResource(desired.GrowthFactor))
 		return true
 	}
-	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) && !(dcl.IsEmptyValueIndirect(desired.GrowthFactor) && dcl.IsZeroValue(actual.GrowthFactor)) {
+	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
 		c.Config.Logger.Infof("Diff in GrowthFactor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
 		return true
 	}
@@ -13936,20 +14088,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) && !(dcl.IsEmptyValueIndirect(desired.Scale) && dcl.IsZeroValue(actual.Scale)) {
+	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
 		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13973,14 +14145,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13998,20 +14190,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 		c.Config.Logger.Infof("desired MinimumValue %s - but actually nil", dcl.SprintResource(desired.MinimumValue))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) && !(dcl.IsEmptyValueIndirect(desired.MinimumValue) && dcl.IsZeroValue(actual.MinimumValue)) {
+	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
 		c.Config.Logger.Infof("Diff in MinimumValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSamplingMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14037,7 +14249,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 		c.Config.Logger.Infof("desired PerSeriesAligner %s - but actually nil", dcl.SprintResource(desired.PerSeriesAligner))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) && !(dcl.IsEmptyValueIndirect(desired.PerSeriesAligner) && dcl.IsZeroValue(actual.PerSeriesAligner)) {
+	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
 		c.Config.Logger.Infof("Diff in PerSeriesAligner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
 		return true
 	}
@@ -14045,7 +14257,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 		c.Config.Logger.Infof("desired CrossSeriesReducer %s - but actually nil", dcl.SprintResource(desired.CrossSeriesReducer))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) && !(dcl.IsEmptyValueIndirect(desired.CrossSeriesReducer) && dcl.IsZeroValue(actual.CrossSeriesReducer)) {
+	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
 		c.Config.Logger.Infof("Diff in CrossSeriesReducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
 		return true
 	}
@@ -14053,7 +14265,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 		c.Config.Logger.Infof("desired GroupByFields %s - but actually nil", dcl.SprintResource(desired.GroupByFields))
 		return true
 	}
-	if !dcl.SliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
+	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
 		c.Config.Logger.Infof("Diff in GroupByFields. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
 		return true
 	}
@@ -14075,14 +14287,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14100,7 +14332,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
+	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
 		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
@@ -14108,20 +14340,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
+	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
 		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParamsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14139,20 +14391,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 		c.Config.Logger.Infof("desired Threshold %s - but actually nil", dcl.SprintResource(desired.Threshold))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) && !(dcl.IsEmptyValueIndirect(desired.Threshold) && dcl.IsZeroValue(actual.Threshold)) {
+	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
 		c.Config.Logger.Infof("Diff in Threshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParamsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParamsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14184,14 +14456,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14231,14 +14523,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14256,7 +14568,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) && !(dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) && dcl.IsZeroValue(actual.NumFiniteBuckets)) {
+	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
 		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
@@ -14264,7 +14576,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) && !(dcl.IsEmptyValueIndirect(desired.Width) && dcl.IsZeroValue(actual.Width)) {
+	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
 		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
@@ -14272,20 +14584,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 		c.Config.Logger.Infof("desired Offset %s - but actually nil", dcl.SprintResource(desired.Offset))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) && !(dcl.IsEmptyValueIndirect(desired.Offset) && dcl.IsZeroValue(actual.Offset)) {
+	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
 		c.Config.Logger.Infof("Diff in Offset. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14303,7 +14635,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) && !(dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) && dcl.IsZeroValue(actual.NumFiniteBuckets)) {
+	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
 		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
@@ -14311,7 +14643,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 		c.Config.Logger.Infof("desired GrowthFactor %s - but actually nil", dcl.SprintResource(desired.GrowthFactor))
 		return true
 	}
-	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) && !(dcl.IsEmptyValueIndirect(desired.GrowthFactor) && dcl.IsZeroValue(actual.GrowthFactor)) {
+	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
 		c.Config.Logger.Infof("Diff in GrowthFactor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
 		return true
 	}
@@ -14319,20 +14651,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) && !(dcl.IsEmptyValueIndirect(desired.Scale) && dcl.IsZeroValue(actual.Scale)) {
+	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
 		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14356,14 +14708,34 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14381,20 +14753,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 		c.Config.Logger.Infof("desired MinimumValue %s - but actually nil", dcl.SprintResource(desired.MinimumValue))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) && !(dcl.IsEmptyValueIndirect(desired.MinimumValue) && dcl.IsZeroValue(actual.MinimumValue)) {
+	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
 		c.Config.Logger.Infof("Diff in MinimumValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14412,7 +14804,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 		c.Config.Logger.Infof("desired RankingMethod %s - but actually nil", dcl.SprintResource(desired.RankingMethod))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RankingMethod, actual.RankingMethod) && !dcl.IsZeroValue(desired.RankingMethod) && !(dcl.IsEmptyValueIndirect(desired.RankingMethod) && dcl.IsZeroValue(actual.RankingMethod)) {
+	if !reflect.DeepEqual(desired.RankingMethod, actual.RankingMethod) && !dcl.IsZeroValue(desired.RankingMethod) {
 		c.Config.Logger.Infof("Diff in RankingMethod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RankingMethod), dcl.SprintResource(actual.RankingMethod))
 		return true
 	}
@@ -14420,7 +14812,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 		c.Config.Logger.Infof("desired NumTimeSeries %s - but actually nil", dcl.SprintResource(desired.NumTimeSeries))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumTimeSeries, actual.NumTimeSeries) && !dcl.IsZeroValue(desired.NumTimeSeries) && !(dcl.IsEmptyValueIndirect(desired.NumTimeSeries) && dcl.IsZeroValue(actual.NumTimeSeries)) {
+	if !reflect.DeepEqual(desired.NumTimeSeries, actual.NumTimeSeries) && !dcl.IsZeroValue(desired.NumTimeSeries) {
 		c.Config.Logger.Infof("Diff in NumTimeSeries. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumTimeSeries), dcl.SprintResource(actual.NumTimeSeries))
 		return true
 	}
@@ -14428,20 +14820,40 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 		c.Config.Logger.Infof("desired Direction %s - but actually nil", dcl.SprintResource(desired.Direction))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Direction, actual.Direction) && !dcl.IsZeroValue(desired.Direction) && !(dcl.IsEmptyValueIndirect(desired.Direction) && dcl.IsZeroValue(actual.Direction)) {
+	if !reflect.DeepEqual(desired.Direction, actual.Direction) && !dcl.IsZeroValue(desired.Direction) {
 		c.Config.Logger.Infof("Diff in Direction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartDataSetsMinAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsMinAlignmentPeriod) bool {
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsMinAlignmentPeriod, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsMinAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsMinAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14459,7 +14871,7 @@ func compareDashboardWidgetXyChartDataSetsMinAlignmentPeriod(c *Client, desired,
 		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
+	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
 		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
@@ -14467,20 +14879,40 @@ func compareDashboardWidgetXyChartDataSetsMinAlignmentPeriod(c *Client, desired,
 		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
+	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
 		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartSourceDrilldownSlice(c *Client, desired, actual []DashboardWidgetXyChartSourceDrilldown) bool {
+
+func compareDashboardWidgetXyChartDataSetsMinAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsMinAlignmentPeriod) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldown, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsMinAlignmentPeriod, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartSourceDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartDataSetsMinAlignmentPeriod(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsMinAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsMinAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsMinAlignmentPeriod) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsMinAlignmentPeriod, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsMinAlignmentPeriod, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartDataSetsMinAlignmentPeriod(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsMinAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14552,14 +14984,34 @@ func compareDashboardWidgetXyChartSourceDrilldown(c *Client, desired, actual *Da
 	}
 	return false
 }
-func compareDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldownSlice(c *Client, desired, actual []DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown) bool {
+
+func compareDashboardWidgetXyChartSourceDrilldownSlice(c *Client, desired, actual []DashboardWidgetXyChartSourceDrilldown) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldown, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartSourceDrilldown(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartSourceDrilldownMap(c *Client, desired, actual map[string]DashboardWidgetXyChartSourceDrilldown) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldown, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldown, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartSourceDrilldown(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14577,20 +15029,40 @@ func compareDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown(c *Client
 		c.Config.Logger.Infof("desired TargetValues %s - but actually nil", dcl.SprintResource(desired.TargetValues))
 		return true
 	}
-	if !dcl.SliceEquals(desired.TargetValues, actual.TargetValues) && !dcl.IsZeroValue(desired.TargetValues) {
+	if !dcl.StringSliceEquals(desired.TargetValues, actual.TargetValues) && !dcl.IsZeroValue(desired.TargetValues) {
 		c.Config.Logger.Infof("Diff in TargetValues. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValues), dcl.SprintResource(actual.TargetValues))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsSlice(c *Client, desired, actual []DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns) bool {
+
+func compareDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldownSlice(c *Client, desired, actual []DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldownMap(c *Client, desired, actual map[string]DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14608,7 +15080,7 @@ func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns(c *Clie
 		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) && !(dcl.IsEmptyValueIndirect(desired.Label) && dcl.IsZeroValue(actual.Label)) {
+	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
 		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
@@ -14616,7 +15088,7 @@ func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns(c *Clie
 		c.Config.Logger.Infof("desired LogicalOperator %s - but actually nil", dcl.SprintResource(desired.LogicalOperator))
 		return true
 	}
-	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) && !(dcl.IsEmptyValueIndirect(desired.LogicalOperator) && dcl.IsZeroValue(actual.LogicalOperator)) {
+	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) {
 		c.Config.Logger.Infof("Diff in LogicalOperator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
 		return true
 	}
@@ -14630,14 +15102,34 @@ func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns(c *Clie
 	}
 	return false
 }
-func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictionsSlice(c *Client, desired, actual []DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions) bool {
+
+func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsSlice(c *Client, desired, actual []DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14655,7 +15147,7 @@ func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRes
 		c.Config.Logger.Infof("desired TargetValue %s - but actually nil", dcl.SprintResource(desired.TargetValue))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) && !(dcl.IsEmptyValueIndirect(desired.TargetValue) && dcl.IsZeroValue(actual.TargetValue)) {
+	if !dcl.StringCanonicalize(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) {
 		c.Config.Logger.Infof("Diff in TargetValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
 		return true
 	}
@@ -14663,20 +15155,40 @@ func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRes
 		c.Config.Logger.Infof("desired Comparator %s - but actually nil", dcl.SprintResource(desired.Comparator))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) && !(dcl.IsEmptyValueIndirect(desired.Comparator) && dcl.IsZeroValue(actual.Comparator)) {
+	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) {
 		c.Config.Logger.Infof("Diff in Comparator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsSlice(c *Client, desired, actual []DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns) bool {
+
+func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictionsSlice(c *Client, desired, actual []DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictionsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14694,7 +15206,7 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns(c
 		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) && !(dcl.IsEmptyValueIndirect(desired.Label) && dcl.IsZeroValue(actual.Label)) {
+	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
 		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
@@ -14702,7 +15214,7 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns(c
 		c.Config.Logger.Infof("desired LogicalOperator %s - but actually nil", dcl.SprintResource(desired.LogicalOperator))
 		return true
 	}
-	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) && !(dcl.IsEmptyValueIndirect(desired.LogicalOperator) && dcl.IsZeroValue(actual.LogicalOperator)) {
+	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) {
 		c.Config.Logger.Infof("Diff in LogicalOperator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
 		return true
 	}
@@ -14716,14 +15228,34 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns(c
 	}
 	return false
 }
-func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsSlice(c *Client, desired, actual []DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions) bool {
+
+func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsSlice(c *Client, desired, actual []DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14741,7 +15273,7 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsVa
 		c.Config.Logger.Infof("desired TargetValue %s - but actually nil", dcl.SprintResource(desired.TargetValue))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) && !(dcl.IsEmptyValueIndirect(desired.TargetValue) && dcl.IsZeroValue(actual.TargetValue)) {
+	if !dcl.StringCanonicalize(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) {
 		c.Config.Logger.Infof("Diff in TargetValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
 		return true
 	}
@@ -14749,20 +15281,40 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsVa
 		c.Config.Logger.Infof("desired Comparator %s - but actually nil", dcl.SprintResource(desired.Comparator))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) && !(dcl.IsEmptyValueIndirect(desired.Comparator) && dcl.IsZeroValue(actual.Comparator)) {
+	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) {
 		c.Config.Logger.Infof("Diff in Comparator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsSlice(c *Client, desired, actual []DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns) bool {
+
+func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsSlice(c *Client, desired, actual []DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14780,7 +15332,7 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns(c *
 		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) && !(dcl.IsEmptyValueIndirect(desired.Label) && dcl.IsZeroValue(actual.Label)) {
+	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
 		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
@@ -14788,7 +15340,7 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns(c *
 		c.Config.Logger.Infof("desired LogicalOperator %s - but actually nil", dcl.SprintResource(desired.LogicalOperator))
 		return true
 	}
-	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) && !(dcl.IsEmptyValueIndirect(desired.LogicalOperator) && dcl.IsZeroValue(actual.LogicalOperator)) {
+	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) {
 		c.Config.Logger.Infof("Diff in LogicalOperator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
 		return true
 	}
@@ -14802,14 +15354,34 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns(c *
 	}
 	return false
 }
-func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsSlice(c *Client, desired, actual []DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions) bool {
+
+func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsSlice(c *Client, desired, actual []DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14827,7 +15399,7 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValu
 		c.Config.Logger.Infof("desired TargetValue %s - but actually nil", dcl.SprintResource(desired.TargetValue))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) && !(dcl.IsEmptyValueIndirect(desired.TargetValue) && dcl.IsZeroValue(actual.TargetValue)) {
+	if !dcl.StringCanonicalize(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) {
 		c.Config.Logger.Infof("Diff in TargetValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
 		return true
 	}
@@ -14835,20 +15407,40 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValu
 		c.Config.Logger.Infof("desired Comparator %s - but actually nil", dcl.SprintResource(desired.Comparator))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) && !(dcl.IsEmptyValueIndirect(desired.Comparator) && dcl.IsZeroValue(actual.Comparator)) {
+	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) {
 		c.Config.Logger.Infof("Diff in Comparator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartSourceDrilldownGroupNameDrilldownSlice(c *Client, desired, actual []DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown) bool {
+
+func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsSlice(c *Client, desired, actual []DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartSourceDrilldownGroupNameDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14866,20 +15458,40 @@ func compareDashboardWidgetXyChartSourceDrilldownGroupNameDrilldown(c *Client, d
 		c.Config.Logger.Infof("desired TargetValues %s - but actually nil", dcl.SprintResource(desired.TargetValues))
 		return true
 	}
-	if !dcl.SliceEquals(desired.TargetValues, actual.TargetValues) && !dcl.IsZeroValue(desired.TargetValues) {
+	if !dcl.StringSliceEquals(desired.TargetValues, actual.TargetValues) && !dcl.IsZeroValue(desired.TargetValues) {
 		c.Config.Logger.Infof("Diff in TargetValues. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValues), dcl.SprintResource(actual.TargetValues))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartSourceDrilldownServiceNameDrilldownSlice(c *Client, desired, actual []DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown) bool {
+
+func compareDashboardWidgetXyChartSourceDrilldownGroupNameDrilldownSlice(c *Client, desired, actual []DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartSourceDrilldownServiceNameDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartSourceDrilldownGroupNameDrilldown(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartSourceDrilldownGroupNameDrilldownMap(c *Client, desired, actual map[string]DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartSourceDrilldownGroupNameDrilldown(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14897,20 +15509,40 @@ func compareDashboardWidgetXyChartSourceDrilldownServiceNameDrilldown(c *Client,
 		c.Config.Logger.Infof("desired TargetValues %s - but actually nil", dcl.SprintResource(desired.TargetValues))
 		return true
 	}
-	if !dcl.SliceEquals(desired.TargetValues, actual.TargetValues) && !dcl.IsZeroValue(desired.TargetValues) {
+	if !dcl.StringSliceEquals(desired.TargetValues, actual.TargetValues) && !dcl.IsZeroValue(desired.TargetValues) {
 		c.Config.Logger.Infof("Diff in TargetValues. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValues), dcl.SprintResource(actual.TargetValues))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownSlice(c *Client, desired, actual []DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown) bool {
+
+func compareDashboardWidgetXyChartSourceDrilldownServiceNameDrilldownSlice(c *Client, desired, actual []DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartSourceDrilldownServiceNameDrilldown(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartSourceDrilldownServiceNameDrilldownMap(c *Client, desired, actual map[string]DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartSourceDrilldownServiceNameDrilldown(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14934,14 +15566,34 @@ func compareDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown(c *Client,
 	}
 	return false
 }
-func compareDashboardWidgetXyChartMetricDrilldownSlice(c *Client, desired, actual []DashboardWidgetXyChartMetricDrilldown) bool {
+
+func compareDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownSlice(c *Client, desired, actual []DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartMetricDrilldown, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartMetricDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownMap(c *Client, desired, actual map[string]DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14981,14 +15633,34 @@ func compareDashboardWidgetXyChartMetricDrilldown(c *Client, desired, actual *Da
 	}
 	return false
 }
-func compareDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldownSlice(c *Client, desired, actual []DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown) bool {
+
+func compareDashboardWidgetXyChartMetricDrilldownSlice(c *Client, desired, actual []DashboardWidgetXyChartMetricDrilldown) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartMetricDrilldown, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartMetricDrilldown(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartMetricDrilldownMap(c *Client, desired, actual map[string]DashboardWidgetXyChartMetricDrilldown) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartMetricDrilldown, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldown, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartMetricDrilldown(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15006,20 +15678,40 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown(c *Client, 
 		c.Config.Logger.Infof("desired TargetValue %s - but actually nil", dcl.SprintResource(desired.TargetValue))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) && !(dcl.IsEmptyValueIndirect(desired.TargetValue) && dcl.IsZeroValue(actual.TargetValue)) {
+	if !dcl.StringCanonicalize(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) {
 		c.Config.Logger.Infof("Diff in TargetValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsSlice(c *Client, desired, actual []DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns) bool {
+
+func compareDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldownSlice(c *Client, desired, actual []DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldownMap(c *Client, desired, actual map[string]DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15037,7 +15729,7 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns(c *Client
 		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) && !(dcl.IsEmptyValueIndirect(desired.Label) && dcl.IsZeroValue(actual.Label)) {
+	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
 		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
@@ -15045,7 +15737,7 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns(c *Client
 		c.Config.Logger.Infof("desired LogicalOperator %s - but actually nil", dcl.SprintResource(desired.LogicalOperator))
 		return true
 	}
-	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) && !(dcl.IsEmptyValueIndirect(desired.LogicalOperator) && dcl.IsZeroValue(actual.LogicalOperator)) {
+	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) {
 		c.Config.Logger.Infof("Diff in LogicalOperator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
 		return true
 	}
@@ -15059,14 +15751,34 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns(c *Client
 	}
 	return false
 }
-func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictionsSlice(c *Client, desired, actual []DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions) bool {
+
+func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsSlice(c *Client, desired, actual []DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15084,7 +15796,7 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestr
 		c.Config.Logger.Infof("desired TargetValue %s - but actually nil", dcl.SprintResource(desired.TargetValue))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) && !(dcl.IsEmptyValueIndirect(desired.TargetValue) && dcl.IsZeroValue(actual.TargetValue)) {
+	if !dcl.StringCanonicalize(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) {
 		c.Config.Logger.Infof("Diff in TargetValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
 		return true
 	}
@@ -15092,20 +15804,40 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestr
 		c.Config.Logger.Infof("desired Comparator %s - but actually nil", dcl.SprintResource(desired.Comparator))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) && !(dcl.IsEmptyValueIndirect(desired.Comparator) && dcl.IsZeroValue(actual.Comparator)) {
+	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) {
 		c.Config.Logger.Infof("Diff in Comparator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownSlice(c *Client, desired, actual []DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown) bool {
+
+func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictionsSlice(c *Client, desired, actual []DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictionsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15123,7 +15855,7 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown(c *Clien
 		c.Config.Logger.Infof("desired ResourceLabels %s - but actually nil", dcl.SprintResource(desired.ResourceLabels))
 		return true
 	}
-	if !dcl.SliceEquals(desired.ResourceLabels, actual.ResourceLabels) && !dcl.IsZeroValue(desired.ResourceLabels) {
+	if !dcl.StringSliceEquals(desired.ResourceLabels, actual.ResourceLabels) && !dcl.IsZeroValue(desired.ResourceLabels) {
 		c.Config.Logger.Infof("Diff in ResourceLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceLabels), dcl.SprintResource(actual.ResourceLabels))
 		return true
 	}
@@ -15131,7 +15863,7 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown(c *Clien
 		c.Config.Logger.Infof("desired MetricLabels %s - but actually nil", dcl.SprintResource(desired.MetricLabels))
 		return true
 	}
-	if !dcl.SliceEquals(desired.MetricLabels, actual.MetricLabels) && !dcl.IsZeroValue(desired.MetricLabels) {
+	if !dcl.StringSliceEquals(desired.MetricLabels, actual.MetricLabels) && !dcl.IsZeroValue(desired.MetricLabels) {
 		c.Config.Logger.Infof("Diff in MetricLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricLabels), dcl.SprintResource(actual.MetricLabels))
 		return true
 	}
@@ -15139,7 +15871,7 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown(c *Clien
 		c.Config.Logger.Infof("desired MetadataSystemLabels %s - but actually nil", dcl.SprintResource(desired.MetadataSystemLabels))
 		return true
 	}
-	if !dcl.SliceEquals(desired.MetadataSystemLabels, actual.MetadataSystemLabels) && !dcl.IsZeroValue(desired.MetadataSystemLabels) {
+	if !dcl.StringSliceEquals(desired.MetadataSystemLabels, actual.MetadataSystemLabels) && !dcl.IsZeroValue(desired.MetadataSystemLabels) {
 		c.Config.Logger.Infof("Diff in MetadataSystemLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataSystemLabels), dcl.SprintResource(actual.MetadataSystemLabels))
 		return true
 	}
@@ -15147,7 +15879,7 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown(c *Clien
 		c.Config.Logger.Infof("desired MetadataUserLabels %s - but actually nil", dcl.SprintResource(desired.MetadataUserLabels))
 		return true
 	}
-	if !dcl.SliceEquals(desired.MetadataUserLabels, actual.MetadataUserLabels) && !dcl.IsZeroValue(desired.MetadataUserLabels) {
+	if !dcl.StringSliceEquals(desired.MetadataUserLabels, actual.MetadataUserLabels) && !dcl.IsZeroValue(desired.MetadataUserLabels) {
 		c.Config.Logger.Infof("Diff in MetadataUserLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataUserLabels), dcl.SprintResource(actual.MetadataUserLabels))
 		return true
 	}
@@ -15155,20 +15887,40 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown(c *Clien
 		c.Config.Logger.Infof("desired Reducer %s - but actually nil", dcl.SprintResource(desired.Reducer))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Reducer, actual.Reducer) && !dcl.IsZeroValue(desired.Reducer) && !(dcl.IsEmptyValueIndirect(desired.Reducer) && dcl.IsZeroValue(actual.Reducer)) {
+	if !reflect.DeepEqual(desired.Reducer, actual.Reducer) && !dcl.IsZeroValue(desired.Reducer) {
 		c.Config.Logger.Infof("Diff in Reducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Reducer), dcl.SprintResource(actual.Reducer))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartTimeshiftDurationSlice(c *Client, desired, actual []DashboardWidgetXyChartTimeshiftDuration) bool {
+
+func compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownSlice(c *Client, desired, actual []DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartTimeshiftDuration, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartTimeshiftDuration(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartTimeshiftDuration, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownMap(c *Client, desired, actual map[string]DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15186,7 +15938,7 @@ func compareDashboardWidgetXyChartTimeshiftDuration(c *Client, desired, actual *
 		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
+	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
 		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
@@ -15194,20 +15946,40 @@ func compareDashboardWidgetXyChartTimeshiftDuration(c *Client, desired, actual *
 		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
+	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
 		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartThresholdsSlice(c *Client, desired, actual []DashboardWidgetXyChartThresholds) bool {
+
+func compareDashboardWidgetXyChartTimeshiftDurationSlice(c *Client, desired, actual []DashboardWidgetXyChartTimeshiftDuration) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartThresholds, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartTimeshiftDuration, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartThresholds(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartThresholds, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartTimeshiftDuration(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartTimeshiftDuration, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartTimeshiftDurationMap(c *Client, desired, actual map[string]DashboardWidgetXyChartTimeshiftDuration) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartTimeshiftDuration, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartTimeshiftDuration, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartTimeshiftDuration(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartTimeshiftDuration, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15225,7 +15997,7 @@ func compareDashboardWidgetXyChartThresholds(c *Client, desired, actual *Dashboa
 		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) && !(dcl.IsEmptyValueIndirect(desired.Label) && dcl.IsZeroValue(actual.Label)) {
+	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
 		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
@@ -15233,7 +16005,7 @@ func compareDashboardWidgetXyChartThresholds(c *Client, desired, actual *Dashboa
 		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
+	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
 		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
@@ -15241,7 +16013,7 @@ func compareDashboardWidgetXyChartThresholds(c *Client, desired, actual *Dashboa
 		c.Config.Logger.Infof("desired Color %s - but actually nil", dcl.SprintResource(desired.Color))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Color, actual.Color) && !dcl.IsZeroValue(desired.Color) && !(dcl.IsEmptyValueIndirect(desired.Color) && dcl.IsZeroValue(actual.Color)) {
+	if !reflect.DeepEqual(desired.Color, actual.Color) && !dcl.IsZeroValue(desired.Color) {
 		c.Config.Logger.Infof("Diff in Color. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Color), dcl.SprintResource(actual.Color))
 		return true
 	}
@@ -15249,20 +16021,40 @@ func compareDashboardWidgetXyChartThresholds(c *Client, desired, actual *Dashboa
 		c.Config.Logger.Infof("desired Direction %s - but actually nil", dcl.SprintResource(desired.Direction))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Direction, actual.Direction) && !dcl.IsZeroValue(desired.Direction) && !(dcl.IsEmptyValueIndirect(desired.Direction) && dcl.IsZeroValue(actual.Direction)) {
+	if !reflect.DeepEqual(desired.Direction, actual.Direction) && !dcl.IsZeroValue(desired.Direction) {
 		c.Config.Logger.Infof("Diff in Direction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartXAxisSlice(c *Client, desired, actual []DashboardWidgetXyChartXAxis) bool {
+
+func compareDashboardWidgetXyChartThresholdsSlice(c *Client, desired, actual []DashboardWidgetXyChartThresholds) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartXAxis, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartThresholds, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartXAxis(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartXAxis, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartThresholds(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartThresholds, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartThresholdsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartThresholds) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartThresholds, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartThresholds, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartThresholds(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartThresholds, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15280,7 +16072,7 @@ func compareDashboardWidgetXyChartXAxis(c *Client, desired, actual *DashboardWid
 		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) && !(dcl.IsEmptyValueIndirect(desired.Label) && dcl.IsZeroValue(actual.Label)) {
+	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
 		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
@@ -15288,20 +16080,40 @@ func compareDashboardWidgetXyChartXAxis(c *Client, desired, actual *DashboardWid
 		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) && !(dcl.IsEmptyValueIndirect(desired.Scale) && dcl.IsZeroValue(actual.Scale)) {
+	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
 		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartYAxisSlice(c *Client, desired, actual []DashboardWidgetXyChartYAxis) bool {
+
+func compareDashboardWidgetXyChartXAxisSlice(c *Client, desired, actual []DashboardWidgetXyChartXAxis) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartYAxis, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartXAxis, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartYAxis(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartYAxis, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartXAxis(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartXAxis, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartXAxisMap(c *Client, desired, actual map[string]DashboardWidgetXyChartXAxis) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartXAxis, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartXAxis, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartXAxis(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartXAxis, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15319,7 +16131,7 @@ func compareDashboardWidgetXyChartYAxis(c *Client, desired, actual *DashboardWid
 		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) && !(dcl.IsEmptyValueIndirect(desired.Label) && dcl.IsZeroValue(actual.Label)) {
+	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
 		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
@@ -15327,20 +16139,40 @@ func compareDashboardWidgetXyChartYAxis(c *Client, desired, actual *DashboardWid
 		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) && !(dcl.IsEmptyValueIndirect(desired.Scale) && dcl.IsZeroValue(actual.Scale)) {
+	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
 		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetXyChartChartOptionsSlice(c *Client, desired, actual []DashboardWidgetXyChartChartOptions) bool {
+
+func compareDashboardWidgetXyChartYAxisSlice(c *Client, desired, actual []DashboardWidgetXyChartYAxis) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartChartOptions, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartYAxis, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartChartOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartChartOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartYAxis(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartYAxis, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartYAxisMap(c *Client, desired, actual map[string]DashboardWidgetXyChartYAxis) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartYAxis, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartYAxis, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartYAxis(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartYAxis, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15358,7 +16190,7 @@ func compareDashboardWidgetXyChartChartOptions(c *Client, desired, actual *Dashb
 		c.Config.Logger.Infof("desired Mode %s - but actually nil", dcl.SprintResource(desired.Mode))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Mode, actual.Mode) && !dcl.IsZeroValue(desired.Mode) && !(dcl.IsEmptyValueIndirect(desired.Mode) && dcl.IsZeroValue(actual.Mode)) {
+	if !reflect.DeepEqual(desired.Mode, actual.Mode) && !dcl.IsZeroValue(desired.Mode) {
 		c.Config.Logger.Infof("Diff in Mode. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Mode), dcl.SprintResource(actual.Mode))
 		return true
 	}
@@ -15366,20 +16198,40 @@ func compareDashboardWidgetXyChartChartOptions(c *Client, desired, actual *Dashb
 		c.Config.Logger.Infof("desired ShowLegend %s - but actually nil", dcl.SprintResource(desired.ShowLegend))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ShowLegend, actual.ShowLegend) && !dcl.IsZeroValue(desired.ShowLegend) && !(dcl.IsEmptyValueIndirect(desired.ShowLegend) && dcl.IsZeroValue(actual.ShowLegend)) {
+	if !reflect.DeepEqual(desired.ShowLegend, actual.ShowLegend) && !dcl.IsZeroValue(desired.ShowLegend) {
 		c.Config.Logger.Infof("Diff in ShowLegend. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ShowLegend), dcl.SprintResource(actual.ShowLegend))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardSlice(c *Client, desired, actual []DashboardWidgetScorecard) bool {
+
+func compareDashboardWidgetXyChartChartOptionsSlice(c *Client, desired, actual []DashboardWidgetXyChartChartOptions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecard, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartChartOptions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecard(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecard, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetXyChartChartOptions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartChartOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetXyChartChartOptionsMap(c *Client, desired, actual map[string]DashboardWidgetXyChartChartOptions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetXyChartChartOptions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartChartOptions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetXyChartChartOptions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartChartOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15443,14 +16295,34 @@ func compareDashboardWidgetScorecard(c *Client, desired, actual *DashboardWidget
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQuerySlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQuery) bool {
+
+func compareDashboardWidgetScorecardSlice(c *Client, desired, actual []DashboardWidgetScorecard) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQuery, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecard, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQuery(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQuery, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecard(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecard, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardMap(c *Client, desired, actual map[string]DashboardWidgetScorecard) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecard, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecard, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecard(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecard, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15484,7 +16356,7 @@ func compareDashboardWidgetScorecardTimeSeriesQuery(c *Client, desired, actual *
 		c.Config.Logger.Infof("desired TimeSeriesQueryLanguage %s - but actually nil", dcl.SprintResource(desired.TimeSeriesQueryLanguage))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage) && !dcl.IsZeroValue(desired.TimeSeriesQueryLanguage) && !(dcl.IsEmptyValueIndirect(desired.TimeSeriesQueryLanguage) && dcl.IsZeroValue(actual.TimeSeriesQueryLanguage)) {
+	if !dcl.StringCanonicalize(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage) && !dcl.IsZeroValue(desired.TimeSeriesQueryLanguage) {
 		c.Config.Logger.Infof("Diff in TimeSeriesQueryLanguage. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeSeriesQueryLanguage), dcl.SprintResource(actual.TimeSeriesQueryLanguage))
 		return true
 	}
@@ -15492,7 +16364,7 @@ func compareDashboardWidgetScorecardTimeSeriesQuery(c *Client, desired, actual *
 		c.Config.Logger.Infof("desired ApiSource %s - but actually nil", dcl.SprintResource(desired.ApiSource))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ApiSource, actual.ApiSource) && !dcl.IsZeroValue(desired.ApiSource) && !(dcl.IsEmptyValueIndirect(desired.ApiSource) && dcl.IsZeroValue(actual.ApiSource)) {
+	if !reflect.DeepEqual(desired.ApiSource, actual.ApiSource) && !dcl.IsZeroValue(desired.ApiSource) {
 		c.Config.Logger.Infof("Diff in ApiSource. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ApiSource), dcl.SprintResource(actual.ApiSource))
 		return true
 	}
@@ -15500,20 +16372,40 @@ func compareDashboardWidgetScorecardTimeSeriesQuery(c *Client, desired, actual *
 		c.Config.Logger.Infof("desired UnitOverride %s - but actually nil", dcl.SprintResource(desired.UnitOverride))
 		return true
 	}
-	if !reflect.DeepEqual(desired.UnitOverride, actual.UnitOverride) && !dcl.IsZeroValue(desired.UnitOverride) && !(dcl.IsEmptyValueIndirect(desired.UnitOverride) && dcl.IsZeroValue(actual.UnitOverride)) {
+	if !dcl.StringCanonicalize(desired.UnitOverride, actual.UnitOverride) && !dcl.IsZeroValue(desired.UnitOverride) {
 		c.Config.Logger.Infof("Diff in UnitOverride. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UnitOverride), dcl.SprintResource(actual.UnitOverride))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQuerySlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQuery) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQuery, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQuery(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQuery, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQuery) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQuery, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQuery, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQuery(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQuery, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15531,7 +16423,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c *Client, d
 		c.Config.Logger.Infof("desired Filter %s - but actually nil", dcl.SprintResource(desired.Filter))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) && !(dcl.IsEmptyValueIndirect(desired.Filter) && dcl.IsZeroValue(actual.Filter)) {
+	if !dcl.StringCanonicalize(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) {
 		c.Config.Logger.Infof("Diff in Filter. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
 		return true
 	}
@@ -15561,14 +16453,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c *Client, d
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15594,7 +16506,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c
 		c.Config.Logger.Infof("desired PerSeriesAligner %s - but actually nil", dcl.SprintResource(desired.PerSeriesAligner))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) && !(dcl.IsEmptyValueIndirect(desired.PerSeriesAligner) && dcl.IsZeroValue(actual.PerSeriesAligner)) {
+	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
 		c.Config.Logger.Infof("Diff in PerSeriesAligner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
 		return true
 	}
@@ -15602,7 +16514,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c
 		c.Config.Logger.Infof("desired CrossSeriesReducer %s - but actually nil", dcl.SprintResource(desired.CrossSeriesReducer))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) && !(dcl.IsEmptyValueIndirect(desired.CrossSeriesReducer) && dcl.IsZeroValue(actual.CrossSeriesReducer)) {
+	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
 		c.Config.Logger.Infof("Diff in CrossSeriesReducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
 		return true
 	}
@@ -15610,7 +16522,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c
 		c.Config.Logger.Infof("desired GroupByFields %s - but actually nil", dcl.SprintResource(desired.GroupByFields))
 		return true
 	}
-	if !dcl.SliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
+	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
 		c.Config.Logger.Infof("Diff in GroupByFields. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
 		return true
 	}
@@ -15632,14 +16544,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15657,7 +16589,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAl
 		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
+	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
 		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
@@ -15665,20 +16597,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAl
 		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
+	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
 		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParamsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15696,20 +16648,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 		c.Config.Logger.Infof("desired Threshold %s - but actually nil", dcl.SprintResource(desired.Threshold))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) && !(dcl.IsEmptyValueIndirect(desired.Threshold) && dcl.IsZeroValue(actual.Threshold)) {
+	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
 		c.Config.Logger.Infof("Diff in Threshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParamsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParamsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15741,14 +16713,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15788,14 +16780,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15813,7 +16825,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) && !(dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) && dcl.IsZeroValue(actual.NumFiniteBuckets)) {
+	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
 		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
@@ -15821,7 +16833,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) && !(dcl.IsEmptyValueIndirect(desired.Width) && dcl.IsZeroValue(actual.Width)) {
+	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
 		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
@@ -15829,20 +16841,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 		c.Config.Logger.Infof("desired Offset %s - but actually nil", dcl.SprintResource(desired.Offset))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) && !(dcl.IsEmptyValueIndirect(desired.Offset) && dcl.IsZeroValue(actual.Offset)) {
+	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
 		c.Config.Logger.Infof("Diff in Offset. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15860,7 +16892,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) && !(dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) && dcl.IsZeroValue(actual.NumFiniteBuckets)) {
+	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
 		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
@@ -15868,7 +16900,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 		c.Config.Logger.Infof("desired GrowthFactor %s - but actually nil", dcl.SprintResource(desired.GrowthFactor))
 		return true
 	}
-	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) && !(dcl.IsEmptyValueIndirect(desired.GrowthFactor) && dcl.IsZeroValue(actual.GrowthFactor)) {
+	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
 		c.Config.Logger.Infof("Diff in GrowthFactor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
 		return true
 	}
@@ -15876,20 +16908,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) && !(dcl.IsEmptyValueIndirect(desired.Scale) && dcl.IsZeroValue(actual.Scale)) {
+	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
 		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15913,14 +16965,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15938,20 +17010,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 		c.Config.Logger.Infof("desired MinimumValue %s - but actually nil", dcl.SprintResource(desired.MinimumValue))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) && !(dcl.IsEmptyValueIndirect(desired.MinimumValue) && dcl.IsZeroValue(actual.MinimumValue)) {
+	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
 		c.Config.Logger.Infof("Diff in MinimumValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSamplingMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15977,7 +17069,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 		c.Config.Logger.Infof("desired PerSeriesAligner %s - but actually nil", dcl.SprintResource(desired.PerSeriesAligner))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) && !(dcl.IsEmptyValueIndirect(desired.PerSeriesAligner) && dcl.IsZeroValue(actual.PerSeriesAligner)) {
+	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
 		c.Config.Logger.Infof("Diff in PerSeriesAligner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
 		return true
 	}
@@ -15985,7 +17077,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 		c.Config.Logger.Infof("desired CrossSeriesReducer %s - but actually nil", dcl.SprintResource(desired.CrossSeriesReducer))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) && !(dcl.IsEmptyValueIndirect(desired.CrossSeriesReducer) && dcl.IsZeroValue(actual.CrossSeriesReducer)) {
+	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
 		c.Config.Logger.Infof("Diff in CrossSeriesReducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
 		return true
 	}
@@ -15993,7 +17085,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 		c.Config.Logger.Infof("desired GroupByFields %s - but actually nil", dcl.SprintResource(desired.GroupByFields))
 		return true
 	}
-	if !dcl.SliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
+	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
 		c.Config.Logger.Infof("Diff in GroupByFields. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
 		return true
 	}
@@ -16015,14 +17107,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16040,7 +17152,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
+	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
 		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
@@ -16048,20 +17160,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
+	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
 		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParamsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16079,20 +17211,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 		c.Config.Logger.Infof("desired Threshold %s - but actually nil", dcl.SprintResource(desired.Threshold))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) && !(dcl.IsEmptyValueIndirect(desired.Threshold) && dcl.IsZeroValue(actual.Threshold)) {
+	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
 		c.Config.Logger.Infof("Diff in Threshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParamsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParamsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16124,14 +17276,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16171,14 +17343,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16196,7 +17388,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) && !(dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) && dcl.IsZeroValue(actual.NumFiniteBuckets)) {
+	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
 		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
@@ -16204,7 +17396,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) && !(dcl.IsEmptyValueIndirect(desired.Width) && dcl.IsZeroValue(actual.Width)) {
+	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
 		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
@@ -16212,20 +17404,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 		c.Config.Logger.Infof("desired Offset %s - but actually nil", dcl.SprintResource(desired.Offset))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) && !(dcl.IsEmptyValueIndirect(desired.Offset) && dcl.IsZeroValue(actual.Offset)) {
+	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
 		c.Config.Logger.Infof("Diff in Offset. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16243,7 +17455,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) && !(dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) && dcl.IsZeroValue(actual.NumFiniteBuckets)) {
+	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
 		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
@@ -16251,7 +17463,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 		c.Config.Logger.Infof("desired GrowthFactor %s - but actually nil", dcl.SprintResource(desired.GrowthFactor))
 		return true
 	}
-	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) && !(dcl.IsEmptyValueIndirect(desired.GrowthFactor) && dcl.IsZeroValue(actual.GrowthFactor)) {
+	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
 		c.Config.Logger.Infof("Diff in GrowthFactor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
 		return true
 	}
@@ -16259,20 +17471,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) && !(dcl.IsEmptyValueIndirect(desired.Scale) && dcl.IsZeroValue(actual.Scale)) {
+	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
 		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16296,14 +17528,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16321,20 +17573,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 		c.Config.Logger.Infof("desired MinimumValue %s - but actually nil", dcl.SprintResource(desired.MinimumValue))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) && !(dcl.IsEmptyValueIndirect(desired.MinimumValue) && dcl.IsZeroValue(actual.MinimumValue)) {
+	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
 		c.Config.Logger.Infof("Diff in MinimumValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16352,7 +17624,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 		c.Config.Logger.Infof("desired RankingMethod %s - but actually nil", dcl.SprintResource(desired.RankingMethod))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RankingMethod, actual.RankingMethod) && !dcl.IsZeroValue(desired.RankingMethod) && !(dcl.IsEmptyValueIndirect(desired.RankingMethod) && dcl.IsZeroValue(actual.RankingMethod)) {
+	if !reflect.DeepEqual(desired.RankingMethod, actual.RankingMethod) && !dcl.IsZeroValue(desired.RankingMethod) {
 		c.Config.Logger.Infof("Diff in RankingMethod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RankingMethod), dcl.SprintResource(actual.RankingMethod))
 		return true
 	}
@@ -16360,7 +17632,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 		c.Config.Logger.Infof("desired NumTimeSeries %s - but actually nil", dcl.SprintResource(desired.NumTimeSeries))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumTimeSeries, actual.NumTimeSeries) && !dcl.IsZeroValue(desired.NumTimeSeries) && !(dcl.IsEmptyValueIndirect(desired.NumTimeSeries) && dcl.IsZeroValue(actual.NumTimeSeries)) {
+	if !reflect.DeepEqual(desired.NumTimeSeries, actual.NumTimeSeries) && !dcl.IsZeroValue(desired.NumTimeSeries) {
 		c.Config.Logger.Infof("Diff in NumTimeSeries. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumTimeSeries), dcl.SprintResource(actual.NumTimeSeries))
 		return true
 	}
@@ -16368,20 +17640,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 		c.Config.Logger.Infof("desired Direction %s - but actually nil", dcl.SprintResource(desired.Direction))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Direction, actual.Direction) && !dcl.IsZeroValue(desired.Direction) && !(dcl.IsEmptyValueIndirect(desired.Direction) && dcl.IsZeroValue(actual.Direction)) {
+	if !reflect.DeepEqual(desired.Direction, actual.Direction) && !dcl.IsZeroValue(desired.Direction) {
 		c.Config.Logger.Infof("Diff in Direction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16429,14 +17721,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c *Clie
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16454,7 +17766,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 		c.Config.Logger.Infof("desired Filter %s - but actually nil", dcl.SprintResource(desired.Filter))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) && !(dcl.IsEmptyValueIndirect(desired.Filter) && dcl.IsZeroValue(actual.Filter)) {
+	if !dcl.StringCanonicalize(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) {
 		c.Config.Logger.Infof("Diff in Filter. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
 		return true
 	}
@@ -16468,14 +17780,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16501,7 +17833,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 		c.Config.Logger.Infof("desired PerSeriesAligner %s - but actually nil", dcl.SprintResource(desired.PerSeriesAligner))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) && !(dcl.IsEmptyValueIndirect(desired.PerSeriesAligner) && dcl.IsZeroValue(actual.PerSeriesAligner)) {
+	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
 		c.Config.Logger.Infof("Diff in PerSeriesAligner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
 		return true
 	}
@@ -16509,7 +17841,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 		c.Config.Logger.Infof("desired CrossSeriesReducer %s - but actually nil", dcl.SprintResource(desired.CrossSeriesReducer))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) && !(dcl.IsEmptyValueIndirect(desired.CrossSeriesReducer) && dcl.IsZeroValue(actual.CrossSeriesReducer)) {
+	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
 		c.Config.Logger.Infof("Diff in CrossSeriesReducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
 		return true
 	}
@@ -16517,7 +17849,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 		c.Config.Logger.Infof("desired GroupByFields %s - but actually nil", dcl.SprintResource(desired.GroupByFields))
 		return true
 	}
-	if !dcl.SliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
+	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
 		c.Config.Logger.Infof("Diff in GroupByFields. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
 		return true
 	}
@@ -16539,14 +17871,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16564,7 +17916,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
+	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
 		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
@@ -16572,20 +17924,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
+	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
 		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParamsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16603,20 +17975,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 		c.Config.Logger.Infof("desired Threshold %s - but actually nil", dcl.SprintResource(desired.Threshold))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) && !(dcl.IsEmptyValueIndirect(desired.Threshold) && dcl.IsZeroValue(actual.Threshold)) {
+	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
 		c.Config.Logger.Infof("Diff in Threshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParamsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParamsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16648,14 +18040,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16695,14 +18107,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16720,7 +18152,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) && !(dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) && dcl.IsZeroValue(actual.NumFiniteBuckets)) {
+	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
 		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
@@ -16728,7 +18160,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) && !(dcl.IsEmptyValueIndirect(desired.Width) && dcl.IsZeroValue(actual.Width)) {
+	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
 		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
@@ -16736,20 +18168,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 		c.Config.Logger.Infof("desired Offset %s - but actually nil", dcl.SprintResource(desired.Offset))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) && !(dcl.IsEmptyValueIndirect(desired.Offset) && dcl.IsZeroValue(actual.Offset)) {
+	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
 		c.Config.Logger.Infof("Diff in Offset. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16767,7 +18219,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) && !(dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) && dcl.IsZeroValue(actual.NumFiniteBuckets)) {
+	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
 		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
@@ -16775,7 +18227,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 		c.Config.Logger.Infof("desired GrowthFactor %s - but actually nil", dcl.SprintResource(desired.GrowthFactor))
 		return true
 	}
-	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) && !(dcl.IsEmptyValueIndirect(desired.GrowthFactor) && dcl.IsZeroValue(actual.GrowthFactor)) {
+	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
 		c.Config.Logger.Infof("Diff in GrowthFactor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
 		return true
 	}
@@ -16783,20 +18235,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) && !(dcl.IsEmptyValueIndirect(desired.Scale) && dcl.IsZeroValue(actual.Scale)) {
+	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
 		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16820,14 +18292,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16845,20 +18337,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 		c.Config.Logger.Infof("desired MinimumValue %s - but actually nil", dcl.SprintResource(desired.MinimumValue))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) && !(dcl.IsEmptyValueIndirect(desired.MinimumValue) && dcl.IsZeroValue(actual.MinimumValue)) {
+	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
 		c.Config.Logger.Infof("Diff in MinimumValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSamplingMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16876,7 +18388,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 		c.Config.Logger.Infof("desired Filter %s - but actually nil", dcl.SprintResource(desired.Filter))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) && !(dcl.IsEmptyValueIndirect(desired.Filter) && dcl.IsZeroValue(actual.Filter)) {
+	if !dcl.StringCanonicalize(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) {
 		c.Config.Logger.Infof("Diff in Filter. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
 		return true
 	}
@@ -16890,14 +18402,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16923,7 +18455,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 		c.Config.Logger.Infof("desired PerSeriesAligner %s - but actually nil", dcl.SprintResource(desired.PerSeriesAligner))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) && !(dcl.IsEmptyValueIndirect(desired.PerSeriesAligner) && dcl.IsZeroValue(actual.PerSeriesAligner)) {
+	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
 		c.Config.Logger.Infof("Diff in PerSeriesAligner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
 		return true
 	}
@@ -16931,7 +18463,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 		c.Config.Logger.Infof("desired CrossSeriesReducer %s - but actually nil", dcl.SprintResource(desired.CrossSeriesReducer))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) && !(dcl.IsEmptyValueIndirect(desired.CrossSeriesReducer) && dcl.IsZeroValue(actual.CrossSeriesReducer)) {
+	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
 		c.Config.Logger.Infof("Diff in CrossSeriesReducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
 		return true
 	}
@@ -16939,7 +18471,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 		c.Config.Logger.Infof("desired GroupByFields %s - but actually nil", dcl.SprintResource(desired.GroupByFields))
 		return true
 	}
-	if !dcl.SliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
+	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
 		c.Config.Logger.Infof("Diff in GroupByFields. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
 		return true
 	}
@@ -16961,14 +18493,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16986,7 +18538,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
+	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
 		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
@@ -16994,20 +18546,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
+	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
 		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParamsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17025,20 +18597,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 		c.Config.Logger.Infof("desired Threshold %s - but actually nil", dcl.SprintResource(desired.Threshold))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) && !(dcl.IsEmptyValueIndirect(desired.Threshold) && dcl.IsZeroValue(actual.Threshold)) {
+	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
 		c.Config.Logger.Infof("Diff in Threshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParamsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParamsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17070,14 +18662,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17117,14 +18729,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17142,7 +18774,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) && !(dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) && dcl.IsZeroValue(actual.NumFiniteBuckets)) {
+	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
 		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
@@ -17150,7 +18782,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) && !(dcl.IsEmptyValueIndirect(desired.Width) && dcl.IsZeroValue(actual.Width)) {
+	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
 		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
@@ -17158,20 +18790,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 		c.Config.Logger.Infof("desired Offset %s - but actually nil", dcl.SprintResource(desired.Offset))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) && !(dcl.IsEmptyValueIndirect(desired.Offset) && dcl.IsZeroValue(actual.Offset)) {
+	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
 		c.Config.Logger.Infof("Diff in Offset. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17189,7 +18841,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) && !(dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) && dcl.IsZeroValue(actual.NumFiniteBuckets)) {
+	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
 		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
@@ -17197,7 +18849,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 		c.Config.Logger.Infof("desired GrowthFactor %s - but actually nil", dcl.SprintResource(desired.GrowthFactor))
 		return true
 	}
-	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) && !(dcl.IsEmptyValueIndirect(desired.GrowthFactor) && dcl.IsZeroValue(actual.GrowthFactor)) {
+	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
 		c.Config.Logger.Infof("Diff in GrowthFactor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
 		return true
 	}
@@ -17205,20 +18857,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) && !(dcl.IsEmptyValueIndirect(desired.Scale) && dcl.IsZeroValue(actual.Scale)) {
+	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
 		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17242,14 +18914,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17267,20 +18959,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 		c.Config.Logger.Infof("desired MinimumValue %s - but actually nil", dcl.SprintResource(desired.MinimumValue))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) && !(dcl.IsEmptyValueIndirect(desired.MinimumValue) && dcl.IsZeroValue(actual.MinimumValue)) {
+	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
 		c.Config.Logger.Infof("Diff in MinimumValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSamplingMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17306,7 +19018,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 		c.Config.Logger.Infof("desired PerSeriesAligner %s - but actually nil", dcl.SprintResource(desired.PerSeriesAligner))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) && !(dcl.IsEmptyValueIndirect(desired.PerSeriesAligner) && dcl.IsZeroValue(actual.PerSeriesAligner)) {
+	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
 		c.Config.Logger.Infof("Diff in PerSeriesAligner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
 		return true
 	}
@@ -17314,7 +19026,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 		c.Config.Logger.Infof("desired CrossSeriesReducer %s - but actually nil", dcl.SprintResource(desired.CrossSeriesReducer))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) && !(dcl.IsEmptyValueIndirect(desired.CrossSeriesReducer) && dcl.IsZeroValue(actual.CrossSeriesReducer)) {
+	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
 		c.Config.Logger.Infof("Diff in CrossSeriesReducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
 		return true
 	}
@@ -17322,7 +19034,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 		c.Config.Logger.Infof("desired GroupByFields %s - but actually nil", dcl.SprintResource(desired.GroupByFields))
 		return true
 	}
-	if !dcl.SliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
+	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
 		c.Config.Logger.Infof("Diff in GroupByFields. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
 		return true
 	}
@@ -17344,14 +19056,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17369,7 +19101,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
+	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
 		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
@@ -17377,20 +19109,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
+	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
 		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParamsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17408,20 +19160,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 		c.Config.Logger.Infof("desired Threshold %s - but actually nil", dcl.SprintResource(desired.Threshold))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) && !(dcl.IsEmptyValueIndirect(desired.Threshold) && dcl.IsZeroValue(actual.Threshold)) {
+	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
 		c.Config.Logger.Infof("Diff in Threshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParamsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParamsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17453,14 +19225,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17500,14 +19292,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17525,7 +19337,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) && !(dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) && dcl.IsZeroValue(actual.NumFiniteBuckets)) {
+	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
 		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
@@ -17533,7 +19345,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) && !(dcl.IsEmptyValueIndirect(desired.Width) && dcl.IsZeroValue(actual.Width)) {
+	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
 		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
@@ -17541,20 +19353,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 		c.Config.Logger.Infof("desired Offset %s - but actually nil", dcl.SprintResource(desired.Offset))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) && !(dcl.IsEmptyValueIndirect(desired.Offset) && dcl.IsZeroValue(actual.Offset)) {
+	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
 		c.Config.Logger.Infof("Diff in Offset. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17572,7 +19404,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) && !(dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) && dcl.IsZeroValue(actual.NumFiniteBuckets)) {
+	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
 		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
@@ -17580,7 +19412,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 		c.Config.Logger.Infof("desired GrowthFactor %s - but actually nil", dcl.SprintResource(desired.GrowthFactor))
 		return true
 	}
-	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) && !(dcl.IsEmptyValueIndirect(desired.GrowthFactor) && dcl.IsZeroValue(actual.GrowthFactor)) {
+	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
 		c.Config.Logger.Infof("Diff in GrowthFactor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
 		return true
 	}
@@ -17588,20 +19420,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) && !(dcl.IsEmptyValueIndirect(desired.Scale) && dcl.IsZeroValue(actual.Scale)) {
+	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
 		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17625,14 +19477,34 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17650,20 +19522,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 		c.Config.Logger.Infof("desired MinimumValue %s - but actually nil", dcl.SprintResource(desired.MinimumValue))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) && !(dcl.IsEmptyValueIndirect(desired.MinimumValue) && dcl.IsZeroValue(actual.MinimumValue)) {
+	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
 		c.Config.Logger.Infof("Diff in MinimumValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17681,7 +19573,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 		c.Config.Logger.Infof("desired RankingMethod %s - but actually nil", dcl.SprintResource(desired.RankingMethod))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RankingMethod, actual.RankingMethod) && !dcl.IsZeroValue(desired.RankingMethod) && !(dcl.IsEmptyValueIndirect(desired.RankingMethod) && dcl.IsZeroValue(actual.RankingMethod)) {
+	if !reflect.DeepEqual(desired.RankingMethod, actual.RankingMethod) && !dcl.IsZeroValue(desired.RankingMethod) {
 		c.Config.Logger.Infof("Diff in RankingMethod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RankingMethod), dcl.SprintResource(actual.RankingMethod))
 		return true
 	}
@@ -17689,7 +19581,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 		c.Config.Logger.Infof("desired NumTimeSeries %s - but actually nil", dcl.SprintResource(desired.NumTimeSeries))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumTimeSeries, actual.NumTimeSeries) && !dcl.IsZeroValue(desired.NumTimeSeries) && !(dcl.IsEmptyValueIndirect(desired.NumTimeSeries) && dcl.IsZeroValue(actual.NumTimeSeries)) {
+	if !reflect.DeepEqual(desired.NumTimeSeries, actual.NumTimeSeries) && !dcl.IsZeroValue(desired.NumTimeSeries) {
 		c.Config.Logger.Infof("Diff in NumTimeSeries. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumTimeSeries), dcl.SprintResource(actual.NumTimeSeries))
 		return true
 	}
@@ -17697,20 +19589,40 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 		c.Config.Logger.Infof("desired Direction %s - but actually nil", dcl.SprintResource(desired.Direction))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Direction, actual.Direction) && !dcl.IsZeroValue(desired.Direction) && !(dcl.IsEmptyValueIndirect(desired.Direction) && dcl.IsZeroValue(actual.Direction)) {
+	if !reflect.DeepEqual(desired.Direction, actual.Direction) && !dcl.IsZeroValue(desired.Direction) {
 		c.Config.Logger.Infof("Diff in Direction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardSourceDrilldownSlice(c *Client, desired, actual []DashboardWidgetScorecardSourceDrilldown) bool {
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldown, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardSourceDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17782,14 +19694,34 @@ func compareDashboardWidgetScorecardSourceDrilldown(c *Client, desired, actual *
 	}
 	return false
 }
-func compareDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldownSlice(c *Client, desired, actual []DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown) bool {
+
+func compareDashboardWidgetScorecardSourceDrilldownSlice(c *Client, desired, actual []DashboardWidgetScorecardSourceDrilldown) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldown, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardSourceDrilldown(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardSourceDrilldownMap(c *Client, desired, actual map[string]DashboardWidgetScorecardSourceDrilldown) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldown, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldown, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardSourceDrilldown(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17807,20 +19739,40 @@ func compareDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown(c *Clie
 		c.Config.Logger.Infof("desired TargetValues %s - but actually nil", dcl.SprintResource(desired.TargetValues))
 		return true
 	}
-	if !dcl.SliceEquals(desired.TargetValues, actual.TargetValues) && !dcl.IsZeroValue(desired.TargetValues) {
+	if !dcl.StringSliceEquals(desired.TargetValues, actual.TargetValues) && !dcl.IsZeroValue(desired.TargetValues) {
 		c.Config.Logger.Infof("Diff in TargetValues. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValues), dcl.SprintResource(actual.TargetValues))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsSlice(c *Client, desired, actual []DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns) bool {
+
+func compareDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldownSlice(c *Client, desired, actual []DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldownMap(c *Client, desired, actual map[string]DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17838,7 +19790,7 @@ func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns(c *Cl
 		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) && !(dcl.IsEmptyValueIndirect(desired.Label) && dcl.IsZeroValue(actual.Label)) {
+	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
 		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
@@ -17846,7 +19798,7 @@ func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns(c *Cl
 		c.Config.Logger.Infof("desired LogicalOperator %s - but actually nil", dcl.SprintResource(desired.LogicalOperator))
 		return true
 	}
-	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) && !(dcl.IsEmptyValueIndirect(desired.LogicalOperator) && dcl.IsZeroValue(actual.LogicalOperator)) {
+	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) {
 		c.Config.Logger.Infof("Diff in LogicalOperator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
 		return true
 	}
@@ -17860,14 +19812,34 @@ func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns(c *Cl
 	}
 	return false
 }
-func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictionsSlice(c *Client, desired, actual []DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions) bool {
+
+func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsSlice(c *Client, desired, actual []DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17885,7 +19857,7 @@ func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueR
 		c.Config.Logger.Infof("desired TargetValue %s - but actually nil", dcl.SprintResource(desired.TargetValue))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) && !(dcl.IsEmptyValueIndirect(desired.TargetValue) && dcl.IsZeroValue(actual.TargetValue)) {
+	if !dcl.StringCanonicalize(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) {
 		c.Config.Logger.Infof("Diff in TargetValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
 		return true
 	}
@@ -17893,20 +19865,40 @@ func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueR
 		c.Config.Logger.Infof("desired Comparator %s - but actually nil", dcl.SprintResource(desired.Comparator))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) && !(dcl.IsEmptyValueIndirect(desired.Comparator) && dcl.IsZeroValue(actual.Comparator)) {
+	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) {
 		c.Config.Logger.Infof("Diff in Comparator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsSlice(c *Client, desired, actual []DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns) bool {
+
+func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictionsSlice(c *Client, desired, actual []DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictionsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17924,7 +19916,7 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
 		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) && !(dcl.IsEmptyValueIndirect(desired.Label) && dcl.IsZeroValue(actual.Label)) {
+	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
 		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
@@ -17932,7 +19924,7 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
 		c.Config.Logger.Infof("desired LogicalOperator %s - but actually nil", dcl.SprintResource(desired.LogicalOperator))
 		return true
 	}
-	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) && !(dcl.IsEmptyValueIndirect(desired.LogicalOperator) && dcl.IsZeroValue(actual.LogicalOperator)) {
+	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) {
 		c.Config.Logger.Infof("Diff in LogicalOperator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
 		return true
 	}
@@ -17946,14 +19938,34 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
 	}
 	return false
 }
-func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsSlice(c *Client, desired, actual []DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions) bool {
+
+func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsSlice(c *Client, desired, actual []DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17971,7 +19983,7 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
 		c.Config.Logger.Infof("desired TargetValue %s - but actually nil", dcl.SprintResource(desired.TargetValue))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) && !(dcl.IsEmptyValueIndirect(desired.TargetValue) && dcl.IsZeroValue(actual.TargetValue)) {
+	if !dcl.StringCanonicalize(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) {
 		c.Config.Logger.Infof("Diff in TargetValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
 		return true
 	}
@@ -17979,20 +19991,40 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
 		c.Config.Logger.Infof("desired Comparator %s - but actually nil", dcl.SprintResource(desired.Comparator))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) && !(dcl.IsEmptyValueIndirect(desired.Comparator) && dcl.IsZeroValue(actual.Comparator)) {
+	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) {
 		c.Config.Logger.Infof("Diff in Comparator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsSlice(c *Client, desired, actual []DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns) bool {
+
+func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsSlice(c *Client, desired, actual []DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18010,7 +20042,7 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns(c
 		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) && !(dcl.IsEmptyValueIndirect(desired.Label) && dcl.IsZeroValue(actual.Label)) {
+	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
 		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
@@ -18018,7 +20050,7 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns(c
 		c.Config.Logger.Infof("desired LogicalOperator %s - but actually nil", dcl.SprintResource(desired.LogicalOperator))
 		return true
 	}
-	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) && !(dcl.IsEmptyValueIndirect(desired.LogicalOperator) && dcl.IsZeroValue(actual.LogicalOperator)) {
+	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) {
 		c.Config.Logger.Infof("Diff in LogicalOperator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
 		return true
 	}
@@ -18032,14 +20064,34 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns(c
 	}
 	return false
 }
-func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsSlice(c *Client, desired, actual []DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions) bool {
+
+func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsSlice(c *Client, desired, actual []DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18057,7 +20109,7 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsVa
 		c.Config.Logger.Infof("desired TargetValue %s - but actually nil", dcl.SprintResource(desired.TargetValue))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) && !(dcl.IsEmptyValueIndirect(desired.TargetValue) && dcl.IsZeroValue(actual.TargetValue)) {
+	if !dcl.StringCanonicalize(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) {
 		c.Config.Logger.Infof("Diff in TargetValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
 		return true
 	}
@@ -18065,20 +20117,40 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsVa
 		c.Config.Logger.Infof("desired Comparator %s - but actually nil", dcl.SprintResource(desired.Comparator))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) && !(dcl.IsEmptyValueIndirect(desired.Comparator) && dcl.IsZeroValue(actual.Comparator)) {
+	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) {
 		c.Config.Logger.Infof("Diff in Comparator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardSourceDrilldownGroupNameDrilldownSlice(c *Client, desired, actual []DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown) bool {
+
+func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsSlice(c *Client, desired, actual []DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardSourceDrilldownGroupNameDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18096,20 +20168,40 @@ func compareDashboardWidgetScorecardSourceDrilldownGroupNameDrilldown(c *Client,
 		c.Config.Logger.Infof("desired TargetValues %s - but actually nil", dcl.SprintResource(desired.TargetValues))
 		return true
 	}
-	if !dcl.SliceEquals(desired.TargetValues, actual.TargetValues) && !dcl.IsZeroValue(desired.TargetValues) {
+	if !dcl.StringSliceEquals(desired.TargetValues, actual.TargetValues) && !dcl.IsZeroValue(desired.TargetValues) {
 		c.Config.Logger.Infof("Diff in TargetValues. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValues), dcl.SprintResource(actual.TargetValues))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardSourceDrilldownServiceNameDrilldownSlice(c *Client, desired, actual []DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown) bool {
+
+func compareDashboardWidgetScorecardSourceDrilldownGroupNameDrilldownSlice(c *Client, desired, actual []DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardSourceDrilldownServiceNameDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardSourceDrilldownGroupNameDrilldown(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardSourceDrilldownGroupNameDrilldownMap(c *Client, desired, actual map[string]DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardSourceDrilldownGroupNameDrilldown(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18127,20 +20219,40 @@ func compareDashboardWidgetScorecardSourceDrilldownServiceNameDrilldown(c *Clien
 		c.Config.Logger.Infof("desired TargetValues %s - but actually nil", dcl.SprintResource(desired.TargetValues))
 		return true
 	}
-	if !dcl.SliceEquals(desired.TargetValues, actual.TargetValues) && !dcl.IsZeroValue(desired.TargetValues) {
+	if !dcl.StringSliceEquals(desired.TargetValues, actual.TargetValues) && !dcl.IsZeroValue(desired.TargetValues) {
 		c.Config.Logger.Infof("Diff in TargetValues. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValues), dcl.SprintResource(actual.TargetValues))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownSlice(c *Client, desired, actual []DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown) bool {
+
+func compareDashboardWidgetScorecardSourceDrilldownServiceNameDrilldownSlice(c *Client, desired, actual []DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardSourceDrilldownServiceNameDrilldown(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardSourceDrilldownServiceNameDrilldownMap(c *Client, desired, actual map[string]DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardSourceDrilldownServiceNameDrilldown(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18164,14 +20276,34 @@ func compareDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown(c *Clien
 	}
 	return false
 }
-func compareDashboardWidgetScorecardMetricDrilldownSlice(c *Client, desired, actual []DashboardWidgetScorecardMetricDrilldown) bool {
+
+func compareDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownSlice(c *Client, desired, actual []DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardMetricDrilldown, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardMetricDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownMap(c *Client, desired, actual map[string]DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18211,14 +20343,34 @@ func compareDashboardWidgetScorecardMetricDrilldown(c *Client, desired, actual *
 	}
 	return false
 }
-func compareDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldownSlice(c *Client, desired, actual []DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown) bool {
+
+func compareDashboardWidgetScorecardMetricDrilldownSlice(c *Client, desired, actual []DashboardWidgetScorecardMetricDrilldown) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardMetricDrilldown, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardMetricDrilldown(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardMetricDrilldownMap(c *Client, desired, actual map[string]DashboardWidgetScorecardMetricDrilldown) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardMetricDrilldown, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldown, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardMetricDrilldown(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18236,20 +20388,40 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown(c *Client
 		c.Config.Logger.Infof("desired TargetValue %s - but actually nil", dcl.SprintResource(desired.TargetValue))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) && !(dcl.IsEmptyValueIndirect(desired.TargetValue) && dcl.IsZeroValue(actual.TargetValue)) {
+	if !dcl.StringCanonicalize(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) {
 		c.Config.Logger.Infof("Diff in TargetValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsSlice(c *Client, desired, actual []DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns) bool {
+
+func compareDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldownSlice(c *Client, desired, actual []DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldownMap(c *Client, desired, actual map[string]DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18267,7 +20439,7 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns(c *Clie
 		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) && !(dcl.IsEmptyValueIndirect(desired.Label) && dcl.IsZeroValue(actual.Label)) {
+	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
 		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
@@ -18275,7 +20447,7 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns(c *Clie
 		c.Config.Logger.Infof("desired LogicalOperator %s - but actually nil", dcl.SprintResource(desired.LogicalOperator))
 		return true
 	}
-	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) && !(dcl.IsEmptyValueIndirect(desired.LogicalOperator) && dcl.IsZeroValue(actual.LogicalOperator)) {
+	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) {
 		c.Config.Logger.Infof("Diff in LogicalOperator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
 		return true
 	}
@@ -18289,14 +20461,34 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns(c *Clie
 	}
 	return false
 }
-func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictionsSlice(c *Client, desired, actual []DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions) bool {
+
+func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsSlice(c *Client, desired, actual []DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18314,7 +20506,7 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRes
 		c.Config.Logger.Infof("desired TargetValue %s - but actually nil", dcl.SprintResource(desired.TargetValue))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) && !(dcl.IsEmptyValueIndirect(desired.TargetValue) && dcl.IsZeroValue(actual.TargetValue)) {
+	if !dcl.StringCanonicalize(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) {
 		c.Config.Logger.Infof("Diff in TargetValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
 		return true
 	}
@@ -18322,20 +20514,40 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRes
 		c.Config.Logger.Infof("desired Comparator %s - but actually nil", dcl.SprintResource(desired.Comparator))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) && !(dcl.IsEmptyValueIndirect(desired.Comparator) && dcl.IsZeroValue(actual.Comparator)) {
+	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) {
 		c.Config.Logger.Infof("Diff in Comparator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldownSlice(c *Client, desired, actual []DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown) bool {
+
+func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictionsSlice(c *Client, desired, actual []DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictionsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18353,7 +20565,7 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown(c *Cli
 		c.Config.Logger.Infof("desired ResourceLabels %s - but actually nil", dcl.SprintResource(desired.ResourceLabels))
 		return true
 	}
-	if !dcl.SliceEquals(desired.ResourceLabels, actual.ResourceLabels) && !dcl.IsZeroValue(desired.ResourceLabels) {
+	if !dcl.StringSliceEquals(desired.ResourceLabels, actual.ResourceLabels) && !dcl.IsZeroValue(desired.ResourceLabels) {
 		c.Config.Logger.Infof("Diff in ResourceLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceLabels), dcl.SprintResource(actual.ResourceLabels))
 		return true
 	}
@@ -18361,7 +20573,7 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown(c *Cli
 		c.Config.Logger.Infof("desired MetricLabels %s - but actually nil", dcl.SprintResource(desired.MetricLabels))
 		return true
 	}
-	if !dcl.SliceEquals(desired.MetricLabels, actual.MetricLabels) && !dcl.IsZeroValue(desired.MetricLabels) {
+	if !dcl.StringSliceEquals(desired.MetricLabels, actual.MetricLabels) && !dcl.IsZeroValue(desired.MetricLabels) {
 		c.Config.Logger.Infof("Diff in MetricLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricLabels), dcl.SprintResource(actual.MetricLabels))
 		return true
 	}
@@ -18369,7 +20581,7 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown(c *Cli
 		c.Config.Logger.Infof("desired MetadataSystemLabels %s - but actually nil", dcl.SprintResource(desired.MetadataSystemLabels))
 		return true
 	}
-	if !dcl.SliceEquals(desired.MetadataSystemLabels, actual.MetadataSystemLabels) && !dcl.IsZeroValue(desired.MetadataSystemLabels) {
+	if !dcl.StringSliceEquals(desired.MetadataSystemLabels, actual.MetadataSystemLabels) && !dcl.IsZeroValue(desired.MetadataSystemLabels) {
 		c.Config.Logger.Infof("Diff in MetadataSystemLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataSystemLabels), dcl.SprintResource(actual.MetadataSystemLabels))
 		return true
 	}
@@ -18377,7 +20589,7 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown(c *Cli
 		c.Config.Logger.Infof("desired MetadataUserLabels %s - but actually nil", dcl.SprintResource(desired.MetadataUserLabels))
 		return true
 	}
-	if !dcl.SliceEquals(desired.MetadataUserLabels, actual.MetadataUserLabels) && !dcl.IsZeroValue(desired.MetadataUserLabels) {
+	if !dcl.StringSliceEquals(desired.MetadataUserLabels, actual.MetadataUserLabels) && !dcl.IsZeroValue(desired.MetadataUserLabels) {
 		c.Config.Logger.Infof("Diff in MetadataUserLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataUserLabels), dcl.SprintResource(actual.MetadataUserLabels))
 		return true
 	}
@@ -18385,20 +20597,40 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown(c *Cli
 		c.Config.Logger.Infof("desired Reducer %s - but actually nil", dcl.SprintResource(desired.Reducer))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Reducer, actual.Reducer) && !dcl.IsZeroValue(desired.Reducer) && !(dcl.IsEmptyValueIndirect(desired.Reducer) && dcl.IsZeroValue(actual.Reducer)) {
+	if !reflect.DeepEqual(desired.Reducer, actual.Reducer) && !dcl.IsZeroValue(desired.Reducer) {
 		c.Config.Logger.Infof("Diff in Reducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Reducer), dcl.SprintResource(actual.Reducer))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardGaugeViewSlice(c *Client, desired, actual []DashboardWidgetScorecardGaugeView) bool {
+
+func compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldownSlice(c *Client, desired, actual []DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardGaugeView, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardGaugeView(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardGaugeView, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldownMap(c *Client, desired, actual map[string]DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18416,7 +20648,7 @@ func compareDashboardWidgetScorecardGaugeView(c *Client, desired, actual *Dashbo
 		c.Config.Logger.Infof("desired LowerBound %s - but actually nil", dcl.SprintResource(desired.LowerBound))
 		return true
 	}
-	if !reflect.DeepEqual(desired.LowerBound, actual.LowerBound) && !dcl.IsZeroValue(desired.LowerBound) && !(dcl.IsEmptyValueIndirect(desired.LowerBound) && dcl.IsZeroValue(actual.LowerBound)) {
+	if !reflect.DeepEqual(desired.LowerBound, actual.LowerBound) && !dcl.IsZeroValue(desired.LowerBound) {
 		c.Config.Logger.Infof("Diff in LowerBound. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LowerBound), dcl.SprintResource(actual.LowerBound))
 		return true
 	}
@@ -18424,20 +20656,40 @@ func compareDashboardWidgetScorecardGaugeView(c *Client, desired, actual *Dashbo
 		c.Config.Logger.Infof("desired UpperBound %s - but actually nil", dcl.SprintResource(desired.UpperBound))
 		return true
 	}
-	if !reflect.DeepEqual(desired.UpperBound, actual.UpperBound) && !dcl.IsZeroValue(desired.UpperBound) && !(dcl.IsEmptyValueIndirect(desired.UpperBound) && dcl.IsZeroValue(actual.UpperBound)) {
+	if !reflect.DeepEqual(desired.UpperBound, actual.UpperBound) && !dcl.IsZeroValue(desired.UpperBound) {
 		c.Config.Logger.Infof("Diff in UpperBound. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UpperBound), dcl.SprintResource(actual.UpperBound))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardSparkChartViewSlice(c *Client, desired, actual []DashboardWidgetScorecardSparkChartView) bool {
+
+func compareDashboardWidgetScorecardGaugeViewSlice(c *Client, desired, actual []DashboardWidgetScorecardGaugeView) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSparkChartView, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardGaugeView, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardSparkChartView(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSparkChartView, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardGaugeView(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardGaugeView, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardGaugeViewMap(c *Client, desired, actual map[string]DashboardWidgetScorecardGaugeView) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardGaugeView, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardGaugeView, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardGaugeView(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardGaugeView, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18455,7 +20707,7 @@ func compareDashboardWidgetScorecardSparkChartView(c *Client, desired, actual *D
 		c.Config.Logger.Infof("desired SparkChartType %s - but actually nil", dcl.SprintResource(desired.SparkChartType))
 		return true
 	}
-	if !reflect.DeepEqual(desired.SparkChartType, actual.SparkChartType) && !dcl.IsZeroValue(desired.SparkChartType) && !(dcl.IsEmptyValueIndirect(desired.SparkChartType) && dcl.IsZeroValue(actual.SparkChartType)) {
+	if !reflect.DeepEqual(desired.SparkChartType, actual.SparkChartType) && !dcl.IsZeroValue(desired.SparkChartType) {
 		c.Config.Logger.Infof("Diff in SparkChartType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SparkChartType), dcl.SprintResource(actual.SparkChartType))
 		return true
 	}
@@ -18469,14 +20721,34 @@ func compareDashboardWidgetScorecardSparkChartView(c *Client, desired, actual *D
 	}
 	return false
 }
-func compareDashboardWidgetScorecardSparkChartViewMinAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod) bool {
+
+func compareDashboardWidgetScorecardSparkChartViewSlice(c *Client, desired, actual []DashboardWidgetScorecardSparkChartView) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSparkChartView, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardSparkChartView(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSparkChartView, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardSparkChartViewMap(c *Client, desired, actual map[string]DashboardWidgetScorecardSparkChartView) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSparkChartView, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSparkChartView, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardSparkChartView(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSparkChartView, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18494,7 +20766,7 @@ func compareDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(c *Client, 
 		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
+	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
 		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
@@ -18502,20 +20774,40 @@ func compareDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(c *Client, 
 		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
+	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
 		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetScorecardThresholdsSlice(c *Client, desired, actual []DashboardWidgetScorecardThresholds) bool {
+
+func compareDashboardWidgetScorecardSparkChartViewMinAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardThresholds, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardThresholds(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardThresholds, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardSparkChartViewMinAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18533,7 +20825,7 @@ func compareDashboardWidgetScorecardThresholds(c *Client, desired, actual *Dashb
 		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) && !(dcl.IsEmptyValueIndirect(desired.Label) && dcl.IsZeroValue(actual.Label)) {
+	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
 		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
@@ -18541,7 +20833,7 @@ func compareDashboardWidgetScorecardThresholds(c *Client, desired, actual *Dashb
 		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
+	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
 		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
@@ -18549,7 +20841,7 @@ func compareDashboardWidgetScorecardThresholds(c *Client, desired, actual *Dashb
 		c.Config.Logger.Infof("desired Color %s - but actually nil", dcl.SprintResource(desired.Color))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Color, actual.Color) && !dcl.IsZeroValue(desired.Color) && !(dcl.IsEmptyValueIndirect(desired.Color) && dcl.IsZeroValue(actual.Color)) {
+	if !reflect.DeepEqual(desired.Color, actual.Color) && !dcl.IsZeroValue(desired.Color) {
 		c.Config.Logger.Infof("Diff in Color. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Color), dcl.SprintResource(actual.Color))
 		return true
 	}
@@ -18557,20 +20849,40 @@ func compareDashboardWidgetScorecardThresholds(c *Client, desired, actual *Dashb
 		c.Config.Logger.Infof("desired Direction %s - but actually nil", dcl.SprintResource(desired.Direction))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Direction, actual.Direction) && !dcl.IsZeroValue(desired.Direction) && !(dcl.IsEmptyValueIndirect(desired.Direction) && dcl.IsZeroValue(actual.Direction)) {
+	if !reflect.DeepEqual(desired.Direction, actual.Direction) && !dcl.IsZeroValue(desired.Direction) {
 		c.Config.Logger.Infof("Diff in Direction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetTextSlice(c *Client, desired, actual []DashboardWidgetText) bool {
+
+func compareDashboardWidgetScorecardThresholdsSlice(c *Client, desired, actual []DashboardWidgetScorecardThresholds) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetText, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardThresholds, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetText(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetText, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetScorecardThresholds(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardThresholds, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetScorecardThresholdsMap(c *Client, desired, actual map[string]DashboardWidgetScorecardThresholds) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetScorecardThresholds, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardThresholds, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetScorecardThresholds(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardThresholds, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18588,7 +20900,7 @@ func compareDashboardWidgetText(c *Client, desired, actual *DashboardWidgetText)
 		c.Config.Logger.Infof("desired Content %s - but actually nil", dcl.SprintResource(desired.Content))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Content, actual.Content) && !dcl.IsZeroValue(desired.Content) && !(dcl.IsEmptyValueIndirect(desired.Content) && dcl.IsZeroValue(actual.Content)) {
+	if !dcl.StringCanonicalize(desired.Content, actual.Content) && !dcl.IsZeroValue(desired.Content) {
 		c.Config.Logger.Infof("Diff in Content. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Content), dcl.SprintResource(actual.Content))
 		return true
 	}
@@ -18596,20 +20908,40 @@ func compareDashboardWidgetText(c *Client, desired, actual *DashboardWidgetText)
 		c.Config.Logger.Infof("desired Format %s - but actually nil", dcl.SprintResource(desired.Format))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Format, actual.Format) && !dcl.IsZeroValue(desired.Format) && !(dcl.IsEmptyValueIndirect(desired.Format) && dcl.IsZeroValue(actual.Format)) {
+	if !reflect.DeepEqual(desired.Format, actual.Format) && !dcl.IsZeroValue(desired.Format) {
 		c.Config.Logger.Infof("Diff in Format. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Format), dcl.SprintResource(actual.Format))
 		return true
 	}
 	return false
 }
-func compareDashboardWidgetBlankSlice(c *Client, desired, actual []DashboardWidgetBlank) bool {
+
+func compareDashboardWidgetTextSlice(c *Client, desired, actual []DashboardWidgetText) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetBlank, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetText, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetBlank(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetBlank, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetText(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetText, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetTextMap(c *Client, desired, actual map[string]DashboardWidgetText) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetText, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetText, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetText(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetText, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18625,14 +20957,34 @@ func compareDashboardWidgetBlank(c *Client, desired, actual *DashboardWidgetBlan
 	}
 	return false
 }
-func compareDashboardGridLayoutSlice(c *Client, desired, actual []DashboardGridLayout) bool {
+
+func compareDashboardWidgetBlankSlice(c *Client, desired, actual []DashboardWidgetBlank) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardGridLayout, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardWidgetBlank, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardGridLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardGridLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardWidgetBlank(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetBlank, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardWidgetBlankMap(c *Client, desired, actual map[string]DashboardWidgetBlank) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardWidgetBlank, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardWidgetBlank, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardWidgetBlank(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardWidgetBlank, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18650,7 +21002,7 @@ func compareDashboardGridLayout(c *Client, desired, actual *DashboardGridLayout)
 		c.Config.Logger.Infof("desired Columns %s - but actually nil", dcl.SprintResource(desired.Columns))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Columns, actual.Columns) && !dcl.IsZeroValue(desired.Columns) && !(dcl.IsEmptyValueIndirect(desired.Columns) && dcl.IsZeroValue(actual.Columns)) {
+	if !reflect.DeepEqual(desired.Columns, actual.Columns) && !dcl.IsZeroValue(desired.Columns) {
 		c.Config.Logger.Infof("Diff in Columns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Columns), dcl.SprintResource(actual.Columns))
 		return true
 	}
@@ -18658,20 +21010,40 @@ func compareDashboardGridLayout(c *Client, desired, actual *DashboardGridLayout)
 		c.Config.Logger.Infof("desired Widgets %s - but actually nil", dcl.SprintResource(desired.Widgets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) && !(dcl.IsEmptyValueIndirect(desired.Widgets) && dcl.IsZeroValue(actual.Widgets)) {
+	if !reflect.DeepEqual(desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
 		c.Config.Logger.Infof("Diff in Widgets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
 		return true
 	}
 	return false
 }
-func compareDashboardMosaicLayoutSlice(c *Client, desired, actual []DashboardMosaicLayout) bool {
+
+func compareDashboardGridLayoutSlice(c *Client, desired, actual []DashboardGridLayout) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardMosaicLayout, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardGridLayout, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardMosaicLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardMosaicLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardGridLayout(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardGridLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardGridLayoutMap(c *Client, desired, actual map[string]DashboardGridLayout) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardGridLayout, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardGridLayout, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardGridLayout(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardGridLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18689,7 +21061,7 @@ func compareDashboardMosaicLayout(c *Client, desired, actual *DashboardMosaicLay
 		c.Config.Logger.Infof("desired Columns %s - but actually nil", dcl.SprintResource(desired.Columns))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Columns, actual.Columns) && !dcl.IsZeroValue(desired.Columns) && !(dcl.IsEmptyValueIndirect(desired.Columns) && dcl.IsZeroValue(actual.Columns)) {
+	if !reflect.DeepEqual(desired.Columns, actual.Columns) && !dcl.IsZeroValue(desired.Columns) {
 		c.Config.Logger.Infof("Diff in Columns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Columns), dcl.SprintResource(actual.Columns))
 		return true
 	}
@@ -18703,14 +21075,34 @@ func compareDashboardMosaicLayout(c *Client, desired, actual *DashboardMosaicLay
 	}
 	return false
 }
-func compareDashboardMosaicLayoutTilesSlice(c *Client, desired, actual []DashboardMosaicLayoutTiles) bool {
+
+func compareDashboardMosaicLayoutSlice(c *Client, desired, actual []DashboardMosaicLayout) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardMosaicLayoutTiles, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardMosaicLayout, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardMosaicLayoutTiles(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardMosaicLayoutTiles, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardMosaicLayout(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardMosaicLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardMosaicLayoutMap(c *Client, desired, actual map[string]DashboardMosaicLayout) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardMosaicLayout, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardMosaicLayout, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardMosaicLayout(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardMosaicLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18728,7 +21120,7 @@ func compareDashboardMosaicLayoutTiles(c *Client, desired, actual *DashboardMosa
 		c.Config.Logger.Infof("desired XPos %s - but actually nil", dcl.SprintResource(desired.XPos))
 		return true
 	}
-	if !reflect.DeepEqual(desired.XPos, actual.XPos) && !dcl.IsZeroValue(desired.XPos) && !(dcl.IsEmptyValueIndirect(desired.XPos) && dcl.IsZeroValue(actual.XPos)) {
+	if !reflect.DeepEqual(desired.XPos, actual.XPos) && !dcl.IsZeroValue(desired.XPos) {
 		c.Config.Logger.Infof("Diff in XPos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.XPos), dcl.SprintResource(actual.XPos))
 		return true
 	}
@@ -18736,7 +21128,7 @@ func compareDashboardMosaicLayoutTiles(c *Client, desired, actual *DashboardMosa
 		c.Config.Logger.Infof("desired YPos %s - but actually nil", dcl.SprintResource(desired.YPos))
 		return true
 	}
-	if !reflect.DeepEqual(desired.YPos, actual.YPos) && !dcl.IsZeroValue(desired.YPos) && !(dcl.IsEmptyValueIndirect(desired.YPos) && dcl.IsZeroValue(actual.YPos)) {
+	if !reflect.DeepEqual(desired.YPos, actual.YPos) && !dcl.IsZeroValue(desired.YPos) {
 		c.Config.Logger.Infof("Diff in YPos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.YPos), dcl.SprintResource(actual.YPos))
 		return true
 	}
@@ -18744,7 +21136,7 @@ func compareDashboardMosaicLayoutTiles(c *Client, desired, actual *DashboardMosa
 		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) && !(dcl.IsEmptyValueIndirect(desired.Width) && dcl.IsZeroValue(actual.Width)) {
+	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
 		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
@@ -18752,7 +21144,7 @@ func compareDashboardMosaicLayoutTiles(c *Client, desired, actual *DashboardMosa
 		c.Config.Logger.Infof("desired Height %s - but actually nil", dcl.SprintResource(desired.Height))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Height, actual.Height) && !dcl.IsZeroValue(desired.Height) && !(dcl.IsEmptyValueIndirect(desired.Height) && dcl.IsZeroValue(actual.Height)) {
+	if !reflect.DeepEqual(desired.Height, actual.Height) && !dcl.IsZeroValue(desired.Height) {
 		c.Config.Logger.Infof("Diff in Height. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Height), dcl.SprintResource(actual.Height))
 		return true
 	}
@@ -18766,14 +21158,34 @@ func compareDashboardMosaicLayoutTiles(c *Client, desired, actual *DashboardMosa
 	}
 	return false
 }
-func compareDashboardRowLayoutSlice(c *Client, desired, actual []DashboardRowLayout) bool {
+
+func compareDashboardMosaicLayoutTilesSlice(c *Client, desired, actual []DashboardMosaicLayoutTiles) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardRowLayout, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardMosaicLayoutTiles, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardRowLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardRowLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardMosaicLayoutTiles(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardMosaicLayoutTiles, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardMosaicLayoutTilesMap(c *Client, desired, actual map[string]DashboardMosaicLayoutTiles) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardMosaicLayoutTiles, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardMosaicLayoutTiles, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardMosaicLayoutTiles(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardMosaicLayoutTiles, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18797,14 +21209,34 @@ func compareDashboardRowLayout(c *Client, desired, actual *DashboardRowLayout) b
 	}
 	return false
 }
-func compareDashboardRowLayoutRowsSlice(c *Client, desired, actual []DashboardRowLayoutRows) bool {
+
+func compareDashboardRowLayoutSlice(c *Client, desired, actual []DashboardRowLayout) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardRowLayoutRows, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardRowLayout, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardRowLayoutRows(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardRowLayoutRows, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardRowLayout(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardRowLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardRowLayoutMap(c *Client, desired, actual map[string]DashboardRowLayout) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardRowLayout, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardRowLayout, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardRowLayout(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardRowLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18822,7 +21254,7 @@ func compareDashboardRowLayoutRows(c *Client, desired, actual *DashboardRowLayou
 		c.Config.Logger.Infof("desired Weight %s - but actually nil", dcl.SprintResource(desired.Weight))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Weight, actual.Weight) && !dcl.IsZeroValue(desired.Weight) && !(dcl.IsEmptyValueIndirect(desired.Weight) && dcl.IsZeroValue(actual.Weight)) {
+	if !reflect.DeepEqual(desired.Weight, actual.Weight) && !dcl.IsZeroValue(desired.Weight) {
 		c.Config.Logger.Infof("Diff in Weight. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Weight), dcl.SprintResource(actual.Weight))
 		return true
 	}
@@ -18830,20 +21262,40 @@ func compareDashboardRowLayoutRows(c *Client, desired, actual *DashboardRowLayou
 		c.Config.Logger.Infof("desired Widgets %s - but actually nil", dcl.SprintResource(desired.Widgets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) && !(dcl.IsEmptyValueIndirect(desired.Widgets) && dcl.IsZeroValue(actual.Widgets)) {
+	if !reflect.DeepEqual(desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
 		c.Config.Logger.Infof("Diff in Widgets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
 		return true
 	}
 	return false
 }
-func compareDashboardTabbedLayoutSlice(c *Client, desired, actual []DashboardTabbedLayout) bool {
+
+func compareDashboardRowLayoutRowsSlice(c *Client, desired, actual []DashboardRowLayoutRows) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayout, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardRowLayoutRows, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardTabbedLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardRowLayoutRows(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardRowLayoutRows, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardRowLayoutRowsMap(c *Client, desired, actual map[string]DashboardRowLayoutRows) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardRowLayoutRows, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardRowLayoutRows, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardRowLayoutRows(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardRowLayoutRows, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18875,14 +21327,34 @@ func compareDashboardTabbedLayout(c *Client, desired, actual *DashboardTabbedLay
 	}
 	return false
 }
-func compareDashboardTabbedLayoutTabsSlice(c *Client, desired, actual []DashboardTabbedLayoutTabs) bool {
+
+func compareDashboardTabbedLayoutSlice(c *Client, desired, actual []DashboardTabbedLayout) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabs, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardTabbedLayout, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardTabbedLayoutTabs(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabs, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardTabbedLayout(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardTabbedLayoutMap(c *Client, desired, actual map[string]DashboardTabbedLayout) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardTabbedLayout, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayout, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardTabbedLayout(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18900,7 +21372,7 @@ func compareDashboardTabbedLayoutTabs(c *Client, desired, actual *DashboardTabbe
 		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) && !(dcl.IsEmptyValueIndirect(desired.Label) && dcl.IsZeroValue(actual.Label)) {
+	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
 		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
@@ -18908,7 +21380,7 @@ func compareDashboardTabbedLayoutTabs(c *Client, desired, actual *DashboardTabbe
 		c.Config.Logger.Infof("desired HintText %s - but actually nil", dcl.SprintResource(desired.HintText))
 		return true
 	}
-	if !reflect.DeepEqual(desired.HintText, actual.HintText) && !dcl.IsZeroValue(desired.HintText) && !(dcl.IsEmptyValueIndirect(desired.HintText) && dcl.IsZeroValue(actual.HintText)) {
+	if !dcl.StringCanonicalize(desired.HintText, actual.HintText) && !dcl.IsZeroValue(desired.HintText) {
 		c.Config.Logger.Infof("Diff in HintText. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HintText), dcl.SprintResource(actual.HintText))
 		return true
 	}
@@ -18946,14 +21418,34 @@ func compareDashboardTabbedLayoutTabs(c *Client, desired, actual *DashboardTabbe
 	}
 	return false
 }
-func compareDashboardTabbedLayoutTabsGridLayoutSlice(c *Client, desired, actual []DashboardTabbedLayoutTabsGridLayout) bool {
+
+func compareDashboardTabbedLayoutTabsSlice(c *Client, desired, actual []DashboardTabbedLayoutTabs) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsGridLayout, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabs, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardTabbedLayoutTabsGridLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsGridLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardTabbedLayoutTabs(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabs, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardTabbedLayoutTabsMap(c *Client, desired, actual map[string]DashboardTabbedLayoutTabs) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabs, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabs, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardTabbedLayoutTabs(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabs, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18971,7 +21463,7 @@ func compareDashboardTabbedLayoutTabsGridLayout(c *Client, desired, actual *Dash
 		c.Config.Logger.Infof("desired Columns %s - but actually nil", dcl.SprintResource(desired.Columns))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Columns, actual.Columns) && !dcl.IsZeroValue(desired.Columns) && !(dcl.IsEmptyValueIndirect(desired.Columns) && dcl.IsZeroValue(actual.Columns)) {
+	if !reflect.DeepEqual(desired.Columns, actual.Columns) && !dcl.IsZeroValue(desired.Columns) {
 		c.Config.Logger.Infof("Diff in Columns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Columns), dcl.SprintResource(actual.Columns))
 		return true
 	}
@@ -18979,20 +21471,40 @@ func compareDashboardTabbedLayoutTabsGridLayout(c *Client, desired, actual *Dash
 		c.Config.Logger.Infof("desired Widgets %s - but actually nil", dcl.SprintResource(desired.Widgets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) && !(dcl.IsEmptyValueIndirect(desired.Widgets) && dcl.IsZeroValue(actual.Widgets)) {
+	if !reflect.DeepEqual(desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
 		c.Config.Logger.Infof("Diff in Widgets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
 		return true
 	}
 	return false
 }
-func compareDashboardTabbedLayoutTabsMosaicLayoutSlice(c *Client, desired, actual []DashboardTabbedLayoutTabsMosaicLayout) bool {
+
+func compareDashboardTabbedLayoutTabsGridLayoutSlice(c *Client, desired, actual []DashboardTabbedLayoutTabsGridLayout) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsMosaicLayout, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsGridLayout, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardTabbedLayoutTabsMosaicLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsMosaicLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardTabbedLayoutTabsGridLayout(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsGridLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardTabbedLayoutTabsGridLayoutMap(c *Client, desired, actual map[string]DashboardTabbedLayoutTabsGridLayout) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsGridLayout, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsGridLayout, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardTabbedLayoutTabsGridLayout(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsGridLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19010,7 +21522,7 @@ func compareDashboardTabbedLayoutTabsMosaicLayout(c *Client, desired, actual *Da
 		c.Config.Logger.Infof("desired Columns %s - but actually nil", dcl.SprintResource(desired.Columns))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Columns, actual.Columns) && !dcl.IsZeroValue(desired.Columns) && !(dcl.IsEmptyValueIndirect(desired.Columns) && dcl.IsZeroValue(actual.Columns)) {
+	if !reflect.DeepEqual(desired.Columns, actual.Columns) && !dcl.IsZeroValue(desired.Columns) {
 		c.Config.Logger.Infof("Diff in Columns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Columns), dcl.SprintResource(actual.Columns))
 		return true
 	}
@@ -19024,14 +21536,34 @@ func compareDashboardTabbedLayoutTabsMosaicLayout(c *Client, desired, actual *Da
 	}
 	return false
 }
-func compareDashboardTabbedLayoutTabsMosaicLayoutTilesSlice(c *Client, desired, actual []DashboardTabbedLayoutTabsMosaicLayoutTiles) bool {
+
+func compareDashboardTabbedLayoutTabsMosaicLayoutSlice(c *Client, desired, actual []DashboardTabbedLayoutTabsMosaicLayout) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsMosaicLayoutTiles, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsMosaicLayout, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardTabbedLayoutTabsMosaicLayoutTiles(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsMosaicLayoutTiles, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardTabbedLayoutTabsMosaicLayout(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsMosaicLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardTabbedLayoutTabsMosaicLayoutMap(c *Client, desired, actual map[string]DashboardTabbedLayoutTabsMosaicLayout) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsMosaicLayout, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsMosaicLayout, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardTabbedLayoutTabsMosaicLayout(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsMosaicLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19049,7 +21581,7 @@ func compareDashboardTabbedLayoutTabsMosaicLayoutTiles(c *Client, desired, actua
 		c.Config.Logger.Infof("desired XPos %s - but actually nil", dcl.SprintResource(desired.XPos))
 		return true
 	}
-	if !reflect.DeepEqual(desired.XPos, actual.XPos) && !dcl.IsZeroValue(desired.XPos) && !(dcl.IsEmptyValueIndirect(desired.XPos) && dcl.IsZeroValue(actual.XPos)) {
+	if !reflect.DeepEqual(desired.XPos, actual.XPos) && !dcl.IsZeroValue(desired.XPos) {
 		c.Config.Logger.Infof("Diff in XPos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.XPos), dcl.SprintResource(actual.XPos))
 		return true
 	}
@@ -19057,7 +21589,7 @@ func compareDashboardTabbedLayoutTabsMosaicLayoutTiles(c *Client, desired, actua
 		c.Config.Logger.Infof("desired YPos %s - but actually nil", dcl.SprintResource(desired.YPos))
 		return true
 	}
-	if !reflect.DeepEqual(desired.YPos, actual.YPos) && !dcl.IsZeroValue(desired.YPos) && !(dcl.IsEmptyValueIndirect(desired.YPos) && dcl.IsZeroValue(actual.YPos)) {
+	if !reflect.DeepEqual(desired.YPos, actual.YPos) && !dcl.IsZeroValue(desired.YPos) {
 		c.Config.Logger.Infof("Diff in YPos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.YPos), dcl.SprintResource(actual.YPos))
 		return true
 	}
@@ -19065,7 +21597,7 @@ func compareDashboardTabbedLayoutTabsMosaicLayoutTiles(c *Client, desired, actua
 		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) && !(dcl.IsEmptyValueIndirect(desired.Width) && dcl.IsZeroValue(actual.Width)) {
+	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
 		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
@@ -19073,7 +21605,7 @@ func compareDashboardTabbedLayoutTabsMosaicLayoutTiles(c *Client, desired, actua
 		c.Config.Logger.Infof("desired Height %s - but actually nil", dcl.SprintResource(desired.Height))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Height, actual.Height) && !dcl.IsZeroValue(desired.Height) && !(dcl.IsEmptyValueIndirect(desired.Height) && dcl.IsZeroValue(actual.Height)) {
+	if !reflect.DeepEqual(desired.Height, actual.Height) && !dcl.IsZeroValue(desired.Height) {
 		c.Config.Logger.Infof("Diff in Height. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Height), dcl.SprintResource(actual.Height))
 		return true
 	}
@@ -19087,14 +21619,34 @@ func compareDashboardTabbedLayoutTabsMosaicLayoutTiles(c *Client, desired, actua
 	}
 	return false
 }
-func compareDashboardTabbedLayoutTabsRowLayoutSlice(c *Client, desired, actual []DashboardTabbedLayoutTabsRowLayout) bool {
+
+func compareDashboardTabbedLayoutTabsMosaicLayoutTilesSlice(c *Client, desired, actual []DashboardTabbedLayoutTabsMosaicLayoutTiles) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsRowLayout, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsMosaicLayoutTiles, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardTabbedLayoutTabsRowLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsRowLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardTabbedLayoutTabsMosaicLayoutTiles(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsMosaicLayoutTiles, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardTabbedLayoutTabsMosaicLayoutTilesMap(c *Client, desired, actual map[string]DashboardTabbedLayoutTabsMosaicLayoutTiles) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsMosaicLayoutTiles, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsMosaicLayoutTiles, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardTabbedLayoutTabsMosaicLayoutTiles(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsMosaicLayoutTiles, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19118,14 +21670,34 @@ func compareDashboardTabbedLayoutTabsRowLayout(c *Client, desired, actual *Dashb
 	}
 	return false
 }
-func compareDashboardTabbedLayoutTabsRowLayoutRowsSlice(c *Client, desired, actual []DashboardTabbedLayoutTabsRowLayoutRows) bool {
+
+func compareDashboardTabbedLayoutTabsRowLayoutSlice(c *Client, desired, actual []DashboardTabbedLayoutTabsRowLayout) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsRowLayoutRows, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsRowLayout, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardTabbedLayoutTabsRowLayoutRows(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsRowLayoutRows, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardTabbedLayoutTabsRowLayout(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsRowLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardTabbedLayoutTabsRowLayoutMap(c *Client, desired, actual map[string]DashboardTabbedLayoutTabsRowLayout) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsRowLayout, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsRowLayout, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardTabbedLayoutTabsRowLayout(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsRowLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19143,7 +21715,7 @@ func compareDashboardTabbedLayoutTabsRowLayoutRows(c *Client, desired, actual *D
 		c.Config.Logger.Infof("desired Weight %s - but actually nil", dcl.SprintResource(desired.Weight))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Weight, actual.Weight) && !dcl.IsZeroValue(desired.Weight) && !(dcl.IsEmptyValueIndirect(desired.Weight) && dcl.IsZeroValue(actual.Weight)) {
+	if !reflect.DeepEqual(desired.Weight, actual.Weight) && !dcl.IsZeroValue(desired.Weight) {
 		c.Config.Logger.Infof("Diff in Weight. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Weight), dcl.SprintResource(actual.Weight))
 		return true
 	}
@@ -19151,20 +21723,40 @@ func compareDashboardTabbedLayoutTabsRowLayoutRows(c *Client, desired, actual *D
 		c.Config.Logger.Infof("desired Widgets %s - but actually nil", dcl.SprintResource(desired.Widgets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) && !(dcl.IsEmptyValueIndirect(desired.Widgets) && dcl.IsZeroValue(actual.Widgets)) {
+	if !reflect.DeepEqual(desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
 		c.Config.Logger.Infof("Diff in Widgets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
 		return true
 	}
 	return false
 }
-func compareDashboardTabbedLayoutTabsColumnLayoutSlice(c *Client, desired, actual []DashboardTabbedLayoutTabsColumnLayout) bool {
+
+func compareDashboardTabbedLayoutTabsRowLayoutRowsSlice(c *Client, desired, actual []DashboardTabbedLayoutTabsRowLayoutRows) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsColumnLayout, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsRowLayoutRows, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardTabbedLayoutTabsColumnLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsColumnLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardTabbedLayoutTabsRowLayoutRows(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsRowLayoutRows, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardTabbedLayoutTabsRowLayoutRowsMap(c *Client, desired, actual map[string]DashboardTabbedLayoutTabsRowLayoutRows) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsRowLayoutRows, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsRowLayoutRows, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardTabbedLayoutTabsRowLayoutRows(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsRowLayoutRows, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19188,14 +21780,34 @@ func compareDashboardTabbedLayoutTabsColumnLayout(c *Client, desired, actual *Da
 	}
 	return false
 }
-func compareDashboardTabbedLayoutTabsColumnLayoutColumnsSlice(c *Client, desired, actual []DashboardTabbedLayoutTabsColumnLayoutColumns) bool {
+
+func compareDashboardTabbedLayoutTabsColumnLayoutSlice(c *Client, desired, actual []DashboardTabbedLayoutTabsColumnLayout) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsColumnLayoutColumns, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsColumnLayout, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardTabbedLayoutTabsColumnLayoutColumns(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsColumnLayoutColumns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardTabbedLayoutTabsColumnLayout(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsColumnLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardTabbedLayoutTabsColumnLayoutMap(c *Client, desired, actual map[string]DashboardTabbedLayoutTabsColumnLayout) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsColumnLayout, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsColumnLayout, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardTabbedLayoutTabsColumnLayout(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsColumnLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19213,7 +21825,7 @@ func compareDashboardTabbedLayoutTabsColumnLayoutColumns(c *Client, desired, act
 		c.Config.Logger.Infof("desired Weight %s - but actually nil", dcl.SprintResource(desired.Weight))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Weight, actual.Weight) && !dcl.IsZeroValue(desired.Weight) && !(dcl.IsEmptyValueIndirect(desired.Weight) && dcl.IsZeroValue(actual.Weight)) {
+	if !reflect.DeepEqual(desired.Weight, actual.Weight) && !dcl.IsZeroValue(desired.Weight) {
 		c.Config.Logger.Infof("Diff in Weight. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Weight), dcl.SprintResource(actual.Weight))
 		return true
 	}
@@ -19221,20 +21833,40 @@ func compareDashboardTabbedLayoutTabsColumnLayoutColumns(c *Client, desired, act
 		c.Config.Logger.Infof("desired Widgets %s - but actually nil", dcl.SprintResource(desired.Widgets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) && !(dcl.IsEmptyValueIndirect(desired.Widgets) && dcl.IsZeroValue(actual.Widgets)) {
+	if !reflect.DeepEqual(desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
 		c.Config.Logger.Infof("Diff in Widgets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
 		return true
 	}
 	return false
 }
-func compareDashboardTabbedLayoutFeaturedMosaicLayoutSlice(c *Client, desired, actual []DashboardTabbedLayoutFeaturedMosaicLayout) bool {
+
+func compareDashboardTabbedLayoutTabsColumnLayoutColumnsSlice(c *Client, desired, actual []DashboardTabbedLayoutTabsColumnLayoutColumns) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutFeaturedMosaicLayout, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsColumnLayoutColumns, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardTabbedLayoutFeaturedMosaicLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutFeaturedMosaicLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardTabbedLayoutTabsColumnLayoutColumns(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsColumnLayoutColumns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardTabbedLayoutTabsColumnLayoutColumnsMap(c *Client, desired, actual map[string]DashboardTabbedLayoutTabsColumnLayoutColumns) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsColumnLayoutColumns, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsColumnLayoutColumns, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardTabbedLayoutTabsColumnLayoutColumns(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsColumnLayoutColumns, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19252,7 +21884,7 @@ func compareDashboardTabbedLayoutFeaturedMosaicLayout(c *Client, desired, actual
 		c.Config.Logger.Infof("desired Columns %s - but actually nil", dcl.SprintResource(desired.Columns))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Columns, actual.Columns) && !dcl.IsZeroValue(desired.Columns) && !(dcl.IsEmptyValueIndirect(desired.Columns) && dcl.IsZeroValue(actual.Columns)) {
+	if !reflect.DeepEqual(desired.Columns, actual.Columns) && !dcl.IsZeroValue(desired.Columns) {
 		c.Config.Logger.Infof("Diff in Columns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Columns), dcl.SprintResource(actual.Columns))
 		return true
 	}
@@ -19266,14 +21898,34 @@ func compareDashboardTabbedLayoutFeaturedMosaicLayout(c *Client, desired, actual
 	}
 	return false
 }
-func compareDashboardTabbedLayoutFeaturedMosaicLayoutTilesSlice(c *Client, desired, actual []DashboardTabbedLayoutFeaturedMosaicLayoutTiles) bool {
+
+func compareDashboardTabbedLayoutFeaturedMosaicLayoutSlice(c *Client, desired, actual []DashboardTabbedLayoutFeaturedMosaicLayout) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutFeaturedMosaicLayoutTiles, lengths unequal.")
+		c.Config.Logger.Info("Diff in DashboardTabbedLayoutFeaturedMosaicLayout, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDashboardTabbedLayoutFeaturedMosaicLayoutTiles(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutFeaturedMosaicLayoutTiles, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDashboardTabbedLayoutFeaturedMosaicLayout(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutFeaturedMosaicLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardTabbedLayoutFeaturedMosaicLayoutMap(c *Client, desired, actual map[string]DashboardTabbedLayoutFeaturedMosaicLayout) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardTabbedLayoutFeaturedMosaicLayout, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutFeaturedMosaicLayout, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardTabbedLayoutFeaturedMosaicLayout(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutFeaturedMosaicLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19291,7 +21943,7 @@ func compareDashboardTabbedLayoutFeaturedMosaicLayoutTiles(c *Client, desired, a
 		c.Config.Logger.Infof("desired XPos %s - but actually nil", dcl.SprintResource(desired.XPos))
 		return true
 	}
-	if !reflect.DeepEqual(desired.XPos, actual.XPos) && !dcl.IsZeroValue(desired.XPos) && !(dcl.IsEmptyValueIndirect(desired.XPos) && dcl.IsZeroValue(actual.XPos)) {
+	if !reflect.DeepEqual(desired.XPos, actual.XPos) && !dcl.IsZeroValue(desired.XPos) {
 		c.Config.Logger.Infof("Diff in XPos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.XPos), dcl.SprintResource(actual.XPos))
 		return true
 	}
@@ -19299,7 +21951,7 @@ func compareDashboardTabbedLayoutFeaturedMosaicLayoutTiles(c *Client, desired, a
 		c.Config.Logger.Infof("desired YPos %s - but actually nil", dcl.SprintResource(desired.YPos))
 		return true
 	}
-	if !reflect.DeepEqual(desired.YPos, actual.YPos) && !dcl.IsZeroValue(desired.YPos) && !(dcl.IsEmptyValueIndirect(desired.YPos) && dcl.IsZeroValue(actual.YPos)) {
+	if !reflect.DeepEqual(desired.YPos, actual.YPos) && !dcl.IsZeroValue(desired.YPos) {
 		c.Config.Logger.Infof("Diff in YPos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.YPos), dcl.SprintResource(actual.YPos))
 		return true
 	}
@@ -19307,7 +21959,7 @@ func compareDashboardTabbedLayoutFeaturedMosaicLayoutTiles(c *Client, desired, a
 		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) && !(dcl.IsEmptyValueIndirect(desired.Width) && dcl.IsZeroValue(actual.Width)) {
+	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
 		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
@@ -19315,7 +21967,7 @@ func compareDashboardTabbedLayoutFeaturedMosaicLayoutTiles(c *Client, desired, a
 		c.Config.Logger.Infof("desired Height %s - but actually nil", dcl.SprintResource(desired.Height))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Height, actual.Height) && !dcl.IsZeroValue(desired.Height) && !(dcl.IsEmptyValueIndirect(desired.Height) && dcl.IsZeroValue(actual.Height)) {
+	if !reflect.DeepEqual(desired.Height, actual.Height) && !dcl.IsZeroValue(desired.Height) {
 		c.Config.Logger.Infof("Diff in Height. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Height), dcl.SprintResource(actual.Height))
 		return true
 	}
@@ -19329,6 +21981,40 @@ func compareDashboardTabbedLayoutFeaturedMosaicLayoutTiles(c *Client, desired, a
 	}
 	return false
 }
+
+func compareDashboardTabbedLayoutFeaturedMosaicLayoutTilesSlice(c *Client, desired, actual []DashboardTabbedLayoutFeaturedMosaicLayoutTiles) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardTabbedLayoutFeaturedMosaicLayoutTiles, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareDashboardTabbedLayoutFeaturedMosaicLayoutTiles(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutFeaturedMosaicLayoutTiles, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardTabbedLayoutFeaturedMosaicLayoutTilesMap(c *Client, desired, actual map[string]DashboardTabbedLayoutFeaturedMosaicLayoutTiles) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardTabbedLayoutFeaturedMosaicLayoutTiles, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutFeaturedMosaicLayoutTiles, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardTabbedLayoutFeaturedMosaicLayoutTiles(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutFeaturedMosaicLayoutTiles, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
 func compareDashboardCategoryEnumSlice(c *Client, desired, actual []DashboardCategoryEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in DashboardCategoryEnum, lengths unequal.")
@@ -20432,6 +23118,7 @@ func compareDashboardWidgetTextFormatEnum(c *Client, desired, actual *DashboardW
 // short-form so they can be substituted in.
 func (r *Dashboard) urlNormalized() *Dashboard {
 	normalized := deepcopy.Copy(*r).(Dashboard)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
@@ -20483,6 +23170,10 @@ func unmarshalDashboard(b []byte, c *Client) (*Dashboard, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapDashboard(m, c)
+}
+
+func unmarshalMapDashboard(m map[string]interface{}, c *Client) (*Dashboard, error) {
 
 	return flattenDashboard(c, m), nil
 }
@@ -40686,7 +43377,7 @@ func flattenDashboardCategoryEnumSlice(c *Client, i interface{}) []DashboardCate
 
 	items := make([]DashboardCategoryEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardCategoryEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardCategoryEnum(item.(interface{})))
 	}
 
 	return items
@@ -40717,7 +43408,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(item.(interface{})))
 	}
 
 	return items
@@ -40748,7 +43439,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(item.(interface{})))
 	}
 
 	return items
@@ -40779,7 +43470,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(item.(interface{})))
 	}
 
 	return items
@@ -40810,7 +43501,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(item.(interface{})))
 	}
 
 	return items
@@ -40841,7 +43532,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(item.(interface{})))
 	}
 
 	return items
@@ -40872,7 +43563,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(item.(interface{})))
 	}
 
 	return items
@@ -40903,7 +43594,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(item.(interface{})))
 	}
 
 	return items
@@ -40934,7 +43625,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(item.(interface{})))
 	}
 
 	return items
@@ -40965,7 +43656,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(item.(interface{})))
 	}
 
 	return items
@@ -40996,7 +43687,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(item.(interface{})))
 	}
 
 	return items
@@ -41027,7 +43718,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(item.(interface{})))
 	}
 
 	return items
@@ -41058,7 +43749,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(item.(interface{})))
 	}
 
 	return items
@@ -41089,7 +43780,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(item.(interface{})))
 	}
 
 	return items
@@ -41120,7 +43811,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(item.(interface{})))
 	}
 
 	return items
@@ -41151,7 +43842,7 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryApiSourceEnumSlice(c *C
 
 	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryApiSourceEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryApiSourceEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryApiSourceEnum(item.(interface{})))
 	}
 
 	return items
@@ -41182,7 +43873,7 @@ func flattenDashboardWidgetXyChartDataSetsPlotTypeEnumSlice(c *Client, i interfa
 
 	items := make([]DashboardWidgetXyChartDataSetsPlotTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsPlotTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartDataSetsPlotTypeEnum(item.(interface{})))
 	}
 
 	return items
@@ -41213,7 +43904,7 @@ func flattenDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsLogicalO
 
 	items := make([]DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsLogicalOperatorEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsLogicalOperatorEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsLogicalOperatorEnum(item.(interface{})))
 	}
 
 	return items
@@ -41244,7 +43935,7 @@ func flattenDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRes
 
 	items := make([]DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictionsComparatorEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictionsComparatorEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictionsComparatorEnum(item.(interface{})))
 	}
 
 	return items
@@ -41275,7 +43966,7 @@ func flattenDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsLo
 
 	items := make([]DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsLogicalOperatorEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsLogicalOperatorEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsLogicalOperatorEnum(item.(interface{})))
 	}
 
 	return items
@@ -41306,7 +43997,7 @@ func flattenDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsVa
 
 	items := make([]DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsComparatorEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsComparatorEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsComparatorEnum(item.(interface{})))
 	}
 
 	return items
@@ -41337,7 +44028,7 @@ func flattenDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsLogi
 
 	items := make([]DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsLogicalOperatorEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsLogicalOperatorEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsLogicalOperatorEnum(item.(interface{})))
 	}
 
 	return items
@@ -41368,7 +44059,7 @@ func flattenDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValu
 
 	items := make([]DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsComparatorEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsComparatorEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsComparatorEnum(item.(interface{})))
 	}
 
 	return items
@@ -41399,7 +44090,7 @@ func flattenDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownTypesEnumSl
 
 	items := make([]DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownTypesEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownTypesEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownTypesEnum(item.(interface{})))
 	}
 
 	return items
@@ -41430,7 +44121,7 @@ func flattenDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsLogicalOpe
 
 	items := make([]DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsLogicalOperatorEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsLogicalOperatorEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsLogicalOperatorEnum(item.(interface{})))
 	}
 
 	return items
@@ -41461,7 +44152,7 @@ func flattenDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestr
 
 	items := make([]DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictionsComparatorEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictionsComparatorEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictionsComparatorEnum(item.(interface{})))
 	}
 
 	return items
@@ -41492,7 +44183,7 @@ func flattenDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownReducerEn
 
 	items := make([]DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownReducerEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownReducerEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownReducerEnum(item.(interface{})))
 	}
 
 	return items
@@ -41523,7 +44214,7 @@ func flattenDashboardWidgetXyChartThresholdsColorEnumSlice(c *Client, i interfac
 
 	items := make([]DashboardWidgetXyChartThresholdsColorEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartThresholdsColorEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartThresholdsColorEnum(item.(interface{})))
 	}
 
 	return items
@@ -41554,7 +44245,7 @@ func flattenDashboardWidgetXyChartThresholdsDirectionEnumSlice(c *Client, i inte
 
 	items := make([]DashboardWidgetXyChartThresholdsDirectionEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartThresholdsDirectionEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartThresholdsDirectionEnum(item.(interface{})))
 	}
 
 	return items
@@ -41585,7 +44276,7 @@ func flattenDashboardWidgetXyChartXAxisScaleEnumSlice(c *Client, i interface{}) 
 
 	items := make([]DashboardWidgetXyChartXAxisScaleEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartXAxisScaleEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartXAxisScaleEnum(item.(interface{})))
 	}
 
 	return items
@@ -41616,7 +44307,7 @@ func flattenDashboardWidgetXyChartYAxisScaleEnumSlice(c *Client, i interface{}) 
 
 	items := make([]DashboardWidgetXyChartYAxisScaleEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartYAxisScaleEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartYAxisScaleEnum(item.(interface{})))
 	}
 
 	return items
@@ -41647,7 +44338,7 @@ func flattenDashboardWidgetXyChartChartOptionsModeEnumSlice(c *Client, i interfa
 
 	items := make([]DashboardWidgetXyChartChartOptionsModeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartChartOptionsModeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetXyChartChartOptionsModeEnum(item.(interface{})))
 	}
 
 	return items
@@ -41678,7 +44369,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPe
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(item.(interface{})))
 	}
 
 	return items
@@ -41709,7 +44400,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCr
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(item.(interface{})))
 	}
 
 	return items
@@ -41740,7 +44431,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(item.(interface{})))
 	}
 
 	return items
@@ -41771,7 +44462,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(item.(interface{})))
 	}
 
 	return items
@@ -41802,7 +44493,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(item.(interface{})))
 	}
 
 	return items
@@ -41833,7 +44524,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(item.(interface{})))
 	}
 
 	return items
@@ -41864,7 +44555,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(item.(interface{})))
 	}
 
 	return items
@@ -41895,7 +44586,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(item.(interface{})))
 	}
 
 	return items
@@ -41926,7 +44617,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(item.(interface{})))
 	}
 
 	return items
@@ -41957,7 +44648,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(item.(interface{})))
 	}
 
 	return items
@@ -41988,7 +44679,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(item.(interface{})))
 	}
 
 	return items
@@ -42019,7 +44710,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(item.(interface{})))
 	}
 
 	return items
@@ -42050,7 +44741,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(item.(interface{})))
 	}
 
 	return items
@@ -42081,7 +44772,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(item.(interface{})))
 	}
 
 	return items
@@ -42112,7 +44803,7 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryApiSourceEnumSlice(c *Client,
 
 	items := make([]DashboardWidgetScorecardTimeSeriesQueryApiSourceEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryApiSourceEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryApiSourceEnum(item.(interface{})))
 	}
 
 	return items
@@ -42143,7 +44834,7 @@ func flattenDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsLogica
 
 	items := make([]DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsLogicalOperatorEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsLogicalOperatorEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsLogicalOperatorEnum(item.(interface{})))
 	}
 
 	return items
@@ -42174,7 +44865,7 @@ func flattenDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueR
 
 	items := make([]DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictionsComparatorEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictionsComparatorEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictionsComparatorEnum(item.(interface{})))
 	}
 
 	return items
@@ -42205,7 +44896,7 @@ func flattenDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
 
 	items := make([]DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsLogicalOperatorEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsLogicalOperatorEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsLogicalOperatorEnum(item.(interface{})))
 	}
 
 	return items
@@ -42236,7 +44927,7 @@ func flattenDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
 
 	items := make([]DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsComparatorEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsComparatorEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsComparatorEnum(item.(interface{})))
 	}
 
 	return items
@@ -42267,7 +44958,7 @@ func flattenDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsLo
 
 	items := make([]DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsLogicalOperatorEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsLogicalOperatorEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsLogicalOperatorEnum(item.(interface{})))
 	}
 
 	return items
@@ -42298,7 +44989,7 @@ func flattenDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsVa
 
 	items := make([]DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsComparatorEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsComparatorEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsComparatorEnum(item.(interface{})))
 	}
 
 	return items
@@ -42329,7 +45020,7 @@ func flattenDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownTypesEnum
 
 	items := make([]DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownTypesEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownTypesEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownTypesEnum(item.(interface{})))
 	}
 
 	return items
@@ -42360,7 +45051,7 @@ func flattenDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsLogicalO
 
 	items := make([]DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsLogicalOperatorEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsLogicalOperatorEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsLogicalOperatorEnum(item.(interface{})))
 	}
 
 	return items
@@ -42391,7 +45082,7 @@ func flattenDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRes
 
 	items := make([]DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictionsComparatorEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictionsComparatorEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictionsComparatorEnum(item.(interface{})))
 	}
 
 	return items
@@ -42422,7 +45113,7 @@ func flattenDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldownReducer
 
 	items := make([]DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldownReducerEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldownReducerEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldownReducerEnum(item.(interface{})))
 	}
 
 	return items
@@ -42453,7 +45144,7 @@ func flattenDashboardWidgetScorecardSparkChartViewSparkChartTypeEnumSlice(c *Cli
 
 	items := make([]DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardSparkChartViewSparkChartTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardSparkChartViewSparkChartTypeEnum(item.(interface{})))
 	}
 
 	return items
@@ -42484,7 +45175,7 @@ func flattenDashboardWidgetScorecardThresholdsColorEnumSlice(c *Client, i interf
 
 	items := make([]DashboardWidgetScorecardThresholdsColorEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardThresholdsColorEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardThresholdsColorEnum(item.(interface{})))
 	}
 
 	return items
@@ -42515,7 +45206,7 @@ func flattenDashboardWidgetScorecardThresholdsDirectionEnumSlice(c *Client, i in
 
 	items := make([]DashboardWidgetScorecardThresholdsDirectionEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardThresholdsDirectionEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetScorecardThresholdsDirectionEnum(item.(interface{})))
 	}
 
 	return items
@@ -42546,7 +45237,7 @@ func flattenDashboardWidgetTextFormatEnumSlice(c *Client, i interface{}) []Dashb
 
 	items := make([]DashboardWidgetTextFormatEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetTextFormatEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDashboardWidgetTextFormatEnum(item.(interface{})))
 	}
 
 	return items

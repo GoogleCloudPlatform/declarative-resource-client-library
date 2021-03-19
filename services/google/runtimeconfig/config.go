@@ -60,6 +60,9 @@ func (l *ConfigList) HasNext() bool {
 }
 
 func (l *ConfigList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -73,12 +76,17 @@ func (l *ConfigList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListConfig(ctx context.Context, project, name string) (*ConfigList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListConfigWithMaxResults(ctx, project, name, ConfigMaxPage)
 
 }
 
 func (c *Client) ListConfigWithMaxResults(ctx context.Context, project, name string, pageSize int32) (*ConfigList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listConfig(ctx, project, name, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -95,6 +103,9 @@ func (c *Client) ListConfigWithMaxResults(ctx context.Context, project, name str
 }
 
 func (c *Client) GetConfig(ctx context.Context, r *Config) (*Config, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getConfigRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -124,6 +135,9 @@ func (c *Client) GetConfig(ctx context.Context, r *Config) (*Config, error) {
 }
 
 func (c *Client) DeleteConfig(ctx context.Context, r *Config) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Config resource is nil")
 	}
@@ -134,6 +148,9 @@ func (c *Client) DeleteConfig(ctx context.Context, r *Config) error {
 
 // DeleteAllConfig deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllConfig(ctx context.Context, project, name string, filter func(*Config) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListConfig(ctx, project, name)
 	if err != nil {
 		return err
@@ -159,6 +176,9 @@ func (c *Client) DeleteAllConfig(ctx context.Context, project, name string, filt
 func (c *Client) ApplyConfig(ctx context.Context, rawDesired *Config, opts ...dcl.ApplyOption) (*Config, error) {
 	c.Config.Logger.Info("Beginning ApplyConfig...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -239,12 +259,35 @@ func (c *Client) ApplyConfig(ctx context.Context, rawDesired *Config, opts ...dc
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createConfigOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapConfig(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeConfigNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeConfigNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

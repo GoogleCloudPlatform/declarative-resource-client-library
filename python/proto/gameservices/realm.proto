@@ -49,6 +49,7 @@ message ListGameservicesRealmRequest {
 message ListGameservicesRealmResponse {
   repeated GameservicesRealm items = 1;
 }
+
 service GameservicesRealmService {
   rpc ApplyGameservicesRealm(ApplyGameservicesRealmRequest) returns (GameservicesRealm);
   rpc DeleteGameservicesRealm(DeleteGameservicesRealmRequest) returns (google.protobuf.Empty);

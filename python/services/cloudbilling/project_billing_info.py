@@ -56,14 +56,19 @@ class ProjectBillingInfo(object):
         self.billing_account_name = Primitive.from_proto(response.billing_account_name)
         self.billing_enabled = Primitive.from_proto(response.billing_enabled)
 
-    @classmethod
-    def delete(self, name, service_account_file=""):
+    def delete(self):
         stub = project_billing_info_pb2_grpc.CloudbillingProjectBillingInfoServiceStub(
             channel.Channel()
         )
         request = project_billing_info_pb2.DeleteCloudbillingProjectBillingInfoRequest()
-        request.service_account_file = service_account_file
-        request.Name = name
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.billing_account_name):
+            request.resource.billing_account_name = Primitive.to_proto(
+                self.billing_account_name
+            )
 
         response = stub.DeleteCloudbillingProjectBillingInfo(request)
 
@@ -89,6 +94,16 @@ class ProjectBillingInfo(object):
         res.billing_account_name = Primitive.from_proto(res_proto.billing_account_name)
         res.billing_enabled = Primitive.from_proto(res_proto.billing_enabled)
         return res
+
+    def to_proto(self):
+        resource = project_billing_info_pb2.CloudbillingProjectBillingInfo()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.billing_account_name):
+            resource.billing_account_name = Primitive.to_proto(
+                self.billing_account_name
+            )
+        return resource
 
 
 class Primitive(object):

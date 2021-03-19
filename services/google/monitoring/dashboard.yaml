@@ -43,7 +43,6 @@ components:
                     format: int64
                     type: integer
                     x-dcl-go-name: Weight
-                    x-kubernetes-immutable: true
                   widgets:
                     description: The display widgets arranged vertically in this column.
                     items:
@@ -54,7 +53,6 @@ components:
                           type: object
                           x-dcl-go-name: Blank
                           x-dcl-go-type: DashboardWidgetBlank
-                          x-kubernetes-immutable: true
                         scorecard:
                           description: A scorecard summarizing time series data.
                           properties:
@@ -69,7 +67,6 @@ components:
                                   format: double
                                   type: number
                                   x-dcl-go-name: LowerBound
-                                  x-kubernetes-immutable: true
                                 upperBound:
                                   description: The upper bound for this gauge chart.
                                     The value of the chart should always be less than
@@ -77,11 +74,9 @@ components:
                                   format: double
                                   type: number
                                   x-dcl-go-name: UpperBound
-                                  x-kubernetes-immutable: true
                               type: object
                               x-dcl-go-name: GaugeView
                               x-dcl-go-type: DashboardWidgetScorecardGaugeView
-                              x-kubernetes-immutable: true
                             metricDrilldown:
                               description: The widget-level metric drilldowns define
                                 the scope of the widget and are applied in addition
@@ -100,7 +95,6 @@ components:
                                       type: array
                                       x-dcl-go-name: MetadataSystemLabels
                                       x-dcl-list-type: list
-                                      x-kubernetes-immutable: true
                                     metadataUserLabels:
                                       description: Metadata user labels by which to
                                         group the output time series.
@@ -110,7 +104,6 @@ components:
                                       type: array
                                       x-dcl-go-name: MetadataUserLabels
                                       x-dcl-list-type: list
-                                      x-kubernetes-immutable: true
                                     metricLabels:
                                       description: Metric labels by which to group
                                         the output time series.
@@ -120,7 +113,6 @@ components:
                                       type: array
                                       x-dcl-go-name: MetricLabels
                                       x-dcl-list-type: list
-                                      x-kubernetes-immutable: true
                                     reducer:
                                       description: 'How to aggregate the time series
                                         data while grouping. Possible values: REDUCE_NONE,
@@ -150,7 +142,6 @@ components:
                                       type: string
                                       x-dcl-go-name: Reducer
                                       x-dcl-go-type: DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldownReducerEnum
-                                      x-kubernetes-immutable: true
                                     resourceLabels:
                                       description: Resource labels by which to group
                                         the output time series.
@@ -160,11 +151,9 @@ components:
                                       type: array
                                       x-dcl-go-name: ResourceLabels
                                       x-dcl-list-type: list
-                                      x-kubernetes-immutable: true
                                   type: object
                                   x-dcl-go-name: MetricGroupByDrilldown
                                   x-dcl-go-type: DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown
-                                  x-kubernetes-immutable: true
                                 metricLabelDrilldowns:
                                   description: Each `MetricLabelDrilldown` limits
                                     the metrics that will be retrieved, based on the
@@ -179,7 +168,6 @@ components:
                                           defines a restriction.
                                         type: string
                                         x-dcl-go-name: Label
-                                        x-kubernetes-immutable: true
                                       logicalOperator:
                                         description: 'The operator that defines how
                                           value restrictions on the label are joined.
@@ -192,7 +180,6 @@ components:
                                         type: string
                                         x-dcl-go-name: LogicalOperator
                                         x-dcl-go-type: DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsLogicalOperatorEnum
-                                        x-kubernetes-immutable: true
                                       valueRestrictions:
                                         description: The values and rules to match
                                           against a metric label.
@@ -212,25 +199,21 @@ components:
                                               type: string
                                               x-dcl-go-name: Comparator
                                               x-dcl-go-type: DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictionsComparatorEnum
-                                              x-kubernetes-immutable: true
                                             targetValue:
                                               description: The value against which
                                                 to match.
                                               type: string
                                               x-dcl-go-name: TargetValue
-                                              x-kubernetes-immutable: true
                                           type: object
                                           x-dcl-go-type: DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions
                                         type: array
                                         x-dcl-go-name: ValueRestrictions
                                         x-dcl-list-type: list
-                                        x-kubernetes-immutable: true
                                     type: object
                                     x-dcl-go-type: DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns
                                   type: array
                                   x-dcl-go-name: MetricLabelDrilldowns
                                   x-dcl-list-type: list
-                                  x-kubernetes-immutable: true
                                 metricTypeDrilldown:
                                   description: Limit the metrics signals retrieved
                                     based on the metric type.
@@ -240,15 +223,12 @@ components:
                                         Only strict-equals is supported.
                                       type: string
                                       x-dcl-go-name: TargetValue
-                                      x-kubernetes-immutable: true
                                   type: object
                                   x-dcl-go-name: MetricTypeDrilldown
                                   x-dcl-go-type: DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown
-                                  x-kubernetes-immutable: true
                               type: object
                               x-dcl-go-name: MetricDrilldown
                               x-dcl-go-type: DashboardWidgetScorecardMetricDrilldown
-                              x-kubernetes-immutable: true
                             sourceDrilldown:
                               description: The widget-level source drilldowns define
                                 the scope of the widget and are applied in addition
@@ -269,11 +249,9 @@ components:
                                       type: array
                                       x-dcl-go-name: TargetValues
                                       x-dcl-list-type: list
-                                      x-kubernetes-immutable: true
                                   type: object
                                   x-dcl-go-name: GroupNameDrilldown
                                   x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown
-                                  x-kubernetes-immutable: true
                                 metadataSystemLabelDrilldowns:
                                   description: Each limits the resources from which
                                     signals are retrieved based on a metadata system
@@ -288,7 +266,6 @@ components:
                                           the drilldown will be restricted to.
                                         type: string
                                         x-dcl-go-name: Label
-                                        x-kubernetes-immutable: true
                                       logicalOperator:
                                         description: 'The logical operator that defines
                                           how all the value restrictions on the label
@@ -301,7 +278,6 @@ components:
                                         type: string
                                         x-dcl-go-name: LogicalOperator
                                         x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsLogicalOperatorEnum
-                                        x-kubernetes-immutable: true
                                       valueRestrictions:
                                         description: The values and rules to match
                                           against a `MonitoredResourceMetadata` object's
@@ -322,25 +298,21 @@ components:
                                               type: string
                                               x-dcl-go-name: Comparator
                                               x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsComparatorEnum
-                                              x-kubernetes-immutable: true
                                             targetValue:
                                               description: The value against which
                                                 to match.
                                               type: string
                                               x-dcl-go-name: TargetValue
-                                              x-kubernetes-immutable: true
                                           type: object
                                           x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions
                                         type: array
                                         x-dcl-go-name: ValueRestrictions
                                         x-dcl-list-type: list
-                                        x-kubernetes-immutable: true
                                     type: object
                                     x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
                                   type: array
                                   x-dcl-go-name: MetadataSystemLabelDrilldowns
                                   x-dcl-list-type: list
-                                  x-kubernetes-immutable: true
                                 metadataUserLabelDrilldowns:
                                   description: Each limits the resources from which
                                     signals are retrieved based on a metadata user
@@ -355,7 +327,6 @@ components:
                                           the drilldown will be restricted to.
                                         type: string
                                         x-dcl-go-name: Label
-                                        x-kubernetes-immutable: true
                                       logicalOperator:
                                         description: 'The operator that defines how
                                           value restrictions on the label are joined.
@@ -368,7 +339,6 @@ components:
                                         type: string
                                         x-dcl-go-name: LogicalOperator
                                         x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsLogicalOperatorEnum
-                                        x-kubernetes-immutable: true
                                       valueRestrictions:
                                         description: The values and rules to match
                                           against a `MonitoredResourceMetadata object's
@@ -389,25 +359,21 @@ components:
                                               type: string
                                               x-dcl-go-name: Comparator
                                               x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsComparatorEnum
-                                              x-kubernetes-immutable: true
                                             targetValue:
                                               description: The value against which
                                                 to match.
                                               type: string
                                               x-dcl-go-name: TargetValue
-                                              x-kubernetes-immutable: true
                                           type: object
                                           x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions
                                         type: array
                                         x-dcl-go-name: ValueRestrictions
                                         x-dcl-list-type: list
-                                        x-kubernetes-immutable: true
                                     type: object
                                     x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns
                                   type: array
                                   x-dcl-go-name: MetadataUserLabelDrilldowns
                                   x-dcl-list-type: list
-                                  x-kubernetes-immutable: true
                                 resourceLabelDrilldowns:
                                   description: Each limits the resources from which
                                     signals are retrieved based on a resource label.  Each
@@ -424,7 +390,6 @@ components:
                                           label.
                                         type: string
                                         x-dcl-go-name: Label
-                                        x-kubernetes-immutable: true
                                       logicalOperator:
                                         description: 'The operator that defines how
                                           value restrictions on the label are joined.
@@ -437,7 +402,6 @@ components:
                                         type: string
                                         x-dcl-go-name: LogicalOperator
                                         x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsLogicalOperatorEnum
-                                        x-kubernetes-immutable: true
                                       valueRestrictions:
                                         description: The values and rules to match
                                           against a `MonitoredResource` object's label.
@@ -457,25 +421,21 @@ components:
                                               type: string
                                               x-dcl-go-name: Comparator
                                               x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictionsComparatorEnum
-                                              x-kubernetes-immutable: true
                                             targetValue:
                                               description: The value against which
                                                 to match.
                                               type: string
                                               x-dcl-go-name: TargetValue
-                                              x-kubernetes-immutable: true
                                           type: object
                                           x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions
                                         type: array
                                         x-dcl-go-name: ValueRestrictions
                                         x-dcl-list-type: list
-                                        x-kubernetes-immutable: true
                                     type: object
                                     x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns
                                   type: array
                                   x-dcl-go-name: ResourceLabelDrilldowns
                                   x-dcl-list-type: list
-                                  x-kubernetes-immutable: true
                                 resourceTypeDrilldown:
                                   description: Limit the resources from which signals
                                     are retrieved based on their resource type.
@@ -489,11 +449,9 @@ components:
                                       type: array
                                       x-dcl-go-name: TargetValues
                                       x-dcl-list-type: list
-                                      x-kubernetes-immutable: true
                                   type: object
                                   x-dcl-go-name: ResourceTypeDrilldown
                                   x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown
-                                  x-kubernetes-immutable: true
                                 serviceNameDrilldown:
                                   description: Limit the resources from which signals
                                     are retrieved based on their inclusion in some
@@ -509,11 +467,9 @@ components:
                                       type: array
                                       x-dcl-go-name: TargetValues
                                       x-dcl-list-type: list
-                                      x-kubernetes-immutable: true
                                   type: object
                                   x-dcl-go-name: ServiceNameDrilldown
                                   x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown
-                                  x-kubernetes-immutable: true
                                 serviceTypeDrilldown:
                                   description: Limit the resources from which signals
                                     are retrieved based on their inclusion in some
@@ -529,15 +485,12 @@ components:
                                       type: array
                                       x-dcl-go-name: Types
                                       x-dcl-list-type: list
-                                      x-kubernetes-immutable: true
                                   type: object
                                   x-dcl-go-name: ServiceTypeDrilldown
                                   x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown
-                                  x-kubernetes-immutable: true
                               type: object
                               x-dcl-go-name: SourceDrilldown
                               x-dcl-go-type: DashboardWidgetScorecardSourceDrilldown
-                              x-kubernetes-immutable: true
                             sparkChartView:
                               description: Will cause the scorecard to show a spark
                                 chart.
@@ -564,7 +517,6 @@ components:
                                       format: int64
                                       type: integer
                                       x-dcl-go-name: Nanos
-                                      x-kubernetes-immutable: true
                                     seconds:
                                       description: 'Signed seconds of the span of
                                         time. Must be from -315,576,000,000 to +315,576,000,000
@@ -574,11 +526,9 @@ components:
                                       format: int64
                                       type: integer
                                       x-dcl-go-name: Seconds
-                                      x-kubernetes-immutable: true
                                   type: object
                                   x-dcl-go-name: MinAlignmentPeriod
                                   x-dcl-go-type: DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod
-                                  x-kubernetes-immutable: true
                                 sparkChartType:
                                   description: 'Required. The type of sparkchart to
                                     show in this chartView. Possible values: SPARK_CHART_TYPE_UNSPECIFIED,
@@ -590,11 +540,9 @@ components:
                                   type: string
                                   x-dcl-go-name: SparkChartType
                                   x-dcl-go-type: DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum
-                                  x-kubernetes-immutable: true
                               type: object
                               x-dcl-go-name: SparkChartView
                               x-dcl-go-type: DashboardWidgetScorecardSparkChartView
-                              x-kubernetes-immutable: true
                             thresholds:
                               description: 'The thresholds used to determine the state
                                 of the scorecard given the time series'' current value.
@@ -635,7 +583,6 @@ components:
                                     type: string
                                     x-dcl-go-name: Color
                                     x-dcl-go-type: DashboardWidgetScorecardThresholdsColorEnum
-                                    x-kubernetes-immutable: true
                                   direction:
                                     description: 'The direction for the current threshold.
                                       Direction is not allowed in a XyChart. Possible
@@ -647,12 +594,10 @@ components:
                                     type: string
                                     x-dcl-go-name: Direction
                                     x-dcl-go-type: DashboardWidgetScorecardThresholdsDirectionEnum
-                                    x-kubernetes-immutable: true
                                   label:
                                     description: A label for the threshold.
                                     type: string
                                     x-dcl-go-name: Label
-                                    x-kubernetes-immutable: true
                                   value:
                                     description: The value of the threshold. The value
                                       should be defined in the native scale of the
@@ -660,13 +605,11 @@ components:
                                     format: double
                                     type: number
                                     x-dcl-go-name: Value
-                                    x-kubernetes-immutable: true
                                 type: object
                                 x-dcl-go-type: DashboardWidgetScorecardThresholds
                               type: array
                               x-dcl-go-name: Thresholds
                               x-dcl-list-type: list
-                              x-kubernetes-immutable: true
                             timeSeriesQuery:
                               description: Required. Fields for querying time series
                                 data from the Stackdriver metrics API.
@@ -682,7 +625,6 @@ components:
                                   type: string
                                   x-dcl-go-name: ApiSource
                                   x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryApiSourceEnum
-                                  x-kubernetes-immutable: true
                                 timeSeriesFilter:
                                   description: Filter parameters to fetch time series.
                                   properties:
@@ -721,7 +663,6 @@ components:
                                               format: int64
                                               type: integer
                                               x-dcl-go-name: Nanos
-                                              x-kubernetes-immutable: true
                                             seconds:
                                               description: 'Signed seconds of the
                                                 span of time. Must be from -315,576,000,000
@@ -732,11 +673,9 @@ components:
                                               format: int64
                                               type: integer
                                               x-dcl-go-name: Seconds
-                                              x-kubernetes-immutable: true
                                           type: object
                                           x-dcl-go-name: AlignmentPeriod
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod
-                                          x-kubernetes-immutable: true
                                         crossSeriesReducer:
                                           description: 'The reduction operation to
                                             be used to combine time series into a
@@ -785,7 +724,6 @@ components:
                                           type: string
                                           x-dcl-go-name: CrossSeriesReducer
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum
-                                          x-kubernetes-immutable: true
                                         groupByFields:
                                           description: The set of fields to preserve
                                             when `cross_series_reducer` is specified.
@@ -813,7 +751,6 @@ components:
                                           type: array
                                           x-dcl-go-name: GroupByFields
                                           x-dcl-list-type: list
-                                          x-kubernetes-immutable: true
                                         perSeriesAligner:
                                           description: An `Aligner` describes how
                                             to bring the data points in a single time
@@ -860,7 +797,6 @@ components:
                                           type: string
                                           x-dcl-go-name: PerSeriesAligner
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum
-                                          x-kubernetes-immutable: true
                                         reduceFractionLessThanParams:
                                           description: Parameters used when `cross_series_reducer`
                                             is `REDUCE_FRACTION_LESS_THAN`, ignored
@@ -873,11 +809,9 @@ components:
                                               format: double
                                               type: number
                                               x-dcl-go-name: Threshold
-                                              x-kubernetes-immutable: true
                                           type: object
                                           x-dcl-go-name: ReduceFractionLessThanParams
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams
-                                          x-kubernetes-immutable: true
                                         reduceMakeDistributionParams:
                                           description: Parameters used when `cross_series_reducer`
                                             is `REDUCE_MAKE_DISTRIBUTION`, ignored
@@ -900,11 +834,9 @@ components:
                                                       type: array
                                                       x-dcl-go-name: Bounds
                                                       x-dcl-list-type: list
-                                                      x-kubernetes-immutable: true
                                                   type: object
                                                   x-dcl-go-name: ExplicitBuckets
                                                   x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
-                                                  x-kubernetes-immutable: true
                                                 exponentialBuckets:
                                                   description: The exponential buckets.
                                                   properties:
@@ -914,25 +846,21 @@ components:
                                                       format: double
                                                       type: number
                                                       x-dcl-go-name: GrowthFactor
-                                                      x-kubernetes-immutable: true
                                                     numFiniteBuckets:
                                                       description: Must be greater
                                                         than 0.
                                                       format: int64
                                                       type: integer
                                                       x-dcl-go-name: NumFiniteBuckets
-                                                      x-kubernetes-immutable: true
                                                     scale:
                                                       description: Must be greater
                                                         than 0.
                                                       format: double
                                                       type: number
                                                       x-dcl-go-name: Scale
-                                                      x-kubernetes-immutable: true
                                                   type: object
                                                   x-dcl-go-name: ExponentialBuckets
                                                   x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
-                                                  x-kubernetes-immutable: true
                                                 linearBuckets:
                                                   description: The linear bucket.
                                                   properties:
@@ -942,29 +870,24 @@ components:
                                                       format: int64
                                                       type: integer
                                                       x-dcl-go-name: NumFiniteBuckets
-                                                      x-kubernetes-immutable: true
                                                     offset:
                                                       description: Lower bound of
                                                         the first bucket.
                                                       format: double
                                                       type: number
                                                       x-dcl-go-name: Offset
-                                                      x-kubernetes-immutable: true
                                                     width:
                                                       description: Must be greater
                                                         than 0.
                                                       format: double
                                                       type: number
                                                       x-dcl-go-name: Width
-                                                      x-kubernetes-immutable: true
                                                   type: object
                                                   x-dcl-go-name: LinearBuckets
                                                   x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
-                                                  x-kubernetes-immutable: true
                                               type: object
                                               x-dcl-go-name: BucketOptions
                                               x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions
-                                              x-kubernetes-immutable: true
                                             exemplarSampling:
                                               description: When present, modifies
                                                 exemplars in `REDUCE_MAKE_DISTRIBTUION`.
@@ -976,26 +899,21 @@ components:
                                                   format: double
                                                   type: number
                                                   x-dcl-go-name: MinimumValue
-                                                  x-kubernetes-immutable: true
                                               type: object
                                               x-dcl-go-name: ExemplarSampling
                                               x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling
-                                              x-kubernetes-immutable: true
                                           type: object
                                           x-dcl-go-name: ReduceMakeDistributionParams
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams
-                                          x-kubernetes-immutable: true
                                       type: object
                                       x-dcl-go-name: Aggregation
                                       x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation
-                                      x-kubernetes-immutable: true
                                     filter:
                                       description: Required. The [monitoring filter](https://cloud.google.com/monitoring/api/v3/filters)
                                         that identifies the metric types, resources,
                                         and projects to query.
                                       type: string
                                       x-dcl-go-name: Filter
-                                      x-kubernetes-immutable: true
                                     pickTimeSeriesFilter:
                                       description: Ranking based time series filter.
                                       properties:
@@ -1011,14 +929,12 @@ components:
                                           type: string
                                           x-dcl-go-name: Direction
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum
-                                          x-kubernetes-immutable: true
                                         numTimeSeries:
                                           description: How many time series to allow
                                             to pass through the filter.
                                           format: int64
                                           type: integer
                                           x-dcl-go-name: NumTimeSeries
-                                          x-kubernetes-immutable: true
                                         rankingMethod:
                                           description: '`ranking_method` is applied
                                             to each time series independently to produce
@@ -1036,11 +952,9 @@ components:
                                           type: string
                                           x-dcl-go-name: RankingMethod
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum
-                                          x-kubernetes-immutable: true
                                       type: object
                                       x-dcl-go-name: PickTimeSeriesFilter
                                       x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
-                                      x-kubernetes-immutable: true
                                     secondaryAggregation:
                                       description: Apply a second aggregation after
                                         `aggregation` is applied.
@@ -1074,7 +988,6 @@ components:
                                               format: int64
                                               type: integer
                                               x-dcl-go-name: Nanos
-                                              x-kubernetes-immutable: true
                                             seconds:
                                               description: 'Signed seconds of the
                                                 span of time. Must be from -315,576,000,000
@@ -1085,11 +998,9 @@ components:
                                               format: int64
                                               type: integer
                                               x-dcl-go-name: Seconds
-                                              x-kubernetes-immutable: true
                                           type: object
                                           x-dcl-go-name: AlignmentPeriod
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod
-                                          x-kubernetes-immutable: true
                                         crossSeriesReducer:
                                           description: 'The reduction operation to
                                             be used to combine time series into a
@@ -1138,7 +1049,6 @@ components:
                                           type: string
                                           x-dcl-go-name: CrossSeriesReducer
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum
-                                          x-kubernetes-immutable: true
                                         groupByFields:
                                           description: The set of fields to preserve
                                             when `cross_series_reducer` is specified.
@@ -1166,7 +1076,6 @@ components:
                                           type: array
                                           x-dcl-go-name: GroupByFields
                                           x-dcl-list-type: list
-                                          x-kubernetes-immutable: true
                                         perSeriesAligner:
                                           description: An `Aligner` describes how
                                             to bring the data points in a single time
@@ -1213,7 +1122,6 @@ components:
                                           type: string
                                           x-dcl-go-name: PerSeriesAligner
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum
-                                          x-kubernetes-immutable: true
                                         reduceFractionLessThanParams:
                                           description: Parameters used when `cross_series_reducer`
                                             is `REDUCE_FRACTION_LESS_THAN`, ignored
@@ -1226,11 +1134,9 @@ components:
                                               format: double
                                               type: number
                                               x-dcl-go-name: Threshold
-                                              x-kubernetes-immutable: true
                                           type: object
                                           x-dcl-go-name: ReduceFractionLessThanParams
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams
-                                          x-kubernetes-immutable: true
                                         reduceMakeDistributionParams:
                                           description: Parameters used when `cross_series_reducer`
                                             is `REDUCE_MAKE_DISTRIBUTION`, ignored
@@ -1253,11 +1159,9 @@ components:
                                                       type: array
                                                       x-dcl-go-name: Bounds
                                                       x-dcl-list-type: list
-                                                      x-kubernetes-immutable: true
                                                   type: object
                                                   x-dcl-go-name: ExplicitBuckets
                                                   x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
-                                                  x-kubernetes-immutable: true
                                                 exponentialBuckets:
                                                   description: The exponential buckets.
                                                   properties:
@@ -1267,25 +1171,21 @@ components:
                                                       format: double
                                                       type: number
                                                       x-dcl-go-name: GrowthFactor
-                                                      x-kubernetes-immutable: true
                                                     numFiniteBuckets:
                                                       description: Must be greater
                                                         than 0.
                                                       format: int64
                                                       type: integer
                                                       x-dcl-go-name: NumFiniteBuckets
-                                                      x-kubernetes-immutable: true
                                                     scale:
                                                       description: Must be greater
                                                         than 0.
                                                       format: double
                                                       type: number
                                                       x-dcl-go-name: Scale
-                                                      x-kubernetes-immutable: true
                                                   type: object
                                                   x-dcl-go-name: ExponentialBuckets
                                                   x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
-                                                  x-kubernetes-immutable: true
                                                 linearBuckets:
                                                   description: The linear bucket.
                                                   properties:
@@ -1295,29 +1195,24 @@ components:
                                                       format: int64
                                                       type: integer
                                                       x-dcl-go-name: NumFiniteBuckets
-                                                      x-kubernetes-immutable: true
                                                     offset:
                                                       description: Lower bound of
                                                         the first bucket.
                                                       format: double
                                                       type: number
                                                       x-dcl-go-name: Offset
-                                                      x-kubernetes-immutable: true
                                                     width:
                                                       description: Must be greater
                                                         than 0.
                                                       format: double
                                                       type: number
                                                       x-dcl-go-name: Width
-                                                      x-kubernetes-immutable: true
                                                   type: object
                                                   x-dcl-go-name: LinearBuckets
                                                   x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
-                                                  x-kubernetes-immutable: true
                                               type: object
                                               x-dcl-go-name: BucketOptions
                                               x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions
-                                              x-kubernetes-immutable: true
                                             exemplarSampling:
                                               description: When present, modifies
                                                 exemplars in `REDUCE_MAKE_DISTRIBTUION`.
@@ -1329,23 +1224,18 @@ components:
                                                   format: double
                                                   type: number
                                                   x-dcl-go-name: MinimumValue
-                                                  x-kubernetes-immutable: true
                                               type: object
                                               x-dcl-go-name: ExemplarSampling
                                               x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
-                                              x-kubernetes-immutable: true
                                           type: object
                                           x-dcl-go-name: ReduceMakeDistributionParams
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams
-                                          x-kubernetes-immutable: true
                                       type: object
                                       x-dcl-go-name: SecondaryAggregation
                                       x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
-                                      x-kubernetes-immutable: true
                                   type: object
                                   x-dcl-go-name: TimeSeriesFilter
                                   x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter
-                                  x-kubernetes-immutable: true
                                 timeSeriesFilterRatio:
                                   description: Parameters to fetch a ratio between
                                     two time series filters.
@@ -1391,7 +1281,6 @@ components:
                                                   format: int64
                                                   type: integer
                                                   x-dcl-go-name: Nanos
-                                                  x-kubernetes-immutable: true
                                                 seconds:
                                                   description: 'Signed seconds of
                                                     the span of time. Must be from
@@ -1403,11 +1292,9 @@ components:
                                                   format: int64
                                                   type: integer
                                                   x-dcl-go-name: Seconds
-                                                  x-kubernetes-immutable: true
                                               type: object
                                               x-dcl-go-name: AlignmentPeriod
                                               x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod
-                                              x-kubernetes-immutable: true
                                             crossSeriesReducer:
                                               description: 'The reduction operation
                                                 to be used to combine time series
@@ -1458,7 +1345,6 @@ components:
                                               type: string
                                               x-dcl-go-name: CrossSeriesReducer
                                               x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum
-                                              x-kubernetes-immutable: true
                                             groupByFields:
                                               description: The set of fields to preserve
                                                 when `cross_series_reducer` is specified.
@@ -1488,7 +1374,6 @@ components:
                                               type: array
                                               x-dcl-go-name: GroupByFields
                                               x-dcl-list-type: list
-                                              x-kubernetes-immutable: true
                                             perSeriesAligner:
                                               description: An `Aligner` describes
                                                 how to bring the data points in a
@@ -1536,7 +1421,6 @@ components:
                                               type: string
                                               x-dcl-go-name: PerSeriesAligner
                                               x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum
-                                              x-kubernetes-immutable: true
                                             reduceFractionLessThanParams:
                                               description: Parameters used when `cross_series_reducer`
                                                 is `REDUCE_FRACTION_LESS_THAN`, ignored
@@ -1549,11 +1433,9 @@ components:
                                                   format: double
                                                   type: number
                                                   x-dcl-go-name: Threshold
-                                                  x-kubernetes-immutable: true
                                               type: object
                                               x-dcl-go-name: ReduceFractionLessThanParams
                                               x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams
-                                              x-kubernetes-immutable: true
                                             reduceMakeDistributionParams:
                                               description: Parameters used when `cross_series_reducer`
                                                 is `REDUCE_MAKE_DISTRIBUTION`, ignored
@@ -1578,11 +1460,9 @@ components:
                                                           type: array
                                                           x-dcl-go-name: Bounds
                                                           x-dcl-list-type: list
-                                                          x-kubernetes-immutable: true
                                                       type: object
                                                       x-dcl-go-name: ExplicitBuckets
                                                       x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
-                                                      x-kubernetes-immutable: true
                                                     exponentialBuckets:
                                                       description: The exponential
                                                         buckets.
@@ -1593,25 +1473,21 @@ components:
                                                           format: double
                                                           type: number
                                                           x-dcl-go-name: GrowthFactor
-                                                          x-kubernetes-immutable: true
                                                         numFiniteBuckets:
                                                           description: Must be greater
                                                             than 0.
                                                           format: int64
                                                           type: integer
                                                           x-dcl-go-name: NumFiniteBuckets
-                                                          x-kubernetes-immutable: true
                                                         scale:
                                                           description: Must be greater
                                                             than 0.
                                                           format: double
                                                           type: number
                                                           x-dcl-go-name: Scale
-                                                          x-kubernetes-immutable: true
                                                       type: object
                                                       x-dcl-go-name: ExponentialBuckets
                                                       x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
-                                                      x-kubernetes-immutable: true
                                                     linearBuckets:
                                                       description: The linear bucket.
                                                       properties:
@@ -1621,29 +1497,24 @@ components:
                                                           format: int64
                                                           type: integer
                                                           x-dcl-go-name: NumFiniteBuckets
-                                                          x-kubernetes-immutable: true
                                                         offset:
                                                           description: Lower bound
                                                             of the first bucket.
                                                           format: double
                                                           type: number
                                                           x-dcl-go-name: Offset
-                                                          x-kubernetes-immutable: true
                                                         width:
                                                           description: Must be greater
                                                             than 0.
                                                           format: double
                                                           type: number
                                                           x-dcl-go-name: Width
-                                                          x-kubernetes-immutable: true
                                                       type: object
                                                       x-dcl-go-name: LinearBuckets
                                                       x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
-                                                      x-kubernetes-immutable: true
                                                   type: object
                                                   x-dcl-go-name: BucketOptions
                                                   x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions
-                                                  x-kubernetes-immutable: true
                                                 exemplarSampling:
                                                   description: When present, modifies
                                                     exemplars in `REDUCE_MAKE_DISTRIBTUION`.
@@ -1655,30 +1526,24 @@ components:
                                                       format: double
                                                       type: number
                                                       x-dcl-go-name: MinimumValue
-                                                      x-kubernetes-immutable: true
                                                   type: object
                                                   x-dcl-go-name: ExemplarSampling
                                                   x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling
-                                                  x-kubernetes-immutable: true
                                               type: object
                                               x-dcl-go-name: ReduceMakeDistributionParams
                                               x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams
-                                              x-kubernetes-immutable: true
                                           type: object
                                           x-dcl-go-name: Aggregation
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
-                                          x-kubernetes-immutable: true
                                         filter:
                                           description: Required. The [monitoring filter](https://cloud.google.com/monitoring/api/v3/filters)
                                             that identifies the metric types, resources,
                                             and projects to query.
                                           type: string
                                           x-dcl-go-name: Filter
-                                          x-kubernetes-immutable: true
                                       type: object
                                       x-dcl-go-name: Denominator
                                       x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
-                                      x-kubernetes-immutable: true
                                     numerator:
                                       description: The numerator of the ratio.
                                       properties:
@@ -1720,7 +1585,6 @@ components:
                                                   format: int64
                                                   type: integer
                                                   x-dcl-go-name: Nanos
-                                                  x-kubernetes-immutable: true
                                                 seconds:
                                                   description: 'Signed seconds of
                                                     the span of time. Must be from
@@ -1732,11 +1596,9 @@ components:
                                                   format: int64
                                                   type: integer
                                                   x-dcl-go-name: Seconds
-                                                  x-kubernetes-immutable: true
                                               type: object
                                               x-dcl-go-name: AlignmentPeriod
                                               x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod
-                                              x-kubernetes-immutable: true
                                             crossSeriesReducer:
                                               description: 'The reduction operation
                                                 to be used to combine time series
@@ -1787,7 +1649,6 @@ components:
                                               type: string
                                               x-dcl-go-name: CrossSeriesReducer
                                               x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum
-                                              x-kubernetes-immutable: true
                                             groupByFields:
                                               description: The set of fields to preserve
                                                 when `cross_series_reducer` is specified.
@@ -1817,7 +1678,6 @@ components:
                                               type: array
                                               x-dcl-go-name: GroupByFields
                                               x-dcl-list-type: list
-                                              x-kubernetes-immutable: true
                                             perSeriesAligner:
                                               description: An `Aligner` describes
                                                 how to bring the data points in a
@@ -1865,7 +1725,6 @@ components:
                                               type: string
                                               x-dcl-go-name: PerSeriesAligner
                                               x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum
-                                              x-kubernetes-immutable: true
                                             reduceFractionLessThanParams:
                                               description: Parameters used when `cross_series_reducer`
                                                 is `REDUCE_FRACTION_LESS_THAN`, ignored
@@ -1878,11 +1737,9 @@ components:
                                                   format: double
                                                   type: number
                                                   x-dcl-go-name: Threshold
-                                                  x-kubernetes-immutable: true
                                               type: object
                                               x-dcl-go-name: ReduceFractionLessThanParams
                                               x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams
-                                              x-kubernetes-immutable: true
                                             reduceMakeDistributionParams:
                                               description: Parameters used when `cross_series_reducer`
                                                 is `REDUCE_MAKE_DISTRIBUTION`, ignored
@@ -1907,11 +1764,9 @@ components:
                                                           type: array
                                                           x-dcl-go-name: Bounds
                                                           x-dcl-list-type: list
-                                                          x-kubernetes-immutable: true
                                                       type: object
                                                       x-dcl-go-name: ExplicitBuckets
                                                       x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
-                                                      x-kubernetes-immutable: true
                                                     exponentialBuckets:
                                                       description: The exponential
                                                         buckets.
@@ -1922,25 +1777,21 @@ components:
                                                           format: double
                                                           type: number
                                                           x-dcl-go-name: GrowthFactor
-                                                          x-kubernetes-immutable: true
                                                         numFiniteBuckets:
                                                           description: Must be greater
                                                             than 0.
                                                           format: int64
                                                           type: integer
                                                           x-dcl-go-name: NumFiniteBuckets
-                                                          x-kubernetes-immutable: true
                                                         scale:
                                                           description: Must be greater
                                                             than 0.
                                                           format: double
                                                           type: number
                                                           x-dcl-go-name: Scale
-                                                          x-kubernetes-immutable: true
                                                       type: object
                                                       x-dcl-go-name: ExponentialBuckets
                                                       x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
-                                                      x-kubernetes-immutable: true
                                                     linearBuckets:
                                                       description: The linear bucket.
                                                       properties:
@@ -1950,29 +1801,24 @@ components:
                                                           format: int64
                                                           type: integer
                                                           x-dcl-go-name: NumFiniteBuckets
-                                                          x-kubernetes-immutable: true
                                                         offset:
                                                           description: Lower bound
                                                             of the first bucket.
                                                           format: double
                                                           type: number
                                                           x-dcl-go-name: Offset
-                                                          x-kubernetes-immutable: true
                                                         width:
                                                           description: Must be greater
                                                             than 0.
                                                           format: double
                                                           type: number
                                                           x-dcl-go-name: Width
-                                                          x-kubernetes-immutable: true
                                                       type: object
                                                       x-dcl-go-name: LinearBuckets
                                                       x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
-                                                      x-kubernetes-immutable: true
                                                   type: object
                                                   x-dcl-go-name: BucketOptions
                                                   x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions
-                                                  x-kubernetes-immutable: true
                                                 exemplarSampling:
                                                   description: When present, modifies
                                                     exemplars in `REDUCE_MAKE_DISTRIBTUION`.
@@ -1984,30 +1830,24 @@ components:
                                                       format: double
                                                       type: number
                                                       x-dcl-go-name: MinimumValue
-                                                      x-kubernetes-immutable: true
                                                   type: object
                                                   x-dcl-go-name: ExemplarSampling
                                                   x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling
-                                                  x-kubernetes-immutable: true
                                               type: object
                                               x-dcl-go-name: ReduceMakeDistributionParams
                                               x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams
-                                              x-kubernetes-immutable: true
                                           type: object
                                           x-dcl-go-name: Aggregation
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
-                                          x-kubernetes-immutable: true
                                         filter:
                                           description: Required. The [monitoring filter](https://cloud.google.com/monitoring/api/v3/filters)
                                             that identifies the metric types, resources,
                                             and projects to query.
                                           type: string
                                           x-dcl-go-name: Filter
-                                          x-kubernetes-immutable: true
                                       type: object
                                       x-dcl-go-name: Numerator
                                       x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
-                                      x-kubernetes-immutable: true
                                     pickTimeSeriesFilter:
                                       description: Ranking based time series filter.
                                       properties:
@@ -2023,14 +1863,12 @@ components:
                                           type: string
                                           x-dcl-go-name: Direction
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum
-                                          x-kubernetes-immutable: true
                                         numTimeSeries:
                                           description: How many time series to allow
                                             to pass through the filter.
                                           format: int64
                                           type: integer
                                           x-dcl-go-name: NumTimeSeries
-                                          x-kubernetes-immutable: true
                                         rankingMethod:
                                           description: '`ranking_method` is applied
                                             to each time series independently to produce
@@ -2048,11 +1886,9 @@ components:
                                           type: string
                                           x-dcl-go-name: RankingMethod
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum
-                                          x-kubernetes-immutable: true
                                       type: object
                                       x-dcl-go-name: PickTimeSeriesFilter
                                       x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
-                                      x-kubernetes-immutable: true
                                     secondaryAggregation:
                                       description: Apply a second aggregation after
                                         the ratio is computed.
@@ -2086,7 +1922,6 @@ components:
                                               format: int64
                                               type: integer
                                               x-dcl-go-name: Nanos
-                                              x-kubernetes-immutable: true
                                             seconds:
                                               description: 'Signed seconds of the
                                                 span of time. Must be from -315,576,000,000
@@ -2097,11 +1932,9 @@ components:
                                               format: int64
                                               type: integer
                                               x-dcl-go-name: Seconds
-                                              x-kubernetes-immutable: true
                                           type: object
                                           x-dcl-go-name: AlignmentPeriod
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod
-                                          x-kubernetes-immutable: true
                                         crossSeriesReducer:
                                           description: 'The reduction operation to
                                             be used to combine time series into a
@@ -2150,7 +1983,6 @@ components:
                                           type: string
                                           x-dcl-go-name: CrossSeriesReducer
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum
-                                          x-kubernetes-immutable: true
                                         groupByFields:
                                           description: The set of fields to preserve
                                             when `cross_series_reducer` is specified.
@@ -2178,7 +2010,6 @@ components:
                                           type: array
                                           x-dcl-go-name: GroupByFields
                                           x-dcl-list-type: list
-                                          x-kubernetes-immutable: true
                                         perSeriesAligner:
                                           description: An `Aligner` describes how
                                             to bring the data points in a single time
@@ -2225,7 +2056,6 @@ components:
                                           type: string
                                           x-dcl-go-name: PerSeriesAligner
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum
-                                          x-kubernetes-immutable: true
                                         reduceFractionLessThanParams:
                                           description: Parameters used when `cross_series_reducer`
                                             is `REDUCE_FRACTION_LESS_THAN`, ignored
@@ -2238,11 +2068,9 @@ components:
                                               format: double
                                               type: number
                                               x-dcl-go-name: Threshold
-                                              x-kubernetes-immutable: true
                                           type: object
                                           x-dcl-go-name: ReduceFractionLessThanParams
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams
-                                          x-kubernetes-immutable: true
                                         reduceMakeDistributionParams:
                                           description: Parameters used when `cross_series_reducer`
                                             is `REDUCE_MAKE_DISTRIBUTION`, ignored
@@ -2265,11 +2093,9 @@ components:
                                                       type: array
                                                       x-dcl-go-name: Bounds
                                                       x-dcl-list-type: list
-                                                      x-kubernetes-immutable: true
                                                   type: object
                                                   x-dcl-go-name: ExplicitBuckets
                                                   x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
-                                                  x-kubernetes-immutable: true
                                                 exponentialBuckets:
                                                   description: The exponential buckets.
                                                   properties:
@@ -2279,25 +2105,21 @@ components:
                                                       format: double
                                                       type: number
                                                       x-dcl-go-name: GrowthFactor
-                                                      x-kubernetes-immutable: true
                                                     numFiniteBuckets:
                                                       description: Must be greater
                                                         than 0.
                                                       format: int64
                                                       type: integer
                                                       x-dcl-go-name: NumFiniteBuckets
-                                                      x-kubernetes-immutable: true
                                                     scale:
                                                       description: Must be greater
                                                         than 0.
                                                       format: double
                                                       type: number
                                                       x-dcl-go-name: Scale
-                                                      x-kubernetes-immutable: true
                                                   type: object
                                                   x-dcl-go-name: ExponentialBuckets
                                                   x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
-                                                  x-kubernetes-immutable: true
                                                 linearBuckets:
                                                   description: The linear bucket.
                                                   properties:
@@ -2307,29 +2129,24 @@ components:
                                                       format: int64
                                                       type: integer
                                                       x-dcl-go-name: NumFiniteBuckets
-                                                      x-kubernetes-immutable: true
                                                     offset:
                                                       description: Lower bound of
                                                         the first bucket.
                                                       format: double
                                                       type: number
                                                       x-dcl-go-name: Offset
-                                                      x-kubernetes-immutable: true
                                                     width:
                                                       description: Must be greater
                                                         than 0.
                                                       format: double
                                                       type: number
                                                       x-dcl-go-name: Width
-                                                      x-kubernetes-immutable: true
                                                   type: object
                                                   x-dcl-go-name: LinearBuckets
                                                   x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
-                                                  x-kubernetes-immutable: true
                                               type: object
                                               x-dcl-go-name: BucketOptions
                                               x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions
-                                              x-kubernetes-immutable: true
                                             exemplarSampling:
                                               description: When present, modifies
                                                 exemplars in `REDUCE_MAKE_DISTRIBTUION`.
@@ -2341,28 +2158,22 @@ components:
                                                   format: double
                                                   type: number
                                                   x-dcl-go-name: MinimumValue
-                                                  x-kubernetes-immutable: true
                                               type: object
                                               x-dcl-go-name: ExemplarSampling
                                               x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
-                                              x-kubernetes-immutable: true
                                           type: object
                                           x-dcl-go-name: ReduceMakeDistributionParams
                                           x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams
-                                          x-kubernetes-immutable: true
                                       type: object
                                       x-dcl-go-name: SecondaryAggregation
                                       x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
-                                      x-kubernetes-immutable: true
                                   type: object
                                   x-dcl-go-name: TimeSeriesFilterRatio
                                   x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
-                                  x-kubernetes-immutable: true
                                 timeSeriesQueryLanguage:
                                   description: A query used to fetch time series.
                                   type: string
                                   x-dcl-go-name: TimeSeriesQueryLanguage
-                                  x-kubernetes-immutable: true
                                 unitOverride:
                                   description: The unit of data contained in fetched
                                     time series. If non-empty, this unit will override
@@ -2371,15 +2182,12 @@ components:
                                     field in `MetricDescriptor`.
                                   type: string
                                   x-dcl-go-name: UnitOverride
-                                  x-kubernetes-immutable: true
                               type: object
                               x-dcl-go-name: TimeSeriesQuery
                               x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQuery
-                              x-kubernetes-immutable: true
                           type: object
                           x-dcl-go-name: Scorecard
                           x-dcl-go-type: DashboardWidgetScorecard
-                          x-kubernetes-immutable: true
                         text:
                           description: A raw string or markdown displaying textual
                             content.
@@ -2388,7 +2196,6 @@ components:
                               description: The text content to be displayed.
                               type: string
                               x-dcl-go-name: Content
-                              x-kubernetes-immutable: true
                             format:
                               description: 'How the text content is formatted. Possible
                                 values: FORMAT_UNSPECIFIED, MARKDOWN, RAW'
@@ -2399,16 +2206,13 @@ components:
                               type: string
                               x-dcl-go-name: Format
                               x-dcl-go-type: DashboardWidgetTextFormatEnum
-                              x-kubernetes-immutable: true
                           type: object
                           x-dcl-go-name: Text
                           x-dcl-go-type: DashboardWidgetText
-                          x-kubernetes-immutable: true
                         title:
                           description: Optional. The title of the widget.
                           type: string
                           x-dcl-go-name: Title
-                          x-kubernetes-immutable: true
                         xyChart:
                           description: A chart of time series data.
                           properties:
@@ -2426,17 +2230,14 @@ components:
                                   type: string
                                   x-dcl-go-name: Mode
                                   x-dcl-go-type: DashboardWidgetXyChartChartOptionsModeEnum
-                                  x-kubernetes-immutable: true
                                 showLegend:
                                   description: When true, the legend is displayed
                                     on page load.
                                   type: boolean
                                   x-dcl-go-name: ShowLegend
-                                  x-kubernetes-immutable: true
                               type: object
                               x-dcl-go-name: ChartOptions
                               x-dcl-go-type: DashboardWidgetXyChartChartOptions
-                              x-kubernetes-immutable: true
                             dataSets:
                               description: Required. The data displayed in this chart.
                               items:
@@ -2448,7 +2249,6 @@ components:
                                       which will resolve to the label''s value. '
                                     type: string
                                     x-dcl-go-name: LegendTemplate
-                                    x-kubernetes-immutable: true
                                   minAlignmentPeriod:
                                     description: Optional. The lower bound on data
                                       point frequency for this data set, implemented
@@ -2472,7 +2272,6 @@ components:
                                         format: int64
                                         type: integer
                                         x-dcl-go-name: Nanos
-                                        x-kubernetes-immutable: true
                                       seconds:
                                         description: 'Signed seconds of the span of
                                           time. Must be from -315,576,000,000 to +315,576,000,000
@@ -2482,11 +2281,9 @@ components:
                                         format: int64
                                         type: integer
                                         x-dcl-go-name: Seconds
-                                        x-kubernetes-immutable: true
                                     type: object
                                     x-dcl-go-name: MinAlignmentPeriod
                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsMinAlignmentPeriod
-                                    x-kubernetes-immutable: true
                                   plotType:
                                     description: 'How this data should be plotted
                                       on the chart. Possible values: PLOT_TYPE_UNSPECIFIED,
@@ -2500,7 +2297,6 @@ components:
                                     type: string
                                     x-dcl-go-name: PlotType
                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsPlotTypeEnum
-                                    x-kubernetes-immutable: true
                                   timeSeriesQuery:
                                     description: Required. Fields for querying time
                                       series data from the Stackdriver metrics API.
@@ -2517,7 +2313,6 @@ components:
                                         type: string
                                         x-dcl-go-name: ApiSource
                                         x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryApiSourceEnum
-                                        x-kubernetes-immutable: true
                                       timeSeriesFilter:
                                         description: Filter parameters to fetch time
                                           series.
@@ -2561,7 +2356,6 @@ components:
                                                     format: int64
                                                     type: integer
                                                     x-dcl-go-name: Nanos
-                                                    x-kubernetes-immutable: true
                                                   seconds:
                                                     description: 'Signed seconds of
                                                       the span of time. Must be from
@@ -2573,11 +2367,9 @@ components:
                                                     format: int64
                                                     type: integer
                                                     x-dcl-go-name: Seconds
-                                                    x-kubernetes-immutable: true
                                                 type: object
                                                 x-dcl-go-name: AlignmentPeriod
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod
-                                                x-kubernetes-immutable: true
                                               crossSeriesReducer:
                                                 description: 'The reduction operation
                                                   to be used to combine time series
@@ -2629,7 +2421,6 @@ components:
                                                 type: string
                                                 x-dcl-go-name: CrossSeriesReducer
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum
-                                                x-kubernetes-immutable: true
                                               groupByFields:
                                                 description: The set of fields to
                                                   preserve when `cross_series_reducer`
@@ -2661,7 +2452,6 @@ components:
                                                 type: array
                                                 x-dcl-go-name: GroupByFields
                                                 x-dcl-list-type: list
-                                                x-kubernetes-immutable: true
                                               perSeriesAligner:
                                                 description: An `Aligner` describes
                                                   how to bring the data points in
@@ -2711,7 +2501,6 @@ components:
                                                 type: string
                                                 x-dcl-go-name: PerSeriesAligner
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum
-                                                x-kubernetes-immutable: true
                                               reduceFractionLessThanParams:
                                                 description: Parameters used when
                                                   `cross_series_reducer` is `REDUCE_FRACTION_LESS_THAN`,
@@ -2724,11 +2513,9 @@ components:
                                                     format: double
                                                     type: number
                                                     x-dcl-go-name: Threshold
-                                                    x-kubernetes-immutable: true
                                                 type: object
                                                 x-dcl-go-name: ReduceFractionLessThanParams
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams
-                                                x-kubernetes-immutable: true
                                               reduceMakeDistributionParams:
                                                 description: Parameters used when
                                                   `cross_series_reducer` is `REDUCE_MAKE_DISTRIBUTION`,
@@ -2754,11 +2541,9 @@ components:
                                                             type: array
                                                             x-dcl-go-name: Bounds
                                                             x-dcl-list-type: list
-                                                            x-kubernetes-immutable: true
                                                         type: object
                                                         x-dcl-go-name: ExplicitBuckets
                                                         x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
-                                                        x-kubernetes-immutable: true
                                                       exponentialBuckets:
                                                         description: The exponential
                                                           buckets.
@@ -2769,25 +2554,21 @@ components:
                                                             format: double
                                                             type: number
                                                             x-dcl-go-name: GrowthFactor
-                                                            x-kubernetes-immutable: true
                                                           numFiniteBuckets:
                                                             description: Must be greater
                                                               than 0.
                                                             format: int64
                                                             type: integer
                                                             x-dcl-go-name: NumFiniteBuckets
-                                                            x-kubernetes-immutable: true
                                                           scale:
                                                             description: Must be greater
                                                               than 0.
                                                             format: double
                                                             type: number
                                                             x-dcl-go-name: Scale
-                                                            x-kubernetes-immutable: true
                                                         type: object
                                                         x-dcl-go-name: ExponentialBuckets
                                                         x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
-                                                        x-kubernetes-immutable: true
                                                       linearBuckets:
                                                         description: The linear bucket.
                                                         properties:
@@ -2797,29 +2578,24 @@ components:
                                                             format: int64
                                                             type: integer
                                                             x-dcl-go-name: NumFiniteBuckets
-                                                            x-kubernetes-immutable: true
                                                           offset:
                                                             description: Lower bound
                                                               of the first bucket.
                                                             format: double
                                                             type: number
                                                             x-dcl-go-name: Offset
-                                                            x-kubernetes-immutable: true
                                                           width:
                                                             description: Must be greater
                                                               than 0.
                                                             format: double
                                                             type: number
                                                             x-dcl-go-name: Width
-                                                            x-kubernetes-immutable: true
                                                         type: object
                                                         x-dcl-go-name: LinearBuckets
                                                         x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
-                                                        x-kubernetes-immutable: true
                                                     type: object
                                                     x-dcl-go-name: BucketOptions
                                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions
-                                                    x-kubernetes-immutable: true
                                                   exemplarSampling:
                                                     description: When present, modifies
                                                       exemplars in `REDUCE_MAKE_DISTRIBTUION`.
@@ -2831,19 +2607,15 @@ components:
                                                         format: double
                                                         type: number
                                                         x-dcl-go-name: MinimumValue
-                                                        x-kubernetes-immutable: true
                                                     type: object
                                                     x-dcl-go-name: ExemplarSampling
                                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling
-                                                    x-kubernetes-immutable: true
                                                 type: object
                                                 x-dcl-go-name: ReduceMakeDistributionParams
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams
-                                                x-kubernetes-immutable: true
                                             type: object
                                             x-dcl-go-name: Aggregation
                                             x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
-                                            x-kubernetes-immutable: true
                                           filter:
                                             description: Required. The [monitoring
                                               filter](https://cloud.google.com/monitoring/api/v3/filters)
@@ -2851,7 +2623,6 @@ components:
                                               and projects to query.
                                             type: string
                                             x-dcl-go-name: Filter
-                                            x-kubernetes-immutable: true
                                           pickTimeSeriesFilter:
                                             description: Ranking based time series
                                               filter.
@@ -2868,14 +2639,12 @@ components:
                                                 type: string
                                                 x-dcl-go-name: Direction
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum
-                                                x-kubernetes-immutable: true
                                               numTimeSeries:
                                                 description: How many time series
                                                   to allow to pass through the filter.
                                                 format: int64
                                                 type: integer
                                                 x-dcl-go-name: NumTimeSeries
-                                                x-kubernetes-immutable: true
                                               rankingMethod:
                                                 description: '`ranking_method` is
                                                   applied to each time series independently
@@ -2895,11 +2664,9 @@ components:
                                                 type: string
                                                 x-dcl-go-name: RankingMethod
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum
-                                                x-kubernetes-immutable: true
                                             type: object
                                             x-dcl-go-name: PickTimeSeriesFilter
                                             x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
-                                            x-kubernetes-immutable: true
                                           secondaryAggregation:
                                             description: Apply a second aggregation
                                               after `aggregation` is applied.
@@ -2937,7 +2704,6 @@ components:
                                                     format: int64
                                                     type: integer
                                                     x-dcl-go-name: Nanos
-                                                    x-kubernetes-immutable: true
                                                   seconds:
                                                     description: 'Signed seconds of
                                                       the span of time. Must be from
@@ -2949,11 +2715,9 @@ components:
                                                     format: int64
                                                     type: integer
                                                     x-dcl-go-name: Seconds
-                                                    x-kubernetes-immutable: true
                                                 type: object
                                                 x-dcl-go-name: AlignmentPeriod
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod
-                                                x-kubernetes-immutable: true
                                               crossSeriesReducer:
                                                 description: 'The reduction operation
                                                   to be used to combine time series
@@ -3005,7 +2769,6 @@ components:
                                                 type: string
                                                 x-dcl-go-name: CrossSeriesReducer
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum
-                                                x-kubernetes-immutable: true
                                               groupByFields:
                                                 description: The set of fields to
                                                   preserve when `cross_series_reducer`
@@ -3037,7 +2800,6 @@ components:
                                                 type: array
                                                 x-dcl-go-name: GroupByFields
                                                 x-dcl-list-type: list
-                                                x-kubernetes-immutable: true
                                               perSeriesAligner:
                                                 description: An `Aligner` describes
                                                   how to bring the data points in
@@ -3087,7 +2849,6 @@ components:
                                                 type: string
                                                 x-dcl-go-name: PerSeriesAligner
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum
-                                                x-kubernetes-immutable: true
                                               reduceFractionLessThanParams:
                                                 description: Parameters used when
                                                   `cross_series_reducer` is `REDUCE_FRACTION_LESS_THAN`,
@@ -3100,11 +2861,9 @@ components:
                                                     format: double
                                                     type: number
                                                     x-dcl-go-name: Threshold
-                                                    x-kubernetes-immutable: true
                                                 type: object
                                                 x-dcl-go-name: ReduceFractionLessThanParams
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams
-                                                x-kubernetes-immutable: true
                                               reduceMakeDistributionParams:
                                                 description: Parameters used when
                                                   `cross_series_reducer` is `REDUCE_MAKE_DISTRIBUTION`,
@@ -3130,11 +2889,9 @@ components:
                                                             type: array
                                                             x-dcl-go-name: Bounds
                                                             x-dcl-list-type: list
-                                                            x-kubernetes-immutable: true
                                                         type: object
                                                         x-dcl-go-name: ExplicitBuckets
                                                         x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
-                                                        x-kubernetes-immutable: true
                                                       exponentialBuckets:
                                                         description: The exponential
                                                           buckets.
@@ -3145,25 +2902,21 @@ components:
                                                             format: double
                                                             type: number
                                                             x-dcl-go-name: GrowthFactor
-                                                            x-kubernetes-immutable: true
                                                           numFiniteBuckets:
                                                             description: Must be greater
                                                               than 0.
                                                             format: int64
                                                             type: integer
                                                             x-dcl-go-name: NumFiniteBuckets
-                                                            x-kubernetes-immutable: true
                                                           scale:
                                                             description: Must be greater
                                                               than 0.
                                                             format: double
                                                             type: number
                                                             x-dcl-go-name: Scale
-                                                            x-kubernetes-immutable: true
                                                         type: object
                                                         x-dcl-go-name: ExponentialBuckets
                                                         x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
-                                                        x-kubernetes-immutable: true
                                                       linearBuckets:
                                                         description: The linear bucket.
                                                         properties:
@@ -3173,29 +2926,24 @@ components:
                                                             format: int64
                                                             type: integer
                                                             x-dcl-go-name: NumFiniteBuckets
-                                                            x-kubernetes-immutable: true
                                                           offset:
                                                             description: Lower bound
                                                               of the first bucket.
                                                             format: double
                                                             type: number
                                                             x-dcl-go-name: Offset
-                                                            x-kubernetes-immutable: true
                                                           width:
                                                             description: Must be greater
                                                               than 0.
                                                             format: double
                                                             type: number
                                                             x-dcl-go-name: Width
-                                                            x-kubernetes-immutable: true
                                                         type: object
                                                         x-dcl-go-name: LinearBuckets
                                                         x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
-                                                        x-kubernetes-immutable: true
                                                     type: object
                                                     x-dcl-go-name: BucketOptions
                                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions
-                                                    x-kubernetes-immutable: true
                                                   exemplarSampling:
                                                     description: When present, modifies
                                                       exemplars in `REDUCE_MAKE_DISTRIBTUION`.
@@ -3207,23 +2955,18 @@ components:
                                                         format: double
                                                         type: number
                                                         x-dcl-go-name: MinimumValue
-                                                        x-kubernetes-immutable: true
                                                     type: object
                                                     x-dcl-go-name: ExemplarSampling
                                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
-                                                    x-kubernetes-immutable: true
                                                 type: object
                                                 x-dcl-go-name: ReduceMakeDistributionParams
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams
-                                                x-kubernetes-immutable: true
                                             type: object
                                             x-dcl-go-name: SecondaryAggregation
                                             x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
-                                            x-kubernetes-immutable: true
                                         type: object
                                         x-dcl-go-name: TimeSeriesFilter
                                         x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
-                                        x-kubernetes-immutable: true
                                       timeSeriesFilterRatio:
                                         description: Parameters to fetch a ratio between
                                           two time series filters.
@@ -3273,7 +3016,6 @@ components:
                                                         format: int64
                                                         type: integer
                                                         x-dcl-go-name: Nanos
-                                                        x-kubernetes-immutable: true
                                                       seconds:
                                                         description: 'Signed seconds
                                                           of the span of time. Must
@@ -3286,11 +3028,9 @@ components:
                                                         format: int64
                                                         type: integer
                                                         x-dcl-go-name: Seconds
-                                                        x-kubernetes-immutable: true
                                                     type: object
                                                     x-dcl-go-name: AlignmentPeriod
                                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod
-                                                    x-kubernetes-immutable: true
                                                   crossSeriesReducer:
                                                     description: 'The reduction operation
                                                       to be used to combine time series
@@ -3345,7 +3085,6 @@ components:
                                                     type: string
                                                     x-dcl-go-name: CrossSeriesReducer
                                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum
-                                                    x-kubernetes-immutable: true
                                                   groupByFields:
                                                     description: The set of fields
                                                       to preserve when `cross_series_reducer`
@@ -3379,7 +3118,6 @@ components:
                                                     type: array
                                                     x-dcl-go-name: GroupByFields
                                                     x-dcl-list-type: list
-                                                    x-kubernetes-immutable: true
                                                   perSeriesAligner:
                                                     description: An `Aligner` describes
                                                       how to bring the data points
@@ -3432,7 +3170,6 @@ components:
                                                     type: string
                                                     x-dcl-go-name: PerSeriesAligner
                                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum
-                                                    x-kubernetes-immutable: true
                                                   reduceFractionLessThanParams:
                                                     description: Parameters used when
                                                       `cross_series_reducer` is `REDUCE_FRACTION_LESS_THAN`,
@@ -3445,11 +3182,9 @@ components:
                                                         format: double
                                                         type: number
                                                         x-dcl-go-name: Threshold
-                                                        x-kubernetes-immutable: true
                                                     type: object
                                                     x-dcl-go-name: ReduceFractionLessThanParams
                                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams
-                                                    x-kubernetes-immutable: true
                                                   reduceMakeDistributionParams:
                                                     description: Parameters used when
                                                       `cross_series_reducer` is `REDUCE_MAKE_DISTRIBUTION`,
@@ -3475,11 +3210,9 @@ components:
                                                                 type: array
                                                                 x-dcl-go-name: Bounds
                                                                 x-dcl-list-type: list
-                                                                x-kubernetes-immutable: true
                                                             type: object
                                                             x-dcl-go-name: ExplicitBuckets
                                                             x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
-                                                            x-kubernetes-immutable: true
                                                           exponentialBuckets:
                                                             description: The exponential
                                                               buckets.
@@ -3491,7 +3224,6 @@ components:
                                                                 format: double
                                                                 type: number
                                                                 x-dcl-go-name: GrowthFactor
-                                                                x-kubernetes-immutable: true
                                                               numFiniteBuckets:
                                                                 description: Must
                                                                   be greater than
@@ -3499,7 +3231,6 @@ components:
                                                                 format: int64
                                                                 type: integer
                                                                 x-dcl-go-name: NumFiniteBuckets
-                                                                x-kubernetes-immutable: true
                                                               scale:
                                                                 description: Must
                                                                   be greater than
@@ -3507,11 +3238,9 @@ components:
                                                                 format: double
                                                                 type: number
                                                                 x-dcl-go-name: Scale
-                                                                x-kubernetes-immutable: true
                                                             type: object
                                                             x-dcl-go-name: ExponentialBuckets
                                                             x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
-                                                            x-kubernetes-immutable: true
                                                           linearBuckets:
                                                             description: The linear
                                                               bucket.
@@ -3523,7 +3252,6 @@ components:
                                                                 format: int64
                                                                 type: integer
                                                                 x-dcl-go-name: NumFiniteBuckets
-                                                                x-kubernetes-immutable: true
                                                               offset:
                                                                 description: Lower
                                                                   bound of the first
@@ -3531,7 +3259,6 @@ components:
                                                                 format: double
                                                                 type: number
                                                                 x-dcl-go-name: Offset
-                                                                x-kubernetes-immutable: true
                                                               width:
                                                                 description: Must
                                                                   be greater than
@@ -3539,15 +3266,12 @@ components:
                                                                 format: double
                                                                 type: number
                                                                 x-dcl-go-name: Width
-                                                                x-kubernetes-immutable: true
                                                             type: object
                                                             x-dcl-go-name: LinearBuckets
                                                             x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
-                                                            x-kubernetes-immutable: true
                                                         type: object
                                                         x-dcl-go-name: BucketOptions
                                                         x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions
-                                                        x-kubernetes-immutable: true
                                                       exemplarSampling:
                                                         description: When present,
                                                           modifies exemplars in `REDUCE_MAKE_DISTRIBTUION`.
@@ -3560,19 +3284,15 @@ components:
                                                             format: double
                                                             type: number
                                                             x-dcl-go-name: MinimumValue
-                                                            x-kubernetes-immutable: true
                                                         type: object
                                                         x-dcl-go-name: ExemplarSampling
                                                         x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling
-                                                        x-kubernetes-immutable: true
                                                     type: object
                                                     x-dcl-go-name: ReduceMakeDistributionParams
                                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams
-                                                    x-kubernetes-immutable: true
                                                 type: object
                                                 x-dcl-go-name: Aggregation
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
-                                                x-kubernetes-immutable: true
                                               filter:
                                                 description: Required. The [monitoring
                                                   filter](https://cloud.google.com/monitoring/api/v3/filters)
@@ -3580,11 +3300,9 @@ components:
                                                   resources, and projects to query.
                                                 type: string
                                                 x-dcl-go-name: Filter
-                                                x-kubernetes-immutable: true
                                             type: object
                                             x-dcl-go-name: Denominator
                                             x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
-                                            x-kubernetes-immutable: true
                                           numerator:
                                             description: The numerator of the ratio.
                                             properties:
@@ -3630,7 +3348,6 @@ components:
                                                         format: int64
                                                         type: integer
                                                         x-dcl-go-name: Nanos
-                                                        x-kubernetes-immutable: true
                                                       seconds:
                                                         description: 'Signed seconds
                                                           of the span of time. Must
@@ -3643,11 +3360,9 @@ components:
                                                         format: int64
                                                         type: integer
                                                         x-dcl-go-name: Seconds
-                                                        x-kubernetes-immutable: true
                                                     type: object
                                                     x-dcl-go-name: AlignmentPeriod
                                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod
-                                                    x-kubernetes-immutable: true
                                                   crossSeriesReducer:
                                                     description: 'The reduction operation
                                                       to be used to combine time series
@@ -3702,7 +3417,6 @@ components:
                                                     type: string
                                                     x-dcl-go-name: CrossSeriesReducer
                                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum
-                                                    x-kubernetes-immutable: true
                                                   groupByFields:
                                                     description: The set of fields
                                                       to preserve when `cross_series_reducer`
@@ -3736,7 +3450,6 @@ components:
                                                     type: array
                                                     x-dcl-go-name: GroupByFields
                                                     x-dcl-list-type: list
-                                                    x-kubernetes-immutable: true
                                                   perSeriesAligner:
                                                     description: An `Aligner` describes
                                                       how to bring the data points
@@ -3789,7 +3502,6 @@ components:
                                                     type: string
                                                     x-dcl-go-name: PerSeriesAligner
                                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum
-                                                    x-kubernetes-immutable: true
                                                   reduceFractionLessThanParams:
                                                     description: Parameters used when
                                                       `cross_series_reducer` is `REDUCE_FRACTION_LESS_THAN`,
@@ -3802,11 +3514,9 @@ components:
                                                         format: double
                                                         type: number
                                                         x-dcl-go-name: Threshold
-                                                        x-kubernetes-immutable: true
                                                     type: object
                                                     x-dcl-go-name: ReduceFractionLessThanParams
                                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams
-                                                    x-kubernetes-immutable: true
                                                   reduceMakeDistributionParams:
                                                     description: Parameters used when
                                                       `cross_series_reducer` is `REDUCE_MAKE_DISTRIBUTION`,
@@ -3832,11 +3542,9 @@ components:
                                                                 type: array
                                                                 x-dcl-go-name: Bounds
                                                                 x-dcl-list-type: list
-                                                                x-kubernetes-immutable: true
                                                             type: object
                                                             x-dcl-go-name: ExplicitBuckets
                                                             x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
-                                                            x-kubernetes-immutable: true
                                                           exponentialBuckets:
                                                             description: The exponential
                                                               buckets.
@@ -3848,7 +3556,6 @@ components:
                                                                 format: double
                                                                 type: number
                                                                 x-dcl-go-name: GrowthFactor
-                                                                x-kubernetes-immutable: true
                                                               numFiniteBuckets:
                                                                 description: Must
                                                                   be greater than
@@ -3856,7 +3563,6 @@ components:
                                                                 format: int64
                                                                 type: integer
                                                                 x-dcl-go-name: NumFiniteBuckets
-                                                                x-kubernetes-immutable: true
                                                               scale:
                                                                 description: Must
                                                                   be greater than
@@ -3864,11 +3570,9 @@ components:
                                                                 format: double
                                                                 type: number
                                                                 x-dcl-go-name: Scale
-                                                                x-kubernetes-immutable: true
                                                             type: object
                                                             x-dcl-go-name: ExponentialBuckets
                                                             x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
-                                                            x-kubernetes-immutable: true
                                                           linearBuckets:
                                                             description: The linear
                                                               bucket.
@@ -3880,7 +3584,6 @@ components:
                                                                 format: int64
                                                                 type: integer
                                                                 x-dcl-go-name: NumFiniteBuckets
-                                                                x-kubernetes-immutable: true
                                                               offset:
                                                                 description: Lower
                                                                   bound of the first
@@ -3888,7 +3591,6 @@ components:
                                                                 format: double
                                                                 type: number
                                                                 x-dcl-go-name: Offset
-                                                                x-kubernetes-immutable: true
                                                               width:
                                                                 description: Must
                                                                   be greater than
@@ -3896,15 +3598,12 @@ components:
                                                                 format: double
                                                                 type: number
                                                                 x-dcl-go-name: Width
-                                                                x-kubernetes-immutable: true
                                                             type: object
                                                             x-dcl-go-name: LinearBuckets
                                                             x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
-                                                            x-kubernetes-immutable: true
                                                         type: object
                                                         x-dcl-go-name: BucketOptions
                                                         x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions
-                                                        x-kubernetes-immutable: true
                                                       exemplarSampling:
                                                         description: When present,
                                                           modifies exemplars in `REDUCE_MAKE_DISTRIBTUION`.
@@ -3917,19 +3616,15 @@ components:
                                                             format: double
                                                             type: number
                                                             x-dcl-go-name: MinimumValue
-                                                            x-kubernetes-immutable: true
                                                         type: object
                                                         x-dcl-go-name: ExemplarSampling
                                                         x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling
-                                                        x-kubernetes-immutable: true
                                                     type: object
                                                     x-dcl-go-name: ReduceMakeDistributionParams
                                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams
-                                                    x-kubernetes-immutable: true
                                                 type: object
                                                 x-dcl-go-name: Aggregation
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
-                                                x-kubernetes-immutable: true
                                               filter:
                                                 description: Required. The [monitoring
                                                   filter](https://cloud.google.com/monitoring/api/v3/filters)
@@ -3937,11 +3632,9 @@ components:
                                                   resources, and projects to query.
                                                 type: string
                                                 x-dcl-go-name: Filter
-                                                x-kubernetes-immutable: true
                                             type: object
                                             x-dcl-go-name: Numerator
                                             x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
-                                            x-kubernetes-immutable: true
                                           pickTimeSeriesFilter:
                                             description: Ranking based time series
                                               filter.
@@ -3958,14 +3651,12 @@ components:
                                                 type: string
                                                 x-dcl-go-name: Direction
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum
-                                                x-kubernetes-immutable: true
                                               numTimeSeries:
                                                 description: How many time series
                                                   to allow to pass through the filter.
                                                 format: int64
                                                 type: integer
                                                 x-dcl-go-name: NumTimeSeries
-                                                x-kubernetes-immutable: true
                                               rankingMethod:
                                                 description: '`ranking_method` is
                                                   applied to each time series independently
@@ -3985,11 +3676,9 @@ components:
                                                 type: string
                                                 x-dcl-go-name: RankingMethod
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum
-                                                x-kubernetes-immutable: true
                                             type: object
                                             x-dcl-go-name: PickTimeSeriesFilter
                                             x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
-                                            x-kubernetes-immutable: true
                                           secondaryAggregation:
                                             description: Apply a second aggregation
                                               after the ratio is computed.
@@ -4027,7 +3716,6 @@ components:
                                                     format: int64
                                                     type: integer
                                                     x-dcl-go-name: Nanos
-                                                    x-kubernetes-immutable: true
                                                   seconds:
                                                     description: 'Signed seconds of
                                                       the span of time. Must be from
@@ -4039,11 +3727,9 @@ components:
                                                     format: int64
                                                     type: integer
                                                     x-dcl-go-name: Seconds
-                                                    x-kubernetes-immutable: true
                                                 type: object
                                                 x-dcl-go-name: AlignmentPeriod
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod
-                                                x-kubernetes-immutable: true
                                               crossSeriesReducer:
                                                 description: 'The reduction operation
                                                   to be used to combine time series
@@ -4095,7 +3781,6 @@ components:
                                                 type: string
                                                 x-dcl-go-name: CrossSeriesReducer
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum
-                                                x-kubernetes-immutable: true
                                               groupByFields:
                                                 description: The set of fields to
                                                   preserve when `cross_series_reducer`
@@ -4127,7 +3812,6 @@ components:
                                                 type: array
                                                 x-dcl-go-name: GroupByFields
                                                 x-dcl-list-type: list
-                                                x-kubernetes-immutable: true
                                               perSeriesAligner:
                                                 description: An `Aligner` describes
                                                   how to bring the data points in
@@ -4177,7 +3861,6 @@ components:
                                                 type: string
                                                 x-dcl-go-name: PerSeriesAligner
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum
-                                                x-kubernetes-immutable: true
                                               reduceFractionLessThanParams:
                                                 description: Parameters used when
                                                   `cross_series_reducer` is `REDUCE_FRACTION_LESS_THAN`,
@@ -4190,11 +3873,9 @@ components:
                                                     format: double
                                                     type: number
                                                     x-dcl-go-name: Threshold
-                                                    x-kubernetes-immutable: true
                                                 type: object
                                                 x-dcl-go-name: ReduceFractionLessThanParams
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams
-                                                x-kubernetes-immutable: true
                                               reduceMakeDistributionParams:
                                                 description: Parameters used when
                                                   `cross_series_reducer` is `REDUCE_MAKE_DISTRIBUTION`,
@@ -4220,11 +3901,9 @@ components:
                                                             type: array
                                                             x-dcl-go-name: Bounds
                                                             x-dcl-list-type: list
-                                                            x-kubernetes-immutable: true
                                                         type: object
                                                         x-dcl-go-name: ExplicitBuckets
                                                         x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
-                                                        x-kubernetes-immutable: true
                                                       exponentialBuckets:
                                                         description: The exponential
                                                           buckets.
@@ -4235,25 +3914,21 @@ components:
                                                             format: double
                                                             type: number
                                                             x-dcl-go-name: GrowthFactor
-                                                            x-kubernetes-immutable: true
                                                           numFiniteBuckets:
                                                             description: Must be greater
                                                               than 0.
                                                             format: int64
                                                             type: integer
                                                             x-dcl-go-name: NumFiniteBuckets
-                                                            x-kubernetes-immutable: true
                                                           scale:
                                                             description: Must be greater
                                                               than 0.
                                                             format: double
                                                             type: number
                                                             x-dcl-go-name: Scale
-                                                            x-kubernetes-immutable: true
                                                         type: object
                                                         x-dcl-go-name: ExponentialBuckets
                                                         x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
-                                                        x-kubernetes-immutable: true
                                                       linearBuckets:
                                                         description: The linear bucket.
                                                         properties:
@@ -4263,29 +3938,24 @@ components:
                                                             format: int64
                                                             type: integer
                                                             x-dcl-go-name: NumFiniteBuckets
-                                                            x-kubernetes-immutable: true
                                                           offset:
                                                             description: Lower bound
                                                               of the first bucket.
                                                             format: double
                                                             type: number
                                                             x-dcl-go-name: Offset
-                                                            x-kubernetes-immutable: true
                                                           width:
                                                             description: Must be greater
                                                               than 0.
                                                             format: double
                                                             type: number
                                                             x-dcl-go-name: Width
-                                                            x-kubernetes-immutable: true
                                                         type: object
                                                         x-dcl-go-name: LinearBuckets
                                                         x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
-                                                        x-kubernetes-immutable: true
                                                     type: object
                                                     x-dcl-go-name: BucketOptions
                                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions
-                                                    x-kubernetes-immutable: true
                                                   exemplarSampling:
                                                     description: When present, modifies
                                                       exemplars in `REDUCE_MAKE_DISTRIBTUION`.
@@ -4297,28 +3967,22 @@ components:
                                                         format: double
                                                         type: number
                                                         x-dcl-go-name: MinimumValue
-                                                        x-kubernetes-immutable: true
                                                     type: object
                                                     x-dcl-go-name: ExemplarSampling
                                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
-                                                    x-kubernetes-immutable: true
                                                 type: object
                                                 x-dcl-go-name: ReduceMakeDistributionParams
                                                 x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams
-                                                x-kubernetes-immutable: true
                                             type: object
                                             x-dcl-go-name: SecondaryAggregation
                                             x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
-                                            x-kubernetes-immutable: true
                                         type: object
                                         x-dcl-go-name: TimeSeriesFilterRatio
                                         x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio
-                                        x-kubernetes-immutable: true
                                       timeSeriesQueryLanguage:
                                         description: A query used to fetch time series.
                                         type: string
                                         x-dcl-go-name: TimeSeriesQueryLanguage
-                                        x-kubernetes-immutable: true
                                       unitOverride:
                                         description: The unit of data contained in
                                           fetched time series. If non-empty, this
@@ -4328,17 +3992,14 @@ components:
                                           field in `MetricDescriptor`.
                                         type: string
                                         x-dcl-go-name: UnitOverride
-                                        x-kubernetes-immutable: true
                                     type: object
                                     x-dcl-go-name: TimeSeriesQuery
                                     x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQuery
-                                    x-kubernetes-immutable: true
                                 type: object
                                 x-dcl-go-type: DashboardWidgetXyChartDataSets
                               type: array
                               x-dcl-go-name: DataSets
                               x-dcl-list-type: list
-                              x-kubernetes-immutable: true
                             metricDrilldown:
                               description: The widget-level metric drilldowns define
                                 the scope of the widget and are applied in addition
@@ -4357,7 +4018,6 @@ components:
                                       type: array
                                       x-dcl-go-name: MetadataSystemLabels
                                       x-dcl-list-type: list
-                                      x-kubernetes-immutable: true
                                     metadataUserLabels:
                                       description: Metadata user labels by which to
                                         group the output time series.
@@ -4367,7 +4027,6 @@ components:
                                       type: array
                                       x-dcl-go-name: MetadataUserLabels
                                       x-dcl-list-type: list
-                                      x-kubernetes-immutable: true
                                     metricLabels:
                                       description: Metric labels by which to group
                                         the output time series.
@@ -4377,7 +4036,6 @@ components:
                                       type: array
                                       x-dcl-go-name: MetricLabels
                                       x-dcl-list-type: list
-                                      x-kubernetes-immutable: true
                                     reducer:
                                       description: 'How to aggregate the time series
                                         data while grouping. Possible values: REDUCE_NONE,
@@ -4407,7 +4065,6 @@ components:
                                       type: string
                                       x-dcl-go-name: Reducer
                                       x-dcl-go-type: DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownReducerEnum
-                                      x-kubernetes-immutable: true
                                     resourceLabels:
                                       description: Resource labels by which to group
                                         the output time series.
@@ -4417,11 +4074,9 @@ components:
                                       type: array
                                       x-dcl-go-name: ResourceLabels
                                       x-dcl-list-type: list
-                                      x-kubernetes-immutable: true
                                   type: object
                                   x-dcl-go-name: MetricGroupByDrilldown
                                   x-dcl-go-type: DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown
-                                  x-kubernetes-immutable: true
                                 metricLabelDrilldowns:
                                   description: Each `MetricLabelDrilldown` limits
                                     the metrics that will be retrieved, based on the
@@ -4436,7 +4091,6 @@ components:
                                           defines a restriction.
                                         type: string
                                         x-dcl-go-name: Label
-                                        x-kubernetes-immutable: true
                                       logicalOperator:
                                         description: 'The operator that defines how
                                           value restrictions on the label are joined.
@@ -4449,7 +4103,6 @@ components:
                                         type: string
                                         x-dcl-go-name: LogicalOperator
                                         x-dcl-go-type: DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsLogicalOperatorEnum
-                                        x-kubernetes-immutable: true
                                       valueRestrictions:
                                         description: The values and rules to match
                                           against a metric label.
@@ -4469,25 +4122,21 @@ components:
                                               type: string
                                               x-dcl-go-name: Comparator
                                               x-dcl-go-type: DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictionsComparatorEnum
-                                              x-kubernetes-immutable: true
                                             targetValue:
                                               description: The value against which
                                                 to match.
                                               type: string
                                               x-dcl-go-name: TargetValue
-                                              x-kubernetes-immutable: true
                                           type: object
                                           x-dcl-go-type: DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions
                                         type: array
                                         x-dcl-go-name: ValueRestrictions
                                         x-dcl-list-type: list
-                                        x-kubernetes-immutable: true
                                     type: object
                                     x-dcl-go-type: DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns
                                   type: array
                                   x-dcl-go-name: MetricLabelDrilldowns
                                   x-dcl-list-type: list
-                                  x-kubernetes-immutable: true
                                 metricTypeDrilldown:
                                   description: Limit the metrics signals retrieved
                                     based on the metric type.
@@ -4497,15 +4146,12 @@ components:
                                         Only strict-equals is supported.
                                       type: string
                                       x-dcl-go-name: TargetValue
-                                      x-kubernetes-immutable: true
                                   type: object
                                   x-dcl-go-name: MetricTypeDrilldown
                                   x-dcl-go-type: DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown
-                                  x-kubernetes-immutable: true
                               type: object
                               x-dcl-go-name: MetricDrilldown
                               x-dcl-go-type: DashboardWidgetXyChartMetricDrilldown
-                              x-kubernetes-immutable: true
                             sourceDrilldown:
                               description: The widget-level source drilldowns define
                                 the scope of the widget and are applied in addition
@@ -4526,11 +4172,9 @@ components:
                                       type: array
                                       x-dcl-go-name: TargetValues
                                       x-dcl-list-type: list
-                                      x-kubernetes-immutable: true
                                   type: object
                                   x-dcl-go-name: GroupNameDrilldown
                                   x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown
-                                  x-kubernetes-immutable: true
                                 metadataSystemLabelDrilldowns:
                                   description: Each limits the resources from which
                                     signals are retrieved based on a metadata system
@@ -4545,7 +4189,6 @@ components:
                                           the drilldown will be restricted to.
                                         type: string
                                         x-dcl-go-name: Label
-                                        x-kubernetes-immutable: true
                                       logicalOperator:
                                         description: 'The logical operator that defines
                                           how all the value restrictions on the label
@@ -4558,7 +4201,6 @@ components:
                                         type: string
                                         x-dcl-go-name: LogicalOperator
                                         x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsLogicalOperatorEnum
-                                        x-kubernetes-immutable: true
                                       valueRestrictions:
                                         description: The values and rules to match
                                           against a `MonitoredResourceMetadata` object's
@@ -4579,25 +4221,21 @@ components:
                                               type: string
                                               x-dcl-go-name: Comparator
                                               x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsComparatorEnum
-                                              x-kubernetes-immutable: true
                                             targetValue:
                                               description: The value against which
                                                 to match.
                                               type: string
                                               x-dcl-go-name: TargetValue
-                                              x-kubernetes-immutable: true
                                           type: object
                                           x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions
                                         type: array
                                         x-dcl-go-name: ValueRestrictions
                                         x-dcl-list-type: list
-                                        x-kubernetes-immutable: true
                                     type: object
                                     x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns
                                   type: array
                                   x-dcl-go-name: MetadataSystemLabelDrilldowns
                                   x-dcl-list-type: list
-                                  x-kubernetes-immutable: true
                                 metadataUserLabelDrilldowns:
                                   description: Each limits the resources from which
                                     signals are retrieved based on a metadata user
@@ -4612,7 +4250,6 @@ components:
                                           the drilldown will be restricted to.
                                         type: string
                                         x-dcl-go-name: Label
-                                        x-kubernetes-immutable: true
                                       logicalOperator:
                                         description: 'The operator that defines how
                                           value restrictions on the label are joined.
@@ -4625,7 +4262,6 @@ components:
                                         type: string
                                         x-dcl-go-name: LogicalOperator
                                         x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsLogicalOperatorEnum
-                                        x-kubernetes-immutable: true
                                       valueRestrictions:
                                         description: The values and rules to match
                                           against a `MonitoredResourceMetadata object's
@@ -4646,25 +4282,21 @@ components:
                                               type: string
                                               x-dcl-go-name: Comparator
                                               x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsComparatorEnum
-                                              x-kubernetes-immutable: true
                                             targetValue:
                                               description: The value against which
                                                 to match.
                                               type: string
                                               x-dcl-go-name: TargetValue
-                                              x-kubernetes-immutable: true
                                           type: object
                                           x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions
                                         type: array
                                         x-dcl-go-name: ValueRestrictions
                                         x-dcl-list-type: list
-                                        x-kubernetes-immutable: true
                                     type: object
                                     x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns
                                   type: array
                                   x-dcl-go-name: MetadataUserLabelDrilldowns
                                   x-dcl-list-type: list
-                                  x-kubernetes-immutable: true
                                 resourceLabelDrilldowns:
                                   description: Each limits the resources from which
                                     signals are retrieved based on a resource label.  Each
@@ -4681,7 +4313,6 @@ components:
                                           label.
                                         type: string
                                         x-dcl-go-name: Label
-                                        x-kubernetes-immutable: true
                                       logicalOperator:
                                         description: 'The operator that defines how
                                           value restrictions on the label are joined.
@@ -4694,7 +4325,6 @@ components:
                                         type: string
                                         x-dcl-go-name: LogicalOperator
                                         x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsLogicalOperatorEnum
-                                        x-kubernetes-immutable: true
                                       valueRestrictions:
                                         description: The values and rules to match
                                           against a `MonitoredResource` object's label.
@@ -4714,25 +4344,21 @@ components:
                                               type: string
                                               x-dcl-go-name: Comparator
                                               x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictionsComparatorEnum
-                                              x-kubernetes-immutable: true
                                             targetValue:
                                               description: The value against which
                                                 to match.
                                               type: string
                                               x-dcl-go-name: TargetValue
-                                              x-kubernetes-immutable: true
                                           type: object
                                           x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions
                                         type: array
                                         x-dcl-go-name: ValueRestrictions
                                         x-dcl-list-type: list
-                                        x-kubernetes-immutable: true
                                     type: object
                                     x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns
                                   type: array
                                   x-dcl-go-name: ResourceLabelDrilldowns
                                   x-dcl-list-type: list
-                                  x-kubernetes-immutable: true
                                 resourceTypeDrilldown:
                                   description: Limit the resources from which signals
                                     are retrieved based on their resource type.
@@ -4746,11 +4372,9 @@ components:
                                       type: array
                                       x-dcl-go-name: TargetValues
                                       x-dcl-list-type: list
-                                      x-kubernetes-immutable: true
                                   type: object
                                   x-dcl-go-name: ResourceTypeDrilldown
                                   x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown
-                                  x-kubernetes-immutable: true
                                 serviceNameDrilldown:
                                   description: Limit the resources from which signals
                                     are retrieved based on their inclusion in some
@@ -4766,11 +4390,9 @@ components:
                                       type: array
                                       x-dcl-go-name: TargetValues
                                       x-dcl-list-type: list
-                                      x-kubernetes-immutable: true
                                   type: object
                                   x-dcl-go-name: ServiceNameDrilldown
                                   x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown
-                                  x-kubernetes-immutable: true
                                 serviceTypeDrilldown:
                                   description: Limit the resources from which signals
                                     are retrieved based on their inclusion in some
@@ -4786,15 +4408,12 @@ components:
                                       type: array
                                       x-dcl-go-name: Types
                                       x-dcl-list-type: list
-                                      x-kubernetes-immutable: true
                                   type: object
                                   x-dcl-go-name: ServiceTypeDrilldown
                                   x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown
-                                  x-kubernetes-immutable: true
                               type: object
                               x-dcl-go-name: SourceDrilldown
                               x-dcl-go-type: DashboardWidgetXyChartSourceDrilldown
-                              x-kubernetes-immutable: true
                             thresholds:
                               description: Threshold lines drawn horizontally across
                                 the chart.
@@ -4816,7 +4435,6 @@ components:
                                     type: string
                                     x-dcl-go-name: Color
                                     x-dcl-go-type: DashboardWidgetXyChartThresholdsColorEnum
-                                    x-kubernetes-immutable: true
                                   direction:
                                     description: 'The direction for the current threshold.
                                       Direction is not allowed in a XyChart. Possible
@@ -4828,12 +4446,10 @@ components:
                                     type: string
                                     x-dcl-go-name: Direction
                                     x-dcl-go-type: DashboardWidgetXyChartThresholdsDirectionEnum
-                                    x-kubernetes-immutable: true
                                   label:
                                     description: A label for the threshold.
                                     type: string
                                     x-dcl-go-name: Label
-                                    x-kubernetes-immutable: true
                                   value:
                                     description: The value of the threshold. The value
                                       should be defined in the native scale of the
@@ -4841,13 +4457,11 @@ components:
                                     format: double
                                     type: number
                                     x-dcl-go-name: Value
-                                    x-kubernetes-immutable: true
                                 type: object
                                 x-dcl-go-type: DashboardWidgetXyChartThresholds
                               type: array
                               x-dcl-go-name: Thresholds
                               x-dcl-list-type: list
-                              x-kubernetes-immutable: true
                             timeshiftDuration:
                               description: The duration used to display a comparison
                                 chart. A comparison chart simultaneously shows values
@@ -4868,7 +4482,6 @@ components:
                                   format: int64
                                   type: integer
                                   x-dcl-go-name: Nanos
-                                  x-kubernetes-immutable: true
                                 seconds:
                                   description: 'Signed seconds of the span of time.
                                     Must be from -315,576,000,000 to +315,576,000,000
@@ -4878,11 +4491,9 @@ components:
                                   format: int64
                                   type: integer
                                   x-dcl-go-name: Seconds
-                                  x-kubernetes-immutable: true
                               type: object
                               x-dcl-go-name: TimeshiftDuration
                               x-dcl-go-type: DashboardWidgetXyChartTimeshiftDuration
-                              x-kubernetes-immutable: true
                             xAxis:
                               description: The properties applied to the X axis.
                               properties:
@@ -4890,7 +4501,6 @@ components:
                                   description: The label of the axis.
                                   type: string
                                   x-dcl-go-name: Label
-                                  x-kubernetes-immutable: true
                                 scale:
                                   description: 'The axis scale. By default, a linear
                                     scale is used. Possible values: SCALE_UNSPECIFIED,
@@ -4902,11 +4512,9 @@ components:
                                   type: string
                                   x-dcl-go-name: Scale
                                   x-dcl-go-type: DashboardWidgetXyChartXAxisScaleEnum
-                                  x-kubernetes-immutable: true
                               type: object
                               x-dcl-go-name: XAxis
                               x-dcl-go-type: DashboardWidgetXyChartXAxis
-                              x-kubernetes-immutable: true
                             yAxis:
                               description: The properties applied to the Y axis.
                               properties:
@@ -4914,7 +4522,6 @@ components:
                                   description: The label of the axis.
                                   type: string
                                   x-dcl-go-name: Label
-                                  x-kubernetes-immutable: true
                                 scale:
                                   description: 'The axis scale. By default, a linear
                                     scale is used. Possible values: SCALE_UNSPECIFIED,
@@ -4926,27 +4533,22 @@ components:
                                   type: string
                                   x-dcl-go-name: Scale
                                   x-dcl-go-type: DashboardWidgetXyChartYAxisScaleEnum
-                                  x-kubernetes-immutable: true
                               type: object
                               x-dcl-go-name: YAxis
                               x-dcl-go-type: DashboardWidgetXyChartYAxis
-                              x-kubernetes-immutable: true
                           type: object
                           x-dcl-go-name: XyChart
                           x-dcl-go-type: DashboardWidgetXyChart
-                          x-kubernetes-immutable: true
                       type: object
                       x-dcl-go-type: DashboardWidget
                     type: array
                     x-dcl-go-name: Widgets
                     x-dcl-list-type: list
-                    x-kubernetes-immutable: true
                 type: object
                 x-dcl-go-type: DashboardColumnLayoutColumns
               type: array
               x-dcl-go-name: Columns
               x-dcl-list-type: list
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: ColumnLayout
           x-dcl-go-type: DashboardColumnLayout
@@ -4964,7 +4566,6 @@ components:
               format: int64
               type: integer
               x-dcl-go-name: Columns
-              x-kubernetes-immutable: true
             widgets:
               description: The informational elements that are arranged into the columns
                 row-first.
@@ -4976,7 +4577,6 @@ components:
               type: array
               x-dcl-go-name: Widgets
               x-dcl-list-type: list
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: GridLayout
           x-dcl-go-type: DashboardGridLayout
@@ -4989,7 +4589,6 @@ components:
               format: int64
               type: integer
               x-dcl-go-name: Columns
-              x-kubernetes-immutable: true
             tiles:
               description: The tiles to display.
               items:
@@ -4999,7 +4598,6 @@ components:
                     format: int64
                     type: integer
                     x-dcl-go-name: Height
-                    x-kubernetes-immutable: true
                   widget:
                     $ref: '#/components/schemas/Widget'
                     x-dcl-go-name: Widget
@@ -5008,27 +4606,23 @@ components:
                     format: int64
                     type: integer
                     x-dcl-go-name: Width
-                    x-kubernetes-immutable: true
                   xPos:
                     description: The zero-indexed position of the tile in grid squares
                       relative to the left edge of the grid.
                     format: int64
                     type: integer
                     x-dcl-go-name: XPos
-                    x-kubernetes-immutable: true
                   yPos:
                     description: The zero-indexed position of the tile in grid squares
                       relative to the top edge of the grid.
                     format: int64
                     type: integer
                     x-dcl-go-name: YPos
-                    x-kubernetes-immutable: true
                 type: object
                 x-dcl-go-type: DashboardMosaicLayoutTiles
               type: array
               x-dcl-go-name: Tiles
               x-dcl-list-type: list
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: MosaicLayout
           x-dcl-go-type: DashboardMosaicLayout
@@ -5041,6 +4635,10 @@ components:
           description: The project id of the resource.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         rowLayout:
           description: The content is divided into equally spaced rows and the widgets

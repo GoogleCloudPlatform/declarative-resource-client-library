@@ -47,7 +47,7 @@ type DatastoreOperationError struct {
 func (op *DatastoreOperation) Wait(ctx context.Context, c *dcl.Config, _, _ string) error {
 	c.Logger.Infof("Waiting on: %v", op)
 	op.config = c
-	return dcl.Do(ctx, op.operate, c.Retry)
+	return dcl.Do(ctx, op.operate, c.RetryProvider)
 }
 func (op *DatastoreOperation) operate(ctx context.Context) (*dcl.RetryDetails, error) {
 	u := dcl.URL(op.Name, "https://datastore.googleapis.com/v1/", op.config.BasePath, nil)
@@ -90,4 +90,10 @@ func IsDatastoreRetryableError(c *dcl.Config, err error) bool {
 		}
 	}
 	return false
+}
+
+// FirstResponse returns the first response that this operation receives with the resource.
+// This response may contain special information.
+func (op *DatastoreOperation) FirstResponse() (map[string]interface{}, bool) {
+	return make(map[string]interface{}), false
 }

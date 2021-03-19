@@ -114,14 +114,52 @@ class UrlMap(object):
         self.test = UrlMapTestArray.from_proto(response.test)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = url_map_pb2_grpc.ComputeBetaUrlMapServiceStub(channel.Channel())
         request = url_map_pb2.DeleteComputeBetaUrlMapRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if UrlMapDefaultRouteAction.to_proto(self.default_route_action):
+            request.resource.default_route_action.CopyFrom(
+                UrlMapDefaultRouteAction.to_proto(self.default_route_action)
+            )
+        else:
+            request.resource.ClearField("default_route_action")
+        if Primitive.to_proto(self.default_service):
+            request.resource.default_service = Primitive.to_proto(self.default_service)
 
-        request.Name = name
+        if UrlMapDefaultUrlRedirect.to_proto(self.default_url_redirect):
+            request.resource.default_url_redirect.CopyFrom(
+                UrlMapDefaultUrlRedirect.to_proto(self.default_url_redirect)
+            )
+        else:
+            request.resource.ClearField("default_url_redirect")
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if UrlMapHeaderAction.to_proto(self.header_action):
+            request.resource.header_action.CopyFrom(
+                UrlMapHeaderAction.to_proto(self.header_action)
+            )
+        else:
+            request.resource.ClearField("header_action")
+        if UrlMapHostRuleArray.to_proto(self.host_rule):
+            request.resource.host_rule.extend(
+                UrlMapHostRuleArray.to_proto(self.host_rule)
+            )
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if UrlMapPathMatcherArray.to_proto(self.path_matcher):
+            request.resource.path_matcher.extend(
+                UrlMapPathMatcherArray.to_proto(self.path_matcher)
+            )
+        if Primitive.to_proto(self.region):
+            request.resource.region = Primitive.to_proto(self.region)
+
+        if UrlMapTestArray.to_proto(self.test):
+            request.resource.test.extend(UrlMapTestArray.to_proto(self.test))
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteComputeBetaUrlMap(request)
 
@@ -157,6 +195,46 @@ class UrlMap(object):
         res.test = UrlMapTestArray.from_proto(res_proto.test)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = url_map_pb2.ComputeBetaUrlMap()
+        if UrlMapDefaultRouteAction.to_proto(self.default_route_action):
+            resource.default_route_action.CopyFrom(
+                UrlMapDefaultRouteAction.to_proto(self.default_route_action)
+            )
+        else:
+            resource.ClearField("default_route_action")
+        if Primitive.to_proto(self.default_service):
+            resource.default_service = Primitive.to_proto(self.default_service)
+        if UrlMapDefaultUrlRedirect.to_proto(self.default_url_redirect):
+            resource.default_url_redirect.CopyFrom(
+                UrlMapDefaultUrlRedirect.to_proto(self.default_url_redirect)
+            )
+        else:
+            resource.ClearField("default_url_redirect")
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if UrlMapHeaderAction.to_proto(self.header_action):
+            resource.header_action.CopyFrom(
+                UrlMapHeaderAction.to_proto(self.header_action)
+            )
+        else:
+            resource.ClearField("header_action")
+        if UrlMapHostRuleArray.to_proto(self.host_rule):
+            resource.host_rule.extend(UrlMapHostRuleArray.to_proto(self.host_rule))
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if UrlMapPathMatcherArray.to_proto(self.path_matcher):
+            resource.path_matcher.extend(
+                UrlMapPathMatcherArray.to_proto(self.path_matcher)
+            )
+        if Primitive.to_proto(self.region):
+            resource.region = Primitive.to_proto(self.region)
+        if UrlMapTestArray.to_proto(self.test):
+            resource.test.extend(UrlMapTestArray.to_proto(self.test))
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class UrlMapDefaultRouteAction(object):

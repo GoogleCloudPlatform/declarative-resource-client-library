@@ -239,16 +239,102 @@ class Disk(object):
         self.source_disk_id = Primitive.from_proto(response.source_disk_id)
         self.location = Primitive.from_proto(response.location)
 
-    @classmethod
-    def delete(self, project, location, name, service_account_file=""):
+    def delete(self):
         stub = disk_pb2_grpc.ComputeDiskServiceStub(channel.Channel())
         request = disk_pb2.DeleteComputeDiskRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
 
-        request.Location = location
+        if DiskEncryptionKey.to_proto(self.disk_encryption_key):
+            request.resource.disk_encryption_key.CopyFrom(
+                DiskEncryptionKey.to_proto(self.disk_encryption_key)
+            )
+        else:
+            request.resource.ClearField("disk_encryption_key")
+        if DiskGuestOsFeatureArray.to_proto(self.guest_os_feature):
+            request.resource.guest_os_feature.extend(
+                DiskGuestOsFeatureArray.to_proto(self.guest_os_feature)
+            )
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
 
-        request.Name = name
+        if Primitive.to_proto(self.license):
+            request.resource.license.extend(Primitive.to_proto(self.license))
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.region):
+            request.resource.region = Primitive.to_proto(self.region)
+
+        if Primitive.to_proto(self.replica_zones):
+            request.resource.replica_zones.extend(
+                Primitive.to_proto(self.replica_zones)
+            )
+        if Primitive.to_proto(self.resource_policy):
+            request.resource.resource_policy.extend(
+                Primitive.to_proto(self.resource_policy)
+            )
+        if Primitive.to_proto(self.size_gb):
+            request.resource.size_gb = Primitive.to_proto(self.size_gb)
+
+        if Primitive.to_proto(self.source_image):
+            request.resource.source_image = Primitive.to_proto(self.source_image)
+
+        if DiskEncryptionKey.to_proto(self.source_image_encryption_key):
+            request.resource.source_image_encryption_key.CopyFrom(
+                DiskEncryptionKey.to_proto(self.source_image_encryption_key)
+            )
+        else:
+            request.resource.ClearField("source_image_encryption_key")
+        if Primitive.to_proto(self.source_snapshot):
+            request.resource.source_snapshot = Primitive.to_proto(self.source_snapshot)
+
+        if DiskEncryptionKey.to_proto(self.source_snapshot_encryption_key):
+            request.resource.source_snapshot_encryption_key.CopyFrom(
+                DiskEncryptionKey.to_proto(self.source_snapshot_encryption_key)
+            )
+        else:
+            request.resource.ClearField("source_snapshot_encryption_key")
+        if Primitive.to_proto(self.type):
+            request.resource.type = Primitive.to_proto(self.type)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.id):
+            request.resource.id = Primitive.to_proto(self.id)
+
+        if Primitive.to_proto(self.options):
+            request.resource.options = Primitive.to_proto(self.options)
+
+        if Primitive.to_proto(self.licenses):
+            request.resource.licenses.extend(Primitive.to_proto(self.licenses))
+        if DiskGuestOsFeaturesArray.to_proto(self.guest_os_features):
+            request.resource.guest_os_features.extend(
+                DiskGuestOsFeaturesArray.to_proto(self.guest_os_features)
+            )
+        if int64Array.to_proto(self.license_codes):
+            request.resource.license_codes.extend(
+                int64Array.to_proto(self.license_codes)
+            )
+        if Primitive.to_proto(self.physical_block_size_bytes):
+            request.resource.physical_block_size_bytes = Primitive.to_proto(
+                self.physical_block_size_bytes
+            )
+
+        if Primitive.to_proto(self.resource_policies):
+            request.resource.resource_policies.extend(
+                Primitive.to_proto(self.resource_policies)
+            )
+        if Primitive.to_proto(self.source_disk):
+            request.resource.source_disk = Primitive.to_proto(self.source_disk)
+
+        if Primitive.to_proto(self.source_disk_id):
+            request.resource.source_disk_id = Primitive.to_proto(self.source_disk_id)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         response = stub.DeleteComputeDisk(request)
 
@@ -322,6 +408,82 @@ class Disk(object):
         res.source_disk_id = Primitive.from_proto(res_proto.source_disk_id)
         res.location = Primitive.from_proto(res_proto.location)
         return res
+
+    def to_proto(self):
+        resource = disk_pb2.ComputeDisk()
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if DiskEncryptionKey.to_proto(self.disk_encryption_key):
+            resource.disk_encryption_key.CopyFrom(
+                DiskEncryptionKey.to_proto(self.disk_encryption_key)
+            )
+        else:
+            resource.ClearField("disk_encryption_key")
+        if DiskGuestOsFeatureArray.to_proto(self.guest_os_feature):
+            resource.guest_os_feature.extend(
+                DiskGuestOsFeatureArray.to_proto(self.guest_os_feature)
+            )
+        if Primitive.to_proto(self.labels):
+            resource.labels = Primitive.to_proto(self.labels)
+        if Primitive.to_proto(self.license):
+            resource.license.extend(Primitive.to_proto(self.license))
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.region):
+            resource.region = Primitive.to_proto(self.region)
+        if Primitive.to_proto(self.replica_zones):
+            resource.replica_zones.extend(Primitive.to_proto(self.replica_zones))
+        if Primitive.to_proto(self.resource_policy):
+            resource.resource_policy.extend(Primitive.to_proto(self.resource_policy))
+        if Primitive.to_proto(self.size_gb):
+            resource.size_gb = Primitive.to_proto(self.size_gb)
+        if Primitive.to_proto(self.source_image):
+            resource.source_image = Primitive.to_proto(self.source_image)
+        if DiskEncryptionKey.to_proto(self.source_image_encryption_key):
+            resource.source_image_encryption_key.CopyFrom(
+                DiskEncryptionKey.to_proto(self.source_image_encryption_key)
+            )
+        else:
+            resource.ClearField("source_image_encryption_key")
+        if Primitive.to_proto(self.source_snapshot):
+            resource.source_snapshot = Primitive.to_proto(self.source_snapshot)
+        if DiskEncryptionKey.to_proto(self.source_snapshot_encryption_key):
+            resource.source_snapshot_encryption_key.CopyFrom(
+                DiskEncryptionKey.to_proto(self.source_snapshot_encryption_key)
+            )
+        else:
+            resource.ClearField("source_snapshot_encryption_key")
+        if Primitive.to_proto(self.type):
+            resource.type = Primitive.to_proto(self.type)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.id):
+            resource.id = Primitive.to_proto(self.id)
+        if Primitive.to_proto(self.options):
+            resource.options = Primitive.to_proto(self.options)
+        if Primitive.to_proto(self.licenses):
+            resource.licenses.extend(Primitive.to_proto(self.licenses))
+        if DiskGuestOsFeaturesArray.to_proto(self.guest_os_features):
+            resource.guest_os_features.extend(
+                DiskGuestOsFeaturesArray.to_proto(self.guest_os_features)
+            )
+        if int64Array.to_proto(self.license_codes):
+            resource.license_codes.extend(int64Array.to_proto(self.license_codes))
+        if Primitive.to_proto(self.physical_block_size_bytes):
+            resource.physical_block_size_bytes = Primitive.to_proto(
+                self.physical_block_size_bytes
+            )
+        if Primitive.to_proto(self.resource_policies):
+            resource.resource_policies.extend(
+                Primitive.to_proto(self.resource_policies)
+            )
+        if Primitive.to_proto(self.source_disk):
+            resource.source_disk = Primitive.to_proto(self.source_disk)
+        if Primitive.to_proto(self.source_disk_id):
+            resource.source_disk_id = Primitive.to_proto(self.source_disk_id)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
+        return resource
 
 
 class DiskGuestOsFeature(object):

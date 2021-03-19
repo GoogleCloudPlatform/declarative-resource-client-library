@@ -24,7 +24,6 @@ import (
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Group) validate() error {
@@ -141,17 +140,7 @@ func (op *updateGroupUpdateOperation) do(ctx context.Context, r *Group, c *Clien
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.Retry)
-	if err != nil {
-		return err
-	}
-
-	var o operations.MonitoringOperation
-	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
-		return err
-	}
-	err = o.Wait(ctx, c.Config, "https://monitoring.googleapis.com/", "GET")
-
+	_, err = dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -178,7 +167,7 @@ func (c *Client) listGroupRaw(ctx context.Context, project, pageToken string, pa
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -252,18 +241,9 @@ func (op *deleteGroupOperation) do(ctx context.Context, r *Group, c *Client) err
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
-		return err
-	}
-
-	// wait for object to be deleted.
-	var o operations.MonitoringOperation
-	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
-		return err
-	}
-	if err := o.Wait(ctx, c.Config, "https://monitoring.googleapis.com/", "GET"); err != nil {
-		return err
+		return fmt.Errorf("failed to delete Group: %w", err)
 	}
 	_, err = c.GetGroup(ctx, r.urlNormalized())
 	if !dcl.IsNotFound(err) {
@@ -275,7 +255,13 @@ func (op *deleteGroupOperation) do(ctx context.Context, r *Group, c *Client) err
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createGroupOperation struct{}
+type createGroupOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createGroupOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createGroupOperation) do(ctx context.Context, r *Group, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -291,27 +277,26 @@ func (op *createGroupOperation) do(ctx context.Context, r *Group, c *Client) err
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
-	// wait for object to be created.
-	var o operations.MonitoringOperation
-	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
-		return err
-	}
-	if err := o.Wait(ctx, c.Config, "https://monitoring.googleapis.com/", "GET"); err != nil {
-		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
-		return err
-	}
-	c.Config.Logger.Infof("Successfully waited for operation")
 
-	r.Name, err = o.FetchName()
+	o, err := dcl.ResponseBodyAsJSON(resp)
 	if err != nil {
-		return fmt.Errorf("error trying to retrieve Name: %w", err)
+		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
+	op.response = o
+
+	// Include Name in URL substitution for initial GET request.
+	name, ok := op.response["name"].(string)
+	if !ok {
+		return fmt.Errorf("expected name to be a string")
+	}
+	r.Name = &name
 
 	if _, err := c.GetGroup(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -324,7 +309,7 @@ func (c *Client) getGroupRaw(ctx context.Context, r *Group) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -408,24 +393,16 @@ func canonicalizeGroupInitialState(rawInitial, rawDesired *Group) (*Group, error
 
 func canonicalizeGroupDesiredState(rawDesired, rawInitial *Group, opts ...dcl.ApplyOption) (*Group, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Group); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Group, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.DisplayName) {
+	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
 		rawDesired.DisplayName = rawInitial.DisplayName
 	}
-	if dcl.IsZeroValue(rawDesired.Filter) {
+	if dcl.StringCanonicalize(rawDesired.Filter, rawInitial.Filter) {
 		rawDesired.Filter = rawInitial.Filter
 	}
 	if dcl.IsZeroValue(rawDesired.IsCluster) {
@@ -449,11 +426,17 @@ func canonicalizeGroupNewState(c *Client, rawNew, rawDesired *Group) (*Group, er
 	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
 		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
+		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Filter) && dcl.IsEmptyValueIndirect(rawDesired.Filter) {
 		rawNew.Filter = rawDesired.Filter
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Filter, rawNew.Filter) {
+			rawNew.Filter = rawDesired.Filter
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.IsCluster) && dcl.IsEmptyValueIndirect(rawDesired.IsCluster) {
@@ -500,7 +483,7 @@ func diffGroup(c *Client, desired, actual *Group, opts ...dcl.ApplyOption) ([]gr
 	}
 
 	var diffs []groupDiff
-	if !dcl.IsZeroValue(desired.DisplayName) && (dcl.IsZeroValue(actual.DisplayName) || !reflect.DeepEqual(*desired.DisplayName, *actual.DisplayName)) {
+	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
 		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 
 		diffs = append(diffs, groupDiff{
@@ -509,7 +492,7 @@ func diffGroup(c *Client, desired, actual *Group, opts ...dcl.ApplyOption) ([]gr
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Filter) && (dcl.IsZeroValue(actual.Filter) || !reflect.DeepEqual(*desired.Filter, *actual.Filter)) {
+	if !dcl.IsZeroValue(desired.Filter) && !dcl.StringCanonicalize(desired.Filter, actual.Filter) {
 		c.Config.Logger.Infof("Detected diff in Filter.\nDESIRED: %v\nACTUAL: %v", desired.Filter, actual.Filter)
 
 		diffs = append(diffs, groupDiff{
@@ -518,7 +501,7 @@ func diffGroup(c *Client, desired, actual *Group, opts ...dcl.ApplyOption) ([]gr
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.IsCluster) && (dcl.IsZeroValue(actual.IsCluster) || !reflect.DeepEqual(*desired.IsCluster, *actual.IsCluster)) {
+	if !reflect.DeepEqual(desired.IsCluster, actual.IsCluster) {
 		c.Config.Logger.Infof("Detected diff in IsCluster.\nDESIRED: %v\nACTUAL: %v", desired.IsCluster, actual.IsCluster)
 
 		diffs = append(diffs, groupDiff{
@@ -527,7 +510,7 @@ func diffGroup(c *Client, desired, actual *Group, opts ...dcl.ApplyOption) ([]gr
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.StringEqualsWithSelfLink(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, groupDiff{
 			RequiresRecreate: true,
@@ -573,6 +556,9 @@ func diffGroup(c *Client, desired, actual *Group, opts ...dcl.ApplyOption) ([]gr
 // short-form so they can be substituted in.
 func (r *Group) urlNormalized() *Group {
 	normalized := deepcopy.Copy(*r).(Group)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
+	normalized.Filter = dcl.SelfLinkToName(r.Filter)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.ParentName = dcl.SelfLinkToName(r.ParentName)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
@@ -624,6 +610,10 @@ func unmarshalGroup(b []byte, c *Client) (*Group, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapGroup(m, c)
+}
+
+func unmarshalMapGroup(m map[string]interface{}, c *Client) (*Group, error) {
 
 	return flattenGroup(c, m), nil
 }
@@ -672,7 +662,7 @@ func flattenGroup(c *Client, i interface{}) *Group {
 	r.DisplayName = dcl.FlattenString(m["displayName"])
 	r.Filter = dcl.FlattenString(m["filter"])
 	r.IsCluster = dcl.FlattenBool(m["isCluster"])
-	r.Name = dcl.FlattenSecretValue(m["name"])
+	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
 	r.ParentName = dcl.FlattenString(m["parentName"])
 	r.Project = dcl.FlattenString(m["project"])
 

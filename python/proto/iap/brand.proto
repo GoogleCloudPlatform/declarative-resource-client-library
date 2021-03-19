@@ -45,6 +45,7 @@ message ListIapBrandRequest {
 message ListIapBrandResponse {
   repeated IapBrand items = 1;
 }
+
 service IapBrandService {
   rpc ApplyIapBrand(ApplyIapBrandRequest) returns (IapBrand);
   rpc DeleteIapBrand(DeleteIapBrandRequest) returns (google.protobuf.Empty);

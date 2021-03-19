@@ -109,7 +109,7 @@ func (c *Client) listConnectorRaw(ctx context.Context, project, location, pageTo
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -118,8 +118,8 @@ func (c *Client) listConnectorRaw(ctx context.Context, project, location, pageTo
 }
 
 type listConnectorOperation struct {
-	Items []map[string]interface{} `json:"items"`
-	Token string                   `json:"nextPageToken"`
+	Connectors []map[string]interface{} `json:"connectors"`
+	Token      string                   `json:"nextPageToken"`
 }
 
 func (c *Client) listConnector(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*Connector, string, error) {
@@ -134,7 +134,7 @@ func (c *Client) listConnector(ctx context.Context, project, location, pageToken
 	}
 
 	var l []*Connector
-	for _, v := range m.Items {
+	for _, v := range m.Connectors {
 		res := flattenConnector(c, v)
 		res.Project = &project
 		res.Location = &location
@@ -184,7 +184,7 @@ func (op *deleteConnectorOperation) do(ctx context.Context, r *Connector, c *Cli
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -207,7 +207,13 @@ func (op *deleteConnectorOperation) do(ctx context.Context, r *Connector, c *Cli
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createConnectorOperation struct{}
+type createConnectorOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createConnectorOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createConnectorOperation) do(ctx context.Context, r *Connector, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -223,7 +229,7 @@ func (op *createConnectorOperation) do(ctx context.Context, r *Connector, c *Cli
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -237,8 +243,10 @@ func (op *createConnectorOperation) do(ctx context.Context, r *Connector, c *Cli
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetConnector(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -257,7 +265,7 @@ func (c *Client) getConnectorRaw(ctx context.Context, r *Connector) ([]byte, err
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -342,14 +350,6 @@ func canonicalizeConnectorDesiredState(rawDesired, rawInitial *Connector, opts .
 		rawDesired.MaxThroughput = dcl.Int64(1000)
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Connector); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Connector, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -359,10 +359,10 @@ func canonicalizeConnectorDesiredState(rawDesired, rawInitial *Connector, opts .
 	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Network) {
+	if dcl.StringCanonicalize(rawDesired.Network, rawInitial.Network) {
 		rawDesired.Network = rawInitial.Network
 	}
-	if dcl.IsZeroValue(rawDesired.IPCidrRange) {
+	if dcl.StringCanonicalize(rawDesired.IPCidrRange, rawInitial.IPCidrRange) {
 		rawDesired.IPCidrRange = rawInitial.IPCidrRange
 	}
 	if dcl.IsZeroValue(rawDesired.MinThroughput) {
@@ -380,7 +380,7 @@ func canonicalizeConnectorDesiredState(rawDesired, rawInitial *Connector, opts .
 	if dcl.IsZeroValue(rawDesired.State) {
 		rawDesired.State = rawInitial.State
 	}
-	if dcl.IsZeroValue(rawDesired.SelfLink) {
+	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}
 
@@ -394,11 +394,17 @@ func canonicalizeConnectorNewState(c *Client, rawNew, rawDesired *Connector) (*C
 	if dcl.IsEmptyValueIndirect(rawNew.Network) && dcl.IsEmptyValueIndirect(rawDesired.Network) {
 		rawNew.Network = rawDesired.Network
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Network, rawNew.Network) {
+			rawNew.Network = rawDesired.Network
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.IPCidrRange) && dcl.IsEmptyValueIndirect(rawDesired.IPCidrRange) {
 		rawNew.IPCidrRange = rawDesired.IPCidrRange
 	} else {
+		if dcl.StringCanonicalize(rawDesired.IPCidrRange, rawNew.IPCidrRange) {
+			rawNew.IPCidrRange = rawDesired.IPCidrRange
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.MinThroughput) && dcl.IsEmptyValueIndirect(rawDesired.MinThroughput) {
@@ -423,6 +429,9 @@ func canonicalizeConnectorNewState(c *Client, rawNew, rawDesired *Connector) (*C
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	}
 
 	return rawNew, nil
@@ -449,28 +458,28 @@ func diffConnector(c *Client, desired, actual *Connector, opts ...dcl.ApplyOptio
 	}
 
 	var diffs []connectorDiff
-	if !dcl.IsZeroValue(desired.Network) && (dcl.IsZeroValue(actual.Network) || !reflect.DeepEqual(*desired.Network, *actual.Network)) {
+	if !dcl.IsZeroValue(desired.Network) && !dcl.StringCanonicalize(desired.Network, actual.Network) {
 		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
 		diffs = append(diffs, connectorDiff{
 			RequiresRecreate: true,
 			FieldName:        "Network",
 		})
 	}
-	if !dcl.IsZeroValue(desired.IPCidrRange) && (dcl.IsZeroValue(actual.IPCidrRange) || !reflect.DeepEqual(*desired.IPCidrRange, *actual.IPCidrRange)) {
+	if !dcl.IsZeroValue(desired.IPCidrRange) && !dcl.StringCanonicalize(desired.IPCidrRange, actual.IPCidrRange) {
 		c.Config.Logger.Infof("Detected diff in IPCidrRange.\nDESIRED: %v\nACTUAL: %v", desired.IPCidrRange, actual.IPCidrRange)
 		diffs = append(diffs, connectorDiff{
 			RequiresRecreate: true,
 			FieldName:        "IPCidrRange",
 		})
 	}
-	if !dcl.IsZeroValue(desired.MinThroughput) && (dcl.IsZeroValue(actual.MinThroughput) || !reflect.DeepEqual(*desired.MinThroughput, *actual.MinThroughput)) {
+	if !reflect.DeepEqual(desired.MinThroughput, actual.MinThroughput) {
 		c.Config.Logger.Infof("Detected diff in MinThroughput.\nDESIRED: %v\nACTUAL: %v", desired.MinThroughput, actual.MinThroughput)
 		diffs = append(diffs, connectorDiff{
 			RequiresRecreate: true,
 			FieldName:        "MinThroughput",
 		})
 	}
-	if !dcl.IsZeroValue(desired.MaxThroughput) && (dcl.IsZeroValue(actual.MaxThroughput) || !reflect.DeepEqual(*desired.MaxThroughput, *actual.MaxThroughput)) {
+	if !reflect.DeepEqual(desired.MaxThroughput, actual.MaxThroughput) {
 		c.Config.Logger.Infof("Detected diff in MaxThroughput.\nDESIRED: %v\nACTUAL: %v", desired.MaxThroughput, actual.MaxThroughput)
 		diffs = append(diffs, connectorDiff{
 			RequiresRecreate: true,
@@ -525,8 +534,11 @@ func compareConnectorStateEnum(c *Client, desired, actual *ConnectorStateEnum) b
 func (r *Connector) urlNormalized() *Connector {
 	normalized := deepcopy.Copy(*r).(Connector)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Network = dcl.SelfLinkToName(r.Network)
+	normalized.IPCidrRange = dcl.SelfLinkToName(r.IPCidrRange)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	return &normalized
 }
 
@@ -567,6 +579,10 @@ func unmarshalConnector(b []byte, c *Client) (*Connector, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapConnector(m, c)
+}
+
+func unmarshalMapConnector(m map[string]interface{}, c *Client) (*Connector, error) {
 
 	return flattenConnector(c, m), nil
 }
@@ -658,7 +674,7 @@ func flattenConnectorStateEnumSlice(c *Client, i interface{}) []ConnectorStateEn
 
 	items := make([]ConnectorStateEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConnectorStateEnum(item.(map[string]interface{})))
+		items = append(items, *flattenConnectorStateEnum(item.(interface{})))
 	}
 
 	return items

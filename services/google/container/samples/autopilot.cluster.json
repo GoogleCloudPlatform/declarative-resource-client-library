@@ -1,0 +1,13 @@
+{
+  "name": "{{cluster}}",
+  "addonsConfig": {
+    "horizontalPodAutoscaling": {
+      "disabled": false
+    }
+  },
+  "autopilot": {
+    "enabled": true
+  },
+  "project": "{{ref:autopilot.serviceusage.service.json:project}}",
+  "location": "{{region}}"
+}

@@ -367,6 +367,9 @@ func (l *JobList) HasNext() bool {
 }
 
 func (l *JobList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -380,12 +383,17 @@ func (l *JobList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListJob(ctx context.Context, project, location string) (*JobList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListJobWithMaxResults(ctx, project, location, JobMaxPage)
 
 }
 
 func (c *Client) ListJobWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*JobList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listJob(ctx, project, location, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -402,6 +410,9 @@ func (c *Client) ListJobWithMaxResults(ctx context.Context, project, location st
 }
 
 func (c *Client) GetJob(ctx context.Context, r *Job) (*Job, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getJobRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -432,6 +443,9 @@ func (c *Client) GetJob(ctx context.Context, r *Job) (*Job, error) {
 }
 
 func (c *Client) DeleteJob(ctx context.Context, r *Job) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Job resource is nil")
 	}
@@ -442,6 +456,9 @@ func (c *Client) DeleteJob(ctx context.Context, r *Job) error {
 
 // DeleteAllJob deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllJob(ctx context.Context, project, location string, filter func(*Job) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListJob(ctx, project, location)
 	if err != nil {
 		return err
@@ -467,6 +484,9 @@ func (c *Client) DeleteAllJob(ctx context.Context, project, location string, fil
 func (c *Client) ApplyJob(ctx context.Context, rawDesired *Job, opts ...dcl.ApplyOption) (*Job, error) {
 	c.Config.Logger.Info("Beginning ApplyJob...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -547,12 +567,35 @@ func (c *Client) ApplyJob(ctx context.Context, rawDesired *Job, opts ...dcl.Appl
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createJobOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapJob(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeJobNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeJobNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

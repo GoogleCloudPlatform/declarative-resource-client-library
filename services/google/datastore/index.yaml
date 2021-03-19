@@ -41,6 +41,10 @@ components:
           description: The project ID.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         properties:
           description: An ordered sequence of property names and their index attributes.

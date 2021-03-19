@@ -1,0 +1,7 @@
+{
+  "name": "{{app}}",
+  "parent": {
+    "type": "organization",
+    "id": "{{org_id}}"
+  }
+}

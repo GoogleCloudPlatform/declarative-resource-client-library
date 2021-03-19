@@ -93,18 +93,42 @@ class AutoscalingPolicy(object):
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
 
-    @classmethod
-    def delete(self, project, location, name, service_account_file=""):
+    def delete(self):
         stub = autoscaling_policy_pb2_grpc.DataprocAutoscalingPolicyServiceStub(
             channel.Channel()
         )
         request = autoscaling_policy_pb2.DeleteDataprocAutoscalingPolicyRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if AutoscalingPolicyBasicAlgorithm.to_proto(self.basic_algorithm):
+            request.resource.basic_algorithm.CopyFrom(
+                AutoscalingPolicyBasicAlgorithm.to_proto(self.basic_algorithm)
+            )
+        else:
+            request.resource.ClearField("basic_algorithm")
+        if AutoscalingPolicyWorkerConfig.to_proto(self.worker_config):
+            request.resource.worker_config.CopyFrom(
+                AutoscalingPolicyWorkerConfig.to_proto(self.worker_config)
+            )
+        else:
+            request.resource.ClearField("worker_config")
+        if AutoscalingPolicySecondaryWorkerConfig.to_proto(
+            self.secondary_worker_config
+        ):
+            request.resource.secondary_worker_config.CopyFrom(
+                AutoscalingPolicySecondaryWorkerConfig.to_proto(
+                    self.secondary_worker_config
+                )
+            )
+        else:
+            request.resource.ClearField("secondary_worker_config")
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
-        request.Name = name
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         response = stub.DeleteDataprocAutoscalingPolicy(request)
 
@@ -141,6 +165,38 @@ class AutoscalingPolicy(object):
         res.project = Primitive.from_proto(res_proto.project)
         res.location = Primitive.from_proto(res_proto.location)
         return res
+
+    def to_proto(self):
+        resource = autoscaling_policy_pb2.DataprocAutoscalingPolicy()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if AutoscalingPolicyBasicAlgorithm.to_proto(self.basic_algorithm):
+            resource.basic_algorithm.CopyFrom(
+                AutoscalingPolicyBasicAlgorithm.to_proto(self.basic_algorithm)
+            )
+        else:
+            resource.ClearField("basic_algorithm")
+        if AutoscalingPolicyWorkerConfig.to_proto(self.worker_config):
+            resource.worker_config.CopyFrom(
+                AutoscalingPolicyWorkerConfig.to_proto(self.worker_config)
+            )
+        else:
+            resource.ClearField("worker_config")
+        if AutoscalingPolicySecondaryWorkerConfig.to_proto(
+            self.secondary_worker_config
+        ):
+            resource.secondary_worker_config.CopyFrom(
+                AutoscalingPolicySecondaryWorkerConfig.to_proto(
+                    self.secondary_worker_config
+                )
+            )
+        else:
+            resource.ClearField("secondary_worker_config")
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
+        return resource
 
 
 class AutoscalingPolicyBasicAlgorithm(object):

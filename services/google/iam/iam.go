@@ -106,7 +106,7 @@ func (c *Client) GetPolicy(ctx context.Context, r ResourceWithPolicy) (*Policy, 
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, v, u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, v, u, body, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -139,7 +139,7 @@ func (c *Client) SetPolicy(ctx context.Context, p *Policy) (*Policy, error) {
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", p.Resource.SetPolicyURL(c.Config.BasePath), bytes.NewBuffer(b), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", p.Resource.SetPolicyURL(c.Config.BasePath), bytes.NewBuffer(b), c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}

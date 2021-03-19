@@ -52,14 +52,18 @@ class Config(object):
         self.description = Primitive.from_proto(response.description)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = config_pb2_grpc.RuntimeconfigConfigServiceStub(channel.Channel())
         request = config_pb2.DeleteRuntimeconfigConfigRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Name = name
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteRuntimeconfigConfig(request)
 
@@ -85,6 +89,16 @@ class Config(object):
         res.description = Primitive.from_proto(res_proto.description)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = config_pb2.RuntimeconfigConfig()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class Primitive(object):

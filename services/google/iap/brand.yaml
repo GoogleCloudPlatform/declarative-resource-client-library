@@ -24,7 +24,6 @@ components:
           description: 'Output only. Identifier of the brand. NOTE: GCP project number
             achieves the same brand identification purpose as only one brand per project
             can be created.'
-          readOnly: true
           type: string
           x-dcl-go-name: Name
           x-dcl-server-generated-parameter: true
@@ -43,7 +42,7 @@ components:
           x-dcl-references:
           - field: name
             parent: true
-            resource: Resourcemanager/Project
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         supportEmail:
           description: Support email displayed on the OAuth consent screen.

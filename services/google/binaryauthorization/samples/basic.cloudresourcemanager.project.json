@@ -1,0 +1,7 @@
+{
+  "name": "{{policy}}",
+  "parent": {
+    "type": "organization",
+    "id": "{{org_id}}"
+  }
+}

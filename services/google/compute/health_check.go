@@ -504,6 +504,9 @@ func (l *HealthCheckList) HasNext() bool {
 }
 
 func (l *HealthCheckList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -517,12 +520,17 @@ func (l *HealthCheckList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListHealthCheck(ctx context.Context, project, location string) (*HealthCheckList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListHealthCheckWithMaxResults(ctx, project, location, HealthCheckMaxPage)
 
 }
 
 func (c *Client) ListHealthCheckWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*HealthCheckList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listHealthCheck(ctx, project, location, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -539,6 +547,9 @@ func (c *Client) ListHealthCheckWithMaxResults(ctx context.Context, project, loc
 }
 
 func (c *Client) GetHealthCheck(ctx context.Context, r *HealthCheck) (*HealthCheck, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getHealthCheckRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -569,6 +580,9 @@ func (c *Client) GetHealthCheck(ctx context.Context, r *HealthCheck) (*HealthChe
 }
 
 func (c *Client) DeleteHealthCheck(ctx context.Context, r *HealthCheck) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("HealthCheck resource is nil")
 	}
@@ -579,6 +593,9 @@ func (c *Client) DeleteHealthCheck(ctx context.Context, r *HealthCheck) error {
 
 // DeleteAllHealthCheck deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllHealthCheck(ctx context.Context, project, location string, filter func(*HealthCheck) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListHealthCheck(ctx, project, location)
 	if err != nil {
 		return err
@@ -604,6 +621,9 @@ func (c *Client) DeleteAllHealthCheck(ctx context.Context, project, location str
 func (c *Client) ApplyHealthCheck(ctx context.Context, rawDesired *HealthCheck, opts ...dcl.ApplyOption) (*HealthCheck, error) {
 	c.Config.Logger.Info("Beginning ApplyHealthCheck...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -684,12 +704,35 @@ func (c *Client) ApplyHealthCheck(ctx context.Context, rawDesired *HealthCheck, 
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createHealthCheckOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapHealthCheck(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeHealthCheckNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeHealthCheckNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

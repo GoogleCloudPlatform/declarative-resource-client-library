@@ -1,0 +1,16 @@
+{
+  "name": "{{connection_name}}",
+  "friendlyName": "myBigQueryConnection",
+  "description": "This is a test of bigquery connection",
+  "cloudSql": {
+    "instanceId": "{{ref:basic.sql.instance.json:connectionName}}",
+    "database": "db",
+    "type": "MYSQL",
+    "credential": {
+      "username": "{{ref:basic.sql.user.json:name}}",
+      "password": "{{ref:basic.sql.user.json:password}}"
+    }
+  },
+  "project": "{{ref:basic.serviceusage.service.json:project}}",
+  "location": "{{region}}"
+}

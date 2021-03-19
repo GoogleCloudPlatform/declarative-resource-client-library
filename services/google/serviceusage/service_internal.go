@@ -89,7 +89,7 @@ func (c *Client) listServiceRaw(ctx context.Context, project, pageToken string, 
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -146,7 +146,13 @@ type deleteServiceOperation struct{}
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createServiceOperation struct{}
+type createServiceOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createServiceOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (c *Client) getServiceRaw(ctx context.Context, r *Service) ([]byte, error) {
 
@@ -154,7 +160,7 @@ func (c *Client) getServiceRaw(ctx context.Context, r *Service) ([]byte, error) 
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -223,14 +229,6 @@ func canonicalizeServiceInitialState(rawInitial, rawDesired *Service) (*Service,
 
 func canonicalizeServiceDesiredState(rawDesired, rawInitial *Service, opts ...dcl.ApplyOption) (*Service, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Service); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Service, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -291,7 +289,7 @@ func diffService(c *Client, desired, actual *Service, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []serviceDiff
-	if !dcl.IsZeroValue(desired.State) && (dcl.IsZeroValue(actual.State) || !reflect.DeepEqual(*desired.State, *actual.State)) {
+	if !reflect.DeepEqual(desired.State, actual.State) {
 		c.Config.Logger.Infof("Detected diff in State.\nDESIRED: %v\nACTUAL: %v", desired.State, actual.State)
 		diffs = append(diffs, serviceDiff{
 			RequiresRecreate: true,
@@ -387,6 +385,10 @@ func unmarshalService(b []byte, c *Client) (*Service, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapService(m, c)
+}
+
+func unmarshalMapService(m map[string]interface{}, c *Client) (*Service, error) {
 
 	return flattenService(c, m), nil
 }
@@ -444,7 +446,7 @@ func flattenServiceStateEnumSlice(c *Client, i interface{}) []ServiceStateEnum {
 
 	items := make([]ServiceStateEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceStateEnum(item.(map[string]interface{})))
+		items = append(items, *flattenServiceStateEnum(item.(interface{})))
 	}
 
 	return items

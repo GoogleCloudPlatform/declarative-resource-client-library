@@ -134,7 +134,6 @@ components:
                 readOnly: true
                 type: string
                 x-dcl-go-name: ManagementType
-                x-kubernetes-immutable: true
               name:
                 description: Name of this BGP peer
                 type: string
@@ -194,12 +193,10 @@ components:
                 type: string
                 x-dcl-go-name: ManagementType
                 x-dcl-go-type: RouterInterfacesManagementTypeEnum
-                x-kubernetes-immutable: true
               name:
                 description: Name of this interface entry.
                 type: string
                 x-dcl-go-name: Name
-                x-kubernetes-immutable: true
             type: object
             x-dcl-go-type: RouterInterfaces
           type: array
@@ -357,6 +354,10 @@ components:
           description: The project id of the resource.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         region:
           description: Region where the router resides.

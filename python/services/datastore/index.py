@@ -63,15 +63,23 @@ class Index(object):
         self.properties = IndexPropertiesArray.from_proto(response.properties)
         self.state = IndexStateEnum.from_proto(response.state)
 
-    @classmethod
-    def delete(self, project, indexId, service_account_file=""):
+    def delete(self):
         stub = index_pb2_grpc.DatastoreIndexServiceStub(channel.Channel())
         request = index_pb2.DeleteDatastoreIndexRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if IndexAncestorEnum.to_proto(self.ancestor):
+            request.resource.ancestor = IndexAncestorEnum.to_proto(self.ancestor)
 
-        request.IndexId = indexId
+        if Primitive.to_proto(self.kind):
+            request.resource.kind = Primitive.to_proto(self.kind)
 
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if IndexPropertiesArray.to_proto(self.properties):
+            request.resource.properties.extend(
+                IndexPropertiesArray.to_proto(self.properties)
+            )
         response = stub.DeleteDatastoreIndex(request)
 
     @classmethod
@@ -97,6 +105,18 @@ class Index(object):
         res.properties = IndexPropertiesArray.from_proto(res_proto.properties)
         res.state = IndexStateEnum.from_proto(res_proto.state)
         return res
+
+    def to_proto(self):
+        resource = index_pb2.DatastoreIndex()
+        if IndexAncestorEnum.to_proto(self.ancestor):
+            resource.ancestor = IndexAncestorEnum.to_proto(self.ancestor)
+        if Primitive.to_proto(self.kind):
+            resource.kind = Primitive.to_proto(self.kind)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if IndexPropertiesArray.to_proto(self.properties):
+            resource.properties.extend(IndexPropertiesArray.to_proto(self.properties))
+        return resource
 
 
 class IndexProperties(object):

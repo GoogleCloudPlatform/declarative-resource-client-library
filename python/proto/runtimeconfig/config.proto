@@ -44,6 +44,7 @@ message ListRuntimeconfigConfigRequest {
 message ListRuntimeconfigConfigResponse {
   repeated RuntimeconfigConfig items = 1;
 }
+
 service RuntimeconfigConfigService {
   rpc ApplyRuntimeconfigConfig(ApplyRuntimeconfigConfigRequest) returns (RuntimeconfigConfig);
   rpc DeleteRuntimeconfigConfig(DeleteRuntimeconfigConfigRequest) returns (google.protobuf.Empty);

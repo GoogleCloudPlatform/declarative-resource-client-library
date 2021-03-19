@@ -35,7 +35,7 @@ import (
 // 2XX success code, or the *googleapi.Error if it returns any other code. The retry is
 // optional; if supplied HTTP errors that are deemed temporary will be retried according
 // to the policy implemented by the retry.
-func SendRequest(ctx context.Context, c *Config, verb, url string, body *bytes.Buffer, retry Retry) (*RetryDetails, error) {
+func SendRequest(ctx context.Context, c *Config, verb, url string, body *bytes.Buffer, retryProvider RetryProvider) (*RetryDetails, error) {
 	hdrs := http.Header{}
 	for h, v := range c.header {
 		for _, s := range v {
@@ -86,14 +86,15 @@ func SendRequest(ctx context.Context, c *Config, verb, url string, body *bytes.B
 		}
 	}
 
-	req, err := http.NewRequestWithContext(ctx, verb, u, body)
+	bodyBytes := body.Bytes()
+	req, err := http.NewRequestWithContext(ctx, verb, u, bytes.NewReader(bodyBytes))
 	if err != nil {
 		return nil, err
 	}
 	req.Header = hdrs
 
 	var res *http.Response
-	if retry == nil {
+	if retryProvider == nil {
 		res, err = httpClient.Do(req)
 		if err != nil {
 			return nil, err
@@ -108,7 +109,6 @@ func SendRequest(ctx context.Context, c *Config, verb, url string, body *bytes.B
 		return &RetryDetails{Request: req, Response: res}, nil
 	}
 
-	retry.Reset()
 	err = Do(ctx, func(ctx context.Context) (*RetryDetails, error) {
 		res, err = httpClient.Do(req)
 		if err != nil {
@@ -123,12 +123,13 @@ func SendRequest(ctx context.Context, c *Config, verb, url string, body *bytes.B
 			}
 			return nil, err
 		}
-		return &RetryDetails{Request: req, Response: res}, err
-	}, retry)
+		req.Body = ioutil.NopCloser(bytes.NewReader(bodyBytes))
+		return &RetryDetails{Request: req.Clone(ctx), Response: res}, err
+	}, retryProvider)
 	if err != nil {
 		return nil, err
 	}
-	return &RetryDetails{Request: req, Response: res}, nil
+	return &RetryDetails{Request: req.Clone(ctx), Response: res}, nil
 }
 
 // AddQueryParams adds the specified query parameters to the specified url.

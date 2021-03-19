@@ -31,6 +31,7 @@ type ComputeOperation struct {
 	SelfLink   string                 `json:"selfLink"`
 	Status     string                 `json:"status"`
 	TargetLink string                 `json:"targetLink"`
+	TargetID   string                 `json:"targetId"`
 	// other irrelevant fields omitted
 
 	config *dcl.Config
@@ -62,11 +63,10 @@ func (op *ComputeOperation) Wait(ctx context.Context, c *dcl.Config, _, _ string
 	c.Logger.Infof("Waiting on: %v", op)
 	op.config = c
 
-	return dcl.Do(ctx, op.operate, c.Retry)
+	return dcl.Do(ctx, op.operate, c.RetryProvider)
 }
 
-func (op *ComputeOperation) operate(ctx context.Context) (*dcl.RetryDetails, error) {
-	resp, err := dcl.SendRequest(ctx, op.config, "GET", op.SelfLink, &bytes.Buffer{}, nil)
+func (op *ComputeOperation) handleResponse(resp *dcl.RetryDetails, err error) (*dcl.RetryDetails, error) {
 	if err != nil {
 		if dcl.IsRetryableRequestError(op.config, err, false) {
 			return nil, dcl.OperationNotDone{}
@@ -83,8 +83,38 @@ func (op *ComputeOperation) operate(ctx context.Context) (*dcl.RetryDetails, err
 	}
 
 	if op.Error != nil {
-		return nil, fmt.Errorf("operation received error: %s", op.Error)
+		return nil, fmt.Errorf("operation received error: %+v", op.Error)
 	}
 
 	return resp, nil
+}
+
+// FirstResponse returns the first response that this operation receives with the resource.
+// This response may contain special information.
+func (op *ComputeOperation) FirstResponse() (map[string]interface{}, bool) {
+	return make(map[string]interface{}), false
+}
+
+func (op *ComputeOperation) operate(ctx context.Context) (*dcl.RetryDetails, error) {
+	return op.handleResponse(dcl.SendRequest(ctx, op.config, "GET", op.SelfLink, &bytes.Buffer{}, nil))
+}
+
+// ComputeGlobalOrganizationOperation can be parsed from the returned API operation and waited on.
+// Based on https://cloud.google.com/compute/docs/reference/rest/v1/globalOrganizationOperations
+type ComputeGlobalOrganizationOperation struct {
+	BaseOperation ComputeOperation
+	Parent        string
+}
+
+func (op *ComputeGlobalOrganizationOperation) Wait(ctx context.Context, c *dcl.Config, parent *string) error {
+	c.Logger.Infof("Waiting on: %v", op)
+	op.BaseOperation.config = c
+
+	op.Parent = *parent
+
+	return dcl.Do(ctx, op.operate, c.RetryProvider)
+}
+
+func (op *ComputeGlobalOrganizationOperation) operate(ctx context.Context) (*dcl.RetryDetails, error) {
+	return op.BaseOperation.handleResponse(dcl.SendRequest(ctx, op.BaseOperation.config, "GET", op.BaseOperation.SelfLink+"?parentId="+op.Parent, &bytes.Buffer{}, nil))
 }

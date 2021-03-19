@@ -15,6 +15,32 @@ components:
   schemas:
     Note:
       properties:
+        attestation:
+          description: A note describing an attestation role.
+          properties:
+            hint:
+              description: Hint hints at the purpose of the attestation authority.
+              properties:
+                humanReadableName:
+                  description: Required. The human readable name of this attestation
+                    authority, for example "qa".
+                  type: string
+                  x-dcl-go-name: HumanReadableName
+              required:
+              - humanReadableName
+              type: object
+              x-dcl-go-name: Hint
+              x-dcl-go-type: NoteAttestationHint
+          type: object
+          x-dcl-conflicts:
+          - vulnerability
+          - build
+          - image
+          - package
+          - deployment
+          - discovery
+          x-dcl-go-name: Attestation
+          x-dcl-go-type: NoteAttestation
         build:
           description: A note describing build provenance for a verifiable build.
           properties:
@@ -23,14 +49,16 @@ components:
                 this build.
               type: string
               x-dcl-go-name: BuilderVersion
-              x-kubernetes-immutable: true
           required:
           - builderVersion
           type: object
           x-dcl-conflicts:
           - vulnerability
+          - image
           - package
+          - deployment
           - discovery
+          - attestation
           x-dcl-go-name: Build
           x-dcl-go-type: NoteBuild
         createTime:
@@ -41,6 +69,29 @@ components:
           type: string
           x-dcl-go-name: CreateTime
           x-kubernetes-immutable: true
+        deployment:
+          description: A note describing something that can be deployed.
+          properties:
+            resourceUri:
+              description: Required. Resource URI for the artifact being deployed.
+              items:
+                type: string
+                x-dcl-go-type: string
+              type: array
+              x-dcl-go-name: ResourceUri
+              x-dcl-list-type: list
+          required:
+          - resourceUri
+          type: object
+          x-dcl-conflicts:
+          - vulnerability
+          - build
+          - image
+          - package
+          - discovery
+          - attestation
+          x-dcl-go-name: Deployment
+          x-dcl-go-type: NoteDeployment
         discovery:
           description: A note describing the initial analysis of a resource.
           properties:
@@ -61,14 +112,16 @@ components:
               type: string
               x-dcl-go-name: AnalysisKind
               x-dcl-go-type: NoteDiscoveryAnalysisKindEnum
-              x-kubernetes-immutable: true
           required:
           - analysisKind
           type: object
           x-dcl-conflicts:
           - vulnerability
           - build
+          - image
           - package
+          - deployment
+          - attestation
           x-dcl-go-name: Discovery
           x-dcl-go-type: NoteDiscovery
         expirationTime:
@@ -87,7 +140,6 @@ components:
                     image's v1 representation.
                   type: string
                   x-dcl-go-name: V1Name
-                  x-kubernetes-immutable: true
                 v2Blob:
                   description: Required. The ordered list of v2 blobs that represent
                     a given image.
@@ -97,31 +149,34 @@ components:
                   type: array
                   x-dcl-go-name: V2Blob
                   x-dcl-list-type: list
-                  x-kubernetes-immutable: true
                 v2Name:
                   description: 'Output only. The name of the image''s v2 blobs computed
                     via: ) Only the name of the final blob is kept.'
                   readOnly: true
                   type: string
                   x-dcl-go-name: V2Name
-                  x-kubernetes-immutable: true
               required:
               - v1Name
               - v2Blob
               type: object
               x-dcl-go-name: Fingerprint
               x-dcl-go-type: NoteImageFingerprint
-              x-kubernetes-immutable: true
             resourceUrl:
               description: Required. Immutable. The resource_url for the resource
                 representing the basis of associated occurrence images.
               type: string
               x-dcl-go-name: ResourceUrl
-              x-kubernetes-immutable: true
           required:
           - resourceUrl
           - fingerprint
           type: object
+          x-dcl-conflicts:
+          - vulnerability
+          - build
+          - package
+          - deployment
+          - discovery
+          - attestation
           x-dcl-go-name: Image
           x-dcl-go-type: NoteImage
         longDescription:
@@ -129,7 +184,7 @@ components:
           type: string
           x-dcl-go-name: LongDescription
         name:
-          description: Required. Immutable. The name of the package.
+          description: The name of the note.
           type: string
           x-dcl-go-name: Name
           x-kubernetes-immutable: true
@@ -151,19 +206,16 @@ components:
                     type: string
                     x-dcl-go-name: Architecture
                     x-dcl-go-type: NotePackageDistributionArchitectureEnum
-                    x-kubernetes-immutable: true
                   cpeUri:
                     description: Required. The cpe_uri in (https://cpe.mitre.org/specification/)
                       denoting the package manager version distributing a package.
                     type: string
                     x-dcl-go-name: CpeUri
-                    x-kubernetes-immutable: true
                   description:
                     description: The distribution channel-specific description of
                       this package.
                     type: string
                     x-dcl-go-name: Description
-                    x-kubernetes-immutable: true
                   latestVersion:
                     description: The latest available version of this package in this
                       distribution channel.
@@ -174,13 +226,11 @@ components:
                         format: int64
                         type: integer
                         x-dcl-go-name: Epoch
-                        x-kubernetes-immutable: true
                       fullName:
                         description: Human readable version string. This string is
                           of the form :- and is only set when kind is NORMAL.
                         type: string
                         x-dcl-go-name: FullName
-                        x-kubernetes-immutable: true
                       kind:
                         description: 'Required. Distinguishes between sentinel MIN/MAX
                           versions and normal versions. Possible values: NOTE_KIND_UNSPECIFIED,
@@ -199,37 +249,31 @@ components:
                         type: string
                         x-dcl-go-name: Kind
                         x-dcl-go-type: NotePackageDistributionLatestVersionKindEnum
-                        x-kubernetes-immutable: true
                       name:
                         description: Required only when version kind is NORMAL. The
                           main part of the version name.
                         type: string
                         x-dcl-go-name: Name
-                        x-kubernetes-immutable: true
                       revision:
                         description: The iteration of the package build from the above
                           version.
                         type: string
                         x-dcl-go-name: Revision
-                        x-kubernetes-immutable: true
                     required:
                     - kind
                     type: object
                     x-dcl-go-name: LatestVersion
                     x-dcl-go-type: NotePackageDistributionLatestVersion
-                    x-kubernetes-immutable: true
                   maintainer:
                     description: A freeform string denoting the maintainer of this
                       package.
                     type: string
                     x-dcl-go-name: Maintainer
-                    x-kubernetes-immutable: true
                   url:
                     description: The distribution channel-specific homepage for this
                       package.
                     type: string
                     x-dcl-go-name: Url
-                    x-kubernetes-immutable: true
                 required:
                 - cpeUri
                 type: object
@@ -237,31 +281,39 @@ components:
               type: array
               x-dcl-go-name: Distribution
               x-dcl-list-type: list
-              x-kubernetes-immutable: true
             name:
               description: Required. Immutable. The name of the package.
               type: string
               x-dcl-go-name: Name
-              x-kubernetes-immutable: true
           required:
           - name
           type: object
           x-dcl-conflicts:
           - vulnerability
           - build
+          - image
+          - deployment
           - discovery
+          - attestation
           x-dcl-go-name: Package
           x-dcl-go-type: NotePackage
         project:
           description: The project for the resource
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         relatedNoteNames:
           description: Other notes related to this note.
           items:
             type: string
             x-dcl-go-type: string
+            x-dcl-references:
+            - field: name
+              resource: Containeranalysis/Note
           type: array
           x-dcl-go-name: RelatedNoteNames
           x-dcl-list-type: list
@@ -273,12 +325,10 @@ components:
                 description: Label to describe usage of the URL.
                 type: string
                 x-dcl-go-name: Label
-                x-kubernetes-immutable: true
               url:
                 description: Specific URL associated with the resource.
                 type: string
                 x-dcl-go-name: Url
-                x-kubernetes-immutable: true
             type: object
             x-dcl-go-type: NoteRelatedUrl
           type: array
@@ -306,7 +356,6 @@ components:
               format: double
               type: number
               x-dcl-go-name: CvssScore
-              x-kubernetes-immutable: true
             cvssV3:
               description: The full description of the CVSSv3 for this vulnerability.
               properties:
@@ -320,7 +369,6 @@ components:
                   type: string
                   x-dcl-go-name: AttackComplexity
                   x-dcl-go-type: NoteVulnerabilityCvssV3AttackComplexityEnum
-                  x-kubernetes-immutable: true
                 attackVector:
                   description: 'Base Metrics Represents the intrinsic characteristics
                     of a vulnerability that are constant over time and across user
@@ -335,7 +383,6 @@ components:
                   type: string
                   x-dcl-go-name: AttackVector
                   x-dcl-go-type: NoteVulnerabilityCvssV3AttackVectorEnum
-                  x-kubernetes-immutable: true
                 availabilityImpact:
                   description: ' Possible values: IMPACT_UNSPECIFIED, IMPACT_HIGH,
                     IMPACT_LOW, IMPACT_NONE'
@@ -347,13 +394,11 @@ components:
                   type: string
                   x-dcl-go-name: AvailabilityImpact
                   x-dcl-go-type: NoteVulnerabilityCvssV3AvailabilityImpactEnum
-                  x-kubernetes-immutable: true
                 baseScore:
                   description: The base score is a function of the base metric scores.
                   format: double
                   type: number
                   x-dcl-go-name: BaseScore
-                  x-kubernetes-immutable: true
                 confidentialityImpact:
                   description: ' Possible values: IMPACT_UNSPECIFIED, IMPACT_HIGH,
                     IMPACT_LOW, IMPACT_NONE'
@@ -365,17 +410,14 @@ components:
                   type: string
                   x-dcl-go-name: ConfidentialityImpact
                   x-dcl-go-type: NoteVulnerabilityCvssV3ConfidentialityImpactEnum
-                  x-kubernetes-immutable: true
                 exploitabilityScore:
                   format: double
                   type: number
                   x-dcl-go-name: ExploitabilityScore
-                  x-kubernetes-immutable: true
                 impactScore:
                   format: double
                   type: number
                   x-dcl-go-name: ImpactScore
-                  x-kubernetes-immutable: true
                 integrityImpact:
                   description: ' Possible values: IMPACT_UNSPECIFIED, IMPACT_HIGH,
                     IMPACT_LOW, IMPACT_NONE'
@@ -387,7 +429,6 @@ components:
                   type: string
                   x-dcl-go-name: IntegrityImpact
                   x-dcl-go-type: NoteVulnerabilityCvssV3IntegrityImpactEnum
-                  x-kubernetes-immutable: true
                 privilegesRequired:
                   description: ' Possible values: PRIVILEGES_REQUIRED_UNSPECIFIED,
                     PRIVILEGES_REQUIRED_NONE, PRIVILEGES_REQUIRED_LOW, PRIVILEGES_REQUIRED_HIGH'
@@ -399,7 +440,6 @@ components:
                   type: string
                   x-dcl-go-name: PrivilegesRequired
                   x-dcl-go-type: NoteVulnerabilityCvssV3PrivilegesRequiredEnum
-                  x-kubernetes-immutable: true
                 scope:
                   description: ' Possible values: SCOPE_UNSPECIFIED, SCOPE_UNCHANGED,
                     SCOPE_CHANGED'
@@ -410,7 +450,6 @@ components:
                   type: string
                   x-dcl-go-name: Scope
                   x-dcl-go-type: NoteVulnerabilityCvssV3ScopeEnum
-                  x-kubernetes-immutable: true
                 userInteraction:
                   description: ' Possible values: USER_INTERACTION_UNSPECIFIED, USER_INTERACTION_NONE,
                     USER_INTERACTION_REQUIRED'
@@ -421,11 +460,9 @@ components:
                   type: string
                   x-dcl-go-name: UserInteraction
                   x-dcl-go-type: NoteVulnerabilityCvssV3UserInteractionEnum
-                  x-kubernetes-immutable: true
               type: object
               x-dcl-go-name: CvssV3
               x-dcl-go-type: NoteVulnerabilityCvssV3
-              x-kubernetes-immutable: true
             details:
               description: Details of all known distros and packages affected by this
                 vulnerability.
@@ -436,12 +473,10 @@ components:
                       this vulnerability affects.
                     type: string
                     x-dcl-go-name: AffectedCpeUri
-                    x-kubernetes-immutable: true
                   affectedPackage:
                     description: Required. The package this vulnerability affects.
                     type: string
                     x-dcl-go-name: AffectedPackage
-                    x-kubernetes-immutable: true
                   affectedVersionEnd:
                     description: 'The version number at the end of an interval in
                       which this vulnerability exists. A vulnerability can affect
@@ -457,13 +492,11 @@ components:
                         format: int64
                         type: integer
                         x-dcl-go-name: Epoch
-                        x-kubernetes-immutable: true
                       fullName:
                         description: Human readable version string. This string is
                           of the form :- and is only set when kind is NORMAL.
                         type: string
                         x-dcl-go-name: FullName
-                        x-kubernetes-immutable: true
                       kind:
                         description: 'Required. Distinguishes between sentinel MIN/MAX
                           versions and normal versions. Possible values: NOTE_KIND_UNSPECIFIED,
@@ -482,25 +515,21 @@ components:
                         type: string
                         x-dcl-go-name: Kind
                         x-dcl-go-type: NoteVulnerabilityDetailsAffectedVersionEndKindEnum
-                        x-kubernetes-immutable: true
                       name:
                         description: Required only when version kind is NORMAL. The
                           main part of the version name.
                         type: string
                         x-dcl-go-name: Name
-                        x-kubernetes-immutable: true
                       revision:
                         description: The iteration of the package build from the above
                           version.
                         type: string
                         x-dcl-go-name: Revision
-                        x-kubernetes-immutable: true
                     required:
                     - kind
                     type: object
                     x-dcl-go-name: AffectedVersionEnd
                     x-dcl-go-type: NoteVulnerabilityDetailsAffectedVersionEnd
-                    x-kubernetes-immutable: true
                   affectedVersionStart:
                     description: 'The version number at the start of an interval in
                       which this vulnerability exists. A vulnerability can affect
@@ -516,13 +545,11 @@ components:
                         format: int64
                         type: integer
                         x-dcl-go-name: Epoch
-                        x-kubernetes-immutable: true
                       fullName:
                         description: Human readable version string. This string is
                           of the form :- and is only set when kind is NORMAL.
                         type: string
                         x-dcl-go-name: FullName
-                        x-kubernetes-immutable: true
                       kind:
                         description: 'Required. Distinguishes between sentinel MIN/MAX
                           versions and normal versions. Possible values: NOTE_KIND_UNSPECIFIED,
@@ -541,44 +568,37 @@ components:
                         type: string
                         x-dcl-go-name: Kind
                         x-dcl-go-type: NoteVulnerabilityDetailsAffectedVersionStartKindEnum
-                        x-kubernetes-immutable: true
                       name:
                         description: Required only when version kind is NORMAL. The
                           main part of the version name.
                         type: string
                         x-dcl-go-name: Name
-                        x-kubernetes-immutable: true
                       revision:
                         description: The iteration of the package build from the above
                           version.
                         type: string
                         x-dcl-go-name: Revision
-                        x-kubernetes-immutable: true
                     required:
                     - kind
                     type: object
                     x-dcl-go-name: AffectedVersionStart
                     x-dcl-go-type: NoteVulnerabilityDetailsAffectedVersionStart
-                    x-kubernetes-immutable: true
                   description:
                     description: A vendor-specific description of this vulnerability.
                     type: string
                     x-dcl-go-name: Description
-                    x-kubernetes-immutable: true
                   fixedCpeUri:
                     description: The distro recommended (https://cpe.mitre.org/specification/)
                       to update to that contains a fix for this vulnerability. It
                       is possible for this to be different from the affected_cpe_uri.
                     type: string
                     x-dcl-go-name: FixedCpeUri
-                    x-kubernetes-immutable: true
                   fixedPackage:
                     description: The distro recommended package to update to that
                       contains a fix for this vulnerability. It is possible for this
                       to be different from the affected_package.
                     type: string
                     x-dcl-go-name: FixedPackage
-                    x-kubernetes-immutable: true
                   fixedVersion:
                     description: The distro recommended version to update to that
                       contains a fix for this vulnerability. Setting this to VersionKind.MAXIMUM
@@ -590,13 +610,11 @@ components:
                         format: int64
                         type: integer
                         x-dcl-go-name: Epoch
-                        x-kubernetes-immutable: true
                       fullName:
                         description: Human readable version string. This string is
                           of the form :- and is only set when kind is NORMAL.
                         type: string
                         x-dcl-go-name: FullName
-                        x-kubernetes-immutable: true
                       kind:
                         description: 'Required. Distinguishes between sentinel MIN/MAX
                           versions and normal versions. Possible values: NOTE_KIND_UNSPECIFIED,
@@ -615,42 +633,35 @@ components:
                         type: string
                         x-dcl-go-name: Kind
                         x-dcl-go-type: NoteVulnerabilityDetailsFixedVersionKindEnum
-                        x-kubernetes-immutable: true
                       name:
                         description: Required only when version kind is NORMAL. The
                           main part of the version name.
                         type: string
                         x-dcl-go-name: Name
-                        x-kubernetes-immutable: true
                       revision:
                         description: The iteration of the package build from the above
                           version.
                         type: string
                         x-dcl-go-name: Revision
-                        x-kubernetes-immutable: true
                     required:
                     - kind
                     type: object
                     x-dcl-go-name: FixedVersion
                     x-dcl-go-type: NoteVulnerabilityDetailsFixedVersion
-                    x-kubernetes-immutable: true
                   isObsolete:
                     description: Whether this detail is obsolete. Occurrences are
                       expected not to point to obsolete details.
                     type: boolean
                     x-dcl-go-name: IsObsolete
-                    x-kubernetes-immutable: true
                   packageType:
                     description: The type of package; whether native or non native
                       (e.g., ruby gems, node.js packages, etc.).
                     type: string
                     x-dcl-go-name: PackageType
-                    x-kubernetes-immutable: true
                   severityName:
                     description: The distro assigned severity of this vulnerability.
                     type: string
                     x-dcl-go-name: SeverityName
-                    x-kubernetes-immutable: true
                   sourceUpdateTime:
                     description: The time this information was last changed at the
                       source. This is an upstream timestamp from the underlying information
@@ -658,7 +669,6 @@ components:
                     format: date-time
                     type: string
                     x-dcl-go-name: SourceUpdateTime
-                    x-kubernetes-immutable: true
                 required:
                 - affectedCpeUri
                 - affectedPackage
@@ -667,7 +677,6 @@ components:
               type: array
               x-dcl-go-name: Details
               x-dcl-list-type: list
-              x-kubernetes-immutable: true
             severity:
               description: 'The note provider assigned severity of this vulnerability.
                 Possible values: SEVERITY_UNSPECIFIED, MINIMAL, LOW, MEDIUM, HIGH,
@@ -682,7 +691,6 @@ components:
               type: string
               x-dcl-go-name: Severity
               x-dcl-go-type: NoteVulnerabilitySeverityEnum
-              x-kubernetes-immutable: true
             sourceUpdateTime:
               description: The time this information was last changed at the source.
                 This is an upstream timestamp from the underlying information source
@@ -690,7 +698,6 @@ components:
               format: date-time
               type: string
               x-dcl-go-name: SourceUpdateTime
-              x-kubernetes-immutable: true
             windowsDetails:
               description: Windows details get their own format because the information
                 format and model don't match a normal detail. Specifically Windows
@@ -703,12 +710,10 @@ components:
                       this vulnerability affects.
                     type: string
                     x-dcl-go-name: CpeUri
-                    x-kubernetes-immutable: true
                   description:
                     description: The description of this vulnerability.
                     type: string
                     x-dcl-go-name: Description
-                    x-kubernetes-immutable: true
                   fixingKbs:
                     description: Required. The names of the KBs which have hotfixes
                       to mitigate this vulnerability. Note that there may be multiple
@@ -721,23 +726,19 @@ components:
                             KB123456)).
                           type: string
                           x-dcl-go-name: Name
-                          x-kubernetes-immutable: true
                         url:
                           description: A link to the KB in the (https://www.catalog.update.microsoft.com/).
                           type: string
                           x-dcl-go-name: Url
-                          x-kubernetes-immutable: true
                       type: object
                       x-dcl-go-type: NoteVulnerabilityWindowsDetailsFixingKbs
                     type: array
                     x-dcl-go-name: FixingKbs
                     x-dcl-list-type: list
-                    x-kubernetes-immutable: true
                   name:
                     description: Required. The name of this vulnerability.
                     type: string
                     x-dcl-go-name: Name
-                    x-kubernetes-immutable: true
                 required:
                 - cpeUri
                 - name
@@ -747,12 +748,14 @@ components:
               type: array
               x-dcl-go-name: WindowsDetails
               x-dcl-list-type: list
-              x-kubernetes-immutable: true
           type: object
           x-dcl-conflicts:
           - build
+          - image
           - package
+          - deployment
           - discovery
+          - attestation
           x-dcl-go-name: Vulnerability
           x-dcl-go-type: NoteVulnerability
       required:

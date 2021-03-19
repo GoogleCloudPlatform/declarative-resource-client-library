@@ -20,8 +20,6 @@ import (
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
 	redispb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/redis/redis_go_proto"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/redis"
-
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/serialization"
 )
 
 // Server implements the gRPC interface for Instance.
@@ -371,16 +369,6 @@ func (s *InstanceServer) ApplyRedisInstance(ctx context.Context, request *redisp
 		return nil, err
 	}
 	return s.applyInstance(ctx, cl, request)
-}
-
-func (s *InstanceServer) RedisInstanceAsHcl(ctx context.Context, request *redispb.RedisInstanceAsHclRequest) (*redispb.RedisInstanceAsHclResponse, error) {
-	p := ProtoToInstance(request.GetResource())
-	resStr, err := serialization.RedisInstanceAsHCL(*p)
-	if err != nil {
-		return nil, err
-	}
-
-	return &redispb.RedisInstanceAsHclResponse{Hcl: resStr}, nil
 }
 
 // DeleteInstance handles the gRPC request by passing it to the underlying Instance Delete() method.

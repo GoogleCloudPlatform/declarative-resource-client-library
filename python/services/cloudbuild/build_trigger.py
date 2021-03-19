@@ -122,17 +122,54 @@ class BuildTrigger(object):
         self.id = Primitive.from_proto(response.id)
         self.create_time = Primitive.from_proto(response.create_time)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = build_trigger_pb2_grpc.CloudbuildBuildTriggerServiceStub(
             channel.Channel()
         )
         request = build_trigger_pb2.DeleteCloudbuildBuildTriggerRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Name = name
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
 
+        if Primitive.to_proto(self.tags):
+            request.resource.tags.extend(Primitive.to_proto(self.tags))
+        if Primitive.to_proto(self.disabled):
+            request.resource.disabled = Primitive.to_proto(self.disabled)
+
+        if Primitive.to_proto(self.substitutions):
+            request.resource.substitutions = Primitive.to_proto(self.substitutions)
+
+        if Primitive.to_proto(self.filename):
+            request.resource.filename = Primitive.to_proto(self.filename)
+
+        if Primitive.to_proto(self.ignored_files):
+            request.resource.ignored_files.extend(
+                Primitive.to_proto(self.ignored_files)
+            )
+        if Primitive.to_proto(self.included_files):
+            request.resource.included_files.extend(
+                Primitive.to_proto(self.included_files)
+            )
+        if BuildTriggerTriggerTemplate.to_proto(self.trigger_template):
+            request.resource.trigger_template.CopyFrom(
+                BuildTriggerTriggerTemplate.to_proto(self.trigger_template)
+            )
+        else:
+            request.resource.ClearField("trigger_template")
+        if BuildTriggerGithub.to_proto(self.github):
+            request.resource.github.CopyFrom(BuildTriggerGithub.to_proto(self.github))
+        else:
+            request.resource.ClearField("github")
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if BuildTriggerBuild.to_proto(self.build):
+            request.resource.build.CopyFrom(BuildTriggerBuild.to_proto(self.build))
+        else:
+            request.resource.ClearField("build")
         response = stub.DeleteCloudbuildBuildTrigger(request)
 
     @classmethod
@@ -170,6 +207,42 @@ class BuildTrigger(object):
         res.id = Primitive.from_proto(res_proto.id)
         res.create_time = Primitive.from_proto(res_proto.create_time)
         return res
+
+    def to_proto(self):
+        resource = build_trigger_pb2.CloudbuildBuildTrigger()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.tags):
+            resource.tags.extend(Primitive.to_proto(self.tags))
+        if Primitive.to_proto(self.disabled):
+            resource.disabled = Primitive.to_proto(self.disabled)
+        if Primitive.to_proto(self.substitutions):
+            resource.substitutions = Primitive.to_proto(self.substitutions)
+        if Primitive.to_proto(self.filename):
+            resource.filename = Primitive.to_proto(self.filename)
+        if Primitive.to_proto(self.ignored_files):
+            resource.ignored_files.extend(Primitive.to_proto(self.ignored_files))
+        if Primitive.to_proto(self.included_files):
+            resource.included_files.extend(Primitive.to_proto(self.included_files))
+        if BuildTriggerTriggerTemplate.to_proto(self.trigger_template):
+            resource.trigger_template.CopyFrom(
+                BuildTriggerTriggerTemplate.to_proto(self.trigger_template)
+            )
+        else:
+            resource.ClearField("trigger_template")
+        if BuildTriggerGithub.to_proto(self.github):
+            resource.github.CopyFrom(BuildTriggerGithub.to_proto(self.github))
+        else:
+            resource.ClearField("github")
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if BuildTriggerBuild.to_proto(self.build):
+            resource.build.CopyFrom(BuildTriggerBuild.to_proto(self.build))
+        else:
+            resource.ClearField("build")
+        return resource
 
 
 class BuildTriggerTriggerTemplate(object):

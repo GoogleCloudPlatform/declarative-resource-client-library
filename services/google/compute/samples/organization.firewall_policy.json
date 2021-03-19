@@ -1,0 +1,19 @@
+{
+  "displayName": "organization-firewall-policy",
+  "rules": [
+    {
+      "action": "allow",
+      "description": "allow-scan-probe",
+      "match": {
+        "layer4Configs": [
+          {
+            "ipProtocol": "tcp",
+            "ports": ["123"]
+          }
+        ],
+        "srcIpRanges": ["10.100.0.1/32"]
+      }
+    }
+  ],
+  "parent": "organizations/{{org_id}}"
+}

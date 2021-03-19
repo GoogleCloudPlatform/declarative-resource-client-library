@@ -72,14 +72,27 @@ class Instance(object):
         self.state = InstanceStateEnum.from_proto(response.state)
         self.labels = Primitive.from_proto(response.labels)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = instance_pb2_grpc.SpannerInstanceServiceStub(channel.Channel())
         request = instance_pb2.DeleteSpannerInstanceRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Name = name
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.config):
+            request.resource.config = Primitive.to_proto(self.config)
+
+        if Primitive.to_proto(self.display_name):
+            request.resource.display_name = Primitive.to_proto(self.display_name)
+
+        if Primitive.to_proto(self.node_count):
+            request.resource.node_count = Primitive.to_proto(self.node_count)
+
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
 
         response = stub.DeleteSpannerInstance(request)
 
@@ -107,6 +120,22 @@ class Instance(object):
         res.state = InstanceStateEnum.from_proto(res_proto.state)
         res.labels = Primitive.from_proto(res_proto.labels)
         return res
+
+    def to_proto(self):
+        resource = instance_pb2.SpannerInstance()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.config):
+            resource.config = Primitive.to_proto(self.config)
+        if Primitive.to_proto(self.display_name):
+            resource.display_name = Primitive.to_proto(self.display_name)
+        if Primitive.to_proto(self.node_count):
+            resource.node_count = Primitive.to_proto(self.node_count)
+        if Primitive.to_proto(self.labels):
+            resource.labels = Primitive.to_proto(self.labels)
+        return resource
 
 
 class InstanceStateEnum(object):

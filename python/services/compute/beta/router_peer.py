@@ -118,18 +118,49 @@ class RouterPeer(object):
         self.region = Primitive.from_proto(response.region)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, region, router, name, service_account_file=""):
+    def delete(self):
         stub = router_peer_pb2_grpc.ComputeBetaRouterPeerServiceStub(channel.Channel())
         request = router_peer_pb2.DeleteComputeBetaRouterPeerRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.router):
+            request.resource.router = Primitive.to_proto(self.router)
 
-        request.Region = region
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Router = router
+        if Primitive.to_proto(self.interface_name):
+            request.resource.interface_name = Primitive.to_proto(self.interface_name)
 
-        request.Name = name
+        if Primitive.to_proto(self.ip_address):
+            request.resource.ip_address = Primitive.to_proto(self.ip_address)
+
+        if Primitive.to_proto(self.peer_ip_address):
+            request.resource.peer_ip_address = Primitive.to_proto(self.peer_ip_address)
+
+        if Primitive.to_proto(self.peer_asn):
+            request.resource.peer_asn = Primitive.to_proto(self.peer_asn)
+
+        if Primitive.to_proto(self.advertised_route_priority):
+            request.resource.advertised_route_priority = Primitive.to_proto(
+                self.advertised_route_priority
+            )
+
+        if Primitive.to_proto(self.advertise_mode):
+            request.resource.advertise_mode = Primitive.to_proto(self.advertise_mode)
+
+        if Primitive.to_proto(self.advertised_groups):
+            request.resource.advertised_groups.extend(
+                Primitive.to_proto(self.advertised_groups)
+            )
+        if RouterPeerAdvertisedIPRangesArray.to_proto(self.advertised_ip_ranges):
+            request.resource.advertised_ip_ranges.extend(
+                RouterPeerAdvertisedIPRangesArray.to_proto(self.advertised_ip_ranges)
+            )
+        if Primitive.to_proto(self.region):
+            request.resource.region = Primitive.to_proto(self.region)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteComputeBetaRouterPeer(request)
 
@@ -170,6 +201,40 @@ class RouterPeer(object):
         res.region = Primitive.from_proto(res_proto.region)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = router_peer_pb2.ComputeBetaRouterPeer()
+        if Primitive.to_proto(self.router):
+            resource.router = Primitive.to_proto(self.router)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.interface_name):
+            resource.interface_name = Primitive.to_proto(self.interface_name)
+        if Primitive.to_proto(self.ip_address):
+            resource.ip_address = Primitive.to_proto(self.ip_address)
+        if Primitive.to_proto(self.peer_ip_address):
+            resource.peer_ip_address = Primitive.to_proto(self.peer_ip_address)
+        if Primitive.to_proto(self.peer_asn):
+            resource.peer_asn = Primitive.to_proto(self.peer_asn)
+        if Primitive.to_proto(self.advertised_route_priority):
+            resource.advertised_route_priority = Primitive.to_proto(
+                self.advertised_route_priority
+            )
+        if Primitive.to_proto(self.advertise_mode):
+            resource.advertise_mode = Primitive.to_proto(self.advertise_mode)
+        if Primitive.to_proto(self.advertised_groups):
+            resource.advertised_groups.extend(
+                Primitive.to_proto(self.advertised_groups)
+            )
+        if RouterPeerAdvertisedIPRangesArray.to_proto(self.advertised_ip_ranges):
+            resource.advertised_ip_ranges.extend(
+                RouterPeerAdvertisedIPRangesArray.to_proto(self.advertised_ip_ranges)
+            )
+        if Primitive.to_proto(self.region):
+            resource.region = Primitive.to_proto(self.region)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class RouterPeerAdvertisedIPRanges(object):

@@ -1,0 +1,14 @@
+{
+  "name": "{{policy}}",
+  "project": "{{ref:osconfig.serviceusage.service.json:project}}",
+  "assignment": {
+    "instances": ["{{ref:basic.compute.instance.json:selfLink}}"]
+  },
+  "packages": [
+    {
+      "desiredState": "UPDATED",
+      "manager": "ANY",
+      "name": "{{package}}"
+    }
+  ]
+}

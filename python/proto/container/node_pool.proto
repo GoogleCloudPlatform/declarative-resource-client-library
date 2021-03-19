@@ -157,6 +157,7 @@ message ListContainerNodePoolRequest {
 message ListContainerNodePoolResponse {
   repeated ContainerNodePool items = 1;
 }
+
 service ContainerNodePoolService {
   rpc ApplyContainerNodePool(ApplyContainerNodePoolRequest) returns (ContainerNodePool);
   rpc DeleteContainerNodePool(DeleteContainerNodePoolRequest) returns (google.protobuf.Empty);

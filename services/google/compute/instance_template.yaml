@@ -46,6 +46,10 @@ components:
           description: The project id of the resource.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         properties:
           description: The instance properties for this instance template.
@@ -186,9 +190,6 @@ components:
                         additionalProperties:
                           type: string
                         description: Labels to apply to this disk
-                        items:
-                          type: string
-                          x-dcl-go-type: string
                         type: object
                         x-dcl-go-name: Labels
                         x-kubernetes-immutable: true
@@ -375,9 +376,6 @@ components:
                 type: string
               description: Labels to apply to this address.  A list of key->value
                 pairs.
-              items:
-                type: string
-                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Labels
               x-kubernetes-immutable: true
@@ -395,9 +393,6 @@ components:
               description: 'The metadata key/value pairs to assign to instances that
                 are created from this template. These pairs can consist of custom
                 metadata or predefined keys. '
-              items:
-                type: string
-                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Metadata
               x-kubernetes-immutable: true

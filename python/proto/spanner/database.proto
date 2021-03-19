@@ -52,6 +52,7 @@ message ListSpannerDatabaseRequest {
 message ListSpannerDatabaseResponse {
   repeated SpannerDatabase items = 1;
 }
+
 service SpannerDatabaseService {
   rpc ApplySpannerDatabase(ApplySpannerDatabaseRequest) returns (SpannerDatabase);
   rpc DeleteSpannerDatabase(DeleteSpannerDatabaseRequest) returns (google.protobuf.Empty);

@@ -123,6 +123,7 @@ message ListComputeInterconnectRequest {
 message ListComputeInterconnectResponse {
   repeated ComputeInterconnect items = 1;
 }
+
 service ComputeInterconnectService {
   rpc ApplyComputeInterconnect(ApplyComputeInterconnectRequest) returns (ComputeInterconnect);
   rpc DeleteComputeInterconnect(DeleteComputeInterconnectRequest) returns (google.protobuf.Empty);

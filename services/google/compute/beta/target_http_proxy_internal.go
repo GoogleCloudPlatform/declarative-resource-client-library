@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 
 	"github.com/mohae/deepcopy"
@@ -132,7 +131,7 @@ func (op *updateTargetHttpProxySetURLMapOperation) do(ctx context.Context, r *Ta
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -169,7 +168,7 @@ func (c *Client) listTargetHttpProxyRaw(ctx context.Context, project, pageToken 
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -243,7 +242,7 @@ func (op *deleteTargetHttpProxyOperation) do(ctx context.Context, r *TargetHttpP
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -266,7 +265,13 @@ func (op *deleteTargetHttpProxyOperation) do(ctx context.Context, r *TargetHttpP
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createTargetHttpProxyOperation struct{}
+type createTargetHttpProxyOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createTargetHttpProxyOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createTargetHttpProxyOperation) do(ctx context.Context, r *TargetHttpProxy, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -282,7 +287,7 @@ func (op *createTargetHttpProxyOperation) do(ctx context.Context, r *TargetHttpP
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -296,8 +301,10 @@ func (op *createTargetHttpProxyOperation) do(ctx context.Context, r *TargetHttpP
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetTargetHttpProxy(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -310,7 +317,7 @@ func (c *Client) getTargetHttpProxyRaw(ctx context.Context, r *TargetHttpProxy) 
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -387,14 +394,6 @@ func canonicalizeTargetHttpProxyInitialState(rawInitial, rawDesired *TargetHttpP
 
 func canonicalizeTargetHttpProxyDesiredState(rawDesired, rawInitial *TargetHttpProxy, opts ...dcl.ApplyOption) (*TargetHttpProxy, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*TargetHttpProxy); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected TargetHttpProxy, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -404,13 +403,13 @@ func canonicalizeTargetHttpProxyDesiredState(rawDesired, rawInitial *TargetHttpP
 	if dcl.IsZeroValue(rawDesired.Id) {
 		rawDesired.Id = rawInitial.Id
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.IsZeroValue(rawDesired.SelfLink) {
+	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.UrlMap, rawInitial.UrlMap) {
@@ -433,16 +432,25 @@ func canonicalizeTargetHttpProxyNewState(c *Client, rawNew, rawDesired *TargetHt
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.UrlMap) && dcl.IsEmptyValueIndirect(rawDesired.UrlMap) {
@@ -479,14 +487,14 @@ func diffTargetHttpProxy(c *Client, desired, actual *TargetHttpProxy, opts ...dc
 	}
 
 	var diffs []targetHttpProxyDiff
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, targetHttpProxyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, targetHttpProxyDiff{
 			RequiresRecreate: true,
@@ -532,6 +540,9 @@ func diffTargetHttpProxy(c *Client, desired, actual *TargetHttpProxy, opts ...dc
 // short-form so they can be substituted in.
 func (r *TargetHttpProxy) urlNormalized() *TargetHttpProxy {
 	normalized := deepcopy.Copy(*r).(TargetHttpProxy)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	normalized.UrlMap = dcl.SelfLinkToName(r.UrlMap)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
@@ -583,6 +594,10 @@ func unmarshalTargetHttpProxy(b []byte, c *Client) (*TargetHttpProxy, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapTargetHttpProxy(m, c)
+}
+
+func unmarshalMapTargetHttpProxy(m map[string]interface{}, c *Client) (*TargetHttpProxy, error) {
 
 	return flattenTargetHttpProxy(c, m), nil
 }

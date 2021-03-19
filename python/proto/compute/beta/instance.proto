@@ -173,6 +173,7 @@ message ListComputeBetaInstanceRequest {
 message ListComputeBetaInstanceResponse {
   repeated ComputeBetaInstance items = 1;
 }
+
 service ComputeBetaInstanceService {
   rpc ApplyComputeBetaInstance(ApplyComputeBetaInstanceRequest) returns (ComputeBetaInstance);
   rpc DeleteComputeBetaInstance(DeleteComputeBetaInstanceRequest) returns (google.protobuf.Empty);

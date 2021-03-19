@@ -206,6 +206,7 @@ message ListComputeInstanceTemplateRequest {
 message ListComputeInstanceTemplateResponse {
   repeated ComputeInstanceTemplate items = 1;
 }
+
 service ComputeInstanceTemplateService {
   rpc ApplyComputeInstanceTemplate(ApplyComputeInstanceTemplateRequest) returns (ComputeInstanceTemplate);
   rpc DeleteComputeInstanceTemplate(DeleteComputeInstanceTemplateRequest) returns (google.protobuf.Empty);

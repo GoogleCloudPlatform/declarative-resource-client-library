@@ -62,6 +62,7 @@ message ListComputeBetaTargetPoolRequest {
 message ListComputeBetaTargetPoolResponse {
   repeated ComputeBetaTargetPool items = 1;
 }
+
 service ComputeBetaTargetPoolService {
   rpc ApplyComputeBetaTargetPool(ApplyComputeBetaTargetPoolRequest) returns (ComputeBetaTargetPool);
   rpc DeleteComputeBetaTargetPool(DeleteComputeBetaTargetPoolRequest) returns (google.protobuf.Empty);

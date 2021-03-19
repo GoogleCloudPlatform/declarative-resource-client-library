@@ -20,8 +20,6 @@ import (
 	computepb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/compute/compute_go_proto"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute"
-
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/serialization"
 )
 
 // Server implements the gRPC interface for Network.
@@ -121,16 +119,6 @@ func (s *NetworkServer) ApplyComputeNetwork(ctx context.Context, request *comput
 		return nil, err
 	}
 	return s.applyNetwork(ctx, cl, request)
-}
-
-func (s *NetworkServer) ComputeNetworkAsHcl(ctx context.Context, request *computepb.ComputeNetworkAsHclRequest) (*computepb.ComputeNetworkAsHclResponse, error) {
-	p := ProtoToNetwork(request.GetResource())
-	resStr, err := serialization.ComputeNetworkAsHCL(*p)
-	if err != nil {
-		return nil, err
-	}
-
-	return &computepb.ComputeNetworkAsHclResponse{Hcl: resStr}, nil
 }
 
 // DeleteNetwork handles the gRPC request by passing it to the underlying Network Delete() method.

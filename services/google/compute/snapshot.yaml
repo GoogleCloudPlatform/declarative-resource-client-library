@@ -40,9 +40,6 @@ components:
           additionalProperties:
             type: string
           description: Labels to apply to this snapshot. Label values may be empty.
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         license:
@@ -72,6 +69,10 @@ components:
           description: The project for the resource
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         selfLink:
           description: Server-defined URL for the resource.

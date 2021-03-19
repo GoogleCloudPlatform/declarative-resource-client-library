@@ -17,6 +17,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httputil"
+	"time"
 
 	// glog aliased import is necessary since these packages will be open-sourced
 	// and that is the public name of the google logging package.
@@ -27,10 +28,13 @@ import (
 
 const ua = "DeclarativeClientLib/0.0.1"
 
+const defaultTimeout = 15 * time.Minute
+
 // Config is used to enclose the credentials and http client used to make
 // requests to GCP APIs.
 type Config struct {
-	Retry         Retry
+	RetryProvider RetryProvider
+	Timeout       time.Duration
 	header        http.Header
 	clientOptions []option.ClientOption
 	userAgent     string
@@ -47,7 +51,8 @@ func (c *Config) UserAgent() string {
 // NewConfig creates a Config object with the specified user agent and client.
 func NewConfig(o ...ClientOption) *Config {
 	return &Config{
-		Retry:         fetchRetry(o),
+		RetryProvider: fetchRetryProvider(o),
+		Timeout:       fetchTimeout(o),
 		header:        fetchHeader(o),
 		userAgent:     fetchUserAgent(o),
 		Logger:        fetchLogger(o),
@@ -147,7 +152,8 @@ func FetchStateHint(c []ApplyOption) Resource {
 
 // clientOpts refers to options passed into the client.
 type clientOpts struct {
-	backoff       Retry
+	retryProvider RetryProvider
+	timeout       time.Duration
 	header        http.Header
 	userAgent     string
 	logger        Logger
@@ -155,12 +161,20 @@ type clientOpts struct {
 	clientOptions []option.ClientOption
 }
 
+type retryOption struct {
+	retryProvider RetryProvider
+}
+
+func (t retryOption) apply(o *clientOpts) {
+	o.retryProvider = t.retryProvider
+}
+
 type timeoutOption struct {
-	backoff Retry
+	timeout time.Duration
 }
 
 func (t timeoutOption) apply(o *clientOpts) {
-	o.backoff = t.backoff
+	o.timeout = t.timeout
 }
 
 type headerOption struct {
@@ -207,14 +221,24 @@ func (l apiClientOption) apply(o *clientOpts) {
 	o.clientOptions = append(o.clientOptions, l.o)
 }
 
-// WithRetry allows a user to specify the proper backoff for a Apply()
-func WithRetry(b Retry) ClientOption {
-	return timeoutOption{backoff: b}
+// WithRetryProvider allows a user to override default exponential backoff retry behavior.
+func WithRetryProvider(r RetryProvider) ClientOption {
+	return retryOption{retryProvider: r}
+}
+
+// WithTimeout allows a user to override default operation timeout.
+func WithTimeout(to time.Duration) ClientOption {
+	return timeoutOption{timeout: to}
 }
 
 // WithLogger allows a user to specify a custom logger.
 func WithLogger(l Logger) ClientOption {
 	return loggerOption{logger: l}
+}
+
+// WithBasePath allows a base path to be overriden.
+func WithBasePath(b string) ClientOption {
+	return basepathOption{basepath: b}
 }
 
 // WithHeader allows aribitrary HTTP headers to be addded to requests. Not all headers
@@ -262,17 +286,30 @@ func WithHTTPClient(client *http.Client) ClientOption {
 	return apiClientOption{o: option.WithHTTPClient(client)}
 }
 
-// fetchRetry returns either a new Retry a user-specified retry.
-func fetchRetry(c []ClientOption) Retry {
+// fetchRetryProvider returns either a default RetryProvider a user-specified provider.
+func fetchRetryProvider(c []ClientOption) RetryProvider {
 	var o clientOpts
 	for _, p := range c {
 		p.apply(&o)
 	}
 
-	if o.backoff != nil {
-		return o.backoff
+	if o.retryProvider != nil {
+		return o.retryProvider
 	}
-	return NewBackoff()
+	return &BackoffRetryProvider{}
+}
+
+// fetchTimeout returns either a default timeout a user-specified timeout.
+func fetchTimeout(c []ClientOption) time.Duration {
+	var o clientOpts
+	for _, p := range c {
+		p.apply(&o)
+	}
+
+	if o.timeout <= 0 {
+		return defaultTimeout
+	}
+	return o.timeout
 }
 
 // fetchLogger returns either a new Logger or a user-specified logger.

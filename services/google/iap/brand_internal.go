@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -79,7 +78,7 @@ func (c *Client) listBrandRaw(ctx context.Context, project, pageToken string, pa
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -116,7 +115,13 @@ func (c *Client) listBrand(ctx context.Context, project, pageToken string, pageS
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createBrandOperation struct{}
+type createBrandOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createBrandOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createBrandOperation) do(ctx context.Context, r *Brand, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -132,7 +137,7 @@ func (op *createBrandOperation) do(ctx context.Context, r *Brand, c *Client) err
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -141,14 +146,17 @@ func (op *createBrandOperation) do(ctx context.Context, r *Brand, c *Client) err
 	if err != nil {
 		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
-	_ = o // We might not use resp- this will stop Go complaining
+	op.response = o
 
-	r.Name, err = fetchBrandName(o)
-	if err != nil {
-		return fmt.Errorf("error trying to retrieve Name: %w", err)
+	// Include Name in URL substitution for initial GET request.
+	name, ok := op.response["name"].(string)
+	if !ok {
+		return fmt.Errorf("expected name to be a string")
 	}
+	r.Name = &name
 
 	if _, err := c.GetBrand(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -161,7 +169,7 @@ func (c *Client) getBrandRaw(ctx context.Context, r *Brand) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -245,30 +253,22 @@ func canonicalizeBrandInitialState(rawInitial, rawDesired *Brand) (*Brand, error
 
 func canonicalizeBrandDesiredState(rawDesired, rawInitial *Brand, opts ...dcl.ApplyOption) (*Brand, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Brand); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Brand, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.ApplicationTitle) {
+	if dcl.StringCanonicalize(rawDesired.ApplicationTitle, rawInitial.ApplicationTitle) {
 		rawDesired.ApplicationTitle = rawInitial.ApplicationTitle
 	}
-	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
 	if dcl.IsZeroValue(rawDesired.OrgInternalOnly) {
 		rawDesired.OrgInternalOnly = rawInitial.OrgInternalOnly
 	}
-	if dcl.IsZeroValue(rawDesired.SupportEmail) {
+	if dcl.StringCanonicalize(rawDesired.SupportEmail, rawInitial.SupportEmail) {
 		rawDesired.SupportEmail = rawInitial.SupportEmail
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
@@ -283,14 +283,14 @@ func canonicalizeBrandNewState(c *Client, rawNew, rawDesired *Brand) (*Brand, er
 	if dcl.IsEmptyValueIndirect(rawNew.ApplicationTitle) && dcl.IsEmptyValueIndirect(rawDesired.ApplicationTitle) {
 		rawNew.ApplicationTitle = rawDesired.ApplicationTitle
 	} else {
+		if dcl.StringCanonicalize(rawDesired.ApplicationTitle, rawNew.ApplicationTitle) {
+			rawNew.ApplicationTitle = rawDesired.ApplicationTitle
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
-		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
-			rawNew.Name = rawDesired.Name
-		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.OrgInternalOnly) && dcl.IsEmptyValueIndirect(rawDesired.OrgInternalOnly) {
@@ -301,6 +301,9 @@ func canonicalizeBrandNewState(c *Client, rawNew, rawDesired *Brand) (*Brand, er
 	if dcl.IsEmptyValueIndirect(rawNew.SupportEmail) && dcl.IsEmptyValueIndirect(rawDesired.SupportEmail) {
 		rawNew.SupportEmail = rawDesired.SupportEmail
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SupportEmail, rawNew.SupportEmail) {
+			rawNew.SupportEmail = rawDesired.SupportEmail
+		}
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -329,14 +332,21 @@ func diffBrand(c *Client, desired, actual *Brand, opts ...dcl.ApplyOption) ([]br
 	}
 
 	var diffs []brandDiff
-	if !dcl.IsZeroValue(desired.ApplicationTitle) && (dcl.IsZeroValue(actual.ApplicationTitle) || !reflect.DeepEqual(*desired.ApplicationTitle, *actual.ApplicationTitle)) {
+	if !dcl.IsZeroValue(desired.ApplicationTitle) && !dcl.StringCanonicalize(desired.ApplicationTitle, actual.ApplicationTitle) {
 		c.Config.Logger.Infof("Detected diff in ApplicationTitle.\nDESIRED: %v\nACTUAL: %v", desired.ApplicationTitle, actual.ApplicationTitle)
 		diffs = append(diffs, brandDiff{
 			RequiresRecreate: true,
 			FieldName:        "ApplicationTitle",
 		})
 	}
-	if !dcl.IsZeroValue(desired.SupportEmail) && (dcl.IsZeroValue(actual.SupportEmail) || !reflect.DeepEqual(*desired.SupportEmail, *actual.SupportEmail)) {
+	if !dcl.StringEqualsWithSelfLink(desired.Name, actual.Name) {
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
+		diffs = append(diffs, brandDiff{
+			RequiresRecreate: true,
+			FieldName:        "Name",
+		})
+	}
+	if !dcl.IsZeroValue(desired.SupportEmail) && !dcl.StringCanonicalize(desired.SupportEmail, actual.SupportEmail) {
 		c.Config.Logger.Infof("Detected diff in SupportEmail.\nDESIRED: %v\nACTUAL: %v", desired.SupportEmail, actual.SupportEmail)
 		diffs = append(diffs, brandDiff{
 			RequiresRecreate: true,
@@ -373,7 +383,9 @@ func diffBrand(c *Client, desired, actual *Brand, opts ...dcl.ApplyOption) ([]br
 // short-form so they can be substituted in.
 func (r *Brand) urlNormalized() *Brand {
 	normalized := deepcopy.Copy(*r).(Brand)
+	normalized.ApplicationTitle = dcl.SelfLinkToName(r.ApplicationTitle)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.SupportEmail = dcl.SelfLinkToName(r.SupportEmail)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -410,6 +422,10 @@ func unmarshalBrand(b []byte, c *Client) (*Brand, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapBrand(m, c)
+}
+
+func unmarshalMapBrand(m map[string]interface{}, c *Client) (*Brand, error) {
 
 	return flattenBrand(c, m), nil
 }
@@ -453,7 +469,7 @@ func flattenBrand(c *Client, i interface{}) *Brand {
 
 	r := &Brand{}
 	r.ApplicationTitle = dcl.FlattenString(m["applicationTitle"])
-	r.Name = dcl.FlattenSecretValue(m["name"])
+	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
 	r.OrgInternalOnly = dcl.FlattenBool(m["orgInternalOnly"])
 	r.SupportEmail = dcl.FlattenString(m["supportEmail"])
 	r.Project = dcl.FlattenString(m["project"])

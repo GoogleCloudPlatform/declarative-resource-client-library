@@ -23,22 +23,22 @@ import (
 )
 
 type Subnetwork struct {
-	CreationTimestamp     *string                      `json:"creationTimestamp"`
-	Description           *string                      `json:"description"`
-	GatewayAddress        *string                      `json:"gatewayAddress"`
-	IPCidrRange           *string                      `json:"ipCidrRange"`
-	Name                  *string                      `json:"name"`
-	Network               *string                      `json:"network"`
-	Fingerprint           *string                      `json:"fingerprint"`
-	Purpose               *SubnetworkPurposeEnum       `json:"purpose"`
-	Role                  *SubnetworkRoleEnum          `json:"role"`
-	SecondaryIPRange      []SubnetworkSecondaryIPRange `json:"secondaryIPRange"`
-	PrivateIPGoogleAccess *bool                        `json:"privateIPGoogleAccess"`
-	Region                *string                      `json:"region"`
-	LogConfig             *SubnetworkLogConfig         `json:"logConfig"`
-	Project               *string                      `json:"project"`
-	SelfLink              *string                      `json:"selfLink"`
-	EnableFlowLogs        *bool                        `json:"enableFlowLogs"`
+	CreationTimestamp     *string                       `json:"creationTimestamp"`
+	Description           *string                       `json:"description"`
+	GatewayAddress        *string                       `json:"gatewayAddress"`
+	IPCidrRange           *string                       `json:"ipCidrRange"`
+	Name                  *string                       `json:"name"`
+	Network               *string                       `json:"network"`
+	Fingerprint           *string                       `json:"fingerprint"`
+	Purpose               *SubnetworkPurposeEnum        `json:"purpose"`
+	Role                  *SubnetworkRoleEnum           `json:"role"`
+	SecondaryIPRanges     []SubnetworkSecondaryIPRanges `json:"secondaryIPRanges"`
+	PrivateIPGoogleAccess *bool                         `json:"privateIPGoogleAccess"`
+	Region                *string                       `json:"region"`
+	LogConfig             *SubnetworkLogConfig          `json:"logConfig"`
+	Project               *string                       `json:"project"`
+	SelfLink              *string                       `json:"selfLink"`
+	EnableFlowLogs        *bool                         `json:"enableFlowLogs"`
 }
 
 func (r *Subnetwork) String() string {
@@ -153,22 +153,22 @@ func (v SubnetworkLogConfigMetadataEnum) Validate() error {
 	}
 }
 
-type SubnetworkSecondaryIPRange struct {
+type SubnetworkSecondaryIPRanges struct {
 	empty       bool    `json:"-"`
 	RangeName   *string `json:"rangeName"`
 	IPCidrRange *string `json:"ipCidrRange"`
 }
 
-// This object is used to assert a desired state where this SubnetworkSecondaryIPRange is
+// This object is used to assert a desired state where this SubnetworkSecondaryIPRanges is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptySubnetworkSecondaryIPRange *SubnetworkSecondaryIPRange = &SubnetworkSecondaryIPRange{empty: true}
+var EmptySubnetworkSecondaryIPRanges *SubnetworkSecondaryIPRanges = &SubnetworkSecondaryIPRanges{empty: true}
 
-func (r *SubnetworkSecondaryIPRange) String() string {
+func (r *SubnetworkSecondaryIPRanges) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *SubnetworkSecondaryIPRange) HashCode() string {
+func (r *SubnetworkSecondaryIPRanges) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -227,6 +227,9 @@ func (l *SubnetworkList) HasNext() bool {
 }
 
 func (l *SubnetworkList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -240,12 +243,17 @@ func (l *SubnetworkList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListSubnetwork(ctx context.Context, project, region string) (*SubnetworkList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListSubnetworkWithMaxResults(ctx, project, region, SubnetworkMaxPage)
 
 }
 
 func (c *Client) ListSubnetworkWithMaxResults(ctx context.Context, project, region string, pageSize int32) (*SubnetworkList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listSubnetwork(ctx, project, region, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -262,6 +270,9 @@ func (c *Client) ListSubnetworkWithMaxResults(ctx context.Context, project, regi
 }
 
 func (c *Client) GetSubnetwork(ctx context.Context, r *Subnetwork) (*Subnetwork, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getSubnetworkRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -292,6 +303,9 @@ func (c *Client) GetSubnetwork(ctx context.Context, r *Subnetwork) (*Subnetwork,
 }
 
 func (c *Client) DeleteSubnetwork(ctx context.Context, r *Subnetwork) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Subnetwork resource is nil")
 	}
@@ -302,6 +316,9 @@ func (c *Client) DeleteSubnetwork(ctx context.Context, r *Subnetwork) error {
 
 // DeleteAllSubnetwork deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllSubnetwork(ctx context.Context, project, region string, filter func(*Subnetwork) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListSubnetwork(ctx, project, region)
 	if err != nil {
 		return err
@@ -327,6 +344,9 @@ func (c *Client) DeleteAllSubnetwork(ctx context.Context, project, region string
 func (c *Client) ApplySubnetwork(ctx context.Context, rawDesired *Subnetwork, opts ...dcl.ApplyOption) (*Subnetwork, error) {
 	c.Config.Logger.Info("Beginning ApplySubnetwork...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -407,12 +427,35 @@ func (c *Client) ApplySubnetwork(ctx context.Context, rawDesired *Subnetwork, op
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createSubnetworkOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapSubnetwork(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeSubnetworkNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeSubnetworkNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

@@ -75,6 +75,7 @@ message ListComputeBetaRouteRequest {
 message ListComputeBetaRouteResponse {
   repeated ComputeBetaRoute items = 1;
 }
+
 service ComputeBetaRouteService {
   rpc ApplyComputeBetaRoute(ApplyComputeBetaRouteRequest) returns (ComputeBetaRoute);
   rpc DeleteComputeBetaRoute(DeleteComputeBetaRouteRequest) returns (google.protobuf.Empty);

@@ -133,16 +133,51 @@ class Node(object):
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
 
-    @classmethod
-    def delete(self, project, location, name, service_account_file=""):
+    def delete(self):
         stub = node_pb2_grpc.TPUNodeServiceStub(channel.Channel())
         request = node_pb2.DeleteTPUNodeRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
 
-        request.Name = name
+        if Primitive.to_proto(self.accelerator_type):
+            request.resource.accelerator_type = Primitive.to_proto(
+                self.accelerator_type
+            )
+
+        if Primitive.to_proto(self.tensorflow_version):
+            request.resource.tensorflow_version = Primitive.to_proto(
+                self.tensorflow_version
+            )
+
+        if Primitive.to_proto(self.network):
+            request.resource.network = Primitive.to_proto(self.network)
+
+        if Primitive.to_proto(self.cidr_block):
+            request.resource.cidr_block = Primitive.to_proto(self.cidr_block)
+
+        if NodeSchedulingConfig.to_proto(self.scheduling_config):
+            request.resource.scheduling_config.CopyFrom(
+                NodeSchedulingConfig.to_proto(self.scheduling_config)
+            )
+        else:
+            request.resource.ClearField("scheduling_config")
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
+        if Primitive.to_proto(self.use_service_networking):
+            request.resource.use_service_networking = Primitive.to_proto(
+                self.use_service_networking
+            )
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         response = stub.DeleteTPUNode(request)
 
@@ -191,6 +226,38 @@ class Node(object):
         res.project = Primitive.from_proto(res_proto.project)
         res.location = Primitive.from_proto(res_proto.location)
         return res
+
+    def to_proto(self):
+        resource = node_pb2.TPUNode()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.accelerator_type):
+            resource.accelerator_type = Primitive.to_proto(self.accelerator_type)
+        if Primitive.to_proto(self.tensorflow_version):
+            resource.tensorflow_version = Primitive.to_proto(self.tensorflow_version)
+        if Primitive.to_proto(self.network):
+            resource.network = Primitive.to_proto(self.network)
+        if Primitive.to_proto(self.cidr_block):
+            resource.cidr_block = Primitive.to_proto(self.cidr_block)
+        if NodeSchedulingConfig.to_proto(self.scheduling_config):
+            resource.scheduling_config.CopyFrom(
+                NodeSchedulingConfig.to_proto(self.scheduling_config)
+            )
+        else:
+            resource.ClearField("scheduling_config")
+        if Primitive.to_proto(self.labels):
+            resource.labels = Primitive.to_proto(self.labels)
+        if Primitive.to_proto(self.use_service_networking):
+            resource.use_service_networking = Primitive.to_proto(
+                self.use_service_networking
+            )
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
+        return resource
 
 
 class NodeCreateTime(object):

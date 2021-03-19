@@ -474,62 +474,35 @@ func ProtoToContaineranalysisBetaNoteDiscovery(p *betapb.ContaineranalysisBetaNo
 	return obj
 }
 
-// ProtoToNoteBaseImage converts a NoteBaseImage resource from its proto representation.
-func ProtoToContaineranalysisBetaNoteBaseImage(p *betapb.ContaineranalysisBetaNoteBaseImage) *beta.NoteBaseImage {
+// ProtoToNoteDeployment converts a NoteDeployment resource from its proto representation.
+func ProtoToContaineranalysisBetaNoteDeployment(p *betapb.ContaineranalysisBetaNoteDeployment) *beta.NoteDeployment {
 	if p == nil {
 		return nil
 	}
-	obj := &beta.NoteBaseImage{
-		ResourceUrl: dcl.StringOrNil(p.ResourceUrl),
-		Fingerprint: ProtoToContaineranalysisBetaNoteBaseImageFingerprint(p.GetFingerprint()),
-	}
-	return obj
-}
-
-// ProtoToNoteBaseImageFingerprint converts a NoteBaseImageFingerprint resource from its proto representation.
-func ProtoToContaineranalysisBetaNoteBaseImageFingerprint(p *betapb.ContaineranalysisBetaNoteBaseImageFingerprint) *beta.NoteBaseImageFingerprint {
-	if p == nil {
-		return nil
-	}
-	obj := &beta.NoteBaseImageFingerprint{
-		V1Name: dcl.StringOrNil(p.V1Name),
-		V2Name: dcl.StringOrNil(p.V2Name),
-	}
-	for _, r := range p.GetV2Blob() {
-		obj.V2Blob = append(obj.V2Blob, r)
-	}
-	return obj
-}
-
-// ProtoToNoteDeployable converts a NoteDeployable resource from its proto representation.
-func ProtoToContaineranalysisBetaNoteDeployable(p *betapb.ContaineranalysisBetaNoteDeployable) *beta.NoteDeployable {
-	if p == nil {
-		return nil
-	}
-	obj := &beta.NoteDeployable{}
+	obj := &beta.NoteDeployment{}
 	for _, r := range p.GetResourceUri() {
 		obj.ResourceUri = append(obj.ResourceUri, r)
 	}
 	return obj
 }
 
-// ProtoToNoteAttestationAuthority converts a NoteAttestationAuthority resource from its proto representation.
-func ProtoToContaineranalysisBetaNoteAttestationAuthority(p *betapb.ContaineranalysisBetaNoteAttestationAuthority) *beta.NoteAttestationAuthority {
+// ProtoToNoteAttestation converts a NoteAttestation resource from its proto representation.
+func ProtoToContaineranalysisBetaNoteAttestation(p *betapb.ContaineranalysisBetaNoteAttestation) *beta.NoteAttestation {
 	if p == nil {
 		return nil
 	}
-	obj := &beta.NoteAttestationAuthority{
-		Hint: ProtoToContaineranalysisBetaNoteAttestationAuthorityHint(p.GetHint()),
+	obj := &beta.NoteAttestation{
+		Hint: ProtoToContaineranalysisBetaNoteAttestationHint(p.GetHint()),
 	}
 	return obj
 }
 
-// ProtoToNoteAttestationAuthorityHint converts a NoteAttestationAuthorityHint resource from its proto representation.
-func ProtoToContaineranalysisBetaNoteAttestationAuthorityHint(p *betapb.ContaineranalysisBetaNoteAttestationAuthorityHint) *beta.NoteAttestationAuthorityHint {
+// ProtoToNoteAttestationHint converts a NoteAttestationHint resource from its proto representation.
+func ProtoToContaineranalysisBetaNoteAttestationHint(p *betapb.ContaineranalysisBetaNoteAttestationHint) *beta.NoteAttestationHint {
 	if p == nil {
 		return nil
 	}
-	obj := &beta.NoteAttestationAuthorityHint{
+	obj := &beta.NoteAttestationHint{
 		HumanReadableName: dcl.StringOrNil(p.HumanReadableName),
 	}
 	return obj
@@ -538,21 +511,20 @@ func ProtoToContaineranalysisBetaNoteAttestationAuthorityHint(p *betapb.Containe
 // ProtoToNote converts a Note resource from its proto representation.
 func ProtoToNote(p *betapb.ContaineranalysisBetaNote) *beta.Note {
 	obj := &beta.Note{
-		Name:                 dcl.StringOrNil(p.Name),
-		ShortDescription:     dcl.StringOrNil(p.ShortDescription),
-		LongDescription:      dcl.StringOrNil(p.LongDescription),
-		ExpirationTime:       dcl.StringOrNil(p.GetExpirationTime()),
-		CreateTime:           dcl.StringOrNil(p.GetCreateTime()),
-		UpdateTime:           dcl.StringOrNil(p.GetUpdateTime()),
-		Vulnerability:        ProtoToContaineranalysisBetaNoteVulnerability(p.GetVulnerability()),
-		Build:                ProtoToContaineranalysisBetaNoteBuild(p.GetBuild()),
-		Image:                ProtoToContaineranalysisBetaNoteImage(p.GetImage()),
-		Package:              ProtoToContaineranalysisBetaNotePackage(p.GetPackage()),
-		Discovery:            ProtoToContaineranalysisBetaNoteDiscovery(p.GetDiscovery()),
-		BaseImage:            ProtoToContaineranalysisBetaNoteBaseImage(p.GetBaseImage()),
-		Deployable:           ProtoToContaineranalysisBetaNoteDeployable(p.GetDeployable()),
-		AttestationAuthority: ProtoToContaineranalysisBetaNoteAttestationAuthority(p.GetAttestationAuthority()),
-		Project:              dcl.StringOrNil(p.Project),
+		Name:             dcl.StringOrNil(p.Name),
+		ShortDescription: dcl.StringOrNil(p.ShortDescription),
+		LongDescription:  dcl.StringOrNil(p.LongDescription),
+		ExpirationTime:   dcl.StringOrNil(p.GetExpirationTime()),
+		CreateTime:       dcl.StringOrNil(p.GetCreateTime()),
+		UpdateTime:       dcl.StringOrNil(p.GetUpdateTime()),
+		Vulnerability:    ProtoToContaineranalysisBetaNoteVulnerability(p.GetVulnerability()),
+		Build:            ProtoToContaineranalysisBetaNoteBuild(p.GetBuild()),
+		Image:            ProtoToContaineranalysisBetaNoteImage(p.GetImage()),
+		Package:          ProtoToContaineranalysisBetaNotePackage(p.GetPackage()),
+		Discovery:        ProtoToContaineranalysisBetaNoteDiscovery(p.GetDiscovery()),
+		Deployment:       ProtoToContaineranalysisBetaNoteDeployment(p.GetDeployment()),
+		Attestation:      ProtoToContaineranalysisBetaNoteAttestation(p.GetAttestation()),
+		Project:          dcl.StringOrNil(p.Project),
 	}
 	for _, r := range p.GetRelatedUrl() {
 		obj.RelatedUrl = append(obj.RelatedUrl, *ProtoToContaineranalysisBetaNoteRelatedUrl(r))
@@ -996,62 +968,35 @@ func ContaineranalysisBetaNoteDiscoveryToProto(o *beta.NoteDiscovery) *betapb.Co
 	return p
 }
 
-// NoteBaseImageToProto converts a NoteBaseImage resource to its proto representation.
-func ContaineranalysisBetaNoteBaseImageToProto(o *beta.NoteBaseImage) *betapb.ContaineranalysisBetaNoteBaseImage {
+// NoteDeploymentToProto converts a NoteDeployment resource to its proto representation.
+func ContaineranalysisBetaNoteDeploymentToProto(o *beta.NoteDeployment) *betapb.ContaineranalysisBetaNoteDeployment {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ContaineranalysisBetaNoteBaseImage{
-		ResourceUrl: dcl.ValueOrEmptyString(o.ResourceUrl),
-		Fingerprint: ContaineranalysisBetaNoteBaseImageFingerprintToProto(o.Fingerprint),
-	}
-	return p
-}
-
-// NoteBaseImageFingerprintToProto converts a NoteBaseImageFingerprint resource to its proto representation.
-func ContaineranalysisBetaNoteBaseImageFingerprintToProto(o *beta.NoteBaseImageFingerprint) *betapb.ContaineranalysisBetaNoteBaseImageFingerprint {
-	if o == nil {
-		return nil
-	}
-	p := &betapb.ContaineranalysisBetaNoteBaseImageFingerprint{
-		V1Name: dcl.ValueOrEmptyString(o.V1Name),
-		V2Name: dcl.ValueOrEmptyString(o.V2Name),
-	}
-	for _, r := range o.V2Blob {
-		p.V2Blob = append(p.V2Blob, r)
-	}
-	return p
-}
-
-// NoteDeployableToProto converts a NoteDeployable resource to its proto representation.
-func ContaineranalysisBetaNoteDeployableToProto(o *beta.NoteDeployable) *betapb.ContaineranalysisBetaNoteDeployable {
-	if o == nil {
-		return nil
-	}
-	p := &betapb.ContaineranalysisBetaNoteDeployable{}
+	p := &betapb.ContaineranalysisBetaNoteDeployment{}
 	for _, r := range o.ResourceUri {
 		p.ResourceUri = append(p.ResourceUri, r)
 	}
 	return p
 }
 
-// NoteAttestationAuthorityToProto converts a NoteAttestationAuthority resource to its proto representation.
-func ContaineranalysisBetaNoteAttestationAuthorityToProto(o *beta.NoteAttestationAuthority) *betapb.ContaineranalysisBetaNoteAttestationAuthority {
+// NoteAttestationToProto converts a NoteAttestation resource to its proto representation.
+func ContaineranalysisBetaNoteAttestationToProto(o *beta.NoteAttestation) *betapb.ContaineranalysisBetaNoteAttestation {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ContaineranalysisBetaNoteAttestationAuthority{
-		Hint: ContaineranalysisBetaNoteAttestationAuthorityHintToProto(o.Hint),
+	p := &betapb.ContaineranalysisBetaNoteAttestation{
+		Hint: ContaineranalysisBetaNoteAttestationHintToProto(o.Hint),
 	}
 	return p
 }
 
-// NoteAttestationAuthorityHintToProto converts a NoteAttestationAuthorityHint resource to its proto representation.
-func ContaineranalysisBetaNoteAttestationAuthorityHintToProto(o *beta.NoteAttestationAuthorityHint) *betapb.ContaineranalysisBetaNoteAttestationAuthorityHint {
+// NoteAttestationHintToProto converts a NoteAttestationHint resource to its proto representation.
+func ContaineranalysisBetaNoteAttestationHintToProto(o *beta.NoteAttestationHint) *betapb.ContaineranalysisBetaNoteAttestationHint {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ContaineranalysisBetaNoteAttestationAuthorityHint{
+	p := &betapb.ContaineranalysisBetaNoteAttestationHint{
 		HumanReadableName: dcl.ValueOrEmptyString(o.HumanReadableName),
 	}
 	return p
@@ -1060,21 +1005,20 @@ func ContaineranalysisBetaNoteAttestationAuthorityHintToProto(o *beta.NoteAttest
 // NoteToProto converts a Note resource to its proto representation.
 func NoteToProto(resource *beta.Note) *betapb.ContaineranalysisBetaNote {
 	p := &betapb.ContaineranalysisBetaNote{
-		Name:                 dcl.ValueOrEmptyString(resource.Name),
-		ShortDescription:     dcl.ValueOrEmptyString(resource.ShortDescription),
-		LongDescription:      dcl.ValueOrEmptyString(resource.LongDescription),
-		ExpirationTime:       dcl.ValueOrEmptyString(resource.ExpirationTime),
-		CreateTime:           dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:           dcl.ValueOrEmptyString(resource.UpdateTime),
-		Vulnerability:        ContaineranalysisBetaNoteVulnerabilityToProto(resource.Vulnerability),
-		Build:                ContaineranalysisBetaNoteBuildToProto(resource.Build),
-		Image:                ContaineranalysisBetaNoteImageToProto(resource.Image),
-		Package:              ContaineranalysisBetaNotePackageToProto(resource.Package),
-		Discovery:            ContaineranalysisBetaNoteDiscoveryToProto(resource.Discovery),
-		BaseImage:            ContaineranalysisBetaNoteBaseImageToProto(resource.BaseImage),
-		Deployable:           ContaineranalysisBetaNoteDeployableToProto(resource.Deployable),
-		AttestationAuthority: ContaineranalysisBetaNoteAttestationAuthorityToProto(resource.AttestationAuthority),
-		Project:              dcl.ValueOrEmptyString(resource.Project),
+		Name:             dcl.ValueOrEmptyString(resource.Name),
+		ShortDescription: dcl.ValueOrEmptyString(resource.ShortDescription),
+		LongDescription:  dcl.ValueOrEmptyString(resource.LongDescription),
+		ExpirationTime:   dcl.ValueOrEmptyString(resource.ExpirationTime),
+		CreateTime:       dcl.ValueOrEmptyString(resource.CreateTime),
+		UpdateTime:       dcl.ValueOrEmptyString(resource.UpdateTime),
+		Vulnerability:    ContaineranalysisBetaNoteVulnerabilityToProto(resource.Vulnerability),
+		Build:            ContaineranalysisBetaNoteBuildToProto(resource.Build),
+		Image:            ContaineranalysisBetaNoteImageToProto(resource.Image),
+		Package:          ContaineranalysisBetaNotePackageToProto(resource.Package),
+		Discovery:        ContaineranalysisBetaNoteDiscoveryToProto(resource.Discovery),
+		Deployment:       ContaineranalysisBetaNoteDeploymentToProto(resource.Deployment),
+		Attestation:      ContaineranalysisBetaNoteAttestationToProto(resource.Attestation),
+		Project:          dcl.ValueOrEmptyString(resource.Project),
 	}
 	for _, r := range resource.RelatedUrl {
 		p.RelatedUrl = append(p.RelatedUrl, ContaineranalysisBetaNoteRelatedUrlToProto(&r))

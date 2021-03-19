@@ -1,0 +1,4 @@
+{
+  "name": "cloudbuild.googleapis.com",
+  "project": "{{ref:basic.cloudbilling.project_billing_info.json:name}}"
+}

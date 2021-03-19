@@ -1,0 +1,14 @@
+{
+  "name": "{{instance_group_manager}}",
+  "project": "{{project}}",
+  "location": "{{region}}",
+  "autoHealingPolicies": [
+    {
+      "healthCheck": "{{ref:https.health_check.json:selfLink}}",
+      "initialDelaySec": 300
+    }
+  ],
+  "baseInstanceName": "dcl",
+  "targetSize": 3,
+  "instanceTemplate": "{{ref:basic.instance_template.json:selfLink}}"
+}

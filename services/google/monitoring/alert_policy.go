@@ -1879,6 +1879,9 @@ func (l *AlertPolicyList) HasNext() bool {
 }
 
 func (l *AlertPolicyList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -1892,12 +1895,17 @@ func (l *AlertPolicyList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListAlertPolicy(ctx context.Context, project string) (*AlertPolicyList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListAlertPolicyWithMaxResults(ctx, project, AlertPolicyMaxPage)
 
 }
 
 func (c *Client) ListAlertPolicyWithMaxResults(ctx context.Context, project string, pageSize int32) (*AlertPolicyList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listAlertPolicy(ctx, project, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -1912,6 +1920,9 @@ func (c *Client) ListAlertPolicyWithMaxResults(ctx context.Context, project stri
 }
 
 func (c *Client) GetAlertPolicy(ctx context.Context, r *AlertPolicy) (*AlertPolicy, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getAlertPolicyRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -1929,8 +1940,6 @@ func (c *Client) GetAlertPolicy(ctx context.Context, r *AlertPolicy) (*AlertPoli
 	result.Project = r.Project
 	result.Name = r.Name
 
-	result.Name = r.Name
-
 	c.Config.Logger.Infof("Retrieved raw result state: %v", result)
 	c.Config.Logger.Infof("Canonicalizing with specified state: %v", r)
 	result, err = canonicalizeAlertPolicyNewState(c, result, r)
@@ -1943,6 +1952,9 @@ func (c *Client) GetAlertPolicy(ctx context.Context, r *AlertPolicy) (*AlertPoli
 }
 
 func (c *Client) DeleteAlertPolicy(ctx context.Context, r *AlertPolicy) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("AlertPolicy resource is nil")
 	}
@@ -1953,6 +1965,9 @@ func (c *Client) DeleteAlertPolicy(ctx context.Context, r *AlertPolicy) error {
 
 // DeleteAllAlertPolicy deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllAlertPolicy(ctx context.Context, project string, filter func(*AlertPolicy) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListAlertPolicy(ctx, project)
 	if err != nil {
 		return err
@@ -1978,6 +1993,9 @@ func (c *Client) DeleteAllAlertPolicy(ctx context.Context, project string, filte
 func (c *Client) ApplyAlertPolicy(ctx context.Context, rawDesired *AlertPolicy, opts ...dcl.ApplyOption) (*AlertPolicy, error) {
 	c.Config.Logger.Info("Beginning ApplyAlertPolicy...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -2058,12 +2076,35 @@ func (c *Client) ApplyAlertPolicy(ctx context.Context, rawDesired *AlertPolicy, 
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createAlertPolicyOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapAlertPolicy(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeAlertPolicyNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeAlertPolicyNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

@@ -29,10 +29,7 @@ const Stop time.Duration = -1
 const BackoffInitialInterval = 500 * time.Millisecond
 
 // BackoffMaxInterval is the default MaxInterval value for Backoff.
-const BackoffMaxInterval = 15 * time.Second
-
-// BackoffMaxElapsedTime is the default MaxElapsedTime value for Backoff.
-const BackoffMaxElapsedTime = 15 * time.Minute
+const BackoffMaxInterval = 30 * time.Second
 
 // RetryDetails provides information about an operation that a Retry implementation
 // can use to make decisions about when or if to perform further requests.
@@ -53,8 +50,12 @@ type Retry interface {
 	// Stop indicates that no more retries should occur, and returning zero indicates that the operation
 	// should be immediately retried.
 	RetryAfter(details *RetryDetails) time.Duration
-	// Reset re-initializes a retry for use in subsequent operations.
-	Reset()
+}
+
+// RetryProvider allows callers to provide custom retry behavior.
+type RetryProvider interface {
+	// New returns an initialized Retry.
+	New() Retry
 }
 
 // NoRetry is a Retry implementation that will never retry.
@@ -74,49 +75,43 @@ type Backoff struct {
 	InitialInterval time.Duration
 	// MaxInterval is the largest amount of time that should elapse between retries.
 	MaxInterval time.Duration
-	// MaxElapsedTime is the total amount of time during which retries will occur. Setting
-	// this to zero will cause retries to continue indefinitely.
-	MaxElapsedTime time.Duration
 
 	bo *backoff.ExponentialBackOff
 }
 
 // NewBackoff returns a Backoff with sensible defaults set.
 func NewBackoff() *Backoff {
+	bo := backoff.NewExponentialBackOff()
+	bo.MaxInterval = BackoffMaxInterval
+	bo.InitialInterval = BackoffInitialInterval
+	bo.MaxElapsedTime = 0
 	return &Backoff{
-		InitialInterval: BackoffInitialInterval,
-		MaxInterval:     BackoffMaxInterval,
-		MaxElapsedTime:  BackoffMaxElapsedTime,
+		bo: bo,
 	}
 }
 
 // RetryAfter implementation that uses exponential backoff.
 func (n *Backoff) RetryAfter(_ *RetryDetails) time.Duration {
-	if n.bo == nil {
-		n.bo = backoff.NewExponentialBackOff()
-		n.bo.MaxElapsedTime = n.MaxElapsedTime
-		n.bo.MaxInterval = n.MaxInterval
-		n.bo.InitialInterval = n.InitialInterval
-	}
-
 	if next := n.bo.NextBackOff(); next != backoff.Stop {
 		return next
 	}
-
 	return Stop
 }
 
-// Reset returns to the initial configuration.
-func (n *Backoff) Reset() {
-	n.bo = nil
+// BackoffRetryProvider is a default RetryProvider that returns a Backoff.
+type BackoffRetryProvider struct{}
+
+// New returns an initialized Retry.
+func (r *BackoffRetryProvider) New() Retry {
+	return NewBackoff()
 }
 
 // Do performs op as a retryable operation, using retry to determine when and if to retry.
 // Do will only continue if a OperationNotDone{} is returned. If op() returns another error
 // or no error, Do will finish.
 // OperationNotDone{} may have an error inside of it, indicating that it's a retryable error.
-func Do(ctx context.Context, op Operation, retry Retry) error {
-	retry.Reset()
+func Do(ctx context.Context, op Operation, retryProvider RetryProvider) error {
+	retry := retryProvider.New()
 	for {
 		details, err := op(ctx)
 		// Responsible for returning nil error too.

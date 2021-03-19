@@ -182,7 +182,7 @@ func (op *updateSubscriptionUpdateOperation) do(ctx context.Context, r *Subscrip
 	if err != nil {
 		return err
 	}
-	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -209,7 +209,7 @@ func (c *Client) listSubscriptionRaw(ctx context.Context, project, pageToken str
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -283,7 +283,7 @@ func (op *deleteSubscriptionOperation) do(ctx context.Context, r *Subscription, 
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return fmt.Errorf("failed to delete Subscription: %w", err)
 	}
@@ -297,7 +297,13 @@ func (op *deleteSubscriptionOperation) do(ctx context.Context, r *Subscription, 
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createSubscriptionOperation struct{}
+type createSubscriptionOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createSubscriptionOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createSubscriptionOperation) do(ctx context.Context, r *Subscription, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -313,7 +319,7 @@ func (op *createSubscriptionOperation) do(ctx context.Context, r *Subscription, 
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -322,11 +328,9 @@ func (op *createSubscriptionOperation) do(ctx context.Context, r *Subscription, 
 	if err != nil {
 		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
-	_ = o // We might not use resp- this will stop Go complaining
-
+	op.response = o
 	// Poll for the Subscription resource to be created. Subscription resources are eventually consistent but do not support operations
 	// so we must repeatedly poll to check for their creation.
-	c.Config.Retry.Reset()
 	err = dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		u, err := subscriptionGetURL(c.Config.BasePath, r)
 		if err != nil {
@@ -343,9 +347,10 @@ func (op *createSubscriptionOperation) do(ctx context.Context, r *Subscription, 
 		}
 		getResp.Response.Body.Close()
 		return getResp, nil
-	}, c.Config.Retry)
+	}, c.Config.RetryProvider)
 
 	if _, err := c.GetSubscription(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -358,7 +363,7 @@ func (c *Client) getSubscriptionRaw(ctx context.Context, r *Subscription) ([]byt
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -435,14 +440,6 @@ func canonicalizeSubscriptionInitialState(rawInitial, rawDesired *Subscription) 
 
 func canonicalizeSubscriptionDesiredState(rawDesired, rawInitial *Subscription, opts ...dcl.ApplyOption) (*Subscription, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Subscription); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Subscription, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -461,7 +458,7 @@ func canonicalizeSubscriptionDesiredState(rawDesired, rawInitial *Subscription, 
 	if dcl.IsZeroValue(rawDesired.Labels) {
 		rawDesired.Labels = rawInitial.Labels
 	}
-	if dcl.IsZeroValue(rawDesired.MessageRetentionDuration) {
+	if dcl.StringCanonicalize(rawDesired.MessageRetentionDuration, rawInitial.MessageRetentionDuration) {
 		rawDesired.MessageRetentionDuration = rawInitial.MessageRetentionDuration
 	}
 	if dcl.IsZeroValue(rawDesired.RetainAckedMessages) {
@@ -500,6 +497,9 @@ func canonicalizeSubscriptionNewState(c *Client, rawNew, rawDesired *Subscriptio
 	if dcl.IsEmptyValueIndirect(rawNew.MessageRetentionDuration) && dcl.IsEmptyValueIndirect(rawDesired.MessageRetentionDuration) {
 		rawNew.MessageRetentionDuration = rawDesired.MessageRetentionDuration
 	} else {
+		if dcl.StringCanonicalize(rawDesired.MessageRetentionDuration, rawNew.MessageRetentionDuration) {
+			rawNew.MessageRetentionDuration = rawDesired.MessageRetentionDuration
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.RetainAckedMessages) && dcl.IsEmptyValueIndirect(rawDesired.RetainAckedMessages) {
@@ -543,16 +543,11 @@ func canonicalizeSubscriptionExpirationPolicy(des, initial *SubscriptionExpirati
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Subscription)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Ttl) {
+	if dcl.StringCanonicalize(des.Ttl, initial.Ttl) || dcl.IsZeroValue(des.Ttl) {
 		des.Ttl = initial.Ttl
 	}
 
@@ -562,6 +557,10 @@ func canonicalizeSubscriptionExpirationPolicy(des, initial *SubscriptionExpirati
 func canonicalizeNewSubscriptionExpirationPolicy(c *Client, des, nw *SubscriptionExpirationPolicy) *SubscriptionExpirationPolicy {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Ttl, nw.Ttl) || dcl.IsZeroValue(des.Ttl) {
+		nw.Ttl = des.Ttl
 	}
 
 	return nw
@@ -596,11 +595,6 @@ func canonicalizeSubscriptionDeadLetterPolicy(des, initial *SubscriptionDeadLett
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Subscription)
-		_ = r
 	}
 
 	if initial == nil {
@@ -664,16 +658,11 @@ func canonicalizeSubscriptionPushConfig(des, initial *SubscriptionPushConfig, op
 		des.Attributes = map[string]string{"x-goog-version": "v1"}
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Subscription)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.PushEndpoint) {
+	if dcl.StringCanonicalize(des.PushEndpoint, initial.PushEndpoint) || dcl.IsZeroValue(des.PushEndpoint) {
 		des.PushEndpoint = initial.PushEndpoint
 	}
 	if dcl.IsZeroValue(des.Attributes) {
@@ -693,6 +682,9 @@ func canonicalizeNewSubscriptionPushConfig(c *Client, des, nw *SubscriptionPushC
 		nw.Attributes = map[string]string{"x-goog-version": "v1"}
 	}
 
+	if dcl.StringCanonicalize(des.PushEndpoint, nw.PushEndpoint) || dcl.IsZeroValue(des.PushEndpoint) {
+		nw.PushEndpoint = des.PushEndpoint
+	}
 	nw.OidcToken = canonicalizeNewSubscriptionPushConfigOidcToken(c, des.OidcToken, nw.OidcToken)
 
 	return nw
@@ -729,19 +721,14 @@ func canonicalizeSubscriptionPushConfigOidcToken(des, initial *SubscriptionPushC
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Subscription)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.ServiceAccountEmail) {
+	if dcl.StringCanonicalize(des.ServiceAccountEmail, initial.ServiceAccountEmail) || dcl.IsZeroValue(des.ServiceAccountEmail) {
 		des.ServiceAccountEmail = initial.ServiceAccountEmail
 	}
-	if dcl.IsZeroValue(des.Audience) {
+	if dcl.StringCanonicalize(des.Audience, initial.Audience) || dcl.IsZeroValue(des.Audience) {
 		des.Audience = initial.Audience
 	}
 
@@ -751,6 +738,13 @@ func canonicalizeSubscriptionPushConfigOidcToken(des, initial *SubscriptionPushC
 func canonicalizeNewSubscriptionPushConfigOidcToken(c *Client, des, nw *SubscriptionPushConfigOidcToken) *SubscriptionPushConfigOidcToken {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.ServiceAccountEmail, nw.ServiceAccountEmail) || dcl.IsZeroValue(des.ServiceAccountEmail) {
+		nw.ServiceAccountEmail = des.ServiceAccountEmail
+	}
+	if dcl.StringCanonicalize(des.Audience, nw.Audience) || dcl.IsZeroValue(des.Audience) {
+		nw.Audience = des.Audience
 	}
 
 	return nw
@@ -807,7 +801,7 @@ func diffSubscription(c *Client, desired, actual *Subscription, opts ...dcl.Appl
 			FieldName:        "Topic",
 		})
 	}
-	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
+	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
 		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, subscriptionDiff{
@@ -816,7 +810,7 @@ func diffSubscription(c *Client, desired, actual *Subscription, opts ...dcl.Appl
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.MessageRetentionDuration) && (dcl.IsZeroValue(actual.MessageRetentionDuration) || !reflect.DeepEqual(*desired.MessageRetentionDuration, *actual.MessageRetentionDuration)) {
+	if !dcl.IsZeroValue(desired.MessageRetentionDuration) && !dcl.StringCanonicalize(desired.MessageRetentionDuration, actual.MessageRetentionDuration) {
 		c.Config.Logger.Infof("Detected diff in MessageRetentionDuration.\nDESIRED: %v\nACTUAL: %v", desired.MessageRetentionDuration, actual.MessageRetentionDuration)
 
 		diffs = append(diffs, subscriptionDiff{
@@ -825,7 +819,7 @@ func diffSubscription(c *Client, desired, actual *Subscription, opts ...dcl.Appl
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.RetainAckedMessages) && (dcl.IsZeroValue(actual.RetainAckedMessages) || !reflect.DeepEqual(*desired.RetainAckedMessages, *actual.RetainAckedMessages)) {
+	if !reflect.DeepEqual(desired.RetainAckedMessages, actual.RetainAckedMessages) {
 		c.Config.Logger.Infof("Detected diff in RetainAckedMessages.\nDESIRED: %v\nACTUAL: %v", desired.RetainAckedMessages, actual.RetainAckedMessages)
 
 		diffs = append(diffs, subscriptionDiff{
@@ -857,7 +851,7 @@ func diffSubscription(c *Client, desired, actual *Subscription, opts ...dcl.Appl
 			FieldName:        "PushConfig",
 		})
 	}
-	if !dcl.IsZeroValue(desired.AckDeadlineSeconds) && (dcl.IsZeroValue(actual.AckDeadlineSeconds) || !reflect.DeepEqual(*desired.AckDeadlineSeconds, *actual.AckDeadlineSeconds)) {
+	if !reflect.DeepEqual(desired.AckDeadlineSeconds, actual.AckDeadlineSeconds) {
 		c.Config.Logger.Infof("Detected diff in AckDeadlineSeconds.\nDESIRED: %v\nACTUAL: %v", desired.AckDeadlineSeconds, actual.AckDeadlineSeconds)
 		diffs = append(diffs, subscriptionDiff{
 			RequiresRecreate: true,
@@ -888,6 +882,24 @@ func diffSubscription(c *Client, desired, actual *Subscription, opts ...dcl.Appl
 
 	return deduped, nil
 }
+func compareSubscriptionExpirationPolicy(c *Client, desired, actual *SubscriptionExpirationPolicy) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Ttl == nil && desired.Ttl != nil && !dcl.IsEmptyValueIndirect(desired.Ttl) {
+		c.Config.Logger.Infof("desired Ttl %s - but actually nil", dcl.SprintResource(desired.Ttl))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Ttl, actual.Ttl) && !dcl.IsZeroValue(desired.Ttl) {
+		c.Config.Logger.Infof("Diff in Ttl. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Ttl), dcl.SprintResource(actual.Ttl))
+		return true
+	}
+	return false
+}
+
 func compareSubscriptionExpirationPolicySlice(c *Client, desired, actual []SubscriptionExpirationPolicy) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in SubscriptionExpirationPolicy, lengths unequal.")
@@ -902,31 +914,19 @@ func compareSubscriptionExpirationPolicySlice(c *Client, desired, actual []Subsc
 	return false
 }
 
-func compareSubscriptionExpirationPolicy(c *Client, desired, actual *SubscriptionExpirationPolicy) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Ttl == nil && desired.Ttl != nil && !dcl.IsEmptyValueIndirect(desired.Ttl) {
-		c.Config.Logger.Infof("desired Ttl %s - but actually nil", dcl.SprintResource(desired.Ttl))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Ttl, actual.Ttl) && !dcl.IsZeroValue(desired.Ttl) && !(dcl.IsEmptyValueIndirect(desired.Ttl) && dcl.IsZeroValue(actual.Ttl)) {
-		c.Config.Logger.Infof("Diff in Ttl. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Ttl), dcl.SprintResource(actual.Ttl))
-		return true
-	}
-	return false
-}
-func compareSubscriptionDeadLetterPolicySlice(c *Client, desired, actual []SubscriptionDeadLetterPolicy) bool {
+func compareSubscriptionExpirationPolicyMap(c *Client, desired, actual map[string]SubscriptionExpirationPolicy) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in SubscriptionDeadLetterPolicy, lengths unequal.")
+		c.Config.Logger.Info("Diff in SubscriptionExpirationPolicy, lengths unequal.")
 		return true
 	}
-	for i := 0; i < len(desired); i++ {
-		if compareSubscriptionDeadLetterPolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SubscriptionDeadLetterPolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in SubscriptionExpirationPolicy, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareSubscriptionExpirationPolicy(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in SubscriptionExpirationPolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -952,20 +952,40 @@ func compareSubscriptionDeadLetterPolicy(c *Client, desired, actual *Subscriptio
 		c.Config.Logger.Infof("desired MaxDeliveryAttempts %s - but actually nil", dcl.SprintResource(desired.MaxDeliveryAttempts))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MaxDeliveryAttempts, actual.MaxDeliveryAttempts) && !dcl.IsZeroValue(desired.MaxDeliveryAttempts) && !(dcl.IsEmptyValueIndirect(desired.MaxDeliveryAttempts) && dcl.IsZeroValue(actual.MaxDeliveryAttempts)) {
+	if !reflect.DeepEqual(desired.MaxDeliveryAttempts, actual.MaxDeliveryAttempts) && !dcl.IsZeroValue(desired.MaxDeliveryAttempts) {
 		c.Config.Logger.Infof("Diff in MaxDeliveryAttempts. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxDeliveryAttempts), dcl.SprintResource(actual.MaxDeliveryAttempts))
 		return true
 	}
 	return false
 }
-func compareSubscriptionPushConfigSlice(c *Client, desired, actual []SubscriptionPushConfig) bool {
+
+func compareSubscriptionDeadLetterPolicySlice(c *Client, desired, actual []SubscriptionDeadLetterPolicy) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in SubscriptionPushConfig, lengths unequal.")
+		c.Config.Logger.Info("Diff in SubscriptionDeadLetterPolicy, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareSubscriptionPushConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SubscriptionPushConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareSubscriptionDeadLetterPolicy(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in SubscriptionDeadLetterPolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareSubscriptionDeadLetterPolicyMap(c *Client, desired, actual map[string]SubscriptionDeadLetterPolicy) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in SubscriptionDeadLetterPolicy, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in SubscriptionDeadLetterPolicy, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareSubscriptionDeadLetterPolicy(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in SubscriptionDeadLetterPolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -983,7 +1003,7 @@ func compareSubscriptionPushConfig(c *Client, desired, actual *SubscriptionPushC
 		c.Config.Logger.Infof("desired PushEndpoint %s - but actually nil", dcl.SprintResource(desired.PushEndpoint))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PushEndpoint, actual.PushEndpoint) && !dcl.IsZeroValue(desired.PushEndpoint) && !(dcl.IsEmptyValueIndirect(desired.PushEndpoint) && dcl.IsZeroValue(actual.PushEndpoint)) {
+	if !dcl.StringCanonicalize(desired.PushEndpoint, actual.PushEndpoint) && !dcl.IsZeroValue(desired.PushEndpoint) {
 		c.Config.Logger.Infof("Diff in PushEndpoint. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PushEndpoint), dcl.SprintResource(actual.PushEndpoint))
 		return true
 	}
@@ -991,7 +1011,7 @@ func compareSubscriptionPushConfig(c *Client, desired, actual *SubscriptionPushC
 		c.Config.Logger.Infof("desired Attributes %s - but actually nil", dcl.SprintResource(desired.Attributes))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Attributes, actual.Attributes) && !dcl.IsZeroValue(desired.Attributes) {
+	if !dcl.MapEquals(desired.Attributes, actual.Attributes, []string(nil)) && !dcl.IsZeroValue(desired.Attributes) {
 		c.Config.Logger.Infof("Diff in Attributes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Attributes), dcl.SprintResource(actual.Attributes))
 		return true
 	}
@@ -1005,14 +1025,34 @@ func compareSubscriptionPushConfig(c *Client, desired, actual *SubscriptionPushC
 	}
 	return false
 }
-func compareSubscriptionPushConfigOidcTokenSlice(c *Client, desired, actual []SubscriptionPushConfigOidcToken) bool {
+
+func compareSubscriptionPushConfigSlice(c *Client, desired, actual []SubscriptionPushConfig) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in SubscriptionPushConfigOidcToken, lengths unequal.")
+		c.Config.Logger.Info("Diff in SubscriptionPushConfig, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareSubscriptionPushConfigOidcToken(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SubscriptionPushConfigOidcToken, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareSubscriptionPushConfig(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in SubscriptionPushConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareSubscriptionPushConfigMap(c *Client, desired, actual map[string]SubscriptionPushConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in SubscriptionPushConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in SubscriptionPushConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareSubscriptionPushConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in SubscriptionPushConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1030,7 +1070,7 @@ func compareSubscriptionPushConfigOidcToken(c *Client, desired, actual *Subscrip
 		c.Config.Logger.Infof("desired ServiceAccountEmail %s - but actually nil", dcl.SprintResource(desired.ServiceAccountEmail))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ServiceAccountEmail, actual.ServiceAccountEmail) && !dcl.IsZeroValue(desired.ServiceAccountEmail) && !(dcl.IsEmptyValueIndirect(desired.ServiceAccountEmail) && dcl.IsZeroValue(actual.ServiceAccountEmail)) {
+	if !dcl.StringCanonicalize(desired.ServiceAccountEmail, actual.ServiceAccountEmail) && !dcl.IsZeroValue(desired.ServiceAccountEmail) {
 		c.Config.Logger.Infof("Diff in ServiceAccountEmail. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceAccountEmail), dcl.SprintResource(actual.ServiceAccountEmail))
 		return true
 	}
@@ -1038,9 +1078,42 @@ func compareSubscriptionPushConfigOidcToken(c *Client, desired, actual *Subscrip
 		c.Config.Logger.Infof("desired Audience %s - but actually nil", dcl.SprintResource(desired.Audience))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Audience, actual.Audience) && !dcl.IsZeroValue(desired.Audience) && !(dcl.IsEmptyValueIndirect(desired.Audience) && dcl.IsZeroValue(actual.Audience)) {
+	if !dcl.StringCanonicalize(desired.Audience, actual.Audience) && !dcl.IsZeroValue(desired.Audience) {
 		c.Config.Logger.Infof("Diff in Audience. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Audience), dcl.SprintResource(actual.Audience))
 		return true
+	}
+	return false
+}
+
+func compareSubscriptionPushConfigOidcTokenSlice(c *Client, desired, actual []SubscriptionPushConfigOidcToken) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in SubscriptionPushConfigOidcToken, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareSubscriptionPushConfigOidcToken(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in SubscriptionPushConfigOidcToken, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareSubscriptionPushConfigOidcTokenMap(c *Client, desired, actual map[string]SubscriptionPushConfigOidcToken) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in SubscriptionPushConfigOidcToken, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in SubscriptionPushConfigOidcToken, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareSubscriptionPushConfigOidcToken(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in SubscriptionPushConfigOidcToken, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
 	}
 	return false
 }
@@ -1052,6 +1125,7 @@ func (r *Subscription) urlNormalized() *Subscription {
 	normalized := deepcopy.Copy(*r).(Subscription)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Topic = dcl.SelfLinkToName(r.Topic)
+	normalized.MessageRetentionDuration = dcl.SelfLinkToName(r.MessageRetentionDuration)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -1102,6 +1176,10 @@ func unmarshalSubscription(b []byte, c *Client) (*Subscription, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapSubscription(m, c)
+}
+
+func unmarshalMapSubscription(m map[string]interface{}, c *Client) (*Subscription, error) {
 
 	return flattenSubscription(c, m), nil
 }

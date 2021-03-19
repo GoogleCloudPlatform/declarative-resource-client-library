@@ -38,7 +38,7 @@ class InstanceGroupManager(object):
         named_ports: list = None,
         status: dict = None,
         target_pools: list = None,
-        autohealing_policies: list = None,
+        auto_healing_policies: list = None,
         update_policy: dict = None,
         target_size: int = None,
         zone: str = None,
@@ -57,7 +57,7 @@ class InstanceGroupManager(object):
         self.name = name
         self.named_ports = named_ports
         self.target_pools = target_pools
-        self.autohealing_policies = autohealing_policies
+        self.auto_healing_policies = auto_healing_policies
         self.update_policy = update_policy
         self.target_size = target_size
         self.project = project
@@ -103,12 +103,12 @@ class InstanceGroupManager(object):
             )
         if Primitive.to_proto(self.target_pools):
             request.resource.target_pools.extend(Primitive.to_proto(self.target_pools))
-        if InstanceGroupManagerAutohealingPoliciesArray.to_proto(
-            self.autohealing_policies
+        if InstanceGroupManagerAutoHealingPoliciesArray.to_proto(
+            self.auto_healing_policies
         ):
-            request.resource.autohealing_policies.extend(
-                InstanceGroupManagerAutohealingPoliciesArray.to_proto(
-                    self.autohealing_policies
+            request.resource.auto_healing_policies.extend(
+                InstanceGroupManagerAutoHealingPoliciesArray.to_proto(
+                    self.auto_healing_policies
                 )
             )
         if InstanceGroupManagerUpdatePolicy.to_proto(self.update_policy):
@@ -148,8 +148,8 @@ class InstanceGroupManager(object):
         )
         self.status = InstanceGroupManagerStatus.from_proto(response.status)
         self.target_pools = Primitive.from_proto(response.target_pools)
-        self.autohealing_policies = InstanceGroupManagerAutohealingPoliciesArray.from_proto(
-            response.autohealing_policies
+        self.auto_healing_policies = InstanceGroupManagerAutoHealingPoliciesArray.from_proto(
+            response.auto_healing_policies
         )
         self.update_policy = InstanceGroupManagerUpdatePolicy.from_proto(
             response.update_policy
@@ -160,18 +160,68 @@ class InstanceGroupManager(object):
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
 
-    @classmethod
-    def delete(self, project, location, name, service_account_file=""):
+    def delete(self):
         stub = instance_group_manager_pb2_grpc.ComputeInstanceGroupManagerServiceStub(
             channel.Channel()
         )
         request = instance_group_manager_pb2.DeleteComputeInstanceGroupManagerRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.base_instance_name):
+            request.resource.base_instance_name = Primitive.to_proto(
+                self.base_instance_name
+            )
 
-        request.Location = location
+        if InstanceGroupManagerDistributionPolicy.to_proto(self.distribution_policy):
+            request.resource.distribution_policy.CopyFrom(
+                InstanceGroupManagerDistributionPolicy.to_proto(
+                    self.distribution_policy
+                )
+            )
+        else:
+            request.resource.ClearField("distribution_policy")
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
 
-        request.Name = name
+        if InstanceGroupManagerVersionsArray.to_proto(self.versions):
+            request.resource.versions.extend(
+                InstanceGroupManagerVersionsArray.to_proto(self.versions)
+            )
+        if Primitive.to_proto(self.instance_template):
+            request.resource.instance_template = Primitive.to_proto(
+                self.instance_template
+            )
+
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if InstanceGroupManagerNamedPortsArray.to_proto(self.named_ports):
+            request.resource.named_ports.extend(
+                InstanceGroupManagerNamedPortsArray.to_proto(self.named_ports)
+            )
+        if Primitive.to_proto(self.target_pools):
+            request.resource.target_pools.extend(Primitive.to_proto(self.target_pools))
+        if InstanceGroupManagerAutoHealingPoliciesArray.to_proto(
+            self.auto_healing_policies
+        ):
+            request.resource.auto_healing_policies.extend(
+                InstanceGroupManagerAutoHealingPoliciesArray.to_proto(
+                    self.auto_healing_policies
+                )
+            )
+        if InstanceGroupManagerUpdatePolicy.to_proto(self.update_policy):
+            request.resource.update_policy.CopyFrom(
+                InstanceGroupManagerUpdatePolicy.to_proto(self.update_policy)
+            )
+        else:
+            request.resource.ClearField("update_policy")
+        if Primitive.to_proto(self.target_size):
+            request.resource.target_size = Primitive.to_proto(self.target_size)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         response = stub.DeleteComputeInstanceGroupManager(request)
 
@@ -214,8 +264,8 @@ class InstanceGroupManager(object):
         )
         res.status = InstanceGroupManagerStatus.from_proto(res_proto.status)
         res.target_pools = Primitive.from_proto(res_proto.target_pools)
-        res.autohealing_policies = InstanceGroupManagerAutohealingPoliciesArray.from_proto(
-            res_proto.autohealing_policies
+        res.auto_healing_policies = InstanceGroupManagerAutoHealingPoliciesArray.from_proto(
+            res_proto.auto_healing_policies
         )
         res.update_policy = InstanceGroupManagerUpdatePolicy.from_proto(
             res_proto.update_policy
@@ -226,6 +276,56 @@ class InstanceGroupManager(object):
         res.project = Primitive.from_proto(res_proto.project)
         res.location = Primitive.from_proto(res_proto.location)
         return res
+
+    def to_proto(self):
+        resource = instance_group_manager_pb2.ComputeInstanceGroupManager()
+        if Primitive.to_proto(self.base_instance_name):
+            resource.base_instance_name = Primitive.to_proto(self.base_instance_name)
+        if InstanceGroupManagerDistributionPolicy.to_proto(self.distribution_policy):
+            resource.distribution_policy.CopyFrom(
+                InstanceGroupManagerDistributionPolicy.to_proto(
+                    self.distribution_policy
+                )
+            )
+        else:
+            resource.ClearField("distribution_policy")
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if InstanceGroupManagerVersionsArray.to_proto(self.versions):
+            resource.versions.extend(
+                InstanceGroupManagerVersionsArray.to_proto(self.versions)
+            )
+        if Primitive.to_proto(self.instance_template):
+            resource.instance_template = Primitive.to_proto(self.instance_template)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if InstanceGroupManagerNamedPortsArray.to_proto(self.named_ports):
+            resource.named_ports.extend(
+                InstanceGroupManagerNamedPortsArray.to_proto(self.named_ports)
+            )
+        if Primitive.to_proto(self.target_pools):
+            resource.target_pools.extend(Primitive.to_proto(self.target_pools))
+        if InstanceGroupManagerAutoHealingPoliciesArray.to_proto(
+            self.auto_healing_policies
+        ):
+            resource.auto_healing_policies.extend(
+                InstanceGroupManagerAutoHealingPoliciesArray.to_proto(
+                    self.auto_healing_policies
+                )
+            )
+        if InstanceGroupManagerUpdatePolicy.to_proto(self.update_policy):
+            resource.update_policy.CopyFrom(
+                InstanceGroupManagerUpdatePolicy.to_proto(self.update_policy)
+            )
+        else:
+            resource.ClearField("update_policy")
+        if Primitive.to_proto(self.target_size):
+            resource.target_size = Primitive.to_proto(self.target_size)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
+        return resource
 
 
 class InstanceGroupManagerDistributionPolicy(object):
@@ -606,7 +706,7 @@ class InstanceGroupManagerStatusVersionTargetArray(object):
         ]
 
 
-class InstanceGroupManagerAutohealingPolicies(object):
+class InstanceGroupManagerAutoHealingPolicies(object):
     def __init__(self, health_check: str = None, initial_delay_sec: int = None):
         self.health_check = health_check
         self.initial_delay_sec = initial_delay_sec
@@ -617,7 +717,7 @@ class InstanceGroupManagerAutohealingPolicies(object):
             return None
 
         res = (
-            instance_group_manager_pb2.ComputeInstanceGroupManagerAutohealingPolicies()
+            instance_group_manager_pb2.ComputeInstanceGroupManagerAutoHealingPolicies()
         )
         if Primitive.to_proto(resource.health_check):
             res.health_check = Primitive.to_proto(resource.health_check)
@@ -630,23 +730,23 @@ class InstanceGroupManagerAutohealingPolicies(object):
         if not resource:
             return None
 
-        return InstanceGroupManagerAutohealingPolicies(
+        return InstanceGroupManagerAutoHealingPolicies(
             health_check=resource.health_check,
             initial_delay_sec=resource.initial_delay_sec,
         )
 
 
-class InstanceGroupManagerAutohealingPoliciesArray(object):
+class InstanceGroupManagerAutoHealingPoliciesArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [InstanceGroupManagerAutohealingPolicies.to_proto(i) for i in resources]
+        return [InstanceGroupManagerAutoHealingPolicies.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
         return [
-            InstanceGroupManagerAutohealingPolicies.from_proto(i) for i in resources
+            InstanceGroupManagerAutoHealingPolicies.from_proto(i) for i in resources
         ]
 
 

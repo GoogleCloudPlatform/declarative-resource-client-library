@@ -227,7 +227,7 @@ func (op *updateHealthCheckUpdateOperation) do(ctx context.Context, r *HealthChe
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -264,7 +264,7 @@ func (c *Client) listHealthCheckRaw(ctx context.Context, project, location, page
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -339,7 +339,7 @@ func (op *deleteHealthCheckOperation) do(ctx context.Context, r *HealthCheck, c 
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -362,7 +362,13 @@ func (op *deleteHealthCheckOperation) do(ctx context.Context, r *HealthCheck, c 
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createHealthCheckOperation struct{}
+type createHealthCheckOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createHealthCheckOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createHealthCheckOperation) do(ctx context.Context, r *HealthCheck, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -378,7 +384,7 @@ func (op *createHealthCheckOperation) do(ctx context.Context, r *HealthCheck, c 
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -392,8 +398,10 @@ func (op *createHealthCheckOperation) do(ctx context.Context, r *HealthCheck, c 
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetHealthCheck(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -406,7 +414,7 @@ func (c *Client) getHealthCheckRaw(ctx context.Context, r *HealthCheck) ([]byte,
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -483,14 +491,6 @@ func canonicalizeHealthCheckInitialState(rawInitial, rawDesired *HealthCheck) (*
 
 func canonicalizeHealthCheckDesiredState(rawDesired, rawInitial *HealthCheck, opts ...dcl.ApplyOption) (*HealthCheck, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*HealthCheck); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected HealthCheck, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -505,7 +505,7 @@ func canonicalizeHealthCheckDesiredState(rawDesired, rawInitial *HealthCheck, op
 	if dcl.IsZeroValue(rawDesired.CheckIntervalSec) {
 		rawDesired.CheckIntervalSec = rawInitial.CheckIntervalSec
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
 	if dcl.IsZeroValue(rawDesired.HealthyThreshold) {
@@ -514,7 +514,7 @@ func canonicalizeHealthCheckDesiredState(rawDesired, rawInitial *HealthCheck, op
 	rawDesired.Http2HealthCheck = canonicalizeHealthCheckHttp2HealthCheck(rawDesired.Http2HealthCheck, rawInitial.Http2HealthCheck, opts...)
 	rawDesired.HttpHealthCheck = canonicalizeHealthCheckHttpHealthCheck(rawDesired.HttpHealthCheck, rawInitial.HttpHealthCheck, opts...)
 	rawDesired.HttpsHealthCheck = canonicalizeHealthCheckHttpsHealthCheck(rawDesired.HttpsHealthCheck, rawInitial.HttpsHealthCheck, opts...)
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
 	rawDesired.SslHealthCheck = canonicalizeHealthCheckSslHealthCheck(rawDesired.SslHealthCheck, rawInitial.SslHealthCheck, opts...)
@@ -534,7 +534,7 @@ func canonicalizeHealthCheckDesiredState(rawDesired, rawInitial *HealthCheck, op
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
-	if dcl.IsZeroValue(rawDesired.SelfLink) {
+	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
@@ -554,6 +554,9 @@ func canonicalizeHealthCheckNewState(c *Client, rawNew, rawDesired *HealthCheck)
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.HealthyThreshold) && dcl.IsEmptyValueIndirect(rawDesired.HealthyThreshold) {
@@ -582,6 +585,9 @@ func canonicalizeHealthCheckNewState(c *Client, rawNew, rawDesired *HealthCheck)
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.SslHealthCheck) && dcl.IsEmptyValueIndirect(rawDesired.SslHealthCheck) {
@@ -618,6 +624,9 @@ func canonicalizeHealthCheckNewState(c *Client, rawNew, rawDesired *HealthCheck)
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	}
 
 	rawNew.Location = rawDesired.Location
@@ -633,11 +642,6 @@ func canonicalizeHealthCheckHttp2HealthCheck(des, initial *HealthCheckHttp2Healt
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*HealthCheck)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -645,22 +649,22 @@ func canonicalizeHealthCheckHttp2HealthCheck(des, initial *HealthCheckHttp2Healt
 	if dcl.IsZeroValue(des.Port) {
 		des.Port = initial.Port
 	}
-	if dcl.IsZeroValue(des.PortName) {
+	if dcl.StringCanonicalize(des.PortName, initial.PortName) || dcl.IsZeroValue(des.PortName) {
 		des.PortName = initial.PortName
 	}
 	if dcl.IsZeroValue(des.PortSpecification) {
 		des.PortSpecification = initial.PortSpecification
 	}
-	if dcl.IsZeroValue(des.Host) {
+	if dcl.StringCanonicalize(des.Host, initial.Host) || dcl.IsZeroValue(des.Host) {
 		des.Host = initial.Host
 	}
-	if dcl.IsZeroValue(des.RequestPath) {
+	if dcl.StringCanonicalize(des.RequestPath, initial.RequestPath) || dcl.IsZeroValue(des.RequestPath) {
 		des.RequestPath = initial.RequestPath
 	}
 	if dcl.IsZeroValue(des.ProxyHeader) {
 		des.ProxyHeader = initial.ProxyHeader
 	}
-	if dcl.IsZeroValue(des.Response) {
+	if dcl.StringCanonicalize(des.Response, initial.Response) || dcl.IsZeroValue(des.Response) {
 		des.Response = initial.Response
 	}
 
@@ -670,6 +674,19 @@ func canonicalizeHealthCheckHttp2HealthCheck(des, initial *HealthCheckHttp2Healt
 func canonicalizeNewHealthCheckHttp2HealthCheck(c *Client, des, nw *HealthCheckHttp2HealthCheck) *HealthCheckHttp2HealthCheck {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.PortName, nw.PortName) || dcl.IsZeroValue(des.PortName) {
+		nw.PortName = des.PortName
+	}
+	if dcl.StringCanonicalize(des.Host, nw.Host) || dcl.IsZeroValue(des.Host) {
+		nw.Host = des.Host
+	}
+	if dcl.StringCanonicalize(des.RequestPath, nw.RequestPath) || dcl.IsZeroValue(des.RequestPath) {
+		nw.RequestPath = des.RequestPath
+	}
+	if dcl.StringCanonicalize(des.Response, nw.Response) || dcl.IsZeroValue(des.Response) {
+		nw.Response = des.Response
 	}
 
 	return nw
@@ -706,11 +723,6 @@ func canonicalizeHealthCheckHttpHealthCheck(des, initial *HealthCheckHttpHealthC
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*HealthCheck)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -718,22 +730,22 @@ func canonicalizeHealthCheckHttpHealthCheck(des, initial *HealthCheckHttpHealthC
 	if dcl.IsZeroValue(des.Port) {
 		des.Port = initial.Port
 	}
-	if dcl.IsZeroValue(des.PortName) {
+	if dcl.StringCanonicalize(des.PortName, initial.PortName) || dcl.IsZeroValue(des.PortName) {
 		des.PortName = initial.PortName
 	}
 	if dcl.IsZeroValue(des.PortSpecification) {
 		des.PortSpecification = initial.PortSpecification
 	}
-	if dcl.IsZeroValue(des.Host) {
+	if dcl.StringCanonicalize(des.Host, initial.Host) || dcl.IsZeroValue(des.Host) {
 		des.Host = initial.Host
 	}
-	if dcl.IsZeroValue(des.RequestPath) {
+	if dcl.StringCanonicalize(des.RequestPath, initial.RequestPath) || dcl.IsZeroValue(des.RequestPath) {
 		des.RequestPath = initial.RequestPath
 	}
 	if dcl.IsZeroValue(des.ProxyHeader) {
 		des.ProxyHeader = initial.ProxyHeader
 	}
-	if dcl.IsZeroValue(des.Response) {
+	if dcl.StringCanonicalize(des.Response, initial.Response) || dcl.IsZeroValue(des.Response) {
 		des.Response = initial.Response
 	}
 
@@ -743,6 +755,19 @@ func canonicalizeHealthCheckHttpHealthCheck(des, initial *HealthCheckHttpHealthC
 func canonicalizeNewHealthCheckHttpHealthCheck(c *Client, des, nw *HealthCheckHttpHealthCheck) *HealthCheckHttpHealthCheck {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.PortName, nw.PortName) || dcl.IsZeroValue(des.PortName) {
+		nw.PortName = des.PortName
+	}
+	if dcl.StringCanonicalize(des.Host, nw.Host) || dcl.IsZeroValue(des.Host) {
+		nw.Host = des.Host
+	}
+	if dcl.StringCanonicalize(des.RequestPath, nw.RequestPath) || dcl.IsZeroValue(des.RequestPath) {
+		nw.RequestPath = des.RequestPath
+	}
+	if dcl.StringCanonicalize(des.Response, nw.Response) || dcl.IsZeroValue(des.Response) {
+		nw.Response = des.Response
 	}
 
 	return nw
@@ -779,11 +804,6 @@ func canonicalizeHealthCheckHttpsHealthCheck(des, initial *HealthCheckHttpsHealt
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*HealthCheck)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -791,22 +811,22 @@ func canonicalizeHealthCheckHttpsHealthCheck(des, initial *HealthCheckHttpsHealt
 	if dcl.IsZeroValue(des.Port) {
 		des.Port = initial.Port
 	}
-	if dcl.IsZeroValue(des.PortName) {
+	if dcl.StringCanonicalize(des.PortName, initial.PortName) || dcl.IsZeroValue(des.PortName) {
 		des.PortName = initial.PortName
 	}
 	if dcl.IsZeroValue(des.PortSpecification) {
 		des.PortSpecification = initial.PortSpecification
 	}
-	if dcl.IsZeroValue(des.Host) {
+	if dcl.StringCanonicalize(des.Host, initial.Host) || dcl.IsZeroValue(des.Host) {
 		des.Host = initial.Host
 	}
-	if dcl.IsZeroValue(des.RequestPath) {
+	if dcl.StringCanonicalize(des.RequestPath, initial.RequestPath) || dcl.IsZeroValue(des.RequestPath) {
 		des.RequestPath = initial.RequestPath
 	}
 	if dcl.IsZeroValue(des.ProxyHeader) {
 		des.ProxyHeader = initial.ProxyHeader
 	}
-	if dcl.IsZeroValue(des.Response) {
+	if dcl.StringCanonicalize(des.Response, initial.Response) || dcl.IsZeroValue(des.Response) {
 		des.Response = initial.Response
 	}
 
@@ -816,6 +836,19 @@ func canonicalizeHealthCheckHttpsHealthCheck(des, initial *HealthCheckHttpsHealt
 func canonicalizeNewHealthCheckHttpsHealthCheck(c *Client, des, nw *HealthCheckHttpsHealthCheck) *HealthCheckHttpsHealthCheck {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.PortName, nw.PortName) || dcl.IsZeroValue(des.PortName) {
+		nw.PortName = des.PortName
+	}
+	if dcl.StringCanonicalize(des.Host, nw.Host) || dcl.IsZeroValue(des.Host) {
+		nw.Host = des.Host
+	}
+	if dcl.StringCanonicalize(des.RequestPath, nw.RequestPath) || dcl.IsZeroValue(des.RequestPath) {
+		nw.RequestPath = des.RequestPath
+	}
+	if dcl.StringCanonicalize(des.Response, nw.Response) || dcl.IsZeroValue(des.Response) {
+		nw.Response = des.Response
 	}
 
 	return nw
@@ -852,11 +885,6 @@ func canonicalizeHealthCheckSslHealthCheck(des, initial *HealthCheckSslHealthChe
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*HealthCheck)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -864,16 +892,16 @@ func canonicalizeHealthCheckSslHealthCheck(des, initial *HealthCheckSslHealthChe
 	if dcl.IsZeroValue(des.Port) {
 		des.Port = initial.Port
 	}
-	if dcl.IsZeroValue(des.PortName) {
+	if dcl.StringCanonicalize(des.PortName, initial.PortName) || dcl.IsZeroValue(des.PortName) {
 		des.PortName = initial.PortName
 	}
 	if dcl.IsZeroValue(des.PortSpecification) {
 		des.PortSpecification = initial.PortSpecification
 	}
-	if dcl.IsZeroValue(des.Request) {
+	if dcl.StringCanonicalize(des.Request, initial.Request) || dcl.IsZeroValue(des.Request) {
 		des.Request = initial.Request
 	}
-	if dcl.IsZeroValue(des.Response) {
+	if dcl.StringCanonicalize(des.Response, initial.Response) || dcl.IsZeroValue(des.Response) {
 		des.Response = initial.Response
 	}
 	if dcl.IsZeroValue(des.ProxyHeader) {
@@ -886,6 +914,16 @@ func canonicalizeHealthCheckSslHealthCheck(des, initial *HealthCheckSslHealthChe
 func canonicalizeNewHealthCheckSslHealthCheck(c *Client, des, nw *HealthCheckSslHealthCheck) *HealthCheckSslHealthCheck {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.PortName, nw.PortName) || dcl.IsZeroValue(des.PortName) {
+		nw.PortName = des.PortName
+	}
+	if dcl.StringCanonicalize(des.Request, nw.Request) || dcl.IsZeroValue(des.Request) {
+		nw.Request = des.Request
+	}
+	if dcl.StringCanonicalize(des.Response, nw.Response) || dcl.IsZeroValue(des.Response) {
+		nw.Response = des.Response
 	}
 
 	return nw
@@ -922,11 +960,6 @@ func canonicalizeHealthCheckTcpHealthCheck(des, initial *HealthCheckTcpHealthChe
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*HealthCheck)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -934,16 +967,16 @@ func canonicalizeHealthCheckTcpHealthCheck(des, initial *HealthCheckTcpHealthChe
 	if dcl.IsZeroValue(des.Port) {
 		des.Port = initial.Port
 	}
-	if dcl.IsZeroValue(des.PortName) {
+	if dcl.StringCanonicalize(des.PortName, initial.PortName) || dcl.IsZeroValue(des.PortName) {
 		des.PortName = initial.PortName
 	}
 	if dcl.IsZeroValue(des.PortSpecification) {
 		des.PortSpecification = initial.PortSpecification
 	}
-	if dcl.IsZeroValue(des.Request) {
+	if dcl.StringCanonicalize(des.Request, initial.Request) || dcl.IsZeroValue(des.Request) {
 		des.Request = initial.Request
 	}
-	if dcl.IsZeroValue(des.Response) {
+	if dcl.StringCanonicalize(des.Response, initial.Response) || dcl.IsZeroValue(des.Response) {
 		des.Response = initial.Response
 	}
 	if dcl.IsZeroValue(des.ProxyHeader) {
@@ -956,6 +989,16 @@ func canonicalizeHealthCheckTcpHealthCheck(des, initial *HealthCheckTcpHealthChe
 func canonicalizeNewHealthCheckTcpHealthCheck(c *Client, des, nw *HealthCheckTcpHealthCheck) *HealthCheckTcpHealthCheck {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.PortName, nw.PortName) || dcl.IsZeroValue(des.PortName) {
+		nw.PortName = des.PortName
+	}
+	if dcl.StringCanonicalize(des.Request, nw.Request) || dcl.IsZeroValue(des.Request) {
+		nw.Request = des.Request
+	}
+	if dcl.StringCanonicalize(des.Response, nw.Response) || dcl.IsZeroValue(des.Response) {
+		nw.Response = des.Response
 	}
 
 	return nw
@@ -1005,7 +1048,7 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 	}
 
 	var diffs []healthCheckDiff
-	if !dcl.IsZeroValue(desired.CheckIntervalSec) && (dcl.IsZeroValue(actual.CheckIntervalSec) || !reflect.DeepEqual(*desired.CheckIntervalSec, *actual.CheckIntervalSec)) {
+	if !reflect.DeepEqual(desired.CheckIntervalSec, actual.CheckIntervalSec) {
 		c.Config.Logger.Infof("Detected diff in CheckIntervalSec.\nDESIRED: %v\nACTUAL: %v", desired.CheckIntervalSec, actual.CheckIntervalSec)
 
 		diffs = append(diffs, healthCheckDiff{
@@ -1014,7 +1057,7 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, healthCheckDiff{
@@ -1023,7 +1066,7 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.HealthyThreshold) && (dcl.IsZeroValue(actual.HealthyThreshold) || !reflect.DeepEqual(*desired.HealthyThreshold, *actual.HealthyThreshold)) {
+	if !reflect.DeepEqual(desired.HealthyThreshold, actual.HealthyThreshold) {
 		c.Config.Logger.Infof("Detected diff in HealthyThreshold.\nDESIRED: %v\nACTUAL: %v", desired.HealthyThreshold, actual.HealthyThreshold)
 
 		diffs = append(diffs, healthCheckDiff{
@@ -1059,7 +1102,7 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 
 		diffs = append(diffs, healthCheckDiff{
@@ -1086,7 +1129,7 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Type) && (dcl.IsZeroValue(actual.Type) || !reflect.DeepEqual(*desired.Type, *actual.Type)) {
+	if !reflect.DeepEqual(desired.Type, actual.Type) {
 		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %v\nACTUAL: %v", desired.Type, actual.Type)
 
 		diffs = append(diffs, healthCheckDiff{
@@ -1095,7 +1138,7 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.UnhealthyThreshold) && (dcl.IsZeroValue(actual.UnhealthyThreshold) || !reflect.DeepEqual(*desired.UnhealthyThreshold, *actual.UnhealthyThreshold)) {
+	if !reflect.DeepEqual(desired.UnhealthyThreshold, actual.UnhealthyThreshold) {
 		c.Config.Logger.Infof("Detected diff in UnhealthyThreshold.\nDESIRED: %v\nACTUAL: %v", desired.UnhealthyThreshold, actual.UnhealthyThreshold)
 
 		diffs = append(diffs, healthCheckDiff{
@@ -1104,7 +1147,7 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.TimeoutSec) && (dcl.IsZeroValue(actual.TimeoutSec) || !reflect.DeepEqual(*desired.TimeoutSec, *actual.TimeoutSec)) {
+	if !reflect.DeepEqual(desired.TimeoutSec, actual.TimeoutSec) {
 		c.Config.Logger.Infof("Detected diff in TimeoutSec.\nDESIRED: %v\nACTUAL: %v", desired.TimeoutSec, actual.TimeoutSec)
 
 		diffs = append(diffs, healthCheckDiff{
@@ -1137,6 +1180,72 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 
 	return deduped, nil
 }
+func compareHealthCheckHttp2HealthCheck(c *Client, desired, actual *HealthCheckHttp2HealthCheck) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Port == nil && desired.Port != nil && !dcl.IsEmptyValueIndirect(desired.Port) {
+		c.Config.Logger.Infof("desired Port %s - but actually nil", dcl.SprintResource(desired.Port))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) {
+		c.Config.Logger.Infof("Diff in Port. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
+		return true
+	}
+	if actual.PortName == nil && desired.PortName != nil && !dcl.IsEmptyValueIndirect(desired.PortName) {
+		c.Config.Logger.Infof("desired PortName %s - but actually nil", dcl.SprintResource(desired.PortName))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.PortName, actual.PortName) && !dcl.IsZeroValue(desired.PortName) {
+		c.Config.Logger.Infof("Diff in PortName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PortName), dcl.SprintResource(actual.PortName))
+		return true
+	}
+	if actual.PortSpecification == nil && desired.PortSpecification != nil && !dcl.IsEmptyValueIndirect(desired.PortSpecification) {
+		c.Config.Logger.Infof("desired PortSpecification %s - but actually nil", dcl.SprintResource(desired.PortSpecification))
+		return true
+	}
+	if !reflect.DeepEqual(desired.PortSpecification, actual.PortSpecification) && !dcl.IsZeroValue(desired.PortSpecification) {
+		c.Config.Logger.Infof("Diff in PortSpecification. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PortSpecification), dcl.SprintResource(actual.PortSpecification))
+		return true
+	}
+	if actual.Host == nil && desired.Host != nil && !dcl.IsEmptyValueIndirect(desired.Host) {
+		c.Config.Logger.Infof("desired Host %s - but actually nil", dcl.SprintResource(desired.Host))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) {
+		c.Config.Logger.Infof("Diff in Host. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
+		return true
+	}
+	if actual.RequestPath == nil && desired.RequestPath != nil && !dcl.IsEmptyValueIndirect(desired.RequestPath) {
+		c.Config.Logger.Infof("desired RequestPath %s - but actually nil", dcl.SprintResource(desired.RequestPath))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.RequestPath, actual.RequestPath) && !dcl.IsZeroValue(desired.RequestPath) {
+		c.Config.Logger.Infof("Diff in RequestPath. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequestPath), dcl.SprintResource(actual.RequestPath))
+		return true
+	}
+	if actual.ProxyHeader == nil && desired.ProxyHeader != nil && !dcl.IsEmptyValueIndirect(desired.ProxyHeader) {
+		c.Config.Logger.Infof("desired ProxyHeader %s - but actually nil", dcl.SprintResource(desired.ProxyHeader))
+		return true
+	}
+	if !reflect.DeepEqual(desired.ProxyHeader, actual.ProxyHeader) && !dcl.IsZeroValue(desired.ProxyHeader) {
+		c.Config.Logger.Infof("Diff in ProxyHeader. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProxyHeader), dcl.SprintResource(actual.ProxyHeader))
+		return true
+	}
+	if actual.Response == nil && desired.Response != nil && !dcl.IsEmptyValueIndirect(desired.Response) {
+		c.Config.Logger.Infof("desired Response %s - but actually nil", dcl.SprintResource(desired.Response))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Response, actual.Response) && !dcl.IsZeroValue(desired.Response) {
+		c.Config.Logger.Infof("Diff in Response. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Response), dcl.SprintResource(actual.Response))
+		return true
+	}
+	return false
+}
+
 func compareHealthCheckHttp2HealthCheckSlice(c *Client, desired, actual []HealthCheckHttp2HealthCheck) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in HealthCheckHttp2HealthCheck, lengths unequal.")
@@ -1151,79 +1260,19 @@ func compareHealthCheckHttp2HealthCheckSlice(c *Client, desired, actual []Health
 	return false
 }
 
-func compareHealthCheckHttp2HealthCheck(c *Client, desired, actual *HealthCheckHttp2HealthCheck) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Port == nil && desired.Port != nil && !dcl.IsEmptyValueIndirect(desired.Port) {
-		c.Config.Logger.Infof("desired Port %s - but actually nil", dcl.SprintResource(desired.Port))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) && !(dcl.IsEmptyValueIndirect(desired.Port) && dcl.IsZeroValue(actual.Port)) {
-		c.Config.Logger.Infof("Diff in Port. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
-		return true
-	}
-	if actual.PortName == nil && desired.PortName != nil && !dcl.IsEmptyValueIndirect(desired.PortName) {
-		c.Config.Logger.Infof("desired PortName %s - but actually nil", dcl.SprintResource(desired.PortName))
-		return true
-	}
-	if !reflect.DeepEqual(desired.PortName, actual.PortName) && !dcl.IsZeroValue(desired.PortName) && !(dcl.IsEmptyValueIndirect(desired.PortName) && dcl.IsZeroValue(actual.PortName)) {
-		c.Config.Logger.Infof("Diff in PortName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PortName), dcl.SprintResource(actual.PortName))
-		return true
-	}
-	if actual.PortSpecification == nil && desired.PortSpecification != nil && !dcl.IsEmptyValueIndirect(desired.PortSpecification) {
-		c.Config.Logger.Infof("desired PortSpecification %s - but actually nil", dcl.SprintResource(desired.PortSpecification))
-		return true
-	}
-	if !reflect.DeepEqual(desired.PortSpecification, actual.PortSpecification) && !dcl.IsZeroValue(desired.PortSpecification) && !(dcl.IsEmptyValueIndirect(desired.PortSpecification) && dcl.IsZeroValue(actual.PortSpecification)) {
-		c.Config.Logger.Infof("Diff in PortSpecification. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PortSpecification), dcl.SprintResource(actual.PortSpecification))
-		return true
-	}
-	if actual.Host == nil && desired.Host != nil && !dcl.IsEmptyValueIndirect(desired.Host) {
-		c.Config.Logger.Infof("desired Host %s - but actually nil", dcl.SprintResource(desired.Host))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) && !(dcl.IsEmptyValueIndirect(desired.Host) && dcl.IsZeroValue(actual.Host)) {
-		c.Config.Logger.Infof("Diff in Host. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
-		return true
-	}
-	if actual.RequestPath == nil && desired.RequestPath != nil && !dcl.IsEmptyValueIndirect(desired.RequestPath) {
-		c.Config.Logger.Infof("desired RequestPath %s - but actually nil", dcl.SprintResource(desired.RequestPath))
-		return true
-	}
-	if !reflect.DeepEqual(desired.RequestPath, actual.RequestPath) && !dcl.IsZeroValue(desired.RequestPath) && !(dcl.IsEmptyValueIndirect(desired.RequestPath) && dcl.IsZeroValue(actual.RequestPath)) {
-		c.Config.Logger.Infof("Diff in RequestPath. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequestPath), dcl.SprintResource(actual.RequestPath))
-		return true
-	}
-	if actual.ProxyHeader == nil && desired.ProxyHeader != nil && !dcl.IsEmptyValueIndirect(desired.ProxyHeader) {
-		c.Config.Logger.Infof("desired ProxyHeader %s - but actually nil", dcl.SprintResource(desired.ProxyHeader))
-		return true
-	}
-	if !reflect.DeepEqual(desired.ProxyHeader, actual.ProxyHeader) && !dcl.IsZeroValue(desired.ProxyHeader) && !(dcl.IsEmptyValueIndirect(desired.ProxyHeader) && dcl.IsZeroValue(actual.ProxyHeader)) {
-		c.Config.Logger.Infof("Diff in ProxyHeader. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProxyHeader), dcl.SprintResource(actual.ProxyHeader))
-		return true
-	}
-	if actual.Response == nil && desired.Response != nil && !dcl.IsEmptyValueIndirect(desired.Response) {
-		c.Config.Logger.Infof("desired Response %s - but actually nil", dcl.SprintResource(desired.Response))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Response, actual.Response) && !dcl.IsZeroValue(desired.Response) && !(dcl.IsEmptyValueIndirect(desired.Response) && dcl.IsZeroValue(actual.Response)) {
-		c.Config.Logger.Infof("Diff in Response. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Response), dcl.SprintResource(actual.Response))
-		return true
-	}
-	return false
-}
-func compareHealthCheckHttpHealthCheckSlice(c *Client, desired, actual []HealthCheckHttpHealthCheck) bool {
+func compareHealthCheckHttp2HealthCheckMap(c *Client, desired, actual map[string]HealthCheckHttp2HealthCheck) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckHttpHealthCheck, lengths unequal.")
+		c.Config.Logger.Info("Diff in HealthCheckHttp2HealthCheck, lengths unequal.")
 		return true
 	}
-	for i := 0; i < len(desired); i++ {
-		if compareHealthCheckHttpHealthCheck(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in HealthCheckHttpHealthCheck, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in HealthCheckHttp2HealthCheck, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareHealthCheckHttp2HealthCheck(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in HealthCheckHttp2HealthCheck, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1241,7 +1290,7 @@ func compareHealthCheckHttpHealthCheck(c *Client, desired, actual *HealthCheckHt
 		c.Config.Logger.Infof("desired Port %s - but actually nil", dcl.SprintResource(desired.Port))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) && !(dcl.IsEmptyValueIndirect(desired.Port) && dcl.IsZeroValue(actual.Port)) {
+	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) {
 		c.Config.Logger.Infof("Diff in Port. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
 		return true
 	}
@@ -1249,7 +1298,7 @@ func compareHealthCheckHttpHealthCheck(c *Client, desired, actual *HealthCheckHt
 		c.Config.Logger.Infof("desired PortName %s - but actually nil", dcl.SprintResource(desired.PortName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PortName, actual.PortName) && !dcl.IsZeroValue(desired.PortName) && !(dcl.IsEmptyValueIndirect(desired.PortName) && dcl.IsZeroValue(actual.PortName)) {
+	if !dcl.StringCanonicalize(desired.PortName, actual.PortName) && !dcl.IsZeroValue(desired.PortName) {
 		c.Config.Logger.Infof("Diff in PortName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PortName), dcl.SprintResource(actual.PortName))
 		return true
 	}
@@ -1257,7 +1306,7 @@ func compareHealthCheckHttpHealthCheck(c *Client, desired, actual *HealthCheckHt
 		c.Config.Logger.Infof("desired PortSpecification %s - but actually nil", dcl.SprintResource(desired.PortSpecification))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PortSpecification, actual.PortSpecification) && !dcl.IsZeroValue(desired.PortSpecification) && !(dcl.IsEmptyValueIndirect(desired.PortSpecification) && dcl.IsZeroValue(actual.PortSpecification)) {
+	if !reflect.DeepEqual(desired.PortSpecification, actual.PortSpecification) && !dcl.IsZeroValue(desired.PortSpecification) {
 		c.Config.Logger.Infof("Diff in PortSpecification. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PortSpecification), dcl.SprintResource(actual.PortSpecification))
 		return true
 	}
@@ -1265,7 +1314,7 @@ func compareHealthCheckHttpHealthCheck(c *Client, desired, actual *HealthCheckHt
 		c.Config.Logger.Infof("desired Host %s - but actually nil", dcl.SprintResource(desired.Host))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) && !(dcl.IsEmptyValueIndirect(desired.Host) && dcl.IsZeroValue(actual.Host)) {
+	if !dcl.StringCanonicalize(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) {
 		c.Config.Logger.Infof("Diff in Host. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
 		return true
 	}
@@ -1273,7 +1322,7 @@ func compareHealthCheckHttpHealthCheck(c *Client, desired, actual *HealthCheckHt
 		c.Config.Logger.Infof("desired RequestPath %s - but actually nil", dcl.SprintResource(desired.RequestPath))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RequestPath, actual.RequestPath) && !dcl.IsZeroValue(desired.RequestPath) && !(dcl.IsEmptyValueIndirect(desired.RequestPath) && dcl.IsZeroValue(actual.RequestPath)) {
+	if !dcl.StringCanonicalize(desired.RequestPath, actual.RequestPath) && !dcl.IsZeroValue(desired.RequestPath) {
 		c.Config.Logger.Infof("Diff in RequestPath. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequestPath), dcl.SprintResource(actual.RequestPath))
 		return true
 	}
@@ -1281,7 +1330,7 @@ func compareHealthCheckHttpHealthCheck(c *Client, desired, actual *HealthCheckHt
 		c.Config.Logger.Infof("desired ProxyHeader %s - but actually nil", dcl.SprintResource(desired.ProxyHeader))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ProxyHeader, actual.ProxyHeader) && !dcl.IsZeroValue(desired.ProxyHeader) && !(dcl.IsEmptyValueIndirect(desired.ProxyHeader) && dcl.IsZeroValue(actual.ProxyHeader)) {
+	if !reflect.DeepEqual(desired.ProxyHeader, actual.ProxyHeader) && !dcl.IsZeroValue(desired.ProxyHeader) {
 		c.Config.Logger.Infof("Diff in ProxyHeader. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProxyHeader), dcl.SprintResource(actual.ProxyHeader))
 		return true
 	}
@@ -1289,20 +1338,40 @@ func compareHealthCheckHttpHealthCheck(c *Client, desired, actual *HealthCheckHt
 		c.Config.Logger.Infof("desired Response %s - but actually nil", dcl.SprintResource(desired.Response))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Response, actual.Response) && !dcl.IsZeroValue(desired.Response) && !(dcl.IsEmptyValueIndirect(desired.Response) && dcl.IsZeroValue(actual.Response)) {
+	if !dcl.StringCanonicalize(desired.Response, actual.Response) && !dcl.IsZeroValue(desired.Response) {
 		c.Config.Logger.Infof("Diff in Response. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Response), dcl.SprintResource(actual.Response))
 		return true
 	}
 	return false
 }
-func compareHealthCheckHttpsHealthCheckSlice(c *Client, desired, actual []HealthCheckHttpsHealthCheck) bool {
+
+func compareHealthCheckHttpHealthCheckSlice(c *Client, desired, actual []HealthCheckHttpHealthCheck) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckHttpsHealthCheck, lengths unequal.")
+		c.Config.Logger.Info("Diff in HealthCheckHttpHealthCheck, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareHealthCheckHttpsHealthCheck(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in HealthCheckHttpsHealthCheck, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareHealthCheckHttpHealthCheck(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in HealthCheckHttpHealthCheck, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareHealthCheckHttpHealthCheckMap(c *Client, desired, actual map[string]HealthCheckHttpHealthCheck) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in HealthCheckHttpHealthCheck, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in HealthCheckHttpHealthCheck, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareHealthCheckHttpHealthCheck(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in HealthCheckHttpHealthCheck, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1320,7 +1389,7 @@ func compareHealthCheckHttpsHealthCheck(c *Client, desired, actual *HealthCheckH
 		c.Config.Logger.Infof("desired Port %s - but actually nil", dcl.SprintResource(desired.Port))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) && !(dcl.IsEmptyValueIndirect(desired.Port) && dcl.IsZeroValue(actual.Port)) {
+	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) {
 		c.Config.Logger.Infof("Diff in Port. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
 		return true
 	}
@@ -1328,7 +1397,7 @@ func compareHealthCheckHttpsHealthCheck(c *Client, desired, actual *HealthCheckH
 		c.Config.Logger.Infof("desired PortName %s - but actually nil", dcl.SprintResource(desired.PortName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PortName, actual.PortName) && !dcl.IsZeroValue(desired.PortName) && !(dcl.IsEmptyValueIndirect(desired.PortName) && dcl.IsZeroValue(actual.PortName)) {
+	if !dcl.StringCanonicalize(desired.PortName, actual.PortName) && !dcl.IsZeroValue(desired.PortName) {
 		c.Config.Logger.Infof("Diff in PortName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PortName), dcl.SprintResource(actual.PortName))
 		return true
 	}
@@ -1336,7 +1405,7 @@ func compareHealthCheckHttpsHealthCheck(c *Client, desired, actual *HealthCheckH
 		c.Config.Logger.Infof("desired PortSpecification %s - but actually nil", dcl.SprintResource(desired.PortSpecification))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PortSpecification, actual.PortSpecification) && !dcl.IsZeroValue(desired.PortSpecification) && !(dcl.IsEmptyValueIndirect(desired.PortSpecification) && dcl.IsZeroValue(actual.PortSpecification)) {
+	if !reflect.DeepEqual(desired.PortSpecification, actual.PortSpecification) && !dcl.IsZeroValue(desired.PortSpecification) {
 		c.Config.Logger.Infof("Diff in PortSpecification. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PortSpecification), dcl.SprintResource(actual.PortSpecification))
 		return true
 	}
@@ -1344,7 +1413,7 @@ func compareHealthCheckHttpsHealthCheck(c *Client, desired, actual *HealthCheckH
 		c.Config.Logger.Infof("desired Host %s - but actually nil", dcl.SprintResource(desired.Host))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) && !(dcl.IsEmptyValueIndirect(desired.Host) && dcl.IsZeroValue(actual.Host)) {
+	if !dcl.StringCanonicalize(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) {
 		c.Config.Logger.Infof("Diff in Host. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
 		return true
 	}
@@ -1352,7 +1421,7 @@ func compareHealthCheckHttpsHealthCheck(c *Client, desired, actual *HealthCheckH
 		c.Config.Logger.Infof("desired RequestPath %s - but actually nil", dcl.SprintResource(desired.RequestPath))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RequestPath, actual.RequestPath) && !dcl.IsZeroValue(desired.RequestPath) && !(dcl.IsEmptyValueIndirect(desired.RequestPath) && dcl.IsZeroValue(actual.RequestPath)) {
+	if !dcl.StringCanonicalize(desired.RequestPath, actual.RequestPath) && !dcl.IsZeroValue(desired.RequestPath) {
 		c.Config.Logger.Infof("Diff in RequestPath. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequestPath), dcl.SprintResource(actual.RequestPath))
 		return true
 	}
@@ -1360,7 +1429,7 @@ func compareHealthCheckHttpsHealthCheck(c *Client, desired, actual *HealthCheckH
 		c.Config.Logger.Infof("desired ProxyHeader %s - but actually nil", dcl.SprintResource(desired.ProxyHeader))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ProxyHeader, actual.ProxyHeader) && !dcl.IsZeroValue(desired.ProxyHeader) && !(dcl.IsEmptyValueIndirect(desired.ProxyHeader) && dcl.IsZeroValue(actual.ProxyHeader)) {
+	if !reflect.DeepEqual(desired.ProxyHeader, actual.ProxyHeader) && !dcl.IsZeroValue(desired.ProxyHeader) {
 		c.Config.Logger.Infof("Diff in ProxyHeader. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProxyHeader), dcl.SprintResource(actual.ProxyHeader))
 		return true
 	}
@@ -1368,20 +1437,40 @@ func compareHealthCheckHttpsHealthCheck(c *Client, desired, actual *HealthCheckH
 		c.Config.Logger.Infof("desired Response %s - but actually nil", dcl.SprintResource(desired.Response))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Response, actual.Response) && !dcl.IsZeroValue(desired.Response) && !(dcl.IsEmptyValueIndirect(desired.Response) && dcl.IsZeroValue(actual.Response)) {
+	if !dcl.StringCanonicalize(desired.Response, actual.Response) && !dcl.IsZeroValue(desired.Response) {
 		c.Config.Logger.Infof("Diff in Response. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Response), dcl.SprintResource(actual.Response))
 		return true
 	}
 	return false
 }
-func compareHealthCheckSslHealthCheckSlice(c *Client, desired, actual []HealthCheckSslHealthCheck) bool {
+
+func compareHealthCheckHttpsHealthCheckSlice(c *Client, desired, actual []HealthCheckHttpsHealthCheck) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckSslHealthCheck, lengths unequal.")
+		c.Config.Logger.Info("Diff in HealthCheckHttpsHealthCheck, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareHealthCheckSslHealthCheck(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in HealthCheckSslHealthCheck, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareHealthCheckHttpsHealthCheck(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in HealthCheckHttpsHealthCheck, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareHealthCheckHttpsHealthCheckMap(c *Client, desired, actual map[string]HealthCheckHttpsHealthCheck) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in HealthCheckHttpsHealthCheck, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in HealthCheckHttpsHealthCheck, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareHealthCheckHttpsHealthCheck(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in HealthCheckHttpsHealthCheck, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1399,7 +1488,7 @@ func compareHealthCheckSslHealthCheck(c *Client, desired, actual *HealthCheckSsl
 		c.Config.Logger.Infof("desired Port %s - but actually nil", dcl.SprintResource(desired.Port))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) && !(dcl.IsEmptyValueIndirect(desired.Port) && dcl.IsZeroValue(actual.Port)) {
+	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) {
 		c.Config.Logger.Infof("Diff in Port. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
 		return true
 	}
@@ -1407,7 +1496,7 @@ func compareHealthCheckSslHealthCheck(c *Client, desired, actual *HealthCheckSsl
 		c.Config.Logger.Infof("desired PortName %s - but actually nil", dcl.SprintResource(desired.PortName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PortName, actual.PortName) && !dcl.IsZeroValue(desired.PortName) && !(dcl.IsEmptyValueIndirect(desired.PortName) && dcl.IsZeroValue(actual.PortName)) {
+	if !dcl.StringCanonicalize(desired.PortName, actual.PortName) && !dcl.IsZeroValue(desired.PortName) {
 		c.Config.Logger.Infof("Diff in PortName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PortName), dcl.SprintResource(actual.PortName))
 		return true
 	}
@@ -1415,7 +1504,7 @@ func compareHealthCheckSslHealthCheck(c *Client, desired, actual *HealthCheckSsl
 		c.Config.Logger.Infof("desired PortSpecification %s - but actually nil", dcl.SprintResource(desired.PortSpecification))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PortSpecification, actual.PortSpecification) && !dcl.IsZeroValue(desired.PortSpecification) && !(dcl.IsEmptyValueIndirect(desired.PortSpecification) && dcl.IsZeroValue(actual.PortSpecification)) {
+	if !reflect.DeepEqual(desired.PortSpecification, actual.PortSpecification) && !dcl.IsZeroValue(desired.PortSpecification) {
 		c.Config.Logger.Infof("Diff in PortSpecification. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PortSpecification), dcl.SprintResource(actual.PortSpecification))
 		return true
 	}
@@ -1423,7 +1512,7 @@ func compareHealthCheckSslHealthCheck(c *Client, desired, actual *HealthCheckSsl
 		c.Config.Logger.Infof("desired Request %s - but actually nil", dcl.SprintResource(desired.Request))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Request, actual.Request) && !dcl.IsZeroValue(desired.Request) && !(dcl.IsEmptyValueIndirect(desired.Request) && dcl.IsZeroValue(actual.Request)) {
+	if !dcl.StringCanonicalize(desired.Request, actual.Request) && !dcl.IsZeroValue(desired.Request) {
 		c.Config.Logger.Infof("Diff in Request. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Request), dcl.SprintResource(actual.Request))
 		return true
 	}
@@ -1431,7 +1520,7 @@ func compareHealthCheckSslHealthCheck(c *Client, desired, actual *HealthCheckSsl
 		c.Config.Logger.Infof("desired Response %s - but actually nil", dcl.SprintResource(desired.Response))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Response, actual.Response) && !dcl.IsZeroValue(desired.Response) && !(dcl.IsEmptyValueIndirect(desired.Response) && dcl.IsZeroValue(actual.Response)) {
+	if !dcl.StringCanonicalize(desired.Response, actual.Response) && !dcl.IsZeroValue(desired.Response) {
 		c.Config.Logger.Infof("Diff in Response. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Response), dcl.SprintResource(actual.Response))
 		return true
 	}
@@ -1439,20 +1528,40 @@ func compareHealthCheckSslHealthCheck(c *Client, desired, actual *HealthCheckSsl
 		c.Config.Logger.Infof("desired ProxyHeader %s - but actually nil", dcl.SprintResource(desired.ProxyHeader))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ProxyHeader, actual.ProxyHeader) && !dcl.IsZeroValue(desired.ProxyHeader) && !(dcl.IsEmptyValueIndirect(desired.ProxyHeader) && dcl.IsZeroValue(actual.ProxyHeader)) {
+	if !reflect.DeepEqual(desired.ProxyHeader, actual.ProxyHeader) && !dcl.IsZeroValue(desired.ProxyHeader) {
 		c.Config.Logger.Infof("Diff in ProxyHeader. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProxyHeader), dcl.SprintResource(actual.ProxyHeader))
 		return true
 	}
 	return false
 }
-func compareHealthCheckTcpHealthCheckSlice(c *Client, desired, actual []HealthCheckTcpHealthCheck) bool {
+
+func compareHealthCheckSslHealthCheckSlice(c *Client, desired, actual []HealthCheckSslHealthCheck) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckTcpHealthCheck, lengths unequal.")
+		c.Config.Logger.Info("Diff in HealthCheckSslHealthCheck, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareHealthCheckTcpHealthCheck(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in HealthCheckTcpHealthCheck, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareHealthCheckSslHealthCheck(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in HealthCheckSslHealthCheck, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareHealthCheckSslHealthCheckMap(c *Client, desired, actual map[string]HealthCheckSslHealthCheck) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in HealthCheckSslHealthCheck, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in HealthCheckSslHealthCheck, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareHealthCheckSslHealthCheck(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in HealthCheckSslHealthCheck, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1470,7 +1579,7 @@ func compareHealthCheckTcpHealthCheck(c *Client, desired, actual *HealthCheckTcp
 		c.Config.Logger.Infof("desired Port %s - but actually nil", dcl.SprintResource(desired.Port))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) && !(dcl.IsEmptyValueIndirect(desired.Port) && dcl.IsZeroValue(actual.Port)) {
+	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) {
 		c.Config.Logger.Infof("Diff in Port. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
 		return true
 	}
@@ -1478,7 +1587,7 @@ func compareHealthCheckTcpHealthCheck(c *Client, desired, actual *HealthCheckTcp
 		c.Config.Logger.Infof("desired PortName %s - but actually nil", dcl.SprintResource(desired.PortName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PortName, actual.PortName) && !dcl.IsZeroValue(desired.PortName) && !(dcl.IsEmptyValueIndirect(desired.PortName) && dcl.IsZeroValue(actual.PortName)) {
+	if !dcl.StringCanonicalize(desired.PortName, actual.PortName) && !dcl.IsZeroValue(desired.PortName) {
 		c.Config.Logger.Infof("Diff in PortName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PortName), dcl.SprintResource(actual.PortName))
 		return true
 	}
@@ -1486,7 +1595,7 @@ func compareHealthCheckTcpHealthCheck(c *Client, desired, actual *HealthCheckTcp
 		c.Config.Logger.Infof("desired PortSpecification %s - but actually nil", dcl.SprintResource(desired.PortSpecification))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PortSpecification, actual.PortSpecification) && !dcl.IsZeroValue(desired.PortSpecification) && !(dcl.IsEmptyValueIndirect(desired.PortSpecification) && dcl.IsZeroValue(actual.PortSpecification)) {
+	if !reflect.DeepEqual(desired.PortSpecification, actual.PortSpecification) && !dcl.IsZeroValue(desired.PortSpecification) {
 		c.Config.Logger.Infof("Diff in PortSpecification. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PortSpecification), dcl.SprintResource(actual.PortSpecification))
 		return true
 	}
@@ -1494,7 +1603,7 @@ func compareHealthCheckTcpHealthCheck(c *Client, desired, actual *HealthCheckTcp
 		c.Config.Logger.Infof("desired Request %s - but actually nil", dcl.SprintResource(desired.Request))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Request, actual.Request) && !dcl.IsZeroValue(desired.Request) && !(dcl.IsEmptyValueIndirect(desired.Request) && dcl.IsZeroValue(actual.Request)) {
+	if !dcl.StringCanonicalize(desired.Request, actual.Request) && !dcl.IsZeroValue(desired.Request) {
 		c.Config.Logger.Infof("Diff in Request. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Request), dcl.SprintResource(actual.Request))
 		return true
 	}
@@ -1502,7 +1611,7 @@ func compareHealthCheckTcpHealthCheck(c *Client, desired, actual *HealthCheckTcp
 		c.Config.Logger.Infof("desired Response %s - but actually nil", dcl.SprintResource(desired.Response))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Response, actual.Response) && !dcl.IsZeroValue(desired.Response) && !(dcl.IsEmptyValueIndirect(desired.Response) && dcl.IsZeroValue(actual.Response)) {
+	if !dcl.StringCanonicalize(desired.Response, actual.Response) && !dcl.IsZeroValue(desired.Response) {
 		c.Config.Logger.Infof("Diff in Response. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Response), dcl.SprintResource(actual.Response))
 		return true
 	}
@@ -1510,12 +1619,46 @@ func compareHealthCheckTcpHealthCheck(c *Client, desired, actual *HealthCheckTcp
 		c.Config.Logger.Infof("desired ProxyHeader %s - but actually nil", dcl.SprintResource(desired.ProxyHeader))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ProxyHeader, actual.ProxyHeader) && !dcl.IsZeroValue(desired.ProxyHeader) && !(dcl.IsEmptyValueIndirect(desired.ProxyHeader) && dcl.IsZeroValue(actual.ProxyHeader)) {
+	if !reflect.DeepEqual(desired.ProxyHeader, actual.ProxyHeader) && !dcl.IsZeroValue(desired.ProxyHeader) {
 		c.Config.Logger.Infof("Diff in ProxyHeader. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProxyHeader), dcl.SprintResource(actual.ProxyHeader))
 		return true
 	}
 	return false
 }
+
+func compareHealthCheckTcpHealthCheckSlice(c *Client, desired, actual []HealthCheckTcpHealthCheck) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in HealthCheckTcpHealthCheck, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareHealthCheckTcpHealthCheck(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in HealthCheckTcpHealthCheck, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareHealthCheckTcpHealthCheckMap(c *Client, desired, actual map[string]HealthCheckTcpHealthCheck) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in HealthCheckTcpHealthCheck, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in HealthCheckTcpHealthCheck, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareHealthCheckTcpHealthCheck(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in HealthCheckTcpHealthCheck, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
 func compareHealthCheckHttp2HealthCheckPortSpecificationEnumSlice(c *Client, desired, actual []HealthCheckHttp2HealthCheckPortSpecificationEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in HealthCheckHttp2HealthCheckPortSpecificationEnum, lengths unequal.")
@@ -1719,8 +1862,11 @@ func compareHealthCheckTypeEnum(c *Client, desired, actual *HealthCheckTypeEnum)
 // short-form so they can be substituted in.
 func (r *HealthCheck) urlNormalized() *HealthCheck {
 	normalized := deepcopy.Copy(*r).(HealthCheck)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Region = dcl.SelfLinkToName(r.Region)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
@@ -1776,6 +1922,10 @@ func unmarshalHealthCheck(b []byte, c *Client) (*HealthCheck, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapHealthCheck(m, c)
+}
+
+func unmarshalMapHealthCheck(m map[string]interface{}, c *Client) (*HealthCheck, error) {
 
 	return flattenHealthCheck(c, m), nil
 }
@@ -2559,7 +2709,7 @@ func flattenHealthCheckHttp2HealthCheckPortSpecificationEnumSlice(c *Client, i i
 
 	items := make([]HealthCheckHttp2HealthCheckPortSpecificationEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHealthCheckHttp2HealthCheckPortSpecificationEnum(item.(map[string]interface{})))
+		items = append(items, *flattenHealthCheckHttp2HealthCheckPortSpecificationEnum(item.(interface{})))
 	}
 
 	return items
@@ -2590,7 +2740,7 @@ func flattenHealthCheckHttp2HealthCheckProxyHeaderEnumSlice(c *Client, i interfa
 
 	items := make([]HealthCheckHttp2HealthCheckProxyHeaderEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHealthCheckHttp2HealthCheckProxyHeaderEnum(item.(map[string]interface{})))
+		items = append(items, *flattenHealthCheckHttp2HealthCheckProxyHeaderEnum(item.(interface{})))
 	}
 
 	return items
@@ -2621,7 +2771,7 @@ func flattenHealthCheckHttpHealthCheckPortSpecificationEnumSlice(c *Client, i in
 
 	items := make([]HealthCheckHttpHealthCheckPortSpecificationEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHealthCheckHttpHealthCheckPortSpecificationEnum(item.(map[string]interface{})))
+		items = append(items, *flattenHealthCheckHttpHealthCheckPortSpecificationEnum(item.(interface{})))
 	}
 
 	return items
@@ -2652,7 +2802,7 @@ func flattenHealthCheckHttpHealthCheckProxyHeaderEnumSlice(c *Client, i interfac
 
 	items := make([]HealthCheckHttpHealthCheckProxyHeaderEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHealthCheckHttpHealthCheckProxyHeaderEnum(item.(map[string]interface{})))
+		items = append(items, *flattenHealthCheckHttpHealthCheckProxyHeaderEnum(item.(interface{})))
 	}
 
 	return items
@@ -2683,7 +2833,7 @@ func flattenHealthCheckHttpsHealthCheckPortSpecificationEnumSlice(c *Client, i i
 
 	items := make([]HealthCheckHttpsHealthCheckPortSpecificationEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHealthCheckHttpsHealthCheckPortSpecificationEnum(item.(map[string]interface{})))
+		items = append(items, *flattenHealthCheckHttpsHealthCheckPortSpecificationEnum(item.(interface{})))
 	}
 
 	return items
@@ -2714,7 +2864,7 @@ func flattenHealthCheckHttpsHealthCheckProxyHeaderEnumSlice(c *Client, i interfa
 
 	items := make([]HealthCheckHttpsHealthCheckProxyHeaderEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHealthCheckHttpsHealthCheckProxyHeaderEnum(item.(map[string]interface{})))
+		items = append(items, *flattenHealthCheckHttpsHealthCheckProxyHeaderEnum(item.(interface{})))
 	}
 
 	return items
@@ -2745,7 +2895,7 @@ func flattenHealthCheckSslHealthCheckPortSpecificationEnumSlice(c *Client, i int
 
 	items := make([]HealthCheckSslHealthCheckPortSpecificationEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHealthCheckSslHealthCheckPortSpecificationEnum(item.(map[string]interface{})))
+		items = append(items, *flattenHealthCheckSslHealthCheckPortSpecificationEnum(item.(interface{})))
 	}
 
 	return items
@@ -2776,7 +2926,7 @@ func flattenHealthCheckSslHealthCheckProxyHeaderEnumSlice(c *Client, i interface
 
 	items := make([]HealthCheckSslHealthCheckProxyHeaderEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHealthCheckSslHealthCheckProxyHeaderEnum(item.(map[string]interface{})))
+		items = append(items, *flattenHealthCheckSslHealthCheckProxyHeaderEnum(item.(interface{})))
 	}
 
 	return items
@@ -2807,7 +2957,7 @@ func flattenHealthCheckTcpHealthCheckPortSpecificationEnumSlice(c *Client, i int
 
 	items := make([]HealthCheckTcpHealthCheckPortSpecificationEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHealthCheckTcpHealthCheckPortSpecificationEnum(item.(map[string]interface{})))
+		items = append(items, *flattenHealthCheckTcpHealthCheckPortSpecificationEnum(item.(interface{})))
 	}
 
 	return items
@@ -2838,7 +2988,7 @@ func flattenHealthCheckTcpHealthCheckProxyHeaderEnumSlice(c *Client, i interface
 
 	items := make([]HealthCheckTcpHealthCheckProxyHeaderEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHealthCheckTcpHealthCheckProxyHeaderEnum(item.(map[string]interface{})))
+		items = append(items, *flattenHealthCheckTcpHealthCheckProxyHeaderEnum(item.(interface{})))
 	}
 
 	return items
@@ -2869,7 +3019,7 @@ func flattenHealthCheckTypeEnumSlice(c *Client, i interface{}) []HealthCheckType
 
 	items := make([]HealthCheckTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHealthCheckTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenHealthCheckTypeEnum(item.(interface{})))
 	}
 
 	return items

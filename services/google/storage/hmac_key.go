@@ -89,6 +89,9 @@ func (l *HmacKeyList) HasNext() bool {
 }
 
 func (l *HmacKeyList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -102,12 +105,17 @@ func (l *HmacKeyList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListHmacKey(ctx context.Context, project string) (*HmacKeyList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListHmacKeyWithMaxResults(ctx, project, HmacKeyMaxPage)
 
 }
 
 func (c *Client) ListHmacKeyWithMaxResults(ctx context.Context, project string, pageSize int32) (*HmacKeyList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listHmacKey(ctx, project, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -122,6 +130,9 @@ func (c *Client) ListHmacKeyWithMaxResults(ctx context.Context, project string, 
 }
 
 func (c *Client) GetHmacKey(ctx context.Context, r *HmacKey) (*HmacKey, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getHmacKeyRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -138,10 +149,6 @@ func (c *Client) GetHmacKey(ctx context.Context, r *HmacKey) (*HmacKey, error) {
 	}
 	result.Project = r.Project
 	result.Name = r.Name
-
-	result.Name = r.Name
-
-	result.Secret = r.Secret
 	if dcl.IsZeroValue(result.State) {
 		result.State = HmacKeyStateEnumRef("ACTIVE")
 	}
@@ -158,6 +165,9 @@ func (c *Client) GetHmacKey(ctx context.Context, r *HmacKey) (*HmacKey, error) {
 }
 
 func (c *Client) DeleteHmacKey(ctx context.Context, r *HmacKey) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("HmacKey resource is nil")
 	}
@@ -168,6 +178,9 @@ func (c *Client) DeleteHmacKey(ctx context.Context, r *HmacKey) error {
 
 // DeleteAllHmacKey deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllHmacKey(ctx context.Context, project string, filter func(*HmacKey) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListHmacKey(ctx, project)
 	if err != nil {
 		return err
@@ -193,6 +206,9 @@ func (c *Client) DeleteAllHmacKey(ctx context.Context, project string, filter fu
 func (c *Client) ApplyHmacKey(ctx context.Context, rawDesired *HmacKey, opts ...dcl.ApplyOption) (*HmacKey, error) {
 	c.Config.Logger.Info("Beginning ApplyHmacKey...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -273,12 +289,35 @@ func (c *Client) ApplyHmacKey(ctx context.Context, rawDesired *HmacKey, opts ...
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createHmacKeyOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapHmacKey(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeHmacKeyNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeHmacKeyNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

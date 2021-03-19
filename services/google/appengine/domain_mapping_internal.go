@@ -29,9 +29,6 @@ import (
 
 func (r *DomainMapping) validate() error {
 
-	if err := dcl.Required(r, "name"); err != nil {
-		return err
-	}
 	if err := dcl.RequiredParameter(r.App, "App"); err != nil {
 		return err
 	}
@@ -93,18 +90,10 @@ type domainMappingApiOperation interface {
 func newUpdateDomainMappingUpdateDomainMappingRequest(ctx context.Context, f *DomainMapping, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
-		req["id"] = v
-	}
 	if v, err := expandDomainMappingSslSettings(c, f.SslSettings); err != nil {
 		return nil, fmt.Errorf("error expanding SslSettings into sslSettings: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["sslSettings"] = v
-	}
-	if v, err := expandDomainMappingResourceRecordsSlice(c, f.ResourceRecords); err != nil {
-		return nil, fmt.Errorf("error expanding ResourceRecords into resourceRecords: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["resourceRecords"] = v
 	}
 	return req, nil
 }
@@ -148,7 +137,7 @@ func (op *updateDomainMappingUpdateDomainMappingOperation) do(ctx context.Contex
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -185,7 +174,7 @@ func (c *Client) listDomainMappingRaw(ctx context.Context, app, pageToken string
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -259,7 +248,7 @@ func (op *deleteDomainMappingOperation) do(ctx context.Context, r *DomainMapping
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -282,7 +271,13 @@ func (op *deleteDomainMappingOperation) do(ctx context.Context, r *DomainMapping
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createDomainMappingOperation struct{}
+type createDomainMappingOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createDomainMappingOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createDomainMappingOperation) do(ctx context.Context, r *DomainMapping, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -298,7 +293,7 @@ func (op *createDomainMappingOperation) do(ctx context.Context, r *DomainMapping
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -312,8 +307,10 @@ func (op *createDomainMappingOperation) do(ctx context.Context, r *DomainMapping
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetDomainMapping(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -326,7 +323,7 @@ func (c *Client) getDomainMappingRaw(ctx context.Context, r *DomainMapping) ([]b
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -403,14 +400,6 @@ func canonicalizeDomainMappingInitialState(rawInitial, rawDesired *DomainMapping
 
 func canonicalizeDomainMappingDesiredState(rawDesired, rawInitial *DomainMapping, opts ...dcl.ApplyOption) (*DomainMapping, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*DomainMapping); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected DomainMapping, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -418,7 +407,10 @@ func canonicalizeDomainMappingDesiredState(rawDesired, rawInitial *DomainMapping
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
+		rawDesired.SelfLink = rawInitial.SelfLink
+	}
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
 	rawDesired.SslSettings = canonicalizeDomainMappingSslSettings(rawDesired.SslSettings, rawInitial.SslSettings, opts...)
@@ -434,9 +426,20 @@ func canonicalizeDomainMappingDesiredState(rawDesired, rawInitial *DomainMapping
 
 func canonicalizeDomainMappingNewState(c *Client, rawNew, rawDesired *DomainMapping) (*DomainMapping, error) {
 
+	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
+		rawNew.SelfLink = rawDesired.SelfLink
+	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
+	}
+
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.SslSettings) && dcl.IsEmptyValueIndirect(rawDesired.SslSettings) {
@@ -463,17 +466,18 @@ func canonicalizeDomainMappingSslSettings(des, initial *DomainMappingSslSettings
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*DomainMapping)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.IsManagedCertificate) {
-		des.IsManagedCertificate = initial.IsManagedCertificate
+	if dcl.StringCanonicalize(des.CertificateId, initial.CertificateId) || dcl.IsZeroValue(des.CertificateId) {
+		des.CertificateId = initial.CertificateId
+	}
+	if dcl.IsZeroValue(des.SslManagementType) {
+		des.SslManagementType = initial.SslManagementType
+	}
+	if dcl.StringCanonicalize(des.PendingManagedCertificateId, initial.PendingManagedCertificateId) || dcl.IsZeroValue(des.PendingManagedCertificateId) {
+		des.PendingManagedCertificateId = initial.PendingManagedCertificateId
 	}
 
 	return des
@@ -482,6 +486,13 @@ func canonicalizeDomainMappingSslSettings(des, initial *DomainMappingSslSettings
 func canonicalizeNewDomainMappingSslSettings(c *Client, des, nw *DomainMappingSslSettings) *DomainMappingSslSettings {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.CertificateId, nw.CertificateId) || dcl.IsZeroValue(des.CertificateId) {
+		nw.CertificateId = des.CertificateId
+	}
+	if dcl.StringCanonicalize(des.PendingManagedCertificateId, nw.PendingManagedCertificateId) || dcl.IsZeroValue(des.PendingManagedCertificateId) {
+		nw.PendingManagedCertificateId = des.PendingManagedCertificateId
 	}
 
 	return nw
@@ -518,19 +529,14 @@ func canonicalizeDomainMappingResourceRecords(des, initial *DomainMappingResourc
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*DomainMapping)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
-	if dcl.IsZeroValue(des.Rrdata) {
+	if dcl.StringCanonicalize(des.Rrdata, initial.Rrdata) || dcl.IsZeroValue(des.Rrdata) {
 		des.Rrdata = initial.Rrdata
 	}
 	if dcl.IsZeroValue(des.Type) {
@@ -543,6 +549,13 @@ func canonicalizeDomainMappingResourceRecords(des, initial *DomainMappingResourc
 func canonicalizeNewDomainMappingResourceRecords(c *Client, des, nw *DomainMappingResourceRecords) *DomainMappingResourceRecords {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Rrdata, nw.Rrdata) || dcl.IsZeroValue(des.Rrdata) {
+		nw.Rrdata = des.Rrdata
 	}
 
 	return nw
@@ -592,14 +605,19 @@ func diffDomainMapping(c *Client, desired, actual *DomainMapping, opts ...dcl.Ap
 	}
 
 	var diffs []domainMappingDiff
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-
+	if !dcl.IsZeroValue(desired.SelfLink) && !dcl.StringCanonicalize(desired.SelfLink, actual.SelfLink) {
+		c.Config.Logger.Infof("Detected diff in SelfLink.\nDESIRED: %v\nACTUAL: %v", desired.SelfLink, actual.SelfLink)
 		diffs = append(diffs, domainMappingDiff{
-			UpdateOp:  &updateDomainMappingUpdateDomainMappingOperation{},
-			FieldName: "Name",
+			RequiresRecreate: true,
+			FieldName:        "SelfLink",
 		})
-
+	}
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
+		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
+		diffs = append(diffs, domainMappingDiff{
+			RequiresRecreate: true,
+			FieldName:        "Name",
+		})
 	}
 	if compareDomainMappingSslSettings(c, desired.SslSettings, actual.SslSettings) {
 		c.Config.Logger.Infof("Detected diff in SslSettings.\nDESIRED: %v\nACTUAL: %v", desired.SslSettings, actual.SslSettings)
@@ -634,6 +652,32 @@ func diffDomainMapping(c *Client, desired, actual *DomainMapping, opts ...dcl.Ap
 
 	return deduped, nil
 }
+func compareDomainMappingSslSettings(c *Client, desired, actual *DomainMappingSslSettings) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.CertificateId == nil && desired.CertificateId != nil && !dcl.IsEmptyValueIndirect(desired.CertificateId) {
+		c.Config.Logger.Infof("desired CertificateId %s - but actually nil", dcl.SprintResource(desired.CertificateId))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.CertificateId, actual.CertificateId) && !dcl.IsZeroValue(desired.CertificateId) {
+		c.Config.Logger.Infof("Diff in CertificateId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CertificateId), dcl.SprintResource(actual.CertificateId))
+		return true
+	}
+	if actual.SslManagementType == nil && desired.SslManagementType != nil && !dcl.IsEmptyValueIndirect(desired.SslManagementType) {
+		c.Config.Logger.Infof("desired SslManagementType %s - but actually nil", dcl.SprintResource(desired.SslManagementType))
+		return true
+	}
+	if !reflect.DeepEqual(desired.SslManagementType, actual.SslManagementType) && !dcl.IsZeroValue(desired.SslManagementType) {
+		c.Config.Logger.Infof("Diff in SslManagementType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SslManagementType), dcl.SprintResource(actual.SslManagementType))
+		return true
+	}
+	return false
+}
+
 func compareDomainMappingSslSettingsSlice(c *Client, desired, actual []DomainMappingSslSettings) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in DomainMappingSslSettings, lengths unequal.")
@@ -648,23 +692,19 @@ func compareDomainMappingSslSettingsSlice(c *Client, desired, actual []DomainMap
 	return false
 }
 
-func compareDomainMappingSslSettings(c *Client, desired, actual *DomainMappingSslSettings) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	return false
-}
-func compareDomainMappingResourceRecordsSlice(c *Client, desired, actual []DomainMappingResourceRecords) bool {
+func compareDomainMappingSslSettingsMap(c *Client, desired, actual map[string]DomainMappingSslSettings) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DomainMappingResourceRecords, lengths unequal.")
+		c.Config.Logger.Info("Diff in DomainMappingSslSettings, lengths unequal.")
 		return true
 	}
-	for i := 0; i < len(desired); i++ {
-		if compareDomainMappingResourceRecords(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DomainMappingResourceRecords, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DomainMappingSslSettings, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDomainMappingSslSettings(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DomainMappingSslSettings, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -682,7 +722,7 @@ func compareDomainMappingResourceRecords(c *Client, desired, actual *DomainMappi
 		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
 		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
@@ -690,7 +730,7 @@ func compareDomainMappingResourceRecords(c *Client, desired, actual *DomainMappi
 		c.Config.Logger.Infof("desired Rrdata %s - but actually nil", dcl.SprintResource(desired.Rrdata))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Rrdata, actual.Rrdata) && !dcl.IsZeroValue(desired.Rrdata) && !(dcl.IsEmptyValueIndirect(desired.Rrdata) && dcl.IsZeroValue(actual.Rrdata)) {
+	if !dcl.StringCanonicalize(desired.Rrdata, actual.Rrdata) && !dcl.IsZeroValue(desired.Rrdata) {
 		c.Config.Logger.Infof("Diff in Rrdata. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Rrdata), dcl.SprintResource(actual.Rrdata))
 		return true
 	}
@@ -698,12 +738,64 @@ func compareDomainMappingResourceRecords(c *Client, desired, actual *DomainMappi
 		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) && !(dcl.IsEmptyValueIndirect(desired.Type) && dcl.IsZeroValue(actual.Type)) {
+	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
 		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
 		return true
 	}
 	return false
 }
+
+func compareDomainMappingResourceRecordsSlice(c *Client, desired, actual []DomainMappingResourceRecords) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DomainMappingResourceRecords, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareDomainMappingResourceRecords(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DomainMappingResourceRecords, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDomainMappingResourceRecordsMap(c *Client, desired, actual map[string]DomainMappingResourceRecords) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DomainMappingResourceRecords, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DomainMappingResourceRecords, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDomainMappingResourceRecords(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DomainMappingResourceRecords, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDomainMappingSslSettingsSslManagementTypeEnumSlice(c *Client, desired, actual []DomainMappingSslSettingsSslManagementTypeEnum) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DomainMappingSslSettingsSslManagementTypeEnum, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareDomainMappingSslSettingsSslManagementTypeEnum(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DomainMappingSslSettingsSslManagementTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDomainMappingSslSettingsSslManagementTypeEnum(c *Client, desired, actual *DomainMappingSslSettingsSslManagementTypeEnum) bool {
+	return !reflect.DeepEqual(desired, actual)
+}
+
 func compareDomainMappingResourceRecordsTypeEnumSlice(c *Client, desired, actual []DomainMappingResourceRecordsTypeEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in DomainMappingResourceRecordsTypeEnum, lengths unequal.")
@@ -727,6 +819,8 @@ func compareDomainMappingResourceRecordsTypeEnum(c *Client, desired, actual *Dom
 // short-form so they can be substituted in.
 func (r *DomainMapping) urlNormalized() *DomainMapping {
 	normalized := deepcopy.Copy(*r).(DomainMapping)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.App = dcl.SelfLinkToName(r.App)
 	return &normalized
 }
@@ -777,6 +871,10 @@ func unmarshalDomainMapping(b []byte, c *Client) (*DomainMapping, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapDomainMapping(m, c)
+}
+
+func unmarshalMapDomainMapping(m map[string]interface{}, c *Client) (*DomainMapping, error) {
 
 	return flattenDomainMapping(c, m), nil
 }
@@ -784,6 +882,9 @@ func unmarshalDomainMapping(b []byte, c *Client) (*DomainMapping, error) {
 // expandDomainMapping expands DomainMapping into a JSON request object.
 func expandDomainMapping(c *Client, f *DomainMapping) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	if v := f.SelfLink; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["id"] = v
 	}
@@ -818,6 +919,7 @@ func flattenDomainMapping(c *Client, i interface{}) *DomainMapping {
 	}
 
 	r := &DomainMapping{}
+	r.SelfLink = dcl.FlattenString(m["name"])
 	r.Name = dcl.FlattenString(m["id"])
 	r.SslSettings = flattenDomainMappingSslSettings(c, m["sslSettings"])
 	r.ResourceRecords = flattenDomainMappingResourceRecordsSlice(c, m["resourceRecords"])
@@ -915,8 +1017,14 @@ func expandDomainMappingSslSettings(c *Client, f *DomainMappingSslSettings) (map
 	}
 
 	m := make(map[string]interface{})
-	if v := f.IsManagedCertificate; !dcl.IsEmptyValueIndirect(v) {
-		m["isManagedCertificate"] = v
+	if v := f.CertificateId; !dcl.IsEmptyValueIndirect(v) {
+		m["certificateId"] = v
+	}
+	if v := f.SslManagementType; !dcl.IsEmptyValueIndirect(v) {
+		m["sslManagementType"] = v
+	}
+	if v := f.PendingManagedCertificateId; !dcl.IsEmptyValueIndirect(v) {
+		m["pendingManagedCertificateId"] = v
 	}
 
 	return m, nil
@@ -931,7 +1039,9 @@ func flattenDomainMappingSslSettings(c *Client, i interface{}) *DomainMappingSsl
 	}
 
 	r := &DomainMappingSslSettings{}
-	r.IsManagedCertificate = dcl.FlattenBool(m["isManagedCertificate"])
+	r.CertificateId = dcl.FlattenString(m["certificateId"])
+	r.SslManagementType = flattenDomainMappingSslSettingsSslManagementTypeEnum(m["sslManagementType"])
+	r.PendingManagedCertificateId = dcl.FlattenString(m["pendingManagedCertificateId"])
 
 	return r
 }
@@ -1054,6 +1164,37 @@ func flattenDomainMappingResourceRecords(c *Client, i interface{}) *DomainMappin
 	return r
 }
 
+// flattenDomainMappingSslSettingsSslManagementTypeEnumSlice flattens the contents of DomainMappingSslSettingsSslManagementTypeEnum from a JSON
+// response object.
+func flattenDomainMappingSslSettingsSslManagementTypeEnumSlice(c *Client, i interface{}) []DomainMappingSslSettingsSslManagementTypeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []DomainMappingSslSettingsSslManagementTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []DomainMappingSslSettingsSslManagementTypeEnum{}
+	}
+
+	items := make([]DomainMappingSslSettingsSslManagementTypeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenDomainMappingSslSettingsSslManagementTypeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenDomainMappingSslSettingsSslManagementTypeEnum asserts that an interface is a string, and returns a
+// pointer to a *DomainMappingSslSettingsSslManagementTypeEnum with the same value as that string.
+func flattenDomainMappingSslSettingsSslManagementTypeEnum(i interface{}) *DomainMappingSslSettingsSslManagementTypeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return DomainMappingSslSettingsSslManagementTypeEnumRef("")
+	}
+
+	return DomainMappingSslSettingsSslManagementTypeEnumRef(s)
+}
+
 // flattenDomainMappingResourceRecordsTypeEnumSlice flattens the contents of DomainMappingResourceRecordsTypeEnum from a JSON
 // response object.
 func flattenDomainMappingResourceRecordsTypeEnumSlice(c *Client, i interface{}) []DomainMappingResourceRecordsTypeEnum {
@@ -1068,7 +1209,7 @@ func flattenDomainMappingResourceRecordsTypeEnumSlice(c *Client, i interface{}) 
 
 	items := make([]DomainMappingResourceRecordsTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDomainMappingResourceRecordsTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDomainMappingResourceRecordsTypeEnum(item.(interface{})))
 	}
 
 	return items

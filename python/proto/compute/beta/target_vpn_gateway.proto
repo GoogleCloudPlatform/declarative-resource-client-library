@@ -58,6 +58,7 @@ message ListComputeBetaTargetVpnGatewayRequest {
 message ListComputeBetaTargetVpnGatewayResponse {
   repeated ComputeBetaTargetVpnGateway items = 1;
 }
+
 service ComputeBetaTargetVpnGatewayService {
   rpc ApplyComputeBetaTargetVpnGateway(ApplyComputeBetaTargetVpnGatewayRequest) returns (ComputeBetaTargetVpnGateway);
   rpc DeleteComputeBetaTargetVpnGateway(DeleteComputeBetaTargetVpnGatewayRequest) returns (google.protobuf.Empty);

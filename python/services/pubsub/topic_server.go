@@ -20,8 +20,6 @@ import (
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
 	pubsubpb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/pubsub/pubsub_go_proto"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub"
-
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/serialization"
 )
 
 // Server implements the gRPC interface for Topic.
@@ -92,16 +90,6 @@ func (s *TopicServer) ApplyPubsubTopic(ctx context.Context, request *pubsubpb.Ap
 		return nil, err
 	}
 	return s.applyTopic(ctx, cl, request)
-}
-
-func (s *TopicServer) PubsubTopicAsHcl(ctx context.Context, request *pubsubpb.PubsubTopicAsHclRequest) (*pubsubpb.PubsubTopicAsHclResponse, error) {
-	p := ProtoToTopic(request.GetResource())
-	resStr, err := serialization.PubsubTopicAsHCL(*p)
-	if err != nil {
-		return nil, err
-	}
-
-	return &pubsubpb.PubsubTopicAsHclResponse{Hcl: resStr}, nil
 }
 
 // DeleteTopic handles the gRPC request by passing it to the underlying Topic Delete() method.

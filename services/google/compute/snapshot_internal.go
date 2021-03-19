@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 
 	"github.com/mohae/deepcopy"
@@ -168,7 +167,7 @@ func (op *updateSnapshotSetLabelsOperation) do(ctx context.Context, r *Snapshot,
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -205,7 +204,7 @@ func (c *Client) listSnapshotRaw(ctx context.Context, project, pageToken string,
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -279,7 +278,7 @@ func (op *deleteSnapshotOperation) do(ctx context.Context, r *Snapshot, c *Clien
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -302,7 +301,13 @@ func (op *deleteSnapshotOperation) do(ctx context.Context, r *Snapshot, c *Clien
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createSnapshotOperation struct{}
+type createSnapshotOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createSnapshotOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createSnapshotOperation) do(ctx context.Context, r *Snapshot, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -318,7 +323,7 @@ func (op *createSnapshotOperation) do(ctx context.Context, r *Snapshot, c *Clien
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -332,8 +337,10 @@ func (op *createSnapshotOperation) do(ctx context.Context, r *Snapshot, c *Clien
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetSnapshot(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -346,7 +353,7 @@ func (c *Client) getSnapshotRaw(ctx context.Context, r *Snapshot) ([]byte, error
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -423,14 +430,6 @@ func canonicalizeSnapshotInitialState(rawInitial, rawDesired *Snapshot) (*Snapsh
 
 func canonicalizeSnapshotDesiredState(rawDesired, rawInitial *Snapshot, opts ...dcl.ApplyOption) (*Snapshot, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Snapshot); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Snapshot, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -439,10 +438,10 @@ func canonicalizeSnapshotDesiredState(rawDesired, rawInitial *Snapshot, opts ...
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
 	if dcl.NameToSelfLink(rawDesired.SourceDisk, rawInitial.SourceDisk) {
@@ -459,7 +458,7 @@ func canonicalizeSnapshotDesiredState(rawDesired, rawInitial *Snapshot, opts ...
 	}
 	rawDesired.SnapshotEncryptionKey = canonicalizeSnapshotSnapshotEncryptionKey(rawDesired.SnapshotEncryptionKey, rawInitial.SnapshotEncryptionKey, opts...)
 	rawDesired.SourceDiskEncryptionKey = canonicalizeSnapshotSourceDiskEncryptionKey(rawDesired.SourceDiskEncryptionKey, rawInitial.SourceDiskEncryptionKey, opts...)
-	if dcl.IsZeroValue(rawDesired.SelfLink) {
+	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
@@ -483,11 +482,17 @@ func canonicalizeSnapshotNewState(c *Client, rawNew, rawDesired *Snapshot) (*Sna
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.SourceDisk) && dcl.IsEmptyValueIndirect(rawDesired.SourceDisk) {
@@ -520,6 +525,9 @@ func canonicalizeSnapshotNewState(c *Client, rawNew, rawDesired *Snapshot) (*Sna
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
@@ -547,19 +555,14 @@ func canonicalizeSnapshotSnapshotEncryptionKey(des, initial *SnapshotSnapshotEnc
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Snapshot)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.RawKey) {
+	if dcl.StringCanonicalize(des.RawKey, initial.RawKey) || dcl.IsZeroValue(des.RawKey) {
 		des.RawKey = initial.RawKey
 	}
-	if dcl.IsZeroValue(des.Sha256) {
+	if dcl.StringCanonicalize(des.Sha256, initial.Sha256) || dcl.IsZeroValue(des.Sha256) {
 		des.Sha256 = initial.Sha256
 	}
 
@@ -569,6 +572,13 @@ func canonicalizeSnapshotSnapshotEncryptionKey(des, initial *SnapshotSnapshotEnc
 func canonicalizeNewSnapshotSnapshotEncryptionKey(c *Client, des, nw *SnapshotSnapshotEncryptionKey) *SnapshotSnapshotEncryptionKey {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) || dcl.IsZeroValue(des.RawKey) {
+		nw.RawKey = des.RawKey
+	}
+	if dcl.StringCanonicalize(des.Sha256, nw.Sha256) || dcl.IsZeroValue(des.Sha256) {
+		nw.Sha256 = des.Sha256
 	}
 
 	return nw
@@ -605,16 +615,11 @@ func canonicalizeSnapshotSourceDiskEncryptionKey(des, initial *SnapshotSourceDis
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Snapshot)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.RawKey) {
+	if dcl.StringCanonicalize(des.RawKey, initial.RawKey) || dcl.IsZeroValue(des.RawKey) {
 		des.RawKey = initial.RawKey
 	}
 
@@ -624,6 +629,10 @@ func canonicalizeSnapshotSourceDiskEncryptionKey(des, initial *SnapshotSourceDis
 func canonicalizeNewSnapshotSourceDiskEncryptionKey(c *Client, des, nw *SnapshotSourceDiskEncryptionKey) *SnapshotSourceDiskEncryptionKey {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) || dcl.IsZeroValue(des.RawKey) {
+		nw.RawKey = des.RawKey
 	}
 
 	return nw
@@ -673,14 +682,14 @@ func diffSnapshot(c *Client, desired, actual *Snapshot, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []snapshotDiff
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, snapshotDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, snapshotDiff{
 			RequiresRecreate: true,
@@ -694,7 +703,7 @@ func diffSnapshot(c *Client, desired, actual *Snapshot, opts ...dcl.ApplyOption)
 			FieldName:        "SourceDisk",
 		})
 	}
-	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
+	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
 		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, snapshotDiff{
@@ -727,6 +736,16 @@ func diffSnapshot(c *Client, desired, actual *Snapshot, opts ...dcl.ApplyOption)
 
 	return deduped, nil
 }
+func compareSnapshotSnapshotEncryptionKey(c *Client, desired, actual *SnapshotSnapshotEncryptionKey) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	return false
+}
+
 func compareSnapshotSnapshotEncryptionKeySlice(c *Client, desired, actual []SnapshotSnapshotEncryptionKey) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in SnapshotSnapshotEncryptionKey, lengths unequal.")
@@ -741,23 +760,19 @@ func compareSnapshotSnapshotEncryptionKeySlice(c *Client, desired, actual []Snap
 	return false
 }
 
-func compareSnapshotSnapshotEncryptionKey(c *Client, desired, actual *SnapshotSnapshotEncryptionKey) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	return false
-}
-func compareSnapshotSourceDiskEncryptionKeySlice(c *Client, desired, actual []SnapshotSourceDiskEncryptionKey) bool {
+func compareSnapshotSnapshotEncryptionKeyMap(c *Client, desired, actual map[string]SnapshotSnapshotEncryptionKey) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in SnapshotSourceDiskEncryptionKey, lengths unequal.")
+		c.Config.Logger.Info("Diff in SnapshotSnapshotEncryptionKey, lengths unequal.")
 		return true
 	}
-	for i := 0; i < len(desired); i++ {
-		if compareSnapshotSourceDiskEncryptionKey(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SnapshotSourceDiskEncryptionKey, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in SnapshotSnapshotEncryptionKey, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareSnapshotSnapshotEncryptionKey(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in SnapshotSnapshotEncryptionKey, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -775,9 +790,42 @@ func compareSnapshotSourceDiskEncryptionKey(c *Client, desired, actual *Snapshot
 		c.Config.Logger.Infof("desired RawKey %s - but actually nil", dcl.SprintResource(desired.RawKey))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RawKey, actual.RawKey) && !dcl.IsZeroValue(desired.RawKey) && !(dcl.IsEmptyValueIndirect(desired.RawKey) && dcl.IsZeroValue(actual.RawKey)) {
+	if !dcl.StringCanonicalize(desired.RawKey, actual.RawKey) && !dcl.IsZeroValue(desired.RawKey) {
 		c.Config.Logger.Infof("Diff in RawKey. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RawKey), dcl.SprintResource(actual.RawKey))
 		return true
+	}
+	return false
+}
+
+func compareSnapshotSourceDiskEncryptionKeySlice(c *Client, desired, actual []SnapshotSourceDiskEncryptionKey) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in SnapshotSourceDiskEncryptionKey, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareSnapshotSourceDiskEncryptionKey(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in SnapshotSourceDiskEncryptionKey, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareSnapshotSourceDiskEncryptionKeyMap(c *Client, desired, actual map[string]SnapshotSourceDiskEncryptionKey) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in SnapshotSourceDiskEncryptionKey, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in SnapshotSourceDiskEncryptionKey, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareSnapshotSourceDiskEncryptionKey(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in SnapshotSourceDiskEncryptionKey, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
 	}
 	return false
 }
@@ -787,7 +835,10 @@ func compareSnapshotSourceDiskEncryptionKey(c *Client, desired, actual *Snapshot
 // short-form so they can be substituted in.
 func (r *Snapshot) urlNormalized() *Snapshot {
 	normalized := deepcopy.Copy(*r).(Snapshot)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.SourceDisk = dcl.SelfLinkToName(r.SourceDisk)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Zone = dcl.SelfLinkToName(r.Zone)
 	return &normalized
@@ -839,6 +890,10 @@ func unmarshalSnapshot(b []byte, c *Client) (*Snapshot, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapSnapshot(m, c)
+}
+
+func unmarshalMapSnapshot(m map[string]interface{}, c *Client) (*Snapshot, error) {
 
 	return flattenSnapshot(c, m), nil
 }

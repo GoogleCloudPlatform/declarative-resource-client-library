@@ -169,7 +169,7 @@ func (op *updateInterconnectPatchOperation) do(ctx context.Context, r *Interconn
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -206,7 +206,7 @@ func (c *Client) listInterconnectRaw(ctx context.Context, project, pageToken str
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -280,7 +280,7 @@ func (op *deleteInterconnectOperation) do(ctx context.Context, r *Interconnect, 
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -303,7 +303,13 @@ func (op *deleteInterconnectOperation) do(ctx context.Context, r *Interconnect, 
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createInterconnectOperation struct{}
+type createInterconnectOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createInterconnectOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createInterconnectOperation) do(ctx context.Context, r *Interconnect, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -319,7 +325,7 @@ func (op *createInterconnectOperation) do(ctx context.Context, r *Interconnect, 
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -333,8 +339,10 @@ func (op *createInterconnectOperation) do(ctx context.Context, r *Interconnect, 
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetInterconnect(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -347,7 +355,7 @@ func (c *Client) getInterconnectRaw(ctx context.Context, r *Interconnect) ([]byt
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -424,33 +432,25 @@ func canonicalizeInterconnectInitialState(rawInitial, rawDesired *Interconnect) 
 
 func canonicalizeInterconnectDesiredState(rawDesired, rawInitial *Interconnect, opts ...dcl.ApplyOption) (*Interconnect, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Interconnect); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Interconnect, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.IsZeroValue(rawDesired.SelfLink) {
+	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}
 	if dcl.IsZeroValue(rawDesired.Id) {
 		rawDesired.Id = rawInitial.Id
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Location) {
+	if dcl.StringCanonicalize(rawDesired.Location, rawInitial.Location) {
 		rawDesired.Location = rawInitial.Location
 	}
 	if dcl.IsZeroValue(rawDesired.LinkType) {
@@ -465,10 +465,10 @@ func canonicalizeInterconnectDesiredState(rawDesired, rawInitial *Interconnect, 
 	if dcl.IsZeroValue(rawDesired.AdminEnabled) {
 		rawDesired.AdminEnabled = rawInitial.AdminEnabled
 	}
-	if dcl.IsZeroValue(rawDesired.NocContactEmail) {
+	if dcl.StringCanonicalize(rawDesired.NocContactEmail, rawInitial.NocContactEmail) {
 		rawDesired.NocContactEmail = rawInitial.NocContactEmail
 	}
-	if dcl.IsZeroValue(rawDesired.CustomerName) {
+	if dcl.StringCanonicalize(rawDesired.CustomerName, rawInitial.CustomerName) {
 		rawDesired.CustomerName = rawInitial.CustomerName
 	}
 	if dcl.IsZeroValue(rawDesired.OperationalStatus) {
@@ -480,13 +480,13 @@ func canonicalizeInterconnectDesiredState(rawDesired, rawInitial *Interconnect, 
 	if dcl.IsZeroValue(rawDesired.InterconnectAttachments) {
 		rawDesired.InterconnectAttachments = rawInitial.InterconnectAttachments
 	}
-	if dcl.IsZeroValue(rawDesired.PeerIPAddress) {
+	if dcl.StringCanonicalize(rawDesired.PeerIPAddress, rawInitial.PeerIPAddress) {
 		rawDesired.PeerIPAddress = rawInitial.PeerIPAddress
 	}
-	if dcl.IsZeroValue(rawDesired.GoogleIPAddress) {
+	if dcl.StringCanonicalize(rawDesired.GoogleIPAddress, rawInitial.GoogleIPAddress) {
 		rawDesired.GoogleIPAddress = rawInitial.GoogleIPAddress
 	}
-	if dcl.IsZeroValue(rawDesired.GoogleReferenceId) {
+	if dcl.StringCanonicalize(rawDesired.GoogleReferenceId, rawInitial.GoogleReferenceId) {
 		rawDesired.GoogleReferenceId = rawInitial.GoogleReferenceId
 	}
 	if dcl.IsZeroValue(rawDesired.ExpectedOutages) {
@@ -510,11 +510,17 @@ func canonicalizeInterconnectNewState(c *Client, rawNew, rawDesired *Interconnec
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Id) && dcl.IsEmptyValueIndirect(rawDesired.Id) {
@@ -525,11 +531,17 @@ func canonicalizeInterconnectNewState(c *Client, rawNew, rawDesired *Interconnec
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
 		rawNew.Location = rawDesired.Location
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Location, rawNew.Location) {
+			rawNew.Location = rawDesired.Location
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.LinkType) && dcl.IsEmptyValueIndirect(rawDesired.LinkType) {
@@ -555,11 +567,17 @@ func canonicalizeInterconnectNewState(c *Client, rawNew, rawDesired *Interconnec
 	if dcl.IsEmptyValueIndirect(rawNew.NocContactEmail) && dcl.IsEmptyValueIndirect(rawDesired.NocContactEmail) {
 		rawNew.NocContactEmail = rawDesired.NocContactEmail
 	} else {
+		if dcl.StringCanonicalize(rawDesired.NocContactEmail, rawNew.NocContactEmail) {
+			rawNew.NocContactEmail = rawDesired.NocContactEmail
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.CustomerName) && dcl.IsEmptyValueIndirect(rawDesired.CustomerName) {
 		rawNew.CustomerName = rawDesired.CustomerName
 	} else {
+		if dcl.StringCanonicalize(rawDesired.CustomerName, rawNew.CustomerName) {
+			rawNew.CustomerName = rawDesired.CustomerName
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.OperationalStatus) && dcl.IsEmptyValueIndirect(rawDesired.OperationalStatus) {
@@ -580,16 +598,25 @@ func canonicalizeInterconnectNewState(c *Client, rawNew, rawDesired *Interconnec
 	if dcl.IsEmptyValueIndirect(rawNew.PeerIPAddress) && dcl.IsEmptyValueIndirect(rawDesired.PeerIPAddress) {
 		rawNew.PeerIPAddress = rawDesired.PeerIPAddress
 	} else {
+		if dcl.StringCanonicalize(rawDesired.PeerIPAddress, rawNew.PeerIPAddress) {
+			rawNew.PeerIPAddress = rawDesired.PeerIPAddress
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.GoogleIPAddress) && dcl.IsEmptyValueIndirect(rawDesired.GoogleIPAddress) {
 		rawNew.GoogleIPAddress = rawDesired.GoogleIPAddress
 	} else {
+		if dcl.StringCanonicalize(rawDesired.GoogleIPAddress, rawNew.GoogleIPAddress) {
+			rawNew.GoogleIPAddress = rawDesired.GoogleIPAddress
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.GoogleReferenceId) && dcl.IsEmptyValueIndirect(rawDesired.GoogleReferenceId) {
 		rawNew.GoogleReferenceId = rawDesired.GoogleReferenceId
 	} else {
+		if dcl.StringCanonicalize(rawDesired.GoogleReferenceId, rawNew.GoogleReferenceId) {
+			rawNew.GoogleReferenceId = rawDesired.GoogleReferenceId
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ExpectedOutages) && dcl.IsEmptyValueIndirect(rawDesired.ExpectedOutages) {
@@ -620,19 +647,14 @@ func canonicalizeInterconnectExpectedOutages(des, initial *InterconnectExpectedO
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Interconnect)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
-	if dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
 		des.Description = initial.Description
 	}
 	if dcl.IsZeroValue(des.Source) {
@@ -660,6 +682,13 @@ func canonicalizeInterconnectExpectedOutages(des, initial *InterconnectExpectedO
 func canonicalizeNewInterconnectExpectedOutages(c *Client, des, nw *InterconnectExpectedOutages) *InterconnectExpectedOutages {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+		nw.Description = des.Description
 	}
 
 	return nw
@@ -696,22 +725,17 @@ func canonicalizeInterconnectCircuitInfos(des, initial *InterconnectCircuitInfos
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Interconnect)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.GoogleCircuitId) {
+	if dcl.StringCanonicalize(des.GoogleCircuitId, initial.GoogleCircuitId) || dcl.IsZeroValue(des.GoogleCircuitId) {
 		des.GoogleCircuitId = initial.GoogleCircuitId
 	}
-	if dcl.IsZeroValue(des.GoogleDemarcId) {
+	if dcl.StringCanonicalize(des.GoogleDemarcId, initial.GoogleDemarcId) || dcl.IsZeroValue(des.GoogleDemarcId) {
 		des.GoogleDemarcId = initial.GoogleDemarcId
 	}
-	if dcl.IsZeroValue(des.CustomerDemarcId) {
+	if dcl.StringCanonicalize(des.CustomerDemarcId, initial.CustomerDemarcId) || dcl.IsZeroValue(des.CustomerDemarcId) {
 		des.CustomerDemarcId = initial.CustomerDemarcId
 	}
 
@@ -721,6 +745,16 @@ func canonicalizeInterconnectCircuitInfos(des, initial *InterconnectCircuitInfos
 func canonicalizeNewInterconnectCircuitInfos(c *Client, des, nw *InterconnectCircuitInfos) *InterconnectCircuitInfos {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.GoogleCircuitId, nw.GoogleCircuitId) || dcl.IsZeroValue(des.GoogleCircuitId) {
+		nw.GoogleCircuitId = des.GoogleCircuitId
+	}
+	if dcl.StringCanonicalize(des.GoogleDemarcId, nw.GoogleDemarcId) || dcl.IsZeroValue(des.GoogleDemarcId) {
+		nw.GoogleDemarcId = des.GoogleDemarcId
+	}
+	if dcl.StringCanonicalize(des.CustomerDemarcId, nw.CustomerDemarcId) || dcl.IsZeroValue(des.CustomerDemarcId) {
+		nw.CustomerDemarcId = des.CustomerDemarcId
 	}
 
 	return nw
@@ -770,7 +804,7 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 	}
 
 	var diffs []interconnectDiff
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, interconnectDiff{
@@ -779,7 +813,7 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 
 		diffs = append(diffs, interconnectDiff{
@@ -788,7 +822,7 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Location) && (dcl.IsZeroValue(actual.Location) || !reflect.DeepEqual(*desired.Location, *actual.Location)) {
+	if !dcl.IsZeroValue(desired.Location) && !dcl.StringCanonicalize(desired.Location, actual.Location) {
 		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %v\nACTUAL: %v", desired.Location, actual.Location)
 
 		diffs = append(diffs, interconnectDiff{
@@ -797,7 +831,7 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.LinkType) && (dcl.IsZeroValue(actual.LinkType) || !reflect.DeepEqual(*desired.LinkType, *actual.LinkType)) {
+	if !reflect.DeepEqual(desired.LinkType, actual.LinkType) {
 		c.Config.Logger.Infof("Detected diff in LinkType.\nDESIRED: %v\nACTUAL: %v", desired.LinkType, actual.LinkType)
 
 		diffs = append(diffs, interconnectDiff{
@@ -806,7 +840,7 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.RequestedLinkCount) && (dcl.IsZeroValue(actual.RequestedLinkCount) || !reflect.DeepEqual(*desired.RequestedLinkCount, *actual.RequestedLinkCount)) {
+	if !reflect.DeepEqual(desired.RequestedLinkCount, actual.RequestedLinkCount) {
 		c.Config.Logger.Infof("Detected diff in RequestedLinkCount.\nDESIRED: %v\nACTUAL: %v", desired.RequestedLinkCount, actual.RequestedLinkCount)
 
 		diffs = append(diffs, interconnectDiff{
@@ -815,7 +849,7 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.InterconnectType) && (dcl.IsZeroValue(actual.InterconnectType) || !reflect.DeepEqual(*desired.InterconnectType, *actual.InterconnectType)) {
+	if !reflect.DeepEqual(desired.InterconnectType, actual.InterconnectType) {
 		c.Config.Logger.Infof("Detected diff in InterconnectType.\nDESIRED: %v\nACTUAL: %v", desired.InterconnectType, actual.InterconnectType)
 
 		diffs = append(diffs, interconnectDiff{
@@ -824,7 +858,7 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.AdminEnabled) && (dcl.IsZeroValue(actual.AdminEnabled) || !reflect.DeepEqual(*desired.AdminEnabled, *actual.AdminEnabled)) {
+	if !reflect.DeepEqual(desired.AdminEnabled, actual.AdminEnabled) {
 		c.Config.Logger.Infof("Detected diff in AdminEnabled.\nDESIRED: %v\nACTUAL: %v", desired.AdminEnabled, actual.AdminEnabled)
 
 		diffs = append(diffs, interconnectDiff{
@@ -833,7 +867,7 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.NocContactEmail) && (dcl.IsZeroValue(actual.NocContactEmail) || !reflect.DeepEqual(*desired.NocContactEmail, *actual.NocContactEmail)) {
+	if !dcl.IsZeroValue(desired.NocContactEmail) && !dcl.StringCanonicalize(desired.NocContactEmail, actual.NocContactEmail) {
 		c.Config.Logger.Infof("Detected diff in NocContactEmail.\nDESIRED: %v\nACTUAL: %v", desired.NocContactEmail, actual.NocContactEmail)
 
 		diffs = append(diffs, interconnectDiff{
@@ -842,7 +876,7 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.CustomerName) && (dcl.IsZeroValue(actual.CustomerName) || !reflect.DeepEqual(*desired.CustomerName, *actual.CustomerName)) {
+	if !dcl.IsZeroValue(desired.CustomerName) && !dcl.StringCanonicalize(desired.CustomerName, actual.CustomerName) {
 		c.Config.Logger.Infof("Detected diff in CustomerName.\nDESIRED: %v\nACTUAL: %v", desired.CustomerName, actual.CustomerName)
 
 		diffs = append(diffs, interconnectDiff{
@@ -875,6 +909,80 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 
 	return deduped, nil
 }
+func compareInterconnectExpectedOutages(c *Client, desired, actual *InterconnectExpectedOutages) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	if actual.Description == nil && desired.Description != nil && !dcl.IsEmptyValueIndirect(desired.Description) {
+		c.Config.Logger.Infof("desired Description %s - but actually nil", dcl.SprintResource(desired.Description))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) {
+		c.Config.Logger.Infof("Diff in Description. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
+		return true
+	}
+	if actual.Source == nil && desired.Source != nil && !dcl.IsEmptyValueIndirect(desired.Source) {
+		c.Config.Logger.Infof("desired Source %s - but actually nil", dcl.SprintResource(desired.Source))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Source, actual.Source) && !dcl.IsZeroValue(desired.Source) {
+		c.Config.Logger.Infof("Diff in Source. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Source), dcl.SprintResource(actual.Source))
+		return true
+	}
+	if actual.State == nil && desired.State != nil && !dcl.IsEmptyValueIndirect(desired.State) {
+		c.Config.Logger.Infof("desired State %s - but actually nil", dcl.SprintResource(desired.State))
+		return true
+	}
+	if !reflect.DeepEqual(desired.State, actual.State) && !dcl.IsZeroValue(desired.State) {
+		c.Config.Logger.Infof("Diff in State. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.State), dcl.SprintResource(actual.State))
+		return true
+	}
+	if actual.IssueType == nil && desired.IssueType != nil && !dcl.IsEmptyValueIndirect(desired.IssueType) {
+		c.Config.Logger.Infof("desired IssueType %s - but actually nil", dcl.SprintResource(desired.IssueType))
+		return true
+	}
+	if !reflect.DeepEqual(desired.IssueType, actual.IssueType) && !dcl.IsZeroValue(desired.IssueType) {
+		c.Config.Logger.Infof("Diff in IssueType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IssueType), dcl.SprintResource(actual.IssueType))
+		return true
+	}
+	if actual.AffectedCircuits == nil && desired.AffectedCircuits != nil && !dcl.IsEmptyValueIndirect(desired.AffectedCircuits) {
+		c.Config.Logger.Infof("desired AffectedCircuits %s - but actually nil", dcl.SprintResource(desired.AffectedCircuits))
+		return true
+	}
+	if !dcl.StringSliceEquals(desired.AffectedCircuits, actual.AffectedCircuits) && !dcl.IsZeroValue(desired.AffectedCircuits) {
+		c.Config.Logger.Infof("Diff in AffectedCircuits. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AffectedCircuits), dcl.SprintResource(actual.AffectedCircuits))
+		return true
+	}
+	if actual.StartTime == nil && desired.StartTime != nil && !dcl.IsEmptyValueIndirect(desired.StartTime) {
+		c.Config.Logger.Infof("desired StartTime %s - but actually nil", dcl.SprintResource(desired.StartTime))
+		return true
+	}
+	if !reflect.DeepEqual(desired.StartTime, actual.StartTime) && !dcl.IsZeroValue(desired.StartTime) {
+		c.Config.Logger.Infof("Diff in StartTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StartTime), dcl.SprintResource(actual.StartTime))
+		return true
+	}
+	if actual.EndTime == nil && desired.EndTime != nil && !dcl.IsEmptyValueIndirect(desired.EndTime) {
+		c.Config.Logger.Infof("desired EndTime %s - but actually nil", dcl.SprintResource(desired.EndTime))
+		return true
+	}
+	if !reflect.DeepEqual(desired.EndTime, actual.EndTime) && !dcl.IsZeroValue(desired.EndTime) {
+		c.Config.Logger.Infof("Diff in EndTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EndTime), dcl.SprintResource(actual.EndTime))
+		return true
+	}
+	return false
+}
+
 func compareInterconnectExpectedOutagesSlice(c *Client, desired, actual []InterconnectExpectedOutages) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in InterconnectExpectedOutages, lengths unequal.")
@@ -889,87 +997,19 @@ func compareInterconnectExpectedOutagesSlice(c *Client, desired, actual []Interc
 	return false
 }
 
-func compareInterconnectExpectedOutages(c *Client, desired, actual *InterconnectExpectedOutages) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.Description == nil && desired.Description != nil && !dcl.IsEmptyValueIndirect(desired.Description) {
-		c.Config.Logger.Infof("desired Description %s - but actually nil", dcl.SprintResource(desired.Description))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) && !(dcl.IsEmptyValueIndirect(desired.Description) && dcl.IsZeroValue(actual.Description)) {
-		c.Config.Logger.Infof("Diff in Description. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
-		return true
-	}
-	if actual.Source == nil && desired.Source != nil && !dcl.IsEmptyValueIndirect(desired.Source) {
-		c.Config.Logger.Infof("desired Source %s - but actually nil", dcl.SprintResource(desired.Source))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Source, actual.Source) && !dcl.IsZeroValue(desired.Source) && !(dcl.IsEmptyValueIndirect(desired.Source) && dcl.IsZeroValue(actual.Source)) {
-		c.Config.Logger.Infof("Diff in Source. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Source), dcl.SprintResource(actual.Source))
-		return true
-	}
-	if actual.State == nil && desired.State != nil && !dcl.IsEmptyValueIndirect(desired.State) {
-		c.Config.Logger.Infof("desired State %s - but actually nil", dcl.SprintResource(desired.State))
-		return true
-	}
-	if !reflect.DeepEqual(desired.State, actual.State) && !dcl.IsZeroValue(desired.State) && !(dcl.IsEmptyValueIndirect(desired.State) && dcl.IsZeroValue(actual.State)) {
-		c.Config.Logger.Infof("Diff in State. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.State), dcl.SprintResource(actual.State))
-		return true
-	}
-	if actual.IssueType == nil && desired.IssueType != nil && !dcl.IsEmptyValueIndirect(desired.IssueType) {
-		c.Config.Logger.Infof("desired IssueType %s - but actually nil", dcl.SprintResource(desired.IssueType))
-		return true
-	}
-	if !reflect.DeepEqual(desired.IssueType, actual.IssueType) && !dcl.IsZeroValue(desired.IssueType) && !(dcl.IsEmptyValueIndirect(desired.IssueType) && dcl.IsZeroValue(actual.IssueType)) {
-		c.Config.Logger.Infof("Diff in IssueType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IssueType), dcl.SprintResource(actual.IssueType))
-		return true
-	}
-	if actual.AffectedCircuits == nil && desired.AffectedCircuits != nil && !dcl.IsEmptyValueIndirect(desired.AffectedCircuits) {
-		c.Config.Logger.Infof("desired AffectedCircuits %s - but actually nil", dcl.SprintResource(desired.AffectedCircuits))
-		return true
-	}
-	if !dcl.SliceEquals(desired.AffectedCircuits, actual.AffectedCircuits) && !dcl.IsZeroValue(desired.AffectedCircuits) {
-		c.Config.Logger.Infof("Diff in AffectedCircuits. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AffectedCircuits), dcl.SprintResource(actual.AffectedCircuits))
-		return true
-	}
-	if actual.StartTime == nil && desired.StartTime != nil && !dcl.IsEmptyValueIndirect(desired.StartTime) {
-		c.Config.Logger.Infof("desired StartTime %s - but actually nil", dcl.SprintResource(desired.StartTime))
-		return true
-	}
-	if !reflect.DeepEqual(desired.StartTime, actual.StartTime) && !dcl.IsZeroValue(desired.StartTime) && !(dcl.IsEmptyValueIndirect(desired.StartTime) && dcl.IsZeroValue(actual.StartTime)) {
-		c.Config.Logger.Infof("Diff in StartTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StartTime), dcl.SprintResource(actual.StartTime))
-		return true
-	}
-	if actual.EndTime == nil && desired.EndTime != nil && !dcl.IsEmptyValueIndirect(desired.EndTime) {
-		c.Config.Logger.Infof("desired EndTime %s - but actually nil", dcl.SprintResource(desired.EndTime))
-		return true
-	}
-	if !reflect.DeepEqual(desired.EndTime, actual.EndTime) && !dcl.IsZeroValue(desired.EndTime) && !(dcl.IsEmptyValueIndirect(desired.EndTime) && dcl.IsZeroValue(actual.EndTime)) {
-		c.Config.Logger.Infof("Diff in EndTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EndTime), dcl.SprintResource(actual.EndTime))
-		return true
-	}
-	return false
-}
-func compareInterconnectCircuitInfosSlice(c *Client, desired, actual []InterconnectCircuitInfos) bool {
+func compareInterconnectExpectedOutagesMap(c *Client, desired, actual map[string]InterconnectExpectedOutages) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InterconnectCircuitInfos, lengths unequal.")
+		c.Config.Logger.Info("Diff in InterconnectExpectedOutages, lengths unequal.")
 		return true
 	}
-	for i := 0; i < len(desired); i++ {
-		if compareInterconnectCircuitInfos(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InterconnectCircuitInfos, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InterconnectExpectedOutages, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInterconnectExpectedOutages(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InterconnectExpectedOutages, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -987,7 +1027,7 @@ func compareInterconnectCircuitInfos(c *Client, desired, actual *InterconnectCir
 		c.Config.Logger.Infof("desired GoogleCircuitId %s - but actually nil", dcl.SprintResource(desired.GoogleCircuitId))
 		return true
 	}
-	if !reflect.DeepEqual(desired.GoogleCircuitId, actual.GoogleCircuitId) && !dcl.IsZeroValue(desired.GoogleCircuitId) && !(dcl.IsEmptyValueIndirect(desired.GoogleCircuitId) && dcl.IsZeroValue(actual.GoogleCircuitId)) {
+	if !dcl.StringCanonicalize(desired.GoogleCircuitId, actual.GoogleCircuitId) && !dcl.IsZeroValue(desired.GoogleCircuitId) {
 		c.Config.Logger.Infof("Diff in GoogleCircuitId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GoogleCircuitId), dcl.SprintResource(actual.GoogleCircuitId))
 		return true
 	}
@@ -995,7 +1035,7 @@ func compareInterconnectCircuitInfos(c *Client, desired, actual *InterconnectCir
 		c.Config.Logger.Infof("desired GoogleDemarcId %s - but actually nil", dcl.SprintResource(desired.GoogleDemarcId))
 		return true
 	}
-	if !reflect.DeepEqual(desired.GoogleDemarcId, actual.GoogleDemarcId) && !dcl.IsZeroValue(desired.GoogleDemarcId) && !(dcl.IsEmptyValueIndirect(desired.GoogleDemarcId) && dcl.IsZeroValue(actual.GoogleDemarcId)) {
+	if !dcl.StringCanonicalize(desired.GoogleDemarcId, actual.GoogleDemarcId) && !dcl.IsZeroValue(desired.GoogleDemarcId) {
 		c.Config.Logger.Infof("Diff in GoogleDemarcId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GoogleDemarcId), dcl.SprintResource(actual.GoogleDemarcId))
 		return true
 	}
@@ -1003,12 +1043,46 @@ func compareInterconnectCircuitInfos(c *Client, desired, actual *InterconnectCir
 		c.Config.Logger.Infof("desired CustomerDemarcId %s - but actually nil", dcl.SprintResource(desired.CustomerDemarcId))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CustomerDemarcId, actual.CustomerDemarcId) && !dcl.IsZeroValue(desired.CustomerDemarcId) && !(dcl.IsEmptyValueIndirect(desired.CustomerDemarcId) && dcl.IsZeroValue(actual.CustomerDemarcId)) {
+	if !dcl.StringCanonicalize(desired.CustomerDemarcId, actual.CustomerDemarcId) && !dcl.IsZeroValue(desired.CustomerDemarcId) {
 		c.Config.Logger.Infof("Diff in CustomerDemarcId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CustomerDemarcId), dcl.SprintResource(actual.CustomerDemarcId))
 		return true
 	}
 	return false
 }
+
+func compareInterconnectCircuitInfosSlice(c *Client, desired, actual []InterconnectCircuitInfos) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InterconnectCircuitInfos, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareInterconnectCircuitInfos(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InterconnectCircuitInfos, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInterconnectCircuitInfosMap(c *Client, desired, actual map[string]InterconnectCircuitInfos) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InterconnectCircuitInfos, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InterconnectCircuitInfos, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInterconnectCircuitInfos(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InterconnectCircuitInfos, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
 func compareInterconnectLinkTypeEnumSlice(c *Client, desired, actual []InterconnectLinkTypeEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in InterconnectLinkTypeEnum, lengths unequal.")
@@ -1140,6 +1214,15 @@ func compareInterconnectStateEnum(c *Client, desired, actual *InterconnectStateE
 // short-form so they can be substituted in.
 func (r *Interconnect) urlNormalized() *Interconnect {
 	normalized := deepcopy.Copy(*r).(Interconnect)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.NocContactEmail = dcl.SelfLinkToName(r.NocContactEmail)
+	normalized.CustomerName = dcl.SelfLinkToName(r.CustomerName)
+	normalized.PeerIPAddress = dcl.SelfLinkToName(r.PeerIPAddress)
+	normalized.GoogleIPAddress = dcl.SelfLinkToName(r.GoogleIPAddress)
+	normalized.GoogleReferenceId = dcl.SelfLinkToName(r.GoogleReferenceId)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -1190,6 +1273,10 @@ func unmarshalInterconnect(b []byte, c *Client) (*Interconnect, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapInterconnect(m, c)
+}
+
+func unmarshalMapInterconnect(m map[string]interface{}, c *Client) (*Interconnect, error) {
 
 	return flattenInterconnect(c, m), nil
 }
@@ -1577,7 +1664,7 @@ func flattenInterconnectLinkTypeEnumSlice(c *Client, i interface{}) []Interconne
 
 	items := make([]InterconnectLinkTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInterconnectLinkTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenInterconnectLinkTypeEnum(item.(interface{})))
 	}
 
 	return items
@@ -1608,7 +1695,7 @@ func flattenInterconnectInterconnectTypeEnumSlice(c *Client, i interface{}) []In
 
 	items := make([]InterconnectInterconnectTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInterconnectInterconnectTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenInterconnectInterconnectTypeEnum(item.(interface{})))
 	}
 
 	return items
@@ -1639,7 +1726,7 @@ func flattenInterconnectOperationalStatusEnumSlice(c *Client, i interface{}) []I
 
 	items := make([]InterconnectOperationalStatusEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInterconnectOperationalStatusEnum(item.(map[string]interface{})))
+		items = append(items, *flattenInterconnectOperationalStatusEnum(item.(interface{})))
 	}
 
 	return items
@@ -1670,7 +1757,7 @@ func flattenInterconnectExpectedOutagesSourceEnumSlice(c *Client, i interface{})
 
 	items := make([]InterconnectExpectedOutagesSourceEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInterconnectExpectedOutagesSourceEnum(item.(map[string]interface{})))
+		items = append(items, *flattenInterconnectExpectedOutagesSourceEnum(item.(interface{})))
 	}
 
 	return items
@@ -1701,7 +1788,7 @@ func flattenInterconnectExpectedOutagesStateEnumSlice(c *Client, i interface{}) 
 
 	items := make([]InterconnectExpectedOutagesStateEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInterconnectExpectedOutagesStateEnum(item.(map[string]interface{})))
+		items = append(items, *flattenInterconnectExpectedOutagesStateEnum(item.(interface{})))
 	}
 
 	return items
@@ -1732,7 +1819,7 @@ func flattenInterconnectExpectedOutagesIssueTypeEnumSlice(c *Client, i interface
 
 	items := make([]InterconnectExpectedOutagesIssueTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInterconnectExpectedOutagesIssueTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenInterconnectExpectedOutagesIssueTypeEnum(item.(interface{})))
 	}
 
 	return items
@@ -1763,7 +1850,7 @@ func flattenInterconnectStateEnumSlice(c *Client, i interface{}) []InterconnectS
 
 	items := make([]InterconnectStateEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInterconnectStateEnum(item.(map[string]interface{})))
+		items = append(items, *flattenInterconnectStateEnum(item.(interface{})))
 	}
 
 	return items

@@ -64,6 +64,9 @@ func (l *ConnectionList) HasNext() bool {
 }
 
 func (l *ConnectionList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -77,12 +80,17 @@ func (l *ConnectionList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListConnection(ctx context.Context, project, network, service string) (*ConnectionList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListConnectionWithMaxResults(ctx, project, network, service, ConnectionMaxPage)
 
 }
 
 func (c *Client) ListConnectionWithMaxResults(ctx context.Context, project, network, service string, pageSize int32) (*ConnectionList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listConnection(ctx, project, network, service, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -101,6 +109,9 @@ func (c *Client) ListConnectionWithMaxResults(ctx context.Context, project, netw
 }
 
 func (c *Client) GetConnection(ctx context.Context, r *Connection) (*Connection, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getConnectionRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -119,8 +130,6 @@ func (c *Client) GetConnection(ctx context.Context, r *Connection) (*Connection,
 	result.Network = r.Network
 	result.Service = r.Service
 	result.Name = r.Name
-
-	result.Name = r.Name
 	if dcl.IsZeroValue(result.Service) {
 		result.Service = dcl.String("services/servicenetworking.googleapis.com")
 	}
@@ -137,6 +146,9 @@ func (c *Client) GetConnection(ctx context.Context, r *Connection) (*Connection,
 }
 
 func (c *Client) DeleteConnection(ctx context.Context, r *Connection) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Connection resource is nil")
 	}
@@ -147,6 +159,9 @@ func (c *Client) DeleteConnection(ctx context.Context, r *Connection) error {
 
 // DeleteAllConnection deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllConnection(ctx context.Context, project, network, service string, filter func(*Connection) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListConnection(ctx, project, network, service)
 	if err != nil {
 		return err
@@ -172,6 +187,9 @@ func (c *Client) DeleteAllConnection(ctx context.Context, project, network, serv
 func (c *Client) ApplyConnection(ctx context.Context, rawDesired *Connection, opts ...dcl.ApplyOption) (*Connection, error) {
 	c.Config.Logger.Info("Beginning ApplyConnection...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -252,12 +270,35 @@ func (c *Client) ApplyConnection(ctx context.Context, rawDesired *Connection, op
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createConnectionOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapConnection(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeConnectionNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeConnectionNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

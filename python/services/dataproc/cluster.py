@@ -75,16 +75,25 @@ class Cluster(object):
         self.metrics = ClusterMetrics.from_proto(response.metrics)
         self.location = Primitive.from_proto(response.location)
 
-    @classmethod
-    def delete(self, project, location, name, service_account_file=""):
+    def delete(self):
         stub = cluster_pb2_grpc.DataprocClusterServiceStub(channel.Channel())
         request = cluster_pb2.DeleteDataprocClusterRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
-        request.Location = location
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Name = name
+        if ClusterClusterConfig.to_proto(self.config):
+            request.resource.config.CopyFrom(ClusterClusterConfig.to_proto(self.config))
+        else:
+            request.resource.ClearField("config")
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         response = stub.DeleteDataprocCluster(request)
 
@@ -118,6 +127,22 @@ class Cluster(object):
         res.metrics = ClusterMetrics.from_proto(res_proto.metrics)
         res.location = Primitive.from_proto(res_proto.location)
         return res
+
+    def to_proto(self):
+        resource = cluster_pb2.DataprocCluster()
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if ClusterClusterConfig.to_proto(self.config):
+            resource.config.CopyFrom(ClusterClusterConfig.to_proto(self.config))
+        else:
+            resource.ClearField("config")
+        if Primitive.to_proto(self.labels):
+            resource.labels = Primitive.to_proto(self.labels)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
+        return resource
 
 
 class ClusterClusterConfig(object):

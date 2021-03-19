@@ -127,9 +127,10 @@ class Route(object):
         self.self_link = Primitive.from_proto(response.self_link)
         self.project = Primitive.from_proto(response.project)
 
-    def hcl(self):
+    def delete(self):
         stub = route_pb2_grpc.ComputeRouteServiceStub(channel.Channel())
-        request = route_pb2.ComputeRouteAsHclRequest()
+        request = route_pb2.DeleteComputeRouteRequest()
+        request.service_account_file = self.service_account_file
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
@@ -176,18 +177,6 @@ class Route(object):
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
-        response = stub.ComputeRouteAsHcl(request)
-        return response.hcl
-
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
-        stub = route_pb2_grpc.ComputeRouteServiceStub(channel.Channel())
-        request = route_pb2.DeleteComputeRouteRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
-
-        request.Name = name
-
         response = stub.DeleteComputeRoute(request)
 
     @classmethod
@@ -224,6 +213,36 @@ class Route(object):
         res.self_link = Primitive.from_proto(res_proto.self_link)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = route_pb2.ComputeRoute()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.network):
+            resource.network = Primitive.to_proto(self.network)
+        if Primitive.to_proto(self.tag):
+            resource.tag.extend(Primitive.to_proto(self.tag))
+        if Primitive.to_proto(self.dest_range):
+            resource.dest_range = Primitive.to_proto(self.dest_range)
+        if Primitive.to_proto(self.priority):
+            resource.priority = Primitive.to_proto(self.priority)
+        if Primitive.to_proto(self.next_hop_instance):
+            resource.next_hop_instance = Primitive.to_proto(self.next_hop_instance)
+        if Primitive.to_proto(self.next_hop_ip):
+            resource.next_hop_ip = Primitive.to_proto(self.next_hop_ip)
+        if Primitive.to_proto(self.next_hop_network):
+            resource.next_hop_network = Primitive.to_proto(self.next_hop_network)
+        if Primitive.to_proto(self.next_hop_gateway):
+            resource.next_hop_gateway = Primitive.to_proto(self.next_hop_gateway)
+        if Primitive.to_proto(self.next_hop_ilb):
+            resource.next_hop_ilb = Primitive.to_proto(self.next_hop_ilb)
+        if Primitive.to_proto(self.next_hop_vpn_tunnel):
+            resource.next_hop_vpn_tunnel = Primitive.to_proto(self.next_hop_vpn_tunnel)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class RouteWarning(object):

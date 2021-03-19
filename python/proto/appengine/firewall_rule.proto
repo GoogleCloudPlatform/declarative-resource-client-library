@@ -52,6 +52,7 @@ message ListAppengineFirewallRuleRequest {
 message ListAppengineFirewallRuleResponse {
   repeated AppengineFirewallRule items = 1;
 }
+
 service AppengineFirewallRuleService {
   rpc ApplyAppengineFirewallRule(ApplyAppengineFirewallRuleRequest) returns (AppengineFirewallRule);
   rpc DeleteAppengineFirewallRule(DeleteAppengineFirewallRuleRequest) returns (google.protobuf.Empty);

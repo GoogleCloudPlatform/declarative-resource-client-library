@@ -28,10 +28,10 @@ import (
 
 func (r *Note) validate() error {
 
-	if err := dcl.ValidateExactlyOneOfFieldsSet([]string{"Vulnerability", "Build", "BaseImage", "Package", "Deployable", "Discovery", "AttestationAuthority"}, r.Vulnerability, r.Build, r.BaseImage, r.Package, r.Deployable, r.Discovery, r.AttestationAuthority); err != nil {
+	if err := dcl.ValidateExactlyOneOfFieldsSet([]string{"Vulnerability", "Build", "Image", "Package", "Deployment", "Discovery", "Attestation"}, r.Vulnerability, r.Build, r.Image, r.Package, r.Deployment, r.Discovery, r.Attestation); err != nil {
 		return err
 	}
-	if err := dcl.Required(r, "name"); err != nil {
+	if err := dcl.RequiredParameter(r.Name, "Name"); err != nil {
 		return err
 	}
 	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
@@ -62,18 +62,13 @@ func (r *Note) validate() error {
 			return err
 		}
 	}
-	if !dcl.IsEmptyValueIndirect(r.BaseImage) {
-		if err := r.BaseImage.validate(); err != nil {
+	if !dcl.IsEmptyValueIndirect(r.Deployment) {
+		if err := r.Deployment.validate(); err != nil {
 			return err
 		}
 	}
-	if !dcl.IsEmptyValueIndirect(r.Deployable) {
-		if err := r.Deployable.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.AttestationAuthority) {
-		if err := r.AttestationAuthority.validate(); err != nil {
+	if !dcl.IsEmptyValueIndirect(r.Attestation) {
+		if err := r.Attestation.validate(); err != nil {
 			return err
 		}
 	}
@@ -219,36 +214,13 @@ func (r *NoteDiscovery) validate() error {
 	}
 	return nil
 }
-func (r *NoteBaseImage) validate() error {
-	if err := dcl.Required(r, "resourceUrl"); err != nil {
-		return err
-	}
-	if err := dcl.Required(r, "fingerprint"); err != nil {
-		return err
-	}
-	if !dcl.IsEmptyValueIndirect(r.Fingerprint) {
-		if err := r.Fingerprint.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *NoteBaseImageFingerprint) validate() error {
-	if err := dcl.Required(r, "v1Name"); err != nil {
-		return err
-	}
-	if err := dcl.Required(r, "v2Blob"); err != nil {
-		return err
-	}
-	return nil
-}
-func (r *NoteDeployable) validate() error {
+func (r *NoteDeployment) validate() error {
 	if err := dcl.Required(r, "resourceUri"); err != nil {
 		return err
 	}
 	return nil
 }
-func (r *NoteAttestationAuthority) validate() error {
+func (r *NoteAttestation) validate() error {
 	if !dcl.IsEmptyValueIndirect(r.Hint) {
 		if err := r.Hint.validate(); err != nil {
 			return err
@@ -256,7 +228,7 @@ func (r *NoteAttestationAuthority) validate() error {
 	}
 	return nil
 }
-func (r *NoteAttestationAuthorityHint) validate() error {
+func (r *NoteAttestationHint) validate() error {
 	if err := dcl.Required(r, "humanReadableName"); err != nil {
 		return err
 	}
@@ -350,20 +322,15 @@ func newUpdateNoteUpdateNoteRequest(ctx context.Context, f *Note, c *Client) (ma
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["discovery"] = v
 	}
-	if v, err := expandNoteBaseImage(c, f.BaseImage); err != nil {
-		return nil, fmt.Errorf("error expanding BaseImage into baseImage: %w", err)
+	if v, err := expandNoteDeployment(c, f.Deployment); err != nil {
+		return nil, fmt.Errorf("error expanding Deployment into deployment: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["baseImage"] = v
+		req["deployment"] = v
 	}
-	if v, err := expandNoteDeployable(c, f.Deployable); err != nil {
-		return nil, fmt.Errorf("error expanding Deployable into deployable: %w", err)
+	if v, err := expandNoteAttestation(c, f.Attestation); err != nil {
+		return nil, fmt.Errorf("error expanding Attestation into attestation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["deployable"] = v
-	}
-	if v, err := expandNoteAttestationAuthority(c, f.AttestationAuthority); err != nil {
-		return nil, fmt.Errorf("error expanding AttestationAuthority into attestationAuthority: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["attestationAuthority"] = v
+		req["attestation"] = v
 	}
 	return req, nil
 }
@@ -407,7 +374,7 @@ func (op *updateNoteUpdateNoteOperation) do(ctx context.Context, r *Note, c *Cli
 	if err != nil {
 		return err
 	}
-	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -434,7 +401,7 @@ func (c *Client) listNoteRaw(ctx context.Context, project, pageToken string, pag
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -443,7 +410,7 @@ func (c *Client) listNoteRaw(ctx context.Context, project, pageToken string, pag
 }
 
 type listNoteOperation struct {
-	Items []map[string]interface{} `json:"items"`
+	Notes []map[string]interface{} `json:"notes"`
 	Token string                   `json:"nextPageToken"`
 }
 
@@ -459,7 +426,7 @@ func (c *Client) listNote(ctx context.Context, project, pageToken string, pageSi
 	}
 
 	var l []*Note
-	for _, v := range m.Items {
+	for _, v := range m.Notes {
 		res := flattenNote(c, v)
 		res.Project = &project
 		l = append(l, res)
@@ -508,7 +475,7 @@ func (op *deleteNoteOperation) do(ctx context.Context, r *Note, c *Client) error
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return fmt.Errorf("failed to delete Note: %w", err)
 	}
@@ -522,7 +489,13 @@ func (op *deleteNoteOperation) do(ctx context.Context, r *Note, c *Client) error
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createNoteOperation struct{}
+type createNoteOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createNoteOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createNoteOperation) do(ctx context.Context, r *Note, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -538,7 +511,7 @@ func (op *createNoteOperation) do(ctx context.Context, r *Note, c *Client) error
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -547,9 +520,10 @@ func (op *createNoteOperation) do(ctx context.Context, r *Note, c *Client) error
 	if err != nil {
 		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
-	_ = o // We might not use resp- this will stop Go complaining
+	op.response = o
 
 	if _, err := c.GetNote(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -562,7 +536,7 @@ func (c *Client) getNoteRaw(ctx context.Context, r *Note) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -630,50 +604,50 @@ func canonicalizeNoteInitialState(rawInitial, rawDesired *Note) (*Note, error) {
 
 	if dcl.IsZeroValue(rawInitial.Vulnerability) {
 		// check if anything else is set
-		if dcl.AnySet(rawInitial.Build, rawInitial.BaseImage, rawInitial.Package, rawInitial.Deployable, rawInitial.Discovery, rawInitial.AttestationAuthority) {
+		if dcl.AnySet(rawInitial.Build, rawInitial.Image, rawInitial.Package, rawInitial.Deployment, rawInitial.Discovery, rawInitial.Attestation) {
 			rawInitial.Vulnerability = EmptyNoteVulnerability
 		}
 	}
 
 	if dcl.IsZeroValue(rawInitial.Build) {
 		// check if anything else is set
-		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.BaseImage, rawInitial.Package, rawInitial.Deployable, rawInitial.Discovery, rawInitial.AttestationAuthority) {
+		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Image, rawInitial.Package, rawInitial.Deployment, rawInitial.Discovery, rawInitial.Attestation) {
 			rawInitial.Build = EmptyNoteBuild
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.BaseImage) {
+	if dcl.IsZeroValue(rawInitial.Image) {
 		// check if anything else is set
-		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.Package, rawInitial.Deployable, rawInitial.Discovery, rawInitial.AttestationAuthority) {
-			rawInitial.BaseImage = EmptyNoteBaseImage
+		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.Package, rawInitial.Deployment, rawInitial.Discovery, rawInitial.Attestation) {
+			rawInitial.Image = EmptyNoteImage
 		}
 	}
 
 	if dcl.IsZeroValue(rawInitial.Package) {
 		// check if anything else is set
-		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.BaseImage, rawInitial.Deployable, rawInitial.Discovery, rawInitial.AttestationAuthority) {
+		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.Image, rawInitial.Deployment, rawInitial.Discovery, rawInitial.Attestation) {
 			rawInitial.Package = EmptyNotePackage
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.Deployable) {
+	if dcl.IsZeroValue(rawInitial.Deployment) {
 		// check if anything else is set
-		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.BaseImage, rawInitial.Package, rawInitial.Discovery, rawInitial.AttestationAuthority) {
-			rawInitial.Deployable = EmptyNoteDeployable
+		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.Image, rawInitial.Package, rawInitial.Discovery, rawInitial.Attestation) {
+			rawInitial.Deployment = EmptyNoteDeployment
 		}
 	}
 
 	if dcl.IsZeroValue(rawInitial.Discovery) {
 		// check if anything else is set
-		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.BaseImage, rawInitial.Package, rawInitial.Deployable, rawInitial.AttestationAuthority) {
+		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.Image, rawInitial.Package, rawInitial.Deployment, rawInitial.Attestation) {
 			rawInitial.Discovery = EmptyNoteDiscovery
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.AttestationAuthority) {
+	if dcl.IsZeroValue(rawInitial.Attestation) {
 		// check if anything else is set
-		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.BaseImage, rawInitial.Package, rawInitial.Deployable, rawInitial.Discovery) {
-			rawInitial.AttestationAuthority = EmptyNoteAttestationAuthority
+		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.Image, rawInitial.Package, rawInitial.Deployment, rawInitial.Discovery) {
+			rawInitial.Attestation = EmptyNoteAttestation
 		}
 	}
 
@@ -691,58 +665,50 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 
 	if dcl.IsZeroValue(rawDesired.Vulnerability) {
 		// check if anything else is set
-		if dcl.AnySet(rawDesired.Build, rawDesired.BaseImage, rawDesired.Package, rawDesired.Deployable, rawDesired.Discovery, rawDesired.AttestationAuthority) {
+		if dcl.AnySet(rawDesired.Build, rawDesired.Image, rawDesired.Package, rawDesired.Deployment, rawDesired.Discovery, rawDesired.Attestation) {
 			rawDesired.Vulnerability = EmptyNoteVulnerability
 		}
 	}
 
 	if dcl.IsZeroValue(rawDesired.Build) {
 		// check if anything else is set
-		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.BaseImage, rawDesired.Package, rawDesired.Deployable, rawDesired.Discovery, rawDesired.AttestationAuthority) {
+		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Image, rawDesired.Package, rawDesired.Deployment, rawDesired.Discovery, rawDesired.Attestation) {
 			rawDesired.Build = EmptyNoteBuild
 		}
 	}
 
-	if dcl.IsZeroValue(rawDesired.BaseImage) {
+	if dcl.IsZeroValue(rawDesired.Image) {
 		// check if anything else is set
-		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.Package, rawDesired.Deployable, rawDesired.Discovery, rawDesired.AttestationAuthority) {
-			rawDesired.BaseImage = EmptyNoteBaseImage
+		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.Package, rawDesired.Deployment, rawDesired.Discovery, rawDesired.Attestation) {
+			rawDesired.Image = EmptyNoteImage
 		}
 	}
 
 	if dcl.IsZeroValue(rawDesired.Package) {
 		// check if anything else is set
-		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.BaseImage, rawDesired.Deployable, rawDesired.Discovery, rawDesired.AttestationAuthority) {
+		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.Image, rawDesired.Deployment, rawDesired.Discovery, rawDesired.Attestation) {
 			rawDesired.Package = EmptyNotePackage
 		}
 	}
 
-	if dcl.IsZeroValue(rawDesired.Deployable) {
+	if dcl.IsZeroValue(rawDesired.Deployment) {
 		// check if anything else is set
-		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.BaseImage, rawDesired.Package, rawDesired.Discovery, rawDesired.AttestationAuthority) {
-			rawDesired.Deployable = EmptyNoteDeployable
+		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.Image, rawDesired.Package, rawDesired.Discovery, rawDesired.Attestation) {
+			rawDesired.Deployment = EmptyNoteDeployment
 		}
 	}
 
 	if dcl.IsZeroValue(rawDesired.Discovery) {
 		// check if anything else is set
-		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.BaseImage, rawDesired.Package, rawDesired.Deployable, rawDesired.AttestationAuthority) {
+		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.Image, rawDesired.Package, rawDesired.Deployment, rawDesired.Attestation) {
 			rawDesired.Discovery = EmptyNoteDiscovery
 		}
 	}
 
-	if dcl.IsZeroValue(rawDesired.AttestationAuthority) {
+	if dcl.IsZeroValue(rawDesired.Attestation) {
 		// check if anything else is set
-		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.BaseImage, rawDesired.Package, rawDesired.Deployable, rawDesired.Discovery) {
-			rawDesired.AttestationAuthority = EmptyNoteAttestationAuthority
-		}
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Note); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Note, got %T", sh)
-		} else {
-			_ = r
+		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.Image, rawDesired.Package, rawDesired.Deployment, rawDesired.Discovery) {
+			rawDesired.Attestation = EmptyNoteAttestation
 		}
 	}
 
@@ -754,19 +720,18 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 		rawDesired.Image = canonicalizeNoteImage(rawDesired.Image, nil, opts...)
 		rawDesired.Package = canonicalizeNotePackage(rawDesired.Package, nil, opts...)
 		rawDesired.Discovery = canonicalizeNoteDiscovery(rawDesired.Discovery, nil, opts...)
-		rawDesired.BaseImage = canonicalizeNoteBaseImage(rawDesired.BaseImage, nil, opts...)
-		rawDesired.Deployable = canonicalizeNoteDeployable(rawDesired.Deployable, nil, opts...)
-		rawDesired.AttestationAuthority = canonicalizeNoteAttestationAuthority(rawDesired.AttestationAuthority, nil, opts...)
+		rawDesired.Deployment = canonicalizeNoteDeployment(rawDesired.Deployment, nil, opts...)
+		rawDesired.Attestation = canonicalizeNoteAttestation(rawDesired.Attestation, nil, opts...)
 
 		return rawDesired, nil
 	}
-	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
+	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.ShortDescription) {
+	if dcl.StringCanonicalize(rawDesired.ShortDescription, rawInitial.ShortDescription) {
 		rawDesired.ShortDescription = rawInitial.ShortDescription
 	}
-	if dcl.IsZeroValue(rawDesired.LongDescription) {
+	if dcl.StringCanonicalize(rawDesired.LongDescription, rawInitial.LongDescription) {
 		rawDesired.LongDescription = rawInitial.LongDescription
 	}
 	if dcl.IsZeroValue(rawDesired.RelatedUrl) {
@@ -789,9 +754,8 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 	rawDesired.Image = canonicalizeNoteImage(rawDesired.Image, rawInitial.Image, opts...)
 	rawDesired.Package = canonicalizeNotePackage(rawDesired.Package, rawInitial.Package, opts...)
 	rawDesired.Discovery = canonicalizeNoteDiscovery(rawDesired.Discovery, rawInitial.Discovery, opts...)
-	rawDesired.BaseImage = canonicalizeNoteBaseImage(rawDesired.BaseImage, rawInitial.BaseImage, opts...)
-	rawDesired.Deployable = canonicalizeNoteDeployable(rawDesired.Deployable, rawInitial.Deployable, opts...)
-	rawDesired.AttestationAuthority = canonicalizeNoteAttestationAuthority(rawDesired.AttestationAuthority, rawInitial.AttestationAuthority, opts...)
+	rawDesired.Deployment = canonicalizeNoteDeployment(rawDesired.Deployment, rawInitial.Deployment, opts...)
+	rawDesired.Attestation = canonicalizeNoteAttestation(rawDesired.Attestation, rawInitial.Attestation, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
@@ -801,22 +765,22 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 
 func canonicalizeNoteNewState(c *Client, rawNew, rawDesired *Note) (*Note, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
-	} else {
-		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
-			rawNew.Name = rawDesired.Name
-		}
-	}
+	rawNew.Name = rawDesired.Name
 
 	if dcl.IsEmptyValueIndirect(rawNew.ShortDescription) && dcl.IsEmptyValueIndirect(rawDesired.ShortDescription) {
 		rawNew.ShortDescription = rawDesired.ShortDescription
 	} else {
+		if dcl.StringCanonicalize(rawDesired.ShortDescription, rawNew.ShortDescription) {
+			rawNew.ShortDescription = rawDesired.ShortDescription
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.LongDescription) && dcl.IsEmptyValueIndirect(rawDesired.LongDescription) {
 		rawNew.LongDescription = rawDesired.LongDescription
 	} else {
+		if dcl.StringCanonicalize(rawDesired.LongDescription, rawNew.LongDescription) {
+			rawNew.LongDescription = rawDesired.LongDescription
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.RelatedUrl) && dcl.IsEmptyValueIndirect(rawDesired.RelatedUrl) {
@@ -874,22 +838,16 @@ func canonicalizeNoteNewState(c *Client, rawNew, rawDesired *Note) (*Note, error
 		rawNew.Discovery = canonicalizeNewNoteDiscovery(c, rawDesired.Discovery, rawNew.Discovery)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.BaseImage) && dcl.IsEmptyValueIndirect(rawDesired.BaseImage) {
-		rawNew.BaseImage = rawDesired.BaseImage
+	if dcl.IsEmptyValueIndirect(rawNew.Deployment) && dcl.IsEmptyValueIndirect(rawDesired.Deployment) {
+		rawNew.Deployment = rawDesired.Deployment
 	} else {
-		rawNew.BaseImage = canonicalizeNewNoteBaseImage(c, rawDesired.BaseImage, rawNew.BaseImage)
+		rawNew.Deployment = canonicalizeNewNoteDeployment(c, rawDesired.Deployment, rawNew.Deployment)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Deployable) && dcl.IsEmptyValueIndirect(rawDesired.Deployable) {
-		rawNew.Deployable = rawDesired.Deployable
+	if dcl.IsEmptyValueIndirect(rawNew.Attestation) && dcl.IsEmptyValueIndirect(rawDesired.Attestation) {
+		rawNew.Attestation = rawDesired.Attestation
 	} else {
-		rawNew.Deployable = canonicalizeNewNoteDeployable(c, rawDesired.Deployable, rawNew.Deployable)
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.AttestationAuthority) && dcl.IsEmptyValueIndirect(rawDesired.AttestationAuthority) {
-		rawNew.AttestationAuthority = rawDesired.AttestationAuthority
-	} else {
-		rawNew.AttestationAuthority = canonicalizeNewNoteAttestationAuthority(c, rawDesired.AttestationAuthority, rawNew.AttestationAuthority)
+		rawNew.Attestation = canonicalizeNewNoteAttestation(c, rawDesired.Attestation, rawNew.Attestation)
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -905,19 +863,14 @@ func canonicalizeNoteRelatedUrl(des, initial *NoteRelatedUrl, opts ...dcl.ApplyO
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Note)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
 		des.Url = initial.Url
 	}
-	if dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
 		des.Label = initial.Label
 	}
 
@@ -927,6 +880,13 @@ func canonicalizeNoteRelatedUrl(des, initial *NoteRelatedUrl, opts ...dcl.ApplyO
 func canonicalizeNewNoteRelatedUrl(c *Client, des, nw *NoteRelatedUrl) *NoteRelatedUrl {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Url, nw.Url) || dcl.IsZeroValue(des.Url) {
+		nw.Url = des.Url
+	}
+	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
+		nw.Label = des.Label
 	}
 
 	return nw
@@ -961,11 +921,6 @@ func canonicalizeNoteVulnerability(des, initial *NoteVulnerability, opts ...dcl.
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Note)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1033,36 +988,31 @@ func canonicalizeNoteVulnerabilityDetails(des, initial *NoteVulnerabilityDetails
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Note)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.SeverityName) {
+	if dcl.StringCanonicalize(des.SeverityName, initial.SeverityName) || dcl.IsZeroValue(des.SeverityName) {
 		des.SeverityName = initial.SeverityName
 	}
-	if dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
 		des.Description = initial.Description
 	}
-	if dcl.IsZeroValue(des.PackageType) {
+	if dcl.StringCanonicalize(des.PackageType, initial.PackageType) || dcl.IsZeroValue(des.PackageType) {
 		des.PackageType = initial.PackageType
 	}
-	if dcl.IsZeroValue(des.AffectedCpeUri) {
+	if dcl.StringCanonicalize(des.AffectedCpeUri, initial.AffectedCpeUri) || dcl.IsZeroValue(des.AffectedCpeUri) {
 		des.AffectedCpeUri = initial.AffectedCpeUri
 	}
-	if dcl.IsZeroValue(des.AffectedPackage) {
+	if dcl.StringCanonicalize(des.AffectedPackage, initial.AffectedPackage) || dcl.IsZeroValue(des.AffectedPackage) {
 		des.AffectedPackage = initial.AffectedPackage
 	}
 	des.AffectedVersionStart = canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(des.AffectedVersionStart, initial.AffectedVersionStart, opts...)
 	des.AffectedVersionEnd = canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(des.AffectedVersionEnd, initial.AffectedVersionEnd, opts...)
-	if dcl.IsZeroValue(des.FixedCpeUri) {
+	if dcl.StringCanonicalize(des.FixedCpeUri, initial.FixedCpeUri) || dcl.IsZeroValue(des.FixedCpeUri) {
 		des.FixedCpeUri = initial.FixedCpeUri
 	}
-	if dcl.IsZeroValue(des.FixedPackage) {
+	if dcl.StringCanonicalize(des.FixedPackage, initial.FixedPackage) || dcl.IsZeroValue(des.FixedPackage) {
 		des.FixedPackage = initial.FixedPackage
 	}
 	des.FixedVersion = canonicalizeNoteVulnerabilityDetailsFixedVersion(des.FixedVersion, initial.FixedVersion, opts...)
@@ -1081,8 +1031,29 @@ func canonicalizeNewNoteVulnerabilityDetails(c *Client, des, nw *NoteVulnerabili
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.SeverityName, nw.SeverityName) || dcl.IsZeroValue(des.SeverityName) {
+		nw.SeverityName = des.SeverityName
+	}
+	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+		nw.Description = des.Description
+	}
+	if dcl.StringCanonicalize(des.PackageType, nw.PackageType) || dcl.IsZeroValue(des.PackageType) {
+		nw.PackageType = des.PackageType
+	}
+	if dcl.StringCanonicalize(des.AffectedCpeUri, nw.AffectedCpeUri) || dcl.IsZeroValue(des.AffectedCpeUri) {
+		nw.AffectedCpeUri = des.AffectedCpeUri
+	}
+	if dcl.StringCanonicalize(des.AffectedPackage, nw.AffectedPackage) || dcl.IsZeroValue(des.AffectedPackage) {
+		nw.AffectedPackage = des.AffectedPackage
+	}
 	nw.AffectedVersionStart = canonicalizeNewNoteVulnerabilityDetailsAffectedVersionStart(c, des.AffectedVersionStart, nw.AffectedVersionStart)
 	nw.AffectedVersionEnd = canonicalizeNewNoteVulnerabilityDetailsAffectedVersionEnd(c, des.AffectedVersionEnd, nw.AffectedVersionEnd)
+	if dcl.StringCanonicalize(des.FixedCpeUri, nw.FixedCpeUri) || dcl.IsZeroValue(des.FixedCpeUri) {
+		nw.FixedCpeUri = des.FixedCpeUri
+	}
+	if dcl.StringCanonicalize(des.FixedPackage, nw.FixedPackage) || dcl.IsZeroValue(des.FixedPackage) {
+		nw.FixedPackage = des.FixedPackage
+	}
 	nw.FixedVersion = canonicalizeNewNoteVulnerabilityDetailsFixedVersion(c, des.FixedVersion, nw.FixedVersion)
 
 	return nw
@@ -1119,11 +1090,6 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(des, initial *Note
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Note)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -1131,16 +1097,16 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(des, initial *Note
 	if dcl.IsZeroValue(des.Epoch) {
 		des.Epoch = initial.Epoch
 	}
-	if dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
-	if dcl.IsZeroValue(des.Revision) {
+	if dcl.StringCanonicalize(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
 		des.Revision = initial.Revision
 	}
 	if dcl.IsZeroValue(des.Kind) {
 		des.Kind = initial.Kind
 	}
-	if dcl.IsZeroValue(des.FullName) {
+	if dcl.StringCanonicalize(des.FullName, initial.FullName) || dcl.IsZeroValue(des.FullName) {
 		des.FullName = initial.FullName
 	}
 
@@ -1150,6 +1116,16 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(des, initial *Note
 func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionStart(c *Client, des, nw *NoteVulnerabilityDetailsAffectedVersionStart) *NoteVulnerabilityDetailsAffectedVersionStart {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Revision, nw.Revision) || dcl.IsZeroValue(des.Revision) {
+		nw.Revision = des.Revision
+	}
+	if dcl.StringCanonicalize(des.FullName, nw.FullName) || dcl.IsZeroValue(des.FullName) {
+		nw.FullName = des.FullName
 	}
 
 	return nw
@@ -1186,11 +1162,6 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(des, initial *NoteVu
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Note)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -1198,16 +1169,16 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(des, initial *NoteVu
 	if dcl.IsZeroValue(des.Epoch) {
 		des.Epoch = initial.Epoch
 	}
-	if dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
-	if dcl.IsZeroValue(des.Revision) {
+	if dcl.StringCanonicalize(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
 		des.Revision = initial.Revision
 	}
 	if dcl.IsZeroValue(des.Kind) {
 		des.Kind = initial.Kind
 	}
-	if dcl.IsZeroValue(des.FullName) {
+	if dcl.StringCanonicalize(des.FullName, initial.FullName) || dcl.IsZeroValue(des.FullName) {
 		des.FullName = initial.FullName
 	}
 
@@ -1217,6 +1188,16 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(des, initial *NoteVu
 func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionEnd(c *Client, des, nw *NoteVulnerabilityDetailsAffectedVersionEnd) *NoteVulnerabilityDetailsAffectedVersionEnd {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Revision, nw.Revision) || dcl.IsZeroValue(des.Revision) {
+		nw.Revision = des.Revision
+	}
+	if dcl.StringCanonicalize(des.FullName, nw.FullName) || dcl.IsZeroValue(des.FullName) {
+		nw.FullName = des.FullName
 	}
 
 	return nw
@@ -1253,11 +1234,6 @@ func canonicalizeNoteVulnerabilityDetailsFixedVersion(des, initial *NoteVulnerab
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Note)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -1265,16 +1241,16 @@ func canonicalizeNoteVulnerabilityDetailsFixedVersion(des, initial *NoteVulnerab
 	if dcl.IsZeroValue(des.Epoch) {
 		des.Epoch = initial.Epoch
 	}
-	if dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
-	if dcl.IsZeroValue(des.Revision) {
+	if dcl.StringCanonicalize(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
 		des.Revision = initial.Revision
 	}
 	if dcl.IsZeroValue(des.Kind) {
 		des.Kind = initial.Kind
 	}
-	if dcl.IsZeroValue(des.FullName) {
+	if dcl.StringCanonicalize(des.FullName, initial.FullName) || dcl.IsZeroValue(des.FullName) {
 		des.FullName = initial.FullName
 	}
 
@@ -1284,6 +1260,16 @@ func canonicalizeNoteVulnerabilityDetailsFixedVersion(des, initial *NoteVulnerab
 func canonicalizeNewNoteVulnerabilityDetailsFixedVersion(c *Client, des, nw *NoteVulnerabilityDetailsFixedVersion) *NoteVulnerabilityDetailsFixedVersion {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Revision, nw.Revision) || dcl.IsZeroValue(des.Revision) {
+		nw.Revision = des.Revision
+	}
+	if dcl.StringCanonicalize(des.FullName, nw.FullName) || dcl.IsZeroValue(des.FullName) {
+		nw.FullName = des.FullName
 	}
 
 	return nw
@@ -1318,11 +1304,6 @@ func canonicalizeNoteVulnerabilityCvssV3(des, initial *NoteVulnerabilityCvssV3, 
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Note)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1405,22 +1386,17 @@ func canonicalizeNoteVulnerabilityWindowsDetails(des, initial *NoteVulnerability
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Note)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.CpeUri) {
+	if dcl.StringCanonicalize(des.CpeUri, initial.CpeUri) || dcl.IsZeroValue(des.CpeUri) {
 		des.CpeUri = initial.CpeUri
 	}
-	if dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
-	if dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
 		des.Description = initial.Description
 	}
 	if dcl.IsZeroValue(des.FixingKbs) {
@@ -1433,6 +1409,16 @@ func canonicalizeNoteVulnerabilityWindowsDetails(des, initial *NoteVulnerability
 func canonicalizeNewNoteVulnerabilityWindowsDetails(c *Client, des, nw *NoteVulnerabilityWindowsDetails) *NoteVulnerabilityWindowsDetails {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.CpeUri, nw.CpeUri) || dcl.IsZeroValue(des.CpeUri) {
+		nw.CpeUri = des.CpeUri
+	}
+	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+		nw.Description = des.Description
 	}
 
 	return nw
@@ -1469,19 +1455,14 @@ func canonicalizeNoteVulnerabilityWindowsDetailsFixingKbs(des, initial *NoteVuln
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Note)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
-	if dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
 		des.Url = initial.Url
 	}
 
@@ -1491,6 +1472,13 @@ func canonicalizeNoteVulnerabilityWindowsDetailsFixingKbs(des, initial *NoteVuln
 func canonicalizeNewNoteVulnerabilityWindowsDetailsFixingKbs(c *Client, des, nw *NoteVulnerabilityWindowsDetailsFixingKbs) *NoteVulnerabilityWindowsDetailsFixingKbs {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Url, nw.Url) || dcl.IsZeroValue(des.Url) {
+		nw.Url = des.Url
 	}
 
 	return nw
@@ -1527,16 +1515,11 @@ func canonicalizeNoteBuild(des, initial *NoteBuild, opts ...dcl.ApplyOption) *No
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Note)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.BuilderVersion) {
+	if dcl.StringCanonicalize(des.BuilderVersion, initial.BuilderVersion) || dcl.IsZeroValue(des.BuilderVersion) {
 		des.BuilderVersion = initial.BuilderVersion
 	}
 	des.Signature = canonicalizeNoteBuildSignature(des.Signature, initial.Signature, opts...)
@@ -1549,6 +1532,9 @@ func canonicalizeNewNoteBuild(c *Client, des, nw *NoteBuild) *NoteBuild {
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.BuilderVersion, nw.BuilderVersion) || dcl.IsZeroValue(des.BuilderVersion) {
+		nw.BuilderVersion = des.BuilderVersion
+	}
 	nw.Signature = canonicalizeNewNoteBuildSignature(c, des.Signature, nw.Signature)
 
 	return nw
@@ -1585,22 +1571,17 @@ func canonicalizeNoteBuildSignature(des, initial *NoteBuildSignature, opts ...dc
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Note)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.PublicKey) {
+	if dcl.StringCanonicalize(des.PublicKey, initial.PublicKey) || dcl.IsZeroValue(des.PublicKey) {
 		des.PublicKey = initial.PublicKey
 	}
-	if dcl.IsZeroValue(des.Signature) {
+	if dcl.StringCanonicalize(des.Signature, initial.Signature) || dcl.IsZeroValue(des.Signature) {
 		des.Signature = initial.Signature
 	}
-	if dcl.IsZeroValue(des.KeyId) {
+	if dcl.StringCanonicalize(des.KeyId, initial.KeyId) || dcl.IsZeroValue(des.KeyId) {
 		des.KeyId = initial.KeyId
 	}
 	if dcl.IsZeroValue(des.KeyType) {
@@ -1613,6 +1594,16 @@ func canonicalizeNoteBuildSignature(des, initial *NoteBuildSignature, opts ...dc
 func canonicalizeNewNoteBuildSignature(c *Client, des, nw *NoteBuildSignature) *NoteBuildSignature {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.PublicKey, nw.PublicKey) || dcl.IsZeroValue(des.PublicKey) {
+		nw.PublicKey = des.PublicKey
+	}
+	if dcl.StringCanonicalize(des.Signature, nw.Signature) || dcl.IsZeroValue(des.Signature) {
+		nw.Signature = des.Signature
+	}
+	if dcl.StringCanonicalize(des.KeyId, nw.KeyId) || dcl.IsZeroValue(des.KeyId) {
+		nw.KeyId = des.KeyId
 	}
 
 	return nw
@@ -1649,16 +1640,11 @@ func canonicalizeNoteImage(des, initial *NoteImage, opts ...dcl.ApplyOption) *No
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Note)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.ResourceUrl) {
+	if dcl.StringCanonicalize(des.ResourceUrl, initial.ResourceUrl) || dcl.IsZeroValue(des.ResourceUrl) {
 		des.ResourceUrl = initial.ResourceUrl
 	}
 	des.Fingerprint = canonicalizeNoteImageFingerprint(des.Fingerprint, initial.Fingerprint, opts...)
@@ -1671,6 +1657,9 @@ func canonicalizeNewNoteImage(c *Client, des, nw *NoteImage) *NoteImage {
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.ResourceUrl, nw.ResourceUrl) || dcl.IsZeroValue(des.ResourceUrl) {
+		nw.ResourceUrl = des.ResourceUrl
+	}
 	nw.Fingerprint = canonicalizeNewNoteImageFingerprint(c, des.Fingerprint, nw.Fingerprint)
 
 	return nw
@@ -1707,22 +1696,17 @@ func canonicalizeNoteImageFingerprint(des, initial *NoteImageFingerprint, opts .
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Note)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.V1Name) {
+	if dcl.StringCanonicalize(des.V1Name, initial.V1Name) || dcl.IsZeroValue(des.V1Name) {
 		des.V1Name = initial.V1Name
 	}
 	if dcl.IsZeroValue(des.V2Blob) {
 		des.V2Blob = initial.V2Blob
 	}
-	if dcl.IsZeroValue(des.V2Name) {
+	if dcl.StringCanonicalize(des.V2Name, initial.V2Name) || dcl.IsZeroValue(des.V2Name) {
 		des.V2Name = initial.V2Name
 	}
 
@@ -1732,6 +1716,13 @@ func canonicalizeNoteImageFingerprint(des, initial *NoteImageFingerprint, opts .
 func canonicalizeNewNoteImageFingerprint(c *Client, des, nw *NoteImageFingerprint) *NoteImageFingerprint {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.V1Name, nw.V1Name) || dcl.IsZeroValue(des.V1Name) {
+		nw.V1Name = des.V1Name
+	}
+	if dcl.StringCanonicalize(des.V2Name, nw.V2Name) || dcl.IsZeroValue(des.V2Name) {
+		nw.V2Name = des.V2Name
 	}
 
 	return nw
@@ -1768,16 +1759,11 @@ func canonicalizeNotePackage(des, initial *NotePackage, opts ...dcl.ApplyOption)
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Note)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
 	if dcl.IsZeroValue(des.Distribution) {
@@ -1790,6 +1776,10 @@ func canonicalizeNotePackage(des, initial *NotePackage, opts ...dcl.ApplyOption)
 func canonicalizeNewNotePackage(c *Client, des, nw *NotePackage) *NotePackage {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+		nw.Name = des.Name
 	}
 
 	return nw
@@ -1826,29 +1816,24 @@ func canonicalizeNotePackageDistribution(des, initial *NotePackageDistribution, 
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Note)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.CpeUri) {
+	if dcl.StringCanonicalize(des.CpeUri, initial.CpeUri) || dcl.IsZeroValue(des.CpeUri) {
 		des.CpeUri = initial.CpeUri
 	}
 	if dcl.IsZeroValue(des.Architecture) {
 		des.Architecture = initial.Architecture
 	}
 	des.LatestVersion = canonicalizeNotePackageDistributionLatestVersion(des.LatestVersion, initial.LatestVersion, opts...)
-	if dcl.IsZeroValue(des.Maintainer) {
+	if dcl.StringCanonicalize(des.Maintainer, initial.Maintainer) || dcl.IsZeroValue(des.Maintainer) {
 		des.Maintainer = initial.Maintainer
 	}
-	if dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
 		des.Url = initial.Url
 	}
-	if dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
 		des.Description = initial.Description
 	}
 
@@ -1860,7 +1845,19 @@ func canonicalizeNewNotePackageDistribution(c *Client, des, nw *NotePackageDistr
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.CpeUri, nw.CpeUri) || dcl.IsZeroValue(des.CpeUri) {
+		nw.CpeUri = des.CpeUri
+	}
 	nw.LatestVersion = canonicalizeNewNotePackageDistributionLatestVersion(c, des.LatestVersion, nw.LatestVersion)
+	if dcl.StringCanonicalize(des.Maintainer, nw.Maintainer) || dcl.IsZeroValue(des.Maintainer) {
+		nw.Maintainer = des.Maintainer
+	}
+	if dcl.StringCanonicalize(des.Url, nw.Url) || dcl.IsZeroValue(des.Url) {
+		nw.Url = des.Url
+	}
+	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+		nw.Description = des.Description
+	}
 
 	return nw
 }
@@ -1896,11 +1893,6 @@ func canonicalizeNotePackageDistributionLatestVersion(des, initial *NotePackageD
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Note)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -1908,16 +1900,16 @@ func canonicalizeNotePackageDistributionLatestVersion(des, initial *NotePackageD
 	if dcl.IsZeroValue(des.Epoch) {
 		des.Epoch = initial.Epoch
 	}
-	if dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
-	if dcl.IsZeroValue(des.Revision) {
+	if dcl.StringCanonicalize(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
 		des.Revision = initial.Revision
 	}
 	if dcl.IsZeroValue(des.Kind) {
 		des.Kind = initial.Kind
 	}
-	if dcl.IsZeroValue(des.FullName) {
+	if dcl.StringCanonicalize(des.FullName, initial.FullName) || dcl.IsZeroValue(des.FullName) {
 		des.FullName = initial.FullName
 	}
 
@@ -1927,6 +1919,16 @@ func canonicalizeNotePackageDistributionLatestVersion(des, initial *NotePackageD
 func canonicalizeNewNotePackageDistributionLatestVersion(c *Client, des, nw *NotePackageDistributionLatestVersion) *NotePackageDistributionLatestVersion {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Revision, nw.Revision) || dcl.IsZeroValue(des.Revision) {
+		nw.Revision = des.Revision
+	}
+	if dcl.StringCanonicalize(des.FullName, nw.FullName) || dcl.IsZeroValue(des.FullName) {
+		nw.FullName = des.FullName
 	}
 
 	return nw
@@ -1961,11 +1963,6 @@ func canonicalizeNoteDiscovery(des, initial *NoteDiscovery, opts ...dcl.ApplyOpt
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Note)
-		_ = r
 	}
 
 	if initial == nil {
@@ -2010,136 +2007,12 @@ func canonicalizeNewNoteDiscoverySet(c *Client, des, nw []NoteDiscovery) []NoteD
 	return reorderedNew
 }
 
-func canonicalizeNoteBaseImage(des, initial *NoteBaseImage, opts ...dcl.ApplyOption) *NoteBaseImage {
+func canonicalizeNoteDeployment(des, initial *NoteDeployment, opts ...dcl.ApplyOption) *NoteDeployment {
 	if des == nil {
 		return initial
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Note)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.ResourceUrl) {
-		des.ResourceUrl = initial.ResourceUrl
-	}
-	des.Fingerprint = canonicalizeNoteBaseImageFingerprint(des.Fingerprint, initial.Fingerprint, opts...)
-
-	return des
-}
-
-func canonicalizeNewNoteBaseImage(c *Client, des, nw *NoteBaseImage) *NoteBaseImage {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.Fingerprint = canonicalizeNewNoteBaseImageFingerprint(c, des.Fingerprint, nw.Fingerprint)
-
-	return nw
-}
-
-func canonicalizeNewNoteBaseImageSet(c *Client, des, nw []NoteBaseImage) []NoteBaseImage {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []NoteBaseImage
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareNoteBaseImage(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNoteBaseImageFingerprint(des, initial *NoteBaseImageFingerprint, opts ...dcl.ApplyOption) *NoteBaseImageFingerprint {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Note)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.V1Name) {
-		des.V1Name = initial.V1Name
-	}
-	if dcl.IsZeroValue(des.V2Blob) {
-		des.V2Blob = initial.V2Blob
-	}
-	if dcl.IsZeroValue(des.V2Name) {
-		des.V2Name = initial.V2Name
-	}
-
-	return des
-}
-
-func canonicalizeNewNoteBaseImageFingerprint(c *Client, des, nw *NoteBaseImageFingerprint) *NoteBaseImageFingerprint {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewNoteBaseImageFingerprintSet(c *Client, des, nw []NoteBaseImageFingerprint) []NoteBaseImageFingerprint {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []NoteBaseImageFingerprint
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareNoteBaseImageFingerprint(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNoteDeployable(des, initial *NoteDeployable, opts ...dcl.ApplyOption) *NoteDeployable {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Note)
-		_ = r
 	}
 
 	if initial == nil {
@@ -2153,7 +2026,7 @@ func canonicalizeNoteDeployable(des, initial *NoteDeployable, opts ...dcl.ApplyO
 	return des
 }
 
-func canonicalizeNewNoteDeployable(c *Client, des, nw *NoteDeployable) *NoteDeployable {
+func canonicalizeNewNoteDeployment(c *Client, des, nw *NoteDeployment) *NoteDeployment {
 	if des == nil || nw == nil {
 		return nw
 	}
@@ -2161,15 +2034,15 @@ func canonicalizeNewNoteDeployable(c *Client, des, nw *NoteDeployable) *NoteDepl
 	return nw
 }
 
-func canonicalizeNewNoteDeployableSet(c *Client, des, nw []NoteDeployable) []NoteDeployable {
+func canonicalizeNewNoteDeploymentSet(c *Client, des, nw []NoteDeployment) []NoteDeployment {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []NoteDeployable
+	var reorderedNew []NoteDeployment
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareNoteDeployable(c, &d, &n) {
+			if !compareNoteDeployment(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -2184,7 +2057,7 @@ func canonicalizeNewNoteDeployableSet(c *Client, des, nw []NoteDeployable) []Not
 	return reorderedNew
 }
 
-func canonicalizeNoteAttestationAuthority(des, initial *NoteAttestationAuthority, opts ...dcl.ApplyOption) *NoteAttestationAuthority {
+func canonicalizeNoteAttestation(des, initial *NoteAttestation, opts ...dcl.ApplyOption) *NoteAttestation {
 	if des == nil {
 		return initial
 	}
@@ -2192,39 +2065,34 @@ func canonicalizeNoteAttestationAuthority(des, initial *NoteAttestationAuthority
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Note)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	des.Hint = canonicalizeNoteAttestationAuthorityHint(des.Hint, initial.Hint, opts...)
+	des.Hint = canonicalizeNoteAttestationHint(des.Hint, initial.Hint, opts...)
 
 	return des
 }
 
-func canonicalizeNewNoteAttestationAuthority(c *Client, des, nw *NoteAttestationAuthority) *NoteAttestationAuthority {
+func canonicalizeNewNoteAttestation(c *Client, des, nw *NoteAttestation) *NoteAttestation {
 	if des == nil || nw == nil {
 		return nw
 	}
 
-	nw.Hint = canonicalizeNewNoteAttestationAuthorityHint(c, des.Hint, nw.Hint)
+	nw.Hint = canonicalizeNewNoteAttestationHint(c, des.Hint, nw.Hint)
 
 	return nw
 }
 
-func canonicalizeNewNoteAttestationAuthoritySet(c *Client, des, nw []NoteAttestationAuthority) []NoteAttestationAuthority {
+func canonicalizeNewNoteAttestationSet(c *Client, des, nw []NoteAttestation) []NoteAttestation {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []NoteAttestationAuthority
+	var reorderedNew []NoteAttestation
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareNoteAttestationAuthority(c, &d, &n) {
+			if !compareNoteAttestation(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -2239,7 +2107,7 @@ func canonicalizeNewNoteAttestationAuthoritySet(c *Client, des, nw []NoteAttesta
 	return reorderedNew
 }
 
-func canonicalizeNoteAttestationAuthorityHint(des, initial *NoteAttestationAuthorityHint, opts ...dcl.ApplyOption) *NoteAttestationAuthorityHint {
+func canonicalizeNoteAttestationHint(des, initial *NoteAttestationHint, opts ...dcl.ApplyOption) *NoteAttestationHint {
 	if des == nil {
 		return initial
 	}
@@ -2247,39 +2115,38 @@ func canonicalizeNoteAttestationAuthorityHint(des, initial *NoteAttestationAutho
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Note)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.HumanReadableName) {
+	if dcl.StringCanonicalize(des.HumanReadableName, initial.HumanReadableName) || dcl.IsZeroValue(des.HumanReadableName) {
 		des.HumanReadableName = initial.HumanReadableName
 	}
 
 	return des
 }
 
-func canonicalizeNewNoteAttestationAuthorityHint(c *Client, des, nw *NoteAttestationAuthorityHint) *NoteAttestationAuthorityHint {
+func canonicalizeNewNoteAttestationHint(c *Client, des, nw *NoteAttestationHint) *NoteAttestationHint {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.HumanReadableName, nw.HumanReadableName) || dcl.IsZeroValue(des.HumanReadableName) {
+		nw.HumanReadableName = des.HumanReadableName
 	}
 
 	return nw
 }
 
-func canonicalizeNewNoteAttestationAuthorityHintSet(c *Client, des, nw []NoteAttestationAuthorityHint) []NoteAttestationAuthorityHint {
+func canonicalizeNewNoteAttestationHintSet(c *Client, des, nw []NoteAttestationHint) []NoteAttestationHint {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []NoteAttestationAuthorityHint
+	var reorderedNew []NoteAttestationHint
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareNoteAttestationAuthorityHint(c, &d, &n) {
+			if !compareNoteAttestationHint(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -2315,14 +2182,7 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 	}
 
 	var diffs []noteDiff
-	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, noteDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
-	}
-	if !dcl.IsZeroValue(desired.ShortDescription) && (dcl.IsZeroValue(actual.ShortDescription) || !reflect.DeepEqual(*desired.ShortDescription, *actual.ShortDescription)) {
+	if !dcl.IsZeroValue(desired.ShortDescription) && !dcl.StringCanonicalize(desired.ShortDescription, actual.ShortDescription) {
 		c.Config.Logger.Infof("Detected diff in ShortDescription.\nDESIRED: %v\nACTUAL: %v", desired.ShortDescription, actual.ShortDescription)
 
 		diffs = append(diffs, noteDiff{
@@ -2331,7 +2191,7 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.LongDescription) && (dcl.IsZeroValue(actual.LongDescription) || !reflect.DeepEqual(*desired.LongDescription, *actual.LongDescription)) {
+	if !dcl.IsZeroValue(desired.LongDescription) && !dcl.StringCanonicalize(desired.LongDescription, actual.LongDescription) {
 		c.Config.Logger.Infof("Detected diff in LongDescription.\nDESIRED: %v\nACTUAL: %v", desired.LongDescription, actual.LongDescription)
 
 		diffs = append(diffs, noteDiff{
@@ -2349,7 +2209,7 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.ExpirationTime) && (dcl.IsZeroValue(actual.ExpirationTime) || !reflect.DeepEqual(*desired.ExpirationTime, *actual.ExpirationTime)) {
+	if !reflect.DeepEqual(desired.ExpirationTime, actual.ExpirationTime) {
 		c.Config.Logger.Infof("Detected diff in ExpirationTime.\nDESIRED: %v\nACTUAL: %v", desired.ExpirationTime, actual.ExpirationTime)
 
 		diffs = append(diffs, noteDiff{
@@ -2358,7 +2218,7 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 		})
 
 	}
-	if !dcl.SliceEquals(desired.RelatedNoteNames, actual.RelatedNoteNames) {
+	if !reflect.DeepEqual(desired.RelatedNoteNames, actual.RelatedNoteNames) {
 		c.Config.Logger.Infof("Detected diff in RelatedNoteNames.\nDESIRED: %v\nACTUAL: %v", desired.RelatedNoteNames, actual.RelatedNoteNames)
 
 		diffs = append(diffs, noteDiff{
@@ -2412,30 +2272,21 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 		})
 
 	}
-	if compareNoteBaseImage(c, desired.BaseImage, actual.BaseImage) {
-		c.Config.Logger.Infof("Detected diff in BaseImage.\nDESIRED: %v\nACTUAL: %v", desired.BaseImage, actual.BaseImage)
+	if compareNoteDeployment(c, desired.Deployment, actual.Deployment) {
+		c.Config.Logger.Infof("Detected diff in Deployment.\nDESIRED: %v\nACTUAL: %v", desired.Deployment, actual.Deployment)
 
 		diffs = append(diffs, noteDiff{
 			UpdateOp:  &updateNoteUpdateNoteOperation{},
-			FieldName: "BaseImage",
+			FieldName: "Deployment",
 		})
 
 	}
-	if compareNoteDeployable(c, desired.Deployable, actual.Deployable) {
-		c.Config.Logger.Infof("Detected diff in Deployable.\nDESIRED: %v\nACTUAL: %v", desired.Deployable, actual.Deployable)
+	if compareNoteAttestation(c, desired.Attestation, actual.Attestation) {
+		c.Config.Logger.Infof("Detected diff in Attestation.\nDESIRED: %v\nACTUAL: %v", desired.Attestation, actual.Attestation)
 
 		diffs = append(diffs, noteDiff{
 			UpdateOp:  &updateNoteUpdateNoteOperation{},
-			FieldName: "Deployable",
-		})
-
-	}
-	if compareNoteAttestationAuthority(c, desired.AttestationAuthority, actual.AttestationAuthority) {
-		c.Config.Logger.Infof("Detected diff in AttestationAuthority.\nDESIRED: %v\nACTUAL: %v", desired.AttestationAuthority, actual.AttestationAuthority)
-
-		diffs = append(diffs, noteDiff{
-			UpdateOp:  &updateNoteUpdateNoteOperation{},
-			FieldName: "AttestationAuthority",
+			FieldName: "Attestation",
 		})
 
 	}
@@ -2464,6 +2315,32 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 
 	return deduped, nil
 }
+func compareNoteRelatedUrl(c *Client, desired, actual *NoteRelatedUrl) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Url == nil && desired.Url != nil && !dcl.IsEmptyValueIndirect(desired.Url) {
+		c.Config.Logger.Infof("desired Url %s - but actually nil", dcl.SprintResource(desired.Url))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Url, actual.Url) && !dcl.IsZeroValue(desired.Url) {
+		c.Config.Logger.Infof("Diff in Url. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Url), dcl.SprintResource(actual.Url))
+		return true
+	}
+	if actual.Label == nil && desired.Label != nil && !dcl.IsEmptyValueIndirect(desired.Label) {
+		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
+		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
+		return true
+	}
+	return false
+}
+
 func compareNoteRelatedUrlSlice(c *Client, desired, actual []NoteRelatedUrl) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in NoteRelatedUrl, lengths unequal.")
@@ -2478,39 +2355,19 @@ func compareNoteRelatedUrlSlice(c *Client, desired, actual []NoteRelatedUrl) boo
 	return false
 }
 
-func compareNoteRelatedUrl(c *Client, desired, actual *NoteRelatedUrl) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Url == nil && desired.Url != nil && !dcl.IsEmptyValueIndirect(desired.Url) {
-		c.Config.Logger.Infof("desired Url %s - but actually nil", dcl.SprintResource(desired.Url))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Url, actual.Url) && !dcl.IsZeroValue(desired.Url) && !(dcl.IsEmptyValueIndirect(desired.Url) && dcl.IsZeroValue(actual.Url)) {
-		c.Config.Logger.Infof("Diff in Url. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Url), dcl.SprintResource(actual.Url))
-		return true
-	}
-	if actual.Label == nil && desired.Label != nil && !dcl.IsEmptyValueIndirect(desired.Label) {
-		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) && !(dcl.IsEmptyValueIndirect(desired.Label) && dcl.IsZeroValue(actual.Label)) {
-		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
-		return true
-	}
-	return false
-}
-func compareNoteVulnerabilitySlice(c *Client, desired, actual []NoteVulnerability) bool {
+func compareNoteRelatedUrlMap(c *Client, desired, actual map[string]NoteRelatedUrl) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NoteVulnerability, lengths unequal.")
+		c.Config.Logger.Info("Diff in NoteRelatedUrl, lengths unequal.")
 		return true
 	}
-	for i := 0; i < len(desired); i++ {
-		if compareNoteVulnerability(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NoteVulnerability, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NoteRelatedUrl, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNoteRelatedUrl(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NoteRelatedUrl, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2528,7 +2385,7 @@ func compareNoteVulnerability(c *Client, desired, actual *NoteVulnerability) boo
 		c.Config.Logger.Infof("desired CvssScore %s - but actually nil", dcl.SprintResource(desired.CvssScore))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CvssScore, actual.CvssScore) && !dcl.IsZeroValue(desired.CvssScore) && !(dcl.IsEmptyValueIndirect(desired.CvssScore) && dcl.IsZeroValue(actual.CvssScore)) {
+	if !reflect.DeepEqual(desired.CvssScore, actual.CvssScore) && !dcl.IsZeroValue(desired.CvssScore) {
 		c.Config.Logger.Infof("Diff in CvssScore. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CvssScore), dcl.SprintResource(actual.CvssScore))
 		return true
 	}
@@ -2536,7 +2393,7 @@ func compareNoteVulnerability(c *Client, desired, actual *NoteVulnerability) boo
 		c.Config.Logger.Infof("desired Severity %s - but actually nil", dcl.SprintResource(desired.Severity))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Severity, actual.Severity) && !dcl.IsZeroValue(desired.Severity) && !(dcl.IsEmptyValueIndirect(desired.Severity) && dcl.IsZeroValue(actual.Severity)) {
+	if !reflect.DeepEqual(desired.Severity, actual.Severity) && !dcl.IsZeroValue(desired.Severity) {
 		c.Config.Logger.Infof("Diff in Severity. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Severity), dcl.SprintResource(actual.Severity))
 		return true
 	}
@@ -2568,20 +2425,40 @@ func compareNoteVulnerability(c *Client, desired, actual *NoteVulnerability) boo
 		c.Config.Logger.Infof("desired SourceUpdateTime %s - but actually nil", dcl.SprintResource(desired.SourceUpdateTime))
 		return true
 	}
-	if !reflect.DeepEqual(desired.SourceUpdateTime, actual.SourceUpdateTime) && !dcl.IsZeroValue(desired.SourceUpdateTime) && !(dcl.IsEmptyValueIndirect(desired.SourceUpdateTime) && dcl.IsZeroValue(actual.SourceUpdateTime)) {
+	if !reflect.DeepEqual(desired.SourceUpdateTime, actual.SourceUpdateTime) && !dcl.IsZeroValue(desired.SourceUpdateTime) {
 		c.Config.Logger.Infof("Diff in SourceUpdateTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SourceUpdateTime), dcl.SprintResource(actual.SourceUpdateTime))
 		return true
 	}
 	return false
 }
-func compareNoteVulnerabilityDetailsSlice(c *Client, desired, actual []NoteVulnerabilityDetails) bool {
+
+func compareNoteVulnerabilitySlice(c *Client, desired, actual []NoteVulnerability) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NoteVulnerabilityDetails, lengths unequal.")
+		c.Config.Logger.Info("Diff in NoteVulnerability, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNoteVulnerabilityDetails(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NoteVulnerabilityDetails, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNoteVulnerability(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NoteVulnerability, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNoteVulnerabilityMap(c *Client, desired, actual map[string]NoteVulnerability) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NoteVulnerability, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NoteVulnerability, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNoteVulnerability(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NoteVulnerability, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2599,7 +2476,7 @@ func compareNoteVulnerabilityDetails(c *Client, desired, actual *NoteVulnerabili
 		c.Config.Logger.Infof("desired SeverityName %s - but actually nil", dcl.SprintResource(desired.SeverityName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.SeverityName, actual.SeverityName) && !dcl.IsZeroValue(desired.SeverityName) && !(dcl.IsEmptyValueIndirect(desired.SeverityName) && dcl.IsZeroValue(actual.SeverityName)) {
+	if !dcl.StringCanonicalize(desired.SeverityName, actual.SeverityName) && !dcl.IsZeroValue(desired.SeverityName) {
 		c.Config.Logger.Infof("Diff in SeverityName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SeverityName), dcl.SprintResource(actual.SeverityName))
 		return true
 	}
@@ -2607,7 +2484,7 @@ func compareNoteVulnerabilityDetails(c *Client, desired, actual *NoteVulnerabili
 		c.Config.Logger.Infof("desired Description %s - but actually nil", dcl.SprintResource(desired.Description))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) && !(dcl.IsEmptyValueIndirect(desired.Description) && dcl.IsZeroValue(actual.Description)) {
+	if !dcl.StringCanonicalize(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) {
 		c.Config.Logger.Infof("Diff in Description. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
 		return true
 	}
@@ -2615,7 +2492,7 @@ func compareNoteVulnerabilityDetails(c *Client, desired, actual *NoteVulnerabili
 		c.Config.Logger.Infof("desired PackageType %s - but actually nil", dcl.SprintResource(desired.PackageType))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PackageType, actual.PackageType) && !dcl.IsZeroValue(desired.PackageType) && !(dcl.IsEmptyValueIndirect(desired.PackageType) && dcl.IsZeroValue(actual.PackageType)) {
+	if !dcl.StringCanonicalize(desired.PackageType, actual.PackageType) && !dcl.IsZeroValue(desired.PackageType) {
 		c.Config.Logger.Infof("Diff in PackageType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PackageType), dcl.SprintResource(actual.PackageType))
 		return true
 	}
@@ -2623,7 +2500,7 @@ func compareNoteVulnerabilityDetails(c *Client, desired, actual *NoteVulnerabili
 		c.Config.Logger.Infof("desired AffectedCpeUri %s - but actually nil", dcl.SprintResource(desired.AffectedCpeUri))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AffectedCpeUri, actual.AffectedCpeUri) && !dcl.IsZeroValue(desired.AffectedCpeUri) && !(dcl.IsEmptyValueIndirect(desired.AffectedCpeUri) && dcl.IsZeroValue(actual.AffectedCpeUri)) {
+	if !dcl.StringCanonicalize(desired.AffectedCpeUri, actual.AffectedCpeUri) && !dcl.IsZeroValue(desired.AffectedCpeUri) {
 		c.Config.Logger.Infof("Diff in AffectedCpeUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AffectedCpeUri), dcl.SprintResource(actual.AffectedCpeUri))
 		return true
 	}
@@ -2631,7 +2508,7 @@ func compareNoteVulnerabilityDetails(c *Client, desired, actual *NoteVulnerabili
 		c.Config.Logger.Infof("desired AffectedPackage %s - but actually nil", dcl.SprintResource(desired.AffectedPackage))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AffectedPackage, actual.AffectedPackage) && !dcl.IsZeroValue(desired.AffectedPackage) && !(dcl.IsEmptyValueIndirect(desired.AffectedPackage) && dcl.IsZeroValue(actual.AffectedPackage)) {
+	if !dcl.StringCanonicalize(desired.AffectedPackage, actual.AffectedPackage) && !dcl.IsZeroValue(desired.AffectedPackage) {
 		c.Config.Logger.Infof("Diff in AffectedPackage. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AffectedPackage), dcl.SprintResource(actual.AffectedPackage))
 		return true
 	}
@@ -2655,7 +2532,7 @@ func compareNoteVulnerabilityDetails(c *Client, desired, actual *NoteVulnerabili
 		c.Config.Logger.Infof("desired FixedCpeUri %s - but actually nil", dcl.SprintResource(desired.FixedCpeUri))
 		return true
 	}
-	if !reflect.DeepEqual(desired.FixedCpeUri, actual.FixedCpeUri) && !dcl.IsZeroValue(desired.FixedCpeUri) && !(dcl.IsEmptyValueIndirect(desired.FixedCpeUri) && dcl.IsZeroValue(actual.FixedCpeUri)) {
+	if !dcl.StringCanonicalize(desired.FixedCpeUri, actual.FixedCpeUri) && !dcl.IsZeroValue(desired.FixedCpeUri) {
 		c.Config.Logger.Infof("Diff in FixedCpeUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FixedCpeUri), dcl.SprintResource(actual.FixedCpeUri))
 		return true
 	}
@@ -2663,7 +2540,7 @@ func compareNoteVulnerabilityDetails(c *Client, desired, actual *NoteVulnerabili
 		c.Config.Logger.Infof("desired FixedPackage %s - but actually nil", dcl.SprintResource(desired.FixedPackage))
 		return true
 	}
-	if !reflect.DeepEqual(desired.FixedPackage, actual.FixedPackage) && !dcl.IsZeroValue(desired.FixedPackage) && !(dcl.IsEmptyValueIndirect(desired.FixedPackage) && dcl.IsZeroValue(actual.FixedPackage)) {
+	if !dcl.StringCanonicalize(desired.FixedPackage, actual.FixedPackage) && !dcl.IsZeroValue(desired.FixedPackage) {
 		c.Config.Logger.Infof("Diff in FixedPackage. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FixedPackage), dcl.SprintResource(actual.FixedPackage))
 		return true
 	}
@@ -2679,7 +2556,7 @@ func compareNoteVulnerabilityDetails(c *Client, desired, actual *NoteVulnerabili
 		c.Config.Logger.Infof("desired IsObsolete %s - but actually nil", dcl.SprintResource(desired.IsObsolete))
 		return true
 	}
-	if !reflect.DeepEqual(desired.IsObsolete, actual.IsObsolete) && !dcl.IsZeroValue(desired.IsObsolete) && !(dcl.IsEmptyValueIndirect(desired.IsObsolete) && dcl.IsZeroValue(actual.IsObsolete)) {
+	if !reflect.DeepEqual(desired.IsObsolete, actual.IsObsolete) && !dcl.IsZeroValue(desired.IsObsolete) {
 		c.Config.Logger.Infof("Diff in IsObsolete. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IsObsolete), dcl.SprintResource(actual.IsObsolete))
 		return true
 	}
@@ -2687,20 +2564,40 @@ func compareNoteVulnerabilityDetails(c *Client, desired, actual *NoteVulnerabili
 		c.Config.Logger.Infof("desired SourceUpdateTime %s - but actually nil", dcl.SprintResource(desired.SourceUpdateTime))
 		return true
 	}
-	if !reflect.DeepEqual(desired.SourceUpdateTime, actual.SourceUpdateTime) && !dcl.IsZeroValue(desired.SourceUpdateTime) && !(dcl.IsEmptyValueIndirect(desired.SourceUpdateTime) && dcl.IsZeroValue(actual.SourceUpdateTime)) {
+	if !reflect.DeepEqual(desired.SourceUpdateTime, actual.SourceUpdateTime) && !dcl.IsZeroValue(desired.SourceUpdateTime) {
 		c.Config.Logger.Infof("Diff in SourceUpdateTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SourceUpdateTime), dcl.SprintResource(actual.SourceUpdateTime))
 		return true
 	}
 	return false
 }
-func compareNoteVulnerabilityDetailsAffectedVersionStartSlice(c *Client, desired, actual []NoteVulnerabilityDetailsAffectedVersionStart) bool {
+
+func compareNoteVulnerabilityDetailsSlice(c *Client, desired, actual []NoteVulnerabilityDetails) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NoteVulnerabilityDetailsAffectedVersionStart, lengths unequal.")
+		c.Config.Logger.Info("Diff in NoteVulnerabilityDetails, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNoteVulnerabilityDetailsAffectedVersionStart(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NoteVulnerabilityDetailsAffectedVersionStart, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNoteVulnerabilityDetails(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NoteVulnerabilityDetails, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNoteVulnerabilityDetailsMap(c *Client, desired, actual map[string]NoteVulnerabilityDetails) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NoteVulnerabilityDetails, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NoteVulnerabilityDetails, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNoteVulnerabilityDetails(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NoteVulnerabilityDetails, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2718,7 +2615,7 @@ func compareNoteVulnerabilityDetailsAffectedVersionStart(c *Client, desired, act
 		c.Config.Logger.Infof("desired Epoch %s - but actually nil", dcl.SprintResource(desired.Epoch))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Epoch, actual.Epoch) && !dcl.IsZeroValue(desired.Epoch) && !(dcl.IsEmptyValueIndirect(desired.Epoch) && dcl.IsZeroValue(actual.Epoch)) {
+	if !reflect.DeepEqual(desired.Epoch, actual.Epoch) && !dcl.IsZeroValue(desired.Epoch) {
 		c.Config.Logger.Infof("Diff in Epoch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Epoch), dcl.SprintResource(actual.Epoch))
 		return true
 	}
@@ -2726,7 +2623,7 @@ func compareNoteVulnerabilityDetailsAffectedVersionStart(c *Client, desired, act
 		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
 		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
@@ -2734,7 +2631,7 @@ func compareNoteVulnerabilityDetailsAffectedVersionStart(c *Client, desired, act
 		c.Config.Logger.Infof("desired Revision %s - but actually nil", dcl.SprintResource(desired.Revision))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Revision, actual.Revision) && !dcl.IsZeroValue(desired.Revision) && !(dcl.IsEmptyValueIndirect(desired.Revision) && dcl.IsZeroValue(actual.Revision)) {
+	if !dcl.StringCanonicalize(desired.Revision, actual.Revision) && !dcl.IsZeroValue(desired.Revision) {
 		c.Config.Logger.Infof("Diff in Revision. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Revision), dcl.SprintResource(actual.Revision))
 		return true
 	}
@@ -2742,7 +2639,7 @@ func compareNoteVulnerabilityDetailsAffectedVersionStart(c *Client, desired, act
 		c.Config.Logger.Infof("desired Kind %s - but actually nil", dcl.SprintResource(desired.Kind))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Kind, actual.Kind) && !dcl.IsZeroValue(desired.Kind) && !(dcl.IsEmptyValueIndirect(desired.Kind) && dcl.IsZeroValue(actual.Kind)) {
+	if !reflect.DeepEqual(desired.Kind, actual.Kind) && !dcl.IsZeroValue(desired.Kind) {
 		c.Config.Logger.Infof("Diff in Kind. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Kind), dcl.SprintResource(actual.Kind))
 		return true
 	}
@@ -2750,20 +2647,40 @@ func compareNoteVulnerabilityDetailsAffectedVersionStart(c *Client, desired, act
 		c.Config.Logger.Infof("desired FullName %s - but actually nil", dcl.SprintResource(desired.FullName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.FullName, actual.FullName) && !dcl.IsZeroValue(desired.FullName) && !(dcl.IsEmptyValueIndirect(desired.FullName) && dcl.IsZeroValue(actual.FullName)) {
+	if !dcl.StringCanonicalize(desired.FullName, actual.FullName) && !dcl.IsZeroValue(desired.FullName) {
 		c.Config.Logger.Infof("Diff in FullName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FullName), dcl.SprintResource(actual.FullName))
 		return true
 	}
 	return false
 }
-func compareNoteVulnerabilityDetailsAffectedVersionEndSlice(c *Client, desired, actual []NoteVulnerabilityDetailsAffectedVersionEnd) bool {
+
+func compareNoteVulnerabilityDetailsAffectedVersionStartSlice(c *Client, desired, actual []NoteVulnerabilityDetailsAffectedVersionStart) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NoteVulnerabilityDetailsAffectedVersionEnd, lengths unequal.")
+		c.Config.Logger.Info("Diff in NoteVulnerabilityDetailsAffectedVersionStart, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNoteVulnerabilityDetailsAffectedVersionEnd(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NoteVulnerabilityDetailsAffectedVersionEnd, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNoteVulnerabilityDetailsAffectedVersionStart(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NoteVulnerabilityDetailsAffectedVersionStart, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNoteVulnerabilityDetailsAffectedVersionStartMap(c *Client, desired, actual map[string]NoteVulnerabilityDetailsAffectedVersionStart) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NoteVulnerabilityDetailsAffectedVersionStart, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NoteVulnerabilityDetailsAffectedVersionStart, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNoteVulnerabilityDetailsAffectedVersionStart(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NoteVulnerabilityDetailsAffectedVersionStart, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2781,7 +2698,7 @@ func compareNoteVulnerabilityDetailsAffectedVersionEnd(c *Client, desired, actua
 		c.Config.Logger.Infof("desired Epoch %s - but actually nil", dcl.SprintResource(desired.Epoch))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Epoch, actual.Epoch) && !dcl.IsZeroValue(desired.Epoch) && !(dcl.IsEmptyValueIndirect(desired.Epoch) && dcl.IsZeroValue(actual.Epoch)) {
+	if !reflect.DeepEqual(desired.Epoch, actual.Epoch) && !dcl.IsZeroValue(desired.Epoch) {
 		c.Config.Logger.Infof("Diff in Epoch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Epoch), dcl.SprintResource(actual.Epoch))
 		return true
 	}
@@ -2789,7 +2706,7 @@ func compareNoteVulnerabilityDetailsAffectedVersionEnd(c *Client, desired, actua
 		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
 		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
@@ -2797,7 +2714,7 @@ func compareNoteVulnerabilityDetailsAffectedVersionEnd(c *Client, desired, actua
 		c.Config.Logger.Infof("desired Revision %s - but actually nil", dcl.SprintResource(desired.Revision))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Revision, actual.Revision) && !dcl.IsZeroValue(desired.Revision) && !(dcl.IsEmptyValueIndirect(desired.Revision) && dcl.IsZeroValue(actual.Revision)) {
+	if !dcl.StringCanonicalize(desired.Revision, actual.Revision) && !dcl.IsZeroValue(desired.Revision) {
 		c.Config.Logger.Infof("Diff in Revision. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Revision), dcl.SprintResource(actual.Revision))
 		return true
 	}
@@ -2805,7 +2722,7 @@ func compareNoteVulnerabilityDetailsAffectedVersionEnd(c *Client, desired, actua
 		c.Config.Logger.Infof("desired Kind %s - but actually nil", dcl.SprintResource(desired.Kind))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Kind, actual.Kind) && !dcl.IsZeroValue(desired.Kind) && !(dcl.IsEmptyValueIndirect(desired.Kind) && dcl.IsZeroValue(actual.Kind)) {
+	if !reflect.DeepEqual(desired.Kind, actual.Kind) && !dcl.IsZeroValue(desired.Kind) {
 		c.Config.Logger.Infof("Diff in Kind. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Kind), dcl.SprintResource(actual.Kind))
 		return true
 	}
@@ -2813,20 +2730,40 @@ func compareNoteVulnerabilityDetailsAffectedVersionEnd(c *Client, desired, actua
 		c.Config.Logger.Infof("desired FullName %s - but actually nil", dcl.SprintResource(desired.FullName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.FullName, actual.FullName) && !dcl.IsZeroValue(desired.FullName) && !(dcl.IsEmptyValueIndirect(desired.FullName) && dcl.IsZeroValue(actual.FullName)) {
+	if !dcl.StringCanonicalize(desired.FullName, actual.FullName) && !dcl.IsZeroValue(desired.FullName) {
 		c.Config.Logger.Infof("Diff in FullName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FullName), dcl.SprintResource(actual.FullName))
 		return true
 	}
 	return false
 }
-func compareNoteVulnerabilityDetailsFixedVersionSlice(c *Client, desired, actual []NoteVulnerabilityDetailsFixedVersion) bool {
+
+func compareNoteVulnerabilityDetailsAffectedVersionEndSlice(c *Client, desired, actual []NoteVulnerabilityDetailsAffectedVersionEnd) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NoteVulnerabilityDetailsFixedVersion, lengths unequal.")
+		c.Config.Logger.Info("Diff in NoteVulnerabilityDetailsAffectedVersionEnd, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNoteVulnerabilityDetailsFixedVersion(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NoteVulnerabilityDetailsFixedVersion, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNoteVulnerabilityDetailsAffectedVersionEnd(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NoteVulnerabilityDetailsAffectedVersionEnd, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNoteVulnerabilityDetailsAffectedVersionEndMap(c *Client, desired, actual map[string]NoteVulnerabilityDetailsAffectedVersionEnd) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NoteVulnerabilityDetailsAffectedVersionEnd, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NoteVulnerabilityDetailsAffectedVersionEnd, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNoteVulnerabilityDetailsAffectedVersionEnd(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NoteVulnerabilityDetailsAffectedVersionEnd, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2844,7 +2781,7 @@ func compareNoteVulnerabilityDetailsFixedVersion(c *Client, desired, actual *Not
 		c.Config.Logger.Infof("desired Epoch %s - but actually nil", dcl.SprintResource(desired.Epoch))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Epoch, actual.Epoch) && !dcl.IsZeroValue(desired.Epoch) && !(dcl.IsEmptyValueIndirect(desired.Epoch) && dcl.IsZeroValue(actual.Epoch)) {
+	if !reflect.DeepEqual(desired.Epoch, actual.Epoch) && !dcl.IsZeroValue(desired.Epoch) {
 		c.Config.Logger.Infof("Diff in Epoch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Epoch), dcl.SprintResource(actual.Epoch))
 		return true
 	}
@@ -2852,7 +2789,7 @@ func compareNoteVulnerabilityDetailsFixedVersion(c *Client, desired, actual *Not
 		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
 		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
@@ -2860,7 +2797,7 @@ func compareNoteVulnerabilityDetailsFixedVersion(c *Client, desired, actual *Not
 		c.Config.Logger.Infof("desired Revision %s - but actually nil", dcl.SprintResource(desired.Revision))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Revision, actual.Revision) && !dcl.IsZeroValue(desired.Revision) && !(dcl.IsEmptyValueIndirect(desired.Revision) && dcl.IsZeroValue(actual.Revision)) {
+	if !dcl.StringCanonicalize(desired.Revision, actual.Revision) && !dcl.IsZeroValue(desired.Revision) {
 		c.Config.Logger.Infof("Diff in Revision. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Revision), dcl.SprintResource(actual.Revision))
 		return true
 	}
@@ -2868,7 +2805,7 @@ func compareNoteVulnerabilityDetailsFixedVersion(c *Client, desired, actual *Not
 		c.Config.Logger.Infof("desired Kind %s - but actually nil", dcl.SprintResource(desired.Kind))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Kind, actual.Kind) && !dcl.IsZeroValue(desired.Kind) && !(dcl.IsEmptyValueIndirect(desired.Kind) && dcl.IsZeroValue(actual.Kind)) {
+	if !reflect.DeepEqual(desired.Kind, actual.Kind) && !dcl.IsZeroValue(desired.Kind) {
 		c.Config.Logger.Infof("Diff in Kind. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Kind), dcl.SprintResource(actual.Kind))
 		return true
 	}
@@ -2876,20 +2813,40 @@ func compareNoteVulnerabilityDetailsFixedVersion(c *Client, desired, actual *Not
 		c.Config.Logger.Infof("desired FullName %s - but actually nil", dcl.SprintResource(desired.FullName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.FullName, actual.FullName) && !dcl.IsZeroValue(desired.FullName) && !(dcl.IsEmptyValueIndirect(desired.FullName) && dcl.IsZeroValue(actual.FullName)) {
+	if !dcl.StringCanonicalize(desired.FullName, actual.FullName) && !dcl.IsZeroValue(desired.FullName) {
 		c.Config.Logger.Infof("Diff in FullName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FullName), dcl.SprintResource(actual.FullName))
 		return true
 	}
 	return false
 }
-func compareNoteVulnerabilityCvssV3Slice(c *Client, desired, actual []NoteVulnerabilityCvssV3) bool {
+
+func compareNoteVulnerabilityDetailsFixedVersionSlice(c *Client, desired, actual []NoteVulnerabilityDetailsFixedVersion) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NoteVulnerabilityCvssV3, lengths unequal.")
+		c.Config.Logger.Info("Diff in NoteVulnerabilityDetailsFixedVersion, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNoteVulnerabilityCvssV3(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NoteVulnerabilityCvssV3, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNoteVulnerabilityDetailsFixedVersion(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NoteVulnerabilityDetailsFixedVersion, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNoteVulnerabilityDetailsFixedVersionMap(c *Client, desired, actual map[string]NoteVulnerabilityDetailsFixedVersion) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NoteVulnerabilityDetailsFixedVersion, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NoteVulnerabilityDetailsFixedVersion, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNoteVulnerabilityDetailsFixedVersion(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NoteVulnerabilityDetailsFixedVersion, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2907,7 +2864,7 @@ func compareNoteVulnerabilityCvssV3(c *Client, desired, actual *NoteVulnerabilit
 		c.Config.Logger.Infof("desired BaseScore %s - but actually nil", dcl.SprintResource(desired.BaseScore))
 		return true
 	}
-	if !reflect.DeepEqual(desired.BaseScore, actual.BaseScore) && !dcl.IsZeroValue(desired.BaseScore) && !(dcl.IsEmptyValueIndirect(desired.BaseScore) && dcl.IsZeroValue(actual.BaseScore)) {
+	if !reflect.DeepEqual(desired.BaseScore, actual.BaseScore) && !dcl.IsZeroValue(desired.BaseScore) {
 		c.Config.Logger.Infof("Diff in BaseScore. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BaseScore), dcl.SprintResource(actual.BaseScore))
 		return true
 	}
@@ -2915,7 +2872,7 @@ func compareNoteVulnerabilityCvssV3(c *Client, desired, actual *NoteVulnerabilit
 		c.Config.Logger.Infof("desired ExploitabilityScore %s - but actually nil", dcl.SprintResource(desired.ExploitabilityScore))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ExploitabilityScore, actual.ExploitabilityScore) && !dcl.IsZeroValue(desired.ExploitabilityScore) && !(dcl.IsEmptyValueIndirect(desired.ExploitabilityScore) && dcl.IsZeroValue(actual.ExploitabilityScore)) {
+	if !reflect.DeepEqual(desired.ExploitabilityScore, actual.ExploitabilityScore) && !dcl.IsZeroValue(desired.ExploitabilityScore) {
 		c.Config.Logger.Infof("Diff in ExploitabilityScore. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExploitabilityScore), dcl.SprintResource(actual.ExploitabilityScore))
 		return true
 	}
@@ -2923,7 +2880,7 @@ func compareNoteVulnerabilityCvssV3(c *Client, desired, actual *NoteVulnerabilit
 		c.Config.Logger.Infof("desired ImpactScore %s - but actually nil", dcl.SprintResource(desired.ImpactScore))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ImpactScore, actual.ImpactScore) && !dcl.IsZeroValue(desired.ImpactScore) && !(dcl.IsEmptyValueIndirect(desired.ImpactScore) && dcl.IsZeroValue(actual.ImpactScore)) {
+	if !reflect.DeepEqual(desired.ImpactScore, actual.ImpactScore) && !dcl.IsZeroValue(desired.ImpactScore) {
 		c.Config.Logger.Infof("Diff in ImpactScore. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ImpactScore), dcl.SprintResource(actual.ImpactScore))
 		return true
 	}
@@ -2931,7 +2888,7 @@ func compareNoteVulnerabilityCvssV3(c *Client, desired, actual *NoteVulnerabilit
 		c.Config.Logger.Infof("desired AttackVector %s - but actually nil", dcl.SprintResource(desired.AttackVector))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AttackVector, actual.AttackVector) && !dcl.IsZeroValue(desired.AttackVector) && !(dcl.IsEmptyValueIndirect(desired.AttackVector) && dcl.IsZeroValue(actual.AttackVector)) {
+	if !reflect.DeepEqual(desired.AttackVector, actual.AttackVector) && !dcl.IsZeroValue(desired.AttackVector) {
 		c.Config.Logger.Infof("Diff in AttackVector. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AttackVector), dcl.SprintResource(actual.AttackVector))
 		return true
 	}
@@ -2939,7 +2896,7 @@ func compareNoteVulnerabilityCvssV3(c *Client, desired, actual *NoteVulnerabilit
 		c.Config.Logger.Infof("desired AttackComplexity %s - but actually nil", dcl.SprintResource(desired.AttackComplexity))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AttackComplexity, actual.AttackComplexity) && !dcl.IsZeroValue(desired.AttackComplexity) && !(dcl.IsEmptyValueIndirect(desired.AttackComplexity) && dcl.IsZeroValue(actual.AttackComplexity)) {
+	if !reflect.DeepEqual(desired.AttackComplexity, actual.AttackComplexity) && !dcl.IsZeroValue(desired.AttackComplexity) {
 		c.Config.Logger.Infof("Diff in AttackComplexity. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AttackComplexity), dcl.SprintResource(actual.AttackComplexity))
 		return true
 	}
@@ -2947,7 +2904,7 @@ func compareNoteVulnerabilityCvssV3(c *Client, desired, actual *NoteVulnerabilit
 		c.Config.Logger.Infof("desired PrivilegesRequired %s - but actually nil", dcl.SprintResource(desired.PrivilegesRequired))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PrivilegesRequired, actual.PrivilegesRequired) && !dcl.IsZeroValue(desired.PrivilegesRequired) && !(dcl.IsEmptyValueIndirect(desired.PrivilegesRequired) && dcl.IsZeroValue(actual.PrivilegesRequired)) {
+	if !reflect.DeepEqual(desired.PrivilegesRequired, actual.PrivilegesRequired) && !dcl.IsZeroValue(desired.PrivilegesRequired) {
 		c.Config.Logger.Infof("Diff in PrivilegesRequired. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PrivilegesRequired), dcl.SprintResource(actual.PrivilegesRequired))
 		return true
 	}
@@ -2955,7 +2912,7 @@ func compareNoteVulnerabilityCvssV3(c *Client, desired, actual *NoteVulnerabilit
 		c.Config.Logger.Infof("desired UserInteraction %s - but actually nil", dcl.SprintResource(desired.UserInteraction))
 		return true
 	}
-	if !reflect.DeepEqual(desired.UserInteraction, actual.UserInteraction) && !dcl.IsZeroValue(desired.UserInteraction) && !(dcl.IsEmptyValueIndirect(desired.UserInteraction) && dcl.IsZeroValue(actual.UserInteraction)) {
+	if !reflect.DeepEqual(desired.UserInteraction, actual.UserInteraction) && !dcl.IsZeroValue(desired.UserInteraction) {
 		c.Config.Logger.Infof("Diff in UserInteraction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UserInteraction), dcl.SprintResource(actual.UserInteraction))
 		return true
 	}
@@ -2963,7 +2920,7 @@ func compareNoteVulnerabilityCvssV3(c *Client, desired, actual *NoteVulnerabilit
 		c.Config.Logger.Infof("desired Scope %s - but actually nil", dcl.SprintResource(desired.Scope))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Scope, actual.Scope) && !dcl.IsZeroValue(desired.Scope) && !(dcl.IsEmptyValueIndirect(desired.Scope) && dcl.IsZeroValue(actual.Scope)) {
+	if !reflect.DeepEqual(desired.Scope, actual.Scope) && !dcl.IsZeroValue(desired.Scope) {
 		c.Config.Logger.Infof("Diff in Scope. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scope), dcl.SprintResource(actual.Scope))
 		return true
 	}
@@ -2971,7 +2928,7 @@ func compareNoteVulnerabilityCvssV3(c *Client, desired, actual *NoteVulnerabilit
 		c.Config.Logger.Infof("desired ConfidentialityImpact %s - but actually nil", dcl.SprintResource(desired.ConfidentialityImpact))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ConfidentialityImpact, actual.ConfidentialityImpact) && !dcl.IsZeroValue(desired.ConfidentialityImpact) && !(dcl.IsEmptyValueIndirect(desired.ConfidentialityImpact) && dcl.IsZeroValue(actual.ConfidentialityImpact)) {
+	if !reflect.DeepEqual(desired.ConfidentialityImpact, actual.ConfidentialityImpact) && !dcl.IsZeroValue(desired.ConfidentialityImpact) {
 		c.Config.Logger.Infof("Diff in ConfidentialityImpact. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfidentialityImpact), dcl.SprintResource(actual.ConfidentialityImpact))
 		return true
 	}
@@ -2979,7 +2936,7 @@ func compareNoteVulnerabilityCvssV3(c *Client, desired, actual *NoteVulnerabilit
 		c.Config.Logger.Infof("desired IntegrityImpact %s - but actually nil", dcl.SprintResource(desired.IntegrityImpact))
 		return true
 	}
-	if !reflect.DeepEqual(desired.IntegrityImpact, actual.IntegrityImpact) && !dcl.IsZeroValue(desired.IntegrityImpact) && !(dcl.IsEmptyValueIndirect(desired.IntegrityImpact) && dcl.IsZeroValue(actual.IntegrityImpact)) {
+	if !reflect.DeepEqual(desired.IntegrityImpact, actual.IntegrityImpact) && !dcl.IsZeroValue(desired.IntegrityImpact) {
 		c.Config.Logger.Infof("Diff in IntegrityImpact. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IntegrityImpact), dcl.SprintResource(actual.IntegrityImpact))
 		return true
 	}
@@ -2987,20 +2944,40 @@ func compareNoteVulnerabilityCvssV3(c *Client, desired, actual *NoteVulnerabilit
 		c.Config.Logger.Infof("desired AvailabilityImpact %s - but actually nil", dcl.SprintResource(desired.AvailabilityImpact))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AvailabilityImpact, actual.AvailabilityImpact) && !dcl.IsZeroValue(desired.AvailabilityImpact) && !(dcl.IsEmptyValueIndirect(desired.AvailabilityImpact) && dcl.IsZeroValue(actual.AvailabilityImpact)) {
+	if !reflect.DeepEqual(desired.AvailabilityImpact, actual.AvailabilityImpact) && !dcl.IsZeroValue(desired.AvailabilityImpact) {
 		c.Config.Logger.Infof("Diff in AvailabilityImpact. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AvailabilityImpact), dcl.SprintResource(actual.AvailabilityImpact))
 		return true
 	}
 	return false
 }
-func compareNoteVulnerabilityWindowsDetailsSlice(c *Client, desired, actual []NoteVulnerabilityWindowsDetails) bool {
+
+func compareNoteVulnerabilityCvssV3Slice(c *Client, desired, actual []NoteVulnerabilityCvssV3) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NoteVulnerabilityWindowsDetails, lengths unequal.")
+		c.Config.Logger.Info("Diff in NoteVulnerabilityCvssV3, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNoteVulnerabilityWindowsDetails(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NoteVulnerabilityWindowsDetails, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNoteVulnerabilityCvssV3(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NoteVulnerabilityCvssV3, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNoteVulnerabilityCvssV3Map(c *Client, desired, actual map[string]NoteVulnerabilityCvssV3) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NoteVulnerabilityCvssV3, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NoteVulnerabilityCvssV3, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNoteVulnerabilityCvssV3(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NoteVulnerabilityCvssV3, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3018,7 +2995,7 @@ func compareNoteVulnerabilityWindowsDetails(c *Client, desired, actual *NoteVuln
 		c.Config.Logger.Infof("desired CpeUri %s - but actually nil", dcl.SprintResource(desired.CpeUri))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CpeUri, actual.CpeUri) && !dcl.IsZeroValue(desired.CpeUri) && !(dcl.IsEmptyValueIndirect(desired.CpeUri) && dcl.IsZeroValue(actual.CpeUri)) {
+	if !dcl.StringCanonicalize(desired.CpeUri, actual.CpeUri) && !dcl.IsZeroValue(desired.CpeUri) {
 		c.Config.Logger.Infof("Diff in CpeUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CpeUri), dcl.SprintResource(actual.CpeUri))
 		return true
 	}
@@ -3026,7 +3003,7 @@ func compareNoteVulnerabilityWindowsDetails(c *Client, desired, actual *NoteVuln
 		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
 		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
@@ -3034,7 +3011,7 @@ func compareNoteVulnerabilityWindowsDetails(c *Client, desired, actual *NoteVuln
 		c.Config.Logger.Infof("desired Description %s - but actually nil", dcl.SprintResource(desired.Description))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) && !(dcl.IsEmptyValueIndirect(desired.Description) && dcl.IsZeroValue(actual.Description)) {
+	if !dcl.StringCanonicalize(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) {
 		c.Config.Logger.Infof("Diff in Description. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
 		return true
 	}
@@ -3048,14 +3025,34 @@ func compareNoteVulnerabilityWindowsDetails(c *Client, desired, actual *NoteVuln
 	}
 	return false
 }
-func compareNoteVulnerabilityWindowsDetailsFixingKbsSlice(c *Client, desired, actual []NoteVulnerabilityWindowsDetailsFixingKbs) bool {
+
+func compareNoteVulnerabilityWindowsDetailsSlice(c *Client, desired, actual []NoteVulnerabilityWindowsDetails) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NoteVulnerabilityWindowsDetailsFixingKbs, lengths unequal.")
+		c.Config.Logger.Info("Diff in NoteVulnerabilityWindowsDetails, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNoteVulnerabilityWindowsDetailsFixingKbs(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NoteVulnerabilityWindowsDetailsFixingKbs, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNoteVulnerabilityWindowsDetails(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NoteVulnerabilityWindowsDetails, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNoteVulnerabilityWindowsDetailsMap(c *Client, desired, actual map[string]NoteVulnerabilityWindowsDetails) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NoteVulnerabilityWindowsDetails, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NoteVulnerabilityWindowsDetails, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNoteVulnerabilityWindowsDetails(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NoteVulnerabilityWindowsDetails, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3073,7 +3070,7 @@ func compareNoteVulnerabilityWindowsDetailsFixingKbs(c *Client, desired, actual 
 		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
 		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
@@ -3081,20 +3078,40 @@ func compareNoteVulnerabilityWindowsDetailsFixingKbs(c *Client, desired, actual 
 		c.Config.Logger.Infof("desired Url %s - but actually nil", dcl.SprintResource(desired.Url))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Url, actual.Url) && !dcl.IsZeroValue(desired.Url) && !(dcl.IsEmptyValueIndirect(desired.Url) && dcl.IsZeroValue(actual.Url)) {
+	if !dcl.StringCanonicalize(desired.Url, actual.Url) && !dcl.IsZeroValue(desired.Url) {
 		c.Config.Logger.Infof("Diff in Url. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Url), dcl.SprintResource(actual.Url))
 		return true
 	}
 	return false
 }
-func compareNoteBuildSlice(c *Client, desired, actual []NoteBuild) bool {
+
+func compareNoteVulnerabilityWindowsDetailsFixingKbsSlice(c *Client, desired, actual []NoteVulnerabilityWindowsDetailsFixingKbs) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NoteBuild, lengths unequal.")
+		c.Config.Logger.Info("Diff in NoteVulnerabilityWindowsDetailsFixingKbs, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNoteBuild(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NoteBuild, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNoteVulnerabilityWindowsDetailsFixingKbs(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NoteVulnerabilityWindowsDetailsFixingKbs, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNoteVulnerabilityWindowsDetailsFixingKbsMap(c *Client, desired, actual map[string]NoteVulnerabilityWindowsDetailsFixingKbs) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NoteVulnerabilityWindowsDetailsFixingKbs, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NoteVulnerabilityWindowsDetailsFixingKbs, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNoteVulnerabilityWindowsDetailsFixingKbs(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NoteVulnerabilityWindowsDetailsFixingKbs, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3112,7 +3129,7 @@ func compareNoteBuild(c *Client, desired, actual *NoteBuild) bool {
 		c.Config.Logger.Infof("desired BuilderVersion %s - but actually nil", dcl.SprintResource(desired.BuilderVersion))
 		return true
 	}
-	if !reflect.DeepEqual(desired.BuilderVersion, actual.BuilderVersion) && !dcl.IsZeroValue(desired.BuilderVersion) && !(dcl.IsEmptyValueIndirect(desired.BuilderVersion) && dcl.IsZeroValue(actual.BuilderVersion)) {
+	if !dcl.StringCanonicalize(desired.BuilderVersion, actual.BuilderVersion) && !dcl.IsZeroValue(desired.BuilderVersion) {
 		c.Config.Logger.Infof("Diff in BuilderVersion. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BuilderVersion), dcl.SprintResource(actual.BuilderVersion))
 		return true
 	}
@@ -3126,14 +3143,34 @@ func compareNoteBuild(c *Client, desired, actual *NoteBuild) bool {
 	}
 	return false
 }
-func compareNoteBuildSignatureSlice(c *Client, desired, actual []NoteBuildSignature) bool {
+
+func compareNoteBuildSlice(c *Client, desired, actual []NoteBuild) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NoteBuildSignature, lengths unequal.")
+		c.Config.Logger.Info("Diff in NoteBuild, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNoteBuildSignature(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NoteBuildSignature, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNoteBuild(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NoteBuild, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNoteBuildMap(c *Client, desired, actual map[string]NoteBuild) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NoteBuild, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NoteBuild, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNoteBuild(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NoteBuild, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3151,7 +3188,7 @@ func compareNoteBuildSignature(c *Client, desired, actual *NoteBuildSignature) b
 		c.Config.Logger.Infof("desired PublicKey %s - but actually nil", dcl.SprintResource(desired.PublicKey))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PublicKey, actual.PublicKey) && !dcl.IsZeroValue(desired.PublicKey) && !(dcl.IsEmptyValueIndirect(desired.PublicKey) && dcl.IsZeroValue(actual.PublicKey)) {
+	if !dcl.StringCanonicalize(desired.PublicKey, actual.PublicKey) && !dcl.IsZeroValue(desired.PublicKey) {
 		c.Config.Logger.Infof("Diff in PublicKey. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PublicKey), dcl.SprintResource(actual.PublicKey))
 		return true
 	}
@@ -3159,7 +3196,7 @@ func compareNoteBuildSignature(c *Client, desired, actual *NoteBuildSignature) b
 		c.Config.Logger.Infof("desired Signature %s - but actually nil", dcl.SprintResource(desired.Signature))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Signature, actual.Signature) && !dcl.IsZeroValue(desired.Signature) && !(dcl.IsEmptyValueIndirect(desired.Signature) && dcl.IsZeroValue(actual.Signature)) {
+	if !dcl.StringCanonicalize(desired.Signature, actual.Signature) && !dcl.IsZeroValue(desired.Signature) {
 		c.Config.Logger.Infof("Diff in Signature. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Signature), dcl.SprintResource(actual.Signature))
 		return true
 	}
@@ -3167,7 +3204,7 @@ func compareNoteBuildSignature(c *Client, desired, actual *NoteBuildSignature) b
 		c.Config.Logger.Infof("desired KeyId %s - but actually nil", dcl.SprintResource(desired.KeyId))
 		return true
 	}
-	if !reflect.DeepEqual(desired.KeyId, actual.KeyId) && !dcl.IsZeroValue(desired.KeyId) && !(dcl.IsEmptyValueIndirect(desired.KeyId) && dcl.IsZeroValue(actual.KeyId)) {
+	if !dcl.StringCanonicalize(desired.KeyId, actual.KeyId) && !dcl.IsZeroValue(desired.KeyId) {
 		c.Config.Logger.Infof("Diff in KeyId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KeyId), dcl.SprintResource(actual.KeyId))
 		return true
 	}
@@ -3175,20 +3212,40 @@ func compareNoteBuildSignature(c *Client, desired, actual *NoteBuildSignature) b
 		c.Config.Logger.Infof("desired KeyType %s - but actually nil", dcl.SprintResource(desired.KeyType))
 		return true
 	}
-	if !reflect.DeepEqual(desired.KeyType, actual.KeyType) && !dcl.IsZeroValue(desired.KeyType) && !(dcl.IsEmptyValueIndirect(desired.KeyType) && dcl.IsZeroValue(actual.KeyType)) {
+	if !reflect.DeepEqual(desired.KeyType, actual.KeyType) && !dcl.IsZeroValue(desired.KeyType) {
 		c.Config.Logger.Infof("Diff in KeyType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KeyType), dcl.SprintResource(actual.KeyType))
 		return true
 	}
 	return false
 }
-func compareNoteImageSlice(c *Client, desired, actual []NoteImage) bool {
+
+func compareNoteBuildSignatureSlice(c *Client, desired, actual []NoteBuildSignature) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NoteImage, lengths unequal.")
+		c.Config.Logger.Info("Diff in NoteBuildSignature, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNoteImage(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NoteImage, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNoteBuildSignature(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NoteBuildSignature, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNoteBuildSignatureMap(c *Client, desired, actual map[string]NoteBuildSignature) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NoteBuildSignature, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NoteBuildSignature, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNoteBuildSignature(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NoteBuildSignature, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3206,7 +3263,7 @@ func compareNoteImage(c *Client, desired, actual *NoteImage) bool {
 		c.Config.Logger.Infof("desired ResourceUrl %s - but actually nil", dcl.SprintResource(desired.ResourceUrl))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ResourceUrl, actual.ResourceUrl) && !dcl.IsZeroValue(desired.ResourceUrl) && !(dcl.IsEmptyValueIndirect(desired.ResourceUrl) && dcl.IsZeroValue(actual.ResourceUrl)) {
+	if !dcl.StringCanonicalize(desired.ResourceUrl, actual.ResourceUrl) && !dcl.IsZeroValue(desired.ResourceUrl) {
 		c.Config.Logger.Infof("Diff in ResourceUrl. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceUrl), dcl.SprintResource(actual.ResourceUrl))
 		return true
 	}
@@ -3220,14 +3277,34 @@ func compareNoteImage(c *Client, desired, actual *NoteImage) bool {
 	}
 	return false
 }
-func compareNoteImageFingerprintSlice(c *Client, desired, actual []NoteImageFingerprint) bool {
+
+func compareNoteImageSlice(c *Client, desired, actual []NoteImage) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NoteImageFingerprint, lengths unequal.")
+		c.Config.Logger.Info("Diff in NoteImage, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNoteImageFingerprint(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NoteImageFingerprint, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNoteImage(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NoteImage, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNoteImageMap(c *Client, desired, actual map[string]NoteImage) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NoteImage, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NoteImage, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNoteImage(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NoteImage, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3245,7 +3322,7 @@ func compareNoteImageFingerprint(c *Client, desired, actual *NoteImageFingerprin
 		c.Config.Logger.Infof("desired V1Name %s - but actually nil", dcl.SprintResource(desired.V1Name))
 		return true
 	}
-	if !reflect.DeepEqual(desired.V1Name, actual.V1Name) && !dcl.IsZeroValue(desired.V1Name) && !(dcl.IsEmptyValueIndirect(desired.V1Name) && dcl.IsZeroValue(actual.V1Name)) {
+	if !dcl.StringCanonicalize(desired.V1Name, actual.V1Name) && !dcl.IsZeroValue(desired.V1Name) {
 		c.Config.Logger.Infof("Diff in V1Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.V1Name), dcl.SprintResource(actual.V1Name))
 		return true
 	}
@@ -3253,20 +3330,40 @@ func compareNoteImageFingerprint(c *Client, desired, actual *NoteImageFingerprin
 		c.Config.Logger.Infof("desired V2Blob %s - but actually nil", dcl.SprintResource(desired.V2Blob))
 		return true
 	}
-	if !dcl.SliceEquals(desired.V2Blob, actual.V2Blob) && !dcl.IsZeroValue(desired.V2Blob) {
+	if !dcl.StringSliceEquals(desired.V2Blob, actual.V2Blob) && !dcl.IsZeroValue(desired.V2Blob) {
 		c.Config.Logger.Infof("Diff in V2Blob. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.V2Blob), dcl.SprintResource(actual.V2Blob))
 		return true
 	}
 	return false
 }
-func compareNotePackageSlice(c *Client, desired, actual []NotePackage) bool {
+
+func compareNoteImageFingerprintSlice(c *Client, desired, actual []NoteImageFingerprint) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NotePackage, lengths unequal.")
+		c.Config.Logger.Info("Diff in NoteImageFingerprint, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNotePackage(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NotePackage, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNoteImageFingerprint(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NoteImageFingerprint, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNoteImageFingerprintMap(c *Client, desired, actual map[string]NoteImageFingerprint) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NoteImageFingerprint, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NoteImageFingerprint, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNoteImageFingerprint(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NoteImageFingerprint, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3284,7 +3381,7 @@ func compareNotePackage(c *Client, desired, actual *NotePackage) bool {
 		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
 		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
@@ -3298,14 +3395,34 @@ func compareNotePackage(c *Client, desired, actual *NotePackage) bool {
 	}
 	return false
 }
-func compareNotePackageDistributionSlice(c *Client, desired, actual []NotePackageDistribution) bool {
+
+func compareNotePackageSlice(c *Client, desired, actual []NotePackage) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NotePackageDistribution, lengths unequal.")
+		c.Config.Logger.Info("Diff in NotePackage, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNotePackageDistribution(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NotePackageDistribution, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNotePackage(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NotePackage, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNotePackageMap(c *Client, desired, actual map[string]NotePackage) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NotePackage, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NotePackage, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNotePackage(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NotePackage, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3323,7 +3440,7 @@ func compareNotePackageDistribution(c *Client, desired, actual *NotePackageDistr
 		c.Config.Logger.Infof("desired CpeUri %s - but actually nil", dcl.SprintResource(desired.CpeUri))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CpeUri, actual.CpeUri) && !dcl.IsZeroValue(desired.CpeUri) && !(dcl.IsEmptyValueIndirect(desired.CpeUri) && dcl.IsZeroValue(actual.CpeUri)) {
+	if !dcl.StringCanonicalize(desired.CpeUri, actual.CpeUri) && !dcl.IsZeroValue(desired.CpeUri) {
 		c.Config.Logger.Infof("Diff in CpeUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CpeUri), dcl.SprintResource(actual.CpeUri))
 		return true
 	}
@@ -3331,7 +3448,7 @@ func compareNotePackageDistribution(c *Client, desired, actual *NotePackageDistr
 		c.Config.Logger.Infof("desired Architecture %s - but actually nil", dcl.SprintResource(desired.Architecture))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Architecture, actual.Architecture) && !dcl.IsZeroValue(desired.Architecture) && !(dcl.IsEmptyValueIndirect(desired.Architecture) && dcl.IsZeroValue(actual.Architecture)) {
+	if !reflect.DeepEqual(desired.Architecture, actual.Architecture) && !dcl.IsZeroValue(desired.Architecture) {
 		c.Config.Logger.Infof("Diff in Architecture. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Architecture), dcl.SprintResource(actual.Architecture))
 		return true
 	}
@@ -3347,7 +3464,7 @@ func compareNotePackageDistribution(c *Client, desired, actual *NotePackageDistr
 		c.Config.Logger.Infof("desired Maintainer %s - but actually nil", dcl.SprintResource(desired.Maintainer))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Maintainer, actual.Maintainer) && !dcl.IsZeroValue(desired.Maintainer) && !(dcl.IsEmptyValueIndirect(desired.Maintainer) && dcl.IsZeroValue(actual.Maintainer)) {
+	if !dcl.StringCanonicalize(desired.Maintainer, actual.Maintainer) && !dcl.IsZeroValue(desired.Maintainer) {
 		c.Config.Logger.Infof("Diff in Maintainer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Maintainer), dcl.SprintResource(actual.Maintainer))
 		return true
 	}
@@ -3355,7 +3472,7 @@ func compareNotePackageDistribution(c *Client, desired, actual *NotePackageDistr
 		c.Config.Logger.Infof("desired Url %s - but actually nil", dcl.SprintResource(desired.Url))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Url, actual.Url) && !dcl.IsZeroValue(desired.Url) && !(dcl.IsEmptyValueIndirect(desired.Url) && dcl.IsZeroValue(actual.Url)) {
+	if !dcl.StringCanonicalize(desired.Url, actual.Url) && !dcl.IsZeroValue(desired.Url) {
 		c.Config.Logger.Infof("Diff in Url. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Url), dcl.SprintResource(actual.Url))
 		return true
 	}
@@ -3363,20 +3480,40 @@ func compareNotePackageDistribution(c *Client, desired, actual *NotePackageDistr
 		c.Config.Logger.Infof("desired Description %s - but actually nil", dcl.SprintResource(desired.Description))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) && !(dcl.IsEmptyValueIndirect(desired.Description) && dcl.IsZeroValue(actual.Description)) {
+	if !dcl.StringCanonicalize(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) {
 		c.Config.Logger.Infof("Diff in Description. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
 		return true
 	}
 	return false
 }
-func compareNotePackageDistributionLatestVersionSlice(c *Client, desired, actual []NotePackageDistributionLatestVersion) bool {
+
+func compareNotePackageDistributionSlice(c *Client, desired, actual []NotePackageDistribution) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NotePackageDistributionLatestVersion, lengths unequal.")
+		c.Config.Logger.Info("Diff in NotePackageDistribution, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNotePackageDistributionLatestVersion(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NotePackageDistributionLatestVersion, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNotePackageDistribution(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NotePackageDistribution, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNotePackageDistributionMap(c *Client, desired, actual map[string]NotePackageDistribution) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NotePackageDistribution, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NotePackageDistribution, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNotePackageDistribution(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NotePackageDistribution, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3394,7 +3531,7 @@ func compareNotePackageDistributionLatestVersion(c *Client, desired, actual *Not
 		c.Config.Logger.Infof("desired Epoch %s - but actually nil", dcl.SprintResource(desired.Epoch))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Epoch, actual.Epoch) && !dcl.IsZeroValue(desired.Epoch) && !(dcl.IsEmptyValueIndirect(desired.Epoch) && dcl.IsZeroValue(actual.Epoch)) {
+	if !reflect.DeepEqual(desired.Epoch, actual.Epoch) && !dcl.IsZeroValue(desired.Epoch) {
 		c.Config.Logger.Infof("Diff in Epoch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Epoch), dcl.SprintResource(actual.Epoch))
 		return true
 	}
@@ -3402,7 +3539,7 @@ func compareNotePackageDistributionLatestVersion(c *Client, desired, actual *Not
 		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
 		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
@@ -3410,7 +3547,7 @@ func compareNotePackageDistributionLatestVersion(c *Client, desired, actual *Not
 		c.Config.Logger.Infof("desired Revision %s - but actually nil", dcl.SprintResource(desired.Revision))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Revision, actual.Revision) && !dcl.IsZeroValue(desired.Revision) && !(dcl.IsEmptyValueIndirect(desired.Revision) && dcl.IsZeroValue(actual.Revision)) {
+	if !dcl.StringCanonicalize(desired.Revision, actual.Revision) && !dcl.IsZeroValue(desired.Revision) {
 		c.Config.Logger.Infof("Diff in Revision. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Revision), dcl.SprintResource(actual.Revision))
 		return true
 	}
@@ -3418,7 +3555,7 @@ func compareNotePackageDistributionLatestVersion(c *Client, desired, actual *Not
 		c.Config.Logger.Infof("desired Kind %s - but actually nil", dcl.SprintResource(desired.Kind))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Kind, actual.Kind) && !dcl.IsZeroValue(desired.Kind) && !(dcl.IsEmptyValueIndirect(desired.Kind) && dcl.IsZeroValue(actual.Kind)) {
+	if !reflect.DeepEqual(desired.Kind, actual.Kind) && !dcl.IsZeroValue(desired.Kind) {
 		c.Config.Logger.Infof("Diff in Kind. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Kind), dcl.SprintResource(actual.Kind))
 		return true
 	}
@@ -3426,20 +3563,40 @@ func compareNotePackageDistributionLatestVersion(c *Client, desired, actual *Not
 		c.Config.Logger.Infof("desired FullName %s - but actually nil", dcl.SprintResource(desired.FullName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.FullName, actual.FullName) && !dcl.IsZeroValue(desired.FullName) && !(dcl.IsEmptyValueIndirect(desired.FullName) && dcl.IsZeroValue(actual.FullName)) {
+	if !dcl.StringCanonicalize(desired.FullName, actual.FullName) && !dcl.IsZeroValue(desired.FullName) {
 		c.Config.Logger.Infof("Diff in FullName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FullName), dcl.SprintResource(actual.FullName))
 		return true
 	}
 	return false
 }
-func compareNoteDiscoverySlice(c *Client, desired, actual []NoteDiscovery) bool {
+
+func compareNotePackageDistributionLatestVersionSlice(c *Client, desired, actual []NotePackageDistributionLatestVersion) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NoteDiscovery, lengths unequal.")
+		c.Config.Logger.Info("Diff in NotePackageDistributionLatestVersion, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNoteDiscovery(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NoteDiscovery, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNotePackageDistributionLatestVersion(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NotePackageDistributionLatestVersion, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNotePackageDistributionLatestVersionMap(c *Client, desired, actual map[string]NotePackageDistributionLatestVersion) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NotePackageDistributionLatestVersion, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NotePackageDistributionLatestVersion, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNotePackageDistributionLatestVersion(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NotePackageDistributionLatestVersion, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3457,105 +3614,47 @@ func compareNoteDiscovery(c *Client, desired, actual *NoteDiscovery) bool {
 		c.Config.Logger.Infof("desired AnalysisKind %s - but actually nil", dcl.SprintResource(desired.AnalysisKind))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AnalysisKind, actual.AnalysisKind) && !dcl.IsZeroValue(desired.AnalysisKind) && !(dcl.IsEmptyValueIndirect(desired.AnalysisKind) && dcl.IsZeroValue(actual.AnalysisKind)) {
+	if !reflect.DeepEqual(desired.AnalysisKind, actual.AnalysisKind) && !dcl.IsZeroValue(desired.AnalysisKind) {
 		c.Config.Logger.Infof("Diff in AnalysisKind. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AnalysisKind), dcl.SprintResource(actual.AnalysisKind))
 		return true
 	}
 	return false
 }
-func compareNoteBaseImageSlice(c *Client, desired, actual []NoteBaseImage) bool {
+
+func compareNoteDiscoverySlice(c *Client, desired, actual []NoteDiscovery) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NoteBaseImage, lengths unequal.")
+		c.Config.Logger.Info("Diff in NoteDiscovery, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNoteBaseImage(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NoteBaseImage, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNoteDiscovery(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NoteDiscovery, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
 	return false
 }
 
-func compareNoteBaseImage(c *Client, desired, actual *NoteBaseImage) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.ResourceUrl == nil && desired.ResourceUrl != nil && !dcl.IsEmptyValueIndirect(desired.ResourceUrl) {
-		c.Config.Logger.Infof("desired ResourceUrl %s - but actually nil", dcl.SprintResource(desired.ResourceUrl))
-		return true
-	}
-	if !reflect.DeepEqual(desired.ResourceUrl, actual.ResourceUrl) && !dcl.IsZeroValue(desired.ResourceUrl) && !(dcl.IsEmptyValueIndirect(desired.ResourceUrl) && dcl.IsZeroValue(actual.ResourceUrl)) {
-		c.Config.Logger.Infof("Diff in ResourceUrl. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceUrl), dcl.SprintResource(actual.ResourceUrl))
-		return true
-	}
-	if actual.Fingerprint == nil && desired.Fingerprint != nil && !dcl.IsEmptyValueIndirect(desired.Fingerprint) {
-		c.Config.Logger.Infof("desired Fingerprint %s - but actually nil", dcl.SprintResource(desired.Fingerprint))
-		return true
-	}
-	if compareNoteBaseImageFingerprint(c, desired.Fingerprint, actual.Fingerprint) && !dcl.IsZeroValue(desired.Fingerprint) {
-		c.Config.Logger.Infof("Diff in Fingerprint. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Fingerprint), dcl.SprintResource(actual.Fingerprint))
-		return true
-	}
-	return false
-}
-func compareNoteBaseImageFingerprintSlice(c *Client, desired, actual []NoteBaseImageFingerprint) bool {
+func compareNoteDiscoveryMap(c *Client, desired, actual map[string]NoteDiscovery) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NoteBaseImageFingerprint, lengths unequal.")
+		c.Config.Logger.Info("Diff in NoteDiscovery, lengths unequal.")
 		return true
 	}
-	for i := 0; i < len(desired); i++ {
-		if compareNoteBaseImageFingerprint(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NoteBaseImageFingerprint, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NoteDiscovery, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNoteDiscovery(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NoteDiscovery, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
 	return false
 }
 
-func compareNoteBaseImageFingerprint(c *Client, desired, actual *NoteBaseImageFingerprint) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.V1Name == nil && desired.V1Name != nil && !dcl.IsEmptyValueIndirect(desired.V1Name) {
-		c.Config.Logger.Infof("desired V1Name %s - but actually nil", dcl.SprintResource(desired.V1Name))
-		return true
-	}
-	if !reflect.DeepEqual(desired.V1Name, actual.V1Name) && !dcl.IsZeroValue(desired.V1Name) && !(dcl.IsEmptyValueIndirect(desired.V1Name) && dcl.IsZeroValue(actual.V1Name)) {
-		c.Config.Logger.Infof("Diff in V1Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.V1Name), dcl.SprintResource(actual.V1Name))
-		return true
-	}
-	if actual.V2Blob == nil && desired.V2Blob != nil && !dcl.IsEmptyValueIndirect(desired.V2Blob) {
-		c.Config.Logger.Infof("desired V2Blob %s - but actually nil", dcl.SprintResource(desired.V2Blob))
-		return true
-	}
-	if !dcl.SliceEquals(desired.V2Blob, actual.V2Blob) && !dcl.IsZeroValue(desired.V2Blob) {
-		c.Config.Logger.Infof("Diff in V2Blob. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.V2Blob), dcl.SprintResource(actual.V2Blob))
-		return true
-	}
-	return false
-}
-func compareNoteDeployableSlice(c *Client, desired, actual []NoteDeployable) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NoteDeployable, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareNoteDeployable(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NoteDeployable, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareNoteDeployable(c *Client, desired, actual *NoteDeployable) bool {
+func compareNoteDeployment(c *Client, desired, actual *NoteDeployment) bool {
 	if desired == nil {
 		return false
 	}
@@ -3566,27 +3665,47 @@ func compareNoteDeployable(c *Client, desired, actual *NoteDeployable) bool {
 		c.Config.Logger.Infof("desired ResourceUri %s - but actually nil", dcl.SprintResource(desired.ResourceUri))
 		return true
 	}
-	if !dcl.SliceEquals(desired.ResourceUri, actual.ResourceUri) && !dcl.IsZeroValue(desired.ResourceUri) {
+	if !dcl.StringSliceEquals(desired.ResourceUri, actual.ResourceUri) && !dcl.IsZeroValue(desired.ResourceUri) {
 		c.Config.Logger.Infof("Diff in ResourceUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceUri), dcl.SprintResource(actual.ResourceUri))
 		return true
 	}
 	return false
 }
-func compareNoteAttestationAuthoritySlice(c *Client, desired, actual []NoteAttestationAuthority) bool {
+
+func compareNoteDeploymentSlice(c *Client, desired, actual []NoteDeployment) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NoteAttestationAuthority, lengths unequal.")
+		c.Config.Logger.Info("Diff in NoteDeployment, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNoteAttestationAuthority(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NoteAttestationAuthority, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNoteDeployment(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NoteDeployment, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
 	return false
 }
 
-func compareNoteAttestationAuthority(c *Client, desired, actual *NoteAttestationAuthority) bool {
+func compareNoteDeploymentMap(c *Client, desired, actual map[string]NoteDeployment) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NoteDeployment, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NoteDeployment, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNoteDeployment(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NoteDeployment, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNoteAttestation(c *Client, desired, actual *NoteAttestation) bool {
 	if desired == nil {
 		return false
 	}
@@ -3597,27 +3716,47 @@ func compareNoteAttestationAuthority(c *Client, desired, actual *NoteAttestation
 		c.Config.Logger.Infof("desired Hint %s - but actually nil", dcl.SprintResource(desired.Hint))
 		return true
 	}
-	if compareNoteAttestationAuthorityHint(c, desired.Hint, actual.Hint) && !dcl.IsZeroValue(desired.Hint) {
+	if compareNoteAttestationHint(c, desired.Hint, actual.Hint) && !dcl.IsZeroValue(desired.Hint) {
 		c.Config.Logger.Infof("Diff in Hint. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Hint), dcl.SprintResource(actual.Hint))
 		return true
 	}
 	return false
 }
-func compareNoteAttestationAuthorityHintSlice(c *Client, desired, actual []NoteAttestationAuthorityHint) bool {
+
+func compareNoteAttestationSlice(c *Client, desired, actual []NoteAttestation) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NoteAttestationAuthorityHint, lengths unequal.")
+		c.Config.Logger.Info("Diff in NoteAttestation, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNoteAttestationAuthorityHint(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NoteAttestationAuthorityHint, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNoteAttestation(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NoteAttestation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
 	return false
 }
 
-func compareNoteAttestationAuthorityHint(c *Client, desired, actual *NoteAttestationAuthorityHint) bool {
+func compareNoteAttestationMap(c *Client, desired, actual map[string]NoteAttestation) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NoteAttestation, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NoteAttestation, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNoteAttestation(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NoteAttestation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNoteAttestationHint(c *Client, desired, actual *NoteAttestationHint) bool {
 	if desired == nil {
 		return false
 	}
@@ -3628,12 +3767,46 @@ func compareNoteAttestationAuthorityHint(c *Client, desired, actual *NoteAttesta
 		c.Config.Logger.Infof("desired HumanReadableName %s - but actually nil", dcl.SprintResource(desired.HumanReadableName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.HumanReadableName, actual.HumanReadableName) && !dcl.IsZeroValue(desired.HumanReadableName) && !(dcl.IsEmptyValueIndirect(desired.HumanReadableName) && dcl.IsZeroValue(actual.HumanReadableName)) {
+	if !dcl.StringCanonicalize(desired.HumanReadableName, actual.HumanReadableName) && !dcl.IsZeroValue(desired.HumanReadableName) {
 		c.Config.Logger.Infof("Diff in HumanReadableName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HumanReadableName), dcl.SprintResource(actual.HumanReadableName))
 		return true
 	}
 	return false
 }
+
+func compareNoteAttestationHintSlice(c *Client, desired, actual []NoteAttestationHint) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NoteAttestationHint, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareNoteAttestationHint(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NoteAttestationHint, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNoteAttestationHintMap(c *Client, desired, actual map[string]NoteAttestationHint) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NoteAttestationHint, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NoteAttestationHint, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNoteAttestationHint(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NoteAttestationHint, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
 func compareNoteVulnerabilitySeverityEnumSlice(c *Client, desired, actual []NoteVulnerabilitySeverityEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in NoteVulnerabilitySeverityEnum, lengths unequal.")
@@ -3928,6 +4101,8 @@ func compareNoteDiscoveryAnalysisKindEnum(c *Client, desired, actual *NoteDiscov
 func (r *Note) urlNormalized() *Note {
 	normalized := deepcopy.Copy(*r).(Note)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.ShortDescription = dcl.SelfLinkToName(r.ShortDescription)
+	normalized.LongDescription = dcl.SelfLinkToName(r.LongDescription)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -3978,6 +4153,10 @@ func unmarshalNote(b []byte, c *Client) (*Note, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapNote(m, c)
+}
+
+func unmarshalMapNote(m map[string]interface{}, c *Client) (*Note, error) {
 
 	return flattenNote(c, m), nil
 }
@@ -3985,7 +4164,7 @@ func unmarshalNote(b []byte, c *Client) (*Note, error) {
 // expandNote expands Note into a JSON request object.
 func expandNote(c *Client, f *Note) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := dcl.DeriveField("projects/%s/notes/%s", f.Name, f.Project, f.Name); err != nil {
+	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
@@ -4038,20 +4217,15 @@ func expandNote(c *Client, f *Note) (map[string]interface{}, error) {
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["discovery"] = v
 	}
-	if v, err := expandNoteBaseImage(c, f.BaseImage); err != nil {
-		return nil, fmt.Errorf("error expanding BaseImage into baseImage: %w", err)
+	if v, err := expandNoteDeployment(c, f.Deployment); err != nil {
+		return nil, fmt.Errorf("error expanding Deployment into deployment: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["baseImage"] = v
+		m["deployment"] = v
 	}
-	if v, err := expandNoteDeployable(c, f.Deployable); err != nil {
-		return nil, fmt.Errorf("error expanding Deployable into deployable: %w", err)
+	if v, err := expandNoteAttestation(c, f.Attestation); err != nil {
+		return nil, fmt.Errorf("error expanding Attestation into attestation: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["deployable"] = v
-	}
-	if v, err := expandNoteAttestationAuthority(c, f.AttestationAuthority); err != nil {
-		return nil, fmt.Errorf("error expanding AttestationAuthority into attestationAuthority: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["attestationAuthority"] = v
+		m["attestation"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
@@ -4087,9 +4261,8 @@ func flattenNote(c *Client, i interface{}) *Note {
 	r.Image = flattenNoteImage(c, m["image"])
 	r.Package = flattenNotePackage(c, m["package"])
 	r.Discovery = flattenNoteDiscovery(c, m["discovery"])
-	r.BaseImage = flattenNoteBaseImage(c, m["baseImage"])
-	r.Deployable = flattenNoteDeployable(c, m["deployable"])
-	r.AttestationAuthority = flattenNoteAttestationAuthority(c, m["attestationAuthority"])
+	r.Deployment = flattenNoteDeployment(c, m["deployment"])
+	r.Attestation = flattenNoteAttestation(c, m["attestation"])
 	r.Project = dcl.FlattenString(m["project"])
 
 	return r
@@ -6227,16 +6400,16 @@ func flattenNoteDiscovery(c *Client, i interface{}) *NoteDiscovery {
 	return r
 }
 
-// expandNoteBaseImageMap expands the contents of NoteBaseImage into a JSON
+// expandNoteDeploymentMap expands the contents of NoteDeployment into a JSON
 // request object.
-func expandNoteBaseImageMap(c *Client, f map[string]NoteBaseImage) (map[string]interface{}, error) {
+func expandNoteDeploymentMap(c *Client, f map[string]NoteDeployment) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandNoteBaseImage(c, &item)
+		i, err := expandNoteDeployment(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -6248,16 +6421,16 @@ func expandNoteBaseImageMap(c *Client, f map[string]NoteBaseImage) (map[string]i
 	return items, nil
 }
 
-// expandNoteBaseImageSlice expands the contents of NoteBaseImage into a JSON
+// expandNoteDeploymentSlice expands the contents of NoteDeployment into a JSON
 // request object.
-func expandNoteBaseImageSlice(c *Client, f []NoteBaseImage) ([]map[string]interface{}, error) {
+func expandNoteDeploymentSlice(c *Client, f []NoteDeployment) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandNoteBaseImage(c, &item)
+		i, err := expandNoteDeployment(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -6268,283 +6441,49 @@ func expandNoteBaseImageSlice(c *Client, f []NoteBaseImage) ([]map[string]interf
 	return items, nil
 }
 
-// flattenNoteBaseImageMap flattens the contents of NoteBaseImage from a JSON
+// flattenNoteDeploymentMap flattens the contents of NoteDeployment from a JSON
 // response object.
-func flattenNoteBaseImageMap(c *Client, i interface{}) map[string]NoteBaseImage {
+func flattenNoteDeploymentMap(c *Client, i interface{}) map[string]NoteDeployment {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]NoteBaseImage{}
+		return map[string]NoteDeployment{}
 	}
 
 	if len(a) == 0 {
-		return map[string]NoteBaseImage{}
+		return map[string]NoteDeployment{}
 	}
 
-	items := make(map[string]NoteBaseImage)
+	items := make(map[string]NoteDeployment)
 	for k, item := range a {
-		items[k] = *flattenNoteBaseImage(c, item.(map[string]interface{}))
+		items[k] = *flattenNoteDeployment(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenNoteBaseImageSlice flattens the contents of NoteBaseImage from a JSON
+// flattenNoteDeploymentSlice flattens the contents of NoteDeployment from a JSON
 // response object.
-func flattenNoteBaseImageSlice(c *Client, i interface{}) []NoteBaseImage {
+func flattenNoteDeploymentSlice(c *Client, i interface{}) []NoteDeployment {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []NoteBaseImage{}
+		return []NoteDeployment{}
 	}
 
 	if len(a) == 0 {
-		return []NoteBaseImage{}
+		return []NoteDeployment{}
 	}
 
-	items := make([]NoteBaseImage, 0, len(a))
+	items := make([]NoteDeployment, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteBaseImage(c, item.(map[string]interface{})))
+		items = append(items, *flattenNoteDeployment(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandNoteBaseImage expands an instance of NoteBaseImage into a JSON
+// expandNoteDeployment expands an instance of NoteDeployment into a JSON
 // request object.
-func expandNoteBaseImage(c *Client, f *NoteBaseImage) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.ResourceUrl; !dcl.IsEmptyValueIndirect(v) {
-		m["resourceUrl"] = v
-	}
-	if v, err := expandNoteBaseImageFingerprint(c, f.Fingerprint); err != nil {
-		return nil, fmt.Errorf("error expanding Fingerprint into fingerprint: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["fingerprint"] = v
-	}
-
-	return m, nil
-}
-
-// flattenNoteBaseImage flattens an instance of NoteBaseImage from a JSON
-// response object.
-func flattenNoteBaseImage(c *Client, i interface{}) *NoteBaseImage {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &NoteBaseImage{}
-	r.ResourceUrl = dcl.FlattenString(m["resourceUrl"])
-	r.Fingerprint = flattenNoteBaseImageFingerprint(c, m["fingerprint"])
-
-	return r
-}
-
-// expandNoteBaseImageFingerprintMap expands the contents of NoteBaseImageFingerprint into a JSON
-// request object.
-func expandNoteBaseImageFingerprintMap(c *Client, f map[string]NoteBaseImageFingerprint) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandNoteBaseImageFingerprint(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandNoteBaseImageFingerprintSlice expands the contents of NoteBaseImageFingerprint into a JSON
-// request object.
-func expandNoteBaseImageFingerprintSlice(c *Client, f []NoteBaseImageFingerprint) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandNoteBaseImageFingerprint(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenNoteBaseImageFingerprintMap flattens the contents of NoteBaseImageFingerprint from a JSON
-// response object.
-func flattenNoteBaseImageFingerprintMap(c *Client, i interface{}) map[string]NoteBaseImageFingerprint {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]NoteBaseImageFingerprint{}
-	}
-
-	if len(a) == 0 {
-		return map[string]NoteBaseImageFingerprint{}
-	}
-
-	items := make(map[string]NoteBaseImageFingerprint)
-	for k, item := range a {
-		items[k] = *flattenNoteBaseImageFingerprint(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenNoteBaseImageFingerprintSlice flattens the contents of NoteBaseImageFingerprint from a JSON
-// response object.
-func flattenNoteBaseImageFingerprintSlice(c *Client, i interface{}) []NoteBaseImageFingerprint {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []NoteBaseImageFingerprint{}
-	}
-
-	if len(a) == 0 {
-		return []NoteBaseImageFingerprint{}
-	}
-
-	items := make([]NoteBaseImageFingerprint, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenNoteBaseImageFingerprint(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandNoteBaseImageFingerprint expands an instance of NoteBaseImageFingerprint into a JSON
-// request object.
-func expandNoteBaseImageFingerprint(c *Client, f *NoteBaseImageFingerprint) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.V1Name; !dcl.IsEmptyValueIndirect(v) {
-		m["v1Name"] = v
-	}
-	if v := f.V2Blob; !dcl.IsEmptyValueIndirect(v) {
-		m["v2Blob"] = v
-	}
-	if v := f.V2Name; !dcl.IsEmptyValueIndirect(v) {
-		m["v2Name"] = v
-	}
-
-	return m, nil
-}
-
-// flattenNoteBaseImageFingerprint flattens an instance of NoteBaseImageFingerprint from a JSON
-// response object.
-func flattenNoteBaseImageFingerprint(c *Client, i interface{}) *NoteBaseImageFingerprint {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &NoteBaseImageFingerprint{}
-	r.V1Name = dcl.FlattenString(m["v1Name"])
-	r.V2Blob = dcl.FlattenStringSlice(m["v2Blob"])
-	r.V2Name = dcl.FlattenString(m["v2Name"])
-
-	return r
-}
-
-// expandNoteDeployableMap expands the contents of NoteDeployable into a JSON
-// request object.
-func expandNoteDeployableMap(c *Client, f map[string]NoteDeployable) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandNoteDeployable(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandNoteDeployableSlice expands the contents of NoteDeployable into a JSON
-// request object.
-func expandNoteDeployableSlice(c *Client, f []NoteDeployable) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandNoteDeployable(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenNoteDeployableMap flattens the contents of NoteDeployable from a JSON
-// response object.
-func flattenNoteDeployableMap(c *Client, i interface{}) map[string]NoteDeployable {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]NoteDeployable{}
-	}
-
-	if len(a) == 0 {
-		return map[string]NoteDeployable{}
-	}
-
-	items := make(map[string]NoteDeployable)
-	for k, item := range a {
-		items[k] = *flattenNoteDeployable(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenNoteDeployableSlice flattens the contents of NoteDeployable from a JSON
-// response object.
-func flattenNoteDeployableSlice(c *Client, i interface{}) []NoteDeployable {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []NoteDeployable{}
-	}
-
-	if len(a) == 0 {
-		return []NoteDeployable{}
-	}
-
-	items := make([]NoteDeployable, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenNoteDeployable(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandNoteDeployable expands an instance of NoteDeployable into a JSON
-// request object.
-func expandNoteDeployable(c *Client, f *NoteDeployable) (map[string]interface{}, error) {
+func expandNoteDeployment(c *Client, f *NoteDeployment) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6557,30 +6496,30 @@ func expandNoteDeployable(c *Client, f *NoteDeployable) (map[string]interface{},
 	return m, nil
 }
 
-// flattenNoteDeployable flattens an instance of NoteDeployable from a JSON
+// flattenNoteDeployment flattens an instance of NoteDeployment from a JSON
 // response object.
-func flattenNoteDeployable(c *Client, i interface{}) *NoteDeployable {
+func flattenNoteDeployment(c *Client, i interface{}) *NoteDeployment {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &NoteDeployable{}
+	r := &NoteDeployment{}
 	r.ResourceUri = dcl.FlattenStringSlice(m["resourceUri"])
 
 	return r
 }
 
-// expandNoteAttestationAuthorityMap expands the contents of NoteAttestationAuthority into a JSON
+// expandNoteAttestationMap expands the contents of NoteAttestation into a JSON
 // request object.
-func expandNoteAttestationAuthorityMap(c *Client, f map[string]NoteAttestationAuthority) (map[string]interface{}, error) {
+func expandNoteAttestationMap(c *Client, f map[string]NoteAttestation) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandNoteAttestationAuthority(c, &item)
+		i, err := expandNoteAttestation(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -6592,16 +6531,16 @@ func expandNoteAttestationAuthorityMap(c *Client, f map[string]NoteAttestationAu
 	return items, nil
 }
 
-// expandNoteAttestationAuthoritySlice expands the contents of NoteAttestationAuthority into a JSON
+// expandNoteAttestationSlice expands the contents of NoteAttestation into a JSON
 // request object.
-func expandNoteAttestationAuthoritySlice(c *Client, f []NoteAttestationAuthority) ([]map[string]interface{}, error) {
+func expandNoteAttestationSlice(c *Client, f []NoteAttestation) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandNoteAttestationAuthority(c, &item)
+		i, err := expandNoteAttestation(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -6612,55 +6551,55 @@ func expandNoteAttestationAuthoritySlice(c *Client, f []NoteAttestationAuthority
 	return items, nil
 }
 
-// flattenNoteAttestationAuthorityMap flattens the contents of NoteAttestationAuthority from a JSON
+// flattenNoteAttestationMap flattens the contents of NoteAttestation from a JSON
 // response object.
-func flattenNoteAttestationAuthorityMap(c *Client, i interface{}) map[string]NoteAttestationAuthority {
+func flattenNoteAttestationMap(c *Client, i interface{}) map[string]NoteAttestation {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]NoteAttestationAuthority{}
+		return map[string]NoteAttestation{}
 	}
 
 	if len(a) == 0 {
-		return map[string]NoteAttestationAuthority{}
+		return map[string]NoteAttestation{}
 	}
 
-	items := make(map[string]NoteAttestationAuthority)
+	items := make(map[string]NoteAttestation)
 	for k, item := range a {
-		items[k] = *flattenNoteAttestationAuthority(c, item.(map[string]interface{}))
+		items[k] = *flattenNoteAttestation(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenNoteAttestationAuthoritySlice flattens the contents of NoteAttestationAuthority from a JSON
+// flattenNoteAttestationSlice flattens the contents of NoteAttestation from a JSON
 // response object.
-func flattenNoteAttestationAuthoritySlice(c *Client, i interface{}) []NoteAttestationAuthority {
+func flattenNoteAttestationSlice(c *Client, i interface{}) []NoteAttestation {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []NoteAttestationAuthority{}
+		return []NoteAttestation{}
 	}
 
 	if len(a) == 0 {
-		return []NoteAttestationAuthority{}
+		return []NoteAttestation{}
 	}
 
-	items := make([]NoteAttestationAuthority, 0, len(a))
+	items := make([]NoteAttestation, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteAttestationAuthority(c, item.(map[string]interface{})))
+		items = append(items, *flattenNoteAttestation(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandNoteAttestationAuthority expands an instance of NoteAttestationAuthority into a JSON
+// expandNoteAttestation expands an instance of NoteAttestation into a JSON
 // request object.
-func expandNoteAttestationAuthority(c *Client, f *NoteAttestationAuthority) (map[string]interface{}, error) {
+func expandNoteAttestation(c *Client, f *NoteAttestation) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandNoteAttestationAuthorityHint(c, f.Hint); err != nil {
+	if v, err := expandNoteAttestationHint(c, f.Hint); err != nil {
 		return nil, fmt.Errorf("error expanding Hint into hint: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["hint"] = v
@@ -6669,30 +6608,30 @@ func expandNoteAttestationAuthority(c *Client, f *NoteAttestationAuthority) (map
 	return m, nil
 }
 
-// flattenNoteAttestationAuthority flattens an instance of NoteAttestationAuthority from a JSON
+// flattenNoteAttestation flattens an instance of NoteAttestation from a JSON
 // response object.
-func flattenNoteAttestationAuthority(c *Client, i interface{}) *NoteAttestationAuthority {
+func flattenNoteAttestation(c *Client, i interface{}) *NoteAttestation {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &NoteAttestationAuthority{}
-	r.Hint = flattenNoteAttestationAuthorityHint(c, m["hint"])
+	r := &NoteAttestation{}
+	r.Hint = flattenNoteAttestationHint(c, m["hint"])
 
 	return r
 }
 
-// expandNoteAttestationAuthorityHintMap expands the contents of NoteAttestationAuthorityHint into a JSON
+// expandNoteAttestationHintMap expands the contents of NoteAttestationHint into a JSON
 // request object.
-func expandNoteAttestationAuthorityHintMap(c *Client, f map[string]NoteAttestationAuthorityHint) (map[string]interface{}, error) {
+func expandNoteAttestationHintMap(c *Client, f map[string]NoteAttestationHint) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandNoteAttestationAuthorityHint(c, &item)
+		i, err := expandNoteAttestationHint(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -6704,16 +6643,16 @@ func expandNoteAttestationAuthorityHintMap(c *Client, f map[string]NoteAttestati
 	return items, nil
 }
 
-// expandNoteAttestationAuthorityHintSlice expands the contents of NoteAttestationAuthorityHint into a JSON
+// expandNoteAttestationHintSlice expands the contents of NoteAttestationHint into a JSON
 // request object.
-func expandNoteAttestationAuthorityHintSlice(c *Client, f []NoteAttestationAuthorityHint) ([]map[string]interface{}, error) {
+func expandNoteAttestationHintSlice(c *Client, f []NoteAttestationHint) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandNoteAttestationAuthorityHint(c, &item)
+		i, err := expandNoteAttestationHint(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -6724,49 +6663,49 @@ func expandNoteAttestationAuthorityHintSlice(c *Client, f []NoteAttestationAutho
 	return items, nil
 }
 
-// flattenNoteAttestationAuthorityHintMap flattens the contents of NoteAttestationAuthorityHint from a JSON
+// flattenNoteAttestationHintMap flattens the contents of NoteAttestationHint from a JSON
 // response object.
-func flattenNoteAttestationAuthorityHintMap(c *Client, i interface{}) map[string]NoteAttestationAuthorityHint {
+func flattenNoteAttestationHintMap(c *Client, i interface{}) map[string]NoteAttestationHint {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]NoteAttestationAuthorityHint{}
+		return map[string]NoteAttestationHint{}
 	}
 
 	if len(a) == 0 {
-		return map[string]NoteAttestationAuthorityHint{}
+		return map[string]NoteAttestationHint{}
 	}
 
-	items := make(map[string]NoteAttestationAuthorityHint)
+	items := make(map[string]NoteAttestationHint)
 	for k, item := range a {
-		items[k] = *flattenNoteAttestationAuthorityHint(c, item.(map[string]interface{}))
+		items[k] = *flattenNoteAttestationHint(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenNoteAttestationAuthorityHintSlice flattens the contents of NoteAttestationAuthorityHint from a JSON
+// flattenNoteAttestationHintSlice flattens the contents of NoteAttestationHint from a JSON
 // response object.
-func flattenNoteAttestationAuthorityHintSlice(c *Client, i interface{}) []NoteAttestationAuthorityHint {
+func flattenNoteAttestationHintSlice(c *Client, i interface{}) []NoteAttestationHint {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []NoteAttestationAuthorityHint{}
+		return []NoteAttestationHint{}
 	}
 
 	if len(a) == 0 {
-		return []NoteAttestationAuthorityHint{}
+		return []NoteAttestationHint{}
 	}
 
-	items := make([]NoteAttestationAuthorityHint, 0, len(a))
+	items := make([]NoteAttestationHint, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteAttestationAuthorityHint(c, item.(map[string]interface{})))
+		items = append(items, *flattenNoteAttestationHint(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandNoteAttestationAuthorityHint expands an instance of NoteAttestationAuthorityHint into a JSON
+// expandNoteAttestationHint expands an instance of NoteAttestationHint into a JSON
 // request object.
-func expandNoteAttestationAuthorityHint(c *Client, f *NoteAttestationAuthorityHint) (map[string]interface{}, error) {
+func expandNoteAttestationHint(c *Client, f *NoteAttestationHint) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6779,15 +6718,15 @@ func expandNoteAttestationAuthorityHint(c *Client, f *NoteAttestationAuthorityHi
 	return m, nil
 }
 
-// flattenNoteAttestationAuthorityHint flattens an instance of NoteAttestationAuthorityHint from a JSON
+// flattenNoteAttestationHint flattens an instance of NoteAttestationHint from a JSON
 // response object.
-func flattenNoteAttestationAuthorityHint(c *Client, i interface{}) *NoteAttestationAuthorityHint {
+func flattenNoteAttestationHint(c *Client, i interface{}) *NoteAttestationHint {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &NoteAttestationAuthorityHint{}
+	r := &NoteAttestationHint{}
 	r.HumanReadableName = dcl.FlattenString(m["humanReadableName"])
 
 	return r
@@ -6807,7 +6746,7 @@ func flattenNoteVulnerabilitySeverityEnumSlice(c *Client, i interface{}) []NoteV
 
 	items := make([]NoteVulnerabilitySeverityEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteVulnerabilitySeverityEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNoteVulnerabilitySeverityEnum(item.(interface{})))
 	}
 
 	return items
@@ -6838,7 +6777,7 @@ func flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnumSlice(c *Client,
 
 	items := make([]NoteVulnerabilityDetailsAffectedVersionStartKindEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnum(item.(interface{})))
 	}
 
 	return items
@@ -6869,7 +6808,7 @@ func flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnumSlice(c *Client, i
 
 	items := make([]NoteVulnerabilityDetailsAffectedVersionEndKindEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnum(item.(interface{})))
 	}
 
 	return items
@@ -6900,7 +6839,7 @@ func flattenNoteVulnerabilityDetailsFixedVersionKindEnumSlice(c *Client, i inter
 
 	items := make([]NoteVulnerabilityDetailsFixedVersionKindEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteVulnerabilityDetailsFixedVersionKindEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNoteVulnerabilityDetailsFixedVersionKindEnum(item.(interface{})))
 	}
 
 	return items
@@ -6931,7 +6870,7 @@ func flattenNoteVulnerabilityCvssV3AttackVectorEnumSlice(c *Client, i interface{
 
 	items := make([]NoteVulnerabilityCvssV3AttackVectorEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteVulnerabilityCvssV3AttackVectorEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNoteVulnerabilityCvssV3AttackVectorEnum(item.(interface{})))
 	}
 
 	return items
@@ -6962,7 +6901,7 @@ func flattenNoteVulnerabilityCvssV3AttackComplexityEnumSlice(c *Client, i interf
 
 	items := make([]NoteVulnerabilityCvssV3AttackComplexityEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteVulnerabilityCvssV3AttackComplexityEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNoteVulnerabilityCvssV3AttackComplexityEnum(item.(interface{})))
 	}
 
 	return items
@@ -6993,7 +6932,7 @@ func flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnumSlice(c *Client, i inte
 
 	items := make([]NoteVulnerabilityCvssV3PrivilegesRequiredEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnum(item.(interface{})))
 	}
 
 	return items
@@ -7024,7 +6963,7 @@ func flattenNoteVulnerabilityCvssV3UserInteractionEnumSlice(c *Client, i interfa
 
 	items := make([]NoteVulnerabilityCvssV3UserInteractionEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteVulnerabilityCvssV3UserInteractionEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNoteVulnerabilityCvssV3UserInteractionEnum(item.(interface{})))
 	}
 
 	return items
@@ -7055,7 +6994,7 @@ func flattenNoteVulnerabilityCvssV3ScopeEnumSlice(c *Client, i interface{}) []No
 
 	items := make([]NoteVulnerabilityCvssV3ScopeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteVulnerabilityCvssV3ScopeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNoteVulnerabilityCvssV3ScopeEnum(item.(interface{})))
 	}
 
 	return items
@@ -7086,7 +7025,7 @@ func flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnumSlice(c *Client, i i
 
 	items := make([]NoteVulnerabilityCvssV3ConfidentialityImpactEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnum(item.(interface{})))
 	}
 
 	return items
@@ -7117,7 +7056,7 @@ func flattenNoteVulnerabilityCvssV3IntegrityImpactEnumSlice(c *Client, i interfa
 
 	items := make([]NoteVulnerabilityCvssV3IntegrityImpactEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteVulnerabilityCvssV3IntegrityImpactEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNoteVulnerabilityCvssV3IntegrityImpactEnum(item.(interface{})))
 	}
 
 	return items
@@ -7148,7 +7087,7 @@ func flattenNoteVulnerabilityCvssV3AvailabilityImpactEnumSlice(c *Client, i inte
 
 	items := make([]NoteVulnerabilityCvssV3AvailabilityImpactEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteVulnerabilityCvssV3AvailabilityImpactEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNoteVulnerabilityCvssV3AvailabilityImpactEnum(item.(interface{})))
 	}
 
 	return items
@@ -7179,7 +7118,7 @@ func flattenNoteBuildSignatureKeyTypeEnumSlice(c *Client, i interface{}) []NoteB
 
 	items := make([]NoteBuildSignatureKeyTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteBuildSignatureKeyTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNoteBuildSignatureKeyTypeEnum(item.(interface{})))
 	}
 
 	return items
@@ -7210,7 +7149,7 @@ func flattenNotePackageDistributionArchitectureEnumSlice(c *Client, i interface{
 
 	items := make([]NotePackageDistributionArchitectureEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNotePackageDistributionArchitectureEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNotePackageDistributionArchitectureEnum(item.(interface{})))
 	}
 
 	return items
@@ -7241,7 +7180,7 @@ func flattenNotePackageDistributionLatestVersionKindEnumSlice(c *Client, i inter
 
 	items := make([]NotePackageDistributionLatestVersionKindEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNotePackageDistributionLatestVersionKindEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNotePackageDistributionLatestVersionKindEnum(item.(interface{})))
 	}
 
 	return items
@@ -7272,7 +7211,7 @@ func flattenNoteDiscoveryAnalysisKindEnumSlice(c *Client, i interface{}) []NoteD
 
 	items := make([]NoteDiscoveryAnalysisKindEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNoteDiscoveryAnalysisKindEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNoteDiscoveryAnalysisKindEnum(item.(interface{})))
 	}
 
 	return items

@@ -67,6 +67,7 @@ message ListStorageDefaultObjectAccessControlRequest {
 message ListStorageDefaultObjectAccessControlResponse {
   repeated StorageDefaultObjectAccessControl items = 1;
 }
+
 service StorageDefaultObjectAccessControlService {
   rpc ApplyStorageDefaultObjectAccessControl(ApplyStorageDefaultObjectAccessControlRequest) returns (StorageDefaultObjectAccessControl);
   rpc DeleteStorageDefaultObjectAccessControl(DeleteStorageDefaultObjectAccessControlRequest) returns (google.protobuf.Empty);

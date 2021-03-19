@@ -131,7 +131,7 @@ func (op *updateVpnTunnelSetLabelsOperation) do(ctx context.Context, r *VpnTunne
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -168,7 +168,7 @@ func (c *Client) listVpnTunnelRaw(ctx context.Context, project, region, pageToke
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -243,7 +243,7 @@ func (op *deleteVpnTunnelOperation) do(ctx context.Context, r *VpnTunnel, c *Cli
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -266,7 +266,13 @@ func (op *deleteVpnTunnelOperation) do(ctx context.Context, r *VpnTunnel, c *Cli
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createVpnTunnelOperation struct{}
+type createVpnTunnelOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createVpnTunnelOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createVpnTunnelOperation) do(ctx context.Context, r *VpnTunnel, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -282,7 +288,7 @@ func (op *createVpnTunnelOperation) do(ctx context.Context, r *VpnTunnel, c *Cli
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -296,8 +302,10 @@ func (op *createVpnTunnelOperation) do(ctx context.Context, r *VpnTunnel, c *Cli
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetVpnTunnel(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -313,7 +321,7 @@ func (c *Client) getVpnTunnelRaw(ctx context.Context, r *VpnTunnel) ([]byte, err
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -394,14 +402,6 @@ func canonicalizeVpnTunnelDesiredState(rawDesired, rawInitial *VpnTunnel, opts .
 		rawDesired.IkeVersion = dcl.Int64(2)
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*VpnTunnel); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected VpnTunnel, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -414,13 +414,13 @@ func canonicalizeVpnTunnelDesiredState(rawDesired, rawInitial *VpnTunnel, opts .
 	if dcl.IsZeroValue(rawDesired.Id) {
 		rawDesired.Id = rawInitial.Id
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Region) {
+	if dcl.StringCanonicalize(rawDesired.Region, rawInitial.Region) {
 		rawDesired.Region = rawInitial.Region
 	}
 	if dcl.NameToSelfLink(rawDesired.TargetVpnGateway, rawInitial.TargetVpnGateway) {
@@ -432,37 +432,37 @@ func canonicalizeVpnTunnelDesiredState(rawDesired, rawInitial *VpnTunnel, opts .
 	if dcl.IsZeroValue(rawDesired.VpnGatewayInterface) {
 		rawDesired.VpnGatewayInterface = rawInitial.VpnGatewayInterface
 	}
-	if dcl.IsZeroValue(rawDesired.PeerExternalGateway) {
+	if dcl.StringCanonicalize(rawDesired.PeerExternalGateway, rawInitial.PeerExternalGateway) {
 		rawDesired.PeerExternalGateway = rawInitial.PeerExternalGateway
 	}
 	if dcl.IsZeroValue(rawDesired.PeerExternalGatewayInterface) {
 		rawDesired.PeerExternalGatewayInterface = rawInitial.PeerExternalGatewayInterface
 	}
-	if dcl.IsZeroValue(rawDesired.PeerGcpGateway) {
+	if dcl.StringCanonicalize(rawDesired.PeerGcpGateway, rawInitial.PeerGcpGateway) {
 		rawDesired.PeerGcpGateway = rawInitial.PeerGcpGateway
 	}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Router, rawInitial.Router) {
 		rawDesired.Router = rawInitial.Router
 	}
-	if dcl.IsZeroValue(rawDesired.PeerIP) {
+	if dcl.StringCanonicalize(rawDesired.PeerIP, rawInitial.PeerIP) {
 		rawDesired.PeerIP = rawInitial.PeerIP
 	}
-	if dcl.IsZeroValue(rawDesired.SharedSecret) {
+	if dcl.StringCanonicalize(rawDesired.SharedSecret, rawInitial.SharedSecret) {
 		rawDesired.SharedSecret = rawInitial.SharedSecret
 	}
-	if dcl.IsZeroValue(rawDesired.SharedSecretHash) {
+	if dcl.StringCanonicalize(rawDesired.SharedSecretHash, rawInitial.SharedSecretHash) {
 		rawDesired.SharedSecretHash = rawInitial.SharedSecretHash
 	}
 	if dcl.IsZeroValue(rawDesired.Status) {
 		rawDesired.Status = rawInitial.Status
 	}
-	if dcl.IsZeroValue(rawDesired.SelfLink) {
+	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}
 	if dcl.IsZeroValue(rawDesired.IkeVersion) {
 		rawDesired.IkeVersion = rawInitial.IkeVersion
 	}
-	if dcl.IsZeroValue(rawDesired.DetailedStatus) {
+	if dcl.StringCanonicalize(rawDesired.DetailedStatus, rawInitial.DetailedStatus) {
 		rawDesired.DetailedStatus = rawInitial.DetailedStatus
 	}
 	if dcl.IsZeroValue(rawDesired.LocalTrafficSelector) {
@@ -493,16 +493,25 @@ func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*V
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Region) && dcl.IsEmptyValueIndirect(rawDesired.Region) {
 		rawNew.Region = rawDesired.Region
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Region, rawNew.Region) {
+			rawNew.Region = rawDesired.Region
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.TargetVpnGateway) && dcl.IsEmptyValueIndirect(rawDesired.TargetVpnGateway) {
@@ -529,6 +538,9 @@ func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*V
 	if dcl.IsEmptyValueIndirect(rawNew.PeerExternalGateway) && dcl.IsEmptyValueIndirect(rawDesired.PeerExternalGateway) {
 		rawNew.PeerExternalGateway = rawDesired.PeerExternalGateway
 	} else {
+		if dcl.StringCanonicalize(rawDesired.PeerExternalGateway, rawNew.PeerExternalGateway) {
+			rawNew.PeerExternalGateway = rawDesired.PeerExternalGateway
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.PeerExternalGatewayInterface) && dcl.IsEmptyValueIndirect(rawDesired.PeerExternalGatewayInterface) {
@@ -539,6 +551,9 @@ func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*V
 	if dcl.IsEmptyValueIndirect(rawNew.PeerGcpGateway) && dcl.IsEmptyValueIndirect(rawDesired.PeerGcpGateway) {
 		rawNew.PeerGcpGateway = rawDesired.PeerGcpGateway
 	} else {
+		if dcl.StringCanonicalize(rawDesired.PeerGcpGateway, rawNew.PeerGcpGateway) {
+			rawNew.PeerGcpGateway = rawDesired.PeerGcpGateway
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Router) && dcl.IsEmptyValueIndirect(rawDesired.Router) {
@@ -552,6 +567,9 @@ func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*V
 	if dcl.IsEmptyValueIndirect(rawNew.PeerIP) && dcl.IsEmptyValueIndirect(rawDesired.PeerIP) {
 		rawNew.PeerIP = rawDesired.PeerIP
 	} else {
+		if dcl.StringCanonicalize(rawDesired.PeerIP, rawNew.PeerIP) {
+			rawNew.PeerIP = rawDesired.PeerIP
+		}
 	}
 
 	rawNew.SharedSecret = rawDesired.SharedSecret
@@ -559,6 +577,9 @@ func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*V
 	if dcl.IsEmptyValueIndirect(rawNew.SharedSecretHash) && dcl.IsEmptyValueIndirect(rawDesired.SharedSecretHash) {
 		rawNew.SharedSecretHash = rawDesired.SharedSecretHash
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SharedSecretHash, rawNew.SharedSecretHash) {
+			rawNew.SharedSecretHash = rawDesired.SharedSecretHash
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Status) && dcl.IsEmptyValueIndirect(rawDesired.Status) {
@@ -569,6 +590,9 @@ func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*V
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.IkeVersion) && dcl.IsEmptyValueIndirect(rawDesired.IkeVersion) {
@@ -579,6 +603,9 @@ func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*V
 	if dcl.IsEmptyValueIndirect(rawNew.DetailedStatus) && dcl.IsEmptyValueIndirect(rawDesired.DetailedStatus) {
 		rawNew.DetailedStatus = rawDesired.DetailedStatus
 	} else {
+		if dcl.StringCanonicalize(rawDesired.DetailedStatus, rawNew.DetailedStatus) {
+			rawNew.DetailedStatus = rawDesired.DetailedStatus
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.LocalTrafficSelector) && dcl.IsEmptyValueIndirect(rawDesired.LocalTrafficSelector) {
@@ -617,7 +644,7 @@ func diffVpnTunnel(c *Client, desired, actual *VpnTunnel, opts ...dcl.ApplyOptio
 	}
 
 	var diffs []vpnTunnelDiff
-	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
+	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
 		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, vpnTunnelDiff{
@@ -626,21 +653,21 @@ func diffVpnTunnel(c *Client, desired, actual *VpnTunnel, opts ...dcl.ApplyOptio
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, vpnTunnelDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, vpnTunnelDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Region) && (dcl.IsZeroValue(actual.Region) || !reflect.DeepEqual(*desired.Region, *actual.Region)) {
+	if !dcl.IsZeroValue(desired.Region) && !dcl.StringCanonicalize(desired.Region, actual.Region) {
 		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %v\nACTUAL: %v", desired.Region, actual.Region)
 		diffs = append(diffs, vpnTunnelDiff{
 			RequiresRecreate: true,
@@ -661,28 +688,28 @@ func diffVpnTunnel(c *Client, desired, actual *VpnTunnel, opts ...dcl.ApplyOptio
 			FieldName:        "VpnGateway",
 		})
 	}
-	if !dcl.IsZeroValue(desired.VpnGatewayInterface) && (dcl.IsZeroValue(actual.VpnGatewayInterface) || !reflect.DeepEqual(*desired.VpnGatewayInterface, *actual.VpnGatewayInterface)) {
+	if !reflect.DeepEqual(desired.VpnGatewayInterface, actual.VpnGatewayInterface) {
 		c.Config.Logger.Infof("Detected diff in VpnGatewayInterface.\nDESIRED: %v\nACTUAL: %v", desired.VpnGatewayInterface, actual.VpnGatewayInterface)
 		diffs = append(diffs, vpnTunnelDiff{
 			RequiresRecreate: true,
 			FieldName:        "VpnGatewayInterface",
 		})
 	}
-	if !dcl.IsZeroValue(desired.PeerExternalGateway) && (dcl.IsZeroValue(actual.PeerExternalGateway) || !reflect.DeepEqual(*desired.PeerExternalGateway, *actual.PeerExternalGateway)) {
+	if !dcl.IsZeroValue(desired.PeerExternalGateway) && !dcl.StringCanonicalize(desired.PeerExternalGateway, actual.PeerExternalGateway) {
 		c.Config.Logger.Infof("Detected diff in PeerExternalGateway.\nDESIRED: %v\nACTUAL: %v", desired.PeerExternalGateway, actual.PeerExternalGateway)
 		diffs = append(diffs, vpnTunnelDiff{
 			RequiresRecreate: true,
 			FieldName:        "PeerExternalGateway",
 		})
 	}
-	if !dcl.IsZeroValue(desired.PeerExternalGatewayInterface) && (dcl.IsZeroValue(actual.PeerExternalGatewayInterface) || !reflect.DeepEqual(*desired.PeerExternalGatewayInterface, *actual.PeerExternalGatewayInterface)) {
+	if !reflect.DeepEqual(desired.PeerExternalGatewayInterface, actual.PeerExternalGatewayInterface) {
 		c.Config.Logger.Infof("Detected diff in PeerExternalGatewayInterface.\nDESIRED: %v\nACTUAL: %v", desired.PeerExternalGatewayInterface, actual.PeerExternalGatewayInterface)
 		diffs = append(diffs, vpnTunnelDiff{
 			RequiresRecreate: true,
 			FieldName:        "PeerExternalGatewayInterface",
 		})
 	}
-	if !dcl.IsZeroValue(desired.PeerGcpGateway) && (dcl.IsZeroValue(actual.PeerGcpGateway) || !reflect.DeepEqual(*desired.PeerGcpGateway, *actual.PeerGcpGateway)) {
+	if !dcl.IsZeroValue(desired.PeerGcpGateway) && !dcl.StringCanonicalize(desired.PeerGcpGateway, actual.PeerGcpGateway) {
 		c.Config.Logger.Infof("Detected diff in PeerGcpGateway.\nDESIRED: %v\nACTUAL: %v", desired.PeerGcpGateway, actual.PeerGcpGateway)
 		diffs = append(diffs, vpnTunnelDiff{
 			RequiresRecreate: true,
@@ -696,21 +723,21 @@ func diffVpnTunnel(c *Client, desired, actual *VpnTunnel, opts ...dcl.ApplyOptio
 			FieldName:        "Router",
 		})
 	}
-	if !dcl.IsZeroValue(desired.PeerIP) && (dcl.IsZeroValue(actual.PeerIP) || !reflect.DeepEqual(*desired.PeerIP, *actual.PeerIP)) {
+	if !dcl.IsZeroValue(desired.PeerIP) && !dcl.StringCanonicalize(desired.PeerIP, actual.PeerIP) {
 		c.Config.Logger.Infof("Detected diff in PeerIP.\nDESIRED: %v\nACTUAL: %v", desired.PeerIP, actual.PeerIP)
 		diffs = append(diffs, vpnTunnelDiff{
 			RequiresRecreate: true,
 			FieldName:        "PeerIP",
 		})
 	}
-	if !dcl.IsZeroValue(desired.IkeVersion) && (dcl.IsZeroValue(actual.IkeVersion) || !reflect.DeepEqual(*desired.IkeVersion, *actual.IkeVersion)) {
+	if !reflect.DeepEqual(desired.IkeVersion, actual.IkeVersion) {
 		c.Config.Logger.Infof("Detected diff in IkeVersion.\nDESIRED: %v\nACTUAL: %v", desired.IkeVersion, actual.IkeVersion)
 		diffs = append(diffs, vpnTunnelDiff{
 			RequiresRecreate: true,
 			FieldName:        "IkeVersion",
 		})
 	}
-	if !dcl.SliceEquals(desired.LocalTrafficSelector, actual.LocalTrafficSelector) {
+	if !dcl.StringSliceEquals(desired.LocalTrafficSelector, actual.LocalTrafficSelector) {
 		c.Config.Logger.Infof("Detected diff in LocalTrafficSelector.\nDESIRED: %v\nACTUAL: %v", desired.LocalTrafficSelector, actual.LocalTrafficSelector)
 		toAdd, toRemove := dcl.CompareStringSets(desired.LocalTrafficSelector, actual.LocalTrafficSelector)
 		if len(toAdd) > 0 {
@@ -726,7 +753,7 @@ func diffVpnTunnel(c *Client, desired, actual *VpnTunnel, opts ...dcl.ApplyOptio
 			})
 		}
 	}
-	if !dcl.SliceEquals(desired.RemoteTrafficSelector, actual.RemoteTrafficSelector) {
+	if !dcl.StringSliceEquals(desired.RemoteTrafficSelector, actual.RemoteTrafficSelector) {
 		c.Config.Logger.Infof("Detected diff in RemoteTrafficSelector.\nDESIRED: %v\nACTUAL: %v", desired.RemoteTrafficSelector, actual.RemoteTrafficSelector)
 		toAdd, toRemove := dcl.CompareStringSets(desired.RemoteTrafficSelector, actual.RemoteTrafficSelector)
 		if len(toAdd) > 0 {
@@ -789,9 +816,19 @@ func compareVpnTunnelStatusEnum(c *Client, desired, actual *VpnTunnelStatusEnum)
 // short-form so they can be substituted in.
 func (r *VpnTunnel) urlNormalized() *VpnTunnel {
 	normalized := deepcopy.Copy(*r).(VpnTunnel)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Region = dcl.SelfLinkToName(r.Region)
 	normalized.TargetVpnGateway = dcl.SelfLinkToName(r.TargetVpnGateway)
 	normalized.VpnGateway = dcl.SelfLinkToName(r.VpnGateway)
+	normalized.PeerExternalGateway = dcl.SelfLinkToName(r.PeerExternalGateway)
+	normalized.PeerGcpGateway = dcl.SelfLinkToName(r.PeerGcpGateway)
 	normalized.Router = dcl.SelfLinkToName(r.Router)
+	normalized.PeerIP = dcl.SelfLinkToName(r.PeerIP)
+	normalized.SharedSecret = dcl.SelfLinkToName(r.SharedSecret)
+	normalized.SharedSecretHash = dcl.SelfLinkToName(r.SharedSecretHash)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.DetailedStatus = dcl.SelfLinkToName(r.DetailedStatus)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -842,6 +879,10 @@ func unmarshalVpnTunnel(b []byte, c *Client) (*VpnTunnel, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapVpnTunnel(m, c)
+}
+
+func unmarshalMapVpnTunnel(m map[string]interface{}, c *Client) (*VpnTunnel, error) {
 
 	return flattenVpnTunnel(c, m), nil
 }
@@ -979,7 +1020,7 @@ func flattenVpnTunnelStatusEnumSlice(c *Client, i interface{}) []VpnTunnelStatus
 
 	items := make([]VpnTunnelStatusEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenVpnTunnelStatusEnum(item.(map[string]interface{})))
+		items = append(items, *flattenVpnTunnelStatusEnum(item.(interface{})))
 	}
 
 	return items

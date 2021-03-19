@@ -119,14 +119,53 @@ class Role(object):
         self.included_roles = Primitive.from_proto(response.included_roles)
         self.parent = Primitive.from_proto(response.parent)
 
-    @classmethod
-    def delete(self, parent, name, service_account_file=""):
+    def delete(self):
         stub = role_pb2_grpc.IamRoleServiceStub(channel.Channel())
         request = role_pb2.DeleteIamRoleRequest()
-        request.service_account_file = service_account_file
-        request.Parent = parent
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Name = name
+        if Primitive.to_proto(self.title):
+            request.resource.title = Primitive.to_proto(self.title)
+
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if RoleLocalizedValues.to_proto(self.localized_values):
+            request.resource.localized_values.CopyFrom(
+                RoleLocalizedValues.to_proto(self.localized_values)
+            )
+        else:
+            request.resource.ClearField("localized_values")
+        if Primitive.to_proto(self.lifecycle_phase):
+            request.resource.lifecycle_phase = Primitive.to_proto(self.lifecycle_phase)
+
+        if Primitive.to_proto(self.group_name):
+            request.resource.group_name = Primitive.to_proto(self.group_name)
+
+        if Primitive.to_proto(self.group_title):
+            request.resource.group_title = Primitive.to_proto(self.group_title)
+
+        if Primitive.to_proto(self.included_permissions):
+            request.resource.included_permissions.extend(
+                Primitive.to_proto(self.included_permissions)
+            )
+        if RoleStageEnum.to_proto(self.stage):
+            request.resource.stage = RoleStageEnum.to_proto(self.stage)
+
+        if Primitive.to_proto(self.etag):
+            request.resource.etag = Primitive.to_proto(self.etag)
+
+        if Primitive.to_proto(self.deleted):
+            request.resource.deleted = Primitive.to_proto(self.deleted)
+
+        if Primitive.to_proto(self.included_roles):
+            request.resource.included_roles.extend(
+                Primitive.to_proto(self.included_roles)
+            )
+        if Primitive.to_proto(self.parent):
+            request.resource.parent = Primitive.to_proto(self.parent)
 
         response = stub.DeleteIamRole(request)
 
@@ -162,6 +201,42 @@ class Role(object):
         res.included_roles = Primitive.from_proto(res_proto.included_roles)
         res.parent = Primitive.from_proto(res_proto.parent)
         return res
+
+    def to_proto(self):
+        resource = role_pb2.IamRole()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.title):
+            resource.title = Primitive.to_proto(self.title)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if RoleLocalizedValues.to_proto(self.localized_values):
+            resource.localized_values.CopyFrom(
+                RoleLocalizedValues.to_proto(self.localized_values)
+            )
+        else:
+            resource.ClearField("localized_values")
+        if Primitive.to_proto(self.lifecycle_phase):
+            resource.lifecycle_phase = Primitive.to_proto(self.lifecycle_phase)
+        if Primitive.to_proto(self.group_name):
+            resource.group_name = Primitive.to_proto(self.group_name)
+        if Primitive.to_proto(self.group_title):
+            resource.group_title = Primitive.to_proto(self.group_title)
+        if Primitive.to_proto(self.included_permissions):
+            resource.included_permissions.extend(
+                Primitive.to_proto(self.included_permissions)
+            )
+        if RoleStageEnum.to_proto(self.stage):
+            resource.stage = RoleStageEnum.to_proto(self.stage)
+        if Primitive.to_proto(self.etag):
+            resource.etag = Primitive.to_proto(self.etag)
+        if Primitive.to_proto(self.deleted):
+            resource.deleted = Primitive.to_proto(self.deleted)
+        if Primitive.to_proto(self.included_roles):
+            resource.included_roles.extend(Primitive.to_proto(self.included_roles))
+        if Primitive.to_proto(self.parent):
+            resource.parent = Primitive.to_proto(self.parent)
+        return resource
 
 
 class RoleLocalizedValues(object):

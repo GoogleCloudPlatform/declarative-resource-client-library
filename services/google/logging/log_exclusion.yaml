@@ -73,7 +73,6 @@ components:
       type: object
       x-dcl-id: '{{parent}}/exclusions/{{name}}'
       x-dcl-locations: []
-      x-dcl-parent-container: organization
       x-dcl-uses-state-hint: false
 info:
   description: DCL Specification for the Logging LogExclusion resource

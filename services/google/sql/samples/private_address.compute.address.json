@@ -1,0 +1,8 @@
+{
+  "name": "{{address_name}}",
+  "project": "{{project}}",
+  "purpose": "VPC_PEERING",
+  "addressType": "INTERNAL",
+  "network": "{{ref:private.compute.network.json:name}}",
+  "prefixLength": 16
+}

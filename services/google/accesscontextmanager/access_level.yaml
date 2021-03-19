@@ -220,7 +220,6 @@ components:
       type: object
       x-dcl-id: accessPolicies/{{policy}}/accessLevels/{{name}}
       x-dcl-locations: []
-      x-dcl-parent-container: organization
       x-dcl-uses-state-hint: false
 info:
   description: DCL Specification for the AccessContextManager AccessLevel resource

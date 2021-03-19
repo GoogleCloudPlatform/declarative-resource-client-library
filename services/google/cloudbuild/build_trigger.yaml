@@ -58,9 +58,6 @@ components:
                       of a build's secrets, and must be used by at least one build
                       step. Values can be at most 64 KB in size. There can be at most
                       100 secret values across all of a build's secrets.
-                    items:
-                      type: string
-                      x-dcl-go-type: string
                     type: object
                     x-dcl-go-name: SecretEnv
                 required:
@@ -114,9 +111,6 @@ components:
                         type: string
                       description: 'Substitutions to use in a triggered build. Should
                         only be used with RunBuildTrigger '
-                      items:
-                        type: string
-                        x-dcl-go-type: string
                       type: object
                       x-dcl-go-name: Substitutions
                     tagName:
@@ -234,17 +228,14 @@ components:
                         description: End of time span.
                         type: string
                         x-dcl-go-name: EndTime
-                        x-kubernetes-immutable: true
                       startTime:
                         description: Start of time span.
                         type: string
                         x-dcl-go-name: StartTime
-                        x-kubernetes-immutable: true
                     readOnly: true
                     type: object
                     x-dcl-go-name: PullTiming
                     x-dcl-go-type: BuildTriggerBuildStepsPullTiming
-                    x-kubernetes-immutable: true
                   secretEnv:
                     description: A list of environment variables which are encrypted
                       using a Cloud Key Management Service crypto key. These values
@@ -275,7 +266,6 @@ components:
                     type: string
                     x-dcl-go-name: Status
                     x-dcl-go-type: BuildTriggerBuildStepsStatusEnum
-                    x-kubernetes-immutable: true
                   timeout:
                     default: 300s
                     description: Time limit for executing this build step. If not
@@ -291,17 +281,14 @@ components:
                         description: End of time span.
                         type: string
                         x-dcl-go-name: EndTime
-                        x-kubernetes-immutable: true
                       startTime:
                         description: Start of time span.
                         type: string
                         x-dcl-go-name: StartTime
-                        x-kubernetes-immutable: true
                     readOnly: true
                     type: object
                     x-dcl-go-name: Timing
                     x-dcl-go-type: BuildTriggerBuildStepsTiming
-                    x-kubernetes-immutable: true
                   volumes:
                     description: List of volumes to mount into the build step. Each
                       volume is created as an empty volume prior to execution of the
@@ -356,9 +343,6 @@ components:
               additionalProperties:
                 type: string
               description: Substitutions data for `Build` resource.
-              items:
-                type: string
-                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Substitutions
             tags:
@@ -521,15 +505,16 @@ components:
           description: The project to run builds in.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         substitutions:
           additionalProperties:
             type: string
           description: 'Substitutions for Build resource. The keys must match the
             following regular expression: `^_+$`.'
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Substitutions
         tags:

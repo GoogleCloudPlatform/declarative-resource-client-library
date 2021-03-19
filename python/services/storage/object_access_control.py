@@ -84,20 +84,26 @@ class ObjectAccessControl(object):
         self.object = Primitive.from_proto(response.object)
         self.generation = Primitive.from_proto(response.generation)
 
-    @classmethod
-    def delete(self, project, bucket, entity, object, service_account_file=""):
+    def delete(self):
         stub = object_access_control_pb2_grpc.StorageObjectAccessControlServiceStub(
             channel.Channel()
         )
         request = object_access_control_pb2.DeleteStorageObjectAccessControlRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
-        request.Bucket = bucket
+        if Primitive.to_proto(self.bucket):
+            request.resource.bucket = Primitive.to_proto(self.bucket)
 
-        request.Entity = entity
+        if Primitive.to_proto(self.entity):
+            request.resource.entity = Primitive.to_proto(self.entity)
 
-        request.Object = object
+        if ObjectAccessControlRoleEnum.to_proto(self.role):
+            request.resource.role = ObjectAccessControlRoleEnum.to_proto(self.role)
+
+        if Primitive.to_proto(self.object):
+            request.resource.object = Primitive.to_proto(self.object)
 
         response = stub.DeleteStorageObjectAccessControl(request)
 
@@ -137,6 +143,20 @@ class ObjectAccessControl(object):
         res.object = Primitive.from_proto(res_proto.object)
         res.generation = Primitive.from_proto(res_proto.generation)
         return res
+
+    def to_proto(self):
+        resource = object_access_control_pb2.StorageObjectAccessControl()
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.bucket):
+            resource.bucket = Primitive.to_proto(self.bucket)
+        if Primitive.to_proto(self.entity):
+            resource.entity = Primitive.to_proto(self.entity)
+        if ObjectAccessControlRoleEnum.to_proto(self.role):
+            resource.role = ObjectAccessControlRoleEnum.to_proto(self.role)
+        if Primitive.to_proto(self.object):
+            resource.object = Primitive.to_proto(self.object)
+        return resource
 
 
 class ObjectAccessControlProjectTeam(object):

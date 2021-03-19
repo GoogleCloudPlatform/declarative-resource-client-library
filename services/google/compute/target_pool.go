@@ -94,6 +94,9 @@ func (l *TargetPoolList) HasNext() bool {
 }
 
 func (l *TargetPoolList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -107,12 +110,17 @@ func (l *TargetPoolList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListTargetPool(ctx context.Context, project, region string) (*TargetPoolList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListTargetPoolWithMaxResults(ctx, project, region, TargetPoolMaxPage)
 
 }
 
 func (c *Client) ListTargetPoolWithMaxResults(ctx context.Context, project, region string, pageSize int32) (*TargetPoolList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listTargetPool(ctx, project, region, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -129,6 +137,9 @@ func (c *Client) ListTargetPoolWithMaxResults(ctx context.Context, project, regi
 }
 
 func (c *Client) GetTargetPool(ctx context.Context, r *TargetPool) (*TargetPool, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getTargetPoolRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -159,6 +170,9 @@ func (c *Client) GetTargetPool(ctx context.Context, r *TargetPool) (*TargetPool,
 }
 
 func (c *Client) DeleteTargetPool(ctx context.Context, r *TargetPool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("TargetPool resource is nil")
 	}
@@ -169,6 +183,9 @@ func (c *Client) DeleteTargetPool(ctx context.Context, r *TargetPool) error {
 
 // DeleteAllTargetPool deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllTargetPool(ctx context.Context, project, region string, filter func(*TargetPool) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListTargetPool(ctx, project, region)
 	if err != nil {
 		return err
@@ -194,6 +211,9 @@ func (c *Client) DeleteAllTargetPool(ctx context.Context, project, region string
 func (c *Client) ApplyTargetPool(ctx context.Context, rawDesired *TargetPool, opts ...dcl.ApplyOption) (*TargetPool, error) {
 	c.Config.Logger.Info("Beginning ApplyTargetPool...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -274,12 +294,35 @@ func (c *Client) ApplyTargetPool(ctx context.Context, rawDesired *TargetPool, op
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createTargetPoolOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapTargetPool(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeTargetPoolNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeTargetPoolNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

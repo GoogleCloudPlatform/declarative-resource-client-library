@@ -147,15 +147,64 @@ class Firewall(object):
         )
         self.target_tags = Primitive.from_proto(response.target_tags)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = firewall_pb2_grpc.ComputeBetaFirewallServiceStub(channel.Channel())
         request = firewall_pb2.DeleteComputeBetaFirewallRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
 
-        request.Name = name
+        if FirewallDirectionEnum.to_proto(self.direction):
+            request.resource.direction = FirewallDirectionEnum.to_proto(self.direction)
 
+        if Primitive.to_proto(self.disabled):
+            request.resource.disabled = Primitive.to_proto(self.disabled)
+
+        if Primitive.to_proto(self.id):
+            request.resource.id = Primitive.to_proto(self.id)
+
+        if FirewallLogConfig.to_proto(self.log_config):
+            request.resource.log_config.CopyFrom(
+                FirewallLogConfig.to_proto(self.log_config)
+            )
+        else:
+            request.resource.ClearField("log_config")
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.network):
+            request.resource.network = Primitive.to_proto(self.network)
+
+        if Primitive.to_proto(self.priority):
+            request.resource.priority = Primitive.to_proto(self.priority)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if FirewallAllowedArray.to_proto(self.allowed):
+            request.resource.allowed.extend(FirewallAllowedArray.to_proto(self.allowed))
+        if FirewallDeniedArray.to_proto(self.denied):
+            request.resource.denied.extend(FirewallDeniedArray.to_proto(self.denied))
+        if Primitive.to_proto(self.destination_ranges):
+            request.resource.destination_ranges.extend(
+                Primitive.to_proto(self.destination_ranges)
+            )
+        if Primitive.to_proto(self.source_ranges):
+            request.resource.source_ranges.extend(
+                Primitive.to_proto(self.source_ranges)
+            )
+        if Primitive.to_proto(self.source_service_accounts):
+            request.resource.source_service_accounts.extend(
+                Primitive.to_proto(self.source_service_accounts)
+            )
+        if Primitive.to_proto(self.source_tags):
+            request.resource.source_tags.extend(Primitive.to_proto(self.source_tags))
+        if Primitive.to_proto(self.target_service_accounts):
+            request.resource.target_service_accounts.extend(
+                Primitive.to_proto(self.target_service_accounts)
+            )
+        if Primitive.to_proto(self.target_tags):
+            request.resource.target_tags.extend(Primitive.to_proto(self.target_tags))
         response = stub.DeleteComputeBetaFirewall(request)
 
     @classmethod
@@ -198,6 +247,52 @@ class Firewall(object):
         )
         res.target_tags = Primitive.from_proto(res_proto.target_tags)
         return res
+
+    def to_proto(self):
+        resource = firewall_pb2.ComputeBetaFirewall()
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if FirewallDirectionEnum.to_proto(self.direction):
+            resource.direction = FirewallDirectionEnum.to_proto(self.direction)
+        if Primitive.to_proto(self.disabled):
+            resource.disabled = Primitive.to_proto(self.disabled)
+        if Primitive.to_proto(self.id):
+            resource.id = Primitive.to_proto(self.id)
+        if FirewallLogConfig.to_proto(self.log_config):
+            resource.log_config.CopyFrom(FirewallLogConfig.to_proto(self.log_config))
+        else:
+            resource.ClearField("log_config")
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.network):
+            resource.network = Primitive.to_proto(self.network)
+        if Primitive.to_proto(self.priority):
+            resource.priority = Primitive.to_proto(self.priority)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if FirewallAllowedArray.to_proto(self.allowed):
+            resource.allowed.extend(FirewallAllowedArray.to_proto(self.allowed))
+        if FirewallDeniedArray.to_proto(self.denied):
+            resource.denied.extend(FirewallDeniedArray.to_proto(self.denied))
+        if Primitive.to_proto(self.destination_ranges):
+            resource.destination_ranges.extend(
+                Primitive.to_proto(self.destination_ranges)
+            )
+        if Primitive.to_proto(self.source_ranges):
+            resource.source_ranges.extend(Primitive.to_proto(self.source_ranges))
+        if Primitive.to_proto(self.source_service_accounts):
+            resource.source_service_accounts.extend(
+                Primitive.to_proto(self.source_service_accounts)
+            )
+        if Primitive.to_proto(self.source_tags):
+            resource.source_tags.extend(Primitive.to_proto(self.source_tags))
+        if Primitive.to_proto(self.target_service_accounts):
+            resource.target_service_accounts.extend(
+                Primitive.to_proto(self.target_service_accounts)
+            )
+        if Primitive.to_proto(self.target_tags):
+            resource.target_tags.extend(Primitive.to_proto(self.target_tags))
+        return resource
 
 
 class FirewallLogConfig(object):

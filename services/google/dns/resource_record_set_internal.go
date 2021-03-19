@@ -151,7 +151,7 @@ func (c *Client) listResourceRecordSetRaw(ctx context.Context, project, managedZ
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -209,7 +209,13 @@ type deleteResourceRecordSetOperation struct{}
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createResourceRecordSetOperation struct{}
+type createResourceRecordSetOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createResourceRecordSetOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (c *Client) getResourceRecordSetRaw(ctx context.Context, r *ResourceRecordSet) ([]byte, error) {
 
@@ -217,7 +223,7 @@ func (c *Client) getResourceRecordSetRaw(ctx context.Context, r *ResourceRecordS
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -294,24 +300,16 @@ func canonicalizeResourceRecordSetInitialState(rawInitial, rawDesired *ResourceR
 
 func canonicalizeResourceRecordSetDesiredState(rawDesired, rawInitial *ResourceRecordSet, opts ...dcl.ApplyOption) (*ResourceRecordSet, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*ResourceRecordSet); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected ResourceRecordSet, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.DnsName) {
+	if dcl.StringCanonicalize(rawDesired.DnsName, rawInitial.DnsName) {
 		rawDesired.DnsName = rawInitial.DnsName
 	}
-	if dcl.IsZeroValue(rawDesired.DnsType) {
+	if dcl.StringCanonicalize(rawDesired.DnsType, rawInitial.DnsType) {
 		rawDesired.DnsType = rawInitial.DnsType
 	}
 	if dcl.IsZeroValue(rawDesired.Ttl) {
@@ -335,11 +333,17 @@ func canonicalizeResourceRecordSetNewState(c *Client, rawNew, rawDesired *Resour
 	if dcl.IsEmptyValueIndirect(rawNew.DnsName) && dcl.IsEmptyValueIndirect(rawDesired.DnsName) {
 		rawNew.DnsName = rawDesired.DnsName
 	} else {
+		if dcl.StringCanonicalize(rawDesired.DnsName, rawNew.DnsName) {
+			rawNew.DnsName = rawDesired.DnsName
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.DnsType) && dcl.IsEmptyValueIndirect(rawDesired.DnsType) {
 		rawNew.DnsType = rawDesired.DnsType
 	} else {
+		if dcl.StringCanonicalize(rawDesired.DnsType, rawNew.DnsType) {
+			rawNew.DnsType = rawDesired.DnsType
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Ttl) && dcl.IsEmptyValueIndirect(rawDesired.Ttl) {
@@ -383,7 +387,7 @@ func diffResourceRecordSet(c *Client, desired, actual *ResourceRecordSet, opts .
 	}
 
 	var diffs []resourceRecordSetDiff
-	if !dcl.IsZeroValue(desired.DnsName) && (dcl.IsZeroValue(actual.DnsName) || !reflect.DeepEqual(*desired.DnsName, *actual.DnsName)) {
+	if !dcl.IsZeroValue(desired.DnsName) && !dcl.StringCanonicalize(desired.DnsName, actual.DnsName) {
 		c.Config.Logger.Infof("Detected diff in DnsName.\nDESIRED: %v\nACTUAL: %v", desired.DnsName, actual.DnsName)
 
 		diffs = append(diffs, resourceRecordSetDiff{
@@ -392,7 +396,7 @@ func diffResourceRecordSet(c *Client, desired, actual *ResourceRecordSet, opts .
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.DnsType) && (dcl.IsZeroValue(actual.DnsType) || !reflect.DeepEqual(*desired.DnsType, *actual.DnsType)) {
+	if !dcl.IsZeroValue(desired.DnsType) && !dcl.StringCanonicalize(desired.DnsType, actual.DnsType) {
 		c.Config.Logger.Infof("Detected diff in DnsType.\nDESIRED: %v\nACTUAL: %v", desired.DnsType, actual.DnsType)
 
 		diffs = append(diffs, resourceRecordSetDiff{
@@ -401,7 +405,7 @@ func diffResourceRecordSet(c *Client, desired, actual *ResourceRecordSet, opts .
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Ttl) && (dcl.IsZeroValue(actual.Ttl) || !reflect.DeepEqual(*desired.Ttl, *actual.Ttl)) {
+	if !reflect.DeepEqual(desired.Ttl, actual.Ttl) {
 		c.Config.Logger.Infof("Detected diff in Ttl.\nDESIRED: %v\nACTUAL: %v", desired.Ttl, actual.Ttl)
 
 		diffs = append(diffs, resourceRecordSetDiff{
@@ -449,6 +453,8 @@ func diffResourceRecordSet(c *Client, desired, actual *ResourceRecordSet, opts .
 // short-form so they can be substituted in.
 func (r *ResourceRecordSet) urlNormalized() *ResourceRecordSet {
 	normalized := deepcopy.Copy(*r).(ResourceRecordSet)
+	normalized.DnsName = dcl.SelfLinkToName(r.DnsName)
+	normalized.DnsType = dcl.SelfLinkToName(r.DnsType)
 	normalized.ManagedZone = dcl.SelfLinkToName(r.ManagedZone)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
@@ -501,6 +507,10 @@ func unmarshalResourceRecordSet(b []byte, c *Client) (*ResourceRecordSet, error)
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapResourceRecordSet(m, c)
+}
+
+func unmarshalMapResourceRecordSet(m map[string]interface{}, c *Client) (*ResourceRecordSet, error) {
 
 	return flattenResourceRecordSet(c, m), nil
 }

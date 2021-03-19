@@ -52,6 +52,7 @@ message ListComputeHttpHealthCheckRequest {
 message ListComputeHttpHealthCheckResponse {
   repeated ComputeHttpHealthCheck items = 1;
 }
+
 service ComputeHttpHealthCheckService {
   rpc ApplyComputeHttpHealthCheck(ApplyComputeHttpHealthCheckRequest) returns (ComputeHttpHealthCheck);
   rpc DeleteComputeHttpHealthCheck(DeleteComputeHttpHealthCheckRequest) returns (google.protobuf.Empty);

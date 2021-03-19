@@ -77,9 +77,10 @@ class Network(object):
         self.project = Primitive.from_proto(response.project)
         self.self_link = Primitive.from_proto(response.self_link)
 
-    def hcl(self):
+    def delete(self):
         stub = network_pb2_grpc.ComputeNetworkServiceStub(channel.Channel())
-        request = network_pb2.ComputeNetworkAsHclRequest()
+        request = network_pb2.DeleteComputeNetworkRequest()
+        request.service_account_file = self.service_account_file
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
@@ -99,18 +100,6 @@ class Network(object):
             request.resource.ClearField("routing_config")
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
-
-        response = stub.ComputeNetworkAsHcl(request)
-        return response.hcl
-
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
-        stub = network_pb2_grpc.ComputeNetworkServiceStub(channel.Channel())
-        request = network_pb2.DeleteComputeNetworkRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
-
-        request.Name = name
 
         response = stub.DeleteComputeNetwork(request)
 
@@ -141,6 +130,26 @@ class Network(object):
         res.project = Primitive.from_proto(res_proto.project)
         res.self_link = Primitive.from_proto(res_proto.self_link)
         return res
+
+    def to_proto(self):
+        resource = network_pb2.ComputeNetwork()
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.auto_create_subnetworks):
+            resource.auto_create_subnetworks = Primitive.to_proto(
+                self.auto_create_subnetworks
+            )
+        if NetworkRoutingConfig.to_proto(self.routing_config):
+            resource.routing_config.CopyFrom(
+                NetworkRoutingConfig.to_proto(self.routing_config)
+            )
+        else:
+            resource.ClearField("routing_config")
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class NetworkRoutingConfig(object):

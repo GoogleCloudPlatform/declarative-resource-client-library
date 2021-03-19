@@ -88,6 +88,7 @@ message ListComputeReservationRequest {
 message ListComputeReservationResponse {
   repeated ComputeReservation items = 1;
 }
+
 service ComputeReservationService {
   rpc ApplyComputeReservation(ApplyComputeReservationRequest) returns (ComputeReservation);
   rpc DeleteComputeReservation(DeleteComputeReservationRequest) returns (google.protobuf.Empty);

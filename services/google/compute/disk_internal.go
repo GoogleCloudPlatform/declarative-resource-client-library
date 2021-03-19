@@ -189,7 +189,7 @@ func (op *updateDiskResizeOperation) do(ctx context.Context, r *Disk, c *Client)
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -218,6 +218,23 @@ func newUpdateDiskSetLabelsRequest(ctx context.Context, f *Disk, c *Client) (map
 	}
 	if v := f.LabelFingerprint; !dcl.IsEmptyValueIndirect(v) {
 		req["labelFingerprint"] = v
+	}
+	b, err := c.getDiskRaw(ctx, f.urlNormalized())
+	if err != nil {
+		return nil, err
+	}
+	var m map[string]interface{}
+	if err := json.Unmarshal(b, &m); err != nil {
+		return nil, err
+	}
+	rawLabelFingerprint, err := dcl.GetMapEntry(
+		m,
+		[]string{"labelFingerprint"},
+	)
+	if err != nil {
+		c.Config.Logger.Warningf("Failed to fetch from JSON Path: %v", err)
+	} else {
+		req["labelFingerprint"] = rawLabelFingerprint.(string)
 	}
 	return req, nil
 }
@@ -261,7 +278,7 @@ func (op *updateDiskSetLabelsOperation) do(ctx context.Context, r *Disk, c *Clie
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -298,7 +315,7 @@ func (c *Client) listDiskRaw(ctx context.Context, project, location, pageToken s
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -373,7 +390,7 @@ func (op *deleteDiskOperation) do(ctx context.Context, r *Disk, c *Client) error
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -396,7 +413,13 @@ func (op *deleteDiskOperation) do(ctx context.Context, r *Disk, c *Client) error
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createDiskOperation struct{}
+type createDiskOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createDiskOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createDiskOperation) do(ctx context.Context, r *Disk, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -412,7 +435,7 @@ func (op *createDiskOperation) do(ctx context.Context, r *Disk, c *Client) error
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -426,8 +449,10 @@ func (op *createDiskOperation) do(ctx context.Context, r *Disk, c *Client) error
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetDisk(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -440,7 +465,7 @@ func (c *Client) getDiskRaw(ctx context.Context, r *Disk) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -517,14 +542,6 @@ func canonicalizeDiskInitialState(rawInitial, rawDesired *Disk) (*Disk, error) {
 
 func canonicalizeDiskDesiredState(rawDesired, rawInitial *Disk, opts ...dcl.ApplyOption) (*Disk, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Disk); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Disk, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -534,10 +551,10 @@ func canonicalizeDiskDesiredState(rawDesired, rawInitial *Disk, opts ...dcl.Appl
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.SelfLink) {
+	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
 	rawDesired.DiskEncryptionKey = canonicalizeDiskEncryptionKey(rawDesired.DiskEncryptionKey, rawInitial.DiskEncryptionKey, opts...)
@@ -547,16 +564,16 @@ func canonicalizeDiskDesiredState(rawDesired, rawInitial *Disk, opts ...dcl.Appl
 	if dcl.IsZeroValue(rawDesired.Labels) {
 		rawDesired.Labels = rawInitial.Labels
 	}
-	if dcl.IsZeroValue(rawDesired.LabelFingerprint) {
+	if dcl.StringCanonicalize(rawDesired.LabelFingerprint, rawInitial.LabelFingerprint) {
 		rawDesired.LabelFingerprint = rawInitial.LabelFingerprint
 	}
 	if dcl.IsZeroValue(rawDesired.License) {
 		rawDesired.License = rawInitial.License
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Region) {
+	if dcl.StringCanonicalize(rawDesired.Region, rawInitial.Region) {
 		rawDesired.Region = rawInitial.Region
 	}
 	if dcl.IsZeroValue(rawDesired.ReplicaZones) {
@@ -572,20 +589,20 @@ func canonicalizeDiskDesiredState(rawDesired, rawInitial *Disk, opts ...dcl.Appl
 		rawDesired.SourceImage = rawInitial.SourceImage
 	}
 	rawDesired.SourceImageEncryptionKey = canonicalizeDiskEncryptionKey(rawDesired.SourceImageEncryptionKey, rawInitial.SourceImageEncryptionKey, opts...)
-	if dcl.IsZeroValue(rawDesired.SourceImageId) {
+	if dcl.StringCanonicalize(rawDesired.SourceImageId, rawInitial.SourceImageId) {
 		rawDesired.SourceImageId = rawInitial.SourceImageId
 	}
-	if dcl.PartialSelfLinkToSelfLink(rawDesired.SourceSnapshot, rawInitial.SourceSnapshot) {
+	if dcl.StringCanonicalize(rawDesired.SourceSnapshot, rawInitial.SourceSnapshot) {
 		rawDesired.SourceSnapshot = rawInitial.SourceSnapshot
 	}
 	rawDesired.SourceSnapshotEncryptionKey = canonicalizeDiskEncryptionKey(rawDesired.SourceSnapshotEncryptionKey, rawInitial.SourceSnapshotEncryptionKey, opts...)
-	if dcl.IsZeroValue(rawDesired.SourceSnapshotId) {
+	if dcl.StringCanonicalize(rawDesired.SourceSnapshotId, rawInitial.SourceSnapshotId) {
 		rawDesired.SourceSnapshotId = rawInitial.SourceSnapshotId
 	}
 	if dcl.NameToSelfLink(rawDesired.Type, rawInitial.Type) {
 		rawDesired.Type = rawInitial.Type
 	}
-	if dcl.IsZeroValue(rawDesired.Zone) {
+	if dcl.StringCanonicalize(rawDesired.Zone, rawInitial.Zone) {
 		rawDesired.Zone = rawInitial.Zone
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
@@ -597,7 +614,7 @@ func canonicalizeDiskDesiredState(rawDesired, rawInitial *Disk, opts ...dcl.Appl
 	if dcl.IsZeroValue(rawDesired.Status) {
 		rawDesired.Status = rawInitial.Status
 	}
-	if dcl.IsZeroValue(rawDesired.Options) {
+	if dcl.StringCanonicalize(rawDesired.Options, rawInitial.Options) {
 		rawDesired.Options = rawInitial.Options
 	}
 	if dcl.IsZeroValue(rawDesired.Licenses) {
@@ -606,10 +623,10 @@ func canonicalizeDiskDesiredState(rawDesired, rawInitial *Disk, opts ...dcl.Appl
 	if dcl.IsZeroValue(rawDesired.GuestOsFeatures) {
 		rawDesired.GuestOsFeatures = rawInitial.GuestOsFeatures
 	}
-	if dcl.IsZeroValue(rawDesired.LastAttachTimestamp) {
+	if dcl.StringCanonicalize(rawDesired.LastAttachTimestamp, rawInitial.LastAttachTimestamp) {
 		rawDesired.LastAttachTimestamp = rawInitial.LastAttachTimestamp
 	}
-	if dcl.IsZeroValue(rawDesired.LastDetachTimestamp) {
+	if dcl.StringCanonicalize(rawDesired.LastDetachTimestamp, rawInitial.LastDetachTimestamp) {
 		rawDesired.LastDetachTimestamp = rawInitial.LastDetachTimestamp
 	}
 	if dcl.IsZeroValue(rawDesired.Users) {
@@ -624,10 +641,10 @@ func canonicalizeDiskDesiredState(rawDesired, rawInitial *Disk, opts ...dcl.Appl
 	if dcl.IsZeroValue(rawDesired.ResourcePolicies) {
 		rawDesired.ResourcePolicies = rawInitial.ResourcePolicies
 	}
-	if dcl.IsZeroValue(rawDesired.SourceDisk) {
+	if dcl.StringCanonicalize(rawDesired.SourceDisk, rawInitial.SourceDisk) {
 		rawDesired.SourceDisk = rawInitial.SourceDisk
 	}
-	if dcl.IsZeroValue(rawDesired.SourceDiskId) {
+	if dcl.StringCanonicalize(rawDesired.SourceDiskId, rawInitial.SourceDiskId) {
 		rawDesired.SourceDiskId = rawInitial.SourceDiskId
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
@@ -642,11 +659,17 @@ func canonicalizeDiskNewState(c *Client, rawNew, rawDesired *Disk) (*Disk, error
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.DiskEncryptionKey) && dcl.IsEmptyValueIndirect(rawDesired.DiskEncryptionKey) {
@@ -668,6 +691,9 @@ func canonicalizeDiskNewState(c *Client, rawNew, rawDesired *Disk) (*Disk, error
 	if dcl.IsEmptyValueIndirect(rawNew.LabelFingerprint) && dcl.IsEmptyValueIndirect(rawDesired.LabelFingerprint) {
 		rawNew.LabelFingerprint = rawDesired.LabelFingerprint
 	} else {
+		if dcl.StringCanonicalize(rawDesired.LabelFingerprint, rawNew.LabelFingerprint) {
+			rawNew.LabelFingerprint = rawDesired.LabelFingerprint
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.License) && dcl.IsEmptyValueIndirect(rawDesired.License) {
@@ -678,11 +704,17 @@ func canonicalizeDiskNewState(c *Client, rawNew, rawDesired *Disk) (*Disk, error
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Region) && dcl.IsEmptyValueIndirect(rawDesired.Region) {
 		rawNew.Region = rawDesired.Region
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Region, rawNew.Region) {
+			rawNew.Region = rawDesired.Region
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ReplicaZones) && dcl.IsEmptyValueIndirect(rawDesired.ReplicaZones) {
@@ -717,12 +749,15 @@ func canonicalizeDiskNewState(c *Client, rawNew, rawDesired *Disk) (*Disk, error
 	if dcl.IsEmptyValueIndirect(rawNew.SourceImageId) && dcl.IsEmptyValueIndirect(rawDesired.SourceImageId) {
 		rawNew.SourceImageId = rawDesired.SourceImageId
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SourceImageId, rawNew.SourceImageId) {
+			rawNew.SourceImageId = rawDesired.SourceImageId
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.SourceSnapshot) && dcl.IsEmptyValueIndirect(rawDesired.SourceSnapshot) {
 		rawNew.SourceSnapshot = rawDesired.SourceSnapshot
 	} else {
-		if dcl.PartialSelfLinkToSelfLink(rawDesired.SourceSnapshot, rawNew.SourceSnapshot) {
+		if dcl.StringCanonicalize(rawDesired.SourceSnapshot, rawNew.SourceSnapshot) {
 			rawNew.SourceSnapshot = rawDesired.SourceSnapshot
 		}
 	}
@@ -736,6 +771,9 @@ func canonicalizeDiskNewState(c *Client, rawNew, rawDesired *Disk) (*Disk, error
 	if dcl.IsEmptyValueIndirect(rawNew.SourceSnapshotId) && dcl.IsEmptyValueIndirect(rawDesired.SourceSnapshotId) {
 		rawNew.SourceSnapshotId = rawDesired.SourceSnapshotId
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SourceSnapshotId, rawNew.SourceSnapshotId) {
+			rawNew.SourceSnapshotId = rawDesired.SourceSnapshotId
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Type) && dcl.IsEmptyValueIndirect(rawDesired.Type) {
@@ -749,6 +787,9 @@ func canonicalizeDiskNewState(c *Client, rawNew, rawDesired *Disk) (*Disk, error
 	if dcl.IsEmptyValueIndirect(rawNew.Zone) && dcl.IsEmptyValueIndirect(rawDesired.Zone) {
 		rawNew.Zone = rawDesired.Zone
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Zone, rawNew.Zone) {
+			rawNew.Zone = rawDesired.Zone
+		}
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -766,6 +807,9 @@ func canonicalizeDiskNewState(c *Client, rawNew, rawDesired *Disk) (*Disk, error
 	if dcl.IsEmptyValueIndirect(rawNew.Options) && dcl.IsEmptyValueIndirect(rawDesired.Options) {
 		rawNew.Options = rawDesired.Options
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Options, rawNew.Options) {
+			rawNew.Options = rawDesired.Options
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Licenses) && dcl.IsEmptyValueIndirect(rawDesired.Licenses) {
@@ -781,11 +825,17 @@ func canonicalizeDiskNewState(c *Client, rawNew, rawDesired *Disk) (*Disk, error
 	if dcl.IsEmptyValueIndirect(rawNew.LastAttachTimestamp) && dcl.IsEmptyValueIndirect(rawDesired.LastAttachTimestamp) {
 		rawNew.LastAttachTimestamp = rawDesired.LastAttachTimestamp
 	} else {
+		if dcl.StringCanonicalize(rawDesired.LastAttachTimestamp, rawNew.LastAttachTimestamp) {
+			rawNew.LastAttachTimestamp = rawDesired.LastAttachTimestamp
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.LastDetachTimestamp) && dcl.IsEmptyValueIndirect(rawDesired.LastDetachTimestamp) {
 		rawNew.LastDetachTimestamp = rawDesired.LastDetachTimestamp
 	} else {
+		if dcl.StringCanonicalize(rawDesired.LastDetachTimestamp, rawNew.LastDetachTimestamp) {
+			rawNew.LastDetachTimestamp = rawDesired.LastDetachTimestamp
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Users) && dcl.IsEmptyValueIndirect(rawDesired.Users) {
@@ -811,11 +861,17 @@ func canonicalizeDiskNewState(c *Client, rawNew, rawDesired *Disk) (*Disk, error
 	if dcl.IsEmptyValueIndirect(rawNew.SourceDisk) && dcl.IsEmptyValueIndirect(rawDesired.SourceDisk) {
 		rawNew.SourceDisk = rawDesired.SourceDisk
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SourceDisk, rawNew.SourceDisk) {
+			rawNew.SourceDisk = rawDesired.SourceDisk
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.SourceDiskId) && dcl.IsEmptyValueIndirect(rawDesired.SourceDiskId) {
 		rawNew.SourceDiskId = rawDesired.SourceDiskId
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SourceDiskId, rawNew.SourceDiskId) {
+			rawNew.SourceDiskId = rawDesired.SourceDiskId
+		}
 	}
 
 	rawNew.Location = rawDesired.Location
@@ -829,11 +885,6 @@ func canonicalizeDiskGuestOsFeature(des, initial *DiskGuestOsFeature, opts ...dc
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Disk)
-		_ = r
 	}
 
 	if initial == nil {
@@ -889,25 +940,20 @@ func canonicalizeDiskEncryptionKey(des, initial *DiskEncryptionKey, opts ...dcl.
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Disk)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.RawKey) {
+	if dcl.StringCanonicalize(des.RawKey, initial.RawKey) || dcl.IsZeroValue(des.RawKey) {
 		des.RawKey = initial.RawKey
 	}
-	if dcl.IsZeroValue(des.KmsKeyName) {
+	if dcl.StringCanonicalize(des.KmsKeyName, initial.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
 		des.KmsKeyName = initial.KmsKeyName
 	}
-	if dcl.IsZeroValue(des.Sha256) {
+	if dcl.StringCanonicalize(des.Sha256, initial.Sha256) || dcl.IsZeroValue(des.Sha256) {
 		des.Sha256 = initial.Sha256
 	}
-	if dcl.IsZeroValue(des.KmsKeyServiceAccount) {
+	if dcl.StringCanonicalize(des.KmsKeyServiceAccount, initial.KmsKeyServiceAccount) || dcl.IsZeroValue(des.KmsKeyServiceAccount) {
 		des.KmsKeyServiceAccount = initial.KmsKeyServiceAccount
 	}
 
@@ -917,6 +963,19 @@ func canonicalizeDiskEncryptionKey(des, initial *DiskEncryptionKey, opts ...dcl.
 func canonicalizeNewDiskEncryptionKey(c *Client, des, nw *DiskEncryptionKey) *DiskEncryptionKey {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) || dcl.IsZeroValue(des.RawKey) {
+		nw.RawKey = des.RawKey
+	}
+	if dcl.StringCanonicalize(des.KmsKeyName, nw.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
+		nw.KmsKeyName = des.KmsKeyName
+	}
+	if dcl.StringCanonicalize(des.Sha256, nw.Sha256) || dcl.IsZeroValue(des.Sha256) {
+		nw.Sha256 = des.Sha256
+	}
+	if dcl.StringCanonicalize(des.KmsKeyServiceAccount, nw.KmsKeyServiceAccount) || dcl.IsZeroValue(des.KmsKeyServiceAccount) {
+		nw.KmsKeyServiceAccount = des.KmsKeyServiceAccount
 	}
 
 	return nw
@@ -951,11 +1010,6 @@ func canonicalizeDiskGuestOsFeatures(des, initial *DiskGuestOsFeatures, opts ...
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Disk)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1024,7 +1078,7 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]disk
 	}
 
 	var diffs []diskDiff
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
@@ -1045,7 +1099,7 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]disk
 			FieldName:        "GuestOsFeature",
 		})
 	}
-	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
+	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
 		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, diskDiff{
@@ -1054,42 +1108,42 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]disk
 		})
 
 	}
-	if !dcl.SliceEquals(desired.License, actual.License) {
+	if !dcl.StringSliceEquals(desired.License, actual.License) {
 		c.Config.Logger.Infof("Detected diff in License.\nDESIRED: %v\nACTUAL: %v", desired.License, actual.License)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "License",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Region) && (dcl.IsZeroValue(actual.Region) || !reflect.DeepEqual(*desired.Region, *actual.Region)) {
+	if !dcl.IsZeroValue(desired.Region) && !dcl.StringCanonicalize(desired.Region, actual.Region) {
 		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %v\nACTUAL: %v", desired.Region, actual.Region)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "Region",
 		})
 	}
-	if !dcl.SliceEquals(desired.ReplicaZones, actual.ReplicaZones) {
+	if !dcl.StringSliceEquals(desired.ReplicaZones, actual.ReplicaZones) {
 		c.Config.Logger.Infof("Detected diff in ReplicaZones.\nDESIRED: %v\nACTUAL: %v", desired.ReplicaZones, actual.ReplicaZones)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "ReplicaZones",
 		})
 	}
-	if !dcl.SliceEquals(desired.ResourcePolicy, actual.ResourcePolicy) {
+	if !dcl.StringSliceEquals(desired.ResourcePolicy, actual.ResourcePolicy) {
 		c.Config.Logger.Infof("Detected diff in ResourcePolicy.\nDESIRED: %v\nACTUAL: %v", desired.ResourcePolicy, actual.ResourcePolicy)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "ResourcePolicy",
 		})
 	}
-	if !dcl.IsZeroValue(desired.SizeGb) && (dcl.IsZeroValue(actual.SizeGb) || !reflect.DeepEqual(*desired.SizeGb, *actual.SizeGb)) {
+	if !reflect.DeepEqual(desired.SizeGb, actual.SizeGb) {
 		c.Config.Logger.Infof("Detected diff in SizeGb.\nDESIRED: %v\nACTUAL: %v", desired.SizeGb, actual.SizeGb)
 
 		diffs = append(diffs, diskDiff{
@@ -1112,7 +1166,7 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]disk
 			FieldName:        "SourceImageEncryptionKey",
 		})
 	}
-	if !dcl.IsZeroValue(desired.SourceSnapshot) && !dcl.PartialSelfLinkToSelfLink(desired.SourceSnapshot, actual.SourceSnapshot) {
+	if !dcl.IsZeroValue(desired.SourceSnapshot) && !dcl.StringCanonicalize(desired.SourceSnapshot, actual.SourceSnapshot) {
 		c.Config.Logger.Infof("Detected diff in SourceSnapshot.\nDESIRED: %v\nACTUAL: %v", desired.SourceSnapshot, actual.SourceSnapshot)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
@@ -1133,21 +1187,21 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]disk
 			FieldName:        "Type",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Id) && (dcl.IsZeroValue(actual.Id) || !reflect.DeepEqual(*desired.Id, *actual.Id)) {
+	if !reflect.DeepEqual(desired.Id, actual.Id) {
 		c.Config.Logger.Infof("Detected diff in Id.\nDESIRED: %v\nACTUAL: %v", desired.Id, actual.Id)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "Id",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Options) && (dcl.IsZeroValue(actual.Options) || !reflect.DeepEqual(*desired.Options, *actual.Options)) {
+	if !dcl.IsZeroValue(desired.Options) && !dcl.StringCanonicalize(desired.Options, actual.Options) {
 		c.Config.Logger.Infof("Detected diff in Options.\nDESIRED: %v\nACTUAL: %v", desired.Options, actual.Options)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "Options",
 		})
 	}
-	if !dcl.SliceEquals(desired.Licenses, actual.Licenses) {
+	if !dcl.StringSliceEquals(desired.Licenses, actual.Licenses) {
 		c.Config.Logger.Infof("Detected diff in Licenses.\nDESIRED: %v\nACTUAL: %v", desired.Licenses, actual.Licenses)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
@@ -1168,28 +1222,28 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]disk
 			FieldName:        "LicenseCodes",
 		})
 	}
-	if !dcl.IsZeroValue(desired.PhysicalBlockSizeBytes) && (dcl.IsZeroValue(actual.PhysicalBlockSizeBytes) || !reflect.DeepEqual(*desired.PhysicalBlockSizeBytes, *actual.PhysicalBlockSizeBytes)) {
+	if !reflect.DeepEqual(desired.PhysicalBlockSizeBytes, actual.PhysicalBlockSizeBytes) {
 		c.Config.Logger.Infof("Detected diff in PhysicalBlockSizeBytes.\nDESIRED: %v\nACTUAL: %v", desired.PhysicalBlockSizeBytes, actual.PhysicalBlockSizeBytes)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "PhysicalBlockSizeBytes",
 		})
 	}
-	if !dcl.SliceEquals(desired.ResourcePolicies, actual.ResourcePolicies) {
+	if !dcl.StringSliceEquals(desired.ResourcePolicies, actual.ResourcePolicies) {
 		c.Config.Logger.Infof("Detected diff in ResourcePolicies.\nDESIRED: %v\nACTUAL: %v", desired.ResourcePolicies, actual.ResourcePolicies)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "ResourcePolicies",
 		})
 	}
-	if !dcl.IsZeroValue(desired.SourceDisk) && (dcl.IsZeroValue(actual.SourceDisk) || !reflect.DeepEqual(*desired.SourceDisk, *actual.SourceDisk)) {
+	if !dcl.IsZeroValue(desired.SourceDisk) && !dcl.StringCanonicalize(desired.SourceDisk, actual.SourceDisk) {
 		c.Config.Logger.Infof("Detected diff in SourceDisk.\nDESIRED: %v\nACTUAL: %v", desired.SourceDisk, actual.SourceDisk)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "SourceDisk",
 		})
 	}
-	if !dcl.IsZeroValue(desired.SourceDiskId) && (dcl.IsZeroValue(actual.SourceDiskId) || !reflect.DeepEqual(*desired.SourceDiskId, *actual.SourceDiskId)) {
+	if !dcl.IsZeroValue(desired.SourceDiskId) && !dcl.StringCanonicalize(desired.SourceDiskId, actual.SourceDiskId) {
 		c.Config.Logger.Infof("Detected diff in SourceDiskId.\nDESIRED: %v\nACTUAL: %v", desired.SourceDiskId, actual.SourceDiskId)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
@@ -1220,6 +1274,32 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]disk
 
 	return deduped, nil
 }
+func compareDiskGuestOsFeature(c *Client, desired, actual *DiskGuestOsFeature) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Type == nil && desired.Type != nil && !dcl.IsEmptyValueIndirect(desired.Type) {
+		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
+		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
+		return true
+	}
+	if actual.TypeAlt == nil && desired.TypeAlt != nil && !dcl.IsEmptyValueIndirect(desired.TypeAlt) {
+		c.Config.Logger.Infof("desired TypeAlt %s - but actually nil", dcl.SprintResource(desired.TypeAlt))
+		return true
+	}
+	if compareDiskGuestOsFeatureTypeAltEnumSlice(c, desired.TypeAlt, actual.TypeAlt) && !dcl.IsZeroValue(desired.TypeAlt) {
+		c.Config.Logger.Infof("Diff in TypeAlt. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TypeAlt), dcl.SprintResource(actual.TypeAlt))
+		return true
+	}
+	return false
+}
+
 func compareDiskGuestOsFeatureSlice(c *Client, desired, actual []DiskGuestOsFeature) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in DiskGuestOsFeature, lengths unequal.")
@@ -1234,39 +1314,19 @@ func compareDiskGuestOsFeatureSlice(c *Client, desired, actual []DiskGuestOsFeat
 	return false
 }
 
-func compareDiskGuestOsFeature(c *Client, desired, actual *DiskGuestOsFeature) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Type == nil && desired.Type != nil && !dcl.IsEmptyValueIndirect(desired.Type) {
-		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) && !(dcl.IsEmptyValueIndirect(desired.Type) && dcl.IsZeroValue(actual.Type)) {
-		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
-		return true
-	}
-	if actual.TypeAlt == nil && desired.TypeAlt != nil && !dcl.IsEmptyValueIndirect(desired.TypeAlt) {
-		c.Config.Logger.Infof("desired TypeAlt %s - but actually nil", dcl.SprintResource(desired.TypeAlt))
-		return true
-	}
-	if compareDiskGuestOsFeatureTypeAltEnumSlice(c, desired.TypeAlt, actual.TypeAlt) && !dcl.IsZeroValue(desired.TypeAlt) {
-		c.Config.Logger.Infof("Diff in TypeAlt. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TypeAlt), dcl.SprintResource(actual.TypeAlt))
-		return true
-	}
-	return false
-}
-func compareDiskEncryptionKeySlice(c *Client, desired, actual []DiskEncryptionKey) bool {
+func compareDiskGuestOsFeatureMap(c *Client, desired, actual map[string]DiskGuestOsFeature) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DiskEncryptionKey, lengths unequal.")
+		c.Config.Logger.Info("Diff in DiskGuestOsFeature, lengths unequal.")
 		return true
 	}
-	for i := 0; i < len(desired); i++ {
-		if compareDiskEncryptionKey(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DiskEncryptionKey, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DiskGuestOsFeature, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDiskGuestOsFeature(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DiskGuestOsFeature, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1284,7 +1344,7 @@ func compareDiskEncryptionKey(c *Client, desired, actual *DiskEncryptionKey) boo
 		c.Config.Logger.Infof("desired KmsKeyName %s - but actually nil", dcl.SprintResource(desired.KmsKeyName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.KmsKeyName, actual.KmsKeyName) && !dcl.IsZeroValue(desired.KmsKeyName) && !(dcl.IsEmptyValueIndirect(desired.KmsKeyName) && dcl.IsZeroValue(actual.KmsKeyName)) {
+	if !dcl.StringCanonicalize(desired.KmsKeyName, actual.KmsKeyName) && !dcl.IsZeroValue(desired.KmsKeyName) {
 		c.Config.Logger.Infof("Diff in KmsKeyName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyName), dcl.SprintResource(actual.KmsKeyName))
 		return true
 	}
@@ -1292,20 +1352,40 @@ func compareDiskEncryptionKey(c *Client, desired, actual *DiskEncryptionKey) boo
 		c.Config.Logger.Infof("desired KmsKeyServiceAccount %s - but actually nil", dcl.SprintResource(desired.KmsKeyServiceAccount))
 		return true
 	}
-	if !reflect.DeepEqual(desired.KmsKeyServiceAccount, actual.KmsKeyServiceAccount) && !dcl.IsZeroValue(desired.KmsKeyServiceAccount) && !(dcl.IsEmptyValueIndirect(desired.KmsKeyServiceAccount) && dcl.IsZeroValue(actual.KmsKeyServiceAccount)) {
+	if !dcl.StringCanonicalize(desired.KmsKeyServiceAccount, actual.KmsKeyServiceAccount) && !dcl.IsZeroValue(desired.KmsKeyServiceAccount) {
 		c.Config.Logger.Infof("Diff in KmsKeyServiceAccount. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyServiceAccount), dcl.SprintResource(actual.KmsKeyServiceAccount))
 		return true
 	}
 	return false
 }
-func compareDiskGuestOsFeaturesSlice(c *Client, desired, actual []DiskGuestOsFeatures) bool {
+
+func compareDiskEncryptionKeySlice(c *Client, desired, actual []DiskEncryptionKey) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DiskGuestOsFeatures, lengths unequal.")
+		c.Config.Logger.Info("Diff in DiskEncryptionKey, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareDiskGuestOsFeatures(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DiskGuestOsFeatures, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareDiskEncryptionKey(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DiskEncryptionKey, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDiskEncryptionKeyMap(c *Client, desired, actual map[string]DiskEncryptionKey) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DiskEncryptionKey, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DiskEncryptionKey, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDiskEncryptionKey(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DiskEncryptionKey, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1323,7 +1403,7 @@ func compareDiskGuestOsFeatures(c *Client, desired, actual *DiskGuestOsFeatures)
 		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) && !(dcl.IsEmptyValueIndirect(desired.Type) && dcl.IsZeroValue(actual.Type)) {
+	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
 		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
 		return true
 	}
@@ -1337,6 +1417,40 @@ func compareDiskGuestOsFeatures(c *Client, desired, actual *DiskGuestOsFeatures)
 	}
 	return false
 }
+
+func compareDiskGuestOsFeaturesSlice(c *Client, desired, actual []DiskGuestOsFeatures) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DiskGuestOsFeatures, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareDiskGuestOsFeatures(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DiskGuestOsFeatures, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDiskGuestOsFeaturesMap(c *Client, desired, actual map[string]DiskGuestOsFeatures) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DiskGuestOsFeatures, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DiskGuestOsFeatures, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDiskGuestOsFeatures(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DiskGuestOsFeatures, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
 func compareDiskGuestOsFeatureTypeEnumSlice(c *Client, desired, actual []DiskGuestOsFeatureTypeEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in DiskGuestOsFeatureTypeEnum, lengths unequal.")
@@ -1432,9 +1546,23 @@ func compareDiskGuestOsFeaturesTypeAltsEnum(c *Client, desired, actual *DiskGues
 // short-form so they can be substituted in.
 func (r *Disk) urlNormalized() *Disk {
 	normalized := deepcopy.Copy(*r).(Disk)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.LabelFingerprint = dcl.SelfLinkToName(r.LabelFingerprint)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Region = dcl.SelfLinkToName(r.Region)
 	normalized.SourceImage = dcl.SelfLinkToName(r.SourceImage)
+	normalized.SourceImageId = dcl.SelfLinkToName(r.SourceImageId)
+	normalized.SourceSnapshot = dcl.SelfLinkToName(r.SourceSnapshot)
+	normalized.SourceSnapshotId = dcl.SelfLinkToName(r.SourceSnapshotId)
 	normalized.Type = dcl.SelfLinkToName(r.Type)
+	normalized.Zone = dcl.SelfLinkToName(r.Zone)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Options = dcl.SelfLinkToName(r.Options)
+	normalized.LastAttachTimestamp = dcl.SelfLinkToName(r.LastAttachTimestamp)
+	normalized.LastDetachTimestamp = dcl.SelfLinkToName(r.LastDetachTimestamp)
+	normalized.SourceDisk = dcl.SelfLinkToName(r.SourceDisk)
+	normalized.SourceDiskId = dcl.SelfLinkToName(r.SourceDiskId)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
@@ -1511,6 +1639,10 @@ func unmarshalDisk(b []byte, c *Client) (*Disk, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapDisk(m, c)
+}
+
+func unmarshalMapDisk(m map[string]interface{}, c *Client) (*Disk, error) {
 
 	return flattenDisk(c, m), nil
 }
@@ -2056,7 +2188,7 @@ func flattenDiskGuestOsFeatureTypeEnumSlice(c *Client, i interface{}) []DiskGues
 
 	items := make([]DiskGuestOsFeatureTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDiskGuestOsFeatureTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDiskGuestOsFeatureTypeEnum(item.(interface{})))
 	}
 
 	return items
@@ -2087,7 +2219,7 @@ func flattenDiskGuestOsFeatureTypeAltEnumSlice(c *Client, i interface{}) []DiskG
 
 	items := make([]DiskGuestOsFeatureTypeAltEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDiskGuestOsFeatureTypeAltEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDiskGuestOsFeatureTypeAltEnum(item.(interface{})))
 	}
 
 	return items
@@ -2118,7 +2250,7 @@ func flattenDiskStatusEnumSlice(c *Client, i interface{}) []DiskStatusEnum {
 
 	items := make([]DiskStatusEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDiskStatusEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDiskStatusEnum(item.(interface{})))
 	}
 
 	return items
@@ -2149,7 +2281,7 @@ func flattenDiskGuestOsFeaturesTypeEnumSlice(c *Client, i interface{}) []DiskGue
 
 	items := make([]DiskGuestOsFeaturesTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDiskGuestOsFeaturesTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDiskGuestOsFeaturesTypeEnum(item.(interface{})))
 	}
 
 	return items
@@ -2180,7 +2312,7 @@ func flattenDiskGuestOsFeaturesTypeAltsEnumSlice(c *Client, i interface{}) []Dis
 
 	items := make([]DiskGuestOsFeaturesTypeAltsEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDiskGuestOsFeaturesTypeAltsEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDiskGuestOsFeaturesTypeAltsEnum(item.(interface{})))
 	}
 
 	return items

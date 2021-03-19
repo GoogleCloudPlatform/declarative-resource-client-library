@@ -278,14 +278,144 @@ class Instance(object):
         )
         self.instance_uid = Primitive.from_proto(response.instance_uid)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = instance_pb2_grpc.SqlBetaInstanceServiceStub(channel.Channel())
         request = instance_pb2.DeleteSqlBetaInstanceRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if InstanceBackendTypeEnum.to_proto(self.backend_type):
+            request.resource.backend_type = InstanceBackendTypeEnum.to_proto(
+                self.backend_type
+            )
 
-        request.Name = name
+        if Primitive.to_proto(self.connection_name):
+            request.resource.connection_name = Primitive.to_proto(self.connection_name)
+
+        if InstanceDatabaseVersionEnum.to_proto(self.database_version):
+            request.resource.database_version = InstanceDatabaseVersionEnum.to_proto(
+                self.database_version
+            )
+
+        if Primitive.to_proto(self.etag):
+            request.resource.etag = Primitive.to_proto(self.etag)
+
+        if Primitive.to_proto(self.gce_zone):
+            request.resource.gce_zone = Primitive.to_proto(self.gce_zone)
+
+        if InstanceInstanceTypeEnum.to_proto(self.instance_type):
+            request.resource.instance_type = InstanceInstanceTypeEnum.to_proto(
+                self.instance_type
+            )
+
+        if Primitive.to_proto(self.master_instance_name):
+            request.resource.master_instance_name = Primitive.to_proto(
+                self.master_instance_name
+            )
+
+        if InstanceMaxDiskSize.to_proto(self.max_disk_size):
+            request.resource.max_disk_size.CopyFrom(
+                InstanceMaxDiskSize.to_proto(self.max_disk_size)
+            )
+        else:
+            request.resource.ClearField("max_disk_size")
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.region):
+            request.resource.region = Primitive.to_proto(self.region)
+
+        if Primitive.to_proto(self.root_password):
+            request.resource.root_password = Primitive.to_proto(self.root_password)
+
+        if InstanceCurrentDiskSize.to_proto(self.current_disk_size):
+            request.resource.current_disk_size.CopyFrom(
+                InstanceCurrentDiskSize.to_proto(self.current_disk_size)
+            )
+        else:
+            request.resource.ClearField("current_disk_size")
+        if InstanceDiskEncryptionConfiguration.to_proto(
+            self.disk_encryption_configuration
+        ):
+            request.resource.disk_encryption_configuration.CopyFrom(
+                InstanceDiskEncryptionConfiguration.to_proto(
+                    self.disk_encryption_configuration
+                )
+            )
+        else:
+            request.resource.ClearField("disk_encryption_configuration")
+        if InstanceFailoverReplica.to_proto(self.failover_replica):
+            request.resource.failover_replica.CopyFrom(
+                InstanceFailoverReplica.to_proto(self.failover_replica)
+            )
+        else:
+            request.resource.ClearField("failover_replica")
+        if InstanceIPAddressesArray.to_proto(self.ip_addresses):
+            request.resource.ip_addresses.extend(
+                InstanceIPAddressesArray.to_proto(self.ip_addresses)
+            )
+        if InstanceMasterInstance.to_proto(self.master_instance):
+            request.resource.master_instance.CopyFrom(
+                InstanceMasterInstance.to_proto(self.master_instance)
+            )
+        else:
+            request.resource.ClearField("master_instance")
+        if InstanceReplicaConfiguration.to_proto(self.replica_configuration):
+            request.resource.replica_configuration.CopyFrom(
+                InstanceReplicaConfiguration.to_proto(self.replica_configuration)
+            )
+        else:
+            request.resource.ClearField("replica_configuration")
+        if InstanceScheduledMaintenance.to_proto(self.scheduled_maintenance):
+            request.resource.scheduled_maintenance.CopyFrom(
+                InstanceScheduledMaintenance.to_proto(self.scheduled_maintenance)
+            )
+        else:
+            request.resource.ClearField("scheduled_maintenance")
+        if InstanceSettings.to_proto(self.settings):
+            request.resource.settings.CopyFrom(InstanceSettings.to_proto(self.settings))
+        else:
+            request.resource.ClearField("settings")
+        if Primitive.to_proto(self.state):
+            request.resource.state = Primitive.to_proto(self.state)
+
+        if InstanceReplicaInstancesArray.to_proto(self.replica_instances):
+            request.resource.replica_instances.extend(
+                InstanceReplicaInstancesArray.to_proto(self.replica_instances)
+            )
+        if InstanceServerCaCert.to_proto(self.server_ca_cert):
+            request.resource.server_ca_cert.CopyFrom(
+                InstanceServerCaCert.to_proto(self.server_ca_cert)
+            )
+        else:
+            request.resource.ClearField("server_ca_cert")
+        if Primitive.to_proto(self.ipv6_address):
+            request.resource.ipv6_address = Primitive.to_proto(self.ipv6_address)
+
+        if Primitive.to_proto(self.service_account_email_address):
+            request.resource.service_account_email_address = Primitive.to_proto(
+                self.service_account_email_address
+            )
+
+        if InstanceOnPremisesConfiguration.to_proto(self.on_premises_configuration):
+            request.resource.on_premises_configuration.CopyFrom(
+                InstanceOnPremisesConfiguration.to_proto(self.on_premises_configuration)
+            )
+        else:
+            request.resource.ClearField("on_premises_configuration")
+        if Primitive.to_proto(self.suspension_reason):
+            request.resource.suspension_reason.extend(
+                Primitive.to_proto(self.suspension_reason)
+            )
+        if InstanceDiskEncryptionStatus.to_proto(self.disk_encryption_status):
+            request.resource.disk_encryption_status.CopyFrom(
+                InstanceDiskEncryptionStatus.to_proto(self.disk_encryption_status)
+            )
+        else:
+            request.resource.ClearField("disk_encryption_status")
+        if Primitive.to_proto(self.instance_uid):
+            request.resource.instance_uid = Primitive.to_proto(self.instance_uid)
 
         response = stub.DeleteSqlBetaInstance(request)
 
@@ -357,6 +487,128 @@ class Instance(object):
         )
         res.instance_uid = Primitive.from_proto(res_proto.instance_uid)
         return res
+
+    def to_proto(self):
+        resource = instance_pb2.SqlBetaInstance()
+        if InstanceBackendTypeEnum.to_proto(self.backend_type):
+            resource.backend_type = InstanceBackendTypeEnum.to_proto(self.backend_type)
+        if Primitive.to_proto(self.connection_name):
+            resource.connection_name = Primitive.to_proto(self.connection_name)
+        if InstanceDatabaseVersionEnum.to_proto(self.database_version):
+            resource.database_version = InstanceDatabaseVersionEnum.to_proto(
+                self.database_version
+            )
+        if Primitive.to_proto(self.etag):
+            resource.etag = Primitive.to_proto(self.etag)
+        if Primitive.to_proto(self.gce_zone):
+            resource.gce_zone = Primitive.to_proto(self.gce_zone)
+        if InstanceInstanceTypeEnum.to_proto(self.instance_type):
+            resource.instance_type = InstanceInstanceTypeEnum.to_proto(
+                self.instance_type
+            )
+        if Primitive.to_proto(self.master_instance_name):
+            resource.master_instance_name = Primitive.to_proto(
+                self.master_instance_name
+            )
+        if InstanceMaxDiskSize.to_proto(self.max_disk_size):
+            resource.max_disk_size.CopyFrom(
+                InstanceMaxDiskSize.to_proto(self.max_disk_size)
+            )
+        else:
+            resource.ClearField("max_disk_size")
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.region):
+            resource.region = Primitive.to_proto(self.region)
+        if Primitive.to_proto(self.root_password):
+            resource.root_password = Primitive.to_proto(self.root_password)
+        if InstanceCurrentDiskSize.to_proto(self.current_disk_size):
+            resource.current_disk_size.CopyFrom(
+                InstanceCurrentDiskSize.to_proto(self.current_disk_size)
+            )
+        else:
+            resource.ClearField("current_disk_size")
+        if InstanceDiskEncryptionConfiguration.to_proto(
+            self.disk_encryption_configuration
+        ):
+            resource.disk_encryption_configuration.CopyFrom(
+                InstanceDiskEncryptionConfiguration.to_proto(
+                    self.disk_encryption_configuration
+                )
+            )
+        else:
+            resource.ClearField("disk_encryption_configuration")
+        if InstanceFailoverReplica.to_proto(self.failover_replica):
+            resource.failover_replica.CopyFrom(
+                InstanceFailoverReplica.to_proto(self.failover_replica)
+            )
+        else:
+            resource.ClearField("failover_replica")
+        if InstanceIPAddressesArray.to_proto(self.ip_addresses):
+            resource.ip_addresses.extend(
+                InstanceIPAddressesArray.to_proto(self.ip_addresses)
+            )
+        if InstanceMasterInstance.to_proto(self.master_instance):
+            resource.master_instance.CopyFrom(
+                InstanceMasterInstance.to_proto(self.master_instance)
+            )
+        else:
+            resource.ClearField("master_instance")
+        if InstanceReplicaConfiguration.to_proto(self.replica_configuration):
+            resource.replica_configuration.CopyFrom(
+                InstanceReplicaConfiguration.to_proto(self.replica_configuration)
+            )
+        else:
+            resource.ClearField("replica_configuration")
+        if InstanceScheduledMaintenance.to_proto(self.scheduled_maintenance):
+            resource.scheduled_maintenance.CopyFrom(
+                InstanceScheduledMaintenance.to_proto(self.scheduled_maintenance)
+            )
+        else:
+            resource.ClearField("scheduled_maintenance")
+        if InstanceSettings.to_proto(self.settings):
+            resource.settings.CopyFrom(InstanceSettings.to_proto(self.settings))
+        else:
+            resource.ClearField("settings")
+        if Primitive.to_proto(self.state):
+            resource.state = Primitive.to_proto(self.state)
+        if InstanceReplicaInstancesArray.to_proto(self.replica_instances):
+            resource.replica_instances.extend(
+                InstanceReplicaInstancesArray.to_proto(self.replica_instances)
+            )
+        if InstanceServerCaCert.to_proto(self.server_ca_cert):
+            resource.server_ca_cert.CopyFrom(
+                InstanceServerCaCert.to_proto(self.server_ca_cert)
+            )
+        else:
+            resource.ClearField("server_ca_cert")
+        if Primitive.to_proto(self.ipv6_address):
+            resource.ipv6_address = Primitive.to_proto(self.ipv6_address)
+        if Primitive.to_proto(self.service_account_email_address):
+            resource.service_account_email_address = Primitive.to_proto(
+                self.service_account_email_address
+            )
+        if InstanceOnPremisesConfiguration.to_proto(self.on_premises_configuration):
+            resource.on_premises_configuration.CopyFrom(
+                InstanceOnPremisesConfiguration.to_proto(self.on_premises_configuration)
+            )
+        else:
+            resource.ClearField("on_premises_configuration")
+        if Primitive.to_proto(self.suspension_reason):
+            resource.suspension_reason.extend(
+                Primitive.to_proto(self.suspension_reason)
+            )
+        if InstanceDiskEncryptionStatus.to_proto(self.disk_encryption_status):
+            resource.disk_encryption_status.CopyFrom(
+                InstanceDiskEncryptionStatus.to_proto(self.disk_encryption_status)
+            )
+        else:
+            resource.ClearField("disk_encryption_status")
+        if Primitive.to_proto(self.instance_uid):
+            resource.instance_uid = Primitive.to_proto(self.instance_uid)
+        return resource
 
 
 class InstanceMaxDiskSize(object):

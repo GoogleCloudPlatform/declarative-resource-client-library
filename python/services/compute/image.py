@@ -218,9 +218,10 @@ class Image(object):
         self.deprecated = ImageDeprecated.from_proto(response.deprecated)
         self.project = Primitive.from_proto(response.project)
 
-    def hcl(self):
+    def delete(self):
         stub = image_pb2_grpc.ComputeImageServiceStub(channel.Channel())
-        request = image_pb2.ComputeImageAsHclRequest()
+        request = image_pb2.DeleteComputeImageRequest()
+        request.service_account_file = self.service_account_file
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
@@ -319,18 +320,6 @@ class Image(object):
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
-        response = stub.ComputeImageAsHcl(request)
-        return response.hcl
-
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
-        stub = image_pb2_grpc.ComputeImageServiceStub(channel.Channel())
-        request = image_pb2.DeleteComputeImageRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
-
-        request.Name = name
-
         response = stub.DeleteComputeImage(request)
 
     @classmethod
@@ -388,6 +377,88 @@ class Image(object):
         res.deprecated = ImageDeprecated.from_proto(res_proto.deprecated)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = image_pb2.ComputeImage()
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.disk_size_gb):
+            resource.disk_size_gb = Primitive.to_proto(self.disk_size_gb)
+        if Primitive.to_proto(self.family):
+            resource.family = Primitive.to_proto(self.family)
+        if ImageGuestOsFeatureArray.to_proto(self.guest_os_feature):
+            resource.guest_os_feature.extend(
+                ImageGuestOsFeatureArray.to_proto(self.guest_os_feature)
+            )
+        if ImageImageEncryptionKey.to_proto(self.image_encryption_key):
+            resource.image_encryption_key.CopyFrom(
+                ImageImageEncryptionKey.to_proto(self.image_encryption_key)
+            )
+        else:
+            resource.ClearField("image_encryption_key")
+        if Primitive.to_proto(self.labels):
+            resource.labels = Primitive.to_proto(self.labels)
+        if Primitive.to_proto(self.license):
+            resource.license.extend(Primitive.to_proto(self.license))
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if ImageRawDisk.to_proto(self.raw_disk):
+            resource.raw_disk.CopyFrom(ImageRawDisk.to_proto(self.raw_disk))
+        else:
+            resource.ClearField("raw_disk")
+        if ImageShieldedInstanceInitialState.to_proto(
+            self.shielded_instance_initial_state
+        ):
+            resource.shielded_instance_initial_state.CopyFrom(
+                ImageShieldedInstanceInitialState.to_proto(
+                    self.shielded_instance_initial_state
+                )
+            )
+        else:
+            resource.ClearField("shielded_instance_initial_state")
+        if Primitive.to_proto(self.source_disk):
+            resource.source_disk = Primitive.to_proto(self.source_disk)
+        if ImageSourceDiskEncryptionKey.to_proto(self.source_disk_encryption_key):
+            resource.source_disk_encryption_key.CopyFrom(
+                ImageSourceDiskEncryptionKey.to_proto(self.source_disk_encryption_key)
+            )
+        else:
+            resource.ClearField("source_disk_encryption_key")
+        if Primitive.to_proto(self.source_image):
+            resource.source_image = Primitive.to_proto(self.source_image)
+        if ImageSourceImageEncryptionKey.to_proto(self.source_image_encryption_key):
+            resource.source_image_encryption_key.CopyFrom(
+                ImageSourceImageEncryptionKey.to_proto(self.source_image_encryption_key)
+            )
+        else:
+            resource.ClearField("source_image_encryption_key")
+        if Primitive.to_proto(self.source_image_id):
+            resource.source_image_id = Primitive.to_proto(self.source_image_id)
+        if Primitive.to_proto(self.source_snapshot):
+            resource.source_snapshot = Primitive.to_proto(self.source_snapshot)
+        if ImageSourceSnapshotEncryptionKey.to_proto(
+            self.source_snapshot_encryption_key
+        ):
+            resource.source_snapshot_encryption_key.CopyFrom(
+                ImageSourceSnapshotEncryptionKey.to_proto(
+                    self.source_snapshot_encryption_key
+                )
+            )
+        else:
+            resource.ClearField("source_snapshot_encryption_key")
+        if Primitive.to_proto(self.source_snapshot_id):
+            resource.source_snapshot_id = Primitive.to_proto(self.source_snapshot_id)
+        if ImageSourceTypeEnum.to_proto(self.source_type):
+            resource.source_type = ImageSourceTypeEnum.to_proto(self.source_type)
+        if Primitive.to_proto(self.storage_location):
+            resource.storage_location.extend(Primitive.to_proto(self.storage_location))
+        if ImageDeprecated.to_proto(self.deprecated):
+            resource.deprecated.CopyFrom(ImageDeprecated.to_proto(self.deprecated))
+        else:
+            resource.ClearField("deprecated")
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class ImageGuestOsFeature(object):

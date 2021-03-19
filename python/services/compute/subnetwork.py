@@ -30,7 +30,7 @@ class Subnetwork(object):
         fingerprint: str = None,
         purpose: str = None,
         role: str = None,
-        secondary_ip_range: list = None,
+        secondary_ip_ranges: list = None,
         private_ip_google_access: bool = None,
         region: str = None,
         log_config: dict = None,
@@ -47,7 +47,7 @@ class Subnetwork(object):
         self.network = network
         self.purpose = purpose
         self.role = role
-        self.secondary_ip_range = secondary_ip_range
+        self.secondary_ip_ranges = secondary_ip_ranges
         self.private_ip_google_access = private_ip_google_access
         self.region = region
         self.log_config = log_config
@@ -76,9 +76,9 @@ class Subnetwork(object):
         if SubnetworkRoleEnum.to_proto(self.role):
             request.resource.role = SubnetworkRoleEnum.to_proto(self.role)
 
-        if SubnetworkSecondaryIPRangeArray.to_proto(self.secondary_ip_range):
-            request.resource.secondary_ip_range.extend(
-                SubnetworkSecondaryIPRangeArray.to_proto(self.secondary_ip_range)
+        if SubnetworkSecondaryIPRangesArray.to_proto(self.secondary_ip_ranges):
+            request.resource.secondary_ip_ranges.extend(
+                SubnetworkSecondaryIPRangesArray.to_proto(self.secondary_ip_ranges)
             )
         if Primitive.to_proto(self.private_ip_google_access):
             request.resource.private_ip_google_access = Primitive.to_proto(
@@ -114,8 +114,8 @@ class Subnetwork(object):
         self.fingerprint = Primitive.from_proto(response.fingerprint)
         self.purpose = SubnetworkPurposeEnum.from_proto(response.purpose)
         self.role = SubnetworkRoleEnum.from_proto(response.role)
-        self.secondary_ip_range = SubnetworkSecondaryIPRangeArray.from_proto(
-            response.secondary_ip_range
+        self.secondary_ip_ranges = SubnetworkSecondaryIPRangesArray.from_proto(
+            response.secondary_ip_ranges
         )
         self.private_ip_google_access = Primitive.from_proto(
             response.private_ip_google_access
@@ -126,9 +126,10 @@ class Subnetwork(object):
         self.self_link = Primitive.from_proto(response.self_link)
         self.enable_flow_logs = Primitive.from_proto(response.enable_flow_logs)
 
-    def hcl(self):
+    def delete(self):
         stub = subnetwork_pb2_grpc.ComputeSubnetworkServiceStub(channel.Channel())
-        request = subnetwork_pb2.ComputeSubnetworkAsHclRequest()
+        request = subnetwork_pb2.DeleteComputeSubnetworkRequest()
+        request.service_account_file = self.service_account_file
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
@@ -147,9 +148,9 @@ class Subnetwork(object):
         if SubnetworkRoleEnum.to_proto(self.role):
             request.resource.role = SubnetworkRoleEnum.to_proto(self.role)
 
-        if SubnetworkSecondaryIPRangeArray.to_proto(self.secondary_ip_range):
-            request.resource.secondary_ip_range.extend(
-                SubnetworkSecondaryIPRangeArray.to_proto(self.secondary_ip_range)
+        if SubnetworkSecondaryIPRangesArray.to_proto(self.secondary_ip_ranges):
+            request.resource.secondary_ip_ranges.extend(
+                SubnetworkSecondaryIPRangesArray.to_proto(self.secondary_ip_ranges)
             )
         if Primitive.to_proto(self.private_ip_google_access):
             request.resource.private_ip_google_access = Primitive.to_proto(
@@ -172,20 +173,6 @@ class Subnetwork(object):
             request.resource.enable_flow_logs = Primitive.to_proto(
                 self.enable_flow_logs
             )
-
-        response = stub.ComputeSubnetworkAsHcl(request)
-        return response.hcl
-
-    @classmethod
-    def delete(self, project, region, name, service_account_file=""):
-        stub = subnetwork_pb2_grpc.ComputeSubnetworkServiceStub(channel.Channel())
-        request = subnetwork_pb2.DeleteComputeSubnetworkRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
-
-        request.Region = region
-
-        request.Name = name
 
         response = stub.DeleteComputeSubnetwork(request)
 
@@ -216,8 +203,8 @@ class Subnetwork(object):
         res.fingerprint = Primitive.from_proto(res_proto.fingerprint)
         res.purpose = SubnetworkPurposeEnum.from_proto(res_proto.purpose)
         res.role = SubnetworkRoleEnum.from_proto(res_proto.role)
-        res.secondary_ip_range = SubnetworkSecondaryIPRangeArray.from_proto(
-            res_proto.secondary_ip_range
+        res.secondary_ip_ranges = SubnetworkSecondaryIPRangesArray.from_proto(
+            res_proto.secondary_ip_ranges
         )
         res.private_ip_google_access = Primitive.from_proto(
             res_proto.private_ip_google_access
@@ -229,8 +216,42 @@ class Subnetwork(object):
         res.enable_flow_logs = Primitive.from_proto(res_proto.enable_flow_logs)
         return res
 
+    def to_proto(self):
+        resource = subnetwork_pb2.ComputeSubnetwork()
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.ip_cidr_range):
+            resource.ip_cidr_range = Primitive.to_proto(self.ip_cidr_range)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.network):
+            resource.network = Primitive.to_proto(self.network)
+        if SubnetworkPurposeEnum.to_proto(self.purpose):
+            resource.purpose = SubnetworkPurposeEnum.to_proto(self.purpose)
+        if SubnetworkRoleEnum.to_proto(self.role):
+            resource.role = SubnetworkRoleEnum.to_proto(self.role)
+        if SubnetworkSecondaryIPRangesArray.to_proto(self.secondary_ip_ranges):
+            resource.secondary_ip_ranges.extend(
+                SubnetworkSecondaryIPRangesArray.to_proto(self.secondary_ip_ranges)
+            )
+        if Primitive.to_proto(self.private_ip_google_access):
+            resource.private_ip_google_access = Primitive.to_proto(
+                self.private_ip_google_access
+            )
+        if Primitive.to_proto(self.region):
+            resource.region = Primitive.to_proto(self.region)
+        if SubnetworkLogConfig.to_proto(self.log_config):
+            resource.log_config.CopyFrom(SubnetworkLogConfig.to_proto(self.log_config))
+        else:
+            resource.ClearField("log_config")
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.enable_flow_logs):
+            resource.enable_flow_logs = Primitive.to_proto(self.enable_flow_logs)
+        return resource
 
-class SubnetworkSecondaryIPRange(object):
+
+class SubnetworkSecondaryIPRanges(object):
     def __init__(self, range_name: str = None, ip_cidr_range: str = None):
         self.range_name = range_name
         self.ip_cidr_range = ip_cidr_range
@@ -240,7 +261,7 @@ class SubnetworkSecondaryIPRange(object):
         if not resource:
             return None
 
-        res = subnetwork_pb2.ComputeSubnetworkSecondaryIPRange()
+        res = subnetwork_pb2.ComputeSubnetworkSecondaryIPRanges()
         if Primitive.to_proto(resource.range_name):
             res.range_name = Primitive.to_proto(resource.range_name)
         if Primitive.to_proto(resource.ip_cidr_range):
@@ -252,21 +273,21 @@ class SubnetworkSecondaryIPRange(object):
         if not resource:
             return None
 
-        return SubnetworkSecondaryIPRange(
+        return SubnetworkSecondaryIPRanges(
             range_name=resource.range_name, ip_cidr_range=resource.ip_cidr_range,
         )
 
 
-class SubnetworkSecondaryIPRangeArray(object):
+class SubnetworkSecondaryIPRangesArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [SubnetworkSecondaryIPRange.to_proto(i) for i in resources]
+        return [SubnetworkSecondaryIPRanges.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [SubnetworkSecondaryIPRange.from_proto(i) for i in resources]
+        return [SubnetworkSecondaryIPRanges.from_proto(i) for i in resources]
 
 
 class SubnetworkLogConfig(object):

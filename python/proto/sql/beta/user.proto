@@ -61,6 +61,7 @@ message ListSqlBetaUserRequest {
 message ListSqlBetaUserResponse {
   repeated SqlBetaUser items = 1;
 }
+
 service SqlBetaUserService {
   rpc ApplySqlBetaUser(ApplySqlBetaUserRequest) returns (SqlBetaUser);
   rpc DeleteSqlBetaUser(DeleteSqlBetaUserRequest) returns (google.protobuf.Empty);

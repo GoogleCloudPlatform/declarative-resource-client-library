@@ -29,10 +29,11 @@ components:
             `example.com`.'
           type: string
           x-dcl-go-name: Name
+          x-kubernetes-immutable: true
         resourceRecords:
           description: The resource records required to configure this domain mapping.
             These records must be added to the domain's DNS configuration in order
-            to serve the application via this domain mapping.
+            to serve the application via this domain mapping. @OutputOnly
           items:
             properties:
               name:
@@ -65,30 +66,58 @@ components:
           type: array
           x-dcl-go-name: ResourceRecords
           x-dcl-list-type: list
+          x-kubernetes-immutable: true
+        selfLink:
+          description: 'Full path to the `DomainMapping` resource in the API. Example:
+            `apps/myapp/domainMapping/example.com`. @OutputOnly'
+          type: string
+          x-dcl-go-name: SelfLink
+          x-kubernetes-immutable: true
         sslSettings:
           description: SSL configuration for this domain. If unconfigured, this domain
             will not serve with SSL.
           properties:
-            isManagedCertificate:
-              description: Whether the mapped certificate is an App Engine managed
-                certificate. Managed certificates are created by default with a domain
-                mapping. To opt out, specify `no_managed_certificate` on a `CREATE`
-                or `UPDATE` request.
+            certificateId:
+              description: 'ID of the `AuthorizedCertificate` resource configuring
+                SSL for the application. Clearing this field will remove SSL support.
+                By default, a managed certificate is automatically created for every
+                domain mapping. To omit SSL support or to configure SSL manually,
+                specify `SslManagementType.MANUAL` on a `CREATE` or `UPDATE` request.
+                You must be authorized to administer the `AuthorizedCertificate` resource
+                to manually map it to a `DomainMapping` resource. Example: `12345`.'
+              type: string
+              x-dcl-go-name: CertificateId
+            pendingManagedCertificateId:
+              description: ID of the managed `AuthorizedCertificate` resource currently
+                being provisioned, if applicable. Until the new managed certificate
+                has been successfully provisioned, the previous SSL state will be
+                preserved. Once the provisioning process completes, the `certificate_id`
+                field will reflect the new managed certificate and this field will
+                be left empty. To remove SSL support while there is still a pending
+                managed certificate, clear the `certificate_id` field with an `UpdateDomainMappingRequest`.
+                @OutputOnly
               readOnly: true
-              type: boolean
-              x-dcl-go-name: IsManagedCertificate
-              x-kubernetes-immutable: true
+              type: string
+              x-dcl-go-name: PendingManagedCertificateId
+            sslManagementType:
+              description: SSL management type for this domain. If `AUTOMATIC`, a
+                managed certificate is automatically provisioned. If `MANUAL`, `certificate_id`
+                must be manually specified in order to configure SSL for this domain.
+              enum:
+              - AUTOMATIC
+              - MANUAL
+              type: string
+              x-dcl-go-name: SslManagementType
+              x-dcl-go-type: DomainMappingSslSettingsSslManagementTypeEnum
           type: object
           x-dcl-go-name: SslSettings
           x-dcl-go-type: DomainMappingSslSettings
       required:
-      - name
       - app
       title: DomainMapping
       type: object
       x-dcl-id: apps/{{app}}/domainMappings/{{name}}
       x-dcl-locations: []
-      x-dcl-parent-container: organization
       x-dcl-uses-state-hint: false
 info:
   description: DCL Specification for the Appengine DomainMapping resource

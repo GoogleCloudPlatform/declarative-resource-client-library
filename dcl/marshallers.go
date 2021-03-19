@@ -17,6 +17,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"reflect"
+	re "regexp"
+	"strconv"
+	"strings"
 
 	glog "github.com/golang/glog"
 )
@@ -78,20 +81,58 @@ func GetMapEntry(m map[string]interface{}, path []string) (interface{}, error) {
 	// this ranges over all those elements, so at the end of this loop, we have
 	// the map which contains the element to fetch.
 	for _, idx := range path[:len(path)-1] {
-		f, ok := fetch[idx]
-		if !ok {
-			return nil, fmt.Errorf("could not find %q in %v", idx, fetch)
+		f, err := mapEntry(fetch, idx)
+		if err != nil {
+			return nil, err
 		}
+		var ok bool
 		fetch, ok = f.(map[string]interface{})
 		if !ok {
 			return nil, fmt.Errorf("could not fetch %q from %v", idx, fetch)
 		}
 	}
-	value, ok := fetch[path[len(path)-1]]
-	if !ok {
-		return nil, fmt.Errorf("could not fetch %q from %v", path[len(path)-1], fetch)
+
+	value, err := mapEntry(fetch, path[len(path)-1])
+	if err != nil {
+		return nil, err
 	}
 	return value, nil
+}
+
+// mapEntry grabs item from fetch, and indexes into the array if the [num] notation is present.
+func mapEntry(fetch map[string]interface{}, item string) (interface{}, error) {
+	// Check if we're fetching from an array.
+	arrayRegexp := re.MustCompile(`\[([0-9]*)\]`)
+	if arrayRegexp.MatchString(item) {
+		field := strings.Split(item, "[")[0]
+		items := arrayRegexp.FindAllStringSubmatch(item, 1)
+		index, err := strconv.Atoi(items[0][1])
+		if err != nil {
+			return nil, err
+		}
+
+		f, ok := fetch[field]
+		if !ok {
+			return nil, fmt.Errorf("could not find %q in %v", item, fetch)
+		}
+
+		fetch, ok := f.([]interface{})
+		if !ok {
+			return nil, fmt.Errorf("field %s is not an array", field)
+		}
+
+		if len(fetch) < index {
+			return nil, fmt.Errorf("field %s only has %v elements, needs %v", field, len(fetch), index)
+		}
+
+		return fetch[index], nil
+	}
+
+	f, ok := fetch[item]
+	if !ok {
+		return nil, fmt.Errorf("could not find %q in %v", item, fetch)
+	}
+	return f, nil
 }
 
 func deleteIfEmpty(m map[string]interface{}, from []string) error {

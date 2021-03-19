@@ -65,6 +65,10 @@ components:
           description: The project id of the resource.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         routingConfig:
           description: 'The network-level routing configuration for this network.
@@ -84,7 +88,6 @@ components:
               x-dcl-go-name: RoutingMode
               x-dcl-go-type: NetworkRoutingConfigRoutingModeEnum
               x-dcl-server-default: true
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: RoutingConfig
           x-dcl-go-type: NetworkRoutingConfig

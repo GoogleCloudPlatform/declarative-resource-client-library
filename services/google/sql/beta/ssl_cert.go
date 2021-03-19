@@ -65,6 +65,9 @@ func (l *SslCertList) HasNext() bool {
 }
 
 func (l *SslCertList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -78,12 +81,17 @@ func (l *SslCertList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListSslCert(ctx context.Context, project, instance string) (*SslCertList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListSslCertWithMaxResults(ctx, project, instance, SslCertMaxPage)
 
 }
 
 func (c *Client) ListSslCertWithMaxResults(ctx context.Context, project, instance string, pageSize int32) (*SslCertList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listSslCert(ctx, project, instance, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -100,6 +108,9 @@ func (c *Client) ListSslCertWithMaxResults(ctx context.Context, project, instanc
 }
 
 func (c *Client) GetSslCert(ctx context.Context, r *SslCert) (*SslCert, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getSslCertRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -118,8 +129,6 @@ func (c *Client) GetSslCert(ctx context.Context, r *SslCert) (*SslCert, error) {
 	result.Instance = r.Instance
 	result.Name = r.Name
 
-	result.Name = r.Name
-
 	c.Config.Logger.Infof("Retrieved raw result state: %v", result)
 	c.Config.Logger.Infof("Canonicalizing with specified state: %v", r)
 	result, err = canonicalizeSslCertNewState(c, result, r)
@@ -132,6 +141,9 @@ func (c *Client) GetSslCert(ctx context.Context, r *SslCert) (*SslCert, error) {
 }
 
 func (c *Client) DeleteSslCert(ctx context.Context, r *SslCert) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("SslCert resource is nil")
 	}
@@ -142,6 +154,9 @@ func (c *Client) DeleteSslCert(ctx context.Context, r *SslCert) error {
 
 // DeleteAllSslCert deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllSslCert(ctx context.Context, project, instance string, filter func(*SslCert) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListSslCert(ctx, project, instance)
 	if err != nil {
 		return err
@@ -167,6 +182,9 @@ func (c *Client) DeleteAllSslCert(ctx context.Context, project, instance string,
 func (c *Client) ApplySslCert(ctx context.Context, rawDesired *SslCert, opts ...dcl.ApplyOption) (*SslCert, error) {
 	c.Config.Logger.Info("Beginning ApplySslCert...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -247,12 +265,35 @@ func (c *Client) ApplySslCert(ctx context.Context, rawDesired *SslCert, opts ...
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createSslCertOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapSslCert(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeSslCertNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeSslCertNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

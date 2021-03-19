@@ -106,13 +106,11 @@ components:
               description: This is always **sql#diskEncryptionStatus**.
               type: string
               x-dcl-go-name: Kind
-              x-kubernetes-immutable: true
             kmsKeyVersionName:
               description: KMS key version used to encrypt the Cloud SQL instance
                 resource
               type: string
               x-dcl-go-name: KmsKeyVersionName
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: DiskEncryptionStatus
           x-dcl-go-type: InstanceDiskEncryptionStatus
@@ -306,46 +304,38 @@ components:
               description: PEM representation of the trusted CA's x509 certificate.
               type: string
               x-dcl-go-name: CaCertificate
-              x-kubernetes-immutable: true
             clientCertificate:
               description: PEM representation of the replica's x509 certificate.
               type: string
               x-dcl-go-name: ClientCertificate
-              x-kubernetes-immutable: true
             clientKey:
               description: PEM representation of the replica's private key. The corresponsing
                 public key is encoded in the client's certificate.
               type: string
               x-dcl-go-name: ClientKey
-              x-kubernetes-immutable: true
             database:
               description: The name of the database on the on-premises instance to
                 replicate from. This is needed for Mimir and Agbala external primary
                 instance.
               type: string
               x-dcl-go-name: Database
-              x-kubernetes-immutable: true
             dumpFilePath:
               description: The dump file to create the Cloud SQL replica.
               type: string
               x-dcl-go-name: DumpFilePath
-              x-kubernetes-immutable: true
             hostPort:
               description: The host and port of the on-premises instance in host:port
                 format
               type: string
               x-dcl-go-name: HostPort
-              x-kubernetes-immutable: true
             kind:
               description: This is always **sql#onPremisesConfiguration**.
               type: string
               x-dcl-go-name: Kind
-              x-kubernetes-immutable: true
             password:
               description: The password for connecting to on-premises instance.
               type: string
               x-dcl-go-name: Password
-              x-kubernetes-immutable: true
             replicatedDatabases:
               description: List of databases to be replicated from external master.
               items:
@@ -354,12 +344,10 @@ components:
               type: array
               x-dcl-go-name: ReplicatedDatabases
               x-dcl-list-type: list
-              x-kubernetes-immutable: true
             username:
               description: The username for connecting to on-premises instance.
               type: string
               x-dcl-go-name: Username
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: OnPremisesConfiguration
           x-dcl-go-type: InstanceOnPremisesConfiguration
@@ -368,6 +356,10 @@ components:
             The Google apps domain is prefixed if applicable.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         region:
           description: The geographical region. Can be `us-central` (`FIRST_GEN` instances
@@ -576,12 +568,10 @@ components:
                 description: The name of the Cloud SQL instance being referenced.
                 type: string
                 x-dcl-go-name: Name
-                x-kubernetes-immutable: true
               region:
                 description: The region of the Cloud SQL instance being referenced.
                 type: string
                 x-dcl-go-name: Region
-                x-kubernetes-immutable: true
             type: object
             x-dcl-go-type: InstanceReplicaInstances
           type: array
@@ -641,46 +631,38 @@ components:
               description: PEM representation.
               type: string
               x-dcl-go-name: Cert
-              x-kubernetes-immutable: true
             certSerialNumber:
               description: Serial number, as extracted from the certificate.
               type: string
               x-dcl-go-name: CertSerialNumber
-              x-kubernetes-immutable: true
             commonName:
               description: User supplied name. Constrained to +.
               type: string
               x-dcl-go-name: CommonName
-              x-kubernetes-immutable: true
             createTime:
               description: The time when the certificate was created in [RFC 3339](https://tools.ietf.org/html/rfc3339)
                 format, for example **2012-11-15T16:19:00.094Z**
               format: date-time
               type: string
               x-dcl-go-name: CreateTime
-              x-kubernetes-immutable: true
             expirationTime:
               description: The time when the certificate expires in [RFC 3339](https://tools.ietf.org/html/rfc3339)
                 format, for example **2012-11-15T16:19:00.094Z**.
               format: date-time
               type: string
               x-dcl-go-name: ExpirationTime
-              x-kubernetes-immutable: true
             instance:
               description: Name of the database instance.
               type: string
               x-dcl-go-name: Instance
-              x-kubernetes-immutable: true
             kind:
               description: This is always `sql#sslCert`.
               type: string
               x-dcl-go-name: Kind
-              x-kubernetes-immutable: true
             sha1Fingerprint:
               description: Sha1 Fingerprint.
               type: string
               x-dcl-go-name: Sha1Fingerprint
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: ServerCaCert
           x-dcl-go-type: InstanceServerCaCert
@@ -1169,9 +1151,6 @@ components:
                 type: string
               description: User-provided labels, represented as a dictionary where
                 each label is a single key value pair.
-              items:
-                type: string
-                x-dcl-go-type: string
               type: object
               x-dcl-go-name: UserLabels
               x-kubernetes-immutable: true

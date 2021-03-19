@@ -129,6 +129,7 @@ message ListComputeBetaAutoscalerRequest {
 message ListComputeBetaAutoscalerResponse {
   repeated ComputeBetaAutoscaler items = 1;
 }
+
 service ComputeBetaAutoscalerService {
   rpc ApplyComputeBetaAutoscaler(ApplyComputeBetaAutoscalerRequest) returns (ComputeBetaAutoscaler);
   rpc DeleteComputeBetaAutoscaler(DeleteComputeBetaAutoscalerRequest) returns (google.protobuf.Empty);

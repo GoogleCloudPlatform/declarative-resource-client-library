@@ -58,14 +58,17 @@ class AccessPolicy(object):
         self.create_time = Primitive.from_proto(response.create_time)
         self.update_time = Primitive.from_proto(response.update_time)
 
-    @classmethod
-    def delete(self, name, service_account_file=""):
+    def delete(self):
         stub = access_policy_pb2_grpc.AccesscontextmanagerAccessPolicyServiceStub(
             channel.Channel()
         )
         request = access_policy_pb2.DeleteAccesscontextmanagerAccessPolicyRequest()
-        request.service_account_file = service_account_file
-        request.Name = name
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.parent):
+            request.resource.parent = Primitive.to_proto(self.parent)
+
+        if Primitive.to_proto(self.title):
+            request.resource.title = Primitive.to_proto(self.title)
 
         response = stub.DeleteAccesscontextmanagerAccessPolicy(request)
 
@@ -93,6 +96,14 @@ class AccessPolicy(object):
         res.create_time = Primitive.from_proto(res_proto.create_time)
         res.update_time = Primitive.from_proto(res_proto.update_time)
         return res
+
+    def to_proto(self):
+        resource = access_policy_pb2.AccesscontextmanagerAccessPolicy()
+        if Primitive.to_proto(self.parent):
+            resource.parent = Primitive.to_proto(self.parent)
+        if Primitive.to_proto(self.title):
+            resource.title = Primitive.to_proto(self.title)
+        return resource
 
 
 class Primitive(object):

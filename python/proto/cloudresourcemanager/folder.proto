@@ -55,6 +55,7 @@ message ListCloudresourcemanagerFolderRequest {
 message ListCloudresourcemanagerFolderResponse {
   repeated CloudresourcemanagerFolder items = 1;
 }
+
 service CloudresourcemanagerFolderService {
   rpc ApplyCloudresourcemanagerFolder(ApplyCloudresourcemanagerFolderRequest) returns (CloudresourcemanagerFolder);
   rpc DeleteCloudresourcemanagerFolder(DeleteCloudresourcemanagerFolderRequest) returns (google.protobuf.Empty);

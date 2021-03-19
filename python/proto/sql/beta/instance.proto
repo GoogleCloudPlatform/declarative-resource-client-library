@@ -395,6 +395,7 @@ message ListSqlBetaInstanceRequest {
 message ListSqlBetaInstanceResponse {
   repeated SqlBetaInstance items = 1;
 }
+
 service SqlBetaInstanceService {
   rpc ApplySqlBetaInstance(ApplySqlBetaInstanceRequest) returns (SqlBetaInstance);
   rpc DeleteSqlBetaInstance(DeleteSqlBetaInstanceRequest) returns (google.protobuf.Empty);

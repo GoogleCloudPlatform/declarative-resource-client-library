@@ -23,6 +23,7 @@ from typing import List
 class DomainMapping(object):
     def __init__(
         self,
+        self_link: str = None,
         name: str = None,
         ssl_settings: dict = None,
         resource_records: list = None,
@@ -31,6 +32,7 @@ class DomainMapping(object):
     ):
 
         channel.initialize()
+        self.self_link = self_link
         self.name = name
         self.ssl_settings = ssl_settings
         self.app = app
@@ -41,6 +43,9 @@ class DomainMapping(object):
             channel.Channel()
         )
         request = domain_mapping_pb2.ApplyAppengineDomainMappingRequest()
+        if Primitive.to_proto(self.self_link):
+            request.resource.self_link = Primitive.to_proto(self.self_link)
+
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
@@ -56,6 +61,7 @@ class DomainMapping(object):
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyAppengineDomainMapping(request)
+        self.self_link = Primitive.from_proto(response.self_link)
         self.name = Primitive.from_proto(response.name)
         self.ssl_settings = DomainMappingSslSettings.from_proto(response.ssl_settings)
         self.resource_records = DomainMappingResourceRecordsArray.from_proto(
@@ -63,16 +69,26 @@ class DomainMapping(object):
         )
         self.app = Primitive.from_proto(response.app)
 
-    @classmethod
-    def delete(self, app, name, service_account_file=""):
+    def delete(self):
         stub = domain_mapping_pb2_grpc.AppengineDomainMappingServiceStub(
             channel.Channel()
         )
         request = domain_mapping_pb2.DeleteAppengineDomainMappingRequest()
-        request.service_account_file = service_account_file
-        request.App = app
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.self_link):
+            request.resource.self_link = Primitive.to_proto(self.self_link)
 
-        request.Name = name
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if DomainMappingSslSettings.to_proto(self.ssl_settings):
+            request.resource.ssl_settings.CopyFrom(
+                DomainMappingSslSettings.to_proto(self.ssl_settings)
+            )
+        else:
+            request.resource.ClearField("ssl_settings")
+        if Primitive.to_proto(self.app):
+            request.resource.app = Primitive.to_proto(self.app)
 
         response = stub.DeleteAppengineDomainMapping(request)
 
@@ -94,6 +110,7 @@ class DomainMapping(object):
         any_proto.Unpack(res_proto)
 
         res = DomainMapping()
+        res.self_link = Primitive.from_proto(res_proto.self_link)
         res.name = Primitive.from_proto(res_proto.name)
         res.ssl_settings = DomainMappingSslSettings.from_proto(res_proto.ssl_settings)
         res.resource_records = DomainMappingResourceRecordsArray.from_proto(
@@ -102,10 +119,33 @@ class DomainMapping(object):
         res.app = Primitive.from_proto(res_proto.app)
         return res
 
+    def to_proto(self):
+        resource = domain_mapping_pb2.AppengineDomainMapping()
+        if Primitive.to_proto(self.self_link):
+            resource.self_link = Primitive.to_proto(self.self_link)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if DomainMappingSslSettings.to_proto(self.ssl_settings):
+            resource.ssl_settings.CopyFrom(
+                DomainMappingSslSettings.to_proto(self.ssl_settings)
+            )
+        else:
+            resource.ClearField("ssl_settings")
+        if Primitive.to_proto(self.app):
+            resource.app = Primitive.to_proto(self.app)
+        return resource
+
 
 class DomainMappingSslSettings(object):
-    def __init__(self, is_managed_certificate: bool = None):
-        self.is_managed_certificate = is_managed_certificate
+    def __init__(
+        self,
+        certificate_id: str = None,
+        ssl_management_type: str = None,
+        pending_managed_certificate_id: str = None,
+    ):
+        self.certificate_id = certificate_id
+        self.ssl_management_type = ssl_management_type
+        self.pending_managed_certificate_id = pending_managed_certificate_id
 
     @classmethod
     def to_proto(self, resource):
@@ -113,9 +153,17 @@ class DomainMappingSslSettings(object):
             return None
 
         res = domain_mapping_pb2.AppengineDomainMappingSslSettings()
-        if Primitive.to_proto(resource.is_managed_certificate):
-            res.is_managed_certificate = Primitive.to_proto(
-                resource.is_managed_certificate
+        if Primitive.to_proto(resource.certificate_id):
+            res.certificate_id = Primitive.to_proto(resource.certificate_id)
+        if DomainMappingSslSettingsSslManagementTypeEnum.to_proto(
+            resource.ssl_management_type
+        ):
+            res.ssl_management_type = DomainMappingSslSettingsSslManagementTypeEnum.to_proto(
+                resource.ssl_management_type
+            )
+        if Primitive.to_proto(resource.pending_managed_certificate_id):
+            res.pending_managed_certificate_id = Primitive.to_proto(
+                resource.pending_managed_certificate_id
             )
         return res
 
@@ -125,7 +173,9 @@ class DomainMappingSslSettings(object):
             return None
 
         return DomainMappingSslSettings(
-            is_managed_certificate=resource.is_managed_certificate,
+            certificate_id=resource.certificate_id,
+            ssl_management_type=resource.ssl_management_type,
+            pending_managed_certificate_id=resource.pending_managed_certificate_id,
         )
 
 
@@ -181,6 +231,26 @@ class DomainMappingResourceRecordsArray(object):
     @classmethod
     def from_proto(self, resources):
         return [DomainMappingResourceRecords.from_proto(i) for i in resources]
+
+
+class DomainMappingSslSettingsSslManagementTypeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return domain_mapping_pb2.AppengineDomainMappingSslSettingsSslManagementTypeEnum.Value(
+            "AppengineDomainMappingSslSettingsSslManagementTypeEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return domain_mapping_pb2.AppengineDomainMappingSslSettingsSslManagementTypeEnum.Name(
+            resource
+        )[
+            len("AppengineDomainMappingSslSettingsSslManagementTypeEnum") :
+        ]
 
 
 class DomainMappingResourceRecordsTypeEnum(object):

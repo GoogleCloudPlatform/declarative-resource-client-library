@@ -108,16 +108,47 @@ class HttpsHealthCheck(object):
         self.self_link = Primitive.from_proto(response.self_link)
         self.creation_timestamp = Primitive.from_proto(response.creation_timestamp)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = https_health_check_pb2_grpc.ComputeHttpsHealthCheckServiceStub(
             channel.Channel()
         )
         request = https_health_check_pb2.DeleteComputeHttpsHealthCheckRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.check_interval_sec):
+            request.resource.check_interval_sec = Primitive.to_proto(
+                self.check_interval_sec
+            )
 
-        request.Name = name
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if Primitive.to_proto(self.healthy_threshold):
+            request.resource.healthy_threshold = Primitive.to_proto(
+                self.healthy_threshold
+            )
+
+        if Primitive.to_proto(self.host):
+            request.resource.host = Primitive.to_proto(self.host)
+
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.port):
+            request.resource.port = Primitive.to_proto(self.port)
+
+        if Primitive.to_proto(self.request_path):
+            request.resource.request_path = Primitive.to_proto(self.request_path)
+
+        if Primitive.to_proto(self.timeout_sec):
+            request.resource.timeout_sec = Primitive.to_proto(self.timeout_sec)
+
+        if Primitive.to_proto(self.unhealthy_threshold):
+            request.resource.unhealthy_threshold = Primitive.to_proto(
+                self.unhealthy_threshold
+            )
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteComputeHttpsHealthCheck(request)
 
@@ -152,6 +183,30 @@ class HttpsHealthCheck(object):
         res.self_link = Primitive.from_proto(res_proto.self_link)
         res.creation_timestamp = Primitive.from_proto(res_proto.creation_timestamp)
         return res
+
+    def to_proto(self):
+        resource = https_health_check_pb2.ComputeHttpsHealthCheck()
+        if Primitive.to_proto(self.check_interval_sec):
+            resource.check_interval_sec = Primitive.to_proto(self.check_interval_sec)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.healthy_threshold):
+            resource.healthy_threshold = Primitive.to_proto(self.healthy_threshold)
+        if Primitive.to_proto(self.host):
+            resource.host = Primitive.to_proto(self.host)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.port):
+            resource.port = Primitive.to_proto(self.port)
+        if Primitive.to_proto(self.request_path):
+            resource.request_path = Primitive.to_proto(self.request_path)
+        if Primitive.to_proto(self.timeout_sec):
+            resource.timeout_sec = Primitive.to_proto(self.timeout_sec)
+        if Primitive.to_proto(self.unhealthy_threshold):
+            resource.unhealthy_threshold = Primitive.to_proto(self.unhealthy_threshold)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class Primitive(object):

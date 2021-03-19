@@ -1,0 +1,348 @@
+# Copyright 2021 Google LLC. All Rights Reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+components:
+  schemas:
+    Feature:
+      properties:
+        createTime:
+          description: Output only. When the Feature resource was created.
+          format: date-time
+          readOnly: true
+          type: string
+          x-dcl-go-name: CreateTime
+          x-kubernetes-immutable: true
+        deleteTime:
+          description: Output only. When the Feature resource was deleted.
+          format: date-time
+          readOnly: true
+          type: string
+          x-dcl-go-name: DeleteTime
+          x-kubernetes-immutable: true
+        labels:
+          additionalProperties:
+            type: string
+          description: GCP labels for this Feature.
+          type: object
+          x-dcl-go-name: Labels
+        location:
+          description: The location for the resource
+          type: string
+          x-dcl-go-name: Location
+          x-kubernetes-immutable: true
+        membershipSpecs:
+          additionalProperties:
+            type: string
+          description: 'Optional. Membership-specific configuration for this Feature.
+            If this Feature does not support any per-Membership configuration, this
+            field may be unused. The keys indicate which Membership the configuration
+            is for, in the form: projects/{p}/locations/{l}/memberships/{m} Where
+            {p} is the project number, {l} is a valid location and {m} is a valid
+            Membership in this project at that location. {p} MUST match the Feature''s
+            project number.'
+          type: object
+          x-dcl-go-name: MembershipSpecs
+        membershipStates:
+          additionalProperties:
+            type: string
+          description: 'Output only. Membership-specific Feature status. If this Feature
+            does report any per-Membership status, this field may be unused. The keys
+            indicate which Membership the state is for, in the form: projects/{p}/locations/{l}/memberships/{m}
+            Where {p} is the project number, {l} is a valid location and {m} is a
+            valid Membership in this project at that location. {p} MUST match the
+            Feature''s project number.'
+          readOnly: true
+          type: object
+          x-dcl-go-name: MembershipStates
+          x-kubernetes-immutable: true
+        name:
+          description: The full, unique name of this Feature resource
+          type: string
+          x-dcl-go-name: Name
+          x-kubernetes-immutable: true
+        project:
+          description: The project for the resource
+          type: string
+          x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
+          x-kubernetes-immutable: true
+        resourceState:
+          description: Output only. State of the Feature resource itself.
+          properties:
+            state:
+              description: 'The current state of the Feature resource in the Hub API.
+                Possible values: DEPLOYMENT_STATE_UNSPECIFIED, NOT_INSTALLED, INSTALLED,
+                ERROR'
+              enum:
+              - DEPLOYMENT_STATE_UNSPECIFIED
+              - NOT_INSTALLED
+              - INSTALLED
+              - ERROR
+              type: string
+              x-dcl-go-name: State
+              x-dcl-go-type: FeatureResourceStateStateEnum
+              x-kubernetes-immutable: true
+          readOnly: true
+          type: object
+          x-dcl-go-name: ResourceState
+          x-dcl-go-type: FeatureResourceState
+          x-kubernetes-immutable: true
+        spec:
+          description: Optional. Hub-wide Feature configuration. If this Feature does
+            not support any Hub-wide configuration, this field may be unused.
+          properties:
+            helloworld:
+              description: Hello World-specific spec.
+              properties:
+                customConfig:
+                  description: Custom config for the HelloWorld controller codelab.
+                    This should be a textpb string.
+                  type: string
+                  x-dcl-go-name: CustomConfig
+                featureTest:
+                  description: Message to hold fields to use in feature e2e create/mutate
+                    testing.
+                  properties:
+                    eighth:
+                      description: Repeated field.
+                      items:
+                        properties:
+                          first:
+                            type: string
+                            x-dcl-go-name: First
+                          second:
+                            format: int64
+                            type: integer
+                            x-dcl-go-name: Second
+                        type: object
+                        x-dcl-go-type: FeatureSpecHelloworldFeatureTestEighth
+                      type: array
+                      x-dcl-go-name: Eighth
+                      x-dcl-list-type: list
+                    fifth:
+                      properties:
+                        typeUrl:
+                          description: 'A URL/resource name that uniquely identifies
+                            the type of the serialized protocol buffer message. This
+                            string must contain at least one "/" character. The last
+                            segment of the URL''s path must represent the fully qualified
+                            name of the type (as in `path/google.protobuf.Duration`).
+                            The name should be in a canonical form (e.g., leading
+                            "." is not accepted). In practice, teams usually precompile
+                            into the binary all types that they expect it to use in
+                            the context of Any. However, for URLs which use the scheme
+                            `http`, `https`, or no scheme, one can optionally set
+                            up a type server that maps type URLs to message definitions
+                            as follows: * If no scheme is provided, `https` is assumed.
+                            * An HTTP GET on the URL must yield a value in binary
+                            format, or produce an error. * Applications are allowed
+                            to cache lookup results based on the URL, or have them
+                            precompiled into a binary to avoid any lookup. Therefore,
+                            binary compatibility needs to be preserved on changes
+                            to types. (Use versioned type names to manage breaking
+                            changes.) Note: this functionality is not currently available
+                            in the official protobuf release, and it is not used for
+                            type URLs beginning with type.googleapis.com. Schemes
+                            other than `http`, `https` (or the empty scheme) might
+                            be used with implementation specific semantics.'
+                          type: string
+                          x-dcl-go-name: TypeUrl
+                        value:
+                          description: Must be a valid serialized protocol buffer
+                            of the above specified type.
+                          type: string
+                          x-dcl-go-name: Value
+                      type: object
+                      x-dcl-go-name: Fifth
+                      x-dcl-go-type: FeatureSpecHelloworldFeatureTestFifth
+                    first:
+                      description: Singular scaler field.
+                      type: string
+                      x-dcl-go-name: First
+                    fourth:
+                      description: Singular Message fields.
+                      type: string
+                      x-dcl-go-name: Fourth
+                    ninth:
+                      additionalProperties:
+                        type: string
+                      description: Map field.
+                      type: object
+                      x-dcl-go-name: Ninth
+                    second:
+                      description: Singular scaler field.
+                      format: int64
+                      type: integer
+                      x-dcl-go-name: Second
+                    seventh:
+                      type: string
+                      x-dcl-go-name: Seventh
+                    sixth:
+                      format: int64
+                      type: integer
+                      x-dcl-go-name: Sixth
+                    third:
+                      description: ' Possible values: BAR_UNSPECIFIED, FIRST, SECOND'
+                      enum:
+                      - BAR_UNSPECIFIED
+                      - FIRST
+                      - SECOND
+                      type: string
+                      x-dcl-go-name: Third
+                      x-dcl-go-type: FeatureSpecHelloworldFeatureTestThirdEnum
+                  type: object
+                  x-dcl-go-name: FeatureTest
+                  x-dcl-go-type: FeatureSpecHelloworldFeatureTest
+              type: object
+              x-dcl-go-name: Helloworld
+              x-dcl-go-type: FeatureSpecHelloworld
+            multiclusteringress:
+              description: Multicluster Ingress-specific spec.
+              properties:
+                billing:
+                  description: 'Customer''s billing structure Possible values: BILLING_UNSPECIFIED,
+                    PAY_AS_YOU_GO, ANTHOS_LICENSE'
+                  enum:
+                  - BILLING_UNSPECIFIED
+                  - PAY_AS_YOU_GO
+                  - ANTHOS_LICENSE
+                  type: string
+                  x-dcl-go-name: Billing
+                  x-dcl-go-type: FeatureSpecMulticlusteringressBillingEnum
+                configMembership:
+                  description: 'Fully-qualified Membership name which hosts the MultiClusterIngress
+                    CRD. Example: `projects/foo-proj/locations/global/memberships/bar`'
+                  type: string
+                  x-dcl-go-name: ConfigMembership
+              type: object
+              x-dcl-go-name: Multiclusteringress
+              x-dcl-go-type: FeatureSpecMulticlusteringress
+          type: object
+          x-dcl-go-name: Spec
+          x-dcl-go-type: FeatureSpec
+        state:
+          description: Output only. The Hub-wide Feature state.
+          properties:
+            helloworld:
+              description: Hello World-specific state.
+              properties: {}
+              type: object
+              x-dcl-go-name: Helloworld
+              x-dcl-go-type: FeatureStateHelloworld
+              x-kubernetes-immutable: true
+            state:
+              description: Output only. The "running state" of the Feature in this
+                Hub.
+              properties:
+                code:
+                  description: 'The high-level, machine-readable status of this Feature.
+                    Possible values: CODE_UNSPECIFIED, CREATING, READY, DELETING,
+                    UPDATING, SERVICE_UPDATING'
+                  enum:
+                  - CODE_UNSPECIFIED
+                  - CREATING
+                  - READY
+                  - DELETING
+                  - UPDATING
+                  - SERVICE_UPDATING
+                  type: string
+                  x-dcl-go-name: Code
+                  x-dcl-go-type: FeatureStateStateCodeEnum
+                  x-kubernetes-immutable: true
+                description:
+                  description: A human-readable description of the current status.
+                  type: string
+                  x-dcl-go-name: Description
+                  x-kubernetes-immutable: true
+                updateTime:
+                  description: The time this status and any related Feature-specific
+                    details were updated.
+                  format: date-time
+                  type: string
+                  x-dcl-go-name: UpdateTime
+                  x-kubernetes-immutable: true
+              readOnly: true
+              type: object
+              x-dcl-go-name: State
+              x-dcl-go-type: FeatureStateState
+              x-kubernetes-immutable: true
+          readOnly: true
+          type: object
+          x-dcl-go-name: State
+          x-dcl-go-type: FeatureState
+          x-kubernetes-immutable: true
+        updateTime:
+          description: Output only. When the Feature resource was last updated.
+          format: date-time
+          readOnly: true
+          type: string
+          x-dcl-go-name: UpdateTime
+          x-kubernetes-immutable: true
+      required:
+      - project
+      - location
+      title: Feature
+      type: object
+      x-dcl-id: projects/{{project}}/locations/{{location}}/features/{{name}}
+      x-dcl-labels: labels
+      x-dcl-locations: []
+      x-dcl-parent-container: project
+      x-dcl-uses-state-hint: false
+info:
+  description: DCL Specification for the Gkehub Feature resource
+  title: Gkehub/Feature
+  x-dcl-has-iam: false
+paths:
+  apply:
+    description: The function used to apply information about a Feature
+    parameters:
+    - description: A full instance of a Feature
+      name: Feature
+      required: true
+  delete:
+    description: The function used to delete a Feature
+    parameters:
+    - description: A full instance of a Feature
+      name: Feature
+      required: true
+  deleteAll:
+    description: The function used to delete all Feature
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Feature
+    parameters:
+    - description: A full instance of a Feature
+      name: Feature
+      required: true
+  list:
+    description: The function used to list information about many Feature
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string

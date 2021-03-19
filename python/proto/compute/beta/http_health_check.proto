@@ -52,6 +52,7 @@ message ListComputeBetaHttpHealthCheckRequest {
 message ListComputeBetaHttpHealthCheckResponse {
   repeated ComputeBetaHttpHealthCheck items = 1;
 }
+
 service ComputeBetaHttpHealthCheckService {
   rpc ApplyComputeBetaHttpHealthCheck(ApplyComputeBetaHttpHealthCheckRequest) returns (ComputeBetaHttpHealthCheck);
   rpc DeleteComputeBetaHttpHealthCheck(DeleteComputeBetaHttpHealthCheckRequest) returns (google.protobuf.Empty);

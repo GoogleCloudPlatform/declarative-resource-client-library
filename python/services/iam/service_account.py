@@ -73,15 +73,25 @@ class ServiceAccount(object):
         )
         self.disabled = Primitive.from_proto(response.disabled)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = service_account_pb2_grpc.IamServiceAccountServiceStub(channel.Channel())
         request = service_account_pb2.DeleteIamServiceAccountRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Name = name
+        if Primitive.to_proto(self.display_name):
+            request.resource.display_name = Primitive.to_proto(self.display_name)
 
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if ServiceAccountActasResources.to_proto(self.actas_resources):
+            request.resource.actas_resources.CopyFrom(
+                ServiceAccountActasResources.to_proto(self.actas_resources)
+            )
+        else:
+            request.resource.ClearField("actas_resources")
         response = stub.DeleteIamServiceAccount(request)
 
     @classmethod
@@ -112,6 +122,22 @@ class ServiceAccount(object):
         )
         res.disabled = Primitive.from_proto(res_proto.disabled)
         return res
+
+    def to_proto(self):
+        resource = service_account_pb2.IamServiceAccount()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.display_name):
+            resource.display_name = Primitive.to_proto(self.display_name)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if ServiceAccountActasResources.to_proto(self.actas_resources):
+            resource.actas_resources.CopyFrom(
+                ServiceAccountActasResources.to_proto(self.actas_resources)
+            )
+        else:
+            resource.ClearField("actas_resources")
+        return resource
 
 
 class ServiceAccountActasResources(object):

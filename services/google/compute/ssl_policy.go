@@ -165,6 +165,9 @@ func (l *SslPolicyList) HasNext() bool {
 }
 
 func (l *SslPolicyList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -178,12 +181,17 @@ func (l *SslPolicyList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListSslPolicy(ctx context.Context, project string) (*SslPolicyList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListSslPolicyWithMaxResults(ctx, project, SslPolicyMaxPage)
 
 }
 
 func (c *Client) ListSslPolicyWithMaxResults(ctx context.Context, project string, pageSize int32) (*SslPolicyList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listSslPolicy(ctx, project, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -198,6 +206,9 @@ func (c *Client) ListSslPolicyWithMaxResults(ctx context.Context, project string
 }
 
 func (c *Client) GetSslPolicy(ctx context.Context, r *SslPolicy) (*SslPolicy, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getSslPolicyRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -233,6 +244,9 @@ func (c *Client) GetSslPolicy(ctx context.Context, r *SslPolicy) (*SslPolicy, er
 }
 
 func (c *Client) DeleteSslPolicy(ctx context.Context, r *SslPolicy) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("SslPolicy resource is nil")
 	}
@@ -243,6 +257,9 @@ func (c *Client) DeleteSslPolicy(ctx context.Context, r *SslPolicy) error {
 
 // DeleteAllSslPolicy deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllSslPolicy(ctx context.Context, project string, filter func(*SslPolicy) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListSslPolicy(ctx, project)
 	if err != nil {
 		return err
@@ -268,6 +285,9 @@ func (c *Client) DeleteAllSslPolicy(ctx context.Context, project string, filter 
 func (c *Client) ApplySslPolicy(ctx context.Context, rawDesired *SslPolicy, opts ...dcl.ApplyOption) (*SslPolicy, error) {
 	c.Config.Logger.Info("Beginning ApplySslPolicy...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -348,12 +368,35 @@ func (c *Client) ApplySslPolicy(ctx context.Context, rawDesired *SslPolicy, opts
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createSslPolicyOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapSslPolicy(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeSslPolicyNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeSslPolicyNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

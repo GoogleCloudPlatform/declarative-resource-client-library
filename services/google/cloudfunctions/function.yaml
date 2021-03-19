@@ -41,9 +41,6 @@ components:
             type: string
           description: Environment variables that shall be available during function
             execution.
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: EnvironmentVariables
         eventTrigger:
@@ -97,6 +94,12 @@ components:
                 See each *service's* documentation for supported formats.
               type: string
               x-dcl-go-name: Resource
+              x-dcl-references:
+              - field: name
+                format: projects/{{project}}/buckets/{{name}}
+                resource: Storage/Bucket
+              - field: name
+                resource: Pubsub/Topic
               x-kubernetes-immutable: true
             service:
               description: |
@@ -150,9 +153,6 @@ components:
           additionalProperties:
             type: string
           description: Labels associated with this Cloud Function.
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         maxInstances:

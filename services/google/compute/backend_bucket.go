@@ -85,6 +85,9 @@ func (l *BackendBucketList) HasNext() bool {
 }
 
 func (l *BackendBucketList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -98,12 +101,17 @@ func (l *BackendBucketList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListBackendBucket(ctx context.Context, project string) (*BackendBucketList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListBackendBucketWithMaxResults(ctx, project, BackendBucketMaxPage)
 
 }
 
 func (c *Client) ListBackendBucketWithMaxResults(ctx context.Context, project string, pageSize int32) (*BackendBucketList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listBackendBucket(ctx, project, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -118,6 +126,9 @@ func (c *Client) ListBackendBucketWithMaxResults(ctx context.Context, project st
 }
 
 func (c *Client) GetBackendBucket(ctx context.Context, r *BackendBucket) (*BackendBucket, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getBackendBucketRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -147,6 +158,9 @@ func (c *Client) GetBackendBucket(ctx context.Context, r *BackendBucket) (*Backe
 }
 
 func (c *Client) DeleteBackendBucket(ctx context.Context, r *BackendBucket) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("BackendBucket resource is nil")
 	}
@@ -157,6 +171,9 @@ func (c *Client) DeleteBackendBucket(ctx context.Context, r *BackendBucket) erro
 
 // DeleteAllBackendBucket deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllBackendBucket(ctx context.Context, project string, filter func(*BackendBucket) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListBackendBucket(ctx, project)
 	if err != nil {
 		return err
@@ -182,6 +199,9 @@ func (c *Client) DeleteAllBackendBucket(ctx context.Context, project string, fil
 func (c *Client) ApplyBackendBucket(ctx context.Context, rawDesired *BackendBucket, opts ...dcl.ApplyOption) (*BackendBucket, error) {
 	c.Config.Logger.Info("Beginning ApplyBackendBucket...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -262,12 +282,35 @@ func (c *Client) ApplyBackendBucket(ctx context.Context, rawDesired *BackendBuck
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createBackendBucketOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapBackendBucket(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeBackendBucketNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeBackendBucketNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

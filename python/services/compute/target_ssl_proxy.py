@@ -93,16 +93,38 @@ class TargetSslProxy(object):
         self.ssl_policy = Primitive.from_proto(response.ssl_policy)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = target_ssl_proxy_pb2_grpc.ComputeTargetSslProxyServiceStub(
             channel.Channel()
         )
         request = target_ssl_proxy_pb2.DeleteComputeTargetSslProxyRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.id):
+            request.resource.id = Primitive.to_proto(self.id)
 
-        request.Name = name
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if Primitive.to_proto(self.service):
+            request.resource.service = Primitive.to_proto(self.service)
+
+        if Primitive.to_proto(self.ssl_certificates):
+            request.resource.ssl_certificates.extend(
+                Primitive.to_proto(self.ssl_certificates)
+            )
+        if TargetSslProxyProxyHeaderEnum.to_proto(self.proxy_header):
+            request.resource.proxy_header = TargetSslProxyProxyHeaderEnum.to_proto(
+                self.proxy_header
+            )
+
+        if Primitive.to_proto(self.ssl_policy):
+            request.resource.ssl_policy = Primitive.to_proto(self.ssl_policy)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteComputeTargetSslProxy(request)
 
@@ -136,6 +158,28 @@ class TargetSslProxy(object):
         res.ssl_policy = Primitive.from_proto(res_proto.ssl_policy)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = target_ssl_proxy_pb2.ComputeTargetSslProxy()
+        if Primitive.to_proto(self.id):
+            resource.id = Primitive.to_proto(self.id)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.service):
+            resource.service = Primitive.to_proto(self.service)
+        if Primitive.to_proto(self.ssl_certificates):
+            resource.ssl_certificates.extend(Primitive.to_proto(self.ssl_certificates))
+        if TargetSslProxyProxyHeaderEnum.to_proto(self.proxy_header):
+            resource.proxy_header = TargetSslProxyProxyHeaderEnum.to_proto(
+                self.proxy_header
+            )
+        if Primitive.to_proto(self.ssl_policy):
+            resource.ssl_policy = Primitive.to_proto(self.ssl_policy)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class TargetSslProxyProxyHeaderEnum(object):

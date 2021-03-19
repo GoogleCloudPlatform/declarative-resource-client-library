@@ -106,19 +106,46 @@ class ServicePerimeter(object):
         )
         self.spec = ServicePerimeterSpec.from_proto(response.spec)
 
-    @classmethod
-    def delete(self, policy, name, service_account_file=""):
+    def delete(self):
         stub = service_perimeter_pb2_grpc.AccesscontextmanagerServicePerimeterServiceStub(
             channel.Channel()
         )
         request = (
             service_perimeter_pb2.DeleteAccesscontextmanagerServicePerimeterRequest()
         )
-        request.service_account_file = service_account_file
-        request.Policy = policy
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.title):
+            request.resource.title = Primitive.to_proto(self.title)
 
-        request.Name = name
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
 
+        if ServicePerimeterPerimeterTypeEnum.to_proto(self.perimeter_type):
+            request.resource.perimeter_type = ServicePerimeterPerimeterTypeEnum.to_proto(
+                self.perimeter_type
+            )
+
+        if ServicePerimeterStatus.to_proto(self.status):
+            request.resource.status.CopyFrom(
+                ServicePerimeterStatus.to_proto(self.status)
+            )
+        else:
+            request.resource.ClearField("status")
+        if Primitive.to_proto(self.policy):
+            request.resource.policy = Primitive.to_proto(self.policy)
+
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.use_explicit_dry_run_spec):
+            request.resource.use_explicit_dry_run_spec = Primitive.to_proto(
+                self.use_explicit_dry_run_spec
+            )
+
+        if ServicePerimeterSpec.to_proto(self.spec):
+            request.resource.spec.CopyFrom(ServicePerimeterSpec.to_proto(self.spec))
+        else:
+            request.resource.ClearField("spec")
         response = stub.DeleteAccesscontextmanagerServicePerimeter(request)
 
     @classmethod
@@ -156,6 +183,34 @@ class ServicePerimeter(object):
         )
         res.spec = ServicePerimeterSpec.from_proto(res_proto.spec)
         return res
+
+    def to_proto(self):
+        resource = service_perimeter_pb2.AccesscontextmanagerServicePerimeter()
+        if Primitive.to_proto(self.title):
+            resource.title = Primitive.to_proto(self.title)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if ServicePerimeterPerimeterTypeEnum.to_proto(self.perimeter_type):
+            resource.perimeter_type = ServicePerimeterPerimeterTypeEnum.to_proto(
+                self.perimeter_type
+            )
+        if ServicePerimeterStatus.to_proto(self.status):
+            resource.status.CopyFrom(ServicePerimeterStatus.to_proto(self.status))
+        else:
+            resource.ClearField("status")
+        if Primitive.to_proto(self.policy):
+            resource.policy = Primitive.to_proto(self.policy)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.use_explicit_dry_run_spec):
+            resource.use_explicit_dry_run_spec = Primitive.to_proto(
+                self.use_explicit_dry_run_spec
+            )
+        if ServicePerimeterSpec.to_proto(self.spec):
+            resource.spec.CopyFrom(ServicePerimeterSpec.to_proto(self.spec))
+        else:
+            resource.ClearField("spec")
+        return resource
 
 
 class ServicePerimeterStatus(object):

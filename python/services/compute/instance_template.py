@@ -75,16 +75,29 @@ class InstanceTemplate(object):
         self.properties = InstanceTemplateProperties.from_proto(response.properties)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = instance_template_pb2_grpc.ComputeInstanceTemplateServiceStub(
             channel.Channel()
         )
         request = instance_template_pb2.DeleteComputeInstanceTemplateRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
 
-        request.Name = name
+        if Primitive.to_proto(self.self_link):
+            request.resource.self_link = Primitive.to_proto(self.self_link)
+
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if InstanceTemplateProperties.to_proto(self.properties):
+            request.resource.properties.CopyFrom(
+                InstanceTemplateProperties.to_proto(self.properties)
+            )
+        else:
+            request.resource.ClearField("properties")
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteComputeInstanceTemplate(request)
 
@@ -114,6 +127,24 @@ class InstanceTemplate(object):
         res.properties = InstanceTemplateProperties.from_proto(res_proto.properties)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = instance_template_pb2.ComputeInstanceTemplate()
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.self_link):
+            resource.self_link = Primitive.to_proto(self.self_link)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if InstanceTemplateProperties.to_proto(self.properties):
+            resource.properties.CopyFrom(
+                InstanceTemplateProperties.to_proto(self.properties)
+            )
+        else:
+            resource.ClearField("properties")
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class InstanceTemplateProperties(object):

@@ -89,6 +89,28 @@ func SelfLinkToSelfLink(l, r *string) bool {
 	return true
 }
 
+// StringCanonicalize checks canonicalization for strings. It matches self-links using NameToSelfLink.
+func StringCanonicalize(l, r *string) bool {
+	if l == nil && r == nil {
+		return true
+	}
+	if l == nil || r == nil {
+		return false
+	}
+	left := *l
+	right := *r
+
+	if left == right {
+		return true
+	}
+
+	if IsPartialSelfLink(left) || IsPartialSelfLink(right) || IsSelfLink(left) || IsSelfLink(right) {
+		return NameToSelfLink(l, r)
+	}
+
+	return false
+}
+
 // NameToSelfLink returns true if left and right are equivalent for Names / SelfLinks.
 // It allows all the deviations that SelfLinkToSelfLink allows, plus it allows one
 // of the values to simply be the last element of the other value.
@@ -290,6 +312,64 @@ func SliceEquals(v []string, q []string) bool {
 	return true
 }
 
+// MapEquals returns if two maps are equal, while ignoring any keys with ignorePrefixes.
+func MapEquals(di, ai interface{}, ignorePrefixes []string) bool {
+	if len(ignorePrefixes) == 0 {
+		return reflect.DeepEqual(di, ai)
+	}
+
+	d, ok := di.(map[string]string)
+	if !ok {
+		return false
+	}
+
+	a, ok := ai.(map[string]string)
+	if !ok {
+		return false
+	}
+
+	for k, v := range d {
+		if isIgnored(k, ignorePrefixes) {
+			continue
+		}
+
+		av, ok := a[k]
+		if !ok {
+			return false
+		}
+		if !reflect.DeepEqual(v, av) {
+			return false
+		}
+	}
+
+	for k, v := range a {
+		if isIgnored(k, ignorePrefixes) {
+			continue
+		}
+
+		dv, ok := d[k]
+		if !ok {
+			return false
+		}
+		if !reflect.DeepEqual(v, dv) {
+			return false
+		}
+	}
+
+	return true
+
+}
+
+// isIgnored returns true if this prefix should be ignored.
+func isIgnored(v string, ignoredPrefixes []string) bool {
+	for _, p := range ignoredPrefixes {
+		if strings.Contains(v, p) {
+			return true
+		}
+	}
+	return false
+}
+
 // CompareStringSets returns two slices of strings,
 // one of strings in set a but not b, and one of strings in set b but not a.
 func CompareStringSets(a, b []string) (toAdd, toRemove []string) {
@@ -353,6 +433,20 @@ func IntSliceEquals(v []int64, q []int64) bool {
 
 	for i := 0; i < len(v); i++ {
 		if v[i] != q[i] {
+			return false
+		}
+	}
+	return true
+}
+
+// StringSliceEquals returns true if v, q arrays of strings are equal according to StringEquals.
+func StringSliceEquals(v, q []string) bool {
+	if len(v) != len(q) {
+		return false
+	}
+
+	for i := 0; i < len(v); i++ {
+		if !StringEquals(&v[i], &q[i]) {
 			return false
 		}
 	}
@@ -589,4 +683,54 @@ func NameFromSelfLink(sl *string) (*string, error) {
 	curNameParts := strings.Split(*sl, "/")
 	val := curNameParts[len(curNameParts)-1]
 	return &val, nil
+}
+
+// StringEqualsWithSelfLink returns true if these two strings are equal.
+// If these functions are self links, they'll do self-link comparisons.
+func StringEqualsWithSelfLink(l, r *string) bool {
+	if l == nil && r == nil {
+		return true
+	}
+
+	if l == nil || r == nil {
+		return false
+	}
+
+	left := *l
+	right := *r
+
+	if IsSelfLink(left) || IsSelfLink(right) {
+		return SelfLinkToSelfLink(l, r)
+	} else if IsPartialSelfLink(left) || IsPartialSelfLink(right) {
+		return PartialSelfLinkToSelfLink(l, r)
+	} else {
+		return left == right
+	}
+}
+
+// StringEquals returns true if these two strings are equal.
+func StringEquals(l, r *string) bool {
+	if l == nil && r == nil {
+		return true
+	}
+
+	if l == nil || r == nil {
+		return false
+	}
+
+	left := *l
+	right := *r
+
+	return left == right
+}
+
+// IsPartialSelfLink returns true if this string represents a partial self link.
+func IsPartialSelfLink(s string) bool {
+	return strings.HasPrefix(s, "projects/") || strings.HasPrefix(s, "organizations/") || strings.HasPrefix(s, "folders/") || strings.HasPrefix(s, "billingAccounts/")
+}
+
+// IsSelfLink returns true if this string represents a full self link.
+func IsSelfLink(s string) bool {
+	r := regexp.MustCompile(`(https:\/\/)?(www\.)?([a-z]*)?googleapis.com\/`)
+	return r.MatchString(s)
 }

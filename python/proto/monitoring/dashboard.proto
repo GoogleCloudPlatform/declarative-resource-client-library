@@ -1796,6 +1796,7 @@ message ListMonitoringDashboardRequest {
 message ListMonitoringDashboardResponse {
   repeated MonitoringDashboard items = 1;
 }
+
 service MonitoringDashboardService {
   rpc ApplyMonitoringDashboard(ApplyMonitoringDashboardRequest) returns (MonitoringDashboard);
   rpc DeleteMonitoringDashboard(DeleteMonitoringDashboardRequest) returns (google.protobuf.Empty);

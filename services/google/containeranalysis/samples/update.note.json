@@ -1,0 +1,21 @@
+{
+  "name": "{{ref:basic.note.json:name}}",
+  "shortDescription": "An updated basic note",
+  "longDescription": "This note has been updated from the basic note.",
+  "relatedUrl": [
+    {
+      "url": "some.url",
+      "label": "test-label"
+    }
+  ],
+  "relatedNoteNames": [
+    "projects/{{project}}/notes/related-note"
+  ],
+  "vulnerability": {},
+  "attestation": {
+    "hint": {
+      "humanReadableName": "Attestor Note"
+    }
+  },
+  "project": "{{project}}"
+}

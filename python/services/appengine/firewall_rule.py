@@ -66,16 +66,26 @@ class FirewallRule(object):
         self.source_range = Primitive.from_proto(response.source_range)
         self.app = Primitive.from_proto(response.app)
 
-    @classmethod
-    def delete(self, app, priority, service_account_file=""):
+    def delete(self):
         stub = firewall_rule_pb2_grpc.AppengineFirewallRuleServiceStub(
             channel.Channel()
         )
         request = firewall_rule_pb2.DeleteAppengineFirewallRuleRequest()
-        request.service_account_file = service_account_file
-        request.App = app
+        request.service_account_file = self.service_account_file
+        if FirewallRuleActionEnum.to_proto(self.action):
+            request.resource.action = FirewallRuleActionEnum.to_proto(self.action)
 
-        request.Priority = priority
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if Primitive.to_proto(self.priority):
+            request.resource.priority = Primitive.to_proto(self.priority)
+
+        if Primitive.to_proto(self.source_range):
+            request.resource.source_range = Primitive.to_proto(self.source_range)
+
+        if Primitive.to_proto(self.app):
+            request.resource.app = Primitive.to_proto(self.app)
 
         response = stub.DeleteAppengineFirewallRule(request)
 
@@ -103,6 +113,20 @@ class FirewallRule(object):
         res.source_range = Primitive.from_proto(res_proto.source_range)
         res.app = Primitive.from_proto(res_proto.app)
         return res
+
+    def to_proto(self):
+        resource = firewall_rule_pb2.AppengineFirewallRule()
+        if FirewallRuleActionEnum.to_proto(self.action):
+            resource.action = FirewallRuleActionEnum.to_proto(self.action)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.priority):
+            resource.priority = Primitive.to_proto(self.priority)
+        if Primitive.to_proto(self.source_range):
+            resource.source_range = Primitive.to_proto(self.source_range)
+        if Primitive.to_proto(self.app):
+            resource.app = Primitive.to_proto(self.app)
+        return resource
 
 
 class FirewallRuleActionEnum(object):

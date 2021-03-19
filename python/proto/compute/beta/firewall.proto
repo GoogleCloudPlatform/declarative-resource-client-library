@@ -81,6 +81,7 @@ message ListComputeBetaFirewallRequest {
 message ListComputeBetaFirewallResponse {
   repeated ComputeBetaFirewall items = 1;
 }
+
 service ComputeBetaFirewallService {
   rpc ApplyComputeBetaFirewall(ApplyComputeBetaFirewallRequest) returns (ComputeBetaFirewall);
   rpc DeleteComputeBetaFirewall(DeleteComputeBetaFirewallRequest) returns (google.protobuf.Empty);

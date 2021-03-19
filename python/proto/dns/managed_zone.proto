@@ -131,16 +131,9 @@ message ListDnsManagedZoneRequest {
 message ListDnsManagedZoneResponse {
   repeated DnsManagedZone items = 1;
 }
-message DnsManagedZoneAsHclRequest {
-  DnsManagedZone resource = 1;
-}
-message DnsManagedZoneAsHclResponse {
-  string hcl = 1;
-}
+
 service DnsManagedZoneService {
   rpc ApplyDnsManagedZone(ApplyDnsManagedZoneRequest) returns (DnsManagedZone);
   rpc DeleteDnsManagedZone(DeleteDnsManagedZoneRequest) returns (google.protobuf.Empty);
   rpc ListDnsManagedZone(ListDnsManagedZoneRequest) returns (ListDnsManagedZoneResponse);
-  rpc DnsManagedZoneAsHcl(DnsManagedZoneAsHclRequest) returns (DnsManagedZoneAsHclResponse);
-
 }

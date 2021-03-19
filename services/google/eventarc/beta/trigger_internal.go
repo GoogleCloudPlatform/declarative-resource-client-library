@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 
 	"github.com/mohae/deepcopy"
@@ -33,6 +32,9 @@ func (r *Trigger) validate() error {
 		return err
 	}
 	if err := dcl.Required(r, "destination"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "matchingCriteria"); err != nil {
 		return err
 	}
 	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
@@ -153,6 +155,14 @@ func newUpdateTriggerUpdateTriggerRequest(ctx context.Context, f *Trigger, c *Cl
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["destination"] = v
 	}
+	if v, err := expandTriggerTransport(c, f.Transport); err != nil {
+		return nil, fmt.Errorf("error expanding Transport into transport: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["transport"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		req["labels"] = v
+	}
 	if v, err := expandTriggerMatchingCriteriaSlice(c, f.MatchingCriteria); err != nil {
 		return nil, fmt.Errorf("error expanding MatchingCriteria into matchingCriteria: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -206,6 +216,11 @@ func (op *updateTriggerUpdateTriggerOperation) do(ctx context.Context, r *Trigge
 	if err != nil {
 		return err
 	}
+	mask := strings.Join([]string{"name", "serviceAccount", "destination", "transport", "labels", "matchingCriteria", "etag"}, ",")
+	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
+	if err != nil {
+		return err
+	}
 
 	req, err := newUpdateTriggerUpdateTriggerRequest(ctx, r, c)
 	if err != nil {
@@ -217,7 +232,7 @@ func (op *updateTriggerUpdateTriggerOperation) do(ctx context.Context, r *Trigge
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -254,7 +269,7 @@ func (c *Client) listTriggerRaw(ctx context.Context, project, location, pageToke
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -263,8 +278,8 @@ func (c *Client) listTriggerRaw(ctx context.Context, project, location, pageToke
 }
 
 type listTriggerOperation struct {
-	Items []map[string]interface{} `json:"items"`
-	Token string                   `json:"nextPageToken"`
+	Triggers []map[string]interface{} `json:"triggers"`
+	Token    string                   `json:"nextPageToken"`
 }
 
 func (c *Client) listTrigger(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*Trigger, string, error) {
@@ -279,7 +294,7 @@ func (c *Client) listTrigger(ctx context.Context, project, location, pageToken s
 	}
 
 	var l []*Trigger
-	for _, v := range m.Items {
+	for _, v := range m.Triggers {
 		res := flattenTrigger(c, v)
 		res.Project = &project
 		res.Location = &location
@@ -329,7 +344,7 @@ func (op *deleteTriggerOperation) do(ctx context.Context, r *Trigger, c *Client)
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -352,7 +367,13 @@ func (op *deleteTriggerOperation) do(ctx context.Context, r *Trigger, c *Client)
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createTriggerOperation struct{}
+type createTriggerOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createTriggerOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createTriggerOperation) do(ctx context.Context, r *Trigger, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -368,7 +389,7 @@ func (op *createTriggerOperation) do(ctx context.Context, r *Trigger, c *Client)
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -382,8 +403,10 @@ func (op *createTriggerOperation) do(ctx context.Context, r *Trigger, c *Client)
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetTrigger(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -396,7 +419,7 @@ func (c *Client) getTriggerRaw(ctx context.Context, r *Trigger) ([]byte, error) 
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -473,14 +496,6 @@ func canonicalizeTriggerInitialState(rawInitial, rawDesired *Trigger) (*Trigger,
 
 func canonicalizeTriggerDesiredState(rawDesired, rawInitial *Trigger, opts ...dcl.ApplyOption) (*Trigger, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Trigger); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Trigger, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -503,7 +518,10 @@ func canonicalizeTriggerDesiredState(rawDesired, rawInitial *Trigger, opts ...dc
 	}
 	rawDesired.Destination = canonicalizeTriggerDestination(rawDesired.Destination, rawInitial.Destination, opts...)
 	rawDesired.Transport = canonicalizeTriggerTransport(rawDesired.Transport, rawInitial.Transport, opts...)
-	if dcl.IsZeroValue(rawDesired.Etag) {
+	if dcl.IsZeroValue(rawDesired.Labels) {
+		rawDesired.Labels = rawInitial.Labels
+	}
+	if dcl.StringCanonicalize(rawDesired.Etag, rawInitial.Etag) {
 		rawDesired.Etag = rawInitial.Etag
 	}
 	if dcl.IsZeroValue(rawDesired.MatchingCriteria) {
@@ -559,9 +577,17 @@ func canonicalizeTriggerNewState(c *Client, rawNew, rawDesired *Trigger) (*Trigg
 		rawNew.Transport = canonicalizeNewTriggerTransport(c, rawDesired.Transport, rawNew.Transport)
 	}
 
+	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
+		rawNew.Labels = rawDesired.Labels
+	} else {
+	}
+
 	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
 		rawNew.Etag = rawDesired.Etag
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
+			rawNew.Etag = rawDesired.Etag
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.MatchingCriteria) && dcl.IsEmptyValueIndirect(rawDesired.MatchingCriteria) {
@@ -583,11 +609,6 @@ func canonicalizeTriggerDestination(des, initial *TriggerDestination, opts ...dc
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Trigger)
-		_ = r
 	}
 
 	if initial == nil {
@@ -640,11 +661,6 @@ func canonicalizeTriggerDestinationCloudRunService(des, initial *TriggerDestinat
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Trigger)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -652,10 +668,10 @@ func canonicalizeTriggerDestinationCloudRunService(des, initial *TriggerDestinat
 	if dcl.NameToSelfLink(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
 		des.Service = initial.Service
 	}
-	if dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
 		des.Path = initial.Path
 	}
-	if dcl.IsZeroValue(des.Region) {
+	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
 		des.Region = initial.Region
 	}
 
@@ -669,6 +685,12 @@ func canonicalizeNewTriggerDestinationCloudRunService(c *Client, des, nw *Trigge
 
 	if dcl.NameToSelfLink(des.Service, nw.Service) || dcl.IsZeroValue(des.Service) {
 		nw.Service = des.Service
+	}
+	if dcl.StringCanonicalize(des.Path, nw.Path) || dcl.IsZeroValue(des.Path) {
+		nw.Path = des.Path
+	}
+	if dcl.StringCanonicalize(des.Region, nw.Region) || dcl.IsZeroValue(des.Region) {
+		nw.Region = des.Region
 	}
 
 	return nw
@@ -703,11 +725,6 @@ func canonicalizeTriggerTransport(des, initial *TriggerTransport, opts ...dcl.Ap
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Trigger)
-		_ = r
 	}
 
 	if initial == nil {
@@ -760,19 +777,14 @@ func canonicalizeTriggerTransportPubsub(des, initial *TriggerTransportPubsub, op
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Trigger)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Topic) {
+	if dcl.StringCanonicalize(des.Topic, initial.Topic) || dcl.IsZeroValue(des.Topic) {
 		des.Topic = initial.Topic
 	}
-	if dcl.IsZeroValue(des.Subscription) {
+	if dcl.StringCanonicalize(des.Subscription, initial.Subscription) || dcl.IsZeroValue(des.Subscription) {
 		des.Subscription = initial.Subscription
 	}
 
@@ -782,6 +794,13 @@ func canonicalizeTriggerTransportPubsub(des, initial *TriggerTransportPubsub, op
 func canonicalizeNewTriggerTransportPubsub(c *Client, des, nw *TriggerTransportPubsub) *TriggerTransportPubsub {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Topic, nw.Topic) || dcl.IsZeroValue(des.Topic) {
+		nw.Topic = des.Topic
+	}
+	if dcl.StringCanonicalize(des.Subscription, nw.Subscription) || dcl.IsZeroValue(des.Subscription) {
+		nw.Subscription = des.Subscription
 	}
 
 	return nw
@@ -818,19 +837,14 @@ func canonicalizeTriggerMatchingCriteria(des, initial *TriggerMatchingCriteria, 
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Trigger)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Attribute) {
+	if dcl.StringCanonicalize(des.Attribute, initial.Attribute) || dcl.IsZeroValue(des.Attribute) {
 		des.Attribute = initial.Attribute
 	}
-	if dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
 		des.Value = initial.Value
 	}
 
@@ -840,6 +854,13 @@ func canonicalizeTriggerMatchingCriteria(des, initial *TriggerMatchingCriteria, 
 func canonicalizeNewTriggerMatchingCriteria(c *Client, des, nw *TriggerMatchingCriteria) *TriggerMatchingCriteria {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Attribute, nw.Attribute) || dcl.IsZeroValue(des.Attribute) {
+		nw.Attribute = des.Attribute
+	}
+	if dcl.StringCanonicalize(des.Value, nw.Value) || dcl.IsZeroValue(des.Value) {
+		nw.Value = des.Value
 	}
 
 	return nw
@@ -916,6 +937,24 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 		})
 
 	}
+	if compareTriggerTransport(c, desired.Transport, actual.Transport) {
+		c.Config.Logger.Infof("Detected diff in Transport.\nDESIRED: %v\nACTUAL: %v", desired.Transport, actual.Transport)
+
+		diffs = append(diffs, triggerDiff{
+			UpdateOp:  &updateTriggerUpdateTriggerOperation{},
+			FieldName: "Transport",
+		})
+
+	}
+	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
+		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
+
+		diffs = append(diffs, triggerDiff{
+			UpdateOp:  &updateTriggerUpdateTriggerOperation{},
+			FieldName: "Labels",
+		})
+
+	}
 	if compareTriggerMatchingCriteriaSlice(c, desired.MatchingCriteria, actual.MatchingCriteria) {
 		c.Config.Logger.Infof("Detected diff in MatchingCriteria.\nDESIRED: %v\nACTUAL: %v", desired.MatchingCriteria, actual.MatchingCriteria)
 
@@ -954,20 +993,6 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 
 	return deduped, nil
 }
-func compareTriggerDestinationSlice(c *Client, desired, actual []TriggerDestination) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in TriggerDestination, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareTriggerDestination(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in TriggerDestination, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
 func compareTriggerDestination(c *Client, desired, actual *TriggerDestination) bool {
 	if desired == nil {
 		return false
@@ -985,14 +1010,34 @@ func compareTriggerDestination(c *Client, desired, actual *TriggerDestination) b
 	}
 	return false
 }
-func compareTriggerDestinationCloudRunServiceSlice(c *Client, desired, actual []TriggerDestinationCloudRunService) bool {
+
+func compareTriggerDestinationSlice(c *Client, desired, actual []TriggerDestination) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in TriggerDestinationCloudRunService, lengths unequal.")
+		c.Config.Logger.Info("Diff in TriggerDestination, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareTriggerDestinationCloudRunService(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in TriggerDestinationCloudRunService, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareTriggerDestination(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in TriggerDestination, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareTriggerDestinationMap(c *Client, desired, actual map[string]TriggerDestination) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in TriggerDestination, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in TriggerDestination, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareTriggerDestination(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in TriggerDestination, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1018,7 +1063,7 @@ func compareTriggerDestinationCloudRunService(c *Client, desired, actual *Trigge
 		c.Config.Logger.Infof("desired Path %s - but actually nil", dcl.SprintResource(desired.Path))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) && !(dcl.IsEmptyValueIndirect(desired.Path) && dcl.IsZeroValue(actual.Path)) {
+	if !dcl.StringCanonicalize(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) {
 		c.Config.Logger.Infof("Diff in Path. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
 		return true
 	}
@@ -1026,20 +1071,40 @@ func compareTriggerDestinationCloudRunService(c *Client, desired, actual *Trigge
 		c.Config.Logger.Infof("desired Region %s - but actually nil", dcl.SprintResource(desired.Region))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Region, actual.Region) && !dcl.IsZeroValue(desired.Region) && !(dcl.IsEmptyValueIndirect(desired.Region) && dcl.IsZeroValue(actual.Region)) {
+	if !dcl.StringCanonicalize(desired.Region, actual.Region) && !dcl.IsZeroValue(desired.Region) {
 		c.Config.Logger.Infof("Diff in Region. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Region), dcl.SprintResource(actual.Region))
 		return true
 	}
 	return false
 }
-func compareTriggerTransportSlice(c *Client, desired, actual []TriggerTransport) bool {
+
+func compareTriggerDestinationCloudRunServiceSlice(c *Client, desired, actual []TriggerDestinationCloudRunService) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in TriggerTransport, lengths unequal.")
+		c.Config.Logger.Info("Diff in TriggerDestinationCloudRunService, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareTriggerTransport(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in TriggerTransport, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareTriggerDestinationCloudRunService(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in TriggerDestinationCloudRunService, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareTriggerDestinationCloudRunServiceMap(c *Client, desired, actual map[string]TriggerDestinationCloudRunService) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in TriggerDestinationCloudRunService, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in TriggerDestinationCloudRunService, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareTriggerDestinationCloudRunService(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in TriggerDestinationCloudRunService, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1063,14 +1128,34 @@ func compareTriggerTransport(c *Client, desired, actual *TriggerTransport) bool 
 	}
 	return false
 }
-func compareTriggerTransportPubsubSlice(c *Client, desired, actual []TriggerTransportPubsub) bool {
+
+func compareTriggerTransportSlice(c *Client, desired, actual []TriggerTransport) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in TriggerTransportPubsub, lengths unequal.")
+		c.Config.Logger.Info("Diff in TriggerTransport, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareTriggerTransportPubsub(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in TriggerTransportPubsub, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareTriggerTransport(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in TriggerTransport, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareTriggerTransportMap(c *Client, desired, actual map[string]TriggerTransport) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in TriggerTransport, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in TriggerTransport, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareTriggerTransport(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in TriggerTransport, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1088,12 +1173,72 @@ func compareTriggerTransportPubsub(c *Client, desired, actual *TriggerTransportP
 		c.Config.Logger.Infof("desired Topic %s - but actually nil", dcl.SprintResource(desired.Topic))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Topic, actual.Topic) && !dcl.IsZeroValue(desired.Topic) && !(dcl.IsEmptyValueIndirect(desired.Topic) && dcl.IsZeroValue(actual.Topic)) {
+	if !dcl.StringCanonicalize(desired.Topic, actual.Topic) && !dcl.IsZeroValue(desired.Topic) {
 		c.Config.Logger.Infof("Diff in Topic. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Topic), dcl.SprintResource(actual.Topic))
 		return true
 	}
 	return false
 }
+
+func compareTriggerTransportPubsubSlice(c *Client, desired, actual []TriggerTransportPubsub) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in TriggerTransportPubsub, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareTriggerTransportPubsub(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in TriggerTransportPubsub, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareTriggerTransportPubsubMap(c *Client, desired, actual map[string]TriggerTransportPubsub) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in TriggerTransportPubsub, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in TriggerTransportPubsub, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareTriggerTransportPubsub(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in TriggerTransportPubsub, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
+func compareTriggerMatchingCriteria(c *Client, desired, actual *TriggerMatchingCriteria) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Attribute == nil && desired.Attribute != nil && !dcl.IsEmptyValueIndirect(desired.Attribute) {
+		c.Config.Logger.Infof("desired Attribute %s - but actually nil", dcl.SprintResource(desired.Attribute))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Attribute, actual.Attribute) && !dcl.IsZeroValue(desired.Attribute) {
+		c.Config.Logger.Infof("Diff in Attribute. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Attribute), dcl.SprintResource(actual.Attribute))
+		return true
+	}
+	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
+		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
+		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
+		return true
+	}
+	return false
+}
+
 func compareTriggerMatchingCriteriaSlice(c *Client, desired, actual []TriggerMatchingCriteria) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in TriggerMatchingCriteria, lengths unequal.")
@@ -1102,6 +1247,25 @@ func compareTriggerMatchingCriteriaSlice(c *Client, desired, actual []TriggerMat
 	for i := 0; i < len(desired); i++ {
 		if compareTriggerMatchingCriteria(c, &desired[i], &actual[i]) {
 			c.Config.Logger.Infof("Diff in TriggerMatchingCriteria, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareTriggerMatchingCriteriaMap(c *Client, desired, actual map[string]TriggerMatchingCriteria) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in TriggerMatchingCriteria, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in TriggerMatchingCriteria, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareTriggerMatchingCriteria(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in TriggerMatchingCriteria, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1157,32 +1321,6 @@ func compareTriggerMatchingCriteriaSets(c *Client, desired, actual []TriggerMatc
 	return toAdd, toRemove
 }
 
-func compareTriggerMatchingCriteria(c *Client, desired, actual *TriggerMatchingCriteria) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Attribute == nil && desired.Attribute != nil && !dcl.IsEmptyValueIndirect(desired.Attribute) {
-		c.Config.Logger.Infof("desired Attribute %s - but actually nil", dcl.SprintResource(desired.Attribute))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Attribute, actual.Attribute) && !dcl.IsZeroValue(desired.Attribute) && !(dcl.IsEmptyValueIndirect(desired.Attribute) && dcl.IsZeroValue(actual.Attribute)) {
-		c.Config.Logger.Infof("Diff in Attribute. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Attribute), dcl.SprintResource(actual.Attribute))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
-
 // urlNormalized returns a copy of the resource struct with values normalized
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
@@ -1190,6 +1328,7 @@ func (r *Trigger) urlNormalized() *Trigger {
 	normalized := deepcopy.Copy(*r).(Trigger)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.ServiceAccount = dcl.SelfLinkToName(r.ServiceAccount)
+	normalized.Etag = dcl.SelfLinkToName(r.Etag)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
@@ -1242,6 +1381,10 @@ func unmarshalTrigger(b []byte, c *Client) (*Trigger, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapTrigger(m, c)
+}
+
+func unmarshalMapTrigger(m map[string]interface{}, c *Client) (*Trigger, error) {
 
 	return flattenTrigger(c, m), nil
 }
@@ -1272,6 +1415,9 @@ func expandTrigger(c *Client, f *Trigger) (map[string]interface{}, error) {
 		return nil, fmt.Errorf("error expanding Transport into transport: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["transport"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
 	}
 	if v := f.Etag; !dcl.IsEmptyValueIndirect(v) {
 		m["etag"] = v
@@ -1313,6 +1459,7 @@ func flattenTrigger(c *Client, i interface{}) *Trigger {
 	r.ServiceAccount = dcl.FlattenString(m["serviceAccount"])
 	r.Destination = flattenTriggerDestination(c, m["destination"])
 	r.Transport = flattenTriggerTransport(c, m["transport"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	r.Etag = dcl.FlattenString(m["etag"])
 	r.MatchingCriteria = flattenTriggerMatchingCriteriaSlice(c, m["matchingCriteria"])
 	r.Project = dcl.FlattenString(m["project"])

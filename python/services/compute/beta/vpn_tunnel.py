@@ -168,16 +168,72 @@ class VpnTunnel(object):
         )
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, region, name, service_account_file=""):
+    def delete(self):
         stub = vpn_tunnel_pb2_grpc.ComputeBetaVpnTunnelServiceStub(channel.Channel())
         request = vpn_tunnel_pb2.DeleteComputeBetaVpnTunnelRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
 
-        request.Region = region
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Name = name
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if Primitive.to_proto(self.region):
+            request.resource.region = Primitive.to_proto(self.region)
+
+        if Primitive.to_proto(self.target_vpn_gateway):
+            request.resource.target_vpn_gateway = Primitive.to_proto(
+                self.target_vpn_gateway
+            )
+
+        if Primitive.to_proto(self.vpn_gateway):
+            request.resource.vpn_gateway = Primitive.to_proto(self.vpn_gateway)
+
+        if Primitive.to_proto(self.vpn_gateway_interface):
+            request.resource.vpn_gateway_interface = Primitive.to_proto(
+                self.vpn_gateway_interface
+            )
+
+        if Primitive.to_proto(self.peer_external_gateway):
+            request.resource.peer_external_gateway = Primitive.to_proto(
+                self.peer_external_gateway
+            )
+
+        if Primitive.to_proto(self.peer_external_gateway_interface):
+            request.resource.peer_external_gateway_interface = Primitive.to_proto(
+                self.peer_external_gateway_interface
+            )
+
+        if Primitive.to_proto(self.peer_gcp_gateway):
+            request.resource.peer_gcp_gateway = Primitive.to_proto(
+                self.peer_gcp_gateway
+            )
+
+        if Primitive.to_proto(self.router):
+            request.resource.router = Primitive.to_proto(self.router)
+
+        if Primitive.to_proto(self.peer_ip):
+            request.resource.peer_ip = Primitive.to_proto(self.peer_ip)
+
+        if Primitive.to_proto(self.shared_secret):
+            request.resource.shared_secret = Primitive.to_proto(self.shared_secret)
+
+        if Primitive.to_proto(self.ike_version):
+            request.resource.ike_version = Primitive.to_proto(self.ike_version)
+
+        if Primitive.to_proto(self.local_traffic_selector):
+            request.resource.local_traffic_selector.extend(
+                Primitive.to_proto(self.local_traffic_selector)
+            )
+        if Primitive.to_proto(self.remote_traffic_selector):
+            request.resource.remote_traffic_selector.extend(
+                Primitive.to_proto(self.remote_traffic_selector)
+            )
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteComputeBetaVpnTunnel(request)
 
@@ -232,6 +288,54 @@ class VpnTunnel(object):
         )
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = vpn_tunnel_pb2.ComputeBetaVpnTunnel()
+        if Primitive.to_proto(self.labels):
+            resource.labels = Primitive.to_proto(self.labels)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.region):
+            resource.region = Primitive.to_proto(self.region)
+        if Primitive.to_proto(self.target_vpn_gateway):
+            resource.target_vpn_gateway = Primitive.to_proto(self.target_vpn_gateway)
+        if Primitive.to_proto(self.vpn_gateway):
+            resource.vpn_gateway = Primitive.to_proto(self.vpn_gateway)
+        if Primitive.to_proto(self.vpn_gateway_interface):
+            resource.vpn_gateway_interface = Primitive.to_proto(
+                self.vpn_gateway_interface
+            )
+        if Primitive.to_proto(self.peer_external_gateway):
+            resource.peer_external_gateway = Primitive.to_proto(
+                self.peer_external_gateway
+            )
+        if Primitive.to_proto(self.peer_external_gateway_interface):
+            resource.peer_external_gateway_interface = Primitive.to_proto(
+                self.peer_external_gateway_interface
+            )
+        if Primitive.to_proto(self.peer_gcp_gateway):
+            resource.peer_gcp_gateway = Primitive.to_proto(self.peer_gcp_gateway)
+        if Primitive.to_proto(self.router):
+            resource.router = Primitive.to_proto(self.router)
+        if Primitive.to_proto(self.peer_ip):
+            resource.peer_ip = Primitive.to_proto(self.peer_ip)
+        if Primitive.to_proto(self.shared_secret):
+            resource.shared_secret = Primitive.to_proto(self.shared_secret)
+        if Primitive.to_proto(self.ike_version):
+            resource.ike_version = Primitive.to_proto(self.ike_version)
+        if Primitive.to_proto(self.local_traffic_selector):
+            resource.local_traffic_selector.extend(
+                Primitive.to_proto(self.local_traffic_selector)
+            )
+        if Primitive.to_proto(self.remote_traffic_selector):
+            resource.remote_traffic_selector.extend(
+                Primitive.to_proto(self.remote_traffic_selector)
+            )
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class VpnTunnelStatusEnum(object):

@@ -405,6 +405,9 @@ func (l *ManagedZoneList) HasNext() bool {
 }
 
 func (l *ManagedZoneList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -418,12 +421,17 @@ func (l *ManagedZoneList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListManagedZone(ctx context.Context, project string) (*ManagedZoneList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListManagedZoneWithMaxResults(ctx, project, ManagedZoneMaxPage)
 
 }
 
 func (c *Client) ListManagedZoneWithMaxResults(ctx context.Context, project string, pageSize int32) (*ManagedZoneList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listManagedZone(ctx, project, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -438,6 +446,9 @@ func (c *Client) ListManagedZoneWithMaxResults(ctx context.Context, project stri
 }
 
 func (c *Client) GetManagedZone(ctx context.Context, r *ManagedZone) (*ManagedZone, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getManagedZoneRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -467,6 +478,9 @@ func (c *Client) GetManagedZone(ctx context.Context, r *ManagedZone) (*ManagedZo
 }
 
 func (c *Client) DeleteManagedZone(ctx context.Context, r *ManagedZone) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("ManagedZone resource is nil")
 	}
@@ -477,6 +491,9 @@ func (c *Client) DeleteManagedZone(ctx context.Context, r *ManagedZone) error {
 
 // DeleteAllManagedZone deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllManagedZone(ctx context.Context, project string, filter func(*ManagedZone) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListManagedZone(ctx, project)
 	if err != nil {
 		return err
@@ -502,6 +519,9 @@ func (c *Client) DeleteAllManagedZone(ctx context.Context, project string, filte
 func (c *Client) ApplyManagedZone(ctx context.Context, rawDesired *ManagedZone, opts ...dcl.ApplyOption) (*ManagedZone, error) {
 	c.Config.Logger.Info("Beginning ApplyManagedZone...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -582,12 +602,35 @@ func (c *Client) ApplyManagedZone(ctx context.Context, rawDesired *ManagedZone, 
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createManagedZoneOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapManagedZone(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeManagedZoneNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeManagedZoneNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

@@ -1,0 +1,8 @@
+{
+  "name": "{{network}}",
+  "project": "{{project}}",
+  "autoCreateSubnetworks": false,
+  "routingConfig": {
+    "routingMode": "GLOBAL"
+  }
+}

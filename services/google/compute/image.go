@@ -602,6 +602,9 @@ func (l *ImageList) HasNext() bool {
 }
 
 func (l *ImageList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -615,12 +618,17 @@ func (l *ImageList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListImage(ctx context.Context, project string) (*ImageList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListImageWithMaxResults(ctx, project, ImageMaxPage)
 
 }
 
 func (c *Client) ListImageWithMaxResults(ctx context.Context, project string, pageSize int32) (*ImageList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listImage(ctx, project, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -635,6 +643,9 @@ func (c *Client) ListImageWithMaxResults(ctx context.Context, project string, pa
 }
 
 func (c *Client) GetImage(ctx context.Context, r *Image) (*Image, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getImageRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -664,6 +675,9 @@ func (c *Client) GetImage(ctx context.Context, r *Image) (*Image, error) {
 }
 
 func (c *Client) DeleteImage(ctx context.Context, r *Image) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Image resource is nil")
 	}
@@ -674,6 +688,9 @@ func (c *Client) DeleteImage(ctx context.Context, r *Image) error {
 
 // DeleteAllImage deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllImage(ctx context.Context, project string, filter func(*Image) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListImage(ctx, project)
 	if err != nil {
 		return err
@@ -699,6 +716,9 @@ func (c *Client) DeleteAllImage(ctx context.Context, project string, filter func
 func (c *Client) ApplyImage(ctx context.Context, rawDesired *Image, opts ...dcl.ApplyOption) (*Image, error) {
 	c.Config.Logger.Info("Beginning ApplyImage...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -779,12 +799,35 @@ func (c *Client) ApplyImage(ctx context.Context, rawDesired *Image, opts ...dcl.
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createImageOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapImage(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeImageNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeImageNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

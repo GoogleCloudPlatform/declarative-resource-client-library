@@ -102,6 +102,10 @@ components:
           description: The project for the resource
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         region:
           description: URL of the region where the VPN tunnel resides. You must specify

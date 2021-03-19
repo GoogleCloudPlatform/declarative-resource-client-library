@@ -103,7 +103,7 @@ func (c *Client) listManagedSslCertificateRaw(ctx context.Context, project, page
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -177,7 +177,7 @@ func (op *deleteManagedSslCertificateOperation) do(ctx context.Context, r *Manag
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -200,7 +200,13 @@ func (op *deleteManagedSslCertificateOperation) do(ctx context.Context, r *Manag
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createManagedSslCertificateOperation struct{}
+type createManagedSslCertificateOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createManagedSslCertificateOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createManagedSslCertificateOperation) do(ctx context.Context, r *ManagedSslCertificate, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -216,7 +222,7 @@ func (op *createManagedSslCertificateOperation) do(ctx context.Context, r *Manag
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -230,8 +236,10 @@ func (op *createManagedSslCertificateOperation) do(ctx context.Context, r *Manag
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetManagedSslCertificate(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -247,7 +255,7 @@ func (c *Client) getManagedSslCertificateRaw(ctx context.Context, r *ManagedSslC
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -328,14 +336,6 @@ func canonicalizeManagedSslCertificateDesiredState(rawDesired, rawInitial *Manag
 		rawDesired.Type = ManagedSslCertificateTypeEnumRef("MANAGED")
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*ManagedSslCertificate); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected ManagedSslCertificate, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -346,13 +346,13 @@ func canonicalizeManagedSslCertificateDesiredState(rawDesired, rawInitial *Manag
 	if dcl.IsZeroValue(rawDesired.Id) {
 		rawDesired.Id = rawInitial.Id
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.IsZeroValue(rawDesired.SelfLink) {
+	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}
 	rawDesired.Managed = canonicalizeManagedSslCertificateManaged(rawDesired.Managed, rawInitial.Managed, opts...)
@@ -362,7 +362,7 @@ func canonicalizeManagedSslCertificateDesiredState(rawDesired, rawInitial *Manag
 	if dcl.IsZeroValue(rawDesired.SubjectAlternativeNames) {
 		rawDesired.SubjectAlternativeNames = rawInitial.SubjectAlternativeNames
 	}
-	if dcl.IsZeroValue(rawDesired.ExpireTime) {
+	if dcl.StringCanonicalize(rawDesired.ExpireTime, rawInitial.ExpireTime) {
 		rawDesired.ExpireTime = rawInitial.ExpireTime
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
@@ -382,16 +382,25 @@ func canonicalizeManagedSslCertificateNewState(c *Client, rawNew, rawDesired *Ma
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Managed) && dcl.IsEmptyValueIndirect(rawDesired.Managed) {
@@ -413,6 +422,9 @@ func canonicalizeManagedSslCertificateNewState(c *Client, rawNew, rawDesired *Ma
 	if dcl.IsEmptyValueIndirect(rawNew.ExpireTime) && dcl.IsEmptyValueIndirect(rawDesired.ExpireTime) {
 		rawNew.ExpireTime = rawDesired.ExpireTime
 	} else {
+		if dcl.StringCanonicalize(rawDesired.ExpireTime, rawNew.ExpireTime) {
+			rawNew.ExpireTime = rawDesired.ExpireTime
+		}
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -426,11 +438,6 @@ func canonicalizeManagedSslCertificateManaged(des, initial *ManagedSslCertificat
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*ManagedSslCertificate)
-		_ = r
 	}
 
 	if initial == nil {
@@ -506,14 +513,14 @@ func diffManagedSslCertificate(c *Client, desired, actual *ManagedSslCertificate
 	}
 
 	var diffs []managedSslCertificateDiff
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, managedSslCertificateDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, managedSslCertificateDiff{
 			RequiresRecreate: true,
@@ -527,7 +534,7 @@ func diffManagedSslCertificate(c *Client, desired, actual *ManagedSslCertificate
 			FieldName:        "Managed",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Type) && (dcl.IsZeroValue(actual.Type) || !reflect.DeepEqual(*desired.Type, *actual.Type)) {
+	if !reflect.DeepEqual(desired.Type, actual.Type) {
 		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %v\nACTUAL: %v", desired.Type, actual.Type)
 		diffs = append(diffs, managedSslCertificateDiff{
 			RequiresRecreate: true,
@@ -558,20 +565,6 @@ func diffManagedSslCertificate(c *Client, desired, actual *ManagedSslCertificate
 
 	return deduped, nil
 }
-func compareManagedSslCertificateManagedSlice(c *Client, desired, actual []ManagedSslCertificateManaged) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ManagedSslCertificateManaged, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareManagedSslCertificateManaged(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ManagedSslCertificateManaged, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
 func compareManagedSslCertificateManaged(c *Client, desired, actual *ManagedSslCertificateManaged) bool {
 	if desired == nil {
 		return false
@@ -589,6 +582,40 @@ func compareManagedSslCertificateManaged(c *Client, desired, actual *ManagedSslC
 	}
 	return false
 }
+
+func compareManagedSslCertificateManagedSlice(c *Client, desired, actual []ManagedSslCertificateManaged) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ManagedSslCertificateManaged, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareManagedSslCertificateManaged(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ManagedSslCertificateManaged, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareManagedSslCertificateManagedMap(c *Client, desired, actual map[string]ManagedSslCertificateManaged) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ManagedSslCertificateManaged, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in ManagedSslCertificateManaged, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareManagedSslCertificateManaged(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in ManagedSslCertificateManaged, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
 func compareManagedSslCertificateManagedStatusEnumSlice(c *Client, desired, actual []ManagedSslCertificateManagedStatusEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in ManagedSslCertificateManagedStatusEnum, lengths unequal.")
@@ -630,6 +657,10 @@ func compareManagedSslCertificateTypeEnum(c *Client, desired, actual *ManagedSsl
 // short-form so they can be substituted in.
 func (r *ManagedSslCertificate) urlNormalized() *ManagedSslCertificate {
 	normalized := deepcopy.Copy(*r).(ManagedSslCertificate)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.ExpireTime = dcl.SelfLinkToName(r.ExpireTime)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -671,6 +702,10 @@ func unmarshalManagedSslCertificate(b []byte, c *Client) (*ManagedSslCertificate
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapManagedSslCertificate(m, c)
+}
+
+func unmarshalMapManagedSslCertificate(m map[string]interface{}, c *Client) (*ManagedSslCertificate, error) {
 
 	return flattenManagedSslCertificate(c, m), nil
 }
@@ -874,7 +909,7 @@ func flattenManagedSslCertificateManagedStatusEnumSlice(c *Client, i interface{}
 
 	items := make([]ManagedSslCertificateManagedStatusEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenManagedSslCertificateManagedStatusEnum(item.(map[string]interface{})))
+		items = append(items, *flattenManagedSslCertificateManagedStatusEnum(item.(interface{})))
 	}
 
 	return items
@@ -905,7 +940,7 @@ func flattenManagedSslCertificateTypeEnumSlice(c *Client, i interface{}) []Manag
 
 	items := make([]ManagedSslCertificateTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenManagedSslCertificateTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenManagedSslCertificateTypeEnum(item.(interface{})))
 	}
 
 	return items

@@ -47,9 +47,6 @@ components:
                 may be set by external tools to store and retrieve arbitrary metadata. They
                 are not queryable and should be preserved when modifying objects. More
                 info: http://kubernetes.io/docs/user-guide/annotations
-              items:
-                type: string
-                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Annotations
               x-kubernetes-immutable: true
@@ -244,9 +241,6 @@ components:
                 (scope and select) objects. May match selectors of replication controllers
                 and routes.
                 More info: http://kubernetes.io/docs/user-guide/labels
-              items:
-                type: string
-                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Labels
               x-kubernetes-immutable: true
@@ -391,6 +385,10 @@ components:
           description: The project for the resource
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         spec:
           description: Spec holds the desired state of the Service (from the client).
@@ -421,9 +419,6 @@ components:
                         may be set by external tools to store and retrieve arbitrary metadata. They
                         are not queryable and should be preserved when modifying objects. More
                         info: http://kubernetes.io/docs/user-guide/annotations
-                      items:
-                        type: string
-                        x-dcl-go-type: string
                       type: object
                       x-dcl-go-name: Annotations
                       x-kubernetes-immutable: true
@@ -618,9 +613,6 @@ components:
                         (scope and select) objects. May match selectors of replication controllers
                         and routes.
                         More info: http://kubernetes.io/docs/user-guide/labels
-                      items:
-                        type: string
-                        x-dcl-go-type: string
                       type: object
                       x-dcl-go-name: Labels
                       x-kubernetes-immutable: true
@@ -1805,9 +1797,6 @@ components:
                                   Limits describes the maximum amount of compute resources allowed.
                                   The values of the map is string form of the 'quantity' k8s type:
                                   https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apimachinery/pkg/api/resource/quantity.go
-                                items:
-                                  type: string
-                                  x-dcl-go-type: string
                                 type: object
                                 x-dcl-go-name: Limits
                                 x-kubernetes-immutable: true
@@ -1827,9 +1816,6 @@ components:
                                   explicitly specified, otherwise to an implementation-defined value.
                                   The values of the map is string form of the 'quantity' k8s type:
                                   https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apimachinery/pkg/api/resource/quantity.go
-                                items:
-                                  type: string
-                                  x-dcl-go-type: string
                                 type: object
                                 x-dcl-go-name: Requests
                                 x-kubernetes-immutable: true

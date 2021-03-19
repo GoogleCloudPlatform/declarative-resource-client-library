@@ -49,6 +49,7 @@ message ListServiceusageServiceRequest {
 message ListServiceusageServiceResponse {
   repeated ServiceusageService items = 1;
 }
+
 service ServiceusageServiceService {
   rpc ApplyServiceusageService(ApplyServiceusageServiceRequest) returns (ServiceusageService);
   rpc DeleteServiceusageService(DeleteServiceusageServiceRequest) returns (google.protobuf.Empty);

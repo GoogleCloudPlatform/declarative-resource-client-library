@@ -148,16 +148,9 @@ message ListRedisInstanceRequest {
 message ListRedisInstanceResponse {
   repeated RedisInstance items = 1;
 }
-message RedisInstanceAsHclRequest {
-  RedisInstance resource = 1;
-}
-message RedisInstanceAsHclResponse {
-  string hcl = 1;
-}
+
 service RedisInstanceService {
   rpc ApplyRedisInstance(ApplyRedisInstanceRequest) returns (RedisInstance);
   rpc DeleteRedisInstance(DeleteRedisInstanceRequest) returns (google.protobuf.Empty);
   rpc ListRedisInstance(ListRedisInstanceRequest) returns (ListRedisInstanceResponse);
-  rpc RedisInstanceAsHcl(RedisInstanceAsHclRequest) returns (RedisInstanceAsHclResponse);
-
 }

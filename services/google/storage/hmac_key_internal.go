@@ -127,7 +127,7 @@ func (op *updateHmacKeyUpdateOperation) do(ctx context.Context, r *HmacKey, c *C
 	if err != nil {
 		return err
 	}
-	_, err = dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -154,7 +154,7 @@ func (c *Client) listHmacKeyRaw(ctx context.Context, project, pageToken string, 
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -236,7 +236,7 @@ func (op *deleteHmacKeyOperation) do(ctx context.Context, r *HmacKey, c *Client)
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return fmt.Errorf("failed to delete HmacKey: %w", err)
 	}
@@ -246,7 +246,13 @@ func (op *deleteHmacKeyOperation) do(ctx context.Context, r *HmacKey, c *Client)
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createHmacKeyOperation struct{}
+type createHmacKeyOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createHmacKeyOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createHmacKeyOperation) do(ctx context.Context, r *HmacKey, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -262,7 +268,7 @@ func (op *createHmacKeyOperation) do(ctx context.Context, r *HmacKey, c *Client)
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -271,19 +277,17 @@ func (op *createHmacKeyOperation) do(ctx context.Context, r *HmacKey, c *Client)
 	if err != nil {
 		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
-	_ = o // We might not use resp- this will stop Go complaining
+	op.response = o
 
-	r.Name, err = retrieveAccessIDFromJSON(o)
-	if err != nil {
-		return fmt.Errorf("error trying to retrieve Name: %w", err)
+	// Include Name in URL substitution for initial GET request.
+	name, ok := op.response["accessId"].(string)
+	if !ok {
+		return fmt.Errorf("expected accessId to be a string")
 	}
-
-	r.Secret, err = dcl.StringWithError(o["secret"].(string))
-	if err != nil {
-		return fmt.Errorf("error trying to retrieve Secret: %w", err)
-	}
+	r.Name = &name
 
 	if _, err := c.GetHmacKey(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -299,7 +303,7 @@ func (c *Client) getHmacKeyRaw(ctx context.Context, r *HmacKey) ([]byte, error) 
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -387,14 +391,6 @@ func canonicalizeHmacKeyDesiredState(rawDesired, rawInitial *HmacKey, opts ...dc
 		rawDesired.State = HmacKeyStateEnumRef("ACTIVE")
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*HmacKey); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected HmacKey, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -404,13 +400,13 @@ func canonicalizeHmacKeyDesiredState(rawDesired, rawInitial *HmacKey, opts ...dc
 	if dcl.IsZeroValue(rawDesired.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.TimeCreated) {
+	if dcl.StringCanonicalize(rawDesired.TimeCreated, rawInitial.TimeCreated) {
 		rawDesired.TimeCreated = rawInitial.TimeCreated
 	}
-	if dcl.IsZeroValue(rawDesired.Updated) {
+	if dcl.StringCanonicalize(rawDesired.Updated, rawInitial.Updated) {
 		rawDesired.Updated = rawInitial.Updated
 	}
-	if dcl.IsZeroValue(rawDesired.Secret) {
+	if dcl.StringCanonicalize(rawDesired.Secret, rawInitial.Secret) {
 		rawDesired.Secret = rawInitial.Secret
 	}
 	if dcl.IsZeroValue(rawDesired.State) {
@@ -419,7 +415,7 @@ func canonicalizeHmacKeyDesiredState(rawDesired, rawInitial *HmacKey, opts ...dc
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
-	if dcl.IsZeroValue(rawDesired.ServiceAccountEmail) {
+	if dcl.StringCanonicalize(rawDesired.ServiceAccountEmail, rawInitial.ServiceAccountEmail) {
 		rawDesired.ServiceAccountEmail = rawInitial.ServiceAccountEmail
 	}
 
@@ -436,16 +432,25 @@ func canonicalizeHmacKeyNewState(c *Client, rawNew, rawDesired *HmacKey) (*HmacK
 	if dcl.IsEmptyValueIndirect(rawNew.TimeCreated) && dcl.IsEmptyValueIndirect(rawDesired.TimeCreated) {
 		rawNew.TimeCreated = rawDesired.TimeCreated
 	} else {
+		if dcl.StringCanonicalize(rawDesired.TimeCreated, rawNew.TimeCreated) {
+			rawNew.TimeCreated = rawDesired.TimeCreated
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Updated) && dcl.IsEmptyValueIndirect(rawDesired.Updated) {
 		rawNew.Updated = rawDesired.Updated
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Updated, rawNew.Updated) {
+			rawNew.Updated = rawDesired.Updated
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Secret) && dcl.IsEmptyValueIndirect(rawDesired.Secret) {
 		rawNew.Secret = rawDesired.Secret
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Secret, rawNew.Secret) {
+			rawNew.Secret = rawDesired.Secret
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
@@ -458,6 +463,9 @@ func canonicalizeHmacKeyNewState(c *Client, rawNew, rawDesired *HmacKey) (*HmacK
 	if dcl.IsEmptyValueIndirect(rawNew.ServiceAccountEmail) && dcl.IsEmptyValueIndirect(rawDesired.ServiceAccountEmail) {
 		rawNew.ServiceAccountEmail = rawDesired.ServiceAccountEmail
 	} else {
+		if dcl.StringCanonicalize(rawDesired.ServiceAccountEmail, rawNew.ServiceAccountEmail) {
+			rawNew.ServiceAccountEmail = rawDesired.ServiceAccountEmail
+		}
 	}
 
 	return rawNew, nil
@@ -484,14 +492,14 @@ func diffHmacKey(c *Client, desired, actual *HmacKey, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []hmacKeyDiff
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.StringEqualsWithSelfLink(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, hmacKeyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.State) && (dcl.IsZeroValue(actual.State) || !reflect.DeepEqual(*desired.State, *actual.State)) {
+	if !reflect.DeepEqual(desired.State, actual.State) {
 		c.Config.Logger.Infof("Detected diff in State.\nDESIRED: %v\nACTUAL: %v", desired.State, actual.State)
 
 		diffs = append(diffs, hmacKeyDiff{
@@ -500,7 +508,7 @@ func diffHmacKey(c *Client, desired, actual *HmacKey, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.ServiceAccountEmail) && (dcl.IsZeroValue(actual.ServiceAccountEmail) || !reflect.DeepEqual(*desired.ServiceAccountEmail, *actual.ServiceAccountEmail)) {
+	if !dcl.IsZeroValue(desired.ServiceAccountEmail) && !dcl.StringCanonicalize(desired.ServiceAccountEmail, actual.ServiceAccountEmail) {
 		c.Config.Logger.Infof("Detected diff in ServiceAccountEmail.\nDESIRED: %v\nACTUAL: %v", desired.ServiceAccountEmail, actual.ServiceAccountEmail)
 		diffs = append(diffs, hmacKeyDiff{
 			RequiresRecreate: true,
@@ -554,7 +562,12 @@ func compareHmacKeyStateEnum(c *Client, desired, actual *HmacKeyStateEnum) bool 
 // short-form so they can be substituted in.
 func (r *HmacKey) urlNormalized() *HmacKey {
 	normalized := deepcopy.Copy(*r).(HmacKey)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.TimeCreated = dcl.SelfLinkToName(r.TimeCreated)
+	normalized.Updated = dcl.SelfLinkToName(r.Updated)
+	normalized.Secret = dcl.SelfLinkToName(r.Secret)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.ServiceAccountEmail = dcl.SelfLinkToName(r.ServiceAccountEmail)
 	return &normalized
 }
 
@@ -605,6 +618,10 @@ func unmarshalHmacKey(b []byte, c *Client) (*HmacKey, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapHmacKey(m, c)
+}
+
+func unmarshalMapHmacKey(m map[string]interface{}, c *Client) (*HmacKey, error) {
 
 	return flattenHmacKey(c, m), nil
 }
@@ -651,10 +668,10 @@ func flattenHmacKey(c *Client, i interface{}) *HmacKey {
 	}
 
 	r := &HmacKey{}
-	r.Name = dcl.FlattenSecretValue(m["accessId"])
+	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["accessId"]))
 	r.TimeCreated = dcl.FlattenString(m["timeCreated"])
 	r.Updated = dcl.FlattenString(m["updated"])
-	r.Secret = dcl.FlattenSecretValue(m["secret"])
+	r.Secret = dcl.FlattenString(m["secret"])
 	r.State = flattenHmacKeyStateEnum(m["state"])
 	if _, ok := m["state"]; !ok {
 		c.Config.Logger.Info("Using default value for state")
@@ -680,7 +697,7 @@ func flattenHmacKeyStateEnumSlice(c *Client, i interface{}) []HmacKeyStateEnum {
 
 	items := make([]HmacKeyStateEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenHmacKeyStateEnum(item.(map[string]interface{})))
+		items = append(items, *flattenHmacKeyStateEnum(item.(interface{})))
 	}
 
 	return items

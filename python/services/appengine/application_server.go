@@ -26,18 +26,6 @@ import (
 // Server implements the gRPC interface for Application.
 type ApplicationServer struct{}
 
-// ProtoToApplicationConsumerProjectServiceEnum converts a ApplicationConsumerProjectServiceEnum enum from its proto representation.
-func ProtoToAppengineApplicationConsumerProjectServiceEnum(e appenginepb.AppengineApplicationConsumerProjectServiceEnum) *appengine.ApplicationConsumerProjectServiceEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := appenginepb.AppengineApplicationConsumerProjectServiceEnum_name[int32(e)]; ok {
-		e := appengine.ApplicationConsumerProjectServiceEnum(n[len("ApplicationConsumerProjectServiceEnum"):])
-		return &e
-	}
-	return nil
-}
-
 // ProtoToApplicationDatabaseTypeEnum converts a ApplicationDatabaseTypeEnum enum from its proto representation.
 func ProtoToAppengineApplicationDatabaseTypeEnum(e appenginepb.AppengineApplicationDatabaseTypeEnum) *appengine.ApplicationDatabaseTypeEnum {
 	if e == 0 {
@@ -60,32 +48,6 @@ func ProtoToAppengineApplicationServingStatusEnum(e appenginepb.AppengineApplica
 		return &e
 	}
 	return nil
-}
-
-// ProtoToApplicationConsumerProject converts a ApplicationConsumerProject resource from its proto representation.
-func ProtoToAppengineApplicationConsumerProject(p *appenginepb.AppengineApplicationConsumerProject) *appengine.ApplicationConsumerProject {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.ApplicationConsumerProject{
-		Service:   ProtoToAppengineApplicationConsumerProjectServiceEnum(p.GetService()),
-		Name:      dcl.StringOrNil(p.Name),
-		ProjectId: dcl.StringOrNil(p.ProjectId),
-		RouteHash: ProtoToAppengineApplicationConsumerProjectRouteHash(p.GetRouteHash()),
-		Region:    dcl.StringOrNil(p.Region),
-	}
-	return obj
-}
-
-// ProtoToApplicationConsumerProjectRouteHash converts a ApplicationConsumerProjectRouteHash resource from its proto representation.
-func ProtoToAppengineApplicationConsumerProjectRouteHash(p *appenginepb.AppengineApplicationConsumerProjectRouteHash) *appengine.ApplicationConsumerProjectRouteHash {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.ApplicationConsumerProjectRouteHash{
-		ProjectHash: dcl.StringOrNil(p.ProjectHash),
-	}
-	return obj
 }
 
 // ProtoToApplicationDispatchRules converts a ApplicationDispatchRules resource from its proto representation.
@@ -127,57 +89,25 @@ func ProtoToAppengineApplicationIap(p *appenginepb.AppengineApplicationIap) *app
 	return obj
 }
 
-// ProtoToApplicationParent converts a ApplicationParent resource from its proto representation.
-func ProtoToAppengineApplicationParent(p *appenginepb.AppengineApplicationParent) *appengine.ApplicationParent {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.ApplicationParent{
-		Type: dcl.StringOrNil(p.Type),
-		Id:   dcl.StringOrNil(p.Id),
-	}
-	return obj
-}
-
 // ProtoToApplication converts a Application resource from its proto representation.
 func ProtoToApplication(p *appenginepb.AppengineApplication) *appengine.Application {
 	obj := &appengine.Application{
 		AuthDomain:      dcl.StringOrNil(p.AuthDomain),
 		CodeBucket:      dcl.StringOrNil(p.CodeBucket),
-		ConsumerProject: ProtoToAppengineApplicationConsumerProject(p.GetConsumerProject()),
 		DatabaseType:    ProtoToAppengineApplicationDatabaseTypeEnum(p.GetDatabaseType()),
 		DefaultBucket:   dcl.StringOrNil(p.DefaultBucket),
 		DefaultHostname: dcl.StringOrNil(p.DefaultHostname),
 		FeatureSettings: ProtoToAppengineApplicationFeatureSettings(p.GetFeatureSettings()),
 		GcrDomain:       dcl.StringOrNil(p.GcrDomain),
 		Iap:             ProtoToAppengineApplicationIap(p.GetIap()),
-		Parent:          ProtoToAppengineApplicationParent(p.GetParent()),
 		Name:            dcl.StringOrNil(p.Name),
 		Location:        dcl.StringOrNil(p.Location),
 		ServingStatus:   ProtoToAppengineApplicationServingStatusEnum(p.GetServingStatus()),
-		ServiceAccount:  dcl.StringOrNil(p.ServiceAccount),
-	}
-	for _, r := range p.GetBlockedAddresses() {
-		obj.BlockedAddresses = append(obj.BlockedAddresses, r)
 	}
 	for _, r := range p.GetDispatchRules() {
 		obj.DispatchRules = append(obj.DispatchRules, *ProtoToAppengineApplicationDispatchRules(r))
 	}
-	for _, r := range p.GetDomains() {
-		obj.Domains = append(obj.Domains, r)
-	}
 	return obj
-}
-
-// ApplicationConsumerProjectServiceEnumToProto converts a ApplicationConsumerProjectServiceEnum enum to its proto representation.
-func AppengineApplicationConsumerProjectServiceEnumToProto(e *appengine.ApplicationConsumerProjectServiceEnum) appenginepb.AppengineApplicationConsumerProjectServiceEnum {
-	if e == nil {
-		return appenginepb.AppengineApplicationConsumerProjectServiceEnum(0)
-	}
-	if v, ok := appenginepb.AppengineApplicationConsumerProjectServiceEnum_value["ApplicationConsumerProjectServiceEnum"+string(*e)]; ok {
-		return appenginepb.AppengineApplicationConsumerProjectServiceEnum(v)
-	}
-	return appenginepb.AppengineApplicationConsumerProjectServiceEnum(0)
 }
 
 // ApplicationDatabaseTypeEnumToProto converts a ApplicationDatabaseTypeEnum enum to its proto representation.
@@ -200,32 +130,6 @@ func AppengineApplicationServingStatusEnumToProto(e *appengine.ApplicationServin
 		return appenginepb.AppengineApplicationServingStatusEnum(v)
 	}
 	return appenginepb.AppengineApplicationServingStatusEnum(0)
-}
-
-// ApplicationConsumerProjectToProto converts a ApplicationConsumerProject resource to its proto representation.
-func AppengineApplicationConsumerProjectToProto(o *appengine.ApplicationConsumerProject) *appenginepb.AppengineApplicationConsumerProject {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineApplicationConsumerProject{
-		Service:   AppengineApplicationConsumerProjectServiceEnumToProto(o.Service),
-		Name:      dcl.ValueOrEmptyString(o.Name),
-		ProjectId: dcl.ValueOrEmptyString(o.ProjectId),
-		RouteHash: AppengineApplicationConsumerProjectRouteHashToProto(o.RouteHash),
-		Region:    dcl.ValueOrEmptyString(o.Region),
-	}
-	return p
-}
-
-// ApplicationConsumerProjectRouteHashToProto converts a ApplicationConsumerProjectRouteHash resource to its proto representation.
-func AppengineApplicationConsumerProjectRouteHashToProto(o *appengine.ApplicationConsumerProjectRouteHash) *appenginepb.AppengineApplicationConsumerProjectRouteHash {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineApplicationConsumerProjectRouteHash{
-		ProjectHash: dcl.ValueOrEmptyString(o.ProjectHash),
-	}
-	return p
 }
 
 // ApplicationDispatchRulesToProto converts a ApplicationDispatchRules resource to its proto representation.
@@ -267,44 +171,23 @@ func AppengineApplicationIapToProto(o *appengine.ApplicationIap) *appenginepb.Ap
 	return p
 }
 
-// ApplicationParentToProto converts a ApplicationParent resource to its proto representation.
-func AppengineApplicationParentToProto(o *appengine.ApplicationParent) *appenginepb.AppengineApplicationParent {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineApplicationParent{
-		Type: dcl.ValueOrEmptyString(o.Type),
-		Id:   dcl.ValueOrEmptyString(o.Id),
-	}
-	return p
-}
-
 // ApplicationToProto converts a Application resource to its proto representation.
 func ApplicationToProto(resource *appengine.Application) *appenginepb.AppengineApplication {
 	p := &appenginepb.AppengineApplication{
 		AuthDomain:      dcl.ValueOrEmptyString(resource.AuthDomain),
 		CodeBucket:      dcl.ValueOrEmptyString(resource.CodeBucket),
-		ConsumerProject: AppengineApplicationConsumerProjectToProto(resource.ConsumerProject),
 		DatabaseType:    AppengineApplicationDatabaseTypeEnumToProto(resource.DatabaseType),
 		DefaultBucket:   dcl.ValueOrEmptyString(resource.DefaultBucket),
 		DefaultHostname: dcl.ValueOrEmptyString(resource.DefaultHostname),
 		FeatureSettings: AppengineApplicationFeatureSettingsToProto(resource.FeatureSettings),
 		GcrDomain:       dcl.ValueOrEmptyString(resource.GcrDomain),
 		Iap:             AppengineApplicationIapToProto(resource.Iap),
-		Parent:          AppengineApplicationParentToProto(resource.Parent),
 		Name:            dcl.ValueOrEmptyString(resource.Name),
 		Location:        dcl.ValueOrEmptyString(resource.Location),
 		ServingStatus:   AppengineApplicationServingStatusEnumToProto(resource.ServingStatus),
-		ServiceAccount:  dcl.ValueOrEmptyString(resource.ServiceAccount),
-	}
-	for _, r := range resource.BlockedAddresses {
-		p.BlockedAddresses = append(p.BlockedAddresses, r)
 	}
 	for _, r := range resource.DispatchRules {
 		p.DispatchRules = append(p.DispatchRules, AppengineApplicationDispatchRulesToProto(&r))
-	}
-	for _, r := range resource.Domains {
-		p.Domains = append(p.Domains, r)
 	}
 
 	return p

@@ -80,6 +80,7 @@ message ListComputeVpnTunnelRequest {
 message ListComputeVpnTunnelResponse {
   repeated ComputeVpnTunnel items = 1;
 }
+
 service ComputeVpnTunnelService {
   rpc ApplyComputeVpnTunnel(ApplyComputeVpnTunnelRequest) returns (ComputeVpnTunnel);
   rpc DeleteComputeVpnTunnel(DeleteComputeVpnTunnelRequest) returns (google.protobuf.Empty);

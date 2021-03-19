@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="iap", resources=["brand"])
+proto_package(name="iap", resources=["brand","identity_aware_proxy_client"])

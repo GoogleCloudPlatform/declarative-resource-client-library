@@ -73,12 +73,12 @@ func ProtoToComputeBetaSubnetworkLogConfigMetadataEnum(e betapb.ComputeBetaSubne
 	return nil
 }
 
-// ProtoToSubnetworkSecondaryIPRange converts a SubnetworkSecondaryIPRange resource from its proto representation.
-func ProtoToComputeBetaSubnetworkSecondaryIPRange(p *betapb.ComputeBetaSubnetworkSecondaryIPRange) *beta.SubnetworkSecondaryIPRange {
+// ProtoToSubnetworkSecondaryIPRanges converts a SubnetworkSecondaryIPRanges resource from its proto representation.
+func ProtoToComputeBetaSubnetworkSecondaryIPRanges(p *betapb.ComputeBetaSubnetworkSecondaryIPRanges) *beta.SubnetworkSecondaryIPRanges {
 	if p == nil {
 		return nil
 	}
-	obj := &beta.SubnetworkSecondaryIPRange{
+	obj := &beta.SubnetworkSecondaryIPRanges{
 		RangeName:   dcl.StringOrNil(p.RangeName),
 		IPCidrRange: dcl.StringOrNil(p.IpCidrRange),
 	}
@@ -117,8 +117,8 @@ func ProtoToSubnetwork(p *betapb.ComputeBetaSubnetwork) *beta.Subnetwork {
 		SelfLink:              dcl.StringOrNil(p.SelfLink),
 		EnableFlowLogs:        dcl.Bool(p.EnableFlowLogs),
 	}
-	for _, r := range p.GetSecondaryIpRange() {
-		obj.SecondaryIPRange = append(obj.SecondaryIPRange, *ProtoToComputeBetaSubnetworkSecondaryIPRange(r))
+	for _, r := range p.GetSecondaryIpRanges() {
+		obj.SecondaryIPRanges = append(obj.SecondaryIPRanges, *ProtoToComputeBetaSubnetworkSecondaryIPRanges(r))
 	}
 	return obj
 }
@@ -167,12 +167,12 @@ func ComputeBetaSubnetworkLogConfigMetadataEnumToProto(e *beta.SubnetworkLogConf
 	return betapb.ComputeBetaSubnetworkLogConfigMetadataEnum(0)
 }
 
-// SubnetworkSecondaryIPRangeToProto converts a SubnetworkSecondaryIPRange resource to its proto representation.
-func ComputeBetaSubnetworkSecondaryIPRangeToProto(o *beta.SubnetworkSecondaryIPRange) *betapb.ComputeBetaSubnetworkSecondaryIPRange {
+// SubnetworkSecondaryIPRangesToProto converts a SubnetworkSecondaryIPRanges resource to its proto representation.
+func ComputeBetaSubnetworkSecondaryIPRangesToProto(o *beta.SubnetworkSecondaryIPRanges) *betapb.ComputeBetaSubnetworkSecondaryIPRanges {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaSubnetworkSecondaryIPRange{
+	p := &betapb.ComputeBetaSubnetworkSecondaryIPRanges{
 		RangeName:   dcl.ValueOrEmptyString(o.RangeName),
 		IpCidrRange: dcl.ValueOrEmptyString(o.IPCidrRange),
 	}
@@ -211,8 +211,8 @@ func SubnetworkToProto(resource *beta.Subnetwork) *betapb.ComputeBetaSubnetwork 
 		SelfLink:              dcl.ValueOrEmptyString(resource.SelfLink),
 		EnableFlowLogs:        dcl.ValueOrEmptyBool(resource.EnableFlowLogs),
 	}
-	for _, r := range resource.SecondaryIPRange {
-		p.SecondaryIpRange = append(p.SecondaryIpRange, ComputeBetaSubnetworkSecondaryIPRangeToProto(&r))
+	for _, r := range resource.SecondaryIPRanges {
+		p.SecondaryIpRanges = append(p.SecondaryIpRanges, ComputeBetaSubnetworkSecondaryIPRangesToProto(&r))
 	}
 
 	return p

@@ -1,0 +1,133 @@
+# Copyright 2021 Google LLC. All Rights Reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+components:
+  schemas:
+    Tenant:
+      properties:
+        allowPasswordSignup:
+          description: Whether to allow email/password user authentication.
+          type: boolean
+          x-dcl-go-name: AllowPasswordSignup
+        disableAuth:
+          description: Whether authentication is disabled for the tenant. If true,
+            the users under the disabled tenant are not allowed to sign-in. Admins
+            of the disabled tenant are not able to manage its users.
+          type: boolean
+          x-dcl-go-name: DisableAuth
+        displayName:
+          description: Display name of the tenant.
+          type: string
+          x-dcl-go-name: DisplayName
+        enableAnonymousUser:
+          description: Whether to enable anonymous user authentication.
+          type: boolean
+          x-dcl-go-name: EnableAnonymousUser
+        enableEmailLinkSignin:
+          description: Whether to enable email link user authentication.
+          type: boolean
+          x-dcl-go-name: EnableEmailLinkSignin
+        mfaConfig:
+          description: The tenant-level configuration of MFA options.
+          properties:
+            enabledProviders:
+              description: A list of usable second factors for this project.
+              items:
+                type: string
+                x-dcl-go-type: TenantMfaConfigEnabledProvidersEnum
+              type: array
+              x-dcl-go-name: EnabledProviders
+              x-dcl-list-type: list
+            state:
+              description: 'Whether MultiFactor Authentication has been enabled for
+                this project. Possible values: STATE_UNSPECIFIED, DISABLED, ENABLED,
+                MANDATORY'
+              enum:
+              - STATE_UNSPECIFIED
+              - DISABLED
+              - ENABLED
+              - MANDATORY
+              type: string
+              x-dcl-go-name: State
+              x-dcl-go-type: TenantMfaConfigStateEnum
+          type: object
+          x-dcl-go-name: MfaConfig
+          x-dcl-go-type: TenantMfaConfig
+        name:
+          description: 'Output only. Resource name of a tenant. For example: "projects/{project-id}/tenants/{tenant-id}"'
+          type: string
+          x-dcl-go-name: Name
+          x-dcl-server-generated-parameter: true
+          x-kubernetes-immutable: true
+        project:
+          description: The project for the resource
+          type: string
+          x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
+          x-kubernetes-immutable: true
+        testPhoneNumbers:
+          additionalProperties:
+            type: string
+          description: A map of <test phone number, fake code> pairs that can be used
+            for MFA. The phone number should be in E.164 format (https://www.itu.int/rec/T-REC-E.164/)
+            and a maximum of 10 pairs can be added (error will be thrown once exceeded).
+          type: object
+          x-dcl-go-name: TestPhoneNumbers
+      required:
+      - project
+      title: Tenant
+      type: object
+      x-dcl-id: projects/{{project}}/tenants/{{name}}
+      x-dcl-locations: []
+      x-dcl-parent-container: project
+      x-dcl-uses-state-hint: false
+info:
+  description: DCL Specification for the Identitytoolkit Tenant resource
+  title: Identitytoolkit/Tenant
+  x-dcl-has-iam: false
+paths:
+  apply:
+    description: The function used to apply information about a Tenant
+    parameters:
+    - description: A full instance of a Tenant
+      name: Tenant
+      required: true
+  delete:
+    description: The function used to delete a Tenant
+    parameters:
+    - description: A full instance of a Tenant
+      name: Tenant
+      required: true
+  deleteAll:
+    description: The function used to delete all Tenant
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Tenant
+    parameters:
+    - description: A full instance of a Tenant
+      name: Tenant
+      required: true
+  list:
+    description: The function used to list information about many Tenant
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string

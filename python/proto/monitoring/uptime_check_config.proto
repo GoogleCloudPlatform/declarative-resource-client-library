@@ -118,6 +118,7 @@ message ListMonitoringUptimeCheckConfigRequest {
 message ListMonitoringUptimeCheckConfigResponse {
   repeated MonitoringUptimeCheckConfig items = 1;
 }
+
 service MonitoringUptimeCheckConfigService {
   rpc ApplyMonitoringUptimeCheckConfig(ApplyMonitoringUptimeCheckConfigRequest) returns (MonitoringUptimeCheckConfig);
   rpc DeleteMonitoringUptimeCheckConfig(DeleteMonitoringUptimeCheckConfigRequest) returns (google.protobuf.Empty);

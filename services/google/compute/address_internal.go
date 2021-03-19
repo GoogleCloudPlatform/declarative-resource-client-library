@@ -147,7 +147,7 @@ func (op *updateAddressSetLabelsOperation) do(ctx context.Context, r *Address, c
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -184,7 +184,7 @@ func (c *Client) listAddressRaw(ctx context.Context, project, location, pageToke
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -259,7 +259,7 @@ func (op *deleteAddressOperation) do(ctx context.Context, r *Address, c *Client)
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -282,7 +282,13 @@ func (op *deleteAddressOperation) do(ctx context.Context, r *Address, c *Client)
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createAddressOperation struct{}
+type createAddressOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createAddressOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createAddressOperation) do(ctx context.Context, r *Address, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -298,7 +304,7 @@ func (op *createAddressOperation) do(ctx context.Context, r *Address, c *Client)
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -312,8 +318,10 @@ func (op *createAddressOperation) do(ctx context.Context, r *Address, c *Client)
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetAddress(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -329,7 +337,7 @@ func (c *Client) getAddressRaw(ctx context.Context, r *Address) ([]byte, error) 
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -410,14 +418,6 @@ func canonicalizeAddressDesiredState(rawDesired, rawInitial *Address, opts ...dc
 		rawDesired.AddressType = AddressAddressTypeEnumRef("EXTERNAL")
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Address); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Address, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -427,13 +427,13 @@ func canonicalizeAddressDesiredState(rawDesired, rawInitial *Address, opts ...dc
 	if dcl.IsZeroValue(rawDesired.Id) {
 		rawDesired.Id = rawInitial.Id
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Address) {
+	if dcl.StringCanonicalize(rawDesired.Address, rawInitial.Address) {
 		rawDesired.Address = rawInitial.Address
 	}
 	if dcl.IsZeroValue(rawDesired.PrefixLength) {
@@ -442,10 +442,10 @@ func canonicalizeAddressDesiredState(rawDesired, rawInitial *Address, opts ...dc
 	if dcl.IsZeroValue(rawDesired.Status) {
 		rawDesired.Status = rawInitial.Status
 	}
-	if dcl.NameToSelfLink(rawDesired.Region, rawInitial.Region) {
+	if dcl.StringCanonicalize(rawDesired.Region, rawInitial.Region) {
 		rawDesired.Region = rawInitial.Region
 	}
-	if dcl.IsZeroValue(rawDesired.SelfLink) {
+	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}
 	if dcl.IsZeroValue(rawDesired.NetworkTier) {
@@ -475,7 +475,7 @@ func canonicalizeAddressDesiredState(rawDesired, rawInitial *Address, opts ...dc
 	if dcl.IsZeroValue(rawDesired.Users) {
 		rawDesired.Users = rawInitial.Users
 	}
-	if dcl.IsZeroValue(rawDesired.LabelFingerprint) {
+	if dcl.StringCanonicalize(rawDesired.LabelFingerprint, rawInitial.LabelFingerprint) {
 		rawDesired.LabelFingerprint = rawInitial.LabelFingerprint
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
@@ -495,16 +495,25 @@ func canonicalizeAddressNewState(c *Client, rawNew, rawDesired *Address) (*Addre
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Address) && dcl.IsEmptyValueIndirect(rawDesired.Address) {
 		rawNew.Address = rawDesired.Address
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Address, rawNew.Address) {
+			rawNew.Address = rawDesired.Address
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.PrefixLength) && dcl.IsEmptyValueIndirect(rawDesired.PrefixLength) {
@@ -520,7 +529,7 @@ func canonicalizeAddressNewState(c *Client, rawNew, rawDesired *Address) (*Addre
 	if dcl.IsEmptyValueIndirect(rawNew.Region) && dcl.IsEmptyValueIndirect(rawDesired.Region) {
 		rawNew.Region = rawDesired.Region
 	} else {
-		if dcl.NameToSelfLink(rawDesired.Region, rawNew.Region) {
+		if dcl.StringCanonicalize(rawDesired.Region, rawNew.Region) {
 			rawNew.Region = rawDesired.Region
 		}
 	}
@@ -528,6 +537,9 @@ func canonicalizeAddressNewState(c *Client, rawNew, rawDesired *Address) (*Addre
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.NetworkTier) && dcl.IsEmptyValueIndirect(rawDesired.NetworkTier) {
@@ -581,6 +593,9 @@ func canonicalizeAddressNewState(c *Client, rawNew, rawDesired *Address) (*Addre
 	if dcl.IsEmptyValueIndirect(rawNew.LabelFingerprint) && dcl.IsEmptyValueIndirect(rawDesired.LabelFingerprint) {
 		rawNew.LabelFingerprint = rawDesired.LabelFingerprint
 	} else {
+		if dcl.StringCanonicalize(rawDesired.LabelFingerprint, rawNew.LabelFingerprint) {
+			rawNew.LabelFingerprint = rawDesired.LabelFingerprint
+		}
 	}
 
 	rawNew.Location = rawDesired.Location
@@ -609,63 +624,63 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []addressDiff
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, addressDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, addressDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Address) && (dcl.IsZeroValue(actual.Address) || !reflect.DeepEqual(*desired.Address, *actual.Address)) {
+	if !dcl.IsZeroValue(desired.Address) && !dcl.StringCanonicalize(desired.Address, actual.Address) {
 		c.Config.Logger.Infof("Detected diff in Address.\nDESIRED: %v\nACTUAL: %v", desired.Address, actual.Address)
 		diffs = append(diffs, addressDiff{
 			RequiresRecreate: true,
 			FieldName:        "Address",
 		})
 	}
-	if !dcl.IsZeroValue(desired.PrefixLength) && (dcl.IsZeroValue(actual.PrefixLength) || !reflect.DeepEqual(*desired.PrefixLength, *actual.PrefixLength)) {
+	if !reflect.DeepEqual(desired.PrefixLength, actual.PrefixLength) {
 		c.Config.Logger.Infof("Detected diff in PrefixLength.\nDESIRED: %v\nACTUAL: %v", desired.PrefixLength, actual.PrefixLength)
 		diffs = append(diffs, addressDiff{
 			RequiresRecreate: true,
 			FieldName:        "PrefixLength",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Region) && !dcl.NameToSelfLink(desired.Region, actual.Region) {
+	if !dcl.IsZeroValue(desired.Region) && !dcl.StringCanonicalize(desired.Region, actual.Region) {
 		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %v\nACTUAL: %v", desired.Region, actual.Region)
 		diffs = append(diffs, addressDiff{
 			RequiresRecreate: true,
 			FieldName:        "Region",
 		})
 	}
-	if !dcl.IsZeroValue(desired.NetworkTier) && (dcl.IsZeroValue(actual.NetworkTier) || !reflect.DeepEqual(*desired.NetworkTier, *actual.NetworkTier)) {
+	if !reflect.DeepEqual(desired.NetworkTier, actual.NetworkTier) {
 		c.Config.Logger.Infof("Detected diff in NetworkTier.\nDESIRED: %v\nACTUAL: %v", desired.NetworkTier, actual.NetworkTier)
 		diffs = append(diffs, addressDiff{
 			RequiresRecreate: true,
 			FieldName:        "NetworkTier",
 		})
 	}
-	if !dcl.IsZeroValue(desired.IPVersion) && (dcl.IsZeroValue(actual.IPVersion) || !reflect.DeepEqual(*desired.IPVersion, *actual.IPVersion)) {
+	if !reflect.DeepEqual(desired.IPVersion, actual.IPVersion) {
 		c.Config.Logger.Infof("Detected diff in IPVersion.\nDESIRED: %v\nACTUAL: %v", desired.IPVersion, actual.IPVersion)
 		diffs = append(diffs, addressDiff{
 			RequiresRecreate: true,
 			FieldName:        "IPVersion",
 		})
 	}
-	if !dcl.IsZeroValue(desired.AddressType) && (dcl.IsZeroValue(actual.AddressType) || !reflect.DeepEqual(*desired.AddressType, *actual.AddressType)) {
+	if !reflect.DeepEqual(desired.AddressType, actual.AddressType) {
 		c.Config.Logger.Infof("Detected diff in AddressType.\nDESIRED: %v\nACTUAL: %v", desired.AddressType, actual.AddressType)
 		diffs = append(diffs, addressDiff{
 			RequiresRecreate: true,
 			FieldName:        "AddressType",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Purpose) && (dcl.IsZeroValue(actual.Purpose) || !reflect.DeepEqual(*desired.Purpose, *actual.Purpose)) {
+	if !reflect.DeepEqual(desired.Purpose, actual.Purpose) {
 		c.Config.Logger.Infof("Detected diff in Purpose.\nDESIRED: %v\nACTUAL: %v", desired.Purpose, actual.Purpose)
 		diffs = append(diffs, addressDiff{
 			RequiresRecreate: true,
@@ -805,10 +820,15 @@ func compareAddressPurposeEnum(c *Client, desired, actual *AddressPurposeEnum) b
 // short-form so they can be substituted in.
 func (r *Address) urlNormalized() *Address {
 	normalized := deepcopy.Copy(*r).(Address)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Address = dcl.SelfLinkToName(r.Address)
 	normalized.Region = dcl.SelfLinkToName(r.Region)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	normalized.Subnetwork = dcl.SelfLinkToName(r.Subnetwork)
 	normalized.Network = dcl.SelfLinkToName(r.Network)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.LabelFingerprint = dcl.SelfLinkToName(r.LabelFingerprint)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
@@ -864,6 +884,10 @@ func unmarshalAddress(b []byte, c *Client) (*Address, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapAddress(m, c)
+}
+
+func unmarshalMapAddress(m map[string]interface{}, c *Client) (*Address, error) {
 
 	return flattenAddress(c, m), nil
 }
@@ -991,7 +1015,7 @@ func flattenAddressStatusEnumSlice(c *Client, i interface{}) []AddressStatusEnum
 
 	items := make([]AddressStatusEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAddressStatusEnum(item.(map[string]interface{})))
+		items = append(items, *flattenAddressStatusEnum(item.(interface{})))
 	}
 
 	return items
@@ -1022,7 +1046,7 @@ func flattenAddressNetworkTierEnumSlice(c *Client, i interface{}) []AddressNetwo
 
 	items := make([]AddressNetworkTierEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAddressNetworkTierEnum(item.(map[string]interface{})))
+		items = append(items, *flattenAddressNetworkTierEnum(item.(interface{})))
 	}
 
 	return items
@@ -1053,7 +1077,7 @@ func flattenAddressIPVersionEnumSlice(c *Client, i interface{}) []AddressIPVersi
 
 	items := make([]AddressIPVersionEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAddressIPVersionEnum(item.(map[string]interface{})))
+		items = append(items, *flattenAddressIPVersionEnum(item.(interface{})))
 	}
 
 	return items
@@ -1084,7 +1108,7 @@ func flattenAddressAddressTypeEnumSlice(c *Client, i interface{}) []AddressAddre
 
 	items := make([]AddressAddressTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAddressAddressTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenAddressAddressTypeEnum(item.(interface{})))
 	}
 
 	return items
@@ -1115,7 +1139,7 @@ func flattenAddressPurposeEnumSlice(c *Client, i interface{}) []AddressPurposeEn
 
 	items := make([]AddressPurposeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAddressPurposeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenAddressPurposeEnum(item.(interface{})))
 	}
 
 	return items

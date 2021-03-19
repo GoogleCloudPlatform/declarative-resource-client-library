@@ -76,6 +76,7 @@ message ListComputeBetaSslPolicyRequest {
 message ListComputeBetaSslPolicyResponse {
   repeated ComputeBetaSslPolicy items = 1;
 }
+
 service ComputeBetaSslPolicyService {
   rpc ApplyComputeBetaSslPolicy(ApplyComputeBetaSslPolicyRequest) returns (ComputeBetaSslPolicy);
   rpc DeleteComputeBetaSslPolicy(DeleteComputeBetaSslPolicyRequest) returns (google.protobuf.Empty);

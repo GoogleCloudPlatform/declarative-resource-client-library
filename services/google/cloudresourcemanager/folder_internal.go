@@ -40,7 +40,7 @@ func (r *Folder) SetPolicyURL(userBasePath string) string {
 	fields := map[string]interface{}{
 		"name": *n.Name,
 	}
-	return dcl.URL("v2/folders/{{name}}:setIamPolicy", "https://cloudresourcemanager.googleapis.com/", userBasePath, fields)
+	return dcl.URL("v2/{{name}}:setIamPolicy", "https://cloudresourcemanager.googleapis.com/", userBasePath, fields)
 }
 
 func (r *Folder) getPolicyURL(userBasePath string) string {
@@ -48,7 +48,7 @@ func (r *Folder) getPolicyURL(userBasePath string) string {
 	fields := map[string]interface{}{
 		"name": *n.Name,
 	}
-	return dcl.URL("v2/folders/{{name}}:getIamPolicy", "https://cloudresourcemanager.googleapis.com/", userBasePath, fields)
+	return dcl.URL("v2/{{name}}:getIamPolicy", "https://cloudresourcemanager.googleapis.com/", userBasePath, fields)
 }
 
 func (r *Folder) IAMPolicyVersion() int {
@@ -141,7 +141,7 @@ func (op *updateFolderUpdateFolderOperation) do(ctx context.Context, r *Folder, 
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -178,7 +178,7 @@ func (c *Client) listFolderRaw(ctx context.Context, parent, pageToken string, pa
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -252,7 +252,7 @@ func (op *deleteFolderOperation) do(ctx context.Context, r *Folder, c *Client) e
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return fmt.Errorf("failed to delete Folder: %w", err)
 	}
@@ -262,7 +262,13 @@ func (op *deleteFolderOperation) do(ctx context.Context, r *Folder, c *Client) e
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createFolderOperation struct{}
+type createFolderOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createFolderOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createFolderOperation) do(ctx context.Context, r *Folder, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -278,7 +284,7 @@ func (op *createFolderOperation) do(ctx context.Context, r *Folder, c *Client) e
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -292,13 +298,17 @@ func (op *createFolderOperation) do(ctx context.Context, r *Folder, c *Client) e
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
-	r.Name, err = o.FetchResponseValue("name")
-	if err != nil {
-		return fmt.Errorf("error trying to retrieve Name: %w", err)
+	// Include Name in URL substitution for initial GET request.
+	name, ok := op.response["name"].(string)
+	if !ok {
+		return fmt.Errorf("expected name to be a string")
 	}
+	r.Name = &name
 
 	if _, err := c.GetFolder(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -311,7 +321,7 @@ func (c *Client) getFolderRaw(ctx context.Context, r *Folder) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -395,27 +405,19 @@ func canonicalizeFolderInitialState(rawInitial, rawDesired *Folder) (*Folder, er
 
 func canonicalizeFolderDesiredState(rawDesired, rawInitial *Folder, opts ...dcl.ApplyOption) (*Folder, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Folder); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Folder, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
 
 		return rawDesired, nil
 	}
-	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Parent) {
+	if dcl.StringCanonicalize(rawDesired.Parent, rawInitial.Parent) {
 		rawDesired.Parent = rawInitial.Parent
 	}
-	if dcl.IsZeroValue(rawDesired.DisplayName) {
+	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
 		rawDesired.DisplayName = rawInitial.DisplayName
 	}
 	if dcl.IsZeroValue(rawDesired.State) {
@@ -430,7 +432,7 @@ func canonicalizeFolderDesiredState(rawDesired, rawInitial *Folder, opts ...dcl.
 	if dcl.IsZeroValue(rawDesired.DeleteTime) {
 		rawDesired.DeleteTime = rawInitial.DeleteTime
 	}
-	if dcl.IsZeroValue(rawDesired.Etag) {
+	if dcl.StringCanonicalize(rawDesired.Etag, rawInitial.Etag) {
 		rawDesired.Etag = rawInitial.Etag
 	}
 
@@ -442,19 +444,22 @@ func canonicalizeFolderNewState(c *Client, rawNew, rawDesired *Folder) (*Folder,
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
-		if dcl.NameToSelfLink(rawDesired.Name, rawNew.Name) {
-			rawNew.Name = rawDesired.Name
-		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Parent) && dcl.IsEmptyValueIndirect(rawDesired.Parent) {
 		rawNew.Parent = rawDesired.Parent
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Parent, rawNew.Parent) {
+			rawNew.Parent = rawDesired.Parent
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
 		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
+		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
@@ -480,6 +485,9 @@ func canonicalizeFolderNewState(c *Client, rawNew, rawDesired *Folder) (*Folder,
 	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
 		rawNew.Etag = rawDesired.Etag
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
+			rawNew.Etag = rawDesired.Etag
+		}
 	}
 
 	return rawNew, nil
@@ -506,7 +514,7 @@ func diffFolder(c *Client, desired, actual *Folder, opts ...dcl.ApplyOption) ([]
 	}
 
 	var diffs []folderDiff
-	if !dcl.IsZeroValue(desired.Parent) && (dcl.IsZeroValue(actual.Parent) || !reflect.DeepEqual(*desired.Parent, *actual.Parent)) {
+	if !dcl.IsZeroValue(desired.Parent) && !dcl.StringCanonicalize(desired.Parent, actual.Parent) {
 		c.Config.Logger.Infof("Detected diff in Parent.\nDESIRED: %v\nACTUAL: %v", desired.Parent, actual.Parent)
 
 		diffs = append(diffs, folderDiff{
@@ -515,7 +523,7 @@ func diffFolder(c *Client, desired, actual *Folder, opts ...dcl.ApplyOption) ([]
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.DisplayName) && (dcl.IsZeroValue(actual.DisplayName) || !reflect.DeepEqual(*desired.DisplayName, *actual.DisplayName)) {
+	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
 		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 
 		diffs = append(diffs, folderDiff{
@@ -571,7 +579,10 @@ func compareFolderStateEnum(c *Client, desired, actual *FolderStateEnum) bool {
 // short-form so they can be substituted in.
 func (r *Folder) urlNormalized() *Folder {
 	normalized := deepcopy.Copy(*r).(Folder)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Name = r.Name
+	normalized.Parent = r.Parent
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
+	normalized.Etag = dcl.SelfLinkToName(r.Etag)
 	return &normalized
 }
 
@@ -608,6 +619,10 @@ func unmarshalFolder(b []byte, c *Client) (*Folder, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapFolder(m, c)
+}
+
+func unmarshalMapFolder(m map[string]interface{}, c *Client) (*Folder, error) {
 
 	return flattenFolder(c, m), nil
 }
@@ -655,7 +670,7 @@ func flattenFolder(c *Client, i interface{}) *Folder {
 	}
 
 	r := &Folder{}
-	r.Name = dcl.FlattenSecretValue(m["name"])
+	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
 	r.Parent = dcl.FlattenString(m["parent"])
 	r.DisplayName = dcl.FlattenString(m["displayName"])
 	r.State = flattenFolderStateEnum(m["state"])
@@ -681,7 +696,7 @@ func flattenFolderStateEnumSlice(c *Client, i interface{}) []FolderStateEnum {
 
 	items := make([]FolderStateEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFolderStateEnum(item.(map[string]interface{})))
+		items = append(items, *flattenFolderStateEnum(item.(interface{})))
 	}
 
 	return items

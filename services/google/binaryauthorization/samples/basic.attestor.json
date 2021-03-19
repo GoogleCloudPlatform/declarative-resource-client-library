@@ -1,0 +1,8 @@
+{
+  "name": "{{attestor}}",
+  "project": "{{ref:basic.serviceusage.service.json:project}}",
+  "description": "A basic binary authorization attestor",
+  "userOwnedGrafeasNote": {
+    "noteReference": "{{ref:basic.containeranalysis.note.json:name}}"
+  }
+}

@@ -80,6 +80,7 @@ message ListAccesscontextmanagerServicePerimeterRequest {
 message ListAccesscontextmanagerServicePerimeterResponse {
   repeated AccesscontextmanagerServicePerimeter items = 1;
 }
+
 service AccesscontextmanagerServicePerimeterService {
   rpc ApplyAccesscontextmanagerServicePerimeter(ApplyAccesscontextmanagerServicePerimeterRequest) returns (AccesscontextmanagerServicePerimeter);
   rpc DeleteAccesscontextmanagerServicePerimeter(DeleteAccesscontextmanagerServicePerimeterRequest) returns (google.protobuf.Empty);

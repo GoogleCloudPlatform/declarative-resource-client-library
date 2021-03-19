@@ -27,9 +27,6 @@ components:
           additionalProperties:
             type: string
           description: 'A set of key/value label pairs to assign to this Topic. '
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         messageStoragePolicy:
@@ -62,6 +59,10 @@ components:
           description: The project id of the resource.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
       required:
       - name

@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="dataproc", resources=["autoscaling_policy","cluster","workflow_template"])
+connector(name="dataproc", resources=["autoscaling_policy","cluster","job","workflow_template"])

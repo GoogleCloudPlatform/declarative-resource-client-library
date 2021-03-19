@@ -25,6 +25,10 @@ components:
           description: The project for the resource
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         pubsubConfigs:
           description: How this repository publishes a change in the repository through
@@ -35,19 +39,16 @@ components:
                 description: Format of the message
                 type: string
                 x-dcl-go-name: MessageFormat
-                x-kubernetes-immutable: true
               serviceAccountEmail:
                 description: Email of the service account to send the message as.
                 type: string
                 x-dcl-go-name: ServiceAccountEmail
                 x-dcl-server-default: true
-                x-kubernetes-immutable: true
               topic:
                 description: Name of the pubsub topic to be configured. In the form
                   `projects/{{project}}/topics/{{topic}}
                 type: string
                 x-dcl-go-name: Topic
-                x-kubernetes-immutable: true
             required:
             - topic
             - messageFormat

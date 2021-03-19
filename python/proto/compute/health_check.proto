@@ -180,6 +180,7 @@ message ListComputeHealthCheckRequest {
 message ListComputeHealthCheckResponse {
   repeated ComputeHealthCheck items = 1;
 }
+
 service ComputeHealthCheckService {
   rpc ApplyComputeHealthCheck(ApplyComputeHealthCheckRequest) returns (ComputeHealthCheck);
   rpc DeleteComputeHealthCheck(DeleteComputeHealthCheckRequest) returns (google.protobuf.Empty);

@@ -16,6 +16,7 @@ package operations
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"strings"
 
@@ -34,11 +35,15 @@ type StandardGCPOperation struct {
 	config   *dcl.Config
 	basePath string
 	verb     string
+
+	response map[string]interface{}
 }
 
 // StandardGCPOperationError is the GCP operation's Error body.
 type StandardGCPOperationError struct {
 	Errors []*StandardGCPOperationErrorError `json:"errors"`
+
+	StandardGCPOperationErrorError
 }
 
 // String formats the StandardGCPOperationError as an error string.
@@ -48,27 +53,17 @@ func (e *StandardGCPOperationError) String() string {
 		fmt.Fprintf(&b, "error code %q, message: %s\n", err.Code, err.Message)
 	}
 
+	if e.Code != "" {
+		fmt.Fprintf(&b, "error code %q, message: %s\n", e.Code, e.Message)
+	}
+
 	return b.String()
 }
 
 // StandardGCPOperationErrorError is a singular error in a GCP operation.
 type StandardGCPOperationErrorError struct {
-	Code    string `json:"code"`
-	Message string `json:"message"`
-}
-
-// FetchResponseValue fetches a top-level field from the Response object of a
-// completed operation.  The response object is usually only present in a
-// completed operation, so it is unlikely that this will return anything useful
-// if called on an operation in progress.
-func (op *StandardGCPOperation) FetchResponseValue(val string) (*string, error) {
-	if v, ok := op.Response[val]; ok {
-		if vs, ok := v.(string); ok {
-			return dcl.String(vs), nil
-		}
-		return nil, fmt.Errorf("could not cast %v - value at %q, to string", v, val)
-	}
-	return nil, fmt.Errorf("could not find value at %q", val)
+	Code    json.Number `json:"code"`
+	Message string      `json:"message"`
 }
 
 // Wait waits for an StandardGCPOperation to complete by fetching the operation until it completes.
@@ -78,7 +73,11 @@ func (op *StandardGCPOperation) Wait(ctx context.Context, c *dcl.Config, basePat
 	op.basePath = basePath
 	op.verb = verb
 
-	return dcl.Do(ctx, op.operate, c.Retry)
+	if len(op.Response) != 0 {
+		op.response = op.Response
+	}
+
+	return dcl.Do(ctx, op.operate, c.RetryProvider)
 }
 
 func (op *StandardGCPOperation) operate(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -100,8 +99,18 @@ func (op *StandardGCPOperation) operate(ctx context.Context) (*dcl.RetryDetails,
 	}
 
 	if op.Error != nil {
-		return nil, fmt.Errorf("operation received error: %s", op.Error)
+		return nil, fmt.Errorf("operation received error: %+v", op.Error)
+	}
+
+	if len(op.response) == 0 && len(op.Response) != 0 {
+		op.response = op.Response
 	}
 
 	return resp, nil
+}
+
+// FirstResponse returns the first response that this operation receives with the resource.
+// This response may contain special information.
+func (op *StandardGCPOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
 }

@@ -219,7 +219,6 @@ components:
       type: object
       x-dcl-id: accessPolicies/{{policy}}/servicePerimeters/{{name}}
       x-dcl-locations: []
-      x-dcl-parent-container: organization
       x-dcl-uses-state-hint: false
 info:
   description: DCL Specification for the AccessContextManager ServicePerimeter resource

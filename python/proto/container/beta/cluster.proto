@@ -74,7 +74,8 @@ message ContainerBetaCluster {
   bool enable_tpu = 40;
   string tpu_ipv4_cidr_block = 41;
   repeated ContainerBetaClusterConditions conditions = 42;
-  string project = 43;
+  ContainerBetaClusterAutopilot autopilot = 43;
+  string project = 44;
 }
 
 message ContainerBetaClusterMasterAuth {
@@ -267,6 +268,10 @@ message ContainerBetaClusterConditions {
   string message = 2;
 }
 
+message ContainerBetaClusterAutopilot {
+  bool enabled = 1;
+}
+
 message ApplyContainerBetaClusterRequest {
   ContainerBetaCluster resource = 1;
   repeated LifecycleDirective lifecycle_directives = 2;
@@ -287,6 +292,7 @@ message ListContainerBetaClusterRequest {
 message ListContainerBetaClusterResponse {
   repeated ContainerBetaCluster items = 1;
 }
+
 service ContainerBetaClusterService {
   rpc ApplyContainerBetaCluster(ApplyContainerBetaClusterRequest) returns (ContainerBetaCluster);
   rpc DeleteContainerBetaCluster(DeleteContainerBetaClusterRequest) returns (google.protobuf.Empty);

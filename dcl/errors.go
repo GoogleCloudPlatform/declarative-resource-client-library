@@ -32,38 +32,29 @@ func (e NotFoundError) Error() string {
 	return fmt.Sprintf("not found: %s", e.Cause)
 }
 
-// IsForbiddenOrNotFound returns true if either IsForbidden or
-// IsNotFound return true.
-func IsForbiddenOrNotFound(err error) bool {
-	return IsForbidden(err) || IsNotFound(err)
-}
-
-// IsForbidden returns true if the error is a NotFoundError, wraps a
-// NotFoundError, or is an HTTP 403.
-func IsForbidden(err error) bool {
-	if _, ok := err.(NotFoundError); ok {
-		return true
-	}
+// HasCode returns true if the given error is an HTTP response with the given code.
+func HasCode(err error, code int) bool {
 	if gerr, ok := err.(*googleapi.Error); ok {
-		if gerr.Code == 403 {
+		fmt.Printf("gerr: %v, Code: %d\n", gerr, gerr.Code)
+		if gerr.Code == code {
 			return true
 		}
 	}
 	return false
 }
 
-// IsNotFound returns true if the error is a NotFoundError, wraps a
-// NotFoundError, or is an HTTP 404.
+// IsNotFound returns true if the given error is a NotFoundError or is an HTTP 404.
 func IsNotFound(err error) bool {
 	if _, ok := err.(NotFoundError); ok {
 		return true
 	}
-	if gerr, ok := err.(*googleapi.Error); ok {
-		if gerr.Code == 404 {
-			return true
-		}
-	}
-	return false
+	return HasCode(err, 404)
+}
+
+// IsNotFoundOrCode returns true if the given error is a NotFoundError, an HTTP 404,
+// or an HTTP response with the given code.
+func IsNotFoundOrCode(err error, code int) bool {
+	return IsNotFound(err) || HasCode(err, code)
 }
 
 // EnumInvalidError is returned when an enum is set (by a client) to a string

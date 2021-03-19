@@ -63,7 +63,7 @@ func (op *KNativeOperation) Wait(ctx context.Context, c *dcl.Config, basePath, v
 	}
 	op.location = location
 
-	return dcl.Do(ctx, op.operate, c.Retry)
+	return dcl.Do(ctx, op.operate, c.RetryProvider)
 }
 
 func (op *KNativeOperation) operate(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -85,4 +85,10 @@ func (op *KNativeOperation) operate(ctx context.Context) (*dcl.RetryDetails, err
 		}
 	}
 	return nil, dcl.OperationNotDone{}
+}
+
+// FirstResponse returns the first response that this operation receives with the resource.
+// This response may contain special information.
+func (op *KNativeOperation) FirstResponse() (map[string]interface{}, bool) {
+	return make(map[string]interface{}), false
 }

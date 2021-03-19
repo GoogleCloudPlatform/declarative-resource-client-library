@@ -141,7 +141,7 @@ func (op *updateProjectUpdateProjectOperation) do(ctx context.Context, r *Projec
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -178,7 +178,7 @@ func (c *Client) listProjectRaw(ctx context.Context, pageToken string, pageSize 
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -236,7 +236,7 @@ func (op *deleteProjectOperation) do(ctx context.Context, r *Project, c *Client)
 	r, err := c.GetProject(ctx, r.urlNormalized())
 
 	if err != nil {
-		if dcl.IsForbiddenOrNotFound(err) {
+		if dcl.IsNotFoundOrCode(err, 403) {
 			c.Config.Logger.Infof("Project not found, returning. Original error: %v", err)
 			return nil
 		}
@@ -255,7 +255,7 @@ func (op *deleteProjectOperation) do(ctx context.Context, r *Project, c *Client)
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return fmt.Errorf("failed to delete Project: %w", err)
 	}
@@ -265,7 +265,13 @@ func (op *deleteProjectOperation) do(ctx context.Context, r *Project, c *Client)
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createProjectOperation struct{}
+type createProjectOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createProjectOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createProjectOperation) do(ctx context.Context, r *Project, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -280,7 +286,7 @@ func (op *createProjectOperation) do(ctx context.Context, r *Project, c *Client)
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -294,8 +300,10 @@ func (op *createProjectOperation) do(ctx context.Context, r *Project, c *Client)
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetProject(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -308,7 +316,7 @@ func (c *Client) getProjectRaw(ctx context.Context, r *Project) ([]byte, error) 
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -339,7 +347,7 @@ func (c *Client) projectDiffsForRawDesired(ctx context.Context, rawDesired *Proj
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetProject(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
-		if !dcl.IsForbiddenOrNotFound(err) {
+		if !dcl.IsNotFoundOrCode(err, 403) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Project resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Project resource: %v", err)
 		}
@@ -385,14 +393,6 @@ func canonicalizeProjectInitialState(rawInitial, rawDesired *Project) (*Project,
 
 func canonicalizeProjectDesiredState(rawDesired, rawInitial *Project, opts ...dcl.ApplyOption) (*Project, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Project); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Project, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -406,11 +406,11 @@ func canonicalizeProjectDesiredState(rawDesired, rawInitial *Project, opts ...dc
 	if dcl.IsZeroValue(rawDesired.LifecycleState) {
 		rawDesired.LifecycleState = rawInitial.LifecycleState
 	}
-	if dcl.IsZeroValue(rawDesired.DisplayName) {
+	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
 		rawDesired.DisplayName = rawInitial.DisplayName
 	}
 	rawDesired.Parent = canonicalizeProjectParent(rawDesired.Parent, rawInitial.Parent, opts...)
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
 	if dcl.IsZeroValue(rawDesired.ProjectNumber) {
@@ -435,6 +435,9 @@ func canonicalizeProjectNewState(c *Client, rawNew, rawDesired *Project) (*Proje
 	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
 		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
+		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Parent) && dcl.IsEmptyValueIndirect(rawDesired.Parent) {
@@ -446,6 +449,9 @@ func canonicalizeProjectNewState(c *Client, rawNew, rawDesired *Project) (*Proje
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ProjectNumber) && dcl.IsEmptyValueIndirect(rawDesired.ProjectNumber) {
@@ -464,19 +470,14 @@ func canonicalizeProjectParent(des, initial *ProjectParent, opts ...dcl.ApplyOpt
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Project)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Type) {
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
 	}
-	if dcl.IsZeroValue(des.Id) {
+	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
 		des.Id = initial.Id
 	}
 
@@ -486,6 +487,13 @@ func canonicalizeProjectParent(des, initial *ProjectParent, opts ...dcl.ApplyOpt
 func canonicalizeNewProjectParent(c *Client, des, nw *ProjectParent) *ProjectParent {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Type, nw.Type) || dcl.IsZeroValue(des.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Id, nw.Id) || dcl.IsZeroValue(des.Id) {
+		nw.Id = des.Id
 	}
 
 	return nw
@@ -535,7 +543,7 @@ func diffProject(c *Client, desired, actual *Project, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []projectDiff
-	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
+	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
 		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, projectDiff{
@@ -544,7 +552,7 @@ func diffProject(c *Client, desired, actual *Project, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.DisplayName) && (dcl.IsZeroValue(actual.DisplayName) || !reflect.DeepEqual(*desired.DisplayName, *actual.DisplayName)) {
+	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
 		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 		diffs = append(diffs, projectDiff{
 			RequiresRecreate: true,
@@ -558,7 +566,7 @@ func diffProject(c *Client, desired, actual *Project, opts ...dcl.ApplyOption) (
 			FieldName:        "Parent",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, projectDiff{
 			RequiresRecreate: true,
@@ -589,6 +597,32 @@ func diffProject(c *Client, desired, actual *Project, opts ...dcl.ApplyOption) (
 
 	return deduped, nil
 }
+func compareProjectParent(c *Client, desired, actual *ProjectParent) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Type == nil && desired.Type != nil && !dcl.IsEmptyValueIndirect(desired.Type) {
+		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
+		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
+		return true
+	}
+	if actual.Id == nil && desired.Id != nil && !dcl.IsEmptyValueIndirect(desired.Id) {
+		c.Config.Logger.Infof("desired Id %s - but actually nil", dcl.SprintResource(desired.Id))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Id, actual.Id) && !dcl.IsZeroValue(desired.Id) {
+		c.Config.Logger.Infof("Diff in Id. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Id), dcl.SprintResource(actual.Id))
+		return true
+	}
+	return false
+}
+
 func compareProjectParentSlice(c *Client, desired, actual []ProjectParent) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in ProjectParent, lengths unequal.")
@@ -603,31 +637,25 @@ func compareProjectParentSlice(c *Client, desired, actual []ProjectParent) bool 
 	return false
 }
 
-func compareProjectParent(c *Client, desired, actual *ProjectParent) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
+func compareProjectParentMap(c *Client, desired, actual map[string]ProjectParent) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ProjectParent, lengths unequal.")
 		return true
 	}
-	if actual.Type == nil && desired.Type != nil && !dcl.IsEmptyValueIndirect(desired.Type) {
-		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) && !(dcl.IsEmptyValueIndirect(desired.Type) && dcl.IsZeroValue(actual.Type)) {
-		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
-		return true
-	}
-	if actual.Id == nil && desired.Id != nil && !dcl.IsEmptyValueIndirect(desired.Id) {
-		c.Config.Logger.Infof("desired Id %s - but actually nil", dcl.SprintResource(desired.Id))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Id, actual.Id) && !dcl.IsZeroValue(desired.Id) && !(dcl.IsEmptyValueIndirect(desired.Id) && dcl.IsZeroValue(actual.Id)) {
-		c.Config.Logger.Infof("Diff in Id. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Id), dcl.SprintResource(actual.Id))
-		return true
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in ProjectParent, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareProjectParent(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in ProjectParent, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
 	}
 	return false
 }
+
 func compareProjectLifecycleStateEnumSlice(c *Client, desired, actual []ProjectLifecycleStateEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in ProjectLifecycleStateEnum, lengths unequal.")
@@ -651,6 +679,8 @@ func compareProjectLifecycleStateEnum(c *Client, desired, actual *ProjectLifecyc
 // short-form so they can be substituted in.
 func (r *Project) urlNormalized() *Project {
 	normalized := deepcopy.Copy(*r).(Project)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
 	return &normalized
 }
 
@@ -698,6 +728,10 @@ func unmarshalProject(b []byte, c *Client) (*Project, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapProject(m, c)
+}
+
+func unmarshalMapProject(m map[string]interface{}, c *Client) (*Project, error) {
 
 	return flattenProject(c, m), nil
 }
@@ -879,7 +913,7 @@ func flattenProjectLifecycleStateEnumSlice(c *Client, i interface{}) []ProjectLi
 
 	items := make([]ProjectLifecycleStateEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenProjectLifecycleStateEnum(item.(map[string]interface{})))
+		items = append(items, *flattenProjectLifecycleStateEnum(item.(interface{})))
 	}
 
 	return items

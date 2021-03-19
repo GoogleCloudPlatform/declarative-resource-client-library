@@ -120,16 +120,51 @@ class MetricDescriptor(object):
         )
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, type, service_account_file=""):
+    def delete(self):
         stub = metric_descriptor_pb2_grpc.MonitoringMetricDescriptorServiceStub(
             channel.Channel()
         )
         request = metric_descriptor_pb2.DeleteMonitoringMetricDescriptorRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.type):
+            request.resource.type = Primitive.to_proto(self.type)
 
-        request.Type = type
+        if MetricDescriptorDescriptorLabelsArray.to_proto(self.descriptor_labels):
+            request.resource.descriptor_labels.extend(
+                MetricDescriptorDescriptorLabelsArray.to_proto(self.descriptor_labels)
+            )
+        if MetricDescriptorMetricKindEnum.to_proto(self.metric_kind):
+            request.resource.metric_kind = MetricDescriptorMetricKindEnum.to_proto(
+                self.metric_kind
+            )
+
+        if MetricDescriptorValueTypeEnum.to_proto(self.value_type):
+            request.resource.value_type = MetricDescriptorValueTypeEnum.to_proto(
+                self.value_type
+            )
+
+        if Primitive.to_proto(self.unit):
+            request.resource.unit = Primitive.to_proto(self.unit)
+
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if Primitive.to_proto(self.display_name):
+            request.resource.display_name = Primitive.to_proto(self.display_name)
+
+        if MetricDescriptorMetadata.to_proto(self.metadata):
+            request.resource.metadata.CopyFrom(
+                MetricDescriptorMetadata.to_proto(self.metadata)
+            )
+        else:
+            request.resource.ClearField("metadata")
+        if MetricDescriptorLaunchStageEnum.to_proto(self.launch_stage):
+            request.resource.launch_stage = MetricDescriptorLaunchStageEnum.to_proto(
+                self.launch_stage
+            )
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteMonitoringMetricDescriptor(request)
 
@@ -172,6 +207,40 @@ class MetricDescriptor(object):
         )
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = metric_descriptor_pb2.MonitoringMetricDescriptor()
+        if Primitive.to_proto(self.type):
+            resource.type = Primitive.to_proto(self.type)
+        if MetricDescriptorDescriptorLabelsArray.to_proto(self.descriptor_labels):
+            resource.descriptor_labels.extend(
+                MetricDescriptorDescriptorLabelsArray.to_proto(self.descriptor_labels)
+            )
+        if MetricDescriptorMetricKindEnum.to_proto(self.metric_kind):
+            resource.metric_kind = MetricDescriptorMetricKindEnum.to_proto(
+                self.metric_kind
+            )
+        if MetricDescriptorValueTypeEnum.to_proto(self.value_type):
+            resource.value_type = MetricDescriptorValueTypeEnum.to_proto(
+                self.value_type
+            )
+        if Primitive.to_proto(self.unit):
+            resource.unit = Primitive.to_proto(self.unit)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.display_name):
+            resource.display_name = Primitive.to_proto(self.display_name)
+        if MetricDescriptorMetadata.to_proto(self.metadata):
+            resource.metadata.CopyFrom(MetricDescriptorMetadata.to_proto(self.metadata))
+        else:
+            resource.ClearField("metadata")
+        if MetricDescriptorLaunchStageEnum.to_proto(self.launch_stage):
+            resource.launch_stage = MetricDescriptorLaunchStageEnum.to_proto(
+                self.launch_stage
+            )
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class MetricDescriptorDescriptorLabels(object):

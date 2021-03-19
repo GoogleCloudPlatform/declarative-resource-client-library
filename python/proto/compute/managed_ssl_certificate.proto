@@ -67,6 +67,7 @@ message ListComputeManagedSslCertificateRequest {
 message ListComputeManagedSslCertificateResponse {
   repeated ComputeManagedSslCertificate items = 1;
 }
+
 service ComputeManagedSslCertificateService {
   rpc ApplyComputeManagedSslCertificate(ApplyComputeManagedSslCertificateRequest) returns (ComputeManagedSslCertificate);
   rpc DeleteComputeManagedSslCertificate(DeleteComputeManagedSslCertificateRequest) returns (google.protobuf.Empty);

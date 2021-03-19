@@ -173,6 +173,7 @@ message ListComputeInstanceRequest {
 message ListComputeInstanceResponse {
   repeated ComputeInstance items = 1;
 }
+
 service ComputeInstanceService {
   rpc ApplyComputeInstance(ApplyComputeInstanceRequest) returns (ComputeInstance);
   rpc DeleteComputeInstance(DeleteComputeInstanceRequest) returns (google.protobuf.Empty);

@@ -138,6 +138,7 @@ message ListComputeDiskRequest {
 message ListComputeDiskResponse {
   repeated ComputeDisk items = 1;
 }
+
 service ComputeDiskService {
   rpc ApplyComputeDisk(ApplyComputeDiskRequest) returns (ComputeDisk);
   rpc DeleteComputeDisk(DeleteComputeDiskRequest) returns (google.protobuf.Empty);

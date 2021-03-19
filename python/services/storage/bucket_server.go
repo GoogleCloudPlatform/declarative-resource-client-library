@@ -20,8 +20,6 @@ import (
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
 	storagepb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/storage/storage_go_proto"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage"
-
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/serialization"
 )
 
 // Server implements the gRPC interface for Bucket.
@@ -367,16 +365,6 @@ func (s *BucketServer) ApplyStorageBucket(ctx context.Context, request *storagep
 		return nil, err
 	}
 	return s.applyBucket(ctx, cl, request)
-}
-
-func (s *BucketServer) StorageBucketAsHcl(ctx context.Context, request *storagepb.StorageBucketAsHclRequest) (*storagepb.StorageBucketAsHclResponse, error) {
-	p := ProtoToBucket(request.GetResource())
-	resStr, err := serialization.StorageBucketAsHCL(*p)
-	if err != nil {
-		return nil, err
-	}
-
-	return &storagepb.StorageBucketAsHclResponse{Hcl: resStr}, nil
 }
 
 // DeleteBucket handles the gRPC request by passing it to the underlying Bucket Delete() method.

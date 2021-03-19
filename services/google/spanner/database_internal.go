@@ -102,7 +102,7 @@ func (c *Client) listDatabaseRaw(ctx context.Context, project, name, pageToken s
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -177,7 +177,7 @@ func (op *deleteDatabaseOperation) do(ctx context.Context, r *Database, c *Clien
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return fmt.Errorf("failed to delete Database: %w", err)
 	}
@@ -191,7 +191,13 @@ func (op *deleteDatabaseOperation) do(ctx context.Context, r *Database, c *Clien
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createDatabaseOperation struct{}
+type createDatabaseOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createDatabaseOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createDatabaseOperation) do(ctx context.Context, r *Database, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -218,7 +224,7 @@ func (op *createDatabaseOperation) do(ctx context.Context, r *Database, c *Clien
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -232,8 +238,10 @@ func (op *createDatabaseOperation) do(ctx context.Context, r *Database, c *Clien
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetDatabase(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -246,7 +254,7 @@ func (c *Client) getDatabaseRaw(ctx context.Context, r *Database) ([]byte, error
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -322,14 +330,6 @@ func canonicalizeDatabaseInitialState(rawInitial, rawDesired *Database) (*Databa
 * */
 
 func canonicalizeDatabaseDesiredState(rawDesired, rawInitial *Database, opts ...dcl.ApplyOption) (*Database, error) {
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Database); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Database, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
 
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
@@ -485,6 +485,10 @@ func unmarshalDatabase(b []byte, c *Client) (*Database, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapDatabase(m, c)
+}
+
+func unmarshalMapDatabase(m map[string]interface{}, c *Client) (*Database, error) {
 
 	return flattenDatabase(c, m), nil
 }
@@ -552,7 +556,7 @@ func flattenDatabaseStateEnumSlice(c *Client, i interface{}) []DatabaseStateEnum
 
 	items := make([]DatabaseStateEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDatabaseStateEnum(item.(map[string]interface{})))
+		items = append(items, *flattenDatabaseStateEnum(item.(interface{})))
 	}
 
 	return items

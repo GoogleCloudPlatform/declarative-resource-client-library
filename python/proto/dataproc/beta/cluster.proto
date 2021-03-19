@@ -1,0 +1,295 @@
+// Copyright 2021 Google LLC. All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+syntax = "proto3";
+
+package dcl;
+
+import "proto/connector/sdk.proto";
+import "proto/empty.proto";
+
+enum DataprocBetaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum {
+  DataprocBetaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocBetaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumPRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED = 1;
+  DataprocBetaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumINHERIT_FROM_SUBNETWORK = 2;
+  DataprocBetaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumOUTBOUND = 3;
+  DataprocBetaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumBIDIRECTIONAL = 4;
+}
+
+enum DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum {
+  DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumTYPE_UNSPECIFIED = 1;
+  DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumNO_RESERVATION = 2;
+  DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumANY_RESERVATION = 3;
+  DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumSPECIFIC_RESERVATION = 4;
+}
+
+enum DataprocBetaClusterInstanceGroupConfigPreemptibilityEnum {
+  DataprocBetaClusterInstanceGroupConfigPreemptibilityEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocBetaClusterInstanceGroupConfigPreemptibilityEnumPREEMPTIBILITY_UNSPECIFIED = 1;
+  DataprocBetaClusterInstanceGroupConfigPreemptibilityEnumNON_PREEMPTIBLE = 2;
+  DataprocBetaClusterInstanceGroupConfigPreemptibilityEnumPREEMPTIBLE = 3;
+}
+
+enum DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnum {
+  DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnumCOMPONENT_UNSPECIFIED = 1;
+  DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnumANACONDA = 2;
+  DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnumDOCKER = 3;
+  DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnumDRUID = 4;
+  DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnumFLINK = 5;
+  DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnumHBASE = 6;
+  DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnumHIVE_WEBHCAT = 7;
+  DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnumJUPYTER = 8;
+  DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnumKERBEROS = 9;
+  DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnumPRESTO = 10;
+  DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnumRANGER = 11;
+  DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnumSOLR = 12;
+  DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnumZEPPELIN = 13;
+  DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnumZOOKEEPER = 14;
+}
+
+enum DataprocBetaClusterStatusStateEnum {
+  DataprocBetaClusterStatusStateEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocBetaClusterStatusStateEnumUNKNOWN = 1;
+  DataprocBetaClusterStatusStateEnumCREATING = 2;
+  DataprocBetaClusterStatusStateEnumRUNNING = 3;
+  DataprocBetaClusterStatusStateEnumERROR = 4;
+  DataprocBetaClusterStatusStateEnumDELETING = 5;
+  DataprocBetaClusterStatusStateEnumUPDATING = 6;
+  DataprocBetaClusterStatusStateEnumSTOPPING = 7;
+  DataprocBetaClusterStatusStateEnumSTOPPED = 8;
+  DataprocBetaClusterStatusStateEnumSTARTING = 9;
+}
+
+enum DataprocBetaClusterStatusSubstateEnum {
+  DataprocBetaClusterStatusSubstateEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocBetaClusterStatusSubstateEnumUNSPECIFIED = 1;
+  DataprocBetaClusterStatusSubstateEnumUNHEALTHY = 2;
+  DataprocBetaClusterStatusSubstateEnumSTALE_STATUS = 3;
+}
+
+enum DataprocBetaClusterStatusHistoryStateEnum {
+  DataprocBetaClusterStatusHistoryStateEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocBetaClusterStatusHistoryStateEnumUNKNOWN = 1;
+  DataprocBetaClusterStatusHistoryStateEnumCREATING = 2;
+  DataprocBetaClusterStatusHistoryStateEnumRUNNING = 3;
+  DataprocBetaClusterStatusHistoryStateEnumERROR = 4;
+  DataprocBetaClusterStatusHistoryStateEnumDELETING = 5;
+  DataprocBetaClusterStatusHistoryStateEnumUPDATING = 6;
+  DataprocBetaClusterStatusHistoryStateEnumSTOPPING = 7;
+  DataprocBetaClusterStatusHistoryStateEnumSTOPPED = 8;
+  DataprocBetaClusterStatusHistoryStateEnumSTARTING = 9;
+}
+
+enum DataprocBetaClusterStatusHistorySubstateEnum {
+  DataprocBetaClusterStatusHistorySubstateEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocBetaClusterStatusHistorySubstateEnumUNSPECIFIED = 1;
+  DataprocBetaClusterStatusHistorySubstateEnumUNHEALTHY = 2;
+  DataprocBetaClusterStatusHistorySubstateEnumSTALE_STATUS = 3;
+}
+
+message DataprocBetaCluster {
+  string project = 1;
+  string name = 2;
+  DataprocBetaClusterClusterConfig config = 3;
+  map<string, string> labels = 4;
+  DataprocBetaClusterStatus status = 5;
+  repeated DataprocBetaClusterStatusHistory status_history = 6;
+  string cluster_uuid = 7;
+  DataprocBetaClusterMetrics metrics = 8;
+  string location = 9;
+}
+
+message DataprocBetaClusterClusterConfig {
+  string staging_bucket = 1;
+  string temp_bucket = 2;
+  DataprocBetaClusterClusterConfigGceClusterConfig gce_cluster_config = 3;
+  DataprocBetaClusterInstanceGroupConfig master_config = 4;
+  DataprocBetaClusterInstanceGroupConfig worker_config = 5;
+  DataprocBetaClusterInstanceGroupConfig secondary_worker_config = 6;
+  DataprocBetaClusterClusterConfigSoftwareConfig software_config = 7;
+  repeated DataprocBetaClusterClusterConfigInitializationActions initialization_actions = 8;
+  DataprocBetaClusterClusterConfigEncryptionConfig encryption_config = 9;
+  DataprocBetaClusterClusterConfigAutoscalingConfig autoscaling_config = 10;
+  DataprocBetaClusterClusterConfigSecurityConfig security_config = 11;
+  DataprocBetaClusterClusterConfigLifecycleConfig lifecycle_config = 12;
+  DataprocBetaClusterClusterConfigEndpointConfig endpoint_config = 13;
+  DataprocBetaClusterClusterConfigGkeClusterConfig gke_cluster_config = 14;
+  DataprocBetaClusterClusterConfigMetastoreConfig metastore_config = 15;
+}
+
+message DataprocBetaClusterClusterConfigGceClusterConfig {
+  string zone = 1;
+  string network = 2;
+  string subnetwork = 3;
+  bool internal_ip_only = 4;
+  DataprocBetaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum private_ipv6_google_access = 5;
+  string service_account = 6;
+  repeated string service_account_scopes = 7;
+  repeated string tags = 8;
+  map<string, string> metadata = 9;
+  DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinity reservation_affinity = 10;
+  DataprocBetaClusterClusterConfigGceClusterConfigNodeGroupAffinity node_group_affinity = 11;
+}
+
+message DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinity {
+  DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum consume_reservation_type = 1;
+  string key = 2;
+  repeated string values = 3;
+}
+
+message DataprocBetaClusterClusterConfigGceClusterConfigNodeGroupAffinity {
+  string node_group = 1;
+}
+
+message DataprocBetaClusterInstanceGroupConfig {
+  int64 num_instances = 1;
+  repeated string instance_names = 2;
+  string image = 3;
+  string machine_type = 4;
+  DataprocBetaClusterInstanceGroupConfigDiskConfig disk_config = 5;
+  bool is_preemptible = 6;
+  DataprocBetaClusterInstanceGroupConfigPreemptibilityEnum preemptibility = 7;
+  DataprocBetaClusterInstanceGroupConfigManagedGroupConfig managed_group_config = 8;
+  repeated DataprocBetaClusterInstanceGroupConfigAccelerators accelerators = 9;
+  string min_cpu_platform = 10;
+}
+
+message DataprocBetaClusterInstanceGroupConfigDiskConfig {
+  string boot_disk_type = 1;
+  int64 boot_disk_size_gb = 2;
+  int64 num_local_ssds = 3;
+}
+
+message DataprocBetaClusterInstanceGroupConfigManagedGroupConfig {
+  string instance_template_name = 1;
+  string instance_group_manager_name = 2;
+}
+
+message DataprocBetaClusterInstanceGroupConfigAccelerators {
+  string accelerator_type = 1;
+  int64 accelerator_count = 2;
+}
+
+message DataprocBetaClusterClusterConfigSoftwareConfig {
+  string image_version = 1;
+  map<string, string> properties = 2;
+  repeated DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnum optional_components = 3;
+}
+
+message DataprocBetaClusterClusterConfigInitializationActions {
+  string executable_file = 1;
+  string execution_timeout = 2;
+}
+
+message DataprocBetaClusterClusterConfigEncryptionConfig {
+  string gce_pd_kms_key_name = 1;
+}
+
+message DataprocBetaClusterClusterConfigAutoscalingConfig {
+  string policy = 1;
+}
+
+message DataprocBetaClusterClusterConfigSecurityConfig {
+  DataprocBetaClusterClusterConfigSecurityConfigKerberosConfig kerberos_config = 1;
+}
+
+message DataprocBetaClusterClusterConfigSecurityConfigKerberosConfig {
+  bool enable_kerberos = 1;
+  string root_principal_password = 2;
+  string kms_key = 3;
+  string keystore = 4;
+  string truststore = 5;
+  string keystore_password = 6;
+  string key_password = 7;
+  string truststore_password = 8;
+  string cross_realm_trust_realm = 9;
+  string cross_realm_trust_kdc = 10;
+  string cross_realm_trust_admin_server = 11;
+  string cross_realm_trust_shared_password = 12;
+  string kdc_db_key = 13;
+  int64 tgt_lifetime_hours = 14;
+  string realm = 15;
+}
+
+message DataprocBetaClusterClusterConfigLifecycleConfig {
+  string idle_delete_ttl = 1;
+  string auto_delete_time = 2;
+  string auto_delete_ttl = 3;
+  string idle_start_time = 4;
+}
+
+message DataprocBetaClusterClusterConfigEndpointConfig {
+  map<string, string> http_ports = 1;
+  bool enable_http_port_access = 2;
+}
+
+message DataprocBetaClusterClusterConfigGkeClusterConfig {
+  DataprocBetaClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget namespaced_gke_deployment_target = 1;
+}
+
+message DataprocBetaClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
+  string target_gke_cluster = 1;
+  string cluster_namespace = 2;
+}
+
+message DataprocBetaClusterClusterConfigMetastoreConfig {
+  string dataproc_metastore_service = 1;
+}
+
+message DataprocBetaClusterStatus {
+  DataprocBetaClusterStatusStateEnum state = 1;
+  string detail = 2;
+  string state_start_time = 3;
+  DataprocBetaClusterStatusSubstateEnum substate = 4;
+}
+
+message DataprocBetaClusterStatusHistory {
+  DataprocBetaClusterStatusHistoryStateEnum state = 1;
+  string detail = 2;
+  string state_start_time = 3;
+  DataprocBetaClusterStatusHistorySubstateEnum substate = 4;
+}
+
+message DataprocBetaClusterMetrics {
+  map<string, string> hdfs_metrics = 1;
+  map<string, string> yarn_metrics = 2;
+}
+
+message ApplyDataprocBetaClusterRequest {
+  DataprocBetaCluster resource = 1;
+  repeated LifecycleDirective lifecycle_directives = 2;
+  string service_account_file = 3;
+}
+
+message DeleteDataprocBetaClusterRequest {
+  string service_account_file = 1;
+  DataprocBetaCluster resource = 2;
+}
+
+message ListDataprocBetaClusterRequest {
+  string service_account_file = 1;
+  string Project = 2;
+  string Location = 3;
+}
+
+message ListDataprocBetaClusterResponse {
+  repeated DataprocBetaCluster items = 1;
+}
+
+service DataprocBetaClusterService {
+  rpc ApplyDataprocBetaCluster(ApplyDataprocBetaClusterRequest) returns (DataprocBetaCluster);
+  rpc DeleteDataprocBetaCluster(DeleteDataprocBetaClusterRequest) returns (google.protobuf.Empty);
+  rpc ListDataprocBetaCluster(ListDataprocBetaClusterRequest) returns (ListDataprocBetaClusterResponse);
+}

@@ -66,16 +66,21 @@ class SslCert(object):
         self.instance = Primitive.from_proto(response.instance)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, instance, name, service_account_file=""):
+    def delete(self):
         stub = ssl_cert_pb2_grpc.SqlBetaSslCertServiceStub(channel.Channel())
         request = ssl_cert_pb2.DeleteSqlBetaSslCertRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.common_name):
+            request.resource.common_name = Primitive.to_proto(self.common_name)
 
-        request.Instance = instance
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Name = name
+        if Primitive.to_proto(self.instance):
+            request.resource.instance = Primitive.to_proto(self.instance)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteSqlBetaSslCert(request)
 
@@ -106,6 +111,18 @@ class SslCert(object):
         res.instance = Primitive.from_proto(res_proto.instance)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = ssl_cert_pb2.SqlBetaSslCert()
+        if Primitive.to_proto(self.common_name):
+            resource.common_name = Primitive.to_proto(self.common_name)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.instance):
+            resource.instance = Primitive.to_proto(self.instance)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class Primitive(object):

@@ -32,11 +32,9 @@ components:
                   type: array
                   x-dcl-go-name: Bounds
                   x-dcl-list-type: list
-                  x-kubernetes-immutable: true
               type: object
               x-dcl-go-name: ExplicitBuckets
               x-dcl-go-type: LogMetricBucketOptionsExplicitBuckets
-              x-kubernetes-immutable: true
             exponentialBuckets:
               description: The exponential buckets.
               properties:
@@ -45,23 +43,19 @@ components:
                   format: double
                   type: number
                   x-dcl-go-name: GrowthFactor
-                  x-kubernetes-immutable: true
                 numFiniteBuckets:
                   description: Must be greater than 0.
                   format: int64
                   type: integer
                   x-dcl-go-name: NumFiniteBuckets
-                  x-kubernetes-immutable: true
                 scale:
                   description: Must be greater than 0.
                   format: double
                   type: number
                   x-dcl-go-name: Scale
-                  x-kubernetes-immutable: true
               type: object
               x-dcl-go-name: ExponentialBuckets
               x-dcl-go-type: LogMetricBucketOptionsExponentialBuckets
-              x-kubernetes-immutable: true
             linearBuckets:
               description: The linear bucket.
               properties:
@@ -70,23 +64,19 @@ components:
                   format: int64
                   type: integer
                   x-dcl-go-name: NumFiniteBuckets
-                  x-kubernetes-immutable: true
                 offset:
                   description: Lower bound of the first bucket.
                   format: double
                   type: number
                   x-dcl-go-name: Offset
-                  x-kubernetes-immutable: true
                 width:
                   description: Must be greater than 0.
                   format: double
                   type: number
                   x-dcl-go-name: Width
-                  x-kubernetes-immutable: true
               type: object
               x-dcl-go-name: LinearBuckets
               x-dcl-go-type: LogMetricBucketOptionsLinearBuckets
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: BucketOptions
           x-dcl-go-type: LogMetricBucketOptions
@@ -128,9 +118,6 @@ components:
             for an integer label its 0, and for a boolean label its `false`. Note
             that there are upper bounds on the maximum number of labels and the number
             of active time series that are allowed in a project.
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: LabelExtractors
         metricDescriptor:
@@ -158,7 +145,6 @@ components:
                 Quota.
               type: string
               x-dcl-go-name: DisplayName
-              x-kubernetes-immutable: true
             labels:
               description: The set of labels that can be used to describe a specific
                 instance of this metric type. For example, the `appengine.googleapis.com/http/server/response_latencies`
@@ -171,12 +157,10 @@ components:
                     description: A human-readable description for the label.
                     type: string
                     x-dcl-go-name: Description
-                    x-kubernetes-immutable: true
                   key:
                     description: The label key.
                     type: string
                     x-dcl-go-name: Key
-                    x-kubernetes-immutable: true
                   valueType:
                     description: 'The type of data that can be assigned to the label.
                       Possible values: STRING, BOOL, INT64, DOUBLE, DISTRIBUTION,
@@ -191,13 +175,11 @@ components:
                     type: string
                     x-dcl-go-name: ValueType
                     x-dcl-go-type: LogMetricMetricDescriptorLabelsValueTypeEnum
-                    x-kubernetes-immutable: true
                 type: object
                 x-dcl-go-type: LogMetricMetricDescriptorLabels
               type: array
               x-dcl-go-name: Labels
               x-dcl-list-type: list
-              x-kubernetes-immutable: true
             launchStage:
               description: 'Optional. The launch stage of the metric definition. Possible
                 values: LAUNCH_STAGE_UNSPECIFIED, UNIMPLEMENTED, PRELAUNCH, EARLY_ACCESS,
@@ -214,7 +196,6 @@ components:
               type: string
               x-dcl-go-name: LaunchStage
               x-dcl-go-type: LogMetricMetricDescriptorLaunchStageEnum
-              x-kubernetes-immutable: true
             metadata:
               description: Optional. Metadata which can be used to guide usage of
                 the metric.
@@ -234,7 +215,6 @@ components:
                       format: int64
                       type: integer
                       x-dcl-go-name: Nanos
-                      x-kubernetes-immutable: true
                     seconds:
                       description: 'Signed seconds of the span of time. Must be from
                         -315,576,000,000 to +315,576,000,000 inclusive. Note: these
@@ -243,11 +223,9 @@ components:
                       format: int64
                       type: integer
                       x-dcl-go-name: Seconds
-                      x-kubernetes-immutable: true
                   type: object
                   x-dcl-go-name: IngestDelay
                   x-dcl-go-type: LogMetricMetricDescriptorMetadataIngestDelay
-                  x-kubernetes-immutable: true
                 launchStage:
                   description: 'Deprecated. Must use the instead. Possible values:
                     LAUNCH_STAGE_UNSPECIFIED, UNIMPLEMENTED, PRELAUNCH, EARLY_ACCESS,
@@ -264,7 +242,6 @@ components:
                   type: string
                   x-dcl-go-name: LaunchStage
                   x-dcl-go-type: LogMetricMetricDescriptorMetadataLaunchStageEnum
-                  x-kubernetes-immutable: true
                 samplePeriod:
                   description: The sampling period of metric data points. For metrics
                     which are written periodically, consecutive data points are stored
@@ -281,7 +258,6 @@ components:
                       format: int64
                       type: integer
                       x-dcl-go-name: Nanos
-                      x-kubernetes-immutable: true
                     seconds:
                       description: 'Signed seconds of the span of time. Must be from
                         -315,576,000,000 to +315,576,000,000 inclusive. Note: these
@@ -290,15 +266,12 @@ components:
                       format: int64
                       type: integer
                       x-dcl-go-name: Seconds
-                      x-kubernetes-immutable: true
                   type: object
                   x-dcl-go-name: SamplePeriod
                   x-dcl-go-type: LogMetricMetricDescriptorMetadataSamplePeriod
-                  x-kubernetes-immutable: true
               type: object
               x-dcl-go-name: Metadata
               x-dcl-go-type: LogMetricMetricDescriptorMetadata
-              x-kubernetes-immutable: true
             metricKind:
               description: 'Whether the metric records instantaneous values, changes
                 to a value, etc. Some combinations of `metric_kind` and `value_type`
@@ -312,7 +285,6 @@ components:
               type: string
               x-dcl-go-name: MetricKind
               x-dcl-go-type: LogMetricMetricDescriptorMetricKindEnum
-              x-kubernetes-immutable: true
             monitoredResourceTypes:
               description: Read-only. If present, then a , that is associated with
                 this metric type can only be associated with one of the monitored
@@ -323,12 +295,10 @@ components:
               type: array
               x-dcl-go-name: MonitoredResourceTypes
               x-dcl-list-type: list
-              x-kubernetes-immutable: true
             name:
               description: 'The resource name of the metric descriptor. '
               type: string
               x-dcl-go-name: Name
-              x-kubernetes-immutable: true
             type:
               description: 'The metric type, including its DNS name prefix. The type
                 is not URL-encoded. All user-defined metric types have the DNS name
@@ -337,7 +307,6 @@ components:
                 "external.googleapis.com/prometheus/up" "appengine.googleapis.com/http/server/response_latencies"'
               type: string
               x-dcl-go-name: Type
-              x-kubernetes-immutable: true
             unit:
               description: The units in which the metric value is reported. It is
                 only applicable if the `value_type` is `INT64`, `DOUBLE`, or `DISTRIBUTION`.
@@ -369,7 +338,6 @@ components:
                 "3 percent").
               type: string
               x-dcl-go-name: Unit
-              x-kubernetes-immutable: true
             valueType:
               description: 'Whether the measurement is an integer, a floating-point
                 number, etc. Some combinations of `metric_kind` and `value_type` might
@@ -385,7 +353,6 @@ components:
               type: string
               x-dcl-go-name: ValueType
               x-dcl-go-type: LogMetricMetricDescriptorValueTypeEnum
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: MetricDescriptor
           x-dcl-go-type: LogMetricMetricDescriptor
@@ -405,6 +372,10 @@ components:
           description: The resource name of the project in which to create the metric.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         resolution:
           description: Optional. Specifies metric resolution. Supported value are

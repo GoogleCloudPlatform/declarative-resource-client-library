@@ -93,6 +93,7 @@ message ListComputeAddressRequest {
 message ListComputeAddressResponse {
   repeated ComputeAddress items = 1;
 }
+
 service ComputeAddressService {
   rpc ApplyComputeAddress(ApplyComputeAddressRequest) returns (ComputeAddress);
   rpc DeleteComputeAddress(DeleteComputeAddressRequest) returns (google.protobuf.Empty);

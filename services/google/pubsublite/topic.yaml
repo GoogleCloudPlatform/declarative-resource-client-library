@@ -1,0 +1,138 @@
+# Copyright 2021 Google LLC. All Rights Reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+components:
+  schemas:
+    Topic:
+      properties:
+        location:
+          description: The location of the resource.
+          type: string
+          x-dcl-go-name: Location
+          x-kubernetes-immutable: true
+        name:
+          description: The name of the topic.
+          type: string
+          x-dcl-go-name: Name
+          x-kubernetes-immutable: true
+        partitionConfig:
+          description: The settings for this topic's partitions.
+          properties:
+            capacity:
+              description: The capacity configuration.
+              properties:
+                publishMibPerSec:
+                  description: Publish throughput capacity per partition in MiB/s.
+                    Must be >= 4 and <= 16.
+                  format: int64
+                  type: integer
+                  x-dcl-go-name: PublishMibPerSec
+                subscribeMibPerSec:
+                  description: Subscribe throughput capacity per partition in MiB/s.
+                    Must be >= 4 and <= 32.
+                  format: int64
+                  type: integer
+                  x-dcl-go-name: SubscribeMibPerSec
+              type: object
+              x-dcl-go-name: Capacity
+              x-dcl-go-type: TopicPartitionConfigCapacity
+            count:
+              description: The number of partitions in the topic. Must be at least
+                1.
+              format: int64
+              type: integer
+              x-dcl-go-name: Count
+          type: object
+          x-dcl-go-name: PartitionConfig
+          x-dcl-go-type: TopicPartitionConfig
+        project:
+          description: The project id of the resource.
+          type: string
+          x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
+          x-kubernetes-immutable: true
+        retentionConfig:
+          description: The settings for this topic's message retention.
+          properties:
+            perPartitionBytes:
+              description: The provisioned storage, in bytes, per partition. If the
+                number of bytes stored in any of the topic's partitions grows beyond
+                this value, older messages will be dropped to make room for newer
+                ones, regardless of the value of \`period\`.
+              format: int64
+              type: integer
+              x-dcl-go-name: PerPartitionBytes
+            period:
+              type: string
+              x-dcl-go-name: Period
+          type: object
+          x-dcl-go-name: RetentionConfig
+          x-dcl-go-type: TopicRetentionConfig
+      required:
+      - name
+      - project
+      - location
+      title: Topic
+      type: object
+      x-dcl-id: admin/projects/{{project}}/locations/{{location}}/topics/{{name}}
+      x-dcl-locations: []
+      x-dcl-parent-container: project
+      x-dcl-uses-state-hint: false
+info:
+  description: DCL Specification for the Pubsublite Topic resource
+  title: Pubsublite/Topic
+  x-dcl-has-iam: false
+paths:
+  apply:
+    description: The function used to apply information about a Topic
+    parameters:
+    - description: A full instance of a Topic
+      name: Topic
+      required: true
+  delete:
+    description: The function used to delete a Topic
+    parameters:
+    - description: A full instance of a Topic
+      name: Topic
+      required: true
+  deleteAll:
+    description: The function used to delete all Topic
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Topic
+    parameters:
+    - description: A full instance of a Topic
+      name: Topic
+      required: true
+  list:
+    description: The function used to list information about many Topic
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string

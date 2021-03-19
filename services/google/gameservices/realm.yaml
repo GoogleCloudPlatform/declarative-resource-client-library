@@ -31,9 +31,6 @@ components:
             type: string
           description: The labels associated with this realm. Each label is a key-value
             pair.
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         location:
@@ -50,6 +47,10 @@ components:
           description: The project for this realm.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         timeZone:
           description: 'Required. Time zone where all policies targeting this realm

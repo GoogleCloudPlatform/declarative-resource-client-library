@@ -208,7 +208,7 @@ func (op *updateBucketUpdateOperation) do(ctx context.Context, r *Bucket, c *Cli
 	if err != nil {
 		return err
 	}
-	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -235,7 +235,7 @@ func (c *Client) listBucketRaw(ctx context.Context, project, pageToken string, p
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -309,7 +309,7 @@ func (op *deleteBucketOperation) do(ctx context.Context, r *Bucket, c *Client) e
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return fmt.Errorf("failed to delete Bucket: %w", err)
 	}
@@ -323,7 +323,13 @@ func (op *deleteBucketOperation) do(ctx context.Context, r *Bucket, c *Client) e
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createBucketOperation struct{}
+type createBucketOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createBucketOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createBucketOperation) do(ctx context.Context, r *Bucket, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -339,7 +345,7 @@ func (op *createBucketOperation) do(ctx context.Context, r *Bucket, c *Client) e
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -348,9 +354,10 @@ func (op *createBucketOperation) do(ctx context.Context, r *Bucket, c *Client) e
 	if err != nil {
 		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
-	_ = o // We might not use resp- this will stop Go complaining
+	op.response = o
 
 	if _, err := c.GetBucket(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -363,7 +370,7 @@ func (c *Client) getBucketRaw(ctx context.Context, r *Bucket) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -440,14 +447,6 @@ func canonicalizeBucketInitialState(rawInitial, rawDesired *Bucket) (*Bucket, er
 
 func canonicalizeBucketDesiredState(rawDesired, rawInitial *Bucket, opts ...dcl.ApplyOption) (*Bucket, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Bucket); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Bucket, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -461,10 +460,10 @@ func canonicalizeBucketDesiredState(rawDesired, rawInitial *Bucket, opts ...dcl.
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
-	if dcl.IsZeroValue(rawDesired.Location) {
+	if dcl.StringCanonicalize(rawDesired.Location, rawInitial.Location) {
 		rawDesired.Location = rawInitial.Location
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
 	if dcl.IsZeroValue(rawDesired.Cors) {
@@ -488,11 +487,17 @@ func canonicalizeBucketNewState(c *Client, rawNew, rawDesired *Bucket) (*Bucket,
 	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
 		rawNew.Location = rawDesired.Location
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Location, rawNew.Location) {
+			rawNew.Location = rawDesired.Location
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Cors) && dcl.IsEmptyValueIndirect(rawDesired.Cors) {
@@ -538,11 +543,6 @@ func canonicalizeBucketCors(des, initial *BucketCors, opts ...dcl.ApplyOption) *
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Bucket)
-		_ = r
 	}
 
 	if initial == nil {
@@ -604,11 +604,6 @@ func canonicalizeBucketLifecycle(des, initial *BucketLifecycle, opts ...dcl.Appl
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Bucket)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -657,11 +652,6 @@ func canonicalizeBucketLifecycleRule(des, initial *BucketLifecycleRule, opts ...
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Bucket)
-		_ = r
 	}
 
 	if initial == nil {
@@ -716,16 +706,11 @@ func canonicalizeBucketLifecycleRuleAction(des, initial *BucketLifecycleRuleActi
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Bucket)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.StorageClass) {
+	if dcl.StringCanonicalize(des.StorageClass, initial.StorageClass) || dcl.IsZeroValue(des.StorageClass) {
 		des.StorageClass = initial.StorageClass
 	}
 	if dcl.IsZeroValue(des.Type) {
@@ -738,6 +723,10 @@ func canonicalizeBucketLifecycleRuleAction(des, initial *BucketLifecycleRuleActi
 func canonicalizeNewBucketLifecycleRuleAction(c *Client, des, nw *BucketLifecycleRuleAction) *BucketLifecycleRuleAction {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.StorageClass, nw.StorageClass) || dcl.IsZeroValue(des.StorageClass) {
+		nw.StorageClass = des.StorageClass
 	}
 
 	return nw
@@ -772,11 +761,6 @@ func canonicalizeBucketLifecycleRuleCondition(des, initial *BucketLifecycleRuleC
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Bucket)
-		_ = r
 	}
 
 	if initial == nil {
@@ -841,19 +825,14 @@ func canonicalizeBucketLogging(des, initial *BucketLogging, opts ...dcl.ApplyOpt
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Bucket)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.LogBucket) {
+	if dcl.StringCanonicalize(des.LogBucket, initial.LogBucket) || dcl.IsZeroValue(des.LogBucket) {
 		des.LogBucket = initial.LogBucket
 	}
-	if dcl.IsZeroValue(des.LogObjectPrefix) {
+	if dcl.StringCanonicalize(des.LogObjectPrefix, initial.LogObjectPrefix) || dcl.IsZeroValue(des.LogObjectPrefix) {
 		des.LogObjectPrefix = initial.LogObjectPrefix
 	}
 
@@ -863,6 +842,13 @@ func canonicalizeBucketLogging(des, initial *BucketLogging, opts ...dcl.ApplyOpt
 func canonicalizeNewBucketLogging(c *Client, des, nw *BucketLogging) *BucketLogging {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.LogBucket, nw.LogBucket) || dcl.IsZeroValue(des.LogBucket) {
+		nw.LogBucket = des.LogBucket
+	}
+	if dcl.StringCanonicalize(des.LogObjectPrefix, nw.LogObjectPrefix) || dcl.IsZeroValue(des.LogObjectPrefix) {
+		nw.LogObjectPrefix = des.LogObjectPrefix
 	}
 
 	return nw
@@ -897,11 +883,6 @@ func canonicalizeBucketVersioning(des, initial *BucketVersioning, opts ...dcl.Ap
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Bucket)
-		_ = r
 	}
 
 	if initial == nil {
@@ -954,19 +935,14 @@ func canonicalizeBucketWebsite(des, initial *BucketWebsite, opts ...dcl.ApplyOpt
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Bucket)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.MainPageSuffix) {
+	if dcl.StringCanonicalize(des.MainPageSuffix, initial.MainPageSuffix) || dcl.IsZeroValue(des.MainPageSuffix) {
 		des.MainPageSuffix = initial.MainPageSuffix
 	}
-	if dcl.IsZeroValue(des.NotFoundPage) {
+	if dcl.StringCanonicalize(des.NotFoundPage, initial.NotFoundPage) || dcl.IsZeroValue(des.NotFoundPage) {
 		des.NotFoundPage = initial.NotFoundPage
 	}
 
@@ -976,6 +952,13 @@ func canonicalizeBucketWebsite(des, initial *BucketWebsite, opts ...dcl.ApplyOpt
 func canonicalizeNewBucketWebsite(c *Client, des, nw *BucketWebsite) *BucketWebsite {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.MainPageSuffix, nw.MainPageSuffix) || dcl.IsZeroValue(des.MainPageSuffix) {
+		nw.MainPageSuffix = des.MainPageSuffix
+	}
+	if dcl.StringCanonicalize(des.NotFoundPage, nw.NotFoundPage) || dcl.IsZeroValue(des.NotFoundPage) {
+		nw.NotFoundPage = des.NotFoundPage
 	}
 
 	return nw
@@ -1025,14 +1008,14 @@ func diffBucket(c *Client, desired, actual *Bucket, opts ...dcl.ApplyOption) ([]
 	}
 
 	var diffs []bucketDiff
-	if !dcl.IsZeroValue(desired.Location) && (dcl.IsZeroValue(actual.Location) || !reflect.DeepEqual(*desired.Location, *actual.Location)) {
+	if !dcl.IsZeroValue(desired.Location) && !dcl.StringCanonicalize(desired.Location, actual.Location) {
 		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %v\nACTUAL: %v", desired.Location, actual.Location)
 		diffs = append(diffs, bucketDiff{
 			RequiresRecreate: true,
 			FieldName:        "Location",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, bucketDiff{
 			RequiresRecreate: true,
@@ -1066,7 +1049,7 @@ func diffBucket(c *Client, desired, actual *Bucket, opts ...dcl.ApplyOption) ([]
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.StorageClass) && (dcl.IsZeroValue(actual.StorageClass) || !reflect.DeepEqual(*desired.StorageClass, *actual.StorageClass)) {
+	if !reflect.DeepEqual(desired.StorageClass, actual.StorageClass) {
 		c.Config.Logger.Infof("Detected diff in StorageClass.\nDESIRED: %v\nACTUAL: %v", desired.StorageClass, actual.StorageClass)
 
 		diffs = append(diffs, bucketDiff{
@@ -1117,6 +1100,48 @@ func diffBucket(c *Client, desired, actual *Bucket, opts ...dcl.ApplyOption) ([]
 
 	return deduped, nil
 }
+func compareBucketCors(c *Client, desired, actual *BucketCors) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.MaxAgeSeconds == nil && desired.MaxAgeSeconds != nil && !dcl.IsEmptyValueIndirect(desired.MaxAgeSeconds) {
+		c.Config.Logger.Infof("desired MaxAgeSeconds %s - but actually nil", dcl.SprintResource(desired.MaxAgeSeconds))
+		return true
+	}
+	if !reflect.DeepEqual(desired.MaxAgeSeconds, actual.MaxAgeSeconds) && !dcl.IsZeroValue(desired.MaxAgeSeconds) {
+		c.Config.Logger.Infof("Diff in MaxAgeSeconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxAgeSeconds), dcl.SprintResource(actual.MaxAgeSeconds))
+		return true
+	}
+	if actual.Method == nil && desired.Method != nil && !dcl.IsEmptyValueIndirect(desired.Method) {
+		c.Config.Logger.Infof("desired Method %s - but actually nil", dcl.SprintResource(desired.Method))
+		return true
+	}
+	if !dcl.StringSliceEquals(desired.Method, actual.Method) && !dcl.IsZeroValue(desired.Method) {
+		c.Config.Logger.Infof("Diff in Method. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Method), dcl.SprintResource(actual.Method))
+		return true
+	}
+	if actual.Origin == nil && desired.Origin != nil && !dcl.IsEmptyValueIndirect(desired.Origin) {
+		c.Config.Logger.Infof("desired Origin %s - but actually nil", dcl.SprintResource(desired.Origin))
+		return true
+	}
+	if !dcl.StringSliceEquals(desired.Origin, actual.Origin) && !dcl.IsZeroValue(desired.Origin) {
+		c.Config.Logger.Infof("Diff in Origin. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Origin), dcl.SprintResource(actual.Origin))
+		return true
+	}
+	if actual.ResponseHeader == nil && desired.ResponseHeader != nil && !dcl.IsEmptyValueIndirect(desired.ResponseHeader) {
+		c.Config.Logger.Infof("desired ResponseHeader %s - but actually nil", dcl.SprintResource(desired.ResponseHeader))
+		return true
+	}
+	if !dcl.StringSliceEquals(desired.ResponseHeader, actual.ResponseHeader) && !dcl.IsZeroValue(desired.ResponseHeader) {
+		c.Config.Logger.Infof("Diff in ResponseHeader. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResponseHeader), dcl.SprintResource(actual.ResponseHeader))
+		return true
+	}
+	return false
+}
+
 func compareBucketCorsSlice(c *Client, desired, actual []BucketCors) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in BucketCors, lengths unequal.")
@@ -1131,55 +1156,19 @@ func compareBucketCorsSlice(c *Client, desired, actual []BucketCors) bool {
 	return false
 }
 
-func compareBucketCors(c *Client, desired, actual *BucketCors) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.MaxAgeSeconds == nil && desired.MaxAgeSeconds != nil && !dcl.IsEmptyValueIndirect(desired.MaxAgeSeconds) {
-		c.Config.Logger.Infof("desired MaxAgeSeconds %s - but actually nil", dcl.SprintResource(desired.MaxAgeSeconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.MaxAgeSeconds, actual.MaxAgeSeconds) && !dcl.IsZeroValue(desired.MaxAgeSeconds) && !(dcl.IsEmptyValueIndirect(desired.MaxAgeSeconds) && dcl.IsZeroValue(actual.MaxAgeSeconds)) {
-		c.Config.Logger.Infof("Diff in MaxAgeSeconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxAgeSeconds), dcl.SprintResource(actual.MaxAgeSeconds))
-		return true
-	}
-	if actual.Method == nil && desired.Method != nil && !dcl.IsEmptyValueIndirect(desired.Method) {
-		c.Config.Logger.Infof("desired Method %s - but actually nil", dcl.SprintResource(desired.Method))
-		return true
-	}
-	if !dcl.SliceEquals(desired.Method, actual.Method) && !dcl.IsZeroValue(desired.Method) {
-		c.Config.Logger.Infof("Diff in Method. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Method), dcl.SprintResource(actual.Method))
-		return true
-	}
-	if actual.Origin == nil && desired.Origin != nil && !dcl.IsEmptyValueIndirect(desired.Origin) {
-		c.Config.Logger.Infof("desired Origin %s - but actually nil", dcl.SprintResource(desired.Origin))
-		return true
-	}
-	if !dcl.SliceEquals(desired.Origin, actual.Origin) && !dcl.IsZeroValue(desired.Origin) {
-		c.Config.Logger.Infof("Diff in Origin. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Origin), dcl.SprintResource(actual.Origin))
-		return true
-	}
-	if actual.ResponseHeader == nil && desired.ResponseHeader != nil && !dcl.IsEmptyValueIndirect(desired.ResponseHeader) {
-		c.Config.Logger.Infof("desired ResponseHeader %s - but actually nil", dcl.SprintResource(desired.ResponseHeader))
-		return true
-	}
-	if !dcl.SliceEquals(desired.ResponseHeader, actual.ResponseHeader) && !dcl.IsZeroValue(desired.ResponseHeader) {
-		c.Config.Logger.Infof("Diff in ResponseHeader. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResponseHeader), dcl.SprintResource(actual.ResponseHeader))
-		return true
-	}
-	return false
-}
-func compareBucketLifecycleSlice(c *Client, desired, actual []BucketLifecycle) bool {
+func compareBucketCorsMap(c *Client, desired, actual map[string]BucketCors) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketLifecycle, lengths unequal.")
+		c.Config.Logger.Info("Diff in BucketCors, lengths unequal.")
 		return true
 	}
-	for i := 0; i < len(desired); i++ {
-		if compareBucketLifecycle(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BucketLifecycle, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in BucketCors, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareBucketCors(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in BucketCors, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1203,14 +1192,34 @@ func compareBucketLifecycle(c *Client, desired, actual *BucketLifecycle) bool {
 	}
 	return false
 }
-func compareBucketLifecycleRuleSlice(c *Client, desired, actual []BucketLifecycleRule) bool {
+
+func compareBucketLifecycleSlice(c *Client, desired, actual []BucketLifecycle) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketLifecycleRule, lengths unequal.")
+		c.Config.Logger.Info("Diff in BucketLifecycle, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareBucketLifecycleRule(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BucketLifecycleRule, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareBucketLifecycle(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in BucketLifecycle, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareBucketLifecycleMap(c *Client, desired, actual map[string]BucketLifecycle) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in BucketLifecycle, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in BucketLifecycle, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareBucketLifecycle(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in BucketLifecycle, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1242,14 +1251,34 @@ func compareBucketLifecycleRule(c *Client, desired, actual *BucketLifecycleRule)
 	}
 	return false
 }
-func compareBucketLifecycleRuleActionSlice(c *Client, desired, actual []BucketLifecycleRuleAction) bool {
+
+func compareBucketLifecycleRuleSlice(c *Client, desired, actual []BucketLifecycleRule) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketLifecycleRuleAction, lengths unequal.")
+		c.Config.Logger.Info("Diff in BucketLifecycleRule, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareBucketLifecycleRuleAction(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BucketLifecycleRuleAction, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareBucketLifecycleRule(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in BucketLifecycleRule, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareBucketLifecycleRuleMap(c *Client, desired, actual map[string]BucketLifecycleRule) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in BucketLifecycleRule, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in BucketLifecycleRule, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareBucketLifecycleRule(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in BucketLifecycleRule, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1267,7 +1296,7 @@ func compareBucketLifecycleRuleAction(c *Client, desired, actual *BucketLifecycl
 		c.Config.Logger.Infof("desired StorageClass %s - but actually nil", dcl.SprintResource(desired.StorageClass))
 		return true
 	}
-	if !reflect.DeepEqual(desired.StorageClass, actual.StorageClass) && !dcl.IsZeroValue(desired.StorageClass) && !(dcl.IsEmptyValueIndirect(desired.StorageClass) && dcl.IsZeroValue(actual.StorageClass)) {
+	if !dcl.StringCanonicalize(desired.StorageClass, actual.StorageClass) && !dcl.IsZeroValue(desired.StorageClass) {
 		c.Config.Logger.Infof("Diff in StorageClass. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StorageClass), dcl.SprintResource(actual.StorageClass))
 		return true
 	}
@@ -1275,20 +1304,40 @@ func compareBucketLifecycleRuleAction(c *Client, desired, actual *BucketLifecycl
 		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) && !(dcl.IsEmptyValueIndirect(desired.Type) && dcl.IsZeroValue(actual.Type)) {
+	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
 		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
 		return true
 	}
 	return false
 }
-func compareBucketLifecycleRuleConditionSlice(c *Client, desired, actual []BucketLifecycleRuleCondition) bool {
+
+func compareBucketLifecycleRuleActionSlice(c *Client, desired, actual []BucketLifecycleRuleAction) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketLifecycleRuleCondition, lengths unequal.")
+		c.Config.Logger.Info("Diff in BucketLifecycleRuleAction, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareBucketLifecycleRuleCondition(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BucketLifecycleRuleCondition, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareBucketLifecycleRuleAction(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in BucketLifecycleRuleAction, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareBucketLifecycleRuleActionMap(c *Client, desired, actual map[string]BucketLifecycleRuleAction) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in BucketLifecycleRuleAction, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in BucketLifecycleRuleAction, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareBucketLifecycleRuleAction(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in BucketLifecycleRuleAction, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1306,7 +1355,7 @@ func compareBucketLifecycleRuleCondition(c *Client, desired, actual *BucketLifec
 		c.Config.Logger.Infof("desired Age %s - but actually nil", dcl.SprintResource(desired.Age))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Age, actual.Age) && !dcl.IsZeroValue(desired.Age) && !(dcl.IsEmptyValueIndirect(desired.Age) && dcl.IsZeroValue(actual.Age)) {
+	if !reflect.DeepEqual(desired.Age, actual.Age) && !dcl.IsZeroValue(desired.Age) {
 		c.Config.Logger.Infof("Diff in Age. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Age), dcl.SprintResource(actual.Age))
 		return true
 	}
@@ -1314,7 +1363,7 @@ func compareBucketLifecycleRuleCondition(c *Client, desired, actual *BucketLifec
 		c.Config.Logger.Infof("desired CreatedBefore %s - but actually nil", dcl.SprintResource(desired.CreatedBefore))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CreatedBefore, actual.CreatedBefore) && !dcl.IsZeroValue(desired.CreatedBefore) && !(dcl.IsEmptyValueIndirect(desired.CreatedBefore) && dcl.IsZeroValue(actual.CreatedBefore)) {
+	if !reflect.DeepEqual(desired.CreatedBefore, actual.CreatedBefore) && !dcl.IsZeroValue(desired.CreatedBefore) {
 		c.Config.Logger.Infof("Diff in CreatedBefore. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CreatedBefore), dcl.SprintResource(actual.CreatedBefore))
 		return true
 	}
@@ -1322,7 +1371,7 @@ func compareBucketLifecycleRuleCondition(c *Client, desired, actual *BucketLifec
 		c.Config.Logger.Infof("desired WithState %s - but actually nil", dcl.SprintResource(desired.WithState))
 		return true
 	}
-	if !reflect.DeepEqual(desired.WithState, actual.WithState) && !dcl.IsZeroValue(desired.WithState) && !(dcl.IsEmptyValueIndirect(desired.WithState) && dcl.IsZeroValue(actual.WithState)) {
+	if !reflect.DeepEqual(desired.WithState, actual.WithState) && !dcl.IsZeroValue(desired.WithState) {
 		c.Config.Logger.Infof("Diff in WithState. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.WithState), dcl.SprintResource(actual.WithState))
 		return true
 	}
@@ -1330,7 +1379,7 @@ func compareBucketLifecycleRuleCondition(c *Client, desired, actual *BucketLifec
 		c.Config.Logger.Infof("desired MatchesStorageClass %s - but actually nil", dcl.SprintResource(desired.MatchesStorageClass))
 		return true
 	}
-	if !dcl.SliceEquals(desired.MatchesStorageClass, actual.MatchesStorageClass) && !dcl.IsZeroValue(desired.MatchesStorageClass) {
+	if !dcl.StringSliceEquals(desired.MatchesStorageClass, actual.MatchesStorageClass) && !dcl.IsZeroValue(desired.MatchesStorageClass) {
 		c.Config.Logger.Infof("Diff in MatchesStorageClass. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MatchesStorageClass), dcl.SprintResource(actual.MatchesStorageClass))
 		return true
 	}
@@ -1338,20 +1387,40 @@ func compareBucketLifecycleRuleCondition(c *Client, desired, actual *BucketLifec
 		c.Config.Logger.Infof("desired NumNewerVersions %s - but actually nil", dcl.SprintResource(desired.NumNewerVersions))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NumNewerVersions, actual.NumNewerVersions) && !dcl.IsZeroValue(desired.NumNewerVersions) && !(dcl.IsEmptyValueIndirect(desired.NumNewerVersions) && dcl.IsZeroValue(actual.NumNewerVersions)) {
+	if !reflect.DeepEqual(desired.NumNewerVersions, actual.NumNewerVersions) && !dcl.IsZeroValue(desired.NumNewerVersions) {
 		c.Config.Logger.Infof("Diff in NumNewerVersions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumNewerVersions), dcl.SprintResource(actual.NumNewerVersions))
 		return true
 	}
 	return false
 }
-func compareBucketLoggingSlice(c *Client, desired, actual []BucketLogging) bool {
+
+func compareBucketLifecycleRuleConditionSlice(c *Client, desired, actual []BucketLifecycleRuleCondition) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketLogging, lengths unequal.")
+		c.Config.Logger.Info("Diff in BucketLifecycleRuleCondition, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareBucketLogging(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BucketLogging, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareBucketLifecycleRuleCondition(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in BucketLifecycleRuleCondition, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareBucketLifecycleRuleConditionMap(c *Client, desired, actual map[string]BucketLifecycleRuleCondition) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in BucketLifecycleRuleCondition, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in BucketLifecycleRuleCondition, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareBucketLifecycleRuleCondition(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in BucketLifecycleRuleCondition, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1369,7 +1438,7 @@ func compareBucketLogging(c *Client, desired, actual *BucketLogging) bool {
 		c.Config.Logger.Infof("desired LogBucket %s - but actually nil", dcl.SprintResource(desired.LogBucket))
 		return true
 	}
-	if !reflect.DeepEqual(desired.LogBucket, actual.LogBucket) && !dcl.IsZeroValue(desired.LogBucket) && !(dcl.IsEmptyValueIndirect(desired.LogBucket) && dcl.IsZeroValue(actual.LogBucket)) {
+	if !dcl.StringCanonicalize(desired.LogBucket, actual.LogBucket) && !dcl.IsZeroValue(desired.LogBucket) {
 		c.Config.Logger.Infof("Diff in LogBucket. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogBucket), dcl.SprintResource(actual.LogBucket))
 		return true
 	}
@@ -1377,20 +1446,40 @@ func compareBucketLogging(c *Client, desired, actual *BucketLogging) bool {
 		c.Config.Logger.Infof("desired LogObjectPrefix %s - but actually nil", dcl.SprintResource(desired.LogObjectPrefix))
 		return true
 	}
-	if !reflect.DeepEqual(desired.LogObjectPrefix, actual.LogObjectPrefix) && !dcl.IsZeroValue(desired.LogObjectPrefix) && !(dcl.IsEmptyValueIndirect(desired.LogObjectPrefix) && dcl.IsZeroValue(actual.LogObjectPrefix)) {
+	if !dcl.StringCanonicalize(desired.LogObjectPrefix, actual.LogObjectPrefix) && !dcl.IsZeroValue(desired.LogObjectPrefix) {
 		c.Config.Logger.Infof("Diff in LogObjectPrefix. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogObjectPrefix), dcl.SprintResource(actual.LogObjectPrefix))
 		return true
 	}
 	return false
 }
-func compareBucketVersioningSlice(c *Client, desired, actual []BucketVersioning) bool {
+
+func compareBucketLoggingSlice(c *Client, desired, actual []BucketLogging) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketVersioning, lengths unequal.")
+		c.Config.Logger.Info("Diff in BucketLogging, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareBucketVersioning(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BucketVersioning, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareBucketLogging(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in BucketLogging, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareBucketLoggingMap(c *Client, desired, actual map[string]BucketLogging) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in BucketLogging, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in BucketLogging, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareBucketLogging(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in BucketLogging, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1408,20 +1497,40 @@ func compareBucketVersioning(c *Client, desired, actual *BucketVersioning) bool 
 		c.Config.Logger.Infof("desired Enabled %s - but actually nil", dcl.SprintResource(desired.Enabled))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Enabled, actual.Enabled) && !dcl.IsZeroValue(desired.Enabled) && !(dcl.IsEmptyValueIndirect(desired.Enabled) && dcl.IsZeroValue(actual.Enabled)) {
+	if !reflect.DeepEqual(desired.Enabled, actual.Enabled) && !dcl.IsZeroValue(desired.Enabled) {
 		c.Config.Logger.Infof("Diff in Enabled. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Enabled), dcl.SprintResource(actual.Enabled))
 		return true
 	}
 	return false
 }
-func compareBucketWebsiteSlice(c *Client, desired, actual []BucketWebsite) bool {
+
+func compareBucketVersioningSlice(c *Client, desired, actual []BucketVersioning) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketWebsite, lengths unequal.")
+		c.Config.Logger.Info("Diff in BucketVersioning, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareBucketWebsite(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BucketWebsite, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareBucketVersioning(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in BucketVersioning, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareBucketVersioningMap(c *Client, desired, actual map[string]BucketVersioning) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in BucketVersioning, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in BucketVersioning, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareBucketVersioning(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in BucketVersioning, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1439,7 +1548,7 @@ func compareBucketWebsite(c *Client, desired, actual *BucketWebsite) bool {
 		c.Config.Logger.Infof("desired MainPageSuffix %s - but actually nil", dcl.SprintResource(desired.MainPageSuffix))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MainPageSuffix, actual.MainPageSuffix) && !dcl.IsZeroValue(desired.MainPageSuffix) && !(dcl.IsEmptyValueIndirect(desired.MainPageSuffix) && dcl.IsZeroValue(actual.MainPageSuffix)) {
+	if !dcl.StringCanonicalize(desired.MainPageSuffix, actual.MainPageSuffix) && !dcl.IsZeroValue(desired.MainPageSuffix) {
 		c.Config.Logger.Infof("Diff in MainPageSuffix. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainPageSuffix), dcl.SprintResource(actual.MainPageSuffix))
 		return true
 	}
@@ -1447,12 +1556,46 @@ func compareBucketWebsite(c *Client, desired, actual *BucketWebsite) bool {
 		c.Config.Logger.Infof("desired NotFoundPage %s - but actually nil", dcl.SprintResource(desired.NotFoundPage))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NotFoundPage, actual.NotFoundPage) && !dcl.IsZeroValue(desired.NotFoundPage) && !(dcl.IsEmptyValueIndirect(desired.NotFoundPage) && dcl.IsZeroValue(actual.NotFoundPage)) {
+	if !dcl.StringCanonicalize(desired.NotFoundPage, actual.NotFoundPage) && !dcl.IsZeroValue(desired.NotFoundPage) {
 		c.Config.Logger.Infof("Diff in NotFoundPage. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NotFoundPage), dcl.SprintResource(actual.NotFoundPage))
 		return true
 	}
 	return false
 }
+
+func compareBucketWebsiteSlice(c *Client, desired, actual []BucketWebsite) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in BucketWebsite, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareBucketWebsite(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in BucketWebsite, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareBucketWebsiteMap(c *Client, desired, actual map[string]BucketWebsite) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in BucketWebsite, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in BucketWebsite, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareBucketWebsite(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in BucketWebsite, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
 func compareBucketLifecycleRuleActionTypeEnumSlice(c *Client, desired, actual []BucketLifecycleRuleActionTypeEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in BucketLifecycleRuleActionTypeEnum, lengths unequal.")
@@ -1513,6 +1656,8 @@ func compareBucketStorageClassEnum(c *Client, desired, actual *BucketStorageClas
 func (r *Bucket) urlNormalized() *Bucket {
 	normalized := deepcopy.Copy(*r).(Bucket)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
 	return &normalized
 }
 
@@ -1561,6 +1706,10 @@ func unmarshalBucket(b []byte, c *Client) (*Bucket, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapBucket(m, c)
+}
+
+func unmarshalMapBucket(m map[string]interface{}, c *Client) (*Bucket, error) {
 
 	return flattenBucket(c, m), nil
 }
@@ -2582,7 +2731,7 @@ func flattenBucketLifecycleRuleActionTypeEnumSlice(c *Client, i interface{}) []B
 
 	items := make([]BucketLifecycleRuleActionTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBucketLifecycleRuleActionTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenBucketLifecycleRuleActionTypeEnum(item.(interface{})))
 	}
 
 	return items
@@ -2613,7 +2762,7 @@ func flattenBucketLifecycleRuleConditionWithStateEnumSlice(c *Client, i interfac
 
 	items := make([]BucketLifecycleRuleConditionWithStateEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBucketLifecycleRuleConditionWithStateEnum(item.(map[string]interface{})))
+		items = append(items, *flattenBucketLifecycleRuleConditionWithStateEnum(item.(interface{})))
 	}
 
 	return items
@@ -2644,7 +2793,7 @@ func flattenBucketStorageClassEnumSlice(c *Client, i interface{}) []BucketStorag
 
 	items := make([]BucketStorageClassEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBucketStorageClassEnum(item.(map[string]interface{})))
+		items = append(items, *flattenBucketStorageClassEnum(item.(interface{})))
 	}
 
 	return items

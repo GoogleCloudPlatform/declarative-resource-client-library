@@ -115,6 +115,7 @@ message ListFileInstanceRequest {
 message ListFileInstanceResponse {
   repeated FileInstance items = 1;
 }
+
 service FileInstanceService {
   rpc ApplyFileInstance(ApplyFileInstanceRequest) returns (FileInstance);
   rpc DeleteFileInstance(DeleteFileInstanceRequest) returns (google.protobuf.Empty);

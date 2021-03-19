@@ -118,7 +118,7 @@ func (c *Client) listForwardingRuleRaw(ctx context.Context, project, location, p
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -193,7 +193,7 @@ func (op *deleteForwardingRuleOperation) do(ctx context.Context, r *ForwardingRu
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -216,7 +216,13 @@ func (op *deleteForwardingRuleOperation) do(ctx context.Context, r *ForwardingRu
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createForwardingRuleOperation struct{}
+type createForwardingRuleOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createForwardingRuleOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createForwardingRuleOperation) do(ctx context.Context, r *ForwardingRule, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -232,7 +238,7 @@ func (op *createForwardingRuleOperation) do(ctx context.Context, r *ForwardingRu
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -246,8 +252,10 @@ func (op *createForwardingRuleOperation) do(ctx context.Context, r *ForwardingRu
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetForwardingRule(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -260,7 +268,7 @@ func (c *Client) getForwardingRuleRaw(ctx context.Context, r *ForwardingRule) ([
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -337,14 +345,6 @@ func canonicalizeForwardingRuleInitialState(rawInitial, rawDesired *ForwardingRu
 
 func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRule, opts ...dcl.ApplyOption) (*ForwardingRule, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*ForwardingRule); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected ForwardingRule, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -357,16 +357,16 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	if dcl.IsZeroValue(rawDesired.AllowGlobalAccess) {
 		rawDesired.AllowGlobalAccess = rawInitial.AllowGlobalAccess
 	}
-	if dcl.IsZeroValue(rawDesired.BackendService) {
+	if dcl.StringCanonicalize(rawDesired.BackendService, rawInitial.BackendService) {
 		rawDesired.BackendService = rawInitial.BackendService
 	}
-	if dcl.IsZeroValue(rawDesired.CreationTimestamp) {
+	if dcl.StringCanonicalize(rawDesired.CreationTimestamp, rawInitial.CreationTimestamp) {
 		rawDesired.CreationTimestamp = rawInitial.CreationTimestamp
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.IsZeroValue(rawDesired.IPAddress) {
+	if dcl.StringCanonicalize(rawDesired.IPAddress, rawInitial.IPAddress) {
 		rawDesired.IPAddress = rawInitial.IPAddress
 	}
 	if dcl.IsZeroValue(rawDesired.IPProtocol) {
@@ -384,40 +384,40 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	if dcl.IsZeroValue(rawDesired.MetadataFilter) {
 		rawDesired.MetadataFilter = rawInitial.MetadataFilter
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Network) {
+	if dcl.StringCanonicalize(rawDesired.Network, rawInitial.Network) {
 		rawDesired.Network = rawInitial.Network
 	}
 	if dcl.IsZeroValue(rawDesired.NetworkTier) {
 		rawDesired.NetworkTier = rawInitial.NetworkTier
 	}
-	if dcl.IsZeroValue(rawDesired.PortRange) {
+	if dcl.StringCanonicalize(rawDesired.PortRange, rawInitial.PortRange) {
 		rawDesired.PortRange = rawInitial.PortRange
 	}
 	if dcl.IsZeroValue(rawDesired.Ports) {
 		rawDesired.Ports = rawInitial.Ports
 	}
-	if dcl.IsZeroValue(rawDesired.Region) {
+	if dcl.StringCanonicalize(rawDesired.Region, rawInitial.Region) {
 		rawDesired.Region = rawInitial.Region
 	}
-	if dcl.IsZeroValue(rawDesired.SelfLink) {
+	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}
-	if dcl.IsZeroValue(rawDesired.ServiceLabel) {
+	if dcl.StringCanonicalize(rawDesired.ServiceLabel, rawInitial.ServiceLabel) {
 		rawDesired.ServiceLabel = rawInitial.ServiceLabel
 	}
-	if dcl.IsZeroValue(rawDesired.ServiceName) {
+	if dcl.StringCanonicalize(rawDesired.ServiceName, rawInitial.ServiceName) {
 		rawDesired.ServiceName = rawInitial.ServiceName
 	}
-	if dcl.IsZeroValue(rawDesired.Subnetwork) {
+	if dcl.StringCanonicalize(rawDesired.Subnetwork, rawInitial.Subnetwork) {
 		rawDesired.Subnetwork = rawInitial.Subnetwork
 	}
-	if dcl.IsZeroValue(rawDesired.Target) {
+	if dcl.StringCanonicalize(rawDesired.Target, rawInitial.Target) {
 		rawDesired.Target = rawInitial.Target
 	}
-	if dcl.IsZeroValue(rawDesired.Project) {
+	if dcl.StringCanonicalize(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
@@ -442,21 +442,33 @@ func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *Forwardin
 	if dcl.IsEmptyValueIndirect(rawNew.BackendService) && dcl.IsEmptyValueIndirect(rawDesired.BackendService) {
 		rawNew.BackendService = rawDesired.BackendService
 	} else {
+		if dcl.StringCanonicalize(rawDesired.BackendService, rawNew.BackendService) {
+			rawNew.BackendService = rawDesired.BackendService
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.CreationTimestamp) && dcl.IsEmptyValueIndirect(rawDesired.CreationTimestamp) {
 		rawNew.CreationTimestamp = rawDesired.CreationTimestamp
 	} else {
+		if dcl.StringCanonicalize(rawDesired.CreationTimestamp, rawNew.CreationTimestamp) {
+			rawNew.CreationTimestamp = rawDesired.CreationTimestamp
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.IPAddress) && dcl.IsEmptyValueIndirect(rawDesired.IPAddress) {
 		rawNew.IPAddress = rawDesired.IPAddress
 	} else {
+		if dcl.StringCanonicalize(rawDesired.IPAddress, rawNew.IPAddress) {
+			rawNew.IPAddress = rawDesired.IPAddress
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.IPProtocol) && dcl.IsEmptyValueIndirect(rawDesired.IPProtocol) {
@@ -487,11 +499,17 @@ func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *Forwardin
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Network) && dcl.IsEmptyValueIndirect(rawDesired.Network) {
 		rawNew.Network = rawDesired.Network
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Network, rawNew.Network) {
+			rawNew.Network = rawDesired.Network
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.NetworkTier) && dcl.IsEmptyValueIndirect(rawDesired.NetworkTier) {
@@ -502,6 +520,9 @@ func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *Forwardin
 	if dcl.IsEmptyValueIndirect(rawNew.PortRange) && dcl.IsEmptyValueIndirect(rawDesired.PortRange) {
 		rawNew.PortRange = rawDesired.PortRange
 	} else {
+		if dcl.StringCanonicalize(rawDesired.PortRange, rawNew.PortRange) {
+			rawNew.PortRange = rawDesired.PortRange
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Ports) && dcl.IsEmptyValueIndirect(rawDesired.Ports) {
@@ -512,36 +533,57 @@ func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *Forwardin
 	if dcl.IsEmptyValueIndirect(rawNew.Region) && dcl.IsEmptyValueIndirect(rawDesired.Region) {
 		rawNew.Region = rawDesired.Region
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Region, rawNew.Region) {
+			rawNew.Region = rawDesired.Region
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ServiceLabel) && dcl.IsEmptyValueIndirect(rawDesired.ServiceLabel) {
 		rawNew.ServiceLabel = rawDesired.ServiceLabel
 	} else {
+		if dcl.StringCanonicalize(rawDesired.ServiceLabel, rawNew.ServiceLabel) {
+			rawNew.ServiceLabel = rawDesired.ServiceLabel
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ServiceName) && dcl.IsEmptyValueIndirect(rawDesired.ServiceName) {
 		rawNew.ServiceName = rawDesired.ServiceName
 	} else {
+		if dcl.StringCanonicalize(rawDesired.ServiceName, rawNew.ServiceName) {
+			rawNew.ServiceName = rawDesired.ServiceName
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Subnetwork) && dcl.IsEmptyValueIndirect(rawDesired.Subnetwork) {
 		rawNew.Subnetwork = rawDesired.Subnetwork
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Subnetwork, rawNew.Subnetwork) {
+			rawNew.Subnetwork = rawDesired.Subnetwork
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Target) && dcl.IsEmptyValueIndirect(rawDesired.Target) {
 		rawNew.Target = rawDesired.Target
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Target, rawNew.Target) {
+			rawNew.Target = rawDesired.Target
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
 		rawNew.Project = rawDesired.Project
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Project, rawNew.Project) {
+			rawNew.Project = rawDesired.Project
+		}
 	}
 
 	rawNew.Location = rawDesired.Location
@@ -555,11 +597,6 @@ func canonicalizeForwardingRuleMetadataFilter(des, initial *ForwardingRuleMetada
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*ForwardingRule)
-		_ = r
 	}
 
 	if initial == nil {
@@ -615,19 +652,14 @@ func canonicalizeForwardingRuleMetadataFilterFilterLabel(des, initial *Forwardin
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*ForwardingRule)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
-	if dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
 		des.Value = initial.Value
 	}
 
@@ -637,6 +669,13 @@ func canonicalizeForwardingRuleMetadataFilterFilterLabel(des, initial *Forwardin
 func canonicalizeNewForwardingRuleMetadataFilterFilterLabel(c *Client, des, nw *ForwardingRuleMetadataFilterFilterLabel) *ForwardingRuleMetadataFilterFilterLabel {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Value, nw.Value) || dcl.IsZeroValue(des.Value) {
+		nw.Value = des.Value
 	}
 
 	return nw
@@ -686,70 +725,70 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 	}
 
 	var diffs []forwardingRuleDiff
-	if !dcl.IsZeroValue(desired.AllPorts) && (dcl.IsZeroValue(actual.AllPorts) || !reflect.DeepEqual(*desired.AllPorts, *actual.AllPorts)) {
+	if !reflect.DeepEqual(desired.AllPorts, actual.AllPorts) {
 		c.Config.Logger.Infof("Detected diff in AllPorts.\nDESIRED: %v\nACTUAL: %v", desired.AllPorts, actual.AllPorts)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "AllPorts",
 		})
 	}
-	if !dcl.IsZeroValue(desired.AllowGlobalAccess) && (dcl.IsZeroValue(actual.AllowGlobalAccess) || !reflect.DeepEqual(*desired.AllowGlobalAccess, *actual.AllowGlobalAccess)) {
+	if !reflect.DeepEqual(desired.AllowGlobalAccess, actual.AllowGlobalAccess) {
 		c.Config.Logger.Infof("Detected diff in AllowGlobalAccess.\nDESIRED: %v\nACTUAL: %v", desired.AllowGlobalAccess, actual.AllowGlobalAccess)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "AllowGlobalAccess",
 		})
 	}
-	if !dcl.IsZeroValue(desired.BackendService) && (dcl.IsZeroValue(actual.BackendService) || !reflect.DeepEqual(*desired.BackendService, *actual.BackendService)) {
+	if !dcl.IsZeroValue(desired.BackendService) && !dcl.StringCanonicalize(desired.BackendService, actual.BackendService) {
 		c.Config.Logger.Infof("Detected diff in BackendService.\nDESIRED: %v\nACTUAL: %v", desired.BackendService, actual.BackendService)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "BackendService",
 		})
 	}
-	if !dcl.IsZeroValue(desired.CreationTimestamp) && (dcl.IsZeroValue(actual.CreationTimestamp) || !reflect.DeepEqual(*desired.CreationTimestamp, *actual.CreationTimestamp)) {
+	if !dcl.IsZeroValue(desired.CreationTimestamp) && !dcl.StringCanonicalize(desired.CreationTimestamp, actual.CreationTimestamp) {
 		c.Config.Logger.Infof("Detected diff in CreationTimestamp.\nDESIRED: %v\nACTUAL: %v", desired.CreationTimestamp, actual.CreationTimestamp)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "CreationTimestamp",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
-	if !dcl.IsZeroValue(desired.IPAddress) && (dcl.IsZeroValue(actual.IPAddress) || !reflect.DeepEqual(*desired.IPAddress, *actual.IPAddress)) {
+	if !dcl.IsZeroValue(desired.IPAddress) && !dcl.StringCanonicalize(desired.IPAddress, actual.IPAddress) {
 		c.Config.Logger.Infof("Detected diff in IPAddress.\nDESIRED: %v\nACTUAL: %v", desired.IPAddress, actual.IPAddress)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "IPAddress",
 		})
 	}
-	if !dcl.IsZeroValue(desired.IPProtocol) && (dcl.IsZeroValue(actual.IPProtocol) || !reflect.DeepEqual(*desired.IPProtocol, *actual.IPProtocol)) {
+	if !reflect.DeepEqual(desired.IPProtocol, actual.IPProtocol) {
 		c.Config.Logger.Infof("Detected diff in IPProtocol.\nDESIRED: %v\nACTUAL: %v", desired.IPProtocol, actual.IPProtocol)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "IPProtocol",
 		})
 	}
-	if !dcl.IsZeroValue(desired.IPVersion) && (dcl.IsZeroValue(actual.IPVersion) || !reflect.DeepEqual(*desired.IPVersion, *actual.IPVersion)) {
+	if !reflect.DeepEqual(desired.IPVersion, actual.IPVersion) {
 		c.Config.Logger.Infof("Detected diff in IPVersion.\nDESIRED: %v\nACTUAL: %v", desired.IPVersion, actual.IPVersion)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "IPVersion",
 		})
 	}
-	if !dcl.IsZeroValue(desired.IsMirroringCollector) && (dcl.IsZeroValue(actual.IsMirroringCollector) || !reflect.DeepEqual(*desired.IsMirroringCollector, *actual.IsMirroringCollector)) {
+	if !reflect.DeepEqual(desired.IsMirroringCollector, actual.IsMirroringCollector) {
 		c.Config.Logger.Infof("Detected diff in IsMirroringCollector.\nDESIRED: %v\nACTUAL: %v", desired.IsMirroringCollector, actual.IsMirroringCollector)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "IsMirroringCollector",
 		})
 	}
-	if !dcl.IsZeroValue(desired.LoadBalancingScheme) && (dcl.IsZeroValue(actual.LoadBalancingScheme) || !reflect.DeepEqual(*desired.LoadBalancingScheme, *actual.LoadBalancingScheme)) {
+	if !reflect.DeepEqual(desired.LoadBalancingScheme, actual.LoadBalancingScheme) {
 		c.Config.Logger.Infof("Detected diff in LoadBalancingScheme.\nDESIRED: %v\nACTUAL: %v", desired.LoadBalancingScheme, actual.LoadBalancingScheme)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
@@ -763,84 +802,84 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 			FieldName:        "MetadataFilter",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Network) && (dcl.IsZeroValue(actual.Network) || !reflect.DeepEqual(*desired.Network, *actual.Network)) {
+	if !dcl.IsZeroValue(desired.Network) && !dcl.StringCanonicalize(desired.Network, actual.Network) {
 		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Network",
 		})
 	}
-	if !dcl.IsZeroValue(desired.NetworkTier) && (dcl.IsZeroValue(actual.NetworkTier) || !reflect.DeepEqual(*desired.NetworkTier, *actual.NetworkTier)) {
+	if !reflect.DeepEqual(desired.NetworkTier, actual.NetworkTier) {
 		c.Config.Logger.Infof("Detected diff in NetworkTier.\nDESIRED: %v\nACTUAL: %v", desired.NetworkTier, actual.NetworkTier)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "NetworkTier",
 		})
 	}
-	if !dcl.IsZeroValue(desired.PortRange) && (dcl.IsZeroValue(actual.PortRange) || !reflect.DeepEqual(*desired.PortRange, *actual.PortRange)) {
+	if !dcl.IsZeroValue(desired.PortRange) && !dcl.StringCanonicalize(desired.PortRange, actual.PortRange) {
 		c.Config.Logger.Infof("Detected diff in PortRange.\nDESIRED: %v\nACTUAL: %v", desired.PortRange, actual.PortRange)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "PortRange",
 		})
 	}
-	if !dcl.SliceEquals(desired.Ports, actual.Ports) {
+	if !dcl.StringSliceEquals(desired.Ports, actual.Ports) {
 		c.Config.Logger.Infof("Detected diff in Ports.\nDESIRED: %v\nACTUAL: %v", desired.Ports, actual.Ports)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Ports",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Region) && (dcl.IsZeroValue(actual.Region) || !reflect.DeepEqual(*desired.Region, *actual.Region)) {
+	if !dcl.IsZeroValue(desired.Region) && !dcl.StringCanonicalize(desired.Region, actual.Region) {
 		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %v\nACTUAL: %v", desired.Region, actual.Region)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Region",
 		})
 	}
-	if !dcl.IsZeroValue(desired.SelfLink) && (dcl.IsZeroValue(actual.SelfLink) || !reflect.DeepEqual(*desired.SelfLink, *actual.SelfLink)) {
+	if !dcl.IsZeroValue(desired.SelfLink) && !dcl.StringCanonicalize(desired.SelfLink, actual.SelfLink) {
 		c.Config.Logger.Infof("Detected diff in SelfLink.\nDESIRED: %v\nACTUAL: %v", desired.SelfLink, actual.SelfLink)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "SelfLink",
 		})
 	}
-	if !dcl.IsZeroValue(desired.ServiceLabel) && (dcl.IsZeroValue(actual.ServiceLabel) || !reflect.DeepEqual(*desired.ServiceLabel, *actual.ServiceLabel)) {
+	if !dcl.IsZeroValue(desired.ServiceLabel) && !dcl.StringCanonicalize(desired.ServiceLabel, actual.ServiceLabel) {
 		c.Config.Logger.Infof("Detected diff in ServiceLabel.\nDESIRED: %v\nACTUAL: %v", desired.ServiceLabel, actual.ServiceLabel)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "ServiceLabel",
 		})
 	}
-	if !dcl.IsZeroValue(desired.ServiceName) && (dcl.IsZeroValue(actual.ServiceName) || !reflect.DeepEqual(*desired.ServiceName, *actual.ServiceName)) {
+	if !dcl.IsZeroValue(desired.ServiceName) && !dcl.StringCanonicalize(desired.ServiceName, actual.ServiceName) {
 		c.Config.Logger.Infof("Detected diff in ServiceName.\nDESIRED: %v\nACTUAL: %v", desired.ServiceName, actual.ServiceName)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "ServiceName",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Subnetwork) && (dcl.IsZeroValue(actual.Subnetwork) || !reflect.DeepEqual(*desired.Subnetwork, *actual.Subnetwork)) {
+	if !dcl.IsZeroValue(desired.Subnetwork) && !dcl.StringCanonicalize(desired.Subnetwork, actual.Subnetwork) {
 		c.Config.Logger.Infof("Detected diff in Subnetwork.\nDESIRED: %v\nACTUAL: %v", desired.Subnetwork, actual.Subnetwork)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Subnetwork",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Target) && (dcl.IsZeroValue(actual.Target) || !reflect.DeepEqual(*desired.Target, *actual.Target)) {
+	if !dcl.IsZeroValue(desired.Target) && !dcl.StringCanonicalize(desired.Target, actual.Target) {
 		c.Config.Logger.Infof("Detected diff in Target.\nDESIRED: %v\nACTUAL: %v", desired.Target, actual.Target)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Target",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Project) && (dcl.IsZeroValue(actual.Project) || !reflect.DeepEqual(*desired.Project, *actual.Project)) {
+	if !dcl.IsZeroValue(desired.Project) && !dcl.StringCanonicalize(desired.Project, actual.Project) {
 		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %v\nACTUAL: %v", desired.Project, actual.Project)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
@@ -871,6 +910,32 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 
 	return deduped, nil
 }
+func compareForwardingRuleMetadataFilter(c *Client, desired, actual *ForwardingRuleMetadataFilter) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.FilterMatchCriteria == nil && desired.FilterMatchCriteria != nil && !dcl.IsEmptyValueIndirect(desired.FilterMatchCriteria) {
+		c.Config.Logger.Infof("desired FilterMatchCriteria %s - but actually nil", dcl.SprintResource(desired.FilterMatchCriteria))
+		return true
+	}
+	if !reflect.DeepEqual(desired.FilterMatchCriteria, actual.FilterMatchCriteria) && !dcl.IsZeroValue(desired.FilterMatchCriteria) {
+		c.Config.Logger.Infof("Diff in FilterMatchCriteria. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FilterMatchCriteria), dcl.SprintResource(actual.FilterMatchCriteria))
+		return true
+	}
+	if actual.FilterLabel == nil && desired.FilterLabel != nil && !dcl.IsEmptyValueIndirect(desired.FilterLabel) {
+		c.Config.Logger.Infof("desired FilterLabel %s - but actually nil", dcl.SprintResource(desired.FilterLabel))
+		return true
+	}
+	if compareForwardingRuleMetadataFilterFilterLabelSlice(c, desired.FilterLabel, actual.FilterLabel) && !dcl.IsZeroValue(desired.FilterLabel) {
+		c.Config.Logger.Infof("Diff in FilterLabel. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FilterLabel), dcl.SprintResource(actual.FilterLabel))
+		return true
+	}
+	return false
+}
+
 func compareForwardingRuleMetadataFilterSlice(c *Client, desired, actual []ForwardingRuleMetadataFilter) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in ForwardingRuleMetadataFilter, lengths unequal.")
@@ -885,39 +950,19 @@ func compareForwardingRuleMetadataFilterSlice(c *Client, desired, actual []Forwa
 	return false
 }
 
-func compareForwardingRuleMetadataFilter(c *Client, desired, actual *ForwardingRuleMetadataFilter) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.FilterMatchCriteria == nil && desired.FilterMatchCriteria != nil && !dcl.IsEmptyValueIndirect(desired.FilterMatchCriteria) {
-		c.Config.Logger.Infof("desired FilterMatchCriteria %s - but actually nil", dcl.SprintResource(desired.FilterMatchCriteria))
-		return true
-	}
-	if !reflect.DeepEqual(desired.FilterMatchCriteria, actual.FilterMatchCriteria) && !dcl.IsZeroValue(desired.FilterMatchCriteria) && !(dcl.IsEmptyValueIndirect(desired.FilterMatchCriteria) && dcl.IsZeroValue(actual.FilterMatchCriteria)) {
-		c.Config.Logger.Infof("Diff in FilterMatchCriteria. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FilterMatchCriteria), dcl.SprintResource(actual.FilterMatchCriteria))
-		return true
-	}
-	if actual.FilterLabel == nil && desired.FilterLabel != nil && !dcl.IsEmptyValueIndirect(desired.FilterLabel) {
-		c.Config.Logger.Infof("desired FilterLabel %s - but actually nil", dcl.SprintResource(desired.FilterLabel))
-		return true
-	}
-	if compareForwardingRuleMetadataFilterFilterLabelSlice(c, desired.FilterLabel, actual.FilterLabel) && !dcl.IsZeroValue(desired.FilterLabel) {
-		c.Config.Logger.Infof("Diff in FilterLabel. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FilterLabel), dcl.SprintResource(actual.FilterLabel))
-		return true
-	}
-	return false
-}
-func compareForwardingRuleMetadataFilterFilterLabelSlice(c *Client, desired, actual []ForwardingRuleMetadataFilterFilterLabel) bool {
+func compareForwardingRuleMetadataFilterMap(c *Client, desired, actual map[string]ForwardingRuleMetadataFilter) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ForwardingRuleMetadataFilterFilterLabel, lengths unequal.")
+		c.Config.Logger.Info("Diff in ForwardingRuleMetadataFilter, lengths unequal.")
 		return true
 	}
-	for i := 0; i < len(desired); i++ {
-		if compareForwardingRuleMetadataFilterFilterLabel(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ForwardingRuleMetadataFilterFilterLabel, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in ForwardingRuleMetadataFilter, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareForwardingRuleMetadataFilter(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in ForwardingRuleMetadataFilter, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -935,7 +980,7 @@ func compareForwardingRuleMetadataFilterFilterLabel(c *Client, desired, actual *
 		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
 		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
@@ -943,12 +988,46 @@ func compareForwardingRuleMetadataFilterFilterLabel(c *Client, desired, actual *
 		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
+	if !dcl.StringCanonicalize(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
 		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
 }
+
+func compareForwardingRuleMetadataFilterFilterLabelSlice(c *Client, desired, actual []ForwardingRuleMetadataFilterFilterLabel) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ForwardingRuleMetadataFilterFilterLabel, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareForwardingRuleMetadataFilterFilterLabel(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ForwardingRuleMetadataFilterFilterLabel, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareForwardingRuleMetadataFilterFilterLabelMap(c *Client, desired, actual map[string]ForwardingRuleMetadataFilterFilterLabel) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ForwardingRuleMetadataFilterFilterLabel, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in ForwardingRuleMetadataFilterFilterLabel, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareForwardingRuleMetadataFilterFilterLabel(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in ForwardingRuleMetadataFilterFilterLabel, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
 func compareForwardingRuleIPProtocolEnumSlice(c *Client, desired, actual []ForwardingRuleIPProtocolEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in ForwardingRuleIPProtocolEnum, lengths unequal.")
@@ -1044,6 +1123,20 @@ func compareForwardingRuleNetworkTierEnum(c *Client, desired, actual *Forwarding
 // short-form so they can be substituted in.
 func (r *ForwardingRule) urlNormalized() *ForwardingRule {
 	normalized := deepcopy.Copy(*r).(ForwardingRule)
+	normalized.BackendService = dcl.SelfLinkToName(r.BackendService)
+	normalized.CreationTimestamp = dcl.SelfLinkToName(r.CreationTimestamp)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.IPAddress = dcl.SelfLinkToName(r.IPAddress)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Network = dcl.SelfLinkToName(r.Network)
+	normalized.PortRange = dcl.SelfLinkToName(r.PortRange)
+	normalized.Region = dcl.SelfLinkToName(r.Region)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.ServiceLabel = dcl.SelfLinkToName(r.ServiceLabel)
+	normalized.ServiceName = dcl.SelfLinkToName(r.ServiceName)
+	normalized.Subnetwork = dcl.SelfLinkToName(r.Subnetwork)
+	normalized.Target = dcl.SelfLinkToName(r.Target)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
@@ -1085,6 +1178,10 @@ func unmarshalForwardingRule(b []byte, c *Client) (*ForwardingRule, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapForwardingRule(m, c)
+}
+
+func unmarshalMapForwardingRule(m map[string]interface{}, c *Client) (*ForwardingRule, error) {
 
 	return flattenForwardingRule(c, m), nil
 }
@@ -1456,7 +1553,7 @@ func flattenForwardingRuleIPProtocolEnumSlice(c *Client, i interface{}) []Forwar
 
 	items := make([]ForwardingRuleIPProtocolEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenForwardingRuleIPProtocolEnum(item.(map[string]interface{})))
+		items = append(items, *flattenForwardingRuleIPProtocolEnum(item.(interface{})))
 	}
 
 	return items
@@ -1487,7 +1584,7 @@ func flattenForwardingRuleIPVersionEnumSlice(c *Client, i interface{}) []Forward
 
 	items := make([]ForwardingRuleIPVersionEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenForwardingRuleIPVersionEnum(item.(map[string]interface{})))
+		items = append(items, *flattenForwardingRuleIPVersionEnum(item.(interface{})))
 	}
 
 	return items
@@ -1518,7 +1615,7 @@ func flattenForwardingRuleLoadBalancingSchemeEnumSlice(c *Client, i interface{})
 
 	items := make([]ForwardingRuleLoadBalancingSchemeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenForwardingRuleLoadBalancingSchemeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenForwardingRuleLoadBalancingSchemeEnum(item.(interface{})))
 	}
 
 	return items
@@ -1549,7 +1646,7 @@ func flattenForwardingRuleMetadataFilterFilterMatchCriteriaEnumSlice(c *Client, 
 
 	items := make([]ForwardingRuleMetadataFilterFilterMatchCriteriaEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenForwardingRuleMetadataFilterFilterMatchCriteriaEnum(item.(map[string]interface{})))
+		items = append(items, *flattenForwardingRuleMetadataFilterFilterMatchCriteriaEnum(item.(interface{})))
 	}
 
 	return items
@@ -1580,7 +1677,7 @@ func flattenForwardingRuleNetworkTierEnumSlice(c *Client, i interface{}) []Forwa
 
 	items := make([]ForwardingRuleNetworkTierEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenForwardingRuleNetworkTierEnum(item.(map[string]interface{})))
+		items = append(items, *flattenForwardingRuleNetworkTierEnum(item.(interface{})))
 	}
 
 	return items

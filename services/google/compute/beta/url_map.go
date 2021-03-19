@@ -1475,6 +1475,9 @@ func (l *UrlMapList) HasNext() bool {
 }
 
 func (l *UrlMapList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -1488,12 +1491,17 @@ func (l *UrlMapList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListUrlMap(ctx context.Context, project string) (*UrlMapList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListUrlMapWithMaxResults(ctx, project, UrlMapMaxPage)
 
 }
 
 func (c *Client) ListUrlMapWithMaxResults(ctx context.Context, project string, pageSize int32) (*UrlMapList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listUrlMap(ctx, project, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -1508,6 +1516,9 @@ func (c *Client) ListUrlMapWithMaxResults(ctx context.Context, project string, p
 }
 
 func (c *Client) GetUrlMap(ctx context.Context, r *UrlMap) (*UrlMap, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getUrlMapRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -1537,6 +1548,9 @@ func (c *Client) GetUrlMap(ctx context.Context, r *UrlMap) (*UrlMap, error) {
 }
 
 func (c *Client) DeleteUrlMap(ctx context.Context, r *UrlMap) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("UrlMap resource is nil")
 	}
@@ -1547,6 +1561,9 @@ func (c *Client) DeleteUrlMap(ctx context.Context, r *UrlMap) error {
 
 // DeleteAllUrlMap deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllUrlMap(ctx context.Context, project string, filter func(*UrlMap) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListUrlMap(ctx, project)
 	if err != nil {
 		return err
@@ -1572,6 +1589,9 @@ func (c *Client) DeleteAllUrlMap(ctx context.Context, project string, filter fun
 func (c *Client) ApplyUrlMap(ctx context.Context, rawDesired *UrlMap, opts ...dcl.ApplyOption) (*UrlMap, error) {
 	c.Config.Logger.Info("Beginning ApplyUrlMap...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -1652,12 +1672,35 @@ func (c *Client) ApplyUrlMap(ctx context.Context, rawDesired *UrlMap, opts ...dc
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createUrlMapOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapUrlMap(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeUrlMapNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeUrlMapNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

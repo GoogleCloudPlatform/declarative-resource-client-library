@@ -255,6 +255,10 @@ components:
           description: The project for the resource
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         provisionedLinkCount:
           description: Number of links actually provisioned in this interconnect.

@@ -1,0 +1,17 @@
+{
+  "priority": 9000,
+  "firewallPolicy": "{{ref:folder.firewall_policy.json:name}}",
+  "action": "allow",
+  "description": "allow-scan-probe",
+  "direction": "INGRESS",
+  "match": {
+    "layer4Configs": [
+      {
+        "ipProtocol": "tcp",
+        "ports": ["123"]
+      }
+    ],
+    "srcIpRanges": ["10.100.0.1/32"]
+  },
+  "targetResources": ["{{ref:folder.network.json:selfLink}}"]
+}

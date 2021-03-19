@@ -74,7 +74,8 @@ message ContainerCluster {
   bool enable_tpu = 40;
   string tpu_ipv4_cidr_block = 41;
   repeated ContainerClusterConditions conditions = 42;
-  string project = 43;
+  ContainerClusterAutopilot autopilot = 43;
+  string project = 44;
 }
 
 message ContainerClusterMasterAuth {
@@ -267,6 +268,10 @@ message ContainerClusterConditions {
   string message = 2;
 }
 
+message ContainerClusterAutopilot {
+  bool enabled = 1;
+}
+
 message ApplyContainerClusterRequest {
   ContainerCluster resource = 1;
   repeated LifecycleDirective lifecycle_directives = 2;
@@ -287,6 +292,7 @@ message ListContainerClusterRequest {
 message ListContainerClusterResponse {
   repeated ContainerCluster items = 1;
 }
+
 service ContainerClusterService {
   rpc ApplyContainerCluster(ApplyContainerClusterRequest) returns (ContainerCluster);
   rpc DeleteContainerCluster(DeleteContainerClusterRequest) returns (google.protobuf.Empty);

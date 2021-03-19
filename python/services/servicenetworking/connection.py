@@ -67,14 +67,24 @@ class Connection(object):
         )
         self.service = Primitive.from_proto(response.service)
 
-    @classmethod
-    def delete(self, service, service_account_file=""):
+    def delete(self):
         stub = connection_pb2_grpc.ServicenetworkingConnectionServiceStub(
             channel.Channel()
         )
         request = connection_pb2.DeleteServicenetworkingConnectionRequest()
-        request.service_account_file = service_account_file
-        request.Service = service
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.network):
+            request.resource.network = Primitive.to_proto(self.network)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.reserved_peering_ranges):
+            request.resource.reserved_peering_ranges.extend(
+                Primitive.to_proto(self.reserved_peering_ranges)
+            )
+        if Primitive.to_proto(self.service):
+            request.resource.service = Primitive.to_proto(self.service)
 
         response = stub.DeleteServicenetworkingConnection(request)
 
@@ -108,6 +118,20 @@ class Connection(object):
         )
         res.service = Primitive.from_proto(res_proto.service)
         return res
+
+    def to_proto(self):
+        resource = connection_pb2.ServicenetworkingConnection()
+        if Primitive.to_proto(self.network):
+            resource.network = Primitive.to_proto(self.network)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.reserved_peering_ranges):
+            resource.reserved_peering_ranges.extend(
+                Primitive.to_proto(self.reserved_peering_ranges)
+            )
+        if Primitive.to_proto(self.service):
+            resource.service = Primitive.to_proto(self.service)
+        return resource
 
 
 class Primitive(object):

@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 
 	"github.com/mohae/deepcopy"
@@ -99,7 +98,7 @@ func (c *Client) listSslCertRaw(ctx context.Context, project, instance, pageToke
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -174,7 +173,7 @@ func (op *deleteSslCertOperation) do(ctx context.Context, r *SslCert, c *Client)
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -197,7 +196,13 @@ func (op *deleteSslCertOperation) do(ctx context.Context, r *SslCert, c *Client)
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createSslCertOperation struct{}
+type createSslCertOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createSslCertOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createSslCertOperation) do(ctx context.Context, r *SslCert, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -213,7 +218,7 @@ func (op *createSslCertOperation) do(ctx context.Context, r *SslCert, c *Client)
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -227,13 +232,17 @@ func (op *createSslCertOperation) do(ctx context.Context, r *SslCert, c *Client)
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
-	r.Name, err = o.FetchName()
-	if err != nil {
-		return fmt.Errorf("error trying to retrieve Name: %w", err)
+	// Include Name in URL substitution for initial GET request.
+	name, ok := op.response["sha1Fingerprint"].(string)
+	if !ok {
+		return fmt.Errorf("expected sha1Fingerprint to be a string")
 	}
+	r.Name = &name
 
 	if _, err := c.GetSslCert(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -246,7 +255,7 @@ func (c *Client) getSslCertRaw(ctx context.Context, r *SslCert) ([]byte, error) 
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -330,30 +339,22 @@ func canonicalizeSslCertInitialState(rawInitial, rawDesired *SslCert) (*SslCert,
 
 func canonicalizeSslCertDesiredState(rawDesired, rawInitial *SslCert, opts ...dcl.ApplyOption) (*SslCert, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*SslCert); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected SslCert, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.CertSerialNumber) {
+	if dcl.StringCanonicalize(rawDesired.CertSerialNumber, rawInitial.CertSerialNumber) {
 		rawDesired.CertSerialNumber = rawInitial.CertSerialNumber
 	}
-	if dcl.IsZeroValue(rawDesired.Cert) {
+	if dcl.StringCanonicalize(rawDesired.Cert, rawInitial.Cert) {
 		rawDesired.Cert = rawInitial.Cert
 	}
 	if dcl.IsZeroValue(rawDesired.CreateTime) {
 		rawDesired.CreateTime = rawInitial.CreateTime
 	}
-	if dcl.IsZeroValue(rawDesired.CommonName) {
+	if dcl.StringCanonicalize(rawDesired.CommonName, rawInitial.CommonName) {
 		rawDesired.CommonName = rawInitial.CommonName
 	}
 	if dcl.IsZeroValue(rawDesired.ExpirationTime) {
@@ -362,7 +363,7 @@ func canonicalizeSslCertDesiredState(rawDesired, rawInitial *SslCert, opts ...dc
 	if dcl.IsZeroValue(rawDesired.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Instance) {
+	if dcl.StringCanonicalize(rawDesired.Instance, rawInitial.Instance) {
 		rawDesired.Instance = rawInitial.Instance
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
@@ -377,11 +378,17 @@ func canonicalizeSslCertNewState(c *Client, rawNew, rawDesired *SslCert) (*SslCe
 	if dcl.IsEmptyValueIndirect(rawNew.CertSerialNumber) && dcl.IsEmptyValueIndirect(rawDesired.CertSerialNumber) {
 		rawNew.CertSerialNumber = rawDesired.CertSerialNumber
 	} else {
+		if dcl.StringCanonicalize(rawDesired.CertSerialNumber, rawNew.CertSerialNumber) {
+			rawNew.CertSerialNumber = rawDesired.CertSerialNumber
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Cert) && dcl.IsEmptyValueIndirect(rawDesired.Cert) {
 		rawNew.Cert = rawDesired.Cert
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Cert, rawNew.Cert) {
+			rawNew.Cert = rawDesired.Cert
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
@@ -392,6 +399,9 @@ func canonicalizeSslCertNewState(c *Client, rawNew, rawDesired *SslCert) (*SslCe
 	if dcl.IsEmptyValueIndirect(rawNew.CommonName) && dcl.IsEmptyValueIndirect(rawDesired.CommonName) {
 		rawNew.CommonName = rawDesired.CommonName
 	} else {
+		if dcl.StringCanonicalize(rawDesired.CommonName, rawNew.CommonName) {
+			rawNew.CommonName = rawDesired.CommonName
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ExpirationTime) && dcl.IsEmptyValueIndirect(rawDesired.ExpirationTime) {
@@ -407,6 +417,9 @@ func canonicalizeSslCertNewState(c *Client, rawNew, rawDesired *SslCert) (*SslCe
 	if dcl.IsEmptyValueIndirect(rawNew.Instance) && dcl.IsEmptyValueIndirect(rawDesired.Instance) {
 		rawNew.Instance = rawDesired.Instance
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Instance, rawNew.Instance) {
+			rawNew.Instance = rawDesired.Instance
+		}
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -435,21 +448,21 @@ func diffSslCert(c *Client, desired, actual *SslCert, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []sslCertDiff
-	if !dcl.IsZeroValue(desired.CommonName) && (dcl.IsZeroValue(actual.CommonName) || !reflect.DeepEqual(*desired.CommonName, *actual.CommonName)) {
+	if !dcl.IsZeroValue(desired.CommonName) && !dcl.StringCanonicalize(desired.CommonName, actual.CommonName) {
 		c.Config.Logger.Infof("Detected diff in CommonName.\nDESIRED: %v\nACTUAL: %v", desired.CommonName, actual.CommonName)
 		diffs = append(diffs, sslCertDiff{
 			RequiresRecreate: true,
 			FieldName:        "CommonName",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.StringEqualsWithSelfLink(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, sslCertDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Instance) && (dcl.IsZeroValue(actual.Instance) || !reflect.DeepEqual(*desired.Instance, *actual.Instance)) {
+	if !dcl.IsZeroValue(desired.Instance) && !dcl.StringCanonicalize(desired.Instance, actual.Instance) {
 		c.Config.Logger.Infof("Detected diff in Instance.\nDESIRED: %v\nACTUAL: %v", desired.Instance, actual.Instance)
 		diffs = append(diffs, sslCertDiff{
 			RequiresRecreate: true,
@@ -486,6 +499,11 @@ func diffSslCert(c *Client, desired, actual *SslCert, opts ...dcl.ApplyOption) (
 // short-form so they can be substituted in.
 func (r *SslCert) urlNormalized() *SslCert {
 	normalized := deepcopy.Copy(*r).(SslCert)
+	normalized.CertSerialNumber = dcl.SelfLinkToName(r.CertSerialNumber)
+	normalized.Cert = dcl.SelfLinkToName(r.Cert)
+	normalized.CommonName = dcl.SelfLinkToName(r.CommonName)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Instance = dcl.SelfLinkToName(r.Instance)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -527,6 +545,10 @@ func unmarshalSslCert(b []byte, c *Client) (*SslCert, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapSslCert(m, c)
+}
+
+func unmarshalMapSslCert(m map[string]interface{}, c *Client) (*SslCert, error) {
 
 	return flattenSslCert(c, m), nil
 }
@@ -581,7 +603,7 @@ func flattenSslCert(c *Client, i interface{}) *SslCert {
 	r.CreateTime = dcl.FlattenString(m["createTime"])
 	r.CommonName = dcl.FlattenString(m["commonName"])
 	r.ExpirationTime = dcl.FlattenString(m["expirationTime"])
-	r.Name = dcl.FlattenSecretValue(m["sha1Fingerprint"])
+	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["sha1Fingerprint"]))
 	r.Instance = dcl.FlattenString(m["instance"])
 	r.Project = dcl.FlattenString(m["project"])
 

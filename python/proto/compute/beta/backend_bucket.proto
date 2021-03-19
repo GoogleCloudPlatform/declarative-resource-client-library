@@ -52,6 +52,7 @@ message ListComputeBetaBackendBucketRequest {
 message ListComputeBetaBackendBucketResponse {
   repeated ComputeBetaBackendBucket items = 1;
 }
+
 service ComputeBetaBackendBucketService {
   rpc ApplyComputeBetaBackendBucket(ApplyComputeBetaBackendBucketRequest) returns (ComputeBetaBackendBucket);
   rpc DeleteComputeBetaBackendBucket(DeleteComputeBetaBackendBucketRequest) returns (google.protobuf.Empty);

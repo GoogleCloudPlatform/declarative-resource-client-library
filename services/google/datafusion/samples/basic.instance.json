@@ -1,0 +1,12 @@
+{
+  "name": "{{instance}}",
+  "project": "{{ref:datafusion.serviceusage.service.json:project}}",
+  "location": "us-central1",
+  "type": "BASIC",
+  "privateInstance": true,
+  "networkConfig": {
+    "network": "{{ref:basic.compute.network.json:name}}",
+    "ipAllocation": "10.89.48.0/22"
+  },
+  "version": "6.3.0"
+}

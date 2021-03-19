@@ -65,6 +65,7 @@ type Cluster struct {
 	EnableTPU                      *bool                                  `json:"enableTPU"`
 	TPUIPv4CidrBlock               *string                                `json:"tpuIPv4CidrBlock"`
 	Conditions                     []ClusterConditions                    `json:"conditions"`
+	Autopilot                      *ClusterAutopilot                      `json:"autopilot"`
 	Project                        *string                                `json:"project"`
 }
 
@@ -928,6 +929,27 @@ func (r *ClusterConditions) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
+type ClusterAutopilot struct {
+	empty   bool  `json:"-"`
+	Enabled *bool `json:"enabled"`
+}
+
+// This object is used to assert a desired state where this ClusterAutopilot is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyClusterAutopilot *ClusterAutopilot = &ClusterAutopilot{empty: true}
+
+func (r *ClusterAutopilot) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ClusterAutopilot) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
 // Describe returns a simple description of this resource to ensure that automated tools
 // can identify it.
 func (r *Cluster) Describe() dcl.ServiceTypeVersion {
@@ -955,6 +977,9 @@ func (l *ClusterList) HasNext() bool {
 }
 
 func (l *ClusterList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -968,6 +993,8 @@ func (l *ClusterList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListCluster(ctx context.Context, project, location string) (*ClusterList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	items, token, err := c.listCluster(ctx, project, location, "")
 	if err != nil {
@@ -985,6 +1012,9 @@ func (c *Client) ListCluster(ctx context.Context, project, location string) (*Cl
 }
 
 func (c *Client) GetCluster(ctx context.Context, r *Cluster) (*Cluster, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getClusterRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -1015,6 +1045,9 @@ func (c *Client) GetCluster(ctx context.Context, r *Cluster) (*Cluster, error) {
 }
 
 func (c *Client) DeleteCluster(ctx context.Context, r *Cluster) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Cluster resource is nil")
 	}
@@ -1025,6 +1058,9 @@ func (c *Client) DeleteCluster(ctx context.Context, r *Cluster) error {
 
 // DeleteAllCluster deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllCluster(ctx context.Context, project, location string, filter func(*Cluster) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListCluster(ctx, project, location)
 	if err != nil {
 		return err
@@ -1050,6 +1086,9 @@ func (c *Client) DeleteAllCluster(ctx context.Context, project, location string,
 func (c *Client) ApplyCluster(ctx context.Context, rawDesired *Cluster, opts ...dcl.ApplyOption) (*Cluster, error) {
 	c.Config.Logger.Info("Beginning ApplyCluster...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -1130,12 +1169,35 @@ func (c *Client) ApplyCluster(ctx context.Context, rawDesired *Cluster, opts ...
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createClusterOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapCluster(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeClusterNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeClusterNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

@@ -58,6 +58,7 @@ message ListComputeBetaNetworkRequest {
 message ListComputeBetaNetworkResponse {
   repeated ComputeBetaNetwork items = 1;
 }
+
 service ComputeBetaNetworkService {
   rpc ApplyComputeBetaNetwork(ApplyComputeBetaNetworkRequest) returns (ComputeBetaNetwork);
   rpc DeleteComputeBetaNetwork(DeleteComputeBetaNetworkRequest) returns (google.protobuf.Empty);

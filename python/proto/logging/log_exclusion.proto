@@ -47,6 +47,7 @@ message ListLoggingLogExclusionRequest {
 message ListLoggingLogExclusionResponse {
   repeated LoggingLogExclusion items = 1;
 }
+
 service LoggingLogExclusionService {
   rpc ApplyLoggingLogExclusion(ApplyLoggingLogExclusionRequest) returns (LoggingLogExclusion);
   rpc DeleteLoggingLogExclusion(DeleteLoggingLogExclusionRequest) returns (google.protobuf.Empty);

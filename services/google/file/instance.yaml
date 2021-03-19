@@ -41,13 +41,11 @@ components:
                 format: int64
                 type: integer
                 x-dcl-go-name: CapacityGb
-                x-kubernetes-immutable: true
               name:
                 description: The name of the file share (must be 16 characters or
                   less).
                 type: string
                 x-dcl-go-name: Name
-                x-kubernetes-immutable: true
               nfsExportOptions:
                 description: Nfs Export Options. There is a limit of 10 export options
                   per file share.
@@ -65,7 +63,6 @@ components:
                       type: string
                       x-dcl-go-name: AccessMode
                       x-dcl-go-type: InstanceFileSharesNfsExportOptionsAccessModeEnum
-                      x-kubernetes-immutable: true
                     anonGid:
                       description: An integer representing the anonymous group id
                         with a default value of 65534. Anon_gid may only be set with
@@ -74,7 +71,6 @@ components:
                       format: int64
                       type: integer
                       x-dcl-go-name: AnonGid
-                      x-kubernetes-immutable: true
                     anonUid:
                       description: An integer representing the anonymous user id with
                         a default value of 65534. Anon_uid may only be set with squash_mode
@@ -83,7 +79,6 @@ components:
                       format: int64
                       type: integer
                       x-dcl-go-name: AnonUid
-                      x-kubernetes-immutable: true
                     ipRanges:
                       description: List of either an IPv4 addresses in the format
                         {octet 1}.{octet 2}.{octet 3}.{octet 4} or CIDR ranges in
@@ -98,7 +93,6 @@ components:
                       type: array
                       x-dcl-go-name: IPRanges
                       x-dcl-list-type: list
-                      x-kubernetes-immutable: true
                     squashMode:
                       description: 'Either NO_ROOT_SQUASH, for allowing root access
                         on the exported directory, or ROOT_SQUASH, for not allowing
@@ -111,13 +105,11 @@ components:
                       type: string
                       x-dcl-go-name: SquashMode
                       x-dcl-go-type: InstanceFileSharesNfsExportOptionsSquashModeEnum
-                      x-kubernetes-immutable: true
                   type: object
                   x-dcl-go-type: InstanceFileSharesNfsExportOptions
                 type: array
                 x-dcl-go-name: NfsExportOptions
                 x-dcl-list-type: list
-                x-kubernetes-immutable: true
               sourceBackup:
                 description: The resource name of the backup, in the format projects/{project_number}/locations/{location_id}/backups/{backup_id},
                   that this file share has been restored from.
@@ -126,7 +118,6 @@ components:
                 x-dcl-references:
                 - field: selfLink
                   resource: File/Backup
-                x-kubernetes-immutable: true
             type: object
             x-dcl-go-type: InstanceFileShares
           type: array
@@ -136,9 +127,6 @@ components:
           additionalProperties:
             type: string
           description: Resource labels to represent user provided metadata.
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         location:
@@ -167,7 +155,6 @@ components:
                 type: array
                 x-dcl-go-name: IPAddresses
                 x-dcl-list-type: list
-                x-kubernetes-immutable: true
               modes:
                 description: Internet protocol versions for which the instance has
                   IP addresses assigned. For this version, only MODE_IPV4 is supported.
@@ -177,13 +164,11 @@ components:
                 type: array
                 x-dcl-go-name: Modes
                 x-dcl-list-type: list
-                x-kubernetes-immutable: true
               network:
                 description: The name of the Google Compute Engine (/compute/docs/networks-and-firewalls#networks)
                   to which the instance is connected.
                 type: string
                 x-dcl-go-name: Network
-                x-kubernetes-immutable: true
               reservedIPRange:
                 description: A /29 CIDR block in one of the (https://www.arin.net/knowledge/address_filters.html)
                   that identifies the range of IP addresses reserved for this instance.
@@ -192,7 +177,6 @@ components:
                   ranges for other Cloud Filestore instances in the selected VPC network.
                 type: string
                 x-dcl-go-name: ReservedIPRange
-                x-kubernetes-immutable: true
             type: object
             x-dcl-go-type: InstanceNetworks
           type: array
@@ -202,6 +186,10 @@ components:
           description: The project for the resource
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         state:
           description: 'Output only. The instance state. Possible values: STATE_UNSPECIFIED,

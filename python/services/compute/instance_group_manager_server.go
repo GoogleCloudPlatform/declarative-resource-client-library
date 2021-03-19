@@ -152,12 +152,12 @@ func ProtoToComputeInstanceGroupManagerStatusVersionTarget(p *computepb.ComputeI
 	return obj
 }
 
-// ProtoToInstanceGroupManagerAutohealingPolicies converts a InstanceGroupManagerAutohealingPolicies resource from its proto representation.
-func ProtoToComputeInstanceGroupManagerAutohealingPolicies(p *computepb.ComputeInstanceGroupManagerAutohealingPolicies) *compute.InstanceGroupManagerAutohealingPolicies {
+// ProtoToInstanceGroupManagerAutoHealingPolicies converts a InstanceGroupManagerAutoHealingPolicies resource from its proto representation.
+func ProtoToComputeInstanceGroupManagerAutoHealingPolicies(p *computepb.ComputeInstanceGroupManagerAutoHealingPolicies) *compute.InstanceGroupManagerAutoHealingPolicies {
 	if p == nil {
 		return nil
 	}
-	obj := &compute.InstanceGroupManagerAutohealingPolicies{
+	obj := &compute.InstanceGroupManagerAutoHealingPolicies{
 		HealthCheck:     dcl.StringOrNil(p.HealthCheck),
 		InitialDelaySec: dcl.Int64OrNil(p.InitialDelaySec),
 	}
@@ -233,8 +233,8 @@ func ProtoToInstanceGroupManager(p *computepb.ComputeInstanceGroupManager) *comp
 	for _, r := range p.GetTargetPools() {
 		obj.TargetPools = append(obj.TargetPools, r)
 	}
-	for _, r := range p.GetAutohealingPolicies() {
-		obj.AutohealingPolicies = append(obj.AutohealingPolicies, *ProtoToComputeInstanceGroupManagerAutohealingPolicies(r))
+	for _, r := range p.GetAutoHealingPolicies() {
+		obj.AutoHealingPolicies = append(obj.AutoHealingPolicies, *ProtoToComputeInstanceGroupManagerAutoHealingPolicies(r))
 	}
 	return obj
 }
@@ -364,12 +364,12 @@ func ComputeInstanceGroupManagerStatusVersionTargetToProto(o *compute.InstanceGr
 	return p
 }
 
-// InstanceGroupManagerAutohealingPoliciesToProto converts a InstanceGroupManagerAutohealingPolicies resource to its proto representation.
-func ComputeInstanceGroupManagerAutohealingPoliciesToProto(o *compute.InstanceGroupManagerAutohealingPolicies) *computepb.ComputeInstanceGroupManagerAutohealingPolicies {
+// InstanceGroupManagerAutoHealingPoliciesToProto converts a InstanceGroupManagerAutoHealingPolicies resource to its proto representation.
+func ComputeInstanceGroupManagerAutoHealingPoliciesToProto(o *compute.InstanceGroupManagerAutoHealingPolicies) *computepb.ComputeInstanceGroupManagerAutoHealingPolicies {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeInstanceGroupManagerAutohealingPolicies{
+	p := &computepb.ComputeInstanceGroupManagerAutoHealingPolicies{
 		HealthCheck:     dcl.ValueOrEmptyString(o.HealthCheck),
 		InitialDelaySec: dcl.ValueOrEmptyInt64(o.InitialDelaySec),
 	}
@@ -445,8 +445,8 @@ func InstanceGroupManagerToProto(resource *compute.InstanceGroupManager) *comput
 	for _, r := range resource.TargetPools {
 		p.TargetPools = append(p.TargetPools, r)
 	}
-	for _, r := range resource.AutohealingPolicies {
-		p.AutohealingPolicies = append(p.AutohealingPolicies, ComputeInstanceGroupManagerAutohealingPoliciesToProto(&r))
+	for _, r := range resource.AutoHealingPolicies {
+		p.AutoHealingPolicies = append(p.AutoHealingPolicies, ComputeInstanceGroupManagerAutoHealingPoliciesToProto(&r))
 	}
 
 	return p

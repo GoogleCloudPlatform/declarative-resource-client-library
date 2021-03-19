@@ -1,0 +1,17 @@
+{
+  "name": "{{ref:basic.instance.json:name}}",
+  "project": "{{ref:basic.instance.json:project}}",
+  "location": "{{ref:basic.instance.json:location}}",
+  "type": "{{ref:basic.instance.json:type}}",
+  "enableStackdriverLogging": true,
+  "enableStackdriverMonitoring": true,
+  "labels": {
+    "examplekey": "examplevalue"
+  },
+  "privateInstance": true,
+  "networkConfig": {
+    "network": "{{ref:basic.compute.network.json:name}}",
+    "ipAllocation": "10.89.48.0/22"
+  },
+  "version": "6.3.0"
+}

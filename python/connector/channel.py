@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# Lint as: python3
 """An example showing how to call the MMv2 go library from Python.
 
 This is a simple Python app that show how the MMv2 go library can

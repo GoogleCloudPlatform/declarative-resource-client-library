@@ -48,14 +48,15 @@ class Service(object):
         self.state = ServiceStateEnum.from_proto(response.state)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = service_pb2_grpc.ServiceusageServiceServiceStub(channel.Channel())
         request = service_pb2.DeleteServiceusageServiceRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Name = name
+        if ServiceStateEnum.to_proto(self.state):
+            request.resource.state = ServiceStateEnum.to_proto(self.state)
 
         response = stub.DeleteServiceusageService(request)
 
@@ -79,6 +80,14 @@ class Service(object):
         res.state = ServiceStateEnum.from_proto(res_proto.state)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = service_pb2.ServiceusageService()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if ServiceStateEnum.to_proto(self.state):
+            resource.state = ServiceStateEnum.to_proto(self.state)
+        return resource
 
 
 class ServiceStateEnum(object):

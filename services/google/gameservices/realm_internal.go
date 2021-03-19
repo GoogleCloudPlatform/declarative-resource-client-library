@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 
 	"github.com/mohae/deepcopy"
@@ -146,7 +145,7 @@ func (op *updateRealmUpdateOperation) do(ctx context.Context, r *Realm, c *Clien
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -183,7 +182,7 @@ func (c *Client) listRealmRaw(ctx context.Context, project, location, pageToken 
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -258,7 +257,7 @@ func (op *deleteRealmOperation) do(ctx context.Context, r *Realm, c *Client) err
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -281,7 +280,13 @@ func (op *deleteRealmOperation) do(ctx context.Context, r *Realm, c *Client) err
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createRealmOperation struct{}
+type createRealmOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createRealmOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createRealmOperation) do(ctx context.Context, r *Realm, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -297,7 +302,7 @@ func (op *createRealmOperation) do(ctx context.Context, r *Realm, c *Client) err
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -311,8 +316,10 @@ func (op *createRealmOperation) do(ctx context.Context, r *Realm, c *Client) err
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetRealm(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -325,7 +332,7 @@ func (c *Client) getRealmRaw(ctx context.Context, r *Realm) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -402,21 +409,13 @@ func canonicalizeRealmInitialState(rawInitial, rawDesired *Realm) (*Realm, error
 
 func canonicalizeRealmDesiredState(rawDesired, rawInitial *Realm, opts ...dcl.ApplyOption) (*Realm, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Realm); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Realm, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
 	if dcl.IsZeroValue(rawDesired.CreateTime) {
@@ -428,10 +427,10 @@ func canonicalizeRealmDesiredState(rawDesired, rawInitial *Realm, opts ...dcl.Ap
 	if dcl.IsZeroValue(rawDesired.Labels) {
 		rawDesired.Labels = rawInitial.Labels
 	}
-	if dcl.IsZeroValue(rawDesired.TimeZone) {
+	if dcl.StringCanonicalize(rawDesired.TimeZone, rawInitial.TimeZone) {
 		rawDesired.TimeZone = rawInitial.TimeZone
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
@@ -449,6 +448,9 @@ func canonicalizeRealmNewState(c *Client, rawNew, rawDesired *Realm) (*Realm, er
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
@@ -469,11 +471,17 @@ func canonicalizeRealmNewState(c *Client, rawNew, rawDesired *Realm) (*Realm, er
 	if dcl.IsEmptyValueIndirect(rawNew.TimeZone) && dcl.IsEmptyValueIndirect(rawDesired.TimeZone) {
 		rawNew.TimeZone = rawDesired.TimeZone
 	} else {
+		if dcl.StringCanonicalize(rawDesired.TimeZone, rawNew.TimeZone) {
+			rawNew.TimeZone = rawDesired.TimeZone
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	rawNew.Location = rawDesired.Location
@@ -504,14 +512,14 @@ func diffRealm(c *Client, desired, actual *Realm, opts ...dcl.ApplyOption) ([]re
 	}
 
 	var diffs []realmDiff
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, realmDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
+	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
 		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, realmDiff{
@@ -520,7 +528,7 @@ func diffRealm(c *Client, desired, actual *Realm, opts ...dcl.ApplyOption) ([]re
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.TimeZone) && (dcl.IsZeroValue(actual.TimeZone) || !reflect.DeepEqual(*desired.TimeZone, *actual.TimeZone)) {
+	if !dcl.IsZeroValue(desired.TimeZone) && !dcl.StringCanonicalize(desired.TimeZone, actual.TimeZone) {
 		c.Config.Logger.Infof("Detected diff in TimeZone.\nDESIRED: %v\nACTUAL: %v", desired.TimeZone, actual.TimeZone)
 
 		diffs = append(diffs, realmDiff{
@@ -529,7 +537,7 @@ func diffRealm(c *Client, desired, actual *Realm, opts ...dcl.ApplyOption) ([]re
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, realmDiff{
@@ -568,6 +576,9 @@ func diffRealm(c *Client, desired, actual *Realm, opts ...dcl.ApplyOption) ([]re
 // short-form so they can be substituted in.
 func (r *Realm) urlNormalized() *Realm {
 	normalized := deepcopy.Copy(*r).(Realm)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.TimeZone = dcl.SelfLinkToName(r.TimeZone)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
@@ -620,6 +631,10 @@ func unmarshalRealm(b []byte, c *Client) (*Realm, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapRealm(m, c)
+}
+
+func unmarshalMapRealm(m map[string]interface{}, c *Client) (*Realm, error) {
 
 	return flattenRealm(c, m), nil
 }

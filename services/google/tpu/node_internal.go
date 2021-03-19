@@ -177,7 +177,7 @@ func (op *updateNodeReimageNodeOperation) do(ctx context.Context, r *Node, c *Cl
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -214,7 +214,7 @@ func (c *Client) listNodeRaw(ctx context.Context, project, location, pageToken s
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -223,7 +223,7 @@ func (c *Client) listNodeRaw(ctx context.Context, project, location, pageToken s
 }
 
 type listNodeOperation struct {
-	Items []map[string]interface{} `json:"items"`
+	Nodes []map[string]interface{} `json:"nodes"`
 	Token string                   `json:"nextPageToken"`
 }
 
@@ -239,7 +239,7 @@ func (c *Client) listNode(ctx context.Context, project, location, pageToken stri
 	}
 
 	var l []*Node
-	for _, v := range m.Items {
+	for _, v := range m.Nodes {
 		res := flattenNode(c, v)
 		res.Project = &project
 		res.Location = &location
@@ -289,7 +289,7 @@ func (op *deleteNodeOperation) do(ctx context.Context, r *Node, c *Client) error
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -312,7 +312,13 @@ func (op *deleteNodeOperation) do(ctx context.Context, r *Node, c *Client) error
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createNodeOperation struct{}
+type createNodeOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createNodeOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createNodeOperation) do(ctx context.Context, r *Node, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -328,7 +334,7 @@ func (op *createNodeOperation) do(ctx context.Context, r *Node, c *Client) error
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -342,8 +348,10 @@ func (op *createNodeOperation) do(ctx context.Context, r *Node, c *Client) error
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetNode(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -356,7 +364,7 @@ func (c *Client) getNodeRaw(ctx context.Context, r *Node) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -433,14 +441,6 @@ func canonicalizeNodeInitialState(rawInitial, rawDesired *Node) (*Node, error) {
 
 func canonicalizeNodeDesiredState(rawDesired, rawInitial *Node, opts ...dcl.ApplyOption) (*Node, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Node); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Node, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -449,37 +449,37 @@ func canonicalizeNodeDesiredState(rawDesired, rawInitial *Node, opts ...dcl.Appl
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.IsZeroValue(rawDesired.AcceleratorType) {
+	if dcl.StringCanonicalize(rawDesired.AcceleratorType, rawInitial.AcceleratorType) {
 		rawDesired.AcceleratorType = rawInitial.AcceleratorType
 	}
-	if dcl.IsZeroValue(rawDesired.IPAddress) {
+	if dcl.StringCanonicalize(rawDesired.IPAddress, rawInitial.IPAddress) {
 		rawDesired.IPAddress = rawInitial.IPAddress
 	}
-	if dcl.IsZeroValue(rawDesired.Port) {
+	if dcl.StringCanonicalize(rawDesired.Port, rawInitial.Port) {
 		rawDesired.Port = rawInitial.Port
 	}
 	if dcl.IsZeroValue(rawDesired.State) {
 		rawDesired.State = rawInitial.State
 	}
-	if dcl.IsZeroValue(rawDesired.HealthDescription) {
+	if dcl.StringCanonicalize(rawDesired.HealthDescription, rawInitial.HealthDescription) {
 		rawDesired.HealthDescription = rawInitial.HealthDescription
 	}
-	if dcl.IsZeroValue(rawDesired.TensorflowVersion) {
+	if dcl.StringCanonicalize(rawDesired.TensorflowVersion, rawInitial.TensorflowVersion) {
 		rawDesired.TensorflowVersion = rawInitial.TensorflowVersion
 	}
 	if dcl.NameToSelfLink(rawDesired.Network, rawInitial.Network) {
 		rawDesired.Network = rawInitial.Network
 	}
-	if dcl.IsZeroValue(rawDesired.CidrBlock) {
+	if dcl.StringCanonicalize(rawDesired.CidrBlock, rawInitial.CidrBlock) {
 		rawDesired.CidrBlock = rawInitial.CidrBlock
 	}
-	if dcl.IsZeroValue(rawDesired.ServiceAccount) {
+	if dcl.StringCanonicalize(rawDesired.ServiceAccount, rawInitial.ServiceAccount) {
 		rawDesired.ServiceAccount = rawInitial.ServiceAccount
 	}
 	rawDesired.CreateTime = canonicalizeNodeCreateTime(rawDesired.CreateTime, rawInitial.CreateTime, opts...)
@@ -514,26 +514,41 @@ func canonicalizeNodeNewState(c *Client, rawNew, rawDesired *Node) (*Node, error
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.AcceleratorType) && dcl.IsEmptyValueIndirect(rawDesired.AcceleratorType) {
 		rawNew.AcceleratorType = rawDesired.AcceleratorType
 	} else {
+		if dcl.StringCanonicalize(rawDesired.AcceleratorType, rawNew.AcceleratorType) {
+			rawNew.AcceleratorType = rawDesired.AcceleratorType
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.IPAddress) && dcl.IsEmptyValueIndirect(rawDesired.IPAddress) {
 		rawNew.IPAddress = rawDesired.IPAddress
 	} else {
+		if dcl.StringCanonicalize(rawDesired.IPAddress, rawNew.IPAddress) {
+			rawNew.IPAddress = rawDesired.IPAddress
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Port) && dcl.IsEmptyValueIndirect(rawDesired.Port) {
 		rawNew.Port = rawDesired.Port
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Port, rawNew.Port) {
+			rawNew.Port = rawDesired.Port
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
@@ -544,11 +559,17 @@ func canonicalizeNodeNewState(c *Client, rawNew, rawDesired *Node) (*Node, error
 	if dcl.IsEmptyValueIndirect(rawNew.HealthDescription) && dcl.IsEmptyValueIndirect(rawDesired.HealthDescription) {
 		rawNew.HealthDescription = rawDesired.HealthDescription
 	} else {
+		if dcl.StringCanonicalize(rawDesired.HealthDescription, rawNew.HealthDescription) {
+			rawNew.HealthDescription = rawDesired.HealthDescription
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.TensorflowVersion) && dcl.IsEmptyValueIndirect(rawDesired.TensorflowVersion) {
 		rawNew.TensorflowVersion = rawDesired.TensorflowVersion
 	} else {
+		if dcl.StringCanonicalize(rawDesired.TensorflowVersion, rawNew.TensorflowVersion) {
+			rawNew.TensorflowVersion = rawDesired.TensorflowVersion
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Network) && dcl.IsEmptyValueIndirect(rawDesired.Network) {
@@ -562,11 +583,17 @@ func canonicalizeNodeNewState(c *Client, rawNew, rawDesired *Node) (*Node, error
 	if dcl.IsEmptyValueIndirect(rawNew.CidrBlock) && dcl.IsEmptyValueIndirect(rawDesired.CidrBlock) {
 		rawNew.CidrBlock = rawDesired.CidrBlock
 	} else {
+		if dcl.StringCanonicalize(rawDesired.CidrBlock, rawNew.CidrBlock) {
+			rawNew.CidrBlock = rawDesired.CidrBlock
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ServiceAccount) && dcl.IsEmptyValueIndirect(rawDesired.ServiceAccount) {
 		rawNew.ServiceAccount = rawDesired.ServiceAccount
 	} else {
+		if dcl.StringCanonicalize(rawDesired.ServiceAccount, rawNew.ServiceAccount) {
+			rawNew.ServiceAccount = rawDesired.ServiceAccount
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
@@ -619,11 +646,6 @@ func canonicalizeNodeCreateTime(des, initial *NodeCreateTime, opts ...dcl.ApplyO
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Node)
-		_ = r
 	}
 
 	if initial == nil {
@@ -679,11 +701,6 @@ func canonicalizeNodeSchedulingConfig(des, initial *NodeSchedulingConfig, opts .
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Node)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -737,16 +754,11 @@ func canonicalizeNodeNetworkEndpoints(des, initial *NodeNetworkEndpoints, opts .
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Node)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.IPAddress) {
+	if dcl.StringCanonicalize(des.IPAddress, initial.IPAddress) || dcl.IsZeroValue(des.IPAddress) {
 		des.IPAddress = initial.IPAddress
 	}
 	if dcl.IsZeroValue(des.Port) {
@@ -759,6 +771,10 @@ func canonicalizeNodeNetworkEndpoints(des, initial *NodeNetworkEndpoints, opts .
 func canonicalizeNewNodeNetworkEndpoints(c *Client, des, nw *NodeNetworkEndpoints) *NodeNetworkEndpoints {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.IPAddress, nw.IPAddress) || dcl.IsZeroValue(des.IPAddress) {
+		nw.IPAddress = des.IPAddress
 	}
 
 	return nw
@@ -795,11 +811,6 @@ func canonicalizeNodeSymptoms(des, initial *NodeSymptoms, opts ...dcl.ApplyOptio
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Node)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -808,10 +819,10 @@ func canonicalizeNodeSymptoms(des, initial *NodeSymptoms, opts ...dcl.ApplyOptio
 	if dcl.IsZeroValue(des.SymptomType) {
 		des.SymptomType = initial.SymptomType
 	}
-	if dcl.IsZeroValue(des.Details) {
+	if dcl.StringCanonicalize(des.Details, initial.Details) || dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
 	}
-	if dcl.IsZeroValue(des.WorkerId) {
+	if dcl.StringCanonicalize(des.WorkerId, initial.WorkerId) || dcl.IsZeroValue(des.WorkerId) {
 		des.WorkerId = initial.WorkerId
 	}
 
@@ -824,6 +835,12 @@ func canonicalizeNewNodeSymptoms(c *Client, des, nw *NodeSymptoms) *NodeSymptoms
 	}
 
 	nw.CreateTime = canonicalizeNewNodeSymptomsCreateTime(c, des.CreateTime, nw.CreateTime)
+	if dcl.StringCanonicalize(des.Details, nw.Details) || dcl.IsZeroValue(des.Details) {
+		nw.Details = des.Details
+	}
+	if dcl.StringCanonicalize(des.WorkerId, nw.WorkerId) || dcl.IsZeroValue(des.WorkerId) {
+		nw.WorkerId = des.WorkerId
+	}
 
 	return nw
 }
@@ -857,11 +874,6 @@ func canonicalizeNodeSymptomsCreateTime(des, initial *NodeSymptomsCreateTime, op
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Node)
-		_ = r
 	}
 
 	if initial == nil {
@@ -930,28 +942,28 @@ func diffNode(c *Client, desired, actual *Node, opts ...dcl.ApplyOption) ([]node
 	}
 
 	var diffs []nodeDiff
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, nodeDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, nodeDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
-	if !dcl.IsZeroValue(desired.AcceleratorType) && (dcl.IsZeroValue(actual.AcceleratorType) || !reflect.DeepEqual(*desired.AcceleratorType, *actual.AcceleratorType)) {
+	if !dcl.IsZeroValue(desired.AcceleratorType) && !dcl.StringCanonicalize(desired.AcceleratorType, actual.AcceleratorType) {
 		c.Config.Logger.Infof("Detected diff in AcceleratorType.\nDESIRED: %v\nACTUAL: %v", desired.AcceleratorType, actual.AcceleratorType)
 		diffs = append(diffs, nodeDiff{
 			RequiresRecreate: true,
 			FieldName:        "AcceleratorType",
 		})
 	}
-	if !dcl.IsZeroValue(desired.TensorflowVersion) && (dcl.IsZeroValue(actual.TensorflowVersion) || !reflect.DeepEqual(*desired.TensorflowVersion, *actual.TensorflowVersion)) {
+	if !dcl.IsZeroValue(desired.TensorflowVersion) && !dcl.StringCanonicalize(desired.TensorflowVersion, actual.TensorflowVersion) {
 		c.Config.Logger.Infof("Detected diff in TensorflowVersion.\nDESIRED: %v\nACTUAL: %v", desired.TensorflowVersion, actual.TensorflowVersion)
 
 		diffs = append(diffs, nodeDiff{
@@ -967,7 +979,7 @@ func diffNode(c *Client, desired, actual *Node, opts ...dcl.ApplyOption) ([]node
 			FieldName:        "Network",
 		})
 	}
-	if !dcl.IsZeroValue(desired.CidrBlock) && (dcl.IsZeroValue(actual.CidrBlock) || !reflect.DeepEqual(*desired.CidrBlock, *actual.CidrBlock)) {
+	if !dcl.IsZeroValue(desired.CidrBlock) && !dcl.StringCanonicalize(desired.CidrBlock, actual.CidrBlock) {
 		c.Config.Logger.Infof("Detected diff in CidrBlock.\nDESIRED: %v\nACTUAL: %v", desired.CidrBlock, actual.CidrBlock)
 		diffs = append(diffs, nodeDiff{
 			RequiresRecreate: true,
@@ -981,14 +993,14 @@ func diffNode(c *Client, desired, actual *Node, opts ...dcl.ApplyOption) ([]node
 			FieldName:        "SchedulingConfig",
 		})
 	}
-	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
+	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
 		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 		diffs = append(diffs, nodeDiff{
 			RequiresRecreate: true,
 			FieldName:        "Labels",
 		})
 	}
-	if !dcl.IsZeroValue(desired.UseServiceNetworking) && (dcl.IsZeroValue(actual.UseServiceNetworking) || !reflect.DeepEqual(*desired.UseServiceNetworking, *actual.UseServiceNetworking)) {
+	if !reflect.DeepEqual(desired.UseServiceNetworking, actual.UseServiceNetworking) {
 		c.Config.Logger.Infof("Detected diff in UseServiceNetworking.\nDESIRED: %v\nACTUAL: %v", desired.UseServiceNetworking, actual.UseServiceNetworking)
 		diffs = append(diffs, nodeDiff{
 			RequiresRecreate: true,
@@ -1019,6 +1031,32 @@ func diffNode(c *Client, desired, actual *Node, opts ...dcl.ApplyOption) ([]node
 
 	return deduped, nil
 }
+func compareNodeCreateTime(c *Client, desired, actual *NodeCreateTime) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
+		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
+		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
+		return true
+	}
+	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
+		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
+		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
+		return true
+	}
+	return false
+}
+
 func compareNodeCreateTimeSlice(c *Client, desired, actual []NodeCreateTime) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in NodeCreateTime, lengths unequal.")
@@ -1033,39 +1071,19 @@ func compareNodeCreateTimeSlice(c *Client, desired, actual []NodeCreateTime) boo
 	return false
 }
 
-func compareNodeCreateTime(c *Client, desired, actual *NodeCreateTime) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-func compareNodeSchedulingConfigSlice(c *Client, desired, actual []NodeSchedulingConfig) bool {
+func compareNodeCreateTimeMap(c *Client, desired, actual map[string]NodeCreateTime) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NodeSchedulingConfig, lengths unequal.")
+		c.Config.Logger.Info("Diff in NodeCreateTime, lengths unequal.")
 		return true
 	}
-	for i := 0; i < len(desired); i++ {
-		if compareNodeSchedulingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NodeSchedulingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NodeCreateTime, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNodeCreateTime(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NodeCreateTime, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1083,7 +1101,7 @@ func compareNodeSchedulingConfig(c *Client, desired, actual *NodeSchedulingConfi
 		c.Config.Logger.Infof("desired Preemptible %s - but actually nil", dcl.SprintResource(desired.Preemptible))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Preemptible, actual.Preemptible) && !dcl.IsZeroValue(desired.Preemptible) && !(dcl.IsEmptyValueIndirect(desired.Preemptible) && dcl.IsZeroValue(actual.Preemptible)) {
+	if !reflect.DeepEqual(desired.Preemptible, actual.Preemptible) && !dcl.IsZeroValue(desired.Preemptible) {
 		c.Config.Logger.Infof("Diff in Preemptible. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Preemptible), dcl.SprintResource(actual.Preemptible))
 		return true
 	}
@@ -1091,20 +1109,40 @@ func compareNodeSchedulingConfig(c *Client, desired, actual *NodeSchedulingConfi
 		c.Config.Logger.Infof("desired Reserved %s - but actually nil", dcl.SprintResource(desired.Reserved))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Reserved, actual.Reserved) && !dcl.IsZeroValue(desired.Reserved) && !(dcl.IsEmptyValueIndirect(desired.Reserved) && dcl.IsZeroValue(actual.Reserved)) {
+	if !reflect.DeepEqual(desired.Reserved, actual.Reserved) && !dcl.IsZeroValue(desired.Reserved) {
 		c.Config.Logger.Infof("Diff in Reserved. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Reserved), dcl.SprintResource(actual.Reserved))
 		return true
 	}
 	return false
 }
-func compareNodeNetworkEndpointsSlice(c *Client, desired, actual []NodeNetworkEndpoints) bool {
+
+func compareNodeSchedulingConfigSlice(c *Client, desired, actual []NodeSchedulingConfig) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NodeNetworkEndpoints, lengths unequal.")
+		c.Config.Logger.Info("Diff in NodeSchedulingConfig, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNodeNetworkEndpoints(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NodeNetworkEndpoints, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNodeSchedulingConfig(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NodeSchedulingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNodeSchedulingConfigMap(c *Client, desired, actual map[string]NodeSchedulingConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NodeSchedulingConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NodeSchedulingConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNodeSchedulingConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NodeSchedulingConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1120,14 +1158,34 @@ func compareNodeNetworkEndpoints(c *Client, desired, actual *NodeNetworkEndpoint
 	}
 	return false
 }
-func compareNodeSymptomsSlice(c *Client, desired, actual []NodeSymptoms) bool {
+
+func compareNodeNetworkEndpointsSlice(c *Client, desired, actual []NodeNetworkEndpoints) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NodeSymptoms, lengths unequal.")
+		c.Config.Logger.Info("Diff in NodeNetworkEndpoints, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNodeSymptoms(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NodeSymptoms, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNodeNetworkEndpoints(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NodeNetworkEndpoints, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNodeNetworkEndpointsMap(c *Client, desired, actual map[string]NodeNetworkEndpoints) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NodeNetworkEndpoints, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NodeNetworkEndpoints, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNodeNetworkEndpoints(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NodeNetworkEndpoints, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1153,7 +1211,7 @@ func compareNodeSymptoms(c *Client, desired, actual *NodeSymptoms) bool {
 		c.Config.Logger.Infof("desired SymptomType %s - but actually nil", dcl.SprintResource(desired.SymptomType))
 		return true
 	}
-	if !reflect.DeepEqual(desired.SymptomType, actual.SymptomType) && !dcl.IsZeroValue(desired.SymptomType) && !(dcl.IsEmptyValueIndirect(desired.SymptomType) && dcl.IsZeroValue(actual.SymptomType)) {
+	if !reflect.DeepEqual(desired.SymptomType, actual.SymptomType) && !dcl.IsZeroValue(desired.SymptomType) {
 		c.Config.Logger.Infof("Diff in SymptomType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SymptomType), dcl.SprintResource(actual.SymptomType))
 		return true
 	}
@@ -1161,7 +1219,7 @@ func compareNodeSymptoms(c *Client, desired, actual *NodeSymptoms) bool {
 		c.Config.Logger.Infof("desired Details %s - but actually nil", dcl.SprintResource(desired.Details))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Details, actual.Details) && !dcl.IsZeroValue(desired.Details) && !(dcl.IsEmptyValueIndirect(desired.Details) && dcl.IsZeroValue(actual.Details)) {
+	if !dcl.StringCanonicalize(desired.Details, actual.Details) && !dcl.IsZeroValue(desired.Details) {
 		c.Config.Logger.Infof("Diff in Details. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Details), dcl.SprintResource(actual.Details))
 		return true
 	}
@@ -1169,20 +1227,40 @@ func compareNodeSymptoms(c *Client, desired, actual *NodeSymptoms) bool {
 		c.Config.Logger.Infof("desired WorkerId %s - but actually nil", dcl.SprintResource(desired.WorkerId))
 		return true
 	}
-	if !reflect.DeepEqual(desired.WorkerId, actual.WorkerId) && !dcl.IsZeroValue(desired.WorkerId) && !(dcl.IsEmptyValueIndirect(desired.WorkerId) && dcl.IsZeroValue(actual.WorkerId)) {
+	if !dcl.StringCanonicalize(desired.WorkerId, actual.WorkerId) && !dcl.IsZeroValue(desired.WorkerId) {
 		c.Config.Logger.Infof("Diff in WorkerId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.WorkerId), dcl.SprintResource(actual.WorkerId))
 		return true
 	}
 	return false
 }
-func compareNodeSymptomsCreateTimeSlice(c *Client, desired, actual []NodeSymptomsCreateTime) bool {
+
+func compareNodeSymptomsSlice(c *Client, desired, actual []NodeSymptoms) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NodeSymptomsCreateTime, lengths unequal.")
+		c.Config.Logger.Info("Diff in NodeSymptoms, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNodeSymptomsCreateTime(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NodeSymptomsCreateTime, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNodeSymptoms(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NodeSymptoms, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNodeSymptomsMap(c *Client, desired, actual map[string]NodeSymptoms) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NodeSymptoms, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NodeSymptoms, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNodeSymptoms(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NodeSymptoms, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1200,7 +1278,7 @@ func compareNodeSymptomsCreateTime(c *Client, desired, actual *NodeSymptomsCreat
 		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
+	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
 		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
@@ -1208,12 +1286,46 @@ func compareNodeSymptomsCreateTime(c *Client, desired, actual *NodeSymptomsCreat
 		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
+	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
 		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
 }
+
+func compareNodeSymptomsCreateTimeSlice(c *Client, desired, actual []NodeSymptomsCreateTime) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NodeSymptomsCreateTime, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareNodeSymptomsCreateTime(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NodeSymptomsCreateTime, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNodeSymptomsCreateTimeMap(c *Client, desired, actual map[string]NodeSymptomsCreateTime) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NodeSymptomsCreateTime, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NodeSymptomsCreateTime, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNodeSymptomsCreateTime(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NodeSymptomsCreateTime, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
 func compareNodeStateEnumSlice(c *Client, desired, actual []NodeStateEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in NodeStateEnum, lengths unequal.")
@@ -1273,7 +1385,16 @@ func compareNodeSymptomsSymptomTypeEnum(c *Client, desired, actual *NodeSymptoms
 // short-form so they can be substituted in.
 func (r *Node) urlNormalized() *Node {
 	normalized := deepcopy.Copy(*r).(Node)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.AcceleratorType = dcl.SelfLinkToName(r.AcceleratorType)
+	normalized.IPAddress = dcl.SelfLinkToName(r.IPAddress)
+	normalized.Port = dcl.SelfLinkToName(r.Port)
+	normalized.HealthDescription = dcl.SelfLinkToName(r.HealthDescription)
+	normalized.TensorflowVersion = dcl.SelfLinkToName(r.TensorflowVersion)
 	normalized.Network = dcl.SelfLinkToName(r.Network)
+	normalized.CidrBlock = dcl.SelfLinkToName(r.CidrBlock)
+	normalized.ServiceAccount = dcl.SelfLinkToName(r.ServiceAccount)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
@@ -1326,6 +1447,10 @@ func unmarshalNode(b []byte, c *Client) (*Node, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapNode(m, c)
+}
+
+func unmarshalMapNode(m map[string]interface{}, c *Client) (*Node, error) {
 
 	return flattenNode(c, m), nil
 }
@@ -2039,7 +2164,7 @@ func flattenNodeStateEnumSlice(c *Client, i interface{}) []NodeStateEnum {
 
 	items := make([]NodeStateEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNodeStateEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNodeStateEnum(item.(interface{})))
 	}
 
 	return items
@@ -2070,7 +2195,7 @@ func flattenNodeHealthEnumSlice(c *Client, i interface{}) []NodeHealthEnum {
 
 	items := make([]NodeHealthEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNodeHealthEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNodeHealthEnum(item.(interface{})))
 	}
 
 	return items
@@ -2101,7 +2226,7 @@ func flattenNodeSymptomsSymptomTypeEnumSlice(c *Client, i interface{}) []NodeSym
 
 	items := make([]NodeSymptomsSymptomTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNodeSymptomsSymptomTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNodeSymptomsSymptomTypeEnum(item.(interface{})))
 	}
 
 	return items

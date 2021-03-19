@@ -47,6 +47,7 @@ message ListRuntimeconfigVariableRequest {
 message ListRuntimeconfigVariableResponse {
   repeated RuntimeconfigVariable items = 1;
 }
+
 service RuntimeconfigVariableService {
   rpc ApplyRuntimeconfigVariable(ApplyRuntimeconfigVariableRequest) returns (RuntimeconfigVariable);
   rpc DeleteRuntimeconfigVariable(DeleteRuntimeconfigVariableRequest) returns (google.protobuf.Empty);

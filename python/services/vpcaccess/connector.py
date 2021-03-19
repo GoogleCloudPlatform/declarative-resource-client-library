@@ -80,16 +80,30 @@ class Connector(object):
         self.state = ConnectorStateEnum.from_proto(response.state)
         self.self_link = Primitive.from_proto(response.self_link)
 
-    @classmethod
-    def delete(self, project, location, name, service_account_file=""):
+    def delete(self):
         stub = connector_pb2_grpc.VpcaccessConnectorServiceStub(channel.Channel())
         request = connector_pb2.DeleteVpcaccessConnectorRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if Primitive.to_proto(self.network):
+            request.resource.network = Primitive.to_proto(self.network)
 
-        request.Name = name
+        if Primitive.to_proto(self.ip_cidr_range):
+            request.resource.ip_cidr_range = Primitive.to_proto(self.ip_cidr_range)
+
+        if Primitive.to_proto(self.min_throughput):
+            request.resource.min_throughput = Primitive.to_proto(self.min_throughput)
+
+        if Primitive.to_proto(self.max_throughput):
+            request.resource.max_throughput = Primitive.to_proto(self.max_throughput)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         response = stub.DeleteVpcaccessConnector(request)
 
@@ -121,6 +135,24 @@ class Connector(object):
         res.state = ConnectorStateEnum.from_proto(res_proto.state)
         res.self_link = Primitive.from_proto(res_proto.self_link)
         return res
+
+    def to_proto(self):
+        resource = connector_pb2.VpcaccessConnector()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.network):
+            resource.network = Primitive.to_proto(self.network)
+        if Primitive.to_proto(self.ip_cidr_range):
+            resource.ip_cidr_range = Primitive.to_proto(self.ip_cidr_range)
+        if Primitive.to_proto(self.min_throughput):
+            resource.min_throughput = Primitive.to_proto(self.min_throughput)
+        if Primitive.to_proto(self.max_throughput):
+            resource.max_throughput = Primitive.to_proto(self.max_throughput)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
+        return resource
 
 
 class ConnectorStateEnum(object):

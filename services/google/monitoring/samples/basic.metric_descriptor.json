@@ -1,0 +1,6 @@
+{
+  "project": "{{project}}",
+  "type": "custom.googleapis.com/{{suffix}}",
+  "metricKind": "CUMULATIVE",
+  "valueType": "DOUBLE"
+}

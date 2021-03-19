@@ -20,8 +20,6 @@ import (
 	dnspb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/dns/dns_go_proto"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dns"
-
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/serialization"
 )
 
 // Server implements the gRPC interface for ManagedZone.
@@ -422,16 +420,6 @@ func (s *ManagedZoneServer) ApplyDnsManagedZone(ctx context.Context, request *dn
 		return nil, err
 	}
 	return s.applyManagedZone(ctx, cl, request)
-}
-
-func (s *ManagedZoneServer) DnsManagedZoneAsHcl(ctx context.Context, request *dnspb.DnsManagedZoneAsHclRequest) (*dnspb.DnsManagedZoneAsHclResponse, error) {
-	p := ProtoToManagedZone(request.GetResource())
-	resStr, err := serialization.DnsManagedZoneAsHCL(*p)
-	if err != nil {
-		return nil, err
-	}
-
-	return &dnspb.DnsManagedZoneAsHclResponse{Hcl: resStr}, nil
 }
 
 // DeleteManagedZone handles the gRPC request by passing it to the underlying ManagedZone Delete() method.

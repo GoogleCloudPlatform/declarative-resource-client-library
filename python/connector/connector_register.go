@@ -20,6 +20,12 @@ import (
 
 	appengine_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/appengine/connector"
 
+	bigqueryconnection_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryconnection/connector"
+
+	bigqueryreservation_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryreservation/connector"
+
+	binaryauthorization_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/binaryauthorization/connector"
+
 	cloudbilling_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbilling/connector"
 
 	cloudbuild_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/connector"
@@ -36,6 +42,8 @@ import (
 
 	containeranalysis_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeranalysis/connector"
 
+	datafusion_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/datafusion/beta_connector"
+
 	dataproc_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataproc/connector"
 
 	datastore_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/datastore/connector"
@@ -48,15 +56,23 @@ import (
 
 	gameservices_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gameservices/connector"
 
+	gkehub_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/beta_connector"
+
 	logging_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/logging/connector"
 
 	iam_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam/connector"
 
 	iap_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iap/connector"
 
+	identitytoolkit_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/identitytoolkit/connector"
+
 	monitoring_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring/connector"
 
+	osconfig_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/beta_connector"
+
 	pubsub_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub/connector"
+
+	pubsublite_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsublite/connector"
 
 	redis_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/redis/connector"
 
@@ -83,8 +99,6 @@ import (
 	statuspb "google.golang.org/genproto/googleapis/rpc/status"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
-	tfjson "github.com/GoogleCloudPlatform/declarative-resource-client-library/tfjson"
-	tfjsongrpc "github.com/GoogleCloudPlatform/declarative-resource-client-library/tfjson/go_grpc"
 )
 
 // InitializeServer prepares the server for future RPC requests. It must be called before
@@ -94,6 +108,12 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	accesscontextmanager_connector.RegisterServers(grpcServer)
 
 	appengine_connector.RegisterServers(grpcServer)
+
+	bigqueryconnection_connector.RegisterServers(grpcServer)
+
+	bigqueryreservation_connector.RegisterServers(grpcServer)
+
+	binaryauthorization_connector.RegisterServers(grpcServer)
 
 	cloudbilling_connector.RegisterServers(grpcServer)
 
@@ -111,6 +131,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	containeranalysis_connector.RegisterServers(grpcServer)
 
+	datafusion_beta_connector.RegisterServers(grpcServer)
+
 	dataproc_connector.RegisterServers(grpcServer)
 
 	datastore_connector.RegisterServers(grpcServer)
@@ -123,15 +145,23 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	gameservices_connector.RegisterServers(grpcServer)
 
+	gkehub_beta_connector.RegisterServers(grpcServer)
+
 	logging_connector.RegisterServers(grpcServer)
 
 	iam_connector.RegisterServers(grpcServer)
 
 	iap_connector.RegisterServers(grpcServer)
 
+	identitytoolkit_connector.RegisterServers(grpcServer)
+
 	monitoring_connector.RegisterServers(grpcServer)
 
+	osconfig_beta_connector.RegisterServers(grpcServer)
+
 	pubsub_connector.RegisterServers(grpcServer)
+
+	pubsublite_connector.RegisterServers(grpcServer)
 
 	redis_connector.RegisterServers(grpcServer)
 
@@ -154,8 +184,6 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	tpu_connector.RegisterServers(grpcServer)
 
 	vpcaccess_connector.RegisterServers(grpcServer)
-
-	tfjsongrpc.RegisterTFJSONtoDCLServiceServer(grpcServer, &tfjson.TFJSONtoDCLService{})
 
 	return &connectorpb.InitializeResponse{
 		Status: &statuspb.Status{

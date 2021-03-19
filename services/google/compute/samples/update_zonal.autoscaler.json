@@ -1,0 +1,15 @@
+{
+  "project": "{{ref:zonal.autoscaler.json:project}}",
+  "name": "{{ref:zonal.autoscaler.json:name}}",
+  "description": "A test autoscaler",
+  "location": "us-west1-a",
+  "target": "{{ref:zonal.instance_group_manager.json:name}}",
+  "autoscalingPolicy": {
+    "maxNumReplicas": 5,
+    "minNumReplicas": 0,
+    "cooldownPeriodSec": 60,
+    "cpuUtilization": {
+      "utilizationTarget": 0.5
+    }
+  }
+}

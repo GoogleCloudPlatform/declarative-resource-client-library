@@ -25,6 +25,18 @@ import (
 // Server implements the gRPC interface for DomainMapping.
 type DomainMappingServer struct{}
 
+// ProtoToDomainMappingSslSettingsSslManagementTypeEnum converts a DomainMappingSslSettingsSslManagementTypeEnum enum from its proto representation.
+func ProtoToAppengineDomainMappingSslSettingsSslManagementTypeEnum(e appenginepb.AppengineDomainMappingSslSettingsSslManagementTypeEnum) *appengine.DomainMappingSslSettingsSslManagementTypeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := appenginepb.AppengineDomainMappingSslSettingsSslManagementTypeEnum_name[int32(e)]; ok {
+		e := appengine.DomainMappingSslSettingsSslManagementTypeEnum(n[len("DomainMappingSslSettingsSslManagementTypeEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToDomainMappingResourceRecordsTypeEnum converts a DomainMappingResourceRecordsTypeEnum enum from its proto representation.
 func ProtoToAppengineDomainMappingResourceRecordsTypeEnum(e appenginepb.AppengineDomainMappingResourceRecordsTypeEnum) *appengine.DomainMappingResourceRecordsTypeEnum {
 	if e == 0 {
@@ -43,7 +55,9 @@ func ProtoToAppengineDomainMappingSslSettings(p *appenginepb.AppengineDomainMapp
 		return nil
 	}
 	obj := &appengine.DomainMappingSslSettings{
-		IsManagedCertificate: dcl.Bool(p.IsManagedCertificate),
+		CertificateId:               dcl.StringOrNil(p.CertificateId),
+		SslManagementType:           ProtoToAppengineDomainMappingSslSettingsSslManagementTypeEnum(p.GetSslManagementType()),
+		PendingManagedCertificateId: dcl.StringOrNil(p.PendingManagedCertificateId),
 	}
 	return obj
 }
@@ -64,6 +78,7 @@ func ProtoToAppengineDomainMappingResourceRecords(p *appenginepb.AppengineDomain
 // ProtoToDomainMapping converts a DomainMapping resource from its proto representation.
 func ProtoToDomainMapping(p *appenginepb.AppengineDomainMapping) *appengine.DomainMapping {
 	obj := &appengine.DomainMapping{
+		SelfLink:    dcl.StringOrNil(p.SelfLink),
 		Name:        dcl.StringOrNil(p.Name),
 		SslSettings: ProtoToAppengineDomainMappingSslSettings(p.GetSslSettings()),
 		App:         dcl.StringOrNil(p.App),
@@ -72,6 +87,17 @@ func ProtoToDomainMapping(p *appenginepb.AppengineDomainMapping) *appengine.Doma
 		obj.ResourceRecords = append(obj.ResourceRecords, *ProtoToAppengineDomainMappingResourceRecords(r))
 	}
 	return obj
+}
+
+// DomainMappingSslSettingsSslManagementTypeEnumToProto converts a DomainMappingSslSettingsSslManagementTypeEnum enum to its proto representation.
+func AppengineDomainMappingSslSettingsSslManagementTypeEnumToProto(e *appengine.DomainMappingSslSettingsSslManagementTypeEnum) appenginepb.AppengineDomainMappingSslSettingsSslManagementTypeEnum {
+	if e == nil {
+		return appenginepb.AppengineDomainMappingSslSettingsSslManagementTypeEnum(0)
+	}
+	if v, ok := appenginepb.AppengineDomainMappingSslSettingsSslManagementTypeEnum_value["DomainMappingSslSettingsSslManagementTypeEnum"+string(*e)]; ok {
+		return appenginepb.AppengineDomainMappingSslSettingsSslManagementTypeEnum(v)
+	}
+	return appenginepb.AppengineDomainMappingSslSettingsSslManagementTypeEnum(0)
 }
 
 // DomainMappingResourceRecordsTypeEnumToProto converts a DomainMappingResourceRecordsTypeEnum enum to its proto representation.
@@ -91,7 +117,9 @@ func AppengineDomainMappingSslSettingsToProto(o *appengine.DomainMappingSslSetti
 		return nil
 	}
 	p := &appenginepb.AppengineDomainMappingSslSettings{
-		IsManagedCertificate: dcl.ValueOrEmptyBool(o.IsManagedCertificate),
+		CertificateId:               dcl.ValueOrEmptyString(o.CertificateId),
+		SslManagementType:           AppengineDomainMappingSslSettingsSslManagementTypeEnumToProto(o.SslManagementType),
+		PendingManagedCertificateId: dcl.ValueOrEmptyString(o.PendingManagedCertificateId),
 	}
 	return p
 }
@@ -112,6 +140,7 @@ func AppengineDomainMappingResourceRecordsToProto(o *appengine.DomainMappingReso
 // DomainMappingToProto converts a DomainMapping resource to its proto representation.
 func DomainMappingToProto(resource *appengine.DomainMapping) *appenginepb.AppengineDomainMapping {
 	p := &appenginepb.AppengineDomainMapping{
+		SelfLink:    dcl.ValueOrEmptyString(resource.SelfLink),
 		Name:        dcl.ValueOrEmptyString(resource.Name),
 		SslSettings: AppengineDomainMappingSslSettingsToProto(resource.SslSettings),
 		App:         dcl.ValueOrEmptyString(resource.App),

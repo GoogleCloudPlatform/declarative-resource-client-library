@@ -269,9 +269,6 @@ components:
           additionalProperties:
             type: string
           description: 'Labels to apply to this instance.  A list of key->value pairs. '
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         machineType:
@@ -287,9 +284,6 @@ components:
           description: 'The metadata key/value pairs to assign to instances that are
             created from this template. These pairs can consist of custom metadata
             or predefined keys. '
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Metadata
         minCpuPlatform:
@@ -436,6 +430,10 @@ components:
           description: The project id of the resource.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         scheduling:
           description: Sets the scheduling options for this instance.

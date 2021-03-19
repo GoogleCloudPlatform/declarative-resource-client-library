@@ -103,14 +103,51 @@ class Dashboard(object):
         self.tabbed_layout = DashboardTabbedLayout.from_proto(response.tabbed_layout)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = dashboard_pb2_grpc.MonitoringDashboardServiceStub(channel.Channel())
         request = dashboard_pb2.DeleteMonitoringDashboardRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if DashboardCategoryEnum.to_proto(self.category):
+            request.resource.category = DashboardCategoryEnum.to_proto(self.category)
 
-        request.Name = name
+        if DashboardColumnLayout.to_proto(self.column_layout):
+            request.resource.column_layout.CopyFrom(
+                DashboardColumnLayout.to_proto(self.column_layout)
+            )
+        else:
+            request.resource.ClearField("column_layout")
+        if Primitive.to_proto(self.display_name):
+            request.resource.display_name = Primitive.to_proto(self.display_name)
+
+        if DashboardGridLayout.to_proto(self.grid_layout):
+            request.resource.grid_layout.CopyFrom(
+                DashboardGridLayout.to_proto(self.grid_layout)
+            )
+        else:
+            request.resource.ClearField("grid_layout")
+        if DashboardMosaicLayout.to_proto(self.mosaic_layout):
+            request.resource.mosaic_layout.CopyFrom(
+                DashboardMosaicLayout.to_proto(self.mosaic_layout)
+            )
+        else:
+            request.resource.ClearField("mosaic_layout")
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if DashboardRowLayout.to_proto(self.row_layout):
+            request.resource.row_layout.CopyFrom(
+                DashboardRowLayout.to_proto(self.row_layout)
+            )
+        else:
+            request.resource.ClearField("row_layout")
+        if DashboardTabbedLayout.to_proto(self.tabbed_layout):
+            request.resource.tabbed_layout.CopyFrom(
+                DashboardTabbedLayout.to_proto(self.tabbed_layout)
+            )
+        else:
+            request.resource.ClearField("tabbed_layout")
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteMonitoringDashboard(request)
 
@@ -140,6 +177,46 @@ class Dashboard(object):
         res.tabbed_layout = DashboardTabbedLayout.from_proto(res_proto.tabbed_layout)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = dashboard_pb2.MonitoringDashboard()
+        if DashboardCategoryEnum.to_proto(self.category):
+            resource.category = DashboardCategoryEnum.to_proto(self.category)
+        if DashboardColumnLayout.to_proto(self.column_layout):
+            resource.column_layout.CopyFrom(
+                DashboardColumnLayout.to_proto(self.column_layout)
+            )
+        else:
+            resource.ClearField("column_layout")
+        if Primitive.to_proto(self.display_name):
+            resource.display_name = Primitive.to_proto(self.display_name)
+        if DashboardGridLayout.to_proto(self.grid_layout):
+            resource.grid_layout.CopyFrom(
+                DashboardGridLayout.to_proto(self.grid_layout)
+            )
+        else:
+            resource.ClearField("grid_layout")
+        if DashboardMosaicLayout.to_proto(self.mosaic_layout):
+            resource.mosaic_layout.CopyFrom(
+                DashboardMosaicLayout.to_proto(self.mosaic_layout)
+            )
+        else:
+            resource.ClearField("mosaic_layout")
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if DashboardRowLayout.to_proto(self.row_layout):
+            resource.row_layout.CopyFrom(DashboardRowLayout.to_proto(self.row_layout))
+        else:
+            resource.ClearField("row_layout")
+        if DashboardTabbedLayout.to_proto(self.tabbed_layout):
+            resource.tabbed_layout.CopyFrom(
+                DashboardTabbedLayout.to_proto(self.tabbed_layout)
+            )
+        else:
+            resource.ClearField("tabbed_layout")
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class DashboardColumnLayout(object):

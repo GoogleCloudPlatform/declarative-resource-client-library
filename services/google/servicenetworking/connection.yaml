@@ -39,6 +39,10 @@ components:
           description: The project in use for this network.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         reservedPeeringRanges:
           description: The name of one or more allocated IP address ranges for this

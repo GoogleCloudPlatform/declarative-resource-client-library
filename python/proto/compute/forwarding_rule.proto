@@ -114,6 +114,7 @@ message ListComputeForwardingRuleRequest {
 message ListComputeForwardingRuleResponse {
   repeated ComputeForwardingRule items = 1;
 }
+
 service ComputeForwardingRuleService {
   rpc ApplyComputeForwardingRule(ApplyComputeForwardingRuleRequest) returns (ComputeForwardingRule);
   rpc DeleteComputeForwardingRule(DeleteComputeForwardingRuleRequest) returns (google.protobuf.Empty);

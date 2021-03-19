@@ -1,0 +1,12 @@
+{
+  "name": "{{instance_name}}",
+  "project": "{{project}}",
+  "region": "{{region}}",
+  "settings": {
+    "tier": "db-f1-micro",
+    "ipConfiguration": {
+      "ipv4Enabled": true,
+      "privateNetwork": "{{ref:vpc_connection.servicenetworking.connection.json:network}}"
+    }
+  }
+}

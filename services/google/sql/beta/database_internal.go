@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 
 	"github.com/mohae/deepcopy"
@@ -134,7 +133,7 @@ func (op *updateDatabaseUpdateOperation) do(ctx context.Context, r *Database, c 
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -171,7 +170,7 @@ func (c *Client) listDatabaseRaw(ctx context.Context, project, instance, pageTok
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -246,7 +245,7 @@ func (op *deleteDatabaseOperation) do(ctx context.Context, r *Database, c *Clien
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -269,7 +268,13 @@ func (op *deleteDatabaseOperation) do(ctx context.Context, r *Database, c *Clien
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createDatabaseOperation struct{}
+type createDatabaseOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createDatabaseOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createDatabaseOperation) do(ctx context.Context, r *Database, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -285,7 +290,7 @@ func (op *createDatabaseOperation) do(ctx context.Context, r *Database, c *Clien
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -299,8 +304,10 @@ func (op *createDatabaseOperation) do(ctx context.Context, r *Database, c *Clien
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetDatabase(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -313,7 +320,7 @@ func (c *Client) getDatabaseRaw(ctx context.Context, r *Database) ([]byte, error
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -390,36 +397,28 @@ func canonicalizeDatabaseInitialState(rawInitial, rawDesired *Database) (*Databa
 
 func canonicalizeDatabaseDesiredState(rawDesired, rawInitial *Database, opts ...dcl.ApplyOption) (*Database, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Database); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Database, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Charset) {
+	if dcl.StringCanonicalize(rawDesired.Charset, rawInitial.Charset) {
 		rawDesired.Charset = rawInitial.Charset
 	}
-	if dcl.IsZeroValue(rawDesired.Collation) {
+	if dcl.StringCanonicalize(rawDesired.Collation, rawInitial.Collation) {
 		rawDesired.Collation = rawInitial.Collation
 	}
-	if dcl.IsZeroValue(rawDesired.Instance) {
+	if dcl.StringCanonicalize(rawDesired.Instance, rawInitial.Instance) {
 		rawDesired.Instance = rawInitial.Instance
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Project) {
+	if dcl.StringCanonicalize(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
-	if dcl.IsZeroValue(rawDesired.SelfLink) {
+	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}
 
@@ -431,31 +430,49 @@ func canonicalizeDatabaseNewState(c *Client, rawNew, rawDesired *Database) (*Dat
 	if dcl.IsEmptyValueIndirect(rawNew.Charset) && dcl.IsEmptyValueIndirect(rawDesired.Charset) {
 		rawNew.Charset = rawDesired.Charset
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Charset, rawNew.Charset) {
+			rawNew.Charset = rawDesired.Charset
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Collation) && dcl.IsEmptyValueIndirect(rawDesired.Collation) {
 		rawNew.Collation = rawDesired.Collation
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Collation, rawNew.Collation) {
+			rawNew.Collation = rawDesired.Collation
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Instance) && dcl.IsEmptyValueIndirect(rawDesired.Instance) {
 		rawNew.Instance = rawDesired.Instance
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Instance, rawNew.Instance) {
+			rawNew.Instance = rawDesired.Instance
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
 		rawNew.Project = rawDesired.Project
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Project, rawNew.Project) {
+			rawNew.Project = rawDesired.Project
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	}
 
 	return rawNew, nil
@@ -482,7 +499,7 @@ func diffDatabase(c *Client, desired, actual *Database, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []databaseDiff
-	if !dcl.IsZeroValue(desired.Charset) && (dcl.IsZeroValue(actual.Charset) || !reflect.DeepEqual(*desired.Charset, *actual.Charset)) {
+	if !dcl.IsZeroValue(desired.Charset) && !dcl.StringCanonicalize(desired.Charset, actual.Charset) {
 		c.Config.Logger.Infof("Detected diff in Charset.\nDESIRED: %v\nACTUAL: %v", desired.Charset, actual.Charset)
 
 		diffs = append(diffs, databaseDiff{
@@ -491,7 +508,7 @@ func diffDatabase(c *Client, desired, actual *Database, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Collation) && (dcl.IsZeroValue(actual.Collation) || !reflect.DeepEqual(*desired.Collation, *actual.Collation)) {
+	if !dcl.IsZeroValue(desired.Collation) && !dcl.StringCanonicalize(desired.Collation, actual.Collation) {
 		c.Config.Logger.Infof("Detected diff in Collation.\nDESIRED: %v\nACTUAL: %v", desired.Collation, actual.Collation)
 
 		diffs = append(diffs, databaseDiff{
@@ -500,21 +517,21 @@ func diffDatabase(c *Client, desired, actual *Database, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Instance) && (dcl.IsZeroValue(actual.Instance) || !reflect.DeepEqual(*desired.Instance, *actual.Instance)) {
+	if !dcl.IsZeroValue(desired.Instance) && !dcl.StringCanonicalize(desired.Instance, actual.Instance) {
 		c.Config.Logger.Infof("Detected diff in Instance.\nDESIRED: %v\nACTUAL: %v", desired.Instance, actual.Instance)
 		diffs = append(diffs, databaseDiff{
 			RequiresRecreate: true,
 			FieldName:        "Instance",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, databaseDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Project) && (dcl.IsZeroValue(actual.Project) || !reflect.DeepEqual(*desired.Project, *actual.Project)) {
+	if !dcl.IsZeroValue(desired.Project) && !dcl.StringCanonicalize(desired.Project, actual.Project) {
 		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %v\nACTUAL: %v", desired.Project, actual.Project)
 		diffs = append(diffs, databaseDiff{
 			RequiresRecreate: true,
@@ -551,6 +568,12 @@ func diffDatabase(c *Client, desired, actual *Database, opts ...dcl.ApplyOption)
 // short-form so they can be substituted in.
 func (r *Database) urlNormalized() *Database {
 	normalized := deepcopy.Copy(*r).(Database)
+	normalized.Charset = dcl.SelfLinkToName(r.Charset)
+	normalized.Collation = dcl.SelfLinkToName(r.Collation)
+	normalized.Instance = dcl.SelfLinkToName(r.Instance)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	return &normalized
 }
 
@@ -601,6 +624,10 @@ func unmarshalDatabase(b []byte, c *Client) (*Database, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapDatabase(m, c)
+}
+
+func unmarshalMapDatabase(m map[string]interface{}, c *Client) (*Database, error) {
 
 	return flattenDatabase(c, m), nil
 }

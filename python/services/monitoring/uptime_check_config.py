@@ -133,16 +133,62 @@ class UptimeCheckConfig(object):
         self.selected_regions = Primitive.from_proto(response.selected_regions)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = uptime_check_config_pb2_grpc.MonitoringUptimeCheckConfigServiceStub(
             channel.Channel()
         )
         request = uptime_check_config_pb2.DeleteMonitoringUptimeCheckConfigRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Name = name
+        if Primitive.to_proto(self.display_name):
+            request.resource.display_name = Primitive.to_proto(self.display_name)
+
+        if UptimeCheckConfigMonitoredResource.to_proto(self.monitored_resource):
+            request.resource.monitored_resource.CopyFrom(
+                UptimeCheckConfigMonitoredResource.to_proto(self.monitored_resource)
+            )
+        else:
+            request.resource.ClearField("monitored_resource")
+        if UptimeCheckConfigResourceGroup.to_proto(self.resource_group):
+            request.resource.resource_group.CopyFrom(
+                UptimeCheckConfigResourceGroup.to_proto(self.resource_group)
+            )
+        else:
+            request.resource.ClearField("resource_group")
+        if UptimeCheckConfigHttpCheck.to_proto(self.http_check):
+            request.resource.http_check.CopyFrom(
+                UptimeCheckConfigHttpCheck.to_proto(self.http_check)
+            )
+        else:
+            request.resource.ClearField("http_check")
+        if UptimeCheckConfigTcpCheck.to_proto(self.tcp_check):
+            request.resource.tcp_check.CopyFrom(
+                UptimeCheckConfigTcpCheck.to_proto(self.tcp_check)
+            )
+        else:
+            request.resource.ClearField("tcp_check")
+        if Primitive.to_proto(self.period):
+            request.resource.period = Primitive.to_proto(self.period)
+
+        if Primitive.to_proto(self.timeout):
+            request.resource.timeout = Primitive.to_proto(self.timeout)
+
+        if UptimeCheckConfigContentMatchersArray.to_proto(self.content_matchers):
+            request.resource.content_matchers.extend(
+                UptimeCheckConfigContentMatchersArray.to_proto(self.content_matchers)
+            )
+        if Primitive.to_proto(self.private_checkers):
+            request.resource.private_checkers.extend(
+                Primitive.to_proto(self.private_checkers)
+            )
+        if Primitive.to_proto(self.selected_regions):
+            request.resource.selected_regions.extend(
+                Primitive.to_proto(self.selected_regions)
+            )
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteMonitoringUptimeCheckConfig(request)
 
@@ -183,6 +229,52 @@ class UptimeCheckConfig(object):
         res.selected_regions = Primitive.from_proto(res_proto.selected_regions)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = uptime_check_config_pb2.MonitoringUptimeCheckConfig()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.display_name):
+            resource.display_name = Primitive.to_proto(self.display_name)
+        if UptimeCheckConfigMonitoredResource.to_proto(self.monitored_resource):
+            resource.monitored_resource.CopyFrom(
+                UptimeCheckConfigMonitoredResource.to_proto(self.monitored_resource)
+            )
+        else:
+            resource.ClearField("monitored_resource")
+        if UptimeCheckConfigResourceGroup.to_proto(self.resource_group):
+            resource.resource_group.CopyFrom(
+                UptimeCheckConfigResourceGroup.to_proto(self.resource_group)
+            )
+        else:
+            resource.ClearField("resource_group")
+        if UptimeCheckConfigHttpCheck.to_proto(self.http_check):
+            resource.http_check.CopyFrom(
+                UptimeCheckConfigHttpCheck.to_proto(self.http_check)
+            )
+        else:
+            resource.ClearField("http_check")
+        if UptimeCheckConfigTcpCheck.to_proto(self.tcp_check):
+            resource.tcp_check.CopyFrom(
+                UptimeCheckConfigTcpCheck.to_proto(self.tcp_check)
+            )
+        else:
+            resource.ClearField("tcp_check")
+        if Primitive.to_proto(self.period):
+            resource.period = Primitive.to_proto(self.period)
+        if Primitive.to_proto(self.timeout):
+            resource.timeout = Primitive.to_proto(self.timeout)
+        if UptimeCheckConfigContentMatchersArray.to_proto(self.content_matchers):
+            resource.content_matchers.extend(
+                UptimeCheckConfigContentMatchersArray.to_proto(self.content_matchers)
+            )
+        if Primitive.to_proto(self.private_checkers):
+            resource.private_checkers.extend(Primitive.to_proto(self.private_checkers))
+        if Primitive.to_proto(self.selected_regions):
+            resource.selected_regions.extend(Primitive.to_proto(self.selected_regions))
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class UptimeCheckConfigMonitoredResource(object):

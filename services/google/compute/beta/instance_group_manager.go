@@ -36,7 +36,7 @@ type InstanceGroupManager struct {
 	NamedPorts          []InstanceGroupManagerNamedPorts          `json:"namedPorts"`
 	Status              *InstanceGroupManagerStatus               `json:"status"`
 	TargetPools         []string                                  `json:"targetPools"`
-	AutohealingPolicies []InstanceGroupManagerAutohealingPolicies `json:"autohealingPolicies"`
+	AutoHealingPolicies []InstanceGroupManagerAutoHealingPolicies `json:"autoHealingPolicies"`
 	UpdatePolicy        *InstanceGroupManagerUpdatePolicy         `json:"updatePolicy"`
 	TargetSize          *int64                                    `json:"targetSize"`
 	Zone                *string                                   `json:"zone"`
@@ -285,22 +285,22 @@ func (r *InstanceGroupManagerStatusVersionTarget) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type InstanceGroupManagerAutohealingPolicies struct {
+type InstanceGroupManagerAutoHealingPolicies struct {
 	empty           bool    `json:"-"`
 	HealthCheck     *string `json:"healthCheck"`
 	InitialDelaySec *int64  `json:"initialDelaySec"`
 }
 
-// This object is used to assert a desired state where this InstanceGroupManagerAutohealingPolicies is
+// This object is used to assert a desired state where this InstanceGroupManagerAutoHealingPolicies is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyInstanceGroupManagerAutohealingPolicies *InstanceGroupManagerAutohealingPolicies = &InstanceGroupManagerAutohealingPolicies{empty: true}
+var EmptyInstanceGroupManagerAutoHealingPolicies *InstanceGroupManagerAutoHealingPolicies = &InstanceGroupManagerAutoHealingPolicies{empty: true}
 
-func (r *InstanceGroupManagerAutohealingPolicies) String() string {
+func (r *InstanceGroupManagerAutoHealingPolicies) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *InstanceGroupManagerAutohealingPolicies) HashCode() string {
+func (r *InstanceGroupManagerAutoHealingPolicies) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -406,6 +406,9 @@ func (l *InstanceGroupManagerList) HasNext() bool {
 }
 
 func (l *InstanceGroupManagerList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -419,12 +422,17 @@ func (l *InstanceGroupManagerList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListInstanceGroupManager(ctx context.Context, project, location string) (*InstanceGroupManagerList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListInstanceGroupManagerWithMaxResults(ctx, project, location, InstanceGroupManagerMaxPage)
 
 }
 
 func (c *Client) ListInstanceGroupManagerWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*InstanceGroupManagerList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listInstanceGroupManager(ctx, project, location, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -441,6 +449,9 @@ func (c *Client) ListInstanceGroupManagerWithMaxResults(ctx context.Context, pro
 }
 
 func (c *Client) GetInstanceGroupManager(ctx context.Context, r *InstanceGroupManager) (*InstanceGroupManager, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getInstanceGroupManagerRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -471,6 +482,9 @@ func (c *Client) GetInstanceGroupManager(ctx context.Context, r *InstanceGroupMa
 }
 
 func (c *Client) DeleteInstanceGroupManager(ctx context.Context, r *InstanceGroupManager) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("InstanceGroupManager resource is nil")
 	}
@@ -481,6 +495,9 @@ func (c *Client) DeleteInstanceGroupManager(ctx context.Context, r *InstanceGrou
 
 // DeleteAllInstanceGroupManager deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllInstanceGroupManager(ctx context.Context, project, location string, filter func(*InstanceGroupManager) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListInstanceGroupManager(ctx, project, location)
 	if err != nil {
 		return err
@@ -506,6 +523,9 @@ func (c *Client) DeleteAllInstanceGroupManager(ctx context.Context, project, loc
 func (c *Client) ApplyInstanceGroupManager(ctx context.Context, rawDesired *InstanceGroupManager, opts ...dcl.ApplyOption) (*InstanceGroupManager, error) {
 	c.Config.Logger.Info("Beginning ApplyInstanceGroupManager...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -586,12 +606,35 @@ func (c *Client) ApplyInstanceGroupManager(ctx context.Context, rawDesired *Inst
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createInstanceGroupManagerOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapInstanceGroupManager(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeInstanceGroupManagerNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeInstanceGroupManagerNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

@@ -34,6 +34,8 @@ type CRMOperation struct {
 	config   *dcl.Config
 	basePath string
 	verb     string
+
+	response map[string]interface{}
 }
 
 // CRMOperationError is the GCP operation's Error body.
@@ -57,20 +59,6 @@ type CRMOperationErrorError struct {
 	Message string `json:"message"`
 }
 
-// FetchResponseValue fetches a top-level field from the Response object of a
-// completed operation.  The response object is usually only present in a
-// completed operation, so it is unlikely that this will return anything useful
-// if called on an operation in progress.
-func (op *CRMOperation) FetchResponseValue(val string) (*string, error) {
-	if v, ok := op.Response[val]; ok {
-		if vs, ok := v.(string); ok {
-			return dcl.String(vs), nil
-		}
-		return nil, fmt.Errorf("could not cast %v - value at %q, to string", v, val)
-	}
-	return nil, fmt.Errorf("could not find value at %q", val)
-}
-
 // Wait waits for an CRMOperation to complete by fetching the operation until it completes.
 func (op *CRMOperation) Wait(ctx context.Context, c *dcl.Config, basePath, verb string) error {
 	c.Logger.Infof("Waiting on: %v", op)
@@ -78,7 +66,11 @@ func (op *CRMOperation) Wait(ctx context.Context, c *dcl.Config, basePath, verb 
 	op.basePath = basePath
 	op.verb = verb
 
-	return dcl.Do(ctx, op.operate, c.Retry)
+	if len(op.Response) > 0 {
+		op.response = op.Response
+	}
+
+	return dcl.Do(ctx, op.operate, c.RetryProvider)
 }
 
 func (op *CRMOperation) operate(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -100,8 +92,18 @@ func (op *CRMOperation) operate(ctx context.Context) (*dcl.RetryDetails, error) 
 	}
 
 	if op.Error != nil {
-		return nil, fmt.Errorf("operation received error: %s", op.Error)
+		return nil, fmt.Errorf("operation received error: %+v", op.Error)
+	}
+
+	if len(op.response) == 0 && len(op.Response) > 0 {
+		op.response = op.Response
 	}
 
 	return resp, nil
+}
+
+// FirstResponse returns the first response that this operation receives with the resource.
+// This response may contain special information.
+func (op *CRMOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
 }

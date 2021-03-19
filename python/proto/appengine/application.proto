@@ -18,14 +18,6 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
-enum AppengineApplicationConsumerProjectServiceEnum {
-  AppengineApplicationConsumerProjectServiceEnumNO_VALUE_DO_NOT_USE = 0;
-  AppengineApplicationConsumerProjectServiceEnumUNKNOWN = 1;
-  AppengineApplicationConsumerProjectServiceEnumGCF_PROD = 2;
-  AppengineApplicationConsumerProjectServiceEnumGCF_STAGING = 3;
-  AppengineApplicationConsumerProjectServiceEnumSERVERLESS = 4;
-}
-
 enum AppengineApplicationDatabaseTypeEnum {
   AppengineApplicationDatabaseTypeEnumNO_VALUE_DO_NOT_USE = 0;
   AppengineApplicationDatabaseTypeEnumDATABASE_TYPE_UNSPECIFIED = 1;
@@ -44,34 +36,17 @@ enum AppengineApplicationServingStatusEnum {
 
 message AppengineApplication {
   string auth_domain = 1;
-  repeated string blocked_addresses = 2;
-  string code_bucket = 3;
-  AppengineApplicationConsumerProject consumer_project = 4;
-  AppengineApplicationDatabaseTypeEnum database_type = 5;
-  string default_bucket = 6;
-  string default_hostname = 7;
-  repeated AppengineApplicationDispatchRules dispatch_rules = 8;
-  repeated string domains = 9;
-  AppengineApplicationFeatureSettings feature_settings = 10;
-  string gcr_domain = 11;
-  AppengineApplicationIap iap = 12;
-  AppengineApplicationParent parent = 13;
-  string name = 14;
-  string location = 15;
-  AppengineApplicationServingStatusEnum serving_status = 16;
-  string service_account = 17;
-}
-
-message AppengineApplicationConsumerProject {
-  AppengineApplicationConsumerProjectServiceEnum service = 1;
-  string name = 2;
-  string project_id = 3;
-  AppengineApplicationConsumerProjectRouteHash route_hash = 4;
-  string region = 5;
-}
-
-message AppengineApplicationConsumerProjectRouteHash {
-  string project_hash = 1;
+  string code_bucket = 2;
+  AppengineApplicationDatabaseTypeEnum database_type = 3;
+  string default_bucket = 4;
+  string default_hostname = 5;
+  repeated AppengineApplicationDispatchRules dispatch_rules = 6;
+  AppengineApplicationFeatureSettings feature_settings = 7;
+  string gcr_domain = 8;
+  AppengineApplicationIap iap = 9;
+  string name = 10;
+  string location = 11;
+  AppengineApplicationServingStatusEnum serving_status = 12;
 }
 
 message AppengineApplicationDispatchRules {
@@ -92,11 +67,6 @@ message AppengineApplicationIap {
   string oauth2_client_secret_sha256 = 4;
 }
 
-message AppengineApplicationParent {
-  string type = 1;
-  string id = 2;
-}
-
 message ApplyAppengineApplicationRequest {
   AppengineApplication resource = 1;
   repeated LifecycleDirective lifecycle_directives = 2;
@@ -115,6 +85,7 @@ message ListAppengineApplicationRequest {
 message ListAppengineApplicationResponse {
   repeated AppengineApplication items = 1;
 }
+
 service AppengineApplicationService {
   rpc ApplyAppengineApplication(ApplyAppengineApplicationRequest) returns (AppengineApplication);
   rpc DeleteAppengineApplication(DeleteAppengineApplicationRequest) returns (google.protobuf.Empty);

@@ -59,17 +59,21 @@ class Database(object):
         self.project = Primitive.from_proto(response.project)
         self.ddl = Primitive.from_proto(response.ddl)
 
-    @classmethod
-    def delete(self, project, instance, name, service_account_file=""):
+    def delete(self):
         stub = database_pb2_grpc.SpannerDatabaseServiceStub(channel.Channel())
         request = database_pb2.DeleteSpannerDatabaseRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Instance = instance
+        if Primitive.to_proto(self.instance):
+            request.resource.instance = Primitive.to_proto(self.instance)
 
-        request.Name = name
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
+        if Primitive.to_proto(self.ddl):
+            request.resource.ddl.extend(Primitive.to_proto(self.ddl))
         response = stub.DeleteSpannerDatabase(request)
 
     @classmethod
@@ -96,6 +100,18 @@ class Database(object):
         res.project = Primitive.from_proto(res_proto.project)
         res.ddl = Primitive.from_proto(res_proto.ddl)
         return res
+
+    def to_proto(self):
+        resource = database_pb2.SpannerDatabase()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.instance):
+            resource.instance = Primitive.to_proto(self.instance)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.ddl):
+            resource.ddl.extend(Primitive.to_proto(self.ddl))
+        return resource
 
 
 class DatabaseStateEnum(object):

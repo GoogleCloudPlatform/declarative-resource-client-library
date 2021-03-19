@@ -1,0 +1,9 @@
+{
+  "name": "{{group}}",
+  "project": "{{project}}",
+  "network": "{{ref:basic.network.json:selfLink}}",
+  "networkEndpointType": "GCE_VM_IP_PORT",
+  "subnetwork": "{{ref:basic.subnetwork.json:selfLink}}",
+  "defaultPort": 90,
+  "location": "{{zone}}"
+}

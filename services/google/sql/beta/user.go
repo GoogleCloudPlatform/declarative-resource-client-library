@@ -115,6 +115,9 @@ func (l *UserList) HasNext() bool {
 }
 
 func (l *UserList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -128,12 +131,17 @@ func (l *UserList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListUser(ctx context.Context, project, instance string) (*UserList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListUserWithMaxResults(ctx, project, instance, UserMaxPage)
 
 }
 
 func (c *Client) ListUserWithMaxResults(ctx context.Context, project, instance string, pageSize int32) (*UserList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listUser(ctx, project, instance, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -150,6 +158,9 @@ func (c *Client) ListUserWithMaxResults(ctx context.Context, project, instance s
 }
 
 func (c *Client) GetUser(ctx context.Context, r *User) (*User, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getUserRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -181,6 +192,9 @@ func (c *Client) GetUser(ctx context.Context, r *User) (*User, error) {
 }
 
 func (c *Client) DeleteUser(ctx context.Context, r *User) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("User resource is nil")
 	}
@@ -191,6 +205,9 @@ func (c *Client) DeleteUser(ctx context.Context, r *User) error {
 
 // DeleteAllUser deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllUser(ctx context.Context, project, instance string, filter func(*User) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListUser(ctx, project, instance)
 	if err != nil {
 		return err
@@ -216,6 +233,9 @@ func (c *Client) DeleteAllUser(ctx context.Context, project, instance string, fi
 func (c *Client) ApplyUser(ctx context.Context, rawDesired *User, opts ...dcl.ApplyOption) (*User, error) {
 	c.Config.Logger.Info("Beginning ApplyUser...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -296,12 +316,35 @@ func (c *Client) ApplyUser(ctx context.Context, rawDesired *User, opts ...dcl.Ap
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createUserOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapUser(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeUserNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeUserNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

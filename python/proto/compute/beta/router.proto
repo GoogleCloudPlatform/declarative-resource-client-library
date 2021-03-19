@@ -154,6 +154,7 @@ message ListComputeBetaRouterRequest {
 message ListComputeBetaRouterResponse {
   repeated ComputeBetaRouter items = 1;
 }
+
 service ComputeBetaRouterService {
   rpc ApplyComputeBetaRouter(ApplyComputeBetaRouterRequest) returns (ComputeBetaRouter);
   rpc DeleteComputeBetaRouter(DeleteComputeBetaRouterRequest) returns (google.protobuf.Empty);

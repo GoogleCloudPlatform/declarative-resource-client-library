@@ -119,16 +119,46 @@ class Autoscaler(object):
         self.creation_timestamp = Primitive.from_proto(response.creation_timestamp)
         self.location = Primitive.from_proto(response.location)
 
-    @classmethod
-    def delete(self, project, location, name, service_account_file=""):
+    def delete(self):
         stub = autoscaler_pb2_grpc.ComputeBetaAutoscalerServiceStub(channel.Channel())
         request = autoscaler_pb2.DeleteComputeBetaAutoscalerRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
 
-        request.Name = name
+        if Primitive.to_proto(self.target):
+            request.resource.target = Primitive.to_proto(self.target)
+
+        if AutoscalerAutoscalingPolicy.to_proto(self.autoscaling_policy):
+            request.resource.autoscaling_policy.CopyFrom(
+                AutoscalerAutoscalingPolicy.to_proto(self.autoscaling_policy)
+            )
+        else:
+            request.resource.ClearField("autoscaling_policy")
+        if Primitive.to_proto(self.zone):
+            request.resource.zone = Primitive.to_proto(self.zone)
+
+        if Primitive.to_proto(self.region):
+            request.resource.region = Primitive.to_proto(self.region)
+
+        if Primitive.to_proto(self.self_link_with_id):
+            request.resource.self_link_with_id = Primitive.to_proto(
+                self.self_link_with_id
+            )
+
+        if Primitive.to_proto(self.scaling_schedule_status):
+            request.resource.scaling_schedule_status = Primitive.to_proto(
+                self.scaling_schedule_status
+            )
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         response = stub.DeleteComputeBetaAutoscaler(request)
 
@@ -173,6 +203,36 @@ class Autoscaler(object):
         res.creation_timestamp = Primitive.from_proto(res_proto.creation_timestamp)
         res.location = Primitive.from_proto(res_proto.location)
         return res
+
+    def to_proto(self):
+        resource = autoscaler_pb2.ComputeBetaAutoscaler()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.target):
+            resource.target = Primitive.to_proto(self.target)
+        if AutoscalerAutoscalingPolicy.to_proto(self.autoscaling_policy):
+            resource.autoscaling_policy.CopyFrom(
+                AutoscalerAutoscalingPolicy.to_proto(self.autoscaling_policy)
+            )
+        else:
+            resource.ClearField("autoscaling_policy")
+        if Primitive.to_proto(self.zone):
+            resource.zone = Primitive.to_proto(self.zone)
+        if Primitive.to_proto(self.region):
+            resource.region = Primitive.to_proto(self.region)
+        if Primitive.to_proto(self.self_link_with_id):
+            resource.self_link_with_id = Primitive.to_proto(self.self_link_with_id)
+        if Primitive.to_proto(self.scaling_schedule_status):
+            resource.scaling_schedule_status = Primitive.to_proto(
+                self.scaling_schedule_status
+            )
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
+        return resource
 
 
 class AutoscalerAutoscalingPolicy(object):

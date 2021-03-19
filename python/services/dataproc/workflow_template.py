@@ -95,18 +95,38 @@ class WorkflowTemplate(object):
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
 
-    @classmethod
-    def delete(self, project, location, name, service_account_file=""):
+    def delete(self):
         stub = workflow_template_pb2_grpc.DataprocWorkflowTemplateServiceStub(
             channel.Channel()
         )
         request = workflow_template_pb2.DeleteDataprocWorkflowTemplateRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if Primitive.to_proto(self.version):
+            request.resource.version = Primitive.to_proto(self.version)
 
-        request.Name = name
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
+        if WorkflowTemplatePlacement.to_proto(self.placement):
+            request.resource.placement.CopyFrom(
+                WorkflowTemplatePlacement.to_proto(self.placement)
+            )
+        else:
+            request.resource.ClearField("placement")
+        if WorkflowTemplateJobsArray.to_proto(self.jobs):
+            request.resource.jobs.extend(WorkflowTemplateJobsArray.to_proto(self.jobs))
+        if WorkflowTemplateParametersArray.to_proto(self.parameters):
+            request.resource.parameters.extend(
+                WorkflowTemplateParametersArray.to_proto(self.parameters)
+            )
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         response = stub.DeleteDataprocWorkflowTemplate(request)
 
@@ -143,6 +163,32 @@ class WorkflowTemplate(object):
         res.project = Primitive.from_proto(res_proto.project)
         res.location = Primitive.from_proto(res_proto.location)
         return res
+
+    def to_proto(self):
+        resource = workflow_template_pb2.DataprocWorkflowTemplate()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.version):
+            resource.version = Primitive.to_proto(self.version)
+        if Primitive.to_proto(self.labels):
+            resource.labels = Primitive.to_proto(self.labels)
+        if WorkflowTemplatePlacement.to_proto(self.placement):
+            resource.placement.CopyFrom(
+                WorkflowTemplatePlacement.to_proto(self.placement)
+            )
+        else:
+            resource.ClearField("placement")
+        if WorkflowTemplateJobsArray.to_proto(self.jobs):
+            resource.jobs.extend(WorkflowTemplateJobsArray.to_proto(self.jobs))
+        if WorkflowTemplateParametersArray.to_proto(self.parameters):
+            resource.parameters.extend(
+                WorkflowTemplateParametersArray.to_proto(self.parameters)
+            )
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
+        return resource
 
 
 class WorkflowTemplatePlacement(object):

@@ -130,18 +130,57 @@ class NodePool(object):
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
 
-    @classmethod
-    def delete(self, project, location, cluster, name, service_account_file=""):
+    def delete(self):
         stub = node_pool_pb2_grpc.ContainerNodePoolServiceStub(channel.Channel())
         request = node_pool_pb2.DeleteContainerNodePoolRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if NodePoolConfig.to_proto(self.config):
+            request.resource.config.CopyFrom(NodePoolConfig.to_proto(self.config))
+        else:
+            request.resource.ClearField("config")
+        if Primitive.to_proto(self.node_count):
+            request.resource.node_count = Primitive.to_proto(self.node_count)
 
-        request.Cluster = cluster
+        if Primitive.to_proto(self.version):
+            request.resource.version = Primitive.to_proto(self.version)
 
-        request.Name = name
+        if Primitive.to_proto(self.locations):
+            request.resource.locations.extend(Primitive.to_proto(self.locations))
+        if NodePoolAutoscaling.to_proto(self.autoscaling):
+            request.resource.autoscaling.CopyFrom(
+                NodePoolAutoscaling.to_proto(self.autoscaling)
+            )
+        else:
+            request.resource.ClearField("autoscaling")
+        if NodePoolManagement.to_proto(self.management):
+            request.resource.management.CopyFrom(
+                NodePoolManagement.to_proto(self.management)
+            )
+        else:
+            request.resource.ClearField("management")
+        if NodePoolMaxPodsConstraint.to_proto(self.max_pods_constraint):
+            request.resource.max_pods_constraint.CopyFrom(
+                NodePoolMaxPodsConstraint.to_proto(self.max_pods_constraint)
+            )
+        else:
+            request.resource.ClearField("max_pods_constraint")
+        if NodePoolUpgradeSettings.to_proto(self.upgrade_settings):
+            request.resource.upgrade_settings.CopyFrom(
+                NodePoolUpgradeSettings.to_proto(self.upgrade_settings)
+            )
+        else:
+            request.resource.ClearField("upgrade_settings")
+        if Primitive.to_proto(self.cluster):
+            request.resource.cluster = Primitive.to_proto(self.cluster)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         response = stub.DeleteContainerNodePool(request)
 
@@ -186,6 +225,50 @@ class NodePool(object):
         res.project = Primitive.from_proto(res_proto.project)
         res.location = Primitive.from_proto(res_proto.location)
         return res
+
+    def to_proto(self):
+        resource = node_pool_pb2.ContainerNodePool()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if NodePoolConfig.to_proto(self.config):
+            resource.config.CopyFrom(NodePoolConfig.to_proto(self.config))
+        else:
+            resource.ClearField("config")
+        if Primitive.to_proto(self.node_count):
+            resource.node_count = Primitive.to_proto(self.node_count)
+        if Primitive.to_proto(self.version):
+            resource.version = Primitive.to_proto(self.version)
+        if Primitive.to_proto(self.locations):
+            resource.locations.extend(Primitive.to_proto(self.locations))
+        if NodePoolAutoscaling.to_proto(self.autoscaling):
+            resource.autoscaling.CopyFrom(
+                NodePoolAutoscaling.to_proto(self.autoscaling)
+            )
+        else:
+            resource.ClearField("autoscaling")
+        if NodePoolManagement.to_proto(self.management):
+            resource.management.CopyFrom(NodePoolManagement.to_proto(self.management))
+        else:
+            resource.ClearField("management")
+        if NodePoolMaxPodsConstraint.to_proto(self.max_pods_constraint):
+            resource.max_pods_constraint.CopyFrom(
+                NodePoolMaxPodsConstraint.to_proto(self.max_pods_constraint)
+            )
+        else:
+            resource.ClearField("max_pods_constraint")
+        if NodePoolUpgradeSettings.to_proto(self.upgrade_settings):
+            resource.upgrade_settings.CopyFrom(
+                NodePoolUpgradeSettings.to_proto(self.upgrade_settings)
+            )
+        else:
+            resource.ClearField("upgrade_settings")
+        if Primitive.to_proto(self.cluster):
+            resource.cluster = Primitive.to_proto(self.cluster)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
+        return resource
 
 
 class NodePoolConfig(object):

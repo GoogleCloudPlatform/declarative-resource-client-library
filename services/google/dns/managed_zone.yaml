@@ -132,18 +132,15 @@ components:
                     type: string
                     x-dcl-go-name: ForwardingPath
                     x-dcl-go-type: ManagedZoneForwardingConfigTargetNameServersForwardingPathEnum
-                    x-kubernetes-immutable: true
                   ipv4Address:
                     description: IPv4 address of a target name server.
                     type: string
                     x-dcl-go-name: IPv4Address
-                    x-kubernetes-immutable: true
                 type: object
                 x-dcl-go-type: ManagedZoneForwardingConfigTargetNameServers
               type: array
               x-dcl-go-name: TargetNameServers
               x-dcl-list-type: list
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: ForwardingConfig
           x-dcl-go-type: ManagedZoneForwardingConfig
@@ -151,9 +148,6 @@ components:
           additionalProperties:
             type: string
           description: 'A set of key/value label pairs to assign to this ManagedZone. '
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         name:
@@ -188,11 +182,9 @@ components:
                   x-dcl-references:
                   - field: selfLink
                     resource: Compute/Network
-                  x-kubernetes-immutable: true
               type: object
               x-dcl-go-name: TargetNetwork
               x-dcl-go-type: ManagedZonePeeringConfigTargetNetwork
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: PeeringConfig
           x-dcl-go-type: ManagedZonePeeringConfig
@@ -219,13 +211,11 @@ components:
                     x-dcl-references:
                     - field: selfLink
                       resource: Compute/Network
-                    x-kubernetes-immutable: true
                 type: object
                 x-dcl-go-type: ManagedZonePrivateVisibilityConfigNetworks
               type: array
               x-dcl-go-name: Networks
               x-dcl-list-type: list
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: PrivateVisibilityConfig
           x-dcl-go-type: ManagedZonePrivateVisibilityConfig
@@ -233,6 +223,10 @@ components:
           description: The project id of the resource.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         reverseLookup:
           description: Specifies if this is a managed reverse lookup zone. If true,

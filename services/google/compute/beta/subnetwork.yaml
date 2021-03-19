@@ -134,6 +134,10 @@ components:
           description: The project id of the resource.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         purpose:
           description: 'The purpose of the resource. This field can be either PRIVATE
@@ -166,7 +170,7 @@ components:
           type: string
           x-dcl-go-name: Role
           x-dcl-go-type: SubnetworkRoleEnum
-        secondaryIPRange:
+        secondaryIPRanges:
           description: 'An array of configurations for secondary IP ranges for VM
             instances contained in this subnetwork. The primary IP of such VM must
             belong to the primary ipCidrRange of the subnetwork. The alias IPs may
@@ -183,7 +187,6 @@ components:
                   IP ranges within a network. Only IPv4 is supported. '
                 type: string
                 x-dcl-go-name: IPCidrRange
-                x-kubernetes-immutable: true
               rangeName:
                 description: 'The name associated with this subnetwork secondary range,
                   used when adding an alias IP range to a VM instance. The name must
@@ -191,14 +194,13 @@ components:
                   be unique within the subnetwork. '
                 type: string
                 x-dcl-go-name: RangeName
-                x-kubernetes-immutable: true
             required:
             - rangeName
             - ipCidrRange
             type: object
-            x-dcl-go-type: SubnetworkSecondaryIPRange
+            x-dcl-go-type: SubnetworkSecondaryIPRanges
           type: array
-          x-dcl-go-name: SecondaryIPRange
+          x-dcl-go-name: SecondaryIPRanges
           x-dcl-list-type: list
           x-dcl-server-default: true
         selfLink:

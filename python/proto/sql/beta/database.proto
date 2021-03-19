@@ -47,6 +47,7 @@ message ListSqlBetaDatabaseRequest {
 message ListSqlBetaDatabaseResponse {
   repeated SqlBetaDatabase items = 1;
 }
+
 service SqlBetaDatabaseService {
   rpc ApplySqlBetaDatabase(ApplySqlBetaDatabaseRequest) returns (SqlBetaDatabase);
   rpc DeleteSqlBetaDatabase(DeleteSqlBetaDatabaseRequest) returns (google.protobuf.Empty);

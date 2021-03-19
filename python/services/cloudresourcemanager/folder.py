@@ -60,12 +60,15 @@ class Folder(object):
         self.delete_time = Primitive.from_proto(response.delete_time)
         self.etag = Primitive.from_proto(response.etag)
 
-    @classmethod
-    def delete(self, name, service_account_file=""):
+    def delete(self):
         stub = folder_pb2_grpc.CloudresourcemanagerFolderServiceStub(channel.Channel())
         request = folder_pb2.DeleteCloudresourcemanagerFolderRequest()
-        request.service_account_file = service_account_file
-        request.Name = name
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.parent):
+            request.resource.parent = Primitive.to_proto(self.parent)
+
+        if Primitive.to_proto(self.display_name):
+            request.resource.display_name = Primitive.to_proto(self.display_name)
 
         response = stub.DeleteCloudresourcemanagerFolder(request)
 
@@ -94,6 +97,14 @@ class Folder(object):
         res.delete_time = Primitive.from_proto(res_proto.delete_time)
         res.etag = Primitive.from_proto(res_proto.etag)
         return res
+
+    def to_proto(self):
+        resource = folder_pb2.CloudresourcemanagerFolder()
+        if Primitive.to_proto(self.parent):
+            resource.parent = Primitive.to_proto(self.parent)
+        if Primitive.to_proto(self.display_name):
+            resource.display_name = Primitive.to_proto(self.display_name)
+        return resource
 
 
 class FolderStateEnum(object):

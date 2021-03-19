@@ -127,6 +127,7 @@ message ListTPUNodeRequest {
 message ListTPUNodeResponse {
   repeated TPUNode items = 1;
 }
+
 service TPUNodeService {
   rpc ApplyTPUNode(ApplyTPUNodeRequest) returns (TPUNode);
   rpc DeleteTPUNode(DeleteTPUNodeRequest) returns (google.protobuf.Empty);

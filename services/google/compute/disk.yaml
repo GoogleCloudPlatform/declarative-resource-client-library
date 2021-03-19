@@ -120,9 +120,6 @@ components:
             type: string
           description: Labels to apply to this disk. These can be later modified by
             the `setLabels` method.
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         lastAttachTimestamp:
@@ -205,6 +202,9 @@ components:
           description: The project id of the resource.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         region:
           description: '[Output Only] URL of the region where the disk resides. Only
@@ -394,7 +394,7 @@ components:
       x-dcl-locations:
       - region
       - zone
-      x-dcl-parent-container: organization
+      x-dcl-parent-container: project
       x-dcl-uses-state-hint: false
     EncryptionKey:
       description: The [customer-supplied encryption key](/compute/docs/disks/customer-supplied-encryption)

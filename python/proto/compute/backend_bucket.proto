@@ -52,16 +52,9 @@ message ListComputeBackendBucketRequest {
 message ListComputeBackendBucketResponse {
   repeated ComputeBackendBucket items = 1;
 }
-message ComputeBackendBucketAsHclRequest {
-  ComputeBackendBucket resource = 1;
-}
-message ComputeBackendBucketAsHclResponse {
-  string hcl = 1;
-}
+
 service ComputeBackendBucketService {
   rpc ApplyComputeBackendBucket(ApplyComputeBackendBucketRequest) returns (ComputeBackendBucket);
   rpc DeleteComputeBackendBucket(DeleteComputeBackendBucketRequest) returns (google.protobuf.Empty);
   rpc ListComputeBackendBucket(ListComputeBackendBucketRequest) returns (ListComputeBackendBucketResponse);
-  rpc ComputeBackendBucketAsHcl(ComputeBackendBucketAsHclRequest) returns (ComputeBackendBucketAsHclResponse);
-
 }

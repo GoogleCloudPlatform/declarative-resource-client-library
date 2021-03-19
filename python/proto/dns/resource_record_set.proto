@@ -47,6 +47,7 @@ message ListDnsResourceRecordSetRequest {
 message ListDnsResourceRecordSetResponse {
   repeated DnsResourceRecordSet items = 1;
 }
+
 service DnsResourceRecordSetService {
   rpc ApplyDnsResourceRecordSet(ApplyDnsResourceRecordSetRequest) returns (DnsResourceRecordSet);
   rpc DeleteDnsResourceRecordSet(DeleteDnsResourceRecordSetRequest) returns (google.protobuf.Empty);

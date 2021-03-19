@@ -124,7 +124,7 @@ func (c *Client) listReservationRaw(ctx context.Context, project, zone, pageToke
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -199,7 +199,7 @@ func (op *deleteReservationOperation) do(ctx context.Context, r *Reservation, c 
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -222,7 +222,13 @@ func (op *deleteReservationOperation) do(ctx context.Context, r *Reservation, c 
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createReservationOperation struct{}
+type createReservationOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createReservationOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createReservationOperation) do(ctx context.Context, r *Reservation, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -238,7 +244,7 @@ func (op *createReservationOperation) do(ctx context.Context, r *Reservation, c 
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -252,8 +258,10 @@ func (op *createReservationOperation) do(ctx context.Context, r *Reservation, c 
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetReservation(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -266,7 +274,7 @@ func (c *Client) getReservationRaw(ctx context.Context, r *Reservation) ([]byte,
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -343,14 +351,6 @@ func canonicalizeReservationInitialState(rawInitial, rawDesired *Reservation) (*
 
 func canonicalizeReservationDesiredState(rawDesired, rawInitial *Reservation, opts ...dcl.ApplyOption) (*Reservation, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Reservation); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Reservation, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -361,20 +361,20 @@ func canonicalizeReservationDesiredState(rawDesired, rawInitial *Reservation, op
 	if dcl.IsZeroValue(rawDesired.Id) {
 		rawDesired.Id = rawInitial.Id
 	}
-	if dcl.IsZeroValue(rawDesired.SelfLink) {
+	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}
-	if dcl.IsZeroValue(rawDesired.Zone) {
+	if dcl.StringCanonicalize(rawDesired.Zone, rawInitial.Zone) {
 		rawDesired.Zone = rawInitial.Zone
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
 	rawDesired.SpecificReservation = canonicalizeReservationSpecificReservation(rawDesired.SpecificReservation, rawInitial.SpecificReservation, opts...)
-	if dcl.IsZeroValue(rawDesired.Commitment) {
+	if dcl.StringCanonicalize(rawDesired.Commitment, rawInitial.Commitment) {
 		rawDesired.Commitment = rawInitial.Commitment
 	}
 	if dcl.IsZeroValue(rawDesired.SpecificReservationRequired) {
@@ -400,21 +400,33 @@ func canonicalizeReservationNewState(c *Client, rawNew, rawDesired *Reservation)
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Zone) && dcl.IsEmptyValueIndirect(rawDesired.Zone) {
 		rawNew.Zone = rawDesired.Zone
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Zone, rawNew.Zone) {
+			rawNew.Zone = rawDesired.Zone
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.SpecificReservation) && dcl.IsEmptyValueIndirect(rawDesired.SpecificReservation) {
@@ -426,6 +438,9 @@ func canonicalizeReservationNewState(c *Client, rawNew, rawDesired *Reservation)
 	if dcl.IsEmptyValueIndirect(rawNew.Commitment) && dcl.IsEmptyValueIndirect(rawDesired.Commitment) {
 		rawNew.Commitment = rawDesired.Commitment
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Commitment, rawNew.Commitment) {
+			rawNew.Commitment = rawDesired.Commitment
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.SpecificReservationRequired) && dcl.IsEmptyValueIndirect(rawDesired.SpecificReservationRequired) {
@@ -449,11 +464,6 @@ func canonicalizeReservationSpecificReservation(des, initial *ReservationSpecifi
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Reservation)
-		_ = r
 	}
 
 	if initial == nil {
@@ -512,16 +522,11 @@ func canonicalizeReservationSpecificReservationInstanceProperties(des, initial *
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Reservation)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.MachineType) {
+	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) || dcl.IsZeroValue(des.MachineType) {
 		des.MachineType = initial.MachineType
 	}
 	if dcl.IsZeroValue(des.GuestAccelerators) {
@@ -542,6 +547,9 @@ func canonicalizeNewReservationSpecificReservationInstanceProperties(c *Client, 
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.MachineType, nw.MachineType) || dcl.IsZeroValue(des.MachineType) {
+		nw.MachineType = des.MachineType
+	}
 	if canonicalizeReservationCPUPlatform(des.MinCpuPlatform, nw.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
 		nw.MinCpuPlatform = des.MinCpuPlatform
 	}
@@ -580,16 +588,11 @@ func canonicalizeReservationSpecificReservationInstancePropertiesGuestAccelerato
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Reservation)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.AcceleratorType) {
+	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
 		des.AcceleratorType = initial.AcceleratorType
 	}
 	if dcl.IsZeroValue(des.AcceleratorCount) {
@@ -602,6 +605,10 @@ func canonicalizeReservationSpecificReservationInstancePropertiesGuestAccelerato
 func canonicalizeNewReservationSpecificReservationInstancePropertiesGuestAccelerators(c *Client, des, nw *ReservationSpecificReservationInstancePropertiesGuestAccelerators) *ReservationSpecificReservationInstancePropertiesGuestAccelerators {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.AcceleratorType, nw.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
+		nw.AcceleratorType = des.AcceleratorType
 	}
 
 	return nw
@@ -636,11 +643,6 @@ func canonicalizeReservationSpecificReservationInstancePropertiesLocalSsds(des, 
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Reservation)
-		_ = r
 	}
 
 	if initial == nil {
@@ -709,28 +711,28 @@ func diffReservation(c *Client, desired, actual *Reservation, opts ...dcl.ApplyO
 	}
 
 	var diffs []reservationDiff
-	if !dcl.IsZeroValue(desired.Id) && (dcl.IsZeroValue(actual.Id) || !reflect.DeepEqual(*desired.Id, *actual.Id)) {
+	if !reflect.DeepEqual(desired.Id, actual.Id) {
 		c.Config.Logger.Infof("Detected diff in Id.\nDESIRED: %v\nACTUAL: %v", desired.Id, actual.Id)
 		diffs = append(diffs, reservationDiff{
 			RequiresRecreate: true,
 			FieldName:        "Id",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Zone) && (dcl.IsZeroValue(actual.Zone) || !reflect.DeepEqual(*desired.Zone, *actual.Zone)) {
+	if !dcl.IsZeroValue(desired.Zone) && !dcl.StringCanonicalize(desired.Zone, actual.Zone) {
 		c.Config.Logger.Infof("Detected diff in Zone.\nDESIRED: %v\nACTUAL: %v", desired.Zone, actual.Zone)
 		diffs = append(diffs, reservationDiff{
 			RequiresRecreate: true,
 			FieldName:        "Zone",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, reservationDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, reservationDiff{
 			RequiresRecreate: true,
@@ -744,14 +746,14 @@ func diffReservation(c *Client, desired, actual *Reservation, opts ...dcl.ApplyO
 			FieldName:        "SpecificReservation",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Commitment) && (dcl.IsZeroValue(actual.Commitment) || !reflect.DeepEqual(*desired.Commitment, *actual.Commitment)) {
+	if !dcl.IsZeroValue(desired.Commitment) && !dcl.StringCanonicalize(desired.Commitment, actual.Commitment) {
 		c.Config.Logger.Infof("Detected diff in Commitment.\nDESIRED: %v\nACTUAL: %v", desired.Commitment, actual.Commitment)
 		diffs = append(diffs, reservationDiff{
 			RequiresRecreate: true,
 			FieldName:        "Commitment",
 		})
 	}
-	if !dcl.IsZeroValue(desired.SpecificReservationRequired) && (dcl.IsZeroValue(actual.SpecificReservationRequired) || !reflect.DeepEqual(*desired.SpecificReservationRequired, *actual.SpecificReservationRequired)) {
+	if !reflect.DeepEqual(desired.SpecificReservationRequired, actual.SpecificReservationRequired) {
 		c.Config.Logger.Infof("Detected diff in SpecificReservationRequired.\nDESIRED: %v\nACTUAL: %v", desired.SpecificReservationRequired, actual.SpecificReservationRequired)
 		diffs = append(diffs, reservationDiff{
 			RequiresRecreate: true,
@@ -782,20 +784,6 @@ func diffReservation(c *Client, desired, actual *Reservation, opts ...dcl.ApplyO
 
 	return deduped, nil
 }
-func compareReservationSpecificReservationSlice(c *Client, desired, actual []ReservationSpecificReservation) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ReservationSpecificReservation, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareReservationSpecificReservation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ReservationSpecificReservation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
 func compareReservationSpecificReservation(c *Client, desired, actual *ReservationSpecificReservation) bool {
 	if desired == nil {
 		return false
@@ -815,7 +803,7 @@ func compareReservationSpecificReservation(c *Client, desired, actual *Reservati
 		c.Config.Logger.Infof("desired Count %s - but actually nil", dcl.SprintResource(desired.Count))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Count, actual.Count) && !dcl.IsZeroValue(desired.Count) && !(dcl.IsEmptyValueIndirect(desired.Count) && dcl.IsZeroValue(actual.Count)) {
+	if !reflect.DeepEqual(desired.Count, actual.Count) && !dcl.IsZeroValue(desired.Count) {
 		c.Config.Logger.Infof("Diff in Count. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Count), dcl.SprintResource(actual.Count))
 		return true
 	}
@@ -823,20 +811,40 @@ func compareReservationSpecificReservation(c *Client, desired, actual *Reservati
 		c.Config.Logger.Infof("desired InUseCount %s - but actually nil", dcl.SprintResource(desired.InUseCount))
 		return true
 	}
-	if !reflect.DeepEqual(desired.InUseCount, actual.InUseCount) && !dcl.IsZeroValue(desired.InUseCount) && !(dcl.IsEmptyValueIndirect(desired.InUseCount) && dcl.IsZeroValue(actual.InUseCount)) {
+	if !reflect.DeepEqual(desired.InUseCount, actual.InUseCount) && !dcl.IsZeroValue(desired.InUseCount) {
 		c.Config.Logger.Infof("Diff in InUseCount. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InUseCount), dcl.SprintResource(actual.InUseCount))
 		return true
 	}
 	return false
 }
-func compareReservationSpecificReservationInstancePropertiesSlice(c *Client, desired, actual []ReservationSpecificReservationInstanceProperties) bool {
+
+func compareReservationSpecificReservationSlice(c *Client, desired, actual []ReservationSpecificReservation) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ReservationSpecificReservationInstanceProperties, lengths unequal.")
+		c.Config.Logger.Info("Diff in ReservationSpecificReservation, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareReservationSpecificReservationInstanceProperties(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ReservationSpecificReservationInstanceProperties, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareReservationSpecificReservation(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ReservationSpecificReservation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareReservationSpecificReservationMap(c *Client, desired, actual map[string]ReservationSpecificReservation) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ReservationSpecificReservation, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in ReservationSpecificReservation, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareReservationSpecificReservation(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in ReservationSpecificReservation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -854,7 +862,7 @@ func compareReservationSpecificReservationInstanceProperties(c *Client, desired,
 		c.Config.Logger.Infof("desired MachineType %s - but actually nil", dcl.SprintResource(desired.MachineType))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MachineType, actual.MachineType) && !dcl.IsZeroValue(desired.MachineType) && !(dcl.IsEmptyValueIndirect(desired.MachineType) && dcl.IsZeroValue(actual.MachineType)) {
+	if !dcl.StringCanonicalize(desired.MachineType, actual.MachineType) && !dcl.IsZeroValue(desired.MachineType) {
 		c.Config.Logger.Infof("Diff in MachineType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MachineType), dcl.SprintResource(actual.MachineType))
 		return true
 	}
@@ -884,14 +892,34 @@ func compareReservationSpecificReservationInstanceProperties(c *Client, desired,
 	}
 	return false
 }
-func compareReservationSpecificReservationInstancePropertiesGuestAcceleratorsSlice(c *Client, desired, actual []ReservationSpecificReservationInstancePropertiesGuestAccelerators) bool {
+
+func compareReservationSpecificReservationInstancePropertiesSlice(c *Client, desired, actual []ReservationSpecificReservationInstanceProperties) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ReservationSpecificReservationInstancePropertiesGuestAccelerators, lengths unequal.")
+		c.Config.Logger.Info("Diff in ReservationSpecificReservationInstanceProperties, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareReservationSpecificReservationInstancePropertiesGuestAccelerators(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ReservationSpecificReservationInstancePropertiesGuestAccelerators, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareReservationSpecificReservationInstanceProperties(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ReservationSpecificReservationInstanceProperties, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareReservationSpecificReservationInstancePropertiesMap(c *Client, desired, actual map[string]ReservationSpecificReservationInstanceProperties) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ReservationSpecificReservationInstanceProperties, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in ReservationSpecificReservationInstanceProperties, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareReservationSpecificReservationInstanceProperties(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in ReservationSpecificReservationInstanceProperties, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -909,7 +937,7 @@ func compareReservationSpecificReservationInstancePropertiesGuestAccelerators(c 
 		c.Config.Logger.Infof("desired AcceleratorType %s - but actually nil", dcl.SprintResource(desired.AcceleratorType))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AcceleratorType, actual.AcceleratorType) && !dcl.IsZeroValue(desired.AcceleratorType) && !(dcl.IsEmptyValueIndirect(desired.AcceleratorType) && dcl.IsZeroValue(actual.AcceleratorType)) {
+	if !dcl.StringCanonicalize(desired.AcceleratorType, actual.AcceleratorType) && !dcl.IsZeroValue(desired.AcceleratorType) {
 		c.Config.Logger.Infof("Diff in AcceleratorType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AcceleratorType), dcl.SprintResource(actual.AcceleratorType))
 		return true
 	}
@@ -917,20 +945,40 @@ func compareReservationSpecificReservationInstancePropertiesGuestAccelerators(c 
 		c.Config.Logger.Infof("desired AcceleratorCount %s - but actually nil", dcl.SprintResource(desired.AcceleratorCount))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AcceleratorCount, actual.AcceleratorCount) && !dcl.IsZeroValue(desired.AcceleratorCount) && !(dcl.IsEmptyValueIndirect(desired.AcceleratorCount) && dcl.IsZeroValue(actual.AcceleratorCount)) {
+	if !reflect.DeepEqual(desired.AcceleratorCount, actual.AcceleratorCount) && !dcl.IsZeroValue(desired.AcceleratorCount) {
 		c.Config.Logger.Infof("Diff in AcceleratorCount. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AcceleratorCount), dcl.SprintResource(actual.AcceleratorCount))
 		return true
 	}
 	return false
 }
-func compareReservationSpecificReservationInstancePropertiesLocalSsdsSlice(c *Client, desired, actual []ReservationSpecificReservationInstancePropertiesLocalSsds) bool {
+
+func compareReservationSpecificReservationInstancePropertiesGuestAcceleratorsSlice(c *Client, desired, actual []ReservationSpecificReservationInstancePropertiesGuestAccelerators) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ReservationSpecificReservationInstancePropertiesLocalSsds, lengths unequal.")
+		c.Config.Logger.Info("Diff in ReservationSpecificReservationInstancePropertiesGuestAccelerators, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareReservationSpecificReservationInstancePropertiesLocalSsds(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ReservationSpecificReservationInstancePropertiesLocalSsds, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareReservationSpecificReservationInstancePropertiesGuestAccelerators(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ReservationSpecificReservationInstancePropertiesGuestAccelerators, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareReservationSpecificReservationInstancePropertiesGuestAcceleratorsMap(c *Client, desired, actual map[string]ReservationSpecificReservationInstancePropertiesGuestAccelerators) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ReservationSpecificReservationInstancePropertiesGuestAccelerators, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in ReservationSpecificReservationInstancePropertiesGuestAccelerators, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareReservationSpecificReservationInstancePropertiesGuestAccelerators(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in ReservationSpecificReservationInstancePropertiesGuestAccelerators, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -948,7 +996,7 @@ func compareReservationSpecificReservationInstancePropertiesLocalSsds(c *Client,
 		c.Config.Logger.Infof("desired DiskSizeGb %s - but actually nil", dcl.SprintResource(desired.DiskSizeGb))
 		return true
 	}
-	if !reflect.DeepEqual(desired.DiskSizeGb, actual.DiskSizeGb) && !dcl.IsZeroValue(desired.DiskSizeGb) && !(dcl.IsEmptyValueIndirect(desired.DiskSizeGb) && dcl.IsZeroValue(actual.DiskSizeGb)) {
+	if !reflect.DeepEqual(desired.DiskSizeGb, actual.DiskSizeGb) && !dcl.IsZeroValue(desired.DiskSizeGb) {
 		c.Config.Logger.Infof("Diff in DiskSizeGb. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DiskSizeGb), dcl.SprintResource(actual.DiskSizeGb))
 		return true
 	}
@@ -956,12 +1004,46 @@ func compareReservationSpecificReservationInstancePropertiesLocalSsds(c *Client,
 		c.Config.Logger.Infof("desired Interface %s - but actually nil", dcl.SprintResource(desired.Interface))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Interface, actual.Interface) && !dcl.IsZeroValue(desired.Interface) && !(dcl.IsEmptyValueIndirect(desired.Interface) && dcl.IsZeroValue(actual.Interface)) {
+	if !reflect.DeepEqual(desired.Interface, actual.Interface) && !dcl.IsZeroValue(desired.Interface) {
 		c.Config.Logger.Infof("Diff in Interface. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Interface), dcl.SprintResource(actual.Interface))
 		return true
 	}
 	return false
 }
+
+func compareReservationSpecificReservationInstancePropertiesLocalSsdsSlice(c *Client, desired, actual []ReservationSpecificReservationInstancePropertiesLocalSsds) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ReservationSpecificReservationInstancePropertiesLocalSsds, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareReservationSpecificReservationInstancePropertiesLocalSsds(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ReservationSpecificReservationInstancePropertiesLocalSsds, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareReservationSpecificReservationInstancePropertiesLocalSsdsMap(c *Client, desired, actual map[string]ReservationSpecificReservationInstancePropertiesLocalSsds) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ReservationSpecificReservationInstancePropertiesLocalSsds, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in ReservationSpecificReservationInstancePropertiesLocalSsds, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareReservationSpecificReservationInstancePropertiesLocalSsds(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in ReservationSpecificReservationInstancePropertiesLocalSsds, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
 func compareReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnumSlice(c *Client, desired, actual []ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum, lengths unequal.")
@@ -1003,6 +1085,11 @@ func compareReservationStatusEnum(c *Client, desired, actual *ReservationStatusE
 // short-form so they can be substituted in.
 func (r *Reservation) urlNormalized() *Reservation {
 	normalized := deepcopy.Copy(*r).(Reservation)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Zone = dcl.SelfLinkToName(r.Zone)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Commitment = dcl.SelfLinkToName(r.Commitment)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -1044,6 +1131,10 @@ func unmarshalReservation(b []byte, c *Client) (*Reservation, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapReservation(m, c)
+}
+
+func unmarshalMapReservation(m map[string]interface{}, c *Client) (*Reservation, error) {
 
 	return flattenReservation(c, m), nil
 }
@@ -1603,7 +1694,7 @@ func flattenReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEn
 
 	items := make([]ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum(item.(map[string]interface{})))
+		items = append(items, *flattenReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum(item.(interface{})))
 	}
 
 	return items
@@ -1634,7 +1725,7 @@ func flattenReservationStatusEnumSlice(c *Client, i interface{}) []ReservationSt
 
 	items := make([]ReservationStatusEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenReservationStatusEnum(item.(map[string]interface{})))
+		items = append(items, *flattenReservationStatusEnum(item.(interface{})))
 	}
 
 	return items

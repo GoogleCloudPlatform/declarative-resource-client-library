@@ -90,9 +90,6 @@ func (r *AutoscalingPolicyWorkerConfig) validate() error {
 	return nil
 }
 func (r *AutoscalingPolicySecondaryWorkerConfig) validate() error {
-	if err := dcl.Required(r, "maxInstances"); err != nil {
-		return err
-	}
 	return nil
 }
 
@@ -159,6 +156,12 @@ func newUpdateAutoscalingPolicyUpdateAutoscalingPolicyRequest(ctx context.Contex
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["secondaryWorkerConfig"] = v
 	}
+	if v, err := dcl.DeriveField("%s", f.Name); err != nil {
+		return nil, err
+	} else {
+		req["id"] = v
+	}
+
 	return req, nil
 }
 
@@ -201,7 +204,7 @@ func (op *updateAutoscalingPolicyUpdateAutoscalingPolicyOperation) do(ctx contex
 	if err != nil {
 		return err
 	}
-	_, err = dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -228,7 +231,7 @@ func (c *Client) listAutoscalingPolicyRaw(ctx context.Context, project, location
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -237,8 +240,8 @@ func (c *Client) listAutoscalingPolicyRaw(ctx context.Context, project, location
 }
 
 type listAutoscalingPolicyOperation struct {
-	Items []map[string]interface{} `json:"items"`
-	Token string                   `json:"nextPageToken"`
+	Policies []map[string]interface{} `json:"policies"`
+	Token    string                   `json:"nextPageToken"`
 }
 
 func (c *Client) listAutoscalingPolicy(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*AutoscalingPolicy, string, error) {
@@ -253,7 +256,7 @@ func (c *Client) listAutoscalingPolicy(ctx context.Context, project, location, p
 	}
 
 	var l []*AutoscalingPolicy
-	for _, v := range m.Items {
+	for _, v := range m.Policies {
 		res := flattenAutoscalingPolicy(c, v)
 		res.Project = &project
 		res.Location = &location
@@ -303,7 +306,7 @@ func (op *deleteAutoscalingPolicyOperation) do(ctx context.Context, r *Autoscali
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return fmt.Errorf("failed to delete AutoscalingPolicy: %w", err)
 	}
@@ -317,7 +320,13 @@ func (op *deleteAutoscalingPolicyOperation) do(ctx context.Context, r *Autoscali
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createAutoscalingPolicyOperation struct{}
+type createAutoscalingPolicyOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createAutoscalingPolicyOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createAutoscalingPolicyOperation) do(ctx context.Context, r *AutoscalingPolicy, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -333,7 +342,7 @@ func (op *createAutoscalingPolicyOperation) do(ctx context.Context, r *Autoscali
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -342,9 +351,10 @@ func (op *createAutoscalingPolicyOperation) do(ctx context.Context, r *Autoscali
 	if err != nil {
 		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
-	_ = o // We might not use resp- this will stop Go complaining
+	op.response = o
 
 	if _, err := c.GetAutoscalingPolicy(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -357,7 +367,7 @@ func (c *Client) getAutoscalingPolicyRaw(ctx context.Context, r *AutoscalingPoli
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -434,14 +444,6 @@ func canonicalizeAutoscalingPolicyInitialState(rawInitial, rawDesired *Autoscali
 
 func canonicalizeAutoscalingPolicyDesiredState(rawDesired, rawInitial *AutoscalingPolicy, opts ...dcl.ApplyOption) (*AutoscalingPolicy, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*AutoscalingPolicy); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected AutoscalingPolicy, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -451,7 +453,7 @@ func canonicalizeAutoscalingPolicyDesiredState(rawDesired, rawInitial *Autoscali
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
 	rawDesired.BasicAlgorithm = canonicalizeAutoscalingPolicyBasicAlgorithm(rawDesired.BasicAlgorithm, rawInitial.BasicAlgorithm, opts...)
@@ -472,6 +474,9 @@ func canonicalizeAutoscalingPolicyNewState(c *Client, rawNew, rawDesired *Autosc
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.BasicAlgorithm) && dcl.IsEmptyValueIndirect(rawDesired.BasicAlgorithm) {
@@ -507,17 +512,12 @@ func canonicalizeAutoscalingPolicyBasicAlgorithm(des, initial *AutoscalingPolicy
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*AutoscalingPolicy)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
 	des.YarnConfig = canonicalizeAutoscalingPolicyBasicAlgorithmYarnConfig(des.YarnConfig, initial.YarnConfig, opts...)
-	if dcl.IsZeroValue(des.CooldownPeriod) {
+	if dcl.StringCanonicalize(des.CooldownPeriod, initial.CooldownPeriod) || dcl.IsZeroValue(des.CooldownPeriod) {
 		des.CooldownPeriod = initial.CooldownPeriod
 	}
 
@@ -530,6 +530,9 @@ func canonicalizeNewAutoscalingPolicyBasicAlgorithm(c *Client, des, nw *Autoscal
 	}
 
 	nw.YarnConfig = canonicalizeNewAutoscalingPolicyBasicAlgorithmYarnConfig(c, des.YarnConfig, nw.YarnConfig)
+	if dcl.StringCanonicalize(des.CooldownPeriod, nw.CooldownPeriod) || dcl.IsZeroValue(des.CooldownPeriod) {
+		nw.CooldownPeriod = des.CooldownPeriod
+	}
 
 	return nw
 }
@@ -565,16 +568,11 @@ func canonicalizeAutoscalingPolicyBasicAlgorithmYarnConfig(des, initial *Autosca
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*AutoscalingPolicy)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.GracefulDecommissionTimeout) {
+	if dcl.StringCanonicalize(des.GracefulDecommissionTimeout, initial.GracefulDecommissionTimeout) || dcl.IsZeroValue(des.GracefulDecommissionTimeout) {
 		des.GracefulDecommissionTimeout = initial.GracefulDecommissionTimeout
 	}
 	if dcl.IsZeroValue(des.ScaleUpFactor) {
@@ -596,6 +594,10 @@ func canonicalizeAutoscalingPolicyBasicAlgorithmYarnConfig(des, initial *Autosca
 func canonicalizeNewAutoscalingPolicyBasicAlgorithmYarnConfig(c *Client, des, nw *AutoscalingPolicyBasicAlgorithmYarnConfig) *AutoscalingPolicyBasicAlgorithmYarnConfig {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.GracefulDecommissionTimeout, nw.GracefulDecommissionTimeout) || dcl.IsZeroValue(des.GracefulDecommissionTimeout) {
+		nw.GracefulDecommissionTimeout = des.GracefulDecommissionTimeout
 	}
 
 	return nw
@@ -630,11 +632,6 @@ func canonicalizeAutoscalingPolicyWorkerConfig(des, initial *AutoscalingPolicyWo
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*AutoscalingPolicy)
-		_ = r
 	}
 
 	if initial == nil {
@@ -691,11 +688,6 @@ func canonicalizeAutoscalingPolicySecondaryWorkerConfig(des, initial *Autoscalin
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*AutoscalingPolicy)
-		_ = r
 	}
 
 	if initial == nil {
@@ -767,7 +759,7 @@ func diffAutoscalingPolicy(c *Client, desired, actual *AutoscalingPolicy, opts .
 	}
 
 	var diffs []autoscalingPolicyDiff
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, autoscalingPolicyDiff{
 			RequiresRecreate: true,
@@ -825,20 +817,6 @@ func diffAutoscalingPolicy(c *Client, desired, actual *AutoscalingPolicy, opts .
 
 	return deduped, nil
 }
-func compareAutoscalingPolicyBasicAlgorithmSlice(c *Client, desired, actual []AutoscalingPolicyBasicAlgorithm) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AutoscalingPolicyBasicAlgorithm, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAutoscalingPolicyBasicAlgorithm(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AutoscalingPolicyBasicAlgorithm, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
 func compareAutoscalingPolicyBasicAlgorithm(c *Client, desired, actual *AutoscalingPolicyBasicAlgorithm) bool {
 	if desired == nil {
 		return false
@@ -858,20 +836,40 @@ func compareAutoscalingPolicyBasicAlgorithm(c *Client, desired, actual *Autoscal
 		c.Config.Logger.Infof("desired CooldownPeriod %s - but actually nil", dcl.SprintResource(desired.CooldownPeriod))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CooldownPeriod, actual.CooldownPeriod) && !dcl.IsZeroValue(desired.CooldownPeriod) && !(dcl.IsEmptyValueIndirect(desired.CooldownPeriod) && dcl.IsZeroValue(actual.CooldownPeriod)) {
+	if !dcl.StringCanonicalize(desired.CooldownPeriod, actual.CooldownPeriod) && !dcl.IsZeroValue(desired.CooldownPeriod) {
 		c.Config.Logger.Infof("Diff in CooldownPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CooldownPeriod), dcl.SprintResource(actual.CooldownPeriod))
 		return true
 	}
 	return false
 }
-func compareAutoscalingPolicyBasicAlgorithmYarnConfigSlice(c *Client, desired, actual []AutoscalingPolicyBasicAlgorithmYarnConfig) bool {
+
+func compareAutoscalingPolicyBasicAlgorithmSlice(c *Client, desired, actual []AutoscalingPolicyBasicAlgorithm) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AutoscalingPolicyBasicAlgorithmYarnConfig, lengths unequal.")
+		c.Config.Logger.Info("Diff in AutoscalingPolicyBasicAlgorithm, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareAutoscalingPolicyBasicAlgorithmYarnConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AutoscalingPolicyBasicAlgorithmYarnConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareAutoscalingPolicyBasicAlgorithm(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in AutoscalingPolicyBasicAlgorithm, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareAutoscalingPolicyBasicAlgorithmMap(c *Client, desired, actual map[string]AutoscalingPolicyBasicAlgorithm) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in AutoscalingPolicyBasicAlgorithm, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in AutoscalingPolicyBasicAlgorithm, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareAutoscalingPolicyBasicAlgorithm(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in AutoscalingPolicyBasicAlgorithm, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -889,7 +887,7 @@ func compareAutoscalingPolicyBasicAlgorithmYarnConfig(c *Client, desired, actual
 		c.Config.Logger.Infof("desired GracefulDecommissionTimeout %s - but actually nil", dcl.SprintResource(desired.GracefulDecommissionTimeout))
 		return true
 	}
-	if !reflect.DeepEqual(desired.GracefulDecommissionTimeout, actual.GracefulDecommissionTimeout) && !dcl.IsZeroValue(desired.GracefulDecommissionTimeout) && !(dcl.IsEmptyValueIndirect(desired.GracefulDecommissionTimeout) && dcl.IsZeroValue(actual.GracefulDecommissionTimeout)) {
+	if !dcl.StringCanonicalize(desired.GracefulDecommissionTimeout, actual.GracefulDecommissionTimeout) && !dcl.IsZeroValue(desired.GracefulDecommissionTimeout) {
 		c.Config.Logger.Infof("Diff in GracefulDecommissionTimeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GracefulDecommissionTimeout), dcl.SprintResource(actual.GracefulDecommissionTimeout))
 		return true
 	}
@@ -897,7 +895,7 @@ func compareAutoscalingPolicyBasicAlgorithmYarnConfig(c *Client, desired, actual
 		c.Config.Logger.Infof("desired ScaleUpFactor %s - but actually nil", dcl.SprintResource(desired.ScaleUpFactor))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ScaleUpFactor, actual.ScaleUpFactor) && !dcl.IsZeroValue(desired.ScaleUpFactor) && !(dcl.IsEmptyValueIndirect(desired.ScaleUpFactor) && dcl.IsZeroValue(actual.ScaleUpFactor)) {
+	if !reflect.DeepEqual(desired.ScaleUpFactor, actual.ScaleUpFactor) && !dcl.IsZeroValue(desired.ScaleUpFactor) {
 		c.Config.Logger.Infof("Diff in ScaleUpFactor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScaleUpFactor), dcl.SprintResource(actual.ScaleUpFactor))
 		return true
 	}
@@ -905,7 +903,7 @@ func compareAutoscalingPolicyBasicAlgorithmYarnConfig(c *Client, desired, actual
 		c.Config.Logger.Infof("desired ScaleDownFactor %s - but actually nil", dcl.SprintResource(desired.ScaleDownFactor))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ScaleDownFactor, actual.ScaleDownFactor) && !dcl.IsZeroValue(desired.ScaleDownFactor) && !(dcl.IsEmptyValueIndirect(desired.ScaleDownFactor) && dcl.IsZeroValue(actual.ScaleDownFactor)) {
+	if !reflect.DeepEqual(desired.ScaleDownFactor, actual.ScaleDownFactor) && !dcl.IsZeroValue(desired.ScaleDownFactor) {
 		c.Config.Logger.Infof("Diff in ScaleDownFactor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScaleDownFactor), dcl.SprintResource(actual.ScaleDownFactor))
 		return true
 	}
@@ -913,7 +911,7 @@ func compareAutoscalingPolicyBasicAlgorithmYarnConfig(c *Client, desired, actual
 		c.Config.Logger.Infof("desired ScaleUpMinWorkerFraction %s - but actually nil", dcl.SprintResource(desired.ScaleUpMinWorkerFraction))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ScaleUpMinWorkerFraction, actual.ScaleUpMinWorkerFraction) && !dcl.IsZeroValue(desired.ScaleUpMinWorkerFraction) && !(dcl.IsEmptyValueIndirect(desired.ScaleUpMinWorkerFraction) && dcl.IsZeroValue(actual.ScaleUpMinWorkerFraction)) {
+	if !reflect.DeepEqual(desired.ScaleUpMinWorkerFraction, actual.ScaleUpMinWorkerFraction) && !dcl.IsZeroValue(desired.ScaleUpMinWorkerFraction) {
 		c.Config.Logger.Infof("Diff in ScaleUpMinWorkerFraction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScaleUpMinWorkerFraction), dcl.SprintResource(actual.ScaleUpMinWorkerFraction))
 		return true
 	}
@@ -921,20 +919,40 @@ func compareAutoscalingPolicyBasicAlgorithmYarnConfig(c *Client, desired, actual
 		c.Config.Logger.Infof("desired ScaleDownMinWorkerFraction %s - but actually nil", dcl.SprintResource(desired.ScaleDownMinWorkerFraction))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ScaleDownMinWorkerFraction, actual.ScaleDownMinWorkerFraction) && !dcl.IsZeroValue(desired.ScaleDownMinWorkerFraction) && !(dcl.IsEmptyValueIndirect(desired.ScaleDownMinWorkerFraction) && dcl.IsZeroValue(actual.ScaleDownMinWorkerFraction)) {
+	if !reflect.DeepEqual(desired.ScaleDownMinWorkerFraction, actual.ScaleDownMinWorkerFraction) && !dcl.IsZeroValue(desired.ScaleDownMinWorkerFraction) {
 		c.Config.Logger.Infof("Diff in ScaleDownMinWorkerFraction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScaleDownMinWorkerFraction), dcl.SprintResource(actual.ScaleDownMinWorkerFraction))
 		return true
 	}
 	return false
 }
-func compareAutoscalingPolicyWorkerConfigSlice(c *Client, desired, actual []AutoscalingPolicyWorkerConfig) bool {
+
+func compareAutoscalingPolicyBasicAlgorithmYarnConfigSlice(c *Client, desired, actual []AutoscalingPolicyBasicAlgorithmYarnConfig) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AutoscalingPolicyWorkerConfig, lengths unequal.")
+		c.Config.Logger.Info("Diff in AutoscalingPolicyBasicAlgorithmYarnConfig, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareAutoscalingPolicyWorkerConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AutoscalingPolicyWorkerConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareAutoscalingPolicyBasicAlgorithmYarnConfig(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in AutoscalingPolicyBasicAlgorithmYarnConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareAutoscalingPolicyBasicAlgorithmYarnConfigMap(c *Client, desired, actual map[string]AutoscalingPolicyBasicAlgorithmYarnConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in AutoscalingPolicyBasicAlgorithmYarnConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in AutoscalingPolicyBasicAlgorithmYarnConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareAutoscalingPolicyBasicAlgorithmYarnConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in AutoscalingPolicyBasicAlgorithmYarnConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -952,7 +970,7 @@ func compareAutoscalingPolicyWorkerConfig(c *Client, desired, actual *Autoscalin
 		c.Config.Logger.Infof("desired MinInstances %s - but actually nil", dcl.SprintResource(desired.MinInstances))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MinInstances, actual.MinInstances) && !dcl.IsZeroValue(desired.MinInstances) && !(dcl.IsEmptyValueIndirect(desired.MinInstances) && dcl.IsZeroValue(actual.MinInstances)) {
+	if !reflect.DeepEqual(desired.MinInstances, actual.MinInstances) && !dcl.IsZeroValue(desired.MinInstances) {
 		c.Config.Logger.Infof("Diff in MinInstances. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinInstances), dcl.SprintResource(actual.MinInstances))
 		return true
 	}
@@ -960,7 +978,7 @@ func compareAutoscalingPolicyWorkerConfig(c *Client, desired, actual *Autoscalin
 		c.Config.Logger.Infof("desired MaxInstances %s - but actually nil", dcl.SprintResource(desired.MaxInstances))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MaxInstances, actual.MaxInstances) && !dcl.IsZeroValue(desired.MaxInstances) && !(dcl.IsEmptyValueIndirect(desired.MaxInstances) && dcl.IsZeroValue(actual.MaxInstances)) {
+	if !reflect.DeepEqual(desired.MaxInstances, actual.MaxInstances) && !dcl.IsZeroValue(desired.MaxInstances) {
 		c.Config.Logger.Infof("Diff in MaxInstances. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxInstances), dcl.SprintResource(actual.MaxInstances))
 		return true
 	}
@@ -968,20 +986,40 @@ func compareAutoscalingPolicyWorkerConfig(c *Client, desired, actual *Autoscalin
 		c.Config.Logger.Infof("desired Weight %s - but actually nil", dcl.SprintResource(desired.Weight))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Weight, actual.Weight) && !dcl.IsZeroValue(desired.Weight) && !(dcl.IsEmptyValueIndirect(desired.Weight) && dcl.IsZeroValue(actual.Weight)) {
+	if !reflect.DeepEqual(desired.Weight, actual.Weight) && !dcl.IsZeroValue(desired.Weight) {
 		c.Config.Logger.Infof("Diff in Weight. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Weight), dcl.SprintResource(actual.Weight))
 		return true
 	}
 	return false
 }
-func compareAutoscalingPolicySecondaryWorkerConfigSlice(c *Client, desired, actual []AutoscalingPolicySecondaryWorkerConfig) bool {
+
+func compareAutoscalingPolicyWorkerConfigSlice(c *Client, desired, actual []AutoscalingPolicyWorkerConfig) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AutoscalingPolicySecondaryWorkerConfig, lengths unequal.")
+		c.Config.Logger.Info("Diff in AutoscalingPolicyWorkerConfig, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareAutoscalingPolicySecondaryWorkerConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AutoscalingPolicySecondaryWorkerConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareAutoscalingPolicyWorkerConfig(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in AutoscalingPolicyWorkerConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareAutoscalingPolicyWorkerConfigMap(c *Client, desired, actual map[string]AutoscalingPolicyWorkerConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in AutoscalingPolicyWorkerConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in AutoscalingPolicyWorkerConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareAutoscalingPolicyWorkerConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in AutoscalingPolicyWorkerConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -999,7 +1037,7 @@ func compareAutoscalingPolicySecondaryWorkerConfig(c *Client, desired, actual *A
 		c.Config.Logger.Infof("desired MinInstances %s - but actually nil", dcl.SprintResource(desired.MinInstances))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MinInstances, actual.MinInstances) && !dcl.IsZeroValue(desired.MinInstances) && !(dcl.IsEmptyValueIndirect(desired.MinInstances) && dcl.IsZeroValue(actual.MinInstances)) {
+	if !reflect.DeepEqual(desired.MinInstances, actual.MinInstances) && !dcl.IsZeroValue(desired.MinInstances) {
 		c.Config.Logger.Infof("Diff in MinInstances. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinInstances), dcl.SprintResource(actual.MinInstances))
 		return true
 	}
@@ -1007,7 +1045,7 @@ func compareAutoscalingPolicySecondaryWorkerConfig(c *Client, desired, actual *A
 		c.Config.Logger.Infof("desired MaxInstances %s - but actually nil", dcl.SprintResource(desired.MaxInstances))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MaxInstances, actual.MaxInstances) && !dcl.IsZeroValue(desired.MaxInstances) && !(dcl.IsEmptyValueIndirect(desired.MaxInstances) && dcl.IsZeroValue(actual.MaxInstances)) {
+	if !reflect.DeepEqual(desired.MaxInstances, actual.MaxInstances) && !dcl.IsZeroValue(desired.MaxInstances) {
 		c.Config.Logger.Infof("Diff in MaxInstances. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxInstances), dcl.SprintResource(actual.MaxInstances))
 		return true
 	}
@@ -1015,9 +1053,42 @@ func compareAutoscalingPolicySecondaryWorkerConfig(c *Client, desired, actual *A
 		c.Config.Logger.Infof("desired Weight %s - but actually nil", dcl.SprintResource(desired.Weight))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Weight, actual.Weight) && !dcl.IsZeroValue(desired.Weight) && !(dcl.IsEmptyValueIndirect(desired.Weight) && dcl.IsZeroValue(actual.Weight)) {
+	if !reflect.DeepEqual(desired.Weight, actual.Weight) && !dcl.IsZeroValue(desired.Weight) {
 		c.Config.Logger.Infof("Diff in Weight. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Weight), dcl.SprintResource(actual.Weight))
 		return true
+	}
+	return false
+}
+
+func compareAutoscalingPolicySecondaryWorkerConfigSlice(c *Client, desired, actual []AutoscalingPolicySecondaryWorkerConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in AutoscalingPolicySecondaryWorkerConfig, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareAutoscalingPolicySecondaryWorkerConfig(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in AutoscalingPolicySecondaryWorkerConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareAutoscalingPolicySecondaryWorkerConfigMap(c *Client, desired, actual map[string]AutoscalingPolicySecondaryWorkerConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in AutoscalingPolicySecondaryWorkerConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in AutoscalingPolicySecondaryWorkerConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareAutoscalingPolicySecondaryWorkerConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in AutoscalingPolicySecondaryWorkerConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
 	}
 	return false
 }
@@ -1027,6 +1098,7 @@ func compareAutoscalingPolicySecondaryWorkerConfig(c *Client, desired, actual *A
 // short-form so they can be substituted in.
 func (r *AutoscalingPolicy) urlNormalized() *AutoscalingPolicy {
 	normalized := deepcopy.Copy(*r).(AutoscalingPolicy)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
@@ -1079,6 +1151,10 @@ func unmarshalAutoscalingPolicy(b []byte, c *Client) (*AutoscalingPolicy, error)
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapAutoscalingPolicy(m, c)
+}
+
+func unmarshalMapAutoscalingPolicy(m map[string]interface{}, c *Client) (*AutoscalingPolicy, error) {
 
 	return flattenAutoscalingPolicy(c, m), nil
 }

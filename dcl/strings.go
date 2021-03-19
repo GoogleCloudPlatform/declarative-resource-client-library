@@ -22,13 +22,14 @@ import (
 // We can assume camelCase is the same as TitleCase except that we downcase the
 // first segment
 var initialisms = map[string]string{
-	"ip":     "IP",
-	"ipv4":   "IPv4",
-	"ipv6":   "IPv6",
-	"oauth":  "OAuth",
-	"oauth2": "OAuth2",
-	"tpu":    "TPU",
-	"vpc":    "VPC",
+	"ip":      "IP",
+	"ipv4":    "IPv4",
+	"ipv6":    "IPv6",
+	"oauth":   "OAuth",
+	"oauth2":  "OAuth2",
+	"tpu":     "TPU",
+	"vpc":     "VPC",
+	"v1beta1": "V1Beta1",
 }
 
 // SnakeToTitleCase converts a snake_case string to TitleCase / Go struct case.
@@ -56,6 +57,9 @@ func SnakeToTitleParts(s string) []string {
 		if v, ok := initialisms[seg]; ok {
 			parts = append(parts, v)
 		} else {
+			if len(seg) < 1 {
+				continue
+			}
 			parts = append(parts, strings.ToUpper(seg[0:1])+seg[1:])
 		}
 	}

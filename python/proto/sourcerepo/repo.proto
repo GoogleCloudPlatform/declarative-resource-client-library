@@ -51,6 +51,7 @@ message ListSourcerepoRepoRequest {
 message ListSourcerepoRepoResponse {
   repeated SourcerepoRepo items = 1;
 }
+
 service SourcerepoRepoService {
   rpc ApplySourcerepoRepo(ApplySourcerepoRepoRequest) returns (SourcerepoRepo);
   rpc DeleteSourcerepoRepo(DeleteSourcerepoRepoRequest) returns (google.protobuf.Empty);

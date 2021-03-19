@@ -157,16 +157,75 @@ class HealthCheck(object):
         self.self_link = Primitive.from_proto(response.self_link)
         self.location = Primitive.from_proto(response.location)
 
-    @classmethod
-    def delete(self, project, location, name, service_account_file=""):
+    def delete(self):
         stub = health_check_pb2_grpc.ComputeHealthCheckServiceStub(channel.Channel())
         request = health_check_pb2.DeleteComputeHealthCheckRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.check_interval_sec):
+            request.resource.check_interval_sec = Primitive.to_proto(
+                self.check_interval_sec
+            )
 
-        request.Location = location
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
 
-        request.Name = name
+        if Primitive.to_proto(self.healthy_threshold):
+            request.resource.healthy_threshold = Primitive.to_proto(
+                self.healthy_threshold
+            )
+
+        if HealthCheckHttp2HealthCheck.to_proto(self.http2_health_check):
+            request.resource.http2_health_check.CopyFrom(
+                HealthCheckHttp2HealthCheck.to_proto(self.http2_health_check)
+            )
+        else:
+            request.resource.ClearField("http2_health_check")
+        if HealthCheckHttpHealthCheck.to_proto(self.http_health_check):
+            request.resource.http_health_check.CopyFrom(
+                HealthCheckHttpHealthCheck.to_proto(self.http_health_check)
+            )
+        else:
+            request.resource.ClearField("http_health_check")
+        if HealthCheckHttpsHealthCheck.to_proto(self.https_health_check):
+            request.resource.https_health_check.CopyFrom(
+                HealthCheckHttpsHealthCheck.to_proto(self.https_health_check)
+            )
+        else:
+            request.resource.ClearField("https_health_check")
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if HealthCheckSslHealthCheck.to_proto(self.ssl_health_check):
+            request.resource.ssl_health_check.CopyFrom(
+                HealthCheckSslHealthCheck.to_proto(self.ssl_health_check)
+            )
+        else:
+            request.resource.ClearField("ssl_health_check")
+        if HealthCheckTcpHealthCheck.to_proto(self.tcp_health_check):
+            request.resource.tcp_health_check.CopyFrom(
+                HealthCheckTcpHealthCheck.to_proto(self.tcp_health_check)
+            )
+        else:
+            request.resource.ClearField("tcp_health_check")
+        if HealthCheckTypeEnum.to_proto(self.type):
+            request.resource.type = HealthCheckTypeEnum.to_proto(self.type)
+
+        if Primitive.to_proto(self.unhealthy_threshold):
+            request.resource.unhealthy_threshold = Primitive.to_proto(
+                self.unhealthy_threshold
+            )
+
+        if Primitive.to_proto(self.timeout_sec):
+            request.resource.timeout_sec = Primitive.to_proto(self.timeout_sec)
+
+        if Primitive.to_proto(self.region):
+            request.resource.region = Primitive.to_proto(self.region)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         response = stub.DeleteComputeHealthCheck(request)
 
@@ -215,6 +274,60 @@ class HealthCheck(object):
         res.self_link = Primitive.from_proto(res_proto.self_link)
         res.location = Primitive.from_proto(res_proto.location)
         return res
+
+    def to_proto(self):
+        resource = health_check_pb2.ComputeHealthCheck()
+        if Primitive.to_proto(self.check_interval_sec):
+            resource.check_interval_sec = Primitive.to_proto(self.check_interval_sec)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.healthy_threshold):
+            resource.healthy_threshold = Primitive.to_proto(self.healthy_threshold)
+        if HealthCheckHttp2HealthCheck.to_proto(self.http2_health_check):
+            resource.http2_health_check.CopyFrom(
+                HealthCheckHttp2HealthCheck.to_proto(self.http2_health_check)
+            )
+        else:
+            resource.ClearField("http2_health_check")
+        if HealthCheckHttpHealthCheck.to_proto(self.http_health_check):
+            resource.http_health_check.CopyFrom(
+                HealthCheckHttpHealthCheck.to_proto(self.http_health_check)
+            )
+        else:
+            resource.ClearField("http_health_check")
+        if HealthCheckHttpsHealthCheck.to_proto(self.https_health_check):
+            resource.https_health_check.CopyFrom(
+                HealthCheckHttpsHealthCheck.to_proto(self.https_health_check)
+            )
+        else:
+            resource.ClearField("https_health_check")
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if HealthCheckSslHealthCheck.to_proto(self.ssl_health_check):
+            resource.ssl_health_check.CopyFrom(
+                HealthCheckSslHealthCheck.to_proto(self.ssl_health_check)
+            )
+        else:
+            resource.ClearField("ssl_health_check")
+        if HealthCheckTcpHealthCheck.to_proto(self.tcp_health_check):
+            resource.tcp_health_check.CopyFrom(
+                HealthCheckTcpHealthCheck.to_proto(self.tcp_health_check)
+            )
+        else:
+            resource.ClearField("tcp_health_check")
+        if HealthCheckTypeEnum.to_proto(self.type):
+            resource.type = HealthCheckTypeEnum.to_proto(self.type)
+        if Primitive.to_proto(self.unhealthy_threshold):
+            resource.unhealthy_threshold = Primitive.to_proto(self.unhealthy_threshold)
+        if Primitive.to_proto(self.timeout_sec):
+            resource.timeout_sec = Primitive.to_proto(self.timeout_sec)
+        if Primitive.to_proto(self.region):
+            resource.region = Primitive.to_proto(self.region)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
+        return resource
 
 
 class HealthCheckHttp2HealthCheck(object):

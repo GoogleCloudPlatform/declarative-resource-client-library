@@ -83,9 +83,10 @@ class SslPolicy(object):
         self.warning = SslPolicyWarningArray.from_proto(response.warning)
         self.project = Primitive.from_proto(response.project)
 
-    def hcl(self):
+    def delete(self):
         stub = ssl_policy_pb2_grpc.ComputeSslPolicyServiceStub(channel.Channel())
-        request = ssl_policy_pb2.ComputeSslPolicyAsHclRequest()
+        request = ssl_policy_pb2.DeleteComputeSslPolicyRequest()
+        request.service_account_file = self.service_account_file
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
@@ -106,18 +107,6 @@ class SslPolicy(object):
             )
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
-
-        response = stub.ComputeSslPolicyAsHcl(request)
-        return response.hcl
-
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
-        stub = ssl_policy_pb2_grpc.ComputeSslPolicyServiceStub(channel.Channel())
-        request = ssl_policy_pb2.DeleteComputeSslPolicyRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
-
-        request.Name = name
 
         response = stub.DeleteComputeSslPolicy(request)
 
@@ -150,6 +139,24 @@ class SslPolicy(object):
         res.warning = SslPolicyWarningArray.from_proto(res_proto.warning)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = ssl_policy_pb2.ComputeSslPolicy()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if SslPolicyProfileEnum.to_proto(self.profile):
+            resource.profile = SslPolicyProfileEnum.to_proto(self.profile)
+        if SslPolicyMinTlsVersionEnum.to_proto(self.min_tls_version):
+            resource.min_tls_version = SslPolicyMinTlsVersionEnum.to_proto(
+                self.min_tls_version
+            )
+        if Primitive.to_proto(self.custom_feature):
+            resource.custom_feature.extend(Primitive.to_proto(self.custom_feature))
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class SslPolicyWarning(object):

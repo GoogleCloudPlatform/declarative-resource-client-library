@@ -114,6 +114,7 @@ message ListComputeBetaForwardingRuleRequest {
 message ListComputeBetaForwardingRuleResponse {
   repeated ComputeBetaForwardingRule items = 1;
 }
+
 service ComputeBetaForwardingRuleService {
   rpc ApplyComputeBetaForwardingRule(ApplyComputeBetaForwardingRuleRequest) returns (ComputeBetaForwardingRule);
   rpc DeleteComputeBetaForwardingRule(DeleteComputeBetaForwardingRuleRequest) returns (google.protobuf.Empty);

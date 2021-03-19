@@ -114,6 +114,9 @@ func (l *SslCertificateList) HasNext() bool {
 }
 
 func (l *SslCertificateList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -127,12 +130,17 @@ func (l *SslCertificateList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListSslCertificate(ctx context.Context, project string) (*SslCertificateList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListSslCertificateWithMaxResults(ctx, project, SslCertificateMaxPage)
 
 }
 
 func (c *Client) ListSslCertificateWithMaxResults(ctx context.Context, project string, pageSize int32) (*SslCertificateList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listSslCertificate(ctx, project, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -147,6 +155,9 @@ func (c *Client) ListSslCertificateWithMaxResults(ctx context.Context, project s
 }
 
 func (c *Client) GetSslCertificate(ctx context.Context, r *SslCertificate) (*SslCertificate, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getSslCertificateRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -179,6 +190,9 @@ func (c *Client) GetSslCertificate(ctx context.Context, r *SslCertificate) (*Ssl
 }
 
 func (c *Client) DeleteSslCertificate(ctx context.Context, r *SslCertificate) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("SslCertificate resource is nil")
 	}
@@ -189,6 +203,9 @@ func (c *Client) DeleteSslCertificate(ctx context.Context, r *SslCertificate) er
 
 // DeleteAllSslCertificate deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllSslCertificate(ctx context.Context, project string, filter func(*SslCertificate) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListSslCertificate(ctx, project)
 	if err != nil {
 		return err
@@ -214,6 +231,9 @@ func (c *Client) DeleteAllSslCertificate(ctx context.Context, project string, fi
 func (c *Client) ApplySslCertificate(ctx context.Context, rawDesired *SslCertificate, opts ...dcl.ApplyOption) (*SslCertificate, error) {
 	c.Config.Logger.Info("Beginning ApplySslCertificate...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -294,12 +314,35 @@ func (c *Client) ApplySslCertificate(ctx context.Context, rawDesired *SslCertifi
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createSslCertificateOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapSslCertificate(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeSslCertificateNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeSslCertificateNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

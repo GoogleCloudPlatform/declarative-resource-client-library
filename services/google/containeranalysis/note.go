@@ -36,6 +36,8 @@ type Note struct {
 	Image            *NoteImage         `json:"image"`
 	Package          *NotePackage       `json:"package"`
 	Discovery        *NoteDiscovery     `json:"discovery"`
+	Deployment       *NoteDeployment    `json:"deployment"`
+	Attestation      *NoteAttestation   `json:"attestation"`
 	Project          *string            `json:"project"`
 }
 
@@ -840,6 +842,69 @@ func (r *NoteDiscovery) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
+type NoteDeployment struct {
+	empty       bool     `json:"-"`
+	ResourceUri []string `json:"resourceUri"`
+}
+
+// This object is used to assert a desired state where this NoteDeployment is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyNoteDeployment *NoteDeployment = &NoteDeployment{empty: true}
+
+func (r *NoteDeployment) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *NoteDeployment) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type NoteAttestation struct {
+	empty bool                 `json:"-"`
+	Hint  *NoteAttestationHint `json:"hint"`
+}
+
+// This object is used to assert a desired state where this NoteAttestation is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyNoteAttestation *NoteAttestation = &NoteAttestation{empty: true}
+
+func (r *NoteAttestation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *NoteAttestation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type NoteAttestationHint struct {
+	empty             bool    `json:"-"`
+	HumanReadableName *string `json:"humanReadableName"`
+}
+
+// This object is used to assert a desired state where this NoteAttestationHint is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyNoteAttestationHint *NoteAttestationHint = &NoteAttestationHint{empty: true}
+
+func (r *NoteAttestationHint) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *NoteAttestationHint) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
 // Describe returns a simple description of this resource to ensure that automated tools
 // can identify it.
 func (r *Note) Describe() dcl.ServiceTypeVersion {
@@ -867,6 +932,9 @@ func (l *NoteList) HasNext() bool {
 }
 
 func (l *NoteList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -880,12 +948,17 @@ func (l *NoteList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListNote(ctx context.Context, project string) (*NoteList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListNoteWithMaxResults(ctx, project, NoteMaxPage)
 
 }
 
 func (c *Client) ListNoteWithMaxResults(ctx context.Context, project string, pageSize int32) (*NoteList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listNote(ctx, project, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -900,6 +973,9 @@ func (c *Client) ListNoteWithMaxResults(ctx context.Context, project string, pag
 }
 
 func (c *Client) GetNote(ctx context.Context, r *Note) (*Note, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getNoteRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -929,6 +1005,9 @@ func (c *Client) GetNote(ctx context.Context, r *Note) (*Note, error) {
 }
 
 func (c *Client) DeleteNote(ctx context.Context, r *Note) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Note resource is nil")
 	}
@@ -939,6 +1018,9 @@ func (c *Client) DeleteNote(ctx context.Context, r *Note) error {
 
 // DeleteAllNote deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllNote(ctx context.Context, project string, filter func(*Note) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListNote(ctx, project)
 	if err != nil {
 		return err
@@ -964,6 +1046,9 @@ func (c *Client) DeleteAllNote(ctx context.Context, project string, filter func(
 func (c *Client) ApplyNote(ctx context.Context, rawDesired *Note, opts ...dcl.ApplyOption) (*Note, error) {
 	c.Config.Logger.Info("Beginning ApplyNote...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -1044,12 +1129,35 @@ func (c *Client) ApplyNote(ctx context.Context, rawDesired *Note, opts ...dcl.Ap
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createNoteOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapNote(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeNoteNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeNoteNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

@@ -62,6 +62,9 @@ func (l *ResourceRecordSetList) HasNext() bool {
 }
 
 func (l *ResourceRecordSetList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -75,12 +78,17 @@ func (l *ResourceRecordSetList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListResourceRecordSet(ctx context.Context, project, managedZone string) (*ResourceRecordSetList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListResourceRecordSetWithMaxResults(ctx, project, managedZone, ResourceRecordSetMaxPage)
 
 }
 
 func (c *Client) ListResourceRecordSetWithMaxResults(ctx context.Context, project, managedZone string, pageSize int32) (*ResourceRecordSetList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listResourceRecordSet(ctx, project, managedZone, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -97,6 +105,9 @@ func (c *Client) ListResourceRecordSetWithMaxResults(ctx context.Context, projec
 }
 
 func (c *Client) DeleteResourceRecordSet(ctx context.Context, r *ResourceRecordSet) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("ResourceRecordSet resource is nil")
 	}
@@ -107,6 +118,9 @@ func (c *Client) DeleteResourceRecordSet(ctx context.Context, r *ResourceRecordS
 
 // DeleteAllResourceRecordSet deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllResourceRecordSet(ctx context.Context, project, managedZone string, filter func(*ResourceRecordSet) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListResourceRecordSet(ctx, project, managedZone)
 	if err != nil {
 		return err
@@ -132,6 +146,9 @@ func (c *Client) DeleteAllResourceRecordSet(ctx context.Context, project, manage
 func (c *Client) ApplyResourceRecordSet(ctx context.Context, rawDesired *ResourceRecordSet, opts ...dcl.ApplyOption) (*ResourceRecordSet, error) {
 	c.Config.Logger.Info("Beginning ApplyResourceRecordSet...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -212,12 +229,35 @@ func (c *Client) ApplyResourceRecordSet(ctx context.Context, rawDesired *Resourc
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createResourceRecordSetOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapResourceRecordSet(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeResourceRecordSetNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeResourceRecordSetNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

@@ -142,9 +142,6 @@ components:
                 see:   http://kubernetes.io/v1.1/docs/user-guide/labels.html  An object
                 containing a list of "key": value pairs. Example: { "name": "wrench",
                 "mass": "1.3kg", "count": "3" }. '
-              items:
-                type: string
-                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Labels
               x-kubernetes-immutable: true
@@ -178,9 +175,6 @@ components:
                 to 32 KB.  The total size of all keys and values must be less than
                 512 KB.  An object containing a list of "key": value pairs. Example:
                 { "name": "wrench", "mass": "1.3kg", "count": "3" }. '
-              items:
-                type: string
-                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Metadata
               x-kubernetes-immutable: true
@@ -373,14 +367,12 @@ components:
                   readOnly: true
                   type: string
                   x-dcl-go-name: AutoUpgradeStartTime
-                  x-kubernetes-immutable: true
                 description:
                   description: 'This field is set when upgrades are about to commence
                     with the description of the upgrade. '
                   readOnly: true
                   type: string
                   x-dcl-go-name: Description
-                  x-kubernetes-immutable: true
               type: object
               x-dcl-go-name: UpgradeOptions
               x-dcl-go-type: NodePoolManagementUpgradeOptions
@@ -426,6 +418,10 @@ components:
           description: The project id of the resource.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         status:
           description: The current status of this cluster.

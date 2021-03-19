@@ -76,16 +76,9 @@ message ListComputeSslPolicyRequest {
 message ListComputeSslPolicyResponse {
   repeated ComputeSslPolicy items = 1;
 }
-message ComputeSslPolicyAsHclRequest {
-  ComputeSslPolicy resource = 1;
-}
-message ComputeSslPolicyAsHclResponse {
-  string hcl = 1;
-}
+
 service ComputeSslPolicyService {
   rpc ApplyComputeSslPolicy(ApplyComputeSslPolicyRequest) returns (ComputeSslPolicy);
   rpc DeleteComputeSslPolicy(DeleteComputeSslPolicyRequest) returns (google.protobuf.Empty);
   rpc ListComputeSslPolicy(ListComputeSslPolicyRequest) returns (ListComputeSslPolicyResponse);
-  rpc ComputeSslPolicyAsHcl(ComputeSslPolicyAsHclRequest) returns (ComputeSslPolicyAsHclResponse);
-
 }

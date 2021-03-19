@@ -58,16 +58,9 @@ message ListComputeNetworkRequest {
 message ListComputeNetworkResponse {
   repeated ComputeNetwork items = 1;
 }
-message ComputeNetworkAsHclRequest {
-  ComputeNetwork resource = 1;
-}
-message ComputeNetworkAsHclResponse {
-  string hcl = 1;
-}
+
 service ComputeNetworkService {
   rpc ApplyComputeNetwork(ApplyComputeNetworkRequest) returns (ComputeNetwork);
   rpc DeleteComputeNetwork(DeleteComputeNetworkRequest) returns (google.protobuf.Empty);
   rpc ListComputeNetwork(ListComputeNetworkRequest) returns (ListComputeNetworkResponse);
-  rpc ComputeNetworkAsHcl(ComputeNetworkAsHclRequest) returns (ComputeNetworkAsHclResponse);
-
 }

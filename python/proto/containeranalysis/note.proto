@@ -176,7 +176,9 @@ message ContaineranalysisNote {
   ContaineranalysisNoteImage image = 11;
   ContaineranalysisNotePackage package = 12;
   ContaineranalysisNoteDiscovery discovery = 13;
-  string project = 14;
+  ContaineranalysisNoteDeployment deployment = 14;
+  ContaineranalysisNoteAttestation attestation = 15;
+  string project = 16;
 }
 
 message ContaineranalysisNoteRelatedUrl {
@@ -299,6 +301,18 @@ message ContaineranalysisNoteDiscovery {
   ContaineranalysisNoteDiscoveryAnalysisKindEnum analysis_kind = 1;
 }
 
+message ContaineranalysisNoteDeployment {
+  repeated string resource_uri = 1;
+}
+
+message ContaineranalysisNoteAttestation {
+  ContaineranalysisNoteAttestationHint hint = 1;
+}
+
+message ContaineranalysisNoteAttestationHint {
+  string human_readable_name = 1;
+}
+
 message ApplyContaineranalysisNoteRequest {
   ContaineranalysisNote resource = 1;
   repeated LifecycleDirective lifecycle_directives = 2;
@@ -318,6 +332,7 @@ message ListContaineranalysisNoteRequest {
 message ListContaineranalysisNoteResponse {
   repeated ContaineranalysisNote items = 1;
 }
+
 service ContaineranalysisNoteService {
   rpc ApplyContaineranalysisNote(ApplyContaineranalysisNoteRequest) returns (ContaineranalysisNote);
   rpc DeleteContaineranalysisNote(DeleteContaineranalysisNoteRequest) returns (google.protobuf.Empty);

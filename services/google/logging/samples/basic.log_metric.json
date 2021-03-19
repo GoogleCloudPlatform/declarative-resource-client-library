@@ -1,0 +1,5 @@
+{
+  "name": "{{log_metric_name}}",
+  "project": "{{project}}",
+  "filter": "resource.type=gae_app AND severity>=ERROR"
+}

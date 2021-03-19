@@ -185,9 +185,10 @@ class Instance(object):
         self.location = Primitive.from_proto(response.location)
         self.region = Primitive.from_proto(response.region)
 
-    def hcl(self):
+    def delete(self):
         stub = instance_pb2_grpc.RedisInstanceServiceStub(channel.Channel())
-        request = instance_pb2.RedisInstanceAsHclRequest()
+        request = instance_pb2.DeleteRedisInstanceRequest()
+        request.service_account_file = self.service_account_file
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
@@ -255,20 +256,6 @@ class Instance(object):
         if Primitive.to_proto(self.region):
             request.resource.region = Primitive.to_proto(self.region)
 
-        response = stub.RedisInstanceAsHcl(request)
-        return response.hcl
-
-    @classmethod
-    def delete(self, project, location, name, service_account_file=""):
-        stub = instance_pb2_grpc.RedisInstanceServiceStub(channel.Channel())
-        request = instance_pb2.DeleteRedisInstanceRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
-
-        request.Location = location
-
-        request.Name = name
-
         response = stub.DeleteRedisInstance(request)
 
     @classmethod
@@ -329,6 +316,54 @@ class Instance(object):
         res.location = Primitive.from_proto(res_proto.location)
         res.region = Primitive.from_proto(res_proto.region)
         return res
+
+    def to_proto(self):
+        resource = instance_pb2.RedisInstance()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.display_name):
+            resource.display_name = Primitive.to_proto(self.display_name)
+        if Primitive.to_proto(self.labels):
+            resource.labels = Primitive.to_proto(self.labels)
+        if Primitive.to_proto(self.location_id):
+            resource.location_id = Primitive.to_proto(self.location_id)
+        if Primitive.to_proto(self.alternative_location_id):
+            resource.alternative_location_id = Primitive.to_proto(
+                self.alternative_location_id
+            )
+        if Primitive.to_proto(self.redis_version):
+            resource.redis_version = Primitive.to_proto(self.redis_version)
+        if Primitive.to_proto(self.reserved_ip_range):
+            resource.reserved_ip_range = Primitive.to_proto(self.reserved_ip_range)
+        if Primitive.to_proto(self.redis_configs):
+            resource.redis_configs = Primitive.to_proto(self.redis_configs)
+        if InstanceTierEnum.to_proto(self.tier):
+            resource.tier = InstanceTierEnum.to_proto(self.tier)
+        if Primitive.to_proto(self.memory_size_gb):
+            resource.memory_size_gb = Primitive.to_proto(self.memory_size_gb)
+        if Primitive.to_proto(self.authorized_network):
+            resource.authorized_network = Primitive.to_proto(self.authorized_network)
+        if InstanceConnectModeEnum.to_proto(self.connect_mode):
+            resource.connect_mode = InstanceConnectModeEnum.to_proto(self.connect_mode)
+        if Primitive.to_proto(self.auth_enabled):
+            resource.auth_enabled = Primitive.to_proto(self.auth_enabled)
+        if InstanceTransitEncryptionModeEnum.to_proto(self.transit_encryption_mode):
+            resource.transit_encryption_mode = InstanceTransitEncryptionModeEnum.to_proto(
+                self.transit_encryption_mode
+            )
+        if InstanceMaintenancePolicy.to_proto(self.maintenance_policy):
+            resource.maintenance_policy.CopyFrom(
+                InstanceMaintenancePolicy.to_proto(self.maintenance_policy)
+            )
+        else:
+            resource.ClearField("maintenance_policy")
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
+        if Primitive.to_proto(self.region):
+            resource.region = Primitive.to_proto(self.region)
+        return resource
 
 
 class InstanceServerCaCerts(object):

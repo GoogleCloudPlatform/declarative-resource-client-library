@@ -44,9 +44,6 @@ components:
           description: Configuration fields that define the channel and its behavior.
             The permissible and required labels are specified in the [NotificationChannelDescriptor.labels][google.monitoring.v3.NotificationChannelDescriptor.labels]
             of the `NotificationChannelDescriptor` corresponding to the `type` field.
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         name:
@@ -62,6 +59,10 @@ components:
           description: The project for this notification channel.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         type:
           description: The type of the notification channel. This field matches the
@@ -80,9 +81,6 @@ components:
             or 128 bytes, whichever is smaller. Labels and values can contain only
             lowercase letters, numerals, underscores, and dashes. Keys must begin
             with a letter.
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: UserLabels
         verificationStatus:

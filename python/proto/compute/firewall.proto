@@ -81,16 +81,9 @@ message ListComputeFirewallRequest {
 message ListComputeFirewallResponse {
   repeated ComputeFirewall items = 1;
 }
-message ComputeFirewallAsHclRequest {
-  ComputeFirewall resource = 1;
-}
-message ComputeFirewallAsHclResponse {
-  string hcl = 1;
-}
+
 service ComputeFirewallService {
   rpc ApplyComputeFirewall(ApplyComputeFirewallRequest) returns (ComputeFirewall);
   rpc DeleteComputeFirewall(DeleteComputeFirewallRequest) returns (google.protobuf.Empty);
   rpc ListComputeFirewall(ListComputeFirewallRequest) returns (ListComputeFirewallResponse);
-  rpc ComputeFirewallAsHcl(ComputeFirewallAsHclRequest) returns (ComputeFirewallAsHclResponse);
-
 }

@@ -96,7 +96,7 @@ func (c *Client) listTargetVpnGatewayRaw(ctx context.Context, project, region, p
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -171,7 +171,7 @@ func (op *deleteTargetVpnGatewayOperation) do(ctx context.Context, r *TargetVpnG
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -194,7 +194,13 @@ func (op *deleteTargetVpnGatewayOperation) do(ctx context.Context, r *TargetVpnG
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createTargetVpnGatewayOperation struct{}
+type createTargetVpnGatewayOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createTargetVpnGatewayOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createTargetVpnGatewayOperation) do(ctx context.Context, r *TargetVpnGateway, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -210,7 +216,7 @@ func (op *createTargetVpnGatewayOperation) do(ctx context.Context, r *TargetVpnG
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -224,8 +230,10 @@ func (op *createTargetVpnGatewayOperation) do(ctx context.Context, r *TargetVpnG
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetTargetVpnGateway(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -238,7 +246,7 @@ func (c *Client) getTargetVpnGatewayRaw(ctx context.Context, r *TargetVpnGateway
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -315,14 +323,6 @@ func canonicalizeTargetVpnGatewayInitialState(rawInitial, rawDesired *TargetVpnG
 
 func canonicalizeTargetVpnGatewayDesiredState(rawDesired, rawInitial *TargetVpnGateway, opts ...dcl.ApplyOption) (*TargetVpnGateway, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*TargetVpnGateway); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected TargetVpnGateway, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -332,16 +332,16 @@ func canonicalizeTargetVpnGatewayDesiredState(rawDesired, rawInitial *TargetVpnG
 	if dcl.IsZeroValue(rawDesired.Id) {
 		rawDesired.Id = rawInitial.Id
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Region) {
+	if dcl.StringCanonicalize(rawDesired.Region, rawInitial.Region) {
 		rawDesired.Region = rawInitial.Region
 	}
-	if dcl.IsZeroValue(rawDesired.Network) {
+	if dcl.StringCanonicalize(rawDesired.Network, rawInitial.Network) {
 		rawDesired.Network = rawInitial.Network
 	}
 	if dcl.IsZeroValue(rawDesired.Tunnel) {
@@ -350,7 +350,7 @@ func canonicalizeTargetVpnGatewayDesiredState(rawDesired, rawInitial *TargetVpnG
 	if dcl.IsZeroValue(rawDesired.Status) {
 		rawDesired.Status = rawInitial.Status
 	}
-	if dcl.IsZeroValue(rawDesired.SelfLink) {
+	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}
 	if dcl.IsZeroValue(rawDesired.ForwardingRule) {
@@ -373,21 +373,33 @@ func canonicalizeTargetVpnGatewayNewState(c *Client, rawNew, rawDesired *TargetV
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Region) && dcl.IsEmptyValueIndirect(rawDesired.Region) {
 		rawNew.Region = rawDesired.Region
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Region, rawNew.Region) {
+			rawNew.Region = rawDesired.Region
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Network) && dcl.IsEmptyValueIndirect(rawDesired.Network) {
 		rawNew.Network = rawDesired.Network
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Network, rawNew.Network) {
+			rawNew.Network = rawDesired.Network
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Tunnel) && dcl.IsEmptyValueIndirect(rawDesired.Tunnel) {
@@ -403,6 +415,9 @@ func canonicalizeTargetVpnGatewayNewState(c *Client, rawNew, rawDesired *TargetV
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ForwardingRule) && dcl.IsEmptyValueIndirect(rawDesired.ForwardingRule) {
@@ -436,28 +451,28 @@ func diffTargetVpnGateway(c *Client, desired, actual *TargetVpnGateway, opts ...
 	}
 
 	var diffs []targetVpnGatewayDiff
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, targetVpnGatewayDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, targetVpnGatewayDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Region) && (dcl.IsZeroValue(actual.Region) || !reflect.DeepEqual(*desired.Region, *actual.Region)) {
+	if !dcl.IsZeroValue(desired.Region) && !dcl.StringCanonicalize(desired.Region, actual.Region) {
 		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %v\nACTUAL: %v", desired.Region, actual.Region)
 		diffs = append(diffs, targetVpnGatewayDiff{
 			RequiresRecreate: true,
 			FieldName:        "Region",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Network) && (dcl.IsZeroValue(actual.Network) || !reflect.DeepEqual(*desired.Network, *actual.Network)) {
+	if !dcl.IsZeroValue(desired.Network) && !dcl.StringCanonicalize(desired.Network, actual.Network) {
 		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
 		diffs = append(diffs, targetVpnGatewayDiff{
 			RequiresRecreate: true,
@@ -511,6 +526,11 @@ func compareTargetVpnGatewayStatusEnum(c *Client, desired, actual *TargetVpnGate
 // short-form so they can be substituted in.
 func (r *TargetVpnGateway) urlNormalized() *TargetVpnGateway {
 	normalized := deepcopy.Copy(*r).(TargetVpnGateway)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Region = dcl.SelfLinkToName(r.Region)
+	normalized.Network = dcl.SelfLinkToName(r.Network)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -552,6 +572,10 @@ func unmarshalTargetVpnGateway(b []byte, c *Client) (*TargetVpnGateway, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapTargetVpnGateway(m, c)
+}
+
+func unmarshalMapTargetVpnGateway(m map[string]interface{}, c *Client) (*TargetVpnGateway, error) {
 
 	return flattenTargetVpnGateway(c, m), nil
 }
@@ -635,7 +659,7 @@ func flattenTargetVpnGatewayStatusEnumSlice(c *Client, i interface{}) []TargetVp
 
 	items := make([]TargetVpnGatewayStatusEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenTargetVpnGatewayStatusEnum(item.(map[string]interface{})))
+		items = append(items, *flattenTargetVpnGatewayStatusEnum(item.(interface{})))
 	}
 
 	return items

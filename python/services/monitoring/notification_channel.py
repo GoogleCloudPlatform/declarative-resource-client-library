@@ -88,16 +88,32 @@ class NotificationChannel(object):
         )
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = notification_channel_pb2_grpc.MonitoringNotificationChannelServiceStub(
             channel.Channel()
         )
         request = notification_channel_pb2.DeleteMonitoringNotificationChannelRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
 
-        request.Name = name
+        if Primitive.to_proto(self.display_name):
+            request.resource.display_name = Primitive.to_proto(self.display_name)
+
+        if Primitive.to_proto(self.enabled):
+            request.resource.enabled = Primitive.to_proto(self.enabled)
+
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
+        if Primitive.to_proto(self.type):
+            request.resource.type = Primitive.to_proto(self.type)
+
+        if Primitive.to_proto(self.user_labels):
+            request.resource.user_labels = Primitive.to_proto(self.user_labels)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteMonitoringNotificationChannel(request)
 
@@ -131,6 +147,24 @@ class NotificationChannel(object):
         )
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = notification_channel_pb2.MonitoringNotificationChannel()
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.display_name):
+            resource.display_name = Primitive.to_proto(self.display_name)
+        if Primitive.to_proto(self.enabled):
+            resource.enabled = Primitive.to_proto(self.enabled)
+        if Primitive.to_proto(self.labels):
+            resource.labels = Primitive.to_proto(self.labels)
+        if Primitive.to_proto(self.type):
+            resource.type = Primitive.to_proto(self.type)
+        if Primitive.to_proto(self.user_labels):
+            resource.user_labels = Primitive.to_proto(self.user_labels)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class NotificationChannelVerificationStatusEnum(object):

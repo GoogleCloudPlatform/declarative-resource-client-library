@@ -95,16 +95,38 @@ class Reservation(object):
         self.status = ReservationStatusEnum.from_proto(response.status)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, zone, name, service_account_file=""):
+    def delete(self):
         stub = reservation_pb2_grpc.ComputeBetaReservationServiceStub(channel.Channel())
         request = reservation_pb2.DeleteComputeBetaReservationRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.id):
+            request.resource.id = Primitive.to_proto(self.id)
 
-        request.Zone = zone
+        if Primitive.to_proto(self.zone):
+            request.resource.zone = Primitive.to_proto(self.zone)
 
-        request.Name = name
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if ReservationSpecificReservation.to_proto(self.specific_reservation):
+            request.resource.specific_reservation.CopyFrom(
+                ReservationSpecificReservation.to_proto(self.specific_reservation)
+            )
+        else:
+            request.resource.ClearField("specific_reservation")
+        if Primitive.to_proto(self.commitment):
+            request.resource.commitment = Primitive.to_proto(self.commitment)
+
+        if Primitive.to_proto(self.specific_reservation_required):
+            request.resource.specific_reservation_required = Primitive.to_proto(
+                self.specific_reservation_required
+            )
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteComputeBetaReservation(request)
 
@@ -141,6 +163,32 @@ class Reservation(object):
         res.status = ReservationStatusEnum.from_proto(res_proto.status)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = reservation_pb2.ComputeBetaReservation()
+        if Primitive.to_proto(self.id):
+            resource.id = Primitive.to_proto(self.id)
+        if Primitive.to_proto(self.zone):
+            resource.zone = Primitive.to_proto(self.zone)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if ReservationSpecificReservation.to_proto(self.specific_reservation):
+            resource.specific_reservation.CopyFrom(
+                ReservationSpecificReservation.to_proto(self.specific_reservation)
+            )
+        else:
+            resource.ClearField("specific_reservation")
+        if Primitive.to_proto(self.commitment):
+            resource.commitment = Primitive.to_proto(self.commitment)
+        if Primitive.to_proto(self.specific_reservation_required):
+            resource.specific_reservation_required = Primitive.to_proto(
+                self.specific_reservation_required
+            )
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class ReservationSpecificReservation(object):

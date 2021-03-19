@@ -82,6 +82,9 @@ func (l *TopicList) HasNext() bool {
 }
 
 func (l *TopicList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -95,12 +98,17 @@ func (l *TopicList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListTopic(ctx context.Context, project string) (*TopicList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListTopicWithMaxResults(ctx, project, TopicMaxPage)
 
 }
 
 func (c *Client) ListTopicWithMaxResults(ctx context.Context, project string, pageSize int32) (*TopicList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listTopic(ctx, project, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -115,6 +123,9 @@ func (c *Client) ListTopicWithMaxResults(ctx context.Context, project string, pa
 }
 
 func (c *Client) GetTopic(ctx context.Context, r *Topic) (*Topic, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getTopicRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -144,6 +155,9 @@ func (c *Client) GetTopic(ctx context.Context, r *Topic) (*Topic, error) {
 }
 
 func (c *Client) DeleteTopic(ctx context.Context, r *Topic) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Topic resource is nil")
 	}
@@ -154,6 +168,9 @@ func (c *Client) DeleteTopic(ctx context.Context, r *Topic) error {
 
 // DeleteAllTopic deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllTopic(ctx context.Context, project string, filter func(*Topic) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListTopic(ctx, project)
 	if err != nil {
 		return err
@@ -179,6 +196,9 @@ func (c *Client) DeleteAllTopic(ctx context.Context, project string, filter func
 func (c *Client) ApplyTopic(ctx context.Context, rawDesired *Topic, opts ...dcl.ApplyOption) (*Topic, error) {
 	c.Config.Logger.Info("Beginning ApplyTopic...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -259,12 +279,35 @@ func (c *Client) ApplyTopic(ctx context.Context, rawDesired *Topic, opts ...dcl.
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createTopicOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapTopic(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeTopicNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeTopicNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

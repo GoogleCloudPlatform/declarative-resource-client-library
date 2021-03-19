@@ -157,6 +157,9 @@ func (l *AutoscalingPolicyList) HasNext() bool {
 }
 
 func (l *AutoscalingPolicyList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -170,12 +173,17 @@ func (l *AutoscalingPolicyList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListAutoscalingPolicy(ctx context.Context, project, location string) (*AutoscalingPolicyList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListAutoscalingPolicyWithMaxResults(ctx, project, location, AutoscalingPolicyMaxPage)
 
 }
 
 func (c *Client) ListAutoscalingPolicyWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*AutoscalingPolicyList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listAutoscalingPolicy(ctx, project, location, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -192,6 +200,9 @@ func (c *Client) ListAutoscalingPolicyWithMaxResults(ctx context.Context, projec
 }
 
 func (c *Client) GetAutoscalingPolicy(ctx context.Context, r *AutoscalingPolicy) (*AutoscalingPolicy, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getAutoscalingPolicyRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -222,6 +233,9 @@ func (c *Client) GetAutoscalingPolicy(ctx context.Context, r *AutoscalingPolicy)
 }
 
 func (c *Client) DeleteAutoscalingPolicy(ctx context.Context, r *AutoscalingPolicy) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("AutoscalingPolicy resource is nil")
 	}
@@ -232,6 +246,9 @@ func (c *Client) DeleteAutoscalingPolicy(ctx context.Context, r *AutoscalingPoli
 
 // DeleteAllAutoscalingPolicy deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllAutoscalingPolicy(ctx context.Context, project, location string, filter func(*AutoscalingPolicy) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListAutoscalingPolicy(ctx, project, location)
 	if err != nil {
 		return err
@@ -257,6 +274,9 @@ func (c *Client) DeleteAllAutoscalingPolicy(ctx context.Context, project, locati
 func (c *Client) ApplyAutoscalingPolicy(ctx context.Context, rawDesired *AutoscalingPolicy, opts ...dcl.ApplyOption) (*AutoscalingPolicy, error) {
 	c.Config.Logger.Info("Beginning ApplyAutoscalingPolicy...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -337,12 +357,35 @@ func (c *Client) ApplyAutoscalingPolicy(ctx context.Context, rawDesired *Autosca
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createAutoscalingPolicyOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapAutoscalingPolicy(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeAutoscalingPolicyNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeAutoscalingPolicyNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

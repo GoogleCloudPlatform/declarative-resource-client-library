@@ -31,6 +31,7 @@ class Brand(object):
 
         channel.initialize()
         self.application_title = application_title
+        self.name = name
         self.support_email = support_email
         self.project = project
         self.service_account_file = service_account_file
@@ -42,6 +43,9 @@ class Brand(object):
             request.resource.application_title = Primitive.to_proto(
                 self.application_title
             )
+
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
         if Primitive.to_proto(self.support_email):
             request.resource.support_email = Primitive.to_proto(self.support_email)
@@ -58,11 +62,24 @@ class Brand(object):
         self.support_email = Primitive.from_proto(response.support_email)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, service_account_file=""):
+    def delete(self):
         stub = brand_pb2_grpc.IapBrandServiceStub(channel.Channel())
         request = brand_pb2.DeleteIapBrandRequest()
-        request.service_account_file = service_account_file
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.application_title):
+            request.resource.application_title = Primitive.to_proto(
+                self.application_title
+            )
+
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.support_email):
+            request.resource.support_email = Primitive.to_proto(self.support_email)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
         response = stub.DeleteIapBrand(request)
 
     @classmethod
@@ -87,6 +104,18 @@ class Brand(object):
         res.support_email = Primitive.from_proto(res_proto.support_email)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = brand_pb2.IapBrand()
+        if Primitive.to_proto(self.application_title):
+            resource.application_title = Primitive.to_proto(self.application_title)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.support_email):
+            resource.support_email = Primitive.to_proto(self.support_email)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class Primitive(object):

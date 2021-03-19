@@ -110,6 +110,9 @@ func (l *ProjectList) HasNext() bool {
 }
 
 func (l *ProjectList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -123,12 +126,17 @@ func (l *ProjectList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListProject(ctx context.Context) (*ProjectList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListProjectWithMaxResults(ctx, ProjectMaxPage)
 
 }
 
 func (c *Client) ListProjectWithMaxResults(ctx context.Context, pageSize int32) (*ProjectList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listProject(ctx, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -141,9 +149,12 @@ func (c *Client) ListProjectWithMaxResults(ctx context.Context, pageSize int32) 
 }
 
 func (c *Client) GetProject(ctx context.Context, r *Project) (*Project, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getProjectRaw(ctx, r)
 	if err != nil {
-		if dcl.IsForbiddenOrNotFound(err) {
+		if dcl.IsNotFoundOrCode(err, 403) {
 			return nil, &googleapi.Error{
 				Code:    404,
 				Message: err.Error(),
@@ -169,6 +180,9 @@ func (c *Client) GetProject(ctx context.Context, r *Project) (*Project, error) {
 }
 
 func (c *Client) DeleteProject(ctx context.Context, r *Project) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Project resource is nil")
 	}
@@ -179,6 +193,9 @@ func (c *Client) DeleteProject(ctx context.Context, r *Project) error {
 
 // DeleteAllProject deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllProject(ctx context.Context, filter func(*Project) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListProject(ctx)
 	if err != nil {
 		return err
@@ -204,6 +221,9 @@ func (c *Client) DeleteAllProject(ctx context.Context, filter func(*Project) boo
 func (c *Client) ApplyProject(ctx context.Context, rawDesired *Project, opts ...dcl.ApplyOption) (*Project, error) {
 	c.Config.Logger.Info("Beginning ApplyProject...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -284,12 +304,35 @@ func (c *Client) ApplyProject(ctx context.Context, rawDesired *Project, opts ...
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createProjectOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapProject(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeProjectNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeProjectNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

@@ -271,6 +271,9 @@ func (l *NodeList) HasNext() bool {
 }
 
 func (l *NodeList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -284,12 +287,17 @@ func (l *NodeList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListNode(ctx context.Context, project, location string) (*NodeList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListNodeWithMaxResults(ctx, project, location, NodeMaxPage)
 
 }
 
 func (c *Client) ListNodeWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*NodeList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listNode(ctx, project, location, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -306,6 +314,9 @@ func (c *Client) ListNodeWithMaxResults(ctx context.Context, project, location s
 }
 
 func (c *Client) GetNode(ctx context.Context, r *Node) (*Node, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getNodeRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -336,6 +347,9 @@ func (c *Client) GetNode(ctx context.Context, r *Node) (*Node, error) {
 }
 
 func (c *Client) DeleteNode(ctx context.Context, r *Node) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Node resource is nil")
 	}
@@ -346,6 +360,9 @@ func (c *Client) DeleteNode(ctx context.Context, r *Node) error {
 
 // DeleteAllNode deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllNode(ctx context.Context, project, location string, filter func(*Node) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListNode(ctx, project, location)
 	if err != nil {
 		return err
@@ -371,6 +388,9 @@ func (c *Client) DeleteAllNode(ctx context.Context, project, location string, fi
 func (c *Client) ApplyNode(ctx context.Context, rawDesired *Node, opts ...dcl.ApplyOption) (*Node, error) {
 	c.Config.Logger.Info("Beginning ApplyNode...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -451,12 +471,35 @@ func (c *Client) ApplyNode(ctx context.Context, rawDesired *Node, opts ...dcl.Ap
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createNodeOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapNode(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeNodeNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeNodeNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

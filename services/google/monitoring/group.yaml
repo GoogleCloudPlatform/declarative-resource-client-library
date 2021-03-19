@@ -51,6 +51,10 @@ components:
           description: The project of the group
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
       required:
       - displayName

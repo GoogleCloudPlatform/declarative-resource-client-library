@@ -28,8 +28,13 @@ import (
 // DeleteDefaultNodePool deletes the default node pool on a cluster,
 // since clusters should have zero node pools to be more declarative.
 func (r *Cluster) DeleteDefaultNodePool(ctx context.Context, c *Client) error {
+	// Don't delete in case of Autopilot clusters as Autogke clusters do not
+	// support mutating node pools.
+	if r.Autopilot != nil && dcl.ValueOrEmptyBool(r.Autopilot.Enabled) {
+		return nil
+	}
 	o := deleteDefaultNodePoolOperation{Cluster: r, Client: c}
-	return dcl.Do(ctx, o.operate, c.Config.Retry)
+	return dcl.Do(ctx, o.operate, c.Config.RetryProvider)
 }
 
 type deleteDefaultNodePoolOperation struct {
@@ -62,7 +67,7 @@ func deleteDefaultNodePool(ctx context.Context, cluster *Cluster, client *Client
 	// Delete should never have a body
 	body := &bytes.Buffer{}
 
-	resp, err := dcl.SendRequest(ctx, client.Config, "DELETE", u, body, client.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, client.Config, "DELETE", u, body, client.Config.RetryProvider)
 	if err != nil {
 		return err
 	}

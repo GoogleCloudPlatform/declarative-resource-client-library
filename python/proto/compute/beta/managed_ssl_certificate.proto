@@ -67,6 +67,7 @@ message ListComputeBetaManagedSslCertificateRequest {
 message ListComputeBetaManagedSslCertificateResponse {
   repeated ComputeBetaManagedSslCertificate items = 1;
 }
+
 service ComputeBetaManagedSslCertificateService {
   rpc ApplyComputeBetaManagedSslCertificate(ApplyComputeBetaManagedSslCertificateRequest) returns (ComputeBetaManagedSslCertificate);
   rpc DeleteComputeBetaManagedSslCertificate(DeleteComputeBetaManagedSslCertificateRequest) returns (google.protobuf.Empty);

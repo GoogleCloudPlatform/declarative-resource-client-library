@@ -53,6 +53,7 @@ message ListSpannerInstanceRequest {
 message ListSpannerInstanceResponse {
   repeated SpannerInstance items = 1;
 }
+
 service SpannerInstanceService {
   rpc ApplySpannerInstance(ApplySpannerInstanceRequest) returns (SpannerInstance);
   rpc DeleteSpannerInstance(DeleteSpannerInstanceRequest) returns (google.protobuf.Empty);

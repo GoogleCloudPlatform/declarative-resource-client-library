@@ -161,6 +161,7 @@ message ListLoggingLogMetricRequest {
 message ListLoggingLogMetricResponse {
   repeated LoggingLogMetric items = 1;
 }
+
 service LoggingLogMetricService {
   rpc ApplyLoggingLogMetric(ApplyLoggingLogMetricRequest) returns (LoggingLogMetric);
   rpc DeleteLoggingLogMetric(DeleteLoggingLogMetricRequest) returns (google.protobuf.Empty);

@@ -117,9 +117,10 @@ class Subscription(object):
         self.push_config = SubscriptionPushConfig.from_proto(response.push_config)
         self.ack_deadline_seconds = Primitive.from_proto(response.ack_deadline_seconds)
 
-    def hcl(self):
+    def delete(self):
         stub = subscription_pb2_grpc.PubsubSubscriptionServiceStub(channel.Channel())
-        request = subscription_pb2.PubsubSubscriptionAsHclRequest()
+        request = subscription_pb2.DeletePubsubSubscriptionRequest()
+        request.service_account_file = self.service_account_file
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
@@ -165,18 +166,6 @@ class Subscription(object):
                 self.ack_deadline_seconds
             )
 
-        response = stub.PubsubSubscriptionAsHcl(request)
-        return response.hcl
-
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
-        stub = subscription_pb2_grpc.PubsubSubscriptionServiceStub(channel.Channel())
-        request = subscription_pb2.DeletePubsubSubscriptionRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
-
-        request.Name = name
-
         response = stub.DeletePubsubSubscription(request)
 
     @classmethod
@@ -214,6 +203,48 @@ class Subscription(object):
         res.push_config = SubscriptionPushConfig.from_proto(res_proto.push_config)
         res.ack_deadline_seconds = Primitive.from_proto(res_proto.ack_deadline_seconds)
         return res
+
+    def to_proto(self):
+        resource = subscription_pb2.PubsubSubscription()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.topic):
+            resource.topic = Primitive.to_proto(self.topic)
+        if Primitive.to_proto(self.labels):
+            resource.labels = Primitive.to_proto(self.labels)
+        if Primitive.to_proto(self.message_retention_duration):
+            resource.message_retention_duration = Primitive.to_proto(
+                self.message_retention_duration
+            )
+        if Primitive.to_proto(self.retain_acked_messages):
+            resource.retain_acked_messages = Primitive.to_proto(
+                self.retain_acked_messages
+            )
+        if SubscriptionExpirationPolicy.to_proto(self.expiration_policy):
+            resource.expiration_policy.CopyFrom(
+                SubscriptionExpirationPolicy.to_proto(self.expiration_policy)
+            )
+        else:
+            resource.ClearField("expiration_policy")
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if SubscriptionDeadLetterPolicy.to_proto(self.dead_letter_policy):
+            resource.dead_letter_policy.CopyFrom(
+                SubscriptionDeadLetterPolicy.to_proto(self.dead_letter_policy)
+            )
+        else:
+            resource.ClearField("dead_letter_policy")
+        if SubscriptionPushConfig.to_proto(self.push_config):
+            resource.push_config.CopyFrom(
+                SubscriptionPushConfig.to_proto(self.push_config)
+            )
+        else:
+            resource.ClearField("push_config")
+        if Primitive.to_proto(self.ack_deadline_seconds):
+            resource.ack_deadline_seconds = Primitive.to_proto(
+                self.ack_deadline_seconds
+            )
+        return resource
 
 
 class SubscriptionExpirationPolicy(object):

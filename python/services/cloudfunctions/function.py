@@ -193,16 +193,92 @@ class Function(object):
         self.region = Primitive.from_proto(response.region)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, region, name, service_account_file=""):
+    def delete(self):
         stub = function_pb2_grpc.CloudfunctionsFunctionServiceStub(channel.Channel())
         request = function_pb2.DeleteCloudfunctionsFunctionRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Region = region
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
 
-        request.Name = name
+        if Primitive.to_proto(self.source_archive_url):
+            request.resource.source_archive_url = Primitive.to_proto(
+                self.source_archive_url
+            )
+
+        if FunctionSourceRepository.to_proto(self.source_repository):
+            request.resource.source_repository.CopyFrom(
+                FunctionSourceRepository.to_proto(self.source_repository)
+            )
+        else:
+            request.resource.ClearField("source_repository")
+        if FunctionHttpsTrigger.to_proto(self.https_trigger):
+            request.resource.https_trigger.CopyFrom(
+                FunctionHttpsTrigger.to_proto(self.https_trigger)
+            )
+        else:
+            request.resource.ClearField("https_trigger")
+        if FunctionEventTrigger.to_proto(self.event_trigger):
+            request.resource.event_trigger.CopyFrom(
+                FunctionEventTrigger.to_proto(self.event_trigger)
+            )
+        else:
+            request.resource.ClearField("event_trigger")
+        if Primitive.to_proto(self.entry_point):
+            request.resource.entry_point = Primitive.to_proto(self.entry_point)
+
+        if Primitive.to_proto(self.runtime):
+            request.resource.runtime = Primitive.to_proto(self.runtime)
+
+        if Primitive.to_proto(self.timeout):
+            request.resource.timeout = Primitive.to_proto(self.timeout)
+
+        if Primitive.to_proto(self.available_memory_mb):
+            request.resource.available_memory_mb = Primitive.to_proto(
+                self.available_memory_mb
+            )
+
+        if Primitive.to_proto(self.service_account_email):
+            request.resource.service_account_email = Primitive.to_proto(
+                self.service_account_email
+            )
+
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
+        if Primitive.to_proto(self.environment_variables):
+            request.resource.environment_variables = Primitive.to_proto(
+                self.environment_variables
+            )
+
+        if Primitive.to_proto(self.network):
+            request.resource.network = Primitive.to_proto(self.network)
+
+        if Primitive.to_proto(self.max_instances):
+            request.resource.max_instances = Primitive.to_proto(self.max_instances)
+
+        if Primitive.to_proto(self.vpc_connector):
+            request.resource.vpc_connector = Primitive.to_proto(self.vpc_connector)
+
+        if FunctionVPCConnectorEgressSettingsEnum.to_proto(
+            self.vpc_connector_egress_settings
+        ):
+            request.resource.vpc_connector_egress_settings = FunctionVPCConnectorEgressSettingsEnum.to_proto(
+                self.vpc_connector_egress_settings
+            )
+
+        if FunctionIngressSettingsEnum.to_proto(self.ingress_settings):
+            request.resource.ingress_settings = FunctionIngressSettingsEnum.to_proto(
+                self.ingress_settings
+            )
+
+        if Primitive.to_proto(self.region):
+            request.resource.region = Primitive.to_proto(self.region)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteCloudfunctionsFunction(request)
 
@@ -258,6 +334,72 @@ class Function(object):
         res.region = Primitive.from_proto(res_proto.region)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = function_pb2.CloudfunctionsFunction()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.source_archive_url):
+            resource.source_archive_url = Primitive.to_proto(self.source_archive_url)
+        if FunctionSourceRepository.to_proto(self.source_repository):
+            resource.source_repository.CopyFrom(
+                FunctionSourceRepository.to_proto(self.source_repository)
+            )
+        else:
+            resource.ClearField("source_repository")
+        if FunctionHttpsTrigger.to_proto(self.https_trigger):
+            resource.https_trigger.CopyFrom(
+                FunctionHttpsTrigger.to_proto(self.https_trigger)
+            )
+        else:
+            resource.ClearField("https_trigger")
+        if FunctionEventTrigger.to_proto(self.event_trigger):
+            resource.event_trigger.CopyFrom(
+                FunctionEventTrigger.to_proto(self.event_trigger)
+            )
+        else:
+            resource.ClearField("event_trigger")
+        if Primitive.to_proto(self.entry_point):
+            resource.entry_point = Primitive.to_proto(self.entry_point)
+        if Primitive.to_proto(self.runtime):
+            resource.runtime = Primitive.to_proto(self.runtime)
+        if Primitive.to_proto(self.timeout):
+            resource.timeout = Primitive.to_proto(self.timeout)
+        if Primitive.to_proto(self.available_memory_mb):
+            resource.available_memory_mb = Primitive.to_proto(self.available_memory_mb)
+        if Primitive.to_proto(self.service_account_email):
+            resource.service_account_email = Primitive.to_proto(
+                self.service_account_email
+            )
+        if Primitive.to_proto(self.labels):
+            resource.labels = Primitive.to_proto(self.labels)
+        if Primitive.to_proto(self.environment_variables):
+            resource.environment_variables = Primitive.to_proto(
+                self.environment_variables
+            )
+        if Primitive.to_proto(self.network):
+            resource.network = Primitive.to_proto(self.network)
+        if Primitive.to_proto(self.max_instances):
+            resource.max_instances = Primitive.to_proto(self.max_instances)
+        if Primitive.to_proto(self.vpc_connector):
+            resource.vpc_connector = Primitive.to_proto(self.vpc_connector)
+        if FunctionVPCConnectorEgressSettingsEnum.to_proto(
+            self.vpc_connector_egress_settings
+        ):
+            resource.vpc_connector_egress_settings = FunctionVPCConnectorEgressSettingsEnum.to_proto(
+                self.vpc_connector_egress_settings
+            )
+        if FunctionIngressSettingsEnum.to_proto(self.ingress_settings):
+            resource.ingress_settings = FunctionIngressSettingsEnum.to_proto(
+                self.ingress_settings
+            )
+        if Primitive.to_proto(self.region):
+            resource.region = Primitive.to_proto(self.region)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class FunctionSourceRepository(object):

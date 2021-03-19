@@ -45,6 +45,7 @@ message ListAccesscontextmanagerAccessPolicyRequest {
 message ListAccesscontextmanagerAccessPolicyResponse {
   repeated AccesscontextmanagerAccessPolicy items = 1;
 }
+
 service AccesscontextmanagerAccessPolicyService {
   rpc ApplyAccesscontextmanagerAccessPolicy(ApplyAccesscontextmanagerAccessPolicyRequest) returns (AccesscontextmanagerAccessPolicy);
   rpc DeleteAccesscontextmanagerAccessPolicy(DeleteAccesscontextmanagerAccessPolicyRequest) returns (google.protobuf.Empty);

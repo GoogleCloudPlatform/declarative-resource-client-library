@@ -62,6 +62,7 @@ message ListComputeSnapshotRequest {
 message ListComputeSnapshotResponse {
   repeated ComputeSnapshot items = 1;
 }
+
 service ComputeSnapshotService {
   rpc ApplyComputeSnapshot(ApplyComputeSnapshotRequest) returns (ComputeSnapshot);
   rpc DeleteComputeSnapshot(DeleteComputeSnapshotRequest) returns (google.protobuf.Empty);

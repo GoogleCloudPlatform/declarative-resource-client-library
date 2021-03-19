@@ -1,0 +1,241 @@
+// Copyright 2021 Google LLC. All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+syntax = "proto3";
+
+package dcl;
+
+import "proto/connector/sdk.proto";
+import "proto/empty.proto";
+import "cloud/graphite/mmv2/services/google/dataproc/beta/cluster.proto";
+
+message DataprocBetaWorkflowTemplate {
+  string name = 1;
+  int64 version = 2;
+  string create_time = 3;
+  string update_time = 4;
+  map<string, string> labels = 5;
+  DataprocBetaWorkflowTemplatePlacement placement = 6;
+  repeated DataprocBetaWorkflowTemplateJobs jobs = 7;
+  repeated DataprocBetaWorkflowTemplateParameters parameters = 8;
+  string dag_timeout = 9;
+  string project = 10;
+  string location = 11;
+}
+
+message DataprocBetaWorkflowTemplatePlacement {
+  DataprocBetaWorkflowTemplatePlacementManagedCluster managed_cluster = 1;
+  DataprocBetaWorkflowTemplatePlacementClusterSelector cluster_selector = 2;
+}
+
+message DataprocBetaWorkflowTemplatePlacementManagedCluster {
+  string cluster_name = 1;
+  DataprocBetaClusterClusterConfig config = 2;
+  map<string, string> labels = 3;
+}
+
+message DataprocBetaWorkflowTemplatePlacementClusterSelector {
+  string zone = 1;
+  map<string, string> cluster_labels = 2;
+}
+
+message DataprocBetaWorkflowTemplateJobs {
+  string step_id = 1;
+  DataprocBetaWorkflowTemplateJobsHadoopJob hadoop_job = 2;
+  DataprocBetaWorkflowTemplateJobsSparkJob spark_job = 3;
+  DataprocBetaWorkflowTemplateJobsPysparkJob pyspark_job = 4;
+  DataprocBetaWorkflowTemplateJobsHiveJob hive_job = 5;
+  DataprocBetaWorkflowTemplateJobsPigJob pig_job = 6;
+  DataprocBetaWorkflowTemplateJobsSparkRJob spark_r_job = 7;
+  DataprocBetaWorkflowTemplateJobsSparkSqlJob spark_sql_job = 8;
+  DataprocBetaWorkflowTemplateJobsPrestoJob presto_job = 9;
+  map<string, string> labels = 10;
+  DataprocBetaWorkflowTemplateJobsScheduling scheduling = 11;
+  repeated string prerequisite_step_ids = 12;
+}
+
+message DataprocBetaWorkflowTemplateJobsHadoopJob {
+  string main_jar_file_uri = 1;
+  string main_class = 2;
+  repeated string args = 3;
+  repeated string jar_file_uris = 4;
+  repeated string file_uris = 5;
+  repeated string archive_uris = 6;
+  map<string, string> properties = 7;
+  DataprocBetaWorkflowTemplateJobsHadoopJobLoggingConfig logging_config = 8;
+}
+
+message DataprocBetaWorkflowTemplateJobsHadoopJobLoggingConfig {
+  map<string, string> driver_log_levels = 1;
+}
+
+message DataprocBetaWorkflowTemplateJobsSparkJob {
+  string main_jar_file_uri = 1;
+  string main_class = 2;
+  repeated string args = 3;
+  repeated string jar_file_uris = 4;
+  repeated string file_uris = 5;
+  repeated string archive_uris = 6;
+  map<string, string> properties = 7;
+  DataprocBetaWorkflowTemplateJobsSparkJobLoggingConfig logging_config = 8;
+}
+
+message DataprocBetaWorkflowTemplateJobsSparkJobLoggingConfig {
+  map<string, string> driver_log_levels = 1;
+}
+
+message DataprocBetaWorkflowTemplateJobsPysparkJob {
+  string main_python_file_uri = 1;
+  repeated string args = 2;
+  repeated string python_file_uris = 3;
+  repeated string jar_file_uris = 4;
+  repeated string file_uris = 5;
+  repeated string archive_uris = 6;
+  map<string, string> properties = 7;
+  DataprocBetaWorkflowTemplateJobsPysparkJobLoggingConfig logging_config = 8;
+}
+
+message DataprocBetaWorkflowTemplateJobsPysparkJobLoggingConfig {
+  map<string, string> driver_log_levels = 1;
+}
+
+message DataprocBetaWorkflowTemplateJobsHiveJob {
+  string query_file_uri = 1;
+  DataprocBetaWorkflowTemplateJobsHiveJobQueryList query_list = 2;
+  bool continue_on_failure = 3;
+  map<string, string> script_variables = 4;
+  map<string, string> properties = 5;
+  repeated string jar_file_uris = 6;
+}
+
+message DataprocBetaWorkflowTemplateJobsHiveJobQueryList {
+  repeated string queries = 1;
+}
+
+message DataprocBetaWorkflowTemplateJobsPigJob {
+  string query_file_uri = 1;
+  DataprocBetaWorkflowTemplateJobsPigJobQueryList query_list = 2;
+  bool continue_on_failure = 3;
+  map<string, string> script_variables = 4;
+  map<string, string> properties = 5;
+  repeated string jar_file_uris = 6;
+  DataprocBetaWorkflowTemplateJobsPigJobLoggingConfig logging_config = 7;
+}
+
+message DataprocBetaWorkflowTemplateJobsPigJobQueryList {
+  repeated string queries = 1;
+}
+
+message DataprocBetaWorkflowTemplateJobsPigJobLoggingConfig {
+  map<string, string> driver_log_levels = 1;
+}
+
+message DataprocBetaWorkflowTemplateJobsSparkRJob {
+  string main_r_file_uri = 1;
+  repeated string args = 2;
+  repeated string file_uris = 3;
+  repeated string archive_uris = 4;
+  map<string, string> properties = 5;
+  DataprocBetaWorkflowTemplateJobsSparkRJobLoggingConfig logging_config = 6;
+}
+
+message DataprocBetaWorkflowTemplateJobsSparkRJobLoggingConfig {
+  map<string, string> driver_log_levels = 1;
+}
+
+message DataprocBetaWorkflowTemplateJobsSparkSqlJob {
+  string query_file_uri = 1;
+  DataprocBetaWorkflowTemplateJobsSparkSqlJobQueryList query_list = 2;
+  map<string, string> script_variables = 3;
+  map<string, string> properties = 4;
+  repeated string jar_file_uris = 5;
+  DataprocBetaWorkflowTemplateJobsSparkSqlJobLoggingConfig logging_config = 6;
+}
+
+message DataprocBetaWorkflowTemplateJobsSparkSqlJobQueryList {
+  repeated string queries = 1;
+}
+
+message DataprocBetaWorkflowTemplateJobsSparkSqlJobLoggingConfig {
+  map<string, string> driver_log_levels = 1;
+}
+
+message DataprocBetaWorkflowTemplateJobsPrestoJob {
+  string query_file_uri = 1;
+  DataprocBetaWorkflowTemplateJobsPrestoJobQueryList query_list = 2;
+  bool continue_on_failure = 3;
+  string output_format = 4;
+  repeated string client_tags = 5;
+  map<string, string> properties = 6;
+  DataprocBetaWorkflowTemplateJobsPrestoJobLoggingConfig logging_config = 7;
+}
+
+message DataprocBetaWorkflowTemplateJobsPrestoJobQueryList {
+  repeated string queries = 1;
+}
+
+message DataprocBetaWorkflowTemplateJobsPrestoJobLoggingConfig {
+  map<string, string> driver_log_levels = 1;
+}
+
+message DataprocBetaWorkflowTemplateJobsScheduling {
+  int64 max_failures_per_hour = 1;
+  int64 max_failures_total = 2;
+}
+
+message DataprocBetaWorkflowTemplateParameters {
+  string name = 1;
+  repeated string fields = 2;
+  string description = 3;
+  DataprocBetaWorkflowTemplateParametersValidation validation = 4;
+}
+
+message DataprocBetaWorkflowTemplateParametersValidation {
+  DataprocBetaWorkflowTemplateParametersValidationRegex regex = 1;
+  DataprocBetaWorkflowTemplateParametersValidationValues values = 2;
+}
+
+message DataprocBetaWorkflowTemplateParametersValidationRegex {
+  repeated string regexes = 1;
+}
+
+message DataprocBetaWorkflowTemplateParametersValidationValues {
+  repeated string values = 1;
+}
+
+message ApplyDataprocBetaWorkflowTemplateRequest {
+  DataprocBetaWorkflowTemplate resource = 1;
+  repeated LifecycleDirective lifecycle_directives = 2;
+  string service_account_file = 3;
+}
+
+message DeleteDataprocBetaWorkflowTemplateRequest {
+  string service_account_file = 1;
+  DataprocBetaWorkflowTemplate resource = 2;
+}
+
+message ListDataprocBetaWorkflowTemplateRequest {
+  string service_account_file = 1;
+  string Project = 2;
+  string Location = 3;
+}
+
+message ListDataprocBetaWorkflowTemplateResponse {
+  repeated DataprocBetaWorkflowTemplate items = 1;
+}
+
+service DataprocBetaWorkflowTemplateService {
+  rpc ApplyDataprocBetaWorkflowTemplate(ApplyDataprocBetaWorkflowTemplateRequest) returns (DataprocBetaWorkflowTemplate);
+  rpc DeleteDataprocBetaWorkflowTemplate(DeleteDataprocBetaWorkflowTemplateRequest) returns (google.protobuf.Empty);
+  rpc ListDataprocBetaWorkflowTemplate(ListDataprocBetaWorkflowTemplateRequest) returns (ListDataprocBetaWorkflowTemplateResponse);
+}

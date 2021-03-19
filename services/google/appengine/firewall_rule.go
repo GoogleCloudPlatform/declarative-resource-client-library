@@ -87,6 +87,9 @@ func (l *FirewallRuleList) HasNext() bool {
 }
 
 func (l *FirewallRuleList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -100,12 +103,17 @@ func (l *FirewallRuleList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListFirewallRule(ctx context.Context, app string) (*FirewallRuleList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListFirewallRuleWithMaxResults(ctx, app, FirewallRuleMaxPage)
 
 }
 
 func (c *Client) ListFirewallRuleWithMaxResults(ctx context.Context, app string, pageSize int32) (*FirewallRuleList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listFirewallRule(ctx, app, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -120,6 +128,9 @@ func (c *Client) ListFirewallRuleWithMaxResults(ctx context.Context, app string,
 }
 
 func (c *Client) GetFirewallRule(ctx context.Context, r *FirewallRule) (*FirewallRule, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getFirewallRuleRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -149,6 +160,9 @@ func (c *Client) GetFirewallRule(ctx context.Context, r *FirewallRule) (*Firewal
 }
 
 func (c *Client) DeleteFirewallRule(ctx context.Context, r *FirewallRule) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("FirewallRule resource is nil")
 	}
@@ -159,6 +173,9 @@ func (c *Client) DeleteFirewallRule(ctx context.Context, r *FirewallRule) error 
 
 // DeleteAllFirewallRule deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllFirewallRule(ctx context.Context, app string, filter func(*FirewallRule) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListFirewallRule(ctx, app)
 	if err != nil {
 		return err
@@ -184,6 +201,9 @@ func (c *Client) DeleteAllFirewallRule(ctx context.Context, app string, filter f
 func (c *Client) ApplyFirewallRule(ctx context.Context, rawDesired *FirewallRule, opts ...dcl.ApplyOption) (*FirewallRule, error) {
 	c.Config.Logger.Info("Beginning ApplyFirewallRule...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -264,12 +284,35 @@ func (c *Client) ApplyFirewallRule(ctx context.Context, rawDesired *FirewallRule
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createFirewallRuleOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapFirewallRule(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeFirewallRuleNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeFirewallRuleNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

@@ -37,7 +37,7 @@ func (op *SQLOperation) Wait(ctx context.Context, c *dcl.Config, _, _ string) er
 	glog.Infof("Waiting on: %v", op)
 	op.config = c
 
-	return dcl.Do(ctx, op.operate, c.Retry)
+	return dcl.Do(ctx, op.operate, c.RetryProvider)
 }
 
 func (op *SQLOperation) operate(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -55,6 +55,12 @@ func (op *SQLOperation) operate(ctx context.Context) (*dcl.RetryDetails, error) 
 		return nil, dcl.OperationNotDone{}
 	}
 	return resp, nil
+}
+
+// FirstResponse returns the first response that this operation receives with the resource.
+// This response may contain special information.
+func (op *SQLOperation) FirstResponse() (map[string]interface{}, bool) {
+	return make(map[string]interface{}), false
 }
 
 // SQLCreateCertOperation is the operation used for creating SSL certs.
@@ -76,4 +82,10 @@ func (op *SQLCreateCertOperation) Wait(ctx context.Context, c *dcl.Config, _, _ 
 // FetchName gets the eventual resource's name from the operation.
 func (op *SQLCreateCertOperation) FetchName() (*string, error) {
 	return &op.ClientCert.CertInfo.SHA1Fingerprint, nil
+}
+
+// FirstResponse returns the first response that this operation receives with the resource.
+// This response may contain special information.
+func (op *SQLCreateCertOperation) FirstResponse() (map[string]interface{}, bool) {
+	return make(map[string]interface{}), false
 }

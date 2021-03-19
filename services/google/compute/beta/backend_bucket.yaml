@@ -36,7 +36,6 @@ components:
               format: int64
               type: integer
               x-dcl-go-name: SignedUrlCacheMaxAgeSec
-              x-kubernetes-immutable: true
             signedUrlKeyNames:
               description: '[Output Only] Names of the keys for signing request URLs.'
               items:
@@ -45,7 +44,6 @@ components:
               type: array
               x-dcl-go-name: SignedUrlKeyNames
               x-dcl-list-type: list
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: CdnPolicy
           x-dcl-go-type: BackendBucketCdnPolicy
@@ -72,6 +70,10 @@ components:
           description: The project for this backend bucket
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         selfLink:
           description: The self link for this resource

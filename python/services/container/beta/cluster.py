@@ -63,6 +63,7 @@ class Cluster(object):
         enable_tpu: bool = None,
         tpu_ipv4_cidr_block: str = None,
         conditions: list = None,
+        autopilot: dict = None,
         project: str = None,
         service_account_file: str = "",
     ):
@@ -99,6 +100,7 @@ class Cluster(object):
         self.master_version = master_version
         self.location = location
         self.enable_tpu = enable_tpu
+        self.autopilot = autopilot
         self.project = project
         self.service_account_file = service_account_file
 
@@ -266,6 +268,12 @@ class Cluster(object):
         if Primitive.to_proto(self.enable_tpu):
             request.resource.enable_tpu = Primitive.to_proto(self.enable_tpu)
 
+        if ClusterAutopilot.to_proto(self.autopilot):
+            request.resource.autopilot.CopyFrom(
+                ClusterAutopilot.to_proto(self.autopilot)
+            )
+        else:
+            request.resource.ClearField("autopilot")
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -336,18 +344,182 @@ class Cluster(object):
         self.enable_tpu = Primitive.from_proto(response.enable_tpu)
         self.tpu_ipv4_cidr_block = Primitive.from_proto(response.tpu_ipv4_cidr_block)
         self.conditions = ClusterConditionsArray.from_proto(response.conditions)
+        self.autopilot = ClusterAutopilot.from_proto(response.autopilot)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, location, name, service_account_file=""):
+    def delete(self):
         stub = cluster_pb2_grpc.ContainerBetaClusterServiceStub(channel.Channel())
         request = cluster_pb2.DeleteContainerBetaClusterRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
 
-        request.Name = name
+        if Primitive.to_proto(self.initial_node_count):
+            request.resource.initial_node_count = Primitive.to_proto(
+                self.initial_node_count
+            )
+
+        if ClusterMasterAuth.to_proto(self.master_auth):
+            request.resource.master_auth.CopyFrom(
+                ClusterMasterAuth.to_proto(self.master_auth)
+            )
+        else:
+            request.resource.ClearField("master_auth")
+        if Primitive.to_proto(self.logging_service):
+            request.resource.logging_service = Primitive.to_proto(self.logging_service)
+
+        if Primitive.to_proto(self.monitoring_service):
+            request.resource.monitoring_service = Primitive.to_proto(
+                self.monitoring_service
+            )
+
+        if Primitive.to_proto(self.network):
+            request.resource.network = Primitive.to_proto(self.network)
+
+        if Primitive.to_proto(self.cluster_ipv4_cidr):
+            request.resource.cluster_ipv4_cidr = Primitive.to_proto(
+                self.cluster_ipv4_cidr
+            )
+
+        if ClusterAddonsConfig.to_proto(self.addons_config):
+            request.resource.addons_config.CopyFrom(
+                ClusterAddonsConfig.to_proto(self.addons_config)
+            )
+        else:
+            request.resource.ClearField("addons_config")
+        if Primitive.to_proto(self.subnetwork):
+            request.resource.subnetwork = Primitive.to_proto(self.subnetwork)
+
+        if Primitive.to_proto(self.locations):
+            request.resource.locations.extend(Primitive.to_proto(self.locations))
+        if Primitive.to_proto(self.enable_kubernetes_alpha):
+            request.resource.enable_kubernetes_alpha = Primitive.to_proto(
+                self.enable_kubernetes_alpha
+            )
+
+        if Primitive.to_proto(self.resource_labels):
+            request.resource.resource_labels = Primitive.to_proto(self.resource_labels)
+
+        if ClusterLegacyAbac.to_proto(self.legacy_abac):
+            request.resource.legacy_abac.CopyFrom(
+                ClusterLegacyAbac.to_proto(self.legacy_abac)
+            )
+        else:
+            request.resource.ClearField("legacy_abac")
+        if ClusterNetworkPolicy.to_proto(self.network_policy):
+            request.resource.network_policy.CopyFrom(
+                ClusterNetworkPolicy.to_proto(self.network_policy)
+            )
+        else:
+            request.resource.ClearField("network_policy")
+        if ClusterIPAllocationPolicy.to_proto(self.ip_allocation_policy):
+            request.resource.ip_allocation_policy.CopyFrom(
+                ClusterIPAllocationPolicy.to_proto(self.ip_allocation_policy)
+            )
+        else:
+            request.resource.ClearField("ip_allocation_policy")
+        if ClusterMasterAuthorizedNetworksConfig.to_proto(
+            self.master_authorized_networks_config
+        ):
+            request.resource.master_authorized_networks_config.CopyFrom(
+                ClusterMasterAuthorizedNetworksConfig.to_proto(
+                    self.master_authorized_networks_config
+                )
+            )
+        else:
+            request.resource.ClearField("master_authorized_networks_config")
+        if ClusterBinaryAuthorization.to_proto(self.binary_authorization):
+            request.resource.binary_authorization.CopyFrom(
+                ClusterBinaryAuthorization.to_proto(self.binary_authorization)
+            )
+        else:
+            request.resource.ClearField("binary_authorization")
+        if ClusterAutoscaling.to_proto(self.autoscaling):
+            request.resource.autoscaling.CopyFrom(
+                ClusterAutoscaling.to_proto(self.autoscaling)
+            )
+        else:
+            request.resource.ClearField("autoscaling")
+        if ClusterNetworkConfig.to_proto(self.network_config):
+            request.resource.network_config.CopyFrom(
+                ClusterNetworkConfig.to_proto(self.network_config)
+            )
+        else:
+            request.resource.ClearField("network_config")
+        if ClusterMaintenancePolicy.to_proto(self.maintenance_policy):
+            request.resource.maintenance_policy.CopyFrom(
+                ClusterMaintenancePolicy.to_proto(self.maintenance_policy)
+            )
+        else:
+            request.resource.ClearField("maintenance_policy")
+        if ClusterDefaultMaxPodsConstraint.to_proto(self.default_max_pods_constraint):
+            request.resource.default_max_pods_constraint.CopyFrom(
+                ClusterDefaultMaxPodsConstraint.to_proto(
+                    self.default_max_pods_constraint
+                )
+            )
+        else:
+            request.resource.ClearField("default_max_pods_constraint")
+        if ClusterResourceUsageExportConfig.to_proto(self.resource_usage_export_config):
+            request.resource.resource_usage_export_config.CopyFrom(
+                ClusterResourceUsageExportConfig.to_proto(
+                    self.resource_usage_export_config
+                )
+            )
+        else:
+            request.resource.ClearField("resource_usage_export_config")
+        if ClusterAuthenticatorGroupsConfig.to_proto(self.authenticator_groups_config):
+            request.resource.authenticator_groups_config.CopyFrom(
+                ClusterAuthenticatorGroupsConfig.to_proto(
+                    self.authenticator_groups_config
+                )
+            )
+        else:
+            request.resource.ClearField("authenticator_groups_config")
+        if ClusterPrivateClusterConfig.to_proto(self.private_cluster_config):
+            request.resource.private_cluster_config.CopyFrom(
+                ClusterPrivateClusterConfig.to_proto(self.private_cluster_config)
+            )
+        else:
+            request.resource.ClearField("private_cluster_config")
+        if ClusterDatabaseEncryption.to_proto(self.database_encryption):
+            request.resource.database_encryption.CopyFrom(
+                ClusterDatabaseEncryption.to_proto(self.database_encryption)
+            )
+        else:
+            request.resource.ClearField("database_encryption")
+        if ClusterVerticalPodAutoscaling.to_proto(self.vertical_pod_autoscaling):
+            request.resource.vertical_pod_autoscaling.CopyFrom(
+                ClusterVerticalPodAutoscaling.to_proto(self.vertical_pod_autoscaling)
+            )
+        else:
+            request.resource.ClearField("vertical_pod_autoscaling")
+        if ClusterShieldedNodes.to_proto(self.shielded_nodes):
+            request.resource.shielded_nodes.CopyFrom(
+                ClusterShieldedNodes.to_proto(self.shielded_nodes)
+            )
+        else:
+            request.resource.ClearField("shielded_nodes")
+        if Primitive.to_proto(self.master_version):
+            request.resource.master_version = Primitive.to_proto(self.master_version)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
+
+        if Primitive.to_proto(self.enable_tpu):
+            request.resource.enable_tpu = Primitive.to_proto(self.enable_tpu)
+
+        if ClusterAutopilot.to_proto(self.autopilot):
+            request.resource.autopilot.CopyFrom(
+                ClusterAutopilot.to_proto(self.autopilot)
+            )
+        else:
+            request.resource.ClearField("autopilot")
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteContainerBetaCluster(request)
 
@@ -433,8 +605,155 @@ class Cluster(object):
         res.enable_tpu = Primitive.from_proto(res_proto.enable_tpu)
         res.tpu_ipv4_cidr_block = Primitive.from_proto(res_proto.tpu_ipv4_cidr_block)
         res.conditions = ClusterConditionsArray.from_proto(res_proto.conditions)
+        res.autopilot = ClusterAutopilot.from_proto(res_proto.autopilot)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = cluster_pb2.ContainerBetaCluster()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.initial_node_count):
+            resource.initial_node_count = Primitive.to_proto(self.initial_node_count)
+        if ClusterMasterAuth.to_proto(self.master_auth):
+            resource.master_auth.CopyFrom(ClusterMasterAuth.to_proto(self.master_auth))
+        else:
+            resource.ClearField("master_auth")
+        if Primitive.to_proto(self.logging_service):
+            resource.logging_service = Primitive.to_proto(self.logging_service)
+        if Primitive.to_proto(self.monitoring_service):
+            resource.monitoring_service = Primitive.to_proto(self.monitoring_service)
+        if Primitive.to_proto(self.network):
+            resource.network = Primitive.to_proto(self.network)
+        if Primitive.to_proto(self.cluster_ipv4_cidr):
+            resource.cluster_ipv4_cidr = Primitive.to_proto(self.cluster_ipv4_cidr)
+        if ClusterAddonsConfig.to_proto(self.addons_config):
+            resource.addons_config.CopyFrom(
+                ClusterAddonsConfig.to_proto(self.addons_config)
+            )
+        else:
+            resource.ClearField("addons_config")
+        if Primitive.to_proto(self.subnetwork):
+            resource.subnetwork = Primitive.to_proto(self.subnetwork)
+        if Primitive.to_proto(self.locations):
+            resource.locations.extend(Primitive.to_proto(self.locations))
+        if Primitive.to_proto(self.enable_kubernetes_alpha):
+            resource.enable_kubernetes_alpha = Primitive.to_proto(
+                self.enable_kubernetes_alpha
+            )
+        if Primitive.to_proto(self.resource_labels):
+            resource.resource_labels = Primitive.to_proto(self.resource_labels)
+        if ClusterLegacyAbac.to_proto(self.legacy_abac):
+            resource.legacy_abac.CopyFrom(ClusterLegacyAbac.to_proto(self.legacy_abac))
+        else:
+            resource.ClearField("legacy_abac")
+        if ClusterNetworkPolicy.to_proto(self.network_policy):
+            resource.network_policy.CopyFrom(
+                ClusterNetworkPolicy.to_proto(self.network_policy)
+            )
+        else:
+            resource.ClearField("network_policy")
+        if ClusterIPAllocationPolicy.to_proto(self.ip_allocation_policy):
+            resource.ip_allocation_policy.CopyFrom(
+                ClusterIPAllocationPolicy.to_proto(self.ip_allocation_policy)
+            )
+        else:
+            resource.ClearField("ip_allocation_policy")
+        if ClusterMasterAuthorizedNetworksConfig.to_proto(
+            self.master_authorized_networks_config
+        ):
+            resource.master_authorized_networks_config.CopyFrom(
+                ClusterMasterAuthorizedNetworksConfig.to_proto(
+                    self.master_authorized_networks_config
+                )
+            )
+        else:
+            resource.ClearField("master_authorized_networks_config")
+        if ClusterBinaryAuthorization.to_proto(self.binary_authorization):
+            resource.binary_authorization.CopyFrom(
+                ClusterBinaryAuthorization.to_proto(self.binary_authorization)
+            )
+        else:
+            resource.ClearField("binary_authorization")
+        if ClusterAutoscaling.to_proto(self.autoscaling):
+            resource.autoscaling.CopyFrom(ClusterAutoscaling.to_proto(self.autoscaling))
+        else:
+            resource.ClearField("autoscaling")
+        if ClusterNetworkConfig.to_proto(self.network_config):
+            resource.network_config.CopyFrom(
+                ClusterNetworkConfig.to_proto(self.network_config)
+            )
+        else:
+            resource.ClearField("network_config")
+        if ClusterMaintenancePolicy.to_proto(self.maintenance_policy):
+            resource.maintenance_policy.CopyFrom(
+                ClusterMaintenancePolicy.to_proto(self.maintenance_policy)
+            )
+        else:
+            resource.ClearField("maintenance_policy")
+        if ClusterDefaultMaxPodsConstraint.to_proto(self.default_max_pods_constraint):
+            resource.default_max_pods_constraint.CopyFrom(
+                ClusterDefaultMaxPodsConstraint.to_proto(
+                    self.default_max_pods_constraint
+                )
+            )
+        else:
+            resource.ClearField("default_max_pods_constraint")
+        if ClusterResourceUsageExportConfig.to_proto(self.resource_usage_export_config):
+            resource.resource_usage_export_config.CopyFrom(
+                ClusterResourceUsageExportConfig.to_proto(
+                    self.resource_usage_export_config
+                )
+            )
+        else:
+            resource.ClearField("resource_usage_export_config")
+        if ClusterAuthenticatorGroupsConfig.to_proto(self.authenticator_groups_config):
+            resource.authenticator_groups_config.CopyFrom(
+                ClusterAuthenticatorGroupsConfig.to_proto(
+                    self.authenticator_groups_config
+                )
+            )
+        else:
+            resource.ClearField("authenticator_groups_config")
+        if ClusterPrivateClusterConfig.to_proto(self.private_cluster_config):
+            resource.private_cluster_config.CopyFrom(
+                ClusterPrivateClusterConfig.to_proto(self.private_cluster_config)
+            )
+        else:
+            resource.ClearField("private_cluster_config")
+        if ClusterDatabaseEncryption.to_proto(self.database_encryption):
+            resource.database_encryption.CopyFrom(
+                ClusterDatabaseEncryption.to_proto(self.database_encryption)
+            )
+        else:
+            resource.ClearField("database_encryption")
+        if ClusterVerticalPodAutoscaling.to_proto(self.vertical_pod_autoscaling):
+            resource.vertical_pod_autoscaling.CopyFrom(
+                ClusterVerticalPodAutoscaling.to_proto(self.vertical_pod_autoscaling)
+            )
+        else:
+            resource.ClearField("vertical_pod_autoscaling")
+        if ClusterShieldedNodes.to_proto(self.shielded_nodes):
+            resource.shielded_nodes.CopyFrom(
+                ClusterShieldedNodes.to_proto(self.shielded_nodes)
+            )
+        else:
+            resource.ClearField("shielded_nodes")
+        if Primitive.to_proto(self.master_version):
+            resource.master_version = Primitive.to_proto(self.master_version)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
+        if Primitive.to_proto(self.enable_tpu):
+            resource.enable_tpu = Primitive.to_proto(self.enable_tpu)
+        if ClusterAutopilot.to_proto(self.autopilot):
+            resource.autopilot.CopyFrom(ClusterAutopilot.to_proto(self.autopilot))
+        else:
+            resource.ClearField("autopilot")
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class ClusterMasterAuth(object):
@@ -2157,6 +2476,40 @@ class ClusterConditionsArray(object):
     @classmethod
     def from_proto(self, resources):
         return [ClusterConditions.from_proto(i) for i in resources]
+
+
+class ClusterAutopilot(object):
+    def __init__(self, enabled: bool = None):
+        self.enabled = enabled
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.ContainerBetaClusterAutopilot()
+        if Primitive.to_proto(resource.enabled):
+            res.enabled = Primitive.to_proto(resource.enabled)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterAutopilot(enabled=resource.enabled,)
+
+
+class ClusterAutopilotArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ClusterAutopilot.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ClusterAutopilot.from_proto(i) for i in resources]
 
 
 class ClusterNetworkPolicyProviderEnum(object):

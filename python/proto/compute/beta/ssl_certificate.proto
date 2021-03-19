@@ -59,6 +59,7 @@ message ListComputeBetaSslCertificateRequest {
 message ListComputeBetaSslCertificateResponse {
   repeated ComputeBetaSslCertificate items = 1;
 }
+
 service ComputeBetaSslCertificateService {
   rpc ApplyComputeBetaSslCertificate(ApplyComputeBetaSslCertificateRequest) returns (ComputeBetaSslCertificate);
   rpc DeleteComputeBetaSslCertificate(DeleteComputeBetaSslCertificateRequest) returns (google.protobuf.Empty);

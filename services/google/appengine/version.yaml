@@ -30,7 +30,6 @@ components:
               type: string
               x-dcl-go-name: AuthFailAction
               x-dcl-go-type: VersionApiConfigAuthFailActionEnum
-              x-kubernetes-immutable: true
             login:
               description: 'Level of login required to access this resource. Defaults
                 to `optional`. Possible values: LOGIN_UNSPECIFIED, LOGIN_OPTIONAL,
@@ -43,12 +42,10 @@ components:
               type: string
               x-dcl-go-name: Login
               x-dcl-go-type: VersionApiConfigLoginEnum
-              x-kubernetes-immutable: true
             script:
               description: Path to the script from the application root directory.
               type: string
               x-dcl-go-name: Script
-              x-kubernetes-immutable: true
             securityLevel:
               description: 'Security (HTTPS) enforcement for this URL. Possible values:
                 SECURE_UNSPECIFIED, SECURE_DEFAULT, SECURE_NEVER, SECURE_OPTIONAL,
@@ -62,12 +59,10 @@ components:
               type: string
               x-dcl-go-name: SecurityLevel
               x-dcl-go-type: VersionApiConfigSecurityLevelEnum
-              x-kubernetes-immutable: true
             url:
               description: URL to serve the endpoint at.
               type: string
               x-dcl-go-name: Url
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: ApiConfig
           x-dcl-go-type: VersionApiConfig
@@ -93,7 +88,6 @@ components:
                 be reliable. Only applicable in the App Engine flexible environment.
               type: string
               x-dcl-go-name: CoolDownPeriod
-              x-kubernetes-immutable: true
             cpuUtilization:
               description: Target scaling by CPU usage.
               properties:
@@ -101,18 +95,15 @@ components:
                   description: Period of time over which CPU utilization is calculated.
                   type: string
                   x-dcl-go-name: AggregationWindowLength
-                  x-kubernetes-immutable: true
                 targetUtilization:
                   description: Target CPU utilization ratio to maintain when scaling.
                     Must be between 0 and 1.
                   format: double
                   type: number
                   x-dcl-go-name: TargetUtilization
-                  x-kubernetes-immutable: true
               type: object
               x-dcl-go-name: CpuUtilization
               x-dcl-go-type: VersionAutomaticScalingCpuUtilization
-              x-kubernetes-immutable: true
             diskUtilization:
               description: Target scaling by disk usage.
               properties:
@@ -121,29 +112,24 @@ components:
                   format: int64
                   type: integer
                   x-dcl-go-name: TargetReadBytesPerSecond
-                  x-kubernetes-immutable: true
                 targetReadOpsPerSecond:
                   description: Target ops read per seconds.
                   format: int64
                   type: integer
                   x-dcl-go-name: TargetReadOpsPerSecond
-                  x-kubernetes-immutable: true
                 targetWriteBytesPerSecond:
                   description: Target bytes written per second.
                   format: int64
                   type: integer
                   x-dcl-go-name: TargetWriteBytesPerSecond
-                  x-kubernetes-immutable: true
                 targetWriteOpsPerSecond:
                   description: Target ops written per second.
                   format: int64
                   type: integer
                   x-dcl-go-name: TargetWriteOpsPerSecond
-                  x-kubernetes-immutable: true
               type: object
               x-dcl-go-name: DiskUtilization
               x-dcl-go-type: VersionAutomaticScalingDiskUtilization
-              x-kubernetes-immutable: true
             maxConcurrentRequests:
               description: Number of concurrent requests an automatic scaling instance
                 can accept before the scheduler spawns a new instance. Defaults to
@@ -151,47 +137,40 @@ components:
               format: int64
               type: integer
               x-dcl-go-name: MaxConcurrentRequests
-              x-kubernetes-immutable: true
             maxIdleInstances:
               description: Maximum number of idle instances that should be maintained
                 for this version.
               format: int64
               type: integer
               x-dcl-go-name: MaxIdleInstances
-              x-kubernetes-immutable: true
             maxPendingLatency:
               description: Maximum amount of time that a request should wait in the
                 pending queue before starting a new instance to handle it.
               type: string
               x-dcl-go-name: MaxPendingLatency
-              x-kubernetes-immutable: true
             maxTotalInstances:
               description: Maximum number of instances that should be started to handle
                 requests for this version.
               format: int64
               type: integer
               x-dcl-go-name: MaxTotalInstances
-              x-kubernetes-immutable: true
             minIdleInstances:
               description: Minimum number of idle instances that should be maintained
                 for this version. Only applicable for the default version of a service.
               format: int64
               type: integer
               x-dcl-go-name: MinIdleInstances
-              x-kubernetes-immutable: true
             minPendingLatency:
               description: Minimum amount of time a request should wait in the pending
                 queue before starting a new instance to handle it.
               type: string
               x-dcl-go-name: MinPendingLatency
-              x-kubernetes-immutable: true
             minTotalInstances:
               description: Minimum number of running instances that should be maintained
                 for this version.
               format: int64
               type: integer
               x-dcl-go-name: MinTotalInstances
-              x-kubernetes-immutable: true
             networkUtilization:
               description: Target scaling by network usage.
               properties:
@@ -200,29 +179,24 @@ components:
                   format: int64
                   type: integer
                   x-dcl-go-name: TargetReceivedBytesPerSecond
-                  x-kubernetes-immutable: true
                 targetReceivedPacketsPerSecond:
                   description: Target packets received per second.
                   format: int64
                   type: integer
                   x-dcl-go-name: TargetReceivedPacketsPerSecond
-                  x-kubernetes-immutable: true
                 targetSentBytesPerSecond:
                   description: Target bytes sent per second.
                   format: int64
                   type: integer
                   x-dcl-go-name: TargetSentBytesPerSecond
-                  x-kubernetes-immutable: true
                 targetSentPacketsPerSecond:
                   description: Target packets sent per second.
                   format: int64
                   type: integer
                   x-dcl-go-name: TargetSentPacketsPerSecond
-                  x-kubernetes-immutable: true
               type: object
               x-dcl-go-name: NetworkUtilization
               x-dcl-go-type: VersionAutomaticScalingNetworkUtilization
-              x-kubernetes-immutable: true
             requestUtilization:
               description: Target scaling by request utilization.
               properties:
@@ -231,17 +205,14 @@ components:
                   format: int64
                   type: integer
                   x-dcl-go-name: TargetConcurrentRequests
-                  x-kubernetes-immutable: true
                 targetRequestCountPerSecond:
                   description: Target requests per second.
                   format: int64
                   type: integer
                   x-dcl-go-name: TargetRequestCountPerSecond
-                  x-kubernetes-immutable: true
               type: object
               x-dcl-go-name: RequestUtilization
               x-dcl-go-type: VersionAutomaticScalingRequestUtilization
-              x-kubernetes-immutable: true
             standardSchedulerSettings:
               description: Scheduler settings for standard environment.
               properties:
@@ -251,31 +222,26 @@ components:
                   format: int64
                   type: integer
                   x-dcl-go-name: MaxInstances
-                  x-kubernetes-immutable: true
                 minInstances:
                   description: Minimum number of instances to run for this version.
                     Set to zero to disable `min_instances` configuration.
                   format: int64
                   type: integer
                   x-dcl-go-name: MinInstances
-                  x-kubernetes-immutable: true
                 targetCpuUtilization:
                   description: Target CPU utilization ratio to maintain when scaling.
                   format: double
                   type: number
                   x-dcl-go-name: TargetCpuUtilization
-                  x-kubernetes-immutable: true
                 targetThroughputUtilization:
                   description: Target throughput utilization ratio to maintain when
                     scaling
                   format: double
                   type: number
                   x-dcl-go-name: TargetThroughputUtilization
-                  x-kubernetes-immutable: true
               type: object
               x-dcl-go-name: StandardSchedulerSettings
               x-dcl-go-type: VersionAutomaticScalingStandardSchedulerSettings
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: AutomaticScaling
           x-dcl-go-type: VersionAutomaticScaling
@@ -290,13 +256,11 @@ components:
                 must wait before the instance is shut down.
               type: string
               x-dcl-go-name: IdleTimeout
-              x-kubernetes-immutable: true
             maxInstances:
               description: Maximum number of instances to create for this version.
               format: int64
               type: integer
               x-dcl-go-name: MaxInstances
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: BasicScaling
           x-dcl-go-type: VersionBasicScaling
@@ -305,21 +269,8 @@ components:
             type: string
           description: Metadata settings that are supplied to this version to enable
             beta runtime features.
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: BetaSettings
-        buildEnvVariables:
-          additionalProperties:
-            type: string
-          description: Environment variables available to the build environment. Only
-            returned in `GET` requests if `view=FULL` is set.
-          items:
-            type: string
-            x-dcl-go-type: string
-          type: object
-          x-dcl-go-name: BuildEnvVariables
         consumerName:
           description: 'For a detailed description of this field, see consumer_name:
             http://google3/apphosting/base/engine.proto?l=224&rcl=311008486'
@@ -328,10 +279,12 @@ components:
         createTime:
           description: Time that this version was created. @OutputOnly
           format: date-time
+          readOnly: true
           type: string
           x-dcl-go-name: CreateTime
         createdBy:
           description: Email address of the user who created this version. @OutputOnly
+          readOnly: true
           type: string
           x-dcl-go-name: CreatedBy
         defaultExpiration:
@@ -386,11 +339,6 @@ components:
               x-kubernetes-immutable: true
             files:
               additionalProperties:
-                type: string
-              description: Manifest of the files stored in Google Cloud Storage that
-                are included as part of this version. All files must be readable using
-                the credentials supplied with this call.
-              items:
                 properties:
                   mimeType:
                     description: The MIME type of the file. Defaults to the value
@@ -411,6 +359,9 @@ components:
                     x-kubernetes-immutable: true
                 type: object
                 x-dcl-go-type: VersionDeploymentFiles
+              description: Manifest of the files stored in Google Cloud Storage that
+                are included as part of this version. All files must be readable using
+                the credentials supplied with this call.
               type: object
               x-dcl-go-name: Files
               x-kubernetes-immutable: true
@@ -444,6 +395,7 @@ components:
           description: Total size in bytes of all the files that are included in this
             version and currently hosted on the App Engine disk. @OutputOnly
           format: int64
+          readOnly: true
           type: integer
           x-dcl-go-name: DiskUsageBytes
         entrypoint:
@@ -454,7 +406,6 @@ components:
                 `bash -c`.
               type: string
               x-dcl-go-name: Shell
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: Entrypoint
           x-dcl-go-type: VersionEntrypoint
@@ -468,9 +419,6 @@ components:
             type: string
           description: Environment variables available to the application. Only returned
             in `GET` requests if `view=FULL` is set.
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: EnvVariables
         errorHandlers:
@@ -491,17 +439,14 @@ components:
                 type: string
                 x-dcl-go-name: ErrorCode
                 x-dcl-go-type: VersionErrorHandlersErrorCodeEnum
-                x-kubernetes-immutable: true
               mimeType:
                 description: MIME type of file. Defaults to `text/html`.
                 type: string
                 x-dcl-go-name: MimeType
-                x-kubernetes-immutable: true
               staticFile:
                 description: Static file content to be served for this error.
                 type: string
                 x-dcl-go-name: StaticFile
-                x-kubernetes-immutable: true
             type: object
             x-dcl-go-type: VersionErrorHandlers
           type: array
@@ -521,11 +466,9 @@ components:
                     description: Path to the script from the application root directory.
                     type: string
                     x-dcl-go-name: ScriptPath
-                    x-kubernetes-immutable: true
                 type: object
                 x-dcl-go-name: ApiEndpoint
                 x-dcl-go-type: VersionHandlersApiEndpoint
-                x-kubernetes-immutable: true
               authFailAction:
                 description: 'Action to take when users access resources that require
                   authentication. Defaults to `redirect`. Possible values: AUTH_FAIL_ACTION_UNSPECIFIED,
@@ -537,7 +480,6 @@ components:
                 type: string
                 x-dcl-go-name: AuthFailAction
                 x-dcl-go-type: VersionHandlersAuthFailActionEnum
-                x-kubernetes-immutable: true
               login:
                 description: 'Level of login required to access this resource. Not
                   supported for Node.js in the App Engine standard environment. Possible
@@ -550,7 +492,6 @@ components:
                 type: string
                 x-dcl-go-name: Login
                 x-dcl-go-type: VersionHandlersLoginEnum
-                x-kubernetes-immutable: true
               redirectHttpResponseCode:
                 description: '`30x` code to use when performing redirects for the
                   `secure` field. Defaults to `302`. Possible values: REDIRECT_HTTP_RESPONSE_CODE_UNSPECIFIED,
@@ -565,7 +506,6 @@ components:
                 type: string
                 x-dcl-go-name: RedirectHttpResponseCode
                 x-dcl-go-type: VersionHandlersRedirectHttpResponseCodeEnum
-                x-kubernetes-immutable: true
               script:
                 description: 'Executes a script to handle the requests that match
                   this URL pattern. Only the `auto` value is supported for Node.js
@@ -575,11 +515,9 @@ components:
                     description: Path to the script from the application root directory.
                     type: string
                     x-dcl-go-name: ScriptPath
-                    x-kubernetes-immutable: true
                 type: object
                 x-dcl-go-name: Script
                 x-dcl-go-type: VersionHandlersScript
-                x-kubernetes-immutable: true
               securityLevel:
                 description: 'Security (HTTPS) enforcement for this URL. Possible
                   values: SECURE_UNSPECIFIED, SECURE_DEFAULT, SECURE_NEVER, SECURE_OPTIONAL,
@@ -593,7 +531,6 @@ components:
                 type: string
                 x-dcl-go-name: SecurityLevel
                 x-dcl-go-type: VersionHandlersSecurityLevelEnum
-                x-kubernetes-immutable: true
               staticFiles:
                 description: Returns the contents of a file, such as an image, as
                   the response.
@@ -606,54 +543,43 @@ components:
                       against both your code and static data storage resource quotas.
                     type: boolean
                     x-dcl-go-name: ApplicationReadable
-                    x-kubernetes-immutable: true
                   expiration:
                     description: Time a static file served by this handler should
                       be cached by web proxies and browsers.
                     type: string
                     x-dcl-go-name: Expiration
-                    x-kubernetes-immutable: true
                   httpHeaders:
                     additionalProperties:
                       type: string
                     description: HTTP headers to use for all responses from these
                       URLs.
-                    items:
-                      type: string
-                      x-dcl-go-type: string
                     type: object
                     x-dcl-go-name: HttpHeaders
-                    x-kubernetes-immutable: true
                   mimeType:
                     description: MIME type used to serve all files served by this
                       handler. Defaults to file-specific MIME types, which are derived
                       from each file's filename extension.
                     type: string
                     x-dcl-go-name: MimeType
-                    x-kubernetes-immutable: true
                   path:
                     description: Path to the static files matched by the URL pattern,
                       from the application root directory. The path can refer to text
                       matched in groupings in the URL pattern.
                     type: string
                     x-dcl-go-name: Path
-                    x-kubernetes-immutable: true
                   requireMatchingFile:
                     description: Whether this handler should match the request if
                       the file referenced by the handler does not exist.
                     type: boolean
                     x-dcl-go-name: RequireMatchingFile
-                    x-kubernetes-immutable: true
                   uploadPathRegex:
                     description: Regular expression that matches the file paths for
                       all files that should be referenced by this handler.
                     type: string
                     x-dcl-go-name: UploadPathRegex
-                    x-kubernetes-immutable: true
                 type: object
                 x-dcl-go-name: StaticFiles
                 x-dcl-go-type: VersionHandlersStaticFiles
-                x-kubernetes-immutable: true
               urlRegex:
                 description: URL prefix. Uses regular expression syntax, which means
                   regexp special characters must be escaped, but should not contain
@@ -662,7 +588,6 @@ components:
                   the file path.
                 type: string
                 x-dcl-go-name: UrlRegex
-                x-kubernetes-immutable: true
             type: object
             x-dcl-go-type: VersionHandlers
           type: array
@@ -678,44 +603,37 @@ components:
               description: Interval between health checks.
               type: string
               x-dcl-go-name: CheckInterval
-              x-kubernetes-immutable: true
             disableHealthCheck:
               description: Whether to explicitly disable health checks for this instance.
               type: boolean
               x-dcl-go-name: DisableHealthCheck
-              x-kubernetes-immutable: true
             healthyThreshold:
               description: Number of consecutive successful health checks required
                 before receiving traffic.
               format: int64
               type: integer
               x-dcl-go-name: HealthyThreshold
-              x-kubernetes-immutable: true
             host:
               description: 'Host header to send when performing an HTTP health check.
                 Example: "myapp.appspot.com"'
               type: string
               x-dcl-go-name: Host
-              x-kubernetes-immutable: true
             restartThreshold:
               description: Number of consecutive failed health checks required before
                 an instance is restarted.
               format: int64
               type: integer
               x-dcl-go-name: RestartThreshold
-              x-kubernetes-immutable: true
             timeout:
               description: Time before the health check is considered failed.
               type: string
               x-dcl-go-name: Timeout
-              x-kubernetes-immutable: true
             unhealthyThreshold:
               description: Number of consecutive failed health checks required before
                 removing traffic.
               format: int64
               type: integer
               x-dcl-go-name: UnhealthyThreshold
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: HealthCheck
           x-dcl-go-type: VersionHealthCheck
@@ -734,150 +652,6 @@ components:
             BasicScaling: `B1`, `B2`, `B4`, `B8`, `B4_1G`'
           type: string
           x-dcl-go-name: InstanceClass
-        instanceSpec:
-          description: Specify the instance structure for standard apps.
-          properties:
-            ports:
-              description: An instance exposes zero or more ports.
-              items:
-                properties:
-                  isDefault:
-                    description: Indicate this is the default ingress port. If multiple
-                      instance ports are specified, one and only one of the ports
-                      must have it set to true.
-                    type: boolean
-                    x-dcl-go-name: IsDefault
-                    x-kubernetes-immutable: true
-                  name:
-                    description: The name of the ingress port, must be unique of all
-                      the ingress ports of an instance.
-                    type: string
-                    x-dcl-go-name: Name
-                    x-kubernetes-immutable: true
-                  port:
-                    description: The destination port on the sandbox (identified by
-                      number). Must be listed in the `ports` of one of the containers
-                      in the name of the `sandbox` above.
-                    format: int64
-                    type: integer
-                    x-dcl-go-name: Port
-                    x-kubernetes-immutable: true
-                  protocol:
-                    description: 'Protocol used to communicate with the destination
-                      InstancePort. Possible values: PROTOCOL_UNSPECIFIED, PROTOCOL_HTTP1,
-                      PROTOCOL_H2C, PROTOCOL_TCP'
-                    enum:
-                    - PROTOCOL_UNSPECIFIED
-                    - PROTOCOL_HTTP1
-                    - PROTOCOL_H2C
-                    - PROTOCOL_TCP
-                    type: string
-                    x-dcl-go-name: Protocol
-                    x-dcl-go-type: VersionInstanceSpecPortsProtocolEnum
-                    x-kubernetes-immutable: true
-                  sandbox:
-                    description: The name of the sandbox on which the port is exposed.
-                      Must be listed in the `sandboxes` of the instance.
-                    type: string
-                    x-dcl-go-name: Sandbox
-                    x-kubernetes-immutable: true
-                type: object
-                x-dcl-go-type: VersionInstanceSpecPorts
-              type: array
-              x-dcl-go-name: Ports
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            sandboxes:
-              description: An instance is made of one or more sandboxes.
-              items:
-                properties:
-                  containers:
-                    description: The containers that form the pod in the sandbox.
-                    items:
-                      properties:
-                        ports:
-                          description: A container can expose zero or more ports.
-                          items:
-                            format: int64
-                            type: integer
-                            x-dcl-go-type: int64
-                          type: array
-                          x-dcl-go-name: Ports
-                          x-dcl-list-type: list
-                          x-kubernetes-immutable: true
-                      type: object
-                      x-dcl-go-type: VersionInstanceSpecSandboxesContainers
-                    type: array
-                    x-dcl-go-name: Containers
-                    x-dcl-list-type: list
-                    x-kubernetes-immutable: true
-                  name:
-                    description: The sandbox hostname in the instance private network.
-                    type: string
-                    x-dcl-go-name: Name
-                    x-kubernetes-immutable: true
-                type: object
-                x-dcl-go-type: VersionInstanceSpecSandboxes
-              type: array
-              x-dcl-go-name: Sandboxes
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-          type: object
-          x-dcl-go-name: InstanceSpec
-          x-dcl-go-type: VersionInstanceSpec
-        jobScaling:
-          description: Jobs have "run to completion" semantics, which is fundamentally
-            different than any other type of scaling.
-          properties:
-            completions:
-              description: The number of (successful) completions before the job is
-                finished. Must be explicitly specified, and must be >= 1.
-              format: int64
-              type: integer
-              x-dcl-go-name: Completions
-              x-kubernetes-immutable: true
-            instanceDeadline:
-              description: Deadline for individual instances of the job. If unspecified,
-                the overall job deadline will apply. This deadline applies to each
-                attempted execution of an instance.
-              type: string
-              x-dcl-go-name: InstanceDeadline
-              x-kubernetes-immutable: true
-            instanceRetries:
-              description: Number of allowed retries per instance on an unclean exit.
-                Applies to each instance; if no clean exit is observed within the
-                allowed retry budget, the job as a whole fails. If not specified,
-                retries are not permitted, and each instance must exit cleanly for
-                the job to succeed.
-              format: int64
-              type: integer
-              x-dcl-go-name: InstanceRetries
-              x-kubernetes-immutable: true
-            instanceTerminationWindow:
-              description: The duration between SIGTERM and SIGKILL when instances
-                of the job are shut down due to the instance deadline or job deadline.
-                If left unspecified, a window > 0 will be chosen by the infrastructure.
-              type: string
-              x-dcl-go-name: InstanceTerminationWindow
-              x-kubernetes-immutable: true
-            jobDeadline:
-              description: Overall deadline for the job. If the job has not finished
-                after this amount of time, its instances are terminated and the job
-                is considered failed.
-              type: string
-              x-dcl-go-name: JobDeadline
-              x-kubernetes-immutable: true
-            parallelism:
-              description: The maximum parallelism (number of simultaneously running
-                instances) for the job. If unspecified (or 0), the scheduler will
-                choose a parallelism.
-              format: int64
-              type: integer
-              x-dcl-go-name: Parallelism
-              x-kubernetes-immutable: true
-          type: object
-          x-dcl-go-name: JobScaling
-          x-dcl-go-type: VersionJobScaling
         libraries:
           description: Configuration for third-party Python runtime libraries that
             are required by the application. Only returned in `GET` requests if `view=FULL`
@@ -888,12 +662,10 @@ components:
                 description: 'Name of the library. Example: "django".'
                 type: string
                 x-dcl-go-name: Name
-                x-kubernetes-immutable: true
               version:
                 description: Version of the library to select, or "latest".
                 type: string
                 x-dcl-go-name: Version
-                x-kubernetes-immutable: true
             type: object
             x-dcl-go-type: VersionLibraries
           type: array
@@ -908,42 +680,35 @@ components:
               description: Interval between health checks.
               type: string
               x-dcl-go-name: CheckInterval
-              x-kubernetes-immutable: true
             failureThreshold:
               description: Number of consecutive failed checks required before considering
                 the VM unhealthy.
               format: int64
               type: integer
               x-dcl-go-name: FailureThreshold
-              x-kubernetes-immutable: true
             host:
               description: 'Host header to send when performing a HTTP Liveness check.
                 Example: "myapp.appspot.com"'
               type: string
               x-dcl-go-name: Host
-              x-kubernetes-immutable: true
             initialDelay:
               description: The initial delay before starting to execute the checks.
               type: string
               x-dcl-go-name: InitialDelay
-              x-kubernetes-immutable: true
             path:
               description: The request path.
               type: string
               x-dcl-go-name: Path
-              x-kubernetes-immutable: true
             successThreshold:
               description: Number of consecutive successful checks required before
                 considering the VM healthy.
               format: int64
               type: integer
               x-dcl-go-name: SuccessThreshold
-              x-kubernetes-immutable: true
             timeout:
               description: Time before the check is considered failed.
               type: string
               x-dcl-go-name: Timeout
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: LivenessCheck
           x-dcl-go-type: VersionLivenessCheck
@@ -959,7 +724,6 @@ components:
               format: int64
               type: integer
               x-dcl-go-name: Instances
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: ManualScaling
           x-dcl-go-type: VersionManualScaling
@@ -982,26 +746,26 @@ components:
               type: array
               x-dcl-go-name: ForwardedPorts
               x-dcl-list-type: list
-              x-kubernetes-immutable: true
             instanceTag:
               description: Tag to apply to the instance during creation. Only applicable
                 in the App Engine flexible environment.
               type: string
               x-dcl-go-name: InstanceTag
-              x-kubernetes-immutable: true
             name:
               description: Google Compute Engine network where the virtual machines
                 are created. Specify the short name, not the resource path. Defaults
                 to `default`.
               type: string
               x-dcl-go-name: Name
-              x-kubernetes-immutable: true
+              x-dcl-references:
+              - field: name
+                parent: true
+                resource: Compute/Network
             sessionAffinity:
               description: Enable session affinity. Only applicable in the App Engine
                 flexible environment.
               type: boolean
               x-dcl-go-name: SessionAffinity
-              x-kubernetes-immutable: true
             subnetworkName:
               description: Google Cloud Platform sub-network where the virtual machines
                 are created. Specify the short name, not the resource path. If a subnetwork
@@ -1019,66 +783,18 @@ components:
                 region as the App Engine flexible environment application.
               type: string
               x-dcl-go-name: SubnetworkName
-              x-kubernetes-immutable: true
+              x-dcl-references:
+              - field: name
+                resource: Compute/Subnetwork
           type: object
           x-dcl-go-name: Network
           x-dcl-go-type: VersionNetwork
-        networkSettings:
-          properties:
-            ingressTrafficAllowed:
-              description: 'The ingress settings for version or service. Possible
-                values: INGRESS_TRAFFIC_ALLOWED_UNSPECIFIED, INGRESS_TRAFFIC_ALLOWED_ALL,
-                INGRESS_TRAFFIC_ALLOWED_INTERNAL_ONLY, INGRESS_TRAFFIC_ALLOWED_INTERNAL_AND_LB'
-              enum:
-              - INGRESS_TRAFFIC_ALLOWED_UNSPECIFIED
-              - INGRESS_TRAFFIC_ALLOWED_ALL
-              - INGRESS_TRAFFIC_ALLOWED_INTERNAL_ONLY
-              - INGRESS_TRAFFIC_ALLOWED_INTERNAL_AND_LB
-              type: string
-              x-dcl-go-name: IngressTrafficAllowed
-              x-dcl-go-type: VersionNetworkSettingsIngressTrafficAllowedEnum
-              x-kubernetes-immutable: true
-          type: object
-          x-dcl-go-name: NetworkSettings
-          x-dcl-go-type: VersionNetworkSettings
         nobuildFilesRegex:
           description: Files that match this pattern will not be built into this version.
             Only applicable for Go runtimes. Only returned in `GET` requests if `view=FULL`
             is set.
           type: string
           x-dcl-go-name: NobuildFilesRegex
-        poolScaling:
-          description: Pools are fixed-size deployments, similar to manually scaled
-            services, but have additional specification of how instances are updated
-            when the scheduler needs to move them from one node to another.
-          properties:
-            maxSurge:
-              description: The maximum "surge" in the replica count due to rebalancing
-                replicas across nodes. Must be >= 0. Default is 0, which means we
-                don't permit the pool to run extra replicas at any time. If 0, max_unavailable
-                must be > 0.
-              format: int64
-              type: integer
-              x-dcl-go-name: MaxSurge
-              x-kubernetes-immutable: true
-            maxUnavailable:
-              description: The maximum "slack" in the replica count due to rebalancing
-                replicas across nodes. Must be >= 0. Default (if unspecified) is 1,
-                which means only one replica can be shut down at a time. If explicitly
-                0, max_surge must be > 0.
-              format: int64
-              type: integer
-              x-dcl-go-name: MaxUnavailable
-              x-kubernetes-immutable: true
-            replicas:
-              description: The number of replicas in the pool.
-              format: int64
-              type: integer
-              x-dcl-go-name: Replicas
-              x-kubernetes-immutable: true
-          type: object
-          x-dcl-go-name: PoolScaling
-          x-dcl-go-type: VersionPoolScaling
         readinessCheck:
           description: Configures readiness health checking for instances. Unhealthy
             instances are not put into the backend traffic rotation. Only returned
@@ -1090,42 +806,35 @@ components:
                 until it is ready to serve traffic.
               type: string
               x-dcl-go-name: AppStartTimeout
-              x-kubernetes-immutable: true
             checkInterval:
               description: Interval between health checks.
               type: string
               x-dcl-go-name: CheckInterval
-              x-kubernetes-immutable: true
             failureThreshold:
               description: Number of consecutive failed checks required before removing
                 traffic.
               format: int64
               type: integer
               x-dcl-go-name: FailureThreshold
-              x-kubernetes-immutable: true
             host:
               description: 'Host header to send when performing a HTTP Readiness check.
                 Example: "myapp.appspot.com"'
               type: string
               x-dcl-go-name: Host
-              x-kubernetes-immutable: true
             path:
               description: The request path.
               type: string
               x-dcl-go-name: Path
-              x-kubernetes-immutable: true
             successThreshold:
               description: Number of consecutive successful checks required before
                 receiving traffic.
               format: int64
               type: integer
               x-dcl-go-name: SuccessThreshold
-              x-kubernetes-immutable: true
             timeout:
               description: Time before the check is considered failed.
               type: string
               x-dcl-go-name: Timeout
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: ReadinessCheck
           x-dcl-go-type: VersionReadinessCheck
@@ -1138,26 +847,16 @@ components:
               format: double
               type: number
               x-dcl-go-name: Cpu
-              x-kubernetes-immutable: true
             diskGb:
               description: Disk size (GB) needed.
               format: double
               type: number
               x-dcl-go-name: DiskGb
-              x-kubernetes-immutable: true
-            kmsKeyReference:
-              description: The name of the encryption key that is stored in Google
-                Cloud KMS. Only should be used by Cloud Composer to encrypt the vm
-                disk
-              type: string
-              x-dcl-go-name: KmsKeyReference
-              x-kubernetes-immutable: true
             memoryGb:
               description: Memory (GB) needed.
               format: double
               type: number
               x-dcl-go-name: MemoryGb
-              x-kubernetes-immutable: true
             volumes:
               description: User specified volumes.
               items:
@@ -1166,36 +865,23 @@ components:
                     description: Unique name for the volume.
                     type: string
                     x-dcl-go-name: Name
-                    x-kubernetes-immutable: true
                   sizeGb:
                     description: Volume size in gigabytes.
                     format: double
                     type: number
                     x-dcl-go-name: SizeGb
-                    x-kubernetes-immutable: true
                   volumeType:
                     description: Underlying volume type, e.g. 'tmpfs'.
                     type: string
                     x-dcl-go-name: VolumeType
-                    x-kubernetes-immutable: true
                 type: object
                 x-dcl-go-type: VersionResourcesVolumes
               type: array
               x-dcl-go-name: Volumes
               x-dcl-list-type: list
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: Resources
           x-dcl-go-type: VersionResources
-        routeHash:
-          description: GSE (Google Serverless Engine) will launch obfuscated URL for
-            apps. The general url format is ${route}-${projectId}-${region}.a.prime.app
-            The service level route hash will be used in above routing URL. Since
-            we do not have separate api to create the service the route hash can only
-            be set along with version creation. Once the value is set, there is a
-            validation to make sure it can not be changed.
-          type: string
-          x-dcl-go-name: RouteHash
         runtime:
           description: 'Desired runtime. Example: `python27`.'
           type: string
@@ -1218,120 +904,7 @@ components:
           description: The service for the resource
           type: string
           x-dcl-go-name: Service
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Appengine/Service
           x-kubernetes-immutable: true
-        serviceAuthSpec:
-          properties:
-            acceptGcloudClientId:
-              description: True if the gcloud client id is an acceptable audience
-                in the auth token.
-              type: boolean
-              x-dcl-go-name: AcceptGcloudClientId
-              x-kubernetes-immutable: true
-            audiences:
-              description: Accepted audiences for authentication.
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: Audiences
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            clear:
-              description: If set, clear the AuthSpec. Only used by GCF for migration
-                purpose.
-              type: boolean
-              x-dcl-go-name: Clear
-              x-kubernetes-immutable: true
-            iamPermission:
-              description: IAM permission.
-              type: string
-              x-dcl-go-name: IamPermission
-              x-kubernetes-immutable: true
-            iamPolicyId:
-              description: IAM policy id.
-              type: string
-              x-dcl-go-name: IamPolicyId
-              x-kubernetes-immutable: true
-            iamPolicyType:
-              description: IAM policy type.
-              type: string
-              x-dcl-go-name: IamPolicyType
-              x-kubernetes-immutable: true
-            iamResourceName:
-              description: IAM resource name.
-              type: string
-              x-dcl-go-name: IamResourceName
-              x-kubernetes-immutable: true
-            iamServiceName:
-              description: IAM service name.
-              type: string
-              x-dcl-go-name: IamServiceName
-              x-kubernetes-immutable: true
-          type: object
-          x-dcl-go-name: ServiceAuthSpec
-          x-dcl-go-type: VersionServiceAuthSpec
-        serviceCorsSpec:
-          properties:
-            allowCredential:
-              description: True if user credentials are supported.
-              type: boolean
-              x-dcl-go-name: AllowCredential
-              x-kubernetes-immutable: true
-            exposedHeader:
-              description: The header field names (excluding simple response headers)
-                that this resource might use and can be exposed in the Access-Control-Expose-Headers
-                header of the response.
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: ExposedHeader
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            header:
-              description: The header field names that are supported by this resource.
-                ANY of the headers listed is allowed. This field is case sensitive.
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: Header
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            maxAgeSeconds:
-              description: The maximum amount of time the user agent is allowed to
-                cache the result of the CORS request.
-              format: int64
-              type: integer
-              x-dcl-go-name: MaxAgeSeconds
-              x-kubernetes-immutable: true
-            method:
-              description: The methods that are supported by this resource. ANY of
-                the methods listed is allowed. This field is case sensitive.
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: Method
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            origin:
-              description: The URLs of the origins that are allowed access. ANY of
-                the origins listed is allowed. This field is case sensitive.
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: Origin
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-          type: object
-          x-dcl-go-name: ServiceCorsSpec
-          x-dcl-go-type: VersionServiceCorsSpec
         servingStatus:
           description: Current serving status of this version. Only the versions with
             a `SERVING` status create instances and can be billed. `SERVING_STATUS_UNSPECIFIED`
@@ -1352,6 +925,7 @@ components:
         versionUrl:
           description: 'Serving URL for this version. Example: "https://myversion-dot-myservice-dot-myapp.appspot.com"
             @OutputOnly'
+          readOnly: true
           type: string
           x-dcl-go-name: VersionUrl
         vm:
@@ -1362,23 +936,14 @@ components:
         vpcAccessConnector:
           description: Enables VPC connectivity for standard apps.
           properties:
-            egressSetting:
-              description: 'The egress setting for the connector, controlling what
-                traffic is diverted through it. Possible values: EGRESS_SETTING_UNSPECIFIED,
-                ALL_TRAFFIC, PRIVATE_IP_RANGES'
-              enum:
-              - EGRESS_SETTING_UNSPECIFIED
-              - ALL_TRAFFIC
-              - PRIVATE_IP_RANGES
-              type: string
-              x-dcl-go-name: EgressSetting
-              x-dcl-go-type: VersionVPCAccessConnectorEgressSettingEnum
-              x-kubernetes-immutable: true
             name:
               description: Full Serverless VPC Access Connector name e.g. /projects/my-project/locations/us-central1/connectors/c1.
               type: string
               x-dcl-go-name: Name
-              x-kubernetes-immutable: true
+              x-dcl-references:
+              - field: name
+                parent: true
+                resource: VPCAccess/Connector
           type: object
           x-dcl-go-name: VPCAccessConnector
           x-dcl-go-type: VersionVPCAccessConnector
@@ -1401,7 +966,6 @@ components:
       type: object
       x-dcl-id: apps/{{app}}/services/{{service}}/versions/{{name}}?view=FULL
       x-dcl-locations: []
-      x-dcl-parent-container: organization
       x-dcl-uses-state-hint: false
 info:
   description: DCL Specification for the Appengine Version resource

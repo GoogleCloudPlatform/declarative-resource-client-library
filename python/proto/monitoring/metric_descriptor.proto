@@ -110,6 +110,7 @@ message ListMonitoringMetricDescriptorRequest {
 message ListMonitoringMetricDescriptorResponse {
   repeated MonitoringMetricDescriptor items = 1;
 }
+
 service MonitoringMetricDescriptorService {
   rpc ApplyMonitoringMetricDescriptor(ApplyMonitoringMetricDescriptorRequest) returns (MonitoringMetricDescriptor);
   rpc DeleteMonitoringMetricDescriptor(DeleteMonitoringMetricDescriptorRequest) returns (google.protobuf.Empty);

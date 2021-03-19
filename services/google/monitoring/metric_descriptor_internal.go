@@ -112,7 +112,7 @@ func (c *Client) listMetricDescriptorRaw(ctx context.Context, project, pageToken
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -186,13 +186,13 @@ func (op *deleteMetricDescriptorOperation) do(ctx context.Context, r *MetricDesc
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
 
 	// wait for object to be deleted.
-	var o operations.MonitoringOperation
+	var o operations.StandardGCPOperation
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
@@ -205,7 +205,13 @@ func (op *deleteMetricDescriptorOperation) do(ctx context.Context, r *MetricDesc
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createMetricDescriptorOperation struct{}
+type createMetricDescriptorOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createMetricDescriptorOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createMetricDescriptorOperation) do(ctx context.Context, r *MetricDescriptor, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -221,7 +227,7 @@ func (op *createMetricDescriptorOperation) do(ctx context.Context, r *MetricDesc
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -230,11 +236,9 @@ func (op *createMetricDescriptorOperation) do(ctx context.Context, r *MetricDesc
 	if err != nil {
 		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
-	_ = o // We might not use resp- this will stop Go complaining
-
+	op.response = o
 	// Poll for the MetricDescriptor resource to be created. MetricDescriptor resources are eventually consistent but do not support operations
 	// so we must repeatedly poll to check for their creation.
-	c.Config.Retry.Reset()
 	err = dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		u, err := metricDescriptorGetURL(c.Config.BasePath, r)
 		if err != nil {
@@ -251,9 +255,10 @@ func (op *createMetricDescriptorOperation) do(ctx context.Context, r *MetricDesc
 		}
 		getResp.Response.Body.Close()
 		return getResp, nil
-	}, c.Config.Retry)
+	}, c.Config.RetryProvider)
 
 	if _, err := c.GetMetricDescriptor(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -266,7 +271,7 @@ func (c *Client) getMetricDescriptorRaw(ctx context.Context, r *MetricDescriptor
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -343,14 +348,6 @@ func canonicalizeMetricDescriptorInitialState(rawInitial, rawDesired *MetricDesc
 
 func canonicalizeMetricDescriptorDesiredState(rawDesired, rawInitial *MetricDescriptor, opts ...dcl.ApplyOption) (*MetricDescriptor, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*MetricDescriptor); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected MetricDescriptor, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -358,10 +355,10 @@ func canonicalizeMetricDescriptorDesiredState(rawDesired, rawInitial *MetricDesc
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.SelfLink) {
+	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}
-	if dcl.IsZeroValue(rawDesired.Type) {
+	if dcl.StringCanonicalize(rawDesired.Type, rawInitial.Type) {
 		rawDesired.Type = rawInitial.Type
 	}
 	if dcl.IsZeroValue(rawDesired.DescriptorLabels) {
@@ -373,13 +370,13 @@ func canonicalizeMetricDescriptorDesiredState(rawDesired, rawInitial *MetricDesc
 	if dcl.IsZeroValue(rawDesired.ValueType) {
 		rawDesired.ValueType = rawInitial.ValueType
 	}
-	if dcl.IsZeroValue(rawDesired.Unit) {
+	if dcl.StringCanonicalize(rawDesired.Unit, rawInitial.Unit) {
 		rawDesired.Unit = rawInitial.Unit
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.IsZeroValue(rawDesired.DisplayName) {
+	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
 		rawDesired.DisplayName = rawInitial.DisplayName
 	}
 	rawDesired.Metadata = canonicalizeMetricDescriptorMetadata(rawDesired.Metadata, rawInitial.Metadata, opts...)
@@ -401,11 +398,17 @@ func canonicalizeMetricDescriptorNewState(c *Client, rawNew, rawDesired *MetricD
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Type) && dcl.IsEmptyValueIndirect(rawDesired.Type) {
 		rawNew.Type = rawDesired.Type
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Type, rawNew.Type) {
+			rawNew.Type = rawDesired.Type
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.DescriptorLabels) && dcl.IsEmptyValueIndirect(rawDesired.DescriptorLabels) {
@@ -427,16 +430,25 @@ func canonicalizeMetricDescriptorNewState(c *Client, rawNew, rawDesired *MetricD
 	if dcl.IsEmptyValueIndirect(rawNew.Unit) && dcl.IsEmptyValueIndirect(rawDesired.Unit) {
 		rawNew.Unit = rawDesired.Unit
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Unit, rawNew.Unit) {
+			rawNew.Unit = rawDesired.Unit
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
 		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
+		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Metadata) && dcl.IsEmptyValueIndirect(rawDesired.Metadata) {
@@ -468,22 +480,17 @@ func canonicalizeMetricDescriptorDescriptorLabels(des, initial *MetricDescriptor
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*MetricDescriptor)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Key) {
+	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
 		des.Key = initial.Key
 	}
 	if dcl.IsZeroValue(des.ValueType) {
 		des.ValueType = initial.ValueType
 	}
-	if dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
 		des.Description = initial.Description
 	}
 
@@ -493,6 +500,13 @@ func canonicalizeMetricDescriptorDescriptorLabels(des, initial *MetricDescriptor
 func canonicalizeNewMetricDescriptorDescriptorLabels(c *Client, des, nw *MetricDescriptorDescriptorLabels) *MetricDescriptorDescriptorLabels {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Key, nw.Key) || dcl.IsZeroValue(des.Key) {
+		nw.Key = des.Key
+	}
+	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+		nw.Description = des.Description
 	}
 
 	return nw
@@ -529,11 +543,6 @@ func canonicalizeMetricDescriptorMetadata(des, initial *MetricDescriptorMetadata
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*MetricDescriptor)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -541,10 +550,10 @@ func canonicalizeMetricDescriptorMetadata(des, initial *MetricDescriptorMetadata
 	if dcl.IsZeroValue(des.LaunchStage) {
 		des.LaunchStage = initial.LaunchStage
 	}
-	if dcl.IsZeroValue(des.SamplePeriod) {
+	if dcl.StringCanonicalize(des.SamplePeriod, initial.SamplePeriod) || dcl.IsZeroValue(des.SamplePeriod) {
 		des.SamplePeriod = initial.SamplePeriod
 	}
-	if dcl.IsZeroValue(des.IngestDelay) {
+	if dcl.StringCanonicalize(des.IngestDelay, initial.IngestDelay) || dcl.IsZeroValue(des.IngestDelay) {
 		des.IngestDelay = initial.IngestDelay
 	}
 
@@ -554,6 +563,13 @@ func canonicalizeMetricDescriptorMetadata(des, initial *MetricDescriptorMetadata
 func canonicalizeNewMetricDescriptorMetadata(c *Client, des, nw *MetricDescriptorMetadata) *MetricDescriptorMetadata {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.SamplePeriod, nw.SamplePeriod) || dcl.IsZeroValue(des.SamplePeriod) {
+		nw.SamplePeriod = des.SamplePeriod
+	}
+	if dcl.StringCanonicalize(des.IngestDelay, nw.IngestDelay) || dcl.IsZeroValue(des.IngestDelay) {
+		nw.IngestDelay = des.IngestDelay
 	}
 
 	return nw
@@ -603,7 +619,7 @@ func diffMetricDescriptor(c *Client, desired, actual *MetricDescriptor, opts ...
 	}
 
 	var diffs []metricDescriptorDiff
-	if !dcl.IsZeroValue(desired.Type) && (dcl.IsZeroValue(actual.Type) || !reflect.DeepEqual(*desired.Type, *actual.Type)) {
+	if !dcl.IsZeroValue(desired.Type) && !dcl.StringCanonicalize(desired.Type, actual.Type) {
 		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %v\nACTUAL: %v", desired.Type, actual.Type)
 		diffs = append(diffs, metricDescriptorDiff{
 			RequiresRecreate: true,
@@ -626,35 +642,35 @@ func diffMetricDescriptor(c *Client, desired, actual *MetricDescriptor, opts ...
 			})
 		}
 	}
-	if !dcl.IsZeroValue(desired.MetricKind) && (dcl.IsZeroValue(actual.MetricKind) || !reflect.DeepEqual(*desired.MetricKind, *actual.MetricKind)) {
+	if !reflect.DeepEqual(desired.MetricKind, actual.MetricKind) {
 		c.Config.Logger.Infof("Detected diff in MetricKind.\nDESIRED: %v\nACTUAL: %v", desired.MetricKind, actual.MetricKind)
 		diffs = append(diffs, metricDescriptorDiff{
 			RequiresRecreate: true,
 			FieldName:        "MetricKind",
 		})
 	}
-	if !dcl.IsZeroValue(desired.ValueType) && (dcl.IsZeroValue(actual.ValueType) || !reflect.DeepEqual(*desired.ValueType, *actual.ValueType)) {
+	if !reflect.DeepEqual(desired.ValueType, actual.ValueType) {
 		c.Config.Logger.Infof("Detected diff in ValueType.\nDESIRED: %v\nACTUAL: %v", desired.ValueType, actual.ValueType)
 		diffs = append(diffs, metricDescriptorDiff{
 			RequiresRecreate: true,
 			FieldName:        "ValueType",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Unit) && (dcl.IsZeroValue(actual.Unit) || !reflect.DeepEqual(*desired.Unit, *actual.Unit)) {
+	if !dcl.IsZeroValue(desired.Unit) && !dcl.StringCanonicalize(desired.Unit, actual.Unit) {
 		c.Config.Logger.Infof("Detected diff in Unit.\nDESIRED: %v\nACTUAL: %v", desired.Unit, actual.Unit)
 		diffs = append(diffs, metricDescriptorDiff{
 			RequiresRecreate: true,
 			FieldName:        "Unit",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, metricDescriptorDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
-	if !dcl.IsZeroValue(desired.DisplayName) && (dcl.IsZeroValue(actual.DisplayName) || !reflect.DeepEqual(*desired.DisplayName, *actual.DisplayName)) {
+	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
 		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 		diffs = append(diffs, metricDescriptorDiff{
 			RequiresRecreate: true,
@@ -668,7 +684,7 @@ func diffMetricDescriptor(c *Client, desired, actual *MetricDescriptor, opts ...
 			FieldName:        "Metadata",
 		})
 	}
-	if !dcl.IsZeroValue(desired.LaunchStage) && (dcl.IsZeroValue(actual.LaunchStage) || !reflect.DeepEqual(*desired.LaunchStage, *actual.LaunchStage)) {
+	if !reflect.DeepEqual(desired.LaunchStage, actual.LaunchStage) {
 		c.Config.Logger.Infof("Detected diff in LaunchStage.\nDESIRED: %v\nACTUAL: %v", desired.LaunchStage, actual.LaunchStage)
 		diffs = append(diffs, metricDescriptorDiff{
 			RequiresRecreate: true,
@@ -699,6 +715,40 @@ func diffMetricDescriptor(c *Client, desired, actual *MetricDescriptor, opts ...
 
 	return deduped, nil
 }
+func compareMetricDescriptorDescriptorLabels(c *Client, desired, actual *MetricDescriptorDescriptorLabels) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
+		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) {
+		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
+		return true
+	}
+	if actual.ValueType == nil && desired.ValueType != nil && !dcl.IsEmptyValueIndirect(desired.ValueType) {
+		c.Config.Logger.Infof("desired ValueType %s - but actually nil", dcl.SprintResource(desired.ValueType))
+		return true
+	}
+	if !reflect.DeepEqual(desired.ValueType, actual.ValueType) && !dcl.IsZeroValue(desired.ValueType) {
+		c.Config.Logger.Infof("Diff in ValueType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueType), dcl.SprintResource(actual.ValueType))
+		return true
+	}
+	if actual.Description == nil && desired.Description != nil && !dcl.IsEmptyValueIndirect(desired.Description) {
+		c.Config.Logger.Infof("desired Description %s - but actually nil", dcl.SprintResource(desired.Description))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) {
+		c.Config.Logger.Infof("Diff in Description. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
+		return true
+	}
+	return false
+}
+
 func compareMetricDescriptorDescriptorLabelsSlice(c *Client, desired, actual []MetricDescriptorDescriptorLabels) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in MetricDescriptorDescriptorLabels, lengths unequal.")
@@ -707,6 +757,25 @@ func compareMetricDescriptorDescriptorLabelsSlice(c *Client, desired, actual []M
 	for i := 0; i < len(desired); i++ {
 		if compareMetricDescriptorDescriptorLabels(c, &desired[i], &actual[i]) {
 			c.Config.Logger.Infof("Diff in MetricDescriptorDescriptorLabels, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareMetricDescriptorDescriptorLabelsMap(c *Client, desired, actual map[string]MetricDescriptorDescriptorLabels) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in MetricDescriptorDescriptorLabels, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in MetricDescriptorDescriptorLabels, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareMetricDescriptorDescriptorLabels(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in MetricDescriptorDescriptorLabels, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -762,39 +831,40 @@ func compareMetricDescriptorDescriptorLabelsSets(c *Client, desired, actual []Me
 	return toAdd, toRemove
 }
 
-func compareMetricDescriptorDescriptorLabels(c *Client, desired, actual *MetricDescriptorDescriptorLabels) bool {
+func compareMetricDescriptorMetadata(c *Client, desired, actual *MetricDescriptorMetadata) bool {
 	if desired == nil {
 		return false
 	}
 	if actual == nil {
 		return true
 	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
+	if actual.LaunchStage == nil && desired.LaunchStage != nil && !dcl.IsEmptyValueIndirect(desired.LaunchStage) {
+		c.Config.Logger.Infof("desired LaunchStage %s - but actually nil", dcl.SprintResource(desired.LaunchStage))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
+	if !reflect.DeepEqual(desired.LaunchStage, actual.LaunchStage) && !dcl.IsZeroValue(desired.LaunchStage) {
+		c.Config.Logger.Infof("Diff in LaunchStage. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LaunchStage), dcl.SprintResource(actual.LaunchStage))
 		return true
 	}
-	if actual.ValueType == nil && desired.ValueType != nil && !dcl.IsEmptyValueIndirect(desired.ValueType) {
-		c.Config.Logger.Infof("desired ValueType %s - but actually nil", dcl.SprintResource(desired.ValueType))
+	if actual.SamplePeriod == nil && desired.SamplePeriod != nil && !dcl.IsEmptyValueIndirect(desired.SamplePeriod) {
+		c.Config.Logger.Infof("desired SamplePeriod %s - but actually nil", dcl.SprintResource(desired.SamplePeriod))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ValueType, actual.ValueType) && !dcl.IsZeroValue(desired.ValueType) && !(dcl.IsEmptyValueIndirect(desired.ValueType) && dcl.IsZeroValue(actual.ValueType)) {
-		c.Config.Logger.Infof("Diff in ValueType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueType), dcl.SprintResource(actual.ValueType))
+	if !dcl.StringCanonicalize(desired.SamplePeriod, actual.SamplePeriod) && !dcl.IsZeroValue(desired.SamplePeriod) {
+		c.Config.Logger.Infof("Diff in SamplePeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SamplePeriod), dcl.SprintResource(actual.SamplePeriod))
 		return true
 	}
-	if actual.Description == nil && desired.Description != nil && !dcl.IsEmptyValueIndirect(desired.Description) {
-		c.Config.Logger.Infof("desired Description %s - but actually nil", dcl.SprintResource(desired.Description))
+	if actual.IngestDelay == nil && desired.IngestDelay != nil && !dcl.IsEmptyValueIndirect(desired.IngestDelay) {
+		c.Config.Logger.Infof("desired IngestDelay %s - but actually nil", dcl.SprintResource(desired.IngestDelay))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) && !(dcl.IsEmptyValueIndirect(desired.Description) && dcl.IsZeroValue(actual.Description)) {
-		c.Config.Logger.Infof("Diff in Description. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
+	if !dcl.StringCanonicalize(desired.IngestDelay, actual.IngestDelay) && !dcl.IsZeroValue(desired.IngestDelay) {
+		c.Config.Logger.Infof("Diff in IngestDelay. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IngestDelay), dcl.SprintResource(actual.IngestDelay))
 		return true
 	}
 	return false
 }
+
 func compareMetricDescriptorMetadataSlice(c *Client, desired, actual []MetricDescriptorMetadata) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in MetricDescriptorMetadata, lengths unequal.")
@@ -809,39 +879,25 @@ func compareMetricDescriptorMetadataSlice(c *Client, desired, actual []MetricDes
 	return false
 }
 
-func compareMetricDescriptorMetadata(c *Client, desired, actual *MetricDescriptorMetadata) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
+func compareMetricDescriptorMetadataMap(c *Client, desired, actual map[string]MetricDescriptorMetadata) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in MetricDescriptorMetadata, lengths unequal.")
 		return true
 	}
-	if actual.LaunchStage == nil && desired.LaunchStage != nil && !dcl.IsEmptyValueIndirect(desired.LaunchStage) {
-		c.Config.Logger.Infof("desired LaunchStage %s - but actually nil", dcl.SprintResource(desired.LaunchStage))
-		return true
-	}
-	if !reflect.DeepEqual(desired.LaunchStage, actual.LaunchStage) && !dcl.IsZeroValue(desired.LaunchStage) && !(dcl.IsEmptyValueIndirect(desired.LaunchStage) && dcl.IsZeroValue(actual.LaunchStage)) {
-		c.Config.Logger.Infof("Diff in LaunchStage. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LaunchStage), dcl.SprintResource(actual.LaunchStage))
-		return true
-	}
-	if actual.SamplePeriod == nil && desired.SamplePeriod != nil && !dcl.IsEmptyValueIndirect(desired.SamplePeriod) {
-		c.Config.Logger.Infof("desired SamplePeriod %s - but actually nil", dcl.SprintResource(desired.SamplePeriod))
-		return true
-	}
-	if !reflect.DeepEqual(desired.SamplePeriod, actual.SamplePeriod) && !dcl.IsZeroValue(desired.SamplePeriod) && !(dcl.IsEmptyValueIndirect(desired.SamplePeriod) && dcl.IsZeroValue(actual.SamplePeriod)) {
-		c.Config.Logger.Infof("Diff in SamplePeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SamplePeriod), dcl.SprintResource(actual.SamplePeriod))
-		return true
-	}
-	if actual.IngestDelay == nil && desired.IngestDelay != nil && !dcl.IsEmptyValueIndirect(desired.IngestDelay) {
-		c.Config.Logger.Infof("desired IngestDelay %s - but actually nil", dcl.SprintResource(desired.IngestDelay))
-		return true
-	}
-	if !reflect.DeepEqual(desired.IngestDelay, actual.IngestDelay) && !dcl.IsZeroValue(desired.IngestDelay) && !(dcl.IsEmptyValueIndirect(desired.IngestDelay) && dcl.IsZeroValue(actual.IngestDelay)) {
-		c.Config.Logger.Infof("Diff in IngestDelay. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IngestDelay), dcl.SprintResource(actual.IngestDelay))
-		return true
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in MetricDescriptorMetadata, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareMetricDescriptorMetadata(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in MetricDescriptorMetadata, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
 	}
 	return false
 }
+
 func compareMetricDescriptorDescriptorLabelsValueTypeEnumSlice(c *Client, desired, actual []MetricDescriptorDescriptorLabelsValueTypeEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in MetricDescriptorDescriptorLabelsValueTypeEnum, lengths unequal.")
@@ -937,6 +993,11 @@ func compareMetricDescriptorLaunchStageEnum(c *Client, desired, actual *MetricDe
 // short-form so they can be substituted in.
 func (r *MetricDescriptor) urlNormalized() *MetricDescriptor {
 	normalized := deepcopy.Copy(*r).(MetricDescriptor)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Type = dcl.SelfLinkToName(r.Type)
+	normalized.Unit = dcl.SelfLinkToName(r.Unit)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -978,6 +1039,10 @@ func unmarshalMetricDescriptor(b []byte, c *Client) (*MetricDescriptor, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapMetricDescriptor(m, c)
+}
+
+func unmarshalMapMetricDescriptor(m map[string]interface{}, c *Client) (*MetricDescriptor, error) {
 
 	return flattenMetricDescriptor(c, m), nil
 }
@@ -1309,7 +1374,7 @@ func flattenMetricDescriptorDescriptorLabelsValueTypeEnumSlice(c *Client, i inte
 
 	items := make([]MetricDescriptorDescriptorLabelsValueTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenMetricDescriptorDescriptorLabelsValueTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenMetricDescriptorDescriptorLabelsValueTypeEnum(item.(interface{})))
 	}
 
 	return items
@@ -1340,7 +1405,7 @@ func flattenMetricDescriptorMetricKindEnumSlice(c *Client, i interface{}) []Metr
 
 	items := make([]MetricDescriptorMetricKindEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenMetricDescriptorMetricKindEnum(item.(map[string]interface{})))
+		items = append(items, *flattenMetricDescriptorMetricKindEnum(item.(interface{})))
 	}
 
 	return items
@@ -1371,7 +1436,7 @@ func flattenMetricDescriptorValueTypeEnumSlice(c *Client, i interface{}) []Metri
 
 	items := make([]MetricDescriptorValueTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenMetricDescriptorValueTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenMetricDescriptorValueTypeEnum(item.(interface{})))
 	}
 
 	return items
@@ -1402,7 +1467,7 @@ func flattenMetricDescriptorMetadataLaunchStageEnumSlice(c *Client, i interface{
 
 	items := make([]MetricDescriptorMetadataLaunchStageEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenMetricDescriptorMetadataLaunchStageEnum(item.(map[string]interface{})))
+		items = append(items, *flattenMetricDescriptorMetadataLaunchStageEnum(item.(interface{})))
 	}
 
 	return items
@@ -1433,7 +1498,7 @@ func flattenMetricDescriptorLaunchStageEnumSlice(c *Client, i interface{}) []Met
 
 	items := make([]MetricDescriptorLaunchStageEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenMetricDescriptorLaunchStageEnum(item.(map[string]interface{})))
+		items = append(items, *flattenMetricDescriptorLaunchStageEnum(item.(interface{})))
 	}
 
 	return items

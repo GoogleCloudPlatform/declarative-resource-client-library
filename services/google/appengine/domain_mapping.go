@@ -23,6 +23,7 @@ import (
 )
 
 type DomainMapping struct {
+	SelfLink        *string                        `json:"selfLink"`
 	Name            *string                        `json:"name"`
 	SslSettings     *DomainMappingSslSettings      `json:"sslSettings"`
 	ResourceRecords []DomainMappingResourceRecords `json:"resourceRecords"`
@@ -31,6 +32,33 @@ type DomainMapping struct {
 
 func (r *DomainMapping) String() string {
 	return dcl.SprintResource(r)
+}
+
+// The enum DomainMappingSslSettingsSslManagementTypeEnum.
+type DomainMappingSslSettingsSslManagementTypeEnum string
+
+// DomainMappingSslSettingsSslManagementTypeEnumRef returns a *DomainMappingSslSettingsSslManagementTypeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DomainMappingSslSettingsSslManagementTypeEnumRef(s string) *DomainMappingSslSettingsSslManagementTypeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := DomainMappingSslSettingsSslManagementTypeEnum(s)
+	return &v
+}
+
+func (v DomainMappingSslSettingsSslManagementTypeEnum) Validate() error {
+	for _, s := range []string{"AUTOMATIC", "MANUAL"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DomainMappingSslSettingsSslManagementTypeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
 }
 
 // The enum DomainMappingResourceRecordsTypeEnum.
@@ -61,8 +89,10 @@ func (v DomainMappingResourceRecordsTypeEnum) Validate() error {
 }
 
 type DomainMappingSslSettings struct {
-	empty                bool  `json:"-"`
-	IsManagedCertificate *bool `json:"isManagedCertificate"`
+	empty                       bool                                           `json:"-"`
+	CertificateId               *string                                        `json:"certificateId"`
+	SslManagementType           *DomainMappingSslSettingsSslManagementTypeEnum `json:"sslManagementType"`
+	PendingManagedCertificateId *string                                        `json:"pendingManagedCertificateId"`
 }
 
 // This object is used to assert a desired state where this DomainMappingSslSettings is
@@ -131,6 +161,9 @@ func (l *DomainMappingList) HasNext() bool {
 }
 
 func (l *DomainMappingList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -144,12 +177,17 @@ func (l *DomainMappingList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListDomainMapping(ctx context.Context, app string) (*DomainMappingList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListDomainMappingWithMaxResults(ctx, app, DomainMappingMaxPage)
 
 }
 
 func (c *Client) ListDomainMappingWithMaxResults(ctx context.Context, app string, pageSize int32) (*DomainMappingList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listDomainMapping(ctx, app, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -164,6 +202,9 @@ func (c *Client) ListDomainMappingWithMaxResults(ctx context.Context, app string
 }
 
 func (c *Client) GetDomainMapping(ctx context.Context, r *DomainMapping) (*DomainMapping, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getDomainMappingRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -193,6 +234,9 @@ func (c *Client) GetDomainMapping(ctx context.Context, r *DomainMapping) (*Domai
 }
 
 func (c *Client) DeleteDomainMapping(ctx context.Context, r *DomainMapping) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("DomainMapping resource is nil")
 	}
@@ -203,6 +247,9 @@ func (c *Client) DeleteDomainMapping(ctx context.Context, r *DomainMapping) erro
 
 // DeleteAllDomainMapping deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllDomainMapping(ctx context.Context, app string, filter func(*DomainMapping) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListDomainMapping(ctx, app)
 	if err != nil {
 		return err
@@ -228,6 +275,9 @@ func (c *Client) DeleteAllDomainMapping(ctx context.Context, app string, filter 
 func (c *Client) ApplyDomainMapping(ctx context.Context, rawDesired *DomainMapping, opts ...dcl.ApplyOption) (*DomainMapping, error) {
 	c.Config.Logger.Info("Beginning ApplyDomainMapping...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -308,12 +358,35 @@ func (c *Client) ApplyDomainMapping(ctx context.Context, rawDesired *DomainMappi
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createDomainMappingOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapDomainMapping(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeDomainMappingNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeDomainMappingNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

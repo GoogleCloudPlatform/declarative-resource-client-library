@@ -89,6 +89,9 @@ func (l *VpnGatewayList) HasNext() bool {
 }
 
 func (l *VpnGatewayList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -102,12 +105,17 @@ func (l *VpnGatewayList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListVpnGateway(ctx context.Context, project, region string) (*VpnGatewayList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListVpnGatewayWithMaxResults(ctx, project, region, VpnGatewayMaxPage)
 
 }
 
 func (c *Client) ListVpnGatewayWithMaxResults(ctx context.Context, project, region string, pageSize int32) (*VpnGatewayList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listVpnGateway(ctx, project, region, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -124,6 +132,9 @@ func (c *Client) ListVpnGatewayWithMaxResults(ctx context.Context, project, regi
 }
 
 func (c *Client) GetVpnGateway(ctx context.Context, r *VpnGateway) (*VpnGateway, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getVpnGatewayRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -154,6 +165,9 @@ func (c *Client) GetVpnGateway(ctx context.Context, r *VpnGateway) (*VpnGateway,
 }
 
 func (c *Client) DeleteVpnGateway(ctx context.Context, r *VpnGateway) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("VpnGateway resource is nil")
 	}
@@ -164,6 +178,9 @@ func (c *Client) DeleteVpnGateway(ctx context.Context, r *VpnGateway) error {
 
 // DeleteAllVpnGateway deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllVpnGateway(ctx context.Context, project, region string, filter func(*VpnGateway) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListVpnGateway(ctx, project, region)
 	if err != nil {
 		return err
@@ -189,6 +206,9 @@ func (c *Client) DeleteAllVpnGateway(ctx context.Context, project, region string
 func (c *Client) ApplyVpnGateway(ctx context.Context, rawDesired *VpnGateway, opts ...dcl.ApplyOption) (*VpnGateway, error) {
 	c.Config.Logger.Info("Beginning ApplyVpnGateway...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -269,12 +289,35 @@ func (c *Client) ApplyVpnGateway(ctx context.Context, rawDesired *VpnGateway, op
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createVpnGatewayOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapVpnGateway(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeVpnGatewayNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeVpnGatewayNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

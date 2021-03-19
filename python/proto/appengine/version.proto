@@ -105,76 +105,45 @@ enum AppengineVersionApiConfigSecurityLevelEnum {
   AppengineVersionApiConfigSecurityLevelEnumSECURE_ALWAYS = 5;
 }
 
-enum AppengineVersionVPCAccessConnectorEgressSettingEnum {
-  AppengineVersionVPCAccessConnectorEgressSettingEnumNO_VALUE_DO_NOT_USE = 0;
-  AppengineVersionVPCAccessConnectorEgressSettingEnumEGRESS_SETTING_UNSPECIFIED = 1;
-  AppengineVersionVPCAccessConnectorEgressSettingEnumALL_TRAFFIC = 2;
-  AppengineVersionVPCAccessConnectorEgressSettingEnumPRIVATE_IP_RANGES = 3;
-}
-
-enum AppengineVersionNetworkSettingsIngressTrafficAllowedEnum {
-  AppengineVersionNetworkSettingsIngressTrafficAllowedEnumNO_VALUE_DO_NOT_USE = 0;
-  AppengineVersionNetworkSettingsIngressTrafficAllowedEnumINGRESS_TRAFFIC_ALLOWED_UNSPECIFIED = 1;
-  AppengineVersionNetworkSettingsIngressTrafficAllowedEnumINGRESS_TRAFFIC_ALLOWED_ALL = 2;
-  AppengineVersionNetworkSettingsIngressTrafficAllowedEnumINGRESS_TRAFFIC_ALLOWED_INTERNAL_ONLY = 3;
-  AppengineVersionNetworkSettingsIngressTrafficAllowedEnumINGRESS_TRAFFIC_ALLOWED_INTERNAL_AND_LB = 4;
-}
-
-enum AppengineVersionInstanceSpecPortsProtocolEnum {
-  AppengineVersionInstanceSpecPortsProtocolEnumNO_VALUE_DO_NOT_USE = 0;
-  AppengineVersionInstanceSpecPortsProtocolEnumPROTOCOL_UNSPECIFIED = 1;
-  AppengineVersionInstanceSpecPortsProtocolEnumPROTOCOL_HTTP1 = 2;
-  AppengineVersionInstanceSpecPortsProtocolEnumPROTOCOL_H2C = 3;
-  AppengineVersionInstanceSpecPortsProtocolEnumPROTOCOL_TCP = 4;
-}
-
 message AppengineVersion {
   string consumer_name = 1;
   string name = 2;
   AppengineVersionAutomaticScaling automatic_scaling = 3;
   AppengineVersionBasicScaling basic_scaling = 4;
   AppengineVersionManualScaling manual_scaling = 5;
-  AppengineVersionJobScaling job_scaling = 6;
-  AppengineVersionPoolScaling pool_scaling = 7;
-  repeated AppengineVersionInboundServicesEnum inbound_services = 8;
-  string instance_class = 9;
-  AppengineVersionNetwork network = 10;
-  repeated string zones = 11;
-  AppengineVersionResources resources = 12;
-  string runtime = 13;
-  string runtime_channel = 14;
-  bool threadsafe = 15;
-  bool vm = 16;
-  map<string, string> beta_settings = 17;
-  string env = 18;
-  AppengineVersionServingStatusEnum serving_status = 19;
-  string created_by = 20;
-  string create_time = 21;
-  int64 disk_usage_bytes = 22;
-  string runtime_api_version = 23;
-  string runtime_main_executable_path = 24;
-  repeated AppengineVersionHandlers handlers = 25;
-  repeated AppengineVersionErrorHandlers error_handlers = 26;
-  repeated AppengineVersionLibraries libraries = 27;
-  AppengineVersionApiConfig api_config = 28;
-  map<string, string> env_variables = 29;
-  map<string, string> build_env_variables = 30;
-  string default_expiration = 31;
-  AppengineVersionDeployment deployment = 32;
-  AppengineVersionHealthCheck health_check = 33;
-  AppengineVersionReadinessCheck readiness_check = 34;
-  AppengineVersionLivenessCheck liveness_check = 35;
-  string nobuild_files_regex = 36;
-  string version_url = 37;
-  AppengineVersionServiceAuthSpec service_auth_spec = 38;
-  AppengineVersionServiceCorsSpec service_cors_spec = 39;
-  string route_hash = 40;
-  AppengineVersionEntrypoint entrypoint = 41;
-  AppengineVersionVPCAccessConnector vpc_access_connector = 42;
-  AppengineVersionNetworkSettings network_settings = 43;
-  AppengineVersionInstanceSpec instance_spec = 44;
-  string app = 45;
-  string service = 46;
+  repeated AppengineVersionInboundServicesEnum inbound_services = 6;
+  string instance_class = 7;
+  AppengineVersionNetwork network = 8;
+  repeated string zones = 9;
+  AppengineVersionResources resources = 10;
+  string runtime = 11;
+  string runtime_channel = 12;
+  bool threadsafe = 13;
+  bool vm = 14;
+  map<string, string> beta_settings = 15;
+  string env = 16;
+  AppengineVersionServingStatusEnum serving_status = 17;
+  string created_by = 18;
+  string create_time = 19;
+  int64 disk_usage_bytes = 20;
+  string runtime_api_version = 21;
+  string runtime_main_executable_path = 22;
+  repeated AppengineVersionHandlers handlers = 23;
+  repeated AppengineVersionErrorHandlers error_handlers = 24;
+  repeated AppengineVersionLibraries libraries = 25;
+  AppengineVersionApiConfig api_config = 26;
+  map<string, string> env_variables = 27;
+  string default_expiration = 28;
+  AppengineVersionDeployment deployment = 29;
+  AppengineVersionHealthCheck health_check = 30;
+  AppengineVersionReadinessCheck readiness_check = 31;
+  AppengineVersionLivenessCheck liveness_check = 32;
+  string nobuild_files_regex = 33;
+  string version_url = 34;
+  AppengineVersionEntrypoint entrypoint = 35;
+  AppengineVersionVPCAccessConnector vpc_access_connector = 36;
+  string app = 37;
+  string service = 38;
 }
 
 message AppengineVersionAutomaticScaling {
@@ -233,21 +202,6 @@ message AppengineVersionManualScaling {
   int64 instances = 1;
 }
 
-message AppengineVersionJobScaling {
-  int64 completions = 1;
-  int64 parallelism = 2;
-  string job_deadline = 3;
-  int64 instance_retries = 4;
-  string instance_deadline = 5;
-  string instance_termination_window = 6;
-}
-
-message AppengineVersionPoolScaling {
-  int64 replicas = 1;
-  int64 max_unavailable = 2;
-  int64 max_surge = 3;
-}
-
 message AppengineVersionNetwork {
   repeated string forwarded_ports = 1;
   string instance_tag = 2;
@@ -261,7 +215,6 @@ message AppengineVersionResources {
   double disk_gb = 2;
   double memory_gb = 3;
   repeated AppengineVersionResourcesVolumes volumes = 4;
-  string kms_key_reference = 5;
 }
 
 message AppengineVersionResourcesVolumes {
@@ -375,59 +328,12 @@ message AppengineVersionLivenessCheck {
   string initial_delay = 7;
 }
 
-message AppengineVersionServiceAuthSpec {
-  repeated string audiences = 1;
-  string iam_service_name = 2;
-  string iam_resource_name = 3;
-  string iam_policy_id = 4;
-  string iam_policy_type = 5;
-  string iam_permission = 6;
-  bool accept_gcloud_client_id = 7;
-  bool clear = 8;
-}
-
-message AppengineVersionServiceCorsSpec {
-  repeated string origin = 1;
-  repeated string method = 2;
-  repeated string header = 3;
-  repeated string exposed_header = 4;
-  bool allow_credential = 5;
-  int64 max_age_seconds = 6;
-}
-
 message AppengineVersionEntrypoint {
   string shell = 1;
 }
 
 message AppengineVersionVPCAccessConnector {
   string name = 1;
-  AppengineVersionVPCAccessConnectorEgressSettingEnum egress_setting = 2;
-}
-
-message AppengineVersionNetworkSettings {
-  AppengineVersionNetworkSettingsIngressTrafficAllowedEnum ingress_traffic_allowed = 1;
-}
-
-message AppengineVersionInstanceSpec {
-  repeated AppengineVersionInstanceSpecSandboxes sandboxes = 1;
-  repeated AppengineVersionInstanceSpecPorts ports = 2;
-}
-
-message AppengineVersionInstanceSpecSandboxes {
-  string name = 1;
-  repeated AppengineVersionInstanceSpecSandboxesContainers containers = 2;
-}
-
-message AppengineVersionInstanceSpecSandboxesContainers {
-  repeated int64 ports = 1;
-}
-
-message AppengineVersionInstanceSpecPorts {
-  string name = 1;
-  string sandbox = 2;
-  int64 port = 3;
-  AppengineVersionInstanceSpecPortsProtocolEnum protocol = 4;
-  bool is_default = 5;
 }
 
 message ApplyAppengineVersionRequest {
@@ -450,6 +356,7 @@ message ListAppengineVersionRequest {
 message ListAppengineVersionResponse {
   repeated AppengineVersion items = 1;
 }
+
 service AppengineVersionService {
   rpc ApplyAppengineVersion(ApplyAppengineVersionRequest) returns (AppengineVersion);
   rpc DeleteAppengineVersion(DeleteAppengineVersionRequest) returns (google.protobuf.Empty);

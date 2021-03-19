@@ -467,7 +467,6 @@ components:
                 The value must be between 1 and 255 characters.
               type: string
               x-dcl-go-name: HostRedirect
-              x-kubernetes-immutable: true
             httpsRedirect:
               description: |-
                 If set to true, the URL scheme in the redirected request is set to https. If set to false, the URL scheme of the redirected request will remain the same as that of the request.
@@ -477,7 +476,6 @@ components:
                 The default is set to false.
               type: boolean
               x-dcl-go-name: HttpsRedirect
-              x-kubernetes-immutable: true
             pathRedirect:
               description: |-
                 The path that will be used in the redirect response instead of the one that was supplied in the request.
@@ -487,7 +485,6 @@ components:
                 The value must be between 1 and 1024 characters.
               type: string
               x-dcl-go-name: PathRedirect
-              x-kubernetes-immutable: true
             prefixRedirect:
               description: |-
                 The prefix that replaces the `prefixMatch` specified in the `HttpRouteRuleMatch`, retaining the remaining portion of the URL before redirecting the request.
@@ -497,7 +494,6 @@ components:
                 The value must be between 1 and 1024 characters.
               type: string
               x-dcl-go-name: PrefixRedirect
-              x-kubernetes-immutable: true
             redirectResponseCode:
               description: |-
                 The HTTP Status code to use for this RedirectAction.
@@ -518,7 +514,6 @@ components:
               type: string
               x-dcl-go-name: RedirectResponseCode
               x-dcl-go-type: UrlMapDefaultUrlRedirectRedirectResponseCodeEnum
-              x-kubernetes-immutable: true
             stripQuery:
               description: |-
                 If set to true, any accompanying query portion of the original URL is removed prior to redirecting the request. If set to false, the query portion of the original URL is retained.
@@ -526,7 +521,6 @@ components:
                 The default is set to false.
               type: boolean
               x-dcl-go-name: StripQuery
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: DefaultUrlRedirect
           x-dcl-go-type: UrlMapDefaultUrlRedirect
@@ -547,7 +541,6 @@ components:
                   property when you create the resource.
                 type: string
                 x-dcl-go-name: Description
-                x-kubernetes-immutable: true
               host:
                 description: The list of host patterns to match. They must be valid
                   hostnames with optional port numbers in the format `host`:`port`.
@@ -560,13 +553,11 @@ components:
                 type: array
                 x-dcl-go-name: Host
                 x-dcl-list-type: list
-                x-kubernetes-immutable: true
               pathMatcher:
                 description: The name of the PathMatcher to use to match the path
                   portion of the URL if the `hostRule` matches the URL's host portion.
                 type: string
                 x-dcl-go-name: PathMatcher
-                x-kubernetes-immutable: true
             type: object
             x-dcl-go-type: UrlMapHostRule
           type: array
@@ -607,7 +598,6 @@ components:
                   *   compute.backendServices.use
                 type: string
                 x-dcl-go-name: DefaultService
-                x-kubernetes-immutable: true
               defaultUrlRedirect:
                 description: |-
                   When none of the specified `pathRule`s or `routeRule`s match, the request is redirected to a URL specified by `defaultUrlRedirect`.
@@ -621,7 +611,6 @@ components:
                       The value must be between 1 and 255 characters.
                     type: string
                     x-dcl-go-name: HostRedirect
-                    x-kubernetes-immutable: true
                   httpsRedirect:
                     description: |-
                       If set to true, the URL scheme in the redirected request is set to https. If set to false, the URL scheme of the redirected request will remain the same as that of the request.
@@ -631,7 +620,6 @@ components:
                       The default is set to false.
                     type: boolean
                     x-dcl-go-name: HttpsRedirect
-                    x-kubernetes-immutable: true
                   pathRedirect:
                     description: |-
                       The path that will be used in the redirect response instead of the one that was supplied in the request.
@@ -641,7 +629,6 @@ components:
                       The value must be between 1 and 1024 characters.
                     type: string
                     x-dcl-go-name: PathRedirect
-                    x-kubernetes-immutable: true
                   prefixRedirect:
                     description: |-
                       The prefix that replaces the `prefixMatch` specified in the `HttpRouteRuleMatch`, retaining the remaining portion of the URL before redirecting the request.
@@ -651,7 +638,6 @@ components:
                       The value must be between 1 and 1024 characters.
                     type: string
                     x-dcl-go-name: PrefixRedirect
-                    x-kubernetes-immutable: true
                   redirectResponseCode:
                     description: |-
                       The HTTP Status code to use for this RedirectAction.
@@ -672,7 +658,6 @@ components:
                     type: string
                     x-dcl-go-name: RedirectResponseCode
                     x-dcl-go-type: UrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum
-                    x-kubernetes-immutable: true
                   stripQuery:
                     description: |-
                       If set to true, any accompanying query portion of the original URL is removed prior to redirecting the request. If set to false, the query portion of the original URL is retained.
@@ -680,17 +665,14 @@ components:
                       The default is set to false.
                     type: boolean
                     x-dcl-go-name: StripQuery
-                    x-kubernetes-immutable: true
                 type: object
                 x-dcl-go-name: DefaultUrlRedirect
                 x-dcl-go-type: UrlMapPathMatcherDefaultUrlRedirect
-                x-kubernetes-immutable: true
               description:
                 description: An optional description of this resource. Provide this
                   property when you create the resource.
                 type: string
                 x-dcl-go-name: Description
-                x-kubernetes-immutable: true
               headerAction:
                 $ref: '#/components/schemas/HeaderAction'
                 x-dcl-go-name: HeaderAction
@@ -699,7 +681,6 @@ components:
                   HostRule.
                 type: string
                 x-dcl-go-name: Name
-                x-kubernetes-immutable: true
               pathRule:
                 description: |-
                   The list of path rules. Use this list instead of `routeRules` when routing based on simple path matching is all that's required. The order by which path rules are specified does not matter. Matches are always done on the longest-path-first basis.
@@ -716,7 +697,6 @@ components:
                         Only one of `urlRedirect`, `service` or `routeAction.weightedBackendService` must be set.
                       type: string
                       x-dcl-go-name: BackendService
-                      x-kubernetes-immutable: true
                     path:
                       description: The list of path patterns to match. Each must start
                         with `/` and the only place a `*` is allowed is at the end
@@ -729,7 +709,6 @@ components:
                       type: array
                       x-dcl-go-name: Path
                       x-dcl-list-type: list
-                      x-kubernetes-immutable: true
                     routeAction:
                       description: |-
                         In response to a matching `path`, the load balancer performs advanced routing actions like URL rewrites, header transformations, etc. prior to forwarding the request to the selected backend. If `routeAction` specifies any `weightedBackendService`s, `service` must not be set. Conversely if `service` is set, `routeAction` cannot contain any weightedBackendServices.
@@ -748,7 +727,6 @@ components:
                                 Default is false.
                               type: boolean
                               x-dcl-go-name: AllowCredentials
-                              x-kubernetes-immutable: true
                             allowHeader:
                               description: Specifies the content for the `Access-Control-Allow-Headers`
                                 header.
@@ -758,7 +736,6 @@ components:
                               type: array
                               x-dcl-go-name: AllowHeader
                               x-dcl-list-type: list
-                              x-kubernetes-immutable: true
                             allowMethod:
                               description: Specifies the content for the `Access-Control-Allow-Methods`
                                 header.
@@ -768,7 +745,6 @@ components:
                               type: array
                               x-dcl-go-name: AllowMethod
                               x-dcl-list-type: list
-                              x-kubernetes-immutable: true
                             allowOrigin:
                               description: |-
                                 Specifies the list of origins that will be allowed to do CORS requests.
@@ -780,7 +756,6 @@ components:
                               type: array
                               x-dcl-go-name: AllowOrigin
                               x-dcl-list-type: list
-                              x-kubernetes-immutable: true
                             allowOriginRegex:
                               description: |-
                                 Specifies the regualar expression patterns that match allowed origins. For regular expression grammar please see [en.cppreference.com/w/cpp/regex/ecmascript](https://en.cppreference.com/w/cpp/regex/ecmascript)
@@ -792,14 +767,12 @@ components:
                               type: array
                               x-dcl-go-name: AllowOriginRegex
                               x-dcl-list-type: list
-                              x-kubernetes-immutable: true
                             disabled:
                               description: If true, specifies the CORS policy is disabled.
                                 The default value of false, which indicates that the
                                 CORS policy is in effect.
                               type: boolean
                               x-dcl-go-name: Disabled
-                              x-kubernetes-immutable: true
                             exposeHeader:
                               description: Specifies the content for the `Access-Control-Expose-Headers`
                                 header.
@@ -809,7 +782,6 @@ components:
                               type: array
                               x-dcl-go-name: ExposeHeader
                               x-dcl-list-type: list
-                              x-kubernetes-immutable: true
                             maxAge:
                               description: Specifies how long results of a preflight
                                 request can be cached in seconds. This translates
@@ -817,11 +789,9 @@ components:
                               format: int64
                               type: integer
                               x-dcl-go-name: MaxAge
-                              x-kubernetes-immutable: true
                           type: object
                           x-dcl-go-name: CorsPolicy
                           x-dcl-go-type: UrlMapPathMatcherPathRuleRouteActionCorsPolicy
-                          x-kubernetes-immutable: true
                         faultInjectionPolicy:
                           description: |-
                             The specification for fault injection introduced into traffic to test the resiliency of clients to backend service failure. As part of fault injection, when clients send requests to a backend service, delays can be introduced by Loadbalancer on a percentage of requests before sending those request to the backend service. Similarly requests from clients can be aborted by the Loadbalancer for a percentage of requests.
@@ -840,7 +810,6 @@ components:
                                   format: int64
                                   type: integer
                                   x-dcl-go-name: HttpStatus
-                                  x-kubernetes-immutable: true
                                 percentage:
                                   description: |-
                                     The percentage of traffic (connections/operations/requests) which will be aborted as part of fault injection.
@@ -849,11 +818,9 @@ components:
                                   format: double
                                   type: number
                                   x-dcl-go-name: Percentage
-                                  x-kubernetes-immutable: true
                               type: object
                               x-dcl-go-name: Abort
                               x-dcl-go-type: UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort
-                              x-kubernetes-immutable: true
                             delay:
                               description: The specification for how client requests
                                 are delayed as part of fault injection, before being
@@ -872,7 +839,6 @@ components:
                                       format: int64
                                       type: integer
                                       x-dcl-go-name: Nanos
-                                      x-kubernetes-immutable: true
                                     seconds:
                                       description: 'Span of time at a resolution of
                                         a second. Must be from 0 to 315,576,000,000
@@ -882,11 +848,9 @@ components:
                                       format: int64
                                       type: integer
                                       x-dcl-go-name: Seconds
-                                      x-kubernetes-immutable: true
                                   type: object
                                   x-dcl-go-name: FixedDelay
                                   x-dcl-go-type: UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay
-                                  x-kubernetes-immutable: true
                                 percentage:
                                   description: |-
                                     The percentage of traffic (connections/operations/requests) on which delay will be introduced as part of fault injection.
@@ -895,15 +859,12 @@ components:
                                   format: double
                                   type: number
                                   x-dcl-go-name: Percentage
-                                  x-kubernetes-immutable: true
                               type: object
                               x-dcl-go-name: Delay
                               x-dcl-go-type: UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay
-                              x-kubernetes-immutable: true
                           type: object
                           x-dcl-go-name: FaultInjectionPolicy
                           x-dcl-go-type: UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy
-                          x-kubernetes-immutable: true
                         requestMirrorPolicy:
                           description: Specifies the policy on how requests intended
                             for the route's backends are shadowed to a separate mirrored
@@ -917,11 +878,9 @@ components:
                                 resource being mirrored to.
                               type: string
                               x-dcl-go-name: BackendService
-                              x-kubernetes-immutable: true
                           type: object
                           x-dcl-go-name: RequestMirrorPolicy
                           x-dcl-go-type: UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy
-                          x-kubernetes-immutable: true
                         retryPolicy:
                           description: Specifies the retry policy associated with
                             this route.
@@ -933,7 +892,6 @@ components:
                               format: int64
                               type: integer
                               x-dcl-go-name: NumRetries
-                              x-kubernetes-immutable: true
                             perTryTimeout:
                               description: |-
                                 Specifies a non-zero timeout per retry attempt.
@@ -949,7 +907,6 @@ components:
                                   format: int64
                                   type: integer
                                   x-dcl-go-name: Nanos
-                                  x-kubernetes-immutable: true
                                 seconds:
                                   description: 'Span of time at a resolution of a
                                     second. Must be from 0 to 315,576,000,000 inclusive.
@@ -959,11 +916,9 @@ components:
                                   format: int64
                                   type: integer
                                   x-dcl-go-name: Seconds
-                                  x-kubernetes-immutable: true
                               type: object
                               x-dcl-go-name: PerTryTimeout
                               x-dcl-go-type: UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout
-                              x-kubernetes-immutable: true
                             retryCondition:
                               description: |-
                                 Specfies one or more conditions when this retry rule applies. Valid values are:
@@ -984,11 +939,9 @@ components:
                               type: array
                               x-dcl-go-name: RetryCondition
                               x-dcl-list-type: list
-                              x-kubernetes-immutable: true
                           type: object
                           x-dcl-go-name: RetryPolicy
                           x-dcl-go-type: UrlMapPathMatcherPathRuleRouteActionRetryPolicy
-                          x-kubernetes-immutable: true
                         timeout:
                           description: |-
                             Specifies the timeout for the selected route. Timeout is computed from the time the request has been fully processed (i.e. end-of-stream) up until the response has been completely processed. Timeout includes all retries.
@@ -1004,7 +957,6 @@ components:
                               format: int64
                               type: integer
                               x-dcl-go-name: Nanos
-                              x-kubernetes-immutable: true
                             seconds:
                               description: 'Span of time at a resolution of a second.
                                 Must be from 0 to 315,576,000,000 inclusive. Note:
@@ -1013,11 +965,9 @@ components:
                               format: int64
                               type: integer
                               x-dcl-go-name: Seconds
-                              x-kubernetes-immutable: true
                           type: object
                           x-dcl-go-name: Timeout
                           x-dcl-go-type: UrlMapPathMatcherPathRuleRouteActionTimeout
-                          x-kubernetes-immutable: true
                         urlRewrite:
                           description: The spec to modify the URL of the request,
                             prior to forwarding the request to the matched service.
@@ -1029,7 +979,6 @@ components:
                                 The value must be between 1 and 255 characters.
                               type: string
                               x-dcl-go-name: HostRewrite
-                              x-kubernetes-immutable: true
                             pathPrefixRewrite:
                               description: |-
                                 Prior to forwarding the request to the selected backend service, the matching portion of the request's path is replaced by `pathPrefixRewrite`.
@@ -1037,11 +986,9 @@ components:
                                 The value must be between 1 and 1024 characters.
                               type: string
                               x-dcl-go-name: PathPrefixRewrite
-                              x-kubernetes-immutable: true
                           type: object
                           x-dcl-go-name: UrlRewrite
                           x-dcl-go-type: UrlMapPathMatcherPathRuleRouteActionUrlRewrite
-                          x-kubernetes-immutable: true
                         weightedBackendService:
                           description: |-
                             A list of weighted backend services to send traffic to when a route match occurs. The weights determine the fraction of traffic that flows to their corresponding `backend service`. If all traffic needs to go to a single backend service, there must be one `weightedBackendService` with weight set to a non 0 number.
@@ -1057,7 +1004,6 @@ components:
                                   `backendServiceWeight`.
                                 type: string
                                 x-dcl-go-name: BackendService
-                                x-kubernetes-immutable: true
                               headerAction:
                                 $ref: '#/components/schemas/HeaderAction'
                                 x-dcl-go-name: HeaderAction
@@ -1071,17 +1017,14 @@ components:
                                 format: int64
                                 type: integer
                                 x-dcl-go-name: Weight
-                                x-kubernetes-immutable: true
                             type: object
                             x-dcl-go-type: UrlMapPathMatcherPathRuleRouteActionWeightedBackendService
                           type: array
                           x-dcl-go-name: WeightedBackendService
                           x-dcl-list-type: list
-                          x-kubernetes-immutable: true
                       type: object
                       x-dcl-go-name: RouteAction
                       x-dcl-go-type: UrlMapPathMatcherPathRuleRouteAction
-                      x-kubernetes-immutable: true
                     urlRedirect:
                       description: |-
                         When a path pattern is matched, the request is redirected to a URL specified by `urlRedirect`.
@@ -1095,7 +1038,6 @@ components:
                             The value must be between 1 and 255 characters.
                           type: string
                           x-dcl-go-name: HostRedirect
-                          x-kubernetes-immutable: true
                         httpsRedirect:
                           description: |-
                             If set to true, the URL scheme in the redirected request is set to https. If set to false, the URL scheme of the redirected request will remain the same as that of the request.
@@ -1105,7 +1047,6 @@ components:
                             The default is set to false.
                           type: boolean
                           x-dcl-go-name: HttpsRedirect
-                          x-kubernetes-immutable: true
                         pathRedirect:
                           description: |-
                             The path that will be used in the redirect response instead of the one that was supplied in the request.
@@ -1115,7 +1056,6 @@ components:
                             The value must be between 1 and 1024 characters.
                           type: string
                           x-dcl-go-name: PathRedirect
-                          x-kubernetes-immutable: true
                         prefixRedirect:
                           description: |-
                             The prefix that replaces the `prefixMatch` specified in the `HttpRouteRuleMatch`, retaining the remaining portion of the URL before redirecting the request.
@@ -1125,7 +1065,6 @@ components:
                             The value must be between 1 and 1024 characters.
                           type: string
                           x-dcl-go-name: PrefixRedirect
-                          x-kubernetes-immutable: true
                         redirectResponseCode:
                           description: |-
                             The HTTP Status code to use for this RedirectAction.
@@ -1146,7 +1085,6 @@ components:
                           type: string
                           x-dcl-go-name: RedirectResponseCode
                           x-dcl-go-type: UrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum
-                          x-kubernetes-immutable: true
                         stripQuery:
                           description: |-
                             If set to true, any accompanying query portion of the original URL is removed prior to redirecting the request. If set to false, the query portion of the original URL is retained.
@@ -1154,17 +1092,14 @@ components:
                             The default is set to false.
                           type: boolean
                           x-dcl-go-name: StripQuery
-                          x-kubernetes-immutable: true
                       type: object
                       x-dcl-go-name: UrlRedirect
                       x-dcl-go-type: UrlMapPathMatcherPathRuleUrlRedirect
-                      x-kubernetes-immutable: true
                   type: object
                   x-dcl-go-type: UrlMapPathMatcherPathRule
                 type: array
                 x-dcl-go-name: PathRule
                 x-dcl-list-type: list
-                x-kubernetes-immutable: true
               routeRule:
                 description: |-
                   The list of HTTP route rules. Use this list instead of `pathRule`s when advanced route matching and routing actions are desired. `routeRules` are evaluated in order of priority, from the lowest to highest number.
@@ -1179,7 +1114,6 @@ components:
                         Only one of `urlRedirect`, `service` or `routeAction.weightedBackendService` must be set.
                       type: string
                       x-dcl-go-name: BackendService
-                      x-kubernetes-immutable: true
                     description:
                       description: |-
                         The short description conveying the intent of this `routeRule`.
@@ -1187,7 +1121,6 @@ components:
                         The description can have a maximum length of 1024 characters.
                       type: string
                       x-dcl-go-name: Description
-                      x-kubernetes-immutable: true
                     headerAction:
                       $ref: '#/components/schemas/HeaderAction'
                       x-dcl-go-name: HeaderAction
@@ -1204,7 +1137,6 @@ components:
                               Only one of prefixMatch, fullPathMatch or regexMatch must be specified.
                             type: string
                             x-dcl-go-name: FullPathMatch
-                            x-kubernetes-immutable: true
                           headerMatch:
                             description: Specifies a list of header match criteria,
                               all of which must match corresponding headers in the
@@ -1218,7 +1150,6 @@ components:
                                     Only one of exactMatch, prefixMatch, suffixMatch, regexMatch, presentMatch or rangeMatch must be set.
                                   type: string
                                   x-dcl-go-name: ExactMatch
-                                  x-kubernetes-immutable: true
                                 headerName:
                                   description: |-
                                     The name of the HTTP header to match.
@@ -1228,7 +1159,6 @@ components:
                                     For matching a request's method, use the headerName ":method".
                                   type: string
                                   x-dcl-go-name: HeaderName
-                                  x-kubernetes-immutable: true
                                 invertMatch:
                                   description: |-
                                     If set to false, the headerMatch is considered a match if the match criteria above are met. If set to true, the headerMatch is considered a match if the match criteria above are NOT met.
@@ -1236,7 +1166,6 @@ components:
                                     The default setting is false.
                                   type: boolean
                                   x-dcl-go-name: InvertMatch
-                                  x-kubernetes-immutable: true
                                 prefixMatch:
                                   description: |-
                                     The value of the header must start with the contents of `prefixMatch`.
@@ -1244,7 +1173,6 @@ components:
                                     Only one of exactMatch, prefixMatch, suffixMatch, regexMatch, presentMatch or rangeMatch must be set.
                                   type: string
                                   x-dcl-go-name: PrefixMatch
-                                  x-kubernetes-immutable: true
                                 presentMatch:
                                   description: |-
                                     A header with the contents of `headerName` must exist. The match takes place whether or not the request's header has a value.
@@ -1252,7 +1180,6 @@ components:
                                     Only one of exactMatch, prefixMatch, suffixMatch, regexMatch, presentMatch or rangeMatch must be set.
                                   type: boolean
                                   x-dcl-go-name: PresentMatch
-                                  x-kubernetes-immutable: true
                                 rangeMatch:
                                   description: |-
                                     The header value must be an integer and its value must be in the range specified in `rangeMatch`. If the header does not contain an integer, number or is empty, the match fails.
@@ -1274,18 +1201,15 @@ components:
                                       format: int64
                                       type: integer
                                       x-dcl-go-name: RangeEnd
-                                      x-kubernetes-immutable: true
                                     rangeStart:
                                       description: The start of the range (inclusive)
                                         in signed long integer format.
                                       format: int64
                                       type: integer
                                       x-dcl-go-name: RangeStart
-                                      x-kubernetes-immutable: true
                                   type: object
                                   x-dcl-go-name: RangeMatch
                                   x-dcl-go-type: UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch
-                                  x-kubernetes-immutable: true
                                 regexMatch:
                                   description: |-
                                     The value of the header must match the regular expression specified in `regexMatch`. For regular expression grammar, please see: [en.cppreference.com/w/cpp/regex/ecmascript](https://en.cppreference.com/w/cpp/regex/ecmascript)
@@ -1297,7 +1221,6 @@ components:
                                     Note that regexMatch only applies to Loadbalancers that have their loadBalancingScheme set to `INTERNAL_SELF_MANAGED`.
                                   type: string
                                   x-dcl-go-name: RegexMatch
-                                  x-kubernetes-immutable: true
                                 suffixMatch:
                                   description: |-
                                     The value of the header must end with the contents of `suffixMatch`.
@@ -1305,13 +1228,11 @@ components:
                                     Only one of exactMatch, prefixMatch, suffixMatch, regexMatch, presentMatch or rangeMatch must be set.
                                   type: string
                                   x-dcl-go-name: SuffixMatch
-                                  x-kubernetes-immutable: true
                               type: object
                               x-dcl-go-type: UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch
                             type: array
                             x-dcl-go-name: HeaderMatch
                             x-dcl-list-type: list
-                            x-kubernetes-immutable: true
                           ignoreCase:
                             description: |-
                               Specifies that `prefixMatch` and `fullPathMatch` matches are case sensitive.
@@ -1321,7 +1242,6 @@ components:
                               ignoreCase must not be used with regexMatch.
                             type: boolean
                             x-dcl-go-name: IgnoreCase
-                            x-kubernetes-immutable: true
                           metadataFilter:
                             description: |-
                               Opaque filter criteria used by Loadbalancer to restrict routing configuration to a limited set of [xDS](https://github.com/envoyproxy/data-plane-api/blob/master/XDS_PROTOCOL.md) compliant clients. In their xDS requests to Loadbalancer, xDS clients present [node metadata](https://github.com/envoyproxy/data-plane-api/search?q=%22message+Node%22+in%3A%2Fenvoy%2Fapi%2Fv2%2Fcore%2Fbase.proto&). If a match takes place, the relevant routing configuration is made available to those proxies.
@@ -1347,7 +1267,6 @@ components:
                                           The name can have a maximum length of 1024 characters and must be at least 1 character long.
                                         type: string
                                         x-dcl-go-name: Name
-                                        x-kubernetes-immutable: true
                                       value:
                                         description: |-
                                           The value of the label must match the specified value.
@@ -1355,13 +1274,11 @@ components:
                                           value can have a maximum length of 1024 characters.
                                         type: string
                                         x-dcl-go-name: Value
-                                        x-kubernetes-immutable: true
                                     type: object
                                     x-dcl-go-type: UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel
                                   type: array
                                   x-dcl-go-name: FilterLabel
                                   x-dcl-list-type: list
-                                  x-kubernetes-immutable: true
                                 filterMatchCriteria:
                                   description: |-
                                     Specifies how individual `filterLabel` matches within the list of `filterLabel`s contribute towards the overall `metadataFilter` match.
@@ -1377,13 +1294,11 @@ components:
                                   type: string
                                   x-dcl-go-name: FilterMatchCriteria
                                   x-dcl-go-type: UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum
-                                  x-kubernetes-immutable: true
                               type: object
                               x-dcl-go-type: UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter
                             type: array
                             x-dcl-go-name: MetadataFilter
                             x-dcl-list-type: list
-                            x-kubernetes-immutable: true
                           prefixMatch:
                             description: |-
                               For satisfying the `matchRule` condition, the request's path must begin with the specified `prefixMatch`. `prefixMatch` must begin with a `/`.
@@ -1393,7 +1308,6 @@ components:
                               Only one of prefixMatch, fullPathMatch or regexMatch must be specified.
                             type: string
                             x-dcl-go-name: PrefixMatch
-                            x-kubernetes-immutable: true
                           queryParameterMatch:
                             description: Specifies a list of query parameter match
                               criteria, all of which must match corresponding query
@@ -1407,14 +1321,12 @@ components:
                                     Only one of presentMatch, exactMatch or regexMatch must be set.
                                   type: string
                                   x-dcl-go-name: ExactMatch
-                                  x-kubernetes-immutable: true
                                 name:
                                   description: The name of the query parameter to
                                     match. The query parameter must exist in the request,
                                     in the absence of which the request match fails.
                                   type: string
                                   x-dcl-go-name: Name
-                                  x-kubernetes-immutable: true
                                 presentMatch:
                                   description: |-
                                     Specifies that the `queryParameterMatch` matches if the request contains the query parameter, irrespective of whether the parameter has a value or not.
@@ -1422,7 +1334,6 @@ components:
                                     Only one of presentMatch, exactMatch or regexMatch must be set.
                                   type: boolean
                                   x-dcl-go-name: PresentMatch
-                                  x-kubernetes-immutable: true
                                 regexMatch:
                                   description: |-
                                     The `queryParameterMatch` matches if the value of the parameter matches the regular expression specified by `regexMatch`. For the regular expression grammar, please see [en.cppreference.com/w/cpp/regex/ecmascript](https://en.cppreference.com/w/cpp/regex/ecmascript)
@@ -1432,13 +1343,11 @@ components:
                                     Note that regexMatch only applies when the loadBalancingScheme is set to `INTERNAL_SELF_MANAGED`.
                                   type: string
                                   x-dcl-go-name: RegexMatch
-                                  x-kubernetes-immutable: true
                               type: object
                               x-dcl-go-type: UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch
                             type: array
                             x-dcl-go-name: QueryParameterMatch
                             x-dcl-list-type: list
-                            x-kubernetes-immutable: true
                           regexMatch:
                             description: |-
                               For satisfying the `matchRule` condition, the path of the request must satisfy the regular expression specified in `regexMatch` after removing any query parameters and anchor supplied with the original URL. For regular expression grammar please see [en.cppreference.com/w/cpp/regex/ecmascript](https://en.cppreference.com/w/cpp/regex/ecmascript)
@@ -1448,13 +1357,11 @@ components:
                               Note that regexMatch only applies to Loadbalancers that have their loadBalancingScheme set to `INTERNAL_SELF_MANAGED`.
                             type: string
                             x-dcl-go-name: RegexMatch
-                            x-kubernetes-immutable: true
                         type: object
                         x-dcl-go-type: UrlMapPathMatcherRouteRuleMatchRule
                       type: array
                       x-dcl-go-name: MatchRule
                       x-dcl-list-type: list
-                      x-kubernetes-immutable: true
                     priority:
                       description: |-
                         For `routeRules` within a given `pathMatcher`, priority determines the order in which load balancer will interpret `routeRules`. `RouteRules` are evaluated in order of priority, from the lowest to highest number. The priority of a rule decreases as its number increases (1, 2, 3, N+1). The first rule that matches the request is applied.
@@ -1465,7 +1372,6 @@ components:
                       format: int64
                       type: integer
                       x-dcl-go-name: Priority
-                      x-kubernetes-immutable: true
                     routeAction:
                       description: |-
                         In response to a matching `matchRule`, the load balancer performs advanced routing actions like URL rewrites, header transformations, etc. prior to forwarding the request to the selected backend. If `routeAction` specifies any `weightedBackendService`s, `service` must not be set. Conversely if `service` is set, `routeAction` cannot contain any weightedBackendServices.
@@ -1484,7 +1390,6 @@ components:
                                 Default is false.
                               type: boolean
                               x-dcl-go-name: AllowCredentials
-                              x-kubernetes-immutable: true
                             allowHeader:
                               description: Specifies the content for the `Access-Control-Allow-Headers`
                                 header.
@@ -1494,7 +1399,6 @@ components:
                               type: array
                               x-dcl-go-name: AllowHeader
                               x-dcl-list-type: list
-                              x-kubernetes-immutable: true
                             allowMethod:
                               description: Specifies the content for the `Access-Control-Allow-Methods`
                                 header.
@@ -1504,7 +1408,6 @@ components:
                               type: array
                               x-dcl-go-name: AllowMethod
                               x-dcl-list-type: list
-                              x-kubernetes-immutable: true
                             allowOrigin:
                               description: |-
                                 Specifies the list of origins that will be allowed to do CORS requests.
@@ -1516,7 +1419,6 @@ components:
                               type: array
                               x-dcl-go-name: AllowOrigin
                               x-dcl-list-type: list
-                              x-kubernetes-immutable: true
                             allowOriginRegex:
                               description: |-
                                 Specifies the regualar expression patterns that match allowed origins. For regular expression grammar please see [en.cppreference.com/w/cpp/regex/ecmascript](https://en.cppreference.com/w/cpp/regex/ecmascript)
@@ -1528,14 +1430,12 @@ components:
                               type: array
                               x-dcl-go-name: AllowOriginRegex
                               x-dcl-list-type: list
-                              x-kubernetes-immutable: true
                             disabled:
                               description: If true, specifies the CORS policy is disabled.
                                 The default value of false, which indicates that the
                                 CORS policy is in effect.
                               type: boolean
                               x-dcl-go-name: Disabled
-                              x-kubernetes-immutable: true
                             exposeHeader:
                               description: Specifies the content for the `Access-Control-Expose-Headers`
                                 header.
@@ -1545,7 +1445,6 @@ components:
                               type: array
                               x-dcl-go-name: ExposeHeader
                               x-dcl-list-type: list
-                              x-kubernetes-immutable: true
                             maxAge:
                               description: Specifies how long results of a preflight
                                 request can be cached in seconds. This translates
@@ -1553,11 +1452,9 @@ components:
                               format: int64
                               type: integer
                               x-dcl-go-name: MaxAge
-                              x-kubernetes-immutable: true
                           type: object
                           x-dcl-go-name: CorsPolicy
                           x-dcl-go-type: UrlMapPathMatcherRouteRuleRouteActionCorsPolicy
-                          x-kubernetes-immutable: true
                         faultInjectionPolicy:
                           description: |-
                             The specification for fault injection introduced into traffic to test the resiliency of clients to backend service failure. As part of fault injection, when clients send requests to a backend service, delays can be introduced by Loadbalancer on a percentage of requests before sending those request to the backend service. Similarly requests from clients can be aborted by the Loadbalancer for a percentage of requests.
@@ -1576,7 +1473,6 @@ components:
                                   format: int64
                                   type: integer
                                   x-dcl-go-name: HttpStatus
-                                  x-kubernetes-immutable: true
                                 percentage:
                                   description: |-
                                     The percentage of traffic (connections/operations/requests) which will be aborted as part of fault injection.
@@ -1585,11 +1481,9 @@ components:
                                   format: double
                                   type: number
                                   x-dcl-go-name: Percentage
-                                  x-kubernetes-immutable: true
                               type: object
                               x-dcl-go-name: Abort
                               x-dcl-go-type: UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort
-                              x-kubernetes-immutable: true
                             delay:
                               description: The specification for how client requests
                                 are delayed as part of fault injection, before being
@@ -1608,7 +1502,6 @@ components:
                                       format: int64
                                       type: integer
                                       x-dcl-go-name: Nanos
-                                      x-kubernetes-immutable: true
                                     seconds:
                                       description: 'Span of time at a resolution of
                                         a second. Must be from 0 to 315,576,000,000
@@ -1618,11 +1511,9 @@ components:
                                       format: int64
                                       type: integer
                                       x-dcl-go-name: Seconds
-                                      x-kubernetes-immutable: true
                                   type: object
                                   x-dcl-go-name: FixedDelay
                                   x-dcl-go-type: UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay
-                                  x-kubernetes-immutable: true
                                 percentage:
                                   description: |-
                                     The percentage of traffic (connections/operations/requests) on which delay will be introduced as part of fault injection.
@@ -1631,15 +1522,12 @@ components:
                                   format: double
                                   type: number
                                   x-dcl-go-name: Percentage
-                                  x-kubernetes-immutable: true
                               type: object
                               x-dcl-go-name: Delay
                               x-dcl-go-type: UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay
-                              x-kubernetes-immutable: true
                           type: object
                           x-dcl-go-name: FaultInjectionPolicy
                           x-dcl-go-type: UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy
-                          x-kubernetes-immutable: true
                         requestMirrorPolicy:
                           description: Specifies the policy on how requests intended
                             for the route's backends are shadowed to a separate mirrored
@@ -1653,11 +1541,9 @@ components:
                                 resource being mirrored to.
                               type: string
                               x-dcl-go-name: BackendService
-                              x-kubernetes-immutable: true
                           type: object
                           x-dcl-go-name: RequestMirrorPolicy
                           x-dcl-go-type: UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy
-                          x-kubernetes-immutable: true
                         retryPolicy:
                           description: Specifies the retry policy associated with
                             this route.
@@ -1669,7 +1555,6 @@ components:
                               format: int64
                               type: integer
                               x-dcl-go-name: NumRetries
-                              x-kubernetes-immutable: true
                             perTryTimeout:
                               description: |-
                                 Specifies a non-zero timeout per retry attempt.
@@ -1685,7 +1570,6 @@ components:
                                   format: int64
                                   type: integer
                                   x-dcl-go-name: Nanos
-                                  x-kubernetes-immutable: true
                                 seconds:
                                   description: 'Span of time at a resolution of a
                                     second. Must be from 0 to 315,576,000,000 inclusive.
@@ -1695,11 +1579,9 @@ components:
                                   format: int64
                                   type: integer
                                   x-dcl-go-name: Seconds
-                                  x-kubernetes-immutable: true
                               type: object
                               x-dcl-go-name: PerTryTimeout
                               x-dcl-go-type: UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout
-                              x-kubernetes-immutable: true
                             retryCondition:
                               description: |-
                                 Specfies one or more conditions when this retry rule applies. Valid values are:
@@ -1720,11 +1602,9 @@ components:
                               type: array
                               x-dcl-go-name: RetryCondition
                               x-dcl-list-type: list
-                              x-kubernetes-immutable: true
                           type: object
                           x-dcl-go-name: RetryPolicy
                           x-dcl-go-type: UrlMapPathMatcherRouteRuleRouteActionRetryPolicy
-                          x-kubernetes-immutable: true
                         timeout:
                           description: |-
                             Specifies the timeout for the selected route. Timeout is computed from the time the request has been fully processed (i.e. end-of-stream) up until the response has been completely processed. Timeout includes all retries.
@@ -1740,7 +1620,6 @@ components:
                               format: int64
                               type: integer
                               x-dcl-go-name: Nanos
-                              x-kubernetes-immutable: true
                             seconds:
                               description: 'Span of time at a resolution of a second.
                                 Must be from 0 to 315,576,000,000 inclusive. Note:
@@ -1749,11 +1628,9 @@ components:
                               format: int64
                               type: integer
                               x-dcl-go-name: Seconds
-                              x-kubernetes-immutable: true
                           type: object
                           x-dcl-go-name: Timeout
                           x-dcl-go-type: UrlMapPathMatcherRouteRuleRouteActionTimeout
-                          x-kubernetes-immutable: true
                         urlRewrite:
                           description: The spec to modify the URL of the request,
                             prior to forwarding the request to the matched service.
@@ -1765,7 +1642,6 @@ components:
                                 The value must be between 1 and 255 characters.
                               type: string
                               x-dcl-go-name: HostRewrite
-                              x-kubernetes-immutable: true
                             pathPrefixRewrite:
                               description: |-
                                 Prior to forwarding the request to the selected backend service, the matching portion of the request's path is replaced by `pathPrefixRewrite`.
@@ -1773,11 +1649,9 @@ components:
                                 The value must be between 1 and 1024 characters.
                               type: string
                               x-dcl-go-name: PathPrefixRewrite
-                              x-kubernetes-immutable: true
                           type: object
                           x-dcl-go-name: UrlRewrite
                           x-dcl-go-type: UrlMapPathMatcherRouteRuleRouteActionUrlRewrite
-                          x-kubernetes-immutable: true
                         weightedBackendService:
                           description: |-
                             A list of weighted backend services to send traffic to when a route match occurs. The weights determine the fraction of traffic that flows to their corresponding `backend service`. If all traffic needs to go to a single backend service, there must be one `weightedBackendService` with weight set to a non 0 number.
@@ -1793,7 +1667,6 @@ components:
                                   `backendServiceWeight`.
                                 type: string
                                 x-dcl-go-name: BackendService
-                                x-kubernetes-immutable: true
                               headerAction:
                                 $ref: '#/components/schemas/HeaderAction'
                                 x-dcl-go-name: HeaderAction
@@ -1807,17 +1680,14 @@ components:
                                 format: int64
                                 type: integer
                                 x-dcl-go-name: Weight
-                                x-kubernetes-immutable: true
                             type: object
                             x-dcl-go-type: UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService
                           type: array
                           x-dcl-go-name: WeightedBackendService
                           x-dcl-list-type: list
-                          x-kubernetes-immutable: true
                       type: object
                       x-dcl-go-name: RouteAction
                       x-dcl-go-type: UrlMapPathMatcherRouteRuleRouteAction
-                      x-kubernetes-immutable: true
                     urlRedirect:
                       description: |-
                         When this rule is matched, the request is redirected to a URL specified by `urlRedirect`.
@@ -1831,7 +1701,6 @@ components:
                             The value must be between 1 and 255 characters.
                           type: string
                           x-dcl-go-name: HostRedirect
-                          x-kubernetes-immutable: true
                         httpsRedirect:
                           description: |-
                             If set to true, the URL scheme in the redirected request is set to https. If set to false, the URL scheme of the redirected request will remain the same as that of the request.
@@ -1841,7 +1710,6 @@ components:
                             The default is set to false.
                           type: boolean
                           x-dcl-go-name: HttpsRedirect
-                          x-kubernetes-immutable: true
                         pathRedirect:
                           description: |-
                             The path that will be used in the redirect response instead of the one that was supplied in the request.
@@ -1851,7 +1719,6 @@ components:
                             The value must be between 1 and 1024 characters.
                           type: string
                           x-dcl-go-name: PathRedirect
-                          x-kubernetes-immutable: true
                         prefixRedirect:
                           description: |-
                             The prefix that replaces the `prefixMatch` specified in the `HttpRouteRuleMatch`, retaining the remaining portion of the URL before redirecting the request.
@@ -1861,7 +1728,6 @@ components:
                             The value must be between 1 and 1024 characters.
                           type: string
                           x-dcl-go-name: PrefixRedirect
-                          x-kubernetes-immutable: true
                         redirectResponseCode:
                           description: |-
                             The HTTP Status code to use for this RedirectAction.
@@ -1882,7 +1748,6 @@ components:
                           type: string
                           x-dcl-go-name: RedirectResponseCode
                           x-dcl-go-type: UrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum
-                          x-kubernetes-immutable: true
                         stripQuery:
                           description: |-
                             If set to true, any accompanying query portion of the original URL is removed prior to redirecting the request. If set to false, the query portion of the original URL is retained.
@@ -1890,17 +1755,14 @@ components:
                             The default is set to false.
                           type: boolean
                           x-dcl-go-name: StripQuery
-                          x-kubernetes-immutable: true
                       type: object
                       x-dcl-go-name: UrlRedirect
                       x-dcl-go-type: UrlMapPathMatcherRouteRuleUrlRedirect
-                      x-kubernetes-immutable: true
                   type: object
                   x-dcl-go-type: UrlMapPathMatcherRouteRule
                 type: array
                 x-dcl-go-name: RouteRule
                 x-dcl-list-type: list
-                x-kubernetes-immutable: true
             type: object
             x-dcl-go-type: UrlMapPathMatcher
           type: array
@@ -1910,6 +1772,10 @@ components:
           description: The project this URL Map resides in.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         region:
           description: '[Output Only] URL of the region where the regional URL map
@@ -1929,23 +1795,19 @@ components:
                 description: Description of this test case.
                 type: string
                 x-dcl-go-name: Description
-                x-kubernetes-immutable: true
               expectedBackendService:
                 description: Expected BackendService resource the given URL should
                   be mapped to.
                 type: string
                 x-dcl-go-name: ExpectedBackendService
-                x-kubernetes-immutable: true
               host:
                 description: Host portion of the URL.
                 type: string
                 x-dcl-go-name: Host
-                x-kubernetes-immutable: true
               path:
                 description: Path portion of the URL.
                 type: string
                 x-dcl-go-name: Path
-                x-kubernetes-immutable: true
             type: object
             x-dcl-go-type: UrlMapTest
           type: array

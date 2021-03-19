@@ -95,6 +95,9 @@ func (l *RouterPeerList) HasNext() bool {
 }
 
 func (l *RouterPeerList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -108,12 +111,17 @@ func (l *RouterPeerList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListRouterPeer(ctx context.Context, project, region string) (*RouterPeerList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListRouterPeerWithMaxResults(ctx, project, region, RouterPeerMaxPage)
 
 }
 
 func (c *Client) ListRouterPeerWithMaxResults(ctx context.Context, project, region string, pageSize int32) (*RouterPeerList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listRouterPeer(ctx, project, region, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -130,6 +138,9 @@ func (c *Client) ListRouterPeerWithMaxResults(ctx context.Context, project, regi
 }
 
 func (c *Client) GetRouterPeer(ctx context.Context, r *RouterPeer) (*RouterPeer, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getRouterPeerRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -174,6 +185,9 @@ func (c *Client) GetRouterPeer(ctx context.Context, r *RouterPeer) (*RouterPeer,
 }
 
 func (c *Client) DeleteRouterPeer(ctx context.Context, r *RouterPeer) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("RouterPeer resource is nil")
 	}
@@ -184,6 +198,9 @@ func (c *Client) DeleteRouterPeer(ctx context.Context, r *RouterPeer) error {
 
 // DeleteAllRouterPeer deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllRouterPeer(ctx context.Context, project, region string, filter func(*RouterPeer) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListRouterPeer(ctx, project, region)
 	if err != nil {
 		return err
@@ -209,6 +226,9 @@ func (c *Client) DeleteAllRouterPeer(ctx context.Context, project, region string
 func (c *Client) ApplyRouterPeer(ctx context.Context, rawDesired *RouterPeer, opts ...dcl.ApplyOption) (*RouterPeer, error) {
 	c.Config.Logger.Info("Beginning ApplyRouterPeer...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -289,12 +309,35 @@ func (c *Client) ApplyRouterPeer(ctx context.Context, rawDesired *RouterPeer, op
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createRouterPeerOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapRouterPeer(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeRouterPeerNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeRouterPeerNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

@@ -1,0 +1,22 @@
+{
+  "name":  "{{id}}",
+  "app":   "{{ref:basic.serviceusage.service.json:project}}",
+  "service": "default",
+  "runtime": "python27",
+  "deployment": {
+    "files": {
+      "main.py": {
+        "sourceurl": "https://storage.googleapis.com/admin-api-public-samples/hello_world/main.py"
+      }
+    }
+  },
+  "handlers": [
+    {
+      "script": {
+        "scriptPath": "main.app"
+      },
+      "securityLevel": "SECURE_OPTIONAL",
+      "urlRegex": "/"
+    }
+  ]
+}

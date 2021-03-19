@@ -71,6 +71,7 @@ message ListDatastoreIndexRequest {
 message ListDatastoreIndexResponse {
   repeated DatastoreIndex items = 1;
 }
+
 service DatastoreIndexService {
   rpc ApplyDatastoreIndex(ApplyDatastoreIndexRequest) returns (DatastoreIndex);
   rpc DeleteDatastoreIndex(DeleteDatastoreIndexRequest) returns (google.protobuf.Empty);

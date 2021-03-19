@@ -1,0 +1,8 @@
+{
+  "name": "{{cluster_name}}",
+  "location": "{{region}}",
+  "project": "{{project}}",
+  "labels": {
+   "my-cluster": "exists"
+  }
+}

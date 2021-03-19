@@ -199,7 +199,7 @@ func (op *updateManagedZoneUpdateOperation) do(ctx context.Context, r *ManagedZo
 	if err != nil {
 		return err
 	}
-	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -226,7 +226,7 @@ func (c *Client) listManagedZoneRaw(ctx context.Context, project, pageToken stri
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -300,7 +300,7 @@ func (op *deleteManagedZoneOperation) do(ctx context.Context, r *ManagedZone, c 
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return fmt.Errorf("failed to delete ManagedZone: %w", err)
 	}
@@ -314,7 +314,13 @@ func (op *deleteManagedZoneOperation) do(ctx context.Context, r *ManagedZone, c 
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createManagedZoneOperation struct{}
+type createManagedZoneOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createManagedZoneOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createManagedZoneOperation) do(ctx context.Context, r *ManagedZone, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -330,7 +336,7 @@ func (op *createManagedZoneOperation) do(ctx context.Context, r *ManagedZone, c 
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -339,9 +345,10 @@ func (op *createManagedZoneOperation) do(ctx context.Context, r *ManagedZone, c 
 	if err != nil {
 		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
-	_ = o // We might not use resp- this will stop Go complaining
+	op.response = o
 
 	if _, err := c.GetManagedZone(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -354,7 +361,7 @@ func (c *Client) getManagedZoneRaw(ctx context.Context, r *ManagedZone) ([]byte,
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -431,14 +438,6 @@ func canonicalizeManagedZoneInitialState(rawInitial, rawDesired *ManagedZone) (*
 
 func canonicalizeManagedZoneDesiredState(rawDesired, rawInitial *ManagedZone, opts ...dcl.ApplyOption) (*ManagedZone, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*ManagedZone); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected ManagedZone, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -449,14 +448,14 @@ func canonicalizeManagedZoneDesiredState(rawDesired, rawInitial *ManagedZone, op
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.IsZeroValue(rawDesired.DnsName) {
+	if dcl.StringCanonicalize(rawDesired.DnsName, rawInitial.DnsName) {
 		rawDesired.DnsName = rawInitial.DnsName
 	}
 	rawDesired.DnssecConfig = canonicalizeManagedZoneDnssecConfig(rawDesired.DnssecConfig, rawInitial.DnssecConfig, opts...)
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
 	if dcl.IsZeroValue(rawDesired.NameServers) {
@@ -486,11 +485,17 @@ func canonicalizeManagedZoneNewState(c *Client, rawNew, rawDesired *ManagedZone)
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.DnsName) && dcl.IsEmptyValueIndirect(rawDesired.DnsName) {
 		rawNew.DnsName = rawDesired.DnsName
 	} else {
+		if dcl.StringCanonicalize(rawDesired.DnsName, rawNew.DnsName) {
+			rawNew.DnsName = rawDesired.DnsName
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.DnssecConfig) && dcl.IsEmptyValueIndirect(rawDesired.DnssecConfig) {
@@ -502,6 +507,9 @@ func canonicalizeManagedZoneNewState(c *Client, rawNew, rawDesired *ManagedZone)
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.NameServers) && dcl.IsEmptyValueIndirect(rawDesired.NameServers) {
@@ -552,16 +560,11 @@ func canonicalizeManagedZoneDnssecConfig(des, initial *ManagedZoneDnssecConfig, 
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*ManagedZone)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Kind) {
+	if dcl.StringCanonicalize(des.Kind, initial.Kind) || dcl.IsZeroValue(des.Kind) {
 		des.Kind = initial.Kind
 	}
 	if dcl.IsZeroValue(des.NonExistence) {
@@ -580,6 +583,10 @@ func canonicalizeManagedZoneDnssecConfig(des, initial *ManagedZoneDnssecConfig, 
 func canonicalizeNewManagedZoneDnssecConfig(c *Client, des, nw *ManagedZoneDnssecConfig) *ManagedZoneDnssecConfig {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
+		nw.Kind = des.Kind
 	}
 
 	return nw
@@ -616,11 +623,6 @@ func canonicalizeManagedZoneDnssecConfigDefaultKeySpecs(des, initial *ManagedZon
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*ManagedZone)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -634,7 +636,7 @@ func canonicalizeManagedZoneDnssecConfigDefaultKeySpecs(des, initial *ManagedZon
 	if dcl.IsZeroValue(des.KeyType) {
 		des.KeyType = initial.KeyType
 	}
-	if dcl.IsZeroValue(des.Kind) {
+	if dcl.StringCanonicalize(des.Kind, initial.Kind) || dcl.IsZeroValue(des.Kind) {
 		des.Kind = initial.Kind
 	}
 
@@ -644,6 +646,10 @@ func canonicalizeManagedZoneDnssecConfigDefaultKeySpecs(des, initial *ManagedZon
 func canonicalizeNewManagedZoneDnssecConfigDefaultKeySpecs(c *Client, des, nw *ManagedZoneDnssecConfigDefaultKeySpecs) *ManagedZoneDnssecConfigDefaultKeySpecs {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
+		nw.Kind = des.Kind
 	}
 
 	return nw
@@ -678,11 +684,6 @@ func canonicalizeManagedZonePrivateVisibilityConfig(des, initial *ManagedZonePri
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*ManagedZone)
-		_ = r
 	}
 
 	if initial == nil {
@@ -733,11 +734,6 @@ func canonicalizeManagedZonePrivateVisibilityConfigNetworks(des, initial *Manage
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*ManagedZone)
-		_ = r
 	}
 
 	if initial == nil {
@@ -794,11 +790,6 @@ func canonicalizeManagedZoneForwardingConfig(des, initial *ManagedZoneForwarding
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*ManagedZone)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -849,16 +840,11 @@ func canonicalizeManagedZoneForwardingConfigTargetNameServers(des, initial *Mana
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*ManagedZone)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.IPv4Address) {
+	if dcl.StringCanonicalize(des.IPv4Address, initial.IPv4Address) || dcl.IsZeroValue(des.IPv4Address) {
 		des.IPv4Address = initial.IPv4Address
 	}
 	if dcl.IsZeroValue(des.ForwardingPath) {
@@ -871,6 +857,10 @@ func canonicalizeManagedZoneForwardingConfigTargetNameServers(des, initial *Mana
 func canonicalizeNewManagedZoneForwardingConfigTargetNameServers(c *Client, des, nw *ManagedZoneForwardingConfigTargetNameServers) *ManagedZoneForwardingConfigTargetNameServers {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.IPv4Address, nw.IPv4Address) || dcl.IsZeroValue(des.IPv4Address) {
+		nw.IPv4Address = des.IPv4Address
 	}
 
 	return nw
@@ -905,11 +895,6 @@ func canonicalizeManagedZonePeeringConfig(des, initial *ManagedZonePeeringConfig
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*ManagedZone)
-		_ = r
 	}
 
 	if initial == nil {
@@ -960,11 +945,6 @@ func canonicalizeManagedZonePeeringConfigTargetNetwork(des, initial *ManagedZone
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*ManagedZone)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1034,7 +1014,7 @@ func diffManagedZone(c *Client, desired, actual *ManagedZone, opts ...dcl.ApplyO
 	}
 
 	var diffs []managedZoneDiff
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, managedZoneDiff{
@@ -1043,7 +1023,7 @@ func diffManagedZone(c *Client, desired, actual *ManagedZone, opts ...dcl.ApplyO
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.DnsName) && (dcl.IsZeroValue(actual.DnsName) || !reflect.DeepEqual(*desired.DnsName, *actual.DnsName)) {
+	if !dcl.IsZeroValue(desired.DnsName) && !dcl.StringCanonicalize(desired.DnsName, actual.DnsName) {
 		c.Config.Logger.Infof("Detected diff in DnsName.\nDESIRED: %v\nACTUAL: %v", desired.DnsName, actual.DnsName)
 		diffs = append(diffs, managedZoneDiff{
 			RequiresRecreate: true,
@@ -1057,14 +1037,14 @@ func diffManagedZone(c *Client, desired, actual *ManagedZone, opts ...dcl.ApplyO
 			FieldName:        "DnssecConfig",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, managedZoneDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
+	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
 		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, managedZoneDiff{
@@ -1073,7 +1053,7 @@ func diffManagedZone(c *Client, desired, actual *ManagedZone, opts ...dcl.ApplyO
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Visibility) && (dcl.IsZeroValue(actual.Visibility) || !reflect.DeepEqual(*desired.Visibility, *actual.Visibility)) {
+	if !reflect.DeepEqual(desired.Visibility, actual.Visibility) {
 		c.Config.Logger.Infof("Detected diff in Visibility.\nDESIRED: %v\nACTUAL: %v", desired.Visibility, actual.Visibility)
 		diffs = append(diffs, managedZoneDiff{
 			RequiresRecreate: true,
@@ -1131,6 +1111,48 @@ func diffManagedZone(c *Client, desired, actual *ManagedZone, opts ...dcl.ApplyO
 
 	return deduped, nil
 }
+func compareManagedZoneDnssecConfig(c *Client, desired, actual *ManagedZoneDnssecConfig) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Kind == nil && desired.Kind != nil && !dcl.IsEmptyValueIndirect(desired.Kind) {
+		c.Config.Logger.Infof("desired Kind %s - but actually nil", dcl.SprintResource(desired.Kind))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Kind, actual.Kind) && !dcl.IsZeroValue(desired.Kind) {
+		c.Config.Logger.Infof("Diff in Kind. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Kind), dcl.SprintResource(actual.Kind))
+		return true
+	}
+	if actual.NonExistence == nil && desired.NonExistence != nil && !dcl.IsEmptyValueIndirect(desired.NonExistence) {
+		c.Config.Logger.Infof("desired NonExistence %s - but actually nil", dcl.SprintResource(desired.NonExistence))
+		return true
+	}
+	if !reflect.DeepEqual(desired.NonExistence, actual.NonExistence) && !dcl.IsZeroValue(desired.NonExistence) {
+		c.Config.Logger.Infof("Diff in NonExistence. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NonExistence), dcl.SprintResource(actual.NonExistence))
+		return true
+	}
+	if actual.State == nil && desired.State != nil && !dcl.IsEmptyValueIndirect(desired.State) {
+		c.Config.Logger.Infof("desired State %s - but actually nil", dcl.SprintResource(desired.State))
+		return true
+	}
+	if !reflect.DeepEqual(desired.State, actual.State) && !dcl.IsZeroValue(desired.State) {
+		c.Config.Logger.Infof("Diff in State. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.State), dcl.SprintResource(actual.State))
+		return true
+	}
+	if actual.DefaultKeySpecs == nil && desired.DefaultKeySpecs != nil && !dcl.IsEmptyValueIndirect(desired.DefaultKeySpecs) {
+		c.Config.Logger.Infof("desired DefaultKeySpecs %s - but actually nil", dcl.SprintResource(desired.DefaultKeySpecs))
+		return true
+	}
+	if compareManagedZoneDnssecConfigDefaultKeySpecsSlice(c, desired.DefaultKeySpecs, actual.DefaultKeySpecs) && !dcl.IsZeroValue(desired.DefaultKeySpecs) {
+		c.Config.Logger.Infof("Diff in DefaultKeySpecs. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DefaultKeySpecs), dcl.SprintResource(actual.DefaultKeySpecs))
+		return true
+	}
+	return false
+}
+
 func compareManagedZoneDnssecConfigSlice(c *Client, desired, actual []ManagedZoneDnssecConfig) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in ManagedZoneDnssecConfig, lengths unequal.")
@@ -1145,55 +1167,19 @@ func compareManagedZoneDnssecConfigSlice(c *Client, desired, actual []ManagedZon
 	return false
 }
 
-func compareManagedZoneDnssecConfig(c *Client, desired, actual *ManagedZoneDnssecConfig) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Kind == nil && desired.Kind != nil && !dcl.IsEmptyValueIndirect(desired.Kind) {
-		c.Config.Logger.Infof("desired Kind %s - but actually nil", dcl.SprintResource(desired.Kind))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Kind, actual.Kind) && !dcl.IsZeroValue(desired.Kind) && !(dcl.IsEmptyValueIndirect(desired.Kind) && dcl.IsZeroValue(actual.Kind)) {
-		c.Config.Logger.Infof("Diff in Kind. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Kind), dcl.SprintResource(actual.Kind))
-		return true
-	}
-	if actual.NonExistence == nil && desired.NonExistence != nil && !dcl.IsEmptyValueIndirect(desired.NonExistence) {
-		c.Config.Logger.Infof("desired NonExistence %s - but actually nil", dcl.SprintResource(desired.NonExistence))
-		return true
-	}
-	if !reflect.DeepEqual(desired.NonExistence, actual.NonExistence) && !dcl.IsZeroValue(desired.NonExistence) && !(dcl.IsEmptyValueIndirect(desired.NonExistence) && dcl.IsZeroValue(actual.NonExistence)) {
-		c.Config.Logger.Infof("Diff in NonExistence. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NonExistence), dcl.SprintResource(actual.NonExistence))
-		return true
-	}
-	if actual.State == nil && desired.State != nil && !dcl.IsEmptyValueIndirect(desired.State) {
-		c.Config.Logger.Infof("desired State %s - but actually nil", dcl.SprintResource(desired.State))
-		return true
-	}
-	if !reflect.DeepEqual(desired.State, actual.State) && !dcl.IsZeroValue(desired.State) && !(dcl.IsEmptyValueIndirect(desired.State) && dcl.IsZeroValue(actual.State)) {
-		c.Config.Logger.Infof("Diff in State. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.State), dcl.SprintResource(actual.State))
-		return true
-	}
-	if actual.DefaultKeySpecs == nil && desired.DefaultKeySpecs != nil && !dcl.IsEmptyValueIndirect(desired.DefaultKeySpecs) {
-		c.Config.Logger.Infof("desired DefaultKeySpecs %s - but actually nil", dcl.SprintResource(desired.DefaultKeySpecs))
-		return true
-	}
-	if compareManagedZoneDnssecConfigDefaultKeySpecsSlice(c, desired.DefaultKeySpecs, actual.DefaultKeySpecs) && !dcl.IsZeroValue(desired.DefaultKeySpecs) {
-		c.Config.Logger.Infof("Diff in DefaultKeySpecs. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DefaultKeySpecs), dcl.SprintResource(actual.DefaultKeySpecs))
-		return true
-	}
-	return false
-}
-func compareManagedZoneDnssecConfigDefaultKeySpecsSlice(c *Client, desired, actual []ManagedZoneDnssecConfigDefaultKeySpecs) bool {
+func compareManagedZoneDnssecConfigMap(c *Client, desired, actual map[string]ManagedZoneDnssecConfig) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ManagedZoneDnssecConfigDefaultKeySpecs, lengths unequal.")
+		c.Config.Logger.Info("Diff in ManagedZoneDnssecConfig, lengths unequal.")
 		return true
 	}
-	for i := 0; i < len(desired); i++ {
-		if compareManagedZoneDnssecConfigDefaultKeySpecs(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ManagedZoneDnssecConfigDefaultKeySpecs, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in ManagedZoneDnssecConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareManagedZoneDnssecConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in ManagedZoneDnssecConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1211,7 +1197,7 @@ func compareManagedZoneDnssecConfigDefaultKeySpecs(c *Client, desired, actual *M
 		c.Config.Logger.Infof("desired Algorithm %s - but actually nil", dcl.SprintResource(desired.Algorithm))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Algorithm, actual.Algorithm) && !dcl.IsZeroValue(desired.Algorithm) && !(dcl.IsEmptyValueIndirect(desired.Algorithm) && dcl.IsZeroValue(actual.Algorithm)) {
+	if !reflect.DeepEqual(desired.Algorithm, actual.Algorithm) && !dcl.IsZeroValue(desired.Algorithm) {
 		c.Config.Logger.Infof("Diff in Algorithm. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Algorithm), dcl.SprintResource(actual.Algorithm))
 		return true
 	}
@@ -1219,7 +1205,7 @@ func compareManagedZoneDnssecConfigDefaultKeySpecs(c *Client, desired, actual *M
 		c.Config.Logger.Infof("desired KeyLength %s - but actually nil", dcl.SprintResource(desired.KeyLength))
 		return true
 	}
-	if !reflect.DeepEqual(desired.KeyLength, actual.KeyLength) && !dcl.IsZeroValue(desired.KeyLength) && !(dcl.IsEmptyValueIndirect(desired.KeyLength) && dcl.IsZeroValue(actual.KeyLength)) {
+	if !reflect.DeepEqual(desired.KeyLength, actual.KeyLength) && !dcl.IsZeroValue(desired.KeyLength) {
 		c.Config.Logger.Infof("Diff in KeyLength. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KeyLength), dcl.SprintResource(actual.KeyLength))
 		return true
 	}
@@ -1227,7 +1213,7 @@ func compareManagedZoneDnssecConfigDefaultKeySpecs(c *Client, desired, actual *M
 		c.Config.Logger.Infof("desired KeyType %s - but actually nil", dcl.SprintResource(desired.KeyType))
 		return true
 	}
-	if !reflect.DeepEqual(desired.KeyType, actual.KeyType) && !dcl.IsZeroValue(desired.KeyType) && !(dcl.IsEmptyValueIndirect(desired.KeyType) && dcl.IsZeroValue(actual.KeyType)) {
+	if !reflect.DeepEqual(desired.KeyType, actual.KeyType) && !dcl.IsZeroValue(desired.KeyType) {
 		c.Config.Logger.Infof("Diff in KeyType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KeyType), dcl.SprintResource(actual.KeyType))
 		return true
 	}
@@ -1235,20 +1221,40 @@ func compareManagedZoneDnssecConfigDefaultKeySpecs(c *Client, desired, actual *M
 		c.Config.Logger.Infof("desired Kind %s - but actually nil", dcl.SprintResource(desired.Kind))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Kind, actual.Kind) && !dcl.IsZeroValue(desired.Kind) && !(dcl.IsEmptyValueIndirect(desired.Kind) && dcl.IsZeroValue(actual.Kind)) {
+	if !dcl.StringCanonicalize(desired.Kind, actual.Kind) && !dcl.IsZeroValue(desired.Kind) {
 		c.Config.Logger.Infof("Diff in Kind. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Kind), dcl.SprintResource(actual.Kind))
 		return true
 	}
 	return false
 }
-func compareManagedZonePrivateVisibilityConfigSlice(c *Client, desired, actual []ManagedZonePrivateVisibilityConfig) bool {
+
+func compareManagedZoneDnssecConfigDefaultKeySpecsSlice(c *Client, desired, actual []ManagedZoneDnssecConfigDefaultKeySpecs) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ManagedZonePrivateVisibilityConfig, lengths unequal.")
+		c.Config.Logger.Info("Diff in ManagedZoneDnssecConfigDefaultKeySpecs, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareManagedZonePrivateVisibilityConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ManagedZonePrivateVisibilityConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareManagedZoneDnssecConfigDefaultKeySpecs(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ManagedZoneDnssecConfigDefaultKeySpecs, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareManagedZoneDnssecConfigDefaultKeySpecsMap(c *Client, desired, actual map[string]ManagedZoneDnssecConfigDefaultKeySpecs) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ManagedZoneDnssecConfigDefaultKeySpecs, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in ManagedZoneDnssecConfigDefaultKeySpecs, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareManagedZoneDnssecConfigDefaultKeySpecs(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in ManagedZoneDnssecConfigDefaultKeySpecs, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1272,14 +1278,34 @@ func compareManagedZonePrivateVisibilityConfig(c *Client, desired, actual *Manag
 	}
 	return false
 }
-func compareManagedZonePrivateVisibilityConfigNetworksSlice(c *Client, desired, actual []ManagedZonePrivateVisibilityConfigNetworks) bool {
+
+func compareManagedZonePrivateVisibilityConfigSlice(c *Client, desired, actual []ManagedZonePrivateVisibilityConfig) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ManagedZonePrivateVisibilityConfigNetworks, lengths unequal.")
+		c.Config.Logger.Info("Diff in ManagedZonePrivateVisibilityConfig, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareManagedZonePrivateVisibilityConfigNetworks(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ManagedZonePrivateVisibilityConfigNetworks, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareManagedZonePrivateVisibilityConfig(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ManagedZonePrivateVisibilityConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareManagedZonePrivateVisibilityConfigMap(c *Client, desired, actual map[string]ManagedZonePrivateVisibilityConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ManagedZonePrivateVisibilityConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in ManagedZonePrivateVisibilityConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareManagedZonePrivateVisibilityConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in ManagedZonePrivateVisibilityConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1303,14 +1329,34 @@ func compareManagedZonePrivateVisibilityConfigNetworks(c *Client, desired, actua
 	}
 	return false
 }
-func compareManagedZoneForwardingConfigSlice(c *Client, desired, actual []ManagedZoneForwardingConfig) bool {
+
+func compareManagedZonePrivateVisibilityConfigNetworksSlice(c *Client, desired, actual []ManagedZonePrivateVisibilityConfigNetworks) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ManagedZoneForwardingConfig, lengths unequal.")
+		c.Config.Logger.Info("Diff in ManagedZonePrivateVisibilityConfigNetworks, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareManagedZoneForwardingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ManagedZoneForwardingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareManagedZonePrivateVisibilityConfigNetworks(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ManagedZonePrivateVisibilityConfigNetworks, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareManagedZonePrivateVisibilityConfigNetworksMap(c *Client, desired, actual map[string]ManagedZonePrivateVisibilityConfigNetworks) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ManagedZonePrivateVisibilityConfigNetworks, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in ManagedZonePrivateVisibilityConfigNetworks, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareManagedZonePrivateVisibilityConfigNetworks(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in ManagedZonePrivateVisibilityConfigNetworks, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1334,14 +1380,34 @@ func compareManagedZoneForwardingConfig(c *Client, desired, actual *ManagedZoneF
 	}
 	return false
 }
-func compareManagedZoneForwardingConfigTargetNameServersSlice(c *Client, desired, actual []ManagedZoneForwardingConfigTargetNameServers) bool {
+
+func compareManagedZoneForwardingConfigSlice(c *Client, desired, actual []ManagedZoneForwardingConfig) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ManagedZoneForwardingConfigTargetNameServers, lengths unequal.")
+		c.Config.Logger.Info("Diff in ManagedZoneForwardingConfig, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareManagedZoneForwardingConfigTargetNameServers(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ManagedZoneForwardingConfigTargetNameServers, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareManagedZoneForwardingConfig(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ManagedZoneForwardingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareManagedZoneForwardingConfigMap(c *Client, desired, actual map[string]ManagedZoneForwardingConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ManagedZoneForwardingConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in ManagedZoneForwardingConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareManagedZoneForwardingConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in ManagedZoneForwardingConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1359,7 +1425,7 @@ func compareManagedZoneForwardingConfigTargetNameServers(c *Client, desired, act
 		c.Config.Logger.Infof("desired IPv4Address %s - but actually nil", dcl.SprintResource(desired.IPv4Address))
 		return true
 	}
-	if !reflect.DeepEqual(desired.IPv4Address, actual.IPv4Address) && !dcl.IsZeroValue(desired.IPv4Address) && !(dcl.IsEmptyValueIndirect(desired.IPv4Address) && dcl.IsZeroValue(actual.IPv4Address)) {
+	if !dcl.StringCanonicalize(desired.IPv4Address, actual.IPv4Address) && !dcl.IsZeroValue(desired.IPv4Address) {
 		c.Config.Logger.Infof("Diff in IPv4Address. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IPv4Address), dcl.SprintResource(actual.IPv4Address))
 		return true
 	}
@@ -1367,20 +1433,40 @@ func compareManagedZoneForwardingConfigTargetNameServers(c *Client, desired, act
 		c.Config.Logger.Infof("desired ForwardingPath %s - but actually nil", dcl.SprintResource(desired.ForwardingPath))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ForwardingPath, actual.ForwardingPath) && !dcl.IsZeroValue(desired.ForwardingPath) && !(dcl.IsEmptyValueIndirect(desired.ForwardingPath) && dcl.IsZeroValue(actual.ForwardingPath)) {
+	if !reflect.DeepEqual(desired.ForwardingPath, actual.ForwardingPath) && !dcl.IsZeroValue(desired.ForwardingPath) {
 		c.Config.Logger.Infof("Diff in ForwardingPath. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ForwardingPath), dcl.SprintResource(actual.ForwardingPath))
 		return true
 	}
 	return false
 }
-func compareManagedZonePeeringConfigSlice(c *Client, desired, actual []ManagedZonePeeringConfig) bool {
+
+func compareManagedZoneForwardingConfigTargetNameServersSlice(c *Client, desired, actual []ManagedZoneForwardingConfigTargetNameServers) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ManagedZonePeeringConfig, lengths unequal.")
+		c.Config.Logger.Info("Diff in ManagedZoneForwardingConfigTargetNameServers, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareManagedZonePeeringConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ManagedZonePeeringConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareManagedZoneForwardingConfigTargetNameServers(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ManagedZoneForwardingConfigTargetNameServers, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareManagedZoneForwardingConfigTargetNameServersMap(c *Client, desired, actual map[string]ManagedZoneForwardingConfigTargetNameServers) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ManagedZoneForwardingConfigTargetNameServers, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in ManagedZoneForwardingConfigTargetNameServers, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareManagedZoneForwardingConfigTargetNameServers(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in ManagedZoneForwardingConfigTargetNameServers, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1404,14 +1490,34 @@ func compareManagedZonePeeringConfig(c *Client, desired, actual *ManagedZonePeer
 	}
 	return false
 }
-func compareManagedZonePeeringConfigTargetNetworkSlice(c *Client, desired, actual []ManagedZonePeeringConfigTargetNetwork) bool {
+
+func compareManagedZonePeeringConfigSlice(c *Client, desired, actual []ManagedZonePeeringConfig) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ManagedZonePeeringConfigTargetNetwork, lengths unequal.")
+		c.Config.Logger.Info("Diff in ManagedZonePeeringConfig, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareManagedZonePeeringConfigTargetNetwork(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ManagedZonePeeringConfigTargetNetwork, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareManagedZonePeeringConfig(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ManagedZonePeeringConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareManagedZonePeeringConfigMap(c *Client, desired, actual map[string]ManagedZonePeeringConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ManagedZonePeeringConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in ManagedZonePeeringConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareManagedZonePeeringConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in ManagedZonePeeringConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1435,6 +1541,40 @@ func compareManagedZonePeeringConfigTargetNetwork(c *Client, desired, actual *Ma
 	}
 	return false
 }
+
+func compareManagedZonePeeringConfigTargetNetworkSlice(c *Client, desired, actual []ManagedZonePeeringConfigTargetNetwork) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ManagedZonePeeringConfigTargetNetwork, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareManagedZonePeeringConfigTargetNetwork(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in ManagedZonePeeringConfigTargetNetwork, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareManagedZonePeeringConfigTargetNetworkMap(c *Client, desired, actual map[string]ManagedZonePeeringConfigTargetNetwork) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in ManagedZonePeeringConfigTargetNetwork, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in ManagedZonePeeringConfigTargetNetwork, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareManagedZonePeeringConfigTargetNetwork(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in ManagedZonePeeringConfigTargetNetwork, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
 func compareManagedZoneDnssecConfigNonExistenceEnumSlice(c *Client, desired, actual []ManagedZoneDnssecConfigNonExistenceEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in ManagedZoneDnssecConfigNonExistenceEnum, lengths unequal.")
@@ -1548,6 +1688,9 @@ func compareManagedZoneForwardingConfigTargetNameServersForwardingPathEnum(c *Cl
 // short-form so they can be substituted in.
 func (r *ManagedZone) urlNormalized() *ManagedZone {
 	normalized := deepcopy.Copy(*r).(ManagedZone)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.DnsName = dcl.SelfLinkToName(r.DnsName)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -1598,6 +1741,10 @@ func unmarshalManagedZone(b []byte, c *Client) (*ManagedZone, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapManagedZone(m, c)
+}
+
+func unmarshalMapManagedZone(m map[string]interface{}, c *Client) (*ManagedZone, error) {
 
 	return flattenManagedZone(c, m), nil
 }
@@ -2615,7 +2762,7 @@ func flattenManagedZoneDnssecConfigNonExistenceEnumSlice(c *Client, i interface{
 
 	items := make([]ManagedZoneDnssecConfigNonExistenceEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenManagedZoneDnssecConfigNonExistenceEnum(item.(map[string]interface{})))
+		items = append(items, *flattenManagedZoneDnssecConfigNonExistenceEnum(item.(interface{})))
 	}
 
 	return items
@@ -2646,7 +2793,7 @@ func flattenManagedZoneDnssecConfigStateEnumSlice(c *Client, i interface{}) []Ma
 
 	items := make([]ManagedZoneDnssecConfigStateEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenManagedZoneDnssecConfigStateEnum(item.(map[string]interface{})))
+		items = append(items, *flattenManagedZoneDnssecConfigStateEnum(item.(interface{})))
 	}
 
 	return items
@@ -2677,7 +2824,7 @@ func flattenManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnumSlice(c *Client, 
 
 	items := make([]ManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnum(item.(map[string]interface{})))
+		items = append(items, *flattenManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnum(item.(interface{})))
 	}
 
 	return items
@@ -2708,7 +2855,7 @@ func flattenManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnumSlice(c *Client, i 
 
 	items := make([]ManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnum(item.(interface{})))
 	}
 
 	return items
@@ -2739,7 +2886,7 @@ func flattenManagedZoneVisibilityEnumSlice(c *Client, i interface{}) []ManagedZo
 
 	items := make([]ManagedZoneVisibilityEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenManagedZoneVisibilityEnum(item.(map[string]interface{})))
+		items = append(items, *flattenManagedZoneVisibilityEnum(item.(interface{})))
 	}
 
 	return items
@@ -2770,7 +2917,7 @@ func flattenManagedZoneForwardingConfigTargetNameServersForwardingPathEnumSlice(
 
 	items := make([]ManagedZoneForwardingConfigTargetNameServersForwardingPathEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenManagedZoneForwardingConfigTargetNameServersForwardingPathEnum(item.(map[string]interface{})))
+		items = append(items, *flattenManagedZoneForwardingConfigTargetNameServersForwardingPathEnum(item.(interface{})))
 	}
 
 	return items

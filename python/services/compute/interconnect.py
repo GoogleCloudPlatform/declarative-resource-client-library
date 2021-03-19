@@ -136,14 +136,47 @@ class Interconnect(object):
         self.state = InterconnectStateEnum.from_proto(response.state)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = interconnect_pb2_grpc.ComputeInterconnectServiceStub(channel.Channel())
         request = interconnect_pb2.DeleteComputeInterconnectRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
 
-        request.Name = name
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
+
+        if InterconnectLinkTypeEnum.to_proto(self.link_type):
+            request.resource.link_type = InterconnectLinkTypeEnum.to_proto(
+                self.link_type
+            )
+
+        if Primitive.to_proto(self.requested_link_count):
+            request.resource.requested_link_count = Primitive.to_proto(
+                self.requested_link_count
+            )
+
+        if InterconnectInterconnectTypeEnum.to_proto(self.interconnect_type):
+            request.resource.interconnect_type = InterconnectInterconnectTypeEnum.to_proto(
+                self.interconnect_type
+            )
+
+        if Primitive.to_proto(self.admin_enabled):
+            request.resource.admin_enabled = Primitive.to_proto(self.admin_enabled)
+
+        if Primitive.to_proto(self.noc_contact_email):
+            request.resource.noc_contact_email = Primitive.to_proto(
+                self.noc_contact_email
+            )
+
+        if Primitive.to_proto(self.customer_name):
+            request.resource.customer_name = Primitive.to_proto(self.customer_name)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteComputeInterconnect(request)
 
@@ -197,6 +230,34 @@ class Interconnect(object):
         res.state = InterconnectStateEnum.from_proto(res_proto.state)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = interconnect_pb2.ComputeInterconnect()
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
+        if InterconnectLinkTypeEnum.to_proto(self.link_type):
+            resource.link_type = InterconnectLinkTypeEnum.to_proto(self.link_type)
+        if Primitive.to_proto(self.requested_link_count):
+            resource.requested_link_count = Primitive.to_proto(
+                self.requested_link_count
+            )
+        if InterconnectInterconnectTypeEnum.to_proto(self.interconnect_type):
+            resource.interconnect_type = InterconnectInterconnectTypeEnum.to_proto(
+                self.interconnect_type
+            )
+        if Primitive.to_proto(self.admin_enabled):
+            resource.admin_enabled = Primitive.to_proto(self.admin_enabled)
+        if Primitive.to_proto(self.noc_contact_email):
+            resource.noc_contact_email = Primitive.to_proto(self.noc_contact_email)
+        if Primitive.to_proto(self.customer_name):
+            resource.customer_name = Primitive.to_proto(self.customer_name)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class InterconnectExpectedOutages(object):

@@ -66,16 +66,24 @@ class Database(object):
         self.project = Primitive.from_proto(response.project)
         self.self_link = Primitive.from_proto(response.self_link)
 
-    @classmethod
-    def delete(self, project, instance, name, service_account_file=""):
+    def delete(self):
         stub = database_pb2_grpc.SqlBetaDatabaseServiceStub(channel.Channel())
         request = database_pb2.DeleteSqlBetaDatabaseRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.charset):
+            request.resource.charset = Primitive.to_proto(self.charset)
 
-        request.Instance = instance
+        if Primitive.to_proto(self.collation):
+            request.resource.collation = Primitive.to_proto(self.collation)
 
-        request.Name = name
+        if Primitive.to_proto(self.instance):
+            request.resource.instance = Primitive.to_proto(self.instance)
+
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteSqlBetaDatabase(request)
 
@@ -104,6 +112,20 @@ class Database(object):
         res.project = Primitive.from_proto(res_proto.project)
         res.self_link = Primitive.from_proto(res_proto.self_link)
         return res
+
+    def to_proto(self):
+        resource = database_pb2.SqlBetaDatabase()
+        if Primitive.to_proto(self.charset):
+            resource.charset = Primitive.to_proto(self.charset)
+        if Primitive.to_proto(self.collation):
+            resource.collation = Primitive.to_proto(self.collation)
+        if Primitive.to_proto(self.instance):
+            resource.instance = Primitive.to_proto(self.instance)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class Primitive(object):

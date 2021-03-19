@@ -41,7 +41,7 @@ func (op *DNSOperation) Wait(ctx context.Context, c *dcl.Config, project, manage
 	op.ManagedZone = managedZone
 	op.Project = project
 
-	return dcl.Do(ctx, op.operate, c.Retry)
+	return dcl.Do(ctx, op.operate, c.RetryProvider)
 }
 
 func (op *DNSOperation) operate(ctx context.Context) (*dcl.RetryDetails, error) {
@@ -60,4 +60,10 @@ func (op *DNSOperation) operate(ctx context.Context) (*dcl.RetryDetails, error) 
 		return nil, dcl.OperationNotDone{}
 	}
 	return resp, nil
+}
+
+// FirstResponse returns the first response that this operation receives with the resource.
+// This response may contain special information.
+func (op *DNSOperation) FirstResponse() (map[string]interface{}, bool) {
+	return make(map[string]interface{}), false
 }

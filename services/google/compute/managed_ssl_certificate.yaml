@@ -43,9 +43,6 @@ components:
                 type: string
               description: Detailed statuses of the domains specified for managed
                 certificate resource.
-              items:
-                type: string
-                x-dcl-go-type: string
               readOnly: true
               type: object
               x-dcl-go-name: DomainStatus
@@ -91,6 +88,10 @@ components:
           description: The project for the resource
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         selfLink:
           description: Server-defined URL for the resource.

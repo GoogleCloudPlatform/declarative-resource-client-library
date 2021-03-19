@@ -88,6 +88,10 @@ components:
           description: The project for this target pool.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         region:
           description: '[Output Only] URL of the region where the target pool resides.'

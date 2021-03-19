@@ -167,7 +167,7 @@ func (op *updateAccessLevelUpdateOperation) do(ctx context.Context, r *AccessLev
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -204,7 +204,7 @@ func (c *Client) listAccessLevelRaw(ctx context.Context, policy, pageToken strin
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -278,7 +278,7 @@ func (op *deleteAccessLevelOperation) do(ctx context.Context, r *AccessLevel, c 
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -301,7 +301,13 @@ func (op *deleteAccessLevelOperation) do(ctx context.Context, r *AccessLevel, c 
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createAccessLevelOperation struct{}
+type createAccessLevelOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createAccessLevelOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createAccessLevelOperation) do(ctx context.Context, r *AccessLevel, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -317,7 +323,7 @@ func (op *createAccessLevelOperation) do(ctx context.Context, r *AccessLevel, c 
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -331,8 +337,10 @@ func (op *createAccessLevelOperation) do(ctx context.Context, r *AccessLevel, c 
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetAccessLevel(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -345,7 +353,7 @@ func (c *Client) getAccessLevelRaw(ctx context.Context, r *AccessLevel) ([]byte,
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -422,14 +430,6 @@ func canonicalizeAccessLevelInitialState(rawInitial, rawDesired *AccessLevel) (*
 
 func canonicalizeAccessLevelDesiredState(rawDesired, rawInitial *AccessLevel, opts ...dcl.ApplyOption) (*AccessLevel, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*AccessLevel); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected AccessLevel, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -437,7 +437,7 @@ func canonicalizeAccessLevelDesiredState(rawDesired, rawInitial *AccessLevel, op
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Title) {
+	if dcl.StringCanonicalize(rawDesired.Title, rawInitial.Title) {
 		rawDesired.Title = rawInitial.Title
 	}
 	if dcl.IsZeroValue(rawDesired.CreateTime) {
@@ -446,7 +446,7 @@ func canonicalizeAccessLevelDesiredState(rawDesired, rawInitial *AccessLevel, op
 	if dcl.IsZeroValue(rawDesired.UpdateTime) {
 		rawDesired.UpdateTime = rawInitial.UpdateTime
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
 	rawDesired.Basic = canonicalizeAccessLevelBasic(rawDesired.Basic, rawInitial.Basic, opts...)
@@ -465,6 +465,9 @@ func canonicalizeAccessLevelNewState(c *Client, rawNew, rawDesired *AccessLevel)
 	if dcl.IsEmptyValueIndirect(rawNew.Title) && dcl.IsEmptyValueIndirect(rawDesired.Title) {
 		rawNew.Title = rawDesired.Title
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Title, rawNew.Title) {
+			rawNew.Title = rawDesired.Title
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
@@ -480,6 +483,9 @@ func canonicalizeAccessLevelNewState(c *Client, rawNew, rawDesired *AccessLevel)
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Basic) && dcl.IsEmptyValueIndirect(rawDesired.Basic) {
@@ -511,11 +517,6 @@ func canonicalizeAccessLevelBasic(des, initial *AccessLevelBasic, opts ...dcl.Ap
 
 	if dcl.IsZeroValue(des.CombiningFunction) {
 		des.CombiningFunction = AccessLevelBasicCombiningFunctionEnumRef("AND")
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*AccessLevel)
-		_ = r
 	}
 
 	if initial == nil {
@@ -573,11 +574,6 @@ func canonicalizeAccessLevelBasicConditions(des, initial *AccessLevelBasicCondit
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*AccessLevel)
-		_ = r
 	}
 
 	if initial == nil {
@@ -645,11 +641,6 @@ func canonicalizeAccessLevelBasicConditionsDevicePolicy(des, initial *AccessLeve
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*AccessLevel)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -715,16 +706,11 @@ func canonicalizeAccessLevelBasicConditionsDevicePolicyOsConstraints(des, initia
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*AccessLevel)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.MinimumVersion) {
+	if dcl.StringCanonicalize(des.MinimumVersion, initial.MinimumVersion) || dcl.IsZeroValue(des.MinimumVersion) {
 		des.MinimumVersion = initial.MinimumVersion
 	}
 	if dcl.IsZeroValue(des.OsType) {
@@ -740,6 +726,10 @@ func canonicalizeAccessLevelBasicConditionsDevicePolicyOsConstraints(des, initia
 func canonicalizeNewAccessLevelBasicConditionsDevicePolicyOsConstraints(c *Client, des, nw *AccessLevelBasicConditionsDevicePolicyOsConstraints) *AccessLevelBasicConditionsDevicePolicyOsConstraints {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.MinimumVersion, nw.MinimumVersion) || dcl.IsZeroValue(des.MinimumVersion) {
+		nw.MinimumVersion = des.MinimumVersion
 	}
 
 	return nw
@@ -789,7 +779,7 @@ func diffAccessLevel(c *Client, desired, actual *AccessLevel, opts ...dcl.ApplyO
 	}
 
 	var diffs []accessLevelDiff
-	if !dcl.IsZeroValue(desired.Title) && (dcl.IsZeroValue(actual.Title) || !reflect.DeepEqual(*desired.Title, *actual.Title)) {
+	if !dcl.IsZeroValue(desired.Title) && !dcl.StringCanonicalize(desired.Title, actual.Title) {
 		c.Config.Logger.Infof("Detected diff in Title.\nDESIRED: %v\nACTUAL: %v", desired.Title, actual.Title)
 
 		diffs = append(diffs, accessLevelDiff{
@@ -798,21 +788,21 @@ func diffAccessLevel(c *Client, desired, actual *AccessLevel, opts ...dcl.ApplyO
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.CreateTime) && (dcl.IsZeroValue(actual.CreateTime) || !reflect.DeepEqual(*desired.CreateTime, *actual.CreateTime)) {
+	if !reflect.DeepEqual(desired.CreateTime, actual.CreateTime) {
 		c.Config.Logger.Infof("Detected diff in CreateTime.\nDESIRED: %v\nACTUAL: %v", desired.CreateTime, actual.CreateTime)
 		diffs = append(diffs, accessLevelDiff{
 			RequiresRecreate: true,
 			FieldName:        "CreateTime",
 		})
 	}
-	if !dcl.IsZeroValue(desired.UpdateTime) && (dcl.IsZeroValue(actual.UpdateTime) || !reflect.DeepEqual(*desired.UpdateTime, *actual.UpdateTime)) {
+	if !reflect.DeepEqual(desired.UpdateTime, actual.UpdateTime) {
 		c.Config.Logger.Infof("Detected diff in UpdateTime.\nDESIRED: %v\nACTUAL: %v", desired.UpdateTime, actual.UpdateTime)
 		diffs = append(diffs, accessLevelDiff{
 			RequiresRecreate: true,
 			FieldName:        "UpdateTime",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, accessLevelDiff{
@@ -863,6 +853,32 @@ func diffAccessLevel(c *Client, desired, actual *AccessLevel, opts ...dcl.ApplyO
 
 	return deduped, nil
 }
+func compareAccessLevelBasic(c *Client, desired, actual *AccessLevelBasic) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.CombiningFunction == nil && desired.CombiningFunction != nil && !dcl.IsEmptyValueIndirect(desired.CombiningFunction) {
+		c.Config.Logger.Infof("desired CombiningFunction %s - but actually nil", dcl.SprintResource(desired.CombiningFunction))
+		return true
+	}
+	if !reflect.DeepEqual(desired.CombiningFunction, actual.CombiningFunction) && !dcl.IsZeroValue(desired.CombiningFunction) {
+		c.Config.Logger.Infof("Diff in CombiningFunction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CombiningFunction), dcl.SprintResource(actual.CombiningFunction))
+		return true
+	}
+	if actual.Conditions == nil && desired.Conditions != nil && !dcl.IsEmptyValueIndirect(desired.Conditions) {
+		c.Config.Logger.Infof("desired Conditions %s - but actually nil", dcl.SprintResource(desired.Conditions))
+		return true
+	}
+	if compareAccessLevelBasicConditionsSlice(c, desired.Conditions, actual.Conditions) && !dcl.IsZeroValue(desired.Conditions) {
+		c.Config.Logger.Infof("Diff in Conditions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Conditions), dcl.SprintResource(actual.Conditions))
+		return true
+	}
+	return false
+}
+
 func compareAccessLevelBasicSlice(c *Client, desired, actual []AccessLevelBasic) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in AccessLevelBasic, lengths unequal.")
@@ -877,39 +893,19 @@ func compareAccessLevelBasicSlice(c *Client, desired, actual []AccessLevelBasic)
 	return false
 }
 
-func compareAccessLevelBasic(c *Client, desired, actual *AccessLevelBasic) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.CombiningFunction == nil && desired.CombiningFunction != nil && !dcl.IsEmptyValueIndirect(desired.CombiningFunction) {
-		c.Config.Logger.Infof("desired CombiningFunction %s - but actually nil", dcl.SprintResource(desired.CombiningFunction))
-		return true
-	}
-	if !reflect.DeepEqual(desired.CombiningFunction, actual.CombiningFunction) && !dcl.IsZeroValue(desired.CombiningFunction) && !(dcl.IsEmptyValueIndirect(desired.CombiningFunction) && dcl.IsZeroValue(actual.CombiningFunction)) {
-		c.Config.Logger.Infof("Diff in CombiningFunction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CombiningFunction), dcl.SprintResource(actual.CombiningFunction))
-		return true
-	}
-	if actual.Conditions == nil && desired.Conditions != nil && !dcl.IsEmptyValueIndirect(desired.Conditions) {
-		c.Config.Logger.Infof("desired Conditions %s - but actually nil", dcl.SprintResource(desired.Conditions))
-		return true
-	}
-	if compareAccessLevelBasicConditionsSlice(c, desired.Conditions, actual.Conditions) && !dcl.IsZeroValue(desired.Conditions) {
-		c.Config.Logger.Infof("Diff in Conditions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Conditions), dcl.SprintResource(actual.Conditions))
-		return true
-	}
-	return false
-}
-func compareAccessLevelBasicConditionsSlice(c *Client, desired, actual []AccessLevelBasicConditions) bool {
+func compareAccessLevelBasicMap(c *Client, desired, actual map[string]AccessLevelBasic) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AccessLevelBasicConditions, lengths unequal.")
+		c.Config.Logger.Info("Diff in AccessLevelBasic, lengths unequal.")
 		return true
 	}
-	for i := 0; i < len(desired); i++ {
-		if compareAccessLevelBasicConditions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AccessLevelBasicConditions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in AccessLevelBasic, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareAccessLevelBasic(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in AccessLevelBasic, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -927,7 +923,7 @@ func compareAccessLevelBasicConditions(c *Client, desired, actual *AccessLevelBa
 		c.Config.Logger.Infof("desired Regions %s - but actually nil", dcl.SprintResource(desired.Regions))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Regions, actual.Regions) && !dcl.IsZeroValue(desired.Regions) {
+	if !dcl.StringSliceEquals(desired.Regions, actual.Regions) && !dcl.IsZeroValue(desired.Regions) {
 		c.Config.Logger.Infof("Diff in Regions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Regions), dcl.SprintResource(actual.Regions))
 		return true
 	}
@@ -935,7 +931,7 @@ func compareAccessLevelBasicConditions(c *Client, desired, actual *AccessLevelBa
 		c.Config.Logger.Infof("desired IPSubnetworks %s - but actually nil", dcl.SprintResource(desired.IPSubnetworks))
 		return true
 	}
-	if !dcl.SliceEquals(desired.IPSubnetworks, actual.IPSubnetworks) && !dcl.IsZeroValue(desired.IPSubnetworks) {
+	if !dcl.StringSliceEquals(desired.IPSubnetworks, actual.IPSubnetworks) && !dcl.IsZeroValue(desired.IPSubnetworks) {
 		c.Config.Logger.Infof("Diff in IPSubnetworks. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IPSubnetworks), dcl.SprintResource(actual.IPSubnetworks))
 		return true
 	}
@@ -943,7 +939,7 @@ func compareAccessLevelBasicConditions(c *Client, desired, actual *AccessLevelBa
 		c.Config.Logger.Infof("desired RequiredAccessLevels %s - but actually nil", dcl.SprintResource(desired.RequiredAccessLevels))
 		return true
 	}
-	if !dcl.SliceEquals(desired.RequiredAccessLevels, actual.RequiredAccessLevels) && !dcl.IsZeroValue(desired.RequiredAccessLevels) {
+	if !dcl.StringSliceEquals(desired.RequiredAccessLevels, actual.RequiredAccessLevels) && !dcl.IsZeroValue(desired.RequiredAccessLevels) {
 		c.Config.Logger.Infof("Diff in RequiredAccessLevels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequiredAccessLevels), dcl.SprintResource(actual.RequiredAccessLevels))
 		return true
 	}
@@ -951,7 +947,7 @@ func compareAccessLevelBasicConditions(c *Client, desired, actual *AccessLevelBa
 		c.Config.Logger.Infof("desired Members %s - but actually nil", dcl.SprintResource(desired.Members))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Members, actual.Members) && !dcl.IsZeroValue(desired.Members) {
+	if !dcl.StringSliceEquals(desired.Members, actual.Members) && !dcl.IsZeroValue(desired.Members) {
 		c.Config.Logger.Infof("Diff in Members. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Members), dcl.SprintResource(actual.Members))
 		return true
 	}
@@ -959,7 +955,7 @@ func compareAccessLevelBasicConditions(c *Client, desired, actual *AccessLevelBa
 		c.Config.Logger.Infof("desired Negate %s - but actually nil", dcl.SprintResource(desired.Negate))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Negate, actual.Negate) && !dcl.IsZeroValue(desired.Negate) && !(dcl.IsEmptyValueIndirect(desired.Negate) && dcl.IsZeroValue(actual.Negate)) {
+	if !reflect.DeepEqual(desired.Negate, actual.Negate) && !dcl.IsZeroValue(desired.Negate) {
 		c.Config.Logger.Infof("Diff in Negate. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Negate), dcl.SprintResource(actual.Negate))
 		return true
 	}
@@ -973,14 +969,34 @@ func compareAccessLevelBasicConditions(c *Client, desired, actual *AccessLevelBa
 	}
 	return false
 }
-func compareAccessLevelBasicConditionsDevicePolicySlice(c *Client, desired, actual []AccessLevelBasicConditionsDevicePolicy) bool {
+
+func compareAccessLevelBasicConditionsSlice(c *Client, desired, actual []AccessLevelBasicConditions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AccessLevelBasicConditionsDevicePolicy, lengths unequal.")
+		c.Config.Logger.Info("Diff in AccessLevelBasicConditions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareAccessLevelBasicConditionsDevicePolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AccessLevelBasicConditionsDevicePolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareAccessLevelBasicConditions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in AccessLevelBasicConditions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareAccessLevelBasicConditionsMap(c *Client, desired, actual map[string]AccessLevelBasicConditions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in AccessLevelBasicConditions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in AccessLevelBasicConditions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareAccessLevelBasicConditions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in AccessLevelBasicConditions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -998,7 +1014,7 @@ func compareAccessLevelBasicConditionsDevicePolicy(c *Client, desired, actual *A
 		c.Config.Logger.Infof("desired RequireScreenlock %s - but actually nil", dcl.SprintResource(desired.RequireScreenlock))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RequireScreenlock, actual.RequireScreenlock) && !dcl.IsZeroValue(desired.RequireScreenlock) && !(dcl.IsEmptyValueIndirect(desired.RequireScreenlock) && dcl.IsZeroValue(actual.RequireScreenlock)) {
+	if !reflect.DeepEqual(desired.RequireScreenlock, actual.RequireScreenlock) && !dcl.IsZeroValue(desired.RequireScreenlock) {
 		c.Config.Logger.Infof("Diff in RequireScreenlock. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequireScreenlock), dcl.SprintResource(actual.RequireScreenlock))
 		return true
 	}
@@ -1006,7 +1022,7 @@ func compareAccessLevelBasicConditionsDevicePolicy(c *Client, desired, actual *A
 		c.Config.Logger.Infof("desired RequireAdminApproval %s - but actually nil", dcl.SprintResource(desired.RequireAdminApproval))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RequireAdminApproval, actual.RequireAdminApproval) && !dcl.IsZeroValue(desired.RequireAdminApproval) && !(dcl.IsEmptyValueIndirect(desired.RequireAdminApproval) && dcl.IsZeroValue(actual.RequireAdminApproval)) {
+	if !reflect.DeepEqual(desired.RequireAdminApproval, actual.RequireAdminApproval) && !dcl.IsZeroValue(desired.RequireAdminApproval) {
 		c.Config.Logger.Infof("Diff in RequireAdminApproval. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequireAdminApproval), dcl.SprintResource(actual.RequireAdminApproval))
 		return true
 	}
@@ -1014,7 +1030,7 @@ func compareAccessLevelBasicConditionsDevicePolicy(c *Client, desired, actual *A
 		c.Config.Logger.Infof("desired RequireCorpOwned %s - but actually nil", dcl.SprintResource(desired.RequireCorpOwned))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RequireCorpOwned, actual.RequireCorpOwned) && !dcl.IsZeroValue(desired.RequireCorpOwned) && !(dcl.IsEmptyValueIndirect(desired.RequireCorpOwned) && dcl.IsZeroValue(actual.RequireCorpOwned)) {
+	if !reflect.DeepEqual(desired.RequireCorpOwned, actual.RequireCorpOwned) && !dcl.IsZeroValue(desired.RequireCorpOwned) {
 		c.Config.Logger.Infof("Diff in RequireCorpOwned. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequireCorpOwned), dcl.SprintResource(actual.RequireCorpOwned))
 		return true
 	}
@@ -1044,14 +1060,34 @@ func compareAccessLevelBasicConditionsDevicePolicy(c *Client, desired, actual *A
 	}
 	return false
 }
-func compareAccessLevelBasicConditionsDevicePolicyOsConstraintsSlice(c *Client, desired, actual []AccessLevelBasicConditionsDevicePolicyOsConstraints) bool {
+
+func compareAccessLevelBasicConditionsDevicePolicySlice(c *Client, desired, actual []AccessLevelBasicConditionsDevicePolicy) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AccessLevelBasicConditionsDevicePolicyOsConstraints, lengths unequal.")
+		c.Config.Logger.Info("Diff in AccessLevelBasicConditionsDevicePolicy, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareAccessLevelBasicConditionsDevicePolicyOsConstraints(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AccessLevelBasicConditionsDevicePolicyOsConstraints, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareAccessLevelBasicConditionsDevicePolicy(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in AccessLevelBasicConditionsDevicePolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareAccessLevelBasicConditionsDevicePolicyMap(c *Client, desired, actual map[string]AccessLevelBasicConditionsDevicePolicy) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in AccessLevelBasicConditionsDevicePolicy, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in AccessLevelBasicConditionsDevicePolicy, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareAccessLevelBasicConditionsDevicePolicy(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in AccessLevelBasicConditionsDevicePolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1069,7 +1105,7 @@ func compareAccessLevelBasicConditionsDevicePolicyOsConstraints(c *Client, desir
 		c.Config.Logger.Infof("desired MinimumVersion %s - but actually nil", dcl.SprintResource(desired.MinimumVersion))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MinimumVersion, actual.MinimumVersion) && !dcl.IsZeroValue(desired.MinimumVersion) && !(dcl.IsEmptyValueIndirect(desired.MinimumVersion) && dcl.IsZeroValue(actual.MinimumVersion)) {
+	if !dcl.StringCanonicalize(desired.MinimumVersion, actual.MinimumVersion) && !dcl.IsZeroValue(desired.MinimumVersion) {
 		c.Config.Logger.Infof("Diff in MinimumVersion. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumVersion), dcl.SprintResource(actual.MinimumVersion))
 		return true
 	}
@@ -1077,7 +1113,7 @@ func compareAccessLevelBasicConditionsDevicePolicyOsConstraints(c *Client, desir
 		c.Config.Logger.Infof("desired OsType %s - but actually nil", dcl.SprintResource(desired.OsType))
 		return true
 	}
-	if !reflect.DeepEqual(desired.OsType, actual.OsType) && !dcl.IsZeroValue(desired.OsType) && !(dcl.IsEmptyValueIndirect(desired.OsType) && dcl.IsZeroValue(actual.OsType)) {
+	if !reflect.DeepEqual(desired.OsType, actual.OsType) && !dcl.IsZeroValue(desired.OsType) {
 		c.Config.Logger.Infof("Diff in OsType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OsType), dcl.SprintResource(actual.OsType))
 		return true
 	}
@@ -1085,12 +1121,46 @@ func compareAccessLevelBasicConditionsDevicePolicyOsConstraints(c *Client, desir
 		c.Config.Logger.Infof("desired RequireVerifiedChromeOs %s - but actually nil", dcl.SprintResource(desired.RequireVerifiedChromeOs))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RequireVerifiedChromeOs, actual.RequireVerifiedChromeOs) && !dcl.IsZeroValue(desired.RequireVerifiedChromeOs) && !(dcl.IsEmptyValueIndirect(desired.RequireVerifiedChromeOs) && dcl.IsZeroValue(actual.RequireVerifiedChromeOs)) {
+	if !reflect.DeepEqual(desired.RequireVerifiedChromeOs, actual.RequireVerifiedChromeOs) && !dcl.IsZeroValue(desired.RequireVerifiedChromeOs) {
 		c.Config.Logger.Infof("Diff in RequireVerifiedChromeOs. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequireVerifiedChromeOs), dcl.SprintResource(actual.RequireVerifiedChromeOs))
 		return true
 	}
 	return false
 }
+
+func compareAccessLevelBasicConditionsDevicePolicyOsConstraintsSlice(c *Client, desired, actual []AccessLevelBasicConditionsDevicePolicyOsConstraints) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in AccessLevelBasicConditionsDevicePolicyOsConstraints, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareAccessLevelBasicConditionsDevicePolicyOsConstraints(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in AccessLevelBasicConditionsDevicePolicyOsConstraints, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareAccessLevelBasicConditionsDevicePolicyOsConstraintsMap(c *Client, desired, actual map[string]AccessLevelBasicConditionsDevicePolicyOsConstraints) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in AccessLevelBasicConditionsDevicePolicyOsConstraints, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in AccessLevelBasicConditionsDevicePolicyOsConstraints, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareAccessLevelBasicConditionsDevicePolicyOsConstraints(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in AccessLevelBasicConditionsDevicePolicyOsConstraints, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
 func compareAccessLevelBasicCombiningFunctionEnumSlice(c *Client, desired, actual []AccessLevelBasicCombiningFunctionEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in AccessLevelBasicCombiningFunctionEnum, lengths unequal.")
@@ -1168,6 +1238,8 @@ func compareAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum(c *Cli
 // short-form so they can be substituted in.
 func (r *AccessLevel) urlNormalized() *AccessLevel {
 	normalized := deepcopy.Copy(*r).(AccessLevel)
+	normalized.Title = dcl.SelfLinkToName(r.Title)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Policy = dcl.SelfLinkToName(r.Policy)
 	return &normalized
@@ -1219,6 +1291,10 @@ func unmarshalAccessLevel(b []byte, c *Client) (*AccessLevel, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapAccessLevel(m, c)
+}
+
+func unmarshalMapAccessLevel(m map[string]interface{}, c *Client) (*AccessLevel, error) {
 
 	return flattenAccessLevel(c, m), nil
 }
@@ -1796,7 +1872,7 @@ func flattenAccessLevelBasicCombiningFunctionEnumSlice(c *Client, i interface{})
 
 	items := make([]AccessLevelBasicCombiningFunctionEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAccessLevelBasicCombiningFunctionEnum(item.(map[string]interface{})))
+		items = append(items, *flattenAccessLevelBasicCombiningFunctionEnum(item.(interface{})))
 	}
 
 	return items
@@ -1827,7 +1903,7 @@ func flattenAccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnumS
 
 	items := make([]AccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnum(item.(map[string]interface{})))
+		items = append(items, *flattenAccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnum(item.(interface{})))
 	}
 
 	return items
@@ -1858,7 +1934,7 @@ func flattenAccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsE
 
 	items := make([]AccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum(item.(map[string]interface{})))
+		items = append(items, *flattenAccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum(item.(interface{})))
 	}
 
 	return items
@@ -1889,7 +1965,7 @@ func flattenAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnumSlice(c
 
 	items := make([]AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum(item.(interface{})))
 	}
 
 	return items

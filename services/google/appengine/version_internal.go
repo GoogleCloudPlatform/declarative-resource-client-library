@@ -59,16 +59,6 @@ func (r *Version) validate() error {
 			return err
 		}
 	}
-	if !dcl.IsEmptyValueIndirect(r.JobScaling) {
-		if err := r.JobScaling.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.PoolScaling) {
-		if err := r.PoolScaling.validate(); err != nil {
-			return err
-		}
-	}
 	if !dcl.IsEmptyValueIndirect(r.Network) {
 		if err := r.Network.validate(); err != nil {
 			return err
@@ -104,16 +94,6 @@ func (r *Version) validate() error {
 			return err
 		}
 	}
-	if !dcl.IsEmptyValueIndirect(r.ServiceAuthSpec) {
-		if err := r.ServiceAuthSpec.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.ServiceCorsSpec) {
-		if err := r.ServiceCorsSpec.validate(); err != nil {
-			return err
-		}
-	}
 	if !dcl.IsEmptyValueIndirect(r.Entrypoint) {
 		if err := r.Entrypoint.validate(); err != nil {
 			return err
@@ -121,16 +101,6 @@ func (r *Version) validate() error {
 	}
 	if !dcl.IsEmptyValueIndirect(r.VPCAccessConnector) {
 		if err := r.VPCAccessConnector.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.NetworkSettings) {
-		if err := r.NetworkSettings.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.InstanceSpec) {
-		if err := r.InstanceSpec.validate(); err != nil {
 			return err
 		}
 	}
@@ -183,12 +153,6 @@ func (r *VersionBasicScaling) validate() error {
 	return nil
 }
 func (r *VersionManualScaling) validate() error {
-	return nil
-}
-func (r *VersionJobScaling) validate() error {
-	return nil
-}
-func (r *VersionPoolScaling) validate() error {
 	return nil
 }
 func (r *VersionNetwork) validate() error {
@@ -275,31 +239,10 @@ func (r *VersionReadinessCheck) validate() error {
 func (r *VersionLivenessCheck) validate() error {
 	return nil
 }
-func (r *VersionServiceAuthSpec) validate() error {
-	return nil
-}
-func (r *VersionServiceCorsSpec) validate() error {
-	return nil
-}
 func (r *VersionEntrypoint) validate() error {
 	return nil
 }
 func (r *VersionVPCAccessConnector) validate() error {
-	return nil
-}
-func (r *VersionNetworkSettings) validate() error {
-	return nil
-}
-func (r *VersionInstanceSpec) validate() error {
-	return nil
-}
-func (r *VersionInstanceSpecSandboxes) validate() error {
-	return nil
-}
-func (r *VersionInstanceSpecSandboxesContainers) validate() error {
-	return nil
-}
-func (r *VersionInstanceSpecPorts) validate() error {
 	return nil
 }
 
@@ -371,16 +314,6 @@ func newUpdateVersionPatchVersionRequest(ctx context.Context, f *Version, c *Cli
 		return nil, fmt.Errorf("error expanding ManualScaling into manualScaling: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["manualScaling"] = v
-	}
-	if v, err := expandVersionJobScaling(c, f.JobScaling); err != nil {
-		return nil, fmt.Errorf("error expanding JobScaling into jobScaling: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["jobScaling"] = v
-	}
-	if v, err := expandVersionPoolScaling(c, f.PoolScaling); err != nil {
-		return nil, fmt.Errorf("error expanding PoolScaling into poolScaling: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["poolScaling"] = v
 	}
 	if v := f.InboundServices; !dcl.IsEmptyValueIndirect(v) {
 		req["inboundServices"] = v
@@ -460,9 +393,6 @@ func newUpdateVersionPatchVersionRequest(ctx context.Context, f *Version, c *Cli
 	if v := f.EnvVariables; !dcl.IsEmptyValueIndirect(v) {
 		req["envVariables"] = v
 	}
-	if v := f.BuildEnvVariables; !dcl.IsEmptyValueIndirect(v) {
-		req["buildEnvVariables"] = v
-	}
 	if v := f.DefaultExpiration; !dcl.IsEmptyValueIndirect(v) {
 		req["defaultExpiration"] = v
 	}
@@ -487,19 +417,6 @@ func newUpdateVersionPatchVersionRequest(ctx context.Context, f *Version, c *Cli
 	if v := f.VersionUrl; !dcl.IsEmptyValueIndirect(v) {
 		req["versionUrl"] = v
 	}
-	if v, err := expandVersionServiceAuthSpec(c, f.ServiceAuthSpec); err != nil {
-		return nil, fmt.Errorf("error expanding ServiceAuthSpec into serviceAuthSpec: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["serviceAuthSpec"] = v
-	}
-	if v, err := expandVersionServiceCorsSpec(c, f.ServiceCorsSpec); err != nil {
-		return nil, fmt.Errorf("error expanding ServiceCorsSpec into serviceCorsSpec: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["serviceCorsSpec"] = v
-	}
-	if v := f.RouteHash; !dcl.IsEmptyValueIndirect(v) {
-		req["routeHash"] = v
-	}
 	if v, err := expandVersionEntrypoint(c, f.Entrypoint); err != nil {
 		return nil, fmt.Errorf("error expanding Entrypoint into entrypoint: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -509,16 +426,6 @@ func newUpdateVersionPatchVersionRequest(ctx context.Context, f *Version, c *Cli
 		return nil, fmt.Errorf("error expanding VPCAccessConnector into vpcAccessConnector: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["vpcAccessConnector"] = v
-	}
-	if v, err := expandVersionNetworkSettings(c, f.NetworkSettings); err != nil {
-		return nil, fmt.Errorf("error expanding NetworkSettings into networkSettings: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["networkSettings"] = v
-	}
-	if v, err := expandVersionInstanceSpec(c, f.InstanceSpec); err != nil {
-		return nil, fmt.Errorf("error expanding InstanceSpec into instanceSpec: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["instanceSpec"] = v
 	}
 	return req, nil
 }
@@ -562,7 +469,7 @@ func (op *updateVersionPatchVersionOperation) do(ctx context.Context, r *Version
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -599,7 +506,7 @@ func (c *Client) listVersionRaw(ctx context.Context, app, service, pageToken str
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -674,7 +581,7 @@ func (op *deleteVersionOperation) do(ctx context.Context, r *Version, c *Client)
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -697,7 +604,13 @@ func (op *deleteVersionOperation) do(ctx context.Context, r *Version, c *Client)
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createVersionOperation struct{}
+type createVersionOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createVersionOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createVersionOperation) do(ctx context.Context, r *Version, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -713,7 +626,7 @@ func (op *createVersionOperation) do(ctx context.Context, r *Version, c *Client)
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -727,8 +640,10 @@ func (op *createVersionOperation) do(ctx context.Context, r *Version, c *Client)
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetVersion(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -741,7 +656,7 @@ func (c *Client) getVersionRaw(ctx context.Context, r *Version) ([]byte, error) 
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -818,22 +733,12 @@ func canonicalizeVersionInitialState(rawInitial, rawDesired *Version) (*Version,
 
 func canonicalizeVersionDesiredState(rawDesired, rawInitial *Version, opts ...dcl.ApplyOption) (*Version, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Version); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Version, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
 		rawDesired.AutomaticScaling = canonicalizeVersionAutomaticScaling(rawDesired.AutomaticScaling, nil, opts...)
 		rawDesired.BasicScaling = canonicalizeVersionBasicScaling(rawDesired.BasicScaling, nil, opts...)
 		rawDesired.ManualScaling = canonicalizeVersionManualScaling(rawDesired.ManualScaling, nil, opts...)
-		rawDesired.JobScaling = canonicalizeVersionJobScaling(rawDesired.JobScaling, nil, opts...)
-		rawDesired.PoolScaling = canonicalizeVersionPoolScaling(rawDesired.PoolScaling, nil, opts...)
 		rawDesired.Network = canonicalizeVersionNetwork(rawDesired.Network, nil, opts...)
 		rawDesired.Resources = canonicalizeVersionResources(rawDesired.Resources, nil, opts...)
 		rawDesired.ApiConfig = canonicalizeVersionApiConfig(rawDesired.ApiConfig, nil, opts...)
@@ -841,30 +746,24 @@ func canonicalizeVersionDesiredState(rawDesired, rawInitial *Version, opts ...dc
 		rawDesired.HealthCheck = canonicalizeVersionHealthCheck(rawDesired.HealthCheck, nil, opts...)
 		rawDesired.ReadinessCheck = canonicalizeVersionReadinessCheck(rawDesired.ReadinessCheck, nil, opts...)
 		rawDesired.LivenessCheck = canonicalizeVersionLivenessCheck(rawDesired.LivenessCheck, nil, opts...)
-		rawDesired.ServiceAuthSpec = canonicalizeVersionServiceAuthSpec(rawDesired.ServiceAuthSpec, nil, opts...)
-		rawDesired.ServiceCorsSpec = canonicalizeVersionServiceCorsSpec(rawDesired.ServiceCorsSpec, nil, opts...)
 		rawDesired.Entrypoint = canonicalizeVersionEntrypoint(rawDesired.Entrypoint, nil, opts...)
 		rawDesired.VPCAccessConnector = canonicalizeVersionVPCAccessConnector(rawDesired.VPCAccessConnector, nil, opts...)
-		rawDesired.NetworkSettings = canonicalizeVersionNetworkSettings(rawDesired.NetworkSettings, nil, opts...)
-		rawDesired.InstanceSpec = canonicalizeVersionInstanceSpec(rawDesired.InstanceSpec, nil, opts...)
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.ConsumerName) {
+	if dcl.StringCanonicalize(rawDesired.ConsumerName, rawInitial.ConsumerName) {
 		rawDesired.ConsumerName = rawInitial.ConsumerName
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
 	rawDesired.AutomaticScaling = canonicalizeVersionAutomaticScaling(rawDesired.AutomaticScaling, rawInitial.AutomaticScaling, opts...)
 	rawDesired.BasicScaling = canonicalizeVersionBasicScaling(rawDesired.BasicScaling, rawInitial.BasicScaling, opts...)
 	rawDesired.ManualScaling = canonicalizeVersionManualScaling(rawDesired.ManualScaling, rawInitial.ManualScaling, opts...)
-	rawDesired.JobScaling = canonicalizeVersionJobScaling(rawDesired.JobScaling, rawInitial.JobScaling, opts...)
-	rawDesired.PoolScaling = canonicalizeVersionPoolScaling(rawDesired.PoolScaling, rawInitial.PoolScaling, opts...)
 	if dcl.IsZeroValue(rawDesired.InboundServices) {
 		rawDesired.InboundServices = rawInitial.InboundServices
 	}
-	if dcl.IsZeroValue(rawDesired.InstanceClass) {
+	if dcl.StringCanonicalize(rawDesired.InstanceClass, rawInitial.InstanceClass) {
 		rawDesired.InstanceClass = rawInitial.InstanceClass
 	}
 	rawDesired.Network = canonicalizeVersionNetwork(rawDesired.Network, rawInitial.Network, opts...)
@@ -872,10 +771,10 @@ func canonicalizeVersionDesiredState(rawDesired, rawInitial *Version, opts ...dc
 		rawDesired.Zones = rawInitial.Zones
 	}
 	rawDesired.Resources = canonicalizeVersionResources(rawDesired.Resources, rawInitial.Resources, opts...)
-	if dcl.IsZeroValue(rawDesired.Runtime) {
+	if dcl.StringCanonicalize(rawDesired.Runtime, rawInitial.Runtime) {
 		rawDesired.Runtime = rawInitial.Runtime
 	}
-	if dcl.IsZeroValue(rawDesired.RuntimeChannel) {
+	if dcl.StringCanonicalize(rawDesired.RuntimeChannel, rawInitial.RuntimeChannel) {
 		rawDesired.RuntimeChannel = rawInitial.RuntimeChannel
 	}
 	if dcl.IsZeroValue(rawDesired.Threadsafe) {
@@ -887,13 +786,13 @@ func canonicalizeVersionDesiredState(rawDesired, rawInitial *Version, opts ...dc
 	if dcl.IsZeroValue(rawDesired.BetaSettings) {
 		rawDesired.BetaSettings = rawInitial.BetaSettings
 	}
-	if dcl.IsZeroValue(rawDesired.Env) {
+	if dcl.StringCanonicalize(rawDesired.Env, rawInitial.Env) {
 		rawDesired.Env = rawInitial.Env
 	}
 	if dcl.IsZeroValue(rawDesired.ServingStatus) {
 		rawDesired.ServingStatus = rawInitial.ServingStatus
 	}
-	if dcl.IsZeroValue(rawDesired.CreatedBy) {
+	if dcl.StringCanonicalize(rawDesired.CreatedBy, rawInitial.CreatedBy) {
 		rawDesired.CreatedBy = rawInitial.CreatedBy
 	}
 	if dcl.IsZeroValue(rawDesired.CreateTime) {
@@ -902,10 +801,10 @@ func canonicalizeVersionDesiredState(rawDesired, rawInitial *Version, opts ...dc
 	if dcl.IsZeroValue(rawDesired.DiskUsageBytes) {
 		rawDesired.DiskUsageBytes = rawInitial.DiskUsageBytes
 	}
-	if dcl.IsZeroValue(rawDesired.RuntimeApiVersion) {
+	if dcl.StringCanonicalize(rawDesired.RuntimeApiVersion, rawInitial.RuntimeApiVersion) {
 		rawDesired.RuntimeApiVersion = rawInitial.RuntimeApiVersion
 	}
-	if dcl.IsZeroValue(rawDesired.RuntimeMainExecutablePath) {
+	if dcl.StringCanonicalize(rawDesired.RuntimeMainExecutablePath, rawInitial.RuntimeMainExecutablePath) {
 		rawDesired.RuntimeMainExecutablePath = rawInitial.RuntimeMainExecutablePath
 	}
 	if dcl.IsZeroValue(rawDesired.Handlers) {
@@ -921,31 +820,21 @@ func canonicalizeVersionDesiredState(rawDesired, rawInitial *Version, opts ...dc
 	if dcl.IsZeroValue(rawDesired.EnvVariables) {
 		rawDesired.EnvVariables = rawInitial.EnvVariables
 	}
-	if dcl.IsZeroValue(rawDesired.BuildEnvVariables) {
-		rawDesired.BuildEnvVariables = rawInitial.BuildEnvVariables
-	}
-	if dcl.IsZeroValue(rawDesired.DefaultExpiration) {
+	if dcl.StringCanonicalize(rawDesired.DefaultExpiration, rawInitial.DefaultExpiration) {
 		rawDesired.DefaultExpiration = rawInitial.DefaultExpiration
 	}
 	rawDesired.Deployment = canonicalizeVersionDeployment(rawDesired.Deployment, rawInitial.Deployment, opts...)
 	rawDesired.HealthCheck = canonicalizeVersionHealthCheck(rawDesired.HealthCheck, rawInitial.HealthCheck, opts...)
 	rawDesired.ReadinessCheck = canonicalizeVersionReadinessCheck(rawDesired.ReadinessCheck, rawInitial.ReadinessCheck, opts...)
 	rawDesired.LivenessCheck = canonicalizeVersionLivenessCheck(rawDesired.LivenessCheck, rawInitial.LivenessCheck, opts...)
-	if dcl.IsZeroValue(rawDesired.NobuildFilesRegex) {
+	if dcl.StringCanonicalize(rawDesired.NobuildFilesRegex, rawInitial.NobuildFilesRegex) {
 		rawDesired.NobuildFilesRegex = rawInitial.NobuildFilesRegex
 	}
-	if dcl.IsZeroValue(rawDesired.VersionUrl) {
+	if dcl.StringCanonicalize(rawDesired.VersionUrl, rawInitial.VersionUrl) {
 		rawDesired.VersionUrl = rawInitial.VersionUrl
-	}
-	rawDesired.ServiceAuthSpec = canonicalizeVersionServiceAuthSpec(rawDesired.ServiceAuthSpec, rawInitial.ServiceAuthSpec, opts...)
-	rawDesired.ServiceCorsSpec = canonicalizeVersionServiceCorsSpec(rawDesired.ServiceCorsSpec, rawInitial.ServiceCorsSpec, opts...)
-	if dcl.IsZeroValue(rawDesired.RouteHash) {
-		rawDesired.RouteHash = rawInitial.RouteHash
 	}
 	rawDesired.Entrypoint = canonicalizeVersionEntrypoint(rawDesired.Entrypoint, rawInitial.Entrypoint, opts...)
 	rawDesired.VPCAccessConnector = canonicalizeVersionVPCAccessConnector(rawDesired.VPCAccessConnector, rawInitial.VPCAccessConnector, opts...)
-	rawDesired.NetworkSettings = canonicalizeVersionNetworkSettings(rawDesired.NetworkSettings, rawInitial.NetworkSettings, opts...)
-	rawDesired.InstanceSpec = canonicalizeVersionInstanceSpec(rawDesired.InstanceSpec, rawInitial.InstanceSpec, opts...)
 	if dcl.NameToSelfLink(rawDesired.App, rawInitial.App) {
 		rawDesired.App = rawInitial.App
 	}
@@ -961,11 +850,17 @@ func canonicalizeVersionNewState(c *Client, rawNew, rawDesired *Version) (*Versi
 	if dcl.IsEmptyValueIndirect(rawNew.ConsumerName) && dcl.IsEmptyValueIndirect(rawDesired.ConsumerName) {
 		rawNew.ConsumerName = rawDesired.ConsumerName
 	} else {
+		if dcl.StringCanonicalize(rawDesired.ConsumerName, rawNew.ConsumerName) {
+			rawNew.ConsumerName = rawDesired.ConsumerName
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.AutomaticScaling) && dcl.IsEmptyValueIndirect(rawDesired.AutomaticScaling) {
@@ -986,18 +881,6 @@ func canonicalizeVersionNewState(c *Client, rawNew, rawDesired *Version) (*Versi
 		rawNew.ManualScaling = canonicalizeNewVersionManualScaling(c, rawDesired.ManualScaling, rawNew.ManualScaling)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.JobScaling) && dcl.IsEmptyValueIndirect(rawDesired.JobScaling) {
-		rawNew.JobScaling = rawDesired.JobScaling
-	} else {
-		rawNew.JobScaling = canonicalizeNewVersionJobScaling(c, rawDesired.JobScaling, rawNew.JobScaling)
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.PoolScaling) && dcl.IsEmptyValueIndirect(rawDesired.PoolScaling) {
-		rawNew.PoolScaling = rawDesired.PoolScaling
-	} else {
-		rawNew.PoolScaling = canonicalizeNewVersionPoolScaling(c, rawDesired.PoolScaling, rawNew.PoolScaling)
-	}
-
 	if dcl.IsEmptyValueIndirect(rawNew.InboundServices) && dcl.IsEmptyValueIndirect(rawDesired.InboundServices) {
 		rawNew.InboundServices = rawDesired.InboundServices
 	} else {
@@ -1006,6 +889,9 @@ func canonicalizeVersionNewState(c *Client, rawNew, rawDesired *Version) (*Versi
 	if dcl.IsEmptyValueIndirect(rawNew.InstanceClass) && dcl.IsEmptyValueIndirect(rawDesired.InstanceClass) {
 		rawNew.InstanceClass = rawDesired.InstanceClass
 	} else {
+		if dcl.StringCanonicalize(rawDesired.InstanceClass, rawNew.InstanceClass) {
+			rawNew.InstanceClass = rawDesired.InstanceClass
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Network) && dcl.IsEmptyValueIndirect(rawDesired.Network) {
@@ -1028,11 +914,17 @@ func canonicalizeVersionNewState(c *Client, rawNew, rawDesired *Version) (*Versi
 	if dcl.IsEmptyValueIndirect(rawNew.Runtime) && dcl.IsEmptyValueIndirect(rawDesired.Runtime) {
 		rawNew.Runtime = rawDesired.Runtime
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Runtime, rawNew.Runtime) {
+			rawNew.Runtime = rawDesired.Runtime
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.RuntimeChannel) && dcl.IsEmptyValueIndirect(rawDesired.RuntimeChannel) {
 		rawNew.RuntimeChannel = rawDesired.RuntimeChannel
 	} else {
+		if dcl.StringCanonicalize(rawDesired.RuntimeChannel, rawNew.RuntimeChannel) {
+			rawNew.RuntimeChannel = rawDesired.RuntimeChannel
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Threadsafe) && dcl.IsEmptyValueIndirect(rawDesired.Threadsafe) {
@@ -1053,6 +945,9 @@ func canonicalizeVersionNewState(c *Client, rawNew, rawDesired *Version) (*Versi
 	if dcl.IsEmptyValueIndirect(rawNew.Env) && dcl.IsEmptyValueIndirect(rawDesired.Env) {
 		rawNew.Env = rawDesired.Env
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Env, rawNew.Env) {
+			rawNew.Env = rawDesired.Env
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ServingStatus) && dcl.IsEmptyValueIndirect(rawDesired.ServingStatus) {
@@ -1063,6 +958,9 @@ func canonicalizeVersionNewState(c *Client, rawNew, rawDesired *Version) (*Versi
 	if dcl.IsEmptyValueIndirect(rawNew.CreatedBy) && dcl.IsEmptyValueIndirect(rawDesired.CreatedBy) {
 		rawNew.CreatedBy = rawDesired.CreatedBy
 	} else {
+		if dcl.StringCanonicalize(rawDesired.CreatedBy, rawNew.CreatedBy) {
+			rawNew.CreatedBy = rawDesired.CreatedBy
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
@@ -1078,11 +976,17 @@ func canonicalizeVersionNewState(c *Client, rawNew, rawDesired *Version) (*Versi
 	if dcl.IsEmptyValueIndirect(rawNew.RuntimeApiVersion) && dcl.IsEmptyValueIndirect(rawDesired.RuntimeApiVersion) {
 		rawNew.RuntimeApiVersion = rawDesired.RuntimeApiVersion
 	} else {
+		if dcl.StringCanonicalize(rawDesired.RuntimeApiVersion, rawNew.RuntimeApiVersion) {
+			rawNew.RuntimeApiVersion = rawDesired.RuntimeApiVersion
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.RuntimeMainExecutablePath) && dcl.IsEmptyValueIndirect(rawDesired.RuntimeMainExecutablePath) {
 		rawNew.RuntimeMainExecutablePath = rawDesired.RuntimeMainExecutablePath
 	} else {
+		if dcl.StringCanonicalize(rawDesired.RuntimeMainExecutablePath, rawNew.RuntimeMainExecutablePath) {
+			rawNew.RuntimeMainExecutablePath = rawDesired.RuntimeMainExecutablePath
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Handlers) && dcl.IsEmptyValueIndirect(rawDesired.Handlers) {
@@ -1111,14 +1015,12 @@ func canonicalizeVersionNewState(c *Client, rawNew, rawDesired *Version) (*Versi
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.BuildEnvVariables) && dcl.IsEmptyValueIndirect(rawDesired.BuildEnvVariables) {
-		rawNew.BuildEnvVariables = rawDesired.BuildEnvVariables
-	} else {
-	}
-
 	if dcl.IsEmptyValueIndirect(rawNew.DefaultExpiration) && dcl.IsEmptyValueIndirect(rawDesired.DefaultExpiration) {
 		rawNew.DefaultExpiration = rawDesired.DefaultExpiration
 	} else {
+		if dcl.StringCanonicalize(rawDesired.DefaultExpiration, rawNew.DefaultExpiration) {
+			rawNew.DefaultExpiration = rawDesired.DefaultExpiration
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Deployment) && dcl.IsEmptyValueIndirect(rawDesired.Deployment) {
@@ -1148,28 +1050,17 @@ func canonicalizeVersionNewState(c *Client, rawNew, rawDesired *Version) (*Versi
 	if dcl.IsEmptyValueIndirect(rawNew.NobuildFilesRegex) && dcl.IsEmptyValueIndirect(rawDesired.NobuildFilesRegex) {
 		rawNew.NobuildFilesRegex = rawDesired.NobuildFilesRegex
 	} else {
+		if dcl.StringCanonicalize(rawDesired.NobuildFilesRegex, rawNew.NobuildFilesRegex) {
+			rawNew.NobuildFilesRegex = rawDesired.NobuildFilesRegex
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.VersionUrl) && dcl.IsEmptyValueIndirect(rawDesired.VersionUrl) {
 		rawNew.VersionUrl = rawDesired.VersionUrl
 	} else {
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.ServiceAuthSpec) && dcl.IsEmptyValueIndirect(rawDesired.ServiceAuthSpec) {
-		rawNew.ServiceAuthSpec = rawDesired.ServiceAuthSpec
-	} else {
-		rawNew.ServiceAuthSpec = canonicalizeNewVersionServiceAuthSpec(c, rawDesired.ServiceAuthSpec, rawNew.ServiceAuthSpec)
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.ServiceCorsSpec) && dcl.IsEmptyValueIndirect(rawDesired.ServiceCorsSpec) {
-		rawNew.ServiceCorsSpec = rawDesired.ServiceCorsSpec
-	} else {
-		rawNew.ServiceCorsSpec = canonicalizeNewVersionServiceCorsSpec(c, rawDesired.ServiceCorsSpec, rawNew.ServiceCorsSpec)
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.RouteHash) && dcl.IsEmptyValueIndirect(rawDesired.RouteHash) {
-		rawNew.RouteHash = rawDesired.RouteHash
-	} else {
+		if dcl.StringCanonicalize(rawDesired.VersionUrl, rawNew.VersionUrl) {
+			rawNew.VersionUrl = rawDesired.VersionUrl
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Entrypoint) && dcl.IsEmptyValueIndirect(rawDesired.Entrypoint) {
@@ -1182,18 +1073,6 @@ func canonicalizeVersionNewState(c *Client, rawNew, rawDesired *Version) (*Versi
 		rawNew.VPCAccessConnector = rawDesired.VPCAccessConnector
 	} else {
 		rawNew.VPCAccessConnector = canonicalizeNewVersionVPCAccessConnector(c, rawDesired.VPCAccessConnector, rawNew.VPCAccessConnector)
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.NetworkSettings) && dcl.IsEmptyValueIndirect(rawDesired.NetworkSettings) {
-		rawNew.NetworkSettings = rawDesired.NetworkSettings
-	} else {
-		rawNew.NetworkSettings = canonicalizeNewVersionNetworkSettings(c, rawDesired.NetworkSettings, rawNew.NetworkSettings)
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.InstanceSpec) && dcl.IsEmptyValueIndirect(rawDesired.InstanceSpec) {
-		rawNew.InstanceSpec = rawDesired.InstanceSpec
-	} else {
-		rawNew.InstanceSpec = canonicalizeNewVersionInstanceSpec(c, rawDesired.InstanceSpec, rawNew.InstanceSpec)
 	}
 
 	rawNew.App = rawDesired.App
@@ -1211,16 +1090,11 @@ func canonicalizeVersionAutomaticScaling(des, initial *VersionAutomaticScaling, 
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.CoolDownPeriod) {
+	if dcl.StringCanonicalize(des.CoolDownPeriod, initial.CoolDownPeriod) || dcl.IsZeroValue(des.CoolDownPeriod) {
 		des.CoolDownPeriod = initial.CoolDownPeriod
 	}
 	des.CpuUtilization = canonicalizeVersionAutomaticScalingCpuUtilization(des.CpuUtilization, initial.CpuUtilization, opts...)
@@ -1233,7 +1107,7 @@ func canonicalizeVersionAutomaticScaling(des, initial *VersionAutomaticScaling, 
 	if dcl.IsZeroValue(des.MaxTotalInstances) {
 		des.MaxTotalInstances = initial.MaxTotalInstances
 	}
-	if dcl.IsZeroValue(des.MaxPendingLatency) {
+	if dcl.StringCanonicalize(des.MaxPendingLatency, initial.MaxPendingLatency) || dcl.IsZeroValue(des.MaxPendingLatency) {
 		des.MaxPendingLatency = initial.MaxPendingLatency
 	}
 	if dcl.IsZeroValue(des.MinIdleInstances) {
@@ -1242,7 +1116,7 @@ func canonicalizeVersionAutomaticScaling(des, initial *VersionAutomaticScaling, 
 	if dcl.IsZeroValue(des.MinTotalInstances) {
 		des.MinTotalInstances = initial.MinTotalInstances
 	}
-	if dcl.IsZeroValue(des.MinPendingLatency) {
+	if dcl.StringCanonicalize(des.MinPendingLatency, initial.MinPendingLatency) || dcl.IsZeroValue(des.MinPendingLatency) {
 		des.MinPendingLatency = initial.MinPendingLatency
 	}
 	des.RequestUtilization = canonicalizeVersionAutomaticScalingRequestUtilization(des.RequestUtilization, initial.RequestUtilization, opts...)
@@ -1258,7 +1132,16 @@ func canonicalizeNewVersionAutomaticScaling(c *Client, des, nw *VersionAutomatic
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.CoolDownPeriod, nw.CoolDownPeriod) || dcl.IsZeroValue(des.CoolDownPeriod) {
+		nw.CoolDownPeriod = des.CoolDownPeriod
+	}
 	nw.CpuUtilization = canonicalizeNewVersionAutomaticScalingCpuUtilization(c, des.CpuUtilization, nw.CpuUtilization)
+	if dcl.StringCanonicalize(des.MaxPendingLatency, nw.MaxPendingLatency) || dcl.IsZeroValue(des.MaxPendingLatency) {
+		nw.MaxPendingLatency = des.MaxPendingLatency
+	}
+	if dcl.StringCanonicalize(des.MinPendingLatency, nw.MinPendingLatency) || dcl.IsZeroValue(des.MinPendingLatency) {
+		nw.MinPendingLatency = des.MinPendingLatency
+	}
 	nw.RequestUtilization = canonicalizeNewVersionAutomaticScalingRequestUtilization(c, des.RequestUtilization, nw.RequestUtilization)
 	nw.DiskUtilization = canonicalizeNewVersionAutomaticScalingDiskUtilization(c, des.DiskUtilization, nw.DiskUtilization)
 	nw.NetworkUtilization = canonicalizeNewVersionAutomaticScalingNetworkUtilization(c, des.NetworkUtilization, nw.NetworkUtilization)
@@ -1298,16 +1181,11 @@ func canonicalizeVersionAutomaticScalingCpuUtilization(des, initial *VersionAuto
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.AggregationWindowLength) {
+	if dcl.StringCanonicalize(des.AggregationWindowLength, initial.AggregationWindowLength) || dcl.IsZeroValue(des.AggregationWindowLength) {
 		des.AggregationWindowLength = initial.AggregationWindowLength
 	}
 	if dcl.IsZeroValue(des.TargetUtilization) {
@@ -1320,6 +1198,10 @@ func canonicalizeVersionAutomaticScalingCpuUtilization(des, initial *VersionAuto
 func canonicalizeNewVersionAutomaticScalingCpuUtilization(c *Client, des, nw *VersionAutomaticScalingCpuUtilization) *VersionAutomaticScalingCpuUtilization {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.AggregationWindowLength, nw.AggregationWindowLength) || dcl.IsZeroValue(des.AggregationWindowLength) {
+		nw.AggregationWindowLength = des.AggregationWindowLength
 	}
 
 	return nw
@@ -1354,11 +1236,6 @@ func canonicalizeVersionAutomaticScalingRequestUtilization(des, initial *Version
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1412,11 +1289,6 @@ func canonicalizeVersionAutomaticScalingDiskUtilization(des, initial *VersionAut
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1478,11 +1350,6 @@ func canonicalizeVersionAutomaticScalingNetworkUtilization(des, initial *Version
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -1540,11 +1407,6 @@ func canonicalizeVersionAutomaticScalingStandardSchedulerSettings(des, initial *
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1606,16 +1468,11 @@ func canonicalizeVersionBasicScaling(des, initial *VersionBasicScaling, opts ...
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.IdleTimeout) {
+	if dcl.StringCanonicalize(des.IdleTimeout, initial.IdleTimeout) || dcl.IsZeroValue(des.IdleTimeout) {
 		des.IdleTimeout = initial.IdleTimeout
 	}
 	if dcl.IsZeroValue(des.MaxInstances) {
@@ -1628,6 +1485,10 @@ func canonicalizeVersionBasicScaling(des, initial *VersionBasicScaling, opts ...
 func canonicalizeNewVersionBasicScaling(c *Client, des, nw *VersionBasicScaling) *VersionBasicScaling {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.IdleTimeout, nw.IdleTimeout) || dcl.IsZeroValue(des.IdleTimeout) {
+		nw.IdleTimeout = des.IdleTimeout
 	}
 
 	return nw
@@ -1662,11 +1523,6 @@ func canonicalizeVersionManualScaling(des, initial *VersionManualScaling, opts .
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1711,148 +1567,12 @@ func canonicalizeNewVersionManualScalingSet(c *Client, des, nw []VersionManualSc
 	return reorderedNew
 }
 
-func canonicalizeVersionJobScaling(des, initial *VersionJobScaling, opts ...dcl.ApplyOption) *VersionJobScaling {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Completions) {
-		des.Completions = initial.Completions
-	}
-	if dcl.IsZeroValue(des.Parallelism) {
-		des.Parallelism = initial.Parallelism
-	}
-	if dcl.IsZeroValue(des.JobDeadline) {
-		des.JobDeadline = initial.JobDeadline
-	}
-	if dcl.IsZeroValue(des.InstanceRetries) {
-		des.InstanceRetries = initial.InstanceRetries
-	}
-	if dcl.IsZeroValue(des.InstanceDeadline) {
-		des.InstanceDeadline = initial.InstanceDeadline
-	}
-	if dcl.IsZeroValue(des.InstanceTerminationWindow) {
-		des.InstanceTerminationWindow = initial.InstanceTerminationWindow
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionJobScaling(c *Client, des, nw *VersionJobScaling) *VersionJobScaling {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionJobScalingSet(c *Client, des, nw []VersionJobScaling) []VersionJobScaling {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionJobScaling
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionJobScaling(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionPoolScaling(des, initial *VersionPoolScaling, opts ...dcl.ApplyOption) *VersionPoolScaling {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Replicas) {
-		des.Replicas = initial.Replicas
-	}
-	if dcl.IsZeroValue(des.MaxUnavailable) {
-		des.MaxUnavailable = initial.MaxUnavailable
-	}
-	if dcl.IsZeroValue(des.MaxSurge) {
-		des.MaxSurge = initial.MaxSurge
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionPoolScaling(c *Client, des, nw *VersionPoolScaling) *VersionPoolScaling {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionPoolScalingSet(c *Client, des, nw []VersionPoolScaling) []VersionPoolScaling {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionPoolScaling
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionPoolScaling(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
 func canonicalizeVersionNetwork(des, initial *VersionNetwork, opts ...dcl.ApplyOption) *VersionNetwork {
 	if des == nil {
 		return initial
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1862,13 +1582,13 @@ func canonicalizeVersionNetwork(des, initial *VersionNetwork, opts ...dcl.ApplyO
 	if dcl.IsZeroValue(des.ForwardedPorts) {
 		des.ForwardedPorts = initial.ForwardedPorts
 	}
-	if dcl.IsZeroValue(des.InstanceTag) {
+	if dcl.StringCanonicalize(des.InstanceTag, initial.InstanceTag) || dcl.IsZeroValue(des.InstanceTag) {
 		des.InstanceTag = initial.InstanceTag
 	}
-	if dcl.IsZeroValue(des.Name) {
+	if dcl.NameToSelfLink(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
-	if dcl.IsZeroValue(des.SubnetworkName) {
+	if dcl.NameToSelfLink(des.SubnetworkName, initial.SubnetworkName) || dcl.IsZeroValue(des.SubnetworkName) {
 		des.SubnetworkName = initial.SubnetworkName
 	}
 	if dcl.IsZeroValue(des.SessionAffinity) {
@@ -1881,6 +1601,16 @@ func canonicalizeVersionNetwork(des, initial *VersionNetwork, opts ...dcl.ApplyO
 func canonicalizeNewVersionNetwork(c *Client, des, nw *VersionNetwork) *VersionNetwork {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.InstanceTag, nw.InstanceTag) || dcl.IsZeroValue(des.InstanceTag) {
+		nw.InstanceTag = des.InstanceTag
+	}
+	if dcl.NameToSelfLink(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.NameToSelfLink(des.SubnetworkName, nw.SubnetworkName) || dcl.IsZeroValue(des.SubnetworkName) {
+		nw.SubnetworkName = des.SubnetworkName
 	}
 
 	return nw
@@ -1917,11 +1647,6 @@ func canonicalizeVersionResources(des, initial *VersionResources, opts ...dcl.Ap
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -1937,9 +1662,6 @@ func canonicalizeVersionResources(des, initial *VersionResources, opts ...dcl.Ap
 	}
 	if dcl.IsZeroValue(des.Volumes) {
 		des.Volumes = initial.Volumes
-	}
-	if dcl.IsZeroValue(des.KmsKeyReference) {
-		des.KmsKeyReference = initial.KmsKeyReference
 	}
 
 	return des
@@ -1984,19 +1706,14 @@ func canonicalizeVersionResourcesVolumes(des, initial *VersionResourcesVolumes, 
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
-	if dcl.IsZeroValue(des.VolumeType) {
+	if dcl.StringCanonicalize(des.VolumeType, initial.VolumeType) || dcl.IsZeroValue(des.VolumeType) {
 		des.VolumeType = initial.VolumeType
 	}
 	if dcl.IsZeroValue(des.SizeGb) {
@@ -2009,6 +1726,13 @@ func canonicalizeVersionResourcesVolumes(des, initial *VersionResourcesVolumes, 
 func canonicalizeNewVersionResourcesVolumes(c *Client, des, nw *VersionResourcesVolumes) *VersionResourcesVolumes {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.VolumeType, nw.VolumeType) || dcl.IsZeroValue(des.VolumeType) {
+		nw.VolumeType = des.VolumeType
 	}
 
 	return nw
@@ -2045,16 +1769,11 @@ func canonicalizeVersionHandlers(des, initial *VersionHandlers, opts ...dcl.Appl
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.UrlRegex) {
+	if dcl.StringCanonicalize(des.UrlRegex, initial.UrlRegex) || dcl.IsZeroValue(des.UrlRegex) {
 		des.UrlRegex = initial.UrlRegex
 	}
 	des.StaticFiles = canonicalizeVersionHandlersStaticFiles(des.StaticFiles, initial.StaticFiles, opts...)
@@ -2081,6 +1800,9 @@ func canonicalizeNewVersionHandlers(c *Client, des, nw *VersionHandlers) *Versio
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.UrlRegex, nw.UrlRegex) || dcl.IsZeroValue(des.UrlRegex) {
+		nw.UrlRegex = des.UrlRegex
+	}
 	nw.StaticFiles = canonicalizeNewVersionHandlersStaticFiles(c, des.StaticFiles, nw.StaticFiles)
 	nw.Script = canonicalizeNewVersionHandlersScript(c, des.Script, nw.Script)
 	nw.ApiEndpoint = canonicalizeNewVersionHandlersApiEndpoint(c, des.ApiEndpoint, nw.ApiEndpoint)
@@ -2119,28 +1841,23 @@ func canonicalizeVersionHandlersStaticFiles(des, initial *VersionHandlersStaticF
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
 		des.Path = initial.Path
 	}
-	if dcl.IsZeroValue(des.UploadPathRegex) {
+	if dcl.StringCanonicalize(des.UploadPathRegex, initial.UploadPathRegex) || dcl.IsZeroValue(des.UploadPathRegex) {
 		des.UploadPathRegex = initial.UploadPathRegex
 	}
 	if dcl.IsZeroValue(des.HttpHeaders) {
 		des.HttpHeaders = initial.HttpHeaders
 	}
-	if dcl.IsZeroValue(des.MimeType) {
+	if dcl.StringCanonicalize(des.MimeType, initial.MimeType) || dcl.IsZeroValue(des.MimeType) {
 		des.MimeType = initial.MimeType
 	}
-	if dcl.IsZeroValue(des.Expiration) {
+	if dcl.StringCanonicalize(des.Expiration, initial.Expiration) || dcl.IsZeroValue(des.Expiration) {
 		des.Expiration = initial.Expiration
 	}
 	if dcl.IsZeroValue(des.RequireMatchingFile) {
@@ -2156,6 +1873,19 @@ func canonicalizeVersionHandlersStaticFiles(des, initial *VersionHandlersStaticF
 func canonicalizeNewVersionHandlersStaticFiles(c *Client, des, nw *VersionHandlersStaticFiles) *VersionHandlersStaticFiles {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Path, nw.Path) || dcl.IsZeroValue(des.Path) {
+		nw.Path = des.Path
+	}
+	if dcl.StringCanonicalize(des.UploadPathRegex, nw.UploadPathRegex) || dcl.IsZeroValue(des.UploadPathRegex) {
+		nw.UploadPathRegex = des.UploadPathRegex
+	}
+	if dcl.StringCanonicalize(des.MimeType, nw.MimeType) || dcl.IsZeroValue(des.MimeType) {
+		nw.MimeType = des.MimeType
+	}
+	if dcl.StringCanonicalize(des.Expiration, nw.Expiration) || dcl.IsZeroValue(des.Expiration) {
+		nw.Expiration = des.Expiration
 	}
 
 	return nw
@@ -2192,16 +1922,11 @@ func canonicalizeVersionHandlersScript(des, initial *VersionHandlersScript, opts
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.ScriptPath) {
+	if dcl.StringCanonicalize(des.ScriptPath, initial.ScriptPath) || dcl.IsZeroValue(des.ScriptPath) {
 		des.ScriptPath = initial.ScriptPath
 	}
 
@@ -2211,6 +1936,10 @@ func canonicalizeVersionHandlersScript(des, initial *VersionHandlersScript, opts
 func canonicalizeNewVersionHandlersScript(c *Client, des, nw *VersionHandlersScript) *VersionHandlersScript {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.ScriptPath, nw.ScriptPath) || dcl.IsZeroValue(des.ScriptPath) {
+		nw.ScriptPath = des.ScriptPath
 	}
 
 	return nw
@@ -2247,16 +1976,11 @@ func canonicalizeVersionHandlersApiEndpoint(des, initial *VersionHandlersApiEndp
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.ScriptPath) {
+	if dcl.StringCanonicalize(des.ScriptPath, initial.ScriptPath) || dcl.IsZeroValue(des.ScriptPath) {
 		des.ScriptPath = initial.ScriptPath
 	}
 
@@ -2266,6 +1990,10 @@ func canonicalizeVersionHandlersApiEndpoint(des, initial *VersionHandlersApiEndp
 func canonicalizeNewVersionHandlersApiEndpoint(c *Client, des, nw *VersionHandlersApiEndpoint) *VersionHandlersApiEndpoint {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.ScriptPath, nw.ScriptPath) || dcl.IsZeroValue(des.ScriptPath) {
+		nw.ScriptPath = des.ScriptPath
 	}
 
 	return nw
@@ -2302,11 +2030,6 @@ func canonicalizeVersionErrorHandlers(des, initial *VersionErrorHandlers, opts .
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -2314,10 +2037,10 @@ func canonicalizeVersionErrorHandlers(des, initial *VersionErrorHandlers, opts .
 	if dcl.IsZeroValue(des.ErrorCode) {
 		des.ErrorCode = initial.ErrorCode
 	}
-	if dcl.IsZeroValue(des.StaticFile) {
+	if dcl.StringCanonicalize(des.StaticFile, initial.StaticFile) || dcl.IsZeroValue(des.StaticFile) {
 		des.StaticFile = initial.StaticFile
 	}
-	if dcl.IsZeroValue(des.MimeType) {
+	if dcl.StringCanonicalize(des.MimeType, initial.MimeType) || dcl.IsZeroValue(des.MimeType) {
 		des.MimeType = initial.MimeType
 	}
 
@@ -2327,6 +2050,13 @@ func canonicalizeVersionErrorHandlers(des, initial *VersionErrorHandlers, opts .
 func canonicalizeNewVersionErrorHandlers(c *Client, des, nw *VersionErrorHandlers) *VersionErrorHandlers {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.StaticFile, nw.StaticFile) || dcl.IsZeroValue(des.StaticFile) {
+		nw.StaticFile = des.StaticFile
+	}
+	if dcl.StringCanonicalize(des.MimeType, nw.MimeType) || dcl.IsZeroValue(des.MimeType) {
+		nw.MimeType = des.MimeType
 	}
 
 	return nw
@@ -2363,19 +2093,14 @@ func canonicalizeVersionLibraries(des, initial *VersionLibraries, opts ...dcl.Ap
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
-	if dcl.IsZeroValue(des.Version) {
+	if dcl.StringCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
 		des.Version = initial.Version
 	}
 
@@ -2385,6 +2110,13 @@ func canonicalizeVersionLibraries(des, initial *VersionLibraries, opts ...dcl.Ap
 func canonicalizeNewVersionLibraries(c *Client, des, nw *VersionLibraries) *VersionLibraries {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Version, nw.Version) || dcl.IsZeroValue(des.Version) {
+		nw.Version = des.Version
 	}
 
 	return nw
@@ -2421,11 +2153,6 @@ func canonicalizeVersionApiConfig(des, initial *VersionApiConfig, opts ...dcl.Ap
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -2436,13 +2163,13 @@ func canonicalizeVersionApiConfig(des, initial *VersionApiConfig, opts ...dcl.Ap
 	if dcl.IsZeroValue(des.Login) {
 		des.Login = initial.Login
 	}
-	if dcl.IsZeroValue(des.Script) {
+	if dcl.StringCanonicalize(des.Script, initial.Script) || dcl.IsZeroValue(des.Script) {
 		des.Script = initial.Script
 	}
 	if dcl.IsZeroValue(des.SecurityLevel) {
 		des.SecurityLevel = initial.SecurityLevel
 	}
-	if dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
 		des.Url = initial.Url
 	}
 
@@ -2452,6 +2179,13 @@ func canonicalizeVersionApiConfig(des, initial *VersionApiConfig, opts ...dcl.Ap
 func canonicalizeNewVersionApiConfig(c *Client, des, nw *VersionApiConfig) *VersionApiConfig {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Script, nw.Script) || dcl.IsZeroValue(des.Script) {
+		nw.Script = des.Script
+	}
+	if dcl.StringCanonicalize(des.Url, nw.Url) || dcl.IsZeroValue(des.Url) {
+		nw.Url = des.Url
 	}
 
 	return nw
@@ -2486,11 +2220,6 @@ func canonicalizeVersionDeployment(des, initial *VersionDeployment, opts ...dcl.
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
 	}
 
 	if initial == nil {
@@ -2550,22 +2279,17 @@ func canonicalizeVersionDeploymentFiles(des, initial *VersionDeploymentFiles, op
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.SourceUrl) {
+	if dcl.StringCanonicalize(des.SourceUrl, initial.SourceUrl) || dcl.IsZeroValue(des.SourceUrl) {
 		des.SourceUrl = initial.SourceUrl
 	}
-	if dcl.IsZeroValue(des.Sha1Sum) {
+	if dcl.StringCanonicalize(des.Sha1Sum, initial.Sha1Sum) || dcl.IsZeroValue(des.Sha1Sum) {
 		des.Sha1Sum = initial.Sha1Sum
 	}
-	if dcl.IsZeroValue(des.MimeType) {
+	if dcl.StringCanonicalize(des.MimeType, initial.MimeType) || dcl.IsZeroValue(des.MimeType) {
 		des.MimeType = initial.MimeType
 	}
 
@@ -2575,6 +2299,16 @@ func canonicalizeVersionDeploymentFiles(des, initial *VersionDeploymentFiles, op
 func canonicalizeNewVersionDeploymentFiles(c *Client, des, nw *VersionDeploymentFiles) *VersionDeploymentFiles {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.SourceUrl, nw.SourceUrl) || dcl.IsZeroValue(des.SourceUrl) {
+		nw.SourceUrl = des.SourceUrl
+	}
+	if dcl.StringCanonicalize(des.Sha1Sum, nw.Sha1Sum) || dcl.IsZeroValue(des.Sha1Sum) {
+		nw.Sha1Sum = des.Sha1Sum
+	}
+	if dcl.StringCanonicalize(des.MimeType, nw.MimeType) || dcl.IsZeroValue(des.MimeType) {
+		nw.MimeType = des.MimeType
 	}
 
 	return nw
@@ -2611,16 +2345,11 @@ func canonicalizeVersionDeploymentContainer(des, initial *VersionDeploymentConta
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Image) {
+	if dcl.StringCanonicalize(des.Image, initial.Image) || dcl.IsZeroValue(des.Image) {
 		des.Image = initial.Image
 	}
 
@@ -2630,6 +2359,10 @@ func canonicalizeVersionDeploymentContainer(des, initial *VersionDeploymentConta
 func canonicalizeNewVersionDeploymentContainer(c *Client, des, nw *VersionDeploymentContainer) *VersionDeploymentContainer {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Image, nw.Image) || dcl.IsZeroValue(des.Image) {
+		nw.Image = des.Image
 	}
 
 	return nw
@@ -2666,16 +2399,11 @@ func canonicalizeVersionDeploymentZip(des, initial *VersionDeploymentZip, opts .
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.SourceUrl) {
+	if dcl.StringCanonicalize(des.SourceUrl, initial.SourceUrl) || dcl.IsZeroValue(des.SourceUrl) {
 		des.SourceUrl = initial.SourceUrl
 	}
 	if dcl.IsZeroValue(des.FilesCount) {
@@ -2688,6 +2416,10 @@ func canonicalizeVersionDeploymentZip(des, initial *VersionDeploymentZip, opts .
 func canonicalizeNewVersionDeploymentZip(c *Client, des, nw *VersionDeploymentZip) *VersionDeploymentZip {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.SourceUrl, nw.SourceUrl) || dcl.IsZeroValue(des.SourceUrl) {
+		nw.SourceUrl = des.SourceUrl
 	}
 
 	return nw
@@ -2724,19 +2456,14 @@ func canonicalizeVersionDeploymentCloudBuildOptions(des, initial *VersionDeploym
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.AppYamlPath) {
+	if dcl.StringCanonicalize(des.AppYamlPath, initial.AppYamlPath) || dcl.IsZeroValue(des.AppYamlPath) {
 		des.AppYamlPath = initial.AppYamlPath
 	}
-	if dcl.IsZeroValue(des.CloudBuildTimeout) {
+	if dcl.StringCanonicalize(des.CloudBuildTimeout, initial.CloudBuildTimeout) || dcl.IsZeroValue(des.CloudBuildTimeout) {
 		des.CloudBuildTimeout = initial.CloudBuildTimeout
 	}
 
@@ -2746,6 +2473,13 @@ func canonicalizeVersionDeploymentCloudBuildOptions(des, initial *VersionDeploym
 func canonicalizeNewVersionDeploymentCloudBuildOptions(c *Client, des, nw *VersionDeploymentCloudBuildOptions) *VersionDeploymentCloudBuildOptions {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.AppYamlPath, nw.AppYamlPath) || dcl.IsZeroValue(des.AppYamlPath) {
+		nw.AppYamlPath = des.AppYamlPath
+	}
+	if dcl.StringCanonicalize(des.CloudBuildTimeout, nw.CloudBuildTimeout) || dcl.IsZeroValue(des.CloudBuildTimeout) {
+		nw.CloudBuildTimeout = des.CloudBuildTimeout
 	}
 
 	return nw
@@ -2782,11 +2516,6 @@ func canonicalizeVersionHealthCheck(des, initial *VersionHealthCheck, opts ...dc
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -2794,7 +2523,7 @@ func canonicalizeVersionHealthCheck(des, initial *VersionHealthCheck, opts ...dc
 	if dcl.IsZeroValue(des.DisableHealthCheck) {
 		des.DisableHealthCheck = initial.DisableHealthCheck
 	}
-	if dcl.IsZeroValue(des.Host) {
+	if dcl.StringCanonicalize(des.Host, initial.Host) || dcl.IsZeroValue(des.Host) {
 		des.Host = initial.Host
 	}
 	if dcl.IsZeroValue(des.HealthyThreshold) {
@@ -2806,10 +2535,10 @@ func canonicalizeVersionHealthCheck(des, initial *VersionHealthCheck, opts ...dc
 	if dcl.IsZeroValue(des.RestartThreshold) {
 		des.RestartThreshold = initial.RestartThreshold
 	}
-	if dcl.IsZeroValue(des.CheckInterval) {
+	if dcl.StringCanonicalize(des.CheckInterval, initial.CheckInterval) || dcl.IsZeroValue(des.CheckInterval) {
 		des.CheckInterval = initial.CheckInterval
 	}
-	if dcl.IsZeroValue(des.Timeout) {
+	if dcl.StringCanonicalize(des.Timeout, initial.Timeout) || dcl.IsZeroValue(des.Timeout) {
 		des.Timeout = initial.Timeout
 	}
 
@@ -2819,6 +2548,16 @@ func canonicalizeVersionHealthCheck(des, initial *VersionHealthCheck, opts ...dc
 func canonicalizeNewVersionHealthCheck(c *Client, des, nw *VersionHealthCheck) *VersionHealthCheck {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Host, nw.Host) || dcl.IsZeroValue(des.Host) {
+		nw.Host = des.Host
+	}
+	if dcl.StringCanonicalize(des.CheckInterval, nw.CheckInterval) || dcl.IsZeroValue(des.CheckInterval) {
+		nw.CheckInterval = des.CheckInterval
+	}
+	if dcl.StringCanonicalize(des.Timeout, nw.Timeout) || dcl.IsZeroValue(des.Timeout) {
+		nw.Timeout = des.Timeout
 	}
 
 	return nw
@@ -2855,19 +2594,14 @@ func canonicalizeVersionReadinessCheck(des, initial *VersionReadinessCheck, opts
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
 		des.Path = initial.Path
 	}
-	if dcl.IsZeroValue(des.Host) {
+	if dcl.StringCanonicalize(des.Host, initial.Host) || dcl.IsZeroValue(des.Host) {
 		des.Host = initial.Host
 	}
 	if dcl.IsZeroValue(des.FailureThreshold) {
@@ -2876,13 +2610,13 @@ func canonicalizeVersionReadinessCheck(des, initial *VersionReadinessCheck, opts
 	if dcl.IsZeroValue(des.SuccessThreshold) {
 		des.SuccessThreshold = initial.SuccessThreshold
 	}
-	if dcl.IsZeroValue(des.CheckInterval) {
+	if dcl.StringCanonicalize(des.CheckInterval, initial.CheckInterval) || dcl.IsZeroValue(des.CheckInterval) {
 		des.CheckInterval = initial.CheckInterval
 	}
-	if dcl.IsZeroValue(des.Timeout) {
+	if dcl.StringCanonicalize(des.Timeout, initial.Timeout) || dcl.IsZeroValue(des.Timeout) {
 		des.Timeout = initial.Timeout
 	}
-	if dcl.IsZeroValue(des.AppStartTimeout) {
+	if dcl.StringCanonicalize(des.AppStartTimeout, initial.AppStartTimeout) || dcl.IsZeroValue(des.AppStartTimeout) {
 		des.AppStartTimeout = initial.AppStartTimeout
 	}
 
@@ -2892,6 +2626,22 @@ func canonicalizeVersionReadinessCheck(des, initial *VersionReadinessCheck, opts
 func canonicalizeNewVersionReadinessCheck(c *Client, des, nw *VersionReadinessCheck) *VersionReadinessCheck {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Path, nw.Path) || dcl.IsZeroValue(des.Path) {
+		nw.Path = des.Path
+	}
+	if dcl.StringCanonicalize(des.Host, nw.Host) || dcl.IsZeroValue(des.Host) {
+		nw.Host = des.Host
+	}
+	if dcl.StringCanonicalize(des.CheckInterval, nw.CheckInterval) || dcl.IsZeroValue(des.CheckInterval) {
+		nw.CheckInterval = des.CheckInterval
+	}
+	if dcl.StringCanonicalize(des.Timeout, nw.Timeout) || dcl.IsZeroValue(des.Timeout) {
+		nw.Timeout = des.Timeout
+	}
+	if dcl.StringCanonicalize(des.AppStartTimeout, nw.AppStartTimeout) || dcl.IsZeroValue(des.AppStartTimeout) {
+		nw.AppStartTimeout = des.AppStartTimeout
 	}
 
 	return nw
@@ -2928,19 +2678,14 @@ func canonicalizeVersionLivenessCheck(des, initial *VersionLivenessCheck, opts .
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
 		des.Path = initial.Path
 	}
-	if dcl.IsZeroValue(des.Host) {
+	if dcl.StringCanonicalize(des.Host, initial.Host) || dcl.IsZeroValue(des.Host) {
 		des.Host = initial.Host
 	}
 	if dcl.IsZeroValue(des.FailureThreshold) {
@@ -2949,13 +2694,13 @@ func canonicalizeVersionLivenessCheck(des, initial *VersionLivenessCheck, opts .
 	if dcl.IsZeroValue(des.SuccessThreshold) {
 		des.SuccessThreshold = initial.SuccessThreshold
 	}
-	if dcl.IsZeroValue(des.CheckInterval) {
+	if dcl.StringCanonicalize(des.CheckInterval, initial.CheckInterval) || dcl.IsZeroValue(des.CheckInterval) {
 		des.CheckInterval = initial.CheckInterval
 	}
-	if dcl.IsZeroValue(des.Timeout) {
+	if dcl.StringCanonicalize(des.Timeout, initial.Timeout) || dcl.IsZeroValue(des.Timeout) {
 		des.Timeout = initial.Timeout
 	}
-	if dcl.IsZeroValue(des.InitialDelay) {
+	if dcl.StringCanonicalize(des.InitialDelay, initial.InitialDelay) || dcl.IsZeroValue(des.InitialDelay) {
 		des.InitialDelay = initial.InitialDelay
 	}
 
@@ -2965,6 +2710,22 @@ func canonicalizeVersionLivenessCheck(des, initial *VersionLivenessCheck, opts .
 func canonicalizeNewVersionLivenessCheck(c *Client, des, nw *VersionLivenessCheck) *VersionLivenessCheck {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Path, nw.Path) || dcl.IsZeroValue(des.Path) {
+		nw.Path = des.Path
+	}
+	if dcl.StringCanonicalize(des.Host, nw.Host) || dcl.IsZeroValue(des.Host) {
+		nw.Host = des.Host
+	}
+	if dcl.StringCanonicalize(des.CheckInterval, nw.CheckInterval) || dcl.IsZeroValue(des.CheckInterval) {
+		nw.CheckInterval = des.CheckInterval
+	}
+	if dcl.StringCanonicalize(des.Timeout, nw.Timeout) || dcl.IsZeroValue(des.Timeout) {
+		nw.Timeout = des.Timeout
+	}
+	if dcl.StringCanonicalize(des.InitialDelay, nw.InitialDelay) || dcl.IsZeroValue(des.InitialDelay) {
+		nw.InitialDelay = des.InitialDelay
 	}
 
 	return nw
@@ -2993,152 +2754,6 @@ func canonicalizeNewVersionLivenessCheckSet(c *Client, des, nw []VersionLiveness
 	return reorderedNew
 }
 
-func canonicalizeVersionServiceAuthSpec(des, initial *VersionServiceAuthSpec, opts ...dcl.ApplyOption) *VersionServiceAuthSpec {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Audiences) {
-		des.Audiences = initial.Audiences
-	}
-	if dcl.IsZeroValue(des.IamServiceName) {
-		des.IamServiceName = initial.IamServiceName
-	}
-	if dcl.IsZeroValue(des.IamResourceName) {
-		des.IamResourceName = initial.IamResourceName
-	}
-	if dcl.IsZeroValue(des.IamPolicyId) {
-		des.IamPolicyId = initial.IamPolicyId
-	}
-	if dcl.IsZeroValue(des.IamPolicyType) {
-		des.IamPolicyType = initial.IamPolicyType
-	}
-	if dcl.IsZeroValue(des.IamPermission) {
-		des.IamPermission = initial.IamPermission
-	}
-	if dcl.IsZeroValue(des.AcceptGcloudClientId) {
-		des.AcceptGcloudClientId = initial.AcceptGcloudClientId
-	}
-	if dcl.IsZeroValue(des.Clear) {
-		des.Clear = initial.Clear
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionServiceAuthSpec(c *Client, des, nw *VersionServiceAuthSpec) *VersionServiceAuthSpec {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionServiceAuthSpecSet(c *Client, des, nw []VersionServiceAuthSpec) []VersionServiceAuthSpec {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionServiceAuthSpec
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionServiceAuthSpec(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionServiceCorsSpec(des, initial *VersionServiceCorsSpec, opts ...dcl.ApplyOption) *VersionServiceCorsSpec {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Origin) {
-		des.Origin = initial.Origin
-	}
-	if dcl.IsZeroValue(des.Method) {
-		des.Method = initial.Method
-	}
-	if dcl.IsZeroValue(des.Header) {
-		des.Header = initial.Header
-	}
-	if dcl.IsZeroValue(des.ExposedHeader) {
-		des.ExposedHeader = initial.ExposedHeader
-	}
-	if dcl.IsZeroValue(des.AllowCredential) {
-		des.AllowCredential = initial.AllowCredential
-	}
-	if dcl.IsZeroValue(des.MaxAgeSeconds) {
-		des.MaxAgeSeconds = initial.MaxAgeSeconds
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionServiceCorsSpec(c *Client, des, nw *VersionServiceCorsSpec) *VersionServiceCorsSpec {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionServiceCorsSpecSet(c *Client, des, nw []VersionServiceCorsSpec) []VersionServiceCorsSpec {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionServiceCorsSpec
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionServiceCorsSpec(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
 func canonicalizeVersionEntrypoint(des, initial *VersionEntrypoint, opts ...dcl.ApplyOption) *VersionEntrypoint {
 	if des == nil {
 		return initial
@@ -3147,16 +2762,11 @@ func canonicalizeVersionEntrypoint(des, initial *VersionEntrypoint, opts ...dcl.
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Shell) {
+	if dcl.StringCanonicalize(des.Shell, initial.Shell) || dcl.IsZeroValue(des.Shell) {
 		des.Shell = initial.Shell
 	}
 
@@ -3166,6 +2776,10 @@ func canonicalizeVersionEntrypoint(des, initial *VersionEntrypoint, opts ...dcl.
 func canonicalizeNewVersionEntrypoint(c *Client, des, nw *VersionEntrypoint) *VersionEntrypoint {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Shell, nw.Shell) || dcl.IsZeroValue(des.Shell) {
+		nw.Shell = des.Shell
 	}
 
 	return nw
@@ -3202,20 +2816,12 @@ func canonicalizeVersionVPCAccessConnector(des, initial *VersionVPCAccessConnect
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Name) {
+	if dcl.NameToSelfLink(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
-	}
-	if dcl.IsZeroValue(des.EgressSetting) {
-		des.EgressSetting = initial.EgressSetting
 	}
 
 	return des
@@ -3224,6 +2830,10 @@ func canonicalizeVersionVPCAccessConnector(des, initial *VersionVPCAccessConnect
 func canonicalizeNewVersionVPCAccessConnector(c *Client, des, nw *VersionVPCAccessConnector) *VersionVPCAccessConnector {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.NameToSelfLink(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+		nw.Name = des.Name
 	}
 
 	return nw
@@ -3238,299 +2848,6 @@ func canonicalizeNewVersionVPCAccessConnectorSet(c *Client, des, nw []VersionVPC
 		matchedNew := -1
 		for idx, n := range nw {
 			if !compareVersionVPCAccessConnector(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionNetworkSettings(des, initial *VersionNetworkSettings, opts ...dcl.ApplyOption) *VersionNetworkSettings {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.IngressTrafficAllowed) {
-		des.IngressTrafficAllowed = initial.IngressTrafficAllowed
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionNetworkSettings(c *Client, des, nw *VersionNetworkSettings) *VersionNetworkSettings {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionNetworkSettingsSet(c *Client, des, nw []VersionNetworkSettings) []VersionNetworkSettings {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionNetworkSettings
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionNetworkSettings(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionInstanceSpec(des, initial *VersionInstanceSpec, opts ...dcl.ApplyOption) *VersionInstanceSpec {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Sandboxes) {
-		des.Sandboxes = initial.Sandboxes
-	}
-	if dcl.IsZeroValue(des.Ports) {
-		des.Ports = initial.Ports
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionInstanceSpec(c *Client, des, nw *VersionInstanceSpec) *VersionInstanceSpec {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionInstanceSpecSet(c *Client, des, nw []VersionInstanceSpec) []VersionInstanceSpec {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionInstanceSpec
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionInstanceSpec(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionInstanceSpecSandboxes(des, initial *VersionInstanceSpecSandboxes, opts ...dcl.ApplyOption) *VersionInstanceSpecSandboxes {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
-	}
-	if dcl.IsZeroValue(des.Containers) {
-		des.Containers = initial.Containers
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionInstanceSpecSandboxes(c *Client, des, nw *VersionInstanceSpecSandboxes) *VersionInstanceSpecSandboxes {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionInstanceSpecSandboxesSet(c *Client, des, nw []VersionInstanceSpecSandboxes) []VersionInstanceSpecSandboxes {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionInstanceSpecSandboxes
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionInstanceSpecSandboxes(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionInstanceSpecSandboxesContainers(des, initial *VersionInstanceSpecSandboxesContainers, opts ...dcl.ApplyOption) *VersionInstanceSpecSandboxesContainers {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Ports) {
-		des.Ports = initial.Ports
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionInstanceSpecSandboxesContainers(c *Client, des, nw *VersionInstanceSpecSandboxesContainers) *VersionInstanceSpecSandboxesContainers {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionInstanceSpecSandboxesContainersSet(c *Client, des, nw []VersionInstanceSpecSandboxesContainers) []VersionInstanceSpecSandboxesContainers {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionInstanceSpecSandboxesContainers
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionInstanceSpecSandboxesContainers(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeVersionInstanceSpecPorts(des, initial *VersionInstanceSpecPorts, opts ...dcl.ApplyOption) *VersionInstanceSpecPorts {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Version)
-		_ = r
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
-	}
-	if dcl.IsZeroValue(des.Sandbox) {
-		des.Sandbox = initial.Sandbox
-	}
-	if dcl.IsZeroValue(des.Port) {
-		des.Port = initial.Port
-	}
-	if dcl.IsZeroValue(des.Protocol) {
-		des.Protocol = initial.Protocol
-	}
-	if dcl.IsZeroValue(des.IsDefault) {
-		des.IsDefault = initial.IsDefault
-	}
-
-	return des
-}
-
-func canonicalizeNewVersionInstanceSpecPorts(c *Client, des, nw *VersionInstanceSpecPorts) *VersionInstanceSpecPorts {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewVersionInstanceSpecPortsSet(c *Client, des, nw []VersionInstanceSpecPorts) []VersionInstanceSpecPorts {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []VersionInstanceSpecPorts
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareVersionInstanceSpecPorts(c, &d, &n) {
 				matchedNew = idx
 				break
 			}
@@ -3566,7 +2883,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []versionDiff
-	if !dcl.IsZeroValue(desired.ConsumerName) && (dcl.IsZeroValue(actual.ConsumerName) || !reflect.DeepEqual(*desired.ConsumerName, *actual.ConsumerName)) {
+	if !dcl.IsZeroValue(desired.ConsumerName) && !dcl.StringCanonicalize(desired.ConsumerName, actual.ConsumerName) {
 		c.Config.Logger.Infof("Detected diff in ConsumerName.\nDESIRED: %v\nACTUAL: %v", desired.ConsumerName, actual.ConsumerName)
 
 		diffs = append(diffs, versionDiff{
@@ -3575,7 +2892,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 
 		diffs = append(diffs, versionDiff{
@@ -3611,24 +2928,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if compareVersionJobScaling(c, desired.JobScaling, actual.JobScaling) {
-		c.Config.Logger.Infof("Detected diff in JobScaling.\nDESIRED: %v\nACTUAL: %v", desired.JobScaling, actual.JobScaling)
-
-		diffs = append(diffs, versionDiff{
-			UpdateOp:  &updateVersionPatchVersionOperation{},
-			FieldName: "JobScaling",
-		})
-
-	}
-	if compareVersionPoolScaling(c, desired.PoolScaling, actual.PoolScaling) {
-		c.Config.Logger.Infof("Detected diff in PoolScaling.\nDESIRED: %v\nACTUAL: %v", desired.PoolScaling, actual.PoolScaling)
-
-		diffs = append(diffs, versionDiff{
-			UpdateOp:  &updateVersionPatchVersionOperation{},
-			FieldName: "PoolScaling",
-		})
-
-	}
 	if compareVersionInboundServicesEnumSlice(c, desired.InboundServices, actual.InboundServices) {
 		c.Config.Logger.Infof("Detected diff in InboundServices.\nDESIRED: %v\nACTUAL: %v", desired.InboundServices, actual.InboundServices)
 
@@ -3638,7 +2937,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.InstanceClass) && (dcl.IsZeroValue(actual.InstanceClass) || !reflect.DeepEqual(*desired.InstanceClass, *actual.InstanceClass)) {
+	if !dcl.IsZeroValue(desired.InstanceClass) && !dcl.StringCanonicalize(desired.InstanceClass, actual.InstanceClass) {
 		c.Config.Logger.Infof("Detected diff in InstanceClass.\nDESIRED: %v\nACTUAL: %v", desired.InstanceClass, actual.InstanceClass)
 
 		diffs = append(diffs, versionDiff{
@@ -3656,7 +2955,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if !dcl.SliceEquals(desired.Zones, actual.Zones) {
+	if !dcl.StringSliceEquals(desired.Zones, actual.Zones) {
 		c.Config.Logger.Infof("Detected diff in Zones.\nDESIRED: %v\nACTUAL: %v", desired.Zones, actual.Zones)
 
 		diffs = append(diffs, versionDiff{
@@ -3674,7 +2973,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Runtime) && (dcl.IsZeroValue(actual.Runtime) || !reflect.DeepEqual(*desired.Runtime, *actual.Runtime)) {
+	if !dcl.IsZeroValue(desired.Runtime) && !dcl.StringCanonicalize(desired.Runtime, actual.Runtime) {
 		c.Config.Logger.Infof("Detected diff in Runtime.\nDESIRED: %v\nACTUAL: %v", desired.Runtime, actual.Runtime)
 
 		diffs = append(diffs, versionDiff{
@@ -3683,7 +2982,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.RuntimeChannel) && (dcl.IsZeroValue(actual.RuntimeChannel) || !reflect.DeepEqual(*desired.RuntimeChannel, *actual.RuntimeChannel)) {
+	if !dcl.IsZeroValue(desired.RuntimeChannel) && !dcl.StringCanonicalize(desired.RuntimeChannel, actual.RuntimeChannel) {
 		c.Config.Logger.Infof("Detected diff in RuntimeChannel.\nDESIRED: %v\nACTUAL: %v", desired.RuntimeChannel, actual.RuntimeChannel)
 
 		diffs = append(diffs, versionDiff{
@@ -3692,7 +2991,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Threadsafe) && (dcl.IsZeroValue(actual.Threadsafe) || !reflect.DeepEqual(*desired.Threadsafe, *actual.Threadsafe)) {
+	if !reflect.DeepEqual(desired.Threadsafe, actual.Threadsafe) {
 		c.Config.Logger.Infof("Detected diff in Threadsafe.\nDESIRED: %v\nACTUAL: %v", desired.Threadsafe, actual.Threadsafe)
 
 		diffs = append(diffs, versionDiff{
@@ -3701,7 +3000,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Vm) && (dcl.IsZeroValue(actual.Vm) || !reflect.DeepEqual(*desired.Vm, *actual.Vm)) {
+	if !reflect.DeepEqual(desired.Vm, actual.Vm) {
 		c.Config.Logger.Infof("Detected diff in Vm.\nDESIRED: %v\nACTUAL: %v", desired.Vm, actual.Vm)
 
 		diffs = append(diffs, versionDiff{
@@ -3710,7 +3009,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if !reflect.DeepEqual(desired.BetaSettings, actual.BetaSettings) {
+	if !dcl.MapEquals(desired.BetaSettings, actual.BetaSettings, []string(nil)) {
 		c.Config.Logger.Infof("Detected diff in BetaSettings.\nDESIRED: %v\nACTUAL: %v", desired.BetaSettings, actual.BetaSettings)
 
 		diffs = append(diffs, versionDiff{
@@ -3719,7 +3018,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Env) && (dcl.IsZeroValue(actual.Env) || !reflect.DeepEqual(*desired.Env, *actual.Env)) {
+	if !dcl.IsZeroValue(desired.Env) && !dcl.StringCanonicalize(desired.Env, actual.Env) {
 		c.Config.Logger.Infof("Detected diff in Env.\nDESIRED: %v\nACTUAL: %v", desired.Env, actual.Env)
 
 		diffs = append(diffs, versionDiff{
@@ -3728,7 +3027,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.ServingStatus) && (dcl.IsZeroValue(actual.ServingStatus) || !reflect.DeepEqual(*desired.ServingStatus, *actual.ServingStatus)) {
+	if !reflect.DeepEqual(desired.ServingStatus, actual.ServingStatus) {
 		c.Config.Logger.Infof("Detected diff in ServingStatus.\nDESIRED: %v\nACTUAL: %v", desired.ServingStatus, actual.ServingStatus)
 
 		diffs = append(diffs, versionDiff{
@@ -3737,34 +3036,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.CreatedBy) && (dcl.IsZeroValue(actual.CreatedBy) || !reflect.DeepEqual(*desired.CreatedBy, *actual.CreatedBy)) {
-		c.Config.Logger.Infof("Detected diff in CreatedBy.\nDESIRED: %v\nACTUAL: %v", desired.CreatedBy, actual.CreatedBy)
-
-		diffs = append(diffs, versionDiff{
-			UpdateOp:  &updateVersionPatchVersionOperation{},
-			FieldName: "CreatedBy",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.CreateTime) && (dcl.IsZeroValue(actual.CreateTime) || !reflect.DeepEqual(*desired.CreateTime, *actual.CreateTime)) {
-		c.Config.Logger.Infof("Detected diff in CreateTime.\nDESIRED: %v\nACTUAL: %v", desired.CreateTime, actual.CreateTime)
-
-		diffs = append(diffs, versionDiff{
-			UpdateOp:  &updateVersionPatchVersionOperation{},
-			FieldName: "CreateTime",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.DiskUsageBytes) && (dcl.IsZeroValue(actual.DiskUsageBytes) || !reflect.DeepEqual(*desired.DiskUsageBytes, *actual.DiskUsageBytes)) {
-		c.Config.Logger.Infof("Detected diff in DiskUsageBytes.\nDESIRED: %v\nACTUAL: %v", desired.DiskUsageBytes, actual.DiskUsageBytes)
-
-		diffs = append(diffs, versionDiff{
-			UpdateOp:  &updateVersionPatchVersionOperation{},
-			FieldName: "DiskUsageBytes",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.RuntimeApiVersion) && (dcl.IsZeroValue(actual.RuntimeApiVersion) || !reflect.DeepEqual(*desired.RuntimeApiVersion, *actual.RuntimeApiVersion)) {
+	if !dcl.IsZeroValue(desired.RuntimeApiVersion) && !dcl.StringCanonicalize(desired.RuntimeApiVersion, actual.RuntimeApiVersion) {
 		c.Config.Logger.Infof("Detected diff in RuntimeApiVersion.\nDESIRED: %v\nACTUAL: %v", desired.RuntimeApiVersion, actual.RuntimeApiVersion)
 
 		diffs = append(diffs, versionDiff{
@@ -3773,7 +3045,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.RuntimeMainExecutablePath) && (dcl.IsZeroValue(actual.RuntimeMainExecutablePath) || !reflect.DeepEqual(*desired.RuntimeMainExecutablePath, *actual.RuntimeMainExecutablePath)) {
+	if !dcl.IsZeroValue(desired.RuntimeMainExecutablePath) && !dcl.StringCanonicalize(desired.RuntimeMainExecutablePath, actual.RuntimeMainExecutablePath) {
 		c.Config.Logger.Infof("Detected diff in RuntimeMainExecutablePath.\nDESIRED: %v\nACTUAL: %v", desired.RuntimeMainExecutablePath, actual.RuntimeMainExecutablePath)
 
 		diffs = append(diffs, versionDiff{
@@ -3818,7 +3090,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if !reflect.DeepEqual(desired.EnvVariables, actual.EnvVariables) {
+	if !dcl.MapEquals(desired.EnvVariables, actual.EnvVariables, []string(nil)) {
 		c.Config.Logger.Infof("Detected diff in EnvVariables.\nDESIRED: %v\nACTUAL: %v", desired.EnvVariables, actual.EnvVariables)
 
 		diffs = append(diffs, versionDiff{
@@ -3827,16 +3099,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if !reflect.DeepEqual(desired.BuildEnvVariables, actual.BuildEnvVariables) {
-		c.Config.Logger.Infof("Detected diff in BuildEnvVariables.\nDESIRED: %v\nACTUAL: %v", desired.BuildEnvVariables, actual.BuildEnvVariables)
-
-		diffs = append(diffs, versionDiff{
-			UpdateOp:  &updateVersionPatchVersionOperation{},
-			FieldName: "BuildEnvVariables",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.DefaultExpiration) && (dcl.IsZeroValue(actual.DefaultExpiration) || !reflect.DeepEqual(*desired.DefaultExpiration, *actual.DefaultExpiration)) {
+	if !dcl.IsZeroValue(desired.DefaultExpiration) && !dcl.StringCanonicalize(desired.DefaultExpiration, actual.DefaultExpiration) {
 		c.Config.Logger.Infof("Detected diff in DefaultExpiration.\nDESIRED: %v\nACTUAL: %v", desired.DefaultExpiration, actual.DefaultExpiration)
 
 		diffs = append(diffs, versionDiff{
@@ -3879,48 +3142,12 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.NobuildFilesRegex) && (dcl.IsZeroValue(actual.NobuildFilesRegex) || !reflect.DeepEqual(*desired.NobuildFilesRegex, *actual.NobuildFilesRegex)) {
+	if !dcl.IsZeroValue(desired.NobuildFilesRegex) && !dcl.StringCanonicalize(desired.NobuildFilesRegex, actual.NobuildFilesRegex) {
 		c.Config.Logger.Infof("Detected diff in NobuildFilesRegex.\nDESIRED: %v\nACTUAL: %v", desired.NobuildFilesRegex, actual.NobuildFilesRegex)
 
 		diffs = append(diffs, versionDiff{
 			UpdateOp:  &updateVersionPatchVersionOperation{},
 			FieldName: "NobuildFilesRegex",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.VersionUrl) && (dcl.IsZeroValue(actual.VersionUrl) || !reflect.DeepEqual(*desired.VersionUrl, *actual.VersionUrl)) {
-		c.Config.Logger.Infof("Detected diff in VersionUrl.\nDESIRED: %v\nACTUAL: %v", desired.VersionUrl, actual.VersionUrl)
-
-		diffs = append(diffs, versionDiff{
-			UpdateOp:  &updateVersionPatchVersionOperation{},
-			FieldName: "VersionUrl",
-		})
-
-	}
-	if compareVersionServiceAuthSpec(c, desired.ServiceAuthSpec, actual.ServiceAuthSpec) {
-		c.Config.Logger.Infof("Detected diff in ServiceAuthSpec.\nDESIRED: %v\nACTUAL: %v", desired.ServiceAuthSpec, actual.ServiceAuthSpec)
-
-		diffs = append(diffs, versionDiff{
-			UpdateOp:  &updateVersionPatchVersionOperation{},
-			FieldName: "ServiceAuthSpec",
-		})
-
-	}
-	if compareVersionServiceCorsSpec(c, desired.ServiceCorsSpec, actual.ServiceCorsSpec) {
-		c.Config.Logger.Infof("Detected diff in ServiceCorsSpec.\nDESIRED: %v\nACTUAL: %v", desired.ServiceCorsSpec, actual.ServiceCorsSpec)
-
-		diffs = append(diffs, versionDiff{
-			UpdateOp:  &updateVersionPatchVersionOperation{},
-			FieldName: "ServiceCorsSpec",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.RouteHash) && (dcl.IsZeroValue(actual.RouteHash) || !reflect.DeepEqual(*desired.RouteHash, *actual.RouteHash)) {
-		c.Config.Logger.Infof("Detected diff in RouteHash.\nDESIRED: %v\nACTUAL: %v", desired.RouteHash, actual.RouteHash)
-
-		diffs = append(diffs, versionDiff{
-			UpdateOp:  &updateVersionPatchVersionOperation{},
-			FieldName: "RouteHash",
 		})
 
 	}
@@ -3939,24 +3166,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		diffs = append(diffs, versionDiff{
 			UpdateOp:  &updateVersionPatchVersionOperation{},
 			FieldName: "VPCAccessConnector",
-		})
-
-	}
-	if compareVersionNetworkSettings(c, desired.NetworkSettings, actual.NetworkSettings) {
-		c.Config.Logger.Infof("Detected diff in NetworkSettings.\nDESIRED: %v\nACTUAL: %v", desired.NetworkSettings, actual.NetworkSettings)
-
-		diffs = append(diffs, versionDiff{
-			UpdateOp:  &updateVersionPatchVersionOperation{},
-			FieldName: "NetworkSettings",
-		})
-
-	}
-	if compareVersionInstanceSpec(c, desired.InstanceSpec, actual.InstanceSpec) {
-		c.Config.Logger.Infof("Detected diff in InstanceSpec.\nDESIRED: %v\nACTUAL: %v", desired.InstanceSpec, actual.InstanceSpec)
-
-		diffs = append(diffs, versionDiff{
-			UpdateOp:  &updateVersionPatchVersionOperation{},
-			FieldName: "InstanceSpec",
 		})
 
 	}
@@ -3984,20 +3193,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 
 	return deduped, nil
 }
-func compareVersionAutomaticScalingSlice(c *Client, desired, actual []VersionAutomaticScaling) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionAutomaticScaling, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionAutomaticScaling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScaling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
 func compareVersionAutomaticScaling(c *Client, desired, actual *VersionAutomaticScaling) bool {
 	if desired == nil {
 		return false
@@ -4009,7 +3204,7 @@ func compareVersionAutomaticScaling(c *Client, desired, actual *VersionAutomatic
 		c.Config.Logger.Infof("desired CoolDownPeriod %s - but actually nil", dcl.SprintResource(desired.CoolDownPeriod))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CoolDownPeriod, actual.CoolDownPeriod) && !dcl.IsZeroValue(desired.CoolDownPeriod) && !(dcl.IsEmptyValueIndirect(desired.CoolDownPeriod) && dcl.IsZeroValue(actual.CoolDownPeriod)) {
+	if !dcl.StringCanonicalize(desired.CoolDownPeriod, actual.CoolDownPeriod) && !dcl.IsZeroValue(desired.CoolDownPeriod) {
 		c.Config.Logger.Infof("Diff in CoolDownPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CoolDownPeriod), dcl.SprintResource(actual.CoolDownPeriod))
 		return true
 	}
@@ -4025,7 +3220,7 @@ func compareVersionAutomaticScaling(c *Client, desired, actual *VersionAutomatic
 		c.Config.Logger.Infof("desired MaxConcurrentRequests %s - but actually nil", dcl.SprintResource(desired.MaxConcurrentRequests))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MaxConcurrentRequests, actual.MaxConcurrentRequests) && !dcl.IsZeroValue(desired.MaxConcurrentRequests) && !(dcl.IsEmptyValueIndirect(desired.MaxConcurrentRequests) && dcl.IsZeroValue(actual.MaxConcurrentRequests)) {
+	if !reflect.DeepEqual(desired.MaxConcurrentRequests, actual.MaxConcurrentRequests) && !dcl.IsZeroValue(desired.MaxConcurrentRequests) {
 		c.Config.Logger.Infof("Diff in MaxConcurrentRequests. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxConcurrentRequests), dcl.SprintResource(actual.MaxConcurrentRequests))
 		return true
 	}
@@ -4033,7 +3228,7 @@ func compareVersionAutomaticScaling(c *Client, desired, actual *VersionAutomatic
 		c.Config.Logger.Infof("desired MaxIdleInstances %s - but actually nil", dcl.SprintResource(desired.MaxIdleInstances))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MaxIdleInstances, actual.MaxIdleInstances) && !dcl.IsZeroValue(desired.MaxIdleInstances) && !(dcl.IsEmptyValueIndirect(desired.MaxIdleInstances) && dcl.IsZeroValue(actual.MaxIdleInstances)) {
+	if !reflect.DeepEqual(desired.MaxIdleInstances, actual.MaxIdleInstances) && !dcl.IsZeroValue(desired.MaxIdleInstances) {
 		c.Config.Logger.Infof("Diff in MaxIdleInstances. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxIdleInstances), dcl.SprintResource(actual.MaxIdleInstances))
 		return true
 	}
@@ -4041,7 +3236,7 @@ func compareVersionAutomaticScaling(c *Client, desired, actual *VersionAutomatic
 		c.Config.Logger.Infof("desired MaxTotalInstances %s - but actually nil", dcl.SprintResource(desired.MaxTotalInstances))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MaxTotalInstances, actual.MaxTotalInstances) && !dcl.IsZeroValue(desired.MaxTotalInstances) && !(dcl.IsEmptyValueIndirect(desired.MaxTotalInstances) && dcl.IsZeroValue(actual.MaxTotalInstances)) {
+	if !reflect.DeepEqual(desired.MaxTotalInstances, actual.MaxTotalInstances) && !dcl.IsZeroValue(desired.MaxTotalInstances) {
 		c.Config.Logger.Infof("Diff in MaxTotalInstances. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxTotalInstances), dcl.SprintResource(actual.MaxTotalInstances))
 		return true
 	}
@@ -4049,7 +3244,7 @@ func compareVersionAutomaticScaling(c *Client, desired, actual *VersionAutomatic
 		c.Config.Logger.Infof("desired MaxPendingLatency %s - but actually nil", dcl.SprintResource(desired.MaxPendingLatency))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MaxPendingLatency, actual.MaxPendingLatency) && !dcl.IsZeroValue(desired.MaxPendingLatency) && !(dcl.IsEmptyValueIndirect(desired.MaxPendingLatency) && dcl.IsZeroValue(actual.MaxPendingLatency)) {
+	if !dcl.StringCanonicalize(desired.MaxPendingLatency, actual.MaxPendingLatency) && !dcl.IsZeroValue(desired.MaxPendingLatency) {
 		c.Config.Logger.Infof("Diff in MaxPendingLatency. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxPendingLatency), dcl.SprintResource(actual.MaxPendingLatency))
 		return true
 	}
@@ -4057,7 +3252,7 @@ func compareVersionAutomaticScaling(c *Client, desired, actual *VersionAutomatic
 		c.Config.Logger.Infof("desired MinIdleInstances %s - but actually nil", dcl.SprintResource(desired.MinIdleInstances))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MinIdleInstances, actual.MinIdleInstances) && !dcl.IsZeroValue(desired.MinIdleInstances) && !(dcl.IsEmptyValueIndirect(desired.MinIdleInstances) && dcl.IsZeroValue(actual.MinIdleInstances)) {
+	if !reflect.DeepEqual(desired.MinIdleInstances, actual.MinIdleInstances) && !dcl.IsZeroValue(desired.MinIdleInstances) {
 		c.Config.Logger.Infof("Diff in MinIdleInstances. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinIdleInstances), dcl.SprintResource(actual.MinIdleInstances))
 		return true
 	}
@@ -4065,7 +3260,7 @@ func compareVersionAutomaticScaling(c *Client, desired, actual *VersionAutomatic
 		c.Config.Logger.Infof("desired MinTotalInstances %s - but actually nil", dcl.SprintResource(desired.MinTotalInstances))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MinTotalInstances, actual.MinTotalInstances) && !dcl.IsZeroValue(desired.MinTotalInstances) && !(dcl.IsEmptyValueIndirect(desired.MinTotalInstances) && dcl.IsZeroValue(actual.MinTotalInstances)) {
+	if !reflect.DeepEqual(desired.MinTotalInstances, actual.MinTotalInstances) && !dcl.IsZeroValue(desired.MinTotalInstances) {
 		c.Config.Logger.Infof("Diff in MinTotalInstances. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinTotalInstances), dcl.SprintResource(actual.MinTotalInstances))
 		return true
 	}
@@ -4073,7 +3268,7 @@ func compareVersionAutomaticScaling(c *Client, desired, actual *VersionAutomatic
 		c.Config.Logger.Infof("desired MinPendingLatency %s - but actually nil", dcl.SprintResource(desired.MinPendingLatency))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MinPendingLatency, actual.MinPendingLatency) && !dcl.IsZeroValue(desired.MinPendingLatency) && !(dcl.IsEmptyValueIndirect(desired.MinPendingLatency) && dcl.IsZeroValue(actual.MinPendingLatency)) {
+	if !dcl.StringCanonicalize(desired.MinPendingLatency, actual.MinPendingLatency) && !dcl.IsZeroValue(desired.MinPendingLatency) {
 		c.Config.Logger.Infof("Diff in MinPendingLatency. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinPendingLatency), dcl.SprintResource(actual.MinPendingLatency))
 		return true
 	}
@@ -4111,14 +3306,34 @@ func compareVersionAutomaticScaling(c *Client, desired, actual *VersionAutomatic
 	}
 	return false
 }
-func compareVersionAutomaticScalingCpuUtilizationSlice(c *Client, desired, actual []VersionAutomaticScalingCpuUtilization) bool {
+
+func compareVersionAutomaticScalingSlice(c *Client, desired, actual []VersionAutomaticScaling) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionAutomaticScalingCpuUtilization, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionAutomaticScaling, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionAutomaticScalingCpuUtilization(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingCpuUtilization, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionAutomaticScaling(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionAutomaticScaling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionAutomaticScalingMap(c *Client, desired, actual map[string]VersionAutomaticScaling) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionAutomaticScaling, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionAutomaticScaling, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionAutomaticScaling(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionAutomaticScaling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4136,7 +3351,7 @@ func compareVersionAutomaticScalingCpuUtilization(c *Client, desired, actual *Ve
 		c.Config.Logger.Infof("desired AggregationWindowLength %s - but actually nil", dcl.SprintResource(desired.AggregationWindowLength))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AggregationWindowLength, actual.AggregationWindowLength) && !dcl.IsZeroValue(desired.AggregationWindowLength) && !(dcl.IsEmptyValueIndirect(desired.AggregationWindowLength) && dcl.IsZeroValue(actual.AggregationWindowLength)) {
+	if !dcl.StringCanonicalize(desired.AggregationWindowLength, actual.AggregationWindowLength) && !dcl.IsZeroValue(desired.AggregationWindowLength) {
 		c.Config.Logger.Infof("Diff in AggregationWindowLength. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AggregationWindowLength), dcl.SprintResource(actual.AggregationWindowLength))
 		return true
 	}
@@ -4144,20 +3359,40 @@ func compareVersionAutomaticScalingCpuUtilization(c *Client, desired, actual *Ve
 		c.Config.Logger.Infof("desired TargetUtilization %s - but actually nil", dcl.SprintResource(desired.TargetUtilization))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetUtilization, actual.TargetUtilization) && !dcl.IsZeroValue(desired.TargetUtilization) && !(dcl.IsEmptyValueIndirect(desired.TargetUtilization) && dcl.IsZeroValue(actual.TargetUtilization)) {
+	if !reflect.DeepEqual(desired.TargetUtilization, actual.TargetUtilization) && !dcl.IsZeroValue(desired.TargetUtilization) {
 		c.Config.Logger.Infof("Diff in TargetUtilization. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetUtilization), dcl.SprintResource(actual.TargetUtilization))
 		return true
 	}
 	return false
 }
-func compareVersionAutomaticScalingRequestUtilizationSlice(c *Client, desired, actual []VersionAutomaticScalingRequestUtilization) bool {
+
+func compareVersionAutomaticScalingCpuUtilizationSlice(c *Client, desired, actual []VersionAutomaticScalingCpuUtilization) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionAutomaticScalingRequestUtilization, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionAutomaticScalingCpuUtilization, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionAutomaticScalingRequestUtilization(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingRequestUtilization, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionAutomaticScalingCpuUtilization(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionAutomaticScalingCpuUtilization, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionAutomaticScalingCpuUtilizationMap(c *Client, desired, actual map[string]VersionAutomaticScalingCpuUtilization) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionAutomaticScalingCpuUtilization, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionAutomaticScalingCpuUtilization, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionAutomaticScalingCpuUtilization(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionAutomaticScalingCpuUtilization, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4175,7 +3410,7 @@ func compareVersionAutomaticScalingRequestUtilization(c *Client, desired, actual
 		c.Config.Logger.Infof("desired TargetRequestCountPerSecond %s - but actually nil", dcl.SprintResource(desired.TargetRequestCountPerSecond))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetRequestCountPerSecond, actual.TargetRequestCountPerSecond) && !dcl.IsZeroValue(desired.TargetRequestCountPerSecond) && !(dcl.IsEmptyValueIndirect(desired.TargetRequestCountPerSecond) && dcl.IsZeroValue(actual.TargetRequestCountPerSecond)) {
+	if !reflect.DeepEqual(desired.TargetRequestCountPerSecond, actual.TargetRequestCountPerSecond) && !dcl.IsZeroValue(desired.TargetRequestCountPerSecond) {
 		c.Config.Logger.Infof("Diff in TargetRequestCountPerSecond. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetRequestCountPerSecond), dcl.SprintResource(actual.TargetRequestCountPerSecond))
 		return true
 	}
@@ -4183,20 +3418,40 @@ func compareVersionAutomaticScalingRequestUtilization(c *Client, desired, actual
 		c.Config.Logger.Infof("desired TargetConcurrentRequests %s - but actually nil", dcl.SprintResource(desired.TargetConcurrentRequests))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetConcurrentRequests, actual.TargetConcurrentRequests) && !dcl.IsZeroValue(desired.TargetConcurrentRequests) && !(dcl.IsEmptyValueIndirect(desired.TargetConcurrentRequests) && dcl.IsZeroValue(actual.TargetConcurrentRequests)) {
+	if !reflect.DeepEqual(desired.TargetConcurrentRequests, actual.TargetConcurrentRequests) && !dcl.IsZeroValue(desired.TargetConcurrentRequests) {
 		c.Config.Logger.Infof("Diff in TargetConcurrentRequests. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetConcurrentRequests), dcl.SprintResource(actual.TargetConcurrentRequests))
 		return true
 	}
 	return false
 }
-func compareVersionAutomaticScalingDiskUtilizationSlice(c *Client, desired, actual []VersionAutomaticScalingDiskUtilization) bool {
+
+func compareVersionAutomaticScalingRequestUtilizationSlice(c *Client, desired, actual []VersionAutomaticScalingRequestUtilization) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionAutomaticScalingDiskUtilization, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionAutomaticScalingRequestUtilization, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionAutomaticScalingDiskUtilization(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingDiskUtilization, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionAutomaticScalingRequestUtilization(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionAutomaticScalingRequestUtilization, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionAutomaticScalingRequestUtilizationMap(c *Client, desired, actual map[string]VersionAutomaticScalingRequestUtilization) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionAutomaticScalingRequestUtilization, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionAutomaticScalingRequestUtilization, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionAutomaticScalingRequestUtilization(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionAutomaticScalingRequestUtilization, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4214,7 +3469,7 @@ func compareVersionAutomaticScalingDiskUtilization(c *Client, desired, actual *V
 		c.Config.Logger.Infof("desired TargetWriteBytesPerSecond %s - but actually nil", dcl.SprintResource(desired.TargetWriteBytesPerSecond))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetWriteBytesPerSecond, actual.TargetWriteBytesPerSecond) && !dcl.IsZeroValue(desired.TargetWriteBytesPerSecond) && !(dcl.IsEmptyValueIndirect(desired.TargetWriteBytesPerSecond) && dcl.IsZeroValue(actual.TargetWriteBytesPerSecond)) {
+	if !reflect.DeepEqual(desired.TargetWriteBytesPerSecond, actual.TargetWriteBytesPerSecond) && !dcl.IsZeroValue(desired.TargetWriteBytesPerSecond) {
 		c.Config.Logger.Infof("Diff in TargetWriteBytesPerSecond. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetWriteBytesPerSecond), dcl.SprintResource(actual.TargetWriteBytesPerSecond))
 		return true
 	}
@@ -4222,7 +3477,7 @@ func compareVersionAutomaticScalingDiskUtilization(c *Client, desired, actual *V
 		c.Config.Logger.Infof("desired TargetWriteOpsPerSecond %s - but actually nil", dcl.SprintResource(desired.TargetWriteOpsPerSecond))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetWriteOpsPerSecond, actual.TargetWriteOpsPerSecond) && !dcl.IsZeroValue(desired.TargetWriteOpsPerSecond) && !(dcl.IsEmptyValueIndirect(desired.TargetWriteOpsPerSecond) && dcl.IsZeroValue(actual.TargetWriteOpsPerSecond)) {
+	if !reflect.DeepEqual(desired.TargetWriteOpsPerSecond, actual.TargetWriteOpsPerSecond) && !dcl.IsZeroValue(desired.TargetWriteOpsPerSecond) {
 		c.Config.Logger.Infof("Diff in TargetWriteOpsPerSecond. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetWriteOpsPerSecond), dcl.SprintResource(actual.TargetWriteOpsPerSecond))
 		return true
 	}
@@ -4230,7 +3485,7 @@ func compareVersionAutomaticScalingDiskUtilization(c *Client, desired, actual *V
 		c.Config.Logger.Infof("desired TargetReadBytesPerSecond %s - but actually nil", dcl.SprintResource(desired.TargetReadBytesPerSecond))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetReadBytesPerSecond, actual.TargetReadBytesPerSecond) && !dcl.IsZeroValue(desired.TargetReadBytesPerSecond) && !(dcl.IsEmptyValueIndirect(desired.TargetReadBytesPerSecond) && dcl.IsZeroValue(actual.TargetReadBytesPerSecond)) {
+	if !reflect.DeepEqual(desired.TargetReadBytesPerSecond, actual.TargetReadBytesPerSecond) && !dcl.IsZeroValue(desired.TargetReadBytesPerSecond) {
 		c.Config.Logger.Infof("Diff in TargetReadBytesPerSecond. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetReadBytesPerSecond), dcl.SprintResource(actual.TargetReadBytesPerSecond))
 		return true
 	}
@@ -4238,20 +3493,40 @@ func compareVersionAutomaticScalingDiskUtilization(c *Client, desired, actual *V
 		c.Config.Logger.Infof("desired TargetReadOpsPerSecond %s - but actually nil", dcl.SprintResource(desired.TargetReadOpsPerSecond))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetReadOpsPerSecond, actual.TargetReadOpsPerSecond) && !dcl.IsZeroValue(desired.TargetReadOpsPerSecond) && !(dcl.IsEmptyValueIndirect(desired.TargetReadOpsPerSecond) && dcl.IsZeroValue(actual.TargetReadOpsPerSecond)) {
+	if !reflect.DeepEqual(desired.TargetReadOpsPerSecond, actual.TargetReadOpsPerSecond) && !dcl.IsZeroValue(desired.TargetReadOpsPerSecond) {
 		c.Config.Logger.Infof("Diff in TargetReadOpsPerSecond. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetReadOpsPerSecond), dcl.SprintResource(actual.TargetReadOpsPerSecond))
 		return true
 	}
 	return false
 }
-func compareVersionAutomaticScalingNetworkUtilizationSlice(c *Client, desired, actual []VersionAutomaticScalingNetworkUtilization) bool {
+
+func compareVersionAutomaticScalingDiskUtilizationSlice(c *Client, desired, actual []VersionAutomaticScalingDiskUtilization) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionAutomaticScalingNetworkUtilization, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionAutomaticScalingDiskUtilization, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionAutomaticScalingNetworkUtilization(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingNetworkUtilization, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionAutomaticScalingDiskUtilization(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionAutomaticScalingDiskUtilization, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionAutomaticScalingDiskUtilizationMap(c *Client, desired, actual map[string]VersionAutomaticScalingDiskUtilization) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionAutomaticScalingDiskUtilization, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionAutomaticScalingDiskUtilization, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionAutomaticScalingDiskUtilization(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionAutomaticScalingDiskUtilization, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4269,7 +3544,7 @@ func compareVersionAutomaticScalingNetworkUtilization(c *Client, desired, actual
 		c.Config.Logger.Infof("desired TargetSentBytesPerSecond %s - but actually nil", dcl.SprintResource(desired.TargetSentBytesPerSecond))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetSentBytesPerSecond, actual.TargetSentBytesPerSecond) && !dcl.IsZeroValue(desired.TargetSentBytesPerSecond) && !(dcl.IsEmptyValueIndirect(desired.TargetSentBytesPerSecond) && dcl.IsZeroValue(actual.TargetSentBytesPerSecond)) {
+	if !reflect.DeepEqual(desired.TargetSentBytesPerSecond, actual.TargetSentBytesPerSecond) && !dcl.IsZeroValue(desired.TargetSentBytesPerSecond) {
 		c.Config.Logger.Infof("Diff in TargetSentBytesPerSecond. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetSentBytesPerSecond), dcl.SprintResource(actual.TargetSentBytesPerSecond))
 		return true
 	}
@@ -4277,7 +3552,7 @@ func compareVersionAutomaticScalingNetworkUtilization(c *Client, desired, actual
 		c.Config.Logger.Infof("desired TargetSentPacketsPerSecond %s - but actually nil", dcl.SprintResource(desired.TargetSentPacketsPerSecond))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetSentPacketsPerSecond, actual.TargetSentPacketsPerSecond) && !dcl.IsZeroValue(desired.TargetSentPacketsPerSecond) && !(dcl.IsEmptyValueIndirect(desired.TargetSentPacketsPerSecond) && dcl.IsZeroValue(actual.TargetSentPacketsPerSecond)) {
+	if !reflect.DeepEqual(desired.TargetSentPacketsPerSecond, actual.TargetSentPacketsPerSecond) && !dcl.IsZeroValue(desired.TargetSentPacketsPerSecond) {
 		c.Config.Logger.Infof("Diff in TargetSentPacketsPerSecond. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetSentPacketsPerSecond), dcl.SprintResource(actual.TargetSentPacketsPerSecond))
 		return true
 	}
@@ -4285,7 +3560,7 @@ func compareVersionAutomaticScalingNetworkUtilization(c *Client, desired, actual
 		c.Config.Logger.Infof("desired TargetReceivedBytesPerSecond %s - but actually nil", dcl.SprintResource(desired.TargetReceivedBytesPerSecond))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetReceivedBytesPerSecond, actual.TargetReceivedBytesPerSecond) && !dcl.IsZeroValue(desired.TargetReceivedBytesPerSecond) && !(dcl.IsEmptyValueIndirect(desired.TargetReceivedBytesPerSecond) && dcl.IsZeroValue(actual.TargetReceivedBytesPerSecond)) {
+	if !reflect.DeepEqual(desired.TargetReceivedBytesPerSecond, actual.TargetReceivedBytesPerSecond) && !dcl.IsZeroValue(desired.TargetReceivedBytesPerSecond) {
 		c.Config.Logger.Infof("Diff in TargetReceivedBytesPerSecond. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetReceivedBytesPerSecond), dcl.SprintResource(actual.TargetReceivedBytesPerSecond))
 		return true
 	}
@@ -4293,20 +3568,40 @@ func compareVersionAutomaticScalingNetworkUtilization(c *Client, desired, actual
 		c.Config.Logger.Infof("desired TargetReceivedPacketsPerSecond %s - but actually nil", dcl.SprintResource(desired.TargetReceivedPacketsPerSecond))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetReceivedPacketsPerSecond, actual.TargetReceivedPacketsPerSecond) && !dcl.IsZeroValue(desired.TargetReceivedPacketsPerSecond) && !(dcl.IsEmptyValueIndirect(desired.TargetReceivedPacketsPerSecond) && dcl.IsZeroValue(actual.TargetReceivedPacketsPerSecond)) {
+	if !reflect.DeepEqual(desired.TargetReceivedPacketsPerSecond, actual.TargetReceivedPacketsPerSecond) && !dcl.IsZeroValue(desired.TargetReceivedPacketsPerSecond) {
 		c.Config.Logger.Infof("Diff in TargetReceivedPacketsPerSecond. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetReceivedPacketsPerSecond), dcl.SprintResource(actual.TargetReceivedPacketsPerSecond))
 		return true
 	}
 	return false
 }
-func compareVersionAutomaticScalingStandardSchedulerSettingsSlice(c *Client, desired, actual []VersionAutomaticScalingStandardSchedulerSettings) bool {
+
+func compareVersionAutomaticScalingNetworkUtilizationSlice(c *Client, desired, actual []VersionAutomaticScalingNetworkUtilization) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionAutomaticScalingStandardSchedulerSettings, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionAutomaticScalingNetworkUtilization, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionAutomaticScalingStandardSchedulerSettings(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingStandardSchedulerSettings, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionAutomaticScalingNetworkUtilization(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionAutomaticScalingNetworkUtilization, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionAutomaticScalingNetworkUtilizationMap(c *Client, desired, actual map[string]VersionAutomaticScalingNetworkUtilization) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionAutomaticScalingNetworkUtilization, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionAutomaticScalingNetworkUtilization, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionAutomaticScalingNetworkUtilization(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionAutomaticScalingNetworkUtilization, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4324,7 +3619,7 @@ func compareVersionAutomaticScalingStandardSchedulerSettings(c *Client, desired,
 		c.Config.Logger.Infof("desired TargetCpuUtilization %s - but actually nil", dcl.SprintResource(desired.TargetCpuUtilization))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetCpuUtilization, actual.TargetCpuUtilization) && !dcl.IsZeroValue(desired.TargetCpuUtilization) && !(dcl.IsEmptyValueIndirect(desired.TargetCpuUtilization) && dcl.IsZeroValue(actual.TargetCpuUtilization)) {
+	if !reflect.DeepEqual(desired.TargetCpuUtilization, actual.TargetCpuUtilization) && !dcl.IsZeroValue(desired.TargetCpuUtilization) {
 		c.Config.Logger.Infof("Diff in TargetCpuUtilization. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetCpuUtilization), dcl.SprintResource(actual.TargetCpuUtilization))
 		return true
 	}
@@ -4332,7 +3627,7 @@ func compareVersionAutomaticScalingStandardSchedulerSettings(c *Client, desired,
 		c.Config.Logger.Infof("desired TargetThroughputUtilization %s - but actually nil", dcl.SprintResource(desired.TargetThroughputUtilization))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TargetThroughputUtilization, actual.TargetThroughputUtilization) && !dcl.IsZeroValue(desired.TargetThroughputUtilization) && !(dcl.IsEmptyValueIndirect(desired.TargetThroughputUtilization) && dcl.IsZeroValue(actual.TargetThroughputUtilization)) {
+	if !reflect.DeepEqual(desired.TargetThroughputUtilization, actual.TargetThroughputUtilization) && !dcl.IsZeroValue(desired.TargetThroughputUtilization) {
 		c.Config.Logger.Infof("Diff in TargetThroughputUtilization. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetThroughputUtilization), dcl.SprintResource(actual.TargetThroughputUtilization))
 		return true
 	}
@@ -4340,7 +3635,7 @@ func compareVersionAutomaticScalingStandardSchedulerSettings(c *Client, desired,
 		c.Config.Logger.Infof("desired MinInstances %s - but actually nil", dcl.SprintResource(desired.MinInstances))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MinInstances, actual.MinInstances) && !dcl.IsZeroValue(desired.MinInstances) && !(dcl.IsEmptyValueIndirect(desired.MinInstances) && dcl.IsZeroValue(actual.MinInstances)) {
+	if !reflect.DeepEqual(desired.MinInstances, actual.MinInstances) && !dcl.IsZeroValue(desired.MinInstances) {
 		c.Config.Logger.Infof("Diff in MinInstances. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinInstances), dcl.SprintResource(actual.MinInstances))
 		return true
 	}
@@ -4348,20 +3643,40 @@ func compareVersionAutomaticScalingStandardSchedulerSettings(c *Client, desired,
 		c.Config.Logger.Infof("desired MaxInstances %s - but actually nil", dcl.SprintResource(desired.MaxInstances))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MaxInstances, actual.MaxInstances) && !dcl.IsZeroValue(desired.MaxInstances) && !(dcl.IsEmptyValueIndirect(desired.MaxInstances) && dcl.IsZeroValue(actual.MaxInstances)) {
+	if !reflect.DeepEqual(desired.MaxInstances, actual.MaxInstances) && !dcl.IsZeroValue(desired.MaxInstances) {
 		c.Config.Logger.Infof("Diff in MaxInstances. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxInstances), dcl.SprintResource(actual.MaxInstances))
 		return true
 	}
 	return false
 }
-func compareVersionBasicScalingSlice(c *Client, desired, actual []VersionBasicScaling) bool {
+
+func compareVersionAutomaticScalingStandardSchedulerSettingsSlice(c *Client, desired, actual []VersionAutomaticScalingStandardSchedulerSettings) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionBasicScaling, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionAutomaticScalingStandardSchedulerSettings, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionBasicScaling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionBasicScaling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionAutomaticScalingStandardSchedulerSettings(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionAutomaticScalingStandardSchedulerSettings, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionAutomaticScalingStandardSchedulerSettingsMap(c *Client, desired, actual map[string]VersionAutomaticScalingStandardSchedulerSettings) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionAutomaticScalingStandardSchedulerSettings, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionAutomaticScalingStandardSchedulerSettings, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionAutomaticScalingStandardSchedulerSettings(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionAutomaticScalingStandardSchedulerSettings, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4379,7 +3694,7 @@ func compareVersionBasicScaling(c *Client, desired, actual *VersionBasicScaling)
 		c.Config.Logger.Infof("desired IdleTimeout %s - but actually nil", dcl.SprintResource(desired.IdleTimeout))
 		return true
 	}
-	if !reflect.DeepEqual(desired.IdleTimeout, actual.IdleTimeout) && !dcl.IsZeroValue(desired.IdleTimeout) && !(dcl.IsEmptyValueIndirect(desired.IdleTimeout) && dcl.IsZeroValue(actual.IdleTimeout)) {
+	if !dcl.StringCanonicalize(desired.IdleTimeout, actual.IdleTimeout) && !dcl.IsZeroValue(desired.IdleTimeout) {
 		c.Config.Logger.Infof("Diff in IdleTimeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IdleTimeout), dcl.SprintResource(actual.IdleTimeout))
 		return true
 	}
@@ -4387,20 +3702,40 @@ func compareVersionBasicScaling(c *Client, desired, actual *VersionBasicScaling)
 		c.Config.Logger.Infof("desired MaxInstances %s - but actually nil", dcl.SprintResource(desired.MaxInstances))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MaxInstances, actual.MaxInstances) && !dcl.IsZeroValue(desired.MaxInstances) && !(dcl.IsEmptyValueIndirect(desired.MaxInstances) && dcl.IsZeroValue(actual.MaxInstances)) {
+	if !reflect.DeepEqual(desired.MaxInstances, actual.MaxInstances) && !dcl.IsZeroValue(desired.MaxInstances) {
 		c.Config.Logger.Infof("Diff in MaxInstances. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxInstances), dcl.SprintResource(actual.MaxInstances))
 		return true
 	}
 	return false
 }
-func compareVersionManualScalingSlice(c *Client, desired, actual []VersionManualScaling) bool {
+
+func compareVersionBasicScalingSlice(c *Client, desired, actual []VersionBasicScaling) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionManualScaling, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionBasicScaling, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionManualScaling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionManualScaling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionBasicScaling(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionBasicScaling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionBasicScalingMap(c *Client, desired, actual map[string]VersionBasicScaling) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionBasicScaling, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionBasicScaling, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionBasicScaling(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionBasicScaling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4418,138 +3753,40 @@ func compareVersionManualScaling(c *Client, desired, actual *VersionManualScalin
 		c.Config.Logger.Infof("desired Instances %s - but actually nil", dcl.SprintResource(desired.Instances))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Instances, actual.Instances) && !dcl.IsZeroValue(desired.Instances) && !(dcl.IsEmptyValueIndirect(desired.Instances) && dcl.IsZeroValue(actual.Instances)) {
+	if !reflect.DeepEqual(desired.Instances, actual.Instances) && !dcl.IsZeroValue(desired.Instances) {
 		c.Config.Logger.Infof("Diff in Instances. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Instances), dcl.SprintResource(actual.Instances))
 		return true
 	}
 	return false
 }
-func compareVersionJobScalingSlice(c *Client, desired, actual []VersionJobScaling) bool {
+
+func compareVersionManualScalingSlice(c *Client, desired, actual []VersionManualScaling) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionJobScaling, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionManualScaling, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionJobScaling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionJobScaling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionManualScaling(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionManualScaling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
 	return false
 }
 
-func compareVersionJobScaling(c *Client, desired, actual *VersionJobScaling) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Completions == nil && desired.Completions != nil && !dcl.IsEmptyValueIndirect(desired.Completions) {
-		c.Config.Logger.Infof("desired Completions %s - but actually nil", dcl.SprintResource(desired.Completions))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Completions, actual.Completions) && !dcl.IsZeroValue(desired.Completions) && !(dcl.IsEmptyValueIndirect(desired.Completions) && dcl.IsZeroValue(actual.Completions)) {
-		c.Config.Logger.Infof("Diff in Completions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Completions), dcl.SprintResource(actual.Completions))
-		return true
-	}
-	if actual.Parallelism == nil && desired.Parallelism != nil && !dcl.IsEmptyValueIndirect(desired.Parallelism) {
-		c.Config.Logger.Infof("desired Parallelism %s - but actually nil", dcl.SprintResource(desired.Parallelism))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Parallelism, actual.Parallelism) && !dcl.IsZeroValue(desired.Parallelism) && !(dcl.IsEmptyValueIndirect(desired.Parallelism) && dcl.IsZeroValue(actual.Parallelism)) {
-		c.Config.Logger.Infof("Diff in Parallelism. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Parallelism), dcl.SprintResource(actual.Parallelism))
-		return true
-	}
-	if actual.JobDeadline == nil && desired.JobDeadline != nil && !dcl.IsEmptyValueIndirect(desired.JobDeadline) {
-		c.Config.Logger.Infof("desired JobDeadline %s - but actually nil", dcl.SprintResource(desired.JobDeadline))
-		return true
-	}
-	if !reflect.DeepEqual(desired.JobDeadline, actual.JobDeadline) && !dcl.IsZeroValue(desired.JobDeadline) && !(dcl.IsEmptyValueIndirect(desired.JobDeadline) && dcl.IsZeroValue(actual.JobDeadline)) {
-		c.Config.Logger.Infof("Diff in JobDeadline. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JobDeadline), dcl.SprintResource(actual.JobDeadline))
-		return true
-	}
-	if actual.InstanceRetries == nil && desired.InstanceRetries != nil && !dcl.IsEmptyValueIndirect(desired.InstanceRetries) {
-		c.Config.Logger.Infof("desired InstanceRetries %s - but actually nil", dcl.SprintResource(desired.InstanceRetries))
-		return true
-	}
-	if !reflect.DeepEqual(desired.InstanceRetries, actual.InstanceRetries) && !dcl.IsZeroValue(desired.InstanceRetries) && !(dcl.IsEmptyValueIndirect(desired.InstanceRetries) && dcl.IsZeroValue(actual.InstanceRetries)) {
-		c.Config.Logger.Infof("Diff in InstanceRetries. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstanceRetries), dcl.SprintResource(actual.InstanceRetries))
-		return true
-	}
-	if actual.InstanceDeadline == nil && desired.InstanceDeadline != nil && !dcl.IsEmptyValueIndirect(desired.InstanceDeadline) {
-		c.Config.Logger.Infof("desired InstanceDeadline %s - but actually nil", dcl.SprintResource(desired.InstanceDeadline))
-		return true
-	}
-	if !reflect.DeepEqual(desired.InstanceDeadline, actual.InstanceDeadline) && !dcl.IsZeroValue(desired.InstanceDeadline) && !(dcl.IsEmptyValueIndirect(desired.InstanceDeadline) && dcl.IsZeroValue(actual.InstanceDeadline)) {
-		c.Config.Logger.Infof("Diff in InstanceDeadline. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstanceDeadline), dcl.SprintResource(actual.InstanceDeadline))
-		return true
-	}
-	if actual.InstanceTerminationWindow == nil && desired.InstanceTerminationWindow != nil && !dcl.IsEmptyValueIndirect(desired.InstanceTerminationWindow) {
-		c.Config.Logger.Infof("desired InstanceTerminationWindow %s - but actually nil", dcl.SprintResource(desired.InstanceTerminationWindow))
-		return true
-	}
-	if !reflect.DeepEqual(desired.InstanceTerminationWindow, actual.InstanceTerminationWindow) && !dcl.IsZeroValue(desired.InstanceTerminationWindow) && !(dcl.IsEmptyValueIndirect(desired.InstanceTerminationWindow) && dcl.IsZeroValue(actual.InstanceTerminationWindow)) {
-		c.Config.Logger.Infof("Diff in InstanceTerminationWindow. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstanceTerminationWindow), dcl.SprintResource(actual.InstanceTerminationWindow))
-		return true
-	}
-	return false
-}
-func compareVersionPoolScalingSlice(c *Client, desired, actual []VersionPoolScaling) bool {
+func compareVersionManualScalingMap(c *Client, desired, actual map[string]VersionManualScaling) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionPoolScaling, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionManualScaling, lengths unequal.")
 		return true
 	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionPoolScaling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionPoolScaling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionManualScaling, key %s not found in ACTUAL.\n", k)
 			return true
 		}
-	}
-	return false
-}
-
-func compareVersionPoolScaling(c *Client, desired, actual *VersionPoolScaling) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Replicas == nil && desired.Replicas != nil && !dcl.IsEmptyValueIndirect(desired.Replicas) {
-		c.Config.Logger.Infof("desired Replicas %s - but actually nil", dcl.SprintResource(desired.Replicas))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Replicas, actual.Replicas) && !dcl.IsZeroValue(desired.Replicas) && !(dcl.IsEmptyValueIndirect(desired.Replicas) && dcl.IsZeroValue(actual.Replicas)) {
-		c.Config.Logger.Infof("Diff in Replicas. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Replicas), dcl.SprintResource(actual.Replicas))
-		return true
-	}
-	if actual.MaxUnavailable == nil && desired.MaxUnavailable != nil && !dcl.IsEmptyValueIndirect(desired.MaxUnavailable) {
-		c.Config.Logger.Infof("desired MaxUnavailable %s - but actually nil", dcl.SprintResource(desired.MaxUnavailable))
-		return true
-	}
-	if !reflect.DeepEqual(desired.MaxUnavailable, actual.MaxUnavailable) && !dcl.IsZeroValue(desired.MaxUnavailable) && !(dcl.IsEmptyValueIndirect(desired.MaxUnavailable) && dcl.IsZeroValue(actual.MaxUnavailable)) {
-		c.Config.Logger.Infof("Diff in MaxUnavailable. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxUnavailable), dcl.SprintResource(actual.MaxUnavailable))
-		return true
-	}
-	if actual.MaxSurge == nil && desired.MaxSurge != nil && !dcl.IsEmptyValueIndirect(desired.MaxSurge) {
-		c.Config.Logger.Infof("desired MaxSurge %s - but actually nil", dcl.SprintResource(desired.MaxSurge))
-		return true
-	}
-	if !reflect.DeepEqual(desired.MaxSurge, actual.MaxSurge) && !dcl.IsZeroValue(desired.MaxSurge) && !(dcl.IsEmptyValueIndirect(desired.MaxSurge) && dcl.IsZeroValue(actual.MaxSurge)) {
-		c.Config.Logger.Infof("Diff in MaxSurge. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxSurge), dcl.SprintResource(actual.MaxSurge))
-		return true
-	}
-	return false
-}
-func compareVersionNetworkSlice(c *Client, desired, actual []VersionNetwork) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionNetwork, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionNetwork(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionNetwork, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionManualScaling(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionManualScaling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4567,7 +3804,7 @@ func compareVersionNetwork(c *Client, desired, actual *VersionNetwork) bool {
 		c.Config.Logger.Infof("desired ForwardedPorts %s - but actually nil", dcl.SprintResource(desired.ForwardedPorts))
 		return true
 	}
-	if !dcl.SliceEquals(desired.ForwardedPorts, actual.ForwardedPorts) && !dcl.IsZeroValue(desired.ForwardedPorts) {
+	if !dcl.StringSliceEquals(desired.ForwardedPorts, actual.ForwardedPorts) && !dcl.IsZeroValue(desired.ForwardedPorts) {
 		c.Config.Logger.Infof("Diff in ForwardedPorts. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ForwardedPorts), dcl.SprintResource(actual.ForwardedPorts))
 		return true
 	}
@@ -4575,7 +3812,7 @@ func compareVersionNetwork(c *Client, desired, actual *VersionNetwork) bool {
 		c.Config.Logger.Infof("desired InstanceTag %s - but actually nil", dcl.SprintResource(desired.InstanceTag))
 		return true
 	}
-	if !reflect.DeepEqual(desired.InstanceTag, actual.InstanceTag) && !dcl.IsZeroValue(desired.InstanceTag) && !(dcl.IsEmptyValueIndirect(desired.InstanceTag) && dcl.IsZeroValue(actual.InstanceTag)) {
+	if !dcl.StringCanonicalize(desired.InstanceTag, actual.InstanceTag) && !dcl.IsZeroValue(desired.InstanceTag) {
 		c.Config.Logger.Infof("Diff in InstanceTag. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstanceTag), dcl.SprintResource(actual.InstanceTag))
 		return true
 	}
@@ -4583,7 +3820,7 @@ func compareVersionNetwork(c *Client, desired, actual *VersionNetwork) bool {
 		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+	if !dcl.NameToSelfLink(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
 		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
@@ -4591,7 +3828,7 @@ func compareVersionNetwork(c *Client, desired, actual *VersionNetwork) bool {
 		c.Config.Logger.Infof("desired SubnetworkName %s - but actually nil", dcl.SprintResource(desired.SubnetworkName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.SubnetworkName, actual.SubnetworkName) && !dcl.IsZeroValue(desired.SubnetworkName) && !(dcl.IsEmptyValueIndirect(desired.SubnetworkName) && dcl.IsZeroValue(actual.SubnetworkName)) {
+	if !dcl.NameToSelfLink(desired.SubnetworkName, actual.SubnetworkName) && !dcl.IsZeroValue(desired.SubnetworkName) {
 		c.Config.Logger.Infof("Diff in SubnetworkName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SubnetworkName), dcl.SprintResource(actual.SubnetworkName))
 		return true
 	}
@@ -4599,20 +3836,40 @@ func compareVersionNetwork(c *Client, desired, actual *VersionNetwork) bool {
 		c.Config.Logger.Infof("desired SessionAffinity %s - but actually nil", dcl.SprintResource(desired.SessionAffinity))
 		return true
 	}
-	if !reflect.DeepEqual(desired.SessionAffinity, actual.SessionAffinity) && !dcl.IsZeroValue(desired.SessionAffinity) && !(dcl.IsEmptyValueIndirect(desired.SessionAffinity) && dcl.IsZeroValue(actual.SessionAffinity)) {
+	if !reflect.DeepEqual(desired.SessionAffinity, actual.SessionAffinity) && !dcl.IsZeroValue(desired.SessionAffinity) {
 		c.Config.Logger.Infof("Diff in SessionAffinity. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SessionAffinity), dcl.SprintResource(actual.SessionAffinity))
 		return true
 	}
 	return false
 }
-func compareVersionResourcesSlice(c *Client, desired, actual []VersionResources) bool {
+
+func compareVersionNetworkSlice(c *Client, desired, actual []VersionNetwork) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionResources, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionNetwork, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionResources(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionResources, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionNetwork(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionNetwork, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionNetworkMap(c *Client, desired, actual map[string]VersionNetwork) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionNetwork, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionNetwork, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionNetwork(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionNetwork, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4630,7 +3887,7 @@ func compareVersionResources(c *Client, desired, actual *VersionResources) bool 
 		c.Config.Logger.Infof("desired Cpu %s - but actually nil", dcl.SprintResource(desired.Cpu))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Cpu, actual.Cpu) && !dcl.IsZeroValue(desired.Cpu) && !(dcl.IsEmptyValueIndirect(desired.Cpu) && dcl.IsZeroValue(actual.Cpu)) {
+	if !reflect.DeepEqual(desired.Cpu, actual.Cpu) && !dcl.IsZeroValue(desired.Cpu) {
 		c.Config.Logger.Infof("Diff in Cpu. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Cpu), dcl.SprintResource(actual.Cpu))
 		return true
 	}
@@ -4638,7 +3895,7 @@ func compareVersionResources(c *Client, desired, actual *VersionResources) bool 
 		c.Config.Logger.Infof("desired DiskGb %s - but actually nil", dcl.SprintResource(desired.DiskGb))
 		return true
 	}
-	if !reflect.DeepEqual(desired.DiskGb, actual.DiskGb) && !dcl.IsZeroValue(desired.DiskGb) && !(dcl.IsEmptyValueIndirect(desired.DiskGb) && dcl.IsZeroValue(actual.DiskGb)) {
+	if !reflect.DeepEqual(desired.DiskGb, actual.DiskGb) && !dcl.IsZeroValue(desired.DiskGb) {
 		c.Config.Logger.Infof("Diff in DiskGb. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DiskGb), dcl.SprintResource(actual.DiskGb))
 		return true
 	}
@@ -4646,7 +3903,7 @@ func compareVersionResources(c *Client, desired, actual *VersionResources) bool 
 		c.Config.Logger.Infof("desired MemoryGb %s - but actually nil", dcl.SprintResource(desired.MemoryGb))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MemoryGb, actual.MemoryGb) && !dcl.IsZeroValue(desired.MemoryGb) && !(dcl.IsEmptyValueIndirect(desired.MemoryGb) && dcl.IsZeroValue(actual.MemoryGb)) {
+	if !reflect.DeepEqual(desired.MemoryGb, actual.MemoryGb) && !dcl.IsZeroValue(desired.MemoryGb) {
 		c.Config.Logger.Infof("Diff in MemoryGb. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MemoryGb), dcl.SprintResource(actual.MemoryGb))
 		return true
 	}
@@ -4658,24 +3915,36 @@ func compareVersionResources(c *Client, desired, actual *VersionResources) bool 
 		c.Config.Logger.Infof("Diff in Volumes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Volumes), dcl.SprintResource(actual.Volumes))
 		return true
 	}
-	if actual.KmsKeyReference == nil && desired.KmsKeyReference != nil && !dcl.IsEmptyValueIndirect(desired.KmsKeyReference) {
-		c.Config.Logger.Infof("desired KmsKeyReference %s - but actually nil", dcl.SprintResource(desired.KmsKeyReference))
-		return true
-	}
-	if !reflect.DeepEqual(desired.KmsKeyReference, actual.KmsKeyReference) && !dcl.IsZeroValue(desired.KmsKeyReference) && !(dcl.IsEmptyValueIndirect(desired.KmsKeyReference) && dcl.IsZeroValue(actual.KmsKeyReference)) {
-		c.Config.Logger.Infof("Diff in KmsKeyReference. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyReference), dcl.SprintResource(actual.KmsKeyReference))
-		return true
-	}
 	return false
 }
-func compareVersionResourcesVolumesSlice(c *Client, desired, actual []VersionResourcesVolumes) bool {
+
+func compareVersionResourcesSlice(c *Client, desired, actual []VersionResources) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionResourcesVolumes, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionResources, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionResourcesVolumes(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionResourcesVolumes, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionResources(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionResources, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionResourcesMap(c *Client, desired, actual map[string]VersionResources) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionResources, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionResources, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionResources(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionResources, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4693,7 +3962,7 @@ func compareVersionResourcesVolumes(c *Client, desired, actual *VersionResources
 		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
 		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
@@ -4701,7 +3970,7 @@ func compareVersionResourcesVolumes(c *Client, desired, actual *VersionResources
 		c.Config.Logger.Infof("desired VolumeType %s - but actually nil", dcl.SprintResource(desired.VolumeType))
 		return true
 	}
-	if !reflect.DeepEqual(desired.VolumeType, actual.VolumeType) && !dcl.IsZeroValue(desired.VolumeType) && !(dcl.IsEmptyValueIndirect(desired.VolumeType) && dcl.IsZeroValue(actual.VolumeType)) {
+	if !dcl.StringCanonicalize(desired.VolumeType, actual.VolumeType) && !dcl.IsZeroValue(desired.VolumeType) {
 		c.Config.Logger.Infof("Diff in VolumeType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.VolumeType), dcl.SprintResource(actual.VolumeType))
 		return true
 	}
@@ -4709,20 +3978,40 @@ func compareVersionResourcesVolumes(c *Client, desired, actual *VersionResources
 		c.Config.Logger.Infof("desired SizeGb %s - but actually nil", dcl.SprintResource(desired.SizeGb))
 		return true
 	}
-	if !reflect.DeepEqual(desired.SizeGb, actual.SizeGb) && !dcl.IsZeroValue(desired.SizeGb) && !(dcl.IsEmptyValueIndirect(desired.SizeGb) && dcl.IsZeroValue(actual.SizeGb)) {
+	if !reflect.DeepEqual(desired.SizeGb, actual.SizeGb) && !dcl.IsZeroValue(desired.SizeGb) {
 		c.Config.Logger.Infof("Diff in SizeGb. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SizeGb), dcl.SprintResource(actual.SizeGb))
 		return true
 	}
 	return false
 }
-func compareVersionHandlersSlice(c *Client, desired, actual []VersionHandlers) bool {
+
+func compareVersionResourcesVolumesSlice(c *Client, desired, actual []VersionResourcesVolumes) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHandlers, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionResourcesVolumes, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionHandlers(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionHandlers, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionResourcesVolumes(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionResourcesVolumes, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionResourcesVolumesMap(c *Client, desired, actual map[string]VersionResourcesVolumes) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionResourcesVolumes, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionResourcesVolumes, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionResourcesVolumes(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionResourcesVolumes, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4740,7 +4029,7 @@ func compareVersionHandlers(c *Client, desired, actual *VersionHandlers) bool {
 		c.Config.Logger.Infof("desired UrlRegex %s - but actually nil", dcl.SprintResource(desired.UrlRegex))
 		return true
 	}
-	if !reflect.DeepEqual(desired.UrlRegex, actual.UrlRegex) && !dcl.IsZeroValue(desired.UrlRegex) && !(dcl.IsEmptyValueIndirect(desired.UrlRegex) && dcl.IsZeroValue(actual.UrlRegex)) {
+	if !dcl.StringCanonicalize(desired.UrlRegex, actual.UrlRegex) && !dcl.IsZeroValue(desired.UrlRegex) {
 		c.Config.Logger.Infof("Diff in UrlRegex. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UrlRegex), dcl.SprintResource(actual.UrlRegex))
 		return true
 	}
@@ -4772,7 +4061,7 @@ func compareVersionHandlers(c *Client, desired, actual *VersionHandlers) bool {
 		c.Config.Logger.Infof("desired SecurityLevel %s - but actually nil", dcl.SprintResource(desired.SecurityLevel))
 		return true
 	}
-	if !reflect.DeepEqual(desired.SecurityLevel, actual.SecurityLevel) && !dcl.IsZeroValue(desired.SecurityLevel) && !(dcl.IsEmptyValueIndirect(desired.SecurityLevel) && dcl.IsZeroValue(actual.SecurityLevel)) {
+	if !reflect.DeepEqual(desired.SecurityLevel, actual.SecurityLevel) && !dcl.IsZeroValue(desired.SecurityLevel) {
 		c.Config.Logger.Infof("Diff in SecurityLevel. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecurityLevel), dcl.SprintResource(actual.SecurityLevel))
 		return true
 	}
@@ -4780,7 +4069,7 @@ func compareVersionHandlers(c *Client, desired, actual *VersionHandlers) bool {
 		c.Config.Logger.Infof("desired Login %s - but actually nil", dcl.SprintResource(desired.Login))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Login, actual.Login) && !dcl.IsZeroValue(desired.Login) && !(dcl.IsEmptyValueIndirect(desired.Login) && dcl.IsZeroValue(actual.Login)) {
+	if !reflect.DeepEqual(desired.Login, actual.Login) && !dcl.IsZeroValue(desired.Login) {
 		c.Config.Logger.Infof("Diff in Login. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Login), dcl.SprintResource(actual.Login))
 		return true
 	}
@@ -4788,7 +4077,7 @@ func compareVersionHandlers(c *Client, desired, actual *VersionHandlers) bool {
 		c.Config.Logger.Infof("desired AuthFailAction %s - but actually nil", dcl.SprintResource(desired.AuthFailAction))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AuthFailAction, actual.AuthFailAction) && !dcl.IsZeroValue(desired.AuthFailAction) && !(dcl.IsEmptyValueIndirect(desired.AuthFailAction) && dcl.IsZeroValue(actual.AuthFailAction)) {
+	if !reflect.DeepEqual(desired.AuthFailAction, actual.AuthFailAction) && !dcl.IsZeroValue(desired.AuthFailAction) {
 		c.Config.Logger.Infof("Diff in AuthFailAction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AuthFailAction), dcl.SprintResource(actual.AuthFailAction))
 		return true
 	}
@@ -4796,20 +4085,40 @@ func compareVersionHandlers(c *Client, desired, actual *VersionHandlers) bool {
 		c.Config.Logger.Infof("desired RedirectHttpResponseCode %s - but actually nil", dcl.SprintResource(desired.RedirectHttpResponseCode))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RedirectHttpResponseCode, actual.RedirectHttpResponseCode) && !dcl.IsZeroValue(desired.RedirectHttpResponseCode) && !(dcl.IsEmptyValueIndirect(desired.RedirectHttpResponseCode) && dcl.IsZeroValue(actual.RedirectHttpResponseCode)) {
+	if !reflect.DeepEqual(desired.RedirectHttpResponseCode, actual.RedirectHttpResponseCode) && !dcl.IsZeroValue(desired.RedirectHttpResponseCode) {
 		c.Config.Logger.Infof("Diff in RedirectHttpResponseCode. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RedirectHttpResponseCode), dcl.SprintResource(actual.RedirectHttpResponseCode))
 		return true
 	}
 	return false
 }
-func compareVersionHandlersStaticFilesSlice(c *Client, desired, actual []VersionHandlersStaticFiles) bool {
+
+func compareVersionHandlersSlice(c *Client, desired, actual []VersionHandlers) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHandlersStaticFiles, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionHandlers, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionHandlersStaticFiles(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionHandlersStaticFiles, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionHandlers(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionHandlers, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionHandlersMap(c *Client, desired, actual map[string]VersionHandlers) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionHandlers, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionHandlers, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionHandlers(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionHandlers, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4827,7 +4136,7 @@ func compareVersionHandlersStaticFiles(c *Client, desired, actual *VersionHandle
 		c.Config.Logger.Infof("desired Path %s - but actually nil", dcl.SprintResource(desired.Path))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) && !(dcl.IsEmptyValueIndirect(desired.Path) && dcl.IsZeroValue(actual.Path)) {
+	if !dcl.StringCanonicalize(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) {
 		c.Config.Logger.Infof("Diff in Path. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
 		return true
 	}
@@ -4835,7 +4144,7 @@ func compareVersionHandlersStaticFiles(c *Client, desired, actual *VersionHandle
 		c.Config.Logger.Infof("desired UploadPathRegex %s - but actually nil", dcl.SprintResource(desired.UploadPathRegex))
 		return true
 	}
-	if !reflect.DeepEqual(desired.UploadPathRegex, actual.UploadPathRegex) && !dcl.IsZeroValue(desired.UploadPathRegex) && !(dcl.IsEmptyValueIndirect(desired.UploadPathRegex) && dcl.IsZeroValue(actual.UploadPathRegex)) {
+	if !dcl.StringCanonicalize(desired.UploadPathRegex, actual.UploadPathRegex) && !dcl.IsZeroValue(desired.UploadPathRegex) {
 		c.Config.Logger.Infof("Diff in UploadPathRegex. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UploadPathRegex), dcl.SprintResource(actual.UploadPathRegex))
 		return true
 	}
@@ -4843,7 +4152,7 @@ func compareVersionHandlersStaticFiles(c *Client, desired, actual *VersionHandle
 		c.Config.Logger.Infof("desired HttpHeaders %s - but actually nil", dcl.SprintResource(desired.HttpHeaders))
 		return true
 	}
-	if !reflect.DeepEqual(desired.HttpHeaders, actual.HttpHeaders) && !dcl.IsZeroValue(desired.HttpHeaders) {
+	if !dcl.MapEquals(desired.HttpHeaders, actual.HttpHeaders, []string(nil)) && !dcl.IsZeroValue(desired.HttpHeaders) {
 		c.Config.Logger.Infof("Diff in HttpHeaders. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpHeaders), dcl.SprintResource(actual.HttpHeaders))
 		return true
 	}
@@ -4851,7 +4160,7 @@ func compareVersionHandlersStaticFiles(c *Client, desired, actual *VersionHandle
 		c.Config.Logger.Infof("desired MimeType %s - but actually nil", dcl.SprintResource(desired.MimeType))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MimeType, actual.MimeType) && !dcl.IsZeroValue(desired.MimeType) && !(dcl.IsEmptyValueIndirect(desired.MimeType) && dcl.IsZeroValue(actual.MimeType)) {
+	if !dcl.StringCanonicalize(desired.MimeType, actual.MimeType) && !dcl.IsZeroValue(desired.MimeType) {
 		c.Config.Logger.Infof("Diff in MimeType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MimeType), dcl.SprintResource(actual.MimeType))
 		return true
 	}
@@ -4859,7 +4168,7 @@ func compareVersionHandlersStaticFiles(c *Client, desired, actual *VersionHandle
 		c.Config.Logger.Infof("desired Expiration %s - but actually nil", dcl.SprintResource(desired.Expiration))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Expiration, actual.Expiration) && !dcl.IsZeroValue(desired.Expiration) && !(dcl.IsEmptyValueIndirect(desired.Expiration) && dcl.IsZeroValue(actual.Expiration)) {
+	if !dcl.StringCanonicalize(desired.Expiration, actual.Expiration) && !dcl.IsZeroValue(desired.Expiration) {
 		c.Config.Logger.Infof("Diff in Expiration. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Expiration), dcl.SprintResource(actual.Expiration))
 		return true
 	}
@@ -4867,7 +4176,7 @@ func compareVersionHandlersStaticFiles(c *Client, desired, actual *VersionHandle
 		c.Config.Logger.Infof("desired RequireMatchingFile %s - but actually nil", dcl.SprintResource(desired.RequireMatchingFile))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RequireMatchingFile, actual.RequireMatchingFile) && !dcl.IsZeroValue(desired.RequireMatchingFile) && !(dcl.IsEmptyValueIndirect(desired.RequireMatchingFile) && dcl.IsZeroValue(actual.RequireMatchingFile)) {
+	if !reflect.DeepEqual(desired.RequireMatchingFile, actual.RequireMatchingFile) && !dcl.IsZeroValue(desired.RequireMatchingFile) {
 		c.Config.Logger.Infof("Diff in RequireMatchingFile. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequireMatchingFile), dcl.SprintResource(actual.RequireMatchingFile))
 		return true
 	}
@@ -4875,20 +4184,40 @@ func compareVersionHandlersStaticFiles(c *Client, desired, actual *VersionHandle
 		c.Config.Logger.Infof("desired ApplicationReadable %s - but actually nil", dcl.SprintResource(desired.ApplicationReadable))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ApplicationReadable, actual.ApplicationReadable) && !dcl.IsZeroValue(desired.ApplicationReadable) && !(dcl.IsEmptyValueIndirect(desired.ApplicationReadable) && dcl.IsZeroValue(actual.ApplicationReadable)) {
+	if !reflect.DeepEqual(desired.ApplicationReadable, actual.ApplicationReadable) && !dcl.IsZeroValue(desired.ApplicationReadable) {
 		c.Config.Logger.Infof("Diff in ApplicationReadable. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ApplicationReadable), dcl.SprintResource(actual.ApplicationReadable))
 		return true
 	}
 	return false
 }
-func compareVersionHandlersScriptSlice(c *Client, desired, actual []VersionHandlersScript) bool {
+
+func compareVersionHandlersStaticFilesSlice(c *Client, desired, actual []VersionHandlersStaticFiles) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHandlersScript, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionHandlersStaticFiles, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionHandlersScript(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionHandlersScript, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionHandlersStaticFiles(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionHandlersStaticFiles, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionHandlersStaticFilesMap(c *Client, desired, actual map[string]VersionHandlersStaticFiles) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionHandlersStaticFiles, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionHandlersStaticFiles, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionHandlersStaticFiles(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionHandlersStaticFiles, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4906,20 +4235,40 @@ func compareVersionHandlersScript(c *Client, desired, actual *VersionHandlersScr
 		c.Config.Logger.Infof("desired ScriptPath %s - but actually nil", dcl.SprintResource(desired.ScriptPath))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ScriptPath, actual.ScriptPath) && !dcl.IsZeroValue(desired.ScriptPath) && !(dcl.IsEmptyValueIndirect(desired.ScriptPath) && dcl.IsZeroValue(actual.ScriptPath)) {
+	if !dcl.StringCanonicalize(desired.ScriptPath, actual.ScriptPath) && !dcl.IsZeroValue(desired.ScriptPath) {
 		c.Config.Logger.Infof("Diff in ScriptPath. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptPath), dcl.SprintResource(actual.ScriptPath))
 		return true
 	}
 	return false
 }
-func compareVersionHandlersApiEndpointSlice(c *Client, desired, actual []VersionHandlersApiEndpoint) bool {
+
+func compareVersionHandlersScriptSlice(c *Client, desired, actual []VersionHandlersScript) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHandlersApiEndpoint, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionHandlersScript, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionHandlersApiEndpoint(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionHandlersApiEndpoint, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionHandlersScript(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionHandlersScript, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionHandlersScriptMap(c *Client, desired, actual map[string]VersionHandlersScript) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionHandlersScript, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionHandlersScript, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionHandlersScript(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionHandlersScript, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4937,20 +4286,40 @@ func compareVersionHandlersApiEndpoint(c *Client, desired, actual *VersionHandle
 		c.Config.Logger.Infof("desired ScriptPath %s - but actually nil", dcl.SprintResource(desired.ScriptPath))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ScriptPath, actual.ScriptPath) && !dcl.IsZeroValue(desired.ScriptPath) && !(dcl.IsEmptyValueIndirect(desired.ScriptPath) && dcl.IsZeroValue(actual.ScriptPath)) {
+	if !dcl.StringCanonicalize(desired.ScriptPath, actual.ScriptPath) && !dcl.IsZeroValue(desired.ScriptPath) {
 		c.Config.Logger.Infof("Diff in ScriptPath. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptPath), dcl.SprintResource(actual.ScriptPath))
 		return true
 	}
 	return false
 }
-func compareVersionErrorHandlersSlice(c *Client, desired, actual []VersionErrorHandlers) bool {
+
+func compareVersionHandlersApiEndpointSlice(c *Client, desired, actual []VersionHandlersApiEndpoint) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionErrorHandlers, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionHandlersApiEndpoint, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionErrorHandlers(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionErrorHandlers, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionHandlersApiEndpoint(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionHandlersApiEndpoint, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionHandlersApiEndpointMap(c *Client, desired, actual map[string]VersionHandlersApiEndpoint) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionHandlersApiEndpoint, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionHandlersApiEndpoint, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionHandlersApiEndpoint(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionHandlersApiEndpoint, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4968,7 +4337,7 @@ func compareVersionErrorHandlers(c *Client, desired, actual *VersionErrorHandler
 		c.Config.Logger.Infof("desired ErrorCode %s - but actually nil", dcl.SprintResource(desired.ErrorCode))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ErrorCode, actual.ErrorCode) && !dcl.IsZeroValue(desired.ErrorCode) && !(dcl.IsEmptyValueIndirect(desired.ErrorCode) && dcl.IsZeroValue(actual.ErrorCode)) {
+	if !reflect.DeepEqual(desired.ErrorCode, actual.ErrorCode) && !dcl.IsZeroValue(desired.ErrorCode) {
 		c.Config.Logger.Infof("Diff in ErrorCode. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ErrorCode), dcl.SprintResource(actual.ErrorCode))
 		return true
 	}
@@ -4976,7 +4345,7 @@ func compareVersionErrorHandlers(c *Client, desired, actual *VersionErrorHandler
 		c.Config.Logger.Infof("desired StaticFile %s - but actually nil", dcl.SprintResource(desired.StaticFile))
 		return true
 	}
-	if !reflect.DeepEqual(desired.StaticFile, actual.StaticFile) && !dcl.IsZeroValue(desired.StaticFile) && !(dcl.IsEmptyValueIndirect(desired.StaticFile) && dcl.IsZeroValue(actual.StaticFile)) {
+	if !dcl.StringCanonicalize(desired.StaticFile, actual.StaticFile) && !dcl.IsZeroValue(desired.StaticFile) {
 		c.Config.Logger.Infof("Diff in StaticFile. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StaticFile), dcl.SprintResource(actual.StaticFile))
 		return true
 	}
@@ -4984,20 +4353,40 @@ func compareVersionErrorHandlers(c *Client, desired, actual *VersionErrorHandler
 		c.Config.Logger.Infof("desired MimeType %s - but actually nil", dcl.SprintResource(desired.MimeType))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MimeType, actual.MimeType) && !dcl.IsZeroValue(desired.MimeType) && !(dcl.IsEmptyValueIndirect(desired.MimeType) && dcl.IsZeroValue(actual.MimeType)) {
+	if !dcl.StringCanonicalize(desired.MimeType, actual.MimeType) && !dcl.IsZeroValue(desired.MimeType) {
 		c.Config.Logger.Infof("Diff in MimeType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MimeType), dcl.SprintResource(actual.MimeType))
 		return true
 	}
 	return false
 }
-func compareVersionLibrariesSlice(c *Client, desired, actual []VersionLibraries) bool {
+
+func compareVersionErrorHandlersSlice(c *Client, desired, actual []VersionErrorHandlers) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionLibraries, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionErrorHandlers, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionLibraries(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionLibraries, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionErrorHandlers(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionErrorHandlers, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionErrorHandlersMap(c *Client, desired, actual map[string]VersionErrorHandlers) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionErrorHandlers, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionErrorHandlers, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionErrorHandlers(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionErrorHandlers, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5015,7 +4404,7 @@ func compareVersionLibraries(c *Client, desired, actual *VersionLibraries) bool 
 		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
 		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
@@ -5023,20 +4412,40 @@ func compareVersionLibraries(c *Client, desired, actual *VersionLibraries) bool 
 		c.Config.Logger.Infof("desired Version %s - but actually nil", dcl.SprintResource(desired.Version))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Version, actual.Version) && !dcl.IsZeroValue(desired.Version) && !(dcl.IsEmptyValueIndirect(desired.Version) && dcl.IsZeroValue(actual.Version)) {
+	if !dcl.StringCanonicalize(desired.Version, actual.Version) && !dcl.IsZeroValue(desired.Version) {
 		c.Config.Logger.Infof("Diff in Version. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Version), dcl.SprintResource(actual.Version))
 		return true
 	}
 	return false
 }
-func compareVersionApiConfigSlice(c *Client, desired, actual []VersionApiConfig) bool {
+
+func compareVersionLibrariesSlice(c *Client, desired, actual []VersionLibraries) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionApiConfig, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionLibraries, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionApiConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionApiConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionLibraries(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionLibraries, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionLibrariesMap(c *Client, desired, actual map[string]VersionLibraries) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionLibraries, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionLibraries, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionLibraries(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionLibraries, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5054,7 +4463,7 @@ func compareVersionApiConfig(c *Client, desired, actual *VersionApiConfig) bool 
 		c.Config.Logger.Infof("desired AuthFailAction %s - but actually nil", dcl.SprintResource(desired.AuthFailAction))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AuthFailAction, actual.AuthFailAction) && !dcl.IsZeroValue(desired.AuthFailAction) && !(dcl.IsEmptyValueIndirect(desired.AuthFailAction) && dcl.IsZeroValue(actual.AuthFailAction)) {
+	if !reflect.DeepEqual(desired.AuthFailAction, actual.AuthFailAction) && !dcl.IsZeroValue(desired.AuthFailAction) {
 		c.Config.Logger.Infof("Diff in AuthFailAction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AuthFailAction), dcl.SprintResource(actual.AuthFailAction))
 		return true
 	}
@@ -5062,7 +4471,7 @@ func compareVersionApiConfig(c *Client, desired, actual *VersionApiConfig) bool 
 		c.Config.Logger.Infof("desired Login %s - but actually nil", dcl.SprintResource(desired.Login))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Login, actual.Login) && !dcl.IsZeroValue(desired.Login) && !(dcl.IsEmptyValueIndirect(desired.Login) && dcl.IsZeroValue(actual.Login)) {
+	if !reflect.DeepEqual(desired.Login, actual.Login) && !dcl.IsZeroValue(desired.Login) {
 		c.Config.Logger.Infof("Diff in Login. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Login), dcl.SprintResource(actual.Login))
 		return true
 	}
@@ -5070,7 +4479,7 @@ func compareVersionApiConfig(c *Client, desired, actual *VersionApiConfig) bool 
 		c.Config.Logger.Infof("desired Script %s - but actually nil", dcl.SprintResource(desired.Script))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Script, actual.Script) && !dcl.IsZeroValue(desired.Script) && !(dcl.IsEmptyValueIndirect(desired.Script) && dcl.IsZeroValue(actual.Script)) {
+	if !dcl.StringCanonicalize(desired.Script, actual.Script) && !dcl.IsZeroValue(desired.Script) {
 		c.Config.Logger.Infof("Diff in Script. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Script), dcl.SprintResource(actual.Script))
 		return true
 	}
@@ -5078,7 +4487,7 @@ func compareVersionApiConfig(c *Client, desired, actual *VersionApiConfig) bool 
 		c.Config.Logger.Infof("desired SecurityLevel %s - but actually nil", dcl.SprintResource(desired.SecurityLevel))
 		return true
 	}
-	if !reflect.DeepEqual(desired.SecurityLevel, actual.SecurityLevel) && !dcl.IsZeroValue(desired.SecurityLevel) && !(dcl.IsEmptyValueIndirect(desired.SecurityLevel) && dcl.IsZeroValue(actual.SecurityLevel)) {
+	if !reflect.DeepEqual(desired.SecurityLevel, actual.SecurityLevel) && !dcl.IsZeroValue(desired.SecurityLevel) {
 		c.Config.Logger.Infof("Diff in SecurityLevel. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecurityLevel), dcl.SprintResource(actual.SecurityLevel))
 		return true
 	}
@@ -5086,20 +4495,40 @@ func compareVersionApiConfig(c *Client, desired, actual *VersionApiConfig) bool 
 		c.Config.Logger.Infof("desired Url %s - but actually nil", dcl.SprintResource(desired.Url))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Url, actual.Url) && !dcl.IsZeroValue(desired.Url) && !(dcl.IsEmptyValueIndirect(desired.Url) && dcl.IsZeroValue(actual.Url)) {
+	if !dcl.StringCanonicalize(desired.Url, actual.Url) && !dcl.IsZeroValue(desired.Url) {
 		c.Config.Logger.Infof("Diff in Url. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Url), dcl.SprintResource(actual.Url))
 		return true
 	}
 	return false
 }
-func compareVersionDeploymentSlice(c *Client, desired, actual []VersionDeployment) bool {
+
+func compareVersionApiConfigSlice(c *Client, desired, actual []VersionApiConfig) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionDeployment, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionApiConfig, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionDeployment(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionDeployment, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionApiConfig(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionApiConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionApiConfigMap(c *Client, desired, actual map[string]VersionApiConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionApiConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionApiConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionApiConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionApiConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5117,7 +4546,7 @@ func compareVersionDeployment(c *Client, desired, actual *VersionDeployment) boo
 		c.Config.Logger.Infof("desired Files %s - but actually nil", dcl.SprintResource(desired.Files))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Files, actual.Files) && !dcl.IsZeroValue(desired.Files) {
+	if compareVersionDeploymentFilesMap(c, desired.Files, actual.Files) && !dcl.IsZeroValue(desired.Files) {
 		c.Config.Logger.Infof("Diff in Files. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Files), dcl.SprintResource(actual.Files))
 		return true
 	}
@@ -5147,14 +4576,34 @@ func compareVersionDeployment(c *Client, desired, actual *VersionDeployment) boo
 	}
 	return false
 }
-func compareVersionDeploymentFilesSlice(c *Client, desired, actual []VersionDeploymentFiles) bool {
+
+func compareVersionDeploymentSlice(c *Client, desired, actual []VersionDeployment) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionDeploymentFiles, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionDeployment, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionDeploymentFiles(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionDeploymentFiles, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionDeployment(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionDeployment, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionDeploymentMap(c *Client, desired, actual map[string]VersionDeployment) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionDeployment, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionDeployment, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionDeployment(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionDeployment, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5172,28 +4621,56 @@ func compareVersionDeploymentFiles(c *Client, desired, actual *VersionDeployment
 		c.Config.Logger.Infof("desired SourceUrl %s - but actually nil", dcl.SprintResource(desired.SourceUrl))
 		return true
 	}
-	if !reflect.DeepEqual(desired.SourceUrl, actual.SourceUrl) && !dcl.IsZeroValue(desired.SourceUrl) && !(dcl.IsEmptyValueIndirect(desired.SourceUrl) && dcl.IsZeroValue(actual.SourceUrl)) {
+	if !dcl.StringCanonicalize(desired.SourceUrl, actual.SourceUrl) && !dcl.IsZeroValue(desired.SourceUrl) {
 		c.Config.Logger.Infof("Diff in SourceUrl. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SourceUrl), dcl.SprintResource(actual.SourceUrl))
+		return true
+	}
+	if actual.Sha1Sum == nil && desired.Sha1Sum != nil && !dcl.IsEmptyValueIndirect(desired.Sha1Sum) {
+		c.Config.Logger.Infof("desired Sha1Sum %s - but actually nil", dcl.SprintResource(desired.Sha1Sum))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Sha1Sum, actual.Sha1Sum) && !dcl.IsZeroValue(desired.Sha1Sum) {
+		c.Config.Logger.Infof("Diff in Sha1Sum. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Sha1Sum), dcl.SprintResource(actual.Sha1Sum))
 		return true
 	}
 	if actual.MimeType == nil && desired.MimeType != nil && !dcl.IsEmptyValueIndirect(desired.MimeType) {
 		c.Config.Logger.Infof("desired MimeType %s - but actually nil", dcl.SprintResource(desired.MimeType))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MimeType, actual.MimeType) && !dcl.IsZeroValue(desired.MimeType) && !(dcl.IsEmptyValueIndirect(desired.MimeType) && dcl.IsZeroValue(actual.MimeType)) {
+	if !dcl.StringCanonicalize(desired.MimeType, actual.MimeType) && !dcl.IsZeroValue(desired.MimeType) {
 		c.Config.Logger.Infof("Diff in MimeType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MimeType), dcl.SprintResource(actual.MimeType))
 		return true
 	}
 	return false
 }
-func compareVersionDeploymentContainerSlice(c *Client, desired, actual []VersionDeploymentContainer) bool {
+
+func compareVersionDeploymentFilesSlice(c *Client, desired, actual []VersionDeploymentFiles) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionDeploymentContainer, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionDeploymentFiles, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionDeploymentContainer(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionDeploymentContainer, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionDeploymentFiles(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionDeploymentFiles, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionDeploymentFilesMap(c *Client, desired, actual map[string]VersionDeploymentFiles) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionDeploymentFiles, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionDeploymentFiles, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionDeploymentFiles(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionDeploymentFiles, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5211,20 +4688,40 @@ func compareVersionDeploymentContainer(c *Client, desired, actual *VersionDeploy
 		c.Config.Logger.Infof("desired Image %s - but actually nil", dcl.SprintResource(desired.Image))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Image, actual.Image) && !dcl.IsZeroValue(desired.Image) && !(dcl.IsEmptyValueIndirect(desired.Image) && dcl.IsZeroValue(actual.Image)) {
+	if !dcl.StringCanonicalize(desired.Image, actual.Image) && !dcl.IsZeroValue(desired.Image) {
 		c.Config.Logger.Infof("Diff in Image. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Image), dcl.SprintResource(actual.Image))
 		return true
 	}
 	return false
 }
-func compareVersionDeploymentZipSlice(c *Client, desired, actual []VersionDeploymentZip) bool {
+
+func compareVersionDeploymentContainerSlice(c *Client, desired, actual []VersionDeploymentContainer) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionDeploymentZip, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionDeploymentContainer, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionDeploymentZip(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionDeploymentZip, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionDeploymentContainer(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionDeploymentContainer, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionDeploymentContainerMap(c *Client, desired, actual map[string]VersionDeploymentContainer) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionDeploymentContainer, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionDeploymentContainer, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionDeploymentContainer(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionDeploymentContainer, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5242,7 +4739,7 @@ func compareVersionDeploymentZip(c *Client, desired, actual *VersionDeploymentZi
 		c.Config.Logger.Infof("desired SourceUrl %s - but actually nil", dcl.SprintResource(desired.SourceUrl))
 		return true
 	}
-	if !reflect.DeepEqual(desired.SourceUrl, actual.SourceUrl) && !dcl.IsZeroValue(desired.SourceUrl) && !(dcl.IsEmptyValueIndirect(desired.SourceUrl) && dcl.IsZeroValue(actual.SourceUrl)) {
+	if !dcl.StringCanonicalize(desired.SourceUrl, actual.SourceUrl) && !dcl.IsZeroValue(desired.SourceUrl) {
 		c.Config.Logger.Infof("Diff in SourceUrl. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SourceUrl), dcl.SprintResource(actual.SourceUrl))
 		return true
 	}
@@ -5250,20 +4747,40 @@ func compareVersionDeploymentZip(c *Client, desired, actual *VersionDeploymentZi
 		c.Config.Logger.Infof("desired FilesCount %s - but actually nil", dcl.SprintResource(desired.FilesCount))
 		return true
 	}
-	if !reflect.DeepEqual(desired.FilesCount, actual.FilesCount) && !dcl.IsZeroValue(desired.FilesCount) && !(dcl.IsEmptyValueIndirect(desired.FilesCount) && dcl.IsZeroValue(actual.FilesCount)) {
+	if !reflect.DeepEqual(desired.FilesCount, actual.FilesCount) && !dcl.IsZeroValue(desired.FilesCount) {
 		c.Config.Logger.Infof("Diff in FilesCount. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FilesCount), dcl.SprintResource(actual.FilesCount))
 		return true
 	}
 	return false
 }
-func compareVersionDeploymentCloudBuildOptionsSlice(c *Client, desired, actual []VersionDeploymentCloudBuildOptions) bool {
+
+func compareVersionDeploymentZipSlice(c *Client, desired, actual []VersionDeploymentZip) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionDeploymentCloudBuildOptions, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionDeploymentZip, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionDeploymentCloudBuildOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionDeploymentCloudBuildOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionDeploymentZip(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionDeploymentZip, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionDeploymentZipMap(c *Client, desired, actual map[string]VersionDeploymentZip) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionDeploymentZip, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionDeploymentZip, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionDeploymentZip(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionDeploymentZip, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5281,7 +4798,7 @@ func compareVersionDeploymentCloudBuildOptions(c *Client, desired, actual *Versi
 		c.Config.Logger.Infof("desired AppYamlPath %s - but actually nil", dcl.SprintResource(desired.AppYamlPath))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AppYamlPath, actual.AppYamlPath) && !dcl.IsZeroValue(desired.AppYamlPath) && !(dcl.IsEmptyValueIndirect(desired.AppYamlPath) && dcl.IsZeroValue(actual.AppYamlPath)) {
+	if !dcl.StringCanonicalize(desired.AppYamlPath, actual.AppYamlPath) && !dcl.IsZeroValue(desired.AppYamlPath) {
 		c.Config.Logger.Infof("Diff in AppYamlPath. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AppYamlPath), dcl.SprintResource(actual.AppYamlPath))
 		return true
 	}
@@ -5289,20 +4806,40 @@ func compareVersionDeploymentCloudBuildOptions(c *Client, desired, actual *Versi
 		c.Config.Logger.Infof("desired CloudBuildTimeout %s - but actually nil", dcl.SprintResource(desired.CloudBuildTimeout))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CloudBuildTimeout, actual.CloudBuildTimeout) && !dcl.IsZeroValue(desired.CloudBuildTimeout) && !(dcl.IsEmptyValueIndirect(desired.CloudBuildTimeout) && dcl.IsZeroValue(actual.CloudBuildTimeout)) {
+	if !dcl.StringCanonicalize(desired.CloudBuildTimeout, actual.CloudBuildTimeout) && !dcl.IsZeroValue(desired.CloudBuildTimeout) {
 		c.Config.Logger.Infof("Diff in CloudBuildTimeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CloudBuildTimeout), dcl.SprintResource(actual.CloudBuildTimeout))
 		return true
 	}
 	return false
 }
-func compareVersionHealthCheckSlice(c *Client, desired, actual []VersionHealthCheck) bool {
+
+func compareVersionDeploymentCloudBuildOptionsSlice(c *Client, desired, actual []VersionDeploymentCloudBuildOptions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHealthCheck, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionDeploymentCloudBuildOptions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionHealthCheck(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionHealthCheck, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionDeploymentCloudBuildOptions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionDeploymentCloudBuildOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionDeploymentCloudBuildOptionsMap(c *Client, desired, actual map[string]VersionDeploymentCloudBuildOptions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionDeploymentCloudBuildOptions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionDeploymentCloudBuildOptions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionDeploymentCloudBuildOptions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionDeploymentCloudBuildOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5320,7 +4857,7 @@ func compareVersionHealthCheck(c *Client, desired, actual *VersionHealthCheck) b
 		c.Config.Logger.Infof("desired DisableHealthCheck %s - but actually nil", dcl.SprintResource(desired.DisableHealthCheck))
 		return true
 	}
-	if !reflect.DeepEqual(desired.DisableHealthCheck, actual.DisableHealthCheck) && !dcl.IsZeroValue(desired.DisableHealthCheck) && !(dcl.IsEmptyValueIndirect(desired.DisableHealthCheck) && dcl.IsZeroValue(actual.DisableHealthCheck)) {
+	if !reflect.DeepEqual(desired.DisableHealthCheck, actual.DisableHealthCheck) && !dcl.IsZeroValue(desired.DisableHealthCheck) {
 		c.Config.Logger.Infof("Diff in DisableHealthCheck. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DisableHealthCheck), dcl.SprintResource(actual.DisableHealthCheck))
 		return true
 	}
@@ -5328,7 +4865,7 @@ func compareVersionHealthCheck(c *Client, desired, actual *VersionHealthCheck) b
 		c.Config.Logger.Infof("desired Host %s - but actually nil", dcl.SprintResource(desired.Host))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) && !(dcl.IsEmptyValueIndirect(desired.Host) && dcl.IsZeroValue(actual.Host)) {
+	if !dcl.StringCanonicalize(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) {
 		c.Config.Logger.Infof("Diff in Host. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
 		return true
 	}
@@ -5336,7 +4873,7 @@ func compareVersionHealthCheck(c *Client, desired, actual *VersionHealthCheck) b
 		c.Config.Logger.Infof("desired HealthyThreshold %s - but actually nil", dcl.SprintResource(desired.HealthyThreshold))
 		return true
 	}
-	if !reflect.DeepEqual(desired.HealthyThreshold, actual.HealthyThreshold) && !dcl.IsZeroValue(desired.HealthyThreshold) && !(dcl.IsEmptyValueIndirect(desired.HealthyThreshold) && dcl.IsZeroValue(actual.HealthyThreshold)) {
+	if !reflect.DeepEqual(desired.HealthyThreshold, actual.HealthyThreshold) && !dcl.IsZeroValue(desired.HealthyThreshold) {
 		c.Config.Logger.Infof("Diff in HealthyThreshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HealthyThreshold), dcl.SprintResource(actual.HealthyThreshold))
 		return true
 	}
@@ -5344,7 +4881,7 @@ func compareVersionHealthCheck(c *Client, desired, actual *VersionHealthCheck) b
 		c.Config.Logger.Infof("desired UnhealthyThreshold %s - but actually nil", dcl.SprintResource(desired.UnhealthyThreshold))
 		return true
 	}
-	if !reflect.DeepEqual(desired.UnhealthyThreshold, actual.UnhealthyThreshold) && !dcl.IsZeroValue(desired.UnhealthyThreshold) && !(dcl.IsEmptyValueIndirect(desired.UnhealthyThreshold) && dcl.IsZeroValue(actual.UnhealthyThreshold)) {
+	if !reflect.DeepEqual(desired.UnhealthyThreshold, actual.UnhealthyThreshold) && !dcl.IsZeroValue(desired.UnhealthyThreshold) {
 		c.Config.Logger.Infof("Diff in UnhealthyThreshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UnhealthyThreshold), dcl.SprintResource(actual.UnhealthyThreshold))
 		return true
 	}
@@ -5352,7 +4889,7 @@ func compareVersionHealthCheck(c *Client, desired, actual *VersionHealthCheck) b
 		c.Config.Logger.Infof("desired RestartThreshold %s - but actually nil", dcl.SprintResource(desired.RestartThreshold))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RestartThreshold, actual.RestartThreshold) && !dcl.IsZeroValue(desired.RestartThreshold) && !(dcl.IsEmptyValueIndirect(desired.RestartThreshold) && dcl.IsZeroValue(actual.RestartThreshold)) {
+	if !reflect.DeepEqual(desired.RestartThreshold, actual.RestartThreshold) && !dcl.IsZeroValue(desired.RestartThreshold) {
 		c.Config.Logger.Infof("Diff in RestartThreshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RestartThreshold), dcl.SprintResource(actual.RestartThreshold))
 		return true
 	}
@@ -5360,7 +4897,7 @@ func compareVersionHealthCheck(c *Client, desired, actual *VersionHealthCheck) b
 		c.Config.Logger.Infof("desired CheckInterval %s - but actually nil", dcl.SprintResource(desired.CheckInterval))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CheckInterval, actual.CheckInterval) && !dcl.IsZeroValue(desired.CheckInterval) && !(dcl.IsEmptyValueIndirect(desired.CheckInterval) && dcl.IsZeroValue(actual.CheckInterval)) {
+	if !dcl.StringCanonicalize(desired.CheckInterval, actual.CheckInterval) && !dcl.IsZeroValue(desired.CheckInterval) {
 		c.Config.Logger.Infof("Diff in CheckInterval. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CheckInterval), dcl.SprintResource(actual.CheckInterval))
 		return true
 	}
@@ -5368,20 +4905,40 @@ func compareVersionHealthCheck(c *Client, desired, actual *VersionHealthCheck) b
 		c.Config.Logger.Infof("desired Timeout %s - but actually nil", dcl.SprintResource(desired.Timeout))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Timeout, actual.Timeout) && !dcl.IsZeroValue(desired.Timeout) && !(dcl.IsEmptyValueIndirect(desired.Timeout) && dcl.IsZeroValue(actual.Timeout)) {
+	if !dcl.StringCanonicalize(desired.Timeout, actual.Timeout) && !dcl.IsZeroValue(desired.Timeout) {
 		c.Config.Logger.Infof("Diff in Timeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Timeout), dcl.SprintResource(actual.Timeout))
 		return true
 	}
 	return false
 }
-func compareVersionReadinessCheckSlice(c *Client, desired, actual []VersionReadinessCheck) bool {
+
+func compareVersionHealthCheckSlice(c *Client, desired, actual []VersionHealthCheck) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionReadinessCheck, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionHealthCheck, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionReadinessCheck(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionReadinessCheck, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionHealthCheck(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionHealthCheck, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionHealthCheckMap(c *Client, desired, actual map[string]VersionHealthCheck) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionHealthCheck, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionHealthCheck, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionHealthCheck(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionHealthCheck, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5399,7 +4956,7 @@ func compareVersionReadinessCheck(c *Client, desired, actual *VersionReadinessCh
 		c.Config.Logger.Infof("desired Path %s - but actually nil", dcl.SprintResource(desired.Path))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) && !(dcl.IsEmptyValueIndirect(desired.Path) && dcl.IsZeroValue(actual.Path)) {
+	if !dcl.StringCanonicalize(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) {
 		c.Config.Logger.Infof("Diff in Path. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
 		return true
 	}
@@ -5407,7 +4964,7 @@ func compareVersionReadinessCheck(c *Client, desired, actual *VersionReadinessCh
 		c.Config.Logger.Infof("desired Host %s - but actually nil", dcl.SprintResource(desired.Host))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) && !(dcl.IsEmptyValueIndirect(desired.Host) && dcl.IsZeroValue(actual.Host)) {
+	if !dcl.StringCanonicalize(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) {
 		c.Config.Logger.Infof("Diff in Host. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
 		return true
 	}
@@ -5415,7 +4972,7 @@ func compareVersionReadinessCheck(c *Client, desired, actual *VersionReadinessCh
 		c.Config.Logger.Infof("desired FailureThreshold %s - but actually nil", dcl.SprintResource(desired.FailureThreshold))
 		return true
 	}
-	if !reflect.DeepEqual(desired.FailureThreshold, actual.FailureThreshold) && !dcl.IsZeroValue(desired.FailureThreshold) && !(dcl.IsEmptyValueIndirect(desired.FailureThreshold) && dcl.IsZeroValue(actual.FailureThreshold)) {
+	if !reflect.DeepEqual(desired.FailureThreshold, actual.FailureThreshold) && !dcl.IsZeroValue(desired.FailureThreshold) {
 		c.Config.Logger.Infof("Diff in FailureThreshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FailureThreshold), dcl.SprintResource(actual.FailureThreshold))
 		return true
 	}
@@ -5423,7 +4980,7 @@ func compareVersionReadinessCheck(c *Client, desired, actual *VersionReadinessCh
 		c.Config.Logger.Infof("desired SuccessThreshold %s - but actually nil", dcl.SprintResource(desired.SuccessThreshold))
 		return true
 	}
-	if !reflect.DeepEqual(desired.SuccessThreshold, actual.SuccessThreshold) && !dcl.IsZeroValue(desired.SuccessThreshold) && !(dcl.IsEmptyValueIndirect(desired.SuccessThreshold) && dcl.IsZeroValue(actual.SuccessThreshold)) {
+	if !reflect.DeepEqual(desired.SuccessThreshold, actual.SuccessThreshold) && !dcl.IsZeroValue(desired.SuccessThreshold) {
 		c.Config.Logger.Infof("Diff in SuccessThreshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SuccessThreshold), dcl.SprintResource(actual.SuccessThreshold))
 		return true
 	}
@@ -5431,7 +4988,7 @@ func compareVersionReadinessCheck(c *Client, desired, actual *VersionReadinessCh
 		c.Config.Logger.Infof("desired CheckInterval %s - but actually nil", dcl.SprintResource(desired.CheckInterval))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CheckInterval, actual.CheckInterval) && !dcl.IsZeroValue(desired.CheckInterval) && !(dcl.IsEmptyValueIndirect(desired.CheckInterval) && dcl.IsZeroValue(actual.CheckInterval)) {
+	if !dcl.StringCanonicalize(desired.CheckInterval, actual.CheckInterval) && !dcl.IsZeroValue(desired.CheckInterval) {
 		c.Config.Logger.Infof("Diff in CheckInterval. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CheckInterval), dcl.SprintResource(actual.CheckInterval))
 		return true
 	}
@@ -5439,7 +4996,7 @@ func compareVersionReadinessCheck(c *Client, desired, actual *VersionReadinessCh
 		c.Config.Logger.Infof("desired Timeout %s - but actually nil", dcl.SprintResource(desired.Timeout))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Timeout, actual.Timeout) && !dcl.IsZeroValue(desired.Timeout) && !(dcl.IsEmptyValueIndirect(desired.Timeout) && dcl.IsZeroValue(actual.Timeout)) {
+	if !dcl.StringCanonicalize(desired.Timeout, actual.Timeout) && !dcl.IsZeroValue(desired.Timeout) {
 		c.Config.Logger.Infof("Diff in Timeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Timeout), dcl.SprintResource(actual.Timeout))
 		return true
 	}
@@ -5447,20 +5004,40 @@ func compareVersionReadinessCheck(c *Client, desired, actual *VersionReadinessCh
 		c.Config.Logger.Infof("desired AppStartTimeout %s - but actually nil", dcl.SprintResource(desired.AppStartTimeout))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AppStartTimeout, actual.AppStartTimeout) && !dcl.IsZeroValue(desired.AppStartTimeout) && !(dcl.IsEmptyValueIndirect(desired.AppStartTimeout) && dcl.IsZeroValue(actual.AppStartTimeout)) {
+	if !dcl.StringCanonicalize(desired.AppStartTimeout, actual.AppStartTimeout) && !dcl.IsZeroValue(desired.AppStartTimeout) {
 		c.Config.Logger.Infof("Diff in AppStartTimeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AppStartTimeout), dcl.SprintResource(actual.AppStartTimeout))
 		return true
 	}
 	return false
 }
-func compareVersionLivenessCheckSlice(c *Client, desired, actual []VersionLivenessCheck) bool {
+
+func compareVersionReadinessCheckSlice(c *Client, desired, actual []VersionReadinessCheck) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionLivenessCheck, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionReadinessCheck, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionLivenessCheck(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionLivenessCheck, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionReadinessCheck(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionReadinessCheck, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionReadinessCheckMap(c *Client, desired, actual map[string]VersionReadinessCheck) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionReadinessCheck, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionReadinessCheck, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionReadinessCheck(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionReadinessCheck, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5478,7 +5055,7 @@ func compareVersionLivenessCheck(c *Client, desired, actual *VersionLivenessChec
 		c.Config.Logger.Infof("desired Path %s - but actually nil", dcl.SprintResource(desired.Path))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) && !(dcl.IsEmptyValueIndirect(desired.Path) && dcl.IsZeroValue(actual.Path)) {
+	if !dcl.StringCanonicalize(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) {
 		c.Config.Logger.Infof("Diff in Path. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
 		return true
 	}
@@ -5486,7 +5063,7 @@ func compareVersionLivenessCheck(c *Client, desired, actual *VersionLivenessChec
 		c.Config.Logger.Infof("desired Host %s - but actually nil", dcl.SprintResource(desired.Host))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) && !(dcl.IsEmptyValueIndirect(desired.Host) && dcl.IsZeroValue(actual.Host)) {
+	if !dcl.StringCanonicalize(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) {
 		c.Config.Logger.Infof("Diff in Host. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
 		return true
 	}
@@ -5494,7 +5071,7 @@ func compareVersionLivenessCheck(c *Client, desired, actual *VersionLivenessChec
 		c.Config.Logger.Infof("desired FailureThreshold %s - but actually nil", dcl.SprintResource(desired.FailureThreshold))
 		return true
 	}
-	if !reflect.DeepEqual(desired.FailureThreshold, actual.FailureThreshold) && !dcl.IsZeroValue(desired.FailureThreshold) && !(dcl.IsEmptyValueIndirect(desired.FailureThreshold) && dcl.IsZeroValue(actual.FailureThreshold)) {
+	if !reflect.DeepEqual(desired.FailureThreshold, actual.FailureThreshold) && !dcl.IsZeroValue(desired.FailureThreshold) {
 		c.Config.Logger.Infof("Diff in FailureThreshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FailureThreshold), dcl.SprintResource(actual.FailureThreshold))
 		return true
 	}
@@ -5502,7 +5079,7 @@ func compareVersionLivenessCheck(c *Client, desired, actual *VersionLivenessChec
 		c.Config.Logger.Infof("desired SuccessThreshold %s - but actually nil", dcl.SprintResource(desired.SuccessThreshold))
 		return true
 	}
-	if !reflect.DeepEqual(desired.SuccessThreshold, actual.SuccessThreshold) && !dcl.IsZeroValue(desired.SuccessThreshold) && !(dcl.IsEmptyValueIndirect(desired.SuccessThreshold) && dcl.IsZeroValue(actual.SuccessThreshold)) {
+	if !reflect.DeepEqual(desired.SuccessThreshold, actual.SuccessThreshold) && !dcl.IsZeroValue(desired.SuccessThreshold) {
 		c.Config.Logger.Infof("Diff in SuccessThreshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SuccessThreshold), dcl.SprintResource(actual.SuccessThreshold))
 		return true
 	}
@@ -5510,7 +5087,7 @@ func compareVersionLivenessCheck(c *Client, desired, actual *VersionLivenessChec
 		c.Config.Logger.Infof("desired CheckInterval %s - but actually nil", dcl.SprintResource(desired.CheckInterval))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CheckInterval, actual.CheckInterval) && !dcl.IsZeroValue(desired.CheckInterval) && !(dcl.IsEmptyValueIndirect(desired.CheckInterval) && dcl.IsZeroValue(actual.CheckInterval)) {
+	if !dcl.StringCanonicalize(desired.CheckInterval, actual.CheckInterval) && !dcl.IsZeroValue(desired.CheckInterval) {
 		c.Config.Logger.Infof("Diff in CheckInterval. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CheckInterval), dcl.SprintResource(actual.CheckInterval))
 		return true
 	}
@@ -5518,7 +5095,7 @@ func compareVersionLivenessCheck(c *Client, desired, actual *VersionLivenessChec
 		c.Config.Logger.Infof("desired Timeout %s - but actually nil", dcl.SprintResource(desired.Timeout))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Timeout, actual.Timeout) && !dcl.IsZeroValue(desired.Timeout) && !(dcl.IsEmptyValueIndirect(desired.Timeout) && dcl.IsZeroValue(actual.Timeout)) {
+	if !dcl.StringCanonicalize(desired.Timeout, actual.Timeout) && !dcl.IsZeroValue(desired.Timeout) {
 		c.Config.Logger.Infof("Diff in Timeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Timeout), dcl.SprintResource(actual.Timeout))
 		return true
 	}
@@ -5526,178 +5103,40 @@ func compareVersionLivenessCheck(c *Client, desired, actual *VersionLivenessChec
 		c.Config.Logger.Infof("desired InitialDelay %s - but actually nil", dcl.SprintResource(desired.InitialDelay))
 		return true
 	}
-	if !reflect.DeepEqual(desired.InitialDelay, actual.InitialDelay) && !dcl.IsZeroValue(desired.InitialDelay) && !(dcl.IsEmptyValueIndirect(desired.InitialDelay) && dcl.IsZeroValue(actual.InitialDelay)) {
+	if !dcl.StringCanonicalize(desired.InitialDelay, actual.InitialDelay) && !dcl.IsZeroValue(desired.InitialDelay) {
 		c.Config.Logger.Infof("Diff in InitialDelay. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InitialDelay), dcl.SprintResource(actual.InitialDelay))
 		return true
 	}
 	return false
 }
-func compareVersionServiceAuthSpecSlice(c *Client, desired, actual []VersionServiceAuthSpec) bool {
+
+func compareVersionLivenessCheckSlice(c *Client, desired, actual []VersionLivenessCheck) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionServiceAuthSpec, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionLivenessCheck, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionServiceAuthSpec(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionServiceAuthSpec, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionLivenessCheck(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionLivenessCheck, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
 	return false
 }
 
-func compareVersionServiceAuthSpec(c *Client, desired, actual *VersionServiceAuthSpec) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Audiences == nil && desired.Audiences != nil && !dcl.IsEmptyValueIndirect(desired.Audiences) {
-		c.Config.Logger.Infof("desired Audiences %s - but actually nil", dcl.SprintResource(desired.Audiences))
-		return true
-	}
-	if !dcl.SliceEquals(desired.Audiences, actual.Audiences) && !dcl.IsZeroValue(desired.Audiences) {
-		c.Config.Logger.Infof("Diff in Audiences. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Audiences), dcl.SprintResource(actual.Audiences))
-		return true
-	}
-	if actual.IamServiceName == nil && desired.IamServiceName != nil && !dcl.IsEmptyValueIndirect(desired.IamServiceName) {
-		c.Config.Logger.Infof("desired IamServiceName %s - but actually nil", dcl.SprintResource(desired.IamServiceName))
-		return true
-	}
-	if !reflect.DeepEqual(desired.IamServiceName, actual.IamServiceName) && !dcl.IsZeroValue(desired.IamServiceName) && !(dcl.IsEmptyValueIndirect(desired.IamServiceName) && dcl.IsZeroValue(actual.IamServiceName)) {
-		c.Config.Logger.Infof("Diff in IamServiceName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IamServiceName), dcl.SprintResource(actual.IamServiceName))
-		return true
-	}
-	if actual.IamResourceName == nil && desired.IamResourceName != nil && !dcl.IsEmptyValueIndirect(desired.IamResourceName) {
-		c.Config.Logger.Infof("desired IamResourceName %s - but actually nil", dcl.SprintResource(desired.IamResourceName))
-		return true
-	}
-	if !reflect.DeepEqual(desired.IamResourceName, actual.IamResourceName) && !dcl.IsZeroValue(desired.IamResourceName) && !(dcl.IsEmptyValueIndirect(desired.IamResourceName) && dcl.IsZeroValue(actual.IamResourceName)) {
-		c.Config.Logger.Infof("Diff in IamResourceName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IamResourceName), dcl.SprintResource(actual.IamResourceName))
-		return true
-	}
-	if actual.IamPolicyId == nil && desired.IamPolicyId != nil && !dcl.IsEmptyValueIndirect(desired.IamPolicyId) {
-		c.Config.Logger.Infof("desired IamPolicyId %s - but actually nil", dcl.SprintResource(desired.IamPolicyId))
-		return true
-	}
-	if !reflect.DeepEqual(desired.IamPolicyId, actual.IamPolicyId) && !dcl.IsZeroValue(desired.IamPolicyId) && !(dcl.IsEmptyValueIndirect(desired.IamPolicyId) && dcl.IsZeroValue(actual.IamPolicyId)) {
-		c.Config.Logger.Infof("Diff in IamPolicyId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IamPolicyId), dcl.SprintResource(actual.IamPolicyId))
-		return true
-	}
-	if actual.IamPolicyType == nil && desired.IamPolicyType != nil && !dcl.IsEmptyValueIndirect(desired.IamPolicyType) {
-		c.Config.Logger.Infof("desired IamPolicyType %s - but actually nil", dcl.SprintResource(desired.IamPolicyType))
-		return true
-	}
-	if !reflect.DeepEqual(desired.IamPolicyType, actual.IamPolicyType) && !dcl.IsZeroValue(desired.IamPolicyType) && !(dcl.IsEmptyValueIndirect(desired.IamPolicyType) && dcl.IsZeroValue(actual.IamPolicyType)) {
-		c.Config.Logger.Infof("Diff in IamPolicyType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IamPolicyType), dcl.SprintResource(actual.IamPolicyType))
-		return true
-	}
-	if actual.IamPermission == nil && desired.IamPermission != nil && !dcl.IsEmptyValueIndirect(desired.IamPermission) {
-		c.Config.Logger.Infof("desired IamPermission %s - but actually nil", dcl.SprintResource(desired.IamPermission))
-		return true
-	}
-	if !reflect.DeepEqual(desired.IamPermission, actual.IamPermission) && !dcl.IsZeroValue(desired.IamPermission) && !(dcl.IsEmptyValueIndirect(desired.IamPermission) && dcl.IsZeroValue(actual.IamPermission)) {
-		c.Config.Logger.Infof("Diff in IamPermission. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IamPermission), dcl.SprintResource(actual.IamPermission))
-		return true
-	}
-	if actual.AcceptGcloudClientId == nil && desired.AcceptGcloudClientId != nil && !dcl.IsEmptyValueIndirect(desired.AcceptGcloudClientId) {
-		c.Config.Logger.Infof("desired AcceptGcloudClientId %s - but actually nil", dcl.SprintResource(desired.AcceptGcloudClientId))
-		return true
-	}
-	if !reflect.DeepEqual(desired.AcceptGcloudClientId, actual.AcceptGcloudClientId) && !dcl.IsZeroValue(desired.AcceptGcloudClientId) && !(dcl.IsEmptyValueIndirect(desired.AcceptGcloudClientId) && dcl.IsZeroValue(actual.AcceptGcloudClientId)) {
-		c.Config.Logger.Infof("Diff in AcceptGcloudClientId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AcceptGcloudClientId), dcl.SprintResource(actual.AcceptGcloudClientId))
-		return true
-	}
-	if actual.Clear == nil && desired.Clear != nil && !dcl.IsEmptyValueIndirect(desired.Clear) {
-		c.Config.Logger.Infof("desired Clear %s - but actually nil", dcl.SprintResource(desired.Clear))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Clear, actual.Clear) && !dcl.IsZeroValue(desired.Clear) && !(dcl.IsEmptyValueIndirect(desired.Clear) && dcl.IsZeroValue(actual.Clear)) {
-		c.Config.Logger.Infof("Diff in Clear. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Clear), dcl.SprintResource(actual.Clear))
-		return true
-	}
-	return false
-}
-func compareVersionServiceCorsSpecSlice(c *Client, desired, actual []VersionServiceCorsSpec) bool {
+func compareVersionLivenessCheckMap(c *Client, desired, actual map[string]VersionLivenessCheck) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionServiceCorsSpec, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionLivenessCheck, lengths unequal.")
 		return true
 	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionServiceCorsSpec(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionServiceCorsSpec, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionLivenessCheck, key %s not found in ACTUAL.\n", k)
 			return true
 		}
-	}
-	return false
-}
-
-func compareVersionServiceCorsSpec(c *Client, desired, actual *VersionServiceCorsSpec) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Origin == nil && desired.Origin != nil && !dcl.IsEmptyValueIndirect(desired.Origin) {
-		c.Config.Logger.Infof("desired Origin %s - but actually nil", dcl.SprintResource(desired.Origin))
-		return true
-	}
-	if !dcl.SliceEquals(desired.Origin, actual.Origin) && !dcl.IsZeroValue(desired.Origin) {
-		c.Config.Logger.Infof("Diff in Origin. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Origin), dcl.SprintResource(actual.Origin))
-		return true
-	}
-	if actual.Method == nil && desired.Method != nil && !dcl.IsEmptyValueIndirect(desired.Method) {
-		c.Config.Logger.Infof("desired Method %s - but actually nil", dcl.SprintResource(desired.Method))
-		return true
-	}
-	if !dcl.SliceEquals(desired.Method, actual.Method) && !dcl.IsZeroValue(desired.Method) {
-		c.Config.Logger.Infof("Diff in Method. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Method), dcl.SprintResource(actual.Method))
-		return true
-	}
-	if actual.Header == nil && desired.Header != nil && !dcl.IsEmptyValueIndirect(desired.Header) {
-		c.Config.Logger.Infof("desired Header %s - but actually nil", dcl.SprintResource(desired.Header))
-		return true
-	}
-	if !dcl.SliceEquals(desired.Header, actual.Header) && !dcl.IsZeroValue(desired.Header) {
-		c.Config.Logger.Infof("Diff in Header. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Header), dcl.SprintResource(actual.Header))
-		return true
-	}
-	if actual.ExposedHeader == nil && desired.ExposedHeader != nil && !dcl.IsEmptyValueIndirect(desired.ExposedHeader) {
-		c.Config.Logger.Infof("desired ExposedHeader %s - but actually nil", dcl.SprintResource(desired.ExposedHeader))
-		return true
-	}
-	if !dcl.SliceEquals(desired.ExposedHeader, actual.ExposedHeader) && !dcl.IsZeroValue(desired.ExposedHeader) {
-		c.Config.Logger.Infof("Diff in ExposedHeader. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExposedHeader), dcl.SprintResource(actual.ExposedHeader))
-		return true
-	}
-	if actual.AllowCredential == nil && desired.AllowCredential != nil && !dcl.IsEmptyValueIndirect(desired.AllowCredential) {
-		c.Config.Logger.Infof("desired AllowCredential %s - but actually nil", dcl.SprintResource(desired.AllowCredential))
-		return true
-	}
-	if !reflect.DeepEqual(desired.AllowCredential, actual.AllowCredential) && !dcl.IsZeroValue(desired.AllowCredential) && !(dcl.IsEmptyValueIndirect(desired.AllowCredential) && dcl.IsZeroValue(actual.AllowCredential)) {
-		c.Config.Logger.Infof("Diff in AllowCredential. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowCredential), dcl.SprintResource(actual.AllowCredential))
-		return true
-	}
-	if actual.MaxAgeSeconds == nil && desired.MaxAgeSeconds != nil && !dcl.IsEmptyValueIndirect(desired.MaxAgeSeconds) {
-		c.Config.Logger.Infof("desired MaxAgeSeconds %s - but actually nil", dcl.SprintResource(desired.MaxAgeSeconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.MaxAgeSeconds, actual.MaxAgeSeconds) && !dcl.IsZeroValue(desired.MaxAgeSeconds) && !(dcl.IsEmptyValueIndirect(desired.MaxAgeSeconds) && dcl.IsZeroValue(actual.MaxAgeSeconds)) {
-		c.Config.Logger.Infof("Diff in MaxAgeSeconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxAgeSeconds), dcl.SprintResource(actual.MaxAgeSeconds))
-		return true
-	}
-	return false
-}
-func compareVersionEntrypointSlice(c *Client, desired, actual []VersionEntrypoint) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionEntrypoint, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionEntrypoint(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionEntrypoint, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionLivenessCheck(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionLivenessCheck, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5715,20 +5154,40 @@ func compareVersionEntrypoint(c *Client, desired, actual *VersionEntrypoint) boo
 		c.Config.Logger.Infof("desired Shell %s - but actually nil", dcl.SprintResource(desired.Shell))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Shell, actual.Shell) && !dcl.IsZeroValue(desired.Shell) && !(dcl.IsEmptyValueIndirect(desired.Shell) && dcl.IsZeroValue(actual.Shell)) {
+	if !dcl.StringCanonicalize(desired.Shell, actual.Shell) && !dcl.IsZeroValue(desired.Shell) {
 		c.Config.Logger.Infof("Diff in Shell. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Shell), dcl.SprintResource(actual.Shell))
 		return true
 	}
 	return false
 }
-func compareVersionVPCAccessConnectorSlice(c *Client, desired, actual []VersionVPCAccessConnector) bool {
+
+func compareVersionEntrypointSlice(c *Client, desired, actual []VersionEntrypoint) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionVPCAccessConnector, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionEntrypoint, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionVPCAccessConnector(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionVPCAccessConnector, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionEntrypoint(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionEntrypoint, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareVersionEntrypointMap(c *Client, desired, actual map[string]VersionEntrypoint) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in VersionEntrypoint, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionEntrypoint, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionEntrypoint(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionEntrypoint, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5746,223 +5205,46 @@ func compareVersionVPCAccessConnector(c *Client, desired, actual *VersionVPCAcce
 		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+	if !dcl.NameToSelfLink(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
 		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
-	if actual.EgressSetting == nil && desired.EgressSetting != nil && !dcl.IsEmptyValueIndirect(desired.EgressSetting) {
-		c.Config.Logger.Infof("desired EgressSetting %s - but actually nil", dcl.SprintResource(desired.EgressSetting))
-		return true
-	}
-	if !reflect.DeepEqual(desired.EgressSetting, actual.EgressSetting) && !dcl.IsZeroValue(desired.EgressSetting) && !(dcl.IsEmptyValueIndirect(desired.EgressSetting) && dcl.IsZeroValue(actual.EgressSetting)) {
-		c.Config.Logger.Infof("Diff in EgressSetting. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EgressSetting), dcl.SprintResource(actual.EgressSetting))
-		return true
-	}
 	return false
 }
-func compareVersionNetworkSettingsSlice(c *Client, desired, actual []VersionNetworkSettings) bool {
+
+func compareVersionVPCAccessConnectorSlice(c *Client, desired, actual []VersionVPCAccessConnector) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionNetworkSettings, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionVPCAccessConnector, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareVersionNetworkSettings(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionNetworkSettings, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareVersionVPCAccessConnector(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in VersionVPCAccessConnector, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
 	return false
 }
 
-func compareVersionNetworkSettings(c *Client, desired, actual *VersionNetworkSettings) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.IngressTrafficAllowed == nil && desired.IngressTrafficAllowed != nil && !dcl.IsEmptyValueIndirect(desired.IngressTrafficAllowed) {
-		c.Config.Logger.Infof("desired IngressTrafficAllowed %s - but actually nil", dcl.SprintResource(desired.IngressTrafficAllowed))
-		return true
-	}
-	if !reflect.DeepEqual(desired.IngressTrafficAllowed, actual.IngressTrafficAllowed) && !dcl.IsZeroValue(desired.IngressTrafficAllowed) && !(dcl.IsEmptyValueIndirect(desired.IngressTrafficAllowed) && dcl.IsZeroValue(actual.IngressTrafficAllowed)) {
-		c.Config.Logger.Infof("Diff in IngressTrafficAllowed. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IngressTrafficAllowed), dcl.SprintResource(actual.IngressTrafficAllowed))
-		return true
-	}
-	return false
-}
-func compareVersionInstanceSpecSlice(c *Client, desired, actual []VersionInstanceSpec) bool {
+func compareVersionVPCAccessConnectorMap(c *Client, desired, actual map[string]VersionVPCAccessConnector) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionInstanceSpec, lengths unequal.")
+		c.Config.Logger.Info("Diff in VersionVPCAccessConnector, lengths unequal.")
 		return true
 	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionInstanceSpec(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionInstanceSpec, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in VersionVPCAccessConnector, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareVersionVPCAccessConnector(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in VersionVPCAccessConnector, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
 	return false
 }
 
-func compareVersionInstanceSpec(c *Client, desired, actual *VersionInstanceSpec) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Sandboxes == nil && desired.Sandboxes != nil && !dcl.IsEmptyValueIndirect(desired.Sandboxes) {
-		c.Config.Logger.Infof("desired Sandboxes %s - but actually nil", dcl.SprintResource(desired.Sandboxes))
-		return true
-	}
-	if compareVersionInstanceSpecSandboxesSlice(c, desired.Sandboxes, actual.Sandboxes) && !dcl.IsZeroValue(desired.Sandboxes) {
-		c.Config.Logger.Infof("Diff in Sandboxes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Sandboxes), dcl.SprintResource(actual.Sandboxes))
-		return true
-	}
-	if actual.Ports == nil && desired.Ports != nil && !dcl.IsEmptyValueIndirect(desired.Ports) {
-		c.Config.Logger.Infof("desired Ports %s - but actually nil", dcl.SprintResource(desired.Ports))
-		return true
-	}
-	if compareVersionInstanceSpecPortsSlice(c, desired.Ports, actual.Ports) && !dcl.IsZeroValue(desired.Ports) {
-		c.Config.Logger.Infof("Diff in Ports. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Ports), dcl.SprintResource(actual.Ports))
-		return true
-	}
-	return false
-}
-func compareVersionInstanceSpecSandboxesSlice(c *Client, desired, actual []VersionInstanceSpecSandboxes) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionInstanceSpecSandboxes, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionInstanceSpecSandboxes(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionInstanceSpecSandboxes, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionInstanceSpecSandboxes(c *Client, desired, actual *VersionInstanceSpecSandboxes) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.Containers == nil && desired.Containers != nil && !dcl.IsEmptyValueIndirect(desired.Containers) {
-		c.Config.Logger.Infof("desired Containers %s - but actually nil", dcl.SprintResource(desired.Containers))
-		return true
-	}
-	if compareVersionInstanceSpecSandboxesContainersSlice(c, desired.Containers, actual.Containers) && !dcl.IsZeroValue(desired.Containers) {
-		c.Config.Logger.Infof("Diff in Containers. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Containers), dcl.SprintResource(actual.Containers))
-		return true
-	}
-	return false
-}
-func compareVersionInstanceSpecSandboxesContainersSlice(c *Client, desired, actual []VersionInstanceSpecSandboxesContainers) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionInstanceSpecSandboxesContainers, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionInstanceSpecSandboxesContainers(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionInstanceSpecSandboxesContainers, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionInstanceSpecSandboxesContainers(c *Client, desired, actual *VersionInstanceSpecSandboxesContainers) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Ports == nil && desired.Ports != nil && !dcl.IsEmptyValueIndirect(desired.Ports) {
-		c.Config.Logger.Infof("desired Ports %s - but actually nil", dcl.SprintResource(desired.Ports))
-		return true
-	}
-	if !dcl.IntSliceEquals(desired.Ports, actual.Ports) && !dcl.IsZeroValue(desired.Ports) {
-		c.Config.Logger.Infof("Diff in Ports. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Ports), dcl.SprintResource(actual.Ports))
-		return true
-	}
-	return false
-}
-func compareVersionInstanceSpecPortsSlice(c *Client, desired, actual []VersionInstanceSpecPorts) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionInstanceSpecPorts, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionInstanceSpecPorts(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionInstanceSpecPorts, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionInstanceSpecPorts(c *Client, desired, actual *VersionInstanceSpecPorts) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.Sandbox == nil && desired.Sandbox != nil && !dcl.IsEmptyValueIndirect(desired.Sandbox) {
-		c.Config.Logger.Infof("desired Sandbox %s - but actually nil", dcl.SprintResource(desired.Sandbox))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Sandbox, actual.Sandbox) && !dcl.IsZeroValue(desired.Sandbox) && !(dcl.IsEmptyValueIndirect(desired.Sandbox) && dcl.IsZeroValue(actual.Sandbox)) {
-		c.Config.Logger.Infof("Diff in Sandbox. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Sandbox), dcl.SprintResource(actual.Sandbox))
-		return true
-	}
-	if actual.Port == nil && desired.Port != nil && !dcl.IsEmptyValueIndirect(desired.Port) {
-		c.Config.Logger.Infof("desired Port %s - but actually nil", dcl.SprintResource(desired.Port))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) && !(dcl.IsEmptyValueIndirect(desired.Port) && dcl.IsZeroValue(actual.Port)) {
-		c.Config.Logger.Infof("Diff in Port. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
-		return true
-	}
-	if actual.Protocol == nil && desired.Protocol != nil && !dcl.IsEmptyValueIndirect(desired.Protocol) {
-		c.Config.Logger.Infof("desired Protocol %s - but actually nil", dcl.SprintResource(desired.Protocol))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Protocol, actual.Protocol) && !dcl.IsZeroValue(desired.Protocol) && !(dcl.IsEmptyValueIndirect(desired.Protocol) && dcl.IsZeroValue(actual.Protocol)) {
-		c.Config.Logger.Infof("Diff in Protocol. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Protocol), dcl.SprintResource(actual.Protocol))
-		return true
-	}
-	if actual.IsDefault == nil && desired.IsDefault != nil && !dcl.IsEmptyValueIndirect(desired.IsDefault) {
-		c.Config.Logger.Infof("desired IsDefault %s - but actually nil", dcl.SprintResource(desired.IsDefault))
-		return true
-	}
-	if !reflect.DeepEqual(desired.IsDefault, actual.IsDefault) && !dcl.IsZeroValue(desired.IsDefault) && !(dcl.IsEmptyValueIndirect(desired.IsDefault) && dcl.IsZeroValue(actual.IsDefault)) {
-		c.Config.Logger.Infof("Diff in IsDefault. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IsDefault), dcl.SprintResource(actual.IsDefault))
-		return true
-	}
-	return false
-}
 func compareVersionInboundServicesEnumSlice(c *Client, desired, actual []VersionInboundServicesEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in VersionInboundServicesEnum, lengths unequal.")
@@ -6143,65 +5425,23 @@ func compareVersionApiConfigSecurityLevelEnum(c *Client, desired, actual *Versio
 	return !reflect.DeepEqual(desired, actual)
 }
 
-func compareVersionVPCAccessConnectorEgressSettingEnumSlice(c *Client, desired, actual []VersionVPCAccessConnectorEgressSettingEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionVPCAccessConnectorEgressSettingEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionVPCAccessConnectorEgressSettingEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionVPCAccessConnectorEgressSettingEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionVPCAccessConnectorEgressSettingEnum(c *Client, desired, actual *VersionVPCAccessConnectorEgressSettingEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareVersionNetworkSettingsIngressTrafficAllowedEnumSlice(c *Client, desired, actual []VersionNetworkSettingsIngressTrafficAllowedEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionNetworkSettingsIngressTrafficAllowedEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionNetworkSettingsIngressTrafficAllowedEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionNetworkSettingsIngressTrafficAllowedEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionNetworkSettingsIngressTrafficAllowedEnum(c *Client, desired, actual *VersionNetworkSettingsIngressTrafficAllowedEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareVersionInstanceSpecPortsProtocolEnumSlice(c *Client, desired, actual []VersionInstanceSpecPortsProtocolEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionInstanceSpecPortsProtocolEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionInstanceSpecPortsProtocolEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionInstanceSpecPortsProtocolEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionInstanceSpecPortsProtocolEnum(c *Client, desired, actual *VersionInstanceSpecPortsProtocolEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
 // urlNormalized returns a copy of the resource struct with values normalized
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Version) urlNormalized() *Version {
 	normalized := deepcopy.Copy(*r).(Version)
+	normalized.ConsumerName = dcl.SelfLinkToName(r.ConsumerName)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.InstanceClass = dcl.SelfLinkToName(r.InstanceClass)
+	normalized.Runtime = dcl.SelfLinkToName(r.Runtime)
+	normalized.RuntimeChannel = dcl.SelfLinkToName(r.RuntimeChannel)
+	normalized.Env = dcl.SelfLinkToName(r.Env)
+	normalized.CreatedBy = dcl.SelfLinkToName(r.CreatedBy)
+	normalized.RuntimeApiVersion = dcl.SelfLinkToName(r.RuntimeApiVersion)
+	normalized.RuntimeMainExecutablePath = dcl.SelfLinkToName(r.RuntimeMainExecutablePath)
+	normalized.DefaultExpiration = dcl.SelfLinkToName(r.DefaultExpiration)
+	normalized.NobuildFilesRegex = dcl.SelfLinkToName(r.NobuildFilesRegex)
+	normalized.VersionUrl = dcl.SelfLinkToName(r.VersionUrl)
 	normalized.App = dcl.SelfLinkToName(r.App)
 	normalized.Service = dcl.SelfLinkToName(r.Service)
 	return &normalized
@@ -6254,6 +5494,10 @@ func unmarshalVersion(b []byte, c *Client) (*Version, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapVersion(m, c)
+}
+
+func unmarshalMapVersion(m map[string]interface{}, c *Client) (*Version, error) {
 
 	return flattenVersion(c, m), nil
 }
@@ -6281,16 +5525,6 @@ func expandVersion(c *Client, f *Version) (map[string]interface{}, error) {
 		return nil, fmt.Errorf("error expanding ManualScaling into manualScaling: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["manualScaling"] = v
-	}
-	if v, err := expandVersionJobScaling(c, f.JobScaling); err != nil {
-		return nil, fmt.Errorf("error expanding JobScaling into jobScaling: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["jobScaling"] = v
-	}
-	if v, err := expandVersionPoolScaling(c, f.PoolScaling); err != nil {
-		return nil, fmt.Errorf("error expanding PoolScaling into poolScaling: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["poolScaling"] = v
 	}
 	if v := f.InboundServices; !dcl.IsEmptyValueIndirect(v) {
 		m["inboundServices"] = v
@@ -6370,9 +5604,6 @@ func expandVersion(c *Client, f *Version) (map[string]interface{}, error) {
 	if v := f.EnvVariables; !dcl.IsEmptyValueIndirect(v) {
 		m["envVariables"] = v
 	}
-	if v := f.BuildEnvVariables; !dcl.IsEmptyValueIndirect(v) {
-		m["buildEnvVariables"] = v
-	}
 	if v := f.DefaultExpiration; !dcl.IsEmptyValueIndirect(v) {
 		m["defaultExpiration"] = v
 	}
@@ -6402,19 +5633,6 @@ func expandVersion(c *Client, f *Version) (map[string]interface{}, error) {
 	if v := f.VersionUrl; !dcl.IsEmptyValueIndirect(v) {
 		m["versionUrl"] = v
 	}
-	if v, err := expandVersionServiceAuthSpec(c, f.ServiceAuthSpec); err != nil {
-		return nil, fmt.Errorf("error expanding ServiceAuthSpec into serviceAuthSpec: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["serviceAuthSpec"] = v
-	}
-	if v, err := expandVersionServiceCorsSpec(c, f.ServiceCorsSpec); err != nil {
-		return nil, fmt.Errorf("error expanding ServiceCorsSpec into serviceCorsSpec: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["serviceCorsSpec"] = v
-	}
-	if v := f.RouteHash; !dcl.IsEmptyValueIndirect(v) {
-		m["routeHash"] = v
-	}
 	if v, err := expandVersionEntrypoint(c, f.Entrypoint); err != nil {
 		return nil, fmt.Errorf("error expanding Entrypoint into entrypoint: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -6424,16 +5642,6 @@ func expandVersion(c *Client, f *Version) (map[string]interface{}, error) {
 		return nil, fmt.Errorf("error expanding VPCAccessConnector into vpcAccessConnector: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["vpcAccessConnector"] = v
-	}
-	if v, err := expandVersionNetworkSettings(c, f.NetworkSettings); err != nil {
-		return nil, fmt.Errorf("error expanding NetworkSettings into networkSettings: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["networkSettings"] = v
-	}
-	if v, err := expandVersionInstanceSpec(c, f.InstanceSpec); err != nil {
-		return nil, fmt.Errorf("error expanding InstanceSpec into instanceSpec: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["instanceSpec"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding App into app: %w", err)
@@ -6466,8 +5674,6 @@ func flattenVersion(c *Client, i interface{}) *Version {
 	r.AutomaticScaling = flattenVersionAutomaticScaling(c, m["automaticScaling"])
 	r.BasicScaling = flattenVersionBasicScaling(c, m["basicScaling"])
 	r.ManualScaling = flattenVersionManualScaling(c, m["manualScaling"])
-	r.JobScaling = flattenVersionJobScaling(c, m["jobScaling"])
-	r.PoolScaling = flattenVersionPoolScaling(c, m["poolScaling"])
 	r.InboundServices = flattenVersionInboundServicesEnumSlice(c, m["inboundServices"])
 	r.InstanceClass = dcl.FlattenString(m["instanceClass"])
 	r.Network = flattenVersionNetwork(c, m["network"])
@@ -6490,7 +5696,6 @@ func flattenVersion(c *Client, i interface{}) *Version {
 	r.Libraries = flattenVersionLibrariesSlice(c, m["libraries"])
 	r.ApiConfig = flattenVersionApiConfig(c, m["apiConfig"])
 	r.EnvVariables = dcl.FlattenKeyValuePairs(m["envVariables"])
-	r.BuildEnvVariables = dcl.FlattenKeyValuePairs(m["buildEnvVariables"])
 	r.DefaultExpiration = dcl.FlattenString(m["defaultExpiration"])
 	r.Deployment = flattenVersionDeployment(c, m["deployment"])
 	r.HealthCheck = flattenVersionHealthCheck(c, m["healthCheck"])
@@ -6498,13 +5703,8 @@ func flattenVersion(c *Client, i interface{}) *Version {
 	r.LivenessCheck = flattenVersionLivenessCheck(c, m["livenessCheck"])
 	r.NobuildFilesRegex = dcl.FlattenString(m["nobuildFilesRegex"])
 	r.VersionUrl = dcl.FlattenString(m["versionUrl"])
-	r.ServiceAuthSpec = flattenVersionServiceAuthSpec(c, m["serviceAuthSpec"])
-	r.ServiceCorsSpec = flattenVersionServiceCorsSpec(c, m["serviceCorsSpec"])
-	r.RouteHash = dcl.FlattenString(m["routeHash"])
 	r.Entrypoint = flattenVersionEntrypoint(c, m["entrypoint"])
 	r.VPCAccessConnector = flattenVersionVPCAccessConnector(c, m["vpcAccessConnector"])
-	r.NetworkSettings = flattenVersionNetworkSettings(c, m["networkSettings"])
-	r.InstanceSpec = flattenVersionInstanceSpec(c, m["instanceSpec"])
 	r.App = dcl.FlattenString(m["app"])
 	r.Service = dcl.FlattenString(m["service"])
 
@@ -7497,254 +6697,6 @@ func flattenVersionManualScaling(c *Client, i interface{}) *VersionManualScaling
 	return r
 }
 
-// expandVersionJobScalingMap expands the contents of VersionJobScaling into a JSON
-// request object.
-func expandVersionJobScalingMap(c *Client, f map[string]VersionJobScaling) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionJobScaling(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionJobScalingSlice expands the contents of VersionJobScaling into a JSON
-// request object.
-func expandVersionJobScalingSlice(c *Client, f []VersionJobScaling) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionJobScaling(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionJobScalingMap flattens the contents of VersionJobScaling from a JSON
-// response object.
-func flattenVersionJobScalingMap(c *Client, i interface{}) map[string]VersionJobScaling {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionJobScaling{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionJobScaling{}
-	}
-
-	items := make(map[string]VersionJobScaling)
-	for k, item := range a {
-		items[k] = *flattenVersionJobScaling(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionJobScalingSlice flattens the contents of VersionJobScaling from a JSON
-// response object.
-func flattenVersionJobScalingSlice(c *Client, i interface{}) []VersionJobScaling {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionJobScaling{}
-	}
-
-	if len(a) == 0 {
-		return []VersionJobScaling{}
-	}
-
-	items := make([]VersionJobScaling, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionJobScaling(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionJobScaling expands an instance of VersionJobScaling into a JSON
-// request object.
-func expandVersionJobScaling(c *Client, f *VersionJobScaling) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Completions; !dcl.IsEmptyValueIndirect(v) {
-		m["completions"] = v
-	}
-	if v := f.Parallelism; !dcl.IsEmptyValueIndirect(v) {
-		m["parallelism"] = v
-	}
-	if v := f.JobDeadline; !dcl.IsEmptyValueIndirect(v) {
-		m["jobDeadline"] = v
-	}
-	if v := f.InstanceRetries; !dcl.IsEmptyValueIndirect(v) {
-		m["instanceRetries"] = v
-	}
-	if v := f.InstanceDeadline; !dcl.IsEmptyValueIndirect(v) {
-		m["instanceDeadline"] = v
-	}
-	if v := f.InstanceTerminationWindow; !dcl.IsEmptyValueIndirect(v) {
-		m["instanceTerminationWindow"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionJobScaling flattens an instance of VersionJobScaling from a JSON
-// response object.
-func flattenVersionJobScaling(c *Client, i interface{}) *VersionJobScaling {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionJobScaling{}
-	r.Completions = dcl.FlattenInteger(m["completions"])
-	r.Parallelism = dcl.FlattenInteger(m["parallelism"])
-	r.JobDeadline = dcl.FlattenString(m["jobDeadline"])
-	r.InstanceRetries = dcl.FlattenInteger(m["instanceRetries"])
-	r.InstanceDeadline = dcl.FlattenString(m["instanceDeadline"])
-	r.InstanceTerminationWindow = dcl.FlattenString(m["instanceTerminationWindow"])
-
-	return r
-}
-
-// expandVersionPoolScalingMap expands the contents of VersionPoolScaling into a JSON
-// request object.
-func expandVersionPoolScalingMap(c *Client, f map[string]VersionPoolScaling) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionPoolScaling(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionPoolScalingSlice expands the contents of VersionPoolScaling into a JSON
-// request object.
-func expandVersionPoolScalingSlice(c *Client, f []VersionPoolScaling) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionPoolScaling(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionPoolScalingMap flattens the contents of VersionPoolScaling from a JSON
-// response object.
-func flattenVersionPoolScalingMap(c *Client, i interface{}) map[string]VersionPoolScaling {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionPoolScaling{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionPoolScaling{}
-	}
-
-	items := make(map[string]VersionPoolScaling)
-	for k, item := range a {
-		items[k] = *flattenVersionPoolScaling(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionPoolScalingSlice flattens the contents of VersionPoolScaling from a JSON
-// response object.
-func flattenVersionPoolScalingSlice(c *Client, i interface{}) []VersionPoolScaling {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionPoolScaling{}
-	}
-
-	if len(a) == 0 {
-		return []VersionPoolScaling{}
-	}
-
-	items := make([]VersionPoolScaling, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionPoolScaling(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionPoolScaling expands an instance of VersionPoolScaling into a JSON
-// request object.
-func expandVersionPoolScaling(c *Client, f *VersionPoolScaling) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Replicas; !dcl.IsEmptyValueIndirect(v) {
-		m["replicas"] = v
-	}
-	if v := f.MaxUnavailable; !dcl.IsEmptyValueIndirect(v) {
-		m["maxUnavailable"] = v
-	}
-	if v := f.MaxSurge; !dcl.IsEmptyValueIndirect(v) {
-		m["maxSurge"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionPoolScaling flattens an instance of VersionPoolScaling from a JSON
-// response object.
-func flattenVersionPoolScaling(c *Client, i interface{}) *VersionPoolScaling {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionPoolScaling{}
-	r.Replicas = dcl.FlattenInteger(m["replicas"])
-	r.MaxUnavailable = dcl.FlattenInteger(m["maxUnavailable"])
-	r.MaxSurge = dcl.FlattenInteger(m["maxSurge"])
-
-	return r
-}
-
 // expandVersionNetworkMap expands the contents of VersionNetwork into a JSON
 // request object.
 func expandVersionNetworkMap(c *Client, f map[string]VersionNetwork) (map[string]interface{}, error) {
@@ -7974,9 +6926,6 @@ func expandVersionResources(c *Client, f *VersionResources) (map[string]interfac
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["volumes"] = v
 	}
-	if v := f.KmsKeyReference; !dcl.IsEmptyValueIndirect(v) {
-		m["kmsKeyReference"] = v
-	}
 
 	return m, nil
 }
@@ -7994,7 +6943,6 @@ func flattenVersionResources(c *Client, i interface{}) *VersionResources {
 	r.DiskGb = dcl.FlattenDouble(m["diskGb"])
 	r.MemoryGb = dcl.FlattenDouble(m["memoryGb"])
 	r.Volumes = flattenVersionResourcesVolumesSlice(c, m["volumes"])
-	r.KmsKeyReference = dcl.FlattenString(m["kmsKeyReference"])
 
 	return r
 }
@@ -9215,7 +8163,7 @@ func flattenVersionDeploymentFiles(c *Client, i interface{}) *VersionDeploymentF
 
 	r := &VersionDeploymentFiles{}
 	r.SourceUrl = dcl.FlattenString(m["sourceUrl"])
-	r.Sha1Sum = dcl.FlattenSecretValue(m["sha1Sum"])
+	r.Sha1Sum = dcl.FlattenString(m["sha1Sum"])
 	r.MimeType = dcl.FlattenString(m["mimeType"])
 
 	return r
@@ -9961,274 +8909,6 @@ func flattenVersionLivenessCheck(c *Client, i interface{}) *VersionLivenessCheck
 	return r
 }
 
-// expandVersionServiceAuthSpecMap expands the contents of VersionServiceAuthSpec into a JSON
-// request object.
-func expandVersionServiceAuthSpecMap(c *Client, f map[string]VersionServiceAuthSpec) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionServiceAuthSpec(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionServiceAuthSpecSlice expands the contents of VersionServiceAuthSpec into a JSON
-// request object.
-func expandVersionServiceAuthSpecSlice(c *Client, f []VersionServiceAuthSpec) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionServiceAuthSpec(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionServiceAuthSpecMap flattens the contents of VersionServiceAuthSpec from a JSON
-// response object.
-func flattenVersionServiceAuthSpecMap(c *Client, i interface{}) map[string]VersionServiceAuthSpec {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionServiceAuthSpec{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionServiceAuthSpec{}
-	}
-
-	items := make(map[string]VersionServiceAuthSpec)
-	for k, item := range a {
-		items[k] = *flattenVersionServiceAuthSpec(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionServiceAuthSpecSlice flattens the contents of VersionServiceAuthSpec from a JSON
-// response object.
-func flattenVersionServiceAuthSpecSlice(c *Client, i interface{}) []VersionServiceAuthSpec {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionServiceAuthSpec{}
-	}
-
-	if len(a) == 0 {
-		return []VersionServiceAuthSpec{}
-	}
-
-	items := make([]VersionServiceAuthSpec, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionServiceAuthSpec(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionServiceAuthSpec expands an instance of VersionServiceAuthSpec into a JSON
-// request object.
-func expandVersionServiceAuthSpec(c *Client, f *VersionServiceAuthSpec) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Audiences; !dcl.IsEmptyValueIndirect(v) {
-		m["audiences"] = v
-	}
-	if v := f.IamServiceName; !dcl.IsEmptyValueIndirect(v) {
-		m["iamServiceName"] = v
-	}
-	if v := f.IamResourceName; !dcl.IsEmptyValueIndirect(v) {
-		m["iamResourceName"] = v
-	}
-	if v := f.IamPolicyId; !dcl.IsEmptyValueIndirect(v) {
-		m["iamPolicyId"] = v
-	}
-	if v := f.IamPolicyType; !dcl.IsEmptyValueIndirect(v) {
-		m["iamPolicyType"] = v
-	}
-	if v := f.IamPermission; !dcl.IsEmptyValueIndirect(v) {
-		m["iamPermission"] = v
-	}
-	if v := f.AcceptGcloudClientId; !dcl.IsEmptyValueIndirect(v) {
-		m["acceptGcloudClientId"] = v
-	}
-	if v := f.Clear; !dcl.IsEmptyValueIndirect(v) {
-		m["clear"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionServiceAuthSpec flattens an instance of VersionServiceAuthSpec from a JSON
-// response object.
-func flattenVersionServiceAuthSpec(c *Client, i interface{}) *VersionServiceAuthSpec {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionServiceAuthSpec{}
-	r.Audiences = dcl.FlattenStringSlice(m["audiences"])
-	r.IamServiceName = dcl.FlattenString(m["iamServiceName"])
-	r.IamResourceName = dcl.FlattenString(m["iamResourceName"])
-	r.IamPolicyId = dcl.FlattenString(m["iamPolicyId"])
-	r.IamPolicyType = dcl.FlattenString(m["iamPolicyType"])
-	r.IamPermission = dcl.FlattenString(m["iamPermission"])
-	r.AcceptGcloudClientId = dcl.FlattenBool(m["acceptGcloudClientId"])
-	r.Clear = dcl.FlattenBool(m["clear"])
-
-	return r
-}
-
-// expandVersionServiceCorsSpecMap expands the contents of VersionServiceCorsSpec into a JSON
-// request object.
-func expandVersionServiceCorsSpecMap(c *Client, f map[string]VersionServiceCorsSpec) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionServiceCorsSpec(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionServiceCorsSpecSlice expands the contents of VersionServiceCorsSpec into a JSON
-// request object.
-func expandVersionServiceCorsSpecSlice(c *Client, f []VersionServiceCorsSpec) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionServiceCorsSpec(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionServiceCorsSpecMap flattens the contents of VersionServiceCorsSpec from a JSON
-// response object.
-func flattenVersionServiceCorsSpecMap(c *Client, i interface{}) map[string]VersionServiceCorsSpec {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionServiceCorsSpec{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionServiceCorsSpec{}
-	}
-
-	items := make(map[string]VersionServiceCorsSpec)
-	for k, item := range a {
-		items[k] = *flattenVersionServiceCorsSpec(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionServiceCorsSpecSlice flattens the contents of VersionServiceCorsSpec from a JSON
-// response object.
-func flattenVersionServiceCorsSpecSlice(c *Client, i interface{}) []VersionServiceCorsSpec {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionServiceCorsSpec{}
-	}
-
-	if len(a) == 0 {
-		return []VersionServiceCorsSpec{}
-	}
-
-	items := make([]VersionServiceCorsSpec, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionServiceCorsSpec(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionServiceCorsSpec expands an instance of VersionServiceCorsSpec into a JSON
-// request object.
-func expandVersionServiceCorsSpec(c *Client, f *VersionServiceCorsSpec) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Origin; !dcl.IsEmptyValueIndirect(v) {
-		m["origin"] = v
-	}
-	if v := f.Method; !dcl.IsEmptyValueIndirect(v) {
-		m["method"] = v
-	}
-	if v := f.Header; !dcl.IsEmptyValueIndirect(v) {
-		m["header"] = v
-	}
-	if v := f.ExposedHeader; !dcl.IsEmptyValueIndirect(v) {
-		m["exposedHeader"] = v
-	}
-	if v := f.AllowCredential; !dcl.IsEmptyValueIndirect(v) {
-		m["allowCredential"] = v
-	}
-	if v := f.MaxAgeSeconds; !dcl.IsEmptyValueIndirect(v) {
-		m["maxAgeSeconds"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionServiceCorsSpec flattens an instance of VersionServiceCorsSpec from a JSON
-// response object.
-func flattenVersionServiceCorsSpec(c *Client, i interface{}) *VersionServiceCorsSpec {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionServiceCorsSpec{}
-	r.Origin = dcl.FlattenStringSlice(m["origin"])
-	r.Method = dcl.FlattenStringSlice(m["method"])
-	r.Header = dcl.FlattenStringSlice(m["header"])
-	r.ExposedHeader = dcl.FlattenStringSlice(m["exposedHeader"])
-	r.AllowCredential = dcl.FlattenBool(m["allowCredential"])
-	r.MaxAgeSeconds = dcl.FlattenInteger(m["maxAgeSeconds"])
-
-	return r
-}
-
 // expandVersionEntrypointMap expands the contents of VersionEntrypoint into a JSON
 // request object.
 func expandVersionEntrypointMap(c *Client, f map[string]VersionEntrypoint) (map[string]interface{}, error) {
@@ -10431,9 +9111,6 @@ func expandVersionVPCAccessConnector(c *Client, f *VersionVPCAccessConnector) (m
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v := f.EgressSetting; !dcl.IsEmptyValueIndirect(v) {
-		m["egressSetting"] = v
-	}
 
 	return m, nil
 }
@@ -10448,587 +9125,6 @@ func flattenVersionVPCAccessConnector(c *Client, i interface{}) *VersionVPCAcces
 
 	r := &VersionVPCAccessConnector{}
 	r.Name = dcl.FlattenString(m["name"])
-	r.EgressSetting = flattenVersionVPCAccessConnectorEgressSettingEnum(m["egressSetting"])
-
-	return r
-}
-
-// expandVersionNetworkSettingsMap expands the contents of VersionNetworkSettings into a JSON
-// request object.
-func expandVersionNetworkSettingsMap(c *Client, f map[string]VersionNetworkSettings) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionNetworkSettings(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionNetworkSettingsSlice expands the contents of VersionNetworkSettings into a JSON
-// request object.
-func expandVersionNetworkSettingsSlice(c *Client, f []VersionNetworkSettings) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionNetworkSettings(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionNetworkSettingsMap flattens the contents of VersionNetworkSettings from a JSON
-// response object.
-func flattenVersionNetworkSettingsMap(c *Client, i interface{}) map[string]VersionNetworkSettings {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionNetworkSettings{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionNetworkSettings{}
-	}
-
-	items := make(map[string]VersionNetworkSettings)
-	for k, item := range a {
-		items[k] = *flattenVersionNetworkSettings(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionNetworkSettingsSlice flattens the contents of VersionNetworkSettings from a JSON
-// response object.
-func flattenVersionNetworkSettingsSlice(c *Client, i interface{}) []VersionNetworkSettings {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionNetworkSettings{}
-	}
-
-	if len(a) == 0 {
-		return []VersionNetworkSettings{}
-	}
-
-	items := make([]VersionNetworkSettings, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionNetworkSettings(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionNetworkSettings expands an instance of VersionNetworkSettings into a JSON
-// request object.
-func expandVersionNetworkSettings(c *Client, f *VersionNetworkSettings) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.IngressTrafficAllowed; !dcl.IsEmptyValueIndirect(v) {
-		m["ingressTrafficAllowed"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionNetworkSettings flattens an instance of VersionNetworkSettings from a JSON
-// response object.
-func flattenVersionNetworkSettings(c *Client, i interface{}) *VersionNetworkSettings {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionNetworkSettings{}
-	r.IngressTrafficAllowed = flattenVersionNetworkSettingsIngressTrafficAllowedEnum(m["ingressTrafficAllowed"])
-
-	return r
-}
-
-// expandVersionInstanceSpecMap expands the contents of VersionInstanceSpec into a JSON
-// request object.
-func expandVersionInstanceSpecMap(c *Client, f map[string]VersionInstanceSpec) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionInstanceSpec(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionInstanceSpecSlice expands the contents of VersionInstanceSpec into a JSON
-// request object.
-func expandVersionInstanceSpecSlice(c *Client, f []VersionInstanceSpec) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionInstanceSpec(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionInstanceSpecMap flattens the contents of VersionInstanceSpec from a JSON
-// response object.
-func flattenVersionInstanceSpecMap(c *Client, i interface{}) map[string]VersionInstanceSpec {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionInstanceSpec{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionInstanceSpec{}
-	}
-
-	items := make(map[string]VersionInstanceSpec)
-	for k, item := range a {
-		items[k] = *flattenVersionInstanceSpec(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionInstanceSpecSlice flattens the contents of VersionInstanceSpec from a JSON
-// response object.
-func flattenVersionInstanceSpecSlice(c *Client, i interface{}) []VersionInstanceSpec {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionInstanceSpec{}
-	}
-
-	if len(a) == 0 {
-		return []VersionInstanceSpec{}
-	}
-
-	items := make([]VersionInstanceSpec, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionInstanceSpec(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionInstanceSpec expands an instance of VersionInstanceSpec into a JSON
-// request object.
-func expandVersionInstanceSpec(c *Client, f *VersionInstanceSpec) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandVersionInstanceSpecSandboxesSlice(c, f.Sandboxes); err != nil {
-		return nil, fmt.Errorf("error expanding Sandboxes into sandboxes: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["sandboxes"] = v
-	}
-	if v, err := expandVersionInstanceSpecPortsSlice(c, f.Ports); err != nil {
-		return nil, fmt.Errorf("error expanding Ports into ports: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["ports"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionInstanceSpec flattens an instance of VersionInstanceSpec from a JSON
-// response object.
-func flattenVersionInstanceSpec(c *Client, i interface{}) *VersionInstanceSpec {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionInstanceSpec{}
-	r.Sandboxes = flattenVersionInstanceSpecSandboxesSlice(c, m["sandboxes"])
-	r.Ports = flattenVersionInstanceSpecPortsSlice(c, m["ports"])
-
-	return r
-}
-
-// expandVersionInstanceSpecSandboxesMap expands the contents of VersionInstanceSpecSandboxes into a JSON
-// request object.
-func expandVersionInstanceSpecSandboxesMap(c *Client, f map[string]VersionInstanceSpecSandboxes) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionInstanceSpecSandboxes(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionInstanceSpecSandboxesSlice expands the contents of VersionInstanceSpecSandboxes into a JSON
-// request object.
-func expandVersionInstanceSpecSandboxesSlice(c *Client, f []VersionInstanceSpecSandboxes) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionInstanceSpecSandboxes(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionInstanceSpecSandboxesMap flattens the contents of VersionInstanceSpecSandboxes from a JSON
-// response object.
-func flattenVersionInstanceSpecSandboxesMap(c *Client, i interface{}) map[string]VersionInstanceSpecSandboxes {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionInstanceSpecSandboxes{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionInstanceSpecSandboxes{}
-	}
-
-	items := make(map[string]VersionInstanceSpecSandboxes)
-	for k, item := range a {
-		items[k] = *flattenVersionInstanceSpecSandboxes(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionInstanceSpecSandboxesSlice flattens the contents of VersionInstanceSpecSandboxes from a JSON
-// response object.
-func flattenVersionInstanceSpecSandboxesSlice(c *Client, i interface{}) []VersionInstanceSpecSandboxes {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionInstanceSpecSandboxes{}
-	}
-
-	if len(a) == 0 {
-		return []VersionInstanceSpecSandboxes{}
-	}
-
-	items := make([]VersionInstanceSpecSandboxes, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionInstanceSpecSandboxes(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionInstanceSpecSandboxes expands an instance of VersionInstanceSpecSandboxes into a JSON
-// request object.
-func expandVersionInstanceSpecSandboxes(c *Client, f *VersionInstanceSpecSandboxes) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
-		m["name"] = v
-	}
-	if v, err := expandVersionInstanceSpecSandboxesContainersSlice(c, f.Containers); err != nil {
-		return nil, fmt.Errorf("error expanding Containers into containers: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["containers"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionInstanceSpecSandboxes flattens an instance of VersionInstanceSpecSandboxes from a JSON
-// response object.
-func flattenVersionInstanceSpecSandboxes(c *Client, i interface{}) *VersionInstanceSpecSandboxes {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionInstanceSpecSandboxes{}
-	r.Name = dcl.FlattenString(m["name"])
-	r.Containers = flattenVersionInstanceSpecSandboxesContainersSlice(c, m["containers"])
-
-	return r
-}
-
-// expandVersionInstanceSpecSandboxesContainersMap expands the contents of VersionInstanceSpecSandboxesContainers into a JSON
-// request object.
-func expandVersionInstanceSpecSandboxesContainersMap(c *Client, f map[string]VersionInstanceSpecSandboxesContainers) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionInstanceSpecSandboxesContainers(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionInstanceSpecSandboxesContainersSlice expands the contents of VersionInstanceSpecSandboxesContainers into a JSON
-// request object.
-func expandVersionInstanceSpecSandboxesContainersSlice(c *Client, f []VersionInstanceSpecSandboxesContainers) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionInstanceSpecSandboxesContainers(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionInstanceSpecSandboxesContainersMap flattens the contents of VersionInstanceSpecSandboxesContainers from a JSON
-// response object.
-func flattenVersionInstanceSpecSandboxesContainersMap(c *Client, i interface{}) map[string]VersionInstanceSpecSandboxesContainers {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionInstanceSpecSandboxesContainers{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionInstanceSpecSandboxesContainers{}
-	}
-
-	items := make(map[string]VersionInstanceSpecSandboxesContainers)
-	for k, item := range a {
-		items[k] = *flattenVersionInstanceSpecSandboxesContainers(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionInstanceSpecSandboxesContainersSlice flattens the contents of VersionInstanceSpecSandboxesContainers from a JSON
-// response object.
-func flattenVersionInstanceSpecSandboxesContainersSlice(c *Client, i interface{}) []VersionInstanceSpecSandboxesContainers {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionInstanceSpecSandboxesContainers{}
-	}
-
-	if len(a) == 0 {
-		return []VersionInstanceSpecSandboxesContainers{}
-	}
-
-	items := make([]VersionInstanceSpecSandboxesContainers, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionInstanceSpecSandboxesContainers(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionInstanceSpecSandboxesContainers expands an instance of VersionInstanceSpecSandboxesContainers into a JSON
-// request object.
-func expandVersionInstanceSpecSandboxesContainers(c *Client, f *VersionInstanceSpecSandboxesContainers) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Ports; !dcl.IsEmptyValueIndirect(v) {
-		m["ports"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionInstanceSpecSandboxesContainers flattens an instance of VersionInstanceSpecSandboxesContainers from a JSON
-// response object.
-func flattenVersionInstanceSpecSandboxesContainers(c *Client, i interface{}) *VersionInstanceSpecSandboxesContainers {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionInstanceSpecSandboxesContainers{}
-	r.Ports = dcl.FlattenIntSlice(m["ports"])
-
-	return r
-}
-
-// expandVersionInstanceSpecPortsMap expands the contents of VersionInstanceSpecPorts into a JSON
-// request object.
-func expandVersionInstanceSpecPortsMap(c *Client, f map[string]VersionInstanceSpecPorts) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandVersionInstanceSpecPorts(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandVersionInstanceSpecPortsSlice expands the contents of VersionInstanceSpecPorts into a JSON
-// request object.
-func expandVersionInstanceSpecPortsSlice(c *Client, f []VersionInstanceSpecPorts) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandVersionInstanceSpecPorts(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenVersionInstanceSpecPortsMap flattens the contents of VersionInstanceSpecPorts from a JSON
-// response object.
-func flattenVersionInstanceSpecPortsMap(c *Client, i interface{}) map[string]VersionInstanceSpecPorts {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]VersionInstanceSpecPorts{}
-	}
-
-	if len(a) == 0 {
-		return map[string]VersionInstanceSpecPorts{}
-	}
-
-	items := make(map[string]VersionInstanceSpecPorts)
-	for k, item := range a {
-		items[k] = *flattenVersionInstanceSpecPorts(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenVersionInstanceSpecPortsSlice flattens the contents of VersionInstanceSpecPorts from a JSON
-// response object.
-func flattenVersionInstanceSpecPortsSlice(c *Client, i interface{}) []VersionInstanceSpecPorts {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionInstanceSpecPorts{}
-	}
-
-	if len(a) == 0 {
-		return []VersionInstanceSpecPorts{}
-	}
-
-	items := make([]VersionInstanceSpecPorts, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionInstanceSpecPorts(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandVersionInstanceSpecPorts expands an instance of VersionInstanceSpecPorts into a JSON
-// request object.
-func expandVersionInstanceSpecPorts(c *Client, f *VersionInstanceSpecPorts) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
-		m["name"] = v
-	}
-	if v := f.Sandbox; !dcl.IsEmptyValueIndirect(v) {
-		m["sandbox"] = v
-	}
-	if v := f.Port; !dcl.IsEmptyValueIndirect(v) {
-		m["port"] = v
-	}
-	if v := f.Protocol; !dcl.IsEmptyValueIndirect(v) {
-		m["protocol"] = v
-	}
-	if v := f.IsDefault; !dcl.IsEmptyValueIndirect(v) {
-		m["isDefault"] = v
-	}
-
-	return m, nil
-}
-
-// flattenVersionInstanceSpecPorts flattens an instance of VersionInstanceSpecPorts from a JSON
-// response object.
-func flattenVersionInstanceSpecPorts(c *Client, i interface{}) *VersionInstanceSpecPorts {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &VersionInstanceSpecPorts{}
-	r.Name = dcl.FlattenString(m["name"])
-	r.Sandbox = dcl.FlattenString(m["sandbox"])
-	r.Port = dcl.FlattenInteger(m["port"])
-	r.Protocol = flattenVersionInstanceSpecPortsProtocolEnum(m["protocol"])
-	r.IsDefault = dcl.FlattenBool(m["isDefault"])
 
 	return r
 }
@@ -11047,7 +9143,7 @@ func flattenVersionInboundServicesEnumSlice(c *Client, i interface{}) []VersionI
 
 	items := make([]VersionInboundServicesEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenVersionInboundServicesEnum(item.(map[string]interface{})))
+		items = append(items, *flattenVersionInboundServicesEnum(item.(interface{})))
 	}
 
 	return items
@@ -11078,7 +9174,7 @@ func flattenVersionServingStatusEnumSlice(c *Client, i interface{}) []VersionSer
 
 	items := make([]VersionServingStatusEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenVersionServingStatusEnum(item.(map[string]interface{})))
+		items = append(items, *flattenVersionServingStatusEnum(item.(interface{})))
 	}
 
 	return items
@@ -11109,7 +9205,7 @@ func flattenVersionHandlersSecurityLevelEnumSlice(c *Client, i interface{}) []Ve
 
 	items := make([]VersionHandlersSecurityLevelEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenVersionHandlersSecurityLevelEnum(item.(map[string]interface{})))
+		items = append(items, *flattenVersionHandlersSecurityLevelEnum(item.(interface{})))
 	}
 
 	return items
@@ -11140,7 +9236,7 @@ func flattenVersionHandlersLoginEnumSlice(c *Client, i interface{}) []VersionHan
 
 	items := make([]VersionHandlersLoginEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenVersionHandlersLoginEnum(item.(map[string]interface{})))
+		items = append(items, *flattenVersionHandlersLoginEnum(item.(interface{})))
 	}
 
 	return items
@@ -11171,7 +9267,7 @@ func flattenVersionHandlersAuthFailActionEnumSlice(c *Client, i interface{}) []V
 
 	items := make([]VersionHandlersAuthFailActionEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenVersionHandlersAuthFailActionEnum(item.(map[string]interface{})))
+		items = append(items, *flattenVersionHandlersAuthFailActionEnum(item.(interface{})))
 	}
 
 	return items
@@ -11202,7 +9298,7 @@ func flattenVersionHandlersRedirectHttpResponseCodeEnumSlice(c *Client, i interf
 
 	items := make([]VersionHandlersRedirectHttpResponseCodeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenVersionHandlersRedirectHttpResponseCodeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenVersionHandlersRedirectHttpResponseCodeEnum(item.(interface{})))
 	}
 
 	return items
@@ -11233,7 +9329,7 @@ func flattenVersionErrorHandlersErrorCodeEnumSlice(c *Client, i interface{}) []V
 
 	items := make([]VersionErrorHandlersErrorCodeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenVersionErrorHandlersErrorCodeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenVersionErrorHandlersErrorCodeEnum(item.(interface{})))
 	}
 
 	return items
@@ -11264,7 +9360,7 @@ func flattenVersionApiConfigAuthFailActionEnumSlice(c *Client, i interface{}) []
 
 	items := make([]VersionApiConfigAuthFailActionEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenVersionApiConfigAuthFailActionEnum(item.(map[string]interface{})))
+		items = append(items, *flattenVersionApiConfigAuthFailActionEnum(item.(interface{})))
 	}
 
 	return items
@@ -11295,7 +9391,7 @@ func flattenVersionApiConfigLoginEnumSlice(c *Client, i interface{}) []VersionAp
 
 	items := make([]VersionApiConfigLoginEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenVersionApiConfigLoginEnum(item.(map[string]interface{})))
+		items = append(items, *flattenVersionApiConfigLoginEnum(item.(interface{})))
 	}
 
 	return items
@@ -11326,7 +9422,7 @@ func flattenVersionApiConfigSecurityLevelEnumSlice(c *Client, i interface{}) []V
 
 	items := make([]VersionApiConfigSecurityLevelEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenVersionApiConfigSecurityLevelEnum(item.(map[string]interface{})))
+		items = append(items, *flattenVersionApiConfigSecurityLevelEnum(item.(interface{})))
 	}
 
 	return items
@@ -11341,99 +9437,6 @@ func flattenVersionApiConfigSecurityLevelEnum(i interface{}) *VersionApiConfigSe
 	}
 
 	return VersionApiConfigSecurityLevelEnumRef(s)
-}
-
-// flattenVersionVPCAccessConnectorEgressSettingEnumSlice flattens the contents of VersionVPCAccessConnectorEgressSettingEnum from a JSON
-// response object.
-func flattenVersionVPCAccessConnectorEgressSettingEnumSlice(c *Client, i interface{}) []VersionVPCAccessConnectorEgressSettingEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionVPCAccessConnectorEgressSettingEnum{}
-	}
-
-	if len(a) == 0 {
-		return []VersionVPCAccessConnectorEgressSettingEnum{}
-	}
-
-	items := make([]VersionVPCAccessConnectorEgressSettingEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionVPCAccessConnectorEgressSettingEnum(item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// flattenVersionVPCAccessConnectorEgressSettingEnum asserts that an interface is a string, and returns a
-// pointer to a *VersionVPCAccessConnectorEgressSettingEnum with the same value as that string.
-func flattenVersionVPCAccessConnectorEgressSettingEnum(i interface{}) *VersionVPCAccessConnectorEgressSettingEnum {
-	s, ok := i.(string)
-	if !ok {
-		return VersionVPCAccessConnectorEgressSettingEnumRef("")
-	}
-
-	return VersionVPCAccessConnectorEgressSettingEnumRef(s)
-}
-
-// flattenVersionNetworkSettingsIngressTrafficAllowedEnumSlice flattens the contents of VersionNetworkSettingsIngressTrafficAllowedEnum from a JSON
-// response object.
-func flattenVersionNetworkSettingsIngressTrafficAllowedEnumSlice(c *Client, i interface{}) []VersionNetworkSettingsIngressTrafficAllowedEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionNetworkSettingsIngressTrafficAllowedEnum{}
-	}
-
-	if len(a) == 0 {
-		return []VersionNetworkSettingsIngressTrafficAllowedEnum{}
-	}
-
-	items := make([]VersionNetworkSettingsIngressTrafficAllowedEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionNetworkSettingsIngressTrafficAllowedEnum(item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// flattenVersionNetworkSettingsIngressTrafficAllowedEnum asserts that an interface is a string, and returns a
-// pointer to a *VersionNetworkSettingsIngressTrafficAllowedEnum with the same value as that string.
-func flattenVersionNetworkSettingsIngressTrafficAllowedEnum(i interface{}) *VersionNetworkSettingsIngressTrafficAllowedEnum {
-	s, ok := i.(string)
-	if !ok {
-		return VersionNetworkSettingsIngressTrafficAllowedEnumRef("")
-	}
-
-	return VersionNetworkSettingsIngressTrafficAllowedEnumRef(s)
-}
-
-// flattenVersionInstanceSpecPortsProtocolEnumSlice flattens the contents of VersionInstanceSpecPortsProtocolEnum from a JSON
-// response object.
-func flattenVersionInstanceSpecPortsProtocolEnumSlice(c *Client, i interface{}) []VersionInstanceSpecPortsProtocolEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []VersionInstanceSpecPortsProtocolEnum{}
-	}
-
-	if len(a) == 0 {
-		return []VersionInstanceSpecPortsProtocolEnum{}
-	}
-
-	items := make([]VersionInstanceSpecPortsProtocolEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenVersionInstanceSpecPortsProtocolEnum(item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// flattenVersionInstanceSpecPortsProtocolEnum asserts that an interface is a string, and returns a
-// pointer to a *VersionInstanceSpecPortsProtocolEnum with the same value as that string.
-func flattenVersionInstanceSpecPortsProtocolEnum(i interface{}) *VersionInstanceSpecPortsProtocolEnum {
-	s, ok := i.(string)
-	if !ok {
-		return VersionInstanceSpecPortsProtocolEnumRef("")
-	}
-
-	return VersionInstanceSpecPortsProtocolEnumRef(s)
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource

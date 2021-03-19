@@ -1,0 +1,11 @@
+{
+  "project": "{{project}}",
+  "name": "{{health_check}}",
+  "type": "HTTPS",
+  "httpsHealthCheck": {
+    "port": 80
+  },
+  "healthyThreshold": 10,
+  "timeoutSec": 2,
+  "unhealthyThreshold": 5
+}

@@ -70,16 +70,9 @@ message ListPubsubSubscriptionRequest {
 message ListPubsubSubscriptionResponse {
   repeated PubsubSubscription items = 1;
 }
-message PubsubSubscriptionAsHclRequest {
-  PubsubSubscription resource = 1;
-}
-message PubsubSubscriptionAsHclResponse {
-  string hcl = 1;
-}
+
 service PubsubSubscriptionService {
   rpc ApplyPubsubSubscription(ApplyPubsubSubscriptionRequest) returns (PubsubSubscription);
   rpc DeletePubsubSubscription(DeletePubsubSubscriptionRequest) returns (google.protobuf.Empty);
   rpc ListPubsubSubscription(ListPubsubSubscriptionRequest) returns (ListPubsubSubscriptionResponse);
-  rpc PubsubSubscriptionAsHcl(PubsubSubscriptionAsHclRequest) returns (PubsubSubscriptionAsHclResponse);
-
 }

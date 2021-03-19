@@ -128,16 +128,52 @@ class Address(object):
         self.label_fingerprint = Primitive.from_proto(response.label_fingerprint)
         self.location = Primitive.from_proto(response.location)
 
-    @classmethod
-    def delete(self, project, location, name, service_account_file=""):
+    def delete(self):
         stub = address_pb2_grpc.ComputeAddressServiceStub(channel.Channel())
         request = address_pb2.DeleteComputeAddressRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
 
-        request.Name = name
+        if Primitive.to_proto(self.address):
+            request.resource.address = Primitive.to_proto(self.address)
+
+        if Primitive.to_proto(self.prefix_length):
+            request.resource.prefix_length = Primitive.to_proto(self.prefix_length)
+
+        if Primitive.to_proto(self.region):
+            request.resource.region = Primitive.to_proto(self.region)
+
+        if AddressNetworkTierEnum.to_proto(self.network_tier):
+            request.resource.network_tier = AddressNetworkTierEnum.to_proto(
+                self.network_tier
+            )
+
+        if AddressIPVersionEnum.to_proto(self.ip_version):
+            request.resource.ip_version = AddressIPVersionEnum.to_proto(self.ip_version)
+
+        if AddressAddressTypeEnum.to_proto(self.address_type):
+            request.resource.address_type = AddressAddressTypeEnum.to_proto(
+                self.address_type
+            )
+
+        if AddressPurposeEnum.to_proto(self.purpose):
+            request.resource.purpose = AddressPurposeEnum.to_proto(self.purpose)
+
+        if Primitive.to_proto(self.subnetwork):
+            request.resource.subnetwork = Primitive.to_proto(self.subnetwork)
+
+        if Primitive.to_proto(self.network):
+            request.resource.network = Primitive.to_proto(self.network)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         response = stub.DeleteComputeAddress(request)
 
@@ -179,6 +215,36 @@ class Address(object):
         res.label_fingerprint = Primitive.from_proto(res_proto.label_fingerprint)
         res.location = Primitive.from_proto(res_proto.location)
         return res
+
+    def to_proto(self):
+        resource = address_pb2.ComputeAddress()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.address):
+            resource.address = Primitive.to_proto(self.address)
+        if Primitive.to_proto(self.prefix_length):
+            resource.prefix_length = Primitive.to_proto(self.prefix_length)
+        if Primitive.to_proto(self.region):
+            resource.region = Primitive.to_proto(self.region)
+        if AddressNetworkTierEnum.to_proto(self.network_tier):
+            resource.network_tier = AddressNetworkTierEnum.to_proto(self.network_tier)
+        if AddressIPVersionEnum.to_proto(self.ip_version):
+            resource.ip_version = AddressIPVersionEnum.to_proto(self.ip_version)
+        if AddressAddressTypeEnum.to_proto(self.address_type):
+            resource.address_type = AddressAddressTypeEnum.to_proto(self.address_type)
+        if AddressPurposeEnum.to_proto(self.purpose):
+            resource.purpose = AddressPurposeEnum.to_proto(self.purpose)
+        if Primitive.to_proto(self.subnetwork):
+            resource.subnetwork = Primitive.to_proto(self.subnetwork)
+        if Primitive.to_proto(self.network):
+            resource.network = Primitive.to_proto(self.network)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
+        return resource
 
 
 class AddressStatusEnum(object):

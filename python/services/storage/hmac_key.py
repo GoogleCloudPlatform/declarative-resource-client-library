@@ -68,14 +68,23 @@ class HmacKey(object):
             response.service_account_email
         )
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = hmac_key_pb2_grpc.StorageHmacKeyServiceStub(channel.Channel())
         request = hmac_key_pb2.DeleteStorageHmacKeyRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Name = name
+        if HmacKeyStateEnum.to_proto(self.state):
+            request.resource.state = HmacKeyStateEnum.to_proto(self.state)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.service_account_email):
+            request.resource.service_account_email = Primitive.to_proto(
+                self.service_account_email
+            )
 
         response = stub.DeleteStorageHmacKey(request)
 
@@ -105,6 +114,20 @@ class HmacKey(object):
             res_proto.service_account_email
         )
         return res
+
+    def to_proto(self):
+        resource = hmac_key_pb2.StorageHmacKey()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if HmacKeyStateEnum.to_proto(self.state):
+            resource.state = HmacKeyStateEnum.to_proto(self.state)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.service_account_email):
+            resource.service_account_email = Primitive.to_proto(
+                self.service_account_email
+            )
+        return resource
 
 
 class HmacKeyStateEnum(object):

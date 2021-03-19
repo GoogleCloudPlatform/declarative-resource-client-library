@@ -46,6 +46,7 @@ message ListMonitoringGroupRequest {
 message ListMonitoringGroupResponse {
   repeated MonitoringGroup items = 1;
 }
+
 service MonitoringGroupService {
   rpc ApplyMonitoringGroup(ApplyMonitoringGroupRequest) returns (MonitoringGroup);
   rpc DeleteMonitoringGroup(DeleteMonitoringGroupRequest) returns (google.protobuf.Empty);

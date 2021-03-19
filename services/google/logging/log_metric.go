@@ -413,6 +413,9 @@ func (l *LogMetricList) HasNext() bool {
 }
 
 func (l *LogMetricList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -426,12 +429,17 @@ func (l *LogMetricList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListLogMetric(ctx context.Context, project string) (*LogMetricList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListLogMetricWithMaxResults(ctx, project, LogMetricMaxPage)
 
 }
 
 func (c *Client) ListLogMetricWithMaxResults(ctx context.Context, project string, pageSize int32) (*LogMetricList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listLogMetric(ctx, project, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -446,6 +454,9 @@ func (c *Client) ListLogMetricWithMaxResults(ctx context.Context, project string
 }
 
 func (c *Client) GetLogMetric(ctx context.Context, r *LogMetric) (*LogMetric, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getLogMetricRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -475,6 +486,9 @@ func (c *Client) GetLogMetric(ctx context.Context, r *LogMetric) (*LogMetric, er
 }
 
 func (c *Client) DeleteLogMetric(ctx context.Context, r *LogMetric) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("LogMetric resource is nil")
 	}
@@ -485,6 +499,9 @@ func (c *Client) DeleteLogMetric(ctx context.Context, r *LogMetric) error {
 
 // DeleteAllLogMetric deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllLogMetric(ctx context.Context, project string, filter func(*LogMetric) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListLogMetric(ctx, project)
 	if err != nil {
 		return err
@@ -510,6 +527,9 @@ func (c *Client) DeleteAllLogMetric(ctx context.Context, project string, filter 
 func (c *Client) ApplyLogMetric(ctx context.Context, rawDesired *LogMetric, opts ...dcl.ApplyOption) (*LogMetric, error) {
 	c.Config.Logger.Info("Beginning ApplyLogMetric...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -590,12 +610,35 @@ func (c *Client) ApplyLogMetric(ctx context.Context, rawDesired *LogMetric, opts
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createLogMetricOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapLogMetric(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeLogMetricNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeLogMetricNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

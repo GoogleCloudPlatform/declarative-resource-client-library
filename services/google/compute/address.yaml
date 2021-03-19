@@ -120,6 +120,10 @@ components:
           description: The project for the resource
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         purpose:
           description: |-
@@ -141,8 +145,7 @@ components:
           x-kubernetes-immutable: true
         region:
           description: The URL of the region where the regional address resides. **This
-            field is not applicable to global addresses.** You must specify this field
-            as part of the HTTP request URL.
+            field is not applicable to global addresses.**
           type: string
           x-dcl-go-name: Region
           x-kubernetes-immutable: true

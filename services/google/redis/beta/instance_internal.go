@@ -212,6 +212,11 @@ func (op *updateInstanceUpdateInstanceOperation) do(ctx context.Context, r *Inst
 	if err != nil {
 		return err
 	}
+	mask := strings.Join([]string{"name", "displayName", "labels", "locationId", "alternativeLocationId", "redisVersion", "reservedIpRange", "redisConfigs", "tier", "memorySizeGb", "authorizedNetwork", "connectMode", "authEnabled", "transitEncryptionMode", "maintenancePolicy"}, ",")
+	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
+	if err != nil {
+		return err
+	}
 
 	req, err := newUpdateInstanceUpdateInstanceRequest(ctx, r, c)
 	if err != nil {
@@ -223,7 +228,7 @@ func (op *updateInstanceUpdateInstanceOperation) do(ctx context.Context, r *Inst
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -260,7 +265,7 @@ func (c *Client) listInstanceRaw(ctx context.Context, project, location, pageTok
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -269,8 +274,8 @@ func (c *Client) listInstanceRaw(ctx context.Context, project, location, pageTok
 }
 
 type listInstanceOperation struct {
-	Items []map[string]interface{} `json:"items"`
-	Token string                   `json:"nextPageToken"`
+	Instances []map[string]interface{} `json:"instances"`
+	Token     string                   `json:"nextPageToken"`
 }
 
 func (c *Client) listInstance(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*Instance, string, error) {
@@ -285,7 +290,7 @@ func (c *Client) listInstance(ctx context.Context, project, location, pageToken 
 	}
 
 	var l []*Instance
-	for _, v := range m.Items {
+	for _, v := range m.Instances {
 		res := flattenInstance(c, v)
 		res.Project = &project
 		res.Location = &location
@@ -335,7 +340,7 @@ func (op *deleteInstanceOperation) do(ctx context.Context, r *Instance, c *Clien
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -358,7 +363,13 @@ func (op *deleteInstanceOperation) do(ctx context.Context, r *Instance, c *Clien
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createInstanceOperation struct{}
+type createInstanceOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createInstanceOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createInstanceOperation) do(ctx context.Context, r *Instance, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -374,7 +385,7 @@ func (op *createInstanceOperation) do(ctx context.Context, r *Instance, c *Clien
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -388,8 +399,10 @@ func (op *createInstanceOperation) do(ctx context.Context, r *Instance, c *Clien
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetInstance(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -402,7 +415,7 @@ func (c *Client) getInstanceRaw(ctx context.Context, r *Instance) ([]byte, error
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -479,14 +492,6 @@ func canonicalizeInstanceInitialState(rawInitial, rawDesired *Instance) (*Instan
 
 func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...dcl.ApplyOption) (*Instance, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Instance); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Instance, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -498,31 +503,31 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.DisplayName) {
+	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
 		rawDesired.DisplayName = rawInitial.DisplayName
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
 		rawDesired.Labels = rawInitial.Labels
 	}
-	if dcl.IsZeroValue(rawDesired.LocationId) {
+	if dcl.StringCanonicalize(rawDesired.LocationId, rawInitial.LocationId) {
 		rawDesired.LocationId = rawInitial.LocationId
 	}
-	if dcl.IsZeroValue(rawDesired.AlternativeLocationId) {
+	if dcl.StringCanonicalize(rawDesired.AlternativeLocationId, rawInitial.AlternativeLocationId) {
 		rawDesired.AlternativeLocationId = rawInitial.AlternativeLocationId
 	}
-	if dcl.IsZeroValue(rawDesired.RedisVersion) {
+	if dcl.StringCanonicalize(rawDesired.RedisVersion, rawInitial.RedisVersion) {
 		rawDesired.RedisVersion = rawInitial.RedisVersion
 	}
-	if dcl.IsZeroValue(rawDesired.ReservedIPRange) {
+	if dcl.StringCanonicalize(rawDesired.ReservedIPRange, rawInitial.ReservedIPRange) {
 		rawDesired.ReservedIPRange = rawInitial.ReservedIPRange
 	}
-	if dcl.IsZeroValue(rawDesired.Host) {
+	if dcl.StringCanonicalize(rawDesired.Host, rawInitial.Host) {
 		rawDesired.Host = rawInitial.Host
 	}
 	if dcl.IsZeroValue(rawDesired.Port) {
 		rawDesired.Port = rawInitial.Port
 	}
-	if dcl.IsZeroValue(rawDesired.CurrentLocationId) {
+	if dcl.StringCanonicalize(rawDesired.CurrentLocationId, rawInitial.CurrentLocationId) {
 		rawDesired.CurrentLocationId = rawInitial.CurrentLocationId
 	}
 	if dcl.IsZeroValue(rawDesired.CreateTime) {
@@ -531,7 +536,7 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	if dcl.IsZeroValue(rawDesired.State) {
 		rawDesired.State = rawInitial.State
 	}
-	if dcl.IsZeroValue(rawDesired.StatusMessage) {
+	if dcl.StringCanonicalize(rawDesired.StatusMessage, rawInitial.StatusMessage) {
 		rawDesired.StatusMessage = rawInitial.StatusMessage
 	}
 	if dcl.IsZeroValue(rawDesired.RedisConfigs) {
@@ -543,10 +548,10 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	if dcl.IsZeroValue(rawDesired.MemorySizeGb) {
 		rawDesired.MemorySizeGb = rawInitial.MemorySizeGb
 	}
-	if dcl.IsZeroValue(rawDesired.AuthorizedNetwork) {
+	if dcl.StringCanonicalize(rawDesired.AuthorizedNetwork, rawInitial.AuthorizedNetwork) {
 		rawDesired.AuthorizedNetwork = rawInitial.AuthorizedNetwork
 	}
-	if dcl.IsZeroValue(rawDesired.PersistenceIamIdentity) {
+	if dcl.StringCanonicalize(rawDesired.PersistenceIamIdentity, rawInitial.PersistenceIamIdentity) {
 		rawDesired.PersistenceIamIdentity = rawInitial.PersistenceIamIdentity
 	}
 	if dcl.IsZeroValue(rawDesired.ConnectMode) {
@@ -589,6 +594,9 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
 		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
+		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
@@ -599,26 +607,41 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsEmptyValueIndirect(rawNew.LocationId) && dcl.IsEmptyValueIndirect(rawDesired.LocationId) {
 		rawNew.LocationId = rawDesired.LocationId
 	} else {
+		if dcl.StringCanonicalize(rawDesired.LocationId, rawNew.LocationId) {
+			rawNew.LocationId = rawDesired.LocationId
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.AlternativeLocationId) && dcl.IsEmptyValueIndirect(rawDesired.AlternativeLocationId) {
 		rawNew.AlternativeLocationId = rawDesired.AlternativeLocationId
 	} else {
+		if dcl.StringCanonicalize(rawDesired.AlternativeLocationId, rawNew.AlternativeLocationId) {
+			rawNew.AlternativeLocationId = rawDesired.AlternativeLocationId
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.RedisVersion) && dcl.IsEmptyValueIndirect(rawDesired.RedisVersion) {
 		rawNew.RedisVersion = rawDesired.RedisVersion
 	} else {
+		if dcl.StringCanonicalize(rawDesired.RedisVersion, rawNew.RedisVersion) {
+			rawNew.RedisVersion = rawDesired.RedisVersion
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ReservedIPRange) && dcl.IsEmptyValueIndirect(rawDesired.ReservedIPRange) {
 		rawNew.ReservedIPRange = rawDesired.ReservedIPRange
 	} else {
+		if dcl.StringCanonicalize(rawDesired.ReservedIPRange, rawNew.ReservedIPRange) {
+			rawNew.ReservedIPRange = rawDesired.ReservedIPRange
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Host) && dcl.IsEmptyValueIndirect(rawDesired.Host) {
 		rawNew.Host = rawDesired.Host
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Host, rawNew.Host) {
+			rawNew.Host = rawDesired.Host
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Port) && dcl.IsEmptyValueIndirect(rawDesired.Port) {
@@ -629,6 +652,9 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsEmptyValueIndirect(rawNew.CurrentLocationId) && dcl.IsEmptyValueIndirect(rawDesired.CurrentLocationId) {
 		rawNew.CurrentLocationId = rawDesired.CurrentLocationId
 	} else {
+		if dcl.StringCanonicalize(rawDesired.CurrentLocationId, rawNew.CurrentLocationId) {
+			rawNew.CurrentLocationId = rawDesired.CurrentLocationId
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
@@ -644,6 +670,9 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsEmptyValueIndirect(rawNew.StatusMessage) && dcl.IsEmptyValueIndirect(rawDesired.StatusMessage) {
 		rawNew.StatusMessage = rawDesired.StatusMessage
 	} else {
+		if dcl.StringCanonicalize(rawDesired.StatusMessage, rawNew.StatusMessage) {
+			rawNew.StatusMessage = rawDesired.StatusMessage
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.RedisConfigs) && dcl.IsEmptyValueIndirect(rawDesired.RedisConfigs) {
@@ -664,11 +693,17 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsEmptyValueIndirect(rawNew.AuthorizedNetwork) && dcl.IsEmptyValueIndirect(rawDesired.AuthorizedNetwork) {
 		rawNew.AuthorizedNetwork = rawDesired.AuthorizedNetwork
 	} else {
+		if dcl.StringCanonicalize(rawDesired.AuthorizedNetwork, rawNew.AuthorizedNetwork) {
+			rawNew.AuthorizedNetwork = rawDesired.AuthorizedNetwork
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.PersistenceIamIdentity) && dcl.IsEmptyValueIndirect(rawDesired.PersistenceIamIdentity) {
 		rawNew.PersistenceIamIdentity = rawDesired.PersistenceIamIdentity
 	} else {
+		if dcl.StringCanonicalize(rawDesired.PersistenceIamIdentity, rawNew.PersistenceIamIdentity) {
+			rawNew.PersistenceIamIdentity = rawDesired.PersistenceIamIdentity
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ConnectMode) && dcl.IsEmptyValueIndirect(rawDesired.ConnectMode) {
@@ -720,19 +755,14 @@ func canonicalizeInstanceServerCaCerts(des, initial *InstanceServerCaCerts, opts
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Instance)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.SerialNumber) {
+	if dcl.StringCanonicalize(des.SerialNumber, initial.SerialNumber) || dcl.IsZeroValue(des.SerialNumber) {
 		des.SerialNumber = initial.SerialNumber
 	}
-	if dcl.IsZeroValue(des.Cert) {
+	if dcl.StringCanonicalize(des.Cert, initial.Cert) || dcl.IsZeroValue(des.Cert) {
 		des.Cert = initial.Cert
 	}
 	if dcl.IsZeroValue(des.CreateTime) {
@@ -741,7 +771,7 @@ func canonicalizeInstanceServerCaCerts(des, initial *InstanceServerCaCerts, opts
 	if dcl.IsZeroValue(des.ExpireTime) {
 		des.ExpireTime = initial.ExpireTime
 	}
-	if dcl.IsZeroValue(des.Sha1Fingerprint) {
+	if dcl.StringCanonicalize(des.Sha1Fingerprint, initial.Sha1Fingerprint) || dcl.IsZeroValue(des.Sha1Fingerprint) {
 		des.Sha1Fingerprint = initial.Sha1Fingerprint
 	}
 
@@ -751,6 +781,16 @@ func canonicalizeInstanceServerCaCerts(des, initial *InstanceServerCaCerts, opts
 func canonicalizeNewInstanceServerCaCerts(c *Client, des, nw *InstanceServerCaCerts) *InstanceServerCaCerts {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.SerialNumber, nw.SerialNumber) || dcl.IsZeroValue(des.SerialNumber) {
+		nw.SerialNumber = des.SerialNumber
+	}
+	if dcl.StringCanonicalize(des.Cert, nw.Cert) || dcl.IsZeroValue(des.Cert) {
+		nw.Cert = des.Cert
+	}
+	if dcl.StringCanonicalize(des.Sha1Fingerprint, nw.Sha1Fingerprint) || dcl.IsZeroValue(des.Sha1Fingerprint) {
+		nw.Sha1Fingerprint = des.Sha1Fingerprint
 	}
 
 	return nw
@@ -787,11 +827,6 @@ func canonicalizeInstanceMaintenancePolicy(des, initial *InstanceMaintenancePoli
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Instance)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -802,7 +837,7 @@ func canonicalizeInstanceMaintenancePolicy(des, initial *InstanceMaintenancePoli
 	if dcl.IsZeroValue(des.UpdateTime) {
 		des.UpdateTime = initial.UpdateTime
 	}
-	if dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
 		des.Description = initial.Description
 	}
 	if dcl.IsZeroValue(des.WeeklyMaintenanceWindow) {
@@ -815,6 +850,10 @@ func canonicalizeInstanceMaintenancePolicy(des, initial *InstanceMaintenancePoli
 func canonicalizeNewInstanceMaintenancePolicy(c *Client, des, nw *InstanceMaintenancePolicy) *InstanceMaintenancePolicy {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+		nw.Description = des.Description
 	}
 
 	return nw
@@ -851,11 +890,6 @@ func canonicalizeInstanceMaintenancePolicyWeeklyMaintenanceWindow(des, initial *
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Instance)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -864,7 +898,7 @@ func canonicalizeInstanceMaintenancePolicyWeeklyMaintenanceWindow(des, initial *
 		des.Day = initial.Day
 	}
 	des.StartTime = canonicalizeInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(des.StartTime, initial.StartTime, opts...)
-	if dcl.IsZeroValue(des.Duration) {
+	if dcl.StringCanonicalize(des.Duration, initial.Duration) || dcl.IsZeroValue(des.Duration) {
 		des.Duration = initial.Duration
 	}
 
@@ -877,6 +911,9 @@ func canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindow(c *Client, 
 	}
 
 	nw.StartTime = canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c, des.StartTime, nw.StartTime)
+	if dcl.StringCanonicalize(des.Duration, nw.Duration) || dcl.IsZeroValue(des.Duration) {
+		nw.Duration = des.Duration
+	}
 
 	return nw
 }
@@ -910,11 +947,6 @@ func canonicalizeInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(des, 
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Instance)
-		_ = r
 	}
 
 	if initial == nil {
@@ -974,11 +1006,6 @@ func canonicalizeInstanceMaintenanceSchedule(des, initial *InstanceMaintenanceSc
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Instance)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1059,7 +1086,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.DisplayName) && (dcl.IsZeroValue(actual.DisplayName) || !reflect.DeepEqual(*desired.DisplayName, *actual.DisplayName)) {
+	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
 		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 
 		diffs = append(diffs, instanceDiff{
@@ -1068,7 +1095,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
+	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
 		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, instanceDiff{
@@ -1077,7 +1104,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.LocationId) && (dcl.IsZeroValue(actual.LocationId) || !reflect.DeepEqual(*desired.LocationId, *actual.LocationId)) {
+	if !dcl.IsZeroValue(desired.LocationId) && !dcl.StringCanonicalize(desired.LocationId, actual.LocationId) {
 		c.Config.Logger.Infof("Detected diff in LocationId.\nDESIRED: %v\nACTUAL: %v", desired.LocationId, actual.LocationId)
 
 		diffs = append(diffs, instanceDiff{
@@ -1086,7 +1113,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.AlternativeLocationId) && (dcl.IsZeroValue(actual.AlternativeLocationId) || !reflect.DeepEqual(*desired.AlternativeLocationId, *actual.AlternativeLocationId)) {
+	if !dcl.IsZeroValue(desired.AlternativeLocationId) && !dcl.StringCanonicalize(desired.AlternativeLocationId, actual.AlternativeLocationId) {
 		c.Config.Logger.Infof("Detected diff in AlternativeLocationId.\nDESIRED: %v\nACTUAL: %v", desired.AlternativeLocationId, actual.AlternativeLocationId)
 
 		diffs = append(diffs, instanceDiff{
@@ -1095,7 +1122,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.RedisVersion) && (dcl.IsZeroValue(actual.RedisVersion) || !reflect.DeepEqual(*desired.RedisVersion, *actual.RedisVersion)) {
+	if !dcl.IsZeroValue(desired.RedisVersion) && !dcl.StringCanonicalize(desired.RedisVersion, actual.RedisVersion) {
 		c.Config.Logger.Infof("Detected diff in RedisVersion.\nDESIRED: %v\nACTUAL: %v", desired.RedisVersion, actual.RedisVersion)
 
 		diffs = append(diffs, instanceDiff{
@@ -1104,7 +1131,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.ReservedIPRange) && (dcl.IsZeroValue(actual.ReservedIPRange) || !reflect.DeepEqual(*desired.ReservedIPRange, *actual.ReservedIPRange)) {
+	if !dcl.IsZeroValue(desired.ReservedIPRange) && !dcl.StringCanonicalize(desired.ReservedIPRange, actual.ReservedIPRange) {
 		c.Config.Logger.Infof("Detected diff in ReservedIPRange.\nDESIRED: %v\nACTUAL: %v", desired.ReservedIPRange, actual.ReservedIPRange)
 
 		diffs = append(diffs, instanceDiff{
@@ -1113,7 +1140,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !reflect.DeepEqual(desired.RedisConfigs, actual.RedisConfigs) {
+	if !dcl.MapEquals(desired.RedisConfigs, actual.RedisConfigs, []string(nil)) {
 		c.Config.Logger.Infof("Detected diff in RedisConfigs.\nDESIRED: %v\nACTUAL: %v", desired.RedisConfigs, actual.RedisConfigs)
 
 		diffs = append(diffs, instanceDiff{
@@ -1122,7 +1149,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Tier) && (dcl.IsZeroValue(actual.Tier) || !reflect.DeepEqual(*desired.Tier, *actual.Tier)) {
+	if !reflect.DeepEqual(desired.Tier, actual.Tier) {
 		c.Config.Logger.Infof("Detected diff in Tier.\nDESIRED: %v\nACTUAL: %v", desired.Tier, actual.Tier)
 
 		diffs = append(diffs, instanceDiff{
@@ -1131,7 +1158,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.MemorySizeGb) && (dcl.IsZeroValue(actual.MemorySizeGb) || !reflect.DeepEqual(*desired.MemorySizeGb, *actual.MemorySizeGb)) {
+	if !reflect.DeepEqual(desired.MemorySizeGb, actual.MemorySizeGb) {
 		c.Config.Logger.Infof("Detected diff in MemorySizeGb.\nDESIRED: %v\nACTUAL: %v", desired.MemorySizeGb, actual.MemorySizeGb)
 
 		diffs = append(diffs, instanceDiff{
@@ -1140,7 +1167,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.AuthorizedNetwork) && (dcl.IsZeroValue(actual.AuthorizedNetwork) || !reflect.DeepEqual(*desired.AuthorizedNetwork, *actual.AuthorizedNetwork)) {
+	if !dcl.IsZeroValue(desired.AuthorizedNetwork) && !dcl.StringCanonicalize(desired.AuthorizedNetwork, actual.AuthorizedNetwork) {
 		c.Config.Logger.Infof("Detected diff in AuthorizedNetwork.\nDESIRED: %v\nACTUAL: %v", desired.AuthorizedNetwork, actual.AuthorizedNetwork)
 
 		diffs = append(diffs, instanceDiff{
@@ -1149,7 +1176,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.ConnectMode) && (dcl.IsZeroValue(actual.ConnectMode) || !reflect.DeepEqual(*desired.ConnectMode, *actual.ConnectMode)) {
+	if !reflect.DeepEqual(desired.ConnectMode, actual.ConnectMode) {
 		c.Config.Logger.Infof("Detected diff in ConnectMode.\nDESIRED: %v\nACTUAL: %v", desired.ConnectMode, actual.ConnectMode)
 
 		diffs = append(diffs, instanceDiff{
@@ -1158,7 +1185,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.AuthEnabled) && (dcl.IsZeroValue(actual.AuthEnabled) || !reflect.DeepEqual(*desired.AuthEnabled, *actual.AuthEnabled)) {
+	if !reflect.DeepEqual(desired.AuthEnabled, actual.AuthEnabled) {
 		c.Config.Logger.Infof("Detected diff in AuthEnabled.\nDESIRED: %v\nACTUAL: %v", desired.AuthEnabled, actual.AuthEnabled)
 
 		diffs = append(diffs, instanceDiff{
@@ -1167,7 +1194,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.TransitEncryptionMode) && (dcl.IsZeroValue(actual.TransitEncryptionMode) || !reflect.DeepEqual(*desired.TransitEncryptionMode, *actual.TransitEncryptionMode)) {
+	if !reflect.DeepEqual(desired.TransitEncryptionMode, actual.TransitEncryptionMode) {
 		c.Config.Logger.Infof("Detected diff in TransitEncryptionMode.\nDESIRED: %v\nACTUAL: %v", desired.TransitEncryptionMode, actual.TransitEncryptionMode)
 
 		diffs = append(diffs, instanceDiff{
@@ -1209,6 +1236,40 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	return deduped, nil
 }
+func compareInstanceServerCaCerts(c *Client, desired, actual *InstanceServerCaCerts) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.SerialNumber == nil && desired.SerialNumber != nil && !dcl.IsEmptyValueIndirect(desired.SerialNumber) {
+		c.Config.Logger.Infof("desired SerialNumber %s - but actually nil", dcl.SprintResource(desired.SerialNumber))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.SerialNumber, actual.SerialNumber) && !dcl.IsZeroValue(desired.SerialNumber) {
+		c.Config.Logger.Infof("Diff in SerialNumber. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SerialNumber), dcl.SprintResource(actual.SerialNumber))
+		return true
+	}
+	if actual.Cert == nil && desired.Cert != nil && !dcl.IsEmptyValueIndirect(desired.Cert) {
+		c.Config.Logger.Infof("desired Cert %s - but actually nil", dcl.SprintResource(desired.Cert))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Cert, actual.Cert) && !dcl.IsZeroValue(desired.Cert) {
+		c.Config.Logger.Infof("Diff in Cert. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Cert), dcl.SprintResource(actual.Cert))
+		return true
+	}
+	if actual.Sha1Fingerprint == nil && desired.Sha1Fingerprint != nil && !dcl.IsEmptyValueIndirect(desired.Sha1Fingerprint) {
+		c.Config.Logger.Infof("desired Sha1Fingerprint %s - but actually nil", dcl.SprintResource(desired.Sha1Fingerprint))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Sha1Fingerprint, actual.Sha1Fingerprint) && !dcl.IsZeroValue(desired.Sha1Fingerprint) {
+		c.Config.Logger.Infof("Diff in Sha1Fingerprint. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Sha1Fingerprint), dcl.SprintResource(actual.Sha1Fingerprint))
+		return true
+	}
+	return false
+}
+
 func compareInstanceServerCaCertsSlice(c *Client, desired, actual []InstanceServerCaCerts) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in InstanceServerCaCerts, lengths unequal.")
@@ -1223,47 +1284,19 @@ func compareInstanceServerCaCertsSlice(c *Client, desired, actual []InstanceServ
 	return false
 }
 
-func compareInstanceServerCaCerts(c *Client, desired, actual *InstanceServerCaCerts) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.SerialNumber == nil && desired.SerialNumber != nil && !dcl.IsEmptyValueIndirect(desired.SerialNumber) {
-		c.Config.Logger.Infof("desired SerialNumber %s - but actually nil", dcl.SprintResource(desired.SerialNumber))
-		return true
-	}
-	if !reflect.DeepEqual(desired.SerialNumber, actual.SerialNumber) && !dcl.IsZeroValue(desired.SerialNumber) && !(dcl.IsEmptyValueIndirect(desired.SerialNumber) && dcl.IsZeroValue(actual.SerialNumber)) {
-		c.Config.Logger.Infof("Diff in SerialNumber. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SerialNumber), dcl.SprintResource(actual.SerialNumber))
-		return true
-	}
-	if actual.Cert == nil && desired.Cert != nil && !dcl.IsEmptyValueIndirect(desired.Cert) {
-		c.Config.Logger.Infof("desired Cert %s - but actually nil", dcl.SprintResource(desired.Cert))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Cert, actual.Cert) && !dcl.IsZeroValue(desired.Cert) && !(dcl.IsEmptyValueIndirect(desired.Cert) && dcl.IsZeroValue(actual.Cert)) {
-		c.Config.Logger.Infof("Diff in Cert. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Cert), dcl.SprintResource(actual.Cert))
-		return true
-	}
-	if actual.Sha1Fingerprint == nil && desired.Sha1Fingerprint != nil && !dcl.IsEmptyValueIndirect(desired.Sha1Fingerprint) {
-		c.Config.Logger.Infof("desired Sha1Fingerprint %s - but actually nil", dcl.SprintResource(desired.Sha1Fingerprint))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Sha1Fingerprint, actual.Sha1Fingerprint) && !dcl.IsZeroValue(desired.Sha1Fingerprint) && !(dcl.IsEmptyValueIndirect(desired.Sha1Fingerprint) && dcl.IsZeroValue(actual.Sha1Fingerprint)) {
-		c.Config.Logger.Infof("Diff in Sha1Fingerprint. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Sha1Fingerprint), dcl.SprintResource(actual.Sha1Fingerprint))
-		return true
-	}
-	return false
-}
-func compareInstanceMaintenancePolicySlice(c *Client, desired, actual []InstanceMaintenancePolicy) bool {
+func compareInstanceServerCaCertsMap(c *Client, desired, actual map[string]InstanceServerCaCerts) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceMaintenancePolicy, lengths unequal.")
+		c.Config.Logger.Info("Diff in InstanceServerCaCerts, lengths unequal.")
 		return true
 	}
-	for i := 0; i < len(desired); i++ {
-		if compareInstanceMaintenancePolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InstanceServerCaCerts, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInstanceServerCaCerts(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InstanceServerCaCerts, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1281,7 +1314,7 @@ func compareInstanceMaintenancePolicy(c *Client, desired, actual *InstanceMainte
 		c.Config.Logger.Infof("desired Description %s - but actually nil", dcl.SprintResource(desired.Description))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) && !(dcl.IsEmptyValueIndirect(desired.Description) && dcl.IsZeroValue(actual.Description)) {
+	if !dcl.StringCanonicalize(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) {
 		c.Config.Logger.Infof("Diff in Description. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
 		return true
 	}
@@ -1295,14 +1328,34 @@ func compareInstanceMaintenancePolicy(c *Client, desired, actual *InstanceMainte
 	}
 	return false
 }
-func compareInstanceMaintenancePolicyWeeklyMaintenanceWindowSlice(c *Client, desired, actual []InstanceMaintenancePolicyWeeklyMaintenanceWindow) bool {
+
+func compareInstanceMaintenancePolicySlice(c *Client, desired, actual []InstanceMaintenancePolicy) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindow, lengths unequal.")
+		c.Config.Logger.Info("Diff in InstanceMaintenancePolicy, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareInstanceMaintenancePolicyWeeklyMaintenanceWindow(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindow, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareInstanceMaintenancePolicy(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceMaintenancePolicyMap(c *Client, desired, actual map[string]InstanceMaintenancePolicy) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceMaintenancePolicy, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicy, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInstanceMaintenancePolicy(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1320,7 +1373,7 @@ func compareInstanceMaintenancePolicyWeeklyMaintenanceWindow(c *Client, desired,
 		c.Config.Logger.Infof("desired Day %s - but actually nil", dcl.SprintResource(desired.Day))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Day, actual.Day) && !dcl.IsZeroValue(desired.Day) && !(dcl.IsEmptyValueIndirect(desired.Day) && dcl.IsZeroValue(actual.Day)) {
+	if !reflect.DeepEqual(desired.Day, actual.Day) && !dcl.IsZeroValue(desired.Day) {
 		c.Config.Logger.Infof("Diff in Day. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Day), dcl.SprintResource(actual.Day))
 		return true
 	}
@@ -1334,14 +1387,34 @@ func compareInstanceMaintenancePolicyWeeklyMaintenanceWindow(c *Client, desired,
 	}
 	return false
 }
-func compareInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTimeSlice(c *Client, desired, actual []InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime) bool {
+
+func compareInstanceMaintenancePolicyWeeklyMaintenanceWindowSlice(c *Client, desired, actual []InstanceMaintenancePolicyWeeklyMaintenanceWindow) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime, lengths unequal.")
+		c.Config.Logger.Info("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindow, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareInstanceMaintenancePolicyWeeklyMaintenanceWindow(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindow, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceMaintenancePolicyWeeklyMaintenanceWindowMap(c *Client, desired, actual map[string]InstanceMaintenancePolicyWeeklyMaintenanceWindow) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindow, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindow, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInstanceMaintenancePolicyWeeklyMaintenanceWindow(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindow, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1359,7 +1432,7 @@ func compareInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c *Client,
 		c.Config.Logger.Infof("desired Hours %s - but actually nil", dcl.SprintResource(desired.Hours))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Hours, actual.Hours) && !dcl.IsZeroValue(desired.Hours) && !(dcl.IsEmptyValueIndirect(desired.Hours) && dcl.IsZeroValue(actual.Hours)) {
+	if !reflect.DeepEqual(desired.Hours, actual.Hours) && !dcl.IsZeroValue(desired.Hours) {
 		c.Config.Logger.Infof("Diff in Hours. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Hours), dcl.SprintResource(actual.Hours))
 		return true
 	}
@@ -1367,7 +1440,7 @@ func compareInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c *Client,
 		c.Config.Logger.Infof("desired Minutes %s - but actually nil", dcl.SprintResource(desired.Minutes))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Minutes, actual.Minutes) && !dcl.IsZeroValue(desired.Minutes) && !(dcl.IsEmptyValueIndirect(desired.Minutes) && dcl.IsZeroValue(actual.Minutes)) {
+	if !reflect.DeepEqual(desired.Minutes, actual.Minutes) && !dcl.IsZeroValue(desired.Minutes) {
 		c.Config.Logger.Infof("Diff in Minutes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Minutes), dcl.SprintResource(actual.Minutes))
 		return true
 	}
@@ -1375,7 +1448,7 @@ func compareInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c *Client,
 		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) && !(dcl.IsEmptyValueIndirect(desired.Seconds) && dcl.IsZeroValue(actual.Seconds)) {
+	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
 		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
@@ -1383,20 +1456,40 @@ func compareInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c *Client,
 		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) && !(dcl.IsEmptyValueIndirect(desired.Nanos) && dcl.IsZeroValue(actual.Nanos)) {
+	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
 		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
 }
-func compareInstanceMaintenanceScheduleSlice(c *Client, desired, actual []InstanceMaintenanceSchedule) bool {
+
+func compareInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTimeSlice(c *Client, desired, actual []InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceMaintenanceSchedule, lengths unequal.")
+		c.Config.Logger.Info("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareInstanceMaintenanceSchedule(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceMaintenanceSchedule, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTimeMap(c *Client, desired, actual map[string]InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1412,6 +1505,40 @@ func compareInstanceMaintenanceSchedule(c *Client, desired, actual *InstanceMain
 	}
 	return false
 }
+
+func compareInstanceMaintenanceScheduleSlice(c *Client, desired, actual []InstanceMaintenanceSchedule) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceMaintenanceSchedule, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareInstanceMaintenanceSchedule(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceMaintenanceSchedule, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceMaintenanceScheduleMap(c *Client, desired, actual map[string]InstanceMaintenanceSchedule) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceMaintenanceSchedule, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InstanceMaintenanceSchedule, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInstanceMaintenanceSchedule(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InstanceMaintenanceSchedule, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
 func compareInstanceStateEnumSlice(c *Client, desired, actual []InstanceStateEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in InstanceStateEnum, lengths unequal.")
@@ -1508,6 +1635,16 @@ func compareInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum(c *Client, d
 func (r *Instance) urlNormalized() *Instance {
 	normalized := deepcopy.Copy(*r).(Instance)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
+	normalized.LocationId = dcl.SelfLinkToName(r.LocationId)
+	normalized.AlternativeLocationId = dcl.SelfLinkToName(r.AlternativeLocationId)
+	normalized.RedisVersion = dcl.SelfLinkToName(r.RedisVersion)
+	normalized.ReservedIPRange = dcl.SelfLinkToName(r.ReservedIPRange)
+	normalized.Host = dcl.SelfLinkToName(r.Host)
+	normalized.CurrentLocationId = dcl.SelfLinkToName(r.CurrentLocationId)
+	normalized.StatusMessage = dcl.SelfLinkToName(r.StatusMessage)
+	normalized.AuthorizedNetwork = dcl.SelfLinkToName(r.AuthorizedNetwork)
+	normalized.PersistenceIamIdentity = dcl.SelfLinkToName(r.PersistenceIamIdentity)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	normalized.Region = dcl.SelfLinkToName(r.Region)
@@ -1561,6 +1698,10 @@ func unmarshalInstance(b []byte, c *Client) (*Instance, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapInstance(m, c)
+}
+
+func unmarshalMapInstance(m map[string]interface{}, c *Client) (*Instance, error) {
 
 	return flattenInstance(c, m), nil
 }
@@ -2334,7 +2475,7 @@ func flattenInstanceStateEnumSlice(c *Client, i interface{}) []InstanceStateEnum
 
 	items := make([]InstanceStateEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceStateEnum(item.(map[string]interface{})))
+		items = append(items, *flattenInstanceStateEnum(item.(interface{})))
 	}
 
 	return items
@@ -2365,7 +2506,7 @@ func flattenInstanceTierEnumSlice(c *Client, i interface{}) []InstanceTierEnum {
 
 	items := make([]InstanceTierEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceTierEnum(item.(map[string]interface{})))
+		items = append(items, *flattenInstanceTierEnum(item.(interface{})))
 	}
 
 	return items
@@ -2396,7 +2537,7 @@ func flattenInstanceConnectModeEnumSlice(c *Client, i interface{}) []InstanceCon
 
 	items := make([]InstanceConnectModeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceConnectModeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenInstanceConnectModeEnum(item.(interface{})))
 	}
 
 	return items
@@ -2427,7 +2568,7 @@ func flattenInstanceTransitEncryptionModeEnumSlice(c *Client, i interface{}) []I
 
 	items := make([]InstanceTransitEncryptionModeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceTransitEncryptionModeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenInstanceTransitEncryptionModeEnum(item.(interface{})))
 	}
 
 	return items
@@ -2458,7 +2599,7 @@ func flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnumSlice(c *Clie
 
 	items := make([]InstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum(item.(map[string]interface{})))
+		items = append(items, *flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum(item.(interface{})))
 	}
 
 	return items

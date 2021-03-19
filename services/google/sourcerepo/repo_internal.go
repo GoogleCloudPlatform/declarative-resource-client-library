@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 
 	"github.com/mohae/deepcopy"
@@ -143,7 +142,7 @@ func (op *updateRepoUpdateRepoOperation) do(ctx context.Context, r *Repo, c *Cli
 	if err != nil {
 		return err
 	}
-	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -170,7 +169,7 @@ func (c *Client) listRepoRaw(ctx context.Context, project, pageToken string, pag
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -244,7 +243,7 @@ func (op *deleteRepoOperation) do(ctx context.Context, r *Repo, c *Client) error
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return fmt.Errorf("failed to delete Repo: %w", err)
 	}
@@ -258,7 +257,13 @@ func (op *deleteRepoOperation) do(ctx context.Context, r *Repo, c *Client) error
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createRepoOperation struct{}
+type createRepoOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createRepoOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createRepoOperation) do(ctx context.Context, r *Repo, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -274,7 +279,7 @@ func (op *createRepoOperation) do(ctx context.Context, r *Repo, c *Client) error
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -283,9 +288,10 @@ func (op *createRepoOperation) do(ctx context.Context, r *Repo, c *Client) error
 	if err != nil {
 		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
-	_ = o // We might not use resp- this will stop Go complaining
+	op.response = o
 
 	if _, err := c.GetRepo(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -298,7 +304,7 @@ func (c *Client) getRepoRaw(ctx context.Context, r *Repo) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -375,14 +381,6 @@ func canonicalizeRepoInitialState(rawInitial, rawDesired *Repo) (*Repo, error) {
 
 func canonicalizeRepoDesiredState(rawDesired, rawInitial *Repo, opts ...dcl.ApplyOption) (*Repo, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Repo); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Repo, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -395,7 +393,7 @@ func canonicalizeRepoDesiredState(rawDesired, rawInitial *Repo, opts ...dcl.Appl
 	if dcl.IsZeroValue(rawDesired.Size) {
 		rawDesired.Size = rawInitial.Size
 	}
-	if dcl.IsZeroValue(rawDesired.Url) {
+	if dcl.StringCanonicalize(rawDesired.Url, rawInitial.Url) {
 		rawDesired.Url = rawInitial.Url
 	}
 	if dcl.IsZeroValue(rawDesired.PubsubConfigs) {
@@ -426,6 +424,9 @@ func canonicalizeRepoNewState(c *Client, rawNew, rawDesired *Repo) (*Repo, error
 	if dcl.IsEmptyValueIndirect(rawNew.Url) && dcl.IsEmptyValueIndirect(rawDesired.Url) {
 		rawNew.Url = rawDesired.Url
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Url, rawNew.Url) {
+			rawNew.Url = rawDesired.Url
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.PubsubConfigs) && dcl.IsEmptyValueIndirect(rawDesired.PubsubConfigs) {
@@ -447,22 +448,17 @@ func canonicalizeRepoPubsubConfigs(des, initial *RepoPubsubConfigs, opts ...dcl.
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Repo)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Topic) {
+	if dcl.StringCanonicalize(des.Topic, initial.Topic) || dcl.IsZeroValue(des.Topic) {
 		des.Topic = initial.Topic
 	}
-	if dcl.IsZeroValue(des.MessageFormat) {
+	if dcl.StringCanonicalize(des.MessageFormat, initial.MessageFormat) || dcl.IsZeroValue(des.MessageFormat) {
 		des.MessageFormat = initial.MessageFormat
 	}
-	if dcl.IsZeroValue(des.ServiceAccountEmail) {
+	if dcl.StringCanonicalize(des.ServiceAccountEmail, initial.ServiceAccountEmail) || dcl.IsZeroValue(des.ServiceAccountEmail) {
 		des.ServiceAccountEmail = initial.ServiceAccountEmail
 	}
 
@@ -472,6 +468,16 @@ func canonicalizeRepoPubsubConfigs(des, initial *RepoPubsubConfigs, opts ...dcl.
 func canonicalizeNewRepoPubsubConfigs(c *Client, des, nw *RepoPubsubConfigs) *RepoPubsubConfigs {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Topic, nw.Topic) || dcl.IsZeroValue(des.Topic) {
+		nw.Topic = des.Topic
+	}
+	if dcl.StringCanonicalize(des.MessageFormat, nw.MessageFormat) || dcl.IsZeroValue(des.MessageFormat) {
+		nw.MessageFormat = des.MessageFormat
+	}
+	if dcl.StringCanonicalize(des.ServiceAccountEmail, nw.ServiceAccountEmail) || dcl.IsZeroValue(des.ServiceAccountEmail) {
+		nw.ServiceAccountEmail = des.ServiceAccountEmail
 	}
 
 	return nw
@@ -566,6 +572,40 @@ func diffRepo(c *Client, desired, actual *Repo, opts ...dcl.ApplyOption) ([]repo
 
 	return deduped, nil
 }
+func compareRepoPubsubConfigs(c *Client, desired, actual *RepoPubsubConfigs) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Topic == nil && desired.Topic != nil && !dcl.IsEmptyValueIndirect(desired.Topic) {
+		c.Config.Logger.Infof("desired Topic %s - but actually nil", dcl.SprintResource(desired.Topic))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Topic, actual.Topic) && !dcl.IsZeroValue(desired.Topic) {
+		c.Config.Logger.Infof("Diff in Topic. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Topic), dcl.SprintResource(actual.Topic))
+		return true
+	}
+	if actual.MessageFormat == nil && desired.MessageFormat != nil && !dcl.IsEmptyValueIndirect(desired.MessageFormat) {
+		c.Config.Logger.Infof("desired MessageFormat %s - but actually nil", dcl.SprintResource(desired.MessageFormat))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.MessageFormat, actual.MessageFormat) && !dcl.IsZeroValue(desired.MessageFormat) {
+		c.Config.Logger.Infof("Diff in MessageFormat. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MessageFormat), dcl.SprintResource(actual.MessageFormat))
+		return true
+	}
+	if actual.ServiceAccountEmail == nil && desired.ServiceAccountEmail != nil && !dcl.IsEmptyValueIndirect(desired.ServiceAccountEmail) {
+		c.Config.Logger.Infof("desired ServiceAccountEmail %s - but actually nil", dcl.SprintResource(desired.ServiceAccountEmail))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.ServiceAccountEmail, actual.ServiceAccountEmail) && !dcl.IsZeroValue(desired.ServiceAccountEmail) {
+		c.Config.Logger.Infof("Diff in ServiceAccountEmail. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceAccountEmail), dcl.SprintResource(actual.ServiceAccountEmail))
+		return true
+	}
+	return false
+}
+
 func compareRepoPubsubConfigsSlice(c *Client, desired, actual []RepoPubsubConfigs) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in RepoPubsubConfigs, lengths unequal.")
@@ -574,6 +614,25 @@ func compareRepoPubsubConfigsSlice(c *Client, desired, actual []RepoPubsubConfig
 	for i := 0; i < len(desired); i++ {
 		if compareRepoPubsubConfigs(c, &desired[i], &actual[i]) {
 			c.Config.Logger.Infof("Diff in RepoPubsubConfigs, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareRepoPubsubConfigsMap(c *Client, desired, actual map[string]RepoPubsubConfigs) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in RepoPubsubConfigs, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in RepoPubsubConfigs, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareRepoPubsubConfigs(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in RepoPubsubConfigs, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -629,46 +688,13 @@ func compareRepoPubsubConfigsSets(c *Client, desired, actual []RepoPubsubConfigs
 	return toAdd, toRemove
 }
 
-func compareRepoPubsubConfigs(c *Client, desired, actual *RepoPubsubConfigs) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Topic == nil && desired.Topic != nil && !dcl.IsEmptyValueIndirect(desired.Topic) {
-		c.Config.Logger.Infof("desired Topic %s - but actually nil", dcl.SprintResource(desired.Topic))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Topic, actual.Topic) && !dcl.IsZeroValue(desired.Topic) && !(dcl.IsEmptyValueIndirect(desired.Topic) && dcl.IsZeroValue(actual.Topic)) {
-		c.Config.Logger.Infof("Diff in Topic. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Topic), dcl.SprintResource(actual.Topic))
-		return true
-	}
-	if actual.MessageFormat == nil && desired.MessageFormat != nil && !dcl.IsEmptyValueIndirect(desired.MessageFormat) {
-		c.Config.Logger.Infof("desired MessageFormat %s - but actually nil", dcl.SprintResource(desired.MessageFormat))
-		return true
-	}
-	if !reflect.DeepEqual(desired.MessageFormat, actual.MessageFormat) && !dcl.IsZeroValue(desired.MessageFormat) && !(dcl.IsEmptyValueIndirect(desired.MessageFormat) && dcl.IsZeroValue(actual.MessageFormat)) {
-		c.Config.Logger.Infof("Diff in MessageFormat. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MessageFormat), dcl.SprintResource(actual.MessageFormat))
-		return true
-	}
-	if actual.ServiceAccountEmail == nil && desired.ServiceAccountEmail != nil && !dcl.IsEmptyValueIndirect(desired.ServiceAccountEmail) {
-		c.Config.Logger.Infof("desired ServiceAccountEmail %s - but actually nil", dcl.SprintResource(desired.ServiceAccountEmail))
-		return true
-	}
-	if !reflect.DeepEqual(desired.ServiceAccountEmail, actual.ServiceAccountEmail) && !dcl.IsZeroValue(desired.ServiceAccountEmail) && !(dcl.IsEmptyValueIndirect(desired.ServiceAccountEmail) && dcl.IsZeroValue(actual.ServiceAccountEmail)) {
-		c.Config.Logger.Infof("Diff in ServiceAccountEmail. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceAccountEmail), dcl.SprintResource(actual.ServiceAccountEmail))
-		return true
-	}
-	return false
-}
-
 // urlNormalized returns a copy of the resource struct with values normalized
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Repo) urlNormalized() *Repo {
 	normalized := deepcopy.Copy(*r).(Repo)
 	normalized.Name = dcl.SelfLinkToNameWithPattern(r.Name, "projects/%s/repos/%s")
+	normalized.Url = dcl.SelfLinkToName(r.Url)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -719,6 +745,10 @@ func unmarshalRepo(b []byte, c *Client) (*Repo, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapRepo(m, c)
+}
+
+func unmarshalMapRepo(m map[string]interface{}, c *Client) (*Repo, error) {
 
 	return flattenRepo(c, m), nil
 }

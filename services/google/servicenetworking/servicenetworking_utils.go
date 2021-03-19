@@ -28,7 +28,7 @@ func (op *deleteConnectionOperation) do(ctx context.Context, r *Connection, c *C
 	un := r.urlNormalized()
 	u := fmt.Sprintf("https://compute.googleapis.com/compute/v1/projects/%s/global/networks/%s/removePeering", *un.Project, *un.Network)
 	body := fmt.Sprintf(`{"name": %q}`, *un.Name)
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBufferString(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBufferString(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}

@@ -296,6 +296,9 @@ func (l *DiskList) HasNext() bool {
 }
 
 func (l *DiskList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -309,12 +312,17 @@ func (l *DiskList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListDisk(ctx context.Context, project, location string) (*DiskList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListDiskWithMaxResults(ctx, project, location, DiskMaxPage)
 
 }
 
 func (c *Client) ListDiskWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*DiskList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listDisk(ctx, project, location, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -331,6 +339,9 @@ func (c *Client) ListDiskWithMaxResults(ctx context.Context, project, location s
 }
 
 func (c *Client) GetDisk(ctx context.Context, r *Disk) (*Disk, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getDiskRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -361,6 +372,9 @@ func (c *Client) GetDisk(ctx context.Context, r *Disk) (*Disk, error) {
 }
 
 func (c *Client) DeleteDisk(ctx context.Context, r *Disk) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Disk resource is nil")
 	}
@@ -371,6 +385,9 @@ func (c *Client) DeleteDisk(ctx context.Context, r *Disk) error {
 
 // DeleteAllDisk deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllDisk(ctx context.Context, project, location string, filter func(*Disk) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListDisk(ctx, project, location)
 	if err != nil {
 		return err
@@ -396,6 +413,9 @@ func (c *Client) DeleteAllDisk(ctx context.Context, project, location string, fi
 func (c *Client) ApplyDisk(ctx context.Context, rawDesired *Disk, opts ...dcl.ApplyOption) (*Disk, error) {
 	c.Config.Logger.Info("Beginning ApplyDisk...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -476,12 +496,35 @@ func (c *Client) ApplyDisk(ctx context.Context, rawDesired *Disk, opts ...dcl.Ap
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createDiskOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapDisk(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeDiskNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeDiskNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

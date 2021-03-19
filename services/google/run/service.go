@@ -1216,6 +1216,9 @@ func (l *ServiceList) HasNext() bool {
 }
 
 func (l *ServiceList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -1229,12 +1232,17 @@ func (l *ServiceList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListService(ctx context.Context, project, location string) (*ServiceList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListServiceWithMaxResults(ctx, project, location, ServiceMaxPage)
 
 }
 
 func (c *Client) ListServiceWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*ServiceList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listService(ctx, project, location, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -1251,6 +1259,9 @@ func (c *Client) ListServiceWithMaxResults(ctx context.Context, project, locatio
 }
 
 func (c *Client) GetService(ctx context.Context, r *Service) (*Service, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getServiceRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -1287,6 +1298,9 @@ func (c *Client) GetService(ctx context.Context, r *Service) (*Service, error) {
 }
 
 func (c *Client) DeleteService(ctx context.Context, r *Service) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Service resource is nil")
 	}
@@ -1297,6 +1311,9 @@ func (c *Client) DeleteService(ctx context.Context, r *Service) error {
 
 // DeleteAllService deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllService(ctx context.Context, project, location string, filter func(*Service) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListService(ctx, project, location)
 	if err != nil {
 		return err
@@ -1322,6 +1339,9 @@ func (c *Client) DeleteAllService(ctx context.Context, project, location string,
 func (c *Client) ApplyService(ctx context.Context, rawDesired *Service, opts ...dcl.ApplyOption) (*Service, error) {
 	c.Config.Logger.Info("Beginning ApplyService...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -1402,12 +1422,35 @@ func (c *Client) ApplyService(ctx context.Context, rawDesired *Service, opts ...
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createServiceOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapService(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeServiceNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeServiceNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

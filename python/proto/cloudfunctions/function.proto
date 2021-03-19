@@ -105,6 +105,7 @@ message ListCloudfunctionsFunctionRequest {
 message ListCloudfunctionsFunctionResponse {
   repeated CloudfunctionsFunction items = 1;
 }
+
 service CloudfunctionsFunctionService {
   rpc ApplyCloudfunctionsFunction(ApplyCloudfunctionsFunctionRequest) returns (CloudfunctionsFunction);
   rpc DeleteCloudfunctionsFunction(DeleteCloudfunctionsFunctionRequest) returns (google.protobuf.Empty);

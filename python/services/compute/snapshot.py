@@ -104,14 +104,41 @@ class Snapshot(object):
         self.zone = Primitive.from_proto(response.zone)
         self.id = Primitive.from_proto(response.id)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = snapshot_pb2_grpc.ComputeSnapshotServiceStub(channel.Channel())
         request = snapshot_pb2.DeleteComputeSnapshotRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Name = name
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if Primitive.to_proto(self.source_disk):
+            request.resource.source_disk = Primitive.to_proto(self.source_disk)
+
+        if SnapshotSnapshotEncryptionKey.to_proto(self.snapshot_encryption_key):
+            request.resource.snapshot_encryption_key.CopyFrom(
+                SnapshotSnapshotEncryptionKey.to_proto(self.snapshot_encryption_key)
+            )
+        else:
+            request.resource.ClearField("snapshot_encryption_key")
+        if SnapshotSourceDiskEncryptionKey.to_proto(self.source_disk_encryption_key):
+            request.resource.source_disk_encryption_key.CopyFrom(
+                SnapshotSourceDiskEncryptionKey.to_proto(
+                    self.source_disk_encryption_key
+                )
+            )
+        else:
+            request.resource.ClearField("source_disk_encryption_key")
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.zone):
+            request.resource.zone = Primitive.to_proto(self.zone)
 
         response = stub.DeleteComputeSnapshot(request)
 
@@ -149,6 +176,36 @@ class Snapshot(object):
         res.zone = Primitive.from_proto(res_proto.zone)
         res.id = Primitive.from_proto(res_proto.id)
         return res
+
+    def to_proto(self):
+        resource = snapshot_pb2.ComputeSnapshot()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.source_disk):
+            resource.source_disk = Primitive.to_proto(self.source_disk)
+        if SnapshotSnapshotEncryptionKey.to_proto(self.snapshot_encryption_key):
+            resource.snapshot_encryption_key.CopyFrom(
+                SnapshotSnapshotEncryptionKey.to_proto(self.snapshot_encryption_key)
+            )
+        else:
+            resource.ClearField("snapshot_encryption_key")
+        if SnapshotSourceDiskEncryptionKey.to_proto(self.source_disk_encryption_key):
+            resource.source_disk_encryption_key.CopyFrom(
+                SnapshotSourceDiskEncryptionKey.to_proto(
+                    self.source_disk_encryption_key
+                )
+            )
+        else:
+            resource.ClearField("source_disk_encryption_key")
+        if Primitive.to_proto(self.labels):
+            resource.labels = Primitive.to_proto(self.labels)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.zone):
+            resource.zone = Primitive.to_proto(self.zone)
+        return resource
 
 
 class SnapshotSnapshotEncryptionKey(object):

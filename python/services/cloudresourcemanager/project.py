@@ -69,14 +69,24 @@ class Project(object):
         self.name = Primitive.from_proto(response.name)
         self.project_number = Primitive.from_proto(response.project_number)
 
-    @classmethod
-    def delete(self, name, service_account_file=""):
+    def delete(self):
         stub = project_pb2_grpc.CloudresourcemanagerProjectServiceStub(
             channel.Channel()
         )
         request = project_pb2.DeleteCloudresourcemanagerProjectRequest()
-        request.service_account_file = service_account_file
-        request.Name = name
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
+        if Primitive.to_proto(self.displayName):
+            request.resource.displayName = Primitive.to_proto(self.displayName)
+
+        if ProjectParent.to_proto(self.parent):
+            request.resource.parent.CopyFrom(ProjectParent.to_proto(self.parent))
+        else:
+            request.resource.ClearField("parent")
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
         response = stub.DeleteCloudresourcemanagerProject(request)
 
@@ -106,6 +116,20 @@ class Project(object):
         res.name = Primitive.from_proto(res_proto.name)
         res.project_number = Primitive.from_proto(res_proto.project_number)
         return res
+
+    def to_proto(self):
+        resource = project_pb2.CloudresourcemanagerProject()
+        if Primitive.to_proto(self.labels):
+            resource.labels = Primitive.to_proto(self.labels)
+        if Primitive.to_proto(self.displayName):
+            resource.displayName = Primitive.to_proto(self.displayName)
+        if ProjectParent.to_proto(self.parent):
+            resource.parent.CopyFrom(ProjectParent.to_proto(self.parent))
+        else:
+            resource.ClearField("parent")
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        return resource
 
 
 class ProjectParent(object):

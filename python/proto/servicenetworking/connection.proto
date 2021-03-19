@@ -47,6 +47,7 @@ message ListServicenetworkingConnectionRequest {
 message ListServicenetworkingConnectionResponse {
   repeated ServicenetworkingConnection items = 1;
 }
+
 service ServicenetworkingConnectionService {
   rpc ApplyServicenetworkingConnection(ApplyServicenetworkingConnectionRequest) returns (ServicenetworkingConnection);
   rpc DeleteServicenetworkingConnection(DeleteServicenetworkingConnectionRequest) returns (google.protobuf.Empty);

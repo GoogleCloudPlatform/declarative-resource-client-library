@@ -87,18 +87,36 @@ class User(object):
         self.etag = Primitive.from_proto(response.etag)
         self.host = Primitive.from_proto(response.host)
 
-    @classmethod
-    def delete(self, project, host, instance, name, service_account_file=""):
+    def delete(self):
         stub = user_pb2_grpc.SqlBetaUserServiceStub(channel.Channel())
         request = user_pb2.DeleteSqlBetaUserRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Host = host
+        if Primitive.to_proto(self.password):
+            request.resource.password = Primitive.to_proto(self.password)
 
-        request.Instance = instance
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
-        request.Name = name
+        if Primitive.to_proto(self.instance):
+            request.resource.instance = Primitive.to_proto(self.instance)
+
+        if UserSqlserverUserDetails.to_proto(self.sqlserver_user_details):
+            request.resource.sqlserver_user_details.CopyFrom(
+                UserSqlserverUserDetails.to_proto(self.sqlserver_user_details)
+            )
+        else:
+            request.resource.ClearField("sqlserver_user_details")
+        if UserTypeEnum.to_proto(self.type):
+            request.resource.type = UserTypeEnum.to_proto(self.type)
+
+        if Primitive.to_proto(self.etag):
+            request.resource.etag = Primitive.to_proto(self.etag)
+
+        if Primitive.to_proto(self.host):
+            request.resource.host = Primitive.to_proto(self.host)
 
         response = stub.DeleteSqlBetaUser(request)
 
@@ -131,6 +149,30 @@ class User(object):
         res.etag = Primitive.from_proto(res_proto.etag)
         res.host = Primitive.from_proto(res_proto.host)
         return res
+
+    def to_proto(self):
+        resource = user_pb2.SqlBetaUser()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.password):
+            resource.password = Primitive.to_proto(self.password)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.instance):
+            resource.instance = Primitive.to_proto(self.instance)
+        if UserSqlserverUserDetails.to_proto(self.sqlserver_user_details):
+            resource.sqlserver_user_details.CopyFrom(
+                UserSqlserverUserDetails.to_proto(self.sqlserver_user_details)
+            )
+        else:
+            resource.ClearField("sqlserver_user_details")
+        if UserTypeEnum.to_proto(self.type):
+            resource.type = UserTypeEnum.to_proto(self.type)
+        if Primitive.to_proto(self.etag):
+            resource.etag = Primitive.to_proto(self.etag)
+        if Primitive.to_proto(self.host):
+            resource.host = Primitive.to_proto(self.host)
+        return resource
 
 
 class UserSqlserverUserDetails(object):

@@ -71,20 +71,28 @@ class ResourceRecordSet(object):
         self.managed_zone = Primitive.from_proto(response.managed_zone)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, dnsName, dnsType, managedZone, service_account_file=""):
+    def delete(self):
         stub = resource_record_set_pb2_grpc.DnsResourceRecordSetServiceStub(
             channel.Channel()
         )
         request = resource_record_set_pb2.DeleteDnsResourceRecordSetRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.dns_name):
+            request.resource.dns_name = Primitive.to_proto(self.dns_name)
 
-        request.DnsName = dnsName
+        if Primitive.to_proto(self.dns_type):
+            request.resource.dns_type = Primitive.to_proto(self.dns_type)
 
-        request.DnsType = dnsType
+        if Primitive.to_proto(self.ttl):
+            request.resource.ttl = Primitive.to_proto(self.ttl)
 
-        request.ManagedZone = managedZone
+        if Primitive.to_proto(self.target):
+            request.resource.target.extend(Primitive.to_proto(self.target))
+        if Primitive.to_proto(self.managed_zone):
+            request.resource.managed_zone = Primitive.to_proto(self.managed_zone)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteDnsResourceRecordSet(request)
 
@@ -115,6 +123,22 @@ class ResourceRecordSet(object):
         res.managed_zone = Primitive.from_proto(res_proto.managed_zone)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = resource_record_set_pb2.DnsResourceRecordSet()
+        if Primitive.to_proto(self.dns_name):
+            resource.dns_name = Primitive.to_proto(self.dns_name)
+        if Primitive.to_proto(self.dns_type):
+            resource.dns_type = Primitive.to_proto(self.dns_type)
+        if Primitive.to_proto(self.ttl):
+            resource.ttl = Primitive.to_proto(self.ttl)
+        if Primitive.to_proto(self.target):
+            resource.target.extend(Primitive.to_proto(self.target))
+        if Primitive.to_proto(self.managed_zone):
+            resource.managed_zone = Primitive.to_proto(self.managed_zone)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class Primitive(object):

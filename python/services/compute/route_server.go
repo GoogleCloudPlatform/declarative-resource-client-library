@@ -20,8 +20,6 @@ import (
 	computepb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/compute/compute_go_proto"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute"
-
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/serialization"
 )
 
 // Server implements the gRPC interface for Route.
@@ -153,16 +151,6 @@ func (s *RouteServer) ApplyComputeRoute(ctx context.Context, request *computepb.
 		return nil, err
 	}
 	return s.applyRoute(ctx, cl, request)
-}
-
-func (s *RouteServer) ComputeRouteAsHcl(ctx context.Context, request *computepb.ComputeRouteAsHclRequest) (*computepb.ComputeRouteAsHclResponse, error) {
-	p := ProtoToRoute(request.GetResource())
-	resStr, err := serialization.ComputeRouteAsHCL(*p)
-	if err != nil {
-		return nil, err
-	}
-
-	return &computepb.ComputeRouteAsHclResponse{Hcl: resStr}, nil
 }
 
 // DeleteRoute handles the gRPC request by passing it to the underlying Route Delete() method.

@@ -119,7 +119,7 @@ func (op *updateProjectBillingInfoUpdateProjectBillingInfoOperation) do(ctx cont
 	if err != nil {
 		return err
 	}
-	_, err = dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -146,7 +146,7 @@ func (c *Client) listProjectBillingInfoRaw(ctx context.Context, name, pageToken 
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -203,7 +203,13 @@ type deleteProjectBillingInfoOperation struct{}
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createProjectBillingInfoOperation struct{}
+type createProjectBillingInfoOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createProjectBillingInfoOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createProjectBillingInfoOperation) do(ctx context.Context, r *ProjectBillingInfo, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -219,7 +225,7 @@ func (op *createProjectBillingInfoOperation) do(ctx context.Context, r *ProjectB
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -228,9 +234,10 @@ func (op *createProjectBillingInfoOperation) do(ctx context.Context, r *ProjectB
 	if err != nil {
 		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
-	_ = o // We might not use resp- this will stop Go complaining
+	op.response = o
 
 	if _, err := c.GetProjectBillingInfo(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -243,7 +250,7 @@ func (c *Client) getProjectBillingInfoRaw(ctx context.Context, r *ProjectBilling
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -312,14 +319,6 @@ func canonicalizeProjectBillingInfoInitialState(rawInitial, rawDesired *ProjectB
 
 func canonicalizeProjectBillingInfoDesiredState(rawDesired, rawInitial *ProjectBillingInfo, opts ...dcl.ApplyOption) (*ProjectBillingInfo, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*ProjectBillingInfo); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected ProjectBillingInfo, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -332,7 +331,7 @@ func canonicalizeProjectBillingInfoDesiredState(rawDesired, rawInitial *ProjectB
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.BillingAccountName, rawInitial.BillingAccountName) {
 		rawDesired.BillingAccountName = rawInitial.BillingAccountName
 	}
-	if dcl.IsZeroValue(rawDesired.BillingEnabled) {
+	if dcl.StringCanonicalize(rawDesired.BillingEnabled, rawInitial.BillingEnabled) {
 		rawDesired.BillingEnabled = rawInitial.BillingEnabled
 	}
 
@@ -354,6 +353,9 @@ func canonicalizeProjectBillingInfoNewState(c *Client, rawNew, rawDesired *Proje
 	if dcl.IsEmptyValueIndirect(rawNew.BillingEnabled) && dcl.IsEmptyValueIndirect(rawDesired.BillingEnabled) {
 		rawNew.BillingEnabled = rawDesired.BillingEnabled
 	} else {
+		if dcl.StringCanonicalize(rawDesired.BillingEnabled, rawNew.BillingEnabled) {
+			rawNew.BillingEnabled = rawDesired.BillingEnabled
+		}
 	}
 
 	return rawNew, nil
@@ -421,6 +423,7 @@ func (r *ProjectBillingInfo) urlNormalized() *ProjectBillingInfo {
 	normalized := deepcopy.Copy(*r).(ProjectBillingInfo)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.BillingAccountName = dcl.SelfLinkToName(r.BillingAccountName)
+	normalized.BillingEnabled = dcl.SelfLinkToName(r.BillingEnabled)
 	return &normalized
 }
 
@@ -469,6 +472,10 @@ func unmarshalProjectBillingInfo(b []byte, c *Client) (*ProjectBillingInfo, erro
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapProjectBillingInfo(m, c)
+}
+
+func unmarshalMapProjectBillingInfo(m map[string]interface{}, c *Client) (*ProjectBillingInfo, error) {
 
 	return flattenProjectBillingInfo(c, m), nil
 }

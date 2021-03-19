@@ -145,7 +145,7 @@ func (op *updateTargetPoolAddHCOperation) do(ctx context.Context, r *TargetPool,
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -221,7 +221,7 @@ func (op *updateTargetPoolAddInstanceOperation) do(ctx context.Context, r *Targe
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -307,7 +307,7 @@ func (op *updateTargetPoolRemoveHCOperation) do(ctx context.Context, r *TargetPo
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -383,7 +383,7 @@ func (op *updateTargetPoolRemoveInstanceOperation) do(ctx context.Context, r *Ta
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -452,7 +452,7 @@ func (op *updateTargetPoolSetBackupOperation) do(ctx context.Context, r *TargetP
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -489,7 +489,7 @@ func (c *Client) listTargetPoolRaw(ctx context.Context, project, region, pageTok
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -564,7 +564,7 @@ func (op *deleteTargetPoolOperation) do(ctx context.Context, r *TargetPool, c *C
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -587,7 +587,13 @@ func (op *deleteTargetPoolOperation) do(ctx context.Context, r *TargetPool, c *C
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createTargetPoolOperation struct{}
+type createTargetPoolOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createTargetPoolOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createTargetPoolOperation) do(ctx context.Context, r *TargetPool, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -603,7 +609,7 @@ func (op *createTargetPoolOperation) do(ctx context.Context, r *TargetPool, c *C
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -617,8 +623,10 @@ func (op *createTargetPoolOperation) do(ctx context.Context, r *TargetPool, c *C
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetTargetPool(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -631,7 +639,7 @@ func (c *Client) getTargetPoolRaw(ctx context.Context, r *TargetPool) ([]byte, e
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -708,24 +716,16 @@ func canonicalizeTargetPoolInitialState(rawInitial, rawDesired *TargetPool) (*Ta
 
 func canonicalizeTargetPoolDesiredState(rawDesired, rawInitial *TargetPool, opts ...dcl.ApplyOption) (*TargetPool, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*TargetPool); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected TargetPool, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.BackupPool) {
+	if dcl.StringCanonicalize(rawDesired.BackupPool, rawInitial.BackupPool) {
 		rawDesired.BackupPool = rawInitial.BackupPool
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
 	if dcl.IsZeroValue(rawDesired.FailoverRatio) {
@@ -737,19 +737,19 @@ func canonicalizeTargetPoolDesiredState(rawDesired, rawInitial *TargetPool, opts
 	if dcl.IsZeroValue(rawDesired.Instance) {
 		rawDesired.Instance = rawInitial.Instance
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Region) {
+	if dcl.StringCanonicalize(rawDesired.Region, rawInitial.Region) {
 		rawDesired.Region = rawInitial.Region
 	}
-	if dcl.IsZeroValue(rawDesired.SelfLink) {
+	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}
 	if dcl.IsZeroValue(rawDesired.SessionAffinity) {
 		rawDesired.SessionAffinity = rawInitial.SessionAffinity
 	}
-	if dcl.IsZeroValue(rawDesired.Project) {
+	if dcl.StringCanonicalize(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
 
@@ -761,11 +761,17 @@ func canonicalizeTargetPoolNewState(c *Client, rawNew, rawDesired *TargetPool) (
 	if dcl.IsEmptyValueIndirect(rawNew.BackupPool) && dcl.IsEmptyValueIndirect(rawDesired.BackupPool) {
 		rawNew.BackupPool = rawDesired.BackupPool
 	} else {
+		if dcl.StringCanonicalize(rawDesired.BackupPool, rawNew.BackupPool) {
+			rawNew.BackupPool = rawDesired.BackupPool
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.FailoverRatio) && dcl.IsEmptyValueIndirect(rawDesired.FailoverRatio) {
@@ -789,16 +795,25 @@ func canonicalizeTargetPoolNewState(c *Client, rawNew, rawDesired *TargetPool) (
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Region) && dcl.IsEmptyValueIndirect(rawDesired.Region) {
 		rawNew.Region = rawDesired.Region
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Region, rawNew.Region) {
+			rawNew.Region = rawDesired.Region
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.SessionAffinity) && dcl.IsEmptyValueIndirect(rawDesired.SessionAffinity) {
@@ -809,6 +824,9 @@ func canonicalizeTargetPoolNewState(c *Client, rawNew, rawDesired *TargetPool) (
 	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
 		rawNew.Project = rawDesired.Project
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Project, rawNew.Project) {
+			rawNew.Project = rawDesired.Project
+		}
 	}
 
 	return rawNew, nil
@@ -835,7 +853,7 @@ func diffTargetPool(c *Client, desired, actual *TargetPool, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []targetPoolDiff
-	if !dcl.IsZeroValue(desired.BackupPool) && (dcl.IsZeroValue(actual.BackupPool) || !reflect.DeepEqual(*desired.BackupPool, *actual.BackupPool)) {
+	if !dcl.IsZeroValue(desired.BackupPool) && !dcl.StringCanonicalize(desired.BackupPool, actual.BackupPool) {
 		c.Config.Logger.Infof("Detected diff in BackupPool.\nDESIRED: %v\nACTUAL: %v", desired.BackupPool, actual.BackupPool)
 
 		diffs = append(diffs, targetPoolDiff{
@@ -844,14 +862,14 @@ func diffTargetPool(c *Client, desired, actual *TargetPool, opts ...dcl.ApplyOpt
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, targetPoolDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
-	if !dcl.IsZeroValue(desired.FailoverRatio) && (dcl.IsZeroValue(actual.FailoverRatio) || !reflect.DeepEqual(*desired.FailoverRatio, *actual.FailoverRatio)) {
+	if !reflect.DeepEqual(desired.FailoverRatio, actual.FailoverRatio) {
 		c.Config.Logger.Infof("Detected diff in FailoverRatio.\nDESIRED: %v\nACTUAL: %v", desired.FailoverRatio, actual.FailoverRatio)
 		diffs = append(diffs, targetPoolDiff{
 			RequiresRecreate: true,
@@ -874,7 +892,7 @@ func diffTargetPool(c *Client, desired, actual *TargetPool, opts ...dcl.ApplyOpt
 			})
 		}
 	}
-	if !dcl.SliceEquals(desired.Instance, actual.Instance) {
+	if !dcl.StringSliceEquals(desired.Instance, actual.Instance) {
 		c.Config.Logger.Infof("Detected diff in Instance.\nDESIRED: %v\nACTUAL: %v", desired.Instance, actual.Instance)
 		toAdd, toRemove := dcl.CompareStringSets(desired.Instance, actual.Instance)
 		if len(toAdd) > 0 {
@@ -890,35 +908,35 @@ func diffTargetPool(c *Client, desired, actual *TargetPool, opts ...dcl.ApplyOpt
 			})
 		}
 	}
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, targetPoolDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Region) && (dcl.IsZeroValue(actual.Region) || !reflect.DeepEqual(*desired.Region, *actual.Region)) {
+	if !dcl.IsZeroValue(desired.Region) && !dcl.StringCanonicalize(desired.Region, actual.Region) {
 		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %v\nACTUAL: %v", desired.Region, actual.Region)
 		diffs = append(diffs, targetPoolDiff{
 			RequiresRecreate: true,
 			FieldName:        "Region",
 		})
 	}
-	if !dcl.IsZeroValue(desired.SelfLink) && (dcl.IsZeroValue(actual.SelfLink) || !reflect.DeepEqual(*desired.SelfLink, *actual.SelfLink)) {
+	if !dcl.IsZeroValue(desired.SelfLink) && !dcl.StringCanonicalize(desired.SelfLink, actual.SelfLink) {
 		c.Config.Logger.Infof("Detected diff in SelfLink.\nDESIRED: %v\nACTUAL: %v", desired.SelfLink, actual.SelfLink)
 		diffs = append(diffs, targetPoolDiff{
 			RequiresRecreate: true,
 			FieldName:        "SelfLink",
 		})
 	}
-	if !dcl.IsZeroValue(desired.SessionAffinity) && (dcl.IsZeroValue(actual.SessionAffinity) || !reflect.DeepEqual(*desired.SessionAffinity, *actual.SessionAffinity)) {
+	if !reflect.DeepEqual(desired.SessionAffinity, actual.SessionAffinity) {
 		c.Config.Logger.Infof("Detected diff in SessionAffinity.\nDESIRED: %v\nACTUAL: %v", desired.SessionAffinity, actual.SessionAffinity)
 		diffs = append(diffs, targetPoolDiff{
 			RequiresRecreate: true,
 			FieldName:        "SessionAffinity",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Project) && (dcl.IsZeroValue(actual.Project) || !reflect.DeepEqual(*desired.Project, *actual.Project)) {
+	if !dcl.IsZeroValue(desired.Project) && !dcl.StringCanonicalize(desired.Project, actual.Project) {
 		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %v\nACTUAL: %v", desired.Project, actual.Project)
 		diffs = append(diffs, targetPoolDiff{
 			RequiresRecreate: true,
@@ -972,7 +990,13 @@ func compareTargetPoolSessionAffinityEnum(c *Client, desired, actual *TargetPool
 // short-form so they can be substituted in.
 func (r *TargetPool) urlNormalized() *TargetPool {
 	normalized := deepcopy.Copy(*r).(TargetPool)
+	normalized.BackupPool = dcl.SelfLinkToName(r.BackupPool)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.HealthCheck = dcl.SelfLinkToNameArray(r.HealthCheck)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Region = dcl.SelfLinkToName(r.Region)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
 
@@ -1059,6 +1083,10 @@ func unmarshalTargetPool(b []byte, c *Client) (*TargetPool, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapTargetPool(m, c)
+}
+
+func unmarshalMapTargetPool(m map[string]interface{}, c *Client) (*TargetPool, error) {
 
 	return flattenTargetPool(c, m), nil
 }
@@ -1142,7 +1170,7 @@ func flattenTargetPoolSessionAffinityEnumSlice(c *Client, i interface{}) []Targe
 
 	items := make([]TargetPoolSessionAffinityEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenTargetPoolSessionAffinityEnum(item.(map[string]interface{})))
+		items = append(items, *flattenTargetPoolSessionAffinityEnum(item.(interface{})))
 	}
 
 	return items

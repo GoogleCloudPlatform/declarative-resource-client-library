@@ -62,6 +62,7 @@ message ListComputeBetaSnapshotRequest {
 message ListComputeBetaSnapshotResponse {
   repeated ComputeBetaSnapshot items = 1;
 }
+
 service ComputeBetaSnapshotService {
   rpc ApplyComputeBetaSnapshot(ApplyComputeBetaSnapshotRequest) returns (ComputeBetaSnapshot);
   rpc DeleteComputeBetaSnapshot(DeleteComputeBetaSnapshotRequest) returns (google.protobuf.Empty);

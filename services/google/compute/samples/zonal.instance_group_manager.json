@@ -1,0 +1,8 @@
+{
+  "project": "{{project}}",
+  "location": "{{zone}}",
+  "name": "{{instance_group_manager}}",
+  "baseInstanceName":  "dcl",
+  "targetSize": 3,
+  "instanceTemplate": "{{ref:basic.instance_template.json:selfLink}}"
+}

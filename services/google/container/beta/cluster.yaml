@@ -110,6 +110,18 @@ components:
           x-dcl-go-name: AuthenticatorGroupsConfig
           x-dcl-go-type: ClusterAuthenticatorGroupsConfig
           x-kubernetes-immutable: true
+        autopilot:
+          description: Configuration for autopilot setting on the cluster.
+          properties:
+            enabled:
+              description: Whether the autopilot setting is enabled in the cluster.
+              type: boolean
+              x-dcl-go-name: Enabled
+              x-kubernetes-immutable: true
+          type: object
+          x-dcl-go-name: Autopilot
+          x-dcl-go-type: ClusterAutopilot
+          x-kubernetes-immutable: true
         autoscaling:
           description: Cluster-level autoscaling configuration.
           properties:
@@ -266,7 +278,6 @@ components:
               type: string
               x-dcl-go-name: State
               x-dcl-go-type: ClusterDatabaseEncryptionStateEnum
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: DatabaseEncryption
           x-dcl-go-type: ClusterDatabaseEncryption
@@ -423,7 +434,6 @@ components:
                 those provided by the RBAC configuration or IAM. '
               type: boolean
               x-dcl-go-name: Enabled
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: LegacyAbac
           x-dcl-go-type: ClusterLegacyAbac
@@ -457,7 +467,6 @@ components:
                 changes
               type: string
               x-dcl-go-name: ResourceVersion
-              x-kubernetes-immutable: true
             window:
               properties:
                 dailyMaintenanceWindow:
@@ -468,18 +477,15 @@ components:
                       readOnly: true
                       type: string
                       x-dcl-go-name: Duration
-                      x-kubernetes-immutable: true
                     startTime:
                       description: Time within the maintenance window to start the
                         maintenance operations
                       format: date-time
                       type: string
                       x-dcl-go-name: StartTime
-                      x-kubernetes-immutable: true
                   type: object
                   x-dcl-go-name: DailyMaintenanceWindow
                   x-dcl-go-type: ClusterMaintenancePolicyWindowDailyMaintenanceWindow
-                  x-kubernetes-immutable: true
                 recurringWindow:
                   properties:
                     recurrence:
@@ -488,7 +494,6 @@ components:
                         between the start and end time.
                       type: string
                       x-dcl-go-name: Recurrence
-                      x-kubernetes-immutable: true
                     window:
                       properties:
                         endTime:
@@ -496,25 +501,20 @@ components:
                           format: date-time
                           type: string
                           x-dcl-go-name: EndTime
-                          x-kubernetes-immutable: true
                         startTime:
                           description: The time that the window first starts.
                           format: date-time
                           type: string
                           x-dcl-go-name: StartTime
-                          x-kubernetes-immutable: true
                       type: object
                       x-dcl-go-name: Window
                       x-dcl-go-type: ClusterMaintenancePolicyWindowRecurringWindowWindow
-                      x-kubernetes-immutable: true
                   type: object
                   x-dcl-go-name: RecurringWindow
                   x-dcl-go-type: ClusterMaintenancePolicyWindowRecurringWindow
-                  x-kubernetes-immutable: true
               type: object
               x-dcl-go-name: Window
               x-dcl-go-type: ClusterMaintenancePolicyWindow
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: MaintenancePolicy
           x-dcl-go-type: ClusterMaintenancePolicy
@@ -751,15 +751,16 @@ components:
           description: The project id of the resource.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         resourceLabels:
           additionalProperties:
             type: string
           description: 'The resource labels for the cluster to use to annotate any
             related Google Compute Engine resources. '
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: ResourceLabels
           x-kubernetes-immutable: true

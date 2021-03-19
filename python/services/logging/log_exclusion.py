@@ -68,14 +68,24 @@ class LogExclusion(object):
         self.update_time = Primitive.from_proto(response.update_time)
         self.parent = Primitive.from_proto(response.parent)
 
-    @classmethod
-    def delete(self, parent, name, service_account_file=""):
+    def delete(self):
         stub = log_exclusion_pb2_grpc.LoggingLogExclusionServiceStub(channel.Channel())
         request = log_exclusion_pb2.DeleteLoggingLogExclusionRequest()
-        request.service_account_file = service_account_file
-        request.Parent = parent
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Name = name
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if Primitive.to_proto(self.filter):
+            request.resource.filter = Primitive.to_proto(self.filter)
+
+        if Primitive.to_proto(self.disabled):
+            request.resource.disabled = Primitive.to_proto(self.disabled)
+
+        if Primitive.to_proto(self.parent):
+            request.resource.parent = Primitive.to_proto(self.parent)
 
         response = stub.DeleteLoggingLogExclusion(request)
 
@@ -103,6 +113,20 @@ class LogExclusion(object):
         res.update_time = Primitive.from_proto(res_proto.update_time)
         res.parent = Primitive.from_proto(res_proto.parent)
         return res
+
+    def to_proto(self):
+        resource = log_exclusion_pb2.LoggingLogExclusion()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.filter):
+            resource.filter = Primitive.to_proto(self.filter)
+        if Primitive.to_proto(self.disabled):
+            resource.disabled = Primitive.to_proto(self.disabled)
+        if Primitive.to_proto(self.parent):
+            resource.parent = Primitive.to_proto(self.parent)
+        return resource
 
 
 class Primitive(object):

@@ -49,16 +49,9 @@ message ListPubsubTopicRequest {
 message ListPubsubTopicResponse {
   repeated PubsubTopic items = 1;
 }
-message PubsubTopicAsHclRequest {
-  PubsubTopic resource = 1;
-}
-message PubsubTopicAsHclResponse {
-  string hcl = 1;
-}
+
 service PubsubTopicService {
   rpc ApplyPubsubTopic(ApplyPubsubTopicRequest) returns (PubsubTopic);
   rpc DeletePubsubTopic(DeletePubsubTopicRequest) returns (google.protobuf.Empty);
   rpc ListPubsubTopic(ListPubsubTopicRequest) returns (ListPubsubTopicResponse);
-  rpc PubsubTopicAsHcl(PubsubTopicAsHclRequest) returns (PubsubTopicAsHclResponse);
-
 }

@@ -83,18 +83,31 @@ class ManagedSslCertificate(object):
         self.expire_time = Primitive.from_proto(response.expire_time)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = managed_ssl_certificate_pb2_grpc.ComputeManagedSslCertificateServiceStub(
             channel.Channel()
         )
         request = (
             managed_ssl_certificate_pb2.DeleteComputeManagedSslCertificateRequest()
         )
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Name = name
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if ManagedSslCertificateManaged.to_proto(self.managed):
+            request.resource.managed.CopyFrom(
+                ManagedSslCertificateManaged.to_proto(self.managed)
+            )
+        else:
+            request.resource.ClearField("managed")
+        if ManagedSslCertificateTypeEnum.to_proto(self.type):
+            request.resource.type = ManagedSslCertificateTypeEnum.to_proto(self.type)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteComputeManagedSslCertificate(request)
 
@@ -128,6 +141,24 @@ class ManagedSslCertificate(object):
         res.expire_time = Primitive.from_proto(res_proto.expire_time)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = managed_ssl_certificate_pb2.ComputeManagedSslCertificate()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if ManagedSslCertificateManaged.to_proto(self.managed):
+            resource.managed.CopyFrom(
+                ManagedSslCertificateManaged.to_proto(self.managed)
+            )
+        else:
+            resource.ClearField("managed")
+        if ManagedSslCertificateTypeEnum.to_proto(self.type):
+            resource.type = ManagedSslCertificateTypeEnum.to_proto(self.type)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class ManagedSslCertificateManaged(object):

@@ -165,7 +165,7 @@ func (op *updateRouterPeerUpdateOperation) do(ctx context.Context, r *RouterPeer
 		return err
 	}
 
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -202,7 +202,7 @@ func (c *Client) listRouterPeerRaw(ctx context.Context, project, region, pageTok
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -283,7 +283,7 @@ func (op *deleteRouterPeerOperation) do(ctx context.Context, r *RouterPeer, c *C
 	}
 	body = bytes.NewBuffer(b)
 
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -306,7 +306,13 @@ func (op *deleteRouterPeerOperation) do(ctx context.Context, r *RouterPeer, c *C
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createRouterPeerOperation struct{}
+type createRouterPeerOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createRouterPeerOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createRouterPeerOperation) do(ctx context.Context, r *RouterPeer, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -327,7 +333,7 @@ func (op *createRouterPeerOperation) do(ctx context.Context, r *RouterPeer, c *C
 		return err
 	}
 
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -341,8 +347,10 @@ func (op *createRouterPeerOperation) do(ctx context.Context, r *RouterPeer, c *C
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetRouterPeer(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -355,7 +363,7 @@ func (c *Client) getRouterPeerRaw(ctx context.Context, r *RouterPeer) ([]byte, e
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -511,14 +519,6 @@ func canonicalizeRouterPeerInitialState(rawInitial, rawDesired *RouterPeer) (*Ro
 
 func canonicalizeRouterPeerDesiredState(rawDesired, rawInitial *RouterPeer, opts ...dcl.ApplyOption) (*RouterPeer, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*RouterPeer); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected RouterPeer, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -531,16 +531,16 @@ func canonicalizeRouterPeerDesiredState(rawDesired, rawInitial *RouterPeer, opts
 	if dcl.NameToSelfLink(rawDesired.Router, rawInitial.Router) {
 		rawDesired.Router = rawInitial.Router
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.InterfaceName) {
+	if dcl.StringCanonicalize(rawDesired.InterfaceName, rawInitial.InterfaceName) {
 		rawDesired.InterfaceName = rawInitial.InterfaceName
 	}
-	if dcl.IsZeroValue(rawDesired.IPAddress) {
+	if dcl.StringCanonicalize(rawDesired.IPAddress, rawInitial.IPAddress) {
 		rawDesired.IPAddress = rawInitial.IPAddress
 	}
-	if dcl.IsZeroValue(rawDesired.PeerIPAddress) {
+	if dcl.StringCanonicalize(rawDesired.PeerIPAddress, rawInitial.PeerIPAddress) {
 		rawDesired.PeerIPAddress = rawInitial.PeerIPAddress
 	}
 	if dcl.IsZeroValue(rawDesired.PeerAsn) {
@@ -549,10 +549,10 @@ func canonicalizeRouterPeerDesiredState(rawDesired, rawInitial *RouterPeer, opts
 	if dcl.IsZeroValue(rawDesired.AdvertisedRoutePriority) {
 		rawDesired.AdvertisedRoutePriority = rawInitial.AdvertisedRoutePriority
 	}
-	if dcl.IsZeroValue(rawDesired.AdvertiseMode) {
+	if dcl.StringCanonicalize(rawDesired.AdvertiseMode, rawInitial.AdvertiseMode) {
 		rawDesired.AdvertiseMode = rawInitial.AdvertiseMode
 	}
-	if dcl.IsZeroValue(rawDesired.ManagementType) {
+	if dcl.StringCanonicalize(rawDesired.ManagementType, rawInitial.ManagementType) {
 		rawDesired.ManagementType = rawInitial.ManagementType
 	}
 	if dcl.IsZeroValue(rawDesired.AdvertisedGroups) {
@@ -583,21 +583,33 @@ func canonicalizeRouterPeerNewState(c *Client, rawNew, rawDesired *RouterPeer) (
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.InterfaceName) && dcl.IsEmptyValueIndirect(rawDesired.InterfaceName) {
 		rawNew.InterfaceName = rawDesired.InterfaceName
 	} else {
+		if dcl.StringCanonicalize(rawDesired.InterfaceName, rawNew.InterfaceName) {
+			rawNew.InterfaceName = rawDesired.InterfaceName
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.IPAddress) && dcl.IsEmptyValueIndirect(rawDesired.IPAddress) {
 		rawNew.IPAddress = rawDesired.IPAddress
 	} else {
+		if dcl.StringCanonicalize(rawDesired.IPAddress, rawNew.IPAddress) {
+			rawNew.IPAddress = rawDesired.IPAddress
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.PeerIPAddress) && dcl.IsEmptyValueIndirect(rawDesired.PeerIPAddress) {
 		rawNew.PeerIPAddress = rawDesired.PeerIPAddress
 	} else {
+		if dcl.StringCanonicalize(rawDesired.PeerIPAddress, rawNew.PeerIPAddress) {
+			rawNew.PeerIPAddress = rawDesired.PeerIPAddress
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.PeerAsn) && dcl.IsEmptyValueIndirect(rawDesired.PeerAsn) {
@@ -613,11 +625,17 @@ func canonicalizeRouterPeerNewState(c *Client, rawNew, rawDesired *RouterPeer) (
 	if dcl.IsEmptyValueIndirect(rawNew.AdvertiseMode) && dcl.IsEmptyValueIndirect(rawDesired.AdvertiseMode) {
 		rawNew.AdvertiseMode = rawDesired.AdvertiseMode
 	} else {
+		if dcl.StringCanonicalize(rawDesired.AdvertiseMode, rawNew.AdvertiseMode) {
+			rawNew.AdvertiseMode = rawDesired.AdvertiseMode
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ManagementType) && dcl.IsEmptyValueIndirect(rawDesired.ManagementType) {
 		rawNew.ManagementType = rawDesired.ManagementType
 	} else {
+		if dcl.StringCanonicalize(rawDesired.ManagementType, rawNew.ManagementType) {
+			rawNew.ManagementType = rawDesired.ManagementType
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.AdvertisedGroups) && dcl.IsEmptyValueIndirect(rawDesired.AdvertisedGroups) {
@@ -651,19 +669,14 @@ func canonicalizeRouterPeerAdvertisedIPRanges(des, initial *RouterPeerAdvertised
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*RouterPeer)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Range) {
+	if dcl.StringCanonicalize(des.Range, initial.Range) || dcl.IsZeroValue(des.Range) {
 		des.Range = initial.Range
 	}
-	if dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
 		des.Description = initial.Description
 	}
 
@@ -673,6 +686,13 @@ func canonicalizeRouterPeerAdvertisedIPRanges(des, initial *RouterPeerAdvertised
 func canonicalizeNewRouterPeerAdvertisedIPRanges(c *Client, des, nw *RouterPeerAdvertisedIPRanges) *RouterPeerAdvertisedIPRanges {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Range, nw.Range) || dcl.IsZeroValue(des.Range) {
+		nw.Range = des.Range
+	}
+	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+		nw.Description = des.Description
 	}
 
 	return nw
@@ -722,7 +742,7 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []routerPeerDiff
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 
 		diffs = append(diffs, routerPeerDiff{
@@ -731,7 +751,7 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.InterfaceName) && (dcl.IsZeroValue(actual.InterfaceName) || !reflect.DeepEqual(*desired.InterfaceName, *actual.InterfaceName)) {
+	if !dcl.IsZeroValue(desired.InterfaceName) && !dcl.StringCanonicalize(desired.InterfaceName, actual.InterfaceName) {
 		c.Config.Logger.Infof("Detected diff in InterfaceName.\nDESIRED: %v\nACTUAL: %v", desired.InterfaceName, actual.InterfaceName)
 
 		diffs = append(diffs, routerPeerDiff{
@@ -740,7 +760,7 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.IPAddress) && (dcl.IsZeroValue(actual.IPAddress) || !reflect.DeepEqual(*desired.IPAddress, *actual.IPAddress)) {
+	if !dcl.IsZeroValue(desired.IPAddress) && !dcl.StringCanonicalize(desired.IPAddress, actual.IPAddress) {
 		c.Config.Logger.Infof("Detected diff in IPAddress.\nDESIRED: %v\nACTUAL: %v", desired.IPAddress, actual.IPAddress)
 
 		diffs = append(diffs, routerPeerDiff{
@@ -749,7 +769,7 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.PeerIPAddress) && (dcl.IsZeroValue(actual.PeerIPAddress) || !reflect.DeepEqual(*desired.PeerIPAddress, *actual.PeerIPAddress)) {
+	if !dcl.IsZeroValue(desired.PeerIPAddress) && !dcl.StringCanonicalize(desired.PeerIPAddress, actual.PeerIPAddress) {
 		c.Config.Logger.Infof("Detected diff in PeerIPAddress.\nDESIRED: %v\nACTUAL: %v", desired.PeerIPAddress, actual.PeerIPAddress)
 
 		diffs = append(diffs, routerPeerDiff{
@@ -758,7 +778,7 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.PeerAsn) && (dcl.IsZeroValue(actual.PeerAsn) || !reflect.DeepEqual(*desired.PeerAsn, *actual.PeerAsn)) {
+	if !reflect.DeepEqual(desired.PeerAsn, actual.PeerAsn) {
 		c.Config.Logger.Infof("Detected diff in PeerAsn.\nDESIRED: %v\nACTUAL: %v", desired.PeerAsn, actual.PeerAsn)
 
 		diffs = append(diffs, routerPeerDiff{
@@ -767,7 +787,7 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.AdvertisedRoutePriority) && (dcl.IsZeroValue(actual.AdvertisedRoutePriority) || !reflect.DeepEqual(*desired.AdvertisedRoutePriority, *actual.AdvertisedRoutePriority)) {
+	if !reflect.DeepEqual(desired.AdvertisedRoutePriority, actual.AdvertisedRoutePriority) {
 		c.Config.Logger.Infof("Detected diff in AdvertisedRoutePriority.\nDESIRED: %v\nACTUAL: %v", desired.AdvertisedRoutePriority, actual.AdvertisedRoutePriority)
 
 		diffs = append(diffs, routerPeerDiff{
@@ -776,7 +796,7 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.AdvertiseMode) && (dcl.IsZeroValue(actual.AdvertiseMode) || !reflect.DeepEqual(*desired.AdvertiseMode, *actual.AdvertiseMode)) {
+	if !dcl.IsZeroValue(desired.AdvertiseMode) && !dcl.StringCanonicalize(desired.AdvertiseMode, actual.AdvertiseMode) {
 		c.Config.Logger.Infof("Detected diff in AdvertiseMode.\nDESIRED: %v\nACTUAL: %v", desired.AdvertiseMode, actual.AdvertiseMode)
 
 		diffs = append(diffs, routerPeerDiff{
@@ -785,7 +805,7 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 		})
 
 	}
-	if !dcl.SliceEquals(desired.AdvertisedGroups, actual.AdvertisedGroups) {
+	if !dcl.StringSliceEquals(desired.AdvertisedGroups, actual.AdvertisedGroups) {
 		c.Config.Logger.Infof("Detected diff in AdvertisedGroups.\nDESIRED: %v\nACTUAL: %v", desired.AdvertisedGroups, actual.AdvertisedGroups)
 
 		diffs = append(diffs, routerPeerDiff{
@@ -836,6 +856,32 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 
 	return deduped, nil
 }
+func compareRouterPeerAdvertisedIPRanges(c *Client, desired, actual *RouterPeerAdvertisedIPRanges) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Range == nil && desired.Range != nil && !dcl.IsEmptyValueIndirect(desired.Range) {
+		c.Config.Logger.Infof("desired Range %s - but actually nil", dcl.SprintResource(desired.Range))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Range, actual.Range) && !dcl.IsZeroValue(desired.Range) {
+		c.Config.Logger.Infof("Diff in Range. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Range), dcl.SprintResource(actual.Range))
+		return true
+	}
+	if actual.Description == nil && desired.Description != nil && !dcl.IsEmptyValueIndirect(desired.Description) {
+		c.Config.Logger.Infof("desired Description %s - but actually nil", dcl.SprintResource(desired.Description))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) {
+		c.Config.Logger.Infof("Diff in Description. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
+		return true
+	}
+	return false
+}
+
 func compareRouterPeerAdvertisedIPRangesSlice(c *Client, desired, actual []RouterPeerAdvertisedIPRanges) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in RouterPeerAdvertisedIPRanges, lengths unequal.")
@@ -850,28 +896,21 @@ func compareRouterPeerAdvertisedIPRangesSlice(c *Client, desired, actual []Route
 	return false
 }
 
-func compareRouterPeerAdvertisedIPRanges(c *Client, desired, actual *RouterPeerAdvertisedIPRanges) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
+func compareRouterPeerAdvertisedIPRangesMap(c *Client, desired, actual map[string]RouterPeerAdvertisedIPRanges) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in RouterPeerAdvertisedIPRanges, lengths unequal.")
 		return true
 	}
-	if actual.Range == nil && desired.Range != nil && !dcl.IsEmptyValueIndirect(desired.Range) {
-		c.Config.Logger.Infof("desired Range %s - but actually nil", dcl.SprintResource(desired.Range))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Range, actual.Range) && !dcl.IsZeroValue(desired.Range) && !(dcl.IsEmptyValueIndirect(desired.Range) && dcl.IsZeroValue(actual.Range)) {
-		c.Config.Logger.Infof("Diff in Range. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Range), dcl.SprintResource(actual.Range))
-		return true
-	}
-	if actual.Description == nil && desired.Description != nil && !dcl.IsEmptyValueIndirect(desired.Description) {
-		c.Config.Logger.Infof("desired Description %s - but actually nil", dcl.SprintResource(desired.Description))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) && !(dcl.IsEmptyValueIndirect(desired.Description) && dcl.IsZeroValue(actual.Description)) {
-		c.Config.Logger.Infof("Diff in Description. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
-		return true
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in RouterPeerAdvertisedIPRanges, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareRouterPeerAdvertisedIPRanges(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in RouterPeerAdvertisedIPRanges, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
 	}
 	return false
 }
@@ -882,6 +921,12 @@ func compareRouterPeerAdvertisedIPRanges(c *Client, desired, actual *RouterPeerA
 func (r *RouterPeer) urlNormalized() *RouterPeer {
 	normalized := deepcopy.Copy(*r).(RouterPeer)
 	normalized.Router = dcl.SelfLinkToName(r.Router)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.InterfaceName = dcl.SelfLinkToName(r.InterfaceName)
+	normalized.IPAddress = dcl.SelfLinkToName(r.IPAddress)
+	normalized.PeerIPAddress = dcl.SelfLinkToName(r.PeerIPAddress)
+	normalized.AdvertiseMode = dcl.SelfLinkToName(r.AdvertiseMode)
+	normalized.ManagementType = dcl.SelfLinkToName(r.ManagementType)
 	normalized.Region = dcl.SelfLinkToName(r.Region)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
@@ -934,6 +979,10 @@ func unmarshalRouterPeer(b []byte, c *Client) (*RouterPeer, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapRouterPeer(m, c)
+}
+
+func unmarshalMapRouterPeer(m map[string]interface{}, c *Client) (*RouterPeer, error) {
 
 	return flattenRouterPeer(c, m), nil
 }

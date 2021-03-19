@@ -26,8 +26,6 @@ class Version(object):
         automatic_scaling: dict = None,
         basic_scaling: dict = None,
         manual_scaling: dict = None,
-        job_scaling: dict = None,
-        pool_scaling: dict = None,
         inbound_services: list = None,
         instance_class: str = None,
         network: dict = None,
@@ -50,7 +48,6 @@ class Version(object):
         libraries: list = None,
         api_config: dict = None,
         env_variables: dict = None,
-        build_env_variables: dict = None,
         default_expiration: str = None,
         deployment: dict = None,
         health_check: dict = None,
@@ -58,13 +55,8 @@ class Version(object):
         liveness_check: dict = None,
         nobuild_files_regex: str = None,
         version_url: str = None,
-        service_auth_spec: dict = None,
-        service_cors_spec: dict = None,
-        route_hash: str = None,
         entrypoint: dict = None,
         vpc_access_connector: dict = None,
-        network_settings: dict = None,
-        instance_spec: dict = None,
         app: str = None,
         service: str = None,
         service_account_file: str = "",
@@ -76,8 +68,6 @@ class Version(object):
         self.automatic_scaling = automatic_scaling
         self.basic_scaling = basic_scaling
         self.manual_scaling = manual_scaling
-        self.job_scaling = job_scaling
-        self.pool_scaling = pool_scaling
         self.inbound_services = inbound_services
         self.instance_class = instance_class
         self.network = network
@@ -90,9 +80,6 @@ class Version(object):
         self.beta_settings = beta_settings
         self.env = env
         self.serving_status = serving_status
-        self.created_by = created_by
-        self.create_time = create_time
-        self.disk_usage_bytes = disk_usage_bytes
         self.runtime_api_version = runtime_api_version
         self.runtime_main_executable_path = runtime_main_executable_path
         self.handlers = handlers
@@ -100,21 +87,14 @@ class Version(object):
         self.libraries = libraries
         self.api_config = api_config
         self.env_variables = env_variables
-        self.build_env_variables = build_env_variables
         self.default_expiration = default_expiration
         self.deployment = deployment
         self.health_check = health_check
         self.readiness_check = readiness_check
         self.liveness_check = liveness_check
         self.nobuild_files_regex = nobuild_files_regex
-        self.version_url = version_url
-        self.service_auth_spec = service_auth_spec
-        self.service_cors_spec = service_cors_spec
-        self.route_hash = route_hash
         self.entrypoint = entrypoint
         self.vpc_access_connector = vpc_access_connector
-        self.network_settings = network_settings
-        self.instance_spec = instance_spec
         self.app = app
         self.service = service
         self.service_account_file = service_account_file
@@ -146,18 +126,6 @@ class Version(object):
             )
         else:
             request.resource.ClearField("manual_scaling")
-        if VersionJobScaling.to_proto(self.job_scaling):
-            request.resource.job_scaling.CopyFrom(
-                VersionJobScaling.to_proto(self.job_scaling)
-            )
-        else:
-            request.resource.ClearField("job_scaling")
-        if VersionPoolScaling.to_proto(self.pool_scaling):
-            request.resource.pool_scaling.CopyFrom(
-                VersionPoolScaling.to_proto(self.pool_scaling)
-            )
-        else:
-            request.resource.ClearField("pool_scaling")
         if VersionInboundServicesEnumArray.to_proto(self.inbound_services):
             request.resource.inbound_services.extend(
                 VersionInboundServicesEnumArray.to_proto(self.inbound_services)
@@ -200,17 +168,6 @@ class Version(object):
                 self.serving_status
             )
 
-        if Primitive.to_proto(self.created_by):
-            request.resource.created_by = Primitive.to_proto(self.created_by)
-
-        if Primitive.to_proto(self.create_time):
-            request.resource.create_time = Primitive.to_proto(self.create_time)
-
-        if Primitive.to_proto(self.disk_usage_bytes):
-            request.resource.disk_usage_bytes = Primitive.to_proto(
-                self.disk_usage_bytes
-            )
-
         if Primitive.to_proto(self.runtime_api_version):
             request.resource.runtime_api_version = Primitive.to_proto(
                 self.runtime_api_version
@@ -241,11 +198,6 @@ class Version(object):
             request.resource.ClearField("api_config")
         if Primitive.to_proto(self.env_variables):
             request.resource.env_variables = Primitive.to_proto(self.env_variables)
-
-        if Primitive.to_proto(self.build_env_variables):
-            request.resource.build_env_variables = Primitive.to_proto(
-                self.build_env_variables
-            )
 
         if Primitive.to_proto(self.default_expiration):
             request.resource.default_expiration = Primitive.to_proto(
@@ -281,24 +233,6 @@ class Version(object):
                 self.nobuild_files_regex
             )
 
-        if Primitive.to_proto(self.version_url):
-            request.resource.version_url = Primitive.to_proto(self.version_url)
-
-        if VersionServiceAuthSpec.to_proto(self.service_auth_spec):
-            request.resource.service_auth_spec.CopyFrom(
-                VersionServiceAuthSpec.to_proto(self.service_auth_spec)
-            )
-        else:
-            request.resource.ClearField("service_auth_spec")
-        if VersionServiceCorsSpec.to_proto(self.service_cors_spec):
-            request.resource.service_cors_spec.CopyFrom(
-                VersionServiceCorsSpec.to_proto(self.service_cors_spec)
-            )
-        else:
-            request.resource.ClearField("service_cors_spec")
-        if Primitive.to_proto(self.route_hash):
-            request.resource.route_hash = Primitive.to_proto(self.route_hash)
-
         if VersionEntrypoint.to_proto(self.entrypoint):
             request.resource.entrypoint.CopyFrom(
                 VersionEntrypoint.to_proto(self.entrypoint)
@@ -311,18 +245,6 @@ class Version(object):
             )
         else:
             request.resource.ClearField("vpc_access_connector")
-        if VersionNetworkSettings.to_proto(self.network_settings):
-            request.resource.network_settings.CopyFrom(
-                VersionNetworkSettings.to_proto(self.network_settings)
-            )
-        else:
-            request.resource.ClearField("network_settings")
-        if VersionInstanceSpec.to_proto(self.instance_spec):
-            request.resource.instance_spec.CopyFrom(
-                VersionInstanceSpec.to_proto(self.instance_spec)
-            )
-        else:
-            request.resource.ClearField("instance_spec")
         if Primitive.to_proto(self.app):
             request.resource.app = Primitive.to_proto(self.app)
 
@@ -339,8 +261,6 @@ class Version(object):
         )
         self.basic_scaling = VersionBasicScaling.from_proto(response.basic_scaling)
         self.manual_scaling = VersionManualScaling.from_proto(response.manual_scaling)
-        self.job_scaling = VersionJobScaling.from_proto(response.job_scaling)
-        self.pool_scaling = VersionPoolScaling.from_proto(response.pool_scaling)
         self.inbound_services = VersionInboundServicesEnumArray.from_proto(
             response.inbound_services
         )
@@ -371,7 +291,6 @@ class Version(object):
         self.libraries = VersionLibrariesArray.from_proto(response.libraries)
         self.api_config = VersionApiConfig.from_proto(response.api_config)
         self.env_variables = Primitive.from_proto(response.env_variables)
-        self.build_env_variables = Primitive.from_proto(response.build_env_variables)
         self.default_expiration = Primitive.from_proto(response.default_expiration)
         self.deployment = VersionDeployment.from_proto(response.deployment)
         self.health_check = VersionHealthCheck.from_proto(response.health_check)
@@ -381,34 +300,165 @@ class Version(object):
         self.liveness_check = VersionLivenessCheck.from_proto(response.liveness_check)
         self.nobuild_files_regex = Primitive.from_proto(response.nobuild_files_regex)
         self.version_url = Primitive.from_proto(response.version_url)
-        self.service_auth_spec = VersionServiceAuthSpec.from_proto(
-            response.service_auth_spec
-        )
-        self.service_cors_spec = VersionServiceCorsSpec.from_proto(
-            response.service_cors_spec
-        )
-        self.route_hash = Primitive.from_proto(response.route_hash)
         self.entrypoint = VersionEntrypoint.from_proto(response.entrypoint)
         self.vpc_access_connector = VersionVPCAccessConnector.from_proto(
             response.vpc_access_connector
         )
-        self.network_settings = VersionNetworkSettings.from_proto(
-            response.network_settings
-        )
-        self.instance_spec = VersionInstanceSpec.from_proto(response.instance_spec)
         self.app = Primitive.from_proto(response.app)
         self.service = Primitive.from_proto(response.service)
 
-    @classmethod
-    def delete(self, app, service, name, service_account_file=""):
+    def delete(self):
         stub = version_pb2_grpc.AppengineVersionServiceStub(channel.Channel())
         request = version_pb2.DeleteAppengineVersionRequest()
-        request.service_account_file = service_account_file
-        request.App = app
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.consumer_name):
+            request.resource.consumer_name = Primitive.to_proto(self.consumer_name)
 
-        request.Service = service
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Name = name
+        if VersionAutomaticScaling.to_proto(self.automatic_scaling):
+            request.resource.automatic_scaling.CopyFrom(
+                VersionAutomaticScaling.to_proto(self.automatic_scaling)
+            )
+        else:
+            request.resource.ClearField("automatic_scaling")
+        if VersionBasicScaling.to_proto(self.basic_scaling):
+            request.resource.basic_scaling.CopyFrom(
+                VersionBasicScaling.to_proto(self.basic_scaling)
+            )
+        else:
+            request.resource.ClearField("basic_scaling")
+        if VersionManualScaling.to_proto(self.manual_scaling):
+            request.resource.manual_scaling.CopyFrom(
+                VersionManualScaling.to_proto(self.manual_scaling)
+            )
+        else:
+            request.resource.ClearField("manual_scaling")
+        if VersionInboundServicesEnumArray.to_proto(self.inbound_services):
+            request.resource.inbound_services.extend(
+                VersionInboundServicesEnumArray.to_proto(self.inbound_services)
+            )
+        if Primitive.to_proto(self.instance_class):
+            request.resource.instance_class = Primitive.to_proto(self.instance_class)
+
+        if VersionNetwork.to_proto(self.network):
+            request.resource.network.CopyFrom(VersionNetwork.to_proto(self.network))
+        else:
+            request.resource.ClearField("network")
+        if Primitive.to_proto(self.zones):
+            request.resource.zones.extend(Primitive.to_proto(self.zones))
+        if VersionResources.to_proto(self.resources):
+            request.resource.resources.CopyFrom(
+                VersionResources.to_proto(self.resources)
+            )
+        else:
+            request.resource.ClearField("resources")
+        if Primitive.to_proto(self.runtime):
+            request.resource.runtime = Primitive.to_proto(self.runtime)
+
+        if Primitive.to_proto(self.runtime_channel):
+            request.resource.runtime_channel = Primitive.to_proto(self.runtime_channel)
+
+        if Primitive.to_proto(self.threadsafe):
+            request.resource.threadsafe = Primitive.to_proto(self.threadsafe)
+
+        if Primitive.to_proto(self.vm):
+            request.resource.vm = Primitive.to_proto(self.vm)
+
+        if Primitive.to_proto(self.beta_settings):
+            request.resource.beta_settings = Primitive.to_proto(self.beta_settings)
+
+        if Primitive.to_proto(self.env):
+            request.resource.env = Primitive.to_proto(self.env)
+
+        if VersionServingStatusEnum.to_proto(self.serving_status):
+            request.resource.serving_status = VersionServingStatusEnum.to_proto(
+                self.serving_status
+            )
+
+        if Primitive.to_proto(self.runtime_api_version):
+            request.resource.runtime_api_version = Primitive.to_proto(
+                self.runtime_api_version
+            )
+
+        if Primitive.to_proto(self.runtime_main_executable_path):
+            request.resource.runtime_main_executable_path = Primitive.to_proto(
+                self.runtime_main_executable_path
+            )
+
+        if VersionHandlersArray.to_proto(self.handlers):
+            request.resource.handlers.extend(
+                VersionHandlersArray.to_proto(self.handlers)
+            )
+        if VersionErrorHandlersArray.to_proto(self.error_handlers):
+            request.resource.error_handlers.extend(
+                VersionErrorHandlersArray.to_proto(self.error_handlers)
+            )
+        if VersionLibrariesArray.to_proto(self.libraries):
+            request.resource.libraries.extend(
+                VersionLibrariesArray.to_proto(self.libraries)
+            )
+        if VersionApiConfig.to_proto(self.api_config):
+            request.resource.api_config.CopyFrom(
+                VersionApiConfig.to_proto(self.api_config)
+            )
+        else:
+            request.resource.ClearField("api_config")
+        if Primitive.to_proto(self.env_variables):
+            request.resource.env_variables = Primitive.to_proto(self.env_variables)
+
+        if Primitive.to_proto(self.default_expiration):
+            request.resource.default_expiration = Primitive.to_proto(
+                self.default_expiration
+            )
+
+        if VersionDeployment.to_proto(self.deployment):
+            request.resource.deployment.CopyFrom(
+                VersionDeployment.to_proto(self.deployment)
+            )
+        else:
+            request.resource.ClearField("deployment")
+        if VersionHealthCheck.to_proto(self.health_check):
+            request.resource.health_check.CopyFrom(
+                VersionHealthCheck.to_proto(self.health_check)
+            )
+        else:
+            request.resource.ClearField("health_check")
+        if VersionReadinessCheck.to_proto(self.readiness_check):
+            request.resource.readiness_check.CopyFrom(
+                VersionReadinessCheck.to_proto(self.readiness_check)
+            )
+        else:
+            request.resource.ClearField("readiness_check")
+        if VersionLivenessCheck.to_proto(self.liveness_check):
+            request.resource.liveness_check.CopyFrom(
+                VersionLivenessCheck.to_proto(self.liveness_check)
+            )
+        else:
+            request.resource.ClearField("liveness_check")
+        if Primitive.to_proto(self.nobuild_files_regex):
+            request.resource.nobuild_files_regex = Primitive.to_proto(
+                self.nobuild_files_regex
+            )
+
+        if VersionEntrypoint.to_proto(self.entrypoint):
+            request.resource.entrypoint.CopyFrom(
+                VersionEntrypoint.to_proto(self.entrypoint)
+            )
+        else:
+            request.resource.ClearField("entrypoint")
+        if VersionVPCAccessConnector.to_proto(self.vpc_access_connector):
+            request.resource.vpc_access_connector.CopyFrom(
+                VersionVPCAccessConnector.to_proto(self.vpc_access_connector)
+            )
+        else:
+            request.resource.ClearField("vpc_access_connector")
+        if Primitive.to_proto(self.app):
+            request.resource.app = Primitive.to_proto(self.app)
+
+        if Primitive.to_proto(self.service):
+            request.resource.service = Primitive.to_proto(self.service)
 
         response = stub.DeleteAppengineVersion(request)
 
@@ -437,8 +487,6 @@ class Version(object):
         )
         res.basic_scaling = VersionBasicScaling.from_proto(res_proto.basic_scaling)
         res.manual_scaling = VersionManualScaling.from_proto(res_proto.manual_scaling)
-        res.job_scaling = VersionJobScaling.from_proto(res_proto.job_scaling)
-        res.pool_scaling = VersionPoolScaling.from_proto(res_proto.pool_scaling)
         res.inbound_services = VersionInboundServicesEnumArray.from_proto(
             res_proto.inbound_services
         )
@@ -469,7 +517,6 @@ class Version(object):
         res.libraries = VersionLibrariesArray.from_proto(res_proto.libraries)
         res.api_config = VersionApiConfig.from_proto(res_proto.api_config)
         res.env_variables = Primitive.from_proto(res_proto.env_variables)
-        res.build_env_variables = Primitive.from_proto(res_proto.build_env_variables)
         res.default_expiration = Primitive.from_proto(res_proto.default_expiration)
         res.deployment = VersionDeployment.from_proto(res_proto.deployment)
         res.health_check = VersionHealthCheck.from_proto(res_proto.health_check)
@@ -479,24 +526,131 @@ class Version(object):
         res.liveness_check = VersionLivenessCheck.from_proto(res_proto.liveness_check)
         res.nobuild_files_regex = Primitive.from_proto(res_proto.nobuild_files_regex)
         res.version_url = Primitive.from_proto(res_proto.version_url)
-        res.service_auth_spec = VersionServiceAuthSpec.from_proto(
-            res_proto.service_auth_spec
-        )
-        res.service_cors_spec = VersionServiceCorsSpec.from_proto(
-            res_proto.service_cors_spec
-        )
-        res.route_hash = Primitive.from_proto(res_proto.route_hash)
         res.entrypoint = VersionEntrypoint.from_proto(res_proto.entrypoint)
         res.vpc_access_connector = VersionVPCAccessConnector.from_proto(
             res_proto.vpc_access_connector
         )
-        res.network_settings = VersionNetworkSettings.from_proto(
-            res_proto.network_settings
-        )
-        res.instance_spec = VersionInstanceSpec.from_proto(res_proto.instance_spec)
         res.app = Primitive.from_proto(res_proto.app)
         res.service = Primitive.from_proto(res_proto.service)
         return res
+
+    def to_proto(self):
+        resource = version_pb2.AppengineVersion()
+        if Primitive.to_proto(self.consumer_name):
+            resource.consumer_name = Primitive.to_proto(self.consumer_name)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if VersionAutomaticScaling.to_proto(self.automatic_scaling):
+            resource.automatic_scaling.CopyFrom(
+                VersionAutomaticScaling.to_proto(self.automatic_scaling)
+            )
+        else:
+            resource.ClearField("automatic_scaling")
+        if VersionBasicScaling.to_proto(self.basic_scaling):
+            resource.basic_scaling.CopyFrom(
+                VersionBasicScaling.to_proto(self.basic_scaling)
+            )
+        else:
+            resource.ClearField("basic_scaling")
+        if VersionManualScaling.to_proto(self.manual_scaling):
+            resource.manual_scaling.CopyFrom(
+                VersionManualScaling.to_proto(self.manual_scaling)
+            )
+        else:
+            resource.ClearField("manual_scaling")
+        if VersionInboundServicesEnumArray.to_proto(self.inbound_services):
+            resource.inbound_services.extend(
+                VersionInboundServicesEnumArray.to_proto(self.inbound_services)
+            )
+        if Primitive.to_proto(self.instance_class):
+            resource.instance_class = Primitive.to_proto(self.instance_class)
+        if VersionNetwork.to_proto(self.network):
+            resource.network.CopyFrom(VersionNetwork.to_proto(self.network))
+        else:
+            resource.ClearField("network")
+        if Primitive.to_proto(self.zones):
+            resource.zones.extend(Primitive.to_proto(self.zones))
+        if VersionResources.to_proto(self.resources):
+            resource.resources.CopyFrom(VersionResources.to_proto(self.resources))
+        else:
+            resource.ClearField("resources")
+        if Primitive.to_proto(self.runtime):
+            resource.runtime = Primitive.to_proto(self.runtime)
+        if Primitive.to_proto(self.runtime_channel):
+            resource.runtime_channel = Primitive.to_proto(self.runtime_channel)
+        if Primitive.to_proto(self.threadsafe):
+            resource.threadsafe = Primitive.to_proto(self.threadsafe)
+        if Primitive.to_proto(self.vm):
+            resource.vm = Primitive.to_proto(self.vm)
+        if Primitive.to_proto(self.beta_settings):
+            resource.beta_settings = Primitive.to_proto(self.beta_settings)
+        if Primitive.to_proto(self.env):
+            resource.env = Primitive.to_proto(self.env)
+        if VersionServingStatusEnum.to_proto(self.serving_status):
+            resource.serving_status = VersionServingStatusEnum.to_proto(
+                self.serving_status
+            )
+        if Primitive.to_proto(self.runtime_api_version):
+            resource.runtime_api_version = Primitive.to_proto(self.runtime_api_version)
+        if Primitive.to_proto(self.runtime_main_executable_path):
+            resource.runtime_main_executable_path = Primitive.to_proto(
+                self.runtime_main_executable_path
+            )
+        if VersionHandlersArray.to_proto(self.handlers):
+            resource.handlers.extend(VersionHandlersArray.to_proto(self.handlers))
+        if VersionErrorHandlersArray.to_proto(self.error_handlers):
+            resource.error_handlers.extend(
+                VersionErrorHandlersArray.to_proto(self.error_handlers)
+            )
+        if VersionLibrariesArray.to_proto(self.libraries):
+            resource.libraries.extend(VersionLibrariesArray.to_proto(self.libraries))
+        if VersionApiConfig.to_proto(self.api_config):
+            resource.api_config.CopyFrom(VersionApiConfig.to_proto(self.api_config))
+        else:
+            resource.ClearField("api_config")
+        if Primitive.to_proto(self.env_variables):
+            resource.env_variables = Primitive.to_proto(self.env_variables)
+        if Primitive.to_proto(self.default_expiration):
+            resource.default_expiration = Primitive.to_proto(self.default_expiration)
+        if VersionDeployment.to_proto(self.deployment):
+            resource.deployment.CopyFrom(VersionDeployment.to_proto(self.deployment))
+        else:
+            resource.ClearField("deployment")
+        if VersionHealthCheck.to_proto(self.health_check):
+            resource.health_check.CopyFrom(
+                VersionHealthCheck.to_proto(self.health_check)
+            )
+        else:
+            resource.ClearField("health_check")
+        if VersionReadinessCheck.to_proto(self.readiness_check):
+            resource.readiness_check.CopyFrom(
+                VersionReadinessCheck.to_proto(self.readiness_check)
+            )
+        else:
+            resource.ClearField("readiness_check")
+        if VersionLivenessCheck.to_proto(self.liveness_check):
+            resource.liveness_check.CopyFrom(
+                VersionLivenessCheck.to_proto(self.liveness_check)
+            )
+        else:
+            resource.ClearField("liveness_check")
+        if Primitive.to_proto(self.nobuild_files_regex):
+            resource.nobuild_files_regex = Primitive.to_proto(self.nobuild_files_regex)
+        if VersionEntrypoint.to_proto(self.entrypoint):
+            resource.entrypoint.CopyFrom(VersionEntrypoint.to_proto(self.entrypoint))
+        else:
+            resource.ClearField("entrypoint")
+        if VersionVPCAccessConnector.to_proto(self.vpc_access_connector):
+            resource.vpc_access_connector.CopyFrom(
+                VersionVPCAccessConnector.to_proto(self.vpc_access_connector)
+            )
+        else:
+            resource.ClearField("vpc_access_connector")
+        if Primitive.to_proto(self.app):
+            resource.app = Primitive.to_proto(self.app)
+        if Primitive.to_proto(self.service):
+            resource.service = Primitive.to_proto(self.service)
+        return resource
 
 
 class VersionAutomaticScaling(object):
@@ -995,118 +1149,6 @@ class VersionManualScalingArray(object):
         return [VersionManualScaling.from_proto(i) for i in resources]
 
 
-class VersionJobScaling(object):
-    def __init__(
-        self,
-        completions: int = None,
-        parallelism: int = None,
-        job_deadline: str = None,
-        instance_retries: int = None,
-        instance_deadline: str = None,
-        instance_termination_window: str = None,
-    ):
-        self.completions = completions
-        self.parallelism = parallelism
-        self.job_deadline = job_deadline
-        self.instance_retries = instance_retries
-        self.instance_deadline = instance_deadline
-        self.instance_termination_window = instance_termination_window
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionJobScaling()
-        if Primitive.to_proto(resource.completions):
-            res.completions = Primitive.to_proto(resource.completions)
-        if Primitive.to_proto(resource.parallelism):
-            res.parallelism = Primitive.to_proto(resource.parallelism)
-        if Primitive.to_proto(resource.job_deadline):
-            res.job_deadline = Primitive.to_proto(resource.job_deadline)
-        if Primitive.to_proto(resource.instance_retries):
-            res.instance_retries = Primitive.to_proto(resource.instance_retries)
-        if Primitive.to_proto(resource.instance_deadline):
-            res.instance_deadline = Primitive.to_proto(resource.instance_deadline)
-        if Primitive.to_proto(resource.instance_termination_window):
-            res.instance_termination_window = Primitive.to_proto(
-                resource.instance_termination_window
-            )
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionJobScaling(
-            completions=resource.completions,
-            parallelism=resource.parallelism,
-            job_deadline=resource.job_deadline,
-            instance_retries=resource.instance_retries,
-            instance_deadline=resource.instance_deadline,
-            instance_termination_window=resource.instance_termination_window,
-        )
-
-
-class VersionJobScalingArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionJobScaling.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionJobScaling.from_proto(i) for i in resources]
-
-
-class VersionPoolScaling(object):
-    def __init__(
-        self, replicas: int = None, max_unavailable: int = None, max_surge: int = None
-    ):
-        self.replicas = replicas
-        self.max_unavailable = max_unavailable
-        self.max_surge = max_surge
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionPoolScaling()
-        if Primitive.to_proto(resource.replicas):
-            res.replicas = Primitive.to_proto(resource.replicas)
-        if Primitive.to_proto(resource.max_unavailable):
-            res.max_unavailable = Primitive.to_proto(resource.max_unavailable)
-        if Primitive.to_proto(resource.max_surge):
-            res.max_surge = Primitive.to_proto(resource.max_surge)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionPoolScaling(
-            replicas=resource.replicas,
-            max_unavailable=resource.max_unavailable,
-            max_surge=resource.max_surge,
-        )
-
-
-class VersionPoolScalingArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionPoolScaling.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionPoolScaling.from_proto(i) for i in resources]
-
-
 class VersionNetwork(object):
     def __init__(
         self,
@@ -1173,13 +1215,11 @@ class VersionResources(object):
         disk_gb: float = None,
         memory_gb: float = None,
         volumes: list = None,
-        kms_key_reference: str = None,
     ):
         self.cpu = cpu
         self.disk_gb = disk_gb
         self.memory_gb = memory_gb
         self.volumes = volumes
-        self.kms_key_reference = kms_key_reference
 
     @classmethod
     def to_proto(self, resource):
@@ -1195,8 +1235,6 @@ class VersionResources(object):
             res.memory_gb = Primitive.to_proto(resource.memory_gb)
         if VersionResourcesVolumesArray.to_proto(resource.volumes):
             res.volumes.extend(VersionResourcesVolumesArray.to_proto(resource.volumes))
-        if Primitive.to_proto(resource.kms_key_reference):
-            res.kms_key_reference = Primitive.to_proto(resource.kms_key_reference)
         return res
 
     @classmethod
@@ -1209,7 +1247,6 @@ class VersionResources(object):
             disk_gb=resource.disk_gb,
             memory_gb=resource.memory_gb,
             volumes=resource.volumes,
-            kms_key_reference=resource.kms_key_reference,
         )
 
 
@@ -2082,146 +2119,6 @@ class VersionLivenessCheckArray(object):
         return [VersionLivenessCheck.from_proto(i) for i in resources]
 
 
-class VersionServiceAuthSpec(object):
-    def __init__(
-        self,
-        audiences: list = None,
-        iam_service_name: str = None,
-        iam_resource_name: str = None,
-        iam_policy_id: str = None,
-        iam_policy_type: str = None,
-        iam_permission: str = None,
-        accept_gcloud_client_id: bool = None,
-        clear: bool = None,
-    ):
-        self.audiences = audiences
-        self.iam_service_name = iam_service_name
-        self.iam_resource_name = iam_resource_name
-        self.iam_policy_id = iam_policy_id
-        self.iam_policy_type = iam_policy_type
-        self.iam_permission = iam_permission
-        self.accept_gcloud_client_id = accept_gcloud_client_id
-        self.clear = clear
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionServiceAuthSpec()
-        if Primitive.to_proto(resource.audiences):
-            res.audiences.extend(Primitive.to_proto(resource.audiences))
-        if Primitive.to_proto(resource.iam_service_name):
-            res.iam_service_name = Primitive.to_proto(resource.iam_service_name)
-        if Primitive.to_proto(resource.iam_resource_name):
-            res.iam_resource_name = Primitive.to_proto(resource.iam_resource_name)
-        if Primitive.to_proto(resource.iam_policy_id):
-            res.iam_policy_id = Primitive.to_proto(resource.iam_policy_id)
-        if Primitive.to_proto(resource.iam_policy_type):
-            res.iam_policy_type = Primitive.to_proto(resource.iam_policy_type)
-        if Primitive.to_proto(resource.iam_permission):
-            res.iam_permission = Primitive.to_proto(resource.iam_permission)
-        if Primitive.to_proto(resource.accept_gcloud_client_id):
-            res.accept_gcloud_client_id = Primitive.to_proto(
-                resource.accept_gcloud_client_id
-            )
-        if Primitive.to_proto(resource.clear):
-            res.clear = Primitive.to_proto(resource.clear)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionServiceAuthSpec(
-            audiences=resource.audiences,
-            iam_service_name=resource.iam_service_name,
-            iam_resource_name=resource.iam_resource_name,
-            iam_policy_id=resource.iam_policy_id,
-            iam_policy_type=resource.iam_policy_type,
-            iam_permission=resource.iam_permission,
-            accept_gcloud_client_id=resource.accept_gcloud_client_id,
-            clear=resource.clear,
-        )
-
-
-class VersionServiceAuthSpecArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionServiceAuthSpec.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionServiceAuthSpec.from_proto(i) for i in resources]
-
-
-class VersionServiceCorsSpec(object):
-    def __init__(
-        self,
-        origin: list = None,
-        method: list = None,
-        header: list = None,
-        exposed_header: list = None,
-        allow_credential: bool = None,
-        max_age_seconds: int = None,
-    ):
-        self.origin = origin
-        self.method = method
-        self.header = header
-        self.exposed_header = exposed_header
-        self.allow_credential = allow_credential
-        self.max_age_seconds = max_age_seconds
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionServiceCorsSpec()
-        if Primitive.to_proto(resource.origin):
-            res.origin.extend(Primitive.to_proto(resource.origin))
-        if Primitive.to_proto(resource.method):
-            res.method.extend(Primitive.to_proto(resource.method))
-        if Primitive.to_proto(resource.header):
-            res.header.extend(Primitive.to_proto(resource.header))
-        if Primitive.to_proto(resource.exposed_header):
-            res.exposed_header.extend(Primitive.to_proto(resource.exposed_header))
-        if Primitive.to_proto(resource.allow_credential):
-            res.allow_credential = Primitive.to_proto(resource.allow_credential)
-        if Primitive.to_proto(resource.max_age_seconds):
-            res.max_age_seconds = Primitive.to_proto(resource.max_age_seconds)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionServiceCorsSpec(
-            origin=resource.origin,
-            method=resource.method,
-            header=resource.header,
-            exposed_header=resource.exposed_header,
-            allow_credential=resource.allow_credential,
-            max_age_seconds=resource.max_age_seconds,
-        )
-
-
-class VersionServiceCorsSpecArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionServiceCorsSpec.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionServiceCorsSpec.from_proto(i) for i in resources]
-
-
 class VersionEntrypoint(object):
     def __init__(self, shell: str = None):
         self.shell = shell
@@ -2257,9 +2154,8 @@ class VersionEntrypointArray(object):
 
 
 class VersionVPCAccessConnector(object):
-    def __init__(self, name: str = None, egress_setting: str = None):
+    def __init__(self, name: str = None):
         self.name = name
-        self.egress_setting = egress_setting
 
     @classmethod
     def to_proto(self, resource):
@@ -2269,10 +2165,6 @@ class VersionVPCAccessConnector(object):
         res = version_pb2.AppengineVersionVPCAccessConnector()
         if Primitive.to_proto(resource.name):
             res.name = Primitive.to_proto(resource.name)
-        if VersionVPCAccessConnectorEgressSettingEnum.to_proto(resource.egress_setting):
-            res.egress_setting = VersionVPCAccessConnectorEgressSettingEnum.to_proto(
-                resource.egress_setting
-            )
         return res
 
     @classmethod
@@ -2280,9 +2172,7 @@ class VersionVPCAccessConnector(object):
         if not resource:
             return None
 
-        return VersionVPCAccessConnector(
-            name=resource.name, egress_setting=resource.egress_setting,
-        )
+        return VersionVPCAccessConnector(name=resource.name,)
 
 
 class VersionVPCAccessConnectorArray(object):
@@ -2295,223 +2185,6 @@ class VersionVPCAccessConnectorArray(object):
     @classmethod
     def from_proto(self, resources):
         return [VersionVPCAccessConnector.from_proto(i) for i in resources]
-
-
-class VersionNetworkSettings(object):
-    def __init__(self, ingress_traffic_allowed: str = None):
-        self.ingress_traffic_allowed = ingress_traffic_allowed
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionNetworkSettings()
-        if VersionNetworkSettingsIngressTrafficAllowedEnum.to_proto(
-            resource.ingress_traffic_allowed
-        ):
-            res.ingress_traffic_allowed = VersionNetworkSettingsIngressTrafficAllowedEnum.to_proto(
-                resource.ingress_traffic_allowed
-            )
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionNetworkSettings(
-            ingress_traffic_allowed=resource.ingress_traffic_allowed,
-        )
-
-
-class VersionNetworkSettingsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionNetworkSettings.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionNetworkSettings.from_proto(i) for i in resources]
-
-
-class VersionInstanceSpec(object):
-    def __init__(self, sandboxes: list = None, ports: list = None):
-        self.sandboxes = sandboxes
-        self.ports = ports
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionInstanceSpec()
-        if VersionInstanceSpecSandboxesArray.to_proto(resource.sandboxes):
-            res.sandboxes.extend(
-                VersionInstanceSpecSandboxesArray.to_proto(resource.sandboxes)
-            )
-        if VersionInstanceSpecPortsArray.to_proto(resource.ports):
-            res.ports.extend(VersionInstanceSpecPortsArray.to_proto(resource.ports))
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionInstanceSpec(sandboxes=resource.sandboxes, ports=resource.ports,)
-
-
-class VersionInstanceSpecArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionInstanceSpec.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionInstanceSpec.from_proto(i) for i in resources]
-
-
-class VersionInstanceSpecSandboxes(object):
-    def __init__(self, name: str = None, containers: list = None):
-        self.name = name
-        self.containers = containers
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionInstanceSpecSandboxes()
-        if Primitive.to_proto(resource.name):
-            res.name = Primitive.to_proto(resource.name)
-        if VersionInstanceSpecSandboxesContainersArray.to_proto(resource.containers):
-            res.containers.extend(
-                VersionInstanceSpecSandboxesContainersArray.to_proto(
-                    resource.containers
-                )
-            )
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionInstanceSpecSandboxes(
-            name=resource.name, containers=resource.containers,
-        )
-
-
-class VersionInstanceSpecSandboxesArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionInstanceSpecSandboxes.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionInstanceSpecSandboxes.from_proto(i) for i in resources]
-
-
-class VersionInstanceSpecSandboxesContainers(object):
-    def __init__(self, ports: list = None):
-        self.ports = ports
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionInstanceSpecSandboxesContainers()
-        if int64Array.to_proto(resource.ports):
-            res.ports.extend(int64Array.to_proto(resource.ports))
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionInstanceSpecSandboxesContainers(ports=resource.ports,)
-
-
-class VersionInstanceSpecSandboxesContainersArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionInstanceSpecSandboxesContainers.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionInstanceSpecSandboxesContainers.from_proto(i) for i in resources]
-
-
-class VersionInstanceSpecPorts(object):
-    def __init__(
-        self,
-        name: str = None,
-        sandbox: str = None,
-        port: int = None,
-        protocol: str = None,
-        is_default: bool = None,
-    ):
-        self.name = name
-        self.sandbox = sandbox
-        self.port = port
-        self.protocol = protocol
-        self.is_default = is_default
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = version_pb2.AppengineVersionInstanceSpecPorts()
-        if Primitive.to_proto(resource.name):
-            res.name = Primitive.to_proto(resource.name)
-        if Primitive.to_proto(resource.sandbox):
-            res.sandbox = Primitive.to_proto(resource.sandbox)
-        if Primitive.to_proto(resource.port):
-            res.port = Primitive.to_proto(resource.port)
-        if VersionInstanceSpecPortsProtocolEnum.to_proto(resource.protocol):
-            res.protocol = VersionInstanceSpecPortsProtocolEnum.to_proto(
-                resource.protocol
-            )
-        if Primitive.to_proto(resource.is_default):
-            res.is_default = Primitive.to_proto(resource.is_default)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return VersionInstanceSpecPorts(
-            name=resource.name,
-            sandbox=resource.sandbox,
-            port=resource.port,
-            protocol=resource.protocol,
-            is_default=resource.is_default,
-        )
-
-
-class VersionInstanceSpecPortsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [VersionInstanceSpecPorts.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [VersionInstanceSpecPorts.from_proto(i) for i in resources]
 
 
 class VersionInboundServicesEnum(object):
@@ -2691,62 +2364,6 @@ class VersionApiConfigSecurityLevelEnum(object):
             return resource
         return version_pb2.AppengineVersionApiConfigSecurityLevelEnum.Name(resource)[
             len("AppengineVersionApiConfigSecurityLevelEnum") :
-        ]
-
-
-class VersionVPCAccessConnectorEgressSettingEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return version_pb2.AppengineVersionVPCAccessConnectorEgressSettingEnum.Value(
-            "AppengineVersionVPCAccessConnectorEgressSettingEnum%s" % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return version_pb2.AppengineVersionVPCAccessConnectorEgressSettingEnum.Name(
-            resource
-        )[len("AppengineVersionVPCAccessConnectorEgressSettingEnum") :]
-
-
-class VersionNetworkSettingsIngressTrafficAllowedEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return version_pb2.AppengineVersionNetworkSettingsIngressTrafficAllowedEnum.Value(
-            "AppengineVersionNetworkSettingsIngressTrafficAllowedEnum%s" % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return version_pb2.AppengineVersionNetworkSettingsIngressTrafficAllowedEnum.Name(
-            resource
-        )[
-            len("AppengineVersionNetworkSettingsIngressTrafficAllowedEnum") :
-        ]
-
-
-class VersionInstanceSpecPortsProtocolEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return version_pb2.AppengineVersionInstanceSpecPortsProtocolEnum.Value(
-            "AppengineVersionInstanceSpecPortsProtocolEnum%s" % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return version_pb2.AppengineVersionInstanceSpecPortsProtocolEnum.Name(resource)[
-            len("AppengineVersionInstanceSpecPortsProtocolEnum") :
         ]
 
 

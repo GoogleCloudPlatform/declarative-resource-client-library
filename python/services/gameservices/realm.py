@@ -74,16 +74,27 @@ class Realm(object):
         self.location = Primitive.from_proto(response.location)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, location, name, service_account_file=""):
+    def delete(self):
         stub = realm_pb2_grpc.GameservicesRealmServiceStub(channel.Channel())
         request = realm_pb2.DeleteGameservicesRealmRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
 
-        request.Name = name
+        if Primitive.to_proto(self.time_zone):
+            request.resource.time_zone = Primitive.to_proto(self.time_zone)
+
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteGameservicesRealm(request)
 
@@ -114,6 +125,22 @@ class Realm(object):
         res.location = Primitive.from_proto(res_proto.location)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = realm_pb2.GameservicesRealm()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.labels):
+            resource.labels = Primitive.to_proto(self.labels)
+        if Primitive.to_proto(self.time_zone):
+            resource.time_zone = Primitive.to_proto(self.time_zone)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class Primitive(object):

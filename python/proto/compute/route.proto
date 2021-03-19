@@ -75,16 +75,9 @@ message ListComputeRouteRequest {
 message ListComputeRouteResponse {
   repeated ComputeRoute items = 1;
 }
-message ComputeRouteAsHclRequest {
-  ComputeRoute resource = 1;
-}
-message ComputeRouteAsHclResponse {
-  string hcl = 1;
-}
+
 service ComputeRouteService {
   rpc ApplyComputeRoute(ApplyComputeRouteRequest) returns (ComputeRoute);
   rpc DeleteComputeRoute(DeleteComputeRouteRequest) returns (google.protobuf.Empty);
   rpc ListComputeRoute(ListComputeRouteRequest) returns (ListComputeRouteResponse);
-  rpc ComputeRouteAsHcl(ComputeRouteAsHclRequest) returns (ComputeRouteAsHclResponse);
-
 }

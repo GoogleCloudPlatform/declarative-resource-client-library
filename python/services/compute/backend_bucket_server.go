@@ -20,8 +20,6 @@ import (
 	computepb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/compute/compute_go_proto"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute"
-
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/serialization"
 )
 
 // Server implements the gRPC interface for BackendBucket.
@@ -102,16 +100,6 @@ func (s *BackendBucketServer) ApplyComputeBackendBucket(ctx context.Context, req
 		return nil, err
 	}
 	return s.applyBackendBucket(ctx, cl, request)
-}
-
-func (s *BackendBucketServer) ComputeBackendBucketAsHcl(ctx context.Context, request *computepb.ComputeBackendBucketAsHclRequest) (*computepb.ComputeBackendBucketAsHclResponse, error) {
-	p := ProtoToBackendBucket(request.GetResource())
-	resStr, err := serialization.ComputeBackendBucketAsHCL(*p)
-	if err != nil {
-		return nil, err
-	}
-
-	return &computepb.ComputeBackendBucketAsHclResponse{Hcl: resStr}, nil
 }
 
 // DeleteBackendBucket handles the gRPC request by passing it to the underlying BackendBucket Delete() method.

@@ -204,6 +204,7 @@ message ListComputeBetaImageRequest {
 message ListComputeBetaImageResponse {
   repeated ComputeBetaImage items = 1;
 }
+
 service ComputeBetaImageService {
   rpc ApplyComputeBetaImage(ApplyComputeBetaImageRequest) returns (ComputeBetaImage);
   rpc DeleteComputeBetaImage(DeleteComputeBetaImageRequest) returns (google.protobuf.Empty);

@@ -104,7 +104,7 @@ func (c *Client) listRouteRaw(ctx context.Context, project, pageToken string, pa
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -178,7 +178,7 @@ func (op *deleteRouteOperation) do(ctx context.Context, r *Route, c *Client) err
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -201,7 +201,13 @@ func (op *deleteRouteOperation) do(ctx context.Context, r *Route, c *Client) err
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createRouteOperation struct{}
+type createRouteOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createRouteOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createRouteOperation) do(ctx context.Context, r *Route, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -217,7 +223,7 @@ func (op *createRouteOperation) do(ctx context.Context, r *Route, c *Client) err
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -231,8 +237,10 @@ func (op *createRouteOperation) do(ctx context.Context, r *Route, c *Client) err
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetRoute(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -248,7 +256,7 @@ func (c *Client) getRouteRaw(ctx context.Context, r *Route) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -329,14 +337,6 @@ func canonicalizeRouteDesiredState(rawDesired, rawInitial *Route, opts ...dcl.Ap
 		rawDesired.Priority = dcl.Int64(1000)
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Route); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Route, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -346,10 +346,10 @@ func canonicalizeRouteDesiredState(rawDesired, rawInitial *Route, opts ...dcl.Ap
 	if dcl.IsZeroValue(rawDesired.Id) {
 		rawDesired.Id = rawInitial.Id
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Network, rawInitial.Network) {
@@ -358,37 +358,37 @@ func canonicalizeRouteDesiredState(rawDesired, rawInitial *Route, opts ...dcl.Ap
 	if dcl.IsZeroValue(rawDesired.Tag) {
 		rawDesired.Tag = rawInitial.Tag
 	}
-	if dcl.IsZeroValue(rawDesired.DestRange) {
+	if dcl.StringCanonicalize(rawDesired.DestRange, rawInitial.DestRange) {
 		rawDesired.DestRange = rawInitial.DestRange
 	}
 	if dcl.IsZeroValue(rawDesired.Priority) {
 		rawDesired.Priority = rawInitial.Priority
 	}
-	if dcl.PartialSelfLinkToSelfLink(rawDesired.NextHopInstance, rawInitial.NextHopInstance) {
+	if dcl.StringCanonicalize(rawDesired.NextHopInstance, rawInitial.NextHopInstance) {
 		rawDesired.NextHopInstance = rawInitial.NextHopInstance
 	}
-	if dcl.IsZeroValue(rawDesired.NextHopIP) {
+	if dcl.StringCanonicalize(rawDesired.NextHopIP, rawInitial.NextHopIP) {
 		rawDesired.NextHopIP = rawInitial.NextHopIP
 	}
-	if dcl.IsZeroValue(rawDesired.NextHopNetwork) {
+	if dcl.StringCanonicalize(rawDesired.NextHopNetwork, rawInitial.NextHopNetwork) {
 		rawDesired.NextHopNetwork = rawInitial.NextHopNetwork
 	}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.NextHopGateway, rawInitial.NextHopGateway) {
 		rawDesired.NextHopGateway = rawInitial.NextHopGateway
 	}
-	if dcl.IsZeroValue(rawDesired.NextHopPeering) {
+	if dcl.StringCanonicalize(rawDesired.NextHopPeering, rawInitial.NextHopPeering) {
 		rawDesired.NextHopPeering = rawInitial.NextHopPeering
 	}
-	if dcl.IsZeroValue(rawDesired.NextHopIlb) {
+	if dcl.StringCanonicalize(rawDesired.NextHopIlb, rawInitial.NextHopIlb) {
 		rawDesired.NextHopIlb = rawInitial.NextHopIlb
 	}
 	if dcl.IsZeroValue(rawDesired.Warning) {
 		rawDesired.Warning = rawInitial.Warning
 	}
-	if dcl.IsZeroValue(rawDesired.NextHopVpnTunnel) {
+	if dcl.StringCanonicalize(rawDesired.NextHopVpnTunnel, rawInitial.NextHopVpnTunnel) {
 		rawDesired.NextHopVpnTunnel = rawInitial.NextHopVpnTunnel
 	}
-	if dcl.IsZeroValue(rawDesired.SelfLink) {
+	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
@@ -408,11 +408,17 @@ func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, er
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Network) && dcl.IsEmptyValueIndirect(rawDesired.Network) {
@@ -431,6 +437,9 @@ func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, er
 	if dcl.IsEmptyValueIndirect(rawNew.DestRange) && dcl.IsEmptyValueIndirect(rawDesired.DestRange) {
 		rawNew.DestRange = rawDesired.DestRange
 	} else {
+		if dcl.StringCanonicalize(rawDesired.DestRange, rawNew.DestRange) {
+			rawNew.DestRange = rawDesired.DestRange
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Priority) && dcl.IsEmptyValueIndirect(rawDesired.Priority) {
@@ -441,7 +450,7 @@ func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, er
 	if dcl.IsEmptyValueIndirect(rawNew.NextHopInstance) && dcl.IsEmptyValueIndirect(rawDesired.NextHopInstance) {
 		rawNew.NextHopInstance = rawDesired.NextHopInstance
 	} else {
-		if dcl.PartialSelfLinkToSelfLink(rawDesired.NextHopInstance, rawNew.NextHopInstance) {
+		if dcl.StringCanonicalize(rawDesired.NextHopInstance, rawNew.NextHopInstance) {
 			rawNew.NextHopInstance = rawDesired.NextHopInstance
 		}
 	}
@@ -449,11 +458,17 @@ func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, er
 	if dcl.IsEmptyValueIndirect(rawNew.NextHopIP) && dcl.IsEmptyValueIndirect(rawDesired.NextHopIP) {
 		rawNew.NextHopIP = rawDesired.NextHopIP
 	} else {
+		if dcl.StringCanonicalize(rawDesired.NextHopIP, rawNew.NextHopIP) {
+			rawNew.NextHopIP = rawDesired.NextHopIP
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.NextHopNetwork) && dcl.IsEmptyValueIndirect(rawDesired.NextHopNetwork) {
 		rawNew.NextHopNetwork = rawDesired.NextHopNetwork
 	} else {
+		if dcl.StringCanonicalize(rawDesired.NextHopNetwork, rawNew.NextHopNetwork) {
+			rawNew.NextHopNetwork = rawDesired.NextHopNetwork
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.NextHopGateway) && dcl.IsEmptyValueIndirect(rawDesired.NextHopGateway) {
@@ -467,11 +482,17 @@ func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, er
 	if dcl.IsEmptyValueIndirect(rawNew.NextHopPeering) && dcl.IsEmptyValueIndirect(rawDesired.NextHopPeering) {
 		rawNew.NextHopPeering = rawDesired.NextHopPeering
 	} else {
+		if dcl.StringCanonicalize(rawDesired.NextHopPeering, rawNew.NextHopPeering) {
+			rawNew.NextHopPeering = rawDesired.NextHopPeering
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.NextHopIlb) && dcl.IsEmptyValueIndirect(rawDesired.NextHopIlb) {
 		rawNew.NextHopIlb = rawDesired.NextHopIlb
 	} else {
+		if dcl.StringCanonicalize(rawDesired.NextHopIlb, rawNew.NextHopIlb) {
+			rawNew.NextHopIlb = rawDesired.NextHopIlb
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Warning) && dcl.IsEmptyValueIndirect(rawDesired.Warning) {
@@ -482,11 +503,17 @@ func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, er
 	if dcl.IsEmptyValueIndirect(rawNew.NextHopVpnTunnel) && dcl.IsEmptyValueIndirect(rawDesired.NextHopVpnTunnel) {
 		rawNew.NextHopVpnTunnel = rawDesired.NextHopVpnTunnel
 	} else {
+		if dcl.StringCanonicalize(rawDesired.NextHopVpnTunnel, rawNew.NextHopVpnTunnel) {
+			rawNew.NextHopVpnTunnel = rawDesired.NextHopVpnTunnel
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -502,11 +529,6 @@ func canonicalizeRouteWarning(des, initial *RouteWarning, opts ...dcl.ApplyOptio
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Route)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -514,7 +536,7 @@ func canonicalizeRouteWarning(des, initial *RouteWarning, opts ...dcl.ApplyOptio
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
 	}
-	if dcl.IsZeroValue(des.Message) {
+	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
 		des.Message = initial.Message
 	}
 	if dcl.IsZeroValue(des.Data) {
@@ -527,6 +549,10 @@ func canonicalizeRouteWarning(des, initial *RouteWarning, opts ...dcl.ApplyOptio
 func canonicalizeNewRouteWarning(c *Client, des, nw *RouteWarning) *RouteWarning {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Message, nw.Message) || dcl.IsZeroValue(des.Message) {
+		nw.Message = des.Message
 	}
 
 	return nw
@@ -576,14 +602,14 @@ func diffRoute(c *Client, desired, actual *Route, opts ...dcl.ApplyOption) ([]ro
 	}
 
 	var diffs []routeDiff
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, routeDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, routeDiff{
 			RequiresRecreate: true,
@@ -597,42 +623,42 @@ func diffRoute(c *Client, desired, actual *Route, opts ...dcl.ApplyOption) ([]ro
 			FieldName:        "Network",
 		})
 	}
-	if !dcl.SliceEquals(desired.Tag, actual.Tag) {
+	if !dcl.StringSliceEquals(desired.Tag, actual.Tag) {
 		c.Config.Logger.Infof("Detected diff in Tag.\nDESIRED: %v\nACTUAL: %v", desired.Tag, actual.Tag)
 		diffs = append(diffs, routeDiff{
 			RequiresRecreate: true,
 			FieldName:        "Tag",
 		})
 	}
-	if !dcl.IsZeroValue(desired.DestRange) && (dcl.IsZeroValue(actual.DestRange) || !reflect.DeepEqual(*desired.DestRange, *actual.DestRange)) {
+	if !dcl.IsZeroValue(desired.DestRange) && !dcl.StringCanonicalize(desired.DestRange, actual.DestRange) {
 		c.Config.Logger.Infof("Detected diff in DestRange.\nDESIRED: %v\nACTUAL: %v", desired.DestRange, actual.DestRange)
 		diffs = append(diffs, routeDiff{
 			RequiresRecreate: true,
 			FieldName:        "DestRange",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Priority) && (dcl.IsZeroValue(actual.Priority) || !reflect.DeepEqual(*desired.Priority, *actual.Priority)) {
+	if !reflect.DeepEqual(desired.Priority, actual.Priority) {
 		c.Config.Logger.Infof("Detected diff in Priority.\nDESIRED: %v\nACTUAL: %v", desired.Priority, actual.Priority)
 		diffs = append(diffs, routeDiff{
 			RequiresRecreate: true,
 			FieldName:        "Priority",
 		})
 	}
-	if !dcl.IsZeroValue(desired.NextHopInstance) && !dcl.PartialSelfLinkToSelfLink(desired.NextHopInstance, actual.NextHopInstance) {
+	if !dcl.IsZeroValue(desired.NextHopInstance) && !dcl.StringCanonicalize(desired.NextHopInstance, actual.NextHopInstance) {
 		c.Config.Logger.Infof("Detected diff in NextHopInstance.\nDESIRED: %v\nACTUAL: %v", desired.NextHopInstance, actual.NextHopInstance)
 		diffs = append(diffs, routeDiff{
 			RequiresRecreate: true,
 			FieldName:        "NextHopInstance",
 		})
 	}
-	if !dcl.IsZeroValue(desired.NextHopIP) && (dcl.IsZeroValue(actual.NextHopIP) || !reflect.DeepEqual(*desired.NextHopIP, *actual.NextHopIP)) {
+	if !dcl.IsZeroValue(desired.NextHopIP) && !dcl.StringCanonicalize(desired.NextHopIP, actual.NextHopIP) {
 		c.Config.Logger.Infof("Detected diff in NextHopIP.\nDESIRED: %v\nACTUAL: %v", desired.NextHopIP, actual.NextHopIP)
 		diffs = append(diffs, routeDiff{
 			RequiresRecreate: true,
 			FieldName:        "NextHopIP",
 		})
 	}
-	if !dcl.IsZeroValue(desired.NextHopNetwork) && (dcl.IsZeroValue(actual.NextHopNetwork) || !reflect.DeepEqual(*desired.NextHopNetwork, *actual.NextHopNetwork)) {
+	if !dcl.IsZeroValue(desired.NextHopNetwork) && !dcl.StringCanonicalize(desired.NextHopNetwork, actual.NextHopNetwork) {
 		c.Config.Logger.Infof("Detected diff in NextHopNetwork.\nDESIRED: %v\nACTUAL: %v", desired.NextHopNetwork, actual.NextHopNetwork)
 		diffs = append(diffs, routeDiff{
 			RequiresRecreate: true,
@@ -646,14 +672,14 @@ func diffRoute(c *Client, desired, actual *Route, opts ...dcl.ApplyOption) ([]ro
 			FieldName:        "NextHopGateway",
 		})
 	}
-	if !dcl.IsZeroValue(desired.NextHopIlb) && (dcl.IsZeroValue(actual.NextHopIlb) || !reflect.DeepEqual(*desired.NextHopIlb, *actual.NextHopIlb)) {
+	if !dcl.IsZeroValue(desired.NextHopIlb) && !dcl.StringCanonicalize(desired.NextHopIlb, actual.NextHopIlb) {
 		c.Config.Logger.Infof("Detected diff in NextHopIlb.\nDESIRED: %v\nACTUAL: %v", desired.NextHopIlb, actual.NextHopIlb)
 		diffs = append(diffs, routeDiff{
 			RequiresRecreate: true,
 			FieldName:        "NextHopIlb",
 		})
 	}
-	if !dcl.IsZeroValue(desired.NextHopVpnTunnel) && (dcl.IsZeroValue(actual.NextHopVpnTunnel) || !reflect.DeepEqual(*desired.NextHopVpnTunnel, *actual.NextHopVpnTunnel)) {
+	if !dcl.IsZeroValue(desired.NextHopVpnTunnel) && !dcl.StringCanonicalize(desired.NextHopVpnTunnel, actual.NextHopVpnTunnel) {
 		c.Config.Logger.Infof("Detected diff in NextHopVpnTunnel.\nDESIRED: %v\nACTUAL: %v", desired.NextHopVpnTunnel, actual.NextHopVpnTunnel)
 		diffs = append(diffs, routeDiff{
 			RequiresRecreate: true,
@@ -684,6 +710,16 @@ func diffRoute(c *Client, desired, actual *Route, opts ...dcl.ApplyOption) ([]ro
 
 	return deduped, nil
 }
+func compareRouteWarning(c *Client, desired, actual *RouteWarning) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	return false
+}
+
 func compareRouteWarningSlice(c *Client, desired, actual []RouteWarning) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in RouteWarning, lengths unequal.")
@@ -698,15 +734,25 @@ func compareRouteWarningSlice(c *Client, desired, actual []RouteWarning) bool {
 	return false
 }
 
-func compareRouteWarning(c *Client, desired, actual *RouteWarning) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
+func compareRouteWarningMap(c *Client, desired, actual map[string]RouteWarning) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in RouteWarning, lengths unequal.")
 		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in RouteWarning, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareRouteWarning(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in RouteWarning, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
 	}
 	return false
 }
+
 func compareRouteWarningCodeEnumSlice(c *Client, desired, actual []RouteWarningCodeEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in RouteWarningCodeEnum, lengths unequal.")
@@ -730,8 +776,18 @@ func compareRouteWarningCodeEnum(c *Client, desired, actual *RouteWarningCodeEnu
 // short-form so they can be substituted in.
 func (r *Route) urlNormalized() *Route {
 	normalized := deepcopy.Copy(*r).(Route)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.Network = dcl.SelfLinkToName(r.Network)
+	normalized.DestRange = dcl.SelfLinkToName(r.DestRange)
+	normalized.NextHopInstance = dcl.SelfLinkToName(r.NextHopInstance)
+	normalized.NextHopIP = dcl.SelfLinkToName(r.NextHopIP)
+	normalized.NextHopNetwork = dcl.SelfLinkToName(r.NextHopNetwork)
 	normalized.NextHopGateway = dcl.SelfLinkToName(r.NextHopGateway)
+	normalized.NextHopPeering = dcl.SelfLinkToName(r.NextHopPeering)
+	normalized.NextHopIlb = dcl.SelfLinkToName(r.NextHopIlb)
+	normalized.NextHopVpnTunnel = dcl.SelfLinkToName(r.NextHopVpnTunnel)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -773,6 +829,10 @@ func unmarshalRoute(b []byte, c *Client) (*Route, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapRoute(m, c)
+}
+
+func unmarshalMapRoute(m map[string]interface{}, c *Client) (*Route, error) {
 	if v, err := dcl.MapFromListOfKeyValues(m, []string{"warning", "data", "items"}); err != nil {
 		return nil, err
 	} else {
@@ -1023,7 +1083,7 @@ func flattenRouteWarningCodeEnumSlice(c *Client, i interface{}) []RouteWarningCo
 
 	items := make([]RouteWarningCodeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenRouteWarningCodeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenRouteWarningCodeEnum(item.(interface{})))
 	}
 
 	return items

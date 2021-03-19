@@ -1,0 +1,116 @@
+# Copyright 2021 Google LLC. All Rights Reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+components:
+  schemas:
+    Subscription:
+      properties:
+        deliveryConfig:
+          description: The settings for this subscription's message delivery.
+          properties:
+            deliveryRequirement:
+              description: 'The DeliveryRequirement for this subscription. Possible
+                values: DELIVERY_REQUIREMENT_UNSPECIFIED, DELIVER_IMMEDIATELY, DELIVER_AFTER_STORED'
+              enum:
+              - DELIVERY_REQUIREMENT_UNSPECIFIED
+              - DELIVER_IMMEDIATELY
+              - DELIVER_AFTER_STORED
+              type: string
+              x-dcl-go-name: DeliveryRequirement
+              x-dcl-go-type: SubscriptionDeliveryConfigDeliveryRequirementEnum
+          type: object
+          x-dcl-go-name: DeliveryConfig
+          x-dcl-go-type: SubscriptionDeliveryConfig
+        location:
+          description: The location id of the resource.
+          type: string
+          x-dcl-go-name: Location
+          x-kubernetes-immutable: true
+        name:
+          description: The name of the subscription.
+          type: string
+          x-dcl-go-name: Name
+          x-kubernetes-immutable: true
+        project:
+          description: The project id of the resource.
+          type: string
+          x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
+          x-kubernetes-immutable: true
+        topic:
+          description: The name of the topic this subscription is attached to.
+          type: string
+          x-dcl-go-name: Topic
+          x-dcl-references:
+          - field: name
+            resource: Pubsublite/Topic
+          x-kubernetes-immutable: true
+      required:
+      - name
+      - topic
+      - project
+      - location
+      title: Subscription
+      type: object
+      x-dcl-id: admin/projects/{{project}}/locations/{{location}}/subscriptions/{{name}}
+      x-dcl-locations: []
+      x-dcl-parent-container: project
+      x-dcl-uses-state-hint: false
+info:
+  description: DCL Specification for the Pubsublite Subscription resource
+  title: Pubsublite/Subscription
+  x-dcl-has-iam: false
+paths:
+  apply:
+    description: The function used to apply information about a Subscription
+    parameters:
+    - description: A full instance of a Subscription
+      name: Subscription
+      required: true
+  delete:
+    description: The function used to delete a Subscription
+    parameters:
+    - description: A full instance of a Subscription
+      name: Subscription
+      required: true
+  deleteAll:
+    description: The function used to delete all Subscription
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Subscription
+    parameters:
+    - description: A full instance of a Subscription
+      name: Subscription
+      required: true
+  list:
+    description: The function used to list information about many Subscription
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string

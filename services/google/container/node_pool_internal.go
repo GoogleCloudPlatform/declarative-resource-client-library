@@ -231,7 +231,7 @@ func (op *updateNodePoolSetAutoscalingOperation) do(ctx context.Context, r *Node
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -310,7 +310,7 @@ func (op *updateNodePoolSetManagementOperation) do(ctx context.Context, r *NodeP
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -387,7 +387,7 @@ func (op *updateNodePoolSetSizeOperation) do(ctx context.Context, r *NodePool, c
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -464,7 +464,7 @@ func (op *updateNodePoolUpdateOperation) do(ctx context.Context, r *NodePool, c 
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -501,7 +501,7 @@ func (c *Client) listNodePoolRaw(ctx context.Context, project, location, cluster
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -581,7 +581,7 @@ func (op *deleteNodePoolOperation) do(ctx context.Context, r *NodePool, c *Clien
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -604,7 +604,13 @@ func (op *deleteNodePoolOperation) do(ctx context.Context, r *NodePool, c *Clien
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createNodePoolOperation struct{}
+type createNodePoolOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createNodePoolOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createNodePoolOperation) do(ctx context.Context, r *NodePool, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -620,7 +626,7 @@ func (op *createNodePoolOperation) do(ctx context.Context, r *NodePool, c *Clien
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -634,8 +640,10 @@ func (op *createNodePoolOperation) do(ctx context.Context, r *NodePool, c *Clien
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetNodePool(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -648,7 +656,7 @@ func (c *Client) getNodePoolRaw(ctx context.Context, r *NodePool) ([]byte, error
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -744,7 +752,7 @@ func nodePoolWaitForRestingState(ctx context.Context, r *NodePool, c *Client) er
 		Client:   c,
 		Resource: r,
 	}
-	return dcl.Do(ctx, op.operate, c.Config.Retry)
+	return dcl.Do(ctx, op.operate, c.Config.RetryProvider)
 }
 
 func canonicalizeNodePoolInitialState(rawInitial, rawDesired *NodePool) (*NodePool, error) {
@@ -790,14 +798,6 @@ func canonicalizeNodePoolDesiredState(rawDesired, rawInitial *NodePool, opts ...
 		}
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*NodePool); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected NodePool, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -809,20 +809,20 @@ func canonicalizeNodePoolDesiredState(rawDesired, rawInitial *NodePool, opts ...
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
 	rawDesired.Config = canonicalizeNodePoolConfig(rawDesired.Config, rawInitial.Config, opts...)
 	if dcl.IsZeroValue(rawDesired.NodeCount) {
 		rawDesired.NodeCount = rawInitial.NodeCount
 	}
-	if dcl.IsZeroValue(rawDesired.Version) {
+	if dcl.StringCanonicalize(rawDesired.Version, rawInitial.Version) {
 		rawDesired.Version = rawInitial.Version
 	}
 	if dcl.IsZeroValue(rawDesired.Status) {
 		rawDesired.Status = rawInitial.Status
 	}
-	if dcl.IsZeroValue(rawDesired.StatusMessage) {
+	if dcl.StringCanonicalize(rawDesired.StatusMessage, rawInitial.StatusMessage) {
 		rawDesired.StatusMessage = rawInitial.StatusMessage
 	}
 	if dcl.IsZeroValue(rawDesired.Locations) {
@@ -856,6 +856,9 @@ func canonicalizeNodePoolNewState(c *Client, rawNew, rawDesired *NodePool) (*Nod
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Config) && dcl.IsEmptyValueIndirect(rawDesired.Config) {
@@ -872,6 +875,9 @@ func canonicalizeNodePoolNewState(c *Client, rawNew, rawDesired *NodePool) (*Nod
 	if dcl.IsEmptyValueIndirect(rawNew.Version) && dcl.IsEmptyValueIndirect(rawDesired.Version) {
 		rawNew.Version = rawDesired.Version
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Version, rawNew.Version) {
+			rawNew.Version = rawDesired.Version
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Status) && dcl.IsEmptyValueIndirect(rawDesired.Status) {
@@ -882,6 +888,9 @@ func canonicalizeNodePoolNewState(c *Client, rawNew, rawDesired *NodePool) (*Nod
 	if dcl.IsEmptyValueIndirect(rawNew.StatusMessage) && dcl.IsEmptyValueIndirect(rawDesired.StatusMessage) {
 		rawNew.StatusMessage = rawDesired.StatusMessage
 	} else {
+		if dcl.StringCanonicalize(rawDesired.StatusMessage, rawNew.StatusMessage) {
+			rawNew.StatusMessage = rawDesired.StatusMessage
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Locations) && dcl.IsEmptyValueIndirect(rawDesired.Locations) {
@@ -940,16 +949,11 @@ func canonicalizeNodePoolConfig(des, initial *NodePoolConfig, opts ...dcl.ApplyO
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*NodePool)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.MachineType) {
+	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) || dcl.IsZeroValue(des.MachineType) {
 		des.MachineType = initial.MachineType
 	}
 	if dcl.IsZeroValue(des.DiskSizeGb) {
@@ -958,13 +962,13 @@ func canonicalizeNodePoolConfig(des, initial *NodePoolConfig, opts ...dcl.ApplyO
 	if dcl.IsZeroValue(des.OAuthScopes) {
 		des.OAuthScopes = initial.OAuthScopes
 	}
-	if dcl.IsZeroValue(des.ServiceAccount) {
+	if dcl.StringCanonicalize(des.ServiceAccount, initial.ServiceAccount) || dcl.IsZeroValue(des.ServiceAccount) {
 		des.ServiceAccount = initial.ServiceAccount
 	}
 	if dcl.IsZeroValue(des.Metadata) {
 		des.Metadata = initial.Metadata
 	}
-	if dcl.IsZeroValue(des.ImageType) {
+	if dcl.StringCanonicalize(des.ImageType, initial.ImageType) || dcl.IsZeroValue(des.ImageType) {
 		des.ImageType = initial.ImageType
 	}
 	if dcl.IsZeroValue(des.Labels) {
@@ -982,10 +986,10 @@ func canonicalizeNodePoolConfig(des, initial *NodePoolConfig, opts ...dcl.ApplyO
 	if dcl.IsZeroValue(des.Accelerators) {
 		des.Accelerators = initial.Accelerators
 	}
-	if dcl.IsZeroValue(des.DiskType) {
+	if dcl.StringCanonicalize(des.DiskType, initial.DiskType) || dcl.IsZeroValue(des.DiskType) {
 		des.DiskType = initial.DiskType
 	}
-	if dcl.IsZeroValue(des.MinCpuPlatform) {
+	if dcl.StringCanonicalize(des.MinCpuPlatform, initial.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
 		des.MinCpuPlatform = initial.MinCpuPlatform
 	}
 	if dcl.IsZeroValue(des.Taints) {
@@ -1003,6 +1007,21 @@ func canonicalizeNewNodePoolConfig(c *Client, des, nw *NodePoolConfig) *NodePool
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.MachineType, nw.MachineType) || dcl.IsZeroValue(des.MachineType) {
+		nw.MachineType = des.MachineType
+	}
+	if dcl.StringCanonicalize(des.ServiceAccount, nw.ServiceAccount) || dcl.IsZeroValue(des.ServiceAccount) {
+		nw.ServiceAccount = des.ServiceAccount
+	}
+	if dcl.StringCanonicalize(des.ImageType, nw.ImageType) || dcl.IsZeroValue(des.ImageType) {
+		nw.ImageType = des.ImageType
+	}
+	if dcl.StringCanonicalize(des.DiskType, nw.DiskType) || dcl.IsZeroValue(des.DiskType) {
+		nw.DiskType = des.DiskType
+	}
+	if dcl.StringCanonicalize(des.MinCpuPlatform, nw.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
+		nw.MinCpuPlatform = des.MinCpuPlatform
+	}
 	nw.SandboxConfig = canonicalizeNewNodePoolConfigSandboxConfig(c, des.SandboxConfig, nw.SandboxConfig)
 	nw.ReservationAffinity = canonicalizeNewNodePoolConfigReservationAffinity(c, des.ReservationAffinity, nw.ReservationAffinity)
 	nw.ShieldedInstanceConfig = canonicalizeNewNodePoolConfigShieldedInstanceConfig(c, des.ShieldedInstanceConfig, nw.ShieldedInstanceConfig)
@@ -1041,11 +1060,6 @@ func canonicalizeNodePoolConfigAccelerators(des, initial *NodePoolConfigAccelera
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*NodePool)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -1053,7 +1067,7 @@ func canonicalizeNodePoolConfigAccelerators(des, initial *NodePoolConfigAccelera
 	if dcl.IsZeroValue(des.AcceleratorCount) {
 		des.AcceleratorCount = initial.AcceleratorCount
 	}
-	if dcl.IsZeroValue(des.AcceleratorType) {
+	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
 		des.AcceleratorType = initial.AcceleratorType
 	}
 
@@ -1063,6 +1077,10 @@ func canonicalizeNodePoolConfigAccelerators(des, initial *NodePoolConfigAccelera
 func canonicalizeNewNodePoolConfigAccelerators(c *Client, des, nw *NodePoolConfigAccelerators) *NodePoolConfigAccelerators {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.AcceleratorType, nw.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
+		nw.AcceleratorType = des.AcceleratorType
 	}
 
 	return nw
@@ -1099,22 +1117,17 @@ func canonicalizeNodePoolConfigTaints(des, initial *NodePoolConfigTaints, opts .
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*NodePool)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Key) {
+	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
 		des.Key = initial.Key
 	}
-	if dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
 		des.Value = initial.Value
 	}
-	if dcl.IsZeroValue(des.Effect) {
+	if dcl.StringCanonicalize(des.Effect, initial.Effect) || dcl.IsZeroValue(des.Effect) {
 		des.Effect = initial.Effect
 	}
 
@@ -1124,6 +1137,16 @@ func canonicalizeNodePoolConfigTaints(des, initial *NodePoolConfigTaints, opts .
 func canonicalizeNewNodePoolConfigTaints(c *Client, des, nw *NodePoolConfigTaints) *NodePoolConfigTaints {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Key, nw.Key) || dcl.IsZeroValue(des.Key) {
+		nw.Key = des.Key
+	}
+	if dcl.StringCanonicalize(des.Value, nw.Value) || dcl.IsZeroValue(des.Value) {
+		nw.Value = des.Value
+	}
+	if dcl.StringCanonicalize(des.Effect, nw.Effect) || dcl.IsZeroValue(des.Effect) {
+		nw.Effect = des.Effect
 	}
 
 	return nw
@@ -1158,11 +1181,6 @@ func canonicalizeNodePoolConfigSandboxConfig(des, initial *NodePoolConfigSandbox
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*NodePool)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1215,11 +1233,6 @@ func canonicalizeNodePoolConfigReservationAffinity(des, initial *NodePoolConfigR
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*NodePool)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -1227,7 +1240,7 @@ func canonicalizeNodePoolConfigReservationAffinity(des, initial *NodePoolConfigR
 	if dcl.IsZeroValue(des.ConsumeReservationType) {
 		des.ConsumeReservationType = initial.ConsumeReservationType
 	}
-	if dcl.IsZeroValue(des.Key) {
+	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
 		des.Key = initial.Key
 	}
 	if dcl.IsZeroValue(des.Values) {
@@ -1240,6 +1253,10 @@ func canonicalizeNodePoolConfigReservationAffinity(des, initial *NodePoolConfigR
 func canonicalizeNewNodePoolConfigReservationAffinity(c *Client, des, nw *NodePoolConfigReservationAffinity) *NodePoolConfigReservationAffinity {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Key, nw.Key) || dcl.IsZeroValue(des.Key) {
+		nw.Key = des.Key
 	}
 
 	return nw
@@ -1274,11 +1291,6 @@ func canonicalizeNodePoolConfigShieldedInstanceConfig(des, initial *NodePoolConf
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*NodePool)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1332,11 +1344,6 @@ func canonicalizeNodePoolAutoscaling(des, initial *NodePoolAutoscaling, opts ...
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*NodePool)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1398,11 +1405,6 @@ func canonicalizeNodePoolManagement(des, initial *NodePoolManagement, opts ...dc
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*NodePool)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -1459,11 +1461,6 @@ func canonicalizeNodePoolManagementUpgradeOptions(des, initial *NodePoolManageme
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*NodePool)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -1471,7 +1468,7 @@ func canonicalizeNodePoolManagementUpgradeOptions(des, initial *NodePoolManageme
 	if dcl.IsZeroValue(des.AutoUpgradeStartTime) {
 		des.AutoUpgradeStartTime = initial.AutoUpgradeStartTime
 	}
-	if dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
 		des.Description = initial.Description
 	}
 
@@ -1481,6 +1478,10 @@ func canonicalizeNodePoolManagementUpgradeOptions(des, initial *NodePoolManageme
 func canonicalizeNewNodePoolManagementUpgradeOptions(c *Client, des, nw *NodePoolManagementUpgradeOptions) *NodePoolManagementUpgradeOptions {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+		nw.Description = des.Description
 	}
 
 	return nw
@@ -1515,11 +1516,6 @@ func canonicalizeNodePoolMaxPodsConstraint(des, initial *NodePoolMaxPodsConstrai
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*NodePool)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1572,11 +1568,6 @@ func canonicalizeNodePoolConditions(des, initial *NodePoolConditions, opts ...dc
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*NodePool)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -1584,7 +1575,7 @@ func canonicalizeNodePoolConditions(des, initial *NodePoolConditions, opts ...dc
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
 	}
-	if dcl.IsZeroValue(des.Message) {
+	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
 		des.Message = initial.Message
 	}
 
@@ -1594,6 +1585,10 @@ func canonicalizeNodePoolConditions(des, initial *NodePoolConditions, opts ...dc
 func canonicalizeNewNodePoolConditions(c *Client, des, nw *NodePoolConditions) *NodePoolConditions {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Message, nw.Message) || dcl.IsZeroValue(des.Message) {
+		nw.Message = des.Message
 	}
 
 	return nw
@@ -1628,11 +1623,6 @@ func canonicalizeNodePoolUpgradeSettings(des, initial *NodePoolUpgradeSettings, 
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*NodePool)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1701,7 +1691,7 @@ func diffNodePool(c *Client, desired, actual *NodePool, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []nodePoolDiff
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, nodePoolDiff{
 			RequiresRecreate: true,
@@ -1715,7 +1705,7 @@ func diffNodePool(c *Client, desired, actual *NodePool, opts ...dcl.ApplyOption)
 			FieldName:        "Config",
 		})
 	}
-	if !dcl.IsZeroValue(desired.NodeCount) && (dcl.IsZeroValue(actual.NodeCount) || !reflect.DeepEqual(*desired.NodeCount, *actual.NodeCount)) {
+	if !reflect.DeepEqual(desired.NodeCount, actual.NodeCount) {
 		c.Config.Logger.Infof("Detected diff in NodeCount.\nDESIRED: %v\nACTUAL: %v", desired.NodeCount, actual.NodeCount)
 
 		diffs = append(diffs, nodePoolDiff{
@@ -1724,14 +1714,14 @@ func diffNodePool(c *Client, desired, actual *NodePool, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Version) && (dcl.IsZeroValue(actual.Version) || !reflect.DeepEqual(*desired.Version, *actual.Version)) {
+	if !dcl.IsZeroValue(desired.Version) && !dcl.StringCanonicalize(desired.Version, actual.Version) {
 		c.Config.Logger.Infof("Detected diff in Version.\nDESIRED: %v\nACTUAL: %v", desired.Version, actual.Version)
 		diffs = append(diffs, nodePoolDiff{
 			RequiresRecreate: true,
 			FieldName:        "Version",
 		})
 	}
-	if !dcl.SliceEquals(desired.Locations, actual.Locations) {
+	if !dcl.StringSliceEquals(desired.Locations, actual.Locations) {
 		c.Config.Logger.Infof("Detected diff in Locations.\nDESIRED: %v\nACTUAL: %v", desired.Locations, actual.Locations)
 
 		diffs = append(diffs, nodePoolDiff{
@@ -1796,20 +1786,6 @@ func diffNodePool(c *Client, desired, actual *NodePool, opts ...dcl.ApplyOption)
 
 	return deduped, nil
 }
-func compareNodePoolConfigSlice(c *Client, desired, actual []NodePoolConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NodePoolConfig, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareNodePoolConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NodePoolConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
 func compareNodePoolConfig(c *Client, desired, actual *NodePoolConfig) bool {
 	if desired == nil {
 		return false
@@ -1821,7 +1797,7 @@ func compareNodePoolConfig(c *Client, desired, actual *NodePoolConfig) bool {
 		c.Config.Logger.Infof("desired MachineType %s - but actually nil", dcl.SprintResource(desired.MachineType))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MachineType, actual.MachineType) && !dcl.IsZeroValue(desired.MachineType) && !(dcl.IsEmptyValueIndirect(desired.MachineType) && dcl.IsZeroValue(actual.MachineType)) {
+	if !dcl.StringCanonicalize(desired.MachineType, actual.MachineType) && !dcl.IsZeroValue(desired.MachineType) {
 		c.Config.Logger.Infof("Diff in MachineType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MachineType), dcl.SprintResource(actual.MachineType))
 		return true
 	}
@@ -1829,7 +1805,7 @@ func compareNodePoolConfig(c *Client, desired, actual *NodePoolConfig) bool {
 		c.Config.Logger.Infof("desired DiskSizeGb %s - but actually nil", dcl.SprintResource(desired.DiskSizeGb))
 		return true
 	}
-	if !reflect.DeepEqual(desired.DiskSizeGb, actual.DiskSizeGb) && !dcl.IsZeroValue(desired.DiskSizeGb) && !(dcl.IsEmptyValueIndirect(desired.DiskSizeGb) && dcl.IsZeroValue(actual.DiskSizeGb)) {
+	if !reflect.DeepEqual(desired.DiskSizeGb, actual.DiskSizeGb) && !dcl.IsZeroValue(desired.DiskSizeGb) {
 		c.Config.Logger.Infof("Diff in DiskSizeGb. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DiskSizeGb), dcl.SprintResource(actual.DiskSizeGb))
 		return true
 	}
@@ -1837,7 +1813,7 @@ func compareNodePoolConfig(c *Client, desired, actual *NodePoolConfig) bool {
 		c.Config.Logger.Infof("desired OAuthScopes %s - but actually nil", dcl.SprintResource(desired.OAuthScopes))
 		return true
 	}
-	if !dcl.SliceEquals(desired.OAuthScopes, actual.OAuthScopes) && !dcl.IsZeroValue(desired.OAuthScopes) {
+	if !dcl.StringSliceEquals(desired.OAuthScopes, actual.OAuthScopes) && !dcl.IsZeroValue(desired.OAuthScopes) {
 		c.Config.Logger.Infof("Diff in OAuthScopes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OAuthScopes), dcl.SprintResource(actual.OAuthScopes))
 		return true
 	}
@@ -1845,7 +1821,7 @@ func compareNodePoolConfig(c *Client, desired, actual *NodePoolConfig) bool {
 		c.Config.Logger.Infof("desired ServiceAccount %s - but actually nil", dcl.SprintResource(desired.ServiceAccount))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ServiceAccount, actual.ServiceAccount) && !dcl.IsZeroValue(desired.ServiceAccount) && !(dcl.IsEmptyValueIndirect(desired.ServiceAccount) && dcl.IsZeroValue(actual.ServiceAccount)) {
+	if !dcl.StringCanonicalize(desired.ServiceAccount, actual.ServiceAccount) && !dcl.IsZeroValue(desired.ServiceAccount) {
 		c.Config.Logger.Infof("Diff in ServiceAccount. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceAccount), dcl.SprintResource(actual.ServiceAccount))
 		return true
 	}
@@ -1853,7 +1829,7 @@ func compareNodePoolConfig(c *Client, desired, actual *NodePoolConfig) bool {
 		c.Config.Logger.Infof("desired Metadata %s - but actually nil", dcl.SprintResource(desired.Metadata))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Metadata, actual.Metadata) && !dcl.IsZeroValue(desired.Metadata) {
+	if !dcl.MapEquals(desired.Metadata, actual.Metadata, []string(nil)) && !dcl.IsZeroValue(desired.Metadata) {
 		c.Config.Logger.Infof("Diff in Metadata. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Metadata), dcl.SprintResource(actual.Metadata))
 		return true
 	}
@@ -1861,7 +1837,7 @@ func compareNodePoolConfig(c *Client, desired, actual *NodePoolConfig) bool {
 		c.Config.Logger.Infof("desired ImageType %s - but actually nil", dcl.SprintResource(desired.ImageType))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ImageType, actual.ImageType) && !dcl.IsZeroValue(desired.ImageType) && !(dcl.IsEmptyValueIndirect(desired.ImageType) && dcl.IsZeroValue(actual.ImageType)) {
+	if !dcl.StringCanonicalize(desired.ImageType, actual.ImageType) && !dcl.IsZeroValue(desired.ImageType) {
 		c.Config.Logger.Infof("Diff in ImageType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ImageType), dcl.SprintResource(actual.ImageType))
 		return true
 	}
@@ -1869,7 +1845,7 @@ func compareNodePoolConfig(c *Client, desired, actual *NodePoolConfig) bool {
 		c.Config.Logger.Infof("desired Labels %s - but actually nil", dcl.SprintResource(desired.Labels))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Labels, actual.Labels) && !dcl.IsZeroValue(desired.Labels) {
+	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) && !dcl.IsZeroValue(desired.Labels) {
 		c.Config.Logger.Infof("Diff in Labels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Labels), dcl.SprintResource(actual.Labels))
 		return true
 	}
@@ -1877,7 +1853,7 @@ func compareNodePoolConfig(c *Client, desired, actual *NodePoolConfig) bool {
 		c.Config.Logger.Infof("desired LocalSsdCount %s - but actually nil", dcl.SprintResource(desired.LocalSsdCount))
 		return true
 	}
-	if !reflect.DeepEqual(desired.LocalSsdCount, actual.LocalSsdCount) && !dcl.IsZeroValue(desired.LocalSsdCount) && !(dcl.IsEmptyValueIndirect(desired.LocalSsdCount) && dcl.IsZeroValue(actual.LocalSsdCount)) {
+	if !reflect.DeepEqual(desired.LocalSsdCount, actual.LocalSsdCount) && !dcl.IsZeroValue(desired.LocalSsdCount) {
 		c.Config.Logger.Infof("Diff in LocalSsdCount. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalSsdCount), dcl.SprintResource(actual.LocalSsdCount))
 		return true
 	}
@@ -1885,7 +1861,7 @@ func compareNodePoolConfig(c *Client, desired, actual *NodePoolConfig) bool {
 		c.Config.Logger.Infof("desired Tags %s - but actually nil", dcl.SprintResource(desired.Tags))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Tags, actual.Tags) && !dcl.IsZeroValue(desired.Tags) {
+	if !dcl.StringSliceEquals(desired.Tags, actual.Tags) && !dcl.IsZeroValue(desired.Tags) {
 		c.Config.Logger.Infof("Diff in Tags. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Tags), dcl.SprintResource(actual.Tags))
 		return true
 	}
@@ -1893,7 +1869,7 @@ func compareNodePoolConfig(c *Client, desired, actual *NodePoolConfig) bool {
 		c.Config.Logger.Infof("desired Preemptible %s - but actually nil", dcl.SprintResource(desired.Preemptible))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Preemptible, actual.Preemptible) && !dcl.IsZeroValue(desired.Preemptible) && !(dcl.IsEmptyValueIndirect(desired.Preemptible) && dcl.IsZeroValue(actual.Preemptible)) {
+	if !reflect.DeepEqual(desired.Preemptible, actual.Preemptible) && !dcl.IsZeroValue(desired.Preemptible) {
 		c.Config.Logger.Infof("Diff in Preemptible. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Preemptible), dcl.SprintResource(actual.Preemptible))
 		return true
 	}
@@ -1909,7 +1885,7 @@ func compareNodePoolConfig(c *Client, desired, actual *NodePoolConfig) bool {
 		c.Config.Logger.Infof("desired DiskType %s - but actually nil", dcl.SprintResource(desired.DiskType))
 		return true
 	}
-	if !reflect.DeepEqual(desired.DiskType, actual.DiskType) && !dcl.IsZeroValue(desired.DiskType) && !(dcl.IsEmptyValueIndirect(desired.DiskType) && dcl.IsZeroValue(actual.DiskType)) {
+	if !dcl.StringCanonicalize(desired.DiskType, actual.DiskType) && !dcl.IsZeroValue(desired.DiskType) {
 		c.Config.Logger.Infof("Diff in DiskType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DiskType), dcl.SprintResource(actual.DiskType))
 		return true
 	}
@@ -1917,7 +1893,7 @@ func compareNodePoolConfig(c *Client, desired, actual *NodePoolConfig) bool {
 		c.Config.Logger.Infof("desired MinCpuPlatform %s - but actually nil", dcl.SprintResource(desired.MinCpuPlatform))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MinCpuPlatform, actual.MinCpuPlatform) && !dcl.IsZeroValue(desired.MinCpuPlatform) && !(dcl.IsEmptyValueIndirect(desired.MinCpuPlatform) && dcl.IsZeroValue(actual.MinCpuPlatform)) {
+	if !dcl.StringCanonicalize(desired.MinCpuPlatform, actual.MinCpuPlatform) && !dcl.IsZeroValue(desired.MinCpuPlatform) {
 		c.Config.Logger.Infof("Diff in MinCpuPlatform. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinCpuPlatform), dcl.SprintResource(actual.MinCpuPlatform))
 		return true
 	}
@@ -1955,14 +1931,34 @@ func compareNodePoolConfig(c *Client, desired, actual *NodePoolConfig) bool {
 	}
 	return false
 }
-func compareNodePoolConfigAcceleratorsSlice(c *Client, desired, actual []NodePoolConfigAccelerators) bool {
+
+func compareNodePoolConfigSlice(c *Client, desired, actual []NodePoolConfig) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NodePoolConfigAccelerators, lengths unequal.")
+		c.Config.Logger.Info("Diff in NodePoolConfig, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNodePoolConfigAccelerators(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NodePoolConfigAccelerators, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNodePoolConfig(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NodePoolConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNodePoolConfigMap(c *Client, desired, actual map[string]NodePoolConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NodePoolConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NodePoolConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNodePoolConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NodePoolConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1980,7 +1976,7 @@ func compareNodePoolConfigAccelerators(c *Client, desired, actual *NodePoolConfi
 		c.Config.Logger.Infof("desired AcceleratorCount %s - but actually nil", dcl.SprintResource(desired.AcceleratorCount))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AcceleratorCount, actual.AcceleratorCount) && !dcl.IsZeroValue(desired.AcceleratorCount) && !(dcl.IsEmptyValueIndirect(desired.AcceleratorCount) && dcl.IsZeroValue(actual.AcceleratorCount)) {
+	if !reflect.DeepEqual(desired.AcceleratorCount, actual.AcceleratorCount) && !dcl.IsZeroValue(desired.AcceleratorCount) {
 		c.Config.Logger.Infof("Diff in AcceleratorCount. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AcceleratorCount), dcl.SprintResource(actual.AcceleratorCount))
 		return true
 	}
@@ -1988,20 +1984,40 @@ func compareNodePoolConfigAccelerators(c *Client, desired, actual *NodePoolConfi
 		c.Config.Logger.Infof("desired AcceleratorType %s - but actually nil", dcl.SprintResource(desired.AcceleratorType))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AcceleratorType, actual.AcceleratorType) && !dcl.IsZeroValue(desired.AcceleratorType) && !(dcl.IsEmptyValueIndirect(desired.AcceleratorType) && dcl.IsZeroValue(actual.AcceleratorType)) {
+	if !dcl.StringCanonicalize(desired.AcceleratorType, actual.AcceleratorType) && !dcl.IsZeroValue(desired.AcceleratorType) {
 		c.Config.Logger.Infof("Diff in AcceleratorType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AcceleratorType), dcl.SprintResource(actual.AcceleratorType))
 		return true
 	}
 	return false
 }
-func compareNodePoolConfigTaintsSlice(c *Client, desired, actual []NodePoolConfigTaints) bool {
+
+func compareNodePoolConfigAcceleratorsSlice(c *Client, desired, actual []NodePoolConfigAccelerators) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NodePoolConfigTaints, lengths unequal.")
+		c.Config.Logger.Info("Diff in NodePoolConfigAccelerators, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNodePoolConfigTaints(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NodePoolConfigTaints, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNodePoolConfigAccelerators(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NodePoolConfigAccelerators, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNodePoolConfigAcceleratorsMap(c *Client, desired, actual map[string]NodePoolConfigAccelerators) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NodePoolConfigAccelerators, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NodePoolConfigAccelerators, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNodePoolConfigAccelerators(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NodePoolConfigAccelerators, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2019,7 +2035,7 @@ func compareNodePoolConfigTaints(c *Client, desired, actual *NodePoolConfigTaint
 		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
+	if !dcl.StringCanonicalize(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) {
 		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
 		return true
 	}
@@ -2027,7 +2043,7 @@ func compareNodePoolConfigTaints(c *Client, desired, actual *NodePoolConfigTaint
 		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) && !(dcl.IsEmptyValueIndirect(desired.Value) && dcl.IsZeroValue(actual.Value)) {
+	if !dcl.StringCanonicalize(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
 		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
@@ -2035,20 +2051,40 @@ func compareNodePoolConfigTaints(c *Client, desired, actual *NodePoolConfigTaint
 		c.Config.Logger.Infof("desired Effect %s - but actually nil", dcl.SprintResource(desired.Effect))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Effect, actual.Effect) && !dcl.IsZeroValue(desired.Effect) && !(dcl.IsEmptyValueIndirect(desired.Effect) && dcl.IsZeroValue(actual.Effect)) {
+	if !dcl.StringCanonicalize(desired.Effect, actual.Effect) && !dcl.IsZeroValue(desired.Effect) {
 		c.Config.Logger.Infof("Diff in Effect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Effect), dcl.SprintResource(actual.Effect))
 		return true
 	}
 	return false
 }
-func compareNodePoolConfigSandboxConfigSlice(c *Client, desired, actual []NodePoolConfigSandboxConfig) bool {
+
+func compareNodePoolConfigTaintsSlice(c *Client, desired, actual []NodePoolConfigTaints) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NodePoolConfigSandboxConfig, lengths unequal.")
+		c.Config.Logger.Info("Diff in NodePoolConfigTaints, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNodePoolConfigSandboxConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NodePoolConfigSandboxConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNodePoolConfigTaints(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NodePoolConfigTaints, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNodePoolConfigTaintsMap(c *Client, desired, actual map[string]NodePoolConfigTaints) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NodePoolConfigTaints, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NodePoolConfigTaints, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNodePoolConfigTaints(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NodePoolConfigTaints, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2066,20 +2102,40 @@ func compareNodePoolConfigSandboxConfig(c *Client, desired, actual *NodePoolConf
 		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) && !(dcl.IsEmptyValueIndirect(desired.Type) && dcl.IsZeroValue(actual.Type)) {
+	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
 		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
 		return true
 	}
 	return false
 }
-func compareNodePoolConfigReservationAffinitySlice(c *Client, desired, actual []NodePoolConfigReservationAffinity) bool {
+
+func compareNodePoolConfigSandboxConfigSlice(c *Client, desired, actual []NodePoolConfigSandboxConfig) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NodePoolConfigReservationAffinity, lengths unequal.")
+		c.Config.Logger.Info("Diff in NodePoolConfigSandboxConfig, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNodePoolConfigReservationAffinity(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NodePoolConfigReservationAffinity, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNodePoolConfigSandboxConfig(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NodePoolConfigSandboxConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNodePoolConfigSandboxConfigMap(c *Client, desired, actual map[string]NodePoolConfigSandboxConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NodePoolConfigSandboxConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NodePoolConfigSandboxConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNodePoolConfigSandboxConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NodePoolConfigSandboxConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2097,7 +2153,7 @@ func compareNodePoolConfigReservationAffinity(c *Client, desired, actual *NodePo
 		c.Config.Logger.Infof("desired ConsumeReservationType %s - but actually nil", dcl.SprintResource(desired.ConsumeReservationType))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ConsumeReservationType, actual.ConsumeReservationType) && !dcl.IsZeroValue(desired.ConsumeReservationType) && !(dcl.IsEmptyValueIndirect(desired.ConsumeReservationType) && dcl.IsZeroValue(actual.ConsumeReservationType)) {
+	if !reflect.DeepEqual(desired.ConsumeReservationType, actual.ConsumeReservationType) && !dcl.IsZeroValue(desired.ConsumeReservationType) {
 		c.Config.Logger.Infof("Diff in ConsumeReservationType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConsumeReservationType), dcl.SprintResource(actual.ConsumeReservationType))
 		return true
 	}
@@ -2105,7 +2161,7 @@ func compareNodePoolConfigReservationAffinity(c *Client, desired, actual *NodePo
 		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
+	if !dcl.StringCanonicalize(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) {
 		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
 		return true
 	}
@@ -2113,20 +2169,40 @@ func compareNodePoolConfigReservationAffinity(c *Client, desired, actual *NodePo
 		c.Config.Logger.Infof("desired Values %s - but actually nil", dcl.SprintResource(desired.Values))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Values, actual.Values) && !dcl.IsZeroValue(desired.Values) {
+	if !dcl.StringSliceEquals(desired.Values, actual.Values) && !dcl.IsZeroValue(desired.Values) {
 		c.Config.Logger.Infof("Diff in Values. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Values), dcl.SprintResource(actual.Values))
 		return true
 	}
 	return false
 }
-func compareNodePoolConfigShieldedInstanceConfigSlice(c *Client, desired, actual []NodePoolConfigShieldedInstanceConfig) bool {
+
+func compareNodePoolConfigReservationAffinitySlice(c *Client, desired, actual []NodePoolConfigReservationAffinity) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NodePoolConfigShieldedInstanceConfig, lengths unequal.")
+		c.Config.Logger.Info("Diff in NodePoolConfigReservationAffinity, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNodePoolConfigShieldedInstanceConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NodePoolConfigShieldedInstanceConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNodePoolConfigReservationAffinity(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NodePoolConfigReservationAffinity, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNodePoolConfigReservationAffinityMap(c *Client, desired, actual map[string]NodePoolConfigReservationAffinity) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NodePoolConfigReservationAffinity, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NodePoolConfigReservationAffinity, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNodePoolConfigReservationAffinity(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NodePoolConfigReservationAffinity, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2144,7 +2220,7 @@ func compareNodePoolConfigShieldedInstanceConfig(c *Client, desired, actual *Nod
 		c.Config.Logger.Infof("desired EnableSecureBoot %s - but actually nil", dcl.SprintResource(desired.EnableSecureBoot))
 		return true
 	}
-	if !reflect.DeepEqual(desired.EnableSecureBoot, actual.EnableSecureBoot) && !dcl.IsZeroValue(desired.EnableSecureBoot) && !(dcl.IsEmptyValueIndirect(desired.EnableSecureBoot) && dcl.IsZeroValue(actual.EnableSecureBoot)) {
+	if !reflect.DeepEqual(desired.EnableSecureBoot, actual.EnableSecureBoot) && !dcl.IsZeroValue(desired.EnableSecureBoot) {
 		c.Config.Logger.Infof("Diff in EnableSecureBoot. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableSecureBoot), dcl.SprintResource(actual.EnableSecureBoot))
 		return true
 	}
@@ -2152,20 +2228,40 @@ func compareNodePoolConfigShieldedInstanceConfig(c *Client, desired, actual *Nod
 		c.Config.Logger.Infof("desired EnableIntegrityMonitoring %s - but actually nil", dcl.SprintResource(desired.EnableIntegrityMonitoring))
 		return true
 	}
-	if !reflect.DeepEqual(desired.EnableIntegrityMonitoring, actual.EnableIntegrityMonitoring) && !dcl.IsZeroValue(desired.EnableIntegrityMonitoring) && !(dcl.IsEmptyValueIndirect(desired.EnableIntegrityMonitoring) && dcl.IsZeroValue(actual.EnableIntegrityMonitoring)) {
+	if !reflect.DeepEqual(desired.EnableIntegrityMonitoring, actual.EnableIntegrityMonitoring) && !dcl.IsZeroValue(desired.EnableIntegrityMonitoring) {
 		c.Config.Logger.Infof("Diff in EnableIntegrityMonitoring. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableIntegrityMonitoring), dcl.SprintResource(actual.EnableIntegrityMonitoring))
 		return true
 	}
 	return false
 }
-func compareNodePoolAutoscalingSlice(c *Client, desired, actual []NodePoolAutoscaling) bool {
+
+func compareNodePoolConfigShieldedInstanceConfigSlice(c *Client, desired, actual []NodePoolConfigShieldedInstanceConfig) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NodePoolAutoscaling, lengths unequal.")
+		c.Config.Logger.Info("Diff in NodePoolConfigShieldedInstanceConfig, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNodePoolAutoscaling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NodePoolAutoscaling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNodePoolConfigShieldedInstanceConfig(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NodePoolConfigShieldedInstanceConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNodePoolConfigShieldedInstanceConfigMap(c *Client, desired, actual map[string]NodePoolConfigShieldedInstanceConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NodePoolConfigShieldedInstanceConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NodePoolConfigShieldedInstanceConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNodePoolConfigShieldedInstanceConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NodePoolConfigShieldedInstanceConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2183,7 +2279,7 @@ func compareNodePoolAutoscaling(c *Client, desired, actual *NodePoolAutoscaling)
 		c.Config.Logger.Infof("desired Enabled %s - but actually nil", dcl.SprintResource(desired.Enabled))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Enabled, actual.Enabled) && !dcl.IsZeroValue(desired.Enabled) && !(dcl.IsEmptyValueIndirect(desired.Enabled) && dcl.IsZeroValue(actual.Enabled)) {
+	if !reflect.DeepEqual(desired.Enabled, actual.Enabled) && !dcl.IsZeroValue(desired.Enabled) {
 		c.Config.Logger.Infof("Diff in Enabled. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Enabled), dcl.SprintResource(actual.Enabled))
 		return true
 	}
@@ -2191,7 +2287,7 @@ func compareNodePoolAutoscaling(c *Client, desired, actual *NodePoolAutoscaling)
 		c.Config.Logger.Infof("desired MinNodeCount %s - but actually nil", dcl.SprintResource(desired.MinNodeCount))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MinNodeCount, actual.MinNodeCount) && !dcl.IsZeroValue(desired.MinNodeCount) && !(dcl.IsEmptyValueIndirect(desired.MinNodeCount) && dcl.IsZeroValue(actual.MinNodeCount)) {
+	if !reflect.DeepEqual(desired.MinNodeCount, actual.MinNodeCount) && !dcl.IsZeroValue(desired.MinNodeCount) {
 		c.Config.Logger.Infof("Diff in MinNodeCount. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinNodeCount), dcl.SprintResource(actual.MinNodeCount))
 		return true
 	}
@@ -2199,7 +2295,7 @@ func compareNodePoolAutoscaling(c *Client, desired, actual *NodePoolAutoscaling)
 		c.Config.Logger.Infof("desired MaxNodeCount %s - but actually nil", dcl.SprintResource(desired.MaxNodeCount))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MaxNodeCount, actual.MaxNodeCount) && !dcl.IsZeroValue(desired.MaxNodeCount) && !(dcl.IsEmptyValueIndirect(desired.MaxNodeCount) && dcl.IsZeroValue(actual.MaxNodeCount)) {
+	if !reflect.DeepEqual(desired.MaxNodeCount, actual.MaxNodeCount) && !dcl.IsZeroValue(desired.MaxNodeCount) {
 		c.Config.Logger.Infof("Diff in MaxNodeCount. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxNodeCount), dcl.SprintResource(actual.MaxNodeCount))
 		return true
 	}
@@ -2207,20 +2303,40 @@ func compareNodePoolAutoscaling(c *Client, desired, actual *NodePoolAutoscaling)
 		c.Config.Logger.Infof("desired Autoprovisioned %s - but actually nil", dcl.SprintResource(desired.Autoprovisioned))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Autoprovisioned, actual.Autoprovisioned) && !dcl.IsZeroValue(desired.Autoprovisioned) && !(dcl.IsEmptyValueIndirect(desired.Autoprovisioned) && dcl.IsZeroValue(actual.Autoprovisioned)) {
+	if !reflect.DeepEqual(desired.Autoprovisioned, actual.Autoprovisioned) && !dcl.IsZeroValue(desired.Autoprovisioned) {
 		c.Config.Logger.Infof("Diff in Autoprovisioned. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Autoprovisioned), dcl.SprintResource(actual.Autoprovisioned))
 		return true
 	}
 	return false
 }
-func compareNodePoolManagementSlice(c *Client, desired, actual []NodePoolManagement) bool {
+
+func compareNodePoolAutoscalingSlice(c *Client, desired, actual []NodePoolAutoscaling) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NodePoolManagement, lengths unequal.")
+		c.Config.Logger.Info("Diff in NodePoolAutoscaling, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNodePoolManagement(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NodePoolManagement, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNodePoolAutoscaling(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NodePoolAutoscaling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNodePoolAutoscalingMap(c *Client, desired, actual map[string]NodePoolAutoscaling) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NodePoolAutoscaling, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NodePoolAutoscaling, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNodePoolAutoscaling(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NodePoolAutoscaling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2238,7 +2354,7 @@ func compareNodePoolManagement(c *Client, desired, actual *NodePoolManagement) b
 		c.Config.Logger.Infof("desired AutoUpgrade %s - but actually nil", dcl.SprintResource(desired.AutoUpgrade))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AutoUpgrade, actual.AutoUpgrade) && !dcl.IsZeroValue(desired.AutoUpgrade) && !(dcl.IsEmptyValueIndirect(desired.AutoUpgrade) && dcl.IsZeroValue(actual.AutoUpgrade)) {
+	if !reflect.DeepEqual(desired.AutoUpgrade, actual.AutoUpgrade) && !dcl.IsZeroValue(desired.AutoUpgrade) {
 		c.Config.Logger.Infof("Diff in AutoUpgrade. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AutoUpgrade), dcl.SprintResource(actual.AutoUpgrade))
 		return true
 	}
@@ -2246,7 +2362,7 @@ func compareNodePoolManagement(c *Client, desired, actual *NodePoolManagement) b
 		c.Config.Logger.Infof("desired AutoRepair %s - but actually nil", dcl.SprintResource(desired.AutoRepair))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AutoRepair, actual.AutoRepair) && !dcl.IsZeroValue(desired.AutoRepair) && !(dcl.IsEmptyValueIndirect(desired.AutoRepair) && dcl.IsZeroValue(actual.AutoRepair)) {
+	if !reflect.DeepEqual(desired.AutoRepair, actual.AutoRepair) && !dcl.IsZeroValue(desired.AutoRepair) {
 		c.Config.Logger.Infof("Diff in AutoRepair. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AutoRepair), dcl.SprintResource(actual.AutoRepair))
 		return true
 	}
@@ -2260,14 +2376,34 @@ func compareNodePoolManagement(c *Client, desired, actual *NodePoolManagement) b
 	}
 	return false
 }
-func compareNodePoolManagementUpgradeOptionsSlice(c *Client, desired, actual []NodePoolManagementUpgradeOptions) bool {
+
+func compareNodePoolManagementSlice(c *Client, desired, actual []NodePoolManagement) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NodePoolManagementUpgradeOptions, lengths unequal.")
+		c.Config.Logger.Info("Diff in NodePoolManagement, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNodePoolManagementUpgradeOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NodePoolManagementUpgradeOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNodePoolManagement(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NodePoolManagement, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNodePoolManagementMap(c *Client, desired, actual map[string]NodePoolManagement) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NodePoolManagement, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NodePoolManagement, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNodePoolManagement(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NodePoolManagement, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2283,14 +2419,34 @@ func compareNodePoolManagementUpgradeOptions(c *Client, desired, actual *NodePoo
 	}
 	return false
 }
-func compareNodePoolMaxPodsConstraintSlice(c *Client, desired, actual []NodePoolMaxPodsConstraint) bool {
+
+func compareNodePoolManagementUpgradeOptionsSlice(c *Client, desired, actual []NodePoolManagementUpgradeOptions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NodePoolMaxPodsConstraint, lengths unequal.")
+		c.Config.Logger.Info("Diff in NodePoolManagementUpgradeOptions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNodePoolMaxPodsConstraint(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NodePoolMaxPodsConstraint, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNodePoolManagementUpgradeOptions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NodePoolManagementUpgradeOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNodePoolManagementUpgradeOptionsMap(c *Client, desired, actual map[string]NodePoolManagementUpgradeOptions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NodePoolManagementUpgradeOptions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NodePoolManagementUpgradeOptions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNodePoolManagementUpgradeOptions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NodePoolManagementUpgradeOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2308,20 +2464,40 @@ func compareNodePoolMaxPodsConstraint(c *Client, desired, actual *NodePoolMaxPod
 		c.Config.Logger.Infof("desired MaxPodsPerNode %s - but actually nil", dcl.SprintResource(desired.MaxPodsPerNode))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MaxPodsPerNode, actual.MaxPodsPerNode) && !dcl.IsZeroValue(desired.MaxPodsPerNode) && !(dcl.IsEmptyValueIndirect(desired.MaxPodsPerNode) && dcl.IsZeroValue(actual.MaxPodsPerNode)) {
+	if !reflect.DeepEqual(desired.MaxPodsPerNode, actual.MaxPodsPerNode) && !dcl.IsZeroValue(desired.MaxPodsPerNode) {
 		c.Config.Logger.Infof("Diff in MaxPodsPerNode. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxPodsPerNode), dcl.SprintResource(actual.MaxPodsPerNode))
 		return true
 	}
 	return false
 }
-func compareNodePoolConditionsSlice(c *Client, desired, actual []NodePoolConditions) bool {
+
+func compareNodePoolMaxPodsConstraintSlice(c *Client, desired, actual []NodePoolMaxPodsConstraint) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NodePoolConditions, lengths unequal.")
+		c.Config.Logger.Info("Diff in NodePoolMaxPodsConstraint, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNodePoolConditions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NodePoolConditions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNodePoolMaxPodsConstraint(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NodePoolMaxPodsConstraint, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNodePoolMaxPodsConstraintMap(c *Client, desired, actual map[string]NodePoolMaxPodsConstraint) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NodePoolMaxPodsConstraint, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NodePoolMaxPodsConstraint, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNodePoolMaxPodsConstraint(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NodePoolMaxPodsConstraint, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2337,14 +2513,34 @@ func compareNodePoolConditions(c *Client, desired, actual *NodePoolConditions) b
 	}
 	return false
 }
-func compareNodePoolUpgradeSettingsSlice(c *Client, desired, actual []NodePoolUpgradeSettings) bool {
+
+func compareNodePoolConditionsSlice(c *Client, desired, actual []NodePoolConditions) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NodePoolUpgradeSettings, lengths unequal.")
+		c.Config.Logger.Info("Diff in NodePoolConditions, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareNodePoolUpgradeSettings(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NodePoolUpgradeSettings, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareNodePoolConditions(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NodePoolConditions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNodePoolConditionsMap(c *Client, desired, actual map[string]NodePoolConditions) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NodePoolConditions, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NodePoolConditions, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNodePoolConditions(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NodePoolConditions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2362,7 +2558,7 @@ func compareNodePoolUpgradeSettings(c *Client, desired, actual *NodePoolUpgradeS
 		c.Config.Logger.Infof("desired MaxSurge %s - but actually nil", dcl.SprintResource(desired.MaxSurge))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MaxSurge, actual.MaxSurge) && !dcl.IsZeroValue(desired.MaxSurge) && !(dcl.IsEmptyValueIndirect(desired.MaxSurge) && dcl.IsZeroValue(actual.MaxSurge)) {
+	if !reflect.DeepEqual(desired.MaxSurge, actual.MaxSurge) && !dcl.IsZeroValue(desired.MaxSurge) {
 		c.Config.Logger.Infof("Diff in MaxSurge. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxSurge), dcl.SprintResource(actual.MaxSurge))
 		return true
 	}
@@ -2370,12 +2566,46 @@ func compareNodePoolUpgradeSettings(c *Client, desired, actual *NodePoolUpgradeS
 		c.Config.Logger.Infof("desired MaxUnavailable %s - but actually nil", dcl.SprintResource(desired.MaxUnavailable))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MaxUnavailable, actual.MaxUnavailable) && !dcl.IsZeroValue(desired.MaxUnavailable) && !(dcl.IsEmptyValueIndirect(desired.MaxUnavailable) && dcl.IsZeroValue(actual.MaxUnavailable)) {
+	if !reflect.DeepEqual(desired.MaxUnavailable, actual.MaxUnavailable) && !dcl.IsZeroValue(desired.MaxUnavailable) {
 		c.Config.Logger.Infof("Diff in MaxUnavailable. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxUnavailable), dcl.SprintResource(actual.MaxUnavailable))
 		return true
 	}
 	return false
 }
+
+func compareNodePoolUpgradeSettingsSlice(c *Client, desired, actual []NodePoolUpgradeSettings) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NodePoolUpgradeSettings, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareNodePoolUpgradeSettings(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in NodePoolUpgradeSettings, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareNodePoolUpgradeSettingsMap(c *Client, desired, actual map[string]NodePoolUpgradeSettings) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in NodePoolUpgradeSettings, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in NodePoolUpgradeSettings, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareNodePoolUpgradeSettings(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in NodePoolUpgradeSettings, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
 func compareNodePoolConfigSandboxConfigTypeEnumSlice(c *Client, desired, actual []NodePoolConfigSandboxConfigTypeEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in NodePoolConfigSandboxConfigTypeEnum, lengths unequal.")
@@ -2435,6 +2665,9 @@ func compareNodePoolConditionsCodeEnum(c *Client, desired, actual *NodePoolCondi
 // short-form so they can be substituted in.
 func (r *NodePool) urlNormalized() *NodePool {
 	normalized := deepcopy.Copy(*r).(NodePool)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Version = dcl.SelfLinkToName(r.Version)
+	normalized.StatusMessage = dcl.SelfLinkToName(r.StatusMessage)
 	normalized.Cluster = dcl.SelfLinkToName(r.Cluster)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
@@ -2520,6 +2753,10 @@ func unmarshalNodePool(b []byte, c *Client) (*NodePool, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapNodePool(m, c)
+}
+
+func unmarshalMapNodePool(m map[string]interface{}, c *Client) (*NodePool, error) {
 
 	return flattenNodePool(c, m), nil
 }
@@ -4095,7 +4332,7 @@ func flattenNodePoolConfigSandboxConfigTypeEnumSlice(c *Client, i interface{}) [
 
 	items := make([]NodePoolConfigSandboxConfigTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNodePoolConfigSandboxConfigTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNodePoolConfigSandboxConfigTypeEnum(item.(interface{})))
 	}
 
 	return items
@@ -4126,7 +4363,7 @@ func flattenNodePoolConfigReservationAffinityConsumeReservationTypeEnumSlice(c *
 
 	items := make([]NodePoolConfigReservationAffinityConsumeReservationTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNodePoolConfigReservationAffinityConsumeReservationTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNodePoolConfigReservationAffinityConsumeReservationTypeEnum(item.(interface{})))
 	}
 
 	return items
@@ -4157,7 +4394,7 @@ func flattenNodePoolConditionsCodeEnumSlice(c *Client, i interface{}) []NodePool
 
 	items := make([]NodePoolConditionsCodeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNodePoolConditionsCodeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNodePoolConditionsCodeEnum(item.(interface{})))
 	}
 
 	return items

@@ -120,7 +120,7 @@ func (op *updateFirewallRulePatchFirewallRuleOperation) do(ctx context.Context, 
 	if err != nil {
 		return err
 	}
-	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -147,7 +147,7 @@ func (c *Client) listFirewallRuleRaw(ctx context.Context, app, pageToken string,
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -221,7 +221,7 @@ func (op *deleteFirewallRuleOperation) do(ctx context.Context, r *FirewallRule, 
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return fmt.Errorf("failed to delete FirewallRule: %w", err)
 	}
@@ -235,7 +235,13 @@ func (op *deleteFirewallRuleOperation) do(ctx context.Context, r *FirewallRule, 
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createFirewallRuleOperation struct{}
+type createFirewallRuleOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createFirewallRuleOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createFirewallRuleOperation) do(ctx context.Context, r *FirewallRule, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -251,7 +257,7 @@ func (op *createFirewallRuleOperation) do(ctx context.Context, r *FirewallRule, 
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -260,9 +266,10 @@ func (op *createFirewallRuleOperation) do(ctx context.Context, r *FirewallRule, 
 	if err != nil {
 		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
-	_ = o // We might not use resp- this will stop Go complaining
+	op.response = o
 
 	if _, err := c.GetFirewallRule(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -275,7 +282,7 @@ func (c *Client) getFirewallRuleRaw(ctx context.Context, r *FirewallRule) ([]byt
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -352,14 +359,6 @@ func canonicalizeFirewallRuleInitialState(rawInitial, rawDesired *FirewallRule) 
 
 func canonicalizeFirewallRuleDesiredState(rawDesired, rawInitial *FirewallRule, opts ...dcl.ApplyOption) (*FirewallRule, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*FirewallRule); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected FirewallRule, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -369,13 +368,13 @@ func canonicalizeFirewallRuleDesiredState(rawDesired, rawInitial *FirewallRule, 
 	if dcl.IsZeroValue(rawDesired.Action) {
 		rawDesired.Action = rawInitial.Action
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
 	if dcl.IsZeroValue(rawDesired.Priority) {
 		rawDesired.Priority = rawInitial.Priority
 	}
-	if dcl.IsZeroValue(rawDesired.SourceRange) {
+	if dcl.StringCanonicalize(rawDesired.SourceRange, rawInitial.SourceRange) {
 		rawDesired.SourceRange = rawInitial.SourceRange
 	}
 	if dcl.NameToSelfLink(rawDesired.App, rawInitial.App) {
@@ -395,6 +394,9 @@ func canonicalizeFirewallRuleNewState(c *Client, rawNew, rawDesired *FirewallRul
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Priority) && dcl.IsEmptyValueIndirect(rawDesired.Priority) {
@@ -405,6 +407,9 @@ func canonicalizeFirewallRuleNewState(c *Client, rawNew, rawDesired *FirewallRul
 	if dcl.IsEmptyValueIndirect(rawNew.SourceRange) && dcl.IsEmptyValueIndirect(rawDesired.SourceRange) {
 		rawNew.SourceRange = rawDesired.SourceRange
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SourceRange, rawNew.SourceRange) {
+			rawNew.SourceRange = rawDesired.SourceRange
+		}
 	}
 
 	rawNew.App = rawDesired.App
@@ -433,28 +438,28 @@ func diffFirewallRule(c *Client, desired, actual *FirewallRule, opts ...dcl.Appl
 	}
 
 	var diffs []firewallRuleDiff
-	if !dcl.IsZeroValue(desired.Action) && (dcl.IsZeroValue(actual.Action) || !reflect.DeepEqual(*desired.Action, *actual.Action)) {
+	if !reflect.DeepEqual(desired.Action, actual.Action) {
 		c.Config.Logger.Infof("Detected diff in Action.\nDESIRED: %v\nACTUAL: %v", desired.Action, actual.Action)
 		diffs = append(diffs, firewallRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Action",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, firewallRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Priority) && (dcl.IsZeroValue(actual.Priority) || !reflect.DeepEqual(*desired.Priority, *actual.Priority)) {
+	if !reflect.DeepEqual(desired.Priority, actual.Priority) {
 		c.Config.Logger.Infof("Detected diff in Priority.\nDESIRED: %v\nACTUAL: %v", desired.Priority, actual.Priority)
 		diffs = append(diffs, firewallRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "Priority",
 		})
 	}
-	if !dcl.IsZeroValue(desired.SourceRange) && (dcl.IsZeroValue(actual.SourceRange) || !reflect.DeepEqual(*desired.SourceRange, *actual.SourceRange)) {
+	if !dcl.IsZeroValue(desired.SourceRange) && !dcl.StringCanonicalize(desired.SourceRange, actual.SourceRange) {
 		c.Config.Logger.Infof("Detected diff in SourceRange.\nDESIRED: %v\nACTUAL: %v", desired.SourceRange, actual.SourceRange)
 		diffs = append(diffs, firewallRuleDiff{
 			RequiresRecreate: true,
@@ -508,6 +513,8 @@ func compareFirewallRuleActionEnum(c *Client, desired, actual *FirewallRuleActio
 // short-form so they can be substituted in.
 func (r *FirewallRule) urlNormalized() *FirewallRule {
 	normalized := deepcopy.Copy(*r).(FirewallRule)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.SourceRange = dcl.SelfLinkToName(r.SourceRange)
 	normalized.App = dcl.SelfLinkToName(r.App)
 	return &normalized
 }
@@ -558,6 +565,10 @@ func unmarshalFirewallRule(b []byte, c *Client) (*FirewallRule, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapFirewallRule(m, c)
+}
+
+func unmarshalMapFirewallRule(m map[string]interface{}, c *Client) (*FirewallRule, error) {
 
 	return flattenFirewallRule(c, m), nil
 }
@@ -621,7 +632,7 @@ func flattenFirewallRuleActionEnumSlice(c *Client, i interface{}) []FirewallRule
 
 	items := make([]FirewallRuleActionEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFirewallRuleActionEnum(item.(map[string]interface{})))
+		items = append(items, *flattenFirewallRuleActionEnum(item.(interface{})))
 	}
 
 	return items

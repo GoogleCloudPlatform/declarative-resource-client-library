@@ -1,0 +1,5 @@
+{
+  "project": "{{ref:basic.serviceusage.service.json:project}}",
+  "applicationTitle": "{{application}}",
+  "supportEmail": "{{test_service_account}}"
+}

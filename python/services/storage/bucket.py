@@ -97,9 +97,10 @@ class Bucket(object):
         self.versioning = BucketVersioning.from_proto(response.versioning)
         self.website = BucketWebsite.from_proto(response.website)
 
-    def hcl(self):
+    def delete(self):
         stub = bucket_pb2_grpc.StorageBucketServiceStub(channel.Channel())
-        request = bucket_pb2.StorageBucketAsHclRequest()
+        request = bucket_pb2.DeleteStorageBucketRequest()
+        request.service_account_file = self.service_account_file
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -136,19 +137,6 @@ class Bucket(object):
             request.resource.website.CopyFrom(BucketWebsite.to_proto(self.website))
         else:
             request.resource.ClearField("website")
-
-        response = stub.StorageBucketAsHcl(request)
-        return response.hcl
-
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
-        stub = bucket_pb2_grpc.StorageBucketServiceStub(channel.Channel())
-        request = bucket_pb2.DeleteStorageBucketRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
-
-        request.Name = name
-
         response = stub.DeleteStorageBucket(request)
 
     @classmethod
@@ -177,6 +165,36 @@ class Bucket(object):
         res.versioning = BucketVersioning.from_proto(res_proto.versioning)
         res.website = BucketWebsite.from_proto(res_proto.website)
         return res
+
+    def to_proto(self):
+        resource = bucket_pb2.StorageBucket()
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if BucketCorsArray.to_proto(self.cors):
+            resource.cors.extend(BucketCorsArray.to_proto(self.cors))
+        if BucketLifecycle.to_proto(self.lifecycle):
+            resource.lifecycle.CopyFrom(BucketLifecycle.to_proto(self.lifecycle))
+        else:
+            resource.ClearField("lifecycle")
+        if BucketLogging.to_proto(self.logging):
+            resource.logging.CopyFrom(BucketLogging.to_proto(self.logging))
+        else:
+            resource.ClearField("logging")
+        if BucketStorageClassEnum.to_proto(self.storage_class):
+            resource.storage_class = BucketStorageClassEnum.to_proto(self.storage_class)
+        if BucketVersioning.to_proto(self.versioning):
+            resource.versioning.CopyFrom(BucketVersioning.to_proto(self.versioning))
+        else:
+            resource.ClearField("versioning")
+        if BucketWebsite.to_proto(self.website):
+            resource.website.CopyFrom(BucketWebsite.to_proto(self.website))
+        else:
+            resource.ClearField("website")
+        return resource
 
 
 class BucketCors(object):

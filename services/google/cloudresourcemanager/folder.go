@@ -91,6 +91,9 @@ func (l *FolderList) HasNext() bool {
 }
 
 func (l *FolderList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -104,12 +107,17 @@ func (l *FolderList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListFolder(ctx context.Context, parent string) (*FolderList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListFolderWithMaxResults(ctx, parent, FolderMaxPage)
 
 }
 
 func (c *Client) ListFolderWithMaxResults(ctx context.Context, parent string, pageSize int32) (*FolderList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listFolder(ctx, parent, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -124,6 +132,9 @@ func (c *Client) ListFolderWithMaxResults(ctx context.Context, parent string, pa
 }
 
 func (c *Client) GetFolder(ctx context.Context, r *Folder) (*Folder, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getFolderRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -140,8 +151,6 @@ func (c *Client) GetFolder(ctx context.Context, r *Folder) (*Folder, error) {
 	}
 	result.Name = r.Name
 
-	result.Name = r.Name
-
 	c.Config.Logger.Infof("Retrieved raw result state: %v", result)
 	c.Config.Logger.Infof("Canonicalizing with specified state: %v", r)
 	result, err = canonicalizeFolderNewState(c, result, r)
@@ -154,6 +163,9 @@ func (c *Client) GetFolder(ctx context.Context, r *Folder) (*Folder, error) {
 }
 
 func (c *Client) DeleteFolder(ctx context.Context, r *Folder) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Folder resource is nil")
 	}
@@ -164,6 +176,9 @@ func (c *Client) DeleteFolder(ctx context.Context, r *Folder) error {
 
 // DeleteAllFolder deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllFolder(ctx context.Context, parent string, filter func(*Folder) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListFolder(ctx, parent)
 	if err != nil {
 		return err
@@ -189,6 +204,9 @@ func (c *Client) DeleteAllFolder(ctx context.Context, parent string, filter func
 func (c *Client) ApplyFolder(ctx context.Context, rawDesired *Folder, opts ...dcl.ApplyOption) (*Folder, error) {
 	c.Config.Logger.Info("Beginning ApplyFolder...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -269,12 +287,35 @@ func (c *Client) ApplyFolder(ctx context.Context, rawDesired *Folder, opts ...dc
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createFolderOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapFolder(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeFolderNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeFolderNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

@@ -202,18 +202,97 @@ class ForwardingRule(object):
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
 
-    @classmethod
-    def delete(self, project, location, name, service_account_file=""):
+    def delete(self):
         stub = forwarding_rule_pb2_grpc.ComputeForwardingRuleServiceStub(
             channel.Channel()
         )
         request = forwarding_rule_pb2.DeleteComputeForwardingRuleRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.all_ports):
+            request.resource.all_ports = Primitive.to_proto(self.all_ports)
 
-        request.Location = location
+        if Primitive.to_proto(self.allow_global_access):
+            request.resource.allow_global_access = Primitive.to_proto(
+                self.allow_global_access
+            )
 
-        request.Name = name
+        if Primitive.to_proto(self.backend_service):
+            request.resource.backend_service = Primitive.to_proto(self.backend_service)
+
+        if Primitive.to_proto(self.creation_timestamp):
+            request.resource.creation_timestamp = Primitive.to_proto(
+                self.creation_timestamp
+            )
+
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if Primitive.to_proto(self.ip_address):
+            request.resource.ip_address = Primitive.to_proto(self.ip_address)
+
+        if ForwardingRuleIPProtocolEnum.to_proto(self.ip_protocol):
+            request.resource.ip_protocol = ForwardingRuleIPProtocolEnum.to_proto(
+                self.ip_protocol
+            )
+
+        if ForwardingRuleIPVersionEnum.to_proto(self.ip_version):
+            request.resource.ip_version = ForwardingRuleIPVersionEnum.to_proto(
+                self.ip_version
+            )
+
+        if Primitive.to_proto(self.is_mirroring_collector):
+            request.resource.is_mirroring_collector = Primitive.to_proto(
+                self.is_mirroring_collector
+            )
+
+        if ForwardingRuleLoadBalancingSchemeEnum.to_proto(self.load_balancing_scheme):
+            request.resource.load_balancing_scheme = ForwardingRuleLoadBalancingSchemeEnum.to_proto(
+                self.load_balancing_scheme
+            )
+
+        if ForwardingRuleMetadataFilterArray.to_proto(self.metadata_filter):
+            request.resource.metadata_filter.extend(
+                ForwardingRuleMetadataFilterArray.to_proto(self.metadata_filter)
+            )
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.network):
+            request.resource.network = Primitive.to_proto(self.network)
+
+        if ForwardingRuleNetworkTierEnum.to_proto(self.network_tier):
+            request.resource.network_tier = ForwardingRuleNetworkTierEnum.to_proto(
+                self.network_tier
+            )
+
+        if Primitive.to_proto(self.port_range):
+            request.resource.port_range = Primitive.to_proto(self.port_range)
+
+        if Primitive.to_proto(self.ports):
+            request.resource.ports.extend(Primitive.to_proto(self.ports))
+        if Primitive.to_proto(self.region):
+            request.resource.region = Primitive.to_proto(self.region)
+
+        if Primitive.to_proto(self.self_link):
+            request.resource.self_link = Primitive.to_proto(self.self_link)
+
+        if Primitive.to_proto(self.service_label):
+            request.resource.service_label = Primitive.to_proto(self.service_label)
+
+        if Primitive.to_proto(self.service_name):
+            request.resource.service_name = Primitive.to_proto(self.service_name)
+
+        if Primitive.to_proto(self.subnetwork):
+            request.resource.subnetwork = Primitive.to_proto(self.subnetwork)
+
+        if Primitive.to_proto(self.target):
+            request.resource.target = Primitive.to_proto(self.target)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         response = stub.DeleteComputeForwardingRule(request)
 
@@ -270,6 +349,68 @@ class ForwardingRule(object):
         res.project = Primitive.from_proto(res_proto.project)
         res.location = Primitive.from_proto(res_proto.location)
         return res
+
+    def to_proto(self):
+        resource = forwarding_rule_pb2.ComputeForwardingRule()
+        if Primitive.to_proto(self.all_ports):
+            resource.all_ports = Primitive.to_proto(self.all_ports)
+        if Primitive.to_proto(self.allow_global_access):
+            resource.allow_global_access = Primitive.to_proto(self.allow_global_access)
+        if Primitive.to_proto(self.backend_service):
+            resource.backend_service = Primitive.to_proto(self.backend_service)
+        if Primitive.to_proto(self.creation_timestamp):
+            resource.creation_timestamp = Primitive.to_proto(self.creation_timestamp)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.ip_address):
+            resource.ip_address = Primitive.to_proto(self.ip_address)
+        if ForwardingRuleIPProtocolEnum.to_proto(self.ip_protocol):
+            resource.ip_protocol = ForwardingRuleIPProtocolEnum.to_proto(
+                self.ip_protocol
+            )
+        if ForwardingRuleIPVersionEnum.to_proto(self.ip_version):
+            resource.ip_version = ForwardingRuleIPVersionEnum.to_proto(self.ip_version)
+        if Primitive.to_proto(self.is_mirroring_collector):
+            resource.is_mirroring_collector = Primitive.to_proto(
+                self.is_mirroring_collector
+            )
+        if ForwardingRuleLoadBalancingSchemeEnum.to_proto(self.load_balancing_scheme):
+            resource.load_balancing_scheme = ForwardingRuleLoadBalancingSchemeEnum.to_proto(
+                self.load_balancing_scheme
+            )
+        if ForwardingRuleMetadataFilterArray.to_proto(self.metadata_filter):
+            resource.metadata_filter.extend(
+                ForwardingRuleMetadataFilterArray.to_proto(self.metadata_filter)
+            )
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.network):
+            resource.network = Primitive.to_proto(self.network)
+        if ForwardingRuleNetworkTierEnum.to_proto(self.network_tier):
+            resource.network_tier = ForwardingRuleNetworkTierEnum.to_proto(
+                self.network_tier
+            )
+        if Primitive.to_proto(self.port_range):
+            resource.port_range = Primitive.to_proto(self.port_range)
+        if Primitive.to_proto(self.ports):
+            resource.ports.extend(Primitive.to_proto(self.ports))
+        if Primitive.to_proto(self.region):
+            resource.region = Primitive.to_proto(self.region)
+        if Primitive.to_proto(self.self_link):
+            resource.self_link = Primitive.to_proto(self.self_link)
+        if Primitive.to_proto(self.service_label):
+            resource.service_label = Primitive.to_proto(self.service_label)
+        if Primitive.to_proto(self.service_name):
+            resource.service_name = Primitive.to_proto(self.service_name)
+        if Primitive.to_proto(self.subnetwork):
+            resource.subnetwork = Primitive.to_proto(self.subnetwork)
+        if Primitive.to_proto(self.target):
+            resource.target = Primitive.to_proto(self.target)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
+        return resource
 
 
 class ForwardingRuleMetadataFilter(object):

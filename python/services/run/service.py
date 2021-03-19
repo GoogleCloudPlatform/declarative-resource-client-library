@@ -80,16 +80,32 @@ class Service(object):
         self.location = Primitive.from_proto(response.location)
         self.name = Primitive.from_proto(response.name)
 
-    @classmethod
-    def delete(self, project, location, name, service_account_file=""):
+    def delete(self):
         stub = service_pb2_grpc.RunServiceServiceStub(channel.Channel())
         request = service_pb2.DeleteRunServiceRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.api_version):
+            request.resource.api_version = Primitive.to_proto(self.api_version)
 
-        request.Location = location
+        if Primitive.to_proto(self.kind):
+            request.resource.kind = Primitive.to_proto(self.kind)
 
-        request.Name = name
+        if ServiceMetadata.to_proto(self.metadata):
+            request.resource.metadata.CopyFrom(ServiceMetadata.to_proto(self.metadata))
+        else:
+            request.resource.ClearField("metadata")
+        if ServiceSpec.to_proto(self.spec):
+            request.resource.spec.CopyFrom(ServiceSpec.to_proto(self.spec))
+        else:
+            request.resource.ClearField("spec")
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
+
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
         response = stub.DeleteRunService(request)
 
@@ -120,6 +136,28 @@ class Service(object):
         res.location = Primitive.from_proto(res_proto.location)
         res.name = Primitive.from_proto(res_proto.name)
         return res
+
+    def to_proto(self):
+        resource = service_pb2.RunService()
+        if Primitive.to_proto(self.api_version):
+            resource.api_version = Primitive.to_proto(self.api_version)
+        if Primitive.to_proto(self.kind):
+            resource.kind = Primitive.to_proto(self.kind)
+        if ServiceMetadata.to_proto(self.metadata):
+            resource.metadata.CopyFrom(ServiceMetadata.to_proto(self.metadata))
+        else:
+            resource.ClearField("metadata")
+        if ServiceSpec.to_proto(self.spec):
+            resource.spec.CopyFrom(ServiceSpec.to_proto(self.spec))
+        else:
+            resource.ClearField("spec")
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        return resource
 
 
 class ServiceMetadata(object):

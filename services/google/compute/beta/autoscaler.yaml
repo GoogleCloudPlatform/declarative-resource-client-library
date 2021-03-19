@@ -35,7 +35,6 @@ components:
               format: int64
               type: integer
               x-dcl-go-name: CoolDownPeriodSec
-              x-kubernetes-immutable: true
             cpuUtilization:
               description: Defines the CPU utilization policy that allows the autoscaler
                 to scale based on the average CPU utilization of a managed instance
@@ -180,7 +179,6 @@ components:
                       readOnly: true
                       type: integer
                       x-dcl-go-name: Calculated
-                      x-kubernetes-immutable: true
                     fixed:
                       description: Specifies a fixed number of VM instances. This
                         must be a positive integer.
@@ -254,6 +252,9 @@ components:
           description: The project for the resource
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         recommendedSize:
           description: Target recommended MIG size (number of instances) computed
@@ -276,9 +277,6 @@ components:
           additionalProperties:
             type: string
           description: Status information of existing scaling schedules.
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: ScalingScheduleStatus
           x-kubernetes-immutable: true
@@ -385,7 +383,7 @@ components:
       x-dcl-locations:
       - zone
       - region
-      x-dcl-parent-container: organization
+      x-dcl-parent-container: project
       x-dcl-uses-state-hint: false
 info:
   description: DCL Specification for the Compute Autoscaler resource

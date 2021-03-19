@@ -28,8 +28,6 @@ type Version struct {
 	AutomaticScaling          *VersionAutomaticScaling     `json:"automaticScaling"`
 	BasicScaling              *VersionBasicScaling         `json:"basicScaling"`
 	ManualScaling             *VersionManualScaling        `json:"manualScaling"`
-	JobScaling                *VersionJobScaling           `json:"jobScaling"`
-	PoolScaling               *VersionPoolScaling          `json:"poolScaling"`
 	InboundServices           []VersionInboundServicesEnum `json:"inboundServices"`
 	InstanceClass             *string                      `json:"instanceClass"`
 	Network                   *VersionNetwork              `json:"network"`
@@ -52,7 +50,6 @@ type Version struct {
 	Libraries                 []VersionLibraries           `json:"libraries"`
 	ApiConfig                 *VersionApiConfig            `json:"apiConfig"`
 	EnvVariables              map[string]string            `json:"envVariables"`
-	BuildEnvVariables         map[string]string            `json:"buildEnvVariables"`
 	DefaultExpiration         *string                      `json:"defaultExpiration"`
 	Deployment                *VersionDeployment           `json:"deployment"`
 	HealthCheck               *VersionHealthCheck          `json:"healthCheck"`
@@ -60,13 +57,8 @@ type Version struct {
 	LivenessCheck             *VersionLivenessCheck        `json:"livenessCheck"`
 	NobuildFilesRegex         *string                      `json:"nobuildFilesRegex"`
 	VersionUrl                *string                      `json:"versionUrl"`
-	ServiceAuthSpec           *VersionServiceAuthSpec      `json:"serviceAuthSpec"`
-	ServiceCorsSpec           *VersionServiceCorsSpec      `json:"serviceCorsSpec"`
-	RouteHash                 *string                      `json:"routeHash"`
 	Entrypoint                *VersionEntrypoint           `json:"entrypoint"`
 	VPCAccessConnector        *VersionVPCAccessConnector   `json:"vpcAccessConnector"`
-	NetworkSettings           *VersionNetworkSettings      `json:"networkSettings"`
-	InstanceSpec              *VersionInstanceSpec         `json:"instanceSpec"`
 	App                       *string                      `json:"app"`
 	Service                   *string                      `json:"service"`
 }
@@ -345,87 +337,6 @@ func (v VersionApiConfigSecurityLevelEnum) Validate() error {
 	}
 }
 
-// The enum VersionVPCAccessConnectorEgressSettingEnum.
-type VersionVPCAccessConnectorEgressSettingEnum string
-
-// VersionVPCAccessConnectorEgressSettingEnumRef returns a *VersionVPCAccessConnectorEgressSettingEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func VersionVPCAccessConnectorEgressSettingEnumRef(s string) *VersionVPCAccessConnectorEgressSettingEnum {
-	if s == "" {
-		return nil
-	}
-
-	v := VersionVPCAccessConnectorEgressSettingEnum(s)
-	return &v
-}
-
-func (v VersionVPCAccessConnectorEgressSettingEnum) Validate() error {
-	for _, s := range []string{"EGRESS_SETTING_UNSPECIFIED", "ALL_TRAFFIC", "PRIVATE_IP_RANGES"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "VersionVPCAccessConnectorEgressSettingEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
-// The enum VersionNetworkSettingsIngressTrafficAllowedEnum.
-type VersionNetworkSettingsIngressTrafficAllowedEnum string
-
-// VersionNetworkSettingsIngressTrafficAllowedEnumRef returns a *VersionNetworkSettingsIngressTrafficAllowedEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func VersionNetworkSettingsIngressTrafficAllowedEnumRef(s string) *VersionNetworkSettingsIngressTrafficAllowedEnum {
-	if s == "" {
-		return nil
-	}
-
-	v := VersionNetworkSettingsIngressTrafficAllowedEnum(s)
-	return &v
-}
-
-func (v VersionNetworkSettingsIngressTrafficAllowedEnum) Validate() error {
-	for _, s := range []string{"INGRESS_TRAFFIC_ALLOWED_UNSPECIFIED", "INGRESS_TRAFFIC_ALLOWED_ALL", "INGRESS_TRAFFIC_ALLOWED_INTERNAL_ONLY", "INGRESS_TRAFFIC_ALLOWED_INTERNAL_AND_LB"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "VersionNetworkSettingsIngressTrafficAllowedEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
-// The enum VersionInstanceSpecPortsProtocolEnum.
-type VersionInstanceSpecPortsProtocolEnum string
-
-// VersionInstanceSpecPortsProtocolEnumRef returns a *VersionInstanceSpecPortsProtocolEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func VersionInstanceSpecPortsProtocolEnumRef(s string) *VersionInstanceSpecPortsProtocolEnum {
-	if s == "" {
-		return nil
-	}
-
-	v := VersionInstanceSpecPortsProtocolEnum(s)
-	return &v
-}
-
-func (v VersionInstanceSpecPortsProtocolEnum) Validate() error {
-	for _, s := range []string{"PROTOCOL_UNSPECIFIED", "PROTOCOL_HTTP1", "PROTOCOL_H2C", "PROTOCOL_TCP"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "VersionInstanceSpecPortsProtocolEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
 type VersionAutomaticScaling struct {
 	empty                     bool                                              `json:"-"`
 	CoolDownPeriod            *string                                           `json:"coolDownPeriod"`
@@ -618,55 +529,6 @@ func (r *VersionManualScaling) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type VersionJobScaling struct {
-	empty                     bool    `json:"-"`
-	Completions               *int64  `json:"completions"`
-	Parallelism               *int64  `json:"parallelism"`
-	JobDeadline               *string `json:"jobDeadline"`
-	InstanceRetries           *int64  `json:"instanceRetries"`
-	InstanceDeadline          *string `json:"instanceDeadline"`
-	InstanceTerminationWindow *string `json:"instanceTerminationWindow"`
-}
-
-// This object is used to assert a desired state where this VersionJobScaling is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionJobScaling *VersionJobScaling = &VersionJobScaling{empty: true}
-
-func (r *VersionJobScaling) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionJobScaling) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionPoolScaling struct {
-	empty          bool   `json:"-"`
-	Replicas       *int64 `json:"replicas"`
-	MaxUnavailable *int64 `json:"maxUnavailable"`
-	MaxSurge       *int64 `json:"maxSurge"`
-}
-
-// This object is used to assert a desired state where this VersionPoolScaling is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionPoolScaling *VersionPoolScaling = &VersionPoolScaling{empty: true}
-
-func (r *VersionPoolScaling) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionPoolScaling) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type VersionNetwork struct {
 	empty           bool     `json:"-"`
 	ForwardedPorts  []string `json:"forwardedPorts"`
@@ -693,12 +555,11 @@ func (r *VersionNetwork) HashCode() string {
 }
 
 type VersionResources struct {
-	empty           bool                      `json:"-"`
-	Cpu             *float64                  `json:"cpu"`
-	DiskGb          *float64                  `json:"diskGb"`
-	MemoryGb        *float64                  `json:"memoryGb"`
-	Volumes         []VersionResourcesVolumes `json:"volumes"`
-	KmsKeyReference *string                   `json:"kmsKeyReference"`
+	empty    bool                      `json:"-"`
+	Cpu      *float64                  `json:"cpu"`
+	DiskGb   *float64                  `json:"diskGb"`
+	MemoryGb *float64                  `json:"memoryGb"`
+	Volumes  []VersionResourcesVolumes `json:"volumes"`
 }
 
 // This object is used to assert a desired state where this VersionResources is
@@ -1100,60 +961,6 @@ func (r *VersionLivenessCheck) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type VersionServiceAuthSpec struct {
-	empty                bool     `json:"-"`
-	Audiences            []string `json:"audiences"`
-	IamServiceName       *string  `json:"iamServiceName"`
-	IamResourceName      *string  `json:"iamResourceName"`
-	IamPolicyId          *string  `json:"iamPolicyId"`
-	IamPolicyType        *string  `json:"iamPolicyType"`
-	IamPermission        *string  `json:"iamPermission"`
-	AcceptGcloudClientId *bool    `json:"acceptGcloudClientId"`
-	Clear                *bool    `json:"clear"`
-}
-
-// This object is used to assert a desired state where this VersionServiceAuthSpec is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionServiceAuthSpec *VersionServiceAuthSpec = &VersionServiceAuthSpec{empty: true}
-
-func (r *VersionServiceAuthSpec) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionServiceAuthSpec) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionServiceCorsSpec struct {
-	empty           bool     `json:"-"`
-	Origin          []string `json:"origin"`
-	Method          []string `json:"method"`
-	Header          []string `json:"header"`
-	ExposedHeader   []string `json:"exposedHeader"`
-	AllowCredential *bool    `json:"allowCredential"`
-	MaxAgeSeconds   *int64   `json:"maxAgeSeconds"`
-}
-
-// This object is used to assert a desired state where this VersionServiceCorsSpec is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionServiceCorsSpec *VersionServiceCorsSpec = &VersionServiceCorsSpec{empty: true}
-
-func (r *VersionServiceCorsSpec) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionServiceCorsSpec) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type VersionEntrypoint struct {
 	empty bool    `json:"-"`
 	Shell *string `json:"shell"`
@@ -1176,9 +983,8 @@ func (r *VersionEntrypoint) HashCode() string {
 }
 
 type VersionVPCAccessConnector struct {
-	empty         bool                                        `json:"-"`
-	Name          *string                                     `json:"name"`
-	EgressSetting *VersionVPCAccessConnectorEgressSettingEnum `json:"egressSetting"`
+	empty bool    `json:"-"`
+	Name  *string `json:"name"`
 }
 
 // This object is used to assert a desired state where this VersionVPCAccessConnector is
@@ -1191,117 +997,6 @@ func (r *VersionVPCAccessConnector) String() string {
 }
 
 func (r *VersionVPCAccessConnector) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionNetworkSettings struct {
-	empty                 bool                                             `json:"-"`
-	IngressTrafficAllowed *VersionNetworkSettingsIngressTrafficAllowedEnum `json:"ingressTrafficAllowed"`
-}
-
-// This object is used to assert a desired state where this VersionNetworkSettings is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionNetworkSettings *VersionNetworkSettings = &VersionNetworkSettings{empty: true}
-
-func (r *VersionNetworkSettings) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionNetworkSettings) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionInstanceSpec struct {
-	empty     bool                           `json:"-"`
-	Sandboxes []VersionInstanceSpecSandboxes `json:"sandboxes"`
-	Ports     []VersionInstanceSpecPorts     `json:"ports"`
-}
-
-// This object is used to assert a desired state where this VersionInstanceSpec is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionInstanceSpec *VersionInstanceSpec = &VersionInstanceSpec{empty: true}
-
-func (r *VersionInstanceSpec) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionInstanceSpec) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionInstanceSpecSandboxes struct {
-	empty      bool                                     `json:"-"`
-	Name       *string                                  `json:"name"`
-	Containers []VersionInstanceSpecSandboxesContainers `json:"containers"`
-}
-
-// This object is used to assert a desired state where this VersionInstanceSpecSandboxes is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionInstanceSpecSandboxes *VersionInstanceSpecSandboxes = &VersionInstanceSpecSandboxes{empty: true}
-
-func (r *VersionInstanceSpecSandboxes) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionInstanceSpecSandboxes) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionInstanceSpecSandboxesContainers struct {
-	empty bool    `json:"-"`
-	Ports []int64 `json:"ports"`
-}
-
-// This object is used to assert a desired state where this VersionInstanceSpecSandboxesContainers is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionInstanceSpecSandboxesContainers *VersionInstanceSpecSandboxesContainers = &VersionInstanceSpecSandboxesContainers{empty: true}
-
-func (r *VersionInstanceSpecSandboxesContainers) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionInstanceSpecSandboxesContainers) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type VersionInstanceSpecPorts struct {
-	empty     bool                                  `json:"-"`
-	Name      *string                               `json:"name"`
-	Sandbox   *string                               `json:"sandbox"`
-	Port      *int64                                `json:"port"`
-	Protocol  *VersionInstanceSpecPortsProtocolEnum `json:"protocol"`
-	IsDefault *bool                                 `json:"isDefault"`
-}
-
-// This object is used to assert a desired state where this VersionInstanceSpecPorts is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyVersionInstanceSpecPorts *VersionInstanceSpecPorts = &VersionInstanceSpecPorts{empty: true}
-
-func (r *VersionInstanceSpecPorts) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *VersionInstanceSpecPorts) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -1337,6 +1032,9 @@ func (l *VersionList) HasNext() bool {
 }
 
 func (l *VersionList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -1350,12 +1048,17 @@ func (l *VersionList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListVersion(ctx context.Context, app, service string) (*VersionList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListVersionWithMaxResults(ctx, app, service, VersionMaxPage)
 
 }
 
 func (c *Client) ListVersionWithMaxResults(ctx context.Context, app, service string, pageSize int32) (*VersionList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listVersion(ctx, app, service, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -1372,6 +1075,9 @@ func (c *Client) ListVersionWithMaxResults(ctx context.Context, app, service str
 }
 
 func (c *Client) GetVersion(ctx context.Context, r *Version) (*Version, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getVersionRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -1402,6 +1108,9 @@ func (c *Client) GetVersion(ctx context.Context, r *Version) (*Version, error) {
 }
 
 func (c *Client) DeleteVersion(ctx context.Context, r *Version) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Version resource is nil")
 	}
@@ -1412,6 +1121,9 @@ func (c *Client) DeleteVersion(ctx context.Context, r *Version) error {
 
 // DeleteAllVersion deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllVersion(ctx context.Context, app, service string, filter func(*Version) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListVersion(ctx, app, service)
 	if err != nil {
 		return err
@@ -1437,6 +1149,9 @@ func (c *Client) DeleteAllVersion(ctx context.Context, app, service string, filt
 func (c *Client) ApplyVersion(ctx context.Context, rawDesired *Version, opts ...dcl.ApplyOption) (*Version, error) {
 	c.Config.Logger.Info("Beginning ApplyVersion...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -1517,12 +1232,35 @@ func (c *Client) ApplyVersion(ctx context.Context, rawDesired *Version, opts ...
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createVersionOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapVersion(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeVersionNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeVersionNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

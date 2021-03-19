@@ -342,6 +342,9 @@ func (l *AutoscalerList) HasNext() bool {
 }
 
 func (l *AutoscalerList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -355,12 +358,17 @@ func (l *AutoscalerList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListAutoscaler(ctx context.Context, project, location string) (*AutoscalerList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListAutoscalerWithMaxResults(ctx, project, location, AutoscalerMaxPage)
 
 }
 
 func (c *Client) ListAutoscalerWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*AutoscalerList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listAutoscaler(ctx, project, location, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -377,6 +385,9 @@ func (c *Client) ListAutoscalerWithMaxResults(ctx context.Context, project, loca
 }
 
 func (c *Client) GetAutoscaler(ctx context.Context, r *Autoscaler) (*Autoscaler, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getAutoscalerRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -407,6 +418,9 @@ func (c *Client) GetAutoscaler(ctx context.Context, r *Autoscaler) (*Autoscaler,
 }
 
 func (c *Client) DeleteAutoscaler(ctx context.Context, r *Autoscaler) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Autoscaler resource is nil")
 	}
@@ -417,6 +431,9 @@ func (c *Client) DeleteAutoscaler(ctx context.Context, r *Autoscaler) error {
 
 // DeleteAllAutoscaler deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllAutoscaler(ctx context.Context, project, location string, filter func(*Autoscaler) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListAutoscaler(ctx, project, location)
 	if err != nil {
 		return err
@@ -442,6 +459,9 @@ func (c *Client) DeleteAllAutoscaler(ctx context.Context, project, location stri
 func (c *Client) ApplyAutoscaler(ctx context.Context, rawDesired *Autoscaler, opts ...dcl.ApplyOption) (*Autoscaler, error) {
 	c.Config.Logger.Info("Beginning ApplyAutoscaler...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -522,12 +542,35 @@ func (c *Client) ApplyAutoscaler(ctx context.Context, rawDesired *Autoscaler, op
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createAutoscalerOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapAutoscaler(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeAutoscalerNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeAutoscalerNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

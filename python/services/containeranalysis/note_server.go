@@ -447,6 +447,40 @@ func ProtoToContaineranalysisNoteDiscovery(p *containeranalysispb.Containeranaly
 	return obj
 }
 
+// ProtoToNoteDeployment converts a NoteDeployment resource from its proto representation.
+func ProtoToContaineranalysisNoteDeployment(p *containeranalysispb.ContaineranalysisNoteDeployment) *containeranalysis.NoteDeployment {
+	if p == nil {
+		return nil
+	}
+	obj := &containeranalysis.NoteDeployment{}
+	for _, r := range p.GetResourceUri() {
+		obj.ResourceUri = append(obj.ResourceUri, r)
+	}
+	return obj
+}
+
+// ProtoToNoteAttestation converts a NoteAttestation resource from its proto representation.
+func ProtoToContaineranalysisNoteAttestation(p *containeranalysispb.ContaineranalysisNoteAttestation) *containeranalysis.NoteAttestation {
+	if p == nil {
+		return nil
+	}
+	obj := &containeranalysis.NoteAttestation{
+		Hint: ProtoToContaineranalysisNoteAttestationHint(p.GetHint()),
+	}
+	return obj
+}
+
+// ProtoToNoteAttestationHint converts a NoteAttestationHint resource from its proto representation.
+func ProtoToContaineranalysisNoteAttestationHint(p *containeranalysispb.ContaineranalysisNoteAttestationHint) *containeranalysis.NoteAttestationHint {
+	if p == nil {
+		return nil
+	}
+	obj := &containeranalysis.NoteAttestationHint{
+		HumanReadableName: dcl.StringOrNil(p.HumanReadableName),
+	}
+	return obj
+}
+
 // ProtoToNote converts a Note resource from its proto representation.
 func ProtoToNote(p *containeranalysispb.ContaineranalysisNote) *containeranalysis.Note {
 	obj := &containeranalysis.Note{
@@ -461,6 +495,8 @@ func ProtoToNote(p *containeranalysispb.ContaineranalysisNote) *containeranalysi
 		Image:            ProtoToContaineranalysisNoteImage(p.GetImage()),
 		Package:          ProtoToContaineranalysisNotePackage(p.GetPackage()),
 		Discovery:        ProtoToContaineranalysisNoteDiscovery(p.GetDiscovery()),
+		Deployment:       ProtoToContaineranalysisNoteDeployment(p.GetDeployment()),
+		Attestation:      ProtoToContaineranalysisNoteAttestation(p.GetAttestation()),
 		Project:          dcl.StringOrNil(p.Project),
 	}
 	for _, r := range p.GetRelatedUrl() {
@@ -879,6 +915,40 @@ func ContaineranalysisNoteDiscoveryToProto(o *containeranalysis.NoteDiscovery) *
 	return p
 }
 
+// NoteDeploymentToProto converts a NoteDeployment resource to its proto representation.
+func ContaineranalysisNoteDeploymentToProto(o *containeranalysis.NoteDeployment) *containeranalysispb.ContaineranalysisNoteDeployment {
+	if o == nil {
+		return nil
+	}
+	p := &containeranalysispb.ContaineranalysisNoteDeployment{}
+	for _, r := range o.ResourceUri {
+		p.ResourceUri = append(p.ResourceUri, r)
+	}
+	return p
+}
+
+// NoteAttestationToProto converts a NoteAttestation resource to its proto representation.
+func ContaineranalysisNoteAttestationToProto(o *containeranalysis.NoteAttestation) *containeranalysispb.ContaineranalysisNoteAttestation {
+	if o == nil {
+		return nil
+	}
+	p := &containeranalysispb.ContaineranalysisNoteAttestation{
+		Hint: ContaineranalysisNoteAttestationHintToProto(o.Hint),
+	}
+	return p
+}
+
+// NoteAttestationHintToProto converts a NoteAttestationHint resource to its proto representation.
+func ContaineranalysisNoteAttestationHintToProto(o *containeranalysis.NoteAttestationHint) *containeranalysispb.ContaineranalysisNoteAttestationHint {
+	if o == nil {
+		return nil
+	}
+	p := &containeranalysispb.ContaineranalysisNoteAttestationHint{
+		HumanReadableName: dcl.ValueOrEmptyString(o.HumanReadableName),
+	}
+	return p
+}
+
 // NoteToProto converts a Note resource to its proto representation.
 func NoteToProto(resource *containeranalysis.Note) *containeranalysispb.ContaineranalysisNote {
 	p := &containeranalysispb.ContaineranalysisNote{
@@ -893,6 +963,8 @@ func NoteToProto(resource *containeranalysis.Note) *containeranalysispb.Containe
 		Image:            ContaineranalysisNoteImageToProto(resource.Image),
 		Package:          ContaineranalysisNotePackageToProto(resource.Package),
 		Discovery:        ContaineranalysisNoteDiscoveryToProto(resource.Discovery),
+		Deployment:       ContaineranalysisNoteDeploymentToProto(resource.Deployment),
+		Attestation:      ContaineranalysisNoteAttestationToProto(resource.Attestation),
 		Project:          dcl.ValueOrEmptyString(resource.Project),
 	}
 	for _, r := range resource.RelatedUrl {

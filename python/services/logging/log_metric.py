@@ -108,14 +108,47 @@ class LogMetric(object):
         self.resolution = Primitive.from_proto(response.resolution)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = log_metric_pb2_grpc.LoggingLogMetricServiceStub(channel.Channel())
         request = log_metric_pb2.DeleteLoggingLogMetricRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Name = name
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if Primitive.to_proto(self.filter):
+            request.resource.filter = Primitive.to_proto(self.filter)
+
+        if Primitive.to_proto(self.disabled):
+            request.resource.disabled = Primitive.to_proto(self.disabled)
+
+        if LogMetricMetricDescriptor.to_proto(self.metric_descriptor):
+            request.resource.metric_descriptor.CopyFrom(
+                LogMetricMetricDescriptor.to_proto(self.metric_descriptor)
+            )
+        else:
+            request.resource.ClearField("metric_descriptor")
+        if Primitive.to_proto(self.value_extractor):
+            request.resource.value_extractor = Primitive.to_proto(self.value_extractor)
+
+        if Primitive.to_proto(self.label_extractors):
+            request.resource.label_extractors = Primitive.to_proto(
+                self.label_extractors
+            )
+
+        if LogMetricBucketOptions.to_proto(self.bucket_options):
+            request.resource.bucket_options.CopyFrom(
+                LogMetricBucketOptions.to_proto(self.bucket_options)
+            )
+        else:
+            request.resource.ClearField("bucket_options")
+        if Primitive.to_proto(self.resolution):
+            request.resource.resolution = Primitive.to_proto(self.resolution)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteLoggingLogMetric(request)
 
@@ -150,6 +183,38 @@ class LogMetric(object):
         res.resolution = Primitive.from_proto(res_proto.resolution)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = log_metric_pb2.LoggingLogMetric()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.filter):
+            resource.filter = Primitive.to_proto(self.filter)
+        if Primitive.to_proto(self.disabled):
+            resource.disabled = Primitive.to_proto(self.disabled)
+        if LogMetricMetricDescriptor.to_proto(self.metric_descriptor):
+            resource.metric_descriptor.CopyFrom(
+                LogMetricMetricDescriptor.to_proto(self.metric_descriptor)
+            )
+        else:
+            resource.ClearField("metric_descriptor")
+        if Primitive.to_proto(self.value_extractor):
+            resource.value_extractor = Primitive.to_proto(self.value_extractor)
+        if Primitive.to_proto(self.label_extractors):
+            resource.label_extractors = Primitive.to_proto(self.label_extractors)
+        if LogMetricBucketOptions.to_proto(self.bucket_options):
+            resource.bucket_options.CopyFrom(
+                LogMetricBucketOptions.to_proto(self.bucket_options)
+            )
+        else:
+            resource.ClearField("bucket_options")
+        if Primitive.to_proto(self.resolution):
+            resource.resolution = Primitive.to_proto(self.resolution)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class LogMetricMetricDescriptor(object):

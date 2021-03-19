@@ -123,6 +123,9 @@ func (l *RouteList) HasNext() bool {
 }
 
 func (l *RouteList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -136,12 +139,17 @@ func (l *RouteList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListRoute(ctx context.Context, project string) (*RouteList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListRouteWithMaxResults(ctx, project, RouteMaxPage)
 
 }
 
 func (c *Client) ListRouteWithMaxResults(ctx context.Context, project string, pageSize int32) (*RouteList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listRoute(ctx, project, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -156,6 +164,9 @@ func (c *Client) ListRouteWithMaxResults(ctx context.Context, project string, pa
 }
 
 func (c *Client) GetRoute(ctx context.Context, r *Route) (*Route, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getRouteRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -188,6 +199,9 @@ func (c *Client) GetRoute(ctx context.Context, r *Route) (*Route, error) {
 }
 
 func (c *Client) DeleteRoute(ctx context.Context, r *Route) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Route resource is nil")
 	}
@@ -198,6 +212,9 @@ func (c *Client) DeleteRoute(ctx context.Context, r *Route) error {
 
 // DeleteAllRoute deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllRoute(ctx context.Context, project string, filter func(*Route) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListRoute(ctx, project)
 	if err != nil {
 		return err
@@ -223,6 +240,9 @@ func (c *Client) DeleteAllRoute(ctx context.Context, project string, filter func
 func (c *Client) ApplyRoute(ctx context.Context, rawDesired *Route, opts ...dcl.ApplyOption) (*Route, error) {
 	c.Config.Logger.Info("Beginning ApplyRoute...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -303,12 +323,35 @@ func (c *Client) ApplyRoute(ctx context.Context, rawDesired *Route, opts ...dcl.
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createRouteOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapRoute(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeRouteNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeRouteNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

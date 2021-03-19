@@ -58,6 +58,7 @@ message ListCloudresourcemanagerProjectRequest {
 message ListCloudresourcemanagerProjectResponse {
   repeated CloudresourcemanagerProject items = 1;
 }
+
 service CloudresourcemanagerProjectService {
   rpc ApplyCloudresourcemanagerProject(ApplyCloudresourcemanagerProjectRequest) returns (CloudresourcemanagerProject);
   rpc DeleteCloudresourcemanagerProject(DeleteCloudresourcemanagerProjectRequest) returns (google.protobuf.Empty);

@@ -68,6 +68,7 @@ message ListIamRoleRequest {
 message ListIamRoleResponse {
   repeated IamRole items = 1;
 }
+
 service IamRoleService {
   rpc ApplyIamRole(ApplyIamRoleRequest) returns (IamRole);
   rpc DeleteIamRole(DeleteIamRoleRequest) returns (google.protobuf.Empty);

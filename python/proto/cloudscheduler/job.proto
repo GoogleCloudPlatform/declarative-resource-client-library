@@ -149,6 +149,7 @@ message ListCloudschedulerJobRequest {
 message ListCloudschedulerJobResponse {
   repeated CloudschedulerJob items = 1;
 }
+
 service CloudschedulerJobService {
   rpc ApplyCloudschedulerJob(ApplyCloudschedulerJobRequest) returns (CloudschedulerJob);
   rpc DeleteCloudschedulerJob(DeleteCloudschedulerJobRequest) returns (google.protobuf.Empty);

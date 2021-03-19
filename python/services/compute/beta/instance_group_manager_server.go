@@ -152,12 +152,12 @@ func ProtoToComputeBetaInstanceGroupManagerStatusVersionTarget(p *betapb.Compute
 	return obj
 }
 
-// ProtoToInstanceGroupManagerAutohealingPolicies converts a InstanceGroupManagerAutohealingPolicies resource from its proto representation.
-func ProtoToComputeBetaInstanceGroupManagerAutohealingPolicies(p *betapb.ComputeBetaInstanceGroupManagerAutohealingPolicies) *beta.InstanceGroupManagerAutohealingPolicies {
+// ProtoToInstanceGroupManagerAutoHealingPolicies converts a InstanceGroupManagerAutoHealingPolicies resource from its proto representation.
+func ProtoToComputeBetaInstanceGroupManagerAutoHealingPolicies(p *betapb.ComputeBetaInstanceGroupManagerAutoHealingPolicies) *beta.InstanceGroupManagerAutoHealingPolicies {
 	if p == nil {
 		return nil
 	}
-	obj := &beta.InstanceGroupManagerAutohealingPolicies{
+	obj := &beta.InstanceGroupManagerAutoHealingPolicies{
 		HealthCheck:     dcl.StringOrNil(p.HealthCheck),
 		InitialDelaySec: dcl.Int64OrNil(p.InitialDelaySec),
 	}
@@ -233,8 +233,8 @@ func ProtoToInstanceGroupManager(p *betapb.ComputeBetaInstanceGroupManager) *bet
 	for _, r := range p.GetTargetPools() {
 		obj.TargetPools = append(obj.TargetPools, r)
 	}
-	for _, r := range p.GetAutohealingPolicies() {
-		obj.AutohealingPolicies = append(obj.AutohealingPolicies, *ProtoToComputeBetaInstanceGroupManagerAutohealingPolicies(r))
+	for _, r := range p.GetAutoHealingPolicies() {
+		obj.AutoHealingPolicies = append(obj.AutoHealingPolicies, *ProtoToComputeBetaInstanceGroupManagerAutoHealingPolicies(r))
 	}
 	return obj
 }
@@ -364,12 +364,12 @@ func ComputeBetaInstanceGroupManagerStatusVersionTargetToProto(o *beta.InstanceG
 	return p
 }
 
-// InstanceGroupManagerAutohealingPoliciesToProto converts a InstanceGroupManagerAutohealingPolicies resource to its proto representation.
-func ComputeBetaInstanceGroupManagerAutohealingPoliciesToProto(o *beta.InstanceGroupManagerAutohealingPolicies) *betapb.ComputeBetaInstanceGroupManagerAutohealingPolicies {
+// InstanceGroupManagerAutoHealingPoliciesToProto converts a InstanceGroupManagerAutoHealingPolicies resource to its proto representation.
+func ComputeBetaInstanceGroupManagerAutoHealingPoliciesToProto(o *beta.InstanceGroupManagerAutoHealingPolicies) *betapb.ComputeBetaInstanceGroupManagerAutoHealingPolicies {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaInstanceGroupManagerAutohealingPolicies{
+	p := &betapb.ComputeBetaInstanceGroupManagerAutoHealingPolicies{
 		HealthCheck:     dcl.ValueOrEmptyString(o.HealthCheck),
 		InitialDelaySec: dcl.ValueOrEmptyInt64(o.InitialDelaySec),
 	}
@@ -445,8 +445,8 @@ func InstanceGroupManagerToProto(resource *beta.InstanceGroupManager) *betapb.Co
 	for _, r := range resource.TargetPools {
 		p.TargetPools = append(p.TargetPools, r)
 	}
-	for _, r := range resource.AutohealingPolicies {
-		p.AutohealingPolicies = append(p.AutohealingPolicies, ComputeBetaInstanceGroupManagerAutohealingPoliciesToProto(&r))
+	for _, r := range resource.AutoHealingPolicies {
+		p.AutoHealingPolicies = append(p.AutoHealingPolicies, ComputeBetaInstanceGroupManagerAutoHealingPoliciesToProto(&r))
 	}
 
 	return p

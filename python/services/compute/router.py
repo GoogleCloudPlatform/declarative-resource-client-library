@@ -94,16 +94,38 @@ class Router(object):
         self.project = Primitive.from_proto(response.project)
         self.self_link = Primitive.from_proto(response.self_link)
 
-    @classmethod
-    def delete(self, project, region, name, service_account_file=""):
+    def delete(self):
         stub = router_pb2_grpc.ComputeRouterServiceStub(channel.Channel())
         request = router_pb2.DeleteComputeRouterRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if RouterNatsArray.to_proto(self.nats):
+            request.resource.nats.extend(RouterNatsArray.to_proto(self.nats))
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Region = region
+        if Primitive.to_proto(self.network):
+            request.resource.network = Primitive.to_proto(self.network)
 
-        request.Name = name
+        if RouterInterfacesArray.to_proto(self.interfaces):
+            request.resource.interfaces.extend(
+                RouterInterfacesArray.to_proto(self.interfaces)
+            )
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if RouterBgpPeersArray.to_proto(self.bgp_peers):
+            request.resource.bgp_peers.extend(
+                RouterBgpPeersArray.to_proto(self.bgp_peers)
+            )
+        if RouterBgp.to_proto(self.bgp):
+            request.resource.bgp.CopyFrom(RouterBgp.to_proto(self.bgp))
+        else:
+            request.resource.ClearField("bgp")
+        if Primitive.to_proto(self.region):
+            request.resource.region = Primitive.to_proto(self.region)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteComputeRouter(request)
 
@@ -137,6 +159,30 @@ class Router(object):
         res.project = Primitive.from_proto(res_proto.project)
         res.self_link = Primitive.from_proto(res_proto.self_link)
         return res
+
+    def to_proto(self):
+        resource = router_pb2.ComputeRouter()
+        if RouterNatsArray.to_proto(self.nats):
+            resource.nats.extend(RouterNatsArray.to_proto(self.nats))
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.network):
+            resource.network = Primitive.to_proto(self.network)
+        if RouterInterfacesArray.to_proto(self.interfaces):
+            resource.interfaces.extend(RouterInterfacesArray.to_proto(self.interfaces))
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if RouterBgpPeersArray.to_proto(self.bgp_peers):
+            resource.bgp_peers.extend(RouterBgpPeersArray.to_proto(self.bgp_peers))
+        if RouterBgp.to_proto(self.bgp):
+            resource.bgp.CopyFrom(RouterBgp.to_proto(self.bgp))
+        else:
+            resource.ClearField("bgp")
+        if Primitive.to_proto(self.region):
+            resource.region = Primitive.to_proto(self.region)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class RouterNats(object):

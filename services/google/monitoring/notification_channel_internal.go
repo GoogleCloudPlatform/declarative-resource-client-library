@@ -24,7 +24,6 @@ import (
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *NotificationChannel) validate() error {
@@ -143,17 +142,7 @@ func (op *updateNotificationChannelUpdateOperation) do(ctx context.Context, r *N
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
-	if err != nil {
-		return err
-	}
-
-	var o operations.MonitoringOperation
-	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
-		return err
-	}
-	err = o.Wait(ctx, c.Config, "https://monitoring.googleapis.com/", "GET")
-
+	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -180,7 +169,7 @@ func (c *Client) listNotificationChannelRaw(ctx context.Context, project, pageTo
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -254,7 +243,7 @@ func (op *deleteNotificationChannelOperation) do(ctx context.Context, r *Notific
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return fmt.Errorf("failed to delete NotificationChannel: %w", err)
 	}
@@ -268,7 +257,13 @@ func (op *deleteNotificationChannelOperation) do(ctx context.Context, r *Notific
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createNotificationChannelOperation struct{}
+type createNotificationChannelOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createNotificationChannelOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createNotificationChannelOperation) do(ctx context.Context, r *NotificationChannel, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -284,27 +279,26 @@ func (op *createNotificationChannelOperation) do(ctx context.Context, r *Notific
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
-	// wait for object to be created.
-	var o operations.MonitoringOperation
-	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
-		return err
-	}
-	if err := o.Wait(ctx, c.Config, "https://monitoring.googleapis.com/", "GET"); err != nil {
-		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
-		return err
-	}
-	c.Config.Logger.Infof("Successfully waited for operation")
 
-	r.Name, err = o.FetchName()
+	o, err := dcl.ResponseBodyAsJSON(resp)
 	if err != nil {
-		return fmt.Errorf("error trying to retrieve Name: %w", err)
+		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
+	op.response = o
+
+	// Include Name in URL substitution for initial GET request.
+	name, ok := op.response["name"].(string)
+	if !ok {
+		return fmt.Errorf("expected name to be a string")
+	}
+	r.Name = &name
 
 	if _, err := c.GetNotificationChannel(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -320,7 +314,7 @@ func (c *Client) getNotificationChannelRaw(ctx context.Context, r *NotificationC
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -408,24 +402,16 @@ func canonicalizeNotificationChannelDesiredState(rawDesired, rawInitial *Notific
 		rawDesired.Enabled = dcl.Bool(true)
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*NotificationChannel); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected NotificationChannel, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.IsZeroValue(rawDesired.DisplayName) {
+	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
 		rawDesired.DisplayName = rawInitial.DisplayName
 	}
 	if dcl.IsZeroValue(rawDesired.Enabled) {
@@ -434,10 +420,10 @@ func canonicalizeNotificationChannelDesiredState(rawDesired, rawInitial *Notific
 	if dcl.IsZeroValue(rawDesired.Labels) {
 		rawDesired.Labels = rawInitial.Labels
 	}
-	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Type) {
+	if dcl.StringCanonicalize(rawDesired.Type, rawInitial.Type) {
 		rawDesired.Type = rawInitial.Type
 	}
 	if dcl.IsZeroValue(rawDesired.UserLabels) {
@@ -458,11 +444,17 @@ func canonicalizeNotificationChannelNewState(c *Client, rawNew, rawDesired *Noti
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
 		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
+		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Enabled) && dcl.IsEmptyValueIndirect(rawDesired.Enabled) {
@@ -478,14 +470,14 @@ func canonicalizeNotificationChannelNewState(c *Client, rawNew, rawDesired *Noti
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
-		if dcl.NameToSelfLink(rawDesired.Name, rawNew.Name) {
-			rawNew.Name = rawDesired.Name
-		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Type) && dcl.IsEmptyValueIndirect(rawDesired.Type) {
 		rawNew.Type = rawDesired.Type
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Type, rawNew.Type) {
+			rawNew.Type = rawDesired.Type
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.UserLabels) && dcl.IsEmptyValueIndirect(rawDesired.UserLabels) {
@@ -524,7 +516,7 @@ func diffNotificationChannel(c *Client, desired, actual *NotificationChannel, op
 	}
 
 	var diffs []notificationChannelDiff
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, notificationChannelDiff{
@@ -533,7 +525,7 @@ func diffNotificationChannel(c *Client, desired, actual *NotificationChannel, op
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.DisplayName) && (dcl.IsZeroValue(actual.DisplayName) || !reflect.DeepEqual(*desired.DisplayName, *actual.DisplayName)) {
+	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
 		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 
 		diffs = append(diffs, notificationChannelDiff{
@@ -542,7 +534,7 @@ func diffNotificationChannel(c *Client, desired, actual *NotificationChannel, op
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Enabled) && (dcl.IsZeroValue(actual.Enabled) || !reflect.DeepEqual(*desired.Enabled, *actual.Enabled)) {
+	if !reflect.DeepEqual(desired.Enabled, actual.Enabled) {
 		c.Config.Logger.Infof("Detected diff in Enabled.\nDESIRED: %v\nACTUAL: %v", desired.Enabled, actual.Enabled)
 
 		diffs = append(diffs, notificationChannelDiff{
@@ -551,7 +543,7 @@ func diffNotificationChannel(c *Client, desired, actual *NotificationChannel, op
 		})
 
 	}
-	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
+	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
 		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, notificationChannelDiff{
@@ -560,7 +552,7 @@ func diffNotificationChannel(c *Client, desired, actual *NotificationChannel, op
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Type) && (dcl.IsZeroValue(actual.Type) || !reflect.DeepEqual(*desired.Type, *actual.Type)) {
+	if !dcl.IsZeroValue(desired.Type) && !dcl.StringCanonicalize(desired.Type, actual.Type) {
 		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %v\nACTUAL: %v", desired.Type, actual.Type)
 
 		diffs = append(diffs, notificationChannelDiff{
@@ -569,7 +561,7 @@ func diffNotificationChannel(c *Client, desired, actual *NotificationChannel, op
 		})
 
 	}
-	if !reflect.DeepEqual(desired.UserLabels, actual.UserLabels) {
+	if !dcl.MapEquals(desired.UserLabels, actual.UserLabels, []string(nil)) {
 		c.Config.Logger.Infof("Detected diff in UserLabels.\nDESIRED: %v\nACTUAL: %v", desired.UserLabels, actual.UserLabels)
 
 		diffs = append(diffs, notificationChannelDiff{
@@ -625,7 +617,10 @@ func compareNotificationChannelVerificationStatusEnum(c *Client, desired, actual
 // short-form so they can be substituted in.
 func (r *NotificationChannel) urlNormalized() *NotificationChannel {
 	normalized := deepcopy.Copy(*r).(NotificationChannel)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Type = dcl.SelfLinkToName(r.Type)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -676,6 +671,10 @@ func unmarshalNotificationChannel(b []byte, c *Client) (*NotificationChannel, er
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapNotificationChannel(m, c)
+}
+
+func unmarshalMapNotificationChannel(m map[string]interface{}, c *Client) (*NotificationChannel, error) {
 
 	return flattenNotificationChannel(c, m), nil
 }
@@ -736,7 +735,7 @@ func flattenNotificationChannel(c *Client, i interface{}) *NotificationChannel {
 		r.Enabled = dcl.Bool(true)
 	}
 	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	r.Name = dcl.FlattenSecretValue(m["name"])
+	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
 	r.Type = dcl.FlattenString(m["type"])
 	r.UserLabels = dcl.FlattenKeyValuePairs(m["userLabels"])
 	r.VerificationStatus = flattenNotificationChannelVerificationStatusEnum(m["verificationStatus"])
@@ -759,7 +758,7 @@ func flattenNotificationChannelVerificationStatusEnumSlice(c *Client, i interfac
 
 	items := make([]NotificationChannelVerificationStatusEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenNotificationChannelVerificationStatusEnum(item.(map[string]interface{})))
+		items = append(items, *flattenNotificationChannelVerificationStatusEnum(item.(interface{})))
 	}
 
 	return items

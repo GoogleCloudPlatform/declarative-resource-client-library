@@ -25,10 +25,11 @@ message EventarcBetaTrigger {
   string service_account = 4;
   EventarcBetaTriggerDestination destination = 5;
   EventarcBetaTriggerTransport transport = 6;
-  string etag = 7;
-  repeated EventarcBetaTriggerMatchingCriteria matching_criteria = 8;
-  string project = 9;
-  string location = 10;
+  map<string, string> labels = 7;
+  string etag = 8;
+  repeated EventarcBetaTriggerMatchingCriteria matching_criteria = 9;
+  string project = 10;
+  string location = 11;
 }
 
 message EventarcBetaTriggerDestination {
@@ -75,6 +76,7 @@ message ListEventarcBetaTriggerRequest {
 message ListEventarcBetaTriggerResponse {
   repeated EventarcBetaTrigger items = 1;
 }
+
 service EventarcBetaTriggerService {
   rpc ApplyEventarcBetaTrigger(ApplyEventarcBetaTriggerRequest) returns (EventarcBetaTrigger);
   rpc DeleteEventarcBetaTrigger(DeleteEventarcBetaTriggerRequest) returns (google.protobuf.Empty);

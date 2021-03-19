@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 
 	"github.com/mohae/deepcopy"
@@ -149,7 +148,7 @@ func (op *updateTopicUpdateOperation) do(ctx context.Context, r *Topic, c *Clien
 	if err != nil {
 		return err
 	}
-	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -176,7 +175,7 @@ func (c *Client) listTopicRaw(ctx context.Context, project, pageToken string, pa
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -250,7 +249,7 @@ func (op *deleteTopicOperation) do(ctx context.Context, r *Topic, c *Client) err
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return fmt.Errorf("failed to delete Topic: %w", err)
 	}
@@ -264,7 +263,13 @@ func (op *deleteTopicOperation) do(ctx context.Context, r *Topic, c *Client) err
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createTopicOperation struct{}
+type createTopicOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createTopicOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createTopicOperation) do(ctx context.Context, r *Topic, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -280,7 +285,7 @@ func (op *createTopicOperation) do(ctx context.Context, r *Topic, c *Client) err
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -289,11 +294,9 @@ func (op *createTopicOperation) do(ctx context.Context, r *Topic, c *Client) err
 	if err != nil {
 		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
-	_ = o // We might not use resp- this will stop Go complaining
-
+	op.response = o
 	// Poll for the Topic resource to be created. Topic resources are eventually consistent but do not support operations
 	// so we must repeatedly poll to check for their creation.
-	c.Config.Retry.Reset()
 	err = dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		u, err := topicGetURL(c.Config.BasePath, r)
 		if err != nil {
@@ -310,9 +313,10 @@ func (op *createTopicOperation) do(ctx context.Context, r *Topic, c *Client) err
 		}
 		getResp.Response.Body.Close()
 		return getResp, nil
-	}, c.Config.Retry)
+	}, c.Config.RetryProvider)
 
 	if _, err := c.GetTopic(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -325,7 +329,7 @@ func (c *Client) getTopicRaw(ctx context.Context, r *Topic) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -402,14 +406,6 @@ func canonicalizeTopicInitialState(rawInitial, rawDesired *Topic) (*Topic, error
 
 func canonicalizeTopicDesiredState(rawDesired, rawInitial *Topic, opts ...dcl.ApplyOption) (*Topic, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Topic); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Topic, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -420,7 +416,7 @@ func canonicalizeTopicDesiredState(rawDesired, rawInitial *Topic, opts ...dcl.Ap
 	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.KmsKeyName) {
+	if dcl.StringCanonicalize(rawDesired.KmsKeyName, rawInitial.KmsKeyName) {
 		rawDesired.KmsKeyName = rawInitial.KmsKeyName
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
@@ -441,6 +437,9 @@ func canonicalizeTopicNewState(c *Client, rawNew, rawDesired *Topic) (*Topic, er
 	if dcl.IsEmptyValueIndirect(rawNew.KmsKeyName) && dcl.IsEmptyValueIndirect(rawDesired.KmsKeyName) {
 		rawNew.KmsKeyName = rawDesired.KmsKeyName
 	} else {
+		if dcl.StringCanonicalize(rawDesired.KmsKeyName, rawNew.KmsKeyName) {
+			rawNew.KmsKeyName = rawDesired.KmsKeyName
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
@@ -465,11 +464,6 @@ func canonicalizeTopicMessageStoragePolicy(des, initial *TopicMessageStoragePoli
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Topic)
-		_ = r
 	}
 
 	if initial == nil {
@@ -535,7 +529,7 @@ func diffTopic(c *Client, desired, actual *Topic, opts ...dcl.ApplyOption) ([]to
 	}
 
 	var diffs []topicDiff
-	if !dcl.IsZeroValue(desired.KmsKeyName) && (dcl.IsZeroValue(actual.KmsKeyName) || !reflect.DeepEqual(*desired.KmsKeyName, *actual.KmsKeyName)) {
+	if !dcl.IsZeroValue(desired.KmsKeyName) && !dcl.StringCanonicalize(desired.KmsKeyName, actual.KmsKeyName) {
 		c.Config.Logger.Infof("Detected diff in KmsKeyName.\nDESIRED: %v\nACTUAL: %v", desired.KmsKeyName, actual.KmsKeyName)
 
 		diffs = append(diffs, topicDiff{
@@ -544,7 +538,7 @@ func diffTopic(c *Client, desired, actual *Topic, opts ...dcl.ApplyOption) ([]to
 		})
 
 	}
-	if !reflect.DeepEqual(desired.Labels, actual.Labels) {
+	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
 		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
 		diffs = append(diffs, topicDiff{
@@ -586,20 +580,6 @@ func diffTopic(c *Client, desired, actual *Topic, opts ...dcl.ApplyOption) ([]to
 
 	return deduped, nil
 }
-func compareTopicMessageStoragePolicySlice(c *Client, desired, actual []TopicMessageStoragePolicy) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in TopicMessageStoragePolicy, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareTopicMessageStoragePolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in TopicMessageStoragePolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
 func compareTopicMessageStoragePolicy(c *Client, desired, actual *TopicMessageStoragePolicy) bool {
 	if desired == nil {
 		return false
@@ -618,12 +598,46 @@ func compareTopicMessageStoragePolicy(c *Client, desired, actual *TopicMessageSt
 	return false
 }
 
+func compareTopicMessageStoragePolicySlice(c *Client, desired, actual []TopicMessageStoragePolicy) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in TopicMessageStoragePolicy, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareTopicMessageStoragePolicy(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in TopicMessageStoragePolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareTopicMessageStoragePolicyMap(c *Client, desired, actual map[string]TopicMessageStoragePolicy) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in TopicMessageStoragePolicy, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in TopicMessageStoragePolicy, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareTopicMessageStoragePolicy(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in TopicMessageStoragePolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
 // urlNormalized returns a copy of the resource struct with values normalized
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Topic) urlNormalized() *Topic {
 	normalized := deepcopy.Copy(*r).(Topic)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.KmsKeyName = dcl.SelfLinkToName(r.KmsKeyName)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -674,6 +688,10 @@ func unmarshalTopic(b []byte, c *Client) (*Topic, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapTopic(m, c)
+}
+
+func unmarshalMapTopic(m map[string]interface{}, c *Client) (*Topic, error) {
 
 	return flattenTopic(c, m), nil
 }

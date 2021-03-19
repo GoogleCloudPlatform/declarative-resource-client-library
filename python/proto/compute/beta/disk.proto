@@ -138,6 +138,7 @@ message ListComputeBetaDiskRequest {
 message ListComputeBetaDiskResponse {
   repeated ComputeBetaDisk items = 1;
 }
+
 service ComputeBetaDiskService {
   rpc ApplyComputeBetaDisk(ApplyComputeBetaDiskRequest) returns (ComputeBetaDisk);
   rpc DeleteComputeBetaDisk(DeleteComputeBetaDiskRequest) returns (google.protobuf.Empty);

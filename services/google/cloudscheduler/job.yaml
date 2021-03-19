@@ -31,7 +31,6 @@ components:
                   readOnly: true
                   type: string
                   x-dcl-go-name: Host
-                  x-kubernetes-immutable: true
                 instance:
                   description: App instance. By default, the job is sent to an instance
                     which is available when the job is attempted. Requests can only
@@ -41,30 +40,25 @@ components:
                     request routing and App Engine Flex request routing.
                   type: string
                   x-dcl-go-name: Instance
-                  x-kubernetes-immutable: true
                 service:
                   description: App service. By default, the job is sent to the service
                     which is the default service when the job is attempted.
                   type: string
                   x-dcl-go-name: Service
-                  x-kubernetes-immutable: true
                 version:
                   description: App version. By default, the job is sent to the version
                     which is the default version when the job is attempted.
                   type: string
                   x-dcl-go-name: Version
-                  x-kubernetes-immutable: true
               type: object
               x-dcl-go-name: AppEngineRouting
               x-dcl-go-type: JobAppEngineHttpTargetAppEngineRouting
-              x-kubernetes-immutable: true
             body:
               description: Body. HTTP request body. A request body is allowed only
                 if the HTTP method is POST or PUT. It will result in invalid argument
                 error to set a body on a job with an incompatible HttpMethod.
               type: string
               x-dcl-go-name: Body
-              x-kubernetes-immutable: true
             headers:
               additionalProperties:
                 type: string
@@ -79,12 +73,8 @@ components:
                 For Google internal use only. * `X-Appengine-*`: For Google internal
                 use only. In addition, some Appengine headers, which contain job-specific
                 information, are also be sent to the job handler.'
-              items:
-                type: string
-                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Headers
-              x-kubernetes-immutable: true
             httpMethod:
               description: 'The HTTP method to use for the request. PATCH and OPTIONS
                 are not permitted. Possible values: HTTP_METHOD_UNSPECIFIED, POST,
@@ -101,7 +91,6 @@ components:
               type: string
               x-dcl-go-name: HttpMethod
               x-dcl-go-type: JobAppEngineHttpTargetHttpMethodEnum
-              x-kubernetes-immutable: true
             relativeUri:
               description: The relative URI. The relative URL must begin with "/"
                 and must be a valid HTTP relative URL. It can contain a path, query
@@ -110,7 +99,6 @@ components:
                 maximum length allowed is 2083 characters.
               type: string
               x-dcl-go-name: RelativeUri
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: AppEngineHttpTarget
           x-dcl-go-type: JobAppEngineHttpTarget
@@ -137,7 +125,6 @@ components:
                 a job with an incompatible HttpMethod.
               type: string
               x-dcl-go-name: Body
-              x-kubernetes-immutable: true
             headers:
               additionalProperties:
                 type: string
@@ -152,12 +139,8 @@ components:
                 by Cloud Scheduler. * `User-Agent`: This will be set to `"Google-Cloud-Scheduler"`.
                 * `X-Google-*`: Google internal use only. * `X-Appengine-*`: Google
                 internal use only. The total size of headers must be less than 80KB.'
-              items:
-                type: string
-                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Headers
-              x-kubernetes-immutable: true
             httpMethod:
               description: 'Which HTTP method to use for the request. Possible values:
                 HTTP_METHOD_UNSPECIFIED, POST, GET, HEAD, PUT, DELETE, PATCH, OPTIONS'
@@ -173,7 +156,6 @@ components:
               type: string
               x-dcl-go-name: HttpMethod
               x-dcl-go-type: JobHttpTargetHttpMethodEnum
-              x-kubernetes-immutable: true
             oauthToken:
               description: If specified, an (https://developers.google.com/identity/protocols/OAuth2)
                 will be generated and attached as an `Authorization` header in the
@@ -186,7 +168,6 @@ components:
                     will be used.
                   type: string
                   x-dcl-go-name: Scope
-                  x-kubernetes-immutable: true
                 serviceAccountEmail:
                   description: (https://cloud.google.com/iam/docs/service-accounts)
                     to be used for generating OAuth token. The service account must
@@ -197,11 +178,9 @@ components:
                   x-dcl-references:
                   - field: email
                     resource: Iam/ServiceAccount
-                  x-kubernetes-immutable: true
               type: object
               x-dcl-go-name: OAuthToken
               x-dcl-go-type: JobHttpTargetOAuthToken
-              x-kubernetes-immutable: true
             oidcToken:
               description: If specified, an (https://developers.google.com/identity/protocols/OpenIDConnect)
                 token will be generated and attached as an `Authorization` header
@@ -214,7 +193,6 @@ components:
                     not specified, the URI specified in target will be used.
                   type: string
                   x-dcl-go-name: Audience
-                  x-kubernetes-immutable: true
                 serviceAccountEmail:
                   description: (https://cloud.google.com/iam/docs/service-accounts)
                     to be used for generating OIDC token. The service account must
@@ -225,11 +203,9 @@ components:
                   x-dcl-references:
                   - field: email
                     resource: Iam/ServiceAccount
-                  x-kubernetes-immutable: true
               type: object
               x-dcl-go-name: OidcToken
               x-dcl-go-type: JobHttpTargetOidcToken
-              x-kubernetes-immutable: true
             uri:
               description: 'Required. The full URI path that the request will be sent
                 to. This string must begin with either "http://" or "https://". Some
@@ -238,7 +214,6 @@ components:
                 The maximum allowed URL length is 2083 characters after encoding.'
               type: string
               x-dcl-go-name: Uri
-              x-kubernetes-immutable: true
           required:
           - uri
           type: object
@@ -272,6 +247,10 @@ components:
           description: The project for the resource
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         pubsubTarget:
           description: Pub/Sub target.
@@ -281,18 +260,13 @@ components:
                 type: string
               description: Attributes for PubsubMessage. Pubsub message must contain
                 either non-empty data, or at least one attribute.
-              items:
-                type: string
-                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Attributes
-              x-kubernetes-immutable: true
             data:
               description: The message payload for PubsubMessage. Pubsub message must
                 contain either non-empty data, or at least one attribute.
               type: string
               x-dcl-go-name: Data
-              x-kubernetes-immutable: true
             topicName:
               description: Required. The name of the Cloud Pub/Sub topic to which
                 messages will be published when a job is delivered. The topic name
@@ -304,7 +278,6 @@ components:
               x-dcl-references:
               - field: name
                 resource: Pubsub/Topic
-              x-kubernetes-immutable: true
           required:
           - topicName
           type: object
@@ -318,7 +291,6 @@ components:
                 after it fails. The default value of this field is 1 hour.
               type: string
               x-dcl-go-name: MaxBackoffDuration
-              x-kubernetes-immutable: true
             maxDoublings:
               description: The time between retries will double `max_doublings` times.
                 A job's retry interval starts at times. Thus, the requests will retry
@@ -327,7 +299,6 @@ components:
               format: int64
               type: integer
               x-dcl-go-name: MaxDoublings
-              x-kubernetes-immutable: true
             maxRetryDuration:
               description: The time limit for retrying a failed job, measured from
                 time when an execution was first attempted. If specified with retryCount,
@@ -336,13 +307,11 @@ components:
                 unlimited.
               type: string
               x-dcl-go-name: MaxRetryDuration
-              x-kubernetes-immutable: true
             minBackoffDuration:
               description: The minimum amount of time to wait before retrying a job
                 after it fails. The default value of this field is 5 seconds.
               type: string
               x-dcl-go-name: MinBackoffDuration
-              x-kubernetes-immutable: true
             retryCount:
               description: The number of attempts that the system will make to run
                 a job using the exponential backoff procedure described by maxDoublings.
@@ -356,7 +325,6 @@ components:
               format: int64
               type: integer
               x-dcl-go-name: RetryCount
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: RetryConfig
           x-dcl-go-type: JobRetryConfig

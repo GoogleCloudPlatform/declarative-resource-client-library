@@ -497,6 +497,17 @@ func ProtoToContainerBetaClusterConditions(p *betapb.ContainerBetaClusterConditi
 	return obj
 }
 
+// ProtoToClusterAutopilot converts a ClusterAutopilot resource from its proto representation.
+func ProtoToContainerBetaClusterAutopilot(p *betapb.ContainerBetaClusterAutopilot) *beta.ClusterAutopilot {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.ClusterAutopilot{
+		Enabled: dcl.Bool(p.Enabled),
+	}
+	return obj
+}
+
 // ProtoToCluster converts a Cluster resource from its proto representation.
 func ProtoToCluster(p *betapb.ContainerBetaCluster) *beta.Cluster {
 	obj := &beta.Cluster{
@@ -538,6 +549,7 @@ func ProtoToCluster(p *betapb.ContainerBetaCluster) *beta.Cluster {
 		Location:                       dcl.StringOrNil(p.Location),
 		EnableTPU:                      dcl.Bool(p.EnableTpu),
 		TPUIPv4CidrBlock:               dcl.StringOrNil(p.TpuIpv4CidrBlock),
+		Autopilot:                      ProtoToContainerBetaClusterAutopilot(p.GetAutopilot()),
 		Project:                        dcl.StringOrNil(p.Project),
 	}
 	for _, r := range p.GetNodePools() {
@@ -1022,6 +1034,17 @@ func ContainerBetaClusterConditionsToProto(o *beta.ClusterConditions) *betapb.Co
 	return p
 }
 
+// ClusterAutopilotToProto converts a ClusterAutopilot resource to its proto representation.
+func ContainerBetaClusterAutopilotToProto(o *beta.ClusterAutopilot) *betapb.ContainerBetaClusterAutopilot {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.ContainerBetaClusterAutopilot{
+		Enabled: dcl.ValueOrEmptyBool(o.Enabled),
+	}
+	return p
+}
+
 // ClusterToProto converts a Cluster resource to its proto representation.
 func ClusterToProto(resource *beta.Cluster) *betapb.ContainerBetaCluster {
 	p := &betapb.ContainerBetaCluster{
@@ -1063,6 +1086,7 @@ func ClusterToProto(resource *beta.Cluster) *betapb.ContainerBetaCluster {
 		Location:                       dcl.ValueOrEmptyString(resource.Location),
 		EnableTpu:                      dcl.ValueOrEmptyBool(resource.EnableTPU),
 		TpuIpv4CidrBlock:               dcl.ValueOrEmptyString(resource.TPUIPv4CidrBlock),
+		Autopilot:                      ContainerBetaClusterAutopilotToProto(resource.Autopilot),
 		Project:                        dcl.ValueOrEmptyString(resource.Project),
 	}
 	for _, r := range resource.NodePools {

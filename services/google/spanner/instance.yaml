@@ -48,9 +48,6 @@ components:
             such as JSON, which doesn''t rely upon specific characters being disallowed.  For
             example, representing labels as the string:  name + "_" + value  would
             prove problematic if we were to allow "_" in a future release.'
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         name:
@@ -69,6 +66,10 @@ components:
           description: The project for the resource
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         state:
           description: 'The current instance state. Possible values: CREATING, READY'

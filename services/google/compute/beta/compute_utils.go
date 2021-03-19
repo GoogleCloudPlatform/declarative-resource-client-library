@@ -15,9 +15,14 @@
 package beta
 
 import (
+	"bytes"
+	"context"
+	"encoding/json"
 	"errors"
 
+	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 // EncodeImageDeprecateRequest properly encodes the image deprecation request for an image.
@@ -90,4 +95,409 @@ func deriveAutoscalerTarget(as *Autoscaler) (*string, error) {
 		}
 	}
 	return nil, errors.New("could not derive autoscaler target - location was neither zone or region")
+}
+
+func (op *createFirewallPolicyOperation) do(ctx context.Context, r *FirewallPolicy, c *Client) error {
+	c.Config.Logger.Infof("Attempting to create %v", r)
+
+	parent := r.createFields()
+	u, err := firewallPolicyCreateURL(c.Config.BasePath, parent)
+
+	if err != nil {
+		return err
+	}
+
+	req, err := r.marshal(c)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+	// Wait for object to be created.
+	var o operations.ComputeGlobalOrganizationOperation
+	if err := dcl.ParseResponse(resp.Response, &o.BaseOperation); err != nil {
+		return err
+	}
+	if err := o.Wait(ctx, c.Config, r.Parent); err != nil {
+		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
+		return err
+	}
+	c.Config.Logger.Infof("Successfully waited for operation")
+
+	r.Name = &o.BaseOperation.TargetID
+
+	if _, err := c.GetFirewallPolicy(ctx, r.urlNormalized()); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// do creates a request and sends it to the appropriate URL.
+
+func (op *deleteFirewallPolicyOperation) do(ctx context.Context, r *FirewallPolicy, c *Client) error {
+
+	_, err := c.GetFirewallPolicy(ctx, r.urlNormalized())
+
+	if err != nil {
+		if dcl.IsNotFound(err) {
+			c.Config.Logger.Infof("FirewallPolicy not found, returning. Original error: %v", err)
+			return nil
+		}
+		c.Config.Logger.Warningf("GetFirewallPolicy checking for existence. error: %v", err)
+		return err
+	}
+
+	u, err := firewallPolicyDeleteURL(c.Config.BasePath, r.urlNormalized())
+	if err != nil {
+		return err
+	}
+
+	// Delete should never have a body.
+	body := &bytes.Buffer{}
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+
+	// Wait for object to be deleted.
+	var o operations.ComputeGlobalOrganizationOperation
+	if err := dcl.ParseResponse(resp.Response, &o.BaseOperation); err != nil {
+		return err
+	}
+	if err := o.Wait(ctx, c.Config, r.Parent); err != nil {
+		return err
+	}
+	_, err = c.GetFirewallPolicy(ctx, r.urlNormalized())
+	if !dcl.IsNotFound(err) {
+		return dcl.NotDeletedError{ExistingResource: r}
+	}
+	return nil
+}
+
+func (op *createFirewallPolicyRuleOperation) do(ctx context.Context, r *FirewallPolicyRule, c *Client) error {
+	c.Config.Logger.Infof("Attempting to create %v", r)
+
+	firewallPolicy := r.createFields()
+	u, err := firewallPolicyRuleCreateURL(c.Config.BasePath, firewallPolicy)
+
+	if err != nil {
+		return err
+	}
+
+	req, err := r.marshal(c)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+	// Get firewall policy in order to get its parent, which is needed to get the operation.
+	policy, err := c.GetFirewallPolicy(ctx, &FirewallPolicy{Name: r.FirewallPolicy})
+	if err != nil {
+		return err
+	}
+	// Wait for object to be created.
+	var o operations.ComputeGlobalOrganizationOperation
+	if err := dcl.ParseResponse(resp.Response, &o.BaseOperation); err != nil {
+		return err
+	}
+	if err := o.Wait(ctx, c.Config, policy.Parent); err != nil {
+		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
+		return err
+	}
+	c.Config.Logger.Infof("Successfully waited for operation")
+
+	if _, err := c.GetFirewallPolicyRule(ctx, r.urlNormalized()); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (op *updateFirewallPolicyRulePatchRuleOperation) do(ctx context.Context, r *FirewallPolicyRule, c *Client) error {
+	_, err := c.GetFirewallPolicyRule(ctx, r.urlNormalized())
+	if err != nil {
+		return err
+	}
+
+	u, err := r.updateURL(c.Config.BasePath, "PatchRule")
+	if err != nil {
+		return err
+	}
+
+	req, err := newUpdateFirewallPolicyRulePatchRuleRequest(ctx, r, c)
+	if err != nil {
+		return err
+	}
+
+	c.Config.Logger.Infof("Created update: %#v", req)
+	body, err := marshalUpdateFirewallPolicyRulePatchRuleRequest(c, req)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+
+	// Get firewall policy in order to get its parent, which is needed to get the operation.
+	policy, err := c.GetFirewallPolicy(ctx, &FirewallPolicy{Name: r.FirewallPolicy})
+	if err != nil {
+		return err
+	}
+	c.Config.Logger.Infof("policy: %+v", policy)
+	// Wait for object to be updated.
+	var o operations.ComputeGlobalOrganizationOperation
+	if err := dcl.ParseResponse(resp.Response, &o.BaseOperation); err != nil {
+		return err
+	}
+	if err := o.Wait(ctx, c.Config, policy.Parent); err != nil {
+		c.Config.Logger.Warningf("Update failed after waiting for operation: %v", err)
+		return err
+	}
+	c.Config.Logger.Infof("Successfully waited for operation")
+
+	if _, err := c.GetFirewallPolicyRule(ctx, r.urlNormalized()); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (op *deleteFirewallPolicyRuleOperation) do(ctx context.Context, r *FirewallPolicyRule, c *Client) error {
+	c.Config.Logger.Infof("Attempting to delete %v", r)
+
+	u, err := firewallPolicyRuleDeleteURL(c.Config.BasePath, r)
+
+	if err != nil {
+		return err
+	}
+
+	req, err := r.marshal(c)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+	// Get firewall policy in order to get its parent, which is needed to get the operation.
+	policy, err := c.GetFirewallPolicy(ctx, &FirewallPolicy{Name: r.FirewallPolicy})
+	if err != nil {
+		return err
+	}
+	c.Config.Logger.Infof("policy: %+v", policy)
+	// Wait for object to be deleted.
+	var o operations.ComputeGlobalOrganizationOperation
+	if err := dcl.ParseResponse(resp.Response, &o.BaseOperation); err != nil {
+		return err
+	}
+	if err := o.Wait(ctx, c.Config, policy.Parent); err != nil {
+		c.Config.Logger.Warningf("Deletion failed after waiting for operation: %v", err)
+		return err
+	}
+	c.Config.Logger.Infof("Successfully waited for operation")
+
+	_, err = c.GetFirewallPolicyRule(ctx, r.urlNormalized())
+	if !dcl.IsNotFoundOrCode(err, 400) {
+		return dcl.NotDeletedError{ExistingResource: r}
+	}
+	return nil
+}
+
+func (op *createFirewallPolicyAssociationOperation) do(ctx context.Context, r *FirewallPolicyAssociation, c *Client) error {
+	c.Config.Logger.Infof("Attempting to create %v", r)
+
+	firewallPolicy := r.createFields()
+	u, err := firewallPolicyAssociationCreateURL(c.Config.BasePath, firewallPolicy)
+
+	if err != nil {
+		return err
+	}
+
+	req, err := r.marshal(c)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+	// Get firewall policy in order to get its parent, which is needed to get the operation.
+	policy, err := c.GetFirewallPolicy(ctx, &FirewallPolicy{Name: r.FirewallPolicy})
+	if err != nil {
+		return err
+	}
+	// Wait for object to be created.
+	var o operations.ComputeGlobalOrganizationOperation
+	if err := dcl.ParseResponse(resp.Response, &o.BaseOperation); err != nil {
+		return err
+	}
+	if err := o.Wait(ctx, c.Config, policy.Parent); err != nil {
+		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
+		return err
+	}
+	c.Config.Logger.Infof("Successfully waited for operation")
+
+	if _, err := c.GetFirewallPolicyAssociation(ctx, r.urlNormalized()); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (op *deleteFirewallPolicyAssociationOperation) do(ctx context.Context, r *FirewallPolicyAssociation, c *Client) error {
+	c.Config.Logger.Infof("Attempting to delete %v", r)
+
+	u, err := firewallPolicyAssociationDeleteURL(c.Config.BasePath, r)
+
+	if err != nil {
+		return err
+	}
+
+	req, err := r.marshal(c)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+	// Get firewall policy in order to get its parent, which is needed to get the operation.
+	policy, err := c.GetFirewallPolicy(ctx, &FirewallPolicy{Name: r.FirewallPolicy})
+	if err != nil {
+		return err
+	}
+	c.Config.Logger.Infof("policy: %+v", policy)
+	// Wait for object to be deleted.
+	var o operations.ComputeGlobalOrganizationOperation
+	if err := dcl.ParseResponse(resp.Response, &o.BaseOperation); err != nil {
+		return err
+	}
+	if err := o.Wait(ctx, c.Config, policy.Parent); err != nil {
+		c.Config.Logger.Warningf("Deletion failed after waiting for operation: %v", err)
+		return err
+	}
+	c.Config.Logger.Infof("Successfully waited for operation")
+
+	_, err = c.GetFirewallPolicyAssociation(ctx, r.urlNormalized())
+	if !dcl.IsNotFoundOrCode(err, 400) {
+		return dcl.NotDeletedError{ExistingResource: r}
+	}
+	return nil
+}
+
+func encodeNetworkEndpointRequest(m map[string]interface{}) map[string]interface{} {
+	req := make(map[string]interface{}, 1)
+	endpoints := make([]map[string]interface{}, 1)
+	endpoints = append(endpoints, m)
+	if err := dcl.PutMapEntry(req, []string{"networkEndpoints"}, endpoints); err != nil {
+		return nil
+	}
+	return req
+}
+
+func customUnmarshalNetworkEndpoint(b []byte, c *Client) (*NetworkEndpoint, error) {
+	var m map[string]interface{}
+	if err := json.Unmarshal(b, &m); err != nil {
+		return nil, err
+	}
+	return flattenNetworkEndpoint(c, m["networkEndpoint"]), nil
+}
+
+func (r *NetworkEndpoint) customMatcher(c *Client) func([]byte) bool {
+	return func(b []byte) bool {
+		cr, err := customUnmarshalNetworkEndpoint(b, c)
+		if err != nil {
+			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
+			return false
+		}
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
+
+		if nr.Port == nil && ncr.Port == nil {
+			c.Config.Logger.Info("Both Port fields null - considering equal.")
+		} else if nr.Port == nil || ncr.Port == nil {
+			c.Config.Logger.Info("Only one Port field is null - considering unequal.")
+			return false
+		} else if *nr.Port != *ncr.Port {
+			return false
+		}
+		return true
+	}
+}
+
+func (c *Client) GetNetworkEndpoint(ctx context.Context, r *NetworkEndpoint) (*NetworkEndpoint, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
+	b, err := c.getNetworkEndpointRaw(ctx, r)
+	if err != nil {
+		if dcl.IsNotFound(err) {
+			return nil, &googleapi.Error{
+				Code:    404,
+				Message: err.Error(),
+			}
+		}
+		return nil, err
+	}
+	b, err = dcl.ExtractElementFromList(b, "items", r.customMatcher(c))
+	if err != nil {
+		return nil, err
+	}
+	result, err := customUnmarshalNetworkEndpoint(b, c)
+	if err != nil {
+		return nil, err
+	}
+
+	result.Project = r.Project
+	result.Location = r.Location
+	result.Group = r.Group
+	result.Port = r.Port
+
+	c.Config.Logger.Infof("Retrieved raw result state: %v", result)
+	c.Config.Logger.Infof("Canonicalizing with specified state: %v", r)
+	result, err = canonicalizeNetworkEndpointNewState(c, result, r)
+	if err != nil {
+		return nil, err
+	}
+	c.Config.Logger.Infof("Created result state: %v", result)
+
+	return result, nil
+}
+
+func (op *deleteNetworkEndpointOperation) do(ctx context.Context, r *NetworkEndpoint, c *Client) error {
+	c.Config.Logger.Infof("Attempting to delete %v", r)
+
+	u, err := networkEndpointDeleteURL(c.Config.BasePath, r.urlNormalized())
+
+	if err != nil {
+		return err
+	}
+
+	req, err := r.marshal(c)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+	// wait for object to be deleted.
+	var o operations.ComputeOperation
+	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+		return err
+	}
+	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/v1/", "GET"); err != nil {
+		c.Config.Logger.Warningf("Deletion failed after waiting for operation: %v", err)
+		return err
+	}
+	c.Config.Logger.Infof("Successfully waited for operation")
+
+	_, err = c.GetNetworkEndpoint(ctx, r.urlNormalized())
+	if !dcl.IsNotFound(err) {
+		return dcl.NotDeletedError{ExistingResource: r}
+	}
+	return nil
 }

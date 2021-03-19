@@ -224,7 +224,7 @@ func (op *updateInstanceTemplateUpdateOperation) do(ctx context.Context, r *Inst
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -261,7 +261,7 @@ func (c *Client) listInstanceTemplateRaw(ctx context.Context, project, pageToken
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -335,7 +335,7 @@ func (op *deleteInstanceTemplateOperation) do(ctx context.Context, r *InstanceTe
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -358,7 +358,13 @@ func (op *deleteInstanceTemplateOperation) do(ctx context.Context, r *InstanceTe
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createInstanceTemplateOperation struct{}
+type createInstanceTemplateOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createInstanceTemplateOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createInstanceTemplateOperation) do(ctx context.Context, r *InstanceTemplate, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -374,7 +380,7 @@ func (op *createInstanceTemplateOperation) do(ctx context.Context, r *InstanceTe
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -388,8 +394,10 @@ func (op *createInstanceTemplateOperation) do(ctx context.Context, r *InstanceTe
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetInstanceTemplate(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -402,7 +410,7 @@ func (c *Client) getInstanceTemplateRaw(ctx context.Context, r *InstanceTemplate
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -479,14 +487,6 @@ func canonicalizeInstanceTemplateInitialState(rawInitial, rawDesired *InstanceTe
 
 func canonicalizeInstanceTemplateDesiredState(rawDesired, rawInitial *InstanceTemplate, opts ...dcl.ApplyOption) (*InstanceTemplate, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*InstanceTemplate); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected InstanceTemplate, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -497,16 +497,16 @@ func canonicalizeInstanceTemplateDesiredState(rawDesired, rawInitial *InstanceTe
 	if dcl.IsZeroValue(rawDesired.CreationTimestamp) {
 		rawDesired.CreationTimestamp = rawInitial.CreationTimestamp
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
 	if dcl.IsZeroValue(rawDesired.Id) {
 		rawDesired.Id = rawInitial.Id
 	}
-	if dcl.IsZeroValue(rawDesired.SelfLink) {
+	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
 	rawDesired.Properties = canonicalizeInstanceTemplateProperties(rawDesired.Properties, rawInitial.Properties, opts...)
@@ -527,6 +527,9 @@ func canonicalizeInstanceTemplateNewState(c *Client, rawNew, rawDesired *Instanc
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Id) && dcl.IsEmptyValueIndirect(rawDesired.Id) {
@@ -537,11 +540,17 @@ func canonicalizeInstanceTemplateNewState(c *Client, rawNew, rawDesired *Instanc
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Properties) && dcl.IsEmptyValueIndirect(rawDesired.Properties) {
@@ -563,11 +572,6 @@ func canonicalizeInstanceTemplateProperties(des, initial *InstanceTemplateProper
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*InstanceTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -575,7 +579,7 @@ func canonicalizeInstanceTemplateProperties(des, initial *InstanceTemplateProper
 	if dcl.IsZeroValue(des.CanIPForward) {
 		des.CanIPForward = initial.CanIPForward
 	}
-	if dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
 		des.Description = initial.Description
 	}
 	if dcl.IsZeroValue(des.Disks) {
@@ -587,7 +591,7 @@ func canonicalizeInstanceTemplateProperties(des, initial *InstanceTemplateProper
 	if dcl.NameToSelfLink(des.MachineType, initial.MachineType) || dcl.IsZeroValue(des.MachineType) {
 		des.MachineType = initial.MachineType
 	}
-	if dcl.IsZeroValue(des.MinCpuPlatform) {
+	if dcl.StringCanonicalize(des.MinCpuPlatform, initial.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
 		des.MinCpuPlatform = initial.MinCpuPlatform
 	}
 	if dcl.IsZeroValue(des.Metadata) {
@@ -617,8 +621,14 @@ func canonicalizeNewInstanceTemplateProperties(c *Client, des, nw *InstanceTempl
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+		nw.Description = des.Description
+	}
 	if dcl.NameToSelfLink(des.MachineType, nw.MachineType) || dcl.IsZeroValue(des.MachineType) {
 		nw.MachineType = des.MachineType
+	}
+	if dcl.StringCanonicalize(des.MinCpuPlatform, nw.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
+		nw.MinCpuPlatform = des.MinCpuPlatform
 	}
 	nw.ReservationAffinity = canonicalizeNewInstanceTemplatePropertiesReservationAffinity(c, des.ReservationAffinity, nw.ReservationAffinity)
 	nw.ShieldedInstanceConfig = canonicalizeNewInstanceTemplatePropertiesShieldedInstanceConfig(c, des.ShieldedInstanceConfig, nw.ShieldedInstanceConfig)
@@ -658,11 +668,6 @@ func canonicalizeInstanceTemplatePropertiesDisks(des, initial *InstanceTemplateP
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*InstanceTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -673,7 +678,7 @@ func canonicalizeInstanceTemplatePropertiesDisks(des, initial *InstanceTemplateP
 	if dcl.IsZeroValue(des.Boot) {
 		des.Boot = initial.Boot
 	}
-	if dcl.IsZeroValue(des.DeviceName) {
+	if dcl.StringCanonicalize(des.DeviceName, initial.DeviceName) || dcl.IsZeroValue(des.DeviceName) {
 		des.DeviceName = initial.DeviceName
 	}
 	des.DiskEncryptionKey = canonicalizeInstanceTemplatePropertiesDisksDiskEncryptionKey(des.DiskEncryptionKey, initial.DiskEncryptionKey, opts...)
@@ -705,6 +710,9 @@ func canonicalizeNewInstanceTemplatePropertiesDisks(c *Client, des, nw *Instance
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.DeviceName, nw.DeviceName) || dcl.IsZeroValue(des.DeviceName) {
+		nw.DeviceName = des.DeviceName
+	}
 	nw.DiskEncryptionKey = canonicalizeNewInstanceTemplatePropertiesDisksDiskEncryptionKey(c, des.DiskEncryptionKey, nw.DiskEncryptionKey)
 	nw.InitializeParams = canonicalizeNewInstanceTemplatePropertiesDisksInitializeParams(c, des.InitializeParams, nw.InitializeParams)
 	if dcl.NameToSelfLink(des.Source, nw.Source) || dcl.IsZeroValue(des.Source) {
@@ -745,22 +753,17 @@ func canonicalizeInstanceTemplatePropertiesDisksDiskEncryptionKey(des, initial *
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*InstanceTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.RawKey) {
+	if dcl.StringCanonicalize(des.RawKey, initial.RawKey) || dcl.IsZeroValue(des.RawKey) {
 		des.RawKey = initial.RawKey
 	}
-	if dcl.IsZeroValue(des.RsaEncryptedKey) {
+	if dcl.StringCanonicalize(des.RsaEncryptedKey, initial.RsaEncryptedKey) || dcl.IsZeroValue(des.RsaEncryptedKey) {
 		des.RsaEncryptedKey = initial.RsaEncryptedKey
 	}
-	if dcl.IsZeroValue(des.Sha256) {
+	if dcl.StringCanonicalize(des.Sha256, initial.Sha256) || dcl.IsZeroValue(des.Sha256) {
 		des.Sha256 = initial.Sha256
 	}
 
@@ -770,6 +773,16 @@ func canonicalizeInstanceTemplatePropertiesDisksDiskEncryptionKey(des, initial *
 func canonicalizeNewInstanceTemplatePropertiesDisksDiskEncryptionKey(c *Client, des, nw *InstanceTemplatePropertiesDisksDiskEncryptionKey) *InstanceTemplatePropertiesDisksDiskEncryptionKey {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) || dcl.IsZeroValue(des.RawKey) {
+		nw.RawKey = des.RawKey
+	}
+	if dcl.StringCanonicalize(des.RsaEncryptedKey, nw.RsaEncryptedKey) || dcl.IsZeroValue(des.RsaEncryptedKey) {
+		nw.RsaEncryptedKey = des.RsaEncryptedKey
+	}
+	if dcl.StringCanonicalize(des.Sha256, nw.Sha256) || dcl.IsZeroValue(des.Sha256) {
+		nw.Sha256 = des.Sha256
 	}
 
 	return nw
@@ -806,16 +819,11 @@ func canonicalizeInstanceTemplatePropertiesDisksInitializeParams(des, initial *I
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*InstanceTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.DiskName) {
+	if dcl.StringCanonicalize(des.DiskName, initial.DiskName) || dcl.IsZeroValue(des.DiskName) {
 		des.DiskName = initial.DiskName
 	}
 	if dcl.IsZeroValue(des.DiskSizeGb) {
@@ -824,23 +832,23 @@ func canonicalizeInstanceTemplatePropertiesDisksInitializeParams(des, initial *I
 	if dcl.NameToSelfLink(des.DiskType, initial.DiskType) || dcl.IsZeroValue(des.DiskType) {
 		des.DiskType = initial.DiskType
 	}
-	if dcl.IsZeroValue(des.SourceImage) {
+	if dcl.StringCanonicalize(des.SourceImage, initial.SourceImage) || dcl.IsZeroValue(des.SourceImage) {
 		des.SourceImage = initial.SourceImage
 	}
 	if dcl.IsZeroValue(des.Labels) {
 		des.Labels = initial.Labels
 	}
-	if dcl.IsZeroValue(des.SourceSnapshot) {
+	if dcl.StringCanonicalize(des.SourceSnapshot, initial.SourceSnapshot) || dcl.IsZeroValue(des.SourceSnapshot) {
 		des.SourceSnapshot = initial.SourceSnapshot
 	}
 	des.SourceSnapshotEncryptionKey = canonicalizeInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey(des.SourceSnapshotEncryptionKey, initial.SourceSnapshotEncryptionKey, opts...)
-	if dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
 		des.Description = initial.Description
 	}
 	if dcl.IsZeroValue(des.ResourcePolicies) {
 		des.ResourcePolicies = initial.ResourcePolicies
 	}
-	if dcl.IsZeroValue(des.OnUpdateAction) {
+	if dcl.StringCanonicalize(des.OnUpdateAction, initial.OnUpdateAction) || dcl.IsZeroValue(des.OnUpdateAction) {
 		des.OnUpdateAction = initial.OnUpdateAction
 	}
 	des.SourceImageEncryptionKey = canonicalizeInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey(des.SourceImageEncryptionKey, initial.SourceImageEncryptionKey, opts...)
@@ -853,10 +861,25 @@ func canonicalizeNewInstanceTemplatePropertiesDisksInitializeParams(c *Client, d
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.DiskName, nw.DiskName) || dcl.IsZeroValue(des.DiskName) {
+		nw.DiskName = des.DiskName
+	}
 	if dcl.NameToSelfLink(des.DiskType, nw.DiskType) || dcl.IsZeroValue(des.DiskType) {
 		nw.DiskType = des.DiskType
 	}
+	if dcl.StringCanonicalize(des.SourceImage, nw.SourceImage) || dcl.IsZeroValue(des.SourceImage) {
+		nw.SourceImage = des.SourceImage
+	}
+	if dcl.StringCanonicalize(des.SourceSnapshot, nw.SourceSnapshot) || dcl.IsZeroValue(des.SourceSnapshot) {
+		nw.SourceSnapshot = des.SourceSnapshot
+	}
 	nw.SourceSnapshotEncryptionKey = canonicalizeNewInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey(c, des.SourceSnapshotEncryptionKey, nw.SourceSnapshotEncryptionKey)
+	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+		nw.Description = des.Description
+	}
+	if dcl.StringCanonicalize(des.OnUpdateAction, nw.OnUpdateAction) || dcl.IsZeroValue(des.OnUpdateAction) {
+		nw.OnUpdateAction = des.OnUpdateAction
+	}
 	nw.SourceImageEncryptionKey = canonicalizeNewInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey(c, des.SourceImageEncryptionKey, nw.SourceImageEncryptionKey)
 
 	return nw
@@ -893,22 +916,17 @@ func canonicalizeInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEn
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*InstanceTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.RawKey) {
+	if dcl.StringCanonicalize(des.RawKey, initial.RawKey) || dcl.IsZeroValue(des.RawKey) {
 		des.RawKey = initial.RawKey
 	}
-	if dcl.IsZeroValue(des.Sha256) {
+	if dcl.StringCanonicalize(des.Sha256, initial.Sha256) || dcl.IsZeroValue(des.Sha256) {
 		des.Sha256 = initial.Sha256
 	}
-	if dcl.IsZeroValue(des.KmsKeyName) {
+	if dcl.StringCanonicalize(des.KmsKeyName, initial.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
 		des.KmsKeyName = initial.KmsKeyName
 	}
 
@@ -918,6 +936,16 @@ func canonicalizeInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEn
 func canonicalizeNewInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey(c *Client, des, nw *InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey) *InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) || dcl.IsZeroValue(des.RawKey) {
+		nw.RawKey = des.RawKey
+	}
+	if dcl.StringCanonicalize(des.Sha256, nw.Sha256) || dcl.IsZeroValue(des.Sha256) {
+		nw.Sha256 = des.Sha256
+	}
+	if dcl.StringCanonicalize(des.KmsKeyName, nw.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
+		nw.KmsKeyName = des.KmsKeyName
 	}
 
 	return nw
@@ -954,22 +982,17 @@ func canonicalizeInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncry
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*InstanceTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.RawKey) {
+	if dcl.StringCanonicalize(des.RawKey, initial.RawKey) || dcl.IsZeroValue(des.RawKey) {
 		des.RawKey = initial.RawKey
 	}
-	if dcl.IsZeroValue(des.Sha256) {
+	if dcl.StringCanonicalize(des.Sha256, initial.Sha256) || dcl.IsZeroValue(des.Sha256) {
 		des.Sha256 = initial.Sha256
 	}
-	if dcl.IsZeroValue(des.KmsKeyName) {
+	if dcl.StringCanonicalize(des.KmsKeyName, initial.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
 		des.KmsKeyName = initial.KmsKeyName
 	}
 
@@ -979,6 +1002,16 @@ func canonicalizeInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncry
 func canonicalizeNewInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey(c *Client, des, nw *InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey) *InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) || dcl.IsZeroValue(des.RawKey) {
+		nw.RawKey = des.RawKey
+	}
+	if dcl.StringCanonicalize(des.Sha256, nw.Sha256) || dcl.IsZeroValue(des.Sha256) {
+		nw.Sha256 = des.Sha256
+	}
+	if dcl.StringCanonicalize(des.KmsKeyName, nw.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
+		nw.KmsKeyName = des.KmsKeyName
 	}
 
 	return nw
@@ -1015,16 +1048,11 @@ func canonicalizeInstanceTemplatePropertiesDisksGuestOsFeatures(des, initial *In
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*InstanceTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Type) {
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
 	}
 
@@ -1034,6 +1062,10 @@ func canonicalizeInstanceTemplatePropertiesDisksGuestOsFeatures(des, initial *In
 func canonicalizeNewInstanceTemplatePropertiesDisksGuestOsFeatures(c *Client, des, nw *InstanceTemplatePropertiesDisksGuestOsFeatures) *InstanceTemplatePropertiesDisksGuestOsFeatures {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Type, nw.Type) || dcl.IsZeroValue(des.Type) {
+		nw.Type = des.Type
 	}
 
 	return nw
@@ -1070,16 +1102,11 @@ func canonicalizeInstanceTemplatePropertiesReservationAffinity(des, initial *Ins
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*InstanceTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Key) {
+	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
 		des.Key = initial.Key
 	}
 	if dcl.IsZeroValue(des.Value) {
@@ -1092,6 +1119,10 @@ func canonicalizeInstanceTemplatePropertiesReservationAffinity(des, initial *Ins
 func canonicalizeNewInstanceTemplatePropertiesReservationAffinity(c *Client, des, nw *InstanceTemplatePropertiesReservationAffinity) *InstanceTemplatePropertiesReservationAffinity {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Key, nw.Key) || dcl.IsZeroValue(des.Key) {
+		nw.Key = des.Key
 	}
 
 	return nw
@@ -1128,11 +1159,6 @@ func canonicalizeInstanceTemplatePropertiesGuestAccelerators(des, initial *Insta
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*InstanceTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -1140,7 +1166,7 @@ func canonicalizeInstanceTemplatePropertiesGuestAccelerators(des, initial *Insta
 	if dcl.IsZeroValue(des.AcceleratorCount) {
 		des.AcceleratorCount = initial.AcceleratorCount
 	}
-	if dcl.IsZeroValue(des.AcceleratorType) {
+	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
 		des.AcceleratorType = initial.AcceleratorType
 	}
 
@@ -1150,6 +1176,10 @@ func canonicalizeInstanceTemplatePropertiesGuestAccelerators(des, initial *Insta
 func canonicalizeNewInstanceTemplatePropertiesGuestAccelerators(c *Client, des, nw *InstanceTemplatePropertiesGuestAccelerators) *InstanceTemplatePropertiesGuestAccelerators {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.AcceleratorType, nw.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
+		nw.AcceleratorType = des.AcceleratorType
 	}
 
 	return nw
@@ -1186,11 +1216,6 @@ func canonicalizeInstanceTemplatePropertiesNetworkInterfaces(des, initial *Insta
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*InstanceTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -1201,13 +1226,13 @@ func canonicalizeInstanceTemplatePropertiesNetworkInterfaces(des, initial *Insta
 	if dcl.IsZeroValue(des.AliasIPRanges) {
 		des.AliasIPRanges = initial.AliasIPRanges
 	}
-	if dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
 	if dcl.NameToSelfLink(des.Network, initial.Network) || dcl.IsZeroValue(des.Network) {
 		des.Network = initial.Network
 	}
-	if dcl.IsZeroValue(des.NetworkIP) {
+	if dcl.StringCanonicalize(des.NetworkIP, initial.NetworkIP) || dcl.IsZeroValue(des.NetworkIP) {
 		des.NetworkIP = initial.NetworkIP
 	}
 	if dcl.NameToSelfLink(des.Subnetwork, initial.Subnetwork) || dcl.IsZeroValue(des.Subnetwork) {
@@ -1222,8 +1247,14 @@ func canonicalizeNewInstanceTemplatePropertiesNetworkInterfaces(c *Client, des, 
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+		nw.Name = des.Name
+	}
 	if dcl.NameToSelfLink(des.Network, nw.Network) || dcl.IsZeroValue(des.Network) {
 		nw.Network = des.Network
+	}
+	if dcl.StringCanonicalize(des.NetworkIP, nw.NetworkIP) || dcl.IsZeroValue(des.NetworkIP) {
+		nw.NetworkIP = des.NetworkIP
 	}
 	if dcl.NameToSelfLink(des.Subnetwork, nw.Subnetwork) || dcl.IsZeroValue(des.Subnetwork) {
 		nw.Subnetwork = des.Subnetwork
@@ -1263,16 +1294,11 @@ func canonicalizeInstanceTemplatePropertiesNetworkInterfacesAccessConfigs(des, i
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*InstanceTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
 	if dcl.NameToSelfLink(des.NatIP, initial.NatIP) || dcl.IsZeroValue(des.NatIP) {
@@ -1284,7 +1310,7 @@ func canonicalizeInstanceTemplatePropertiesNetworkInterfacesAccessConfigs(des, i
 	if dcl.IsZeroValue(des.SetPublicPtr) {
 		des.SetPublicPtr = initial.SetPublicPtr
 	}
-	if dcl.IsZeroValue(des.PublicPtrDomainName) {
+	if dcl.StringCanonicalize(des.PublicPtrDomainName, initial.PublicPtrDomainName) || dcl.IsZeroValue(des.PublicPtrDomainName) {
 		des.PublicPtrDomainName = initial.PublicPtrDomainName
 	}
 	if dcl.IsZeroValue(des.NetworkTier) {
@@ -1299,8 +1325,14 @@ func canonicalizeNewInstanceTemplatePropertiesNetworkInterfacesAccessConfigs(c *
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+		nw.Name = des.Name
+	}
 	if dcl.NameToSelfLink(des.NatIP, nw.NatIP) || dcl.IsZeroValue(des.NatIP) {
 		nw.NatIP = des.NatIP
+	}
+	if dcl.StringCanonicalize(des.PublicPtrDomainName, nw.PublicPtrDomainName) || dcl.IsZeroValue(des.PublicPtrDomainName) {
+		nw.PublicPtrDomainName = des.PublicPtrDomainName
 	}
 
 	return nw
@@ -1337,19 +1369,14 @@ func canonicalizeInstanceTemplatePropertiesNetworkInterfacesAliasIPRanges(des, i
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*InstanceTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.IPCidrRange) {
+	if dcl.StringCanonicalize(des.IPCidrRange, initial.IPCidrRange) || dcl.IsZeroValue(des.IPCidrRange) {
 		des.IPCidrRange = initial.IPCidrRange
 	}
-	if dcl.IsZeroValue(des.SubnetworkRangeName) {
+	if dcl.StringCanonicalize(des.SubnetworkRangeName, initial.SubnetworkRangeName) || dcl.IsZeroValue(des.SubnetworkRangeName) {
 		des.SubnetworkRangeName = initial.SubnetworkRangeName
 	}
 
@@ -1359,6 +1386,13 @@ func canonicalizeInstanceTemplatePropertiesNetworkInterfacesAliasIPRanges(des, i
 func canonicalizeNewInstanceTemplatePropertiesNetworkInterfacesAliasIPRanges(c *Client, des, nw *InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges) *InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.IPCidrRange, nw.IPCidrRange) || dcl.IsZeroValue(des.IPCidrRange) {
+		nw.IPCidrRange = des.IPCidrRange
+	}
+	if dcl.StringCanonicalize(des.SubnetworkRangeName, nw.SubnetworkRangeName) || dcl.IsZeroValue(des.SubnetworkRangeName) {
+		nw.SubnetworkRangeName = des.SubnetworkRangeName
 	}
 
 	return nw
@@ -1393,11 +1427,6 @@ func canonicalizeInstanceTemplatePropertiesShieldedInstanceConfig(des, initial *
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*InstanceTemplate)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1456,11 +1485,6 @@ func canonicalizeInstanceTemplatePropertiesScheduling(des, initial *InstanceTemp
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*InstanceTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -1468,7 +1492,7 @@ func canonicalizeInstanceTemplatePropertiesScheduling(des, initial *InstanceTemp
 	if dcl.IsZeroValue(des.AutomaticRestart) {
 		des.AutomaticRestart = initial.AutomaticRestart
 	}
-	if dcl.IsZeroValue(des.OnHostMaintenance) {
+	if dcl.StringCanonicalize(des.OnHostMaintenance, initial.OnHostMaintenance) || dcl.IsZeroValue(des.OnHostMaintenance) {
 		des.OnHostMaintenance = initial.OnHostMaintenance
 	}
 	if dcl.IsZeroValue(des.Preemptible) {
@@ -1484,6 +1508,10 @@ func canonicalizeInstanceTemplatePropertiesScheduling(des, initial *InstanceTemp
 func canonicalizeNewInstanceTemplatePropertiesScheduling(c *Client, des, nw *InstanceTemplatePropertiesScheduling) *InstanceTemplatePropertiesScheduling {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.OnHostMaintenance, nw.OnHostMaintenance) || dcl.IsZeroValue(des.OnHostMaintenance) {
+		nw.OnHostMaintenance = des.OnHostMaintenance
 	}
 
 	return nw
@@ -1520,16 +1548,11 @@ func canonicalizeInstanceTemplatePropertiesSchedulingNodeAffinities(des, initial
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*InstanceTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Key) {
+	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
 		des.Key = initial.Key
 	}
 	if dcl.IsZeroValue(des.Operator) {
@@ -1545,6 +1568,10 @@ func canonicalizeInstanceTemplatePropertiesSchedulingNodeAffinities(des, initial
 func canonicalizeNewInstanceTemplatePropertiesSchedulingNodeAffinities(c *Client, des, nw *InstanceTemplatePropertiesSchedulingNodeAffinities) *InstanceTemplatePropertiesSchedulingNodeAffinities {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Key, nw.Key) || dcl.IsZeroValue(des.Key) {
+		nw.Key = des.Key
 	}
 
 	return nw
@@ -1581,16 +1608,11 @@ func canonicalizeInstanceTemplatePropertiesServiceAccounts(des, initial *Instanc
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*InstanceTemplate)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Email) {
+	if dcl.StringCanonicalize(des.Email, initial.Email) || dcl.IsZeroValue(des.Email) {
 		des.Email = initial.Email
 	}
 	if dcl.IsZeroValue(des.Scopes) {
@@ -1603,6 +1625,10 @@ func canonicalizeInstanceTemplatePropertiesServiceAccounts(des, initial *Instanc
 func canonicalizeNewInstanceTemplatePropertiesServiceAccounts(c *Client, des, nw *InstanceTemplatePropertiesServiceAccounts) *InstanceTemplatePropertiesServiceAccounts {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Email, nw.Email) || dcl.IsZeroValue(des.Email) {
+		nw.Email = des.Email
 	}
 
 	return nw
@@ -1652,21 +1678,21 @@ func diffInstanceTemplate(c *Client, desired, actual *InstanceTemplate, opts ...
 	}
 
 	var diffs []instanceTemplateDiff
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, instanceTemplateDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
-	if !dcl.IsZeroValue(desired.SelfLink) && (dcl.IsZeroValue(actual.SelfLink) || !reflect.DeepEqual(*desired.SelfLink, *actual.SelfLink)) {
+	if !dcl.IsZeroValue(desired.SelfLink) && !dcl.StringCanonicalize(desired.SelfLink, actual.SelfLink) {
 		c.Config.Logger.Infof("Detected diff in SelfLink.\nDESIRED: %v\nACTUAL: %v", desired.SelfLink, actual.SelfLink)
 		diffs = append(diffs, instanceTemplateDiff{
 			RequiresRecreate: true,
 			FieldName:        "SelfLink",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, instanceTemplateDiff{
 			RequiresRecreate: true,
@@ -1704,20 +1730,6 @@ func diffInstanceTemplate(c *Client, desired, actual *InstanceTemplate, opts ...
 
 	return deduped, nil
 }
-func compareInstanceTemplatePropertiesSlice(c *Client, desired, actual []InstanceTemplateProperties) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceTemplateProperties, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareInstanceTemplateProperties(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceTemplateProperties, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
 func compareInstanceTemplateProperties(c *Client, desired, actual *InstanceTemplateProperties) bool {
 	if desired == nil {
 		return false
@@ -1729,7 +1741,7 @@ func compareInstanceTemplateProperties(c *Client, desired, actual *InstanceTempl
 		c.Config.Logger.Infof("desired CanIPForward %s - but actually nil", dcl.SprintResource(desired.CanIPForward))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CanIPForward, actual.CanIPForward) && !dcl.IsZeroValue(desired.CanIPForward) && !(dcl.IsEmptyValueIndirect(desired.CanIPForward) && dcl.IsZeroValue(actual.CanIPForward)) {
+	if !reflect.DeepEqual(desired.CanIPForward, actual.CanIPForward) && !dcl.IsZeroValue(desired.CanIPForward) {
 		c.Config.Logger.Infof("Diff in CanIPForward. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CanIPForward), dcl.SprintResource(actual.CanIPForward))
 		return true
 	}
@@ -1737,7 +1749,7 @@ func compareInstanceTemplateProperties(c *Client, desired, actual *InstanceTempl
 		c.Config.Logger.Infof("desired Description %s - but actually nil", dcl.SprintResource(desired.Description))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) && !(dcl.IsEmptyValueIndirect(desired.Description) && dcl.IsZeroValue(actual.Description)) {
+	if !dcl.StringCanonicalize(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) {
 		c.Config.Logger.Infof("Diff in Description. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
 		return true
 	}
@@ -1753,7 +1765,7 @@ func compareInstanceTemplateProperties(c *Client, desired, actual *InstanceTempl
 		c.Config.Logger.Infof("desired Labels %s - but actually nil", dcl.SprintResource(desired.Labels))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Labels, actual.Labels) && !dcl.IsZeroValue(desired.Labels) {
+	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) && !dcl.IsZeroValue(desired.Labels) {
 		c.Config.Logger.Infof("Diff in Labels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Labels), dcl.SprintResource(actual.Labels))
 		return true
 	}
@@ -1769,7 +1781,7 @@ func compareInstanceTemplateProperties(c *Client, desired, actual *InstanceTempl
 		c.Config.Logger.Infof("desired MinCpuPlatform %s - but actually nil", dcl.SprintResource(desired.MinCpuPlatform))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MinCpuPlatform, actual.MinCpuPlatform) && !dcl.IsZeroValue(desired.MinCpuPlatform) && !(dcl.IsEmptyValueIndirect(desired.MinCpuPlatform) && dcl.IsZeroValue(actual.MinCpuPlatform)) {
+	if !dcl.StringCanonicalize(desired.MinCpuPlatform, actual.MinCpuPlatform) && !dcl.IsZeroValue(desired.MinCpuPlatform) {
 		c.Config.Logger.Infof("Diff in MinCpuPlatform. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinCpuPlatform), dcl.SprintResource(actual.MinCpuPlatform))
 		return true
 	}
@@ -1777,7 +1789,7 @@ func compareInstanceTemplateProperties(c *Client, desired, actual *InstanceTempl
 		c.Config.Logger.Infof("desired Metadata %s - but actually nil", dcl.SprintResource(desired.Metadata))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Metadata, actual.Metadata) && !dcl.IsZeroValue(desired.Metadata) {
+	if !dcl.MapEquals(desired.Metadata, actual.Metadata, []string(nil)) && !dcl.IsZeroValue(desired.Metadata) {
 		c.Config.Logger.Infof("Diff in Metadata. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Metadata), dcl.SprintResource(actual.Metadata))
 		return true
 	}
@@ -1833,20 +1845,40 @@ func compareInstanceTemplateProperties(c *Client, desired, actual *InstanceTempl
 		c.Config.Logger.Infof("desired Tags %s - but actually nil", dcl.SprintResource(desired.Tags))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Tags, actual.Tags) && !dcl.IsZeroValue(desired.Tags) {
+	if !dcl.StringSliceEquals(desired.Tags, actual.Tags) && !dcl.IsZeroValue(desired.Tags) {
 		c.Config.Logger.Infof("Diff in Tags. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Tags), dcl.SprintResource(actual.Tags))
 		return true
 	}
 	return false
 }
-func compareInstanceTemplatePropertiesDisksSlice(c *Client, desired, actual []InstanceTemplatePropertiesDisks) bool {
+
+func compareInstanceTemplatePropertiesSlice(c *Client, desired, actual []InstanceTemplateProperties) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesDisks, lengths unequal.")
+		c.Config.Logger.Info("Diff in InstanceTemplateProperties, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareInstanceTemplatePropertiesDisks(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisks, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareInstanceTemplateProperties(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceTemplateProperties, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceTemplatePropertiesMap(c *Client, desired, actual map[string]InstanceTemplateProperties) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceTemplateProperties, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InstanceTemplateProperties, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInstanceTemplateProperties(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InstanceTemplateProperties, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1864,7 +1896,7 @@ func compareInstanceTemplatePropertiesDisks(c *Client, desired, actual *Instance
 		c.Config.Logger.Infof("desired AutoDelete %s - but actually nil", dcl.SprintResource(desired.AutoDelete))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AutoDelete, actual.AutoDelete) && !dcl.IsZeroValue(desired.AutoDelete) && !(dcl.IsEmptyValueIndirect(desired.AutoDelete) && dcl.IsZeroValue(actual.AutoDelete)) {
+	if !reflect.DeepEqual(desired.AutoDelete, actual.AutoDelete) && !dcl.IsZeroValue(desired.AutoDelete) {
 		c.Config.Logger.Infof("Diff in AutoDelete. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AutoDelete), dcl.SprintResource(actual.AutoDelete))
 		return true
 	}
@@ -1872,7 +1904,7 @@ func compareInstanceTemplatePropertiesDisks(c *Client, desired, actual *Instance
 		c.Config.Logger.Infof("desired Boot %s - but actually nil", dcl.SprintResource(desired.Boot))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Boot, actual.Boot) && !dcl.IsZeroValue(desired.Boot) && !(dcl.IsEmptyValueIndirect(desired.Boot) && dcl.IsZeroValue(actual.Boot)) {
+	if !reflect.DeepEqual(desired.Boot, actual.Boot) && !dcl.IsZeroValue(desired.Boot) {
 		c.Config.Logger.Infof("Diff in Boot. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Boot), dcl.SprintResource(actual.Boot))
 		return true
 	}
@@ -1880,7 +1912,7 @@ func compareInstanceTemplatePropertiesDisks(c *Client, desired, actual *Instance
 		c.Config.Logger.Infof("desired DeviceName %s - but actually nil", dcl.SprintResource(desired.DeviceName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.DeviceName, actual.DeviceName) && !dcl.IsZeroValue(desired.DeviceName) && !(dcl.IsEmptyValueIndirect(desired.DeviceName) && dcl.IsZeroValue(actual.DeviceName)) {
+	if !dcl.StringCanonicalize(desired.DeviceName, actual.DeviceName) && !dcl.IsZeroValue(desired.DeviceName) {
 		c.Config.Logger.Infof("Diff in DeviceName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DeviceName), dcl.SprintResource(actual.DeviceName))
 		return true
 	}
@@ -1896,7 +1928,7 @@ func compareInstanceTemplatePropertiesDisks(c *Client, desired, actual *Instance
 		c.Config.Logger.Infof("desired Index %s - but actually nil", dcl.SprintResource(desired.Index))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Index, actual.Index) && !dcl.IsZeroValue(desired.Index) && !(dcl.IsEmptyValueIndirect(desired.Index) && dcl.IsZeroValue(actual.Index)) {
+	if !reflect.DeepEqual(desired.Index, actual.Index) && !dcl.IsZeroValue(desired.Index) {
 		c.Config.Logger.Infof("Diff in Index. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Index), dcl.SprintResource(actual.Index))
 		return true
 	}
@@ -1920,7 +1952,7 @@ func compareInstanceTemplatePropertiesDisks(c *Client, desired, actual *Instance
 		c.Config.Logger.Infof("desired Interface %s - but actually nil", dcl.SprintResource(desired.Interface))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Interface, actual.Interface) && !dcl.IsZeroValue(desired.Interface) && !(dcl.IsEmptyValueIndirect(desired.Interface) && dcl.IsZeroValue(actual.Interface)) {
+	if !reflect.DeepEqual(desired.Interface, actual.Interface) && !dcl.IsZeroValue(desired.Interface) {
 		c.Config.Logger.Infof("Diff in Interface. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Interface), dcl.SprintResource(actual.Interface))
 		return true
 	}
@@ -1928,7 +1960,7 @@ func compareInstanceTemplatePropertiesDisks(c *Client, desired, actual *Instance
 		c.Config.Logger.Infof("desired Mode %s - but actually nil", dcl.SprintResource(desired.Mode))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Mode, actual.Mode) && !dcl.IsZeroValue(desired.Mode) && !(dcl.IsEmptyValueIndirect(desired.Mode) && dcl.IsZeroValue(actual.Mode)) {
+	if !reflect.DeepEqual(desired.Mode, actual.Mode) && !dcl.IsZeroValue(desired.Mode) {
 		c.Config.Logger.Infof("Diff in Mode. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Mode), dcl.SprintResource(actual.Mode))
 		return true
 	}
@@ -1944,20 +1976,40 @@ func compareInstanceTemplatePropertiesDisks(c *Client, desired, actual *Instance
 		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) && !(dcl.IsEmptyValueIndirect(desired.Type) && dcl.IsZeroValue(actual.Type)) {
+	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
 		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
 		return true
 	}
 	return false
 }
-func compareInstanceTemplatePropertiesDisksDiskEncryptionKeySlice(c *Client, desired, actual []InstanceTemplatePropertiesDisksDiskEncryptionKey) bool {
+
+func compareInstanceTemplatePropertiesDisksSlice(c *Client, desired, actual []InstanceTemplatePropertiesDisks) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesDisksDiskEncryptionKey, lengths unequal.")
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesDisks, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareInstanceTemplatePropertiesDisksDiskEncryptionKey(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisksDiskEncryptionKey, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareInstanceTemplatePropertiesDisks(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisks, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceTemplatePropertiesDisksMap(c *Client, desired, actual map[string]InstanceTemplatePropertiesDisks) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesDisks, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisks, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInstanceTemplatePropertiesDisks(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisks, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1975,7 +2027,7 @@ func compareInstanceTemplatePropertiesDisksDiskEncryptionKey(c *Client, desired,
 		c.Config.Logger.Infof("desired RawKey %s - but actually nil", dcl.SprintResource(desired.RawKey))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RawKey, actual.RawKey) && !dcl.IsZeroValue(desired.RawKey) && !(dcl.IsEmptyValueIndirect(desired.RawKey) && dcl.IsZeroValue(actual.RawKey)) {
+	if !dcl.StringCanonicalize(desired.RawKey, actual.RawKey) && !dcl.IsZeroValue(desired.RawKey) {
 		c.Config.Logger.Infof("Diff in RawKey. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RawKey), dcl.SprintResource(actual.RawKey))
 		return true
 	}
@@ -1983,20 +2035,40 @@ func compareInstanceTemplatePropertiesDisksDiskEncryptionKey(c *Client, desired,
 		c.Config.Logger.Infof("desired RsaEncryptedKey %s - but actually nil", dcl.SprintResource(desired.RsaEncryptedKey))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RsaEncryptedKey, actual.RsaEncryptedKey) && !dcl.IsZeroValue(desired.RsaEncryptedKey) && !(dcl.IsEmptyValueIndirect(desired.RsaEncryptedKey) && dcl.IsZeroValue(actual.RsaEncryptedKey)) {
+	if !dcl.StringCanonicalize(desired.RsaEncryptedKey, actual.RsaEncryptedKey) && !dcl.IsZeroValue(desired.RsaEncryptedKey) {
 		c.Config.Logger.Infof("Diff in RsaEncryptedKey. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RsaEncryptedKey), dcl.SprintResource(actual.RsaEncryptedKey))
 		return true
 	}
 	return false
 }
-func compareInstanceTemplatePropertiesDisksInitializeParamsSlice(c *Client, desired, actual []InstanceTemplatePropertiesDisksInitializeParams) bool {
+
+func compareInstanceTemplatePropertiesDisksDiskEncryptionKeySlice(c *Client, desired, actual []InstanceTemplatePropertiesDisksDiskEncryptionKey) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesDisksInitializeParams, lengths unequal.")
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesDisksDiskEncryptionKey, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareInstanceTemplatePropertiesDisksInitializeParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisksInitializeParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareInstanceTemplatePropertiesDisksDiskEncryptionKey(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisksDiskEncryptionKey, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceTemplatePropertiesDisksDiskEncryptionKeyMap(c *Client, desired, actual map[string]InstanceTemplatePropertiesDisksDiskEncryptionKey) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesDisksDiskEncryptionKey, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisksDiskEncryptionKey, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInstanceTemplatePropertiesDisksDiskEncryptionKey(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisksDiskEncryptionKey, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2014,7 +2086,7 @@ func compareInstanceTemplatePropertiesDisksInitializeParams(c *Client, desired, 
 		c.Config.Logger.Infof("desired DiskName %s - but actually nil", dcl.SprintResource(desired.DiskName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.DiskName, actual.DiskName) && !dcl.IsZeroValue(desired.DiskName) && !(dcl.IsEmptyValueIndirect(desired.DiskName) && dcl.IsZeroValue(actual.DiskName)) {
+	if !dcl.StringCanonicalize(desired.DiskName, actual.DiskName) && !dcl.IsZeroValue(desired.DiskName) {
 		c.Config.Logger.Infof("Diff in DiskName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DiskName), dcl.SprintResource(actual.DiskName))
 		return true
 	}
@@ -2022,7 +2094,7 @@ func compareInstanceTemplatePropertiesDisksInitializeParams(c *Client, desired, 
 		c.Config.Logger.Infof("desired DiskSizeGb %s - but actually nil", dcl.SprintResource(desired.DiskSizeGb))
 		return true
 	}
-	if !reflect.DeepEqual(desired.DiskSizeGb, actual.DiskSizeGb) && !dcl.IsZeroValue(desired.DiskSizeGb) && !(dcl.IsEmptyValueIndirect(desired.DiskSizeGb) && dcl.IsZeroValue(actual.DiskSizeGb)) {
+	if !reflect.DeepEqual(desired.DiskSizeGb, actual.DiskSizeGb) && !dcl.IsZeroValue(desired.DiskSizeGb) {
 		c.Config.Logger.Infof("Diff in DiskSizeGb. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DiskSizeGb), dcl.SprintResource(actual.DiskSizeGb))
 		return true
 	}
@@ -2038,7 +2110,7 @@ func compareInstanceTemplatePropertiesDisksInitializeParams(c *Client, desired, 
 		c.Config.Logger.Infof("desired SourceImage %s - but actually nil", dcl.SprintResource(desired.SourceImage))
 		return true
 	}
-	if !reflect.DeepEqual(desired.SourceImage, actual.SourceImage) && !dcl.IsZeroValue(desired.SourceImage) && !(dcl.IsEmptyValueIndirect(desired.SourceImage) && dcl.IsZeroValue(actual.SourceImage)) {
+	if !dcl.StringCanonicalize(desired.SourceImage, actual.SourceImage) && !dcl.IsZeroValue(desired.SourceImage) {
 		c.Config.Logger.Infof("Diff in SourceImage. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SourceImage), dcl.SprintResource(actual.SourceImage))
 		return true
 	}
@@ -2046,7 +2118,7 @@ func compareInstanceTemplatePropertiesDisksInitializeParams(c *Client, desired, 
 		c.Config.Logger.Infof("desired Labels %s - but actually nil", dcl.SprintResource(desired.Labels))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Labels, actual.Labels) && !dcl.IsZeroValue(desired.Labels) {
+	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) && !dcl.IsZeroValue(desired.Labels) {
 		c.Config.Logger.Infof("Diff in Labels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Labels), dcl.SprintResource(actual.Labels))
 		return true
 	}
@@ -2054,7 +2126,7 @@ func compareInstanceTemplatePropertiesDisksInitializeParams(c *Client, desired, 
 		c.Config.Logger.Infof("desired SourceSnapshot %s - but actually nil", dcl.SprintResource(desired.SourceSnapshot))
 		return true
 	}
-	if !reflect.DeepEqual(desired.SourceSnapshot, actual.SourceSnapshot) && !dcl.IsZeroValue(desired.SourceSnapshot) && !(dcl.IsEmptyValueIndirect(desired.SourceSnapshot) && dcl.IsZeroValue(actual.SourceSnapshot)) {
+	if !dcl.StringCanonicalize(desired.SourceSnapshot, actual.SourceSnapshot) && !dcl.IsZeroValue(desired.SourceSnapshot) {
 		c.Config.Logger.Infof("Diff in SourceSnapshot. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SourceSnapshot), dcl.SprintResource(actual.SourceSnapshot))
 		return true
 	}
@@ -2070,7 +2142,7 @@ func compareInstanceTemplatePropertiesDisksInitializeParams(c *Client, desired, 
 		c.Config.Logger.Infof("desired Description %s - but actually nil", dcl.SprintResource(desired.Description))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) && !(dcl.IsEmptyValueIndirect(desired.Description) && dcl.IsZeroValue(actual.Description)) {
+	if !dcl.StringCanonicalize(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) {
 		c.Config.Logger.Infof("Diff in Description. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
 		return true
 	}
@@ -2078,7 +2150,7 @@ func compareInstanceTemplatePropertiesDisksInitializeParams(c *Client, desired, 
 		c.Config.Logger.Infof("desired ResourcePolicies %s - but actually nil", dcl.SprintResource(desired.ResourcePolicies))
 		return true
 	}
-	if !dcl.SliceEquals(desired.ResourcePolicies, actual.ResourcePolicies) && !dcl.IsZeroValue(desired.ResourcePolicies) {
+	if !dcl.StringSliceEquals(desired.ResourcePolicies, actual.ResourcePolicies) && !dcl.IsZeroValue(desired.ResourcePolicies) {
 		c.Config.Logger.Infof("Diff in ResourcePolicies. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourcePolicies), dcl.SprintResource(actual.ResourcePolicies))
 		return true
 	}
@@ -2086,7 +2158,7 @@ func compareInstanceTemplatePropertiesDisksInitializeParams(c *Client, desired, 
 		c.Config.Logger.Infof("desired OnUpdateAction %s - but actually nil", dcl.SprintResource(desired.OnUpdateAction))
 		return true
 	}
-	if !reflect.DeepEqual(desired.OnUpdateAction, actual.OnUpdateAction) && !dcl.IsZeroValue(desired.OnUpdateAction) && !(dcl.IsEmptyValueIndirect(desired.OnUpdateAction) && dcl.IsZeroValue(actual.OnUpdateAction)) {
+	if !dcl.StringCanonicalize(desired.OnUpdateAction, actual.OnUpdateAction) && !dcl.IsZeroValue(desired.OnUpdateAction) {
 		c.Config.Logger.Infof("Diff in OnUpdateAction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OnUpdateAction), dcl.SprintResource(actual.OnUpdateAction))
 		return true
 	}
@@ -2100,14 +2172,34 @@ func compareInstanceTemplatePropertiesDisksInitializeParams(c *Client, desired, 
 	}
 	return false
 }
-func compareInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKeySlice(c *Client, desired, actual []InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey) bool {
+
+func compareInstanceTemplatePropertiesDisksInitializeParamsSlice(c *Client, desired, actual []InstanceTemplatePropertiesDisksInitializeParams) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey, lengths unequal.")
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesDisksInitializeParams, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareInstanceTemplatePropertiesDisksInitializeParams(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisksInitializeParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceTemplatePropertiesDisksInitializeParamsMap(c *Client, desired, actual map[string]InstanceTemplatePropertiesDisksInitializeParams) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesDisksInitializeParams, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisksInitializeParams, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInstanceTemplatePropertiesDisksInitializeParams(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisksInitializeParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2125,7 +2217,7 @@ func compareInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncrypt
 		c.Config.Logger.Infof("desired RawKey %s - but actually nil", dcl.SprintResource(desired.RawKey))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RawKey, actual.RawKey) && !dcl.IsZeroValue(desired.RawKey) && !(dcl.IsEmptyValueIndirect(desired.RawKey) && dcl.IsZeroValue(actual.RawKey)) {
+	if !dcl.StringCanonicalize(desired.RawKey, actual.RawKey) && !dcl.IsZeroValue(desired.RawKey) {
 		c.Config.Logger.Infof("Diff in RawKey. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RawKey), dcl.SprintResource(actual.RawKey))
 		return true
 	}
@@ -2133,20 +2225,40 @@ func compareInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncrypt
 		c.Config.Logger.Infof("desired KmsKeyName %s - but actually nil", dcl.SprintResource(desired.KmsKeyName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.KmsKeyName, actual.KmsKeyName) && !dcl.IsZeroValue(desired.KmsKeyName) && !(dcl.IsEmptyValueIndirect(desired.KmsKeyName) && dcl.IsZeroValue(actual.KmsKeyName)) {
+	if !dcl.StringCanonicalize(desired.KmsKeyName, actual.KmsKeyName) && !dcl.IsZeroValue(desired.KmsKeyName) {
 		c.Config.Logger.Infof("Diff in KmsKeyName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyName), dcl.SprintResource(actual.KmsKeyName))
 		return true
 	}
 	return false
 }
-func compareInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKeySlice(c *Client, desired, actual []InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey) bool {
+
+func compareInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKeySlice(c *Client, desired, actual []InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey, lengths unequal.")
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKeyMap(c *Client, desired, actual map[string]InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2164,7 +2276,7 @@ func compareInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryption
 		c.Config.Logger.Infof("desired RawKey %s - but actually nil", dcl.SprintResource(desired.RawKey))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RawKey, actual.RawKey) && !dcl.IsZeroValue(desired.RawKey) && !(dcl.IsEmptyValueIndirect(desired.RawKey) && dcl.IsZeroValue(actual.RawKey)) {
+	if !dcl.StringCanonicalize(desired.RawKey, actual.RawKey) && !dcl.IsZeroValue(desired.RawKey) {
 		c.Config.Logger.Infof("Diff in RawKey. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RawKey), dcl.SprintResource(actual.RawKey))
 		return true
 	}
@@ -2172,20 +2284,40 @@ func compareInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryption
 		c.Config.Logger.Infof("desired KmsKeyName %s - but actually nil", dcl.SprintResource(desired.KmsKeyName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.KmsKeyName, actual.KmsKeyName) && !dcl.IsZeroValue(desired.KmsKeyName) && !(dcl.IsEmptyValueIndirect(desired.KmsKeyName) && dcl.IsZeroValue(actual.KmsKeyName)) {
+	if !dcl.StringCanonicalize(desired.KmsKeyName, actual.KmsKeyName) && !dcl.IsZeroValue(desired.KmsKeyName) {
 		c.Config.Logger.Infof("Diff in KmsKeyName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyName), dcl.SprintResource(actual.KmsKeyName))
 		return true
 	}
 	return false
 }
-func compareInstanceTemplatePropertiesDisksGuestOsFeaturesSlice(c *Client, desired, actual []InstanceTemplatePropertiesDisksGuestOsFeatures) bool {
+
+func compareInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKeySlice(c *Client, desired, actual []InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesDisksGuestOsFeatures, lengths unequal.")
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareInstanceTemplatePropertiesDisksGuestOsFeatures(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisksGuestOsFeatures, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKeyMap(c *Client, desired, actual map[string]InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2203,20 +2335,40 @@ func compareInstanceTemplatePropertiesDisksGuestOsFeatures(c *Client, desired, a
 		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) && !(dcl.IsEmptyValueIndirect(desired.Type) && dcl.IsZeroValue(actual.Type)) {
+	if !dcl.StringCanonicalize(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
 		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
 		return true
 	}
 	return false
 }
-func compareInstanceTemplatePropertiesReservationAffinitySlice(c *Client, desired, actual []InstanceTemplatePropertiesReservationAffinity) bool {
+
+func compareInstanceTemplatePropertiesDisksGuestOsFeaturesSlice(c *Client, desired, actual []InstanceTemplatePropertiesDisksGuestOsFeatures) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesReservationAffinity, lengths unequal.")
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesDisksGuestOsFeatures, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareInstanceTemplatePropertiesReservationAffinity(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesReservationAffinity, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareInstanceTemplatePropertiesDisksGuestOsFeatures(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisksGuestOsFeatures, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceTemplatePropertiesDisksGuestOsFeaturesMap(c *Client, desired, actual map[string]InstanceTemplatePropertiesDisksGuestOsFeatures) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesDisksGuestOsFeatures, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisksGuestOsFeatures, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInstanceTemplatePropertiesDisksGuestOsFeatures(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesDisksGuestOsFeatures, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2234,7 +2386,7 @@ func compareInstanceTemplatePropertiesReservationAffinity(c *Client, desired, ac
 		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
+	if !dcl.StringCanonicalize(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) {
 		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
 		return true
 	}
@@ -2242,20 +2394,40 @@ func compareInstanceTemplatePropertiesReservationAffinity(c *Client, desired, ac
 		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
+	if !dcl.StringSliceEquals(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
 		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
 }
-func compareInstanceTemplatePropertiesGuestAcceleratorsSlice(c *Client, desired, actual []InstanceTemplatePropertiesGuestAccelerators) bool {
+
+func compareInstanceTemplatePropertiesReservationAffinitySlice(c *Client, desired, actual []InstanceTemplatePropertiesReservationAffinity) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesGuestAccelerators, lengths unequal.")
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesReservationAffinity, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareInstanceTemplatePropertiesGuestAccelerators(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesGuestAccelerators, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareInstanceTemplatePropertiesReservationAffinity(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesReservationAffinity, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceTemplatePropertiesReservationAffinityMap(c *Client, desired, actual map[string]InstanceTemplatePropertiesReservationAffinity) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesReservationAffinity, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesReservationAffinity, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInstanceTemplatePropertiesReservationAffinity(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesReservationAffinity, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2273,7 +2445,7 @@ func compareInstanceTemplatePropertiesGuestAccelerators(c *Client, desired, actu
 		c.Config.Logger.Infof("desired AcceleratorCount %s - but actually nil", dcl.SprintResource(desired.AcceleratorCount))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AcceleratorCount, actual.AcceleratorCount) && !dcl.IsZeroValue(desired.AcceleratorCount) && !(dcl.IsEmptyValueIndirect(desired.AcceleratorCount) && dcl.IsZeroValue(actual.AcceleratorCount)) {
+	if !reflect.DeepEqual(desired.AcceleratorCount, actual.AcceleratorCount) && !dcl.IsZeroValue(desired.AcceleratorCount) {
 		c.Config.Logger.Infof("Diff in AcceleratorCount. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AcceleratorCount), dcl.SprintResource(actual.AcceleratorCount))
 		return true
 	}
@@ -2281,20 +2453,40 @@ func compareInstanceTemplatePropertiesGuestAccelerators(c *Client, desired, actu
 		c.Config.Logger.Infof("desired AcceleratorType %s - but actually nil", dcl.SprintResource(desired.AcceleratorType))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AcceleratorType, actual.AcceleratorType) && !dcl.IsZeroValue(desired.AcceleratorType) && !(dcl.IsEmptyValueIndirect(desired.AcceleratorType) && dcl.IsZeroValue(actual.AcceleratorType)) {
+	if !dcl.StringCanonicalize(desired.AcceleratorType, actual.AcceleratorType) && !dcl.IsZeroValue(desired.AcceleratorType) {
 		c.Config.Logger.Infof("Diff in AcceleratorType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AcceleratorType), dcl.SprintResource(actual.AcceleratorType))
 		return true
 	}
 	return false
 }
-func compareInstanceTemplatePropertiesNetworkInterfacesSlice(c *Client, desired, actual []InstanceTemplatePropertiesNetworkInterfaces) bool {
+
+func compareInstanceTemplatePropertiesGuestAcceleratorsSlice(c *Client, desired, actual []InstanceTemplatePropertiesGuestAccelerators) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesNetworkInterfaces, lengths unequal.")
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesGuestAccelerators, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareInstanceTemplatePropertiesNetworkInterfaces(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesNetworkInterfaces, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareInstanceTemplatePropertiesGuestAccelerators(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesGuestAccelerators, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceTemplatePropertiesGuestAcceleratorsMap(c *Client, desired, actual map[string]InstanceTemplatePropertiesGuestAccelerators) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesGuestAccelerators, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesGuestAccelerators, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInstanceTemplatePropertiesGuestAccelerators(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesGuestAccelerators, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2336,7 +2528,7 @@ func compareInstanceTemplatePropertiesNetworkInterfaces(c *Client, desired, actu
 		c.Config.Logger.Infof("desired NetworkIP %s - but actually nil", dcl.SprintResource(desired.NetworkIP))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NetworkIP, actual.NetworkIP) && !dcl.IsZeroValue(desired.NetworkIP) && !(dcl.IsEmptyValueIndirect(desired.NetworkIP) && dcl.IsZeroValue(actual.NetworkIP)) {
+	if !dcl.StringCanonicalize(desired.NetworkIP, actual.NetworkIP) && !dcl.IsZeroValue(desired.NetworkIP) {
 		c.Config.Logger.Infof("Diff in NetworkIP. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NetworkIP), dcl.SprintResource(actual.NetworkIP))
 		return true
 	}
@@ -2350,14 +2542,34 @@ func compareInstanceTemplatePropertiesNetworkInterfaces(c *Client, desired, actu
 	}
 	return false
 }
-func compareInstanceTemplatePropertiesNetworkInterfacesAccessConfigsSlice(c *Client, desired, actual []InstanceTemplatePropertiesNetworkInterfacesAccessConfigs) bool {
+
+func compareInstanceTemplatePropertiesNetworkInterfacesSlice(c *Client, desired, actual []InstanceTemplatePropertiesNetworkInterfaces) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesNetworkInterfacesAccessConfigs, lengths unequal.")
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesNetworkInterfaces, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareInstanceTemplatePropertiesNetworkInterfacesAccessConfigs(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesNetworkInterfacesAccessConfigs, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareInstanceTemplatePropertiesNetworkInterfaces(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesNetworkInterfaces, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceTemplatePropertiesNetworkInterfacesMap(c *Client, desired, actual map[string]InstanceTemplatePropertiesNetworkInterfaces) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesNetworkInterfaces, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesNetworkInterfaces, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInstanceTemplatePropertiesNetworkInterfaces(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesNetworkInterfaces, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2375,7 +2587,7 @@ func compareInstanceTemplatePropertiesNetworkInterfacesAccessConfigs(c *Client, 
 		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
 		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
@@ -2391,7 +2603,7 @@ func compareInstanceTemplatePropertiesNetworkInterfacesAccessConfigs(c *Client, 
 		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) && !(dcl.IsEmptyValueIndirect(desired.Type) && dcl.IsZeroValue(actual.Type)) {
+	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
 		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
 		return true
 	}
@@ -2399,7 +2611,7 @@ func compareInstanceTemplatePropertiesNetworkInterfacesAccessConfigs(c *Client, 
 		c.Config.Logger.Infof("desired SetPublicPtr %s - but actually nil", dcl.SprintResource(desired.SetPublicPtr))
 		return true
 	}
-	if !reflect.DeepEqual(desired.SetPublicPtr, actual.SetPublicPtr) && !dcl.IsZeroValue(desired.SetPublicPtr) && !(dcl.IsEmptyValueIndirect(desired.SetPublicPtr) && dcl.IsZeroValue(actual.SetPublicPtr)) {
+	if !reflect.DeepEqual(desired.SetPublicPtr, actual.SetPublicPtr) && !dcl.IsZeroValue(desired.SetPublicPtr) {
 		c.Config.Logger.Infof("Diff in SetPublicPtr. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SetPublicPtr), dcl.SprintResource(actual.SetPublicPtr))
 		return true
 	}
@@ -2407,7 +2619,7 @@ func compareInstanceTemplatePropertiesNetworkInterfacesAccessConfigs(c *Client, 
 		c.Config.Logger.Infof("desired PublicPtrDomainName %s - but actually nil", dcl.SprintResource(desired.PublicPtrDomainName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PublicPtrDomainName, actual.PublicPtrDomainName) && !dcl.IsZeroValue(desired.PublicPtrDomainName) && !(dcl.IsEmptyValueIndirect(desired.PublicPtrDomainName) && dcl.IsZeroValue(actual.PublicPtrDomainName)) {
+	if !dcl.StringCanonicalize(desired.PublicPtrDomainName, actual.PublicPtrDomainName) && !dcl.IsZeroValue(desired.PublicPtrDomainName) {
 		c.Config.Logger.Infof("Diff in PublicPtrDomainName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PublicPtrDomainName), dcl.SprintResource(actual.PublicPtrDomainName))
 		return true
 	}
@@ -2415,20 +2627,40 @@ func compareInstanceTemplatePropertiesNetworkInterfacesAccessConfigs(c *Client, 
 		c.Config.Logger.Infof("desired NetworkTier %s - but actually nil", dcl.SprintResource(desired.NetworkTier))
 		return true
 	}
-	if !reflect.DeepEqual(desired.NetworkTier, actual.NetworkTier) && !dcl.IsZeroValue(desired.NetworkTier) && !(dcl.IsEmptyValueIndirect(desired.NetworkTier) && dcl.IsZeroValue(actual.NetworkTier)) {
+	if !reflect.DeepEqual(desired.NetworkTier, actual.NetworkTier) && !dcl.IsZeroValue(desired.NetworkTier) {
 		c.Config.Logger.Infof("Diff in NetworkTier. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NetworkTier), dcl.SprintResource(actual.NetworkTier))
 		return true
 	}
 	return false
 }
-func compareInstanceTemplatePropertiesNetworkInterfacesAliasIPRangesSlice(c *Client, desired, actual []InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges) bool {
+
+func compareInstanceTemplatePropertiesNetworkInterfacesAccessConfigsSlice(c *Client, desired, actual []InstanceTemplatePropertiesNetworkInterfacesAccessConfigs) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges, lengths unequal.")
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesNetworkInterfacesAccessConfigs, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareInstanceTemplatePropertiesNetworkInterfacesAliasIPRanges(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareInstanceTemplatePropertiesNetworkInterfacesAccessConfigs(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesNetworkInterfacesAccessConfigs, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceTemplatePropertiesNetworkInterfacesAccessConfigsMap(c *Client, desired, actual map[string]InstanceTemplatePropertiesNetworkInterfacesAccessConfigs) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesNetworkInterfacesAccessConfigs, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesNetworkInterfacesAccessConfigs, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInstanceTemplatePropertiesNetworkInterfacesAccessConfigs(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesNetworkInterfacesAccessConfigs, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2446,7 +2678,7 @@ func compareInstanceTemplatePropertiesNetworkInterfacesAliasIPRanges(c *Client, 
 		c.Config.Logger.Infof("desired IPCidrRange %s - but actually nil", dcl.SprintResource(desired.IPCidrRange))
 		return true
 	}
-	if !reflect.DeepEqual(desired.IPCidrRange, actual.IPCidrRange) && !dcl.IsZeroValue(desired.IPCidrRange) && !(dcl.IsEmptyValueIndirect(desired.IPCidrRange) && dcl.IsZeroValue(actual.IPCidrRange)) {
+	if !dcl.StringCanonicalize(desired.IPCidrRange, actual.IPCidrRange) && !dcl.IsZeroValue(desired.IPCidrRange) {
 		c.Config.Logger.Infof("Diff in IPCidrRange. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IPCidrRange), dcl.SprintResource(actual.IPCidrRange))
 		return true
 	}
@@ -2454,20 +2686,40 @@ func compareInstanceTemplatePropertiesNetworkInterfacesAliasIPRanges(c *Client, 
 		c.Config.Logger.Infof("desired SubnetworkRangeName %s - but actually nil", dcl.SprintResource(desired.SubnetworkRangeName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.SubnetworkRangeName, actual.SubnetworkRangeName) && !dcl.IsZeroValue(desired.SubnetworkRangeName) && !(dcl.IsEmptyValueIndirect(desired.SubnetworkRangeName) && dcl.IsZeroValue(actual.SubnetworkRangeName)) {
+	if !dcl.StringCanonicalize(desired.SubnetworkRangeName, actual.SubnetworkRangeName) && !dcl.IsZeroValue(desired.SubnetworkRangeName) {
 		c.Config.Logger.Infof("Diff in SubnetworkRangeName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SubnetworkRangeName), dcl.SprintResource(actual.SubnetworkRangeName))
 		return true
 	}
 	return false
 }
-func compareInstanceTemplatePropertiesShieldedInstanceConfigSlice(c *Client, desired, actual []InstanceTemplatePropertiesShieldedInstanceConfig) bool {
+
+func compareInstanceTemplatePropertiesNetworkInterfacesAliasIPRangesSlice(c *Client, desired, actual []InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesShieldedInstanceConfig, lengths unequal.")
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareInstanceTemplatePropertiesShieldedInstanceConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesShieldedInstanceConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareInstanceTemplatePropertiesNetworkInterfacesAliasIPRanges(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceTemplatePropertiesNetworkInterfacesAliasIPRangesMap(c *Client, desired, actual map[string]InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInstanceTemplatePropertiesNetworkInterfacesAliasIPRanges(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2485,7 +2737,7 @@ func compareInstanceTemplatePropertiesShieldedInstanceConfig(c *Client, desired,
 		c.Config.Logger.Infof("desired EnableSecureBoot %s - but actually nil", dcl.SprintResource(desired.EnableSecureBoot))
 		return true
 	}
-	if !reflect.DeepEqual(desired.EnableSecureBoot, actual.EnableSecureBoot) && !dcl.IsZeroValue(desired.EnableSecureBoot) && !(dcl.IsEmptyValueIndirect(desired.EnableSecureBoot) && dcl.IsZeroValue(actual.EnableSecureBoot)) {
+	if !reflect.DeepEqual(desired.EnableSecureBoot, actual.EnableSecureBoot) && !dcl.IsZeroValue(desired.EnableSecureBoot) {
 		c.Config.Logger.Infof("Diff in EnableSecureBoot. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableSecureBoot), dcl.SprintResource(actual.EnableSecureBoot))
 		return true
 	}
@@ -2493,7 +2745,7 @@ func compareInstanceTemplatePropertiesShieldedInstanceConfig(c *Client, desired,
 		c.Config.Logger.Infof("desired EnableVtpm %s - but actually nil", dcl.SprintResource(desired.EnableVtpm))
 		return true
 	}
-	if !reflect.DeepEqual(desired.EnableVtpm, actual.EnableVtpm) && !dcl.IsZeroValue(desired.EnableVtpm) && !(dcl.IsEmptyValueIndirect(desired.EnableVtpm) && dcl.IsZeroValue(actual.EnableVtpm)) {
+	if !reflect.DeepEqual(desired.EnableVtpm, actual.EnableVtpm) && !dcl.IsZeroValue(desired.EnableVtpm) {
 		c.Config.Logger.Infof("Diff in EnableVtpm. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableVtpm), dcl.SprintResource(actual.EnableVtpm))
 		return true
 	}
@@ -2501,20 +2753,40 @@ func compareInstanceTemplatePropertiesShieldedInstanceConfig(c *Client, desired,
 		c.Config.Logger.Infof("desired EnableIntegrityMonitoring %s - but actually nil", dcl.SprintResource(desired.EnableIntegrityMonitoring))
 		return true
 	}
-	if !reflect.DeepEqual(desired.EnableIntegrityMonitoring, actual.EnableIntegrityMonitoring) && !dcl.IsZeroValue(desired.EnableIntegrityMonitoring) && !(dcl.IsEmptyValueIndirect(desired.EnableIntegrityMonitoring) && dcl.IsZeroValue(actual.EnableIntegrityMonitoring)) {
+	if !reflect.DeepEqual(desired.EnableIntegrityMonitoring, actual.EnableIntegrityMonitoring) && !dcl.IsZeroValue(desired.EnableIntegrityMonitoring) {
 		c.Config.Logger.Infof("Diff in EnableIntegrityMonitoring. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableIntegrityMonitoring), dcl.SprintResource(actual.EnableIntegrityMonitoring))
 		return true
 	}
 	return false
 }
-func compareInstanceTemplatePropertiesSchedulingSlice(c *Client, desired, actual []InstanceTemplatePropertiesScheduling) bool {
+
+func compareInstanceTemplatePropertiesShieldedInstanceConfigSlice(c *Client, desired, actual []InstanceTemplatePropertiesShieldedInstanceConfig) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesScheduling, lengths unequal.")
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesShieldedInstanceConfig, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareInstanceTemplatePropertiesScheduling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesScheduling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareInstanceTemplatePropertiesShieldedInstanceConfig(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesShieldedInstanceConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceTemplatePropertiesShieldedInstanceConfigMap(c *Client, desired, actual map[string]InstanceTemplatePropertiesShieldedInstanceConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesShieldedInstanceConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesShieldedInstanceConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInstanceTemplatePropertiesShieldedInstanceConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesShieldedInstanceConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2532,7 +2804,7 @@ func compareInstanceTemplatePropertiesScheduling(c *Client, desired, actual *Ins
 		c.Config.Logger.Infof("desired AutomaticRestart %s - but actually nil", dcl.SprintResource(desired.AutomaticRestart))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AutomaticRestart, actual.AutomaticRestart) && !dcl.IsZeroValue(desired.AutomaticRestart) && !(dcl.IsEmptyValueIndirect(desired.AutomaticRestart) && dcl.IsZeroValue(actual.AutomaticRestart)) {
+	if !reflect.DeepEqual(desired.AutomaticRestart, actual.AutomaticRestart) && !dcl.IsZeroValue(desired.AutomaticRestart) {
 		c.Config.Logger.Infof("Diff in AutomaticRestart. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AutomaticRestart), dcl.SprintResource(actual.AutomaticRestart))
 		return true
 	}
@@ -2540,7 +2812,7 @@ func compareInstanceTemplatePropertiesScheduling(c *Client, desired, actual *Ins
 		c.Config.Logger.Infof("desired OnHostMaintenance %s - but actually nil", dcl.SprintResource(desired.OnHostMaintenance))
 		return true
 	}
-	if !reflect.DeepEqual(desired.OnHostMaintenance, actual.OnHostMaintenance) && !dcl.IsZeroValue(desired.OnHostMaintenance) && !(dcl.IsEmptyValueIndirect(desired.OnHostMaintenance) && dcl.IsZeroValue(actual.OnHostMaintenance)) {
+	if !dcl.StringCanonicalize(desired.OnHostMaintenance, actual.OnHostMaintenance) && !dcl.IsZeroValue(desired.OnHostMaintenance) {
 		c.Config.Logger.Infof("Diff in OnHostMaintenance. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OnHostMaintenance), dcl.SprintResource(actual.OnHostMaintenance))
 		return true
 	}
@@ -2548,7 +2820,7 @@ func compareInstanceTemplatePropertiesScheduling(c *Client, desired, actual *Ins
 		c.Config.Logger.Infof("desired Preemptible %s - but actually nil", dcl.SprintResource(desired.Preemptible))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Preemptible, actual.Preemptible) && !dcl.IsZeroValue(desired.Preemptible) && !(dcl.IsEmptyValueIndirect(desired.Preemptible) && dcl.IsZeroValue(actual.Preemptible)) {
+	if !reflect.DeepEqual(desired.Preemptible, actual.Preemptible) && !dcl.IsZeroValue(desired.Preemptible) {
 		c.Config.Logger.Infof("Diff in Preemptible. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Preemptible), dcl.SprintResource(actual.Preemptible))
 		return true
 	}
@@ -2562,14 +2834,34 @@ func compareInstanceTemplatePropertiesScheduling(c *Client, desired, actual *Ins
 	}
 	return false
 }
-func compareInstanceTemplatePropertiesSchedulingNodeAffinitiesSlice(c *Client, desired, actual []InstanceTemplatePropertiesSchedulingNodeAffinities) bool {
+
+func compareInstanceTemplatePropertiesSchedulingSlice(c *Client, desired, actual []InstanceTemplatePropertiesScheduling) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesSchedulingNodeAffinities, lengths unequal.")
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesScheduling, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareInstanceTemplatePropertiesSchedulingNodeAffinities(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesSchedulingNodeAffinities, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareInstanceTemplatePropertiesScheduling(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesScheduling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceTemplatePropertiesSchedulingMap(c *Client, desired, actual map[string]InstanceTemplatePropertiesScheduling) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesScheduling, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesScheduling, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInstanceTemplatePropertiesScheduling(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesScheduling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2587,7 +2879,7 @@ func compareInstanceTemplatePropertiesSchedulingNodeAffinities(c *Client, desire
 		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) && !(dcl.IsEmptyValueIndirect(desired.Key) && dcl.IsZeroValue(actual.Key)) {
+	if !dcl.StringCanonicalize(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) {
 		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
 		return true
 	}
@@ -2595,7 +2887,7 @@ func compareInstanceTemplatePropertiesSchedulingNodeAffinities(c *Client, desire
 		c.Config.Logger.Infof("desired Operator %s - but actually nil", dcl.SprintResource(desired.Operator))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Operator, actual.Operator) && !dcl.IsZeroValue(desired.Operator) && !(dcl.IsEmptyValueIndirect(desired.Operator) && dcl.IsZeroValue(actual.Operator)) {
+	if !reflect.DeepEqual(desired.Operator, actual.Operator) && !dcl.IsZeroValue(desired.Operator) {
 		c.Config.Logger.Infof("Diff in Operator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Operator), dcl.SprintResource(actual.Operator))
 		return true
 	}
@@ -2603,20 +2895,40 @@ func compareInstanceTemplatePropertiesSchedulingNodeAffinities(c *Client, desire
 		c.Config.Logger.Infof("desired Values %s - but actually nil", dcl.SprintResource(desired.Values))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Values, actual.Values) && !dcl.IsZeroValue(desired.Values) {
+	if !dcl.StringSliceEquals(desired.Values, actual.Values) && !dcl.IsZeroValue(desired.Values) {
 		c.Config.Logger.Infof("Diff in Values. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Values), dcl.SprintResource(actual.Values))
 		return true
 	}
 	return false
 }
-func compareInstanceTemplatePropertiesServiceAccountsSlice(c *Client, desired, actual []InstanceTemplatePropertiesServiceAccounts) bool {
+
+func compareInstanceTemplatePropertiesSchedulingNodeAffinitiesSlice(c *Client, desired, actual []InstanceTemplatePropertiesSchedulingNodeAffinities) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesServiceAccounts, lengths unequal.")
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesSchedulingNodeAffinities, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareInstanceTemplatePropertiesServiceAccounts(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesServiceAccounts, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareInstanceTemplatePropertiesSchedulingNodeAffinities(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesSchedulingNodeAffinities, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceTemplatePropertiesSchedulingNodeAffinitiesMap(c *Client, desired, actual map[string]InstanceTemplatePropertiesSchedulingNodeAffinities) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesSchedulingNodeAffinities, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesSchedulingNodeAffinities, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInstanceTemplatePropertiesSchedulingNodeAffinities(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesSchedulingNodeAffinities, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2634,7 +2946,7 @@ func compareInstanceTemplatePropertiesServiceAccounts(c *Client, desired, actual
 		c.Config.Logger.Infof("desired Email %s - but actually nil", dcl.SprintResource(desired.Email))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Email, actual.Email) && !dcl.IsZeroValue(desired.Email) && !(dcl.IsEmptyValueIndirect(desired.Email) && dcl.IsZeroValue(actual.Email)) {
+	if !dcl.StringCanonicalize(desired.Email, actual.Email) && !dcl.IsZeroValue(desired.Email) {
 		c.Config.Logger.Infof("Diff in Email. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Email), dcl.SprintResource(actual.Email))
 		return true
 	}
@@ -2642,12 +2954,46 @@ func compareInstanceTemplatePropertiesServiceAccounts(c *Client, desired, actual
 		c.Config.Logger.Infof("desired Scopes %s - but actually nil", dcl.SprintResource(desired.Scopes))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Scopes, actual.Scopes) && !dcl.IsZeroValue(desired.Scopes) {
+	if !dcl.StringSliceEquals(desired.Scopes, actual.Scopes) && !dcl.IsZeroValue(desired.Scopes) {
 		c.Config.Logger.Infof("Diff in Scopes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scopes), dcl.SprintResource(actual.Scopes))
 		return true
 	}
 	return false
 }
+
+func compareInstanceTemplatePropertiesServiceAccountsSlice(c *Client, desired, actual []InstanceTemplatePropertiesServiceAccounts) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesServiceAccounts, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareInstanceTemplatePropertiesServiceAccounts(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesServiceAccounts, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareInstanceTemplatePropertiesServiceAccountsMap(c *Client, desired, actual map[string]InstanceTemplatePropertiesServiceAccounts) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesServiceAccounts, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesServiceAccounts, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareInstanceTemplatePropertiesServiceAccounts(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in InstanceTemplatePropertiesServiceAccounts, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
 func compareInstanceTemplatePropertiesDisksInterfaceEnumSlice(c *Client, desired, actual []InstanceTemplatePropertiesDisksInterfaceEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in InstanceTemplatePropertiesDisksInterfaceEnum, lengths unequal.")
@@ -2761,6 +3107,9 @@ func compareInstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum(c *Cl
 // short-form so they can be substituted in.
 func (r *InstanceTemplate) urlNormalized() *InstanceTemplate {
 	normalized := deepcopy.Copy(*r).(InstanceTemplate)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -2816,6 +3165,10 @@ func unmarshalInstanceTemplate(b []byte, c *Client) (*InstanceTemplate, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapInstanceTemplate(m, c)
+}
+
+func unmarshalMapInstanceTemplate(m map[string]interface{}, c *Client) (*InstanceTemplate, error) {
 	if v, err := dcl.MapFromListOfKeyValues(m, []string{"properties", "metadata", "items"}); err != nil {
 		return nil, err
 	} else {
@@ -4935,7 +5288,7 @@ func flattenInstanceTemplatePropertiesDisksInterfaceEnumSlice(c *Client, i inter
 
 	items := make([]InstanceTemplatePropertiesDisksInterfaceEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceTemplatePropertiesDisksInterfaceEnum(item.(map[string]interface{})))
+		items = append(items, *flattenInstanceTemplatePropertiesDisksInterfaceEnum(item.(interface{})))
 	}
 
 	return items
@@ -4966,7 +5319,7 @@ func flattenInstanceTemplatePropertiesDisksModeEnumSlice(c *Client, i interface{
 
 	items := make([]InstanceTemplatePropertiesDisksModeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceTemplatePropertiesDisksModeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenInstanceTemplatePropertiesDisksModeEnum(item.(interface{})))
 	}
 
 	return items
@@ -4997,7 +5350,7 @@ func flattenInstanceTemplatePropertiesDisksTypeEnumSlice(c *Client, i interface{
 
 	items := make([]InstanceTemplatePropertiesDisksTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceTemplatePropertiesDisksTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenInstanceTemplatePropertiesDisksTypeEnum(item.(interface{})))
 	}
 
 	return items
@@ -5028,7 +5381,7 @@ func flattenInstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnumSlic
 
 	items := make([]InstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenInstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum(item.(interface{})))
 	}
 
 	return items
@@ -5059,7 +5412,7 @@ func flattenInstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierE
 
 	items := make([]InstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum(item.(map[string]interface{})))
+		items = append(items, *flattenInstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum(item.(interface{})))
 	}
 
 	return items
@@ -5090,7 +5443,7 @@ func flattenInstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnumSlice(
 
 	items := make([]InstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum(item.(map[string]interface{})))
+		items = append(items, *flattenInstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum(item.(interface{})))
 	}
 
 	return items

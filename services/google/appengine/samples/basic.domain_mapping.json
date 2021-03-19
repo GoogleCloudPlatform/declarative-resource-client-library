@@ -1,0 +1,4 @@
+{
+  "name": "{{domain}}.com",
+  "app": "{{ref:basic.application.json:name}}"
+}

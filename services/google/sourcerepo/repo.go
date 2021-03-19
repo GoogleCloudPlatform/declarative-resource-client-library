@@ -84,6 +84,9 @@ func (l *RepoList) HasNext() bool {
 }
 
 func (l *RepoList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -97,12 +100,17 @@ func (l *RepoList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListRepo(ctx context.Context, project string) (*RepoList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListRepoWithMaxResults(ctx, project, RepoMaxPage)
 
 }
 
 func (c *Client) ListRepoWithMaxResults(ctx context.Context, project string, pageSize int32) (*RepoList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listRepo(ctx, project, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -117,6 +125,9 @@ func (c *Client) ListRepoWithMaxResults(ctx context.Context, project string, pag
 }
 
 func (c *Client) GetRepo(ctx context.Context, r *Repo) (*Repo, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getRepoRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -146,6 +157,9 @@ func (c *Client) GetRepo(ctx context.Context, r *Repo) (*Repo, error) {
 }
 
 func (c *Client) DeleteRepo(ctx context.Context, r *Repo) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Repo resource is nil")
 	}
@@ -156,6 +170,9 @@ func (c *Client) DeleteRepo(ctx context.Context, r *Repo) error {
 
 // DeleteAllRepo deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllRepo(ctx context.Context, project string, filter func(*Repo) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListRepo(ctx, project)
 	if err != nil {
 		return err
@@ -181,6 +198,9 @@ func (c *Client) DeleteAllRepo(ctx context.Context, project string, filter func(
 func (c *Client) ApplyRepo(ctx context.Context, rawDesired *Repo, opts ...dcl.ApplyOption) (*Repo, error) {
 	c.Config.Logger.Info("Beginning ApplyRepo...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -265,12 +285,35 @@ func (c *Client) ApplyRepo(ctx context.Context, rawDesired *Repo, opts ...dcl.Ap
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createRepoOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapRepo(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeRepoNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeRepoNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

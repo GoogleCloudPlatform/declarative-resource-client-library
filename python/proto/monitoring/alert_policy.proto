@@ -648,6 +648,7 @@ message ListMonitoringAlertPolicyRequest {
 message ListMonitoringAlertPolicyResponse {
   repeated MonitoringAlertPolicy items = 1;
 }
+
 service MonitoringAlertPolicyService {
   rpc ApplyMonitoringAlertPolicy(ApplyMonitoringAlertPolicyRequest) returns (MonitoringAlertPolicy);
   rpc DeleteMonitoringAlertPolicy(DeleteMonitoringAlertPolicyRequest) returns (google.protobuf.Empty);

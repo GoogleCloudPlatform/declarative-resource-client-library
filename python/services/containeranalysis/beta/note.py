@@ -34,9 +34,8 @@ class Note(object):
         image: dict = None,
         package: dict = None,
         discovery: dict = None,
-        base_image: dict = None,
-        deployable: dict = None,
-        attestation_authority: dict = None,
+        deployment: dict = None,
+        attestation: dict = None,
         project: str = None,
         service_account_file: str = "",
     ):
@@ -53,9 +52,8 @@ class Note(object):
         self.image = image
         self.package = package
         self.discovery = discovery
-        self.base_image = base_image
-        self.deployable = deployable
-        self.attestation_authority = attestation_authority
+        self.deployment = deployment
+        self.attestation = attestation
         self.project = project
         self.service_account_file = service_account_file
 
@@ -108,24 +106,18 @@ class Note(object):
             request.resource.discovery.CopyFrom(NoteDiscovery.to_proto(self.discovery))
         else:
             request.resource.ClearField("discovery")
-        if NoteBaseImage.to_proto(self.base_image):
-            request.resource.base_image.CopyFrom(
-                NoteBaseImage.to_proto(self.base_image)
+        if NoteDeployment.to_proto(self.deployment):
+            request.resource.deployment.CopyFrom(
+                NoteDeployment.to_proto(self.deployment)
             )
         else:
-            request.resource.ClearField("base_image")
-        if NoteDeployable.to_proto(self.deployable):
-            request.resource.deployable.CopyFrom(
-                NoteDeployable.to_proto(self.deployable)
+            request.resource.ClearField("deployment")
+        if NoteAttestation.to_proto(self.attestation):
+            request.resource.attestation.CopyFrom(
+                NoteAttestation.to_proto(self.attestation)
             )
         else:
-            request.resource.ClearField("deployable")
-        if NoteAttestationAuthority.to_proto(self.attestation_authority):
-            request.resource.attestation_authority.CopyFrom(
-                NoteAttestationAuthority.to_proto(self.attestation_authority)
-            )
-        else:
-            request.resource.ClearField("attestation_authority")
+            request.resource.ClearField("attestation")
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -145,21 +137,74 @@ class Note(object):
         self.image = NoteImage.from_proto(response.image)
         self.package = NotePackage.from_proto(response.package)
         self.discovery = NoteDiscovery.from_proto(response.discovery)
-        self.base_image = NoteBaseImage.from_proto(response.base_image)
-        self.deployable = NoteDeployable.from_proto(response.deployable)
-        self.attestation_authority = NoteAttestationAuthority.from_proto(
-            response.attestation_authority
-        )
+        self.deployment = NoteDeployment.from_proto(response.deployment)
+        self.attestation = NoteAttestation.from_proto(response.attestation)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = note_pb2_grpc.ContaineranalysisBetaNoteServiceStub(channel.Channel())
         request = note_pb2.DeleteContaineranalysisBetaNoteRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Name = name
+        if Primitive.to_proto(self.short_description):
+            request.resource.short_description = Primitive.to_proto(
+                self.short_description
+            )
+
+        if Primitive.to_proto(self.long_description):
+            request.resource.long_description = Primitive.to_proto(
+                self.long_description
+            )
+
+        if NoteRelatedUrlArray.to_proto(self.related_url):
+            request.resource.related_url.extend(
+                NoteRelatedUrlArray.to_proto(self.related_url)
+            )
+        if Primitive.to_proto(self.expiration_time):
+            request.resource.expiration_time = Primitive.to_proto(self.expiration_time)
+
+        if Primitive.to_proto(self.related_note_names):
+            request.resource.related_note_names.extend(
+                Primitive.to_proto(self.related_note_names)
+            )
+        if NoteVulnerability.to_proto(self.vulnerability):
+            request.resource.vulnerability.CopyFrom(
+                NoteVulnerability.to_proto(self.vulnerability)
+            )
+        else:
+            request.resource.ClearField("vulnerability")
+        if NoteBuild.to_proto(self.build):
+            request.resource.build.CopyFrom(NoteBuild.to_proto(self.build))
+        else:
+            request.resource.ClearField("build")
+        if NoteImage.to_proto(self.image):
+            request.resource.image.CopyFrom(NoteImage.to_proto(self.image))
+        else:
+            request.resource.ClearField("image")
+        if NotePackage.to_proto(self.package):
+            request.resource.package.CopyFrom(NotePackage.to_proto(self.package))
+        else:
+            request.resource.ClearField("package")
+        if NoteDiscovery.to_proto(self.discovery):
+            request.resource.discovery.CopyFrom(NoteDiscovery.to_proto(self.discovery))
+        else:
+            request.resource.ClearField("discovery")
+        if NoteDeployment.to_proto(self.deployment):
+            request.resource.deployment.CopyFrom(
+                NoteDeployment.to_proto(self.deployment)
+            )
+        else:
+            request.resource.ClearField("deployment")
+        if NoteAttestation.to_proto(self.attestation):
+            request.resource.attestation.CopyFrom(
+                NoteAttestation.to_proto(self.attestation)
+            )
+        else:
+            request.resource.ClearField("attestation")
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteContaineranalysisBetaNote(request)
 
@@ -192,13 +237,60 @@ class Note(object):
         res.image = NoteImage.from_proto(res_proto.image)
         res.package = NotePackage.from_proto(res_proto.package)
         res.discovery = NoteDiscovery.from_proto(res_proto.discovery)
-        res.base_image = NoteBaseImage.from_proto(res_proto.base_image)
-        res.deployable = NoteDeployable.from_proto(res_proto.deployable)
-        res.attestation_authority = NoteAttestationAuthority.from_proto(
-            res_proto.attestation_authority
-        )
+        res.deployment = NoteDeployment.from_proto(res_proto.deployment)
+        res.attestation = NoteAttestation.from_proto(res_proto.attestation)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = note_pb2.ContaineranalysisBetaNote()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.short_description):
+            resource.short_description = Primitive.to_proto(self.short_description)
+        if Primitive.to_proto(self.long_description):
+            resource.long_description = Primitive.to_proto(self.long_description)
+        if NoteRelatedUrlArray.to_proto(self.related_url):
+            resource.related_url.extend(NoteRelatedUrlArray.to_proto(self.related_url))
+        if Primitive.to_proto(self.expiration_time):
+            resource.expiration_time = Primitive.to_proto(self.expiration_time)
+        if Primitive.to_proto(self.related_note_names):
+            resource.related_note_names.extend(
+                Primitive.to_proto(self.related_note_names)
+            )
+        if NoteVulnerability.to_proto(self.vulnerability):
+            resource.vulnerability.CopyFrom(
+                NoteVulnerability.to_proto(self.vulnerability)
+            )
+        else:
+            resource.ClearField("vulnerability")
+        if NoteBuild.to_proto(self.build):
+            resource.build.CopyFrom(NoteBuild.to_proto(self.build))
+        else:
+            resource.ClearField("build")
+        if NoteImage.to_proto(self.image):
+            resource.image.CopyFrom(NoteImage.to_proto(self.image))
+        else:
+            resource.ClearField("image")
+        if NotePackage.to_proto(self.package):
+            resource.package.CopyFrom(NotePackage.to_proto(self.package))
+        else:
+            resource.ClearField("package")
+        if NoteDiscovery.to_proto(self.discovery):
+            resource.discovery.CopyFrom(NoteDiscovery.to_proto(self.discovery))
+        else:
+            resource.ClearField("discovery")
+        if NoteDeployment.to_proto(self.deployment):
+            resource.deployment.CopyFrom(NoteDeployment.to_proto(self.deployment))
+        else:
+            resource.ClearField("deployment")
+        if NoteAttestation.to_proto(self.attestation):
+            resource.attestation.CopyFrom(NoteAttestation.to_proto(self.attestation))
+        else:
+            resource.ClearField("attestation")
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class NoteRelatedUrl(object):
@@ -1216,94 +1308,7 @@ class NoteDiscoveryArray(object):
         return [NoteDiscovery.from_proto(i) for i in resources]
 
 
-class NoteBaseImage(object):
-    def __init__(self, resource_url: str = None, fingerprint: dict = None):
-        self.resource_url = resource_url
-        self.fingerprint = fingerprint
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = note_pb2.ContaineranalysisBetaNoteBaseImage()
-        if Primitive.to_proto(resource.resource_url):
-            res.resource_url = Primitive.to_proto(resource.resource_url)
-        if NoteBaseImageFingerprint.to_proto(resource.fingerprint):
-            res.fingerprint.CopyFrom(
-                NoteBaseImageFingerprint.to_proto(resource.fingerprint)
-            )
-        else:
-            res.ClearField("fingerprint")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return NoteBaseImage(
-            resource_url=resource.resource_url, fingerprint=resource.fingerprint,
-        )
-
-
-class NoteBaseImageArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [NoteBaseImage.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [NoteBaseImage.from_proto(i) for i in resources]
-
-
-class NoteBaseImageFingerprint(object):
-    def __init__(self, v1_name: str = None, v2_blob: list = None, v2_name: str = None):
-        self.v1_name = v1_name
-        self.v2_blob = v2_blob
-        self.v2_name = v2_name
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = note_pb2.ContaineranalysisBetaNoteBaseImageFingerprint()
-        if Primitive.to_proto(resource.v1_name):
-            res.v1_name = Primitive.to_proto(resource.v1_name)
-        if Primitive.to_proto(resource.v2_blob):
-            res.v2_blob.extend(Primitive.to_proto(resource.v2_blob))
-        if Primitive.to_proto(resource.v2_name):
-            res.v2_name = Primitive.to_proto(resource.v2_name)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return NoteBaseImageFingerprint(
-            v1_name=resource.v1_name,
-            v2_blob=resource.v2_blob,
-            v2_name=resource.v2_name,
-        )
-
-
-class NoteBaseImageFingerprintArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [NoteBaseImageFingerprint.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [NoteBaseImageFingerprint.from_proto(i) for i in resources]
-
-
-class NoteDeployable(object):
+class NoteDeployment(object):
     def __init__(self, resource_uri: list = None):
         self.resource_uri = resource_uri
 
@@ -1312,7 +1317,7 @@ class NoteDeployable(object):
         if not resource:
             return None
 
-        res = note_pb2.ContaineranalysisBetaNoteDeployable()
+        res = note_pb2.ContaineranalysisBetaNoteDeployment()
         if Primitive.to_proto(resource.resource_uri):
             res.resource_uri.extend(Primitive.to_proto(resource.resource_uri))
         return res
@@ -1322,22 +1327,22 @@ class NoteDeployable(object):
         if not resource:
             return None
 
-        return NoteDeployable(resource_uri=resource.resource_uri,)
+        return NoteDeployment(resource_uri=resource.resource_uri,)
 
 
-class NoteDeployableArray(object):
+class NoteDeploymentArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [NoteDeployable.to_proto(i) for i in resources]
+        return [NoteDeployment.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [NoteDeployable.from_proto(i) for i in resources]
+        return [NoteDeployment.from_proto(i) for i in resources]
 
 
-class NoteAttestationAuthority(object):
+class NoteAttestation(object):
     def __init__(self, hint: dict = None):
         self.hint = hint
 
@@ -1346,9 +1351,9 @@ class NoteAttestationAuthority(object):
         if not resource:
             return None
 
-        res = note_pb2.ContaineranalysisBetaNoteAttestationAuthority()
-        if NoteAttestationAuthorityHint.to_proto(resource.hint):
-            res.hint.CopyFrom(NoteAttestationAuthorityHint.to_proto(resource.hint))
+        res = note_pb2.ContaineranalysisBetaNoteAttestation()
+        if NoteAttestationHint.to_proto(resource.hint):
+            res.hint.CopyFrom(NoteAttestationHint.to_proto(resource.hint))
         else:
             res.ClearField("hint")
         return res
@@ -1358,22 +1363,22 @@ class NoteAttestationAuthority(object):
         if not resource:
             return None
 
-        return NoteAttestationAuthority(hint=resource.hint,)
+        return NoteAttestation(hint=resource.hint,)
 
 
-class NoteAttestationAuthorityArray(object):
+class NoteAttestationArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [NoteAttestationAuthority.to_proto(i) for i in resources]
+        return [NoteAttestation.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [NoteAttestationAuthority.from_proto(i) for i in resources]
+        return [NoteAttestation.from_proto(i) for i in resources]
 
 
-class NoteAttestationAuthorityHint(object):
+class NoteAttestationHint(object):
     def __init__(self, human_readable_name: str = None):
         self.human_readable_name = human_readable_name
 
@@ -1382,7 +1387,7 @@ class NoteAttestationAuthorityHint(object):
         if not resource:
             return None
 
-        res = note_pb2.ContaineranalysisBetaNoteAttestationAuthorityHint()
+        res = note_pb2.ContaineranalysisBetaNoteAttestationHint()
         if Primitive.to_proto(resource.human_readable_name):
             res.human_readable_name = Primitive.to_proto(resource.human_readable_name)
         return res
@@ -1392,21 +1397,19 @@ class NoteAttestationAuthorityHint(object):
         if not resource:
             return None
 
-        return NoteAttestationAuthorityHint(
-            human_readable_name=resource.human_readable_name,
-        )
+        return NoteAttestationHint(human_readable_name=resource.human_readable_name,)
 
 
-class NoteAttestationAuthorityHintArray(object):
+class NoteAttestationHintArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [NoteAttestationAuthorityHint.to_proto(i) for i in resources]
+        return [NoteAttestationHint.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [NoteAttestationAuthorityHint.from_proto(i) for i in resources]
+        return [NoteAttestationHint.from_proto(i) for i in resources]
 
 
 class NoteVulnerabilitySeverityEnum(object):

@@ -107,6 +107,9 @@ func (l *ServiceAccountList) HasNext() bool {
 }
 
 func (l *ServiceAccountList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -120,12 +123,17 @@ func (l *ServiceAccountList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListServiceAccount(ctx context.Context, project string) (*ServiceAccountList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListServiceAccountWithMaxResults(ctx, project, ServiceAccountMaxPage)
 
 }
 
 func (c *Client) ListServiceAccountWithMaxResults(ctx context.Context, project string, pageSize int32) (*ServiceAccountList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listServiceAccount(ctx, project, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -140,6 +148,9 @@ func (c *Client) ListServiceAccountWithMaxResults(ctx context.Context, project s
 }
 
 func (c *Client) GetServiceAccount(ctx context.Context, r *ServiceAccount) (*ServiceAccount, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getServiceAccountRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -169,6 +180,9 @@ func (c *Client) GetServiceAccount(ctx context.Context, r *ServiceAccount) (*Ser
 }
 
 func (c *Client) DeleteServiceAccount(ctx context.Context, r *ServiceAccount) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("ServiceAccount resource is nil")
 	}
@@ -179,6 +193,9 @@ func (c *Client) DeleteServiceAccount(ctx context.Context, r *ServiceAccount) er
 
 // DeleteAllServiceAccount deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllServiceAccount(ctx context.Context, project string, filter func(*ServiceAccount) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListServiceAccount(ctx, project)
 	if err != nil {
 		return err
@@ -204,6 +221,9 @@ func (c *Client) DeleteAllServiceAccount(ctx context.Context, project string, fi
 func (c *Client) ApplyServiceAccount(ctx context.Context, rawDesired *ServiceAccount, opts ...dcl.ApplyOption) (*ServiceAccount, error) {
 	c.Config.Logger.Info("Beginning ApplyServiceAccount...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -284,12 +304,35 @@ func (c *Client) ApplyServiceAccount(ctx context.Context, rawDesired *ServiceAcc
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createServiceAccountOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapServiceAccount(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeServiceAccountNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeServiceAccountNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

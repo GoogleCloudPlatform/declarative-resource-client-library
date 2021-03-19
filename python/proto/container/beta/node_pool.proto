@@ -157,6 +157,7 @@ message ListContainerBetaNodePoolRequest {
 message ListContainerBetaNodePoolResponse {
   repeated ContainerBetaNodePool items = 1;
 }
+
 service ContainerBetaNodePoolService {
   rpc ApplyContainerBetaNodePool(ApplyContainerBetaNodePoolRequest) returns (ContainerBetaNodePool);
   rpc DeleteContainerBetaNodePool(DeleteContainerBetaNodePoolRequest) returns (google.protobuf.Empty);

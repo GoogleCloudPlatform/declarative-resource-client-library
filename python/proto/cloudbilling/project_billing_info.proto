@@ -43,6 +43,7 @@ message ListCloudbillingProjectBillingInfoRequest {
 message ListCloudbillingProjectBillingInfoResponse {
   repeated CloudbillingProjectBillingInfo items = 1;
 }
+
 service CloudbillingProjectBillingInfoService {
   rpc ApplyCloudbillingProjectBillingInfo(ApplyCloudbillingProjectBillingInfoRequest) returns (CloudbillingProjectBillingInfo);
   rpc DeleteCloudbillingProjectBillingInfo(DeleteCloudbillingProjectBillingInfoRequest) returns (google.protobuf.Empty);

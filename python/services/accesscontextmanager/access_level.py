@@ -83,16 +83,33 @@ class AccessLevel(object):
         self.name = Primitive.from_proto(response.name)
         self.policy = Primitive.from_proto(response.policy)
 
-    @classmethod
-    def delete(self, policy, name, service_account_file=""):
+    def delete(self):
         stub = access_level_pb2_grpc.AccesscontextmanagerAccessLevelServiceStub(
             channel.Channel()
         )
         request = access_level_pb2.DeleteAccesscontextmanagerAccessLevelRequest()
-        request.service_account_file = service_account_file
-        request.Policy = policy
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.title):
+            request.resource.title = Primitive.to_proto(self.title)
 
-        request.Name = name
+        if Primitive.to_proto(self.create_time):
+            request.resource.create_time = Primitive.to_proto(self.create_time)
+
+        if Primitive.to_proto(self.update_time):
+            request.resource.update_time = Primitive.to_proto(self.update_time)
+
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if AccessLevelBasic.to_proto(self.basic):
+            request.resource.basic.CopyFrom(AccessLevelBasic.to_proto(self.basic))
+        else:
+            request.resource.ClearField("basic")
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.policy):
+            request.resource.policy = Primitive.to_proto(self.policy)
 
         response = stub.DeleteAccesscontextmanagerAccessLevel(request)
 
@@ -122,6 +139,26 @@ class AccessLevel(object):
         res.name = Primitive.from_proto(res_proto.name)
         res.policy = Primitive.from_proto(res_proto.policy)
         return res
+
+    def to_proto(self):
+        resource = access_level_pb2.AccesscontextmanagerAccessLevel()
+        if Primitive.to_proto(self.title):
+            resource.title = Primitive.to_proto(self.title)
+        if Primitive.to_proto(self.create_time):
+            resource.create_time = Primitive.to_proto(self.create_time)
+        if Primitive.to_proto(self.update_time):
+            resource.update_time = Primitive.to_proto(self.update_time)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if AccessLevelBasic.to_proto(self.basic):
+            resource.basic.CopyFrom(AccessLevelBasic.to_proto(self.basic))
+        else:
+            resource.ClearField("basic")
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.policy):
+            resource.policy = Primitive.to_proto(self.policy)
+        return resource
 
 
 class AccessLevelBasic(object):

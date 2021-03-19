@@ -107,7 +107,7 @@ func (c *Client) listIndexRaw(ctx context.Context, project, pageToken string, pa
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -181,7 +181,7 @@ func (op *deleteIndexOperation) do(ctx context.Context, r *Index, c *Client) err
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -204,7 +204,13 @@ func (op *deleteIndexOperation) do(ctx context.Context, r *Index, c *Client) err
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createIndexOperation struct{}
+type createIndexOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createIndexOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createIndexOperation) do(ctx context.Context, r *Index, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -220,7 +226,7 @@ func (op *createIndexOperation) do(ctx context.Context, r *Index, c *Client) err
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -234,13 +240,17 @@ func (op *createIndexOperation) do(ctx context.Context, r *Index, c *Client) err
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
-	r.IndexId, err = o.FetchIndexID()
-	if err != nil {
-		return fmt.Errorf("error trying to retrieve IndexId: %w", err)
+	// Include IndexId in URL substitution for initial GET request.
+	indexId, ok := op.response["indexId"].(string)
+	if !ok {
+		return fmt.Errorf("expected indexId to be a string")
 	}
+	r.IndexId = &indexId
 
 	if _, err := c.GetIndex(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -256,7 +266,7 @@ func (c *Client) getIndexRaw(ctx context.Context, r *Index) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -344,14 +354,6 @@ func canonicalizeIndexDesiredState(rawDesired, rawInitial *Index, opts ...dcl.Ap
 		rawDesired.Ancestor = IndexAncestorEnumRef("NONE")
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Index); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Index, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -364,7 +366,7 @@ func canonicalizeIndexDesiredState(rawDesired, rawInitial *Index, opts ...dcl.Ap
 	if dcl.IsZeroValue(rawDesired.IndexId) {
 		rawDesired.IndexId = rawInitial.IndexId
 	}
-	if dcl.IsZeroValue(rawDesired.Kind) {
+	if dcl.StringCanonicalize(rawDesired.Kind, rawInitial.Kind) {
 		rawDesired.Kind = rawInitial.Kind
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
@@ -395,6 +397,9 @@ func canonicalizeIndexNewState(c *Client, rawNew, rawDesired *Index) (*Index, er
 	if dcl.IsEmptyValueIndirect(rawNew.Kind) && dcl.IsEmptyValueIndirect(rawDesired.Kind) {
 		rawNew.Kind = rawDesired.Kind
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Kind, rawNew.Kind) {
+			rawNew.Kind = rawDesired.Kind
+		}
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -420,16 +425,11 @@ func canonicalizeIndexProperties(des, initial *IndexProperties, opts ...dcl.Appl
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Index)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
 	if dcl.IsZeroValue(des.Direction) {
@@ -442,6 +442,10 @@ func canonicalizeIndexProperties(des, initial *IndexProperties, opts ...dcl.Appl
 func canonicalizeNewIndexProperties(c *Client, des, nw *IndexProperties) *IndexProperties {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+		nw.Name = des.Name
 	}
 
 	return nw
@@ -491,14 +495,14 @@ func diffIndex(c *Client, desired, actual *Index, opts ...dcl.ApplyOption) ([]in
 	}
 
 	var diffs []indexDiff
-	if !dcl.IsZeroValue(desired.Ancestor) && (dcl.IsZeroValue(actual.Ancestor) || !reflect.DeepEqual(*desired.Ancestor, *actual.Ancestor)) {
+	if !reflect.DeepEqual(desired.Ancestor, actual.Ancestor) {
 		c.Config.Logger.Infof("Detected diff in Ancestor.\nDESIRED: %v\nACTUAL: %v", desired.Ancestor, actual.Ancestor)
 		diffs = append(diffs, indexDiff{
 			RequiresRecreate: true,
 			FieldName:        "Ancestor",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Kind) && (dcl.IsZeroValue(actual.Kind) || !reflect.DeepEqual(*desired.Kind, *actual.Kind)) {
+	if !dcl.IsZeroValue(desired.Kind) && !dcl.StringCanonicalize(desired.Kind, actual.Kind) {
 		c.Config.Logger.Infof("Detected diff in Kind.\nDESIRED: %v\nACTUAL: %v", desired.Kind, actual.Kind)
 		diffs = append(diffs, indexDiff{
 			RequiresRecreate: true,
@@ -536,6 +540,32 @@ func diffIndex(c *Client, desired, actual *Index, opts ...dcl.ApplyOption) ([]in
 
 	return deduped, nil
 }
+func compareIndexProperties(c *Client, desired, actual *IndexProperties) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
+		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
+		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		return true
+	}
+	if actual.Direction == nil && desired.Direction != nil && !dcl.IsEmptyValueIndirect(desired.Direction) {
+		c.Config.Logger.Infof("desired Direction %s - but actually nil", dcl.SprintResource(desired.Direction))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Direction, actual.Direction) && !dcl.IsZeroValue(desired.Direction) {
+		c.Config.Logger.Infof("Diff in Direction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
+		return true
+	}
+	return false
+}
+
 func compareIndexPropertiesSlice(c *Client, desired, actual []IndexProperties) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in IndexProperties, lengths unequal.")
@@ -550,31 +580,25 @@ func compareIndexPropertiesSlice(c *Client, desired, actual []IndexProperties) b
 	return false
 }
 
-func compareIndexProperties(c *Client, desired, actual *IndexProperties) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
+func compareIndexPropertiesMap(c *Client, desired, actual map[string]IndexProperties) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in IndexProperties, lengths unequal.")
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.Direction == nil && desired.Direction != nil && !dcl.IsEmptyValueIndirect(desired.Direction) {
-		c.Config.Logger.Infof("desired Direction %s - but actually nil", dcl.SprintResource(desired.Direction))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Direction, actual.Direction) && !dcl.IsZeroValue(desired.Direction) && !(dcl.IsEmptyValueIndirect(desired.Direction) && dcl.IsZeroValue(actual.Direction)) {
-		c.Config.Logger.Infof("Diff in Direction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
-		return true
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in IndexProperties, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareIndexProperties(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in IndexProperties, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
 	}
 	return false
 }
+
 func compareIndexAncestorEnumSlice(c *Client, desired, actual []IndexAncestorEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in IndexAncestorEnum, lengths unequal.")
@@ -634,6 +658,8 @@ func compareIndexStateEnum(c *Client, desired, actual *IndexStateEnum) bool {
 // short-form so they can be substituted in.
 func (r *Index) urlNormalized() *Index {
 	normalized := deepcopy.Copy(*r).(Index)
+	normalized.IndexId = dcl.SelfLinkToName(r.IndexId)
+	normalized.Kind = dcl.SelfLinkToName(r.Kind)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -675,6 +701,10 @@ func unmarshalIndex(b []byte, c *Client) (*Index, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapIndex(m, c)
+}
+
+func unmarshalMapIndex(m map[string]interface{}, c *Client) (*Index, error) {
 
 	return flattenIndex(c, m), nil
 }
@@ -725,7 +755,7 @@ func flattenIndex(c *Client, i interface{}) *Index {
 		c.Config.Logger.Info("Using default value for ancestor")
 		r.Ancestor = IndexAncestorEnumRef("NONE")
 	}
-	r.IndexId = dcl.FlattenSecretValue(m["indexId"])
+	r.IndexId = dcl.SelfLinkToName(dcl.FlattenString(m["indexId"]))
 	r.Kind = dcl.FlattenString(m["kind"])
 	r.Project = dcl.FlattenString(m["project"])
 	r.Properties = flattenIndexPropertiesSlice(c, m["properties"])
@@ -862,7 +892,7 @@ func flattenIndexAncestorEnumSlice(c *Client, i interface{}) []IndexAncestorEnum
 
 	items := make([]IndexAncestorEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenIndexAncestorEnum(item.(map[string]interface{})))
+		items = append(items, *flattenIndexAncestorEnum(item.(interface{})))
 	}
 
 	return items
@@ -893,7 +923,7 @@ func flattenIndexPropertiesDirectionEnumSlice(c *Client, i interface{}) []IndexP
 
 	items := make([]IndexPropertiesDirectionEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenIndexPropertiesDirectionEnum(item.(map[string]interface{})))
+		items = append(items, *flattenIndexPropertiesDirectionEnum(item.(interface{})))
 	}
 
 	return items
@@ -924,7 +954,7 @@ func flattenIndexStateEnumSlice(c *Client, i interface{}) []IndexStateEnum {
 
 	items := make([]IndexStateEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenIndexStateEnum(item.(map[string]interface{})))
+		items = append(items, *flattenIndexStateEnum(item.(interface{})))
 	}
 
 	return items

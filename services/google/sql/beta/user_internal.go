@@ -143,7 +143,7 @@ func (op *updateUserUpdateOperation) do(ctx context.Context, r *User, c *Client)
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -180,7 +180,7 @@ func (c *Client) listUserRaw(ctx context.Context, project, instance, pageToken s
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -255,7 +255,7 @@ func (op *deleteUserOperation) do(ctx context.Context, r *User, c *Client) error
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -278,7 +278,13 @@ func (op *deleteUserOperation) do(ctx context.Context, r *User, c *Client) error
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createUserOperation struct{}
+type createUserOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createUserOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createUserOperation) do(ctx context.Context, r *User, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -294,7 +300,7 @@ func (op *createUserOperation) do(ctx context.Context, r *User, c *Client) error
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -308,8 +314,10 @@ func (op *createUserOperation) do(ctx context.Context, r *User, c *Client) error
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetUser(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -322,7 +330,7 @@ func (c *Client) getUserRaw(ctx context.Context, r *User) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -403,14 +411,6 @@ func canonicalizeUserInitialState(rawInitial, rawDesired *User) (*User, error) {
 
 func canonicalizeUserDesiredState(rawDesired, rawInitial *User, opts ...dcl.ApplyOption) (*User, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*User); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected User, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -418,10 +418,10 @@ func canonicalizeUserDesiredState(rawDesired, rawInitial *User, opts ...dcl.Appl
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Password) {
+	if dcl.StringCanonicalize(rawDesired.Password, rawInitial.Password) {
 		rawDesired.Password = rawInitial.Password
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
@@ -434,10 +434,10 @@ func canonicalizeUserDesiredState(rawDesired, rawInitial *User, opts ...dcl.Appl
 	if dcl.IsZeroValue(rawDesired.Type) {
 		rawDesired.Type = rawInitial.Type
 	}
-	if dcl.IsZeroValue(rawDesired.Etag) {
+	if dcl.StringCanonicalize(rawDesired.Etag, rawInitial.Etag) {
 		rawDesired.Etag = rawInitial.Etag
 	}
-	if dcl.IsZeroValue(rawDesired.Host) {
+	if dcl.StringCanonicalize(rawDesired.Host, rawInitial.Host) {
 		rawDesired.Host = rawInitial.Host
 	}
 
@@ -449,6 +449,9 @@ func canonicalizeUserNewState(c *Client, rawNew, rawDesired *User) (*User, error
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	rawNew.Password = rawDesired.Password
@@ -471,11 +474,17 @@ func canonicalizeUserNewState(c *Client, rawNew, rawDesired *User) (*User, error
 	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
 		rawNew.Etag = rawDesired.Etag
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
+			rawNew.Etag = rawDesired.Etag
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Host) && dcl.IsEmptyValueIndirect(rawDesired.Host) {
 		rawNew.Host = rawDesired.Host
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Host, rawNew.Host) {
+			rawNew.Host = rawDesired.Host
+		}
 	}
 
 	return rawNew, nil
@@ -487,11 +496,6 @@ func canonicalizeUserSqlserverUserDetails(des, initial *UserSqlserverUserDetails
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*User)
-		_ = r
 	}
 
 	if initial == nil {
@@ -560,7 +564,7 @@ func diffUser(c *Client, desired, actual *User, opts ...dcl.ApplyOption) ([]user
 	}
 
 	var diffs []userDiff
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, userDiff{
 			RequiresRecreate: true,
@@ -576,7 +580,7 @@ func diffUser(c *Client, desired, actual *User, opts ...dcl.ApplyOption) ([]user
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Type) && (dcl.IsZeroValue(actual.Type) || !reflect.DeepEqual(*desired.Type, *actual.Type)) {
+	if !reflect.DeepEqual(desired.Type, actual.Type) {
 		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %v\nACTUAL: %v", desired.Type, actual.Type)
 
 		diffs = append(diffs, userDiff{
@@ -585,14 +589,14 @@ func diffUser(c *Client, desired, actual *User, opts ...dcl.ApplyOption) ([]user
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Etag) && (dcl.IsZeroValue(actual.Etag) || !reflect.DeepEqual(*desired.Etag, *actual.Etag)) {
+	if !dcl.IsZeroValue(desired.Etag) && !dcl.StringCanonicalize(desired.Etag, actual.Etag) {
 		c.Config.Logger.Infof("Detected diff in Etag.\nDESIRED: %v\nACTUAL: %v", desired.Etag, actual.Etag)
 		diffs = append(diffs, userDiff{
 			RequiresRecreate: true,
 			FieldName:        "Etag",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Host) && (dcl.IsZeroValue(actual.Host) || !reflect.DeepEqual(*desired.Host, *actual.Host)) {
+	if !dcl.IsZeroValue(desired.Host) && !dcl.StringCanonicalize(desired.Host, actual.Host) {
 		c.Config.Logger.Infof("Detected diff in Host.\nDESIRED: %v\nACTUAL: %v", desired.Host, actual.Host)
 		diffs = append(diffs, userDiff{
 			RequiresRecreate: true,
@@ -623,6 +627,32 @@ func diffUser(c *Client, desired, actual *User, opts ...dcl.ApplyOption) ([]user
 
 	return deduped, nil
 }
+func compareUserSqlserverUserDetails(c *Client, desired, actual *UserSqlserverUserDetails) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Disabled == nil && desired.Disabled != nil && !dcl.IsEmptyValueIndirect(desired.Disabled) {
+		c.Config.Logger.Infof("desired Disabled %s - but actually nil", dcl.SprintResource(desired.Disabled))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Disabled, actual.Disabled) && !dcl.IsZeroValue(desired.Disabled) {
+		c.Config.Logger.Infof("Diff in Disabled. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Disabled), dcl.SprintResource(actual.Disabled))
+		return true
+	}
+	if actual.ServerRoles == nil && desired.ServerRoles != nil && !dcl.IsEmptyValueIndirect(desired.ServerRoles) {
+		c.Config.Logger.Infof("desired ServerRoles %s - but actually nil", dcl.SprintResource(desired.ServerRoles))
+		return true
+	}
+	if !dcl.StringSliceEquals(desired.ServerRoles, actual.ServerRoles) && !dcl.IsZeroValue(desired.ServerRoles) {
+		c.Config.Logger.Infof("Diff in ServerRoles. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServerRoles), dcl.SprintResource(actual.ServerRoles))
+		return true
+	}
+	return false
+}
+
 func compareUserSqlserverUserDetailsSlice(c *Client, desired, actual []UserSqlserverUserDetails) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in UserSqlserverUserDetails, lengths unequal.")
@@ -637,31 +667,25 @@ func compareUserSqlserverUserDetailsSlice(c *Client, desired, actual []UserSqlse
 	return false
 }
 
-func compareUserSqlserverUserDetails(c *Client, desired, actual *UserSqlserverUserDetails) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
+func compareUserSqlserverUserDetailsMap(c *Client, desired, actual map[string]UserSqlserverUserDetails) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in UserSqlserverUserDetails, lengths unequal.")
 		return true
 	}
-	if actual.Disabled == nil && desired.Disabled != nil && !dcl.IsEmptyValueIndirect(desired.Disabled) {
-		c.Config.Logger.Infof("desired Disabled %s - but actually nil", dcl.SprintResource(desired.Disabled))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Disabled, actual.Disabled) && !dcl.IsZeroValue(desired.Disabled) && !(dcl.IsEmptyValueIndirect(desired.Disabled) && dcl.IsZeroValue(actual.Disabled)) {
-		c.Config.Logger.Infof("Diff in Disabled. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Disabled), dcl.SprintResource(actual.Disabled))
-		return true
-	}
-	if actual.ServerRoles == nil && desired.ServerRoles != nil && !dcl.IsEmptyValueIndirect(desired.ServerRoles) {
-		c.Config.Logger.Infof("desired ServerRoles %s - but actually nil", dcl.SprintResource(desired.ServerRoles))
-		return true
-	}
-	if !dcl.SliceEquals(desired.ServerRoles, actual.ServerRoles) && !dcl.IsZeroValue(desired.ServerRoles) {
-		c.Config.Logger.Infof("Diff in ServerRoles. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServerRoles), dcl.SprintResource(actual.ServerRoles))
-		return true
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in UserSqlserverUserDetails, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareUserSqlserverUserDetails(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in UserSqlserverUserDetails, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
 	}
 	return false
 }
+
 func compareUserTypeEnumSlice(c *Client, desired, actual []UserTypeEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in UserTypeEnum, lengths unequal.")
@@ -685,8 +709,12 @@ func compareUserTypeEnum(c *Client, desired, actual *UserTypeEnum) bool {
 // short-form so they can be substituted in.
 func (r *User) urlNormalized() *User {
 	normalized := deepcopy.Copy(*r).(User)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Password = dcl.SelfLinkToName(r.Password)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Instance = dcl.SelfLinkToName(r.Instance)
+	normalized.Etag = dcl.SelfLinkToName(r.Etag)
+	normalized.Host = dcl.SelfLinkToName(r.Host)
 	return &normalized
 }
 
@@ -738,6 +766,10 @@ func unmarshalUser(b []byte, c *Client) (*User, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapUser(m, c)
+}
+
+func unmarshalMapUser(m map[string]interface{}, c *Client) (*User, error) {
 
 	return flattenUser(c, m), nil
 }
@@ -931,7 +963,7 @@ func flattenUserTypeEnumSlice(c *Client, i interface{}) []UserTypeEnum {
 
 	items := make([]UserTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenUserTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenUserTypeEnum(item.(interface{})))
 	}
 
 	return items

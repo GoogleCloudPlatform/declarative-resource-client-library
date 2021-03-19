@@ -60,6 +60,7 @@ message ListComputeBetaRouterPeerRequest {
 message ListComputeBetaRouterPeerResponse {
   repeated ComputeBetaRouterPeer items = 1;
 }
+
 service ComputeBetaRouterPeerService {
   rpc ApplyComputeBetaRouterPeer(ApplyComputeBetaRouterPeerRequest) returns (ComputeBetaRouterPeer);
   rpc DeleteComputeBetaRouterPeer(DeleteComputeBetaRouterPeerRequest) returns (google.protobuf.Empty);

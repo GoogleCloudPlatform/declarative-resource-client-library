@@ -69,9 +69,10 @@ class Topic(object):
         )
         self.project = Primitive.from_proto(response.project)
 
-    def hcl(self):
+    def delete(self):
         stub = topic_pb2_grpc.PubsubTopicServiceStub(channel.Channel())
-        request = topic_pb2.PubsubTopicAsHclRequest()
+        request = topic_pb2.DeletePubsubTopicRequest()
+        request.service_account_file = self.service_account_file
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
@@ -89,18 +90,6 @@ class Topic(object):
             request.resource.ClearField("message_storage_policy")
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
-
-        response = stub.PubsubTopicAsHcl(request)
-        return response.hcl
-
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
-        stub = topic_pb2_grpc.PubsubTopicServiceStub(channel.Channel())
-        request = topic_pb2.DeletePubsubTopicRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
-
-        request.Name = name
 
         response = stub.DeletePubsubTopic(request)
 
@@ -128,6 +117,24 @@ class Topic(object):
         )
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = topic_pb2.PubsubTopic()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.kms_key_name):
+            resource.kms_key_name = Primitive.to_proto(self.kms_key_name)
+        if Primitive.to_proto(self.labels):
+            resource.labels = Primitive.to_proto(self.labels)
+        if TopicMessageStoragePolicy.to_proto(self.message_storage_policy):
+            resource.message_storage_policy.CopyFrom(
+                TopicMessageStoragePolicy.to_proto(self.message_storage_policy)
+            )
+        else:
+            resource.ClearField("message_storage_policy")
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class TopicMessageStoragePolicy(object):

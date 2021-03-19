@@ -186,7 +186,7 @@ func (op *updateFirewallUpdateOperation) do(ctx context.Context, r *Firewall, c 
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -223,7 +223,7 @@ func (c *Client) listFirewallRaw(ctx context.Context, project, pageToken string,
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -297,7 +297,7 @@ func (op *deleteFirewallOperation) do(ctx context.Context, r *Firewall, c *Clien
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -320,7 +320,13 @@ func (op *deleteFirewallOperation) do(ctx context.Context, r *Firewall, c *Clien
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createFirewallOperation struct{}
+type createFirewallOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createFirewallOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createFirewallOperation) do(ctx context.Context, r *Firewall, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -336,7 +342,7 @@ func (op *createFirewallOperation) do(ctx context.Context, r *Firewall, c *Clien
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -350,8 +356,10 @@ func (op *createFirewallOperation) do(ctx context.Context, r *Firewall, c *Clien
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetFirewall(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -367,7 +375,7 @@ func (c *Client) getFirewallRaw(ctx context.Context, r *Firewall) ([]byte, error
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -448,14 +456,6 @@ func canonicalizeFirewallDesiredState(rawDesired, rawInitial *Firewall, opts ...
 		rawDesired.Priority = dcl.Int64(1000)
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Firewall); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Firewall, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -466,7 +466,7 @@ func canonicalizeFirewallDesiredState(rawDesired, rawInitial *Firewall, opts ...
 	if dcl.IsZeroValue(rawDesired.CreationTimestamp) {
 		rawDesired.CreationTimestamp = rawInitial.CreationTimestamp
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
 	if dcl.IsZeroValue(rawDesired.Direction) {
@@ -475,11 +475,11 @@ func canonicalizeFirewallDesiredState(rawDesired, rawInitial *Firewall, opts ...
 	if dcl.IsZeroValue(rawDesired.Disabled) {
 		rawDesired.Disabled = rawInitial.Disabled
 	}
-	if dcl.IsZeroValue(rawDesired.Id) {
+	if dcl.StringCanonicalize(rawDesired.Id, rawInitial.Id) {
 		rawDesired.Id = rawInitial.Id
 	}
 	rawDesired.LogConfig = canonicalizeFirewallLogConfig(rawDesired.LogConfig, rawInitial.LogConfig, opts...)
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
 	if dcl.IsZeroValue(rawDesired.Network) {
@@ -488,7 +488,7 @@ func canonicalizeFirewallDesiredState(rawDesired, rawInitial *Firewall, opts ...
 	if dcl.IsZeroValue(rawDesired.Priority) {
 		rawDesired.Priority = rawInitial.Priority
 	}
-	if dcl.IsZeroValue(rawDesired.SelfLink) {
+	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
@@ -532,6 +532,9 @@ func canonicalizeFirewallNewState(c *Client, rawNew, rawDesired *Firewall) (*Fir
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Direction) && dcl.IsEmptyValueIndirect(rawDesired.Direction) {
@@ -547,6 +550,9 @@ func canonicalizeFirewallNewState(c *Client, rawNew, rawDesired *Firewall) (*Fir
 	if dcl.IsEmptyValueIndirect(rawNew.Id) && dcl.IsEmptyValueIndirect(rawDesired.Id) {
 		rawNew.Id = rawDesired.Id
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Id, rawNew.Id) {
+			rawNew.Id = rawDesired.Id
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.LogConfig) && dcl.IsEmptyValueIndirect(rawDesired.LogConfig) {
@@ -558,6 +564,9 @@ func canonicalizeFirewallNewState(c *Client, rawNew, rawDesired *Firewall) (*Fir
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Network) && dcl.IsEmptyValueIndirect(rawDesired.Network) {
@@ -573,6 +582,9 @@ func canonicalizeFirewallNewState(c *Client, rawNew, rawDesired *Firewall) (*Fir
 	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -630,11 +642,6 @@ func canonicalizeFirewallLogConfig(des, initial *FirewallLogConfig, opts ...dcl.
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Firewall)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -685,16 +692,11 @@ func canonicalizeFirewallAllowed(des, initial *FirewallAllowed, opts ...dcl.Appl
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Firewall)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.IPProtocol) {
+	if dcl.StringCanonicalize(des.IPProtocol, initial.IPProtocol) || dcl.IsZeroValue(des.IPProtocol) {
 		des.IPProtocol = initial.IPProtocol
 	}
 	if dcl.IsZeroValue(des.Ports) {
@@ -710,6 +712,10 @@ func canonicalizeFirewallAllowed(des, initial *FirewallAllowed, opts ...dcl.Appl
 func canonicalizeNewFirewallAllowed(c *Client, des, nw *FirewallAllowed) *FirewallAllowed {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.IPProtocol, nw.IPProtocol) || dcl.IsZeroValue(des.IPProtocol) {
+		nw.IPProtocol = des.IPProtocol
 	}
 
 	return nw
@@ -746,16 +752,11 @@ func canonicalizeFirewallDenied(des, initial *FirewallDenied, opts ...dcl.ApplyO
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*Firewall)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.IPProtocol) {
+	if dcl.StringCanonicalize(des.IPProtocol, initial.IPProtocol) || dcl.IsZeroValue(des.IPProtocol) {
 		des.IPProtocol = initial.IPProtocol
 	}
 	if dcl.IsZeroValue(des.Ports) {
@@ -771,6 +772,10 @@ func canonicalizeFirewallDenied(des, initial *FirewallDenied, opts ...dcl.ApplyO
 func canonicalizeNewFirewallDenied(c *Client, des, nw *FirewallDenied) *FirewallDenied {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.IPProtocol, nw.IPProtocol) || dcl.IsZeroValue(des.IPProtocol) {
+		nw.IPProtocol = des.IPProtocol
 	}
 
 	return nw
@@ -820,21 +825,21 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []firewallDiff
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, firewallDiff{
 			RequiresRecreate: true,
 			FieldName:        "Description",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Direction) && (dcl.IsZeroValue(actual.Direction) || !reflect.DeepEqual(*desired.Direction, *actual.Direction)) {
+	if !reflect.DeepEqual(desired.Direction, actual.Direction) {
 		c.Config.Logger.Infof("Detected diff in Direction.\nDESIRED: %v\nACTUAL: %v", desired.Direction, actual.Direction)
 		diffs = append(diffs, firewallDiff{
 			RequiresRecreate: true,
 			FieldName:        "Direction",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Disabled) && (dcl.IsZeroValue(actual.Disabled) || !reflect.DeepEqual(*desired.Disabled, *actual.Disabled)) {
+	if !reflect.DeepEqual(desired.Disabled, actual.Disabled) {
 		c.Config.Logger.Infof("Detected diff in Disabled.\nDESIRED: %v\nACTUAL: %v", desired.Disabled, actual.Disabled)
 
 		diffs = append(diffs, firewallDiff{
@@ -843,7 +848,7 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Id) && (dcl.IsZeroValue(actual.Id) || !reflect.DeepEqual(*desired.Id, *actual.Id)) {
+	if !dcl.IsZeroValue(desired.Id) && !dcl.StringCanonicalize(desired.Id, actual.Id) {
 		c.Config.Logger.Infof("Detected diff in Id.\nDESIRED: %v\nACTUAL: %v", desired.Id, actual.Id)
 
 		diffs = append(diffs, firewallDiff{
@@ -861,14 +866,14 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, firewallDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Network) && (dcl.IsZeroValue(actual.Network) || !reflect.DeepEqual(*desired.Network, *actual.Network)) {
+	if !dcl.StringEqualsWithSelfLink(desired.Network, actual.Network) {
 		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
 
 		diffs = append(diffs, firewallDiff{
@@ -877,7 +882,7 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Priority) && (dcl.IsZeroValue(actual.Priority) || !reflect.DeepEqual(*desired.Priority, *actual.Priority)) {
+	if !reflect.DeepEqual(desired.Priority, actual.Priority) {
 		c.Config.Logger.Infof("Detected diff in Priority.\nDESIRED: %v\nACTUAL: %v", desired.Priority, actual.Priority)
 
 		diffs = append(diffs, firewallDiff{
@@ -914,7 +919,7 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 		}
 
 	}
-	if !dcl.SliceEquals(desired.DestinationRanges, actual.DestinationRanges) {
+	if !dcl.StringSliceEquals(desired.DestinationRanges, actual.DestinationRanges) {
 		c.Config.Logger.Infof("Detected diff in DestinationRanges.\nDESIRED: %v\nACTUAL: %v", desired.DestinationRanges, actual.DestinationRanges)
 		toAdd, toRemove := dcl.CompareStringSets(desired.DestinationRanges, actual.DestinationRanges)
 		if len(toAdd) > 0 {
@@ -930,7 +935,7 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 			})
 		}
 	}
-	if !dcl.SliceEquals(desired.SourceRanges, actual.SourceRanges) {
+	if !dcl.StringSliceEquals(desired.SourceRanges, actual.SourceRanges) {
 		c.Config.Logger.Infof("Detected diff in SourceRanges.\nDESIRED: %v\nACTUAL: %v", desired.SourceRanges, actual.SourceRanges)
 
 		toAdd, toRemove := dcl.CompareStringSets(desired.SourceRanges, actual.SourceRanges)
@@ -944,7 +949,7 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 		}
 
 	}
-	if !dcl.SliceEquals(desired.SourceServiceAccounts, actual.SourceServiceAccounts) {
+	if !dcl.StringSliceEquals(desired.SourceServiceAccounts, actual.SourceServiceAccounts) {
 		c.Config.Logger.Infof("Detected diff in SourceServiceAccounts.\nDESIRED: %v\nACTUAL: %v", desired.SourceServiceAccounts, actual.SourceServiceAccounts)
 
 		toAdd, toRemove := dcl.CompareStringSets(desired.SourceServiceAccounts, actual.SourceServiceAccounts)
@@ -958,7 +963,7 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 		}
 
 	}
-	if !dcl.SliceEquals(desired.SourceTags, actual.SourceTags) {
+	if !dcl.StringSliceEquals(desired.SourceTags, actual.SourceTags) {
 		c.Config.Logger.Infof("Detected diff in SourceTags.\nDESIRED: %v\nACTUAL: %v", desired.SourceTags, actual.SourceTags)
 
 		toAdd, toRemove := dcl.CompareStringSets(desired.SourceTags, actual.SourceTags)
@@ -972,7 +977,7 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 		}
 
 	}
-	if !dcl.SliceEquals(desired.TargetServiceAccounts, actual.TargetServiceAccounts) {
+	if !dcl.StringSliceEquals(desired.TargetServiceAccounts, actual.TargetServiceAccounts) {
 		c.Config.Logger.Infof("Detected diff in TargetServiceAccounts.\nDESIRED: %v\nACTUAL: %v", desired.TargetServiceAccounts, actual.TargetServiceAccounts)
 
 		toAdd, toRemove := dcl.CompareStringSets(desired.TargetServiceAccounts, actual.TargetServiceAccounts)
@@ -986,7 +991,7 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 		}
 
 	}
-	if !dcl.SliceEquals(desired.TargetTags, actual.TargetTags) {
+	if !dcl.StringSliceEquals(desired.TargetTags, actual.TargetTags) {
 		c.Config.Logger.Infof("Detected diff in TargetTags.\nDESIRED: %v\nACTUAL: %v", desired.TargetTags, actual.TargetTags)
 
 		toAdd, toRemove := dcl.CompareStringSets(desired.TargetTags, actual.TargetTags)
@@ -1024,6 +1029,24 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 
 	return deduped, nil
 }
+func compareFirewallLogConfig(c *Client, desired, actual *FirewallLogConfig) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Enable == nil && desired.Enable != nil && !dcl.IsEmptyValueIndirect(desired.Enable) {
+		c.Config.Logger.Infof("desired Enable %s - but actually nil", dcl.SprintResource(desired.Enable))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Enable, actual.Enable) && !dcl.IsZeroValue(desired.Enable) {
+		c.Config.Logger.Infof("Diff in Enable. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Enable), dcl.SprintResource(actual.Enable))
+		return true
+	}
+	return false
+}
+
 func compareFirewallLogConfigSlice(c *Client, desired, actual []FirewallLogConfig) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in FirewallLogConfig, lengths unequal.")
@@ -1038,23 +1061,59 @@ func compareFirewallLogConfigSlice(c *Client, desired, actual []FirewallLogConfi
 	return false
 }
 
-func compareFirewallLogConfig(c *Client, desired, actual *FirewallLogConfig) bool {
+func compareFirewallLogConfigMap(c *Client, desired, actual map[string]FirewallLogConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in FirewallLogConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in FirewallLogConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareFirewallLogConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in FirewallLogConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
+func compareFirewallAllowed(c *Client, desired, actual *FirewallAllowed) bool {
 	if desired == nil {
 		return false
 	}
 	if actual == nil {
 		return true
 	}
-	if actual.Enable == nil && desired.Enable != nil && !dcl.IsEmptyValueIndirect(desired.Enable) {
-		c.Config.Logger.Infof("desired Enable %s - but actually nil", dcl.SprintResource(desired.Enable))
+	if actual.IPProtocol == nil && desired.IPProtocol != nil && !dcl.IsEmptyValueIndirect(desired.IPProtocol) {
+		c.Config.Logger.Infof("desired IPProtocol %s - but actually nil", dcl.SprintResource(desired.IPProtocol))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Enable, actual.Enable) && !dcl.IsZeroValue(desired.Enable) && !(dcl.IsEmptyValueIndirect(desired.Enable) && dcl.IsZeroValue(actual.Enable)) {
-		c.Config.Logger.Infof("Diff in Enable. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Enable), dcl.SprintResource(actual.Enable))
+	if !dcl.StringCanonicalize(desired.IPProtocol, actual.IPProtocol) && !dcl.IsZeroValue(desired.IPProtocol) {
+		c.Config.Logger.Infof("Diff in IPProtocol. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IPProtocol), dcl.SprintResource(actual.IPProtocol))
+		return true
+	}
+	if actual.Ports == nil && desired.Ports != nil && !dcl.IsEmptyValueIndirect(desired.Ports) {
+		c.Config.Logger.Infof("desired Ports %s - but actually nil", dcl.SprintResource(desired.Ports))
+		return true
+	}
+	if !dcl.StringSliceEquals(desired.Ports, actual.Ports) && !dcl.IsZeroValue(desired.Ports) {
+		c.Config.Logger.Infof("Diff in Ports. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Ports), dcl.SprintResource(actual.Ports))
+		return true
+	}
+	if actual.IPProtocolAlt == nil && desired.IPProtocolAlt != nil && !dcl.IsEmptyValueIndirect(desired.IPProtocolAlt) {
+		c.Config.Logger.Infof("desired IPProtocolAlt %s - but actually nil", dcl.SprintResource(desired.IPProtocolAlt))
+		return true
+	}
+	if !dcl.StringSliceEquals(desired.IPProtocolAlt, actual.IPProtocolAlt) && !dcl.IsZeroValue(desired.IPProtocolAlt) {
+		c.Config.Logger.Infof("Diff in IPProtocolAlt. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IPProtocolAlt), dcl.SprintResource(actual.IPProtocolAlt))
 		return true
 	}
 	return false
 }
+
 func compareFirewallAllowedSlice(c *Client, desired, actual []FirewallAllowed) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in FirewallAllowed, lengths unequal.")
@@ -1063,6 +1122,25 @@ func compareFirewallAllowedSlice(c *Client, desired, actual []FirewallAllowed) b
 	for i := 0; i < len(desired); i++ {
 		if compareFirewallAllowed(c, &desired[i], &actual[i]) {
 			c.Config.Logger.Infof("Diff in FirewallAllowed, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareFirewallAllowedMap(c *Client, desired, actual map[string]FirewallAllowed) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in FirewallAllowed, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in FirewallAllowed, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareFirewallAllowed(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in FirewallAllowed, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1118,7 +1196,7 @@ func compareFirewallAllowedSets(c *Client, desired, actual []FirewallAllowed) (t
 	return toAdd, toRemove
 }
 
-func compareFirewallAllowed(c *Client, desired, actual *FirewallAllowed) bool {
+func compareFirewallDenied(c *Client, desired, actual *FirewallDenied) bool {
 	if desired == nil {
 		return false
 	}
@@ -1129,7 +1207,7 @@ func compareFirewallAllowed(c *Client, desired, actual *FirewallAllowed) bool {
 		c.Config.Logger.Infof("desired IPProtocol %s - but actually nil", dcl.SprintResource(desired.IPProtocol))
 		return true
 	}
-	if !reflect.DeepEqual(desired.IPProtocol, actual.IPProtocol) && !dcl.IsZeroValue(desired.IPProtocol) && !(dcl.IsEmptyValueIndirect(desired.IPProtocol) && dcl.IsZeroValue(actual.IPProtocol)) {
+	if !dcl.StringCanonicalize(desired.IPProtocol, actual.IPProtocol) && !dcl.IsZeroValue(desired.IPProtocol) {
 		c.Config.Logger.Infof("Diff in IPProtocol. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IPProtocol), dcl.SprintResource(actual.IPProtocol))
 		return true
 	}
@@ -1137,7 +1215,7 @@ func compareFirewallAllowed(c *Client, desired, actual *FirewallAllowed) bool {
 		c.Config.Logger.Infof("desired Ports %s - but actually nil", dcl.SprintResource(desired.Ports))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Ports, actual.Ports) && !dcl.IsZeroValue(desired.Ports) {
+	if !dcl.StringSliceEquals(desired.Ports, actual.Ports) && !dcl.IsZeroValue(desired.Ports) {
 		c.Config.Logger.Infof("Diff in Ports. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Ports), dcl.SprintResource(actual.Ports))
 		return true
 	}
@@ -1145,12 +1223,13 @@ func compareFirewallAllowed(c *Client, desired, actual *FirewallAllowed) bool {
 		c.Config.Logger.Infof("desired IPProtocolAlt %s - but actually nil", dcl.SprintResource(desired.IPProtocolAlt))
 		return true
 	}
-	if !dcl.SliceEquals(desired.IPProtocolAlt, actual.IPProtocolAlt) && !dcl.IsZeroValue(desired.IPProtocolAlt) {
+	if !dcl.StringSliceEquals(desired.IPProtocolAlt, actual.IPProtocolAlt) && !dcl.IsZeroValue(desired.IPProtocolAlt) {
 		c.Config.Logger.Infof("Diff in IPProtocolAlt. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IPProtocolAlt), dcl.SprintResource(actual.IPProtocolAlt))
 		return true
 	}
 	return false
 }
+
 func compareFirewallDeniedSlice(c *Client, desired, actual []FirewallDenied) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in FirewallDenied, lengths unequal.")
@@ -1159,6 +1238,25 @@ func compareFirewallDeniedSlice(c *Client, desired, actual []FirewallDenied) boo
 	for i := 0; i < len(desired); i++ {
 		if compareFirewallDenied(c, &desired[i], &actual[i]) {
 			c.Config.Logger.Infof("Diff in FirewallDenied, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareFirewallDeniedMap(c *Client, desired, actual map[string]FirewallDenied) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in FirewallDenied, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in FirewallDenied, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareFirewallDenied(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in FirewallDenied, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1214,39 +1312,6 @@ func compareFirewallDeniedSets(c *Client, desired, actual []FirewallDenied) (toA
 	return toAdd, toRemove
 }
 
-func compareFirewallDenied(c *Client, desired, actual *FirewallDenied) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.IPProtocol == nil && desired.IPProtocol != nil && !dcl.IsEmptyValueIndirect(desired.IPProtocol) {
-		c.Config.Logger.Infof("desired IPProtocol %s - but actually nil", dcl.SprintResource(desired.IPProtocol))
-		return true
-	}
-	if !reflect.DeepEqual(desired.IPProtocol, actual.IPProtocol) && !dcl.IsZeroValue(desired.IPProtocol) && !(dcl.IsEmptyValueIndirect(desired.IPProtocol) && dcl.IsZeroValue(actual.IPProtocol)) {
-		c.Config.Logger.Infof("Diff in IPProtocol. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IPProtocol), dcl.SprintResource(actual.IPProtocol))
-		return true
-	}
-	if actual.Ports == nil && desired.Ports != nil && !dcl.IsEmptyValueIndirect(desired.Ports) {
-		c.Config.Logger.Infof("desired Ports %s - but actually nil", dcl.SprintResource(desired.Ports))
-		return true
-	}
-	if !dcl.SliceEquals(desired.Ports, actual.Ports) && !dcl.IsZeroValue(desired.Ports) {
-		c.Config.Logger.Infof("Diff in Ports. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Ports), dcl.SprintResource(actual.Ports))
-		return true
-	}
-	if actual.IPProtocolAlt == nil && desired.IPProtocolAlt != nil && !dcl.IsEmptyValueIndirect(desired.IPProtocolAlt) {
-		c.Config.Logger.Infof("desired IPProtocolAlt %s - but actually nil", dcl.SprintResource(desired.IPProtocolAlt))
-		return true
-	}
-	if !dcl.SliceEquals(desired.IPProtocolAlt, actual.IPProtocolAlt) && !dcl.IsZeroValue(desired.IPProtocolAlt) {
-		c.Config.Logger.Infof("Diff in IPProtocolAlt. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IPProtocolAlt), dcl.SprintResource(actual.IPProtocolAlt))
-		return true
-	}
-	return false
-}
 func compareFirewallDirectionEnumSlice(c *Client, desired, actual []FirewallDirectionEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in FirewallDirectionEnum, lengths unequal.")
@@ -1270,6 +1335,10 @@ func compareFirewallDirectionEnum(c *Client, desired, actual *FirewallDirectionE
 // short-form so they can be substituted in.
 func (r *Firewall) urlNormalized() *Firewall {
 	normalized := deepcopy.Copy(*r).(Firewall)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Id = dcl.SelfLinkToName(r.Id)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -1320,6 +1389,10 @@ func unmarshalFirewall(b []byte, c *Client) (*Firewall, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapFirewall(m, c)
+}
+
+func unmarshalMapFirewall(m map[string]interface{}, c *Client) (*Firewall, error) {
 
 	return flattenFirewall(c, m), nil
 }
@@ -1795,7 +1868,7 @@ func flattenFirewallDirectionEnumSlice(c *Client, i interface{}) []FirewallDirec
 
 	items := make([]FirewallDirectionEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenFirewallDirectionEnum(item.(map[string]interface{})))
+		items = append(items, *flattenFirewallDirectionEnum(item.(interface{})))
 	}
 
 	return items

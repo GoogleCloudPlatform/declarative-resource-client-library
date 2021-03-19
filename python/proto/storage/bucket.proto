@@ -116,16 +116,9 @@ message ListStorageBucketRequest {
 message ListStorageBucketResponse {
   repeated StorageBucket items = 1;
 }
-message StorageBucketAsHclRequest {
-  StorageBucket resource = 1;
-}
-message StorageBucketAsHclResponse {
-  string hcl = 1;
-}
+
 service StorageBucketService {
   rpc ApplyStorageBucket(ApplyStorageBucketRequest) returns (StorageBucket);
   rpc DeleteStorageBucket(DeleteStorageBucketRequest) returns (google.protobuf.Empty);
   rpc ListStorageBucket(ListStorageBucketRequest) returns (ListStorageBucketResponse);
-  rpc StorageBucketAsHcl(StorageBucketAsHclRequest) returns (StorageBucketAsHclResponse);
-
 }

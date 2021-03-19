@@ -621,6 +621,9 @@ func (l *InstanceTemplateList) HasNext() bool {
 }
 
 func (l *InstanceTemplateList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -634,12 +637,17 @@ func (l *InstanceTemplateList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListInstanceTemplate(ctx context.Context, project string) (*InstanceTemplateList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListInstanceTemplateWithMaxResults(ctx, project, InstanceTemplateMaxPage)
 
 }
 
 func (c *Client) ListInstanceTemplateWithMaxResults(ctx context.Context, project string, pageSize int32) (*InstanceTemplateList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listInstanceTemplate(ctx, project, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -654,6 +662,9 @@ func (c *Client) ListInstanceTemplateWithMaxResults(ctx context.Context, project
 }
 
 func (c *Client) GetInstanceTemplate(ctx context.Context, r *InstanceTemplate) (*InstanceTemplate, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getInstanceTemplateRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -683,6 +694,9 @@ func (c *Client) GetInstanceTemplate(ctx context.Context, r *InstanceTemplate) (
 }
 
 func (c *Client) DeleteInstanceTemplate(ctx context.Context, r *InstanceTemplate) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("InstanceTemplate resource is nil")
 	}
@@ -693,6 +707,9 @@ func (c *Client) DeleteInstanceTemplate(ctx context.Context, r *InstanceTemplate
 
 // DeleteAllInstanceTemplate deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllInstanceTemplate(ctx context.Context, project string, filter func(*InstanceTemplate) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListInstanceTemplate(ctx, project)
 	if err != nil {
 		return err
@@ -718,6 +735,9 @@ func (c *Client) DeleteAllInstanceTemplate(ctx context.Context, project string, 
 func (c *Client) ApplyInstanceTemplate(ctx context.Context, rawDesired *InstanceTemplate, opts ...dcl.ApplyOption) (*InstanceTemplate, error) {
 	c.Config.Logger.Info("Beginning ApplyInstanceTemplate...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -798,12 +818,35 @@ func (c *Client) ApplyInstanceTemplate(ctx context.Context, rawDesired *Instance
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createInstanceTemplateOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapInstanceTemplate(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeInstanceTemplateNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeInstanceTemplateNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

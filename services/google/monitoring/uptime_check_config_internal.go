@@ -24,7 +24,6 @@ import (
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *UptimeCheckConfig) validate() error {
@@ -137,10 +136,10 @@ type uptimeCheckConfigApiOperation interface {
 	do(context.Context, *UptimeCheckConfig, *Client) error
 }
 
-// newUpdateUptimeCheckConfigUpdateRequest creates a request for an
-// UptimeCheckConfig resource's update update type by filling in the update
+// newUpdateUptimeCheckConfigUpdateUptimeCheckConfigRequest creates a request for an
+// UptimeCheckConfig resource's UpdateUptimeCheckConfig update type by filling in the update
 // fields based on the intended state of the resource.
-func newUpdateUptimeCheckConfigUpdateRequest(ctx context.Context, f *UptimeCheckConfig, c *Client) (map[string]interface{}, error) {
+func newUpdateUptimeCheckConfigUpdateUptimeCheckConfigRequest(ctx context.Context, f *UptimeCheckConfig, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
@@ -175,14 +174,14 @@ func newUpdateUptimeCheckConfigUpdateRequest(ctx context.Context, f *UptimeCheck
 	return req, nil
 }
 
-// marshalUpdateUptimeCheckConfigUpdateRequest converts the update into
+// marshalUpdateUptimeCheckConfigUpdateUptimeCheckConfigRequest converts the update into
 // the final JSON request body.
-func marshalUpdateUptimeCheckConfigUpdateRequest(c *Client, m map[string]interface{}) ([]byte, error) {
+func marshalUpdateUptimeCheckConfigUpdateUptimeCheckConfigRequest(c *Client, m map[string]interface{}) ([]byte, error) {
 
 	return json.Marshal(m)
 }
 
-type updateUptimeCheckConfigUpdateOperation struct {
+type updateUptimeCheckConfigUpdateUptimeCheckConfigOperation struct {
 	// If the update operation has the REQUIRES_APPLY_OPTIONS trait, this will be populated.
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
@@ -193,13 +192,13 @@ type updateUptimeCheckConfigUpdateOperation struct {
 // do will transcribe a subset of the resource into a request object and send a
 // PUT request to a single URL.
 
-func (op *updateUptimeCheckConfigUpdateOperation) do(ctx context.Context, r *UptimeCheckConfig, c *Client) error {
+func (op *updateUptimeCheckConfigUpdateUptimeCheckConfigOperation) do(ctx context.Context, r *UptimeCheckConfig, c *Client) error {
 	_, err := c.GetUptimeCheckConfig(ctx, r.urlNormalized())
 	if err != nil {
 		return err
 	}
 
-	u, err := r.updateURL(c.Config.BasePath, "update")
+	u, err := r.updateURL(c.Config.BasePath, "UpdateUptimeCheckConfig")
 	if err != nil {
 		return err
 	}
@@ -209,27 +208,17 @@ func (op *updateUptimeCheckConfigUpdateOperation) do(ctx context.Context, r *Upt
 		return err
 	}
 
-	req, err := newUpdateUptimeCheckConfigUpdateRequest(ctx, r, c)
+	req, err := newUpdateUptimeCheckConfigUpdateUptimeCheckConfigRequest(ctx, r, c)
 	if err != nil {
 		return err
 	}
 
 	c.Config.Logger.Infof("Created update: %#v", req)
-	body, err := marshalUpdateUptimeCheckConfigUpdateRequest(c, req)
+	body, err := marshalUpdateUptimeCheckConfigUpdateUptimeCheckConfigRequest(c, req)
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
-	if err != nil {
-		return err
-	}
-
-	var o operations.MonitoringOperation
-	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
-		return err
-	}
-	err = o.Wait(ctx, c.Config, "https://monitoring.googleapis.com/", "GET")
-
+	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -256,7 +245,7 @@ func (c *Client) listUptimeCheckConfigRaw(ctx context.Context, project, pageToke
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -265,8 +254,8 @@ func (c *Client) listUptimeCheckConfigRaw(ctx context.Context, project, pageToke
 }
 
 type listUptimeCheckConfigOperation struct {
-	Items []map[string]interface{} `json:"items"`
-	Token string                   `json:"nextPageToken"`
+	UptimeCheckConfigs []map[string]interface{} `json:"uptimeCheckConfigs"`
+	Token              string                   `json:"nextPageToken"`
 }
 
 func (c *Client) listUptimeCheckConfig(ctx context.Context, project, pageToken string, pageSize int32) ([]*UptimeCheckConfig, string, error) {
@@ -281,7 +270,7 @@ func (c *Client) listUptimeCheckConfig(ctx context.Context, project, pageToken s
 	}
 
 	var l []*UptimeCheckConfig
-	for _, v := range m.Items {
+	for _, v := range m.UptimeCheckConfigs {
 		res := flattenUptimeCheckConfig(c, v)
 		res.Project = &project
 		l = append(l, res)
@@ -330,18 +319,9 @@ func (op *deleteUptimeCheckConfigOperation) do(ctx context.Context, r *UptimeChe
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
-		return err
-	}
-
-	// wait for object to be deleted.
-	var o operations.MonitoringOperation
-	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
-		return err
-	}
-	if err := o.Wait(ctx, c.Config, "https://monitoring.googleapis.com/", "GET"); err != nil {
-		return err
+		return fmt.Errorf("failed to delete UptimeCheckConfig: %w", err)
 	}
 	_, err = c.GetUptimeCheckConfig(ctx, r.urlNormalized())
 	if !dcl.IsNotFound(err) {
@@ -353,7 +333,13 @@ func (op *deleteUptimeCheckConfigOperation) do(ctx context.Context, r *UptimeChe
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createUptimeCheckConfigOperation struct{}
+type createUptimeCheckConfigOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createUptimeCheckConfigOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createUptimeCheckConfigOperation) do(ctx context.Context, r *UptimeCheckConfig, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -369,27 +355,26 @@ func (op *createUptimeCheckConfigOperation) do(ctx context.Context, r *UptimeChe
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
-	// wait for object to be created.
-	var o operations.MonitoringOperation
-	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
-		return err
-	}
-	if err := o.Wait(ctx, c.Config, "https://monitoring.googleapis.com/", "GET"); err != nil {
-		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
-		return err
-	}
-	c.Config.Logger.Infof("Successfully waited for operation")
 
-	r.Name, err = o.FetchName()
+	o, err := dcl.ResponseBodyAsJSON(resp)
 	if err != nil {
-		return fmt.Errorf("error trying to retrieve Name: %w", err)
+		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
+	op.response = o
+
+	// Include Name in URL substitution for initial GET request.
+	name, ok := op.response["name"].(string)
+	if !ok {
+		return fmt.Errorf("expected name to be a string")
+	}
+	r.Name = &name
 
 	if _, err := c.GetUptimeCheckConfig(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -405,7 +390,7 @@ func (c *Client) getUptimeCheckConfigRaw(ctx context.Context, r *UptimeCheckConf
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -493,14 +478,6 @@ func canonicalizeUptimeCheckConfigDesiredState(rawDesired, rawInitial *UptimeChe
 		rawDesired.Period = dcl.String("60s")
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*UptimeCheckConfig); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected UptimeCheckConfig, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -511,20 +488,20 @@ func canonicalizeUptimeCheckConfigDesiredState(rawDesired, rawInitial *UptimeChe
 
 		return rawDesired, nil
 	}
-	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.DisplayName) {
+	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
 		rawDesired.DisplayName = rawInitial.DisplayName
 	}
 	rawDesired.MonitoredResource = canonicalizeUptimeCheckConfigMonitoredResource(rawDesired.MonitoredResource, rawInitial.MonitoredResource, opts...)
 	rawDesired.ResourceGroup = canonicalizeUptimeCheckConfigResourceGroup(rawDesired.ResourceGroup, rawInitial.ResourceGroup, opts...)
 	rawDesired.HttpCheck = canonicalizeUptimeCheckConfigHttpCheck(rawDesired.HttpCheck, rawInitial.HttpCheck, opts...)
 	rawDesired.TcpCheck = canonicalizeUptimeCheckConfigTcpCheck(rawDesired.TcpCheck, rawInitial.TcpCheck, opts...)
-	if dcl.IsZeroValue(rawDesired.Period) {
+	if dcl.StringCanonicalize(rawDesired.Period, rawInitial.Period) {
 		rawDesired.Period = rawInitial.Period
 	}
-	if dcl.IsZeroValue(rawDesired.Timeout) {
+	if dcl.StringCanonicalize(rawDesired.Timeout, rawInitial.Timeout) {
 		rawDesired.Timeout = rawInitial.Timeout
 	}
 	if dcl.IsZeroValue(rawDesired.ContentMatchers) {
@@ -548,14 +525,14 @@ func canonicalizeUptimeCheckConfigNewState(c *Client, rawNew, rawDesired *Uptime
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
-		if dcl.NameToSelfLink(rawDesired.Name, rawNew.Name) {
-			rawNew.Name = rawDesired.Name
-		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
 		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
+		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.MonitoredResource) && dcl.IsEmptyValueIndirect(rawDesired.MonitoredResource) {
@@ -585,11 +562,17 @@ func canonicalizeUptimeCheckConfigNewState(c *Client, rawNew, rawDesired *Uptime
 	if dcl.IsEmptyValueIndirect(rawNew.Period) && dcl.IsEmptyValueIndirect(rawDesired.Period) {
 		rawNew.Period = rawDesired.Period
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Period, rawNew.Period) {
+			rawNew.Period = rawDesired.Period
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Timeout) && dcl.IsEmptyValueIndirect(rawDesired.Timeout) {
 		rawNew.Timeout = rawDesired.Timeout
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Timeout, rawNew.Timeout) {
+			rawNew.Timeout = rawDesired.Timeout
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ContentMatchers) && dcl.IsEmptyValueIndirect(rawDesired.ContentMatchers) {
@@ -620,16 +603,11 @@ func canonicalizeUptimeCheckConfigMonitoredResource(des, initial *UptimeCheckCon
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*UptimeCheckConfig)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Type) {
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
 	}
 	if dcl.IsZeroValue(des.FilterLabels) {
@@ -642,6 +620,10 @@ func canonicalizeUptimeCheckConfigMonitoredResource(des, initial *UptimeCheckCon
 func canonicalizeNewUptimeCheckConfigMonitoredResource(c *Client, des, nw *UptimeCheckConfigMonitoredResource) *UptimeCheckConfigMonitoredResource {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Type, nw.Type) || dcl.IsZeroValue(des.Type) {
+		nw.Type = des.Type
 	}
 
 	return nw
@@ -676,11 +658,6 @@ func canonicalizeUptimeCheckConfigResourceGroup(des, initial *UptimeCheckConfigR
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*UptimeCheckConfig)
-		_ = r
 	}
 
 	if initial == nil {
@@ -748,11 +725,6 @@ func canonicalizeUptimeCheckConfigHttpCheck(des, initial *UptimeCheckConfigHttpC
 		des.Path = dcl.String("/")
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*UptimeCheckConfig)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -763,7 +735,7 @@ func canonicalizeUptimeCheckConfigHttpCheck(des, initial *UptimeCheckConfigHttpC
 	if dcl.IsZeroValue(des.UseSsl) {
 		des.UseSsl = initial.UseSsl
 	}
-	if dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
 		des.Path = initial.Path
 	}
 	if dcl.IsZeroValue(des.Port) {
@@ -782,7 +754,7 @@ func canonicalizeUptimeCheckConfigHttpCheck(des, initial *UptimeCheckConfigHttpC
 	if dcl.IsZeroValue(des.ValidateSsl) {
 		des.ValidateSsl = initial.ValidateSsl
 	}
-	if dcl.IsZeroValue(des.Body) {
+	if dcl.StringCanonicalize(des.Body, initial.Body) || dcl.IsZeroValue(des.Body) {
 		des.Body = initial.Body
 	}
 
@@ -802,7 +774,13 @@ func canonicalizeNewUptimeCheckConfigHttpCheck(c *Client, des, nw *UptimeCheckCo
 		nw.Path = dcl.String("/")
 	}
 
+	if dcl.StringCanonicalize(des.Path, nw.Path) || dcl.IsZeroValue(des.Path) {
+		nw.Path = des.Path
+	}
 	nw.AuthInfo = canonicalizeNewUptimeCheckConfigHttpCheckAuthInfo(c, des.AuthInfo, nw.AuthInfo)
+	if dcl.StringCanonicalize(des.Body, nw.Body) || dcl.IsZeroValue(des.Body) {
+		nw.Body = des.Body
+	}
 
 	return nw
 }
@@ -838,19 +816,14 @@ func canonicalizeUptimeCheckConfigHttpCheckAuthInfo(des, initial *UptimeCheckCon
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*UptimeCheckConfig)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Username) {
+	if dcl.StringCanonicalize(des.Username, initial.Username) || dcl.IsZeroValue(des.Username) {
 		des.Username = initial.Username
 	}
-	if dcl.IsZeroValue(des.Password) {
+	if dcl.StringCanonicalize(des.Password, initial.Password) || dcl.IsZeroValue(des.Password) {
 		des.Password = initial.Password
 	}
 
@@ -861,6 +834,11 @@ func canonicalizeNewUptimeCheckConfigHttpCheckAuthInfo(c *Client, des, nw *Uptim
 	if des == nil || nw == nil {
 		return nw
 	}
+
+	if dcl.StringCanonicalize(des.Username, nw.Username) || dcl.IsZeroValue(des.Username) {
+		nw.Username = des.Username
+	}
+	nw.Password = des.Password
 
 	return nw
 }
@@ -894,11 +872,6 @@ func canonicalizeUptimeCheckConfigTcpCheck(des, initial *UptimeCheckConfigTcpChe
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*UptimeCheckConfig)
-		_ = r
 	}
 
 	if initial == nil {
@@ -955,16 +928,11 @@ func canonicalizeUptimeCheckConfigContentMatchers(des, initial *UptimeCheckConfi
 		des.Matcher = UptimeCheckConfigContentMatchersMatcherEnumRef("CONTAINS_STRING")
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*UptimeCheckConfig)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Content) {
+	if dcl.StringCanonicalize(des.Content, initial.Content) || dcl.IsZeroValue(des.Content) {
 		des.Content = initial.Content
 	}
 	if dcl.IsZeroValue(des.Matcher) {
@@ -981,6 +949,10 @@ func canonicalizeNewUptimeCheckConfigContentMatchers(c *Client, des, nw *UptimeC
 
 	if dcl.IsZeroValue(nw.Matcher) {
 		nw.Matcher = UptimeCheckConfigContentMatchersMatcherEnumRef("CONTAINS_STRING")
+	}
+
+	if dcl.StringCanonicalize(des.Content, nw.Content) || dcl.IsZeroValue(des.Content) {
+		nw.Content = des.Content
 	}
 
 	return nw
@@ -1030,18 +1002,18 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 	}
 
 	var diffs []uptimeCheckConfigDiff
-	if !dcl.IsZeroValue(desired.Name) && !dcl.NameToSelfLink(desired.Name, actual.Name) {
+	if !dcl.StringEqualsWithSelfLink(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, uptimeCheckConfigDiff{
 			RequiresRecreate: true,
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.DisplayName) && (dcl.IsZeroValue(actual.DisplayName) || !reflect.DeepEqual(*desired.DisplayName, *actual.DisplayName)) {
+	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
 		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 
 		diffs = append(diffs, uptimeCheckConfigDiff{
-			UpdateOp:  &updateUptimeCheckConfigUpdateOperation{},
+			UpdateOp:  &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{},
 			FieldName: "DisplayName",
 		})
 
@@ -1064,7 +1036,7 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 		c.Config.Logger.Infof("Detected diff in HttpCheck.\nDESIRED: %v\nACTUAL: %v", desired.HttpCheck, actual.HttpCheck)
 
 		diffs = append(diffs, uptimeCheckConfigDiff{
-			UpdateOp:  &updateUptimeCheckConfigUpdateOperation{},
+			UpdateOp:  &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{},
 			FieldName: "HttpCheck",
 		})
 
@@ -1073,23 +1045,23 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 		c.Config.Logger.Infof("Detected diff in TcpCheck.\nDESIRED: %v\nACTUAL: %v", desired.TcpCheck, actual.TcpCheck)
 
 		diffs = append(diffs, uptimeCheckConfigDiff{
-			UpdateOp:  &updateUptimeCheckConfigUpdateOperation{},
+			UpdateOp:  &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{},
 			FieldName: "TcpCheck",
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Period) && (dcl.IsZeroValue(actual.Period) || !reflect.DeepEqual(*desired.Period, *actual.Period)) {
+	if !dcl.IsZeroValue(desired.Period) && !dcl.StringCanonicalize(desired.Period, actual.Period) {
 		c.Config.Logger.Infof("Detected diff in Period.\nDESIRED: %v\nACTUAL: %v", desired.Period, actual.Period)
 		diffs = append(diffs, uptimeCheckConfigDiff{
 			RequiresRecreate: true,
 			FieldName:        "Period",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Timeout) && (dcl.IsZeroValue(actual.Timeout) || !reflect.DeepEqual(*desired.Timeout, *actual.Timeout)) {
+	if !dcl.IsZeroValue(desired.Timeout) && !dcl.StringCanonicalize(desired.Timeout, actual.Timeout) {
 		c.Config.Logger.Infof("Detected diff in Timeout.\nDESIRED: %v\nACTUAL: %v", desired.Timeout, actual.Timeout)
 
 		diffs = append(diffs, uptimeCheckConfigDiff{
-			UpdateOp:  &updateUptimeCheckConfigUpdateOperation{},
+			UpdateOp:  &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{},
 			FieldName: "Timeout",
 		})
 
@@ -1098,25 +1070,25 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 		c.Config.Logger.Infof("Detected diff in ContentMatchers.\nDESIRED: %v\nACTUAL: %v", desired.ContentMatchers, actual.ContentMatchers)
 
 		diffs = append(diffs, uptimeCheckConfigDiff{
-			UpdateOp:  &updateUptimeCheckConfigUpdateOperation{},
+			UpdateOp:  &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{},
 			FieldName: "ContentMatchers",
 		})
 
 	}
-	if !dcl.SliceEquals(desired.PrivateCheckers, actual.PrivateCheckers) {
+	if !dcl.StringSliceEquals(desired.PrivateCheckers, actual.PrivateCheckers) {
 		c.Config.Logger.Infof("Detected diff in PrivateCheckers.\nDESIRED: %v\nACTUAL: %v", desired.PrivateCheckers, actual.PrivateCheckers)
 
 		diffs = append(diffs, uptimeCheckConfigDiff{
-			UpdateOp:  &updateUptimeCheckConfigUpdateOperation{},
+			UpdateOp:  &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{},
 			FieldName: "PrivateCheckers",
 		})
 
 	}
-	if !dcl.SliceEquals(desired.SelectedRegions, actual.SelectedRegions) {
+	if !dcl.StringSliceEquals(desired.SelectedRegions, actual.SelectedRegions) {
 		c.Config.Logger.Infof("Detected diff in SelectedRegions.\nDESIRED: %v\nACTUAL: %v", desired.SelectedRegions, actual.SelectedRegions)
 
 		diffs = append(diffs, uptimeCheckConfigDiff{
-			UpdateOp:  &updateUptimeCheckConfigUpdateOperation{},
+			UpdateOp:  &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{},
 			FieldName: "SelectedRegions",
 		})
 
@@ -1145,6 +1117,32 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 
 	return deduped, nil
 }
+func compareUptimeCheckConfigMonitoredResource(c *Client, desired, actual *UptimeCheckConfigMonitoredResource) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Type == nil && desired.Type != nil && !dcl.IsEmptyValueIndirect(desired.Type) {
+		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
+		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
+		return true
+	}
+	if actual.FilterLabels == nil && desired.FilterLabels != nil && !dcl.IsEmptyValueIndirect(desired.FilterLabels) {
+		c.Config.Logger.Infof("desired FilterLabels %s - but actually nil", dcl.SprintResource(desired.FilterLabels))
+		return true
+	}
+	if !dcl.MapEquals(desired.FilterLabels, actual.FilterLabels, []string(nil)) && !dcl.IsZeroValue(desired.FilterLabels) {
+		c.Config.Logger.Infof("Diff in FilterLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FilterLabels), dcl.SprintResource(actual.FilterLabels))
+		return true
+	}
+	return false
+}
+
 func compareUptimeCheckConfigMonitoredResourceSlice(c *Client, desired, actual []UptimeCheckConfigMonitoredResource) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in UptimeCheckConfigMonitoredResource, lengths unequal.")
@@ -1159,39 +1157,19 @@ func compareUptimeCheckConfigMonitoredResourceSlice(c *Client, desired, actual [
 	return false
 }
 
-func compareUptimeCheckConfigMonitoredResource(c *Client, desired, actual *UptimeCheckConfigMonitoredResource) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Type == nil && desired.Type != nil && !dcl.IsEmptyValueIndirect(desired.Type) {
-		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) && !(dcl.IsEmptyValueIndirect(desired.Type) && dcl.IsZeroValue(actual.Type)) {
-		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
-		return true
-	}
-	if actual.FilterLabels == nil && desired.FilterLabels != nil && !dcl.IsEmptyValueIndirect(desired.FilterLabels) {
-		c.Config.Logger.Infof("desired FilterLabels %s - but actually nil", dcl.SprintResource(desired.FilterLabels))
-		return true
-	}
-	if !reflect.DeepEqual(desired.FilterLabels, actual.FilterLabels) && !dcl.IsZeroValue(desired.FilterLabels) {
-		c.Config.Logger.Infof("Diff in FilterLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FilterLabels), dcl.SprintResource(actual.FilterLabels))
-		return true
-	}
-	return false
-}
-func compareUptimeCheckConfigResourceGroupSlice(c *Client, desired, actual []UptimeCheckConfigResourceGroup) bool {
+func compareUptimeCheckConfigMonitoredResourceMap(c *Client, desired, actual map[string]UptimeCheckConfigMonitoredResource) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in UptimeCheckConfigResourceGroup, lengths unequal.")
+		c.Config.Logger.Info("Diff in UptimeCheckConfigMonitoredResource, lengths unequal.")
 		return true
 	}
-	for i := 0; i < len(desired); i++ {
-		if compareUptimeCheckConfigResourceGroup(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UptimeCheckConfigResourceGroup, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigMonitoredResource, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareUptimeCheckConfigMonitoredResource(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigMonitoredResource, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1209,20 +1187,40 @@ func compareUptimeCheckConfigResourceGroup(c *Client, desired, actual *UptimeChe
 		c.Config.Logger.Infof("desired ResourceType %s - but actually nil", dcl.SprintResource(desired.ResourceType))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ResourceType, actual.ResourceType) && !dcl.IsZeroValue(desired.ResourceType) && !(dcl.IsEmptyValueIndirect(desired.ResourceType) && dcl.IsZeroValue(actual.ResourceType)) {
+	if !reflect.DeepEqual(desired.ResourceType, actual.ResourceType) && !dcl.IsZeroValue(desired.ResourceType) {
 		c.Config.Logger.Infof("Diff in ResourceType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceType), dcl.SprintResource(actual.ResourceType))
 		return true
 	}
 	return false
 }
-func compareUptimeCheckConfigHttpCheckSlice(c *Client, desired, actual []UptimeCheckConfigHttpCheck) bool {
+
+func compareUptimeCheckConfigResourceGroupSlice(c *Client, desired, actual []UptimeCheckConfigResourceGroup) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in UptimeCheckConfigHttpCheck, lengths unequal.")
+		c.Config.Logger.Info("Diff in UptimeCheckConfigResourceGroup, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareUptimeCheckConfigHttpCheck(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UptimeCheckConfigHttpCheck, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareUptimeCheckConfigResourceGroup(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigResourceGroup, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareUptimeCheckConfigResourceGroupMap(c *Client, desired, actual map[string]UptimeCheckConfigResourceGroup) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in UptimeCheckConfigResourceGroup, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigResourceGroup, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareUptimeCheckConfigResourceGroup(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigResourceGroup, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1240,7 +1238,7 @@ func compareUptimeCheckConfigHttpCheck(c *Client, desired, actual *UptimeCheckCo
 		c.Config.Logger.Infof("desired RequestMethod %s - but actually nil", dcl.SprintResource(desired.RequestMethod))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RequestMethod, actual.RequestMethod) && !dcl.IsZeroValue(desired.RequestMethod) && !(dcl.IsEmptyValueIndirect(desired.RequestMethod) && dcl.IsZeroValue(actual.RequestMethod)) {
+	if !reflect.DeepEqual(desired.RequestMethod, actual.RequestMethod) && !dcl.IsZeroValue(desired.RequestMethod) {
 		c.Config.Logger.Infof("Diff in RequestMethod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequestMethod), dcl.SprintResource(actual.RequestMethod))
 		return true
 	}
@@ -1248,7 +1246,7 @@ func compareUptimeCheckConfigHttpCheck(c *Client, desired, actual *UptimeCheckCo
 		c.Config.Logger.Infof("desired UseSsl %s - but actually nil", dcl.SprintResource(desired.UseSsl))
 		return true
 	}
-	if !reflect.DeepEqual(desired.UseSsl, actual.UseSsl) && !dcl.IsZeroValue(desired.UseSsl) && !(dcl.IsEmptyValueIndirect(desired.UseSsl) && dcl.IsZeroValue(actual.UseSsl)) {
+	if !reflect.DeepEqual(desired.UseSsl, actual.UseSsl) && !dcl.IsZeroValue(desired.UseSsl) {
 		c.Config.Logger.Infof("Diff in UseSsl. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UseSsl), dcl.SprintResource(actual.UseSsl))
 		return true
 	}
@@ -1256,7 +1254,7 @@ func compareUptimeCheckConfigHttpCheck(c *Client, desired, actual *UptimeCheckCo
 		c.Config.Logger.Infof("desired Path %s - but actually nil", dcl.SprintResource(desired.Path))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) && !(dcl.IsEmptyValueIndirect(desired.Path) && dcl.IsZeroValue(actual.Path)) {
+	if !dcl.StringCanonicalize(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) {
 		c.Config.Logger.Infof("Diff in Path. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
 		return true
 	}
@@ -1264,7 +1262,7 @@ func compareUptimeCheckConfigHttpCheck(c *Client, desired, actual *UptimeCheckCo
 		c.Config.Logger.Infof("desired Port %s - but actually nil", dcl.SprintResource(desired.Port))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) && !(dcl.IsEmptyValueIndirect(desired.Port) && dcl.IsZeroValue(actual.Port)) {
+	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) {
 		c.Config.Logger.Infof("Diff in Port. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
 		return true
 	}
@@ -1280,7 +1278,7 @@ func compareUptimeCheckConfigHttpCheck(c *Client, desired, actual *UptimeCheckCo
 		c.Config.Logger.Infof("desired MaskHeaders %s - but actually nil", dcl.SprintResource(desired.MaskHeaders))
 		return true
 	}
-	if !reflect.DeepEqual(desired.MaskHeaders, actual.MaskHeaders) && !dcl.IsZeroValue(desired.MaskHeaders) && !(dcl.IsEmptyValueIndirect(desired.MaskHeaders) && dcl.IsZeroValue(actual.MaskHeaders)) {
+	if !reflect.DeepEqual(desired.MaskHeaders, actual.MaskHeaders) && !dcl.IsZeroValue(desired.MaskHeaders) {
 		c.Config.Logger.Infof("Diff in MaskHeaders. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaskHeaders), dcl.SprintResource(actual.MaskHeaders))
 		return true
 	}
@@ -1288,7 +1286,7 @@ func compareUptimeCheckConfigHttpCheck(c *Client, desired, actual *UptimeCheckCo
 		c.Config.Logger.Infof("desired Headers %s - but actually nil", dcl.SprintResource(desired.Headers))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Headers, actual.Headers) && !dcl.IsZeroValue(desired.Headers) {
+	if !dcl.MapEquals(desired.Headers, actual.Headers, []string(nil)) && !dcl.IsZeroValue(desired.Headers) {
 		c.Config.Logger.Infof("Diff in Headers. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Headers), dcl.SprintResource(actual.Headers))
 		return true
 	}
@@ -1296,7 +1294,7 @@ func compareUptimeCheckConfigHttpCheck(c *Client, desired, actual *UptimeCheckCo
 		c.Config.Logger.Infof("desired ContentType %s - but actually nil", dcl.SprintResource(desired.ContentType))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ContentType, actual.ContentType) && !dcl.IsZeroValue(desired.ContentType) && !(dcl.IsEmptyValueIndirect(desired.ContentType) && dcl.IsZeroValue(actual.ContentType)) {
+	if !reflect.DeepEqual(desired.ContentType, actual.ContentType) && !dcl.IsZeroValue(desired.ContentType) {
 		c.Config.Logger.Infof("Diff in ContentType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContentType), dcl.SprintResource(actual.ContentType))
 		return true
 	}
@@ -1304,7 +1302,7 @@ func compareUptimeCheckConfigHttpCheck(c *Client, desired, actual *UptimeCheckCo
 		c.Config.Logger.Infof("desired ValidateSsl %s - but actually nil", dcl.SprintResource(desired.ValidateSsl))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ValidateSsl, actual.ValidateSsl) && !dcl.IsZeroValue(desired.ValidateSsl) && !(dcl.IsEmptyValueIndirect(desired.ValidateSsl) && dcl.IsZeroValue(actual.ValidateSsl)) {
+	if !reflect.DeepEqual(desired.ValidateSsl, actual.ValidateSsl) && !dcl.IsZeroValue(desired.ValidateSsl) {
 		c.Config.Logger.Infof("Diff in ValidateSsl. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValidateSsl), dcl.SprintResource(actual.ValidateSsl))
 		return true
 	}
@@ -1312,20 +1310,40 @@ func compareUptimeCheckConfigHttpCheck(c *Client, desired, actual *UptimeCheckCo
 		c.Config.Logger.Infof("desired Body %s - but actually nil", dcl.SprintResource(desired.Body))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Body, actual.Body) && !dcl.IsZeroValue(desired.Body) && !(dcl.IsEmptyValueIndirect(desired.Body) && dcl.IsZeroValue(actual.Body)) {
+	if !dcl.StringCanonicalize(desired.Body, actual.Body) && !dcl.IsZeroValue(desired.Body) {
 		c.Config.Logger.Infof("Diff in Body. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Body), dcl.SprintResource(actual.Body))
 		return true
 	}
 	return false
 }
-func compareUptimeCheckConfigHttpCheckAuthInfoSlice(c *Client, desired, actual []UptimeCheckConfigHttpCheckAuthInfo) bool {
+
+func compareUptimeCheckConfigHttpCheckSlice(c *Client, desired, actual []UptimeCheckConfigHttpCheck) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in UptimeCheckConfigHttpCheckAuthInfo, lengths unequal.")
+		c.Config.Logger.Info("Diff in UptimeCheckConfigHttpCheck, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareUptimeCheckConfigHttpCheckAuthInfo(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UptimeCheckConfigHttpCheckAuthInfo, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareUptimeCheckConfigHttpCheck(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigHttpCheck, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareUptimeCheckConfigHttpCheckMap(c *Client, desired, actual map[string]UptimeCheckConfigHttpCheck) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in UptimeCheckConfigHttpCheck, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigHttpCheck, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareUptimeCheckConfigHttpCheck(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigHttpCheck, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1343,20 +1361,48 @@ func compareUptimeCheckConfigHttpCheckAuthInfo(c *Client, desired, actual *Uptim
 		c.Config.Logger.Infof("desired Username %s - but actually nil", dcl.SprintResource(desired.Username))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Username, actual.Username) && !dcl.IsZeroValue(desired.Username) && !(dcl.IsEmptyValueIndirect(desired.Username) && dcl.IsZeroValue(actual.Username)) {
+	if !dcl.StringCanonicalize(desired.Username, actual.Username) && !dcl.IsZeroValue(desired.Username) {
 		c.Config.Logger.Infof("Diff in Username. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Username), dcl.SprintResource(actual.Username))
+		return true
+	}
+	if actual.Password == nil && desired.Password != nil && !dcl.IsEmptyValueIndirect(desired.Password) {
+		c.Config.Logger.Infof("desired Password %s - but actually nil", dcl.SprintResource(desired.Password))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Password, actual.Password) && !dcl.IsZeroValue(desired.Password) {
+		c.Config.Logger.Infof("Diff in Password. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Password), dcl.SprintResource(actual.Password))
 		return true
 	}
 	return false
 }
-func compareUptimeCheckConfigTcpCheckSlice(c *Client, desired, actual []UptimeCheckConfigTcpCheck) bool {
+
+func compareUptimeCheckConfigHttpCheckAuthInfoSlice(c *Client, desired, actual []UptimeCheckConfigHttpCheckAuthInfo) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in UptimeCheckConfigTcpCheck, lengths unequal.")
+		c.Config.Logger.Info("Diff in UptimeCheckConfigHttpCheckAuthInfo, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareUptimeCheckConfigTcpCheck(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UptimeCheckConfigTcpCheck, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareUptimeCheckConfigHttpCheckAuthInfo(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigHttpCheckAuthInfo, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareUptimeCheckConfigHttpCheckAuthInfoMap(c *Client, desired, actual map[string]UptimeCheckConfigHttpCheckAuthInfo) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in UptimeCheckConfigHttpCheckAuthInfo, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigHttpCheckAuthInfo, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareUptimeCheckConfigHttpCheckAuthInfo(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigHttpCheckAuthInfo, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1374,20 +1420,40 @@ func compareUptimeCheckConfigTcpCheck(c *Client, desired, actual *UptimeCheckCon
 		c.Config.Logger.Infof("desired Port %s - but actually nil", dcl.SprintResource(desired.Port))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) && !(dcl.IsEmptyValueIndirect(desired.Port) && dcl.IsZeroValue(actual.Port)) {
+	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) {
 		c.Config.Logger.Infof("Diff in Port. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
 		return true
 	}
 	return false
 }
-func compareUptimeCheckConfigContentMatchersSlice(c *Client, desired, actual []UptimeCheckConfigContentMatchers) bool {
+
+func compareUptimeCheckConfigTcpCheckSlice(c *Client, desired, actual []UptimeCheckConfigTcpCheck) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in UptimeCheckConfigContentMatchers, lengths unequal.")
+		c.Config.Logger.Info("Diff in UptimeCheckConfigTcpCheck, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareUptimeCheckConfigContentMatchers(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UptimeCheckConfigContentMatchers, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareUptimeCheckConfigTcpCheck(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigTcpCheck, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareUptimeCheckConfigTcpCheckMap(c *Client, desired, actual map[string]UptimeCheckConfigTcpCheck) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in UptimeCheckConfigTcpCheck, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigTcpCheck, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareUptimeCheckConfigTcpCheck(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigTcpCheck, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1405,7 +1471,7 @@ func compareUptimeCheckConfigContentMatchers(c *Client, desired, actual *UptimeC
 		c.Config.Logger.Infof("desired Content %s - but actually nil", dcl.SprintResource(desired.Content))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Content, actual.Content) && !dcl.IsZeroValue(desired.Content) && !(dcl.IsEmptyValueIndirect(desired.Content) && dcl.IsZeroValue(actual.Content)) {
+	if !dcl.StringCanonicalize(desired.Content, actual.Content) && !dcl.IsZeroValue(desired.Content) {
 		c.Config.Logger.Infof("Diff in Content. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Content), dcl.SprintResource(actual.Content))
 		return true
 	}
@@ -1413,12 +1479,46 @@ func compareUptimeCheckConfigContentMatchers(c *Client, desired, actual *UptimeC
 		c.Config.Logger.Infof("desired Matcher %s - but actually nil", dcl.SprintResource(desired.Matcher))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Matcher, actual.Matcher) && !dcl.IsZeroValue(desired.Matcher) && !(dcl.IsEmptyValueIndirect(desired.Matcher) && dcl.IsZeroValue(actual.Matcher)) {
+	if !reflect.DeepEqual(desired.Matcher, actual.Matcher) && !dcl.IsZeroValue(desired.Matcher) {
 		c.Config.Logger.Infof("Diff in Matcher. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Matcher), dcl.SprintResource(actual.Matcher))
 		return true
 	}
 	return false
 }
+
+func compareUptimeCheckConfigContentMatchersSlice(c *Client, desired, actual []UptimeCheckConfigContentMatchers) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in UptimeCheckConfigContentMatchers, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareUptimeCheckConfigContentMatchers(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigContentMatchers, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareUptimeCheckConfigContentMatchersMap(c *Client, desired, actual map[string]UptimeCheckConfigContentMatchers) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in UptimeCheckConfigContentMatchers, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigContentMatchers, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareUptimeCheckConfigContentMatchers(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigContentMatchers, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
 func compareUptimeCheckConfigResourceGroupResourceTypeEnumSlice(c *Client, desired, actual []UptimeCheckConfigResourceGroupResourceTypeEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in UptimeCheckConfigResourceGroupResourceTypeEnum, lengths unequal.")
@@ -1497,6 +1597,9 @@ func compareUptimeCheckConfigContentMatchersMatcherEnum(c *Client, desired, actu
 func (r *UptimeCheckConfig) urlNormalized() *UptimeCheckConfig {
 	normalized := deepcopy.Copy(*r).(UptimeCheckConfig)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
+	normalized.Period = dcl.SelfLinkToName(r.Period)
+	normalized.Timeout = dcl.SelfLinkToName(r.Timeout)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -1518,7 +1621,7 @@ func (r *UptimeCheckConfig) deleteFields() (string, string) {
 
 func (r *UptimeCheckConfig) updateURL(userBasePath, updateName string) (string, error) {
 	n := r.urlNormalized()
-	if updateName == "update" {
+	if updateName == "UpdateUptimeCheckConfig" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
 			"name":    dcl.ValueOrEmptyString(n.Name),
@@ -1547,6 +1650,10 @@ func unmarshalUptimeCheckConfig(b []byte, c *Client) (*UptimeCheckConfig, error)
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapUptimeCheckConfig(m, c)
+}
+
+func unmarshalMapUptimeCheckConfig(m map[string]interface{}, c *Client) (*UptimeCheckConfig, error) {
 
 	return flattenUptimeCheckConfig(c, m), nil
 }
@@ -1618,7 +1725,7 @@ func flattenUptimeCheckConfig(c *Client, i interface{}) *UptimeCheckConfig {
 	}
 
 	r := &UptimeCheckConfig{}
-	r.Name = dcl.FlattenSecretValue(m["name"])
+	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
 	r.DisplayName = dcl.FlattenString(m["displayName"])
 	r.MonitoredResource = flattenUptimeCheckConfigMonitoredResource(c, m["monitoredResource"])
 	r.ResourceGroup = flattenUptimeCheckConfigResourceGroup(c, m["resourceGroup"])
@@ -2133,7 +2240,7 @@ func flattenUptimeCheckConfigHttpCheckAuthInfo(c *Client, i interface{}) *Uptime
 
 	r := &UptimeCheckConfigHttpCheckAuthInfo{}
 	r.Username = dcl.FlattenString(m["username"])
-	r.Password = dcl.FlattenSecretValue(m["password"])
+	r.Password = dcl.FlattenString(m["password"])
 
 	return r
 }
@@ -2380,7 +2487,7 @@ func flattenUptimeCheckConfigResourceGroupResourceTypeEnumSlice(c *Client, i int
 
 	items := make([]UptimeCheckConfigResourceGroupResourceTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenUptimeCheckConfigResourceGroupResourceTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenUptimeCheckConfigResourceGroupResourceTypeEnum(item.(interface{})))
 	}
 
 	return items
@@ -2411,7 +2518,7 @@ func flattenUptimeCheckConfigHttpCheckRequestMethodEnumSlice(c *Client, i interf
 
 	items := make([]UptimeCheckConfigHttpCheckRequestMethodEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenUptimeCheckConfigHttpCheckRequestMethodEnum(item.(map[string]interface{})))
+		items = append(items, *flattenUptimeCheckConfigHttpCheckRequestMethodEnum(item.(interface{})))
 	}
 
 	return items
@@ -2442,7 +2549,7 @@ func flattenUptimeCheckConfigHttpCheckContentTypeEnumSlice(c *Client, i interfac
 
 	items := make([]UptimeCheckConfigHttpCheckContentTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenUptimeCheckConfigHttpCheckContentTypeEnum(item.(map[string]interface{})))
+		items = append(items, *flattenUptimeCheckConfigHttpCheckContentTypeEnum(item.(interface{})))
 	}
 
 	return items
@@ -2473,7 +2580,7 @@ func flattenUptimeCheckConfigContentMatchersMatcherEnumSlice(c *Client, i interf
 
 	items := make([]UptimeCheckConfigContentMatchersMatcherEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenUptimeCheckConfigContentMatchersMatcherEnum(item.(map[string]interface{})))
+		items = append(items, *flattenUptimeCheckConfigContentMatchersMatcherEnum(item.(interface{})))
 	}
 
 	return items

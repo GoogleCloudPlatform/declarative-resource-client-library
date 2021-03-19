@@ -57,14 +57,19 @@ class Repo(object):
         self.pubsub_configs = RepoPubsubConfigsArray.from_proto(response.pubsub_configs)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = repo_pb2_grpc.SourcerepoRepoServiceStub(channel.Channel())
         request = repo_pb2.DeleteSourcerepoRepoRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Name = name
+        if RepoPubsubConfigsArray.to_proto(self.pubsub_configs):
+            request.resource.pubsub_configs.extend(
+                RepoPubsubConfigsArray.to_proto(self.pubsub_configs)
+            )
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteSourcerepoRepo(request)
 
@@ -90,6 +95,18 @@ class Repo(object):
         res.pubsub_configs = RepoPubsubConfigsArray.from_proto(res_proto.pubsub_configs)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = repo_pb2.SourcerepoRepo()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if RepoPubsubConfigsArray.to_proto(self.pubsub_configs):
+            resource.pubsub_configs.extend(
+                RepoPubsubConfigsArray.to_proto(self.pubsub_configs)
+            )
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class RepoPubsubConfigs(object):

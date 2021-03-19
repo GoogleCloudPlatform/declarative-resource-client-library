@@ -180,6 +180,7 @@ message ListComputeBetaHealthCheckRequest {
 message ListComputeBetaHealthCheckResponse {
   repeated ComputeBetaHealthCheck items = 1;
 }
+
 service ComputeBetaHealthCheckService {
   rpc ApplyComputeBetaHealthCheck(ApplyComputeBetaHealthCheckRequest) returns (ComputeBetaHealthCheck);
   rpc DeleteComputeBetaHealthCheck(DeleteComputeBetaHealthCheckRequest) returns (google.protobuf.Empty);

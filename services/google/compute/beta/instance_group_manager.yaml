@@ -15,7 +15,7 @@ components:
   schemas:
     InstanceGroupManager:
       properties:
-        autohealingPolicies:
+        autoHealingPolicies:
           description: The autohealing policy for this managed instance group.
           items:
             properties:
@@ -36,9 +36,9 @@ components:
                 x-dcl-go-name: InitialDelaySec
                 x-kubernetes-immutable: true
             type: object
-            x-dcl-go-type: InstanceGroupManagerAutohealingPolicies
+            x-dcl-go-type: InstanceGroupManagerAutoHealingPolicies
           type: array
-          x-dcl-go-name: AutohealingPolicies
+          x-dcl-go-name: AutoHealingPolicies
           x-dcl-list-type: list
           x-kubernetes-immutable: true
         baseInstanceName:
@@ -236,6 +236,9 @@ components:
           description: The project id of the resource.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         region:
           description: The region the managed instance group resides in
@@ -454,7 +457,6 @@ components:
           x-kubernetes-immutable: true
       required:
       - baseInstanceName
-      - instanceTemplate
       - name
       - project
       title: InstanceGroupManager
@@ -463,7 +465,7 @@ components:
       x-dcl-locations:
       - zone
       - region
-      x-dcl-parent-container: organization
+      x-dcl-parent-container: project
       x-dcl-uses-state-hint: false
 info:
   description: DCL Specification for the Compute InstanceGroupManager resource

@@ -46,6 +46,7 @@ message ListComputeTargetHttpProxyRequest {
 message ListComputeTargetHttpProxyResponse {
   repeated ComputeTargetHttpProxy items = 1;
 }
+
 service ComputeTargetHttpProxyService {
   rpc ApplyComputeTargetHttpProxy(ApplyComputeTargetHttpProxyRequest) returns (ComputeTargetHttpProxy);
   rpc DeleteComputeTargetHttpProxy(DeleteComputeTargetHttpProxyRequest) returns (google.protobuf.Empty);

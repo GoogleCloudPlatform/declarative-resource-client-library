@@ -71,6 +71,7 @@ message ListStorageObjectAccessControlRequest {
 message ListStorageObjectAccessControlResponse {
   repeated StorageObjectAccessControl items = 1;
 }
+
 service StorageObjectAccessControlService {
   rpc ApplyStorageObjectAccessControl(ApplyStorageObjectAccessControlRequest) returns (StorageObjectAccessControl);
   rpc DeleteStorageObjectAccessControl(DeleteStorageObjectAccessControlRequest) returns (google.protobuf.Empty);

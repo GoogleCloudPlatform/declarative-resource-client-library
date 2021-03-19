@@ -130,6 +130,10 @@ components:
           description: The project for the resource
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         selfLink:
           description: '[Output Only] Server-defined fully-qualified URL for this
@@ -183,9 +187,6 @@ components:
                      "key": "scope",
                      "value": "zones/us-east1-d"
                     }</pre>
-                items:
-                  type: string
-                  x-dcl-go-type: string
                 readOnly: true
                 type: object
                 x-dcl-go-name: Data

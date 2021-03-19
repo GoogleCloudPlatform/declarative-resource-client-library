@@ -165,6 +165,9 @@ func (l *IndexList) HasNext() bool {
 }
 
 func (l *IndexList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -178,12 +181,17 @@ func (l *IndexList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListIndex(ctx context.Context, project string) (*IndexList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListIndexWithMaxResults(ctx, project, IndexMaxPage)
 
 }
 
 func (c *Client) ListIndexWithMaxResults(ctx context.Context, project string, pageSize int32) (*IndexList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listIndex(ctx, project, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -198,6 +206,9 @@ func (c *Client) ListIndexWithMaxResults(ctx context.Context, project string, pa
 }
 
 func (c *Client) GetIndex(ctx context.Context, r *Index) (*Index, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getIndexRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -218,8 +229,6 @@ func (c *Client) GetIndex(ctx context.Context, r *Index) (*Index, error) {
 		result.Ancestor = IndexAncestorEnumRef("NONE")
 	}
 
-	result.IndexId = r.IndexId
-
 	c.Config.Logger.Infof("Retrieved raw result state: %v", result)
 	c.Config.Logger.Infof("Canonicalizing with specified state: %v", r)
 	result, err = canonicalizeIndexNewState(c, result, r)
@@ -232,6 +241,9 @@ func (c *Client) GetIndex(ctx context.Context, r *Index) (*Index, error) {
 }
 
 func (c *Client) DeleteIndex(ctx context.Context, r *Index) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Index resource is nil")
 	}
@@ -242,6 +254,9 @@ func (c *Client) DeleteIndex(ctx context.Context, r *Index) error {
 
 // DeleteAllIndex deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllIndex(ctx context.Context, project string, filter func(*Index) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListIndex(ctx, project)
 	if err != nil {
 		return err
@@ -267,6 +282,9 @@ func (c *Client) DeleteAllIndex(ctx context.Context, project string, filter func
 func (c *Client) ApplyIndex(ctx context.Context, rawDesired *Index, opts ...dcl.ApplyOption) (*Index, error) {
 	c.Config.Logger.Info("Beginning ApplyIndex...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -347,12 +365,35 @@ func (c *Client) ApplyIndex(ctx context.Context, rawDesired *Index, opts ...dcl.
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createIndexOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapIndex(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeIndexNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeIndexNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

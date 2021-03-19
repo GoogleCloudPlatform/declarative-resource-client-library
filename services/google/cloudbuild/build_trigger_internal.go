@@ -281,7 +281,7 @@ func (op *updateBuildTriggerUpdateBuildTriggerOperation) do(ctx context.Context,
 	if err != nil {
 		return err
 	}
-	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -308,7 +308,7 @@ func (c *Client) listBuildTriggerRaw(ctx context.Context, project, pageToken str
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -317,8 +317,8 @@ func (c *Client) listBuildTriggerRaw(ctx context.Context, project, pageToken str
 }
 
 type listBuildTriggerOperation struct {
-	Items []map[string]interface{} `json:"items"`
-	Token string                   `json:"nextPageToken"`
+	Triggers []map[string]interface{} `json:"triggers"`
+	Token    string                   `json:"nextPageToken"`
 }
 
 func (c *Client) listBuildTrigger(ctx context.Context, project, pageToken string, pageSize int32) ([]*BuildTrigger, string, error) {
@@ -333,7 +333,7 @@ func (c *Client) listBuildTrigger(ctx context.Context, project, pageToken string
 	}
 
 	var l []*BuildTrigger
-	for _, v := range m.Items {
+	for _, v := range m.Triggers {
 		res := flattenBuildTrigger(c, v)
 		res.Project = &project
 		l = append(l, res)
@@ -382,7 +382,7 @@ func (op *deleteBuildTriggerOperation) do(ctx context.Context, r *BuildTrigger, 
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return fmt.Errorf("failed to delete BuildTrigger: %w", err)
 	}
@@ -396,7 +396,13 @@ func (op *deleteBuildTriggerOperation) do(ctx context.Context, r *BuildTrigger, 
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createBuildTriggerOperation struct{}
+type createBuildTriggerOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createBuildTriggerOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createBuildTriggerOperation) do(ctx context.Context, r *BuildTrigger, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -412,7 +418,7 @@ func (op *createBuildTriggerOperation) do(ctx context.Context, r *BuildTrigger, 
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -421,9 +427,10 @@ func (op *createBuildTriggerOperation) do(ctx context.Context, r *BuildTrigger, 
 	if err != nil {
 		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
-	_ = o // We might not use resp- this will stop Go complaining
+	op.response = o
 
 	if _, err := c.GetBuildTrigger(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -436,7 +443,7 @@ func (c *Client) getBuildTriggerRaw(ctx context.Context, r *BuildTrigger) ([]byt
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -542,14 +549,6 @@ func canonicalizeBuildTriggerDesiredState(rawDesired, rawInitial *BuildTrigger, 
 		}
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*BuildTrigger); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected BuildTrigger, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -559,10 +558,10 @@ func canonicalizeBuildTriggerDesiredState(rawDesired, rawInitial *BuildTrigger, 
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Description) {
+	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
 	if dcl.IsZeroValue(rawDesired.Tags) {
@@ -574,7 +573,7 @@ func canonicalizeBuildTriggerDesiredState(rawDesired, rawInitial *BuildTrigger, 
 	if dcl.IsZeroValue(rawDesired.Substitutions) {
 		rawDesired.Substitutions = rawInitial.Substitutions
 	}
-	if dcl.IsZeroValue(rawDesired.Filename) {
+	if dcl.StringCanonicalize(rawDesired.Filename, rawInitial.Filename) {
 		rawDesired.Filename = rawInitial.Filename
 	}
 	if dcl.IsZeroValue(rawDesired.IgnoredFiles) {
@@ -589,10 +588,10 @@ func canonicalizeBuildTriggerDesiredState(rawDesired, rawInitial *BuildTrigger, 
 		rawDesired.Project = rawInitial.Project
 	}
 	rawDesired.Build = canonicalizeBuildTriggerBuild(rawDesired.Build, rawInitial.Build, opts...)
-	if dcl.IsZeroValue(rawDesired.Id) {
+	if dcl.StringCanonicalize(rawDesired.Id, rawInitial.Id) {
 		rawDesired.Id = rawInitial.Id
 	}
-	if dcl.IsZeroValue(rawDesired.CreateTime) {
+	if dcl.StringCanonicalize(rawDesired.CreateTime, rawInitial.CreateTime) {
 		rawDesired.CreateTime = rawInitial.CreateTime
 	}
 
@@ -604,11 +603,17 @@ func canonicalizeBuildTriggerNewState(c *Client, rawNew, rawDesired *BuildTrigge
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Tags) && dcl.IsEmptyValueIndirect(rawDesired.Tags) {
@@ -629,6 +634,9 @@ func canonicalizeBuildTriggerNewState(c *Client, rawNew, rawDesired *BuildTrigge
 	if dcl.IsEmptyValueIndirect(rawNew.Filename) && dcl.IsEmptyValueIndirect(rawDesired.Filename) {
 		rawNew.Filename = rawDesired.Filename
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Filename, rawNew.Filename) {
+			rawNew.Filename = rawDesired.Filename
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.IgnoredFiles) && dcl.IsEmptyValueIndirect(rawDesired.IgnoredFiles) {
@@ -664,11 +672,17 @@ func canonicalizeBuildTriggerNewState(c *Client, rawNew, rawDesired *BuildTrigge
 	if dcl.IsEmptyValueIndirect(rawNew.Id) && dcl.IsEmptyValueIndirect(rawDesired.Id) {
 		rawNew.Id = rawDesired.Id
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Id, rawNew.Id) {
+			rawNew.Id = rawDesired.Id
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
+		if dcl.StringCanonicalize(rawDesired.CreateTime, rawNew.CreateTime) {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	}
 
 	return rawNew, nil
@@ -686,31 +700,26 @@ func canonicalizeBuildTriggerTriggerTemplate(des, initial *BuildTriggerTriggerTe
 		des.RepoName = dcl.String("default")
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*BuildTrigger)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.ProjectId) {
+	if dcl.StringCanonicalize(des.ProjectId, initial.ProjectId) || dcl.IsZeroValue(des.ProjectId) {
 		des.ProjectId = initial.ProjectId
 	}
-	if dcl.IsZeroValue(des.RepoName) {
+	if dcl.StringCanonicalize(des.RepoName, initial.RepoName) || dcl.IsZeroValue(des.RepoName) {
 		des.RepoName = initial.RepoName
 	}
-	if dcl.IsZeroValue(des.BranchName) {
+	if dcl.StringCanonicalize(des.BranchName, initial.BranchName) || dcl.IsZeroValue(des.BranchName) {
 		des.BranchName = initial.BranchName
 	}
-	if dcl.IsZeroValue(des.TagName) {
+	if dcl.StringCanonicalize(des.TagName, initial.TagName) || dcl.IsZeroValue(des.TagName) {
 		des.TagName = initial.TagName
 	}
-	if dcl.IsZeroValue(des.CommitSha) {
+	if dcl.StringCanonicalize(des.CommitSha, initial.CommitSha) || dcl.IsZeroValue(des.CommitSha) {
 		des.CommitSha = initial.CommitSha
 	}
-	if dcl.IsZeroValue(des.Dir) {
+	if dcl.StringCanonicalize(des.Dir, initial.Dir) || dcl.IsZeroValue(des.Dir) {
 		des.Dir = initial.Dir
 	}
 	if dcl.IsZeroValue(des.InvertRegex) {
@@ -727,6 +736,25 @@ func canonicalizeNewBuildTriggerTriggerTemplate(c *Client, des, nw *BuildTrigger
 
 	if dcl.IsZeroValue(nw.RepoName) {
 		nw.RepoName = dcl.String("default")
+	}
+
+	if dcl.StringCanonicalize(des.ProjectId, nw.ProjectId) || dcl.IsZeroValue(des.ProjectId) {
+		nw.ProjectId = des.ProjectId
+	}
+	if dcl.StringCanonicalize(des.RepoName, nw.RepoName) || dcl.IsZeroValue(des.RepoName) {
+		nw.RepoName = des.RepoName
+	}
+	if dcl.StringCanonicalize(des.BranchName, nw.BranchName) || dcl.IsZeroValue(des.BranchName) {
+		nw.BranchName = des.BranchName
+	}
+	if dcl.StringCanonicalize(des.TagName, nw.TagName) || dcl.IsZeroValue(des.TagName) {
+		nw.TagName = des.TagName
+	}
+	if dcl.StringCanonicalize(des.CommitSha, nw.CommitSha) || dcl.IsZeroValue(des.CommitSha) {
+		nw.CommitSha = des.CommitSha
+	}
+	if dcl.StringCanonicalize(des.Dir, nw.Dir) || dcl.IsZeroValue(des.Dir) {
+		nw.Dir = des.Dir
 	}
 
 	return nw
@@ -763,19 +791,14 @@ func canonicalizeBuildTriggerGithub(des, initial *BuildTriggerGithub, opts ...dc
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*BuildTrigger)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Owner) {
+	if dcl.StringCanonicalize(des.Owner, initial.Owner) || dcl.IsZeroValue(des.Owner) {
 		des.Owner = initial.Owner
 	}
-	if dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
 	des.PullRequest = canonicalizeBuildTriggerGithubPullRequest(des.PullRequest, initial.PullRequest, opts...)
@@ -789,6 +812,12 @@ func canonicalizeNewBuildTriggerGithub(c *Client, des, nw *BuildTriggerGithub) *
 		return nw
 	}
 
+	if dcl.StringCanonicalize(des.Owner, nw.Owner) || dcl.IsZeroValue(des.Owner) {
+		nw.Owner = des.Owner
+	}
+	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+		nw.Name = des.Name
+	}
 	nw.PullRequest = canonicalizeNewBuildTriggerGithubPullRequest(c, des.PullRequest, nw.PullRequest)
 	nw.Push = canonicalizeNewBuildTriggerGithubPush(c, des.Push, nw.Push)
 
@@ -826,16 +855,11 @@ func canonicalizeBuildTriggerGithubPullRequest(des, initial *BuildTriggerGithubP
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*BuildTrigger)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Branch) {
+	if dcl.StringCanonicalize(des.Branch, initial.Branch) || dcl.IsZeroValue(des.Branch) {
 		des.Branch = initial.Branch
 	}
 	if dcl.IsZeroValue(des.CommentControl) {
@@ -851,6 +875,10 @@ func canonicalizeBuildTriggerGithubPullRequest(des, initial *BuildTriggerGithubP
 func canonicalizeNewBuildTriggerGithubPullRequest(c *Client, des, nw *BuildTriggerGithubPullRequest) *BuildTriggerGithubPullRequest {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Branch, nw.Branch) || dcl.IsZeroValue(des.Branch) {
+		nw.Branch = des.Branch
 	}
 
 	return nw
@@ -887,19 +915,14 @@ func canonicalizeBuildTriggerGithubPush(des, initial *BuildTriggerGithubPush, op
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*BuildTrigger)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Branch) {
+	if dcl.StringCanonicalize(des.Branch, initial.Branch) || dcl.IsZeroValue(des.Branch) {
 		des.Branch = initial.Branch
 	}
-	if dcl.IsZeroValue(des.Tag) {
+	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
 		des.Tag = initial.Tag
 	}
 	if dcl.IsZeroValue(des.InvertRegex) {
@@ -912,6 +935,13 @@ func canonicalizeBuildTriggerGithubPush(des, initial *BuildTriggerGithubPush, op
 func canonicalizeNewBuildTriggerGithubPush(c *Client, des, nw *BuildTriggerGithubPush) *BuildTriggerGithubPush {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Branch, nw.Branch) || dcl.IsZeroValue(des.Branch) {
+		nw.Branch = des.Branch
+	}
+	if dcl.StringCanonicalize(des.Tag, nw.Tag) || dcl.IsZeroValue(des.Tag) {
+		nw.Tag = des.Tag
 	}
 
 	return nw
@@ -952,11 +982,6 @@ func canonicalizeBuildTriggerBuild(des, initial *BuildTriggerBuild, opts ...dcl.
 		des.Timeout = dcl.String("600s")
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*BuildTrigger)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -970,13 +995,13 @@ func canonicalizeBuildTriggerBuild(des, initial *BuildTriggerBuild, opts ...dcl.
 	if dcl.IsZeroValue(des.Substitutions) {
 		des.Substitutions = initial.Substitutions
 	}
-	if dcl.IsZeroValue(des.QueueTtl) {
+	if dcl.StringCanonicalize(des.QueueTtl, initial.QueueTtl) || dcl.IsZeroValue(des.QueueTtl) {
 		des.QueueTtl = initial.QueueTtl
 	}
-	if dcl.IsZeroValue(des.LogsBucket) {
+	if dcl.StringCanonicalize(des.LogsBucket, initial.LogsBucket) || dcl.IsZeroValue(des.LogsBucket) {
 		des.LogsBucket = initial.LogsBucket
 	}
-	if dcl.IsZeroValue(des.Timeout) {
+	if dcl.StringCanonicalize(des.Timeout, initial.Timeout) || dcl.IsZeroValue(des.Timeout) {
 		des.Timeout = initial.Timeout
 	}
 	if dcl.IsZeroValue(des.Secrets) {
@@ -999,6 +1024,15 @@ func canonicalizeNewBuildTriggerBuild(c *Client, des, nw *BuildTriggerBuild) *Bu
 		nw.Timeout = dcl.String("600s")
 	}
 
+	if dcl.StringCanonicalize(des.QueueTtl, nw.QueueTtl) || dcl.IsZeroValue(des.QueueTtl) {
+		nw.QueueTtl = des.QueueTtl
+	}
+	if dcl.StringCanonicalize(des.LogsBucket, nw.LogsBucket) || dcl.IsZeroValue(des.LogsBucket) {
+		nw.LogsBucket = des.LogsBucket
+	}
+	if dcl.StringCanonicalize(des.Timeout, nw.Timeout) || dcl.IsZeroValue(des.Timeout) {
+		nw.Timeout = des.Timeout
+	}
 	nw.Source = canonicalizeNewBuildTriggerBuildSource(c, des.Source, nw.Source)
 
 	return nw
@@ -1035,16 +1069,11 @@ func canonicalizeBuildTriggerBuildSecrets(des, initial *BuildTriggerBuildSecrets
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*BuildTrigger)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.KmsKeyName) {
+	if dcl.StringCanonicalize(des.KmsKeyName, initial.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
 		des.KmsKeyName = initial.KmsKeyName
 	}
 	if dcl.IsZeroValue(des.SecretEnv) {
@@ -1057,6 +1086,10 @@ func canonicalizeBuildTriggerBuildSecrets(des, initial *BuildTriggerBuildSecrets
 func canonicalizeNewBuildTriggerBuildSecrets(c *Client, des, nw *BuildTriggerBuildSecrets) *BuildTriggerBuildSecrets {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.KmsKeyName, nw.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
+		nw.KmsKeyName = des.KmsKeyName
 	}
 
 	return nw
@@ -1097,16 +1130,11 @@ func canonicalizeBuildTriggerBuildSteps(des, initial *BuildTriggerBuildSteps, op
 		des.Timeout = dcl.String("300s")
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*BuildTrigger)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
 	if dcl.IsZeroValue(des.Env) {
@@ -1115,16 +1143,16 @@ func canonicalizeBuildTriggerBuildSteps(des, initial *BuildTriggerBuildSteps, op
 	if dcl.IsZeroValue(des.Args) {
 		des.Args = initial.Args
 	}
-	if dcl.IsZeroValue(des.Dir) {
+	if dcl.StringCanonicalize(des.Dir, initial.Dir) || dcl.IsZeroValue(des.Dir) {
 		des.Dir = initial.Dir
 	}
-	if dcl.IsZeroValue(des.Id) {
+	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
 		des.Id = initial.Id
 	}
 	if dcl.IsZeroValue(des.WaitFor) {
 		des.WaitFor = initial.WaitFor
 	}
-	if dcl.IsZeroValue(des.Entrypoint) {
+	if dcl.StringCanonicalize(des.Entrypoint, initial.Entrypoint) || dcl.IsZeroValue(des.Entrypoint) {
 		des.Entrypoint = initial.Entrypoint
 	}
 	if dcl.IsZeroValue(des.SecretEnv) {
@@ -1135,7 +1163,7 @@ func canonicalizeBuildTriggerBuildSteps(des, initial *BuildTriggerBuildSteps, op
 	}
 	des.Timing = canonicalizeBuildTriggerBuildStepsTiming(des.Timing, initial.Timing, opts...)
 	des.PullTiming = canonicalizeBuildTriggerBuildStepsPullTiming(des.PullTiming, initial.PullTiming, opts...)
-	if dcl.IsZeroValue(des.Timeout) {
+	if dcl.StringCanonicalize(des.Timeout, initial.Timeout) || dcl.IsZeroValue(des.Timeout) {
 		des.Timeout = initial.Timeout
 	}
 	if dcl.IsZeroValue(des.Status) {
@@ -1154,8 +1182,23 @@ func canonicalizeNewBuildTriggerBuildSteps(c *Client, des, nw *BuildTriggerBuild
 		nw.Timeout = dcl.String("300s")
 	}
 
+	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Dir, nw.Dir) || dcl.IsZeroValue(des.Dir) {
+		nw.Dir = des.Dir
+	}
+	if dcl.StringCanonicalize(des.Id, nw.Id) || dcl.IsZeroValue(des.Id) {
+		nw.Id = des.Id
+	}
+	if dcl.StringCanonicalize(des.Entrypoint, nw.Entrypoint) || dcl.IsZeroValue(des.Entrypoint) {
+		nw.Entrypoint = des.Entrypoint
+	}
 	nw.Timing = canonicalizeNewBuildTriggerBuildStepsTiming(c, des.Timing, nw.Timing)
 	nw.PullTiming = canonicalizeNewBuildTriggerBuildStepsPullTiming(c, des.PullTiming, nw.PullTiming)
+	if dcl.StringCanonicalize(des.Timeout, nw.Timeout) || dcl.IsZeroValue(des.Timeout) {
+		nw.Timeout = des.Timeout
+	}
 
 	return nw
 }
@@ -1191,19 +1234,14 @@ func canonicalizeBuildTriggerBuildStepsVolumes(des, initial *BuildTriggerBuildSt
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*BuildTrigger)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
-	if dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
 		des.Path = initial.Path
 	}
 
@@ -1213,6 +1251,13 @@ func canonicalizeBuildTriggerBuildStepsVolumes(des, initial *BuildTriggerBuildSt
 func canonicalizeNewBuildTriggerBuildStepsVolumes(c *Client, des, nw *BuildTriggerBuildStepsVolumes) *BuildTriggerBuildStepsVolumes {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Path, nw.Path) || dcl.IsZeroValue(des.Path) {
+		nw.Path = des.Path
 	}
 
 	return nw
@@ -1249,19 +1294,14 @@ func canonicalizeBuildTriggerBuildStepsTiming(des, initial *BuildTriggerBuildSte
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*BuildTrigger)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.StartTime) {
+	if dcl.StringCanonicalize(des.StartTime, initial.StartTime) || dcl.IsZeroValue(des.StartTime) {
 		des.StartTime = initial.StartTime
 	}
-	if dcl.IsZeroValue(des.EndTime) {
+	if dcl.StringCanonicalize(des.EndTime, initial.EndTime) || dcl.IsZeroValue(des.EndTime) {
 		des.EndTime = initial.EndTime
 	}
 
@@ -1271,6 +1311,13 @@ func canonicalizeBuildTriggerBuildStepsTiming(des, initial *BuildTriggerBuildSte
 func canonicalizeNewBuildTriggerBuildStepsTiming(c *Client, des, nw *BuildTriggerBuildStepsTiming) *BuildTriggerBuildStepsTiming {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.StartTime, nw.StartTime) || dcl.IsZeroValue(des.StartTime) {
+		nw.StartTime = des.StartTime
+	}
+	if dcl.StringCanonicalize(des.EndTime, nw.EndTime) || dcl.IsZeroValue(des.EndTime) {
+		nw.EndTime = des.EndTime
 	}
 
 	return nw
@@ -1307,19 +1354,14 @@ func canonicalizeBuildTriggerBuildStepsPullTiming(des, initial *BuildTriggerBuil
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*BuildTrigger)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.StartTime) {
+	if dcl.StringCanonicalize(des.StartTime, initial.StartTime) || dcl.IsZeroValue(des.StartTime) {
 		des.StartTime = initial.StartTime
 	}
-	if dcl.IsZeroValue(des.EndTime) {
+	if dcl.StringCanonicalize(des.EndTime, initial.EndTime) || dcl.IsZeroValue(des.EndTime) {
 		des.EndTime = initial.EndTime
 	}
 
@@ -1329,6 +1371,13 @@ func canonicalizeBuildTriggerBuildStepsPullTiming(des, initial *BuildTriggerBuil
 func canonicalizeNewBuildTriggerBuildStepsPullTiming(c *Client, des, nw *BuildTriggerBuildStepsPullTiming) *BuildTriggerBuildStepsPullTiming {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.StartTime, nw.StartTime) || dcl.IsZeroValue(des.StartTime) {
+		nw.StartTime = des.StartTime
+	}
+	if dcl.StringCanonicalize(des.EndTime, nw.EndTime) || dcl.IsZeroValue(des.EndTime) {
+		nw.EndTime = des.EndTime
 	}
 
 	return nw
@@ -1363,11 +1412,6 @@ func canonicalizeBuildTriggerBuildSource(des, initial *BuildTriggerBuildSource, 
 	}
 	if des.empty {
 		return des
-	}
-
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*BuildTrigger)
-		_ = r
 	}
 
 	if initial == nil {
@@ -1422,22 +1466,17 @@ func canonicalizeBuildTriggerBuildSourceStorageSource(des, initial *BuildTrigger
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*BuildTrigger)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Bucket) {
+	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) || dcl.IsZeroValue(des.Bucket) {
 		des.Bucket = initial.Bucket
 	}
-	if dcl.IsZeroValue(des.Object) {
+	if dcl.StringCanonicalize(des.Object, initial.Object) || dcl.IsZeroValue(des.Object) {
 		des.Object = initial.Object
 	}
-	if dcl.IsZeroValue(des.Generation) {
+	if dcl.StringCanonicalize(des.Generation, initial.Generation) || dcl.IsZeroValue(des.Generation) {
 		des.Generation = initial.Generation
 	}
 
@@ -1447,6 +1486,16 @@ func canonicalizeBuildTriggerBuildSourceStorageSource(des, initial *BuildTrigger
 func canonicalizeNewBuildTriggerBuildSourceStorageSource(c *Client, des, nw *BuildTriggerBuildSourceStorageSource) *BuildTriggerBuildSourceStorageSource {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Bucket, nw.Bucket) || dcl.IsZeroValue(des.Bucket) {
+		nw.Bucket = des.Bucket
+	}
+	if dcl.StringCanonicalize(des.Object, nw.Object) || dcl.IsZeroValue(des.Object) {
+		nw.Object = des.Object
+	}
+	if dcl.StringCanonicalize(des.Generation, nw.Generation) || dcl.IsZeroValue(des.Generation) {
+		nw.Generation = des.Generation
 	}
 
 	return nw
@@ -1483,31 +1532,26 @@ func canonicalizeBuildTriggerBuildSourceRepoSource(des, initial *BuildTriggerBui
 		return des
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		r := sh.(*BuildTrigger)
-		_ = r
-	}
-
 	if initial == nil {
 		return des
 	}
 
-	if dcl.IsZeroValue(des.ProjectId) {
+	if dcl.StringCanonicalize(des.ProjectId, initial.ProjectId) || dcl.IsZeroValue(des.ProjectId) {
 		des.ProjectId = initial.ProjectId
 	}
-	if dcl.IsZeroValue(des.RepoName) {
+	if dcl.StringCanonicalize(des.RepoName, initial.RepoName) || dcl.IsZeroValue(des.RepoName) {
 		des.RepoName = initial.RepoName
 	}
-	if dcl.IsZeroValue(des.BranchName) {
+	if dcl.StringCanonicalize(des.BranchName, initial.BranchName) || dcl.IsZeroValue(des.BranchName) {
 		des.BranchName = initial.BranchName
 	}
-	if dcl.IsZeroValue(des.TagName) {
+	if dcl.StringCanonicalize(des.TagName, initial.TagName) || dcl.IsZeroValue(des.TagName) {
 		des.TagName = initial.TagName
 	}
-	if dcl.IsZeroValue(des.CommitSha) {
+	if dcl.StringCanonicalize(des.CommitSha, initial.CommitSha) || dcl.IsZeroValue(des.CommitSha) {
 		des.CommitSha = initial.CommitSha
 	}
-	if dcl.IsZeroValue(des.Dir) {
+	if dcl.StringCanonicalize(des.Dir, initial.Dir) || dcl.IsZeroValue(des.Dir) {
 		des.Dir = initial.Dir
 	}
 	if dcl.IsZeroValue(des.InvertRegex) {
@@ -1523,6 +1567,25 @@ func canonicalizeBuildTriggerBuildSourceRepoSource(des, initial *BuildTriggerBui
 func canonicalizeNewBuildTriggerBuildSourceRepoSource(c *Client, des, nw *BuildTriggerBuildSourceRepoSource) *BuildTriggerBuildSourceRepoSource {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.StringCanonicalize(des.ProjectId, nw.ProjectId) || dcl.IsZeroValue(des.ProjectId) {
+		nw.ProjectId = des.ProjectId
+	}
+	if dcl.StringCanonicalize(des.RepoName, nw.RepoName) || dcl.IsZeroValue(des.RepoName) {
+		nw.RepoName = des.RepoName
+	}
+	if dcl.StringCanonicalize(des.BranchName, nw.BranchName) || dcl.IsZeroValue(des.BranchName) {
+		nw.BranchName = des.BranchName
+	}
+	if dcl.StringCanonicalize(des.TagName, nw.TagName) || dcl.IsZeroValue(des.TagName) {
+		nw.TagName = des.TagName
+	}
+	if dcl.StringCanonicalize(des.CommitSha, nw.CommitSha) || dcl.IsZeroValue(des.CommitSha) {
+		nw.CommitSha = des.CommitSha
+	}
+	if dcl.StringCanonicalize(des.Dir, nw.Dir) || dcl.IsZeroValue(des.Dir) {
+		nw.Dir = des.Dir
 	}
 
 	return nw
@@ -1572,7 +1635,7 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 	}
 
 	var diffs []buildTriggerDiff
-	if !dcl.IsZeroValue(desired.Name) && (dcl.IsZeroValue(actual.Name) || !reflect.DeepEqual(*desired.Name, *actual.Name)) {
+	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 
 		diffs = append(diffs, buildTriggerDiff{
@@ -1581,7 +1644,7 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Description) && (dcl.IsZeroValue(actual.Description) || !reflect.DeepEqual(*desired.Description, *actual.Description)) {
+	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
 		diffs = append(diffs, buildTriggerDiff{
@@ -1590,7 +1653,7 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 		})
 
 	}
-	if !dcl.SliceEquals(desired.Tags, actual.Tags) {
+	if !dcl.StringSliceEquals(desired.Tags, actual.Tags) {
 		c.Config.Logger.Infof("Detected diff in Tags.\nDESIRED: %v\nACTUAL: %v", desired.Tags, actual.Tags)
 
 		diffs = append(diffs, buildTriggerDiff{
@@ -1599,7 +1662,7 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Disabled) && (dcl.IsZeroValue(actual.Disabled) || !reflect.DeepEqual(*desired.Disabled, *actual.Disabled)) {
+	if !reflect.DeepEqual(desired.Disabled, actual.Disabled) {
 		c.Config.Logger.Infof("Detected diff in Disabled.\nDESIRED: %v\nACTUAL: %v", desired.Disabled, actual.Disabled)
 
 		diffs = append(diffs, buildTriggerDiff{
@@ -1608,7 +1671,7 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 		})
 
 	}
-	if !reflect.DeepEqual(desired.Substitutions, actual.Substitutions) {
+	if !dcl.MapEquals(desired.Substitutions, actual.Substitutions, []string(nil)) {
 		c.Config.Logger.Infof("Detected diff in Substitutions.\nDESIRED: %v\nACTUAL: %v", desired.Substitutions, actual.Substitutions)
 
 		diffs = append(diffs, buildTriggerDiff{
@@ -1617,7 +1680,7 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Filename) && (dcl.IsZeroValue(actual.Filename) || !reflect.DeepEqual(*desired.Filename, *actual.Filename)) {
+	if !dcl.IsZeroValue(desired.Filename) && !dcl.StringCanonicalize(desired.Filename, actual.Filename) {
 		c.Config.Logger.Infof("Detected diff in Filename.\nDESIRED: %v\nACTUAL: %v", desired.Filename, actual.Filename)
 
 		diffs = append(diffs, buildTriggerDiff{
@@ -1626,7 +1689,7 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 		})
 
 	}
-	if !dcl.SliceEquals(desired.IgnoredFiles, actual.IgnoredFiles) {
+	if !dcl.StringSliceEquals(desired.IgnoredFiles, actual.IgnoredFiles) {
 		c.Config.Logger.Infof("Detected diff in IgnoredFiles.\nDESIRED: %v\nACTUAL: %v", desired.IgnoredFiles, actual.IgnoredFiles)
 
 		diffs = append(diffs, buildTriggerDiff{
@@ -1635,7 +1698,7 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 		})
 
 	}
-	if !dcl.SliceEquals(desired.IncludedFiles, actual.IncludedFiles) {
+	if !dcl.StringSliceEquals(desired.IncludedFiles, actual.IncludedFiles) {
 		c.Config.Logger.Infof("Detected diff in IncludedFiles.\nDESIRED: %v\nACTUAL: %v", desired.IncludedFiles, actual.IncludedFiles)
 
 		diffs = append(diffs, buildTriggerDiff{
@@ -1695,6 +1758,72 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 
 	return deduped, nil
 }
+func compareBuildTriggerTriggerTemplate(c *Client, desired, actual *BuildTriggerTriggerTemplate) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.ProjectId == nil && desired.ProjectId != nil && !dcl.IsEmptyValueIndirect(desired.ProjectId) {
+		c.Config.Logger.Infof("desired ProjectId %s - but actually nil", dcl.SprintResource(desired.ProjectId))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.ProjectId, actual.ProjectId) && !dcl.IsZeroValue(desired.ProjectId) {
+		c.Config.Logger.Infof("Diff in ProjectId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProjectId), dcl.SprintResource(actual.ProjectId))
+		return true
+	}
+	if actual.RepoName == nil && desired.RepoName != nil && !dcl.IsEmptyValueIndirect(desired.RepoName) {
+		c.Config.Logger.Infof("desired RepoName %s - but actually nil", dcl.SprintResource(desired.RepoName))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.RepoName, actual.RepoName) && !dcl.IsZeroValue(desired.RepoName) {
+		c.Config.Logger.Infof("Diff in RepoName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RepoName), dcl.SprintResource(actual.RepoName))
+		return true
+	}
+	if actual.BranchName == nil && desired.BranchName != nil && !dcl.IsEmptyValueIndirect(desired.BranchName) {
+		c.Config.Logger.Infof("desired BranchName %s - but actually nil", dcl.SprintResource(desired.BranchName))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.BranchName, actual.BranchName) && !dcl.IsZeroValue(desired.BranchName) {
+		c.Config.Logger.Infof("Diff in BranchName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BranchName), dcl.SprintResource(actual.BranchName))
+		return true
+	}
+	if actual.TagName == nil && desired.TagName != nil && !dcl.IsEmptyValueIndirect(desired.TagName) {
+		c.Config.Logger.Infof("desired TagName %s - but actually nil", dcl.SprintResource(desired.TagName))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.TagName, actual.TagName) && !dcl.IsZeroValue(desired.TagName) {
+		c.Config.Logger.Infof("Diff in TagName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TagName), dcl.SprintResource(actual.TagName))
+		return true
+	}
+	if actual.CommitSha == nil && desired.CommitSha != nil && !dcl.IsEmptyValueIndirect(desired.CommitSha) {
+		c.Config.Logger.Infof("desired CommitSha %s - but actually nil", dcl.SprintResource(desired.CommitSha))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.CommitSha, actual.CommitSha) && !dcl.IsZeroValue(desired.CommitSha) {
+		c.Config.Logger.Infof("Diff in CommitSha. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CommitSha), dcl.SprintResource(actual.CommitSha))
+		return true
+	}
+	if actual.Dir == nil && desired.Dir != nil && !dcl.IsEmptyValueIndirect(desired.Dir) {
+		c.Config.Logger.Infof("desired Dir %s - but actually nil", dcl.SprintResource(desired.Dir))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Dir, actual.Dir) && !dcl.IsZeroValue(desired.Dir) {
+		c.Config.Logger.Infof("Diff in Dir. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Dir), dcl.SprintResource(actual.Dir))
+		return true
+	}
+	if actual.InvertRegex == nil && desired.InvertRegex != nil && !dcl.IsEmptyValueIndirect(desired.InvertRegex) {
+		c.Config.Logger.Infof("desired InvertRegex %s - but actually nil", dcl.SprintResource(desired.InvertRegex))
+		return true
+	}
+	if !reflect.DeepEqual(desired.InvertRegex, actual.InvertRegex) && !dcl.IsZeroValue(desired.InvertRegex) {
+		c.Config.Logger.Infof("Diff in InvertRegex. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InvertRegex), dcl.SprintResource(actual.InvertRegex))
+		return true
+	}
+	return false
+}
+
 func compareBuildTriggerTriggerTemplateSlice(c *Client, desired, actual []BuildTriggerTriggerTemplate) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in BuildTriggerTriggerTemplate, lengths unequal.")
@@ -1709,79 +1838,19 @@ func compareBuildTriggerTriggerTemplateSlice(c *Client, desired, actual []BuildT
 	return false
 }
 
-func compareBuildTriggerTriggerTemplate(c *Client, desired, actual *BuildTriggerTriggerTemplate) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.ProjectId == nil && desired.ProjectId != nil && !dcl.IsEmptyValueIndirect(desired.ProjectId) {
-		c.Config.Logger.Infof("desired ProjectId %s - but actually nil", dcl.SprintResource(desired.ProjectId))
-		return true
-	}
-	if !reflect.DeepEqual(desired.ProjectId, actual.ProjectId) && !dcl.IsZeroValue(desired.ProjectId) && !(dcl.IsEmptyValueIndirect(desired.ProjectId) && dcl.IsZeroValue(actual.ProjectId)) {
-		c.Config.Logger.Infof("Diff in ProjectId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProjectId), dcl.SprintResource(actual.ProjectId))
-		return true
-	}
-	if actual.RepoName == nil && desired.RepoName != nil && !dcl.IsEmptyValueIndirect(desired.RepoName) {
-		c.Config.Logger.Infof("desired RepoName %s - but actually nil", dcl.SprintResource(desired.RepoName))
-		return true
-	}
-	if !reflect.DeepEqual(desired.RepoName, actual.RepoName) && !dcl.IsZeroValue(desired.RepoName) && !(dcl.IsEmptyValueIndirect(desired.RepoName) && dcl.IsZeroValue(actual.RepoName)) {
-		c.Config.Logger.Infof("Diff in RepoName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RepoName), dcl.SprintResource(actual.RepoName))
-		return true
-	}
-	if actual.BranchName == nil && desired.BranchName != nil && !dcl.IsEmptyValueIndirect(desired.BranchName) {
-		c.Config.Logger.Infof("desired BranchName %s - but actually nil", dcl.SprintResource(desired.BranchName))
-		return true
-	}
-	if !reflect.DeepEqual(desired.BranchName, actual.BranchName) && !dcl.IsZeroValue(desired.BranchName) && !(dcl.IsEmptyValueIndirect(desired.BranchName) && dcl.IsZeroValue(actual.BranchName)) {
-		c.Config.Logger.Infof("Diff in BranchName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BranchName), dcl.SprintResource(actual.BranchName))
-		return true
-	}
-	if actual.TagName == nil && desired.TagName != nil && !dcl.IsEmptyValueIndirect(desired.TagName) {
-		c.Config.Logger.Infof("desired TagName %s - but actually nil", dcl.SprintResource(desired.TagName))
-		return true
-	}
-	if !reflect.DeepEqual(desired.TagName, actual.TagName) && !dcl.IsZeroValue(desired.TagName) && !(dcl.IsEmptyValueIndirect(desired.TagName) && dcl.IsZeroValue(actual.TagName)) {
-		c.Config.Logger.Infof("Diff in TagName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TagName), dcl.SprintResource(actual.TagName))
-		return true
-	}
-	if actual.CommitSha == nil && desired.CommitSha != nil && !dcl.IsEmptyValueIndirect(desired.CommitSha) {
-		c.Config.Logger.Infof("desired CommitSha %s - but actually nil", dcl.SprintResource(desired.CommitSha))
-		return true
-	}
-	if !reflect.DeepEqual(desired.CommitSha, actual.CommitSha) && !dcl.IsZeroValue(desired.CommitSha) && !(dcl.IsEmptyValueIndirect(desired.CommitSha) && dcl.IsZeroValue(actual.CommitSha)) {
-		c.Config.Logger.Infof("Diff in CommitSha. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CommitSha), dcl.SprintResource(actual.CommitSha))
-		return true
-	}
-	if actual.Dir == nil && desired.Dir != nil && !dcl.IsEmptyValueIndirect(desired.Dir) {
-		c.Config.Logger.Infof("desired Dir %s - but actually nil", dcl.SprintResource(desired.Dir))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Dir, actual.Dir) && !dcl.IsZeroValue(desired.Dir) && !(dcl.IsEmptyValueIndirect(desired.Dir) && dcl.IsZeroValue(actual.Dir)) {
-		c.Config.Logger.Infof("Diff in Dir. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Dir), dcl.SprintResource(actual.Dir))
-		return true
-	}
-	if actual.InvertRegex == nil && desired.InvertRegex != nil && !dcl.IsEmptyValueIndirect(desired.InvertRegex) {
-		c.Config.Logger.Infof("desired InvertRegex %s - but actually nil", dcl.SprintResource(desired.InvertRegex))
-		return true
-	}
-	if !reflect.DeepEqual(desired.InvertRegex, actual.InvertRegex) && !dcl.IsZeroValue(desired.InvertRegex) && !(dcl.IsEmptyValueIndirect(desired.InvertRegex) && dcl.IsZeroValue(actual.InvertRegex)) {
-		c.Config.Logger.Infof("Diff in InvertRegex. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InvertRegex), dcl.SprintResource(actual.InvertRegex))
-		return true
-	}
-	return false
-}
-func compareBuildTriggerGithubSlice(c *Client, desired, actual []BuildTriggerGithub) bool {
+func compareBuildTriggerTriggerTemplateMap(c *Client, desired, actual map[string]BuildTriggerTriggerTemplate) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BuildTriggerGithub, lengths unequal.")
+		c.Config.Logger.Info("Diff in BuildTriggerTriggerTemplate, lengths unequal.")
 		return true
 	}
-	for i := 0; i < len(desired); i++ {
-		if compareBuildTriggerGithub(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BuildTriggerGithub, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in BuildTriggerTriggerTemplate, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareBuildTriggerTriggerTemplate(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in BuildTriggerTriggerTemplate, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1799,7 +1868,7 @@ func compareBuildTriggerGithub(c *Client, desired, actual *BuildTriggerGithub) b
 		c.Config.Logger.Infof("desired Owner %s - but actually nil", dcl.SprintResource(desired.Owner))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Owner, actual.Owner) && !dcl.IsZeroValue(desired.Owner) && !(dcl.IsEmptyValueIndirect(desired.Owner) && dcl.IsZeroValue(actual.Owner)) {
+	if !dcl.StringCanonicalize(desired.Owner, actual.Owner) && !dcl.IsZeroValue(desired.Owner) {
 		c.Config.Logger.Infof("Diff in Owner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Owner), dcl.SprintResource(actual.Owner))
 		return true
 	}
@@ -1807,7 +1876,7 @@ func compareBuildTriggerGithub(c *Client, desired, actual *BuildTriggerGithub) b
 		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
 		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
@@ -1829,14 +1898,34 @@ func compareBuildTriggerGithub(c *Client, desired, actual *BuildTriggerGithub) b
 	}
 	return false
 }
-func compareBuildTriggerGithubPullRequestSlice(c *Client, desired, actual []BuildTriggerGithubPullRequest) bool {
+
+func compareBuildTriggerGithubSlice(c *Client, desired, actual []BuildTriggerGithub) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BuildTriggerGithubPullRequest, lengths unequal.")
+		c.Config.Logger.Info("Diff in BuildTriggerGithub, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareBuildTriggerGithubPullRequest(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BuildTriggerGithubPullRequest, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareBuildTriggerGithub(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in BuildTriggerGithub, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareBuildTriggerGithubMap(c *Client, desired, actual map[string]BuildTriggerGithub) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in BuildTriggerGithub, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in BuildTriggerGithub, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareBuildTriggerGithub(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in BuildTriggerGithub, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1854,7 +1943,7 @@ func compareBuildTriggerGithubPullRequest(c *Client, desired, actual *BuildTrigg
 		c.Config.Logger.Infof("desired Branch %s - but actually nil", dcl.SprintResource(desired.Branch))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Branch, actual.Branch) && !dcl.IsZeroValue(desired.Branch) && !(dcl.IsEmptyValueIndirect(desired.Branch) && dcl.IsZeroValue(actual.Branch)) {
+	if !dcl.StringCanonicalize(desired.Branch, actual.Branch) && !dcl.IsZeroValue(desired.Branch) {
 		c.Config.Logger.Infof("Diff in Branch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Branch), dcl.SprintResource(actual.Branch))
 		return true
 	}
@@ -1862,7 +1951,7 @@ func compareBuildTriggerGithubPullRequest(c *Client, desired, actual *BuildTrigg
 		c.Config.Logger.Infof("desired CommentControl %s - but actually nil", dcl.SprintResource(desired.CommentControl))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CommentControl, actual.CommentControl) && !dcl.IsZeroValue(desired.CommentControl) && !(dcl.IsEmptyValueIndirect(desired.CommentControl) && dcl.IsZeroValue(actual.CommentControl)) {
+	if !reflect.DeepEqual(desired.CommentControl, actual.CommentControl) && !dcl.IsZeroValue(desired.CommentControl) {
 		c.Config.Logger.Infof("Diff in CommentControl. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CommentControl), dcl.SprintResource(actual.CommentControl))
 		return true
 	}
@@ -1870,20 +1959,40 @@ func compareBuildTriggerGithubPullRequest(c *Client, desired, actual *BuildTrigg
 		c.Config.Logger.Infof("desired InvertRegex %s - but actually nil", dcl.SprintResource(desired.InvertRegex))
 		return true
 	}
-	if !reflect.DeepEqual(desired.InvertRegex, actual.InvertRegex) && !dcl.IsZeroValue(desired.InvertRegex) && !(dcl.IsEmptyValueIndirect(desired.InvertRegex) && dcl.IsZeroValue(actual.InvertRegex)) {
+	if !reflect.DeepEqual(desired.InvertRegex, actual.InvertRegex) && !dcl.IsZeroValue(desired.InvertRegex) {
 		c.Config.Logger.Infof("Diff in InvertRegex. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InvertRegex), dcl.SprintResource(actual.InvertRegex))
 		return true
 	}
 	return false
 }
-func compareBuildTriggerGithubPushSlice(c *Client, desired, actual []BuildTriggerGithubPush) bool {
+
+func compareBuildTriggerGithubPullRequestSlice(c *Client, desired, actual []BuildTriggerGithubPullRequest) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BuildTriggerGithubPush, lengths unequal.")
+		c.Config.Logger.Info("Diff in BuildTriggerGithubPullRequest, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareBuildTriggerGithubPush(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BuildTriggerGithubPush, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareBuildTriggerGithubPullRequest(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in BuildTriggerGithubPullRequest, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareBuildTriggerGithubPullRequestMap(c *Client, desired, actual map[string]BuildTriggerGithubPullRequest) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in BuildTriggerGithubPullRequest, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in BuildTriggerGithubPullRequest, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareBuildTriggerGithubPullRequest(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in BuildTriggerGithubPullRequest, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1901,7 +2010,7 @@ func compareBuildTriggerGithubPush(c *Client, desired, actual *BuildTriggerGithu
 		c.Config.Logger.Infof("desired Branch %s - but actually nil", dcl.SprintResource(desired.Branch))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Branch, actual.Branch) && !dcl.IsZeroValue(desired.Branch) && !(dcl.IsEmptyValueIndirect(desired.Branch) && dcl.IsZeroValue(actual.Branch)) {
+	if !dcl.StringCanonicalize(desired.Branch, actual.Branch) && !dcl.IsZeroValue(desired.Branch) {
 		c.Config.Logger.Infof("Diff in Branch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Branch), dcl.SprintResource(actual.Branch))
 		return true
 	}
@@ -1909,7 +2018,7 @@ func compareBuildTriggerGithubPush(c *Client, desired, actual *BuildTriggerGithu
 		c.Config.Logger.Infof("desired Tag %s - but actually nil", dcl.SprintResource(desired.Tag))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Tag, actual.Tag) && !dcl.IsZeroValue(desired.Tag) && !(dcl.IsEmptyValueIndirect(desired.Tag) && dcl.IsZeroValue(actual.Tag)) {
+	if !dcl.StringCanonicalize(desired.Tag, actual.Tag) && !dcl.IsZeroValue(desired.Tag) {
 		c.Config.Logger.Infof("Diff in Tag. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Tag), dcl.SprintResource(actual.Tag))
 		return true
 	}
@@ -1917,20 +2026,40 @@ func compareBuildTriggerGithubPush(c *Client, desired, actual *BuildTriggerGithu
 		c.Config.Logger.Infof("desired InvertRegex %s - but actually nil", dcl.SprintResource(desired.InvertRegex))
 		return true
 	}
-	if !reflect.DeepEqual(desired.InvertRegex, actual.InvertRegex) && !dcl.IsZeroValue(desired.InvertRegex) && !(dcl.IsEmptyValueIndirect(desired.InvertRegex) && dcl.IsZeroValue(actual.InvertRegex)) {
+	if !reflect.DeepEqual(desired.InvertRegex, actual.InvertRegex) && !dcl.IsZeroValue(desired.InvertRegex) {
 		c.Config.Logger.Infof("Diff in InvertRegex. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InvertRegex), dcl.SprintResource(actual.InvertRegex))
 		return true
 	}
 	return false
 }
-func compareBuildTriggerBuildSlice(c *Client, desired, actual []BuildTriggerBuild) bool {
+
+func compareBuildTriggerGithubPushSlice(c *Client, desired, actual []BuildTriggerGithubPush) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BuildTriggerBuild, lengths unequal.")
+		c.Config.Logger.Info("Diff in BuildTriggerGithubPush, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareBuildTriggerBuild(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BuildTriggerBuild, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareBuildTriggerGithubPush(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in BuildTriggerGithubPush, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareBuildTriggerGithubPushMap(c *Client, desired, actual map[string]BuildTriggerGithubPush) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in BuildTriggerGithubPush, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in BuildTriggerGithubPush, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareBuildTriggerGithubPush(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in BuildTriggerGithubPush, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1948,7 +2077,7 @@ func compareBuildTriggerBuild(c *Client, desired, actual *BuildTriggerBuild) boo
 		c.Config.Logger.Infof("desired Tags %s - but actually nil", dcl.SprintResource(desired.Tags))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Tags, actual.Tags) && !dcl.IsZeroValue(desired.Tags) {
+	if !dcl.StringSliceEquals(desired.Tags, actual.Tags) && !dcl.IsZeroValue(desired.Tags) {
 		c.Config.Logger.Infof("Diff in Tags. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Tags), dcl.SprintResource(actual.Tags))
 		return true
 	}
@@ -1956,7 +2085,7 @@ func compareBuildTriggerBuild(c *Client, desired, actual *BuildTriggerBuild) boo
 		c.Config.Logger.Infof("desired Images %s - but actually nil", dcl.SprintResource(desired.Images))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Images, actual.Images) && !dcl.IsZeroValue(desired.Images) {
+	if !dcl.StringSliceEquals(desired.Images, actual.Images) && !dcl.IsZeroValue(desired.Images) {
 		c.Config.Logger.Infof("Diff in Images. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Images), dcl.SprintResource(actual.Images))
 		return true
 	}
@@ -1964,7 +2093,7 @@ func compareBuildTriggerBuild(c *Client, desired, actual *BuildTriggerBuild) boo
 		c.Config.Logger.Infof("desired Substitutions %s - but actually nil", dcl.SprintResource(desired.Substitutions))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Substitutions, actual.Substitutions) && !dcl.IsZeroValue(desired.Substitutions) {
+	if !dcl.MapEquals(desired.Substitutions, actual.Substitutions, []string(nil)) && !dcl.IsZeroValue(desired.Substitutions) {
 		c.Config.Logger.Infof("Diff in Substitutions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Substitutions), dcl.SprintResource(actual.Substitutions))
 		return true
 	}
@@ -1972,7 +2101,7 @@ func compareBuildTriggerBuild(c *Client, desired, actual *BuildTriggerBuild) boo
 		c.Config.Logger.Infof("desired QueueTtl %s - but actually nil", dcl.SprintResource(desired.QueueTtl))
 		return true
 	}
-	if !reflect.DeepEqual(desired.QueueTtl, actual.QueueTtl) && !dcl.IsZeroValue(desired.QueueTtl) && !(dcl.IsEmptyValueIndirect(desired.QueueTtl) && dcl.IsZeroValue(actual.QueueTtl)) {
+	if !dcl.StringCanonicalize(desired.QueueTtl, actual.QueueTtl) && !dcl.IsZeroValue(desired.QueueTtl) {
 		c.Config.Logger.Infof("Diff in QueueTtl. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueueTtl), dcl.SprintResource(actual.QueueTtl))
 		return true
 	}
@@ -1980,7 +2109,7 @@ func compareBuildTriggerBuild(c *Client, desired, actual *BuildTriggerBuild) boo
 		c.Config.Logger.Infof("desired LogsBucket %s - but actually nil", dcl.SprintResource(desired.LogsBucket))
 		return true
 	}
-	if !reflect.DeepEqual(desired.LogsBucket, actual.LogsBucket) && !dcl.IsZeroValue(desired.LogsBucket) && !(dcl.IsEmptyValueIndirect(desired.LogsBucket) && dcl.IsZeroValue(actual.LogsBucket)) {
+	if !dcl.StringCanonicalize(desired.LogsBucket, actual.LogsBucket) && !dcl.IsZeroValue(desired.LogsBucket) {
 		c.Config.Logger.Infof("Diff in LogsBucket. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogsBucket), dcl.SprintResource(actual.LogsBucket))
 		return true
 	}
@@ -1988,7 +2117,7 @@ func compareBuildTriggerBuild(c *Client, desired, actual *BuildTriggerBuild) boo
 		c.Config.Logger.Infof("desired Timeout %s - but actually nil", dcl.SprintResource(desired.Timeout))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Timeout, actual.Timeout) && !dcl.IsZeroValue(desired.Timeout) && !(dcl.IsEmptyValueIndirect(desired.Timeout) && dcl.IsZeroValue(actual.Timeout)) {
+	if !dcl.StringCanonicalize(desired.Timeout, actual.Timeout) && !dcl.IsZeroValue(desired.Timeout) {
 		c.Config.Logger.Infof("Diff in Timeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Timeout), dcl.SprintResource(actual.Timeout))
 		return true
 	}
@@ -2018,14 +2147,34 @@ func compareBuildTriggerBuild(c *Client, desired, actual *BuildTriggerBuild) boo
 	}
 	return false
 }
-func compareBuildTriggerBuildSecretsSlice(c *Client, desired, actual []BuildTriggerBuildSecrets) bool {
+
+func compareBuildTriggerBuildSlice(c *Client, desired, actual []BuildTriggerBuild) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BuildTriggerBuildSecrets, lengths unequal.")
+		c.Config.Logger.Info("Diff in BuildTriggerBuild, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareBuildTriggerBuildSecrets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BuildTriggerBuildSecrets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareBuildTriggerBuild(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuild, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareBuildTriggerBuildMap(c *Client, desired, actual map[string]BuildTriggerBuild) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in BuildTriggerBuild, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuild, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareBuildTriggerBuild(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuild, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2043,7 +2192,7 @@ func compareBuildTriggerBuildSecrets(c *Client, desired, actual *BuildTriggerBui
 		c.Config.Logger.Infof("desired KmsKeyName %s - but actually nil", dcl.SprintResource(desired.KmsKeyName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.KmsKeyName, actual.KmsKeyName) && !dcl.IsZeroValue(desired.KmsKeyName) && !(dcl.IsEmptyValueIndirect(desired.KmsKeyName) && dcl.IsZeroValue(actual.KmsKeyName)) {
+	if !dcl.StringCanonicalize(desired.KmsKeyName, actual.KmsKeyName) && !dcl.IsZeroValue(desired.KmsKeyName) {
 		c.Config.Logger.Infof("Diff in KmsKeyName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyName), dcl.SprintResource(actual.KmsKeyName))
 		return true
 	}
@@ -2051,20 +2200,40 @@ func compareBuildTriggerBuildSecrets(c *Client, desired, actual *BuildTriggerBui
 		c.Config.Logger.Infof("desired SecretEnv %s - but actually nil", dcl.SprintResource(desired.SecretEnv))
 		return true
 	}
-	if !reflect.DeepEqual(desired.SecretEnv, actual.SecretEnv) && !dcl.IsZeroValue(desired.SecretEnv) {
+	if !dcl.MapEquals(desired.SecretEnv, actual.SecretEnv, []string(nil)) && !dcl.IsZeroValue(desired.SecretEnv) {
 		c.Config.Logger.Infof("Diff in SecretEnv. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecretEnv), dcl.SprintResource(actual.SecretEnv))
 		return true
 	}
 	return false
 }
-func compareBuildTriggerBuildStepsSlice(c *Client, desired, actual []BuildTriggerBuildSteps) bool {
+
+func compareBuildTriggerBuildSecretsSlice(c *Client, desired, actual []BuildTriggerBuildSecrets) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BuildTriggerBuildSteps, lengths unequal.")
+		c.Config.Logger.Info("Diff in BuildTriggerBuildSecrets, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareBuildTriggerBuildSteps(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BuildTriggerBuildSteps, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareBuildTriggerBuildSecrets(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildSecrets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareBuildTriggerBuildSecretsMap(c *Client, desired, actual map[string]BuildTriggerBuildSecrets) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in BuildTriggerBuildSecrets, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildSecrets, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareBuildTriggerBuildSecrets(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildSecrets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2082,7 +2251,7 @@ func compareBuildTriggerBuildSteps(c *Client, desired, actual *BuildTriggerBuild
 		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
 		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
@@ -2090,7 +2259,7 @@ func compareBuildTriggerBuildSteps(c *Client, desired, actual *BuildTriggerBuild
 		c.Config.Logger.Infof("desired Env %s - but actually nil", dcl.SprintResource(desired.Env))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Env, actual.Env) && !dcl.IsZeroValue(desired.Env) {
+	if !dcl.StringSliceEquals(desired.Env, actual.Env) && !dcl.IsZeroValue(desired.Env) {
 		c.Config.Logger.Infof("Diff in Env. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Env), dcl.SprintResource(actual.Env))
 		return true
 	}
@@ -2098,7 +2267,7 @@ func compareBuildTriggerBuildSteps(c *Client, desired, actual *BuildTriggerBuild
 		c.Config.Logger.Infof("desired Args %s - but actually nil", dcl.SprintResource(desired.Args))
 		return true
 	}
-	if !dcl.SliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
+	if !dcl.StringSliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
 		c.Config.Logger.Infof("Diff in Args. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
 		return true
 	}
@@ -2106,7 +2275,7 @@ func compareBuildTriggerBuildSteps(c *Client, desired, actual *BuildTriggerBuild
 		c.Config.Logger.Infof("desired Dir %s - but actually nil", dcl.SprintResource(desired.Dir))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Dir, actual.Dir) && !dcl.IsZeroValue(desired.Dir) && !(dcl.IsEmptyValueIndirect(desired.Dir) && dcl.IsZeroValue(actual.Dir)) {
+	if !dcl.StringCanonicalize(desired.Dir, actual.Dir) && !dcl.IsZeroValue(desired.Dir) {
 		c.Config.Logger.Infof("Diff in Dir. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Dir), dcl.SprintResource(actual.Dir))
 		return true
 	}
@@ -2114,7 +2283,7 @@ func compareBuildTriggerBuildSteps(c *Client, desired, actual *BuildTriggerBuild
 		c.Config.Logger.Infof("desired Id %s - but actually nil", dcl.SprintResource(desired.Id))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Id, actual.Id) && !dcl.IsZeroValue(desired.Id) && !(dcl.IsEmptyValueIndirect(desired.Id) && dcl.IsZeroValue(actual.Id)) {
+	if !dcl.StringCanonicalize(desired.Id, actual.Id) && !dcl.IsZeroValue(desired.Id) {
 		c.Config.Logger.Infof("Diff in Id. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Id), dcl.SprintResource(actual.Id))
 		return true
 	}
@@ -2122,7 +2291,7 @@ func compareBuildTriggerBuildSteps(c *Client, desired, actual *BuildTriggerBuild
 		c.Config.Logger.Infof("desired WaitFor %s - but actually nil", dcl.SprintResource(desired.WaitFor))
 		return true
 	}
-	if !dcl.SliceEquals(desired.WaitFor, actual.WaitFor) && !dcl.IsZeroValue(desired.WaitFor) {
+	if !dcl.StringSliceEquals(desired.WaitFor, actual.WaitFor) && !dcl.IsZeroValue(desired.WaitFor) {
 		c.Config.Logger.Infof("Diff in WaitFor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.WaitFor), dcl.SprintResource(actual.WaitFor))
 		return true
 	}
@@ -2130,7 +2299,7 @@ func compareBuildTriggerBuildSteps(c *Client, desired, actual *BuildTriggerBuild
 		c.Config.Logger.Infof("desired Entrypoint %s - but actually nil", dcl.SprintResource(desired.Entrypoint))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Entrypoint, actual.Entrypoint) && !dcl.IsZeroValue(desired.Entrypoint) && !(dcl.IsEmptyValueIndirect(desired.Entrypoint) && dcl.IsZeroValue(actual.Entrypoint)) {
+	if !dcl.StringCanonicalize(desired.Entrypoint, actual.Entrypoint) && !dcl.IsZeroValue(desired.Entrypoint) {
 		c.Config.Logger.Infof("Diff in Entrypoint. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Entrypoint), dcl.SprintResource(actual.Entrypoint))
 		return true
 	}
@@ -2138,7 +2307,7 @@ func compareBuildTriggerBuildSteps(c *Client, desired, actual *BuildTriggerBuild
 		c.Config.Logger.Infof("desired SecretEnv %s - but actually nil", dcl.SprintResource(desired.SecretEnv))
 		return true
 	}
-	if !dcl.SliceEquals(desired.SecretEnv, actual.SecretEnv) && !dcl.IsZeroValue(desired.SecretEnv) {
+	if !dcl.StringSliceEquals(desired.SecretEnv, actual.SecretEnv) && !dcl.IsZeroValue(desired.SecretEnv) {
 		c.Config.Logger.Infof("Diff in SecretEnv. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecretEnv), dcl.SprintResource(actual.SecretEnv))
 		return true
 	}
@@ -2154,20 +2323,40 @@ func compareBuildTriggerBuildSteps(c *Client, desired, actual *BuildTriggerBuild
 		c.Config.Logger.Infof("desired Timeout %s - but actually nil", dcl.SprintResource(desired.Timeout))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Timeout, actual.Timeout) && !dcl.IsZeroValue(desired.Timeout) && !(dcl.IsEmptyValueIndirect(desired.Timeout) && dcl.IsZeroValue(actual.Timeout)) {
+	if !dcl.StringCanonicalize(desired.Timeout, actual.Timeout) && !dcl.IsZeroValue(desired.Timeout) {
 		c.Config.Logger.Infof("Diff in Timeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Timeout), dcl.SprintResource(actual.Timeout))
 		return true
 	}
 	return false
 }
-func compareBuildTriggerBuildStepsVolumesSlice(c *Client, desired, actual []BuildTriggerBuildStepsVolumes) bool {
+
+func compareBuildTriggerBuildStepsSlice(c *Client, desired, actual []BuildTriggerBuildSteps) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BuildTriggerBuildStepsVolumes, lengths unequal.")
+		c.Config.Logger.Info("Diff in BuildTriggerBuildSteps, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareBuildTriggerBuildStepsVolumes(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BuildTriggerBuildStepsVolumes, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareBuildTriggerBuildSteps(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildSteps, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareBuildTriggerBuildStepsMap(c *Client, desired, actual map[string]BuildTriggerBuildSteps) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in BuildTriggerBuildSteps, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildSteps, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareBuildTriggerBuildSteps(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildSteps, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2185,7 +2374,7 @@ func compareBuildTriggerBuildStepsVolumes(c *Client, desired, actual *BuildTrigg
 		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) && !(dcl.IsEmptyValueIndirect(desired.Name) && dcl.IsZeroValue(actual.Name)) {
+	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
 		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
@@ -2193,20 +2382,40 @@ func compareBuildTriggerBuildStepsVolumes(c *Client, desired, actual *BuildTrigg
 		c.Config.Logger.Infof("desired Path %s - but actually nil", dcl.SprintResource(desired.Path))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) && !(dcl.IsEmptyValueIndirect(desired.Path) && dcl.IsZeroValue(actual.Path)) {
+	if !dcl.StringCanonicalize(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) {
 		c.Config.Logger.Infof("Diff in Path. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
 		return true
 	}
 	return false
 }
-func compareBuildTriggerBuildStepsTimingSlice(c *Client, desired, actual []BuildTriggerBuildStepsTiming) bool {
+
+func compareBuildTriggerBuildStepsVolumesSlice(c *Client, desired, actual []BuildTriggerBuildStepsVolumes) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BuildTriggerBuildStepsTiming, lengths unequal.")
+		c.Config.Logger.Info("Diff in BuildTriggerBuildStepsVolumes, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareBuildTriggerBuildStepsTiming(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BuildTriggerBuildStepsTiming, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareBuildTriggerBuildStepsVolumes(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildStepsVolumes, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareBuildTriggerBuildStepsVolumesMap(c *Client, desired, actual map[string]BuildTriggerBuildStepsVolumes) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in BuildTriggerBuildStepsVolumes, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildStepsVolumes, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareBuildTriggerBuildStepsVolumes(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildStepsVolumes, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2224,7 +2433,7 @@ func compareBuildTriggerBuildStepsTiming(c *Client, desired, actual *BuildTrigge
 		c.Config.Logger.Infof("desired StartTime %s - but actually nil", dcl.SprintResource(desired.StartTime))
 		return true
 	}
-	if !reflect.DeepEqual(desired.StartTime, actual.StartTime) && !dcl.IsZeroValue(desired.StartTime) && !(dcl.IsEmptyValueIndirect(desired.StartTime) && dcl.IsZeroValue(actual.StartTime)) {
+	if !dcl.StringCanonicalize(desired.StartTime, actual.StartTime) && !dcl.IsZeroValue(desired.StartTime) {
 		c.Config.Logger.Infof("Diff in StartTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StartTime), dcl.SprintResource(actual.StartTime))
 		return true
 	}
@@ -2232,20 +2441,40 @@ func compareBuildTriggerBuildStepsTiming(c *Client, desired, actual *BuildTrigge
 		c.Config.Logger.Infof("desired EndTime %s - but actually nil", dcl.SprintResource(desired.EndTime))
 		return true
 	}
-	if !reflect.DeepEqual(desired.EndTime, actual.EndTime) && !dcl.IsZeroValue(desired.EndTime) && !(dcl.IsEmptyValueIndirect(desired.EndTime) && dcl.IsZeroValue(actual.EndTime)) {
+	if !dcl.StringCanonicalize(desired.EndTime, actual.EndTime) && !dcl.IsZeroValue(desired.EndTime) {
 		c.Config.Logger.Infof("Diff in EndTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EndTime), dcl.SprintResource(actual.EndTime))
 		return true
 	}
 	return false
 }
-func compareBuildTriggerBuildStepsPullTimingSlice(c *Client, desired, actual []BuildTriggerBuildStepsPullTiming) bool {
+
+func compareBuildTriggerBuildStepsTimingSlice(c *Client, desired, actual []BuildTriggerBuildStepsTiming) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BuildTriggerBuildStepsPullTiming, lengths unequal.")
+		c.Config.Logger.Info("Diff in BuildTriggerBuildStepsTiming, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareBuildTriggerBuildStepsPullTiming(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BuildTriggerBuildStepsPullTiming, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareBuildTriggerBuildStepsTiming(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildStepsTiming, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareBuildTriggerBuildStepsTimingMap(c *Client, desired, actual map[string]BuildTriggerBuildStepsTiming) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in BuildTriggerBuildStepsTiming, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildStepsTiming, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareBuildTriggerBuildStepsTiming(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildStepsTiming, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2263,7 +2492,7 @@ func compareBuildTriggerBuildStepsPullTiming(c *Client, desired, actual *BuildTr
 		c.Config.Logger.Infof("desired StartTime %s - but actually nil", dcl.SprintResource(desired.StartTime))
 		return true
 	}
-	if !reflect.DeepEqual(desired.StartTime, actual.StartTime) && !dcl.IsZeroValue(desired.StartTime) && !(dcl.IsEmptyValueIndirect(desired.StartTime) && dcl.IsZeroValue(actual.StartTime)) {
+	if !dcl.StringCanonicalize(desired.StartTime, actual.StartTime) && !dcl.IsZeroValue(desired.StartTime) {
 		c.Config.Logger.Infof("Diff in StartTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StartTime), dcl.SprintResource(actual.StartTime))
 		return true
 	}
@@ -2271,20 +2500,40 @@ func compareBuildTriggerBuildStepsPullTiming(c *Client, desired, actual *BuildTr
 		c.Config.Logger.Infof("desired EndTime %s - but actually nil", dcl.SprintResource(desired.EndTime))
 		return true
 	}
-	if !reflect.DeepEqual(desired.EndTime, actual.EndTime) && !dcl.IsZeroValue(desired.EndTime) && !(dcl.IsEmptyValueIndirect(desired.EndTime) && dcl.IsZeroValue(actual.EndTime)) {
+	if !dcl.StringCanonicalize(desired.EndTime, actual.EndTime) && !dcl.IsZeroValue(desired.EndTime) {
 		c.Config.Logger.Infof("Diff in EndTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EndTime), dcl.SprintResource(actual.EndTime))
 		return true
 	}
 	return false
 }
-func compareBuildTriggerBuildSourceSlice(c *Client, desired, actual []BuildTriggerBuildSource) bool {
+
+func compareBuildTriggerBuildStepsPullTimingSlice(c *Client, desired, actual []BuildTriggerBuildStepsPullTiming) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BuildTriggerBuildSource, lengths unequal.")
+		c.Config.Logger.Info("Diff in BuildTriggerBuildStepsPullTiming, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareBuildTriggerBuildSource(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BuildTriggerBuildSource, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareBuildTriggerBuildStepsPullTiming(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildStepsPullTiming, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareBuildTriggerBuildStepsPullTimingMap(c *Client, desired, actual map[string]BuildTriggerBuildStepsPullTiming) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in BuildTriggerBuildStepsPullTiming, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildStepsPullTiming, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareBuildTriggerBuildStepsPullTiming(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildStepsPullTiming, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2316,14 +2565,34 @@ func compareBuildTriggerBuildSource(c *Client, desired, actual *BuildTriggerBuil
 	}
 	return false
 }
-func compareBuildTriggerBuildSourceStorageSourceSlice(c *Client, desired, actual []BuildTriggerBuildSourceStorageSource) bool {
+
+func compareBuildTriggerBuildSourceSlice(c *Client, desired, actual []BuildTriggerBuildSource) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BuildTriggerBuildSourceStorageSource, lengths unequal.")
+		c.Config.Logger.Info("Diff in BuildTriggerBuildSource, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareBuildTriggerBuildSourceStorageSource(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BuildTriggerBuildSourceStorageSource, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareBuildTriggerBuildSource(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildSource, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareBuildTriggerBuildSourceMap(c *Client, desired, actual map[string]BuildTriggerBuildSource) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in BuildTriggerBuildSource, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildSource, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareBuildTriggerBuildSource(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildSource, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2341,7 +2610,7 @@ func compareBuildTriggerBuildSourceStorageSource(c *Client, desired, actual *Bui
 		c.Config.Logger.Infof("desired Bucket %s - but actually nil", dcl.SprintResource(desired.Bucket))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Bucket, actual.Bucket) && !dcl.IsZeroValue(desired.Bucket) && !(dcl.IsEmptyValueIndirect(desired.Bucket) && dcl.IsZeroValue(actual.Bucket)) {
+	if !dcl.StringCanonicalize(desired.Bucket, actual.Bucket) && !dcl.IsZeroValue(desired.Bucket) {
 		c.Config.Logger.Infof("Diff in Bucket. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bucket), dcl.SprintResource(actual.Bucket))
 		return true
 	}
@@ -2349,7 +2618,7 @@ func compareBuildTriggerBuildSourceStorageSource(c *Client, desired, actual *Bui
 		c.Config.Logger.Infof("desired Object %s - but actually nil", dcl.SprintResource(desired.Object))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Object, actual.Object) && !dcl.IsZeroValue(desired.Object) && !(dcl.IsEmptyValueIndirect(desired.Object) && dcl.IsZeroValue(actual.Object)) {
+	if !dcl.StringCanonicalize(desired.Object, actual.Object) && !dcl.IsZeroValue(desired.Object) {
 		c.Config.Logger.Infof("Diff in Object. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Object), dcl.SprintResource(actual.Object))
 		return true
 	}
@@ -2357,20 +2626,40 @@ func compareBuildTriggerBuildSourceStorageSource(c *Client, desired, actual *Bui
 		c.Config.Logger.Infof("desired Generation %s - but actually nil", dcl.SprintResource(desired.Generation))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Generation, actual.Generation) && !dcl.IsZeroValue(desired.Generation) && !(dcl.IsEmptyValueIndirect(desired.Generation) && dcl.IsZeroValue(actual.Generation)) {
+	if !dcl.StringCanonicalize(desired.Generation, actual.Generation) && !dcl.IsZeroValue(desired.Generation) {
 		c.Config.Logger.Infof("Diff in Generation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Generation), dcl.SprintResource(actual.Generation))
 		return true
 	}
 	return false
 }
-func compareBuildTriggerBuildSourceRepoSourceSlice(c *Client, desired, actual []BuildTriggerBuildSourceRepoSource) bool {
+
+func compareBuildTriggerBuildSourceStorageSourceSlice(c *Client, desired, actual []BuildTriggerBuildSourceStorageSource) bool {
 	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BuildTriggerBuildSourceRepoSource, lengths unequal.")
+		c.Config.Logger.Info("Diff in BuildTriggerBuildSourceStorageSource, lengths unequal.")
 		return true
 	}
 	for i := 0; i < len(desired); i++ {
-		if compareBuildTriggerBuildSourceRepoSource(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BuildTriggerBuildSourceRepoSource, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+		if compareBuildTriggerBuildSourceStorageSource(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildSourceStorageSource, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareBuildTriggerBuildSourceStorageSourceMap(c *Client, desired, actual map[string]BuildTriggerBuildSourceStorageSource) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in BuildTriggerBuildSourceStorageSource, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildSourceStorageSource, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareBuildTriggerBuildSourceStorageSource(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildSourceStorageSource, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2388,7 +2677,7 @@ func compareBuildTriggerBuildSourceRepoSource(c *Client, desired, actual *BuildT
 		c.Config.Logger.Infof("desired ProjectId %s - but actually nil", dcl.SprintResource(desired.ProjectId))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ProjectId, actual.ProjectId) && !dcl.IsZeroValue(desired.ProjectId) && !(dcl.IsEmptyValueIndirect(desired.ProjectId) && dcl.IsZeroValue(actual.ProjectId)) {
+	if !dcl.StringCanonicalize(desired.ProjectId, actual.ProjectId) && !dcl.IsZeroValue(desired.ProjectId) {
 		c.Config.Logger.Infof("Diff in ProjectId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProjectId), dcl.SprintResource(actual.ProjectId))
 		return true
 	}
@@ -2396,7 +2685,7 @@ func compareBuildTriggerBuildSourceRepoSource(c *Client, desired, actual *BuildT
 		c.Config.Logger.Infof("desired RepoName %s - but actually nil", dcl.SprintResource(desired.RepoName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RepoName, actual.RepoName) && !dcl.IsZeroValue(desired.RepoName) && !(dcl.IsEmptyValueIndirect(desired.RepoName) && dcl.IsZeroValue(actual.RepoName)) {
+	if !dcl.StringCanonicalize(desired.RepoName, actual.RepoName) && !dcl.IsZeroValue(desired.RepoName) {
 		c.Config.Logger.Infof("Diff in RepoName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RepoName), dcl.SprintResource(actual.RepoName))
 		return true
 	}
@@ -2404,7 +2693,7 @@ func compareBuildTriggerBuildSourceRepoSource(c *Client, desired, actual *BuildT
 		c.Config.Logger.Infof("desired BranchName %s - but actually nil", dcl.SprintResource(desired.BranchName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.BranchName, actual.BranchName) && !dcl.IsZeroValue(desired.BranchName) && !(dcl.IsEmptyValueIndirect(desired.BranchName) && dcl.IsZeroValue(actual.BranchName)) {
+	if !dcl.StringCanonicalize(desired.BranchName, actual.BranchName) && !dcl.IsZeroValue(desired.BranchName) {
 		c.Config.Logger.Infof("Diff in BranchName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BranchName), dcl.SprintResource(actual.BranchName))
 		return true
 	}
@@ -2412,7 +2701,7 @@ func compareBuildTriggerBuildSourceRepoSource(c *Client, desired, actual *BuildT
 		c.Config.Logger.Infof("desired TagName %s - but actually nil", dcl.SprintResource(desired.TagName))
 		return true
 	}
-	if !reflect.DeepEqual(desired.TagName, actual.TagName) && !dcl.IsZeroValue(desired.TagName) && !(dcl.IsEmptyValueIndirect(desired.TagName) && dcl.IsZeroValue(actual.TagName)) {
+	if !dcl.StringCanonicalize(desired.TagName, actual.TagName) && !dcl.IsZeroValue(desired.TagName) {
 		c.Config.Logger.Infof("Diff in TagName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TagName), dcl.SprintResource(actual.TagName))
 		return true
 	}
@@ -2420,7 +2709,7 @@ func compareBuildTriggerBuildSourceRepoSource(c *Client, desired, actual *BuildT
 		c.Config.Logger.Infof("desired CommitSha %s - but actually nil", dcl.SprintResource(desired.CommitSha))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CommitSha, actual.CommitSha) && !dcl.IsZeroValue(desired.CommitSha) && !(dcl.IsEmptyValueIndirect(desired.CommitSha) && dcl.IsZeroValue(actual.CommitSha)) {
+	if !dcl.StringCanonicalize(desired.CommitSha, actual.CommitSha) && !dcl.IsZeroValue(desired.CommitSha) {
 		c.Config.Logger.Infof("Diff in CommitSha. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CommitSha), dcl.SprintResource(actual.CommitSha))
 		return true
 	}
@@ -2428,7 +2717,7 @@ func compareBuildTriggerBuildSourceRepoSource(c *Client, desired, actual *BuildT
 		c.Config.Logger.Infof("desired Dir %s - but actually nil", dcl.SprintResource(desired.Dir))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Dir, actual.Dir) && !dcl.IsZeroValue(desired.Dir) && !(dcl.IsEmptyValueIndirect(desired.Dir) && dcl.IsZeroValue(actual.Dir)) {
+	if !dcl.StringCanonicalize(desired.Dir, actual.Dir) && !dcl.IsZeroValue(desired.Dir) {
 		c.Config.Logger.Infof("Diff in Dir. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Dir), dcl.SprintResource(actual.Dir))
 		return true
 	}
@@ -2436,7 +2725,7 @@ func compareBuildTriggerBuildSourceRepoSource(c *Client, desired, actual *BuildT
 		c.Config.Logger.Infof("desired InvertRegex %s - but actually nil", dcl.SprintResource(desired.InvertRegex))
 		return true
 	}
-	if !reflect.DeepEqual(desired.InvertRegex, actual.InvertRegex) && !dcl.IsZeroValue(desired.InvertRegex) && !(dcl.IsEmptyValueIndirect(desired.InvertRegex) && dcl.IsZeroValue(actual.InvertRegex)) {
+	if !reflect.DeepEqual(desired.InvertRegex, actual.InvertRegex) && !dcl.IsZeroValue(desired.InvertRegex) {
 		c.Config.Logger.Infof("Diff in InvertRegex. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InvertRegex), dcl.SprintResource(actual.InvertRegex))
 		return true
 	}
@@ -2444,12 +2733,46 @@ func compareBuildTriggerBuildSourceRepoSource(c *Client, desired, actual *BuildT
 		c.Config.Logger.Infof("desired Substitutions %s - but actually nil", dcl.SprintResource(desired.Substitutions))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Substitutions, actual.Substitutions) && !dcl.IsZeroValue(desired.Substitutions) {
+	if !dcl.MapEquals(desired.Substitutions, actual.Substitutions, []string(nil)) && !dcl.IsZeroValue(desired.Substitutions) {
 		c.Config.Logger.Infof("Diff in Substitutions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Substitutions), dcl.SprintResource(actual.Substitutions))
 		return true
 	}
 	return false
 }
+
+func compareBuildTriggerBuildSourceRepoSourceSlice(c *Client, desired, actual []BuildTriggerBuildSourceRepoSource) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in BuildTriggerBuildSourceRepoSource, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareBuildTriggerBuildSourceRepoSource(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildSourceRepoSource, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareBuildTriggerBuildSourceRepoSourceMap(c *Client, desired, actual map[string]BuildTriggerBuildSourceRepoSource) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in BuildTriggerBuildSourceRepoSource, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildSourceRepoSource, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareBuildTriggerBuildSourceRepoSource(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in BuildTriggerBuildSourceRepoSource, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
 func compareBuildTriggerGithubPullRequestCommentControlEnumSlice(c *Client, desired, actual []BuildTriggerGithubPullRequestCommentControlEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in BuildTriggerGithubPullRequestCommentControlEnum, lengths unequal.")
@@ -2491,7 +2814,12 @@ func compareBuildTriggerBuildStepsStatusEnum(c *Client, desired, actual *BuildTr
 // short-form so they can be substituted in.
 func (r *BuildTrigger) urlNormalized() *BuildTrigger {
 	normalized := deepcopy.Copy(*r).(BuildTrigger)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Filename = dcl.SelfLinkToName(r.Filename)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Id = dcl.SelfLinkToName(r.Id)
+	normalized.CreateTime = dcl.SelfLinkToName(r.CreateTime)
 	return &normalized
 }
 
@@ -2541,6 +2869,10 @@ func unmarshalBuildTrigger(b []byte, c *Client) (*BuildTrigger, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapBuildTrigger(m, c)
+}
+
+func unmarshalMapBuildTrigger(m map[string]interface{}, c *Client) (*BuildTrigger, error) {
 
 	return flattenBuildTrigger(c, m), nil
 }
@@ -4296,7 +4628,7 @@ func flattenBuildTriggerGithubPullRequestCommentControlEnumSlice(c *Client, i in
 
 	items := make([]BuildTriggerGithubPullRequestCommentControlEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBuildTriggerGithubPullRequestCommentControlEnum(item.(map[string]interface{})))
+		items = append(items, *flattenBuildTriggerGithubPullRequestCommentControlEnum(item.(interface{})))
 	}
 
 	return items
@@ -4327,7 +4659,7 @@ func flattenBuildTriggerBuildStepsStatusEnumSlice(c *Client, i interface{}) []Bu
 
 	items := make([]BuildTriggerBuildStepsStatusEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenBuildTriggerBuildStepsStatusEnum(item.(map[string]interface{})))
+		items = append(items, *flattenBuildTriggerBuildStepsStatusEnum(item.(interface{})))
 	}
 
 	return items

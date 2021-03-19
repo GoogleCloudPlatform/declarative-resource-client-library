@@ -1,0 +1,38 @@
+{
+  "project": "{{ref:basic.instance_template.json:project}}",
+  "name": "{{ref:basic.instance_template.json:name}}",
+  "properties": {
+    "machineType": "e2-standard-2",
+    "networkInterfaces": [
+      {
+        "network": "global/networks/default",
+        "accessConfigs": [
+          {
+            "type": "ONE_TO_ONE_NAT",
+            "name": "External NAT"
+          }
+        ]
+      }
+    ],
+    "disks": [
+      {
+        "type": "PERSISTENT",
+        "autoDelete": true,
+        "boot": true,
+        "initializeParams": {
+          "sourceImage": "projects/debian-cloud/global/images/family/debian-9"
+        }
+      }
+    ],
+    "labels": {
+      "foo": "bar"
+    },
+    "metadata": {
+      "baz": "qux"
+    },
+    "tags": [
+      "bar",
+      "foo"
+    ]
+  }
+}

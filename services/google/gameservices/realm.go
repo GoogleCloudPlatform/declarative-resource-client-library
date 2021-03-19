@@ -65,6 +65,9 @@ func (l *RealmList) HasNext() bool {
 }
 
 func (l *RealmList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -78,12 +81,17 @@ func (l *RealmList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListRealm(ctx context.Context, project, location string) (*RealmList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListRealmWithMaxResults(ctx, project, location, RealmMaxPage)
 
 }
 
 func (c *Client) ListRealmWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*RealmList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listRealm(ctx, project, location, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -100,6 +108,9 @@ func (c *Client) ListRealmWithMaxResults(ctx context.Context, project, location 
 }
 
 func (c *Client) GetRealm(ctx context.Context, r *Realm) (*Realm, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getRealmRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -130,6 +141,9 @@ func (c *Client) GetRealm(ctx context.Context, r *Realm) (*Realm, error) {
 }
 
 func (c *Client) DeleteRealm(ctx context.Context, r *Realm) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Realm resource is nil")
 	}
@@ -140,6 +154,9 @@ func (c *Client) DeleteRealm(ctx context.Context, r *Realm) error {
 
 // DeleteAllRealm deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllRealm(ctx context.Context, project, location string, filter func(*Realm) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListRealm(ctx, project, location)
 	if err != nil {
 		return err
@@ -165,6 +182,9 @@ func (c *Client) DeleteAllRealm(ctx context.Context, project, location string, f
 func (c *Client) ApplyRealm(ctx context.Context, rawDesired *Realm, opts ...dcl.ApplyOption) (*Realm, error) {
 	c.Config.Logger.Info("Beginning ApplyRealm...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -245,12 +265,35 @@ func (c *Client) ApplyRealm(ctx context.Context, rawDesired *Realm, opts ...dcl.
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createRealmOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapRealm(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeRealmNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeRealmNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

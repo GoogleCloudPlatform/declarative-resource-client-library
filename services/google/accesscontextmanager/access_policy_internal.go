@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 
 	"github.com/mohae/deepcopy"
@@ -39,14 +38,14 @@ func accessPolicyGetURL(userBasePath string, r *AccessPolicy) (string, error) {
 	params := map[string]interface{}{
 		"parent": dcl.ValueOrEmptyString(r.Parent),
 	}
-	return dcl.URL("accessPolicies?parent={{parent}}", "https://accesscontextmanager.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("accessPolicies?parent=organizations/{{parent}}", "https://accesscontextmanager.googleapis.com/v1/", userBasePath, params), nil
 }
 
 func accessPolicyListURL(userBasePath, parent string) (string, error) {
 	params := map[string]interface{}{
 		"parent": parent,
 	}
-	return dcl.URL("accessPolicies?parent={{parent}}", "https://accesscontextmanager.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("accessPolicies?parent=organizations/{{parent}}", "https://accesscontextmanager.googleapis.com/v1/", userBasePath, params), nil
 
 }
 
@@ -123,7 +122,7 @@ func (op *updateAccessPolicyUpdateOperation) do(ctx context.Context, r *AccessPo
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -160,7 +159,7 @@ func (c *Client) listAccessPolicyRaw(ctx context.Context, parent, pageToken stri
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -234,7 +233,7 @@ func (op *deleteAccessPolicyOperation) do(ctx context.Context, r *AccessPolicy, 
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -257,7 +256,13 @@ func (op *deleteAccessPolicyOperation) do(ctx context.Context, r *AccessPolicy, 
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createAccessPolicyOperation struct{}
+type createAccessPolicyOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createAccessPolicyOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createAccessPolicyOperation) do(ctx context.Context, r *AccessPolicy, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -272,7 +277,7 @@ func (op *createAccessPolicyOperation) do(ctx context.Context, r *AccessPolicy, 
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -286,8 +291,17 @@ func (op *createAccessPolicyOperation) do(ctx context.Context, r *AccessPolicy, 
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
+
+	// Include Name in URL substitution for initial GET request.
+	name, ok := op.response["name"].(string)
+	if !ok {
+		return fmt.Errorf("expected name to be a string")
+	}
+	r.Name = &name
 
 	if _, err := c.GetAccessPolicy(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -300,7 +314,7 @@ func (c *Client) getAccessPolicyRaw(ctx context.Context, r *AccessPolicy) ([]byt
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -391,27 +405,19 @@ func canonicalizeAccessPolicyInitialState(rawInitial, rawDesired *AccessPolicy) 
 
 func canonicalizeAccessPolicyDesiredState(rawDesired, rawInitial *AccessPolicy, opts ...dcl.ApplyOption) (*AccessPolicy, error) {
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*AccessPolicy); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected AccessPolicy, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
 
 		return rawDesired, nil
 	}
-	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
+	if dcl.IsZeroValue(rawDesired.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Parent) {
+	if dcl.PartialSelfLinkToSelfLink(rawDesired.Parent, rawInitial.Parent) {
 		rawDesired.Parent = rawInitial.Parent
 	}
-	if dcl.IsZeroValue(rawDesired.Title) {
+	if dcl.StringCanonicalize(rawDesired.Title, rawInitial.Title) {
 		rawDesired.Title = rawInitial.Title
 	}
 	if dcl.IsZeroValue(rawDesired.CreateTime) {
@@ -429,19 +435,22 @@ func canonicalizeAccessPolicyNewState(c *Client, rawNew, rawDesired *AccessPolic
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
-		if dcl.NameToSelfLink(rawDesired.Name, rawNew.Name) {
-			rawNew.Name = rawDesired.Name
-		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Parent) && dcl.IsEmptyValueIndirect(rawDesired.Parent) {
 		rawNew.Parent = rawDesired.Parent
 	} else {
+		if dcl.PartialSelfLinkToSelfLink(rawDesired.Parent, rawNew.Parent) {
+			rawNew.Parent = rawDesired.Parent
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Title) && dcl.IsEmptyValueIndirect(rawDesired.Title) {
 		rawNew.Title = rawDesired.Title
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Title, rawNew.Title) {
+			rawNew.Title = rawDesired.Title
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
@@ -478,14 +487,14 @@ func diffAccessPolicy(c *Client, desired, actual *AccessPolicy, opts ...dcl.Appl
 	}
 
 	var diffs []accessPolicyDiff
-	if !dcl.IsZeroValue(desired.Parent) && (dcl.IsZeroValue(actual.Parent) || !reflect.DeepEqual(*desired.Parent, *actual.Parent)) {
+	if !dcl.IsZeroValue(desired.Parent) && !dcl.PartialSelfLinkToSelfLink(desired.Parent, actual.Parent) {
 		c.Config.Logger.Infof("Detected diff in Parent.\nDESIRED: %v\nACTUAL: %v", desired.Parent, actual.Parent)
 		diffs = append(diffs, accessPolicyDiff{
 			RequiresRecreate: true,
 			FieldName:        "Parent",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Title) && (dcl.IsZeroValue(actual.Title) || !reflect.DeepEqual(*desired.Title, *actual.Title)) {
+	if !dcl.IsZeroValue(desired.Title) && !dcl.StringCanonicalize(desired.Title, actual.Title) {
 		c.Config.Logger.Infof("Detected diff in Title.\nDESIRED: %v\nACTUAL: %v", desired.Title, actual.Title)
 
 		diffs = append(diffs, accessPolicyDiff{
@@ -525,6 +534,8 @@ func diffAccessPolicy(c *Client, desired, actual *AccessPolicy, opts ...dcl.Appl
 func (r *AccessPolicy) urlNormalized() *AccessPolicy {
 	normalized := deepcopy.Copy(*r).(AccessPolicy)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Parent = dcl.SelfLinkToName(r.Parent)
+	normalized.Title = dcl.SelfLinkToName(r.Title)
 	return &normalized
 }
 
@@ -572,6 +583,10 @@ func unmarshalAccessPolicy(b []byte, c *Client) (*AccessPolicy, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapAccessPolicy(m, c)
+}
+
+func unmarshalMapAccessPolicy(m map[string]interface{}, c *Client) (*AccessPolicy, error) {
 
 	return flattenAccessPolicy(c, m), nil
 }
@@ -582,7 +597,9 @@ func expandAccessPolicy(c *Client, f *AccessPolicy) (map[string]interface{}, err
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v := f.Parent; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := dcl.DeriveField("organizations/%s", f.Parent, f.Parent); err != nil {
+		return nil, fmt.Errorf("error expanding Parent into parent: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["parent"] = v
 	}
 	if v := f.Title; !dcl.IsEmptyValueIndirect(v) {
@@ -610,7 +627,7 @@ func flattenAccessPolicy(c *Client, i interface{}) *AccessPolicy {
 	}
 
 	r := &AccessPolicy{}
-	r.Name = dcl.FlattenString(m["name"])
+	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
 	r.Parent = dcl.FlattenString(m["parent"])
 	r.Title = dcl.FlattenString(m["title"])
 	r.CreateTime = dcl.FlattenString(m["createTime"])

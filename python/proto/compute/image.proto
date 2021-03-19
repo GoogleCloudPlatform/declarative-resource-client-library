@@ -204,16 +204,9 @@ message ListComputeImageRequest {
 message ListComputeImageResponse {
   repeated ComputeImage items = 1;
 }
-message ComputeImageAsHclRequest {
-  ComputeImage resource = 1;
-}
-message ComputeImageAsHclResponse {
-  string hcl = 1;
-}
+
 service ComputeImageService {
   rpc ApplyComputeImage(ApplyComputeImageRequest) returns (ComputeImage);
   rpc DeleteComputeImage(DeleteComputeImageRequest) returns (google.protobuf.Empty);
   rpc ListComputeImage(ListComputeImageRequest) returns (ListComputeImageResponse);
-  rpc ComputeImageAsHcl(ComputeImageAsHclRequest) returns (ComputeImageAsHclResponse);
-
 }

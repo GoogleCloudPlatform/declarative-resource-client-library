@@ -1,0 +1,107 @@
+// Copyright 2021 Google LLC. All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+syntax = "proto3";
+
+package dcl;
+
+import "proto/connector/sdk.proto";
+import "proto/empty.proto";
+
+enum BinaryauthorizationPolicyClusterAdmissionRulesEvaluationModeEnum {
+  BinaryauthorizationPolicyClusterAdmissionRulesEvaluationModeEnumNO_VALUE_DO_NOT_USE = 0;
+  BinaryauthorizationPolicyClusterAdmissionRulesEvaluationModeEnumALWAYS_ALLOW = 1;
+  BinaryauthorizationPolicyClusterAdmissionRulesEvaluationModeEnumALWAYS_DENY = 2;
+  BinaryauthorizationPolicyClusterAdmissionRulesEvaluationModeEnumREQUIRE_ATTESTATION = 3;
+}
+
+enum BinaryauthorizationPolicyClusterAdmissionRulesEnforcementModeEnum {
+  BinaryauthorizationPolicyClusterAdmissionRulesEnforcementModeEnumNO_VALUE_DO_NOT_USE = 0;
+  BinaryauthorizationPolicyClusterAdmissionRulesEnforcementModeEnumENFORCEMENT_MODE_UNSPECIFIED = 1;
+  BinaryauthorizationPolicyClusterAdmissionRulesEnforcementModeEnumENFORCED_BLOCK_AND_AUDIT_LOG = 2;
+  BinaryauthorizationPolicyClusterAdmissionRulesEnforcementModeEnumDRYRUN_AUDIT_LOG_ONLY = 3;
+}
+
+enum BinaryauthorizationPolicyDefaultAdmissionRuleEvaluationModeEnum {
+  BinaryauthorizationPolicyDefaultAdmissionRuleEvaluationModeEnumNO_VALUE_DO_NOT_USE = 0;
+  BinaryauthorizationPolicyDefaultAdmissionRuleEvaluationModeEnumGLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED = 1;
+  BinaryauthorizationPolicyDefaultAdmissionRuleEvaluationModeEnumENABLE = 2;
+  BinaryauthorizationPolicyDefaultAdmissionRuleEvaluationModeEnumDISABLE = 3;
+}
+
+enum BinaryauthorizationPolicyDefaultAdmissionRuleEnforcementModeEnum {
+  BinaryauthorizationPolicyDefaultAdmissionRuleEnforcementModeEnumNO_VALUE_DO_NOT_USE = 0;
+  BinaryauthorizationPolicyDefaultAdmissionRuleEnforcementModeEnumENFORCEMENT_MODE_UNSPECIFIED = 1;
+  BinaryauthorizationPolicyDefaultAdmissionRuleEnforcementModeEnumENFORCED_BLOCK_AND_AUDIT_LOG = 2;
+  BinaryauthorizationPolicyDefaultAdmissionRuleEnforcementModeEnumDRYRUN_AUDIT_LOG_ONLY = 3;
+}
+
+enum BinaryauthorizationPolicyGlobalPolicyEvaluationModeEnum {
+  BinaryauthorizationPolicyGlobalPolicyEvaluationModeEnumNO_VALUE_DO_NOT_USE = 0;
+  BinaryauthorizationPolicyGlobalPolicyEvaluationModeEnumGLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED = 1;
+  BinaryauthorizationPolicyGlobalPolicyEvaluationModeEnumENABLE = 2;
+  BinaryauthorizationPolicyGlobalPolicyEvaluationModeEnumDISABLE = 3;
+}
+
+message BinaryauthorizationPolicy {
+  repeated BinaryauthorizationPolicyAdmissionWhitelistPatterns admission_whitelist_patterns = 1;
+  map<string, BinaryauthorizationPolicyClusterAdmissionRules> cluster_admission_rules = 2;
+  BinaryauthorizationPolicyDefaultAdmissionRule default_admission_rule = 3;
+  string description = 4;
+  BinaryauthorizationPolicyGlobalPolicyEvaluationModeEnum global_policy_evaluation_mode = 5;
+  string self_link = 6;
+  string project = 7;
+  string update_time = 8;
+}
+
+message BinaryauthorizationPolicyAdmissionWhitelistPatterns {
+  string name_pattern = 1;
+}
+
+message BinaryauthorizationPolicyClusterAdmissionRules {
+  BinaryauthorizationPolicyClusterAdmissionRulesEvaluationModeEnum evaluation_mode = 1;
+  repeated string require_attestations_by = 2;
+  BinaryauthorizationPolicyClusterAdmissionRulesEnforcementModeEnum enforcement_mode = 3;
+}
+
+message BinaryauthorizationPolicyDefaultAdmissionRule {
+  BinaryauthorizationPolicyDefaultAdmissionRuleEvaluationModeEnum evaluation_mode = 1;
+  repeated string require_attestations_by = 2;
+  BinaryauthorizationPolicyDefaultAdmissionRuleEnforcementModeEnum enforcement_mode = 3;
+}
+
+message ApplyBinaryauthorizationPolicyRequest {
+  BinaryauthorizationPolicy resource = 1;
+  repeated LifecycleDirective lifecycle_directives = 2;
+  string service_account_file = 3;
+}
+
+message DeleteBinaryauthorizationPolicyRequest {
+  string service_account_file = 1;
+  BinaryauthorizationPolicy resource = 2;
+}
+
+message ListBinaryauthorizationPolicyRequest {
+  string service_account_file = 1;
+  string Project = 2;
+}
+
+message ListBinaryauthorizationPolicyResponse {
+  repeated BinaryauthorizationPolicy items = 1;
+}
+
+service BinaryauthorizationPolicyService {
+  rpc ApplyBinaryauthorizationPolicy(ApplyBinaryauthorizationPolicyRequest) returns (BinaryauthorizationPolicy);
+  rpc DeleteBinaryauthorizationPolicy(DeleteBinaryauthorizationPolicyRequest) returns (google.protobuf.Empty);
+  rpc ListBinaryauthorizationPolicy(ListBinaryauthorizationPolicyRequest) returns (ListBinaryauthorizationPolicyResponse);
+}

@@ -1,0 +1,26 @@
+{
+  "project": "{{project}}",
+  "location": "{{region}}",
+  "name": "{{name}}",
+  "destination": {
+    "cloudRunService": {
+      "service": "{{ref:basicservice.run.service.json:name}}",
+      "region": "{{region}}"
+    }
+  },
+  "serviceAccount": "{{service_account}}",
+  "matchingCriteria": [
+    {
+      "attribute": "type",
+      "value": "google.cloud.audit.log.v1.written"
+    },
+    {
+      "attribute": "serviceName",
+      "value": "storage.googleapis.com"
+    },
+    {
+      "attribute": "methodName",
+      "value": "storage.objects.read"
+    }
+  ]
+}

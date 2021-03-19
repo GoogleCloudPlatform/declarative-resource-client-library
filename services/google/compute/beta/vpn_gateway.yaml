@@ -37,9 +37,6 @@ components:
           description: Labels for this resource. These can only be added or modified
             by the `setLabels` method. Each label key/value pair must comply with
             [RFC1035](https://www.ietf.org/rfc/rfc1035.txt). Label values may be empty.
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
           x-kubernetes-immutable: true
@@ -70,6 +67,10 @@ components:
           description: The project for the resource
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         region:
           description: |-

@@ -31,9 +31,6 @@ components:
           description: Optional. The labels to associate with this cluster. Label
             **keys** must contain 1 to 63 characters, and must conform to (https://www.ietf.org/rfc/rfc1035.txt).
             No more than 32 labels can be associated with a cluster.
-          items:
-            type: string
-            x-dcl-go-type: string
           type: object
           x-dcl-go-name: Labels
         location:
@@ -50,9 +47,6 @@ components:
               additionalProperties:
                 type: string
               description: The HDFS metrics.
-              items:
-                type: string
-                x-dcl-go-type: string
               type: object
               x-dcl-go-name: HdfsMetrics
               x-kubernetes-immutable: true
@@ -60,9 +54,6 @@ components:
               additionalProperties:
                 type: string
               description: The YARN metrics.
-              items:
-                type: string
-                x-dcl-go-type: string
               type: object
               x-dcl-go-name: YarnMetrics
               x-kubernetes-immutable: true
@@ -82,6 +73,10 @@ components:
             belongs to.
           type: string
           x-dcl-go-name: Project
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         status:
           description: Output only. Cluster status.
@@ -220,7 +215,7 @@ components:
               type: string
               x-dcl-go-name: Policy
               x-dcl-references:
-              - field: selfLink
+              - field: name
                 resource: Dataproc/AutoscalingPolicy
               x-kubernetes-immutable: true
           type: object
@@ -257,9 +252,6 @@ components:
                 type: string
               description: Output only. The map of port descriptions to URLs. Will
                 only be populated if enable_http_port_access is true.
-              items:
-                type: string
-                x-dcl-go-type: string
               readOnly: true
               type: object
               x-dcl-go-name: HttpPorts
@@ -288,9 +280,6 @@ components:
                 type: string
               description: The Compute Engine metadata entries to add to all instances
                 (see (https://cloud.google.com/compute/docs/storing-retrieving-metadata#project_and_instance_metadata)).
-              items:
-                type: string
-                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Metadata
               x-kubernetes-immutable: true
@@ -654,9 +643,6 @@ components:
                 * distcp: `distcp-default.xml` * hdfs: `hdfs-site.xml` * hive: `hive-site.xml`
                 * mapred: `mapred-site.xml` * pig: `pig.properties` * spark: `spark-defaults.conf`
                 * yarn: `yarn-site.xml` For more information, see (https://cloud.google.com/dataproc/docs/concepts/cluster-properties).'
-              items:
-                type: string
-                x-dcl-go-type: string
               type: object
               x-dcl-go-name: Properties
               x-kubernetes-immutable: true
@@ -858,7 +844,7 @@ components:
 info:
   description: DCL Specification for the Dataproc Cluster resource
   title: Dataproc/Cluster
-  x-dcl-has-iam: false
+  x-dcl-has-iam: true
 paths:
   apply:
     description: The function used to apply information about a Cluster

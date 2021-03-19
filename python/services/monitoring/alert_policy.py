@@ -153,14 +153,75 @@ class AlertPolicy(object):
         self.metadata = AlertPolicyMetadata.from_proto(response.metadata)
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, name, service_account_file=""):
+    def delete(self):
         stub = alert_policy_pb2_grpc.MonitoringAlertPolicyServiceStub(channel.Channel())
         request = alert_policy_pb2.DeleteMonitoringAlertPolicyRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Name = name
+        if Primitive.to_proto(self.display_name):
+            request.resource.display_name = Primitive.to_proto(self.display_name)
+
+        if AlertPolicyDocumentation.to_proto(self.documentation):
+            request.resource.documentation.CopyFrom(
+                AlertPolicyDocumentation.to_proto(self.documentation)
+            )
+        else:
+            request.resource.ClearField("documentation")
+        if Primitive.to_proto(self.user_labels):
+            request.resource.user_labels = Primitive.to_proto(self.user_labels)
+
+        if AlertPolicyConditionsArray.to_proto(self.conditions):
+            request.resource.conditions.extend(
+                AlertPolicyConditionsArray.to_proto(self.conditions)
+            )
+        if AlertPolicyCombinerEnum.to_proto(self.combiner):
+            request.resource.combiner = AlertPolicyCombinerEnum.to_proto(self.combiner)
+
+        if Primitive.to_proto(self.disabled):
+            request.resource.disabled = Primitive.to_proto(self.disabled)
+
+        if AlertPolicyEnabled.to_proto(self.enabled):
+            request.resource.enabled.CopyFrom(AlertPolicyEnabled.to_proto(self.enabled))
+        else:
+            request.resource.ClearField("enabled")
+        if AlertPolicyValidity.to_proto(self.validity):
+            request.resource.validity.CopyFrom(
+                AlertPolicyValidity.to_proto(self.validity)
+            )
+        else:
+            request.resource.ClearField("validity")
+        if Primitive.to_proto(self.notification_channels):
+            request.resource.notification_channels.extend(
+                Primitive.to_proto(self.notification_channels)
+            )
+        if AlertPolicyCreationRecord.to_proto(self.creation_record):
+            request.resource.creation_record.CopyFrom(
+                AlertPolicyCreationRecord.to_proto(self.creation_record)
+            )
+        else:
+            request.resource.ClearField("creation_record")
+        if AlertPolicyMutationRecord.to_proto(self.mutation_record):
+            request.resource.mutation_record.CopyFrom(
+                AlertPolicyMutationRecord.to_proto(self.mutation_record)
+            )
+        else:
+            request.resource.ClearField("mutation_record")
+        if AlertPolicyIncidentStrategy.to_proto(self.incident_strategy):
+            request.resource.incident_strategy.CopyFrom(
+                AlertPolicyIncidentStrategy.to_proto(self.incident_strategy)
+            )
+        else:
+            request.resource.ClearField("incident_strategy")
+        if AlertPolicyMetadata.to_proto(self.metadata):
+            request.resource.metadata.CopyFrom(
+                AlertPolicyMetadata.to_proto(self.metadata)
+            )
+        else:
+            request.resource.ClearField("metadata")
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteMonitoringAlertPolicy(request)
 
@@ -204,6 +265,66 @@ class AlertPolicy(object):
         res.metadata = AlertPolicyMetadata.from_proto(res_proto.metadata)
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = alert_policy_pb2.MonitoringAlertPolicy()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.display_name):
+            resource.display_name = Primitive.to_proto(self.display_name)
+        if AlertPolicyDocumentation.to_proto(self.documentation):
+            resource.documentation.CopyFrom(
+                AlertPolicyDocumentation.to_proto(self.documentation)
+            )
+        else:
+            resource.ClearField("documentation")
+        if Primitive.to_proto(self.user_labels):
+            resource.user_labels = Primitive.to_proto(self.user_labels)
+        if AlertPolicyConditionsArray.to_proto(self.conditions):
+            resource.conditions.extend(
+                AlertPolicyConditionsArray.to_proto(self.conditions)
+            )
+        if AlertPolicyCombinerEnum.to_proto(self.combiner):
+            resource.combiner = AlertPolicyCombinerEnum.to_proto(self.combiner)
+        if Primitive.to_proto(self.disabled):
+            resource.disabled = Primitive.to_proto(self.disabled)
+        if AlertPolicyEnabled.to_proto(self.enabled):
+            resource.enabled.CopyFrom(AlertPolicyEnabled.to_proto(self.enabled))
+        else:
+            resource.ClearField("enabled")
+        if AlertPolicyValidity.to_proto(self.validity):
+            resource.validity.CopyFrom(AlertPolicyValidity.to_proto(self.validity))
+        else:
+            resource.ClearField("validity")
+        if Primitive.to_proto(self.notification_channels):
+            resource.notification_channels.extend(
+                Primitive.to_proto(self.notification_channels)
+            )
+        if AlertPolicyCreationRecord.to_proto(self.creation_record):
+            resource.creation_record.CopyFrom(
+                AlertPolicyCreationRecord.to_proto(self.creation_record)
+            )
+        else:
+            resource.ClearField("creation_record")
+        if AlertPolicyMutationRecord.to_proto(self.mutation_record):
+            resource.mutation_record.CopyFrom(
+                AlertPolicyMutationRecord.to_proto(self.mutation_record)
+            )
+        else:
+            resource.ClearField("mutation_record")
+        if AlertPolicyIncidentStrategy.to_proto(self.incident_strategy):
+            resource.incident_strategy.CopyFrom(
+                AlertPolicyIncidentStrategy.to_proto(self.incident_strategy)
+            )
+        else:
+            resource.ClearField("incident_strategy")
+        if AlertPolicyMetadata.to_proto(self.metadata):
+            resource.metadata.CopyFrom(AlertPolicyMetadata.to_proto(self.metadata))
+        else:
+            resource.ClearField("metadata")
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class AlertPolicyDocumentation(object):

@@ -96,16 +96,39 @@ class TargetPool(object):
         )
         self.project = Primitive.from_proto(response.project)
 
-    @classmethod
-    def delete(self, project, region, name, service_account_file=""):
+    def delete(self):
         stub = target_pool_pb2_grpc.ComputeBetaTargetPoolServiceStub(channel.Channel())
         request = target_pool_pb2.DeleteComputeBetaTargetPoolRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.backup_pool):
+            request.resource.backup_pool = Primitive.to_proto(self.backup_pool)
 
-        request.Region = region
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
 
-        request.Name = name
+        if Primitive.to_proto(self.failover_ratio):
+            request.resource.failover_ratio = Primitive.to_proto(self.failover_ratio)
+
+        if Primitive.to_proto(self.health_check):
+            request.resource.health_check.extend(Primitive.to_proto(self.health_check))
+        if Primitive.to_proto(self.instance):
+            request.resource.instance.extend(Primitive.to_proto(self.instance))
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.region):
+            request.resource.region = Primitive.to_proto(self.region)
+
+        if Primitive.to_proto(self.self_link):
+            request.resource.self_link = Primitive.to_proto(self.self_link)
+
+        if TargetPoolSessionAffinityEnum.to_proto(self.session_affinity):
+            request.resource.session_affinity = TargetPoolSessionAffinityEnum.to_proto(
+                self.session_affinity
+            )
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteComputeBetaTargetPool(request)
 
@@ -140,6 +163,32 @@ class TargetPool(object):
         )
         res.project = Primitive.from_proto(res_proto.project)
         return res
+
+    def to_proto(self):
+        resource = target_pool_pb2.ComputeBetaTargetPool()
+        if Primitive.to_proto(self.backup_pool):
+            resource.backup_pool = Primitive.to_proto(self.backup_pool)
+        if Primitive.to_proto(self.description):
+            resource.description = Primitive.to_proto(self.description)
+        if Primitive.to_proto(self.failover_ratio):
+            resource.failover_ratio = Primitive.to_proto(self.failover_ratio)
+        if Primitive.to_proto(self.health_check):
+            resource.health_check.extend(Primitive.to_proto(self.health_check))
+        if Primitive.to_proto(self.instance):
+            resource.instance.extend(Primitive.to_proto(self.instance))
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.region):
+            resource.region = Primitive.to_proto(self.region)
+        if Primitive.to_proto(self.self_link):
+            resource.self_link = Primitive.to_proto(self.self_link)
+        if TargetPoolSessionAffinityEnum.to_proto(self.session_affinity):
+            resource.session_affinity = TargetPoolSessionAffinityEnum.to_proto(
+                self.session_affinity
+            )
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        return resource
 
 
 class TargetPoolSessionAffinityEnum(object):

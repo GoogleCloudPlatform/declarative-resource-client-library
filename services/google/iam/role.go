@@ -118,6 +118,9 @@ func (l *RoleList) HasNext() bool {
 }
 
 func (l *RoleList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -131,12 +134,17 @@ func (l *RoleList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListRole(ctx context.Context, parent string) (*RoleList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListRoleWithMaxResults(ctx, parent, RoleMaxPage)
 
 }
 
 func (c *Client) ListRoleWithMaxResults(ctx context.Context, parent string, pageSize int32) (*RoleList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listRole(ctx, parent, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -151,6 +159,9 @@ func (c *Client) ListRoleWithMaxResults(ctx context.Context, parent string, page
 }
 
 func (c *Client) GetRole(ctx context.Context, r *Role) (*Role, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getRoleRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -180,6 +191,9 @@ func (c *Client) GetRole(ctx context.Context, r *Role) (*Role, error) {
 }
 
 func (c *Client) DeleteRole(ctx context.Context, r *Role) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Role resource is nil")
 	}
@@ -190,6 +204,9 @@ func (c *Client) DeleteRole(ctx context.Context, r *Role) error {
 
 // DeleteAllRole deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllRole(ctx context.Context, parent string, filter func(*Role) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListRole(ctx, parent)
 	if err != nil {
 		return err
@@ -215,6 +232,9 @@ func (c *Client) DeleteAllRole(ctx context.Context, parent string, filter func(*
 func (c *Client) ApplyRole(ctx context.Context, rawDesired *Role, opts ...dcl.ApplyOption) (*Role, error) {
 	c.Config.Logger.Info("Beginning ApplyRole...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -295,12 +315,35 @@ func (c *Client) ApplyRole(ctx context.Context, rawDesired *Role, opts ...dcl.Ap
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createRoleOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapRole(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeRoleNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeRoleNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

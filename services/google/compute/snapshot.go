@@ -112,6 +112,9 @@ func (l *SnapshotList) HasNext() bool {
 }
 
 func (l *SnapshotList) Next(ctx context.Context, c *Client) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
@@ -125,12 +128,17 @@ func (l *SnapshotList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListSnapshot(ctx context.Context, project string) (*SnapshotList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	return c.ListSnapshotWithMaxResults(ctx, project, SnapshotMaxPage)
 
 }
 
 func (c *Client) ListSnapshotWithMaxResults(ctx context.Context, project string, pageSize int32) (*SnapshotList, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	items, token, err := c.listSnapshot(ctx, project, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -145,6 +153,9 @@ func (c *Client) ListSnapshotWithMaxResults(ctx context.Context, project string,
 }
 
 func (c *Client) GetSnapshot(ctx context.Context, r *Snapshot) (*Snapshot, error) {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	b, err := c.getSnapshotRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -174,6 +185,9 @@ func (c *Client) GetSnapshot(ctx context.Context, r *Snapshot) (*Snapshot, error
 }
 
 func (c *Client) DeleteSnapshot(ctx context.Context, r *Snapshot) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	if r == nil {
 		return fmt.Errorf("Snapshot resource is nil")
 	}
@@ -184,6 +198,9 @@ func (c *Client) DeleteSnapshot(ctx context.Context, r *Snapshot) error {
 
 // DeleteAllSnapshot deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllSnapshot(ctx context.Context, project string, filter func(*Snapshot) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
 	listObj, err := c.ListSnapshot(ctx, project)
 	if err != nil {
 		return err
@@ -209,6 +226,9 @@ func (c *Client) DeleteAllSnapshot(ctx context.Context, project string, filter f
 func (c *Client) ApplySnapshot(ctx context.Context, rawDesired *Snapshot, opts ...dcl.ApplyOption) (*Snapshot, error) {
 	c.Config.Logger.Info("Beginning ApplySnapshot...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
@@ -289,12 +309,35 @@ func (c *Client) ApplySnapshot(ctx context.Context, rawDesired *Snapshot, opts .
 		return nil, err
 	}
 
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createSnapshotOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapSnapshot(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeSnapshotNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeSnapshotNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
+
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE

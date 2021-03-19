@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 
 	"github.com/mohae/deepcopy"
@@ -141,7 +140,7 @@ func (op *updateVariableUpdateOperation) do(ctx context.Context, r *Variable, c 
 	if err != nil {
 		return err
 	}
-	_, err = dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -168,7 +167,7 @@ func (c *Client) listVariableRaw(ctx context.Context, project, runtimeConfig, pa
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -243,7 +242,7 @@ func (op *deleteVariableOperation) do(ctx context.Context, r *Variable, c *Clien
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.Retry)
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
 		return fmt.Errorf("failed to delete Variable: %w", err)
 	}
@@ -257,7 +256,13 @@ func (op *deleteVariableOperation) do(ctx context.Context, r *Variable, c *Clien
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createVariableOperation struct{}
+type createVariableOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createVariableOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
 
 func (op *createVariableOperation) do(ctx context.Context, r *Variable, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -273,7 +278,7 @@ func (op *createVariableOperation) do(ctx context.Context, r *Variable, c *Clien
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -282,9 +287,10 @@ func (op *createVariableOperation) do(ctx context.Context, r *Variable, c *Clien
 	if err != nil {
 		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
-	_ = o // We might not use resp- this will stop Go complaining
+	op.response = o
 
 	if _, err := c.GetVariable(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
 
@@ -297,7 +303,7 @@ func (c *Client) getVariableRaw(ctx context.Context, r *Variable) ([]byte, error
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.Retry)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}
@@ -403,14 +409,6 @@ func canonicalizeVariableDesiredState(rawDesired, rawInitial *Variable, opts ...
 		}
 	}
 
-	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Variable); !ok {
-			return nil, fmt.Errorf("Initial state hint was of the wrong type; expected Variable, got %T", sh)
-		} else {
-			_ = r
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -423,13 +421,13 @@ func canonicalizeVariableDesiredState(rawDesired, rawInitial *Variable, opts ...
 	if dcl.NameToSelfLink(rawDesired.RuntimeConfig, rawInitial.RuntimeConfig) {
 		rawDesired.RuntimeConfig = rawInitial.RuntimeConfig
 	}
-	if dcl.IsZeroValue(rawDesired.Text) {
+	if dcl.StringCanonicalize(rawDesired.Text, rawInitial.Text) {
 		rawDesired.Text = rawInitial.Text
 	}
-	if dcl.IsZeroValue(rawDesired.Value) {
+	if dcl.StringCanonicalize(rawDesired.Value, rawInitial.Value) {
 		rawDesired.Value = rawInitial.Value
 	}
-	if dcl.IsZeroValue(rawDesired.UpdateTime) {
+	if dcl.StringCanonicalize(rawDesired.UpdateTime, rawInitial.UpdateTime) {
 		rawDesired.UpdateTime = rawInitial.UpdateTime
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
@@ -454,16 +452,25 @@ func canonicalizeVariableNewState(c *Client, rawNew, rawDesired *Variable) (*Var
 	if dcl.IsEmptyValueIndirect(rawNew.Text) && dcl.IsEmptyValueIndirect(rawDesired.Text) {
 		rawNew.Text = rawDesired.Text
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Text, rawNew.Text) {
+			rawNew.Text = rawDesired.Text
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Value) && dcl.IsEmptyValueIndirect(rawDesired.Value) {
 		rawNew.Value = rawDesired.Value
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Value, rawNew.Value) {
+			rawNew.Value = rawDesired.Value
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
+		if dcl.StringCanonicalize(rawDesired.UpdateTime, rawNew.UpdateTime) {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -499,7 +506,7 @@ func diffVariable(c *Client, desired, actual *Variable, opts ...dcl.ApplyOption)
 			FieldName:        "Name",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Text) && (dcl.IsZeroValue(actual.Text) || !reflect.DeepEqual(*desired.Text, *actual.Text)) {
+	if !dcl.IsZeroValue(desired.Text) && !dcl.StringCanonicalize(desired.Text, actual.Text) {
 		c.Config.Logger.Infof("Detected diff in Text.\nDESIRED: %v\nACTUAL: %v", desired.Text, actual.Text)
 
 		diffs = append(diffs, variableDiff{
@@ -508,7 +515,7 @@ func diffVariable(c *Client, desired, actual *Variable, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Value) && (dcl.IsZeroValue(actual.Value) || !reflect.DeepEqual(*desired.Value, *actual.Value)) {
+	if !dcl.IsZeroValue(desired.Value) && !dcl.StringCanonicalize(desired.Value, actual.Value) {
 		c.Config.Logger.Infof("Detected diff in Value.\nDESIRED: %v\nACTUAL: %v", desired.Value, actual.Value)
 
 		diffs = append(diffs, variableDiff{
@@ -549,6 +556,9 @@ func (r *Variable) urlNormalized() *Variable {
 	normalized := deepcopy.Copy(*r).(Variable)
 	normalized.Name = dcl.SelfLinkToNameWithPattern(r.Name, "projects/%s/configs/%s/variables/%s")
 	normalized.RuntimeConfig = dcl.SelfLinkToName(r.RuntimeConfig)
+	normalized.Text = dcl.SelfLinkToName(r.Text)
+	normalized.Value = dcl.SelfLinkToName(r.Value)
+	normalized.UpdateTime = dcl.SelfLinkToName(r.UpdateTime)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -600,6 +610,10 @@ func unmarshalVariable(b []byte, c *Client) (*Variable, error) {
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
+	return unmarshalMapVariable(m, c)
+}
+
+func unmarshalMapVariable(m map[string]interface{}, c *Client) (*Variable, error) {
 
 	return flattenVariable(c, m), nil
 }

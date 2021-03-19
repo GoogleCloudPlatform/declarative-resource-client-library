@@ -88,6 +88,7 @@ message ListComputeBetaReservationRequest {
 message ListComputeBetaReservationResponse {
   repeated ComputeBetaReservation items = 1;
 }
+
 service ComputeBetaReservationService {
   rpc ApplyComputeBetaReservation(ApplyComputeBetaReservationRequest) returns (ComputeBetaReservation);
   rpc DeleteComputeBetaReservation(DeleteComputeBetaReservationRequest) returns (google.protobuf.Empty);
