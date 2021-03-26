@@ -219,11 +219,18 @@ func (c *Client) policyDiffsForRawDesired(ctx context.Context, rawDesired *Polic
 		fetchState = rawDesired
 	}
 
-	// Simulate the resource not existing because create operation should be called anyway.
-	rawInitial := &Policy{}
-	desired, err = canonicalizePolicyDesiredState(rawDesired, rawInitial)
-	return nil, desired, nil, err
-
+	// 1.2: Retrieval of raw initial state from API
+	rawInitial, err := c.GetPolicy(ctx, fetchState.urlNormalized())
+	if rawInitial == nil {
+		if !dcl.IsNotFound(err) {
+			c.Config.Logger.Warningf("Failed to retrieve whether a Policy resource already exists: %s", err)
+			return nil, nil, nil, fmt.Errorf("failed to retrieve Policy resource: %v", err)
+		}
+		c.Config.Logger.Info("Found that Policy resource did not exist.")
+		// Perform canonicalization to pick up defaults.
+		desired, err = canonicalizePolicyDesiredState(rawDesired, rawInitial)
+		return nil, desired, nil, err
+	}
 	c.Config.Logger.Infof("Found initial state for Policy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Policy: %v", rawDesired)
 
@@ -298,6 +305,7 @@ func canonicalizePolicyNewState(c *Client, rawNew, rawDesired *Policy) (*Policy,
 	if dcl.IsEmptyValueIndirect(rawNew.AdmissionWhitelistPatterns) && dcl.IsEmptyValueIndirect(rawDesired.AdmissionWhitelistPatterns) {
 		rawNew.AdmissionWhitelistPatterns = rawDesired.AdmissionWhitelistPatterns
 	} else {
+		rawNew.AdmissionWhitelistPatterns = canonicalizeNewPolicyAdmissionWhitelistPatternsSlice(c, rawDesired.AdmissionWhitelistPatterns, rawNew.AdmissionWhitelistPatterns)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ClusterAdmissionRules) && dcl.IsEmptyValueIndirect(rawDesired.ClusterAdmissionRules) {
@@ -396,6 +404,26 @@ func canonicalizeNewPolicyAdmissionWhitelistPatternsSet(c *Client, des, nw []Pol
 	return reorderedNew
 }
 
+func canonicalizeNewPolicyAdmissionWhitelistPatternsSlice(c *Client, des, nw []PolicyAdmissionWhitelistPatterns) []PolicyAdmissionWhitelistPatterns {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []PolicyAdmissionWhitelistPatterns
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewPolicyAdmissionWhitelistPatterns(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizePolicyClusterAdmissionRules(des, initial *PolicyClusterAdmissionRules, opts ...dcl.ApplyOption) *PolicyClusterAdmissionRules {
 	if des == nil {
 		return initial
@@ -452,6 +480,26 @@ func canonicalizeNewPolicyClusterAdmissionRulesSet(c *Client, des, nw []PolicyCl
 	return reorderedNew
 }
 
+func canonicalizeNewPolicyClusterAdmissionRulesSlice(c *Client, des, nw []PolicyClusterAdmissionRules) []PolicyClusterAdmissionRules {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []PolicyClusterAdmissionRules
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewPolicyClusterAdmissionRules(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizePolicyDefaultAdmissionRule(des, initial *PolicyDefaultAdmissionRule, opts ...dcl.ApplyOption) *PolicyDefaultAdmissionRule {
 	if des == nil {
 		return initial
@@ -506,6 +554,26 @@ func canonicalizeNewPolicyDefaultAdmissionRuleSet(c *Client, des, nw []PolicyDef
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewPolicyDefaultAdmissionRuleSlice(c *Client, des, nw []PolicyDefaultAdmissionRule) []PolicyDefaultAdmissionRule {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []PolicyDefaultAdmissionRule
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewPolicyDefaultAdmissionRule(c, &d, &n))
+	}
+
+	return items
 }
 
 type policyDiff struct {

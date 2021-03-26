@@ -19,8 +19,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -265,9 +265,20 @@ func (op *deleteTenantOAuthIdpConfigOperation) do(ctx context.Context, r *Tenant
 	if err != nil {
 		return fmt.Errorf("failed to delete TenantOAuthIdpConfig: %w", err)
 	}
-	_, err = c.GetTenantOAuthIdpConfig(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetTenantOAuthIdpConfig(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -362,7 +373,6 @@ func (c *Client) tenantOAuthIdpConfigDiffsForRawDesired(ctx context.Context, raw
 		desired, err = canonicalizeTenantOAuthIdpConfigDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for TenantOAuthIdpConfig: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for TenantOAuthIdpConfig: %v", rawDesired)
 
@@ -418,7 +428,7 @@ func canonicalizeTenantOAuthIdpConfigDesiredState(rawDesired, rawInitial *Tenant
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
 		rawDesired.DisplayName = rawInitial.DisplayName
 	}
-	if dcl.IsZeroValue(rawDesired.Enabled) {
+	if dcl.BoolCanonicalize(rawDesired.Enabled, rawInitial.Enabled) {
 		rawDesired.Enabled = rawInitial.Enabled
 	}
 	if dcl.StringCanonicalize(rawDesired.ClientSecret, rawInitial.ClientSecret) {
@@ -472,6 +482,9 @@ func canonicalizeTenantOAuthIdpConfigNewState(c *Client, rawNew, rawDesired *Ten
 	if dcl.IsEmptyValueIndirect(rawNew.Enabled) && dcl.IsEmptyValueIndirect(rawDesired.Enabled) {
 		rawNew.Enabled = rawDesired.Enabled
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.Enabled, rawNew.Enabled) {
+			rawNew.Enabled = rawDesired.Enabled
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ClientSecret) && dcl.IsEmptyValueIndirect(rawDesired.ClientSecret) {
@@ -507,13 +520,13 @@ func canonicalizeTenantOAuthIdpConfigResponseType(des, initial *TenantOAuthIdpCo
 		return des
 	}
 
-	if dcl.IsZeroValue(des.IdToken) {
+	if dcl.BoolCanonicalize(des.IdToken, initial.IdToken) || dcl.IsZeroValue(des.IdToken) {
 		des.IdToken = initial.IdToken
 	}
-	if dcl.IsZeroValue(des.Code) {
+	if dcl.BoolCanonicalize(des.Code, initial.Code) || dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
 	}
-	if dcl.IsZeroValue(des.Token) {
+	if dcl.BoolCanonicalize(des.Token, initial.Token) || dcl.IsZeroValue(des.Token) {
 		des.Token = initial.Token
 	}
 
@@ -523,6 +536,16 @@ func canonicalizeTenantOAuthIdpConfigResponseType(des, initial *TenantOAuthIdpCo
 func canonicalizeNewTenantOAuthIdpConfigResponseType(c *Client, des, nw *TenantOAuthIdpConfigResponseType) *TenantOAuthIdpConfigResponseType {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.IdToken, nw.IdToken) || dcl.IsZeroValue(des.IdToken) {
+		nw.IdToken = des.IdToken
+	}
+	if dcl.BoolCanonicalize(des.Code, nw.Code) || dcl.IsZeroValue(des.Code) {
+		nw.Code = des.Code
+	}
+	if dcl.BoolCanonicalize(des.Token, nw.Token) || dcl.IsZeroValue(des.Token) {
+		nw.Token = des.Token
 	}
 
 	return nw
@@ -549,6 +572,26 @@ func canonicalizeNewTenantOAuthIdpConfigResponseTypeSet(c *Client, des, nw []Ten
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewTenantOAuthIdpConfigResponseTypeSlice(c *Client, des, nw []TenantOAuthIdpConfigResponseType) []TenantOAuthIdpConfigResponseType {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []TenantOAuthIdpConfigResponseType
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewTenantOAuthIdpConfigResponseType(c, &d, &n))
+	}
+
+	return items
 }
 
 type tenantOAuthIdpConfigDiff struct {
@@ -608,7 +651,7 @@ func diffTenantOAuthIdpConfig(c *Client, desired, actual *TenantOAuthIdpConfig, 
 		})
 
 	}
-	if !reflect.DeepEqual(desired.Enabled, actual.Enabled) {
+	if !dcl.IsZeroValue(desired.Enabled) && !dcl.BoolCanonicalize(desired.Enabled, actual.Enabled) {
 		c.Config.Logger.Infof("Detected diff in Enabled.\nDESIRED: %v\nACTUAL: %v", desired.Enabled, actual.Enabled)
 
 		diffs = append(diffs, tenantOAuthIdpConfigDiff{
@@ -670,7 +713,7 @@ func compareTenantOAuthIdpConfigResponseType(c *Client, desired, actual *TenantO
 		c.Config.Logger.Infof("desired IdToken %s - but actually nil", dcl.SprintResource(desired.IdToken))
 		return true
 	}
-	if !reflect.DeepEqual(desired.IdToken, actual.IdToken) && !dcl.IsZeroValue(desired.IdToken) {
+	if !dcl.BoolCanonicalize(desired.IdToken, actual.IdToken) && !dcl.IsZeroValue(desired.IdToken) {
 		c.Config.Logger.Infof("Diff in IdToken. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IdToken), dcl.SprintResource(actual.IdToken))
 		return true
 	}
@@ -678,7 +721,7 @@ func compareTenantOAuthIdpConfigResponseType(c *Client, desired, actual *TenantO
 		c.Config.Logger.Infof("desired Code %s - but actually nil", dcl.SprintResource(desired.Code))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Code, actual.Code) && !dcl.IsZeroValue(desired.Code) {
+	if !dcl.BoolCanonicalize(desired.Code, actual.Code) && !dcl.IsZeroValue(desired.Code) {
 		c.Config.Logger.Infof("Diff in Code. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Code), dcl.SprintResource(actual.Code))
 		return true
 	}
@@ -686,7 +729,7 @@ func compareTenantOAuthIdpConfigResponseType(c *Client, desired, actual *TenantO
 		c.Config.Logger.Infof("desired Token %s - but actually nil", dcl.SprintResource(desired.Token))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Token, actual.Token) && !dcl.IsZeroValue(desired.Token) {
+	if !dcl.BoolCanonicalize(desired.Token, actual.Token) && !dcl.IsZeroValue(desired.Token) {
 		c.Config.Logger.Infof("Diff in Token. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Token), dcl.SprintResource(actual.Token))
 		return true
 	}

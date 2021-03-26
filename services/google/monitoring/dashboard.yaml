@@ -503,32 +503,8 @@ components:
                                     10 minutes it would not make sense to fetch and
                                     align data at one minute intervals. This field
                                     is optional and exists only as a hint.
-                                  properties:
-                                    nanos:
-                                      description: Signed fractions of a second at
-                                        nanosecond resolution of the span of time.
-                                        Durations less than one second are represented
-                                        with a 0 `seconds` field and a positive or
-                                        negative `nanos` field. For durations of one
-                                        second or more, a non-zero value for the `nanos`
-                                        field must be of the same sign as the `seconds`
-                                        field. Must be from -999,999,999 to +999,999,999
-                                        inclusive.
-                                      format: int64
-                                      type: integer
-                                      x-dcl-go-name: Nanos
-                                    seconds:
-                                      description: 'Signed seconds of the span of
-                                        time. Must be from -315,576,000,000 to +315,576,000,000
-                                        inclusive. Note: these bounds are computed
-                                        from: 60 sec/min * 60 min/hr * 24 hr/day *
-                                        365.25 days/year * 10000 years'
-                                      format: int64
-                                      type: integer
-                                      x-dcl-go-name: Seconds
-                                  type: object
+                                  type: string
                                   x-dcl-go-name: MinAlignmentPeriod
-                                  x-dcl-go-type: DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod
                                 sparkChartType:
                                   description: 'Required. The type of sparkchart to
                                     show in this chartView. Possible values: SPARK_CHART_TYPE_UNSPECIFIED,
@@ -647,35 +623,8 @@ components:
                                             returned. If no per-series aligner is
                                             specified, or the aligner `ALIGN_NONE`
                                             is specified, then this field is ignored.
-                                          properties:
-                                            nanos:
-                                              description: Signed fractions of a second
-                                                at nanosecond resolution of the span
-                                                of time. Durations less than one second
-                                                are represented with a 0 `seconds`
-                                                field and a positive or negative `nanos`
-                                                field. For durations of one second
-                                                or more, a non-zero value for the
-                                                `nanos` field must be of the same
-                                                sign as the `seconds` field. Must
-                                                be from -999,999,999 to +999,999,999
-                                                inclusive.
-                                              format: int64
-                                              type: integer
-                                              x-dcl-go-name: Nanos
-                                            seconds:
-                                              description: 'Signed seconds of the
-                                                span of time. Must be from -315,576,000,000
-                                                to +315,576,000,000 inclusive. Note:
-                                                these bounds are computed from: 60
-                                                sec/min * 60 min/hr * 24 hr/day *
-                                                365.25 days/year * 10000 years'
-                                              format: int64
-                                              type: integer
-                                              x-dcl-go-name: Seconds
-                                          type: object
+                                          type: string
                                           x-dcl-go-name: AlignmentPeriod
-                                          x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod
                                         crossSeriesReducer:
                                           description: 'The reduction operation to
                                             be used to combine time series into a
@@ -972,35 +921,8 @@ components:
                                             returned. If no per-series aligner is
                                             specified, or the aligner `ALIGN_NONE`
                                             is specified, then this field is ignored.
-                                          properties:
-                                            nanos:
-                                              description: Signed fractions of a second
-                                                at nanosecond resolution of the span
-                                                of time. Durations less than one second
-                                                are represented with a 0 `seconds`
-                                                field and a positive or negative `nanos`
-                                                field. For durations of one second
-                                                or more, a non-zero value for the
-                                                `nanos` field must be of the same
-                                                sign as the `seconds` field. Must
-                                                be from -999,999,999 to +999,999,999
-                                                inclusive.
-                                              format: int64
-                                              type: integer
-                                              x-dcl-go-name: Nanos
-                                            seconds:
-                                              description: 'Signed seconds of the
-                                                span of time. Must be from -315,576,000,000
-                                                to +315,576,000,000 inclusive. Note:
-                                                these bounds are computed from: 60
-                                                sec/min * 60 min/hr * 24 hr/day *
-                                                365.25 days/year * 10000 years'
-                                              format: int64
-                                              type: integer
-                                              x-dcl-go-name: Seconds
-                                          type: object
+                                          type: string
                                           x-dcl-go-name: AlignmentPeriod
-                                          x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod
                                         crossSeriesReducer:
                                           description: 'The reduction operation to
                                             be used to combine time series into a
@@ -1264,37 +1186,8 @@ components:
                                                 If no per-series aligner is specified,
                                                 or the aligner `ALIGN_NONE` is specified,
                                                 then this field is ignored.
-                                              properties:
-                                                nanos:
-                                                  description: Signed fractions of
-                                                    a second at nanosecond resolution
-                                                    of the span of time. Durations
-                                                    less than one second are represented
-                                                    with a 0 `seconds` field and a
-                                                    positive or negative `nanos` field.
-                                                    For durations of one second or
-                                                    more, a non-zero value for the
-                                                    `nanos` field must be of the same
-                                                    sign as the `seconds` field. Must
-                                                    be from -999,999,999 to +999,999,999
-                                                    inclusive.
-                                                  format: int64
-                                                  type: integer
-                                                  x-dcl-go-name: Nanos
-                                                seconds:
-                                                  description: 'Signed seconds of
-                                                    the span of time. Must be from
-                                                    -315,576,000,000 to +315,576,000,000
-                                                    inclusive. Note: these bounds
-                                                    are computed from: 60 sec/min
-                                                    * 60 min/hr * 24 hr/day * 365.25
-                                                    days/year * 10000 years'
-                                                  format: int64
-                                                  type: integer
-                                                  x-dcl-go-name: Seconds
-                                              type: object
+                                              type: string
                                               x-dcl-go-name: AlignmentPeriod
-                                              x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod
                                             crossSeriesReducer:
                                               description: 'The reduction operation
                                                 to be used to combine time series
@@ -1568,37 +1461,8 @@ components:
                                                 If no per-series aligner is specified,
                                                 or the aligner `ALIGN_NONE` is specified,
                                                 then this field is ignored.
-                                              properties:
-                                                nanos:
-                                                  description: Signed fractions of
-                                                    a second at nanosecond resolution
-                                                    of the span of time. Durations
-                                                    less than one second are represented
-                                                    with a 0 `seconds` field and a
-                                                    positive or negative `nanos` field.
-                                                    For durations of one second or
-                                                    more, a non-zero value for the
-                                                    `nanos` field must be of the same
-                                                    sign as the `seconds` field. Must
-                                                    be from -999,999,999 to +999,999,999
-                                                    inclusive.
-                                                  format: int64
-                                                  type: integer
-                                                  x-dcl-go-name: Nanos
-                                                seconds:
-                                                  description: 'Signed seconds of
-                                                    the span of time. Must be from
-                                                    -315,576,000,000 to +315,576,000,000
-                                                    inclusive. Note: these bounds
-                                                    are computed from: 60 sec/min
-                                                    * 60 min/hr * 24 hr/day * 365.25
-                                                    days/year * 10000 years'
-                                                  format: int64
-                                                  type: integer
-                                                  x-dcl-go-name: Seconds
-                                              type: object
+                                              type: string
                                               x-dcl-go-name: AlignmentPeriod
-                                              x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod
                                             crossSeriesReducer:
                                               description: 'The reduction operation
                                                 to be used to combine time series
@@ -1906,35 +1770,8 @@ components:
                                             returned. If no per-series aligner is
                                             specified, or the aligner `ALIGN_NONE`
                                             is specified, then this field is ignored.
-                                          properties:
-                                            nanos:
-                                              description: Signed fractions of a second
-                                                at nanosecond resolution of the span
-                                                of time. Durations less than one second
-                                                are represented with a 0 `seconds`
-                                                field and a positive or negative `nanos`
-                                                field. For durations of one second
-                                                or more, a non-zero value for the
-                                                `nanos` field must be of the same
-                                                sign as the `seconds` field. Must
-                                                be from -999,999,999 to +999,999,999
-                                                inclusive.
-                                              format: int64
-                                              type: integer
-                                              x-dcl-go-name: Nanos
-                                            seconds:
-                                              description: 'Signed seconds of the
-                                                span of time. Must be from -315,576,000,000
-                                                to +315,576,000,000 inclusive. Note:
-                                                these bounds are computed from: 60
-                                                sec/min * 60 min/hr * 24 hr/day *
-                                                365.25 days/year * 10000 years'
-                                              format: int64
-                                              type: integer
-                                              x-dcl-go-name: Seconds
-                                          type: object
+                                          type: string
                                           x-dcl-go-name: AlignmentPeriod
-                                          x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod
                                         crossSeriesReducer:
                                           description: 'The reduction operation to
                                             be used to combine time series into a
@@ -2258,32 +2095,8 @@ components:
                                       `min_alignment_period` should be at least 10
                                       minutes. It would not make sense to fetch and
                                       align data at one minute intervals.
-                                    properties:
-                                      nanos:
-                                        description: Signed fractions of a second
-                                          at nanosecond resolution of the span of
-                                          time. Durations less than one second are
-                                          represented with a 0 `seconds` field and
-                                          a positive or negative `nanos` field. For
-                                          durations of one second or more, a non-zero
-                                          value for the `nanos` field must be of the
-                                          same sign as the `seconds` field. Must be
-                                          from -999,999,999 to +999,999,999 inclusive.
-                                        format: int64
-                                        type: integer
-                                        x-dcl-go-name: Nanos
-                                      seconds:
-                                        description: 'Signed seconds of the span of
-                                          time. Must be from -315,576,000,000 to +315,576,000,000
-                                          inclusive. Note: these bounds are computed
-                                          from: 60 sec/min * 60 min/hr * 24 hr/day
-                                          * 365.25 days/year * 10000 years'
-                                        format: int64
-                                        type: integer
-                                        x-dcl-go-name: Seconds
-                                    type: object
+                                    type: string
                                     x-dcl-go-name: MinAlignmentPeriod
-                                    x-dcl-go-type: DashboardWidgetXyChartDataSetsMinAlignmentPeriod
                                   plotType:
                                     description: 'How this data should be plotted
                                       on the chart. Possible values: PLOT_TYPE_UNSPECIFIED,
@@ -2339,37 +2152,8 @@ components:
                                                   is specified, or the aligner `ALIGN_NONE`
                                                   is specified, then this field is
                                                   ignored.
-                                                properties:
-                                                  nanos:
-                                                    description: Signed fractions
-                                                      of a second at nanosecond resolution
-                                                      of the span of time. Durations
-                                                      less than one second are represented
-                                                      with a 0 `seconds` field and
-                                                      a positive or negative `nanos`
-                                                      field. For durations of one
-                                                      second or more, a non-zero value
-                                                      for the `nanos` field must be
-                                                      of the same sign as the `seconds`
-                                                      field. Must be from -999,999,999
-                                                      to +999,999,999 inclusive.
-                                                    format: int64
-                                                    type: integer
-                                                    x-dcl-go-name: Nanos
-                                                  seconds:
-                                                    description: 'Signed seconds of
-                                                      the span of time. Must be from
-                                                      -315,576,000,000 to +315,576,000,000
-                                                      inclusive. Note: these bounds
-                                                      are computed from: 60 sec/min
-                                                      * 60 min/hr * 24 hr/day * 365.25
-                                                      days/year * 10000 years'
-                                                    format: int64
-                                                    type: integer
-                                                    x-dcl-go-name: Seconds
-                                                type: object
+                                                type: string
                                                 x-dcl-go-name: AlignmentPeriod
-                                                x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod
                                               crossSeriesReducer:
                                                 description: 'The reduction operation
                                                   to be used to combine time series
@@ -2687,37 +2471,8 @@ components:
                                                   is specified, or the aligner `ALIGN_NONE`
                                                   is specified, then this field is
                                                   ignored.
-                                                properties:
-                                                  nanos:
-                                                    description: Signed fractions
-                                                      of a second at nanosecond resolution
-                                                      of the span of time. Durations
-                                                      less than one second are represented
-                                                      with a 0 `seconds` field and
-                                                      a positive or negative `nanos`
-                                                      field. For durations of one
-                                                      second or more, a non-zero value
-                                                      for the `nanos` field must be
-                                                      of the same sign as the `seconds`
-                                                      field. Must be from -999,999,999
-                                                      to +999,999,999 inclusive.
-                                                    format: int64
-                                                    type: integer
-                                                    x-dcl-go-name: Nanos
-                                                  seconds:
-                                                    description: 'Signed seconds of
-                                                      the span of time. Must be from
-                                                      -315,576,000,000 to +315,576,000,000
-                                                      inclusive. Note: these bounds
-                                                      are computed from: 60 sec/min
-                                                      * 60 min/hr * 24 hr/day * 365.25
-                                                      days/year * 10000 years'
-                                                    format: int64
-                                                    type: integer
-                                                    x-dcl-go-name: Seconds
-                                                type: object
+                                                type: string
                                                 x-dcl-go-name: AlignmentPeriod
-                                                x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod
                                               crossSeriesReducer:
                                                 description: 'The reduction operation
                                                   to be used to combine time series
@@ -2997,40 +2752,8 @@ components:
                                                       aligner is specified, or the
                                                       aligner `ALIGN_NONE` is specified,
                                                       then this field is ignored.
-                                                    properties:
-                                                      nanos:
-                                                        description: Signed fractions
-                                                          of a second at nanosecond
-                                                          resolution of the span of
-                                                          time. Durations less than
-                                                          one second are represented
-                                                          with a 0 `seconds` field
-                                                          and a positive or negative
-                                                          `nanos` field. For durations
-                                                          of one second or more, a
-                                                          non-zero value for the `nanos`
-                                                          field must be of the same
-                                                          sign as the `seconds` field.
-                                                          Must be from -999,999,999
-                                                          to +999,999,999 inclusive.
-                                                        format: int64
-                                                        type: integer
-                                                        x-dcl-go-name: Nanos
-                                                      seconds:
-                                                        description: 'Signed seconds
-                                                          of the span of time. Must
-                                                          be from -315,576,000,000
-                                                          to +315,576,000,000 inclusive.
-                                                          Note: these bounds are computed
-                                                          from: 60 sec/min * 60 min/hr
-                                                          * 24 hr/day * 365.25 days/year
-                                                          * 10000 years'
-                                                        format: int64
-                                                        type: integer
-                                                        x-dcl-go-name: Seconds
-                                                    type: object
+                                                    type: string
                                                     x-dcl-go-name: AlignmentPeriod
-                                                    x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod
                                                   crossSeriesReducer:
                                                     description: 'The reduction operation
                                                       to be used to combine time series
@@ -3329,40 +3052,8 @@ components:
                                                       aligner is specified, or the
                                                       aligner `ALIGN_NONE` is specified,
                                                       then this field is ignored.
-                                                    properties:
-                                                      nanos:
-                                                        description: Signed fractions
-                                                          of a second at nanosecond
-                                                          resolution of the span of
-                                                          time. Durations less than
-                                                          one second are represented
-                                                          with a 0 `seconds` field
-                                                          and a positive or negative
-                                                          `nanos` field. For durations
-                                                          of one second or more, a
-                                                          non-zero value for the `nanos`
-                                                          field must be of the same
-                                                          sign as the `seconds` field.
-                                                          Must be from -999,999,999
-                                                          to +999,999,999 inclusive.
-                                                        format: int64
-                                                        type: integer
-                                                        x-dcl-go-name: Nanos
-                                                      seconds:
-                                                        description: 'Signed seconds
-                                                          of the span of time. Must
-                                                          be from -315,576,000,000
-                                                          to +315,576,000,000 inclusive.
-                                                          Note: these bounds are computed
-                                                          from: 60 sec/min * 60 min/hr
-                                                          * 24 hr/day * 365.25 days/year
-                                                          * 10000 years'
-                                                        format: int64
-                                                        type: integer
-                                                        x-dcl-go-name: Seconds
-                                                    type: object
+                                                    type: string
                                                     x-dcl-go-name: AlignmentPeriod
-                                                    x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod
                                                   crossSeriesReducer:
                                                     description: 'The reduction operation
                                                       to be used to combine time series
@@ -3699,37 +3390,8 @@ components:
                                                   is specified, or the aligner `ALIGN_NONE`
                                                   is specified, then this field is
                                                   ignored.
-                                                properties:
-                                                  nanos:
-                                                    description: Signed fractions
-                                                      of a second at nanosecond resolution
-                                                      of the span of time. Durations
-                                                      less than one second are represented
-                                                      with a 0 `seconds` field and
-                                                      a positive or negative `nanos`
-                                                      field. For durations of one
-                                                      second or more, a non-zero value
-                                                      for the `nanos` field must be
-                                                      of the same sign as the `seconds`
-                                                      field. Must be from -999,999,999
-                                                      to +999,999,999 inclusive.
-                                                    format: int64
-                                                    type: integer
-                                                    x-dcl-go-name: Nanos
-                                                  seconds:
-                                                    description: 'Signed seconds of
-                                                      the span of time. Must be from
-                                                      -315,576,000,000 to +315,576,000,000
-                                                      inclusive. Note: these bounds
-                                                      are computed from: 60 sec/min
-                                                      * 60 min/hr * 24 hr/day * 365.25
-                                                      days/year * 10000 years'
-                                                    format: int64
-                                                    type: integer
-                                                    x-dcl-go-name: Seconds
-                                                type: object
+                                                type: string
                                                 x-dcl-go-name: AlignmentPeriod
-                                                x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod
                                               crossSeriesReducer:
                                                 description: 'The reduction operation
                                                   to be used to combine time series
@@ -4469,31 +4131,8 @@ components:
                                 metrics). The duration must be positive, and it can
                                 only be applied to charts with data sets of LINE plot
                                 type.
-                              properties:
-                                nanos:
-                                  description: Signed fractions of a second at nanosecond
-                                    resolution of the span of time. Durations less
-                                    than one second are represented with a 0 `seconds`
-                                    field and a positive or negative `nanos` field.
-                                    For durations of one second or more, a non-zero
-                                    value for the `nanos` field must be of the same
-                                    sign as the `seconds` field. Must be from -999,999,999
-                                    to +999,999,999 inclusive.
-                                  format: int64
-                                  type: integer
-                                  x-dcl-go-name: Nanos
-                                seconds:
-                                  description: 'Signed seconds of the span of time.
-                                    Must be from -315,576,000,000 to +315,576,000,000
-                                    inclusive. Note: these bounds are computed from:
-                                    60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year
-                                    * 10000 years'
-                                  format: int64
-                                  type: integer
-                                  x-dcl-go-name: Seconds
-                              type: object
+                              type: string
                               x-dcl-go-name: TimeshiftDuration
-                              x-dcl-go-type: DashboardWidgetXyChartTimeshiftDuration
                             xAxis:
                               description: The properties applied to the X axis.
                               properties:
@@ -5403,30 +5042,8 @@ components:
                     once every 10 minutes it would not make sense to fetch and align
                     data at one minute intervals. This field is optional and exists
                     only as a hint.
-                  properties:
-                    nanos:
-                      description: Signed fractions of a second at nanosecond resolution
-                        of the span of time. Durations less than one second are represented
-                        with a 0 `seconds` field and a positive or negative `nanos`
-                        field. For durations of one second or more, a non-zero value
-                        for the `nanos` field must be of the same sign as the `seconds`
-                        field. Must be from -999,999,999 to +999,999,999 inclusive.
-                      format: int64
-                      type: integer
-                      x-dcl-go-name: Nanos
-                      x-kubernetes-immutable: true
-                    seconds:
-                      description: 'Signed seconds of the span of time. Must be from
-                        -315,576,000,000 to +315,576,000,000 inclusive. Note: these
-                        bounds are computed from: 60 sec/min * 60 min/hr * 24 hr/day
-                        * 365.25 days/year * 10000 years'
-                      format: int64
-                      type: integer
-                      x-dcl-go-name: Seconds
-                      x-kubernetes-immutable: true
-                  type: object
+                  type: string
                   x-dcl-go-name: MinAlignmentPeriod
-                  x-dcl-go-type: DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod
                   x-kubernetes-immutable: true
                 sparkChartType:
                   description: 'Required. The type of sparkchart to show in this chartView.
@@ -5542,31 +5159,8 @@ components:
                             error is returned. If no per-series aligner is specified,
                             or the aligner `ALIGN_NONE` is specified, then this field
                             is ignored.
-                          properties:
-                            nanos:
-                              description: Signed fractions of a second at nanosecond
-                                resolution of the span of time. Durations less than
-                                one second are represented with a 0 `seconds` field
-                                and a positive or negative `nanos` field. For durations
-                                of one second or more, a non-zero value for the `nanos`
-                                field must be of the same sign as the `seconds` field.
-                                Must be from -999,999,999 to +999,999,999 inclusive.
-                              format: int64
-                              type: integer
-                              x-dcl-go-name: Nanos
-                              x-kubernetes-immutable: true
-                            seconds:
-                              description: 'Signed seconds of the span of time. Must
-                                be from -315,576,000,000 to +315,576,000,000 inclusive.
-                                Note: these bounds are computed from: 60 sec/min *
-                                60 min/hr * 24 hr/day * 365.25 days/year * 10000 years'
-                              format: int64
-                              type: integer
-                              x-dcl-go-name: Seconds
-                              x-kubernetes-immutable: true
-                          type: object
+                          type: string
                           x-dcl-go-name: AlignmentPeriod
-                          x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod
                           x-kubernetes-immutable: true
                         crossSeriesReducer:
                           description: 'The reduction operation to be used to combine
@@ -5855,31 +5449,8 @@ components:
                             error is returned. If no per-series aligner is specified,
                             or the aligner `ALIGN_NONE` is specified, then this field
                             is ignored.
-                          properties:
-                            nanos:
-                              description: Signed fractions of a second at nanosecond
-                                resolution of the span of time. Durations less than
-                                one second are represented with a 0 `seconds` field
-                                and a positive or negative `nanos` field. For durations
-                                of one second or more, a non-zero value for the `nanos`
-                                field must be of the same sign as the `seconds` field.
-                                Must be from -999,999,999 to +999,999,999 inclusive.
-                              format: int64
-                              type: integer
-                              x-dcl-go-name: Nanos
-                              x-kubernetes-immutable: true
-                            seconds:
-                              description: 'Signed seconds of the span of time. Must
-                                be from -315,576,000,000 to +315,576,000,000 inclusive.
-                                Note: these bounds are computed from: 60 sec/min *
-                                60 min/hr * 24 hr/day * 365.25 days/year * 10000 years'
-                              format: int64
-                              type: integer
-                              x-dcl-go-name: Seconds
-                              x-kubernetes-immutable: true
-                          type: object
+                          type: string
                           x-dcl-go-name: AlignmentPeriod
-                          x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod
                           x-kubernetes-immutable: true
                         crossSeriesReducer:
                           description: 'The reduction operation to be used to combine
@@ -6130,33 +5701,8 @@ components:
                                 this field is required or an error is returned. If
                                 no per-series aligner is specified, or the aligner
                                 `ALIGN_NONE` is specified, then this field is ignored.
-                              properties:
-                                nanos:
-                                  description: Signed fractions of a second at nanosecond
-                                    resolution of the span of time. Durations less
-                                    than one second are represented with a 0 `seconds`
-                                    field and a positive or negative `nanos` field.
-                                    For durations of one second or more, a non-zero
-                                    value for the `nanos` field must be of the same
-                                    sign as the `seconds` field. Must be from -999,999,999
-                                    to +999,999,999 inclusive.
-                                  format: int64
-                                  type: integer
-                                  x-dcl-go-name: Nanos
-                                  x-kubernetes-immutable: true
-                                seconds:
-                                  description: 'Signed seconds of the span of time.
-                                    Must be from -315,576,000,000 to +315,576,000,000
-                                    inclusive. Note: these bounds are computed from:
-                                    60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year
-                                    * 10000 years'
-                                  format: int64
-                                  type: integer
-                                  x-dcl-go-name: Seconds
-                                  x-kubernetes-immutable: true
-                              type: object
+                              type: string
                               x-dcl-go-name: AlignmentPeriod
-                              x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod
                               x-kubernetes-immutable: true
                             crossSeriesReducer:
                               description: 'The reduction operation to be used to
@@ -6414,33 +5960,8 @@ components:
                                 this field is required or an error is returned. If
                                 no per-series aligner is specified, or the aligner
                                 `ALIGN_NONE` is specified, then this field is ignored.
-                              properties:
-                                nanos:
-                                  description: Signed fractions of a second at nanosecond
-                                    resolution of the span of time. Durations less
-                                    than one second are represented with a 0 `seconds`
-                                    field and a positive or negative `nanos` field.
-                                    For durations of one second or more, a non-zero
-                                    value for the `nanos` field must be of the same
-                                    sign as the `seconds` field. Must be from -999,999,999
-                                    to +999,999,999 inclusive.
-                                  format: int64
-                                  type: integer
-                                  x-dcl-go-name: Nanos
-                                  x-kubernetes-immutable: true
-                                seconds:
-                                  description: 'Signed seconds of the span of time.
-                                    Must be from -315,576,000,000 to +315,576,000,000
-                                    inclusive. Note: these bounds are computed from:
-                                    60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year
-                                    * 10000 years'
-                                  format: int64
-                                  type: integer
-                                  x-dcl-go-name: Seconds
-                                  x-kubernetes-immutable: true
-                              type: object
+                              type: string
                               x-dcl-go-name: AlignmentPeriod
-                              x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod
                               x-kubernetes-immutable: true
                             crossSeriesReducer:
                               description: 'The reduction operation to be used to
@@ -6736,31 +6257,8 @@ components:
                             error is returned. If no per-series aligner is specified,
                             or the aligner `ALIGN_NONE` is specified, then this field
                             is ignored.
-                          properties:
-                            nanos:
-                              description: Signed fractions of a second at nanosecond
-                                resolution of the span of time. Durations less than
-                                one second are represented with a 0 `seconds` field
-                                and a positive or negative `nanos` field. For durations
-                                of one second or more, a non-zero value for the `nanos`
-                                field must be of the same sign as the `seconds` field.
-                                Must be from -999,999,999 to +999,999,999 inclusive.
-                              format: int64
-                              type: integer
-                              x-dcl-go-name: Nanos
-                              x-kubernetes-immutable: true
-                            seconds:
-                              description: 'Signed seconds of the span of time. Must
-                                be from -315,576,000,000 to +315,576,000,000 inclusive.
-                                Note: these bounds are computed from: 60 sec/min *
-                                60 min/hr * 24 hr/day * 365.25 days/year * 10000 years'
-                              format: int64
-                              type: integer
-                              x-dcl-go-name: Seconds
-                              x-kubernetes-immutable: true
-                          type: object
+                          type: string
                           x-dcl-go-name: AlignmentPeriod
-                          x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod
                           x-kubernetes-immutable: true
                         crossSeriesReducer:
                           description: 'The reduction operation to be used to combine
@@ -7083,31 +6581,8 @@ components:
                       is published once every 10 minutes, the `min_alignment_period`
                       should be at least 10 minutes. It would not make sense to fetch
                       and align data at one minute intervals.
-                    properties:
-                      nanos:
-                        description: Signed fractions of a second at nanosecond resolution
-                          of the span of time. Durations less than one second are
-                          represented with a 0 `seconds` field and a positive or negative
-                          `nanos` field. For durations of one second or more, a non-zero
-                          value for the `nanos` field must be of the same sign as
-                          the `seconds` field. Must be from -999,999,999 to +999,999,999
-                          inclusive.
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Nanos
-                        x-kubernetes-immutable: true
-                      seconds:
-                        description: 'Signed seconds of the span of time. Must be
-                          from -315,576,000,000 to +315,576,000,000 inclusive. Note:
-                          these bounds are computed from: 60 sec/min * 60 min/hr *
-                          24 hr/day * 365.25 days/year * 10000 years'
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Seconds
-                        x-kubernetes-immutable: true
-                    type: object
+                    type: string
                     x-dcl-go-name: MinAlignmentPeriod
-                    x-dcl-go-type: DashboardWidgetXyChartDataSetsMinAlignmentPeriod
                     x-kubernetes-immutable: true
                   plotType:
                     description: 'How this data should be plotted on the chart. Possible
@@ -7159,33 +6634,8 @@ components:
                                   is returned. If no per-series aligner is specified,
                                   or the aligner `ALIGN_NONE` is specified, then this
                                   field is ignored.
-                                properties:
-                                  nanos:
-                                    description: Signed fractions of a second at nanosecond
-                                      resolution of the span of time. Durations less
-                                      than one second are represented with a 0 `seconds`
-                                      field and a positive or negative `nanos` field.
-                                      For durations of one second or more, a non-zero
-                                      value for the `nanos` field must be of the same
-                                      sign as the `seconds` field. Must be from -999,999,999
-                                      to +999,999,999 inclusive.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: Nanos
-                                    x-kubernetes-immutable: true
-                                  seconds:
-                                    description: 'Signed seconds of the span of time.
-                                      Must be from -315,576,000,000 to +315,576,000,000
-                                      inclusive. Note: these bounds are computed from:
-                                      60 sec/min * 60 min/hr * 24 hr/day * 365.25
-                                      days/year * 10000 years'
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: Seconds
-                                    x-kubernetes-immutable: true
-                                type: object
+                                type: string
                                 x-dcl-go-name: AlignmentPeriod
-                                x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod
                                 x-kubernetes-immutable: true
                               crossSeriesReducer:
                                 description: 'The reduction operation to be used to
@@ -7483,33 +6933,8 @@ components:
                                   is returned. If no per-series aligner is specified,
                                   or the aligner `ALIGN_NONE` is specified, then this
                                   field is ignored.
-                                properties:
-                                  nanos:
-                                    description: Signed fractions of a second at nanosecond
-                                      resolution of the span of time. Durations less
-                                      than one second are represented with a 0 `seconds`
-                                      field and a positive or negative `nanos` field.
-                                      For durations of one second or more, a non-zero
-                                      value for the `nanos` field must be of the same
-                                      sign as the `seconds` field. Must be from -999,999,999
-                                      to +999,999,999 inclusive.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: Nanos
-                                    x-kubernetes-immutable: true
-                                  seconds:
-                                    description: 'Signed seconds of the span of time.
-                                      Must be from -315,576,000,000 to +315,576,000,000
-                                      inclusive. Note: these bounds are computed from:
-                                      60 sec/min * 60 min/hr * 24 hr/day * 365.25
-                                      days/year * 10000 years'
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: Seconds
-                                    x-kubernetes-immutable: true
-                                type: object
+                                type: string
                                 x-dcl-go-name: AlignmentPeriod
-                                x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod
                                 x-kubernetes-immutable: true
                               crossSeriesReducer:
                                 description: 'The reduction operation to be used to
@@ -7768,34 +7193,8 @@ components:
                                       or an error is returned. If no per-series aligner
                                       is specified, or the aligner `ALIGN_NONE` is
                                       specified, then this field is ignored.
-                                    properties:
-                                      nanos:
-                                        description: Signed fractions of a second
-                                          at nanosecond resolution of the span of
-                                          time. Durations less than one second are
-                                          represented with a 0 `seconds` field and
-                                          a positive or negative `nanos` field. For
-                                          durations of one second or more, a non-zero
-                                          value for the `nanos` field must be of the
-                                          same sign as the `seconds` field. Must be
-                                          from -999,999,999 to +999,999,999 inclusive.
-                                        format: int64
-                                        type: integer
-                                        x-dcl-go-name: Nanos
-                                        x-kubernetes-immutable: true
-                                      seconds:
-                                        description: 'Signed seconds of the span of
-                                          time. Must be from -315,576,000,000 to +315,576,000,000
-                                          inclusive. Note: these bounds are computed
-                                          from: 60 sec/min * 60 min/hr * 24 hr/day
-                                          * 365.25 days/year * 10000 years'
-                                        format: int64
-                                        type: integer
-                                        x-dcl-go-name: Seconds
-                                        x-kubernetes-immutable: true
-                                    type: object
+                                    type: string
                                     x-dcl-go-name: AlignmentPeriod
-                                    x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod
                                     x-kubernetes-immutable: true
                                   crossSeriesReducer:
                                     description: 'The reduction operation to be used
@@ -8066,34 +7465,8 @@ components:
                                       or an error is returned. If no per-series aligner
                                       is specified, or the aligner `ALIGN_NONE` is
                                       specified, then this field is ignored.
-                                    properties:
-                                      nanos:
-                                        description: Signed fractions of a second
-                                          at nanosecond resolution of the span of
-                                          time. Durations less than one second are
-                                          represented with a 0 `seconds` field and
-                                          a positive or negative `nanos` field. For
-                                          durations of one second or more, a non-zero
-                                          value for the `nanos` field must be of the
-                                          same sign as the `seconds` field. Must be
-                                          from -999,999,999 to +999,999,999 inclusive.
-                                        format: int64
-                                        type: integer
-                                        x-dcl-go-name: Nanos
-                                        x-kubernetes-immutable: true
-                                      seconds:
-                                        description: 'Signed seconds of the span of
-                                          time. Must be from -315,576,000,000 to +315,576,000,000
-                                          inclusive. Note: these bounds are computed
-                                          from: 60 sec/min * 60 min/hr * 24 hr/day
-                                          * 365.25 days/year * 10000 years'
-                                        format: int64
-                                        type: integer
-                                        x-dcl-go-name: Seconds
-                                        x-kubernetes-immutable: true
-                                    type: object
+                                    type: string
                                     x-dcl-go-name: AlignmentPeriod
-                                    x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod
                                     x-kubernetes-immutable: true
                                   crossSeriesReducer:
                                     description: 'The reduction operation to be used
@@ -8404,33 +7777,8 @@ components:
                                   is returned. If no per-series aligner is specified,
                                   or the aligner `ALIGN_NONE` is specified, then this
                                   field is ignored.
-                                properties:
-                                  nanos:
-                                    description: Signed fractions of a second at nanosecond
-                                      resolution of the span of time. Durations less
-                                      than one second are represented with a 0 `seconds`
-                                      field and a positive or negative `nanos` field.
-                                      For durations of one second or more, a non-zero
-                                      value for the `nanos` field must be of the same
-                                      sign as the `seconds` field. Must be from -999,999,999
-                                      to +999,999,999 inclusive.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: Nanos
-                                    x-kubernetes-immutable: true
-                                  seconds:
-                                    description: 'Signed seconds of the span of time.
-                                      Must be from -315,576,000,000 to +315,576,000,000
-                                      inclusive. Note: these bounds are computed from:
-                                      60 sec/min * 60 min/hr * 24 hr/day * 365.25
-                                      days/year * 10000 years'
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: Seconds
-                                    x-kubernetes-immutable: true
-                                type: object
+                                type: string
                                 x-dcl-go-name: AlignmentPeriod
-                                x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod
                                 x-kubernetes-immutable: true
                               crossSeriesReducer:
                                 description: 'The reduction operation to be used to
@@ -9167,30 +8515,8 @@ components:
                 chart simultaneously shows values from two similar-length time periods
                 (e.g., week-over-week metrics). The duration must be positive, and
                 it can only be applied to charts with data sets of LINE plot type.
-              properties:
-                nanos:
-                  description: Signed fractions of a second at nanosecond resolution
-                    of the span of time. Durations less than one second are represented
-                    with a 0 `seconds` field and a positive or negative `nanos` field.
-                    For durations of one second or more, a non-zero value for the
-                    `nanos` field must be of the same sign as the `seconds` field.
-                    Must be from -999,999,999 to +999,999,999 inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
-                  x-kubernetes-immutable: true
-                seconds:
-                  description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-                    to +315,576,000,000 inclusive. Note: these bounds are computed
-                    from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year *
-                    10000 years'
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
-                  x-kubernetes-immutable: true
-              type: object
+              type: string
               x-dcl-go-name: TimeshiftDuration
-              x-dcl-go-type: DashboardWidgetXyChartTimeshiftDuration
               x-kubernetes-immutable: true
             xAxis:
               description: The properties applied to the X axis.

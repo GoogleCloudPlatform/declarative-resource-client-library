@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -386,9 +387,20 @@ func (op *deleteBuildTriggerOperation) do(ctx context.Context, r *BuildTrigger, 
 	if err != nil {
 		return fmt.Errorf("failed to delete BuildTrigger: %w", err)
 	}
-	_, err = c.GetBuildTrigger(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetBuildTrigger(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -483,7 +495,6 @@ func (c *Client) buildTriggerDiffsForRawDesired(ctx context.Context, rawDesired 
 		desired, err = canonicalizeBuildTriggerDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for BuildTrigger: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for BuildTrigger: %v", rawDesired)
 
@@ -567,7 +578,7 @@ func canonicalizeBuildTriggerDesiredState(rawDesired, rawInitial *BuildTrigger, 
 	if dcl.IsZeroValue(rawDesired.Tags) {
 		rawDesired.Tags = rawInitial.Tags
 	}
-	if dcl.IsZeroValue(rawDesired.Disabled) {
+	if dcl.BoolCanonicalize(rawDesired.Disabled, rawInitial.Disabled) {
 		rawDesired.Disabled = rawInitial.Disabled
 	}
 	if dcl.IsZeroValue(rawDesired.Substitutions) {
@@ -624,6 +635,9 @@ func canonicalizeBuildTriggerNewState(c *Client, rawNew, rawDesired *BuildTrigge
 	if dcl.IsEmptyValueIndirect(rawNew.Disabled) && dcl.IsEmptyValueIndirect(rawDesired.Disabled) {
 		rawNew.Disabled = rawDesired.Disabled
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.Disabled, rawNew.Disabled) {
+			rawNew.Disabled = rawDesired.Disabled
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Substitutions) && dcl.IsEmptyValueIndirect(rawDesired.Substitutions) {
@@ -722,7 +736,7 @@ func canonicalizeBuildTriggerTriggerTemplate(des, initial *BuildTriggerTriggerTe
 	if dcl.StringCanonicalize(des.Dir, initial.Dir) || dcl.IsZeroValue(des.Dir) {
 		des.Dir = initial.Dir
 	}
-	if dcl.IsZeroValue(des.InvertRegex) {
+	if dcl.BoolCanonicalize(des.InvertRegex, initial.InvertRegex) || dcl.IsZeroValue(des.InvertRegex) {
 		des.InvertRegex = initial.InvertRegex
 	}
 
@@ -756,6 +770,9 @@ func canonicalizeNewBuildTriggerTriggerTemplate(c *Client, des, nw *BuildTrigger
 	if dcl.StringCanonicalize(des.Dir, nw.Dir) || dcl.IsZeroValue(des.Dir) {
 		nw.Dir = des.Dir
 	}
+	if dcl.BoolCanonicalize(des.InvertRegex, nw.InvertRegex) || dcl.IsZeroValue(des.InvertRegex) {
+		nw.InvertRegex = des.InvertRegex
+	}
 
 	return nw
 }
@@ -781,6 +798,26 @@ func canonicalizeNewBuildTriggerTriggerTemplateSet(c *Client, des, nw []BuildTri
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewBuildTriggerTriggerTemplateSlice(c *Client, des, nw []BuildTriggerTriggerTemplate) []BuildTriggerTriggerTemplate {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []BuildTriggerTriggerTemplate
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewBuildTriggerTriggerTemplate(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeBuildTriggerGithub(des, initial *BuildTriggerGithub, opts ...dcl.ApplyOption) *BuildTriggerGithub {
@@ -847,6 +884,26 @@ func canonicalizeNewBuildTriggerGithubSet(c *Client, des, nw []BuildTriggerGithu
 	return reorderedNew
 }
 
+func canonicalizeNewBuildTriggerGithubSlice(c *Client, des, nw []BuildTriggerGithub) []BuildTriggerGithub {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []BuildTriggerGithub
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewBuildTriggerGithub(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeBuildTriggerGithubPullRequest(des, initial *BuildTriggerGithubPullRequest, opts ...dcl.ApplyOption) *BuildTriggerGithubPullRequest {
 	if des == nil {
 		return initial
@@ -865,7 +922,7 @@ func canonicalizeBuildTriggerGithubPullRequest(des, initial *BuildTriggerGithubP
 	if dcl.IsZeroValue(des.CommentControl) {
 		des.CommentControl = initial.CommentControl
 	}
-	if dcl.IsZeroValue(des.InvertRegex) {
+	if dcl.BoolCanonicalize(des.InvertRegex, initial.InvertRegex) || dcl.IsZeroValue(des.InvertRegex) {
 		des.InvertRegex = initial.InvertRegex
 	}
 
@@ -879,6 +936,9 @@ func canonicalizeNewBuildTriggerGithubPullRequest(c *Client, des, nw *BuildTrigg
 
 	if dcl.StringCanonicalize(des.Branch, nw.Branch) || dcl.IsZeroValue(des.Branch) {
 		nw.Branch = des.Branch
+	}
+	if dcl.BoolCanonicalize(des.InvertRegex, nw.InvertRegex) || dcl.IsZeroValue(des.InvertRegex) {
+		nw.InvertRegex = des.InvertRegex
 	}
 
 	return nw
@@ -907,6 +967,26 @@ func canonicalizeNewBuildTriggerGithubPullRequestSet(c *Client, des, nw []BuildT
 	return reorderedNew
 }
 
+func canonicalizeNewBuildTriggerGithubPullRequestSlice(c *Client, des, nw []BuildTriggerGithubPullRequest) []BuildTriggerGithubPullRequest {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []BuildTriggerGithubPullRequest
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewBuildTriggerGithubPullRequest(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeBuildTriggerGithubPush(des, initial *BuildTriggerGithubPush, opts ...dcl.ApplyOption) *BuildTriggerGithubPush {
 	if des == nil {
 		return initial
@@ -925,7 +1005,7 @@ func canonicalizeBuildTriggerGithubPush(des, initial *BuildTriggerGithubPush, op
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
 		des.Tag = initial.Tag
 	}
-	if dcl.IsZeroValue(des.InvertRegex) {
+	if dcl.BoolCanonicalize(des.InvertRegex, initial.InvertRegex) || dcl.IsZeroValue(des.InvertRegex) {
 		des.InvertRegex = initial.InvertRegex
 	}
 
@@ -942,6 +1022,9 @@ func canonicalizeNewBuildTriggerGithubPush(c *Client, des, nw *BuildTriggerGithu
 	}
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) || dcl.IsZeroValue(des.Tag) {
 		nw.Tag = des.Tag
+	}
+	if dcl.BoolCanonicalize(des.InvertRegex, nw.InvertRegex) || dcl.IsZeroValue(des.InvertRegex) {
+		nw.InvertRegex = des.InvertRegex
 	}
 
 	return nw
@@ -968,6 +1051,26 @@ func canonicalizeNewBuildTriggerGithubPushSet(c *Client, des, nw []BuildTriggerG
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewBuildTriggerGithubPushSlice(c *Client, des, nw []BuildTriggerGithubPush) []BuildTriggerGithubPush {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []BuildTriggerGithubPush
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewBuildTriggerGithubPush(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeBuildTriggerBuild(des, initial *BuildTriggerBuild, opts ...dcl.ApplyOption) *BuildTriggerBuild {
@@ -1033,6 +1136,8 @@ func canonicalizeNewBuildTriggerBuild(c *Client, des, nw *BuildTriggerBuild) *Bu
 	if dcl.StringCanonicalize(des.Timeout, nw.Timeout) || dcl.IsZeroValue(des.Timeout) {
 		nw.Timeout = des.Timeout
 	}
+	nw.Secrets = canonicalizeNewBuildTriggerBuildSecretsSlice(c, des.Secrets, nw.Secrets)
+	nw.Steps = canonicalizeNewBuildTriggerBuildStepsSlice(c, des.Steps, nw.Steps)
 	nw.Source = canonicalizeNewBuildTriggerBuildSource(c, des.Source, nw.Source)
 
 	return nw
@@ -1059,6 +1164,26 @@ func canonicalizeNewBuildTriggerBuildSet(c *Client, des, nw []BuildTriggerBuild)
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewBuildTriggerBuildSlice(c *Client, des, nw []BuildTriggerBuild) []BuildTriggerBuild {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []BuildTriggerBuild
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewBuildTriggerBuild(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeBuildTriggerBuildSecrets(des, initial *BuildTriggerBuildSecrets, opts ...dcl.ApplyOption) *BuildTriggerBuildSecrets {
@@ -1116,6 +1241,26 @@ func canonicalizeNewBuildTriggerBuildSecretsSet(c *Client, des, nw []BuildTrigge
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewBuildTriggerBuildSecretsSlice(c *Client, des, nw []BuildTriggerBuildSecrets) []BuildTriggerBuildSecrets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []BuildTriggerBuildSecrets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewBuildTriggerBuildSecrets(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeBuildTriggerBuildSteps(des, initial *BuildTriggerBuildSteps, opts ...dcl.ApplyOption) *BuildTriggerBuildSteps {
@@ -1194,6 +1339,7 @@ func canonicalizeNewBuildTriggerBuildSteps(c *Client, des, nw *BuildTriggerBuild
 	if dcl.StringCanonicalize(des.Entrypoint, nw.Entrypoint) || dcl.IsZeroValue(des.Entrypoint) {
 		nw.Entrypoint = des.Entrypoint
 	}
+	nw.Volumes = canonicalizeNewBuildTriggerBuildStepsVolumesSlice(c, des.Volumes, nw.Volumes)
 	nw.Timing = canonicalizeNewBuildTriggerBuildStepsTiming(c, des.Timing, nw.Timing)
 	nw.PullTiming = canonicalizeNewBuildTriggerBuildStepsPullTiming(c, des.PullTiming, nw.PullTiming)
 	if dcl.StringCanonicalize(des.Timeout, nw.Timeout) || dcl.IsZeroValue(des.Timeout) {
@@ -1224,6 +1370,26 @@ func canonicalizeNewBuildTriggerBuildStepsSet(c *Client, des, nw []BuildTriggerB
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewBuildTriggerBuildStepsSlice(c *Client, des, nw []BuildTriggerBuildSteps) []BuildTriggerBuildSteps {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []BuildTriggerBuildSteps
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewBuildTriggerBuildSteps(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeBuildTriggerBuildStepsVolumes(des, initial *BuildTriggerBuildStepsVolumes, opts ...dcl.ApplyOption) *BuildTriggerBuildStepsVolumes {
@@ -1286,6 +1452,26 @@ func canonicalizeNewBuildTriggerBuildStepsVolumesSet(c *Client, des, nw []BuildT
 	return reorderedNew
 }
 
+func canonicalizeNewBuildTriggerBuildStepsVolumesSlice(c *Client, des, nw []BuildTriggerBuildStepsVolumes) []BuildTriggerBuildStepsVolumes {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []BuildTriggerBuildStepsVolumes
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewBuildTriggerBuildStepsVolumes(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeBuildTriggerBuildStepsTiming(des, initial *BuildTriggerBuildStepsTiming, opts ...dcl.ApplyOption) *BuildTriggerBuildStepsTiming {
 	if des == nil {
 		return initial
@@ -1344,6 +1530,26 @@ func canonicalizeNewBuildTriggerBuildStepsTimingSet(c *Client, des, nw []BuildTr
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewBuildTriggerBuildStepsTimingSlice(c *Client, des, nw []BuildTriggerBuildStepsTiming) []BuildTriggerBuildStepsTiming {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []BuildTriggerBuildStepsTiming
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewBuildTriggerBuildStepsTiming(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeBuildTriggerBuildStepsPullTiming(des, initial *BuildTriggerBuildStepsPullTiming, opts ...dcl.ApplyOption) *BuildTriggerBuildStepsPullTiming {
@@ -1406,6 +1612,26 @@ func canonicalizeNewBuildTriggerBuildStepsPullTimingSet(c *Client, des, nw []Bui
 	return reorderedNew
 }
 
+func canonicalizeNewBuildTriggerBuildStepsPullTimingSlice(c *Client, des, nw []BuildTriggerBuildStepsPullTiming) []BuildTriggerBuildStepsPullTiming {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []BuildTriggerBuildStepsPullTiming
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewBuildTriggerBuildStepsPullTiming(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeBuildTriggerBuildSource(des, initial *BuildTriggerBuildSource, opts ...dcl.ApplyOption) *BuildTriggerBuildSource {
 	if des == nil {
 		return initial
@@ -1456,6 +1682,26 @@ func canonicalizeNewBuildTriggerBuildSourceSet(c *Client, des, nw []BuildTrigger
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewBuildTriggerBuildSourceSlice(c *Client, des, nw []BuildTriggerBuildSource) []BuildTriggerBuildSource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []BuildTriggerBuildSource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewBuildTriggerBuildSource(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeBuildTriggerBuildSourceStorageSource(des, initial *BuildTriggerBuildSourceStorageSource, opts ...dcl.ApplyOption) *BuildTriggerBuildSourceStorageSource {
@@ -1524,6 +1770,26 @@ func canonicalizeNewBuildTriggerBuildSourceStorageSourceSet(c *Client, des, nw [
 	return reorderedNew
 }
 
+func canonicalizeNewBuildTriggerBuildSourceStorageSourceSlice(c *Client, des, nw []BuildTriggerBuildSourceStorageSource) []BuildTriggerBuildSourceStorageSource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []BuildTriggerBuildSourceStorageSource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewBuildTriggerBuildSourceStorageSource(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeBuildTriggerBuildSourceRepoSource(des, initial *BuildTriggerBuildSourceRepoSource, opts ...dcl.ApplyOption) *BuildTriggerBuildSourceRepoSource {
 	if des == nil {
 		return initial
@@ -1554,7 +1820,7 @@ func canonicalizeBuildTriggerBuildSourceRepoSource(des, initial *BuildTriggerBui
 	if dcl.StringCanonicalize(des.Dir, initial.Dir) || dcl.IsZeroValue(des.Dir) {
 		des.Dir = initial.Dir
 	}
-	if dcl.IsZeroValue(des.InvertRegex) {
+	if dcl.BoolCanonicalize(des.InvertRegex, initial.InvertRegex) || dcl.IsZeroValue(des.InvertRegex) {
 		des.InvertRegex = initial.InvertRegex
 	}
 	if dcl.IsZeroValue(des.Substitutions) {
@@ -1587,6 +1853,9 @@ func canonicalizeNewBuildTriggerBuildSourceRepoSource(c *Client, des, nw *BuildT
 	if dcl.StringCanonicalize(des.Dir, nw.Dir) || dcl.IsZeroValue(des.Dir) {
 		nw.Dir = des.Dir
 	}
+	if dcl.BoolCanonicalize(des.InvertRegex, nw.InvertRegex) || dcl.IsZeroValue(des.InvertRegex) {
+		nw.InvertRegex = des.InvertRegex
+	}
 
 	return nw
 }
@@ -1612,6 +1881,26 @@ func canonicalizeNewBuildTriggerBuildSourceRepoSourceSet(c *Client, des, nw []Bu
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewBuildTriggerBuildSourceRepoSourceSlice(c *Client, des, nw []BuildTriggerBuildSourceRepoSource) []BuildTriggerBuildSourceRepoSource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []BuildTriggerBuildSourceRepoSource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewBuildTriggerBuildSourceRepoSource(c, &d, &n))
+	}
+
+	return items
 }
 
 type buildTriggerDiff struct {
@@ -1662,7 +1951,7 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 		})
 
 	}
-	if !reflect.DeepEqual(desired.Disabled, actual.Disabled) {
+	if !dcl.IsZeroValue(desired.Disabled) && !dcl.BoolCanonicalize(desired.Disabled, actual.Disabled) {
 		c.Config.Logger.Infof("Detected diff in Disabled.\nDESIRED: %v\nACTUAL: %v", desired.Disabled, actual.Disabled)
 
 		diffs = append(diffs, buildTriggerDiff{
@@ -1817,7 +2106,7 @@ func compareBuildTriggerTriggerTemplate(c *Client, desired, actual *BuildTrigger
 		c.Config.Logger.Infof("desired InvertRegex %s - but actually nil", dcl.SprintResource(desired.InvertRegex))
 		return true
 	}
-	if !reflect.DeepEqual(desired.InvertRegex, actual.InvertRegex) && !dcl.IsZeroValue(desired.InvertRegex) {
+	if !dcl.BoolCanonicalize(desired.InvertRegex, actual.InvertRegex) && !dcl.IsZeroValue(desired.InvertRegex) {
 		c.Config.Logger.Infof("Diff in InvertRegex. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InvertRegex), dcl.SprintResource(actual.InvertRegex))
 		return true
 	}
@@ -1959,7 +2248,7 @@ func compareBuildTriggerGithubPullRequest(c *Client, desired, actual *BuildTrigg
 		c.Config.Logger.Infof("desired InvertRegex %s - but actually nil", dcl.SprintResource(desired.InvertRegex))
 		return true
 	}
-	if !reflect.DeepEqual(desired.InvertRegex, actual.InvertRegex) && !dcl.IsZeroValue(desired.InvertRegex) {
+	if !dcl.BoolCanonicalize(desired.InvertRegex, actual.InvertRegex) && !dcl.IsZeroValue(desired.InvertRegex) {
 		c.Config.Logger.Infof("Diff in InvertRegex. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InvertRegex), dcl.SprintResource(actual.InvertRegex))
 		return true
 	}
@@ -2026,7 +2315,7 @@ func compareBuildTriggerGithubPush(c *Client, desired, actual *BuildTriggerGithu
 		c.Config.Logger.Infof("desired InvertRegex %s - but actually nil", dcl.SprintResource(desired.InvertRegex))
 		return true
 	}
-	if !reflect.DeepEqual(desired.InvertRegex, actual.InvertRegex) && !dcl.IsZeroValue(desired.InvertRegex) {
+	if !dcl.BoolCanonicalize(desired.InvertRegex, actual.InvertRegex) && !dcl.IsZeroValue(desired.InvertRegex) {
 		c.Config.Logger.Infof("Diff in InvertRegex. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InvertRegex), dcl.SprintResource(actual.InvertRegex))
 		return true
 	}
@@ -2725,7 +3014,7 @@ func compareBuildTriggerBuildSourceRepoSource(c *Client, desired, actual *BuildT
 		c.Config.Logger.Infof("desired InvertRegex %s - but actually nil", dcl.SprintResource(desired.InvertRegex))
 		return true
 	}
-	if !reflect.DeepEqual(desired.InvertRegex, actual.InvertRegex) && !dcl.IsZeroValue(desired.InvertRegex) {
+	if !dcl.BoolCanonicalize(desired.InvertRegex, actual.InvertRegex) && !dcl.IsZeroValue(desired.InvertRegex) {
 		c.Config.Logger.Infof("Diff in InvertRegex. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InvertRegex), dcl.SprintResource(actual.InvertRegex))
 		return true
 	}

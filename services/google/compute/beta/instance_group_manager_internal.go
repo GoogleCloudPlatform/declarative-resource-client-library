@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -438,9 +439,20 @@ func (op *deleteInstanceGroupManagerOperation) do(ctx context.Context, r *Instan
 	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/beta/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetInstanceGroupManager(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetInstanceGroupManager(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -540,7 +552,6 @@ func (c *Client) instanceGroupManagerDiffsForRawDesired(ctx context.Context, raw
 		desired, err = canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for InstanceGroupManager: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for InstanceGroupManager: %v", rawDesired)
 
@@ -681,6 +692,7 @@ func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *Ins
 	if dcl.IsEmptyValueIndirect(rawNew.Versions) && dcl.IsEmptyValueIndirect(rawDesired.Versions) {
 		rawNew.Versions = rawDesired.Versions
 	} else {
+		rawNew.Versions = canonicalizeNewInstanceGroupManagerVersionsSlice(c, rawDesired.Versions, rawNew.Versions)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Id) && dcl.IsEmptyValueIndirect(rawDesired.Id) {
@@ -715,6 +727,7 @@ func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *Ins
 	if dcl.IsEmptyValueIndirect(rawNew.NamedPorts) && dcl.IsEmptyValueIndirect(rawDesired.NamedPorts) {
 		rawNew.NamedPorts = rawDesired.NamedPorts
 	} else {
+		rawNew.NamedPorts = canonicalizeNewInstanceGroupManagerNamedPortsSlice(c, rawDesired.NamedPorts, rawNew.NamedPorts)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Status) && dcl.IsEmptyValueIndirect(rawDesired.Status) {
@@ -731,6 +744,7 @@ func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *Ins
 	if dcl.IsEmptyValueIndirect(rawNew.AutoHealingPolicies) && dcl.IsEmptyValueIndirect(rawDesired.AutoHealingPolicies) {
 		rawNew.AutoHealingPolicies = rawDesired.AutoHealingPolicies
 	} else {
+		rawNew.AutoHealingPolicies = canonicalizeNewInstanceGroupManagerAutoHealingPoliciesSlice(c, rawDesired.AutoHealingPolicies, rawNew.AutoHealingPolicies)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.UpdatePolicy) && dcl.IsEmptyValueIndirect(rawDesired.UpdatePolicy) {
@@ -791,6 +805,8 @@ func canonicalizeNewInstanceGroupManagerDistributionPolicy(c *Client, des, nw *I
 		return nw
 	}
 
+	nw.Zones = canonicalizeNewInstanceGroupManagerDistributionPolicyZonesSlice(c, des.Zones, nw.Zones)
+
 	return nw
 }
 
@@ -815,6 +831,26 @@ func canonicalizeNewInstanceGroupManagerDistributionPolicySet(c *Client, des, nw
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceGroupManagerDistributionPolicySlice(c *Client, des, nw []InstanceGroupManagerDistributionPolicy) []InstanceGroupManagerDistributionPolicy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceGroupManagerDistributionPolicy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGroupManagerDistributionPolicy(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceGroupManagerDistributionPolicyZones(des, initial *InstanceGroupManagerDistributionPolicyZones, opts ...dcl.ApplyOption) *InstanceGroupManagerDistributionPolicyZones {
@@ -869,6 +905,26 @@ func canonicalizeNewInstanceGroupManagerDistributionPolicyZonesSet(c *Client, de
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceGroupManagerDistributionPolicyZonesSlice(c *Client, des, nw []InstanceGroupManagerDistributionPolicyZones) []InstanceGroupManagerDistributionPolicyZones {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceGroupManagerDistributionPolicyZones
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGroupManagerDistributionPolicyZones(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceGroupManagerCurrentActions(des, initial *InstanceGroupManagerCurrentActions, opts ...dcl.ApplyOption) *InstanceGroupManagerCurrentActions {
@@ -942,6 +998,26 @@ func canonicalizeNewInstanceGroupManagerCurrentActionsSet(c *Client, des, nw []I
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceGroupManagerCurrentActionsSlice(c *Client, des, nw []InstanceGroupManagerCurrentActions) []InstanceGroupManagerCurrentActions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceGroupManagerCurrentActions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGroupManagerCurrentActions(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceGroupManagerVersions(des, initial *InstanceGroupManagerVersions, opts ...dcl.ApplyOption) *InstanceGroupManagerVersions {
 	if des == nil {
 		return initial
@@ -1004,6 +1080,26 @@ func canonicalizeNewInstanceGroupManagerVersionsSet(c *Client, des, nw []Instanc
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceGroupManagerVersionsSlice(c *Client, des, nw []InstanceGroupManagerVersions) []InstanceGroupManagerVersions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceGroupManagerVersions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGroupManagerVersions(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceGroupManagerVersionsTargetSize(des, initial *InstanceGroupManagerVersionsTargetSize, opts ...dcl.ApplyOption) *InstanceGroupManagerVersionsTargetSize {
 	if des == nil {
 		return initial
@@ -1058,6 +1154,26 @@ func canonicalizeNewInstanceGroupManagerVersionsTargetSizeSet(c *Client, des, nw
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceGroupManagerVersionsTargetSizeSlice(c *Client, des, nw []InstanceGroupManagerVersionsTargetSize) []InstanceGroupManagerVersionsTargetSize {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceGroupManagerVersionsTargetSize
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGroupManagerVersionsTargetSize(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceGroupManagerNamedPorts(des, initial *InstanceGroupManagerNamedPorts, opts ...dcl.ApplyOption) *InstanceGroupManagerNamedPorts {
@@ -1117,6 +1233,26 @@ func canonicalizeNewInstanceGroupManagerNamedPortsSet(c *Client, des, nw []Insta
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceGroupManagerNamedPortsSlice(c *Client, des, nw []InstanceGroupManagerNamedPorts) []InstanceGroupManagerNamedPorts {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceGroupManagerNamedPorts
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGroupManagerNamedPorts(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceGroupManagerStatus(des, initial *InstanceGroupManagerStatus, opts ...dcl.ApplyOption) *InstanceGroupManagerStatus {
 	if des == nil {
 		return initial
@@ -1129,7 +1265,7 @@ func canonicalizeInstanceGroupManagerStatus(des, initial *InstanceGroupManagerSt
 		return des
 	}
 
-	if dcl.IsZeroValue(des.IsStable) {
+	if dcl.BoolCanonicalize(des.IsStable, initial.IsStable) || dcl.IsZeroValue(des.IsStable) {
 		des.IsStable = initial.IsStable
 	}
 	des.VersionTarget = canonicalizeInstanceGroupManagerStatusVersionTarget(des.VersionTarget, initial.VersionTarget, opts...)
@@ -1145,6 +1281,9 @@ func canonicalizeNewInstanceGroupManagerStatus(c *Client, des, nw *InstanceGroup
 		return nw
 	}
 
+	if dcl.BoolCanonicalize(des.IsStable, nw.IsStable) || dcl.IsZeroValue(des.IsStable) {
+		nw.IsStable = des.IsStable
+	}
 	nw.VersionTarget = canonicalizeNewInstanceGroupManagerStatusVersionTarget(c, des.VersionTarget, nw.VersionTarget)
 	if dcl.NameToSelfLink(des.Autoscalar, nw.Autoscalar) || dcl.IsZeroValue(des.Autoscalar) {
 		nw.Autoscalar = des.Autoscalar
@@ -1176,6 +1315,26 @@ func canonicalizeNewInstanceGroupManagerStatusSet(c *Client, des, nw []InstanceG
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceGroupManagerStatusSlice(c *Client, des, nw []InstanceGroupManagerStatus) []InstanceGroupManagerStatus {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceGroupManagerStatus
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGroupManagerStatus(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceGroupManagerStatusVersionTarget(des, initial *InstanceGroupManagerStatusVersionTarget, opts ...dcl.ApplyOption) *InstanceGroupManagerStatusVersionTarget {
 	if des == nil {
 		return initial
@@ -1188,7 +1347,7 @@ func canonicalizeInstanceGroupManagerStatusVersionTarget(des, initial *InstanceG
 		return des
 	}
 
-	if dcl.IsZeroValue(des.IsReached) {
+	if dcl.BoolCanonicalize(des.IsReached, initial.IsReached) || dcl.IsZeroValue(des.IsReached) {
 		des.IsReached = initial.IsReached
 	}
 
@@ -1198,6 +1357,10 @@ func canonicalizeInstanceGroupManagerStatusVersionTarget(des, initial *InstanceG
 func canonicalizeNewInstanceGroupManagerStatusVersionTarget(c *Client, des, nw *InstanceGroupManagerStatusVersionTarget) *InstanceGroupManagerStatusVersionTarget {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.IsReached, nw.IsReached) || dcl.IsZeroValue(des.IsReached) {
+		nw.IsReached = des.IsReached
 	}
 
 	return nw
@@ -1224,6 +1387,26 @@ func canonicalizeNewInstanceGroupManagerStatusVersionTargetSet(c *Client, des, n
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceGroupManagerStatusVersionTargetSlice(c *Client, des, nw []InstanceGroupManagerStatusVersionTarget) []InstanceGroupManagerStatusVersionTarget {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceGroupManagerStatusVersionTarget
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGroupManagerStatusVersionTarget(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceGroupManagerAutoHealingPolicies(des, initial *InstanceGroupManagerAutoHealingPolicies, opts ...dcl.ApplyOption) *InstanceGroupManagerAutoHealingPolicies {
@@ -1283,6 +1466,26 @@ func canonicalizeNewInstanceGroupManagerAutoHealingPoliciesSet(c *Client, des, n
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceGroupManagerAutoHealingPoliciesSlice(c *Client, des, nw []InstanceGroupManagerAutoHealingPolicies) []InstanceGroupManagerAutoHealingPolicies {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceGroupManagerAutoHealingPolicies
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGroupManagerAutoHealingPolicies(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceGroupManagerUpdatePolicy(des, initial *InstanceGroupManagerUpdatePolicy, opts ...dcl.ApplyOption) *InstanceGroupManagerUpdatePolicy {
 	if des == nil {
 		return initial
@@ -1337,6 +1540,26 @@ func canonicalizeNewInstanceGroupManagerUpdatePolicySet(c *Client, des, nw []Ins
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceGroupManagerUpdatePolicySlice(c *Client, des, nw []InstanceGroupManagerUpdatePolicy) []InstanceGroupManagerUpdatePolicy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceGroupManagerUpdatePolicy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGroupManagerUpdatePolicy(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceGroupManagerUpdatePolicyMaxSurge(des, initial *InstanceGroupManagerUpdatePolicyMaxSurge, opts ...dcl.ApplyOption) *InstanceGroupManagerUpdatePolicyMaxSurge {
@@ -1398,6 +1621,26 @@ func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurgeSet(c *Client, des, 
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurgeSlice(c *Client, des, nw []InstanceGroupManagerUpdatePolicyMaxSurge) []InstanceGroupManagerUpdatePolicyMaxSurge {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceGroupManagerUpdatePolicyMaxSurge
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurge(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(des, initial *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable, opts ...dcl.ApplyOption) *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable {
 	if des == nil {
 		return initial
@@ -1452,6 +1695,26 @@ func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableSet(c 
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableSlice(c *Client, des, nw []InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) []InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(c, &d, &n))
+	}
+
+	return items
 }
 
 type instanceGroupManagerDiff struct {
@@ -1921,7 +2184,7 @@ func compareInstanceGroupManagerStatus(c *Client, desired, actual *InstanceGroup
 		c.Config.Logger.Infof("desired IsStable %s - but actually nil", dcl.SprintResource(desired.IsStable))
 		return true
 	}
-	if !reflect.DeepEqual(desired.IsStable, actual.IsStable) && !dcl.IsZeroValue(desired.IsStable) {
+	if !dcl.BoolCanonicalize(desired.IsStable, actual.IsStable) && !dcl.IsZeroValue(desired.IsStable) {
 		c.Config.Logger.Infof("Diff in IsStable. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IsStable), dcl.SprintResource(actual.IsStable))
 		return true
 	}
@@ -1988,7 +2251,7 @@ func compareInstanceGroupManagerStatusVersionTarget(c *Client, desired, actual *
 		c.Config.Logger.Infof("desired IsReached %s - but actually nil", dcl.SprintResource(desired.IsReached))
 		return true
 	}
-	if !reflect.DeepEqual(desired.IsReached, actual.IsReached) && !dcl.IsZeroValue(desired.IsReached) {
+	if !dcl.BoolCanonicalize(desired.IsReached, actual.IsReached) && !dcl.IsZeroValue(desired.IsReached) {
 		c.Config.Logger.Infof("Diff in IsReached. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IsReached), dcl.SprintResource(actual.IsReached))
 		return true
 	}

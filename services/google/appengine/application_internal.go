@@ -263,7 +263,6 @@ func (c *Client) applicationDiffsForRawDesired(ctx context.Context, rawDesired *
 		desired, err = canonicalizeApplicationDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Application: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Application: %v", rawDesired)
 
@@ -386,6 +385,7 @@ func canonicalizeApplicationNewState(c *Client, rawNew, rawDesired *Application)
 	if dcl.IsEmptyValueIndirect(rawNew.DispatchRules) && dcl.IsEmptyValueIndirect(rawDesired.DispatchRules) {
 		rawNew.DispatchRules = rawDesired.DispatchRules
 	} else {
+		rawNew.DispatchRules = canonicalizeNewApplicationDispatchRulesSlice(c, rawDesired.DispatchRules, rawNew.DispatchRules)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.FeatureSettings) && dcl.IsEmptyValueIndirect(rawDesired.FeatureSettings) {
@@ -498,6 +498,26 @@ func canonicalizeNewApplicationDispatchRulesSet(c *Client, des, nw []Application
 	return reorderedNew
 }
 
+func canonicalizeNewApplicationDispatchRulesSlice(c *Client, des, nw []ApplicationDispatchRules) []ApplicationDispatchRules {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ApplicationDispatchRules
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewApplicationDispatchRules(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeApplicationFeatureSettings(des, initial *ApplicationFeatureSettings, opts ...dcl.ApplyOption) *ApplicationFeatureSettings {
 	if des == nil {
 		return initial
@@ -510,10 +530,10 @@ func canonicalizeApplicationFeatureSettings(des, initial *ApplicationFeatureSett
 		return des
 	}
 
-	if dcl.IsZeroValue(des.SplitHealthChecks) {
+	if dcl.BoolCanonicalize(des.SplitHealthChecks, initial.SplitHealthChecks) || dcl.IsZeroValue(des.SplitHealthChecks) {
 		des.SplitHealthChecks = initial.SplitHealthChecks
 	}
-	if dcl.IsZeroValue(des.UseContainerOptimizedOs) {
+	if dcl.BoolCanonicalize(des.UseContainerOptimizedOs, initial.UseContainerOptimizedOs) || dcl.IsZeroValue(des.UseContainerOptimizedOs) {
 		des.UseContainerOptimizedOs = initial.UseContainerOptimizedOs
 	}
 
@@ -523,6 +543,13 @@ func canonicalizeApplicationFeatureSettings(des, initial *ApplicationFeatureSett
 func canonicalizeNewApplicationFeatureSettings(c *Client, des, nw *ApplicationFeatureSettings) *ApplicationFeatureSettings {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.SplitHealthChecks, nw.SplitHealthChecks) || dcl.IsZeroValue(des.SplitHealthChecks) {
+		nw.SplitHealthChecks = des.SplitHealthChecks
+	}
+	if dcl.BoolCanonicalize(des.UseContainerOptimizedOs, nw.UseContainerOptimizedOs) || dcl.IsZeroValue(des.UseContainerOptimizedOs) {
+		nw.UseContainerOptimizedOs = des.UseContainerOptimizedOs
 	}
 
 	return nw
@@ -551,6 +578,26 @@ func canonicalizeNewApplicationFeatureSettingsSet(c *Client, des, nw []Applicati
 	return reorderedNew
 }
 
+func canonicalizeNewApplicationFeatureSettingsSlice(c *Client, des, nw []ApplicationFeatureSettings) []ApplicationFeatureSettings {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ApplicationFeatureSettings
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewApplicationFeatureSettings(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeApplicationIap(des, initial *ApplicationIap, opts ...dcl.ApplyOption) *ApplicationIap {
 	if des == nil {
 		return initial
@@ -563,7 +610,7 @@ func canonicalizeApplicationIap(des, initial *ApplicationIap, opts ...dcl.ApplyO
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Enabled) {
+	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
 		des.Enabled = initial.Enabled
 	}
 	if dcl.StringCanonicalize(des.OAuth2ClientId, initial.OAuth2ClientId) || dcl.IsZeroValue(des.OAuth2ClientId) {
@@ -584,6 +631,9 @@ func canonicalizeNewApplicationIap(c *Client, des, nw *ApplicationIap) *Applicat
 		return nw
 	}
 
+	if dcl.BoolCanonicalize(des.Enabled, nw.Enabled) || dcl.IsZeroValue(des.Enabled) {
+		nw.Enabled = des.Enabled
+	}
 	if dcl.StringCanonicalize(des.OAuth2ClientId, nw.OAuth2ClientId) || dcl.IsZeroValue(des.OAuth2ClientId) {
 		nw.OAuth2ClientId = des.OAuth2ClientId
 	}
@@ -616,6 +666,26 @@ func canonicalizeNewApplicationIapSet(c *Client, des, nw []ApplicationIap) []App
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewApplicationIapSlice(c *Client, des, nw []ApplicationIap) []ApplicationIap {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ApplicationIap
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewApplicationIap(c, &d, &n))
+	}
+
+	return items
 }
 
 type applicationDiff struct {
@@ -810,7 +880,7 @@ func compareApplicationFeatureSettings(c *Client, desired, actual *ApplicationFe
 		c.Config.Logger.Infof("desired SplitHealthChecks %s - but actually nil", dcl.SprintResource(desired.SplitHealthChecks))
 		return true
 	}
-	if !reflect.DeepEqual(desired.SplitHealthChecks, actual.SplitHealthChecks) && !dcl.IsZeroValue(desired.SplitHealthChecks) {
+	if !dcl.BoolCanonicalize(desired.SplitHealthChecks, actual.SplitHealthChecks) && !dcl.IsZeroValue(desired.SplitHealthChecks) {
 		c.Config.Logger.Infof("Diff in SplitHealthChecks. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SplitHealthChecks), dcl.SprintResource(actual.SplitHealthChecks))
 		return true
 	}
@@ -818,7 +888,7 @@ func compareApplicationFeatureSettings(c *Client, desired, actual *ApplicationFe
 		c.Config.Logger.Infof("desired UseContainerOptimizedOs %s - but actually nil", dcl.SprintResource(desired.UseContainerOptimizedOs))
 		return true
 	}
-	if !reflect.DeepEqual(desired.UseContainerOptimizedOs, actual.UseContainerOptimizedOs) && !dcl.IsZeroValue(desired.UseContainerOptimizedOs) {
+	if !dcl.BoolCanonicalize(desired.UseContainerOptimizedOs, actual.UseContainerOptimizedOs) && !dcl.IsZeroValue(desired.UseContainerOptimizedOs) {
 		c.Config.Logger.Infof("Diff in UseContainerOptimizedOs. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UseContainerOptimizedOs), dcl.SprintResource(actual.UseContainerOptimizedOs))
 		return true
 	}
@@ -869,7 +939,7 @@ func compareApplicationIap(c *Client, desired, actual *ApplicationIap) bool {
 		c.Config.Logger.Infof("desired Enabled %s - but actually nil", dcl.SprintResource(desired.Enabled))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Enabled, actual.Enabled) && !dcl.IsZeroValue(desired.Enabled) {
+	if !dcl.BoolCanonicalize(desired.Enabled, actual.Enabled) && !dcl.IsZeroValue(desired.Enabled) {
 		c.Config.Logger.Infof("Diff in Enabled. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Enabled), dcl.SprintResource(actual.Enabled))
 		return true
 	}

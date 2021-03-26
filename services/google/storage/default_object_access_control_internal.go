@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -253,9 +254,20 @@ func (op *deleteDefaultObjectAccessControlOperation) do(ctx context.Context, r *
 	if err != nil {
 		return fmt.Errorf("failed to delete DefaultObjectAccessControl: %w", err)
 	}
-	_, err = c.GetDefaultObjectAccessControl(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetDefaultObjectAccessControl(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -350,7 +362,6 @@ func (c *Client) defaultObjectAccessControlDiffsForRawDesired(ctx context.Contex
 		desired, err = canonicalizeDefaultObjectAccessControlDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for DefaultObjectAccessControl: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for DefaultObjectAccessControl: %v", rawDesired)
 
@@ -527,6 +538,26 @@ func canonicalizeNewDefaultObjectAccessControlProjectTeamSet(c *Client, des, nw 
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDefaultObjectAccessControlProjectTeamSlice(c *Client, des, nw []DefaultObjectAccessControlProjectTeam) []DefaultObjectAccessControlProjectTeam {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DefaultObjectAccessControlProjectTeam
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDefaultObjectAccessControlProjectTeam(c, &d, &n))
+	}
+
+	return items
 }
 
 type defaultObjectAccessControlDiff struct {

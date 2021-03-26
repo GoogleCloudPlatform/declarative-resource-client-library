@@ -24,6 +24,7 @@ components:
             flow.
           type: string
           x-dcl-go-name: ClientSecret
+          x-dcl-sensitive: true
         displayName:
           description: The config's display name set by developers.
           type: string

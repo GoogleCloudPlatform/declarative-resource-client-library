@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -268,9 +269,20 @@ func (op *deleteUserOperation) do(ctx context.Context, r *User, c *Client) error
 	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/sql/v1beta4/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetUser(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetUser(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -374,7 +386,6 @@ func (c *Client) userDiffsForRawDesired(ctx context.Context, rawDesired *User, o
 		desired, err = canonicalizeUserDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for User: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for User: %v", rawDesired)
 
@@ -502,7 +513,7 @@ func canonicalizeUserSqlserverUserDetails(des, initial *UserSqlserverUserDetails
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Disabled) {
+	if dcl.BoolCanonicalize(des.Disabled, initial.Disabled) || dcl.IsZeroValue(des.Disabled) {
 		des.Disabled = initial.Disabled
 	}
 	if dcl.IsZeroValue(des.ServerRoles) {
@@ -515,6 +526,10 @@ func canonicalizeUserSqlserverUserDetails(des, initial *UserSqlserverUserDetails
 func canonicalizeNewUserSqlserverUserDetails(c *Client, des, nw *UserSqlserverUserDetails) *UserSqlserverUserDetails {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.Disabled, nw.Disabled) || dcl.IsZeroValue(des.Disabled) {
+		nw.Disabled = des.Disabled
 	}
 
 	return nw
@@ -541,6 +556,26 @@ func canonicalizeNewUserSqlserverUserDetailsSet(c *Client, des, nw []UserSqlserv
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUserSqlserverUserDetailsSlice(c *Client, des, nw []UserSqlserverUserDetails) []UserSqlserverUserDetails {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UserSqlserverUserDetails
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUserSqlserverUserDetails(c, &d, &n))
+	}
+
+	return items
 }
 
 type userDiff struct {
@@ -638,7 +673,7 @@ func compareUserSqlserverUserDetails(c *Client, desired, actual *UserSqlserverUs
 		c.Config.Logger.Infof("desired Disabled %s - but actually nil", dcl.SprintResource(desired.Disabled))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Disabled, actual.Disabled) && !dcl.IsZeroValue(desired.Disabled) {
+	if !dcl.BoolCanonicalize(desired.Disabled, actual.Disabled) && !dcl.IsZeroValue(desired.Disabled) {
 		c.Config.Logger.Infof("Diff in Disabled. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Disabled), dcl.SprintResource(actual.Disabled))
 		return true
 	}

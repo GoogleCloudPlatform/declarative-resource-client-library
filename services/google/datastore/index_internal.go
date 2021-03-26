@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -194,9 +195,20 @@ func (op *deleteIndexOperation) do(ctx context.Context, r *Index, c *Client) err
 	if err := o.Wait(ctx, c.Config, "https://datastore.googleapis.com/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetIndex(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetIndex(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -300,7 +312,6 @@ func (c *Client) indexDiffsForRawDesired(ctx context.Context, rawDesired *Index,
 		desired, err := canonicalizeIndexDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
-
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetIndex(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -313,7 +324,6 @@ func (c *Client) indexDiffsForRawDesired(ctx context.Context, rawDesired *Index,
 		desired, err = canonicalizeIndexDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Index: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Index: %v", rawDesired)
 
@@ -407,6 +417,7 @@ func canonicalizeIndexNewState(c *Client, rawNew, rawDesired *Index) (*Index, er
 	if dcl.IsEmptyValueIndirect(rawNew.Properties) && dcl.IsEmptyValueIndirect(rawDesired.Properties) {
 		rawNew.Properties = rawDesired.Properties
 	} else {
+		rawNew.Properties = canonicalizeNewIndexPropertiesSlice(c, rawDesired.Properties, rawNew.Properties)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
@@ -472,6 +483,26 @@ func canonicalizeNewIndexPropertiesSet(c *Client, des, nw []IndexProperties) []I
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewIndexPropertiesSlice(c *Client, des, nw []IndexProperties) []IndexProperties {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []IndexProperties
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewIndexProperties(c, &d, &n))
+	}
+
+	return items
 }
 
 type indexDiff struct {

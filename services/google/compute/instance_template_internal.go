@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -348,9 +349,20 @@ func (op *deleteInstanceTemplateOperation) do(ctx context.Context, r *InstanceTe
 	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetInstanceTemplate(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetInstanceTemplate(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -450,7 +462,6 @@ func (c *Client) instanceTemplateDiffsForRawDesired(ctx context.Context, rawDesi
 		desired, err = canonicalizeInstanceTemplateDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for InstanceTemplate: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for InstanceTemplate: %v", rawDesired)
 
@@ -576,7 +587,7 @@ func canonicalizeInstanceTemplateProperties(des, initial *InstanceTemplateProper
 		return des
 	}
 
-	if dcl.IsZeroValue(des.CanIPForward) {
+	if dcl.BoolCanonicalize(des.CanIPForward, initial.CanIPForward) || dcl.IsZeroValue(des.CanIPForward) {
 		des.CanIPForward = initial.CanIPForward
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
@@ -621,9 +632,13 @@ func canonicalizeNewInstanceTemplateProperties(c *Client, des, nw *InstanceTempl
 		return nw
 	}
 
+	if dcl.BoolCanonicalize(des.CanIPForward, nw.CanIPForward) || dcl.IsZeroValue(des.CanIPForward) {
+		nw.CanIPForward = des.CanIPForward
+	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
 		nw.Description = des.Description
 	}
+	nw.Disks = canonicalizeNewInstanceTemplatePropertiesDisksSlice(c, des.Disks, nw.Disks)
 	if dcl.NameToSelfLink(des.MachineType, nw.MachineType) || dcl.IsZeroValue(des.MachineType) {
 		nw.MachineType = des.MachineType
 	}
@@ -631,8 +646,11 @@ func canonicalizeNewInstanceTemplateProperties(c *Client, des, nw *InstanceTempl
 		nw.MinCpuPlatform = des.MinCpuPlatform
 	}
 	nw.ReservationAffinity = canonicalizeNewInstanceTemplatePropertiesReservationAffinity(c, des.ReservationAffinity, nw.ReservationAffinity)
+	nw.GuestAccelerators = canonicalizeNewInstanceTemplatePropertiesGuestAcceleratorsSlice(c, des.GuestAccelerators, nw.GuestAccelerators)
+	nw.NetworkInterfaces = canonicalizeNewInstanceTemplatePropertiesNetworkInterfacesSlice(c, des.NetworkInterfaces, nw.NetworkInterfaces)
 	nw.ShieldedInstanceConfig = canonicalizeNewInstanceTemplatePropertiesShieldedInstanceConfig(c, des.ShieldedInstanceConfig, nw.ShieldedInstanceConfig)
 	nw.Scheduling = canonicalizeNewInstanceTemplatePropertiesScheduling(c, des.Scheduling, nw.Scheduling)
+	nw.ServiceAccounts = canonicalizeNewInstanceTemplatePropertiesServiceAccountsSlice(c, des.ServiceAccounts, nw.ServiceAccounts)
 
 	return nw
 }
@@ -660,6 +678,26 @@ func canonicalizeNewInstanceTemplatePropertiesSet(c *Client, des, nw []InstanceT
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceTemplatePropertiesSlice(c *Client, des, nw []InstanceTemplateProperties) []InstanceTemplateProperties {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceTemplateProperties
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceTemplateProperties(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceTemplatePropertiesDisks(des, initial *InstanceTemplatePropertiesDisks, opts ...dcl.ApplyOption) *InstanceTemplatePropertiesDisks {
 	if des == nil {
 		return initial
@@ -672,10 +710,10 @@ func canonicalizeInstanceTemplatePropertiesDisks(des, initial *InstanceTemplateP
 		return des
 	}
 
-	if dcl.IsZeroValue(des.AutoDelete) {
+	if dcl.BoolCanonicalize(des.AutoDelete, initial.AutoDelete) || dcl.IsZeroValue(des.AutoDelete) {
 		des.AutoDelete = initial.AutoDelete
 	}
-	if dcl.IsZeroValue(des.Boot) {
+	if dcl.BoolCanonicalize(des.Boot, initial.Boot) || dcl.IsZeroValue(des.Boot) {
 		des.Boot = initial.Boot
 	}
 	if dcl.StringCanonicalize(des.DeviceName, initial.DeviceName) || dcl.IsZeroValue(des.DeviceName) {
@@ -710,11 +748,18 @@ func canonicalizeNewInstanceTemplatePropertiesDisks(c *Client, des, nw *Instance
 		return nw
 	}
 
+	if dcl.BoolCanonicalize(des.AutoDelete, nw.AutoDelete) || dcl.IsZeroValue(des.AutoDelete) {
+		nw.AutoDelete = des.AutoDelete
+	}
+	if dcl.BoolCanonicalize(des.Boot, nw.Boot) || dcl.IsZeroValue(des.Boot) {
+		nw.Boot = des.Boot
+	}
 	if dcl.StringCanonicalize(des.DeviceName, nw.DeviceName) || dcl.IsZeroValue(des.DeviceName) {
 		nw.DeviceName = des.DeviceName
 	}
 	nw.DiskEncryptionKey = canonicalizeNewInstanceTemplatePropertiesDisksDiskEncryptionKey(c, des.DiskEncryptionKey, nw.DiskEncryptionKey)
 	nw.InitializeParams = canonicalizeNewInstanceTemplatePropertiesDisksInitializeParams(c, des.InitializeParams, nw.InitializeParams)
+	nw.GuestOsFeatures = canonicalizeNewInstanceTemplatePropertiesDisksGuestOsFeaturesSlice(c, des.GuestOsFeatures, nw.GuestOsFeatures)
 	if dcl.NameToSelfLink(des.Source, nw.Source) || dcl.IsZeroValue(des.Source) {
 		nw.Source = des.Source
 	}
@@ -743,6 +788,26 @@ func canonicalizeNewInstanceTemplatePropertiesDisksSet(c *Client, des, nw []Inst
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceTemplatePropertiesDisksSlice(c *Client, des, nw []InstanceTemplatePropertiesDisks) []InstanceTemplatePropertiesDisks {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceTemplatePropertiesDisks
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceTemplatePropertiesDisks(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceTemplatePropertiesDisksDiskEncryptionKey(des, initial *InstanceTemplatePropertiesDisksDiskEncryptionKey, opts ...dcl.ApplyOption) *InstanceTemplatePropertiesDisksDiskEncryptionKey {
@@ -809,6 +874,26 @@ func canonicalizeNewInstanceTemplatePropertiesDisksDiskEncryptionKeySet(c *Clien
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceTemplatePropertiesDisksDiskEncryptionKeySlice(c *Client, des, nw []InstanceTemplatePropertiesDisksDiskEncryptionKey) []InstanceTemplatePropertiesDisksDiskEncryptionKey {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceTemplatePropertiesDisksDiskEncryptionKey
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceTemplatePropertiesDisksDiskEncryptionKey(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceTemplatePropertiesDisksInitializeParams(des, initial *InstanceTemplatePropertiesDisksInitializeParams, opts ...dcl.ApplyOption) *InstanceTemplatePropertiesDisksInitializeParams {
@@ -908,6 +993,26 @@ func canonicalizeNewInstanceTemplatePropertiesDisksInitializeParamsSet(c *Client
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceTemplatePropertiesDisksInitializeParamsSlice(c *Client, des, nw []InstanceTemplatePropertiesDisksInitializeParams) []InstanceTemplatePropertiesDisksInitializeParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceTemplatePropertiesDisksInitializeParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceTemplatePropertiesDisksInitializeParams(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey(des, initial *InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey, opts ...dcl.ApplyOption) *InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey {
 	if des == nil {
 		return initial
@@ -972,6 +1077,26 @@ func canonicalizeNewInstanceTemplatePropertiesDisksInitializeParamsSourceSnapsho
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKeySlice(c *Client, des, nw []InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey) []InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey(des, initial *InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey, opts ...dcl.ApplyOption) *InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey {
@@ -1040,6 +1165,26 @@ func canonicalizeNewInstanceTemplatePropertiesDisksInitializeParamsSourceImageEn
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKeySlice(c *Client, des, nw []InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey) []InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceTemplatePropertiesDisksGuestOsFeatures(des, initial *InstanceTemplatePropertiesDisksGuestOsFeatures, opts ...dcl.ApplyOption) *InstanceTemplatePropertiesDisksGuestOsFeatures {
 	if des == nil {
 		return initial
@@ -1092,6 +1237,26 @@ func canonicalizeNewInstanceTemplatePropertiesDisksGuestOsFeaturesSet(c *Client,
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceTemplatePropertiesDisksGuestOsFeaturesSlice(c *Client, des, nw []InstanceTemplatePropertiesDisksGuestOsFeatures) []InstanceTemplatePropertiesDisksGuestOsFeatures {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceTemplatePropertiesDisksGuestOsFeatures
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceTemplatePropertiesDisksGuestOsFeatures(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceTemplatePropertiesReservationAffinity(des, initial *InstanceTemplatePropertiesReservationAffinity, opts ...dcl.ApplyOption) *InstanceTemplatePropertiesReservationAffinity {
@@ -1151,6 +1316,26 @@ func canonicalizeNewInstanceTemplatePropertiesReservationAffinitySet(c *Client, 
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceTemplatePropertiesReservationAffinitySlice(c *Client, des, nw []InstanceTemplatePropertiesReservationAffinity) []InstanceTemplatePropertiesReservationAffinity {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceTemplatePropertiesReservationAffinity
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceTemplatePropertiesReservationAffinity(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceTemplatePropertiesGuestAccelerators(des, initial *InstanceTemplatePropertiesGuestAccelerators, opts ...dcl.ApplyOption) *InstanceTemplatePropertiesGuestAccelerators {
 	if des == nil {
 		return initial
@@ -1208,6 +1393,26 @@ func canonicalizeNewInstanceTemplatePropertiesGuestAcceleratorsSet(c *Client, de
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceTemplatePropertiesGuestAcceleratorsSlice(c *Client, des, nw []InstanceTemplatePropertiesGuestAccelerators) []InstanceTemplatePropertiesGuestAccelerators {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceTemplatePropertiesGuestAccelerators
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceTemplatePropertiesGuestAccelerators(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceTemplatePropertiesNetworkInterfaces(des, initial *InstanceTemplatePropertiesNetworkInterfaces, opts ...dcl.ApplyOption) *InstanceTemplatePropertiesNetworkInterfaces {
 	if des == nil {
 		return initial
@@ -1247,6 +1452,8 @@ func canonicalizeNewInstanceTemplatePropertiesNetworkInterfaces(c *Client, des, 
 		return nw
 	}
 
+	nw.AccessConfigs = canonicalizeNewInstanceTemplatePropertiesNetworkInterfacesAccessConfigsSlice(c, des.AccessConfigs, nw.AccessConfigs)
+	nw.AliasIPRanges = canonicalizeNewInstanceTemplatePropertiesNetworkInterfacesAliasIPRangesSlice(c, des.AliasIPRanges, nw.AliasIPRanges)
 	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
 		nw.Name = des.Name
 	}
@@ -1286,6 +1493,26 @@ func canonicalizeNewInstanceTemplatePropertiesNetworkInterfacesSet(c *Client, de
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceTemplatePropertiesNetworkInterfacesSlice(c *Client, des, nw []InstanceTemplatePropertiesNetworkInterfaces) []InstanceTemplatePropertiesNetworkInterfaces {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceTemplatePropertiesNetworkInterfaces
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceTemplatePropertiesNetworkInterfaces(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceTemplatePropertiesNetworkInterfacesAccessConfigs(des, initial *InstanceTemplatePropertiesNetworkInterfacesAccessConfigs, opts ...dcl.ApplyOption) *InstanceTemplatePropertiesNetworkInterfacesAccessConfigs {
 	if des == nil {
 		return initial
@@ -1307,7 +1534,7 @@ func canonicalizeInstanceTemplatePropertiesNetworkInterfacesAccessConfigs(des, i
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
 	}
-	if dcl.IsZeroValue(des.SetPublicPtr) {
+	if dcl.BoolCanonicalize(des.SetPublicPtr, initial.SetPublicPtr) || dcl.IsZeroValue(des.SetPublicPtr) {
 		des.SetPublicPtr = initial.SetPublicPtr
 	}
 	if dcl.StringCanonicalize(des.PublicPtrDomainName, initial.PublicPtrDomainName) || dcl.IsZeroValue(des.PublicPtrDomainName) {
@@ -1330,6 +1557,9 @@ func canonicalizeNewInstanceTemplatePropertiesNetworkInterfacesAccessConfigs(c *
 	}
 	if dcl.NameToSelfLink(des.NatIP, nw.NatIP) || dcl.IsZeroValue(des.NatIP) {
 		nw.NatIP = des.NatIP
+	}
+	if dcl.BoolCanonicalize(des.SetPublicPtr, nw.SetPublicPtr) || dcl.IsZeroValue(des.SetPublicPtr) {
+		nw.SetPublicPtr = des.SetPublicPtr
 	}
 	if dcl.StringCanonicalize(des.PublicPtrDomainName, nw.PublicPtrDomainName) || dcl.IsZeroValue(des.PublicPtrDomainName) {
 		nw.PublicPtrDomainName = des.PublicPtrDomainName
@@ -1359,6 +1589,26 @@ func canonicalizeNewInstanceTemplatePropertiesNetworkInterfacesAccessConfigsSet(
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceTemplatePropertiesNetworkInterfacesAccessConfigsSlice(c *Client, des, nw []InstanceTemplatePropertiesNetworkInterfacesAccessConfigs) []InstanceTemplatePropertiesNetworkInterfacesAccessConfigs {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceTemplatePropertiesNetworkInterfacesAccessConfigs
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceTemplatePropertiesNetworkInterfacesAccessConfigs(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceTemplatePropertiesNetworkInterfacesAliasIPRanges(des, initial *InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges, opts ...dcl.ApplyOption) *InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges {
@@ -1421,6 +1671,26 @@ func canonicalizeNewInstanceTemplatePropertiesNetworkInterfacesAliasIPRangesSet(
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceTemplatePropertiesNetworkInterfacesAliasIPRangesSlice(c *Client, des, nw []InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges) []InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceTemplatePropertiesNetworkInterfacesAliasIPRanges(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceTemplatePropertiesShieldedInstanceConfig(des, initial *InstanceTemplatePropertiesShieldedInstanceConfig, opts ...dcl.ApplyOption) *InstanceTemplatePropertiesShieldedInstanceConfig {
 	if des == nil {
 		return initial
@@ -1433,13 +1703,13 @@ func canonicalizeInstanceTemplatePropertiesShieldedInstanceConfig(des, initial *
 		return des
 	}
 
-	if dcl.IsZeroValue(des.EnableSecureBoot) {
+	if dcl.BoolCanonicalize(des.EnableSecureBoot, initial.EnableSecureBoot) || dcl.IsZeroValue(des.EnableSecureBoot) {
 		des.EnableSecureBoot = initial.EnableSecureBoot
 	}
-	if dcl.IsZeroValue(des.EnableVtpm) {
+	if dcl.BoolCanonicalize(des.EnableVtpm, initial.EnableVtpm) || dcl.IsZeroValue(des.EnableVtpm) {
 		des.EnableVtpm = initial.EnableVtpm
 	}
-	if dcl.IsZeroValue(des.EnableIntegrityMonitoring) {
+	if dcl.BoolCanonicalize(des.EnableIntegrityMonitoring, initial.EnableIntegrityMonitoring) || dcl.IsZeroValue(des.EnableIntegrityMonitoring) {
 		des.EnableIntegrityMonitoring = initial.EnableIntegrityMonitoring
 	}
 
@@ -1449,6 +1719,16 @@ func canonicalizeInstanceTemplatePropertiesShieldedInstanceConfig(des, initial *
 func canonicalizeNewInstanceTemplatePropertiesShieldedInstanceConfig(c *Client, des, nw *InstanceTemplatePropertiesShieldedInstanceConfig) *InstanceTemplatePropertiesShieldedInstanceConfig {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.EnableSecureBoot, nw.EnableSecureBoot) || dcl.IsZeroValue(des.EnableSecureBoot) {
+		nw.EnableSecureBoot = des.EnableSecureBoot
+	}
+	if dcl.BoolCanonicalize(des.EnableVtpm, nw.EnableVtpm) || dcl.IsZeroValue(des.EnableVtpm) {
+		nw.EnableVtpm = des.EnableVtpm
+	}
+	if dcl.BoolCanonicalize(des.EnableIntegrityMonitoring, nw.EnableIntegrityMonitoring) || dcl.IsZeroValue(des.EnableIntegrityMonitoring) {
+		nw.EnableIntegrityMonitoring = des.EnableIntegrityMonitoring
 	}
 
 	return nw
@@ -1477,6 +1757,26 @@ func canonicalizeNewInstanceTemplatePropertiesShieldedInstanceConfigSet(c *Clien
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceTemplatePropertiesShieldedInstanceConfigSlice(c *Client, des, nw []InstanceTemplatePropertiesShieldedInstanceConfig) []InstanceTemplatePropertiesShieldedInstanceConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceTemplatePropertiesShieldedInstanceConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceTemplatePropertiesShieldedInstanceConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceTemplatePropertiesScheduling(des, initial *InstanceTemplatePropertiesScheduling, opts ...dcl.ApplyOption) *InstanceTemplatePropertiesScheduling {
 	if des == nil {
 		return initial
@@ -1489,13 +1789,13 @@ func canonicalizeInstanceTemplatePropertiesScheduling(des, initial *InstanceTemp
 		return des
 	}
 
-	if dcl.IsZeroValue(des.AutomaticRestart) {
+	if dcl.BoolCanonicalize(des.AutomaticRestart, initial.AutomaticRestart) || dcl.IsZeroValue(des.AutomaticRestart) {
 		des.AutomaticRestart = initial.AutomaticRestart
 	}
 	if dcl.StringCanonicalize(des.OnHostMaintenance, initial.OnHostMaintenance) || dcl.IsZeroValue(des.OnHostMaintenance) {
 		des.OnHostMaintenance = initial.OnHostMaintenance
 	}
-	if dcl.IsZeroValue(des.Preemptible) {
+	if dcl.BoolCanonicalize(des.Preemptible, initial.Preemptible) || dcl.IsZeroValue(des.Preemptible) {
 		des.Preemptible = initial.Preemptible
 	}
 	if dcl.IsZeroValue(des.NodeAffinities) {
@@ -1510,9 +1810,16 @@ func canonicalizeNewInstanceTemplatePropertiesScheduling(c *Client, des, nw *Ins
 		return nw
 	}
 
+	if dcl.BoolCanonicalize(des.AutomaticRestart, nw.AutomaticRestart) || dcl.IsZeroValue(des.AutomaticRestart) {
+		nw.AutomaticRestart = des.AutomaticRestart
+	}
 	if dcl.StringCanonicalize(des.OnHostMaintenance, nw.OnHostMaintenance) || dcl.IsZeroValue(des.OnHostMaintenance) {
 		nw.OnHostMaintenance = des.OnHostMaintenance
 	}
+	if dcl.BoolCanonicalize(des.Preemptible, nw.Preemptible) || dcl.IsZeroValue(des.Preemptible) {
+		nw.Preemptible = des.Preemptible
+	}
+	nw.NodeAffinities = canonicalizeNewInstanceTemplatePropertiesSchedulingNodeAffinitiesSlice(c, des.NodeAffinities, nw.NodeAffinities)
 
 	return nw
 }
@@ -1538,6 +1845,26 @@ func canonicalizeNewInstanceTemplatePropertiesSchedulingSet(c *Client, des, nw [
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceTemplatePropertiesSchedulingSlice(c *Client, des, nw []InstanceTemplatePropertiesScheduling) []InstanceTemplatePropertiesScheduling {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceTemplatePropertiesScheduling
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceTemplatePropertiesScheduling(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceTemplatePropertiesSchedulingNodeAffinities(des, initial *InstanceTemplatePropertiesSchedulingNodeAffinities, opts ...dcl.ApplyOption) *InstanceTemplatePropertiesSchedulingNodeAffinities {
@@ -1600,6 +1927,26 @@ func canonicalizeNewInstanceTemplatePropertiesSchedulingNodeAffinitiesSet(c *Cli
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceTemplatePropertiesSchedulingNodeAffinitiesSlice(c *Client, des, nw []InstanceTemplatePropertiesSchedulingNodeAffinities) []InstanceTemplatePropertiesSchedulingNodeAffinities {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceTemplatePropertiesSchedulingNodeAffinities
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceTemplatePropertiesSchedulingNodeAffinities(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceTemplatePropertiesServiceAccounts(des, initial *InstanceTemplatePropertiesServiceAccounts, opts ...dcl.ApplyOption) *InstanceTemplatePropertiesServiceAccounts {
 	if des == nil {
 		return initial
@@ -1655,6 +2002,26 @@ func canonicalizeNewInstanceTemplatePropertiesServiceAccountsSet(c *Client, des,
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceTemplatePropertiesServiceAccountsSlice(c *Client, des, nw []InstanceTemplatePropertiesServiceAccounts) []InstanceTemplatePropertiesServiceAccounts {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceTemplatePropertiesServiceAccounts
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceTemplatePropertiesServiceAccounts(c, &d, &n))
+	}
+
+	return items
 }
 
 type instanceTemplateDiff struct {
@@ -1741,7 +2108,7 @@ func compareInstanceTemplateProperties(c *Client, desired, actual *InstanceTempl
 		c.Config.Logger.Infof("desired CanIPForward %s - but actually nil", dcl.SprintResource(desired.CanIPForward))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CanIPForward, actual.CanIPForward) && !dcl.IsZeroValue(desired.CanIPForward) {
+	if !dcl.BoolCanonicalize(desired.CanIPForward, actual.CanIPForward) && !dcl.IsZeroValue(desired.CanIPForward) {
 		c.Config.Logger.Infof("Diff in CanIPForward. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CanIPForward), dcl.SprintResource(actual.CanIPForward))
 		return true
 	}
@@ -1896,7 +2263,7 @@ func compareInstanceTemplatePropertiesDisks(c *Client, desired, actual *Instance
 		c.Config.Logger.Infof("desired AutoDelete %s - but actually nil", dcl.SprintResource(desired.AutoDelete))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AutoDelete, actual.AutoDelete) && !dcl.IsZeroValue(desired.AutoDelete) {
+	if !dcl.BoolCanonicalize(desired.AutoDelete, actual.AutoDelete) && !dcl.IsZeroValue(desired.AutoDelete) {
 		c.Config.Logger.Infof("Diff in AutoDelete. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AutoDelete), dcl.SprintResource(actual.AutoDelete))
 		return true
 	}
@@ -1904,7 +2271,7 @@ func compareInstanceTemplatePropertiesDisks(c *Client, desired, actual *Instance
 		c.Config.Logger.Infof("desired Boot %s - but actually nil", dcl.SprintResource(desired.Boot))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Boot, actual.Boot) && !dcl.IsZeroValue(desired.Boot) {
+	if !dcl.BoolCanonicalize(desired.Boot, actual.Boot) && !dcl.IsZeroValue(desired.Boot) {
 		c.Config.Logger.Infof("Diff in Boot. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Boot), dcl.SprintResource(actual.Boot))
 		return true
 	}
@@ -2611,7 +2978,7 @@ func compareInstanceTemplatePropertiesNetworkInterfacesAccessConfigs(c *Client, 
 		c.Config.Logger.Infof("desired SetPublicPtr %s - but actually nil", dcl.SprintResource(desired.SetPublicPtr))
 		return true
 	}
-	if !reflect.DeepEqual(desired.SetPublicPtr, actual.SetPublicPtr) && !dcl.IsZeroValue(desired.SetPublicPtr) {
+	if !dcl.BoolCanonicalize(desired.SetPublicPtr, actual.SetPublicPtr) && !dcl.IsZeroValue(desired.SetPublicPtr) {
 		c.Config.Logger.Infof("Diff in SetPublicPtr. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SetPublicPtr), dcl.SprintResource(actual.SetPublicPtr))
 		return true
 	}
@@ -2737,7 +3104,7 @@ func compareInstanceTemplatePropertiesShieldedInstanceConfig(c *Client, desired,
 		c.Config.Logger.Infof("desired EnableSecureBoot %s - but actually nil", dcl.SprintResource(desired.EnableSecureBoot))
 		return true
 	}
-	if !reflect.DeepEqual(desired.EnableSecureBoot, actual.EnableSecureBoot) && !dcl.IsZeroValue(desired.EnableSecureBoot) {
+	if !dcl.BoolCanonicalize(desired.EnableSecureBoot, actual.EnableSecureBoot) && !dcl.IsZeroValue(desired.EnableSecureBoot) {
 		c.Config.Logger.Infof("Diff in EnableSecureBoot. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableSecureBoot), dcl.SprintResource(actual.EnableSecureBoot))
 		return true
 	}
@@ -2745,7 +3112,7 @@ func compareInstanceTemplatePropertiesShieldedInstanceConfig(c *Client, desired,
 		c.Config.Logger.Infof("desired EnableVtpm %s - but actually nil", dcl.SprintResource(desired.EnableVtpm))
 		return true
 	}
-	if !reflect.DeepEqual(desired.EnableVtpm, actual.EnableVtpm) && !dcl.IsZeroValue(desired.EnableVtpm) {
+	if !dcl.BoolCanonicalize(desired.EnableVtpm, actual.EnableVtpm) && !dcl.IsZeroValue(desired.EnableVtpm) {
 		c.Config.Logger.Infof("Diff in EnableVtpm. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableVtpm), dcl.SprintResource(actual.EnableVtpm))
 		return true
 	}
@@ -2753,7 +3120,7 @@ func compareInstanceTemplatePropertiesShieldedInstanceConfig(c *Client, desired,
 		c.Config.Logger.Infof("desired EnableIntegrityMonitoring %s - but actually nil", dcl.SprintResource(desired.EnableIntegrityMonitoring))
 		return true
 	}
-	if !reflect.DeepEqual(desired.EnableIntegrityMonitoring, actual.EnableIntegrityMonitoring) && !dcl.IsZeroValue(desired.EnableIntegrityMonitoring) {
+	if !dcl.BoolCanonicalize(desired.EnableIntegrityMonitoring, actual.EnableIntegrityMonitoring) && !dcl.IsZeroValue(desired.EnableIntegrityMonitoring) {
 		c.Config.Logger.Infof("Diff in EnableIntegrityMonitoring. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableIntegrityMonitoring), dcl.SprintResource(actual.EnableIntegrityMonitoring))
 		return true
 	}
@@ -2804,7 +3171,7 @@ func compareInstanceTemplatePropertiesScheduling(c *Client, desired, actual *Ins
 		c.Config.Logger.Infof("desired AutomaticRestart %s - but actually nil", dcl.SprintResource(desired.AutomaticRestart))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AutomaticRestart, actual.AutomaticRestart) && !dcl.IsZeroValue(desired.AutomaticRestart) {
+	if !dcl.BoolCanonicalize(desired.AutomaticRestart, actual.AutomaticRestart) && !dcl.IsZeroValue(desired.AutomaticRestart) {
 		c.Config.Logger.Infof("Diff in AutomaticRestart. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AutomaticRestart), dcl.SprintResource(actual.AutomaticRestart))
 		return true
 	}
@@ -2820,7 +3187,7 @@ func compareInstanceTemplatePropertiesScheduling(c *Client, desired, actual *Ins
 		c.Config.Logger.Infof("desired Preemptible %s - but actually nil", dcl.SprintResource(desired.Preemptible))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Preemptible, actual.Preemptible) && !dcl.IsZeroValue(desired.Preemptible) {
+	if !dcl.BoolCanonicalize(desired.Preemptible, actual.Preemptible) && !dcl.IsZeroValue(desired.Preemptible) {
 		c.Config.Logger.Infof("Diff in Preemptible. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Preemptible), dcl.SprintResource(actual.Preemptible))
 		return true
 	}

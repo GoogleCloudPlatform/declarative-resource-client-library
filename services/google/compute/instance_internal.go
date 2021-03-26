@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -942,9 +943,20 @@ func (op *deleteInstanceOperation) do(ctx context.Context, r *Instance, c *Clien
 	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetInstance(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetInstance(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -1044,7 +1056,6 @@ func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Ins
 		desired, err = canonicalizeInstanceDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Instance: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Instance: %v", rawDesired)
 
@@ -1089,7 +1100,7 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.CanIPForward) {
+	if dcl.BoolCanonicalize(rawDesired.CanIPForward, rawInitial.CanIPForward) {
 		rawDesired.CanIPForward = rawInitial.CanIPForward
 	}
 	if dcl.StringCanonicalize(rawDesired.CpuPlatform, rawInitial.CpuPlatform) {
@@ -1098,7 +1109,7 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	if dcl.StringCanonicalize(rawDesired.CreationTimestamp, rawInitial.CreationTimestamp) {
 		rawDesired.CreationTimestamp = rawInitial.CreationTimestamp
 	}
-	if dcl.IsZeroValue(rawDesired.DeletionProtection) {
+	if dcl.BoolCanonicalize(rawDesired.DeletionProtection, rawInitial.DeletionProtection) {
 		rawDesired.DeletionProtection = rawInitial.DeletionProtection
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
@@ -1166,6 +1177,9 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsEmptyValueIndirect(rawNew.CanIPForward) && dcl.IsEmptyValueIndirect(rawDesired.CanIPForward) {
 		rawNew.CanIPForward = rawDesired.CanIPForward
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.CanIPForward, rawNew.CanIPForward) {
+			rawNew.CanIPForward = rawDesired.CanIPForward
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.CpuPlatform) && dcl.IsEmptyValueIndirect(rawDesired.CpuPlatform) {
@@ -1187,6 +1201,9 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsEmptyValueIndirect(rawNew.DeletionProtection) && dcl.IsEmptyValueIndirect(rawDesired.DeletionProtection) {
 		rawNew.DeletionProtection = rawDesired.DeletionProtection
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.DeletionProtection, rawNew.DeletionProtection) {
+			rawNew.DeletionProtection = rawDesired.DeletionProtection
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
@@ -1202,6 +1219,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsEmptyValueIndirect(rawNew.GuestAccelerators) && dcl.IsEmptyValueIndirect(rawDesired.GuestAccelerators) {
 		rawNew.GuestAccelerators = rawDesired.GuestAccelerators
 	} else {
+		rawNew.GuestAccelerators = canonicalizeNewInstanceGuestAcceleratorsSlice(c, rawDesired.GuestAccelerators, rawNew.GuestAccelerators)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Hostname) && dcl.IsEmptyValueIndirect(rawDesired.Hostname) {
@@ -1257,6 +1275,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsEmptyValueIndirect(rawNew.NetworkInterfaces) && dcl.IsEmptyValueIndirect(rawDesired.NetworkInterfaces) {
 		rawNew.NetworkInterfaces = rawDesired.NetworkInterfaces
 	} else {
+		rawNew.NetworkInterfaces = canonicalizeNewInstanceNetworkInterfacesSlice(c, rawDesired.NetworkInterfaces, rawNew.NetworkInterfaces)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Scheduling) && dcl.IsEmptyValueIndirect(rawDesired.Scheduling) {
@@ -1268,6 +1287,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsEmptyValueIndirect(rawNew.ServiceAccounts) && dcl.IsEmptyValueIndirect(rawDesired.ServiceAccounts) {
 		rawNew.ServiceAccounts = rawDesired.ServiceAccounts
 	} else {
+		rawNew.ServiceAccounts = canonicalizeNewInstanceServiceAccountsSlice(c, rawDesired.ServiceAccounts, rawNew.ServiceAccounts)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ShieldedInstanceConfig) && dcl.IsEmptyValueIndirect(rawDesired.ShieldedInstanceConfig) {
@@ -1327,10 +1347,10 @@ func canonicalizeInstanceDisks(des, initial *InstanceDisks, opts ...dcl.ApplyOpt
 		return des
 	}
 
-	if dcl.IsZeroValue(des.AutoDelete) {
+	if dcl.BoolCanonicalize(des.AutoDelete, initial.AutoDelete) || dcl.IsZeroValue(des.AutoDelete) {
 		des.AutoDelete = initial.AutoDelete
 	}
-	if dcl.IsZeroValue(des.Boot) {
+	if dcl.BoolCanonicalize(des.Boot, initial.Boot) || dcl.IsZeroValue(des.Boot) {
 		des.Boot = initial.Boot
 	}
 	if dcl.StringCanonicalize(des.DeviceName, initial.DeviceName) || dcl.IsZeroValue(des.DeviceName) {
@@ -1362,6 +1382,12 @@ func canonicalizeNewInstanceDisks(c *Client, des, nw *InstanceDisks) *InstanceDi
 		return nw
 	}
 
+	if dcl.BoolCanonicalize(des.AutoDelete, nw.AutoDelete) || dcl.IsZeroValue(des.AutoDelete) {
+		nw.AutoDelete = des.AutoDelete
+	}
+	if dcl.BoolCanonicalize(des.Boot, nw.Boot) || dcl.IsZeroValue(des.Boot) {
+		nw.Boot = des.Boot
+	}
 	if dcl.StringCanonicalize(des.DeviceName, nw.DeviceName) || dcl.IsZeroValue(des.DeviceName) {
 		nw.DeviceName = des.DeviceName
 	}
@@ -1395,6 +1421,26 @@ func canonicalizeNewInstanceDisksSet(c *Client, des, nw []InstanceDisks) []Insta
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceDisksSlice(c *Client, des, nw []InstanceDisks) []InstanceDisks {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceDisks
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceDisks(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceDisksDiskEncryptionKey(des, initial *InstanceDisksDiskEncryptionKey, opts ...dcl.ApplyOption) *InstanceDisksDiskEncryptionKey {
@@ -1461,6 +1507,26 @@ func canonicalizeNewInstanceDisksDiskEncryptionKeySet(c *Client, des, nw []Insta
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceDisksDiskEncryptionKeySlice(c *Client, des, nw []InstanceDisksDiskEncryptionKey) []InstanceDisksDiskEncryptionKey {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceDisksDiskEncryptionKey
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceDisksDiskEncryptionKey(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceDisksInitializeParams(des, initial *InstanceDisksInitializeParams, opts ...dcl.ApplyOption) *InstanceDisksInitializeParams {
@@ -1534,6 +1600,26 @@ func canonicalizeNewInstanceDisksInitializeParamsSet(c *Client, des, nw []Instan
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceDisksInitializeParamsSlice(c *Client, des, nw []InstanceDisksInitializeParams) []InstanceDisksInitializeParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceDisksInitializeParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceDisksInitializeParams(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceDisksInitializeParamsSourceImageEncryptionKey(des, initial *InstanceDisksInitializeParamsSourceImageEncryptionKey, opts ...dcl.ApplyOption) *InstanceDisksInitializeParamsSourceImageEncryptionKey {
 	if des == nil {
 		return initial
@@ -1594,6 +1680,26 @@ func canonicalizeNewInstanceDisksInitializeParamsSourceImageEncryptionKeySet(c *
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceDisksInitializeParamsSourceImageEncryptionKeySlice(c *Client, des, nw []InstanceDisksInitializeParamsSourceImageEncryptionKey) []InstanceDisksInitializeParamsSourceImageEncryptionKey {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceDisksInitializeParamsSourceImageEncryptionKey
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceDisksInitializeParamsSourceImageEncryptionKey(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceGuestAccelerators(des, initial *InstanceGuestAccelerators, opts ...dcl.ApplyOption) *InstanceGuestAccelerators {
 	if des == nil {
 		return initial
@@ -1651,6 +1757,26 @@ func canonicalizeNewInstanceGuestAcceleratorsSet(c *Client, des, nw []InstanceGu
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceGuestAcceleratorsSlice(c *Client, des, nw []InstanceGuestAccelerators) []InstanceGuestAccelerators {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceGuestAccelerators
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGuestAccelerators(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceNetworkInterfaces(des, initial *InstanceNetworkInterfaces, opts ...dcl.ApplyOption) *InstanceNetworkInterfaces {
 	if des == nil {
 		return initial
@@ -1690,6 +1816,8 @@ func canonicalizeNewInstanceNetworkInterfaces(c *Client, des, nw *InstanceNetwor
 		return nw
 	}
 
+	nw.AccessConfigs = canonicalizeNewInstanceNetworkInterfacesAccessConfigsSlice(c, des.AccessConfigs, nw.AccessConfigs)
+	nw.AliasIPRanges = canonicalizeNewInstanceNetworkInterfacesAliasIPRangesSlice(c, des.AliasIPRanges, nw.AliasIPRanges)
 	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
 		nw.Name = des.Name
 	}
@@ -1727,6 +1855,26 @@ func canonicalizeNewInstanceNetworkInterfacesSet(c *Client, des, nw []InstanceNe
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceNetworkInterfacesSlice(c *Client, des, nw []InstanceNetworkInterfaces) []InstanceNetworkInterfaces {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceNetworkInterfaces
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceNetworkInterfaces(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceNetworkInterfacesAccessConfigs(des, initial *InstanceNetworkInterfacesAccessConfigs, opts ...dcl.ApplyOption) *InstanceNetworkInterfacesAccessConfigs {
@@ -1792,6 +1940,26 @@ func canonicalizeNewInstanceNetworkInterfacesAccessConfigsSet(c *Client, des, nw
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceNetworkInterfacesAccessConfigsSlice(c *Client, des, nw []InstanceNetworkInterfacesAccessConfigs) []InstanceNetworkInterfacesAccessConfigs {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceNetworkInterfacesAccessConfigs
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceNetworkInterfacesAccessConfigs(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceNetworkInterfacesAliasIPRanges(des, initial *InstanceNetworkInterfacesAliasIPRanges, opts ...dcl.ApplyOption) *InstanceNetworkInterfacesAliasIPRanges {
 	if des == nil {
 		return initial
@@ -1852,6 +2020,26 @@ func canonicalizeNewInstanceNetworkInterfacesAliasIPRangesSet(c *Client, des, nw
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceNetworkInterfacesAliasIPRangesSlice(c *Client, des, nw []InstanceNetworkInterfacesAliasIPRanges) []InstanceNetworkInterfacesAliasIPRanges {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceNetworkInterfacesAliasIPRanges
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceNetworkInterfacesAliasIPRanges(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceScheduling(des, initial *InstanceScheduling, opts ...dcl.ApplyOption) *InstanceScheduling {
 	if des == nil {
 		return initial
@@ -1864,13 +2052,13 @@ func canonicalizeInstanceScheduling(des, initial *InstanceScheduling, opts ...dc
 		return des
 	}
 
-	if dcl.IsZeroValue(des.AutomaticRestart) {
+	if dcl.BoolCanonicalize(des.AutomaticRestart, initial.AutomaticRestart) || dcl.IsZeroValue(des.AutomaticRestart) {
 		des.AutomaticRestart = initial.AutomaticRestart
 	}
 	if dcl.StringCanonicalize(des.OnHostMaintenance, initial.OnHostMaintenance) || dcl.IsZeroValue(des.OnHostMaintenance) {
 		des.OnHostMaintenance = initial.OnHostMaintenance
 	}
-	if dcl.IsZeroValue(des.Preemptible) {
+	if dcl.BoolCanonicalize(des.Preemptible, initial.Preemptible) || dcl.IsZeroValue(des.Preemptible) {
 		des.Preemptible = initial.Preemptible
 	}
 
@@ -1882,8 +2070,14 @@ func canonicalizeNewInstanceScheduling(c *Client, des, nw *InstanceScheduling) *
 		return nw
 	}
 
+	if dcl.BoolCanonicalize(des.AutomaticRestart, nw.AutomaticRestart) || dcl.IsZeroValue(des.AutomaticRestart) {
+		nw.AutomaticRestart = des.AutomaticRestart
+	}
 	if dcl.StringCanonicalize(des.OnHostMaintenance, nw.OnHostMaintenance) || dcl.IsZeroValue(des.OnHostMaintenance) {
 		nw.OnHostMaintenance = des.OnHostMaintenance
+	}
+	if dcl.BoolCanonicalize(des.Preemptible, nw.Preemptible) || dcl.IsZeroValue(des.Preemptible) {
+		nw.Preemptible = des.Preemptible
 	}
 
 	return nw
@@ -1910,6 +2104,26 @@ func canonicalizeNewInstanceSchedulingSet(c *Client, des, nw []InstanceSchedulin
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceSchedulingSlice(c *Client, des, nw []InstanceScheduling) []InstanceScheduling {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceScheduling
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceScheduling(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceServiceAccounts(des, initial *InstanceServiceAccounts, opts ...dcl.ApplyOption) *InstanceServiceAccounts {
@@ -1969,6 +2183,26 @@ func canonicalizeNewInstanceServiceAccountsSet(c *Client, des, nw []InstanceServ
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceServiceAccountsSlice(c *Client, des, nw []InstanceServiceAccounts) []InstanceServiceAccounts {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceServiceAccounts
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceServiceAccounts(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceShieldedInstanceConfig(des, initial *InstanceShieldedInstanceConfig, opts ...dcl.ApplyOption) *InstanceShieldedInstanceConfig {
 	if des == nil {
 		return initial
@@ -1981,13 +2215,13 @@ func canonicalizeInstanceShieldedInstanceConfig(des, initial *InstanceShieldedIn
 		return des
 	}
 
-	if dcl.IsZeroValue(des.EnableSecureBoot) {
+	if dcl.BoolCanonicalize(des.EnableSecureBoot, initial.EnableSecureBoot) || dcl.IsZeroValue(des.EnableSecureBoot) {
 		des.EnableSecureBoot = initial.EnableSecureBoot
 	}
-	if dcl.IsZeroValue(des.EnableVtpm) {
+	if dcl.BoolCanonicalize(des.EnableVtpm, initial.EnableVtpm) || dcl.IsZeroValue(des.EnableVtpm) {
 		des.EnableVtpm = initial.EnableVtpm
 	}
-	if dcl.IsZeroValue(des.EnableIntegrityMonitoring) {
+	if dcl.BoolCanonicalize(des.EnableIntegrityMonitoring, initial.EnableIntegrityMonitoring) || dcl.IsZeroValue(des.EnableIntegrityMonitoring) {
 		des.EnableIntegrityMonitoring = initial.EnableIntegrityMonitoring
 	}
 
@@ -1997,6 +2231,16 @@ func canonicalizeInstanceShieldedInstanceConfig(des, initial *InstanceShieldedIn
 func canonicalizeNewInstanceShieldedInstanceConfig(c *Client, des, nw *InstanceShieldedInstanceConfig) *InstanceShieldedInstanceConfig {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.EnableSecureBoot, nw.EnableSecureBoot) || dcl.IsZeroValue(des.EnableSecureBoot) {
+		nw.EnableSecureBoot = des.EnableSecureBoot
+	}
+	if dcl.BoolCanonicalize(des.EnableVtpm, nw.EnableVtpm) || dcl.IsZeroValue(des.EnableVtpm) {
+		nw.EnableVtpm = des.EnableVtpm
+	}
+	if dcl.BoolCanonicalize(des.EnableIntegrityMonitoring, nw.EnableIntegrityMonitoring) || dcl.IsZeroValue(des.EnableIntegrityMonitoring) {
+		nw.EnableIntegrityMonitoring = des.EnableIntegrityMonitoring
 	}
 
 	return nw
@@ -2025,6 +2269,26 @@ func canonicalizeNewInstanceShieldedInstanceConfigSet(c *Client, des, nw []Insta
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceShieldedInstanceConfigSlice(c *Client, des, nw []InstanceShieldedInstanceConfig) []InstanceShieldedInstanceConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceShieldedInstanceConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceShieldedInstanceConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 type instanceDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
@@ -2046,14 +2310,14 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []instanceDiff
-	if !reflect.DeepEqual(desired.CanIPForward, actual.CanIPForward) {
+	if !dcl.IsZeroValue(desired.CanIPForward) && !dcl.BoolCanonicalize(desired.CanIPForward, actual.CanIPForward) {
 		c.Config.Logger.Infof("Detected diff in CanIPForward.\nDESIRED: %v\nACTUAL: %v", desired.CanIPForward, actual.CanIPForward)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
 			FieldName:        "CanIPForward",
 		})
 	}
-	if !reflect.DeepEqual(desired.DeletionProtection, actual.DeletionProtection) {
+	if !dcl.IsZeroValue(desired.DeletionProtection) && !dcl.BoolCanonicalize(desired.DeletionProtection, actual.DeletionProtection) {
 		c.Config.Logger.Infof("Detected diff in DeletionProtection.\nDESIRED: %v\nACTUAL: %v", desired.DeletionProtection, actual.DeletionProtection)
 
 		diffs = append(diffs, instanceDiff{
@@ -2233,7 +2497,7 @@ func compareInstanceDisks(c *Client, desired, actual *InstanceDisks) bool {
 		c.Config.Logger.Infof("desired AutoDelete %s - but actually nil", dcl.SprintResource(desired.AutoDelete))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AutoDelete, actual.AutoDelete) && !dcl.IsZeroValue(desired.AutoDelete) {
+	if !dcl.BoolCanonicalize(desired.AutoDelete, actual.AutoDelete) && !dcl.IsZeroValue(desired.AutoDelete) {
 		c.Config.Logger.Infof("Diff in AutoDelete. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AutoDelete), dcl.SprintResource(actual.AutoDelete))
 		return true
 	}
@@ -2241,7 +2505,7 @@ func compareInstanceDisks(c *Client, desired, actual *InstanceDisks) bool {
 		c.Config.Logger.Infof("desired Boot %s - but actually nil", dcl.SprintResource(desired.Boot))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Boot, actual.Boot) && !dcl.IsZeroValue(desired.Boot) {
+	if !dcl.BoolCanonicalize(desired.Boot, actual.Boot) && !dcl.IsZeroValue(desired.Boot) {
 		c.Config.Logger.Infof("Diff in Boot. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Boot), dcl.SprintResource(actual.Boot))
 		return true
 	}
@@ -2809,7 +3073,7 @@ func compareInstanceScheduling(c *Client, desired, actual *InstanceScheduling) b
 		c.Config.Logger.Infof("desired AutomaticRestart %s - but actually nil", dcl.SprintResource(desired.AutomaticRestart))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AutomaticRestart, actual.AutomaticRestart) && !dcl.IsZeroValue(desired.AutomaticRestart) {
+	if !dcl.BoolCanonicalize(desired.AutomaticRestart, actual.AutomaticRestart) && !dcl.IsZeroValue(desired.AutomaticRestart) {
 		c.Config.Logger.Infof("Diff in AutomaticRestart. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AutomaticRestart), dcl.SprintResource(actual.AutomaticRestart))
 		return true
 	}
@@ -2825,7 +3089,7 @@ func compareInstanceScheduling(c *Client, desired, actual *InstanceScheduling) b
 		c.Config.Logger.Infof("desired Preemptible %s - but actually nil", dcl.SprintResource(desired.Preemptible))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Preemptible, actual.Preemptible) && !dcl.IsZeroValue(desired.Preemptible) {
+	if !dcl.BoolCanonicalize(desired.Preemptible, actual.Preemptible) && !dcl.IsZeroValue(desired.Preemptible) {
 		c.Config.Logger.Infof("Diff in Preemptible. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Preemptible), dcl.SprintResource(actual.Preemptible))
 		return true
 	}
@@ -2935,7 +3199,7 @@ func compareInstanceShieldedInstanceConfig(c *Client, desired, actual *InstanceS
 		c.Config.Logger.Infof("desired EnableSecureBoot %s - but actually nil", dcl.SprintResource(desired.EnableSecureBoot))
 		return true
 	}
-	if !reflect.DeepEqual(desired.EnableSecureBoot, actual.EnableSecureBoot) && !dcl.IsZeroValue(desired.EnableSecureBoot) {
+	if !dcl.BoolCanonicalize(desired.EnableSecureBoot, actual.EnableSecureBoot) && !dcl.IsZeroValue(desired.EnableSecureBoot) {
 		c.Config.Logger.Infof("Diff in EnableSecureBoot. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableSecureBoot), dcl.SprintResource(actual.EnableSecureBoot))
 		return true
 	}
@@ -2943,7 +3207,7 @@ func compareInstanceShieldedInstanceConfig(c *Client, desired, actual *InstanceS
 		c.Config.Logger.Infof("desired EnableVtpm %s - but actually nil", dcl.SprintResource(desired.EnableVtpm))
 		return true
 	}
-	if !reflect.DeepEqual(desired.EnableVtpm, actual.EnableVtpm) && !dcl.IsZeroValue(desired.EnableVtpm) {
+	if !dcl.BoolCanonicalize(desired.EnableVtpm, actual.EnableVtpm) && !dcl.IsZeroValue(desired.EnableVtpm) {
 		c.Config.Logger.Infof("Diff in EnableVtpm. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableVtpm), dcl.SprintResource(actual.EnableVtpm))
 		return true
 	}
@@ -2951,7 +3215,7 @@ func compareInstanceShieldedInstanceConfig(c *Client, desired, actual *InstanceS
 		c.Config.Logger.Infof("desired EnableIntegrityMonitoring %s - but actually nil", dcl.SprintResource(desired.EnableIntegrityMonitoring))
 		return true
 	}
-	if !reflect.DeepEqual(desired.EnableIntegrityMonitoring, actual.EnableIntegrityMonitoring) && !dcl.IsZeroValue(desired.EnableIntegrityMonitoring) {
+	if !dcl.BoolCanonicalize(desired.EnableIntegrityMonitoring, actual.EnableIntegrityMonitoring) && !dcl.IsZeroValue(desired.EnableIntegrityMonitoring) {
 		c.Config.Logger.Infof("Diff in EnableIntegrityMonitoring. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableIntegrityMonitoring), dcl.SprintResource(actual.EnableIntegrityMonitoring))
 		return true
 	}

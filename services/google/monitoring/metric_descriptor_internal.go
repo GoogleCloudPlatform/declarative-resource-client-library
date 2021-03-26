@@ -311,7 +311,6 @@ func (c *Client) metricDescriptorDiffsForRawDesired(ctx context.Context, rawDesi
 		desired, err = canonicalizeMetricDescriptorDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for MetricDescriptor: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for MetricDescriptor: %v", rawDesired)
 
@@ -535,6 +534,26 @@ func canonicalizeNewMetricDescriptorDescriptorLabelsSet(c *Client, des, nw []Met
 	return reorderedNew
 }
 
+func canonicalizeNewMetricDescriptorDescriptorLabelsSlice(c *Client, des, nw []MetricDescriptorDescriptorLabels) []MetricDescriptorDescriptorLabels {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []MetricDescriptorDescriptorLabels
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewMetricDescriptorDescriptorLabels(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeMetricDescriptorMetadata(des, initial *MetricDescriptorMetadata, opts ...dcl.ApplyOption) *MetricDescriptorMetadata {
 	if des == nil {
 		return initial
@@ -596,6 +615,26 @@ func canonicalizeNewMetricDescriptorMetadataSet(c *Client, des, nw []MetricDescr
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewMetricDescriptorMetadataSlice(c *Client, des, nw []MetricDescriptorMetadata) []MetricDescriptorMetadata {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []MetricDescriptorMetadata
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewMetricDescriptorMetadata(c, &d, &n))
+	}
+
+	return items
 }
 
 type metricDescriptorDiff struct {

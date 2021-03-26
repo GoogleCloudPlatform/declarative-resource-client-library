@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -258,9 +259,20 @@ func (op *deleteDatabaseOperation) do(ctx context.Context, r *Database, c *Clien
 	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/sql/v1beta4/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetDatabase(ctx, r.urlNormalized())
-	if !IsNotFoundOrInstanceNotRunning(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetDatabase(ctx, r.urlNormalized())
+		if !IsNotFoundOrInstanceNotRunning(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -360,7 +372,6 @@ func (c *Client) databaseDiffsForRawDesired(ctx context.Context, rawDesired *Dat
 		desired, err = canonicalizeDatabaseDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Database: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Database: %v", rawDesired)
 

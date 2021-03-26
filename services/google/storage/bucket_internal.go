@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -313,9 +314,20 @@ func (op *deleteBucketOperation) do(ctx context.Context, r *Bucket, c *Client) e
 	if err != nil {
 		return fmt.Errorf("failed to delete Bucket: %w", err)
 	}
-	_, err = c.GetBucket(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetBucket(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -410,7 +422,6 @@ func (c *Client) bucketDiffsForRawDesired(ctx context.Context, rawDesired *Bucke
 		desired, err = canonicalizeBucketDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Bucket: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Bucket: %v", rawDesired)
 
@@ -503,6 +514,7 @@ func canonicalizeBucketNewState(c *Client, rawNew, rawDesired *Bucket) (*Bucket,
 	if dcl.IsEmptyValueIndirect(rawNew.Cors) && dcl.IsEmptyValueIndirect(rawDesired.Cors) {
 		rawNew.Cors = rawDesired.Cors
 	} else {
+		rawNew.Cors = canonicalizeNewBucketCorsSlice(c, rawDesired.Cors, rawNew.Cors)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Lifecycle) && dcl.IsEmptyValueIndirect(rawDesired.Lifecycle) {
@@ -596,6 +608,26 @@ func canonicalizeNewBucketCorsSet(c *Client, des, nw []BucketCors) []BucketCors 
 	return reorderedNew
 }
 
+func canonicalizeNewBucketCorsSlice(c *Client, des, nw []BucketCors) []BucketCors {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []BucketCors
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewBucketCors(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeBucketLifecycle(des, initial *BucketLifecycle, opts ...dcl.ApplyOption) *BucketLifecycle {
 	if des == nil {
 		return initial
@@ -619,6 +651,8 @@ func canonicalizeNewBucketLifecycle(c *Client, des, nw *BucketLifecycle) *Bucket
 	if des == nil || nw == nil {
 		return nw
 	}
+
+	nw.Rule = canonicalizeNewBucketLifecycleRuleSlice(c, des.Rule, nw.Rule)
 
 	return nw
 }
@@ -644,6 +678,26 @@ func canonicalizeNewBucketLifecycleSet(c *Client, des, nw []BucketLifecycle) []B
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewBucketLifecycleSlice(c *Client, des, nw []BucketLifecycle) []BucketLifecycle {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []BucketLifecycle
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewBucketLifecycle(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeBucketLifecycleRule(des, initial *BucketLifecycleRule, opts ...dcl.ApplyOption) *BucketLifecycleRule {
@@ -696,6 +750,26 @@ func canonicalizeNewBucketLifecycleRuleSet(c *Client, des, nw []BucketLifecycleR
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewBucketLifecycleRuleSlice(c *Client, des, nw []BucketLifecycleRule) []BucketLifecycleRule {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []BucketLifecycleRule
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewBucketLifecycleRule(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeBucketLifecycleRuleAction(des, initial *BucketLifecycleRuleAction, opts ...dcl.ApplyOption) *BucketLifecycleRuleAction {
@@ -753,6 +827,26 @@ func canonicalizeNewBucketLifecycleRuleActionSet(c *Client, des, nw []BucketLife
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewBucketLifecycleRuleActionSlice(c *Client, des, nw []BucketLifecycleRuleAction) []BucketLifecycleRuleAction {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []BucketLifecycleRuleAction
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewBucketLifecycleRuleAction(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeBucketLifecycleRuleCondition(des, initial *BucketLifecycleRuleCondition, opts ...dcl.ApplyOption) *BucketLifecycleRuleCondition {
@@ -817,6 +911,26 @@ func canonicalizeNewBucketLifecycleRuleConditionSet(c *Client, des, nw []BucketL
 	return reorderedNew
 }
 
+func canonicalizeNewBucketLifecycleRuleConditionSlice(c *Client, des, nw []BucketLifecycleRuleCondition) []BucketLifecycleRuleCondition {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []BucketLifecycleRuleCondition
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewBucketLifecycleRuleCondition(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeBucketLogging(des, initial *BucketLogging, opts ...dcl.ApplyOption) *BucketLogging {
 	if des == nil {
 		return initial
@@ -877,6 +991,26 @@ func canonicalizeNewBucketLoggingSet(c *Client, des, nw []BucketLogging) []Bucke
 	return reorderedNew
 }
 
+func canonicalizeNewBucketLoggingSlice(c *Client, des, nw []BucketLogging) []BucketLogging {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []BucketLogging
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewBucketLogging(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeBucketVersioning(des, initial *BucketVersioning, opts ...dcl.ApplyOption) *BucketVersioning {
 	if des == nil {
 		return initial
@@ -889,7 +1023,7 @@ func canonicalizeBucketVersioning(des, initial *BucketVersioning, opts ...dcl.Ap
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Enabled) {
+	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
 		des.Enabled = initial.Enabled
 	}
 
@@ -899,6 +1033,10 @@ func canonicalizeBucketVersioning(des, initial *BucketVersioning, opts ...dcl.Ap
 func canonicalizeNewBucketVersioning(c *Client, des, nw *BucketVersioning) *BucketVersioning {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.Enabled, nw.Enabled) || dcl.IsZeroValue(des.Enabled) {
+		nw.Enabled = des.Enabled
 	}
 
 	return nw
@@ -925,6 +1063,26 @@ func canonicalizeNewBucketVersioningSet(c *Client, des, nw []BucketVersioning) [
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewBucketVersioningSlice(c *Client, des, nw []BucketVersioning) []BucketVersioning {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []BucketVersioning
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewBucketVersioning(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeBucketWebsite(des, initial *BucketWebsite, opts ...dcl.ApplyOption) *BucketWebsite {
@@ -985,6 +1143,26 @@ func canonicalizeNewBucketWebsiteSet(c *Client, des, nw []BucketWebsite) []Bucke
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewBucketWebsiteSlice(c *Client, des, nw []BucketWebsite) []BucketWebsite {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []BucketWebsite
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewBucketWebsite(c, &d, &n))
+	}
+
+	return items
 }
 
 type bucketDiff struct {
@@ -1497,7 +1675,7 @@ func compareBucketVersioning(c *Client, desired, actual *BucketVersioning) bool 
 		c.Config.Logger.Infof("desired Enabled %s - but actually nil", dcl.SprintResource(desired.Enabled))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Enabled, actual.Enabled) && !dcl.IsZeroValue(desired.Enabled) {
+	if !dcl.BoolCanonicalize(desired.Enabled, actual.Enabled) && !dcl.IsZeroValue(desired.Enabled) {
 		c.Config.Logger.Infof("Diff in Enabled. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Enabled), dcl.SprintResource(actual.Enabled))
 		return true
 	}

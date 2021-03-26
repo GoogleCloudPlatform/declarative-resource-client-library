@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -304,9 +305,20 @@ func (op *deleteManagedZoneOperation) do(ctx context.Context, r *ManagedZone, c 
 	if err != nil {
 		return fmt.Errorf("failed to delete ManagedZone: %w", err)
 	}
-	_, err = c.GetManagedZone(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetManagedZone(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -401,7 +413,6 @@ func (c *Client) managedZoneDiffsForRawDesired(ctx context.Context, rawDesired *
 		desired, err = canonicalizeManagedZoneDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for ManagedZone: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for ManagedZone: %v", rawDesired)
 
@@ -469,7 +480,7 @@ func canonicalizeManagedZoneDesiredState(rawDesired, rawInitial *ManagedZone, op
 	}
 	rawDesired.PrivateVisibilityConfig = canonicalizeManagedZonePrivateVisibilityConfig(rawDesired.PrivateVisibilityConfig, rawInitial.PrivateVisibilityConfig, opts...)
 	rawDesired.ForwardingConfig = canonicalizeManagedZoneForwardingConfig(rawDesired.ForwardingConfig, rawInitial.ForwardingConfig, opts...)
-	if dcl.IsZeroValue(rawDesired.ReverseLookup) {
+	if dcl.BoolCanonicalize(rawDesired.ReverseLookup, rawInitial.ReverseLookup) {
 		rawDesired.ReverseLookup = rawInitial.ReverseLookup
 	}
 	rawDesired.PeeringConfig = canonicalizeManagedZonePeeringConfig(rawDesired.PeeringConfig, rawInitial.PeeringConfig, opts...)
@@ -588,6 +599,7 @@ func canonicalizeNewManagedZoneDnssecConfig(c *Client, des, nw *ManagedZoneDnsse
 	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
 		nw.Kind = des.Kind
 	}
+	nw.DefaultKeySpecs = canonicalizeNewManagedZoneDnssecConfigDefaultKeySpecsSlice(c, des.DefaultKeySpecs, nw.DefaultKeySpecs)
 
 	return nw
 }
@@ -613,6 +625,26 @@ func canonicalizeNewManagedZoneDnssecConfigSet(c *Client, des, nw []ManagedZoneD
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewManagedZoneDnssecConfigSlice(c *Client, des, nw []ManagedZoneDnssecConfig) []ManagedZoneDnssecConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ManagedZoneDnssecConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewManagedZoneDnssecConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeManagedZoneDnssecConfigDefaultKeySpecs(des, initial *ManagedZoneDnssecConfigDefaultKeySpecs, opts ...dcl.ApplyOption) *ManagedZoneDnssecConfigDefaultKeySpecs {
@@ -678,6 +710,26 @@ func canonicalizeNewManagedZoneDnssecConfigDefaultKeySpecsSet(c *Client, des, nw
 	return reorderedNew
 }
 
+func canonicalizeNewManagedZoneDnssecConfigDefaultKeySpecsSlice(c *Client, des, nw []ManagedZoneDnssecConfigDefaultKeySpecs) []ManagedZoneDnssecConfigDefaultKeySpecs {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ManagedZoneDnssecConfigDefaultKeySpecs
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewManagedZoneDnssecConfigDefaultKeySpecs(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeManagedZonePrivateVisibilityConfig(des, initial *ManagedZonePrivateVisibilityConfig, opts ...dcl.ApplyOption) *ManagedZonePrivateVisibilityConfig {
 	if des == nil {
 		return initial
@@ -701,6 +753,8 @@ func canonicalizeNewManagedZonePrivateVisibilityConfig(c *Client, des, nw *Manag
 	if des == nil || nw == nil {
 		return nw
 	}
+
+	nw.Networks = canonicalizeNewManagedZonePrivateVisibilityConfigNetworksSlice(c, des.Networks, nw.Networks)
 
 	return nw
 }
@@ -726,6 +780,26 @@ func canonicalizeNewManagedZonePrivateVisibilityConfigSet(c *Client, des, nw []M
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewManagedZonePrivateVisibilityConfigSlice(c *Client, des, nw []ManagedZonePrivateVisibilityConfig) []ManagedZonePrivateVisibilityConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ManagedZonePrivateVisibilityConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewManagedZonePrivateVisibilityConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeManagedZonePrivateVisibilityConfigNetworks(des, initial *ManagedZonePrivateVisibilityConfigNetworks, opts ...dcl.ApplyOption) *ManagedZonePrivateVisibilityConfigNetworks {
@@ -782,6 +856,26 @@ func canonicalizeNewManagedZonePrivateVisibilityConfigNetworksSet(c *Client, des
 	return reorderedNew
 }
 
+func canonicalizeNewManagedZonePrivateVisibilityConfigNetworksSlice(c *Client, des, nw []ManagedZonePrivateVisibilityConfigNetworks) []ManagedZonePrivateVisibilityConfigNetworks {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ManagedZonePrivateVisibilityConfigNetworks
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewManagedZonePrivateVisibilityConfigNetworks(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeManagedZoneForwardingConfig(des, initial *ManagedZoneForwardingConfig, opts ...dcl.ApplyOption) *ManagedZoneForwardingConfig {
 	if des == nil {
 		return initial
@@ -805,6 +899,8 @@ func canonicalizeNewManagedZoneForwardingConfig(c *Client, des, nw *ManagedZoneF
 	if des == nil || nw == nil {
 		return nw
 	}
+
+	nw.TargetNameServers = canonicalizeNewManagedZoneForwardingConfigTargetNameServersSlice(c, des.TargetNameServers, nw.TargetNameServers)
 
 	return nw
 }
@@ -830,6 +926,26 @@ func canonicalizeNewManagedZoneForwardingConfigSet(c *Client, des, nw []ManagedZ
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewManagedZoneForwardingConfigSlice(c *Client, des, nw []ManagedZoneForwardingConfig) []ManagedZoneForwardingConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ManagedZoneForwardingConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewManagedZoneForwardingConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeManagedZoneForwardingConfigTargetNameServers(des, initial *ManagedZoneForwardingConfigTargetNameServers, opts ...dcl.ApplyOption) *ManagedZoneForwardingConfigTargetNameServers {
@@ -889,6 +1005,26 @@ func canonicalizeNewManagedZoneForwardingConfigTargetNameServersSet(c *Client, d
 	return reorderedNew
 }
 
+func canonicalizeNewManagedZoneForwardingConfigTargetNameServersSlice(c *Client, des, nw []ManagedZoneForwardingConfigTargetNameServers) []ManagedZoneForwardingConfigTargetNameServers {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ManagedZoneForwardingConfigTargetNameServers
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewManagedZoneForwardingConfigTargetNameServers(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeManagedZonePeeringConfig(des, initial *ManagedZonePeeringConfig, opts ...dcl.ApplyOption) *ManagedZonePeeringConfig {
 	if des == nil {
 		return initial
@@ -937,6 +1073,26 @@ func canonicalizeNewManagedZonePeeringConfigSet(c *Client, des, nw []ManagedZone
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewManagedZonePeeringConfigSlice(c *Client, des, nw []ManagedZonePeeringConfig) []ManagedZonePeeringConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ManagedZonePeeringConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewManagedZonePeeringConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeManagedZonePeeringConfigTargetNetwork(des, initial *ManagedZonePeeringConfigTargetNetwork, opts ...dcl.ApplyOption) *ManagedZonePeeringConfigTargetNetwork {
@@ -991,6 +1147,26 @@ func canonicalizeNewManagedZonePeeringConfigTargetNetworkSet(c *Client, des, nw 
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewManagedZonePeeringConfigTargetNetworkSlice(c *Client, des, nw []ManagedZonePeeringConfigTargetNetwork) []ManagedZonePeeringConfigTargetNetwork {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ManagedZonePeeringConfigTargetNetwork
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewManagedZonePeeringConfigTargetNetwork(c, &d, &n))
+	}
+
+	return items
 }
 
 type managedZoneDiff struct {

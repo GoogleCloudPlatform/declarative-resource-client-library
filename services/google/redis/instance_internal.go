@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -353,9 +354,20 @@ func (op *deleteInstanceOperation) do(ctx context.Context, r *Instance, c *Clien
 	if err := o.Wait(ctx, c.Config, "https://redis.googleapis.com/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetInstance(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetInstance(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -455,7 +467,6 @@ func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Ins
 		desired, err = canonicalizeInstanceDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Instance: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Instance: %v", rawDesired)
 
@@ -557,7 +568,7 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	if dcl.IsZeroValue(rawDesired.ConnectMode) {
 		rawDesired.ConnectMode = rawInitial.ConnectMode
 	}
-	if dcl.IsZeroValue(rawDesired.AuthEnabled) {
+	if dcl.BoolCanonicalize(rawDesired.AuthEnabled, rawInitial.AuthEnabled) {
 		rawDesired.AuthEnabled = rawInitial.AuthEnabled
 	}
 	if dcl.IsZeroValue(rawDesired.ServerCaCerts) {
@@ -714,11 +725,15 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsEmptyValueIndirect(rawNew.AuthEnabled) && dcl.IsEmptyValueIndirect(rawDesired.AuthEnabled) {
 		rawNew.AuthEnabled = rawDesired.AuthEnabled
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.AuthEnabled, rawNew.AuthEnabled) {
+			rawNew.AuthEnabled = rawDesired.AuthEnabled
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ServerCaCerts) && dcl.IsEmptyValueIndirect(rawDesired.ServerCaCerts) {
 		rawNew.ServerCaCerts = rawDesired.ServerCaCerts
 	} else {
+		rawNew.ServerCaCerts = canonicalizeNewInstanceServerCaCertsSlice(c, rawDesired.ServerCaCerts, rawNew.ServerCaCerts)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.TransitEncryptionMode) && dcl.IsEmptyValueIndirect(rawDesired.TransitEncryptionMode) {
@@ -819,6 +834,26 @@ func canonicalizeNewInstanceServerCaCertsSet(c *Client, des, nw []InstanceServer
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceServerCaCertsSlice(c *Client, des, nw []InstanceServerCaCerts) []InstanceServerCaCerts {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceServerCaCerts
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceServerCaCerts(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceMaintenancePolicy(des, initial *InstanceMaintenancePolicy, opts ...dcl.ApplyOption) *InstanceMaintenancePolicy {
 	if des == nil {
 		return initial
@@ -855,6 +890,7 @@ func canonicalizeNewInstanceMaintenancePolicy(c *Client, des, nw *InstanceMainte
 	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
 		nw.Description = des.Description
 	}
+	nw.WeeklyMaintenanceWindow = canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindowSlice(c, des.WeeklyMaintenanceWindow, nw.WeeklyMaintenanceWindow)
 
 	return nw
 }
@@ -880,6 +916,26 @@ func canonicalizeNewInstanceMaintenancePolicySet(c *Client, des, nw []InstanceMa
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceMaintenancePolicySlice(c *Client, des, nw []InstanceMaintenancePolicy) []InstanceMaintenancePolicy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceMaintenancePolicy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceMaintenancePolicy(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceMaintenancePolicyWeeklyMaintenanceWindow(des, initial *InstanceMaintenancePolicyWeeklyMaintenanceWindow, opts ...dcl.ApplyOption) *InstanceMaintenancePolicyWeeklyMaintenanceWindow {
@@ -941,6 +997,26 @@ func canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindowSet(c *Clien
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindowSlice(c *Client, des, nw []InstanceMaintenancePolicyWeeklyMaintenanceWindow) []InstanceMaintenancePolicyWeeklyMaintenanceWindow {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceMaintenancePolicyWeeklyMaintenanceWindow
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindow(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(des, initial *InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime, opts ...dcl.ApplyOption) *InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime {
 	if des == nil {
 		return initial
@@ -1000,6 +1076,26 @@ func canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTimeSet
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTimeSlice(c *Client, des, nw []InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime) []InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceMaintenanceSchedule(des, initial *InstanceMaintenanceSchedule, opts ...dcl.ApplyOption) *InstanceMaintenanceSchedule {
 	if des == nil {
 		return initial
@@ -1018,7 +1114,7 @@ func canonicalizeInstanceMaintenanceSchedule(des, initial *InstanceMaintenanceSc
 	if dcl.IsZeroValue(des.EndTime) {
 		des.EndTime = initial.EndTime
 	}
-	if dcl.IsZeroValue(des.CanReschedule) {
+	if dcl.BoolCanonicalize(des.CanReschedule, initial.CanReschedule) || dcl.IsZeroValue(des.CanReschedule) {
 		des.CanReschedule = initial.CanReschedule
 	}
 
@@ -1028,6 +1124,10 @@ func canonicalizeInstanceMaintenanceSchedule(des, initial *InstanceMaintenanceSc
 func canonicalizeNewInstanceMaintenanceSchedule(c *Client, des, nw *InstanceMaintenanceSchedule) *InstanceMaintenanceSchedule {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.CanReschedule, nw.CanReschedule) || dcl.IsZeroValue(des.CanReschedule) {
+		nw.CanReschedule = des.CanReschedule
 	}
 
 	return nw
@@ -1054,6 +1154,26 @@ func canonicalizeNewInstanceMaintenanceScheduleSet(c *Client, des, nw []Instance
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceMaintenanceScheduleSlice(c *Client, des, nw []InstanceMaintenanceSchedule) []InstanceMaintenanceSchedule {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceMaintenanceSchedule
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceMaintenanceSchedule(c, &d, &n))
+	}
+
+	return items
 }
 
 type instanceDiff struct {
@@ -1185,7 +1305,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !reflect.DeepEqual(desired.AuthEnabled, actual.AuthEnabled) {
+	if !dcl.IsZeroValue(desired.AuthEnabled) && !dcl.BoolCanonicalize(desired.AuthEnabled, actual.AuthEnabled) {
 		c.Config.Logger.Infof("Detected diff in AuthEnabled.\nDESIRED: %v\nACTUAL: %v", desired.AuthEnabled, actual.AuthEnabled)
 
 		diffs = append(diffs, instanceDiff{

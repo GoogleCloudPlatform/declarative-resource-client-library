@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -206,9 +207,20 @@ func (op *deleteForwardingRuleOperation) do(ctx context.Context, r *ForwardingRu
 	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetForwardingRule(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetForwardingRule(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -308,7 +320,6 @@ func (c *Client) forwardingRuleDiffsForRawDesired(ctx context.Context, rawDesire
 		desired, err = canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for ForwardingRule: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for ForwardingRule: %v", rawDesired)
 
@@ -351,10 +362,10 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.AllPorts) {
+	if dcl.BoolCanonicalize(rawDesired.AllPorts, rawInitial.AllPorts) {
 		rawDesired.AllPorts = rawInitial.AllPorts
 	}
-	if dcl.IsZeroValue(rawDesired.AllowGlobalAccess) {
+	if dcl.BoolCanonicalize(rawDesired.AllowGlobalAccess, rawInitial.AllowGlobalAccess) {
 		rawDesired.AllowGlobalAccess = rawInitial.AllowGlobalAccess
 	}
 	if dcl.StringCanonicalize(rawDesired.BackendService, rawInitial.BackendService) {
@@ -375,7 +386,7 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	if dcl.IsZeroValue(rawDesired.IPVersion) {
 		rawDesired.IPVersion = rawInitial.IPVersion
 	}
-	if dcl.IsZeroValue(rawDesired.IsMirroringCollector) {
+	if dcl.BoolCanonicalize(rawDesired.IsMirroringCollector, rawInitial.IsMirroringCollector) {
 		rawDesired.IsMirroringCollector = rawInitial.IsMirroringCollector
 	}
 	if dcl.IsZeroValue(rawDesired.LoadBalancingScheme) {
@@ -432,11 +443,17 @@ func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *Forwardin
 	if dcl.IsEmptyValueIndirect(rawNew.AllPorts) && dcl.IsEmptyValueIndirect(rawDesired.AllPorts) {
 		rawNew.AllPorts = rawDesired.AllPorts
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.AllPorts, rawNew.AllPorts) {
+			rawNew.AllPorts = rawDesired.AllPorts
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.AllowGlobalAccess) && dcl.IsEmptyValueIndirect(rawDesired.AllowGlobalAccess) {
 		rawNew.AllowGlobalAccess = rawDesired.AllowGlobalAccess
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.AllowGlobalAccess, rawNew.AllowGlobalAccess) {
+			rawNew.AllowGlobalAccess = rawDesired.AllowGlobalAccess
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.BackendService) && dcl.IsEmptyValueIndirect(rawDesired.BackendService) {
@@ -484,6 +501,9 @@ func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *Forwardin
 	if dcl.IsEmptyValueIndirect(rawNew.IsMirroringCollector) && dcl.IsEmptyValueIndirect(rawDesired.IsMirroringCollector) {
 		rawNew.IsMirroringCollector = rawDesired.IsMirroringCollector
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.IsMirroringCollector, rawNew.IsMirroringCollector) {
+			rawNew.IsMirroringCollector = rawDesired.IsMirroringCollector
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.LoadBalancingScheme) && dcl.IsEmptyValueIndirect(rawDesired.LoadBalancingScheme) {
@@ -494,6 +514,7 @@ func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *Forwardin
 	if dcl.IsEmptyValueIndirect(rawNew.MetadataFilter) && dcl.IsEmptyValueIndirect(rawDesired.MetadataFilter) {
 		rawNew.MetadataFilter = rawDesired.MetadataFilter
 	} else {
+		rawNew.MetadataFilter = canonicalizeNewForwardingRuleMetadataFilterSlice(c, rawDesired.MetadataFilter, rawNew.MetadataFilter)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
@@ -618,6 +639,8 @@ func canonicalizeNewForwardingRuleMetadataFilter(c *Client, des, nw *ForwardingR
 		return nw
 	}
 
+	nw.FilterLabel = canonicalizeNewForwardingRuleMetadataFilterFilterLabelSlice(c, des.FilterLabel, nw.FilterLabel)
+
 	return nw
 }
 
@@ -642,6 +665,26 @@ func canonicalizeNewForwardingRuleMetadataFilterSet(c *Client, des, nw []Forward
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewForwardingRuleMetadataFilterSlice(c *Client, des, nw []ForwardingRuleMetadataFilter) []ForwardingRuleMetadataFilter {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ForwardingRuleMetadataFilter
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewForwardingRuleMetadataFilter(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeForwardingRuleMetadataFilterFilterLabel(des, initial *ForwardingRuleMetadataFilterFilterLabel, opts ...dcl.ApplyOption) *ForwardingRuleMetadataFilterFilterLabel {
@@ -704,6 +747,26 @@ func canonicalizeNewForwardingRuleMetadataFilterFilterLabelSet(c *Client, des, n
 	return reorderedNew
 }
 
+func canonicalizeNewForwardingRuleMetadataFilterFilterLabelSlice(c *Client, des, nw []ForwardingRuleMetadataFilterFilterLabel) []ForwardingRuleMetadataFilterFilterLabel {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ForwardingRuleMetadataFilterFilterLabel
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewForwardingRuleMetadataFilterFilterLabel(c, &d, &n))
+	}
+
+	return items
+}
+
 type forwardingRuleDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
@@ -725,14 +788,14 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 	}
 
 	var diffs []forwardingRuleDiff
-	if !reflect.DeepEqual(desired.AllPorts, actual.AllPorts) {
+	if !dcl.IsZeroValue(desired.AllPorts) && !dcl.BoolCanonicalize(desired.AllPorts, actual.AllPorts) {
 		c.Config.Logger.Infof("Detected diff in AllPorts.\nDESIRED: %v\nACTUAL: %v", desired.AllPorts, actual.AllPorts)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
 			FieldName:        "AllPorts",
 		})
 	}
-	if !reflect.DeepEqual(desired.AllowGlobalAccess, actual.AllowGlobalAccess) {
+	if !dcl.IsZeroValue(desired.AllowGlobalAccess) && !dcl.BoolCanonicalize(desired.AllowGlobalAccess, actual.AllowGlobalAccess) {
 		c.Config.Logger.Infof("Detected diff in AllowGlobalAccess.\nDESIRED: %v\nACTUAL: %v", desired.AllowGlobalAccess, actual.AllowGlobalAccess)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,
@@ -781,7 +844,7 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 			FieldName:        "IPVersion",
 		})
 	}
-	if !reflect.DeepEqual(desired.IsMirroringCollector, actual.IsMirroringCollector) {
+	if !dcl.IsZeroValue(desired.IsMirroringCollector) && !dcl.BoolCanonicalize(desired.IsMirroringCollector, actual.IsMirroringCollector) {
 		c.Config.Logger.Infof("Detected diff in IsMirroringCollector.\nDESIRED: %v\nACTUAL: %v", desired.IsMirroringCollector, actual.IsMirroringCollector)
 		diffs = append(diffs, forwardingRuleDiff{
 			RequiresRecreate: true,

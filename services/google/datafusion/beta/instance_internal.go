@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -308,9 +309,20 @@ func (op *deleteInstanceOperation) do(ctx context.Context, r *Instance, c *Clien
 	if err := o.Wait(ctx, c.Config, "https://datafusion.googleapis.com/v1beta1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetInstance(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetInstance(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -410,7 +422,6 @@ func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Ins
 		desired, err = canonicalizeInstanceDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Instance: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Instance: %v", rawDesired)
 
@@ -463,13 +474,13 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	if dcl.IsZeroValue(rawDesired.Type) {
 		rawDesired.Type = rawInitial.Type
 	}
-	if dcl.IsZeroValue(rawDesired.EnableStackdriverLogging) {
+	if dcl.BoolCanonicalize(rawDesired.EnableStackdriverLogging, rawInitial.EnableStackdriverLogging) {
 		rawDesired.EnableStackdriverLogging = rawInitial.EnableStackdriverLogging
 	}
-	if dcl.IsZeroValue(rawDesired.EnableStackdriverMonitoring) {
+	if dcl.BoolCanonicalize(rawDesired.EnableStackdriverMonitoring, rawInitial.EnableStackdriverMonitoring) {
 		rawDesired.EnableStackdriverMonitoring = rawInitial.EnableStackdriverMonitoring
 	}
-	if dcl.IsZeroValue(rawDesired.PrivateInstance) {
+	if dcl.BoolCanonicalize(rawDesired.PrivateInstance, rawInitial.PrivateInstance) {
 		rawDesired.PrivateInstance = rawInitial.PrivateInstance
 	}
 	rawDesired.NetworkConfig = canonicalizeInstanceNetworkConfig(rawDesired.NetworkConfig, rawInitial.NetworkConfig, opts...)
@@ -551,16 +562,25 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsEmptyValueIndirect(rawNew.EnableStackdriverLogging) && dcl.IsEmptyValueIndirect(rawDesired.EnableStackdriverLogging) {
 		rawNew.EnableStackdriverLogging = rawDesired.EnableStackdriverLogging
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.EnableStackdriverLogging, rawNew.EnableStackdriverLogging) {
+			rawNew.EnableStackdriverLogging = rawDesired.EnableStackdriverLogging
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.EnableStackdriverMonitoring) && dcl.IsEmptyValueIndirect(rawDesired.EnableStackdriverMonitoring) {
 		rawNew.EnableStackdriverMonitoring = rawDesired.EnableStackdriverMonitoring
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.EnableStackdriverMonitoring, rawNew.EnableStackdriverMonitoring) {
+			rawNew.EnableStackdriverMonitoring = rawDesired.EnableStackdriverMonitoring
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.PrivateInstance) && dcl.IsEmptyValueIndirect(rawDesired.PrivateInstance) {
 		rawNew.PrivateInstance = rawDesired.PrivateInstance
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.PrivateInstance, rawNew.PrivateInstance) {
+			rawNew.PrivateInstance = rawDesired.PrivateInstance
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.NetworkConfig) && dcl.IsEmptyValueIndirect(rawDesired.NetworkConfig) {
@@ -637,6 +657,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsEmptyValueIndirect(rawNew.AvailableVersion) && dcl.IsEmptyValueIndirect(rawDesired.AvailableVersion) {
 		rawNew.AvailableVersion = rawDesired.AvailableVersion
 	} else {
+		rawNew.AvailableVersion = canonicalizeNewInstanceAvailableVersionSlice(c, rawDesired.AvailableVersion, rawNew.AvailableVersion)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ApiEndpoint) && dcl.IsEmptyValueIndirect(rawDesired.ApiEndpoint) {
@@ -746,6 +767,26 @@ func canonicalizeNewInstanceNetworkConfigSet(c *Client, des, nw []InstanceNetwor
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceNetworkConfigSlice(c *Client, des, nw []InstanceNetworkConfig) []InstanceNetworkConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceNetworkConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceNetworkConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceAvailableVersion(des, initial *InstanceAvailableVersion, opts ...dcl.ApplyOption) *InstanceAvailableVersion {
 	if des == nil {
 		return initial
@@ -761,7 +802,7 @@ func canonicalizeInstanceAvailableVersion(des, initial *InstanceAvailableVersion
 	if dcl.StringCanonicalize(des.VersionNumber, initial.VersionNumber) || dcl.IsZeroValue(des.VersionNumber) {
 		des.VersionNumber = initial.VersionNumber
 	}
-	if dcl.IsZeroValue(des.DefaultVersion) {
+	if dcl.BoolCanonicalize(des.DefaultVersion, initial.DefaultVersion) || dcl.IsZeroValue(des.DefaultVersion) {
 		des.DefaultVersion = initial.DefaultVersion
 	}
 	if dcl.IsZeroValue(des.AvailableFeatures) {
@@ -778,6 +819,9 @@ func canonicalizeNewInstanceAvailableVersion(c *Client, des, nw *InstanceAvailab
 
 	if dcl.StringCanonicalize(des.VersionNumber, nw.VersionNumber) || dcl.IsZeroValue(des.VersionNumber) {
 		nw.VersionNumber = des.VersionNumber
+	}
+	if dcl.BoolCanonicalize(des.DefaultVersion, nw.DefaultVersion) || dcl.IsZeroValue(des.DefaultVersion) {
+		nw.DefaultVersion = des.DefaultVersion
 	}
 
 	return nw
@@ -804,6 +848,26 @@ func canonicalizeNewInstanceAvailableVersionSet(c *Client, des, nw []InstanceAva
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceAvailableVersionSlice(c *Client, des, nw []InstanceAvailableVersion) []InstanceAvailableVersion {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceAvailableVersion
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceAvailableVersion(c, &d, &n))
+	}
+
+	return items
 }
 
 type instanceDiff struct {
@@ -843,7 +907,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !reflect.DeepEqual(desired.EnableStackdriverLogging, actual.EnableStackdriverLogging) {
+	if !dcl.IsZeroValue(desired.EnableStackdriverLogging) && !dcl.BoolCanonicalize(desired.EnableStackdriverLogging, actual.EnableStackdriverLogging) {
 		c.Config.Logger.Infof("Detected diff in EnableStackdriverLogging.\nDESIRED: %v\nACTUAL: %v", desired.EnableStackdriverLogging, actual.EnableStackdriverLogging)
 
 		diffs = append(diffs, instanceDiff{
@@ -852,7 +916,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !reflect.DeepEqual(desired.EnableStackdriverMonitoring, actual.EnableStackdriverMonitoring) {
+	if !dcl.IsZeroValue(desired.EnableStackdriverMonitoring) && !dcl.BoolCanonicalize(desired.EnableStackdriverMonitoring, actual.EnableStackdriverMonitoring) {
 		c.Config.Logger.Infof("Detected diff in EnableStackdriverMonitoring.\nDESIRED: %v\nACTUAL: %v", desired.EnableStackdriverMonitoring, actual.EnableStackdriverMonitoring)
 
 		diffs = append(diffs, instanceDiff{
@@ -861,7 +925,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !reflect.DeepEqual(desired.PrivateInstance, actual.PrivateInstance) {
+	if !dcl.IsZeroValue(desired.PrivateInstance) && !dcl.BoolCanonicalize(desired.PrivateInstance, actual.PrivateInstance) {
 		c.Config.Logger.Infof("Detected diff in PrivateInstance.\nDESIRED: %v\nACTUAL: %v", desired.PrivateInstance, actual.PrivateInstance)
 		diffs = append(diffs, instanceDiff{
 			RequiresRecreate: true,
@@ -1042,7 +1106,7 @@ func compareInstanceAvailableVersion(c *Client, desired, actual *InstanceAvailab
 		c.Config.Logger.Infof("desired DefaultVersion %s - but actually nil", dcl.SprintResource(desired.DefaultVersion))
 		return true
 	}
-	if !reflect.DeepEqual(desired.DefaultVersion, actual.DefaultVersion) && !dcl.IsZeroValue(desired.DefaultVersion) {
+	if !dcl.BoolCanonicalize(desired.DefaultVersion, actual.DefaultVersion) && !dcl.IsZeroValue(desired.DefaultVersion) {
 		c.Config.Logger.Infof("Diff in DefaultVersion. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DefaultVersion), dcl.SprintResource(actual.DefaultVersion))
 		return true
 	}

@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -430,9 +431,20 @@ func (op *deleteSubnetworkOperation) do(ctx context.Context, r *Subnetwork, c *C
 	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/beta/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetSubnetwork(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetSubnetwork(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -532,7 +544,6 @@ func (c *Client) subnetworkDiffsForRawDesired(ctx context.Context, rawDesired *S
 		desired, err = canonicalizeSubnetworkDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Subnetwork: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Subnetwork: %v", rawDesired)
 
@@ -606,7 +617,7 @@ func canonicalizeSubnetworkDesiredState(rawDesired, rawInitial *Subnetwork, opts
 	if dcl.IsZeroValue(rawDesired.SecondaryIPRanges) {
 		rawDesired.SecondaryIPRanges = rawInitial.SecondaryIPRanges
 	}
-	if dcl.IsZeroValue(rawDesired.PrivateIPGoogleAccess) {
+	if dcl.BoolCanonicalize(rawDesired.PrivateIPGoogleAccess, rawInitial.PrivateIPGoogleAccess) {
 		rawDesired.PrivateIPGoogleAccess = rawInitial.PrivateIPGoogleAccess
 	}
 	if dcl.NameToSelfLink(rawDesired.Region, rawInitial.Region) {
@@ -619,7 +630,7 @@ func canonicalizeSubnetworkDesiredState(rawDesired, rawInitial *Subnetwork, opts
 	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}
-	if dcl.IsZeroValue(rawDesired.EnableFlowLogs) {
+	if dcl.BoolCanonicalize(rawDesired.EnableFlowLogs, rawInitial.EnableFlowLogs) {
 		rawDesired.EnableFlowLogs = rawInitial.EnableFlowLogs
 	}
 
@@ -694,11 +705,15 @@ func canonicalizeSubnetworkNewState(c *Client, rawNew, rawDesired *Subnetwork) (
 	if dcl.IsEmptyValueIndirect(rawNew.SecondaryIPRanges) && dcl.IsEmptyValueIndirect(rawDesired.SecondaryIPRanges) {
 		rawNew.SecondaryIPRanges = rawDesired.SecondaryIPRanges
 	} else {
+		rawNew.SecondaryIPRanges = canonicalizeNewSubnetworkSecondaryIPRangesSlice(c, rawDesired.SecondaryIPRanges, rawNew.SecondaryIPRanges)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.PrivateIPGoogleAccess) && dcl.IsEmptyValueIndirect(rawDesired.PrivateIPGoogleAccess) {
 		rawNew.PrivateIPGoogleAccess = rawDesired.PrivateIPGoogleAccess
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.PrivateIPGoogleAccess, rawNew.PrivateIPGoogleAccess) {
+			rawNew.PrivateIPGoogleAccess = rawDesired.PrivateIPGoogleAccess
+		}
 	}
 
 	rawNew.Region = rawDesired.Region
@@ -722,6 +737,9 @@ func canonicalizeSubnetworkNewState(c *Client, rawNew, rawDesired *Subnetwork) (
 	if dcl.IsEmptyValueIndirect(rawNew.EnableFlowLogs) && dcl.IsEmptyValueIndirect(rawDesired.EnableFlowLogs) {
 		rawNew.EnableFlowLogs = rawDesired.EnableFlowLogs
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.EnableFlowLogs, rawNew.EnableFlowLogs) {
+			rawNew.EnableFlowLogs = rawDesired.EnableFlowLogs
+		}
 	}
 
 	return rawNew, nil
@@ -785,6 +803,26 @@ func canonicalizeNewSubnetworkSecondaryIPRangesSet(c *Client, des, nw []Subnetwo
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewSubnetworkSecondaryIPRangesSlice(c *Client, des, nw []SubnetworkSecondaryIPRanges) []SubnetworkSecondaryIPRanges {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []SubnetworkSecondaryIPRanges
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewSubnetworkSecondaryIPRanges(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeSubnetworkLogConfig(des, initial *SubnetworkLogConfig, opts ...dcl.ApplyOption) *SubnetworkLogConfig {
@@ -867,6 +905,26 @@ func canonicalizeNewSubnetworkLogConfigSet(c *Client, des, nw []SubnetworkLogCon
 	return reorderedNew
 }
 
+func canonicalizeNewSubnetworkLogConfigSlice(c *Client, des, nw []SubnetworkLogConfig) []SubnetworkLogConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []SubnetworkLogConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewSubnetworkLogConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 type subnetworkDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
@@ -943,7 +1001,7 @@ func diffSubnetwork(c *Client, desired, actual *Subnetwork, opts ...dcl.ApplyOpt
 		})
 
 	}
-	if !reflect.DeepEqual(desired.PrivateIPGoogleAccess, actual.PrivateIPGoogleAccess) {
+	if !dcl.IsZeroValue(desired.PrivateIPGoogleAccess) && !dcl.BoolCanonicalize(desired.PrivateIPGoogleAccess, actual.PrivateIPGoogleAccess) {
 		c.Config.Logger.Infof("Detected diff in PrivateIPGoogleAccess.\nDESIRED: %v\nACTUAL: %v", desired.PrivateIPGoogleAccess, actual.PrivateIPGoogleAccess)
 
 		diffs = append(diffs, subnetworkDiff{
@@ -961,7 +1019,7 @@ func diffSubnetwork(c *Client, desired, actual *Subnetwork, opts ...dcl.ApplyOpt
 		})
 
 	}
-	if !reflect.DeepEqual(desired.EnableFlowLogs, actual.EnableFlowLogs) {
+	if !dcl.IsZeroValue(desired.EnableFlowLogs) && !dcl.BoolCanonicalize(desired.EnableFlowLogs, actual.EnableFlowLogs) {
 		c.Config.Logger.Infof("Detected diff in EnableFlowLogs.\nDESIRED: %v\nACTUAL: %v", desired.EnableFlowLogs, actual.EnableFlowLogs)
 		diffs = append(diffs, subnetworkDiff{
 			RequiresRecreate: true,

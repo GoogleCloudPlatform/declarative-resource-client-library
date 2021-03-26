@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -479,9 +480,20 @@ func (op *deleteNoteOperation) do(ctx context.Context, r *Note, c *Client) error
 	if err != nil {
 		return fmt.Errorf("failed to delete Note: %w", err)
 	}
-	_, err = c.GetNote(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetNote(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -576,7 +588,6 @@ func (c *Client) noteDiffsForRawDesired(ctx context.Context, rawDesired *Note, o
 		desired, err = canonicalizeNoteDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Note: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Note: %v", rawDesired)
 
@@ -786,6 +797,7 @@ func canonicalizeNoteNewState(c *Client, rawNew, rawDesired *Note) (*Note, error
 	if dcl.IsEmptyValueIndirect(rawNew.RelatedUrl) && dcl.IsEmptyValueIndirect(rawDesired.RelatedUrl) {
 		rawNew.RelatedUrl = rawDesired.RelatedUrl
 	} else {
+		rawNew.RelatedUrl = canonicalizeNewNoteRelatedUrlSlice(c, rawDesired.RelatedUrl, rawNew.RelatedUrl)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ExpirationTime) && dcl.IsEmptyValueIndirect(rawDesired.ExpirationTime) {
@@ -915,6 +927,26 @@ func canonicalizeNewNoteRelatedUrlSet(c *Client, des, nw []NoteRelatedUrl) []Not
 	return reorderedNew
 }
 
+func canonicalizeNewNoteRelatedUrlSlice(c *Client, des, nw []NoteRelatedUrl) []NoteRelatedUrl {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NoteRelatedUrl
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteRelatedUrl(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeNoteVulnerability(des, initial *NoteVulnerability, opts ...dcl.ApplyOption) *NoteVulnerability {
 	if des == nil {
 		return initial
@@ -952,7 +984,9 @@ func canonicalizeNewNoteVulnerability(c *Client, des, nw *NoteVulnerability) *No
 		return nw
 	}
 
+	nw.Details = canonicalizeNewNoteVulnerabilityDetailsSlice(c, des.Details, nw.Details)
 	nw.CvssV3 = canonicalizeNewNoteVulnerabilityCvssV3(c, des.CvssV3, nw.CvssV3)
+	nw.WindowsDetails = canonicalizeNewNoteVulnerabilityWindowsDetailsSlice(c, des.WindowsDetails, nw.WindowsDetails)
 
 	return nw
 }
@@ -978,6 +1012,26 @@ func canonicalizeNewNoteVulnerabilitySet(c *Client, des, nw []NoteVulnerability)
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewNoteVulnerabilitySlice(c *Client, des, nw []NoteVulnerability) []NoteVulnerability {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NoteVulnerability
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteVulnerability(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeNoteVulnerabilityDetails(des, initial *NoteVulnerabilityDetails, opts ...dcl.ApplyOption) *NoteVulnerabilityDetails {
@@ -1016,7 +1070,7 @@ func canonicalizeNoteVulnerabilityDetails(des, initial *NoteVulnerabilityDetails
 		des.FixedPackage = initial.FixedPackage
 	}
 	des.FixedVersion = canonicalizeNoteVulnerabilityDetailsFixedVersion(des.FixedVersion, initial.FixedVersion, opts...)
-	if dcl.IsZeroValue(des.IsObsolete) {
+	if dcl.BoolCanonicalize(des.IsObsolete, initial.IsObsolete) || dcl.IsZeroValue(des.IsObsolete) {
 		des.IsObsolete = initial.IsObsolete
 	}
 	if dcl.IsZeroValue(des.SourceUpdateTime) {
@@ -1055,6 +1109,9 @@ func canonicalizeNewNoteVulnerabilityDetails(c *Client, des, nw *NoteVulnerabili
 		nw.FixedPackage = des.FixedPackage
 	}
 	nw.FixedVersion = canonicalizeNewNoteVulnerabilityDetailsFixedVersion(c, des.FixedVersion, nw.FixedVersion)
+	if dcl.BoolCanonicalize(des.IsObsolete, nw.IsObsolete) || dcl.IsZeroValue(des.IsObsolete) {
+		nw.IsObsolete = des.IsObsolete
+	}
 
 	return nw
 }
@@ -1080,6 +1137,26 @@ func canonicalizeNewNoteVulnerabilityDetailsSet(c *Client, des, nw []NoteVulnera
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewNoteVulnerabilityDetailsSlice(c *Client, des, nw []NoteVulnerabilityDetails) []NoteVulnerabilityDetails {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NoteVulnerabilityDetails
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteVulnerabilityDetails(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(des, initial *NoteVulnerabilityDetailsAffectedVersionStart, opts ...dcl.ApplyOption) *NoteVulnerabilityDetailsAffectedVersionStart {
@@ -1154,6 +1231,26 @@ func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionStartSet(c *Client, d
 	return reorderedNew
 }
 
+func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionStartSlice(c *Client, des, nw []NoteVulnerabilityDetailsAffectedVersionStart) []NoteVulnerabilityDetailsAffectedVersionStart {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NoteVulnerabilityDetailsAffectedVersionStart
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteVulnerabilityDetailsAffectedVersionStart(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(des, initial *NoteVulnerabilityDetailsAffectedVersionEnd, opts ...dcl.ApplyOption) *NoteVulnerabilityDetailsAffectedVersionEnd {
 	if des == nil {
 		return initial
@@ -1226,6 +1323,26 @@ func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionEndSet(c *Client, des
 	return reorderedNew
 }
 
+func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionEndSlice(c *Client, des, nw []NoteVulnerabilityDetailsAffectedVersionEnd) []NoteVulnerabilityDetailsAffectedVersionEnd {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NoteVulnerabilityDetailsAffectedVersionEnd
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteVulnerabilityDetailsAffectedVersionEnd(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeNoteVulnerabilityDetailsFixedVersion(des, initial *NoteVulnerabilityDetailsFixedVersion, opts ...dcl.ApplyOption) *NoteVulnerabilityDetailsFixedVersion {
 	if des == nil {
 		return initial
@@ -1296,6 +1413,26 @@ func canonicalizeNewNoteVulnerabilityDetailsFixedVersionSet(c *Client, des, nw [
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewNoteVulnerabilityDetailsFixedVersionSlice(c *Client, des, nw []NoteVulnerabilityDetailsFixedVersion) []NoteVulnerabilityDetailsFixedVersion {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NoteVulnerabilityDetailsFixedVersion
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteVulnerabilityDetailsFixedVersion(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeNoteVulnerabilityCvssV3(des, initial *NoteVulnerabilityCvssV3, opts ...dcl.ApplyOption) *NoteVulnerabilityCvssV3 {
@@ -1378,6 +1515,26 @@ func canonicalizeNewNoteVulnerabilityCvssV3Set(c *Client, des, nw []NoteVulnerab
 	return reorderedNew
 }
 
+func canonicalizeNewNoteVulnerabilityCvssV3Slice(c *Client, des, nw []NoteVulnerabilityCvssV3) []NoteVulnerabilityCvssV3 {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NoteVulnerabilityCvssV3
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteVulnerabilityCvssV3(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeNoteVulnerabilityWindowsDetails(des, initial *NoteVulnerabilityWindowsDetails, opts ...dcl.ApplyOption) *NoteVulnerabilityWindowsDetails {
 	if des == nil {
 		return initial
@@ -1420,6 +1577,7 @@ func canonicalizeNewNoteVulnerabilityWindowsDetails(c *Client, des, nw *NoteVuln
 	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
 		nw.Description = des.Description
 	}
+	nw.FixingKbs = canonicalizeNewNoteVulnerabilityWindowsDetailsFixingKbsSlice(c, des.FixingKbs, nw.FixingKbs)
 
 	return nw
 }
@@ -1445,6 +1603,26 @@ func canonicalizeNewNoteVulnerabilityWindowsDetailsSet(c *Client, des, nw []Note
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewNoteVulnerabilityWindowsDetailsSlice(c *Client, des, nw []NoteVulnerabilityWindowsDetails) []NoteVulnerabilityWindowsDetails {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NoteVulnerabilityWindowsDetails
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteVulnerabilityWindowsDetails(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeNoteVulnerabilityWindowsDetailsFixingKbs(des, initial *NoteVulnerabilityWindowsDetailsFixingKbs, opts ...dcl.ApplyOption) *NoteVulnerabilityWindowsDetailsFixingKbs {
@@ -1507,6 +1685,26 @@ func canonicalizeNewNoteVulnerabilityWindowsDetailsFixingKbsSet(c *Client, des, 
 	return reorderedNew
 }
 
+func canonicalizeNewNoteVulnerabilityWindowsDetailsFixingKbsSlice(c *Client, des, nw []NoteVulnerabilityWindowsDetailsFixingKbs) []NoteVulnerabilityWindowsDetailsFixingKbs {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NoteVulnerabilityWindowsDetailsFixingKbs
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteVulnerabilityWindowsDetailsFixingKbs(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeNoteBuild(des, initial *NoteBuild, opts ...dcl.ApplyOption) *NoteBuild {
 	if des == nil {
 		return initial
@@ -1561,6 +1759,26 @@ func canonicalizeNewNoteBuildSet(c *Client, des, nw []NoteBuild) []NoteBuild {
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewNoteBuildSlice(c *Client, des, nw []NoteBuild) []NoteBuild {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NoteBuild
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteBuild(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeNoteBuildSignature(des, initial *NoteBuildSignature, opts ...dcl.ApplyOption) *NoteBuildSignature {
@@ -1632,6 +1850,26 @@ func canonicalizeNewNoteBuildSignatureSet(c *Client, des, nw []NoteBuildSignatur
 	return reorderedNew
 }
 
+func canonicalizeNewNoteBuildSignatureSlice(c *Client, des, nw []NoteBuildSignature) []NoteBuildSignature {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NoteBuildSignature
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteBuildSignature(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeNoteImage(des, initial *NoteImage, opts ...dcl.ApplyOption) *NoteImage {
 	if des == nil {
 		return initial
@@ -1686,6 +1924,26 @@ func canonicalizeNewNoteImageSet(c *Client, des, nw []NoteImage) []NoteImage {
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewNoteImageSlice(c *Client, des, nw []NoteImage) []NoteImage {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NoteImage
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteImage(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeNoteImageFingerprint(des, initial *NoteImageFingerprint, opts ...dcl.ApplyOption) *NoteImageFingerprint {
@@ -1751,6 +2009,26 @@ func canonicalizeNewNoteImageFingerprintSet(c *Client, des, nw []NoteImageFinger
 	return reorderedNew
 }
 
+func canonicalizeNewNoteImageFingerprintSlice(c *Client, des, nw []NoteImageFingerprint) []NoteImageFingerprint {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NoteImageFingerprint
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteImageFingerprint(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeNotePackage(des, initial *NotePackage, opts ...dcl.ApplyOption) *NotePackage {
 	if des == nil {
 		return initial
@@ -1781,6 +2059,7 @@ func canonicalizeNewNotePackage(c *Client, des, nw *NotePackage) *NotePackage {
 	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
 		nw.Name = des.Name
 	}
+	nw.Distribution = canonicalizeNewNotePackageDistributionSlice(c, des.Distribution, nw.Distribution)
 
 	return nw
 }
@@ -1806,6 +2085,26 @@ func canonicalizeNewNotePackageSet(c *Client, des, nw []NotePackage) []NotePacka
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewNotePackageSlice(c *Client, des, nw []NotePackage) []NotePackage {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NotePackage
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNotePackage(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeNotePackageDistribution(des, initial *NotePackageDistribution, opts ...dcl.ApplyOption) *NotePackageDistribution {
@@ -1885,6 +2184,26 @@ func canonicalizeNewNotePackageDistributionSet(c *Client, des, nw []NotePackageD
 	return reorderedNew
 }
 
+func canonicalizeNewNotePackageDistributionSlice(c *Client, des, nw []NotePackageDistribution) []NotePackageDistribution {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NotePackageDistribution
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNotePackageDistribution(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeNotePackageDistributionLatestVersion(des, initial *NotePackageDistributionLatestVersion, opts ...dcl.ApplyOption) *NotePackageDistributionLatestVersion {
 	if des == nil {
 		return initial
@@ -1957,6 +2276,26 @@ func canonicalizeNewNotePackageDistributionLatestVersionSet(c *Client, des, nw [
 	return reorderedNew
 }
 
+func canonicalizeNewNotePackageDistributionLatestVersionSlice(c *Client, des, nw []NotePackageDistributionLatestVersion) []NotePackageDistributionLatestVersion {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NotePackageDistributionLatestVersion
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNotePackageDistributionLatestVersion(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeNoteDiscovery(des, initial *NoteDiscovery, opts ...dcl.ApplyOption) *NoteDiscovery {
 	if des == nil {
 		return initial
@@ -2005,6 +2344,26 @@ func canonicalizeNewNoteDiscoverySet(c *Client, des, nw []NoteDiscovery) []NoteD
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewNoteDiscoverySlice(c *Client, des, nw []NoteDiscovery) []NoteDiscovery {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NoteDiscovery
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteDiscovery(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeNoteDeployment(des, initial *NoteDeployment, opts ...dcl.ApplyOption) *NoteDeployment {
@@ -2057,6 +2416,26 @@ func canonicalizeNewNoteDeploymentSet(c *Client, des, nw []NoteDeployment) []Not
 	return reorderedNew
 }
 
+func canonicalizeNewNoteDeploymentSlice(c *Client, des, nw []NoteDeployment) []NoteDeployment {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NoteDeployment
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteDeployment(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeNoteAttestation(des, initial *NoteAttestation, opts ...dcl.ApplyOption) *NoteAttestation {
 	if des == nil {
 		return initial
@@ -2105,6 +2484,26 @@ func canonicalizeNewNoteAttestationSet(c *Client, des, nw []NoteAttestation) []N
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewNoteAttestationSlice(c *Client, des, nw []NoteAttestation) []NoteAttestation {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NoteAttestation
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteAttestation(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeNoteAttestationHint(des, initial *NoteAttestationHint, opts ...dcl.ApplyOption) *NoteAttestationHint {
@@ -2159,6 +2558,26 @@ func canonicalizeNewNoteAttestationHintSet(c *Client, des, nw []NoteAttestationH
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewNoteAttestationHintSlice(c *Client, des, nw []NoteAttestationHint) []NoteAttestationHint {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NoteAttestationHint
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteAttestationHint(c, &d, &n))
+	}
+
+	return items
 }
 
 type noteDiff struct {
@@ -2556,7 +2975,7 @@ func compareNoteVulnerabilityDetails(c *Client, desired, actual *NoteVulnerabili
 		c.Config.Logger.Infof("desired IsObsolete %s - but actually nil", dcl.SprintResource(desired.IsObsolete))
 		return true
 	}
-	if !reflect.DeepEqual(desired.IsObsolete, actual.IsObsolete) && !dcl.IsZeroValue(desired.IsObsolete) {
+	if !dcl.BoolCanonicalize(desired.IsObsolete, actual.IsObsolete) && !dcl.IsZeroValue(desired.IsObsolete) {
 		c.Config.Logger.Infof("Diff in IsObsolete. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IsObsolete), dcl.SprintResource(actual.IsObsolete))
 		return true
 	}

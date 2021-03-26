@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -369,9 +370,20 @@ func (op *deleteAutoscalerOperation) do(ctx context.Context, r *Autoscaler, c *C
 	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetAutoscaler(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetAutoscaler(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -471,7 +483,6 @@ func (c *Client) autoscalerDiffsForRawDesired(ctx context.Context, rawDesired *A
 		desired, err = canonicalizeAutoscalerDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Autoscaler: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Autoscaler: %v", rawDesired)
 
@@ -634,6 +645,7 @@ func canonicalizeAutoscalerNewState(c *Client, rawNew, rawDesired *Autoscaler) (
 	if dcl.IsEmptyValueIndirect(rawNew.StatusDetails) && dcl.IsEmptyValueIndirect(rawDesired.StatusDetails) {
 		rawNew.StatusDetails = rawDesired.StatusDetails
 	} else {
+		rawNew.StatusDetails = canonicalizeNewAutoscalerStatusDetailsSlice(c, rawDesired.StatusDetails, rawNew.StatusDetails)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.RecommendedSize) && dcl.IsEmptyValueIndirect(rawDesired.RecommendedSize) {
@@ -726,6 +738,7 @@ func canonicalizeNewAutoscalerAutoscalingPolicy(c *Client, des, nw *AutoscalerAu
 
 	nw.ScaleInControl = canonicalizeNewAutoscalerAutoscalingPolicyScaleInControl(c, des.ScaleInControl, nw.ScaleInControl)
 	nw.CpuUtilization = canonicalizeNewAutoscalerAutoscalingPolicyCpuUtilization(c, des.CpuUtilization, nw.CpuUtilization)
+	nw.CustomMetricUtilizations = canonicalizeNewAutoscalerAutoscalingPolicyCustomMetricUtilizationsSlice(c, des.CustomMetricUtilizations, nw.CustomMetricUtilizations)
 	nw.LoadBalancingUtilization = canonicalizeNewAutoscalerAutoscalingPolicyLoadBalancingUtilization(c, des.LoadBalancingUtilization, nw.LoadBalancingUtilization)
 
 	return nw
@@ -752,6 +765,26 @@ func canonicalizeNewAutoscalerAutoscalingPolicySet(c *Client, des, nw []Autoscal
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAutoscalerAutoscalingPolicySlice(c *Client, des, nw []AutoscalerAutoscalingPolicy) []AutoscalerAutoscalingPolicy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AutoscalerAutoscalingPolicy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAutoscalerAutoscalingPolicy(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAutoscalerAutoscalingPolicyScaleInControl(des, initial *AutoscalerAutoscalingPolicyScaleInControl, opts ...dcl.ApplyOption) *AutoscalerAutoscalingPolicyScaleInControl {
@@ -805,6 +838,26 @@ func canonicalizeNewAutoscalerAutoscalingPolicyScaleInControlSet(c *Client, des,
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAutoscalerAutoscalingPolicyScaleInControlSlice(c *Client, des, nw []AutoscalerAutoscalingPolicyScaleInControl) []AutoscalerAutoscalingPolicyScaleInControl {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AutoscalerAutoscalingPolicyScaleInControl
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAutoscalerAutoscalingPolicyScaleInControl(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(des, initial *AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas, opts ...dcl.ApplyOption) *AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas {
@@ -863,6 +916,26 @@ func canonicalizeNewAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas
 	return reorderedNew
 }
 
+func canonicalizeNewAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicasSlice(c *Client, des, nw []AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas) []AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAutoscalerAutoscalingPolicyCpuUtilization(des, initial *AutoscalerAutoscalingPolicyCpuUtilization, opts ...dcl.ApplyOption) *AutoscalerAutoscalingPolicyCpuUtilization {
 	if des == nil {
 		return initial
@@ -911,6 +984,26 @@ func canonicalizeNewAutoscalerAutoscalingPolicyCpuUtilizationSet(c *Client, des,
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAutoscalerAutoscalingPolicyCpuUtilizationSlice(c *Client, des, nw []AutoscalerAutoscalingPolicyCpuUtilization) []AutoscalerAutoscalingPolicyCpuUtilization {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AutoscalerAutoscalingPolicyCpuUtilization
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAutoscalerAutoscalingPolicyCpuUtilization(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAutoscalerAutoscalingPolicyCustomMetricUtilizations(des, initial *AutoscalerAutoscalingPolicyCustomMetricUtilizations, opts ...dcl.ApplyOption) *AutoscalerAutoscalingPolicyCustomMetricUtilizations {
@@ -973,6 +1066,26 @@ func canonicalizeNewAutoscalerAutoscalingPolicyCustomMetricUtilizationsSet(c *Cl
 	return reorderedNew
 }
 
+func canonicalizeNewAutoscalerAutoscalingPolicyCustomMetricUtilizationsSlice(c *Client, des, nw []AutoscalerAutoscalingPolicyCustomMetricUtilizations) []AutoscalerAutoscalingPolicyCustomMetricUtilizations {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AutoscalerAutoscalingPolicyCustomMetricUtilizations
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAutoscalerAutoscalingPolicyCustomMetricUtilizations(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAutoscalerAutoscalingPolicyLoadBalancingUtilization(des, initial *AutoscalerAutoscalingPolicyLoadBalancingUtilization, opts ...dcl.ApplyOption) *AutoscalerAutoscalingPolicyLoadBalancingUtilization {
 	if des == nil {
 		return initial
@@ -1021,6 +1134,26 @@ func canonicalizeNewAutoscalerAutoscalingPolicyLoadBalancingUtilizationSet(c *Cl
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAutoscalerAutoscalingPolicyLoadBalancingUtilizationSlice(c *Client, des, nw []AutoscalerAutoscalingPolicyLoadBalancingUtilization) []AutoscalerAutoscalingPolicyLoadBalancingUtilization {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AutoscalerAutoscalingPolicyLoadBalancingUtilization
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAutoscalerAutoscalingPolicyLoadBalancingUtilization(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAutoscalerStatusDetails(des, initial *AutoscalerStatusDetails, opts ...dcl.ApplyOption) *AutoscalerStatusDetails {
@@ -1078,6 +1211,26 @@ func canonicalizeNewAutoscalerStatusDetailsSet(c *Client, des, nw []AutoscalerSt
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAutoscalerStatusDetailsSlice(c *Client, des, nw []AutoscalerStatusDetails) []AutoscalerStatusDetails {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AutoscalerStatusDetails
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAutoscalerStatusDetails(c, &d, &n))
+	}
+
+	return items
 }
 
 type autoscalerDiff struct {

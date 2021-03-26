@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -261,9 +262,20 @@ func (op *deleteNetworkOperation) do(ctx context.Context, r *Network, c *Client)
 	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/beta/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetNetwork(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetNetwork(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -366,7 +378,6 @@ func (c *Client) networkDiffsForRawDesired(ctx context.Context, rawDesired *Netw
 		desired, err = canonicalizeNetworkDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Network: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Network: %v", rawDesired)
 
@@ -426,7 +437,7 @@ func canonicalizeNetworkDesiredState(rawDesired, rawInitial *Network, opts ...dc
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.AutoCreateSubnetworks) {
+	if dcl.BoolCanonicalize(rawDesired.AutoCreateSubnetworks, rawInitial.AutoCreateSubnetworks) {
 		rawDesired.AutoCreateSubnetworks = rawInitial.AutoCreateSubnetworks
 	}
 	rawDesired.RoutingConfig = canonicalizeNetworkRoutingConfig(rawDesired.RoutingConfig, rawInitial.RoutingConfig, opts...)
@@ -477,6 +488,9 @@ func canonicalizeNetworkNewState(c *Client, rawNew, rawDesired *Network) (*Netwo
 	if dcl.IsEmptyValueIndirect(rawNew.AutoCreateSubnetworks) && dcl.IsEmptyValueIndirect(rawDesired.AutoCreateSubnetworks) {
 		rawNew.AutoCreateSubnetworks = rawDesired.AutoCreateSubnetworks
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.AutoCreateSubnetworks, rawNew.AutoCreateSubnetworks) {
+			rawNew.AutoCreateSubnetworks = rawDesired.AutoCreateSubnetworks
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.RoutingConfig) && dcl.IsEmptyValueIndirect(rawDesired.RoutingConfig) {
@@ -548,6 +562,26 @@ func canonicalizeNewNetworkRoutingConfigSet(c *Client, des, nw []NetworkRoutingC
 	return reorderedNew
 }
 
+func canonicalizeNewNetworkRoutingConfigSlice(c *Client, des, nw []NetworkRoutingConfig) []NetworkRoutingConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NetworkRoutingConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNetworkRoutingConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 type networkDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
@@ -583,7 +617,7 @@ func diffNetwork(c *Client, desired, actual *Network, opts ...dcl.ApplyOption) (
 			FieldName:        "Name",
 		})
 	}
-	if !reflect.DeepEqual(desired.AutoCreateSubnetworks, actual.AutoCreateSubnetworks) {
+	if !dcl.IsZeroValue(desired.AutoCreateSubnetworks) && !dcl.BoolCanonicalize(desired.AutoCreateSubnetworks, actual.AutoCreateSubnetworks) {
 		c.Config.Logger.Infof("Detected diff in AutoCreateSubnetworks.\nDESIRED: %v\nACTUAL: %v", desired.AutoCreateSubnetworks, actual.AutoCreateSubnetworks)
 		diffs = append(diffs, networkDiff{
 			RequiresRecreate: true,

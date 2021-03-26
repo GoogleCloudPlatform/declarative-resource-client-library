@@ -369,7 +369,7 @@ class DashboardWidgetXyChart(object):
         data_sets: list = None,
         source_drilldown: dict = None,
         metric_drilldown: dict = None,
-        timeshift_duration: dict = None,
+        timeshift_duration: str = None,
         thresholds: list = None,
         x_axis: dict = None,
         y_axis: dict = None,
@@ -410,16 +410,8 @@ class DashboardWidgetXyChart(object):
             )
         else:
             res.ClearField("metric_drilldown")
-        if DashboardWidgetXyChartTimeshiftDuration.to_proto(
-            resource.timeshift_duration
-        ):
-            res.timeshift_duration.CopyFrom(
-                DashboardWidgetXyChartTimeshiftDuration.to_proto(
-                    resource.timeshift_duration
-                )
-            )
-        else:
-            res.ClearField("timeshift_duration")
+        if Primitive.to_proto(resource.timeshift_duration):
+            res.timeshift_duration = Primitive.to_proto(resource.timeshift_duration)
         if DashboardWidgetXyChartThresholdsArray.to_proto(resource.thresholds):
             res.thresholds.extend(
                 DashboardWidgetXyChartThresholdsArray.to_proto(resource.thresholds)
@@ -475,7 +467,7 @@ class DashboardWidgetXyChartDataSets(object):
         time_series_query: dict = None,
         plot_type: str = None,
         legend_template: str = None,
-        min_alignment_period: dict = None,
+        min_alignment_period: str = None,
     ):
         self.time_series_query = time_series_query
         self.plot_type = plot_type
@@ -504,16 +496,8 @@ class DashboardWidgetXyChartDataSets(object):
             )
         if Primitive.to_proto(resource.legend_template):
             res.legend_template = Primitive.to_proto(resource.legend_template)
-        if DashboardWidgetXyChartDataSetsMinAlignmentPeriod.to_proto(
-            resource.min_alignment_period
-        ):
-            res.min_alignment_period.CopyFrom(
-                DashboardWidgetXyChartDataSetsMinAlignmentPeriod.to_proto(
-                    resource.min_alignment_period
-                )
-            )
-        else:
-            res.ClearField("min_alignment_period")
+        if Primitive.to_proto(resource.min_alignment_period):
+            res.min_alignment_period = Primitive.to_proto(resource.min_alignment_period)
         return res
 
     @classmethod
@@ -716,7 +700,7 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterArray(object)
 class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(object):
     def __init__(
         self,
-        alignment_period: dict = None,
+        alignment_period: str = None,
         per_series_aligner: str = None,
         cross_series_reducer: str = None,
         group_by_fields: list = None,
@@ -738,16 +722,8 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(o
         res = (
             dashboard_pb2.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation()
         )
-        if DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod.to_proto(
-            resource.alignment_period
-        ):
-            res.alignment_period.CopyFrom(
-                DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod.to_proto(
-                    resource.alignment_period
-                )
-            )
-        else:
-            res.ClearField("alignment_period")
+        if Primitive.to_proto(resource.alignment_period):
+            res.alignment_period = Primitive.to_proto(resource.alignment_period)
         if DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum.to_proto(
             resource.per_series_aligner
         ):
@@ -817,61 +793,6 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAr
     def from_proto(self, resources):
         return [
             DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(
-    object
-):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            dashboard_pb2.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod()
-        )
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod.from_proto(
                 i
             )
             for i in resources
@@ -1327,7 +1248,7 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 ):
     def __init__(
         self,
-        alignment_period: dict = None,
+        alignment_period: str = None,
         per_series_aligner: str = None,
         cross_series_reducer: str = None,
         group_by_fields: list = None,
@@ -1349,16 +1270,8 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggr
         res = (
             dashboard_pb2.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation()
         )
-        if DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod.to_proto(
-            resource.alignment_period
-        ):
-            res.alignment_period.CopyFrom(
-                DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod.to_proto(
-                    resource.alignment_period
-                )
-            )
-        else:
-            res.ClearField("alignment_period")
+        if Primitive.to_proto(resource.alignment_period):
+            res.alignment_period = Primitive.to_proto(resource.alignment_period)
         if DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum.to_proto(
             resource.per_series_aligner
         ):
@@ -1428,61 +1341,6 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggr
     def from_proto(self, resources):
         return [
             DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(
-    object
-):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            dashboard_pb2.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod()
-        )
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod.from_proto(
                 i
             )
             for i in resources
@@ -2172,7 +2030,7 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerato
 ):
     def __init__(
         self,
-        alignment_period: dict = None,
+        alignment_period: str = None,
         per_series_aligner: str = None,
         cross_series_reducer: str = None,
         group_by_fields: list = None,
@@ -2194,16 +2052,8 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerato
         res = (
             dashboard_pb2.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation()
         )
-        if DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod.to_proto(
-            resource.alignment_period
-        ):
-            res.alignment_period.CopyFrom(
-                DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod.to_proto(
-                    resource.alignment_period
-                )
-            )
-        else:
-            res.ClearField("alignment_period")
+        if Primitive.to_proto(resource.alignment_period):
+            res.alignment_period = Primitive.to_proto(resource.alignment_period)
         if DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum.to_proto(
             resource.per_series_aligner
         ):
@@ -2273,61 +2123,6 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerato
     def from_proto(self, resources):
         return [
             DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(
-    object
-):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            dashboard_pb2.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod()
-        )
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod.from_proto(
                 i
             )
             for i in resources
@@ -2846,7 +2641,7 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenomina
 ):
     def __init__(
         self,
-        alignment_period: dict = None,
+        alignment_period: str = None,
         per_series_aligner: str = None,
         cross_series_reducer: str = None,
         group_by_fields: list = None,
@@ -2868,16 +2663,8 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenomina
         res = (
             dashboard_pb2.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation()
         )
-        if DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod.to_proto(
-            resource.alignment_period
-        ):
-            res.alignment_period.CopyFrom(
-                DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod.to_proto(
-                    resource.alignment_period
-                )
-            )
-        else:
-            res.ClearField("alignment_period")
+        if Primitive.to_proto(resource.alignment_period):
+            res.alignment_period = Primitive.to_proto(resource.alignment_period)
         if DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum.to_proto(
             resource.per_series_aligner
         ):
@@ -2947,61 +2734,6 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenomina
     def from_proto(self, resources):
         return [
             DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(
-    object
-):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            dashboard_pb2.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod()
-        )
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod.from_proto(
                 i
             )
             for i in resources
@@ -3457,7 +3189,7 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondar
 ):
     def __init__(
         self,
-        alignment_period: dict = None,
+        alignment_period: str = None,
         per_series_aligner: str = None,
         cross_series_reducer: str = None,
         group_by_fields: list = None,
@@ -3479,16 +3211,8 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondar
         res = (
             dashboard_pb2.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation()
         )
-        if DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod.to_proto(
-            resource.alignment_period
-        ):
-            res.alignment_period.CopyFrom(
-                DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod.to_proto(
-                    resource.alignment_period
-                )
-            )
-        else:
-            res.ClearField("alignment_period")
+        if Primitive.to_proto(resource.alignment_period):
+            res.alignment_period = Primitive.to_proto(resource.alignment_period)
         if DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum.to_proto(
             resource.per_series_aligner
         ):
@@ -3558,61 +3282,6 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondar
     def from_proto(self, resources):
         return [
             DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(
-    object
-):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            dashboard_pb2.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod()
-        )
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod.from_proto(
                 i
             )
             for i in resources
@@ -4132,51 +3801,6 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTime
             DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter.from_proto(
                 i
             )
-            for i in resources
-        ]
-
-
-class DashboardWidgetXyChartDataSetsMinAlignmentPeriod(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = dashboard_pb2.MonitoringDashboardWidgetXyChartDataSetsMinAlignmentPeriod()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardWidgetXyChartDataSetsMinAlignmentPeriod(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class DashboardWidgetXyChartDataSetsMinAlignmentPeriodArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            DashboardWidgetXyChartDataSetsMinAlignmentPeriod.to_proto(i)
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            DashboardWidgetXyChartDataSetsMinAlignmentPeriod.from_proto(i)
             for i in resources
         ]
 
@@ -5182,47 +4806,6 @@ class DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownArray(object):
         ]
 
 
-class DashboardWidgetXyChartTimeshiftDuration(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = dashboard_pb2.MonitoringDashboardWidgetXyChartTimeshiftDuration()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardWidgetXyChartTimeshiftDuration(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class DashboardWidgetXyChartTimeshiftDurationArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [DashboardWidgetXyChartTimeshiftDuration.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            DashboardWidgetXyChartTimeshiftDuration.from_proto(i) for i in resources
-        ]
-
-
 class DashboardWidgetXyChartThresholds(object):
     def __init__(
         self,
@@ -5662,7 +5245,7 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterArray(object):
 class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(object):
     def __init__(
         self,
-        alignment_period: dict = None,
+        alignment_period: str = None,
         per_series_aligner: str = None,
         cross_series_reducer: str = None,
         group_by_fields: list = None,
@@ -5684,16 +5267,8 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(object)
         res = (
             dashboard_pb2.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation()
         )
-        if DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod.to_proto(
-            resource.alignment_period
-        ):
-            res.alignment_period.CopyFrom(
-                DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod.to_proto(
-                    resource.alignment_period
-                )
-            )
-        else:
-            res.ClearField("alignment_period")
+        if Primitive.to_proto(resource.alignment_period):
+            res.alignment_period = Primitive.to_proto(resource.alignment_period)
         if DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum.to_proto(
             resource.per_series_aligner
         ):
@@ -5761,61 +5336,6 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationArray(ob
     def from_proto(self, resources):
         return [
             DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(
-    object
-):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            dashboard_pb2.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod()
-        )
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod.from_proto(
                 i
             )
             for i in resources
@@ -6271,7 +5791,7 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregatio
 ):
     def __init__(
         self,
-        alignment_period: dict = None,
+        alignment_period: str = None,
         per_series_aligner: str = None,
         cross_series_reducer: str = None,
         group_by_fields: list = None,
@@ -6293,16 +5813,8 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregatio
         res = (
             dashboard_pb2.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation()
         )
-        if DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod.to_proto(
-            resource.alignment_period
-        ):
-            res.alignment_period.CopyFrom(
-                DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod.to_proto(
-                    resource.alignment_period
-                )
-            )
-        else:
-            res.ClearField("alignment_period")
+        if Primitive.to_proto(resource.alignment_period):
+            res.alignment_period = Primitive.to_proto(resource.alignment_period)
         if DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum.to_proto(
             resource.per_series_aligner
         ):
@@ -6372,61 +5884,6 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregatio
     def from_proto(self, resources):
         return [
             DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(
-    object
-):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            dashboard_pb2.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod()
-        )
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod.from_proto(
                 i
             )
             for i in resources
@@ -7110,7 +6567,7 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggre
 ):
     def __init__(
         self,
-        alignment_period: dict = None,
+        alignment_period: str = None,
         per_series_aligner: str = None,
         cross_series_reducer: str = None,
         group_by_fields: list = None,
@@ -7132,16 +6589,8 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggre
         res = (
             dashboard_pb2.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation()
         )
-        if DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod.to_proto(
-            resource.alignment_period
-        ):
-            res.alignment_period.CopyFrom(
-                DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod.to_proto(
-                    resource.alignment_period
-                )
-            )
-        else:
-            res.ClearField("alignment_period")
+        if Primitive.to_proto(resource.alignment_period):
+            res.alignment_period = Primitive.to_proto(resource.alignment_period)
         if DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum.to_proto(
             resource.per_series_aligner
         ):
@@ -7211,61 +6660,6 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggre
     def from_proto(self, resources):
         return [
             DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(
-    object
-):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            dashboard_pb2.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod()
-        )
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod.from_proto(
                 i
             )
             for i in resources
@@ -7782,7 +7176,7 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAgg
 ):
     def __init__(
         self,
-        alignment_period: dict = None,
+        alignment_period: str = None,
         per_series_aligner: str = None,
         cross_series_reducer: str = None,
         group_by_fields: list = None,
@@ -7804,16 +7198,8 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAgg
         res = (
             dashboard_pb2.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation()
         )
-        if DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod.to_proto(
-            resource.alignment_period
-        ):
-            res.alignment_period.CopyFrom(
-                DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod.to_proto(
-                    resource.alignment_period
-                )
-            )
-        else:
-            res.ClearField("alignment_period")
+        if Primitive.to_proto(resource.alignment_period):
+            res.alignment_period = Primitive.to_proto(resource.alignment_period)
         if DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum.to_proto(
             resource.per_series_aligner
         ):
@@ -7883,61 +7269,6 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAgg
     def from_proto(self, resources):
         return [
             DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(
-    object
-):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            dashboard_pb2.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod()
-        )
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod.from_proto(
                 i
             )
             for i in resources
@@ -8393,7 +7724,7 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggre
 ):
     def __init__(
         self,
-        alignment_period: dict = None,
+        alignment_period: str = None,
         per_series_aligner: str = None,
         cross_series_reducer: str = None,
         group_by_fields: list = None,
@@ -8415,16 +7746,8 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggre
         res = (
             dashboard_pb2.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation()
         )
-        if DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod.to_proto(
-            resource.alignment_period
-        ):
-            res.alignment_period.CopyFrom(
-                DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod.to_proto(
-                    resource.alignment_period
-                )
-            )
-        else:
-            res.ClearField("alignment_period")
+        if Primitive.to_proto(resource.alignment_period):
+            res.alignment_period = Primitive.to_proto(resource.alignment_period)
         if DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum.to_proto(
             resource.per_series_aligner
         ):
@@ -8494,61 +7817,6 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggre
     def from_proto(self, resources):
         return [
             DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(
-    object
-):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            dashboard_pb2.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod()
-        )
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod.from_proto(
                 i
             )
             for i in resources
@@ -10119,7 +9387,7 @@ class DashboardWidgetScorecardGaugeViewArray(object):
 
 
 class DashboardWidgetScorecardSparkChartView(object):
-    def __init__(self, spark_chart_type: str = None, min_alignment_period: dict = None):
+    def __init__(self, spark_chart_type: str = None, min_alignment_period: str = None):
         self.spark_chart_type = spark_chart_type
         self.min_alignment_period = min_alignment_period
 
@@ -10135,16 +9403,8 @@ class DashboardWidgetScorecardSparkChartView(object):
             res.spark_chart_type = DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum.to_proto(
                 resource.spark_chart_type
             )
-        if DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod.to_proto(
-            resource.min_alignment_period
-        ):
-            res.min_alignment_period.CopyFrom(
-                DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod.to_proto(
-                    resource.min_alignment_period
-                )
-            )
-        else:
-            res.ClearField("min_alignment_period")
+        if Primitive.to_proto(resource.min_alignment_period):
+            res.min_alignment_period = Primitive.to_proto(resource.min_alignment_period)
         return res
 
     @classmethod
@@ -10168,53 +9428,6 @@ class DashboardWidgetScorecardSparkChartViewArray(object):
     @classmethod
     def from_proto(self, resources):
         return [DashboardWidgetScorecardSparkChartView.from_proto(i) for i in resources]
-
-
-class DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            dashboard_pb2.MonitoringDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod()
-        )
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class DashboardWidgetScorecardSparkChartViewMinAlignmentPeriodArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod.to_proto(i)
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod.from_proto(i)
-            for i in resources
-        ]
 
 
 class DashboardWidgetScorecardThresholds(object):

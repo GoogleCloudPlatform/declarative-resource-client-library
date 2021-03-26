@@ -13,7 +13,6 @@
 # limitations under the License.
 dependencies:
 - samples/basic.compute.instance.json
-- samples/osconfig.serviceusage.service.json
 description: A basic example of an OS config guest policy
 name: basic_guest_policy
 resource: samples/basic.guest_policy.json

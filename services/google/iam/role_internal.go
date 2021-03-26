@@ -340,7 +340,6 @@ func (c *Client) roleDiffsForRawDesired(ctx context.Context, rawDesired *Role, o
 		desired, err = canonicalizeRoleDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Role: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Role: %v", rawDesired)
 
@@ -412,7 +411,7 @@ func canonicalizeRoleDesiredState(rawDesired, rawInitial *Role, opts ...dcl.Appl
 	if dcl.StringCanonicalize(rawDesired.Etag, rawInitial.Etag) {
 		rawDesired.Etag = rawInitial.Etag
 	}
-	if dcl.IsZeroValue(rawDesired.Deleted) {
+	if dcl.BoolCanonicalize(rawDesired.Deleted, rawInitial.Deleted) {
 		rawDesired.Deleted = rawInitial.Deleted
 	}
 	if dcl.IsZeroValue(rawDesired.IncludedRoles) {
@@ -502,6 +501,9 @@ func canonicalizeRoleNewState(c *Client, rawNew, rawDesired *Role) (*Role, error
 	if dcl.IsEmptyValueIndirect(rawNew.Deleted) && dcl.IsEmptyValueIndirect(rawDesired.Deleted) {
 		rawNew.Deleted = rawDesired.Deleted
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.Deleted, rawNew.Deleted) {
+			rawNew.Deleted = rawDesired.Deleted
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.IncludedRoles) && dcl.IsEmptyValueIndirect(rawDesired.IncludedRoles) {
@@ -572,6 +574,26 @@ func canonicalizeNewRoleLocalizedValuesSet(c *Client, des, nw []RoleLocalizedVal
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewRoleLocalizedValuesSlice(c *Client, des, nw []RoleLocalizedValues) []RoleLocalizedValues {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []RoleLocalizedValues
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewRoleLocalizedValues(c, &d, &n))
+	}
+
+	return items
 }
 
 type roleDiff struct {
@@ -665,7 +687,7 @@ func diffRole(c *Client, desired, actual *Role, opts ...dcl.ApplyOption) ([]role
 			FieldName:        "Etag",
 		})
 	}
-	if !reflect.DeepEqual(desired.Deleted, actual.Deleted) {
+	if !dcl.IsZeroValue(desired.Deleted) && !dcl.BoolCanonicalize(desired.Deleted, actual.Deleted) {
 		c.Config.Logger.Infof("Detected diff in Deleted.\nDESIRED: %v\nACTUAL: %v", desired.Deleted, actual.Deleted)
 		diffs = append(diffs, roleDiff{
 			RequiresRecreate: true,

@@ -581,6 +581,8 @@ components:
           description: Initial root password. Use only on creation.
           type: string
           x-dcl-go-name: RootPassword
+          x-dcl-mutable-unreadable: true
+          x-dcl-sensitive: true
           x-kubernetes-immutable: true
         scheduledMaintenance:
           description: The start time of any upcoming scheduled maintenance for this
@@ -1194,7 +1196,7 @@ components:
       x-dcl-locations:
       - region
       x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
+      x-dcl-uses-state-hint: true
 info:
   description: DCL Specification for the Sql Instance resource
   title: Sql/Instance

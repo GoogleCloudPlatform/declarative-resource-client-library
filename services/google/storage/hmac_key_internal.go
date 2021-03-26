@@ -337,7 +337,6 @@ func (c *Client) hmacKeyDiffsForRawDesired(ctx context.Context, rawDesired *Hmac
 		desired, err := canonicalizeHmacKeyDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
-
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetHmacKey(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -350,7 +349,6 @@ func (c *Client) hmacKeyDiffsForRawDesired(ctx context.Context, rawDesired *Hmac
 		desired, err = canonicalizeHmacKeyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for HmacKey: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for HmacKey: %v", rawDesired)
 

@@ -13,7 +13,6 @@
 # limitations under the License.
 dependencies:
 - samples/basic.tenant.json
-- samples/basic.serviceusage.service.json
 description: A basic example an Identity Toolkit tenant oauth idp config.
 name: basic_tenant_oauth_idp_config
 resource: samples/basic.tenant_oauth_idp_config.json

@@ -1,0 +1,7 @@
+{
+  "parent": "projects/{{project}}",
+  "displayName": "basic-organization",
+  "description": "A sample organization",
+  "analyticsRegion": "{{region}}",
+  "runtimeType": "CLOUD"
+}

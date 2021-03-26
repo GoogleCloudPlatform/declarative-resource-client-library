@@ -1,6 +1,6 @@
 {
   "name": "{{network}}",
-  "project": "{{ref:compute.serviceusage.service.json:project}}",
+  "project": "{{project}}",
   "autoCreateSubnetworks": true,
   "routingConfig": {
     "routingMode": "REGIONAL"

@@ -269,7 +269,6 @@ func (c *Client) firewallPolicyRuleDiffsForRawDesired(ctx context.Context, rawDe
 		desired, err = canonicalizeFirewallPolicyRuleDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for FirewallPolicyRule: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for FirewallPolicyRule: %v", rawDesired)
 
@@ -329,7 +328,7 @@ func canonicalizeFirewallPolicyRuleDesiredState(rawDesired, rawInitial *Firewall
 	if dcl.IsZeroValue(rawDesired.TargetResources) {
 		rawDesired.TargetResources = rawInitial.TargetResources
 	}
-	if dcl.IsZeroValue(rawDesired.EnableLogging) {
+	if dcl.BoolCanonicalize(rawDesired.EnableLogging, rawInitial.EnableLogging) {
 		rawDesired.EnableLogging = rawInitial.EnableLogging
 	}
 	if dcl.IsZeroValue(rawDesired.RuleTupleCount) {
@@ -341,7 +340,7 @@ func canonicalizeFirewallPolicyRuleDesiredState(rawDesired, rawInitial *Firewall
 	if dcl.IsZeroValue(rawDesired.TargetSecureLabels) {
 		rawDesired.TargetSecureLabels = rawInitial.TargetSecureLabels
 	}
-	if dcl.IsZeroValue(rawDesired.Disabled) {
+	if dcl.BoolCanonicalize(rawDesired.Disabled, rawInitial.Disabled) {
 		rawDesired.Disabled = rawInitial.Disabled
 	}
 	if dcl.StringCanonicalize(rawDesired.Kind, rawInitial.Kind) {
@@ -396,6 +395,9 @@ func canonicalizeFirewallPolicyRuleNewState(c *Client, rawNew, rawDesired *Firew
 	if dcl.IsEmptyValueIndirect(rawNew.EnableLogging) && dcl.IsEmptyValueIndirect(rawDesired.EnableLogging) {
 		rawNew.EnableLogging = rawDesired.EnableLogging
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.EnableLogging, rawNew.EnableLogging) {
+			rawNew.EnableLogging = rawDesired.EnableLogging
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.RuleTupleCount) && dcl.IsEmptyValueIndirect(rawDesired.RuleTupleCount) {
@@ -416,6 +418,9 @@ func canonicalizeFirewallPolicyRuleNewState(c *Client, rawNew, rawDesired *Firew
 	if dcl.IsEmptyValueIndirect(rawNew.Disabled) && dcl.IsEmptyValueIndirect(rawDesired.Disabled) {
 		rawNew.Disabled = rawDesired.Disabled
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.Disabled, rawNew.Disabled) {
+			rawNew.Disabled = rawDesired.Disabled
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Kind) && dcl.IsEmptyValueIndirect(rawDesired.Kind) {
@@ -470,6 +475,8 @@ func canonicalizeNewFirewallPolicyRuleMatch(c *Client, des, nw *FirewallPolicyRu
 		return nw
 	}
 
+	nw.Layer4Configs = canonicalizeNewFirewallPolicyRuleMatchLayer4ConfigsSlice(c, des.Layer4Configs, nw.Layer4Configs)
+
 	return nw
 }
 
@@ -494,6 +501,26 @@ func canonicalizeNewFirewallPolicyRuleMatchSet(c *Client, des, nw []FirewallPoli
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewFirewallPolicyRuleMatchSlice(c *Client, des, nw []FirewallPolicyRuleMatch) []FirewallPolicyRuleMatch {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []FirewallPolicyRuleMatch
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFirewallPolicyRuleMatch(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeFirewallPolicyRuleMatchLayer4Configs(des, initial *FirewallPolicyRuleMatchLayer4Configs, opts ...dcl.ApplyOption) *FirewallPolicyRuleMatchLayer4Configs {
@@ -551,6 +578,26 @@ func canonicalizeNewFirewallPolicyRuleMatchLayer4ConfigsSet(c *Client, des, nw [
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewFirewallPolicyRuleMatchLayer4ConfigsSlice(c *Client, des, nw []FirewallPolicyRuleMatchLayer4Configs) []FirewallPolicyRuleMatchLayer4Configs {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []FirewallPolicyRuleMatchLayer4Configs
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFirewallPolicyRuleMatchLayer4Configs(c, &d, &n))
+	}
+
+	return items
 }
 
 type firewallPolicyRuleDiff struct {
@@ -626,7 +673,7 @@ func diffFirewallPolicyRule(c *Client, desired, actual *FirewallPolicyRule, opts
 		})
 
 	}
-	if !reflect.DeepEqual(desired.EnableLogging, actual.EnableLogging) {
+	if !dcl.IsZeroValue(desired.EnableLogging) && !dcl.BoolCanonicalize(desired.EnableLogging, actual.EnableLogging) {
 		c.Config.Logger.Infof("Detected diff in EnableLogging.\nDESIRED: %v\nACTUAL: %v", desired.EnableLogging, actual.EnableLogging)
 
 		diffs = append(diffs, firewallPolicyRuleDiff{
@@ -653,7 +700,7 @@ func diffFirewallPolicyRule(c *Client, desired, actual *FirewallPolicyRule, opts
 		})
 
 	}
-	if !reflect.DeepEqual(desired.Disabled, actual.Disabled) {
+	if !dcl.IsZeroValue(desired.Disabled) && !dcl.BoolCanonicalize(desired.Disabled, actual.Disabled) {
 		c.Config.Logger.Infof("Detected diff in Disabled.\nDESIRED: %v\nACTUAL: %v", desired.Disabled, actual.Disabled)
 
 		diffs = append(diffs, firewallPolicyRuleDiff{

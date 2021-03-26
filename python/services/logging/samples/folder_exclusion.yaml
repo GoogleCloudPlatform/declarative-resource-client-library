@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 dependencies:
-- samples/folder.iam.member.json
+- samples/folder_logging_admin.iam.member.json
 - samples/folder.cloudresourcemanager.folder.json
 description: A basic example for a folder-level logging exclusion
 name: folder_exclusion

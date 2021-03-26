@@ -1,0 +1,7 @@
+{
+  "displayName": "Workload Example",
+  "complianceRegime": "FEDRAMP_MODERATE",
+  "billingAccount": "billingAccounts/{{billing_account}}",
+  "organization": "{{org_id}}",
+  "location": "{{region}}"
+}

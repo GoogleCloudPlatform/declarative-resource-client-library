@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -302,9 +303,20 @@ func (op *deleteNodeOperation) do(ctx context.Context, r *Node, c *Client) error
 	if err := o.Wait(ctx, c.Config, "https://tpu.googleapis.com/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetNode(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetNode(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -404,7 +416,6 @@ func (c *Client) nodeDiffsForRawDesired(ctx context.Context, rawDesired *Node, o
 		desired, err = canonicalizeNodeDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Node: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Node: %v", rawDesired)
 
@@ -493,7 +504,7 @@ func canonicalizeNodeDesiredState(rawDesired, rawInitial *Node, opts ...dcl.Appl
 	if dcl.IsZeroValue(rawDesired.Labels) {
 		rawDesired.Labels = rawInitial.Labels
 	}
-	if dcl.IsZeroValue(rawDesired.UseServiceNetworking) {
+	if dcl.BoolCanonicalize(rawDesired.UseServiceNetworking, rawInitial.UseServiceNetworking) {
 		rawDesired.UseServiceNetworking = rawInitial.UseServiceNetworking
 	}
 	if dcl.IsZeroValue(rawDesired.Symptoms) {
@@ -611,6 +622,7 @@ func canonicalizeNodeNewState(c *Client, rawNew, rawDesired *Node) (*Node, error
 	if dcl.IsEmptyValueIndirect(rawNew.NetworkEndpoints) && dcl.IsEmptyValueIndirect(rawDesired.NetworkEndpoints) {
 		rawNew.NetworkEndpoints = rawDesired.NetworkEndpoints
 	} else {
+		rawNew.NetworkEndpoints = canonicalizeNewNodeNetworkEndpointsSlice(c, rawDesired.NetworkEndpoints, rawNew.NetworkEndpoints)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Health) && dcl.IsEmptyValueIndirect(rawDesired.Health) {
@@ -626,11 +638,15 @@ func canonicalizeNodeNewState(c *Client, rawNew, rawDesired *Node) (*Node, error
 	if dcl.IsEmptyValueIndirect(rawNew.UseServiceNetworking) && dcl.IsEmptyValueIndirect(rawDesired.UseServiceNetworking) {
 		rawNew.UseServiceNetworking = rawDesired.UseServiceNetworking
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.UseServiceNetworking, rawNew.UseServiceNetworking) {
+			rawNew.UseServiceNetworking = rawDesired.UseServiceNetworking
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Symptoms) && dcl.IsEmptyValueIndirect(rawDesired.Symptoms) {
 		rawNew.Symptoms = rawDesired.Symptoms
 	} else {
+		rawNew.Symptoms = canonicalizeNewNodeSymptomsSlice(c, rawDesired.Symptoms, rawNew.Symptoms)
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -693,6 +709,26 @@ func canonicalizeNewNodeCreateTimeSet(c *Client, des, nw []NodeCreateTime) []Nod
 	return reorderedNew
 }
 
+func canonicalizeNewNodeCreateTimeSlice(c *Client, des, nw []NodeCreateTime) []NodeCreateTime {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NodeCreateTime
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNodeCreateTime(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeNodeSchedulingConfig(des, initial *NodeSchedulingConfig, opts ...dcl.ApplyOption) *NodeSchedulingConfig {
 	if des == nil {
 		return initial
@@ -705,10 +741,10 @@ func canonicalizeNodeSchedulingConfig(des, initial *NodeSchedulingConfig, opts .
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Preemptible) {
+	if dcl.BoolCanonicalize(des.Preemptible, initial.Preemptible) || dcl.IsZeroValue(des.Preemptible) {
 		des.Preemptible = initial.Preemptible
 	}
-	if dcl.IsZeroValue(des.Reserved) {
+	if dcl.BoolCanonicalize(des.Reserved, initial.Reserved) || dcl.IsZeroValue(des.Reserved) {
 		des.Reserved = initial.Reserved
 	}
 
@@ -718,6 +754,13 @@ func canonicalizeNodeSchedulingConfig(des, initial *NodeSchedulingConfig, opts .
 func canonicalizeNewNodeSchedulingConfig(c *Client, des, nw *NodeSchedulingConfig) *NodeSchedulingConfig {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.Preemptible, nw.Preemptible) || dcl.IsZeroValue(des.Preemptible) {
+		nw.Preemptible = des.Preemptible
+	}
+	if dcl.BoolCanonicalize(des.Reserved, nw.Reserved) || dcl.IsZeroValue(des.Reserved) {
+		nw.Reserved = des.Reserved
 	}
 
 	return nw
@@ -744,6 +787,26 @@ func canonicalizeNewNodeSchedulingConfigSet(c *Client, des, nw []NodeSchedulingC
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewNodeSchedulingConfigSlice(c *Client, des, nw []NodeSchedulingConfig) []NodeSchedulingConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NodeSchedulingConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNodeSchedulingConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeNodeNetworkEndpoints(des, initial *NodeNetworkEndpoints, opts ...dcl.ApplyOption) *NodeNetworkEndpoints {
@@ -801,6 +864,26 @@ func canonicalizeNewNodeNetworkEndpointsSet(c *Client, des, nw []NodeNetworkEndp
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewNodeNetworkEndpointsSlice(c *Client, des, nw []NodeNetworkEndpoints) []NodeNetworkEndpoints {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NodeNetworkEndpoints
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNodeNetworkEndpoints(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeNodeSymptoms(des, initial *NodeSymptoms, opts ...dcl.ApplyOption) *NodeSymptoms {
@@ -868,6 +951,26 @@ func canonicalizeNewNodeSymptomsSet(c *Client, des, nw []NodeSymptoms) []NodeSym
 	return reorderedNew
 }
 
+func canonicalizeNewNodeSymptomsSlice(c *Client, des, nw []NodeSymptoms) []NodeSymptoms {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NodeSymptoms
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNodeSymptoms(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeNodeSymptomsCreateTime(des, initial *NodeSymptomsCreateTime, opts ...dcl.ApplyOption) *NodeSymptomsCreateTime {
 	if des == nil {
 		return initial
@@ -919,6 +1022,26 @@ func canonicalizeNewNodeSymptomsCreateTimeSet(c *Client, des, nw []NodeSymptomsC
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewNodeSymptomsCreateTimeSlice(c *Client, des, nw []NodeSymptomsCreateTime) []NodeSymptomsCreateTime {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NodeSymptomsCreateTime
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNodeSymptomsCreateTime(c, &d, &n))
+	}
+
+	return items
 }
 
 type nodeDiff struct {
@@ -1000,7 +1123,7 @@ func diffNode(c *Client, desired, actual *Node, opts ...dcl.ApplyOption) ([]node
 			FieldName:        "Labels",
 		})
 	}
-	if !reflect.DeepEqual(desired.UseServiceNetworking, actual.UseServiceNetworking) {
+	if !dcl.IsZeroValue(desired.UseServiceNetworking) && !dcl.BoolCanonicalize(desired.UseServiceNetworking, actual.UseServiceNetworking) {
 		c.Config.Logger.Infof("Detected diff in UseServiceNetworking.\nDESIRED: %v\nACTUAL: %v", desired.UseServiceNetworking, actual.UseServiceNetworking)
 		diffs = append(diffs, nodeDiff{
 			RequiresRecreate: true,
@@ -1101,7 +1224,7 @@ func compareNodeSchedulingConfig(c *Client, desired, actual *NodeSchedulingConfi
 		c.Config.Logger.Infof("desired Preemptible %s - but actually nil", dcl.SprintResource(desired.Preemptible))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Preemptible, actual.Preemptible) && !dcl.IsZeroValue(desired.Preemptible) {
+	if !dcl.BoolCanonicalize(desired.Preemptible, actual.Preemptible) && !dcl.IsZeroValue(desired.Preemptible) {
 		c.Config.Logger.Infof("Diff in Preemptible. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Preemptible), dcl.SprintResource(actual.Preemptible))
 		return true
 	}
@@ -1109,7 +1232,7 @@ func compareNodeSchedulingConfig(c *Client, desired, actual *NodeSchedulingConfi
 		c.Config.Logger.Infof("desired Reserved %s - but actually nil", dcl.SprintResource(desired.Reserved))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Reserved, actual.Reserved) && !dcl.IsZeroValue(desired.Reserved) {
+	if !dcl.BoolCanonicalize(desired.Reserved, actual.Reserved) && !dcl.IsZeroValue(desired.Reserved) {
 		c.Config.Logger.Infof("Diff in Reserved. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Reserved), dcl.SprintResource(actual.Reserved))
 		return true
 	}

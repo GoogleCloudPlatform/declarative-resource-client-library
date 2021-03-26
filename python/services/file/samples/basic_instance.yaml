@@ -11,8 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-dependencies:
-- samples/file.serviceusage.service.json
 description: A basic example for a filestore instance
 name: basic_instance
 resource: samples/basic.instance.json

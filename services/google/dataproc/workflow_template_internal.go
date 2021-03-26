@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -503,9 +504,20 @@ func (op *deleteWorkflowTemplateOperation) do(ctx context.Context, r *WorkflowTe
 	if err != nil {
 		return fmt.Errorf("failed to delete WorkflowTemplate: %w", err)
 	}
-	_, err = c.GetWorkflowTemplate(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetWorkflowTemplate(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -611,7 +623,6 @@ func (c *Client) workflowTemplateDiffsForRawDesired(ctx context.Context, rawDesi
 		desired, err = canonicalizeWorkflowTemplateDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for WorkflowTemplate: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for WorkflowTemplate: %v", rawDesired)
 
@@ -720,11 +731,13 @@ func canonicalizeWorkflowTemplateNewState(c *Client, rawNew, rawDesired *Workflo
 	if dcl.IsEmptyValueIndirect(rawNew.Jobs) && dcl.IsEmptyValueIndirect(rawDesired.Jobs) {
 		rawNew.Jobs = rawDesired.Jobs
 	} else {
+		rawNew.Jobs = canonicalizeNewWorkflowTemplateJobsSlice(c, rawDesired.Jobs, rawNew.Jobs)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Parameters) && dcl.IsEmptyValueIndirect(rawDesired.Parameters) {
 		rawNew.Parameters = rawDesired.Parameters
 	} else {
+		rawNew.Parameters = canonicalizeNewWorkflowTemplateParametersSlice(c, rawDesired.Parameters, rawNew.Parameters)
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -786,6 +799,26 @@ func canonicalizeNewWorkflowTemplatePlacementSet(c *Client, des, nw []WorkflowTe
 	return reorderedNew
 }
 
+func canonicalizeNewWorkflowTemplatePlacementSlice(c *Client, des, nw []WorkflowTemplatePlacement) []WorkflowTemplatePlacement {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplatePlacement
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplatePlacement(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeWorkflowTemplatePlacementManagedCluster(des, initial *WorkflowTemplatePlacementManagedCluster, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedCluster {
 	if des == nil {
 		return initial
@@ -845,6 +878,26 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterSet(c *Client, des, n
 	return reorderedNew
 }
 
+func canonicalizeNewWorkflowTemplatePlacementManagedClusterSlice(c *Client, des, nw []WorkflowTemplatePlacementManagedCluster) []WorkflowTemplatePlacementManagedCluster {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplatePlacementManagedCluster
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplatePlacementManagedCluster(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeWorkflowTemplatePlacementClusterSelector(des, initial *WorkflowTemplatePlacementClusterSelector, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementClusterSelector {
 	if des == nil {
 		return initial
@@ -900,6 +953,26 @@ func canonicalizeNewWorkflowTemplatePlacementClusterSelectorSet(c *Client, des, 
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewWorkflowTemplatePlacementClusterSelectorSlice(c *Client, des, nw []WorkflowTemplatePlacementClusterSelector) []WorkflowTemplatePlacementClusterSelector {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplatePlacementClusterSelector
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplatePlacementClusterSelector(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeWorkflowTemplateJobs(des, initial *WorkflowTemplateJobs, opts ...dcl.ApplyOption) *WorkflowTemplateJobs {
@@ -980,6 +1053,26 @@ func canonicalizeNewWorkflowTemplateJobsSet(c *Client, des, nw []WorkflowTemplat
 	return reorderedNew
 }
 
+func canonicalizeNewWorkflowTemplateJobsSlice(c *Client, des, nw []WorkflowTemplateJobs) []WorkflowTemplateJobs {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateJobs
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateJobs(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeWorkflowTemplateJobsHadoopJob(des, initial *WorkflowTemplateJobsHadoopJob, opts ...dcl.ApplyOption) *WorkflowTemplateJobsHadoopJob {
 	if des == nil {
 		return initial
@@ -1057,6 +1150,26 @@ func canonicalizeNewWorkflowTemplateJobsHadoopJobSet(c *Client, des, nw []Workfl
 	return reorderedNew
 }
 
+func canonicalizeNewWorkflowTemplateJobsHadoopJobSlice(c *Client, des, nw []WorkflowTemplateJobsHadoopJob) []WorkflowTemplateJobsHadoopJob {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateJobsHadoopJob
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateJobsHadoopJob(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeWorkflowTemplateJobsHadoopJobLoggingConfig(des, initial *WorkflowTemplateJobsHadoopJobLoggingConfig, opts ...dcl.ApplyOption) *WorkflowTemplateJobsHadoopJobLoggingConfig {
 	if des == nil {
 		return initial
@@ -1105,6 +1218,26 @@ func canonicalizeNewWorkflowTemplateJobsHadoopJobLoggingConfigSet(c *Client, des
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewWorkflowTemplateJobsHadoopJobLoggingConfigSlice(c *Client, des, nw []WorkflowTemplateJobsHadoopJobLoggingConfig) []WorkflowTemplateJobsHadoopJobLoggingConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateJobsHadoopJobLoggingConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateJobsHadoopJobLoggingConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeWorkflowTemplateJobsSparkJob(des, initial *WorkflowTemplateJobsSparkJob, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkJob {
@@ -1184,6 +1317,26 @@ func canonicalizeNewWorkflowTemplateJobsSparkJobSet(c *Client, des, nw []Workflo
 	return reorderedNew
 }
 
+func canonicalizeNewWorkflowTemplateJobsSparkJobSlice(c *Client, des, nw []WorkflowTemplateJobsSparkJob) []WorkflowTemplateJobsSparkJob {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateJobsSparkJob
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateJobsSparkJob(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeWorkflowTemplateJobsSparkJobLoggingConfig(des, initial *WorkflowTemplateJobsSparkJobLoggingConfig, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkJobLoggingConfig {
 	if des == nil {
 		return initial
@@ -1232,6 +1385,26 @@ func canonicalizeNewWorkflowTemplateJobsSparkJobLoggingConfigSet(c *Client, des,
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewWorkflowTemplateJobsSparkJobLoggingConfigSlice(c *Client, des, nw []WorkflowTemplateJobsSparkJobLoggingConfig) []WorkflowTemplateJobsSparkJobLoggingConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateJobsSparkJobLoggingConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateJobsSparkJobLoggingConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeWorkflowTemplateJobsPysparkJob(des, initial *WorkflowTemplateJobsPysparkJob, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPysparkJob {
@@ -1308,6 +1481,26 @@ func canonicalizeNewWorkflowTemplateJobsPysparkJobSet(c *Client, des, nw []Workf
 	return reorderedNew
 }
 
+func canonicalizeNewWorkflowTemplateJobsPysparkJobSlice(c *Client, des, nw []WorkflowTemplateJobsPysparkJob) []WorkflowTemplateJobsPysparkJob {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateJobsPysparkJob
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateJobsPysparkJob(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeWorkflowTemplateJobsPysparkJobLoggingConfig(des, initial *WorkflowTemplateJobsPysparkJobLoggingConfig, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPysparkJobLoggingConfig {
 	if des == nil {
 		return initial
@@ -1358,6 +1551,26 @@ func canonicalizeNewWorkflowTemplateJobsPysparkJobLoggingConfigSet(c *Client, de
 	return reorderedNew
 }
 
+func canonicalizeNewWorkflowTemplateJobsPysparkJobLoggingConfigSlice(c *Client, des, nw []WorkflowTemplateJobsPysparkJobLoggingConfig) []WorkflowTemplateJobsPysparkJobLoggingConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateJobsPysparkJobLoggingConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateJobsPysparkJobLoggingConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeWorkflowTemplateJobsHiveJob(des, initial *WorkflowTemplateJobsHiveJob, opts ...dcl.ApplyOption) *WorkflowTemplateJobsHiveJob {
 	if des == nil {
 		return initial
@@ -1374,7 +1587,7 @@ func canonicalizeWorkflowTemplateJobsHiveJob(des, initial *WorkflowTemplateJobsH
 		des.QueryFileUri = initial.QueryFileUri
 	}
 	des.QueryList = canonicalizeWorkflowTemplateJobsHiveJobQueryList(des.QueryList, initial.QueryList, opts...)
-	if dcl.IsZeroValue(des.ContinueOnFailure) {
+	if dcl.BoolCanonicalize(des.ContinueOnFailure, initial.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
 		des.ContinueOnFailure = initial.ContinueOnFailure
 	}
 	if dcl.IsZeroValue(des.ScriptVariables) {
@@ -1399,6 +1612,9 @@ func canonicalizeNewWorkflowTemplateJobsHiveJob(c *Client, des, nw *WorkflowTemp
 		nw.QueryFileUri = des.QueryFileUri
 	}
 	nw.QueryList = canonicalizeNewWorkflowTemplateJobsHiveJobQueryList(c, des.QueryList, nw.QueryList)
+	if dcl.BoolCanonicalize(des.ContinueOnFailure, nw.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
+		nw.ContinueOnFailure = des.ContinueOnFailure
+	}
 
 	return nw
 }
@@ -1424,6 +1640,26 @@ func canonicalizeNewWorkflowTemplateJobsHiveJobSet(c *Client, des, nw []Workflow
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewWorkflowTemplateJobsHiveJobSlice(c *Client, des, nw []WorkflowTemplateJobsHiveJob) []WorkflowTemplateJobsHiveJob {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateJobsHiveJob
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateJobsHiveJob(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeWorkflowTemplateJobsHiveJobQueryList(des, initial *WorkflowTemplateJobsHiveJobQueryList, opts ...dcl.ApplyOption) *WorkflowTemplateJobsHiveJobQueryList {
@@ -1476,6 +1712,26 @@ func canonicalizeNewWorkflowTemplateJobsHiveJobQueryListSet(c *Client, des, nw [
 	return reorderedNew
 }
 
+func canonicalizeNewWorkflowTemplateJobsHiveJobQueryListSlice(c *Client, des, nw []WorkflowTemplateJobsHiveJobQueryList) []WorkflowTemplateJobsHiveJobQueryList {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateJobsHiveJobQueryList
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateJobsHiveJobQueryList(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeWorkflowTemplateJobsPigJob(des, initial *WorkflowTemplateJobsPigJob, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPigJob {
 	if des == nil {
 		return initial
@@ -1492,7 +1748,7 @@ func canonicalizeWorkflowTemplateJobsPigJob(des, initial *WorkflowTemplateJobsPi
 		des.QueryFileUri = initial.QueryFileUri
 	}
 	des.QueryList = canonicalizeWorkflowTemplateJobsPigJobQueryList(des.QueryList, initial.QueryList, opts...)
-	if dcl.IsZeroValue(des.ContinueOnFailure) {
+	if dcl.BoolCanonicalize(des.ContinueOnFailure, initial.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
 		des.ContinueOnFailure = initial.ContinueOnFailure
 	}
 	if dcl.IsZeroValue(des.ScriptVariables) {
@@ -1518,6 +1774,9 @@ func canonicalizeNewWorkflowTemplateJobsPigJob(c *Client, des, nw *WorkflowTempl
 		nw.QueryFileUri = des.QueryFileUri
 	}
 	nw.QueryList = canonicalizeNewWorkflowTemplateJobsPigJobQueryList(c, des.QueryList, nw.QueryList)
+	if dcl.BoolCanonicalize(des.ContinueOnFailure, nw.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
+		nw.ContinueOnFailure = des.ContinueOnFailure
+	}
 	nw.LoggingConfig = canonicalizeNewWorkflowTemplateJobsPigJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
 	return nw
@@ -1544,6 +1803,26 @@ func canonicalizeNewWorkflowTemplateJobsPigJobSet(c *Client, des, nw []WorkflowT
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewWorkflowTemplateJobsPigJobSlice(c *Client, des, nw []WorkflowTemplateJobsPigJob) []WorkflowTemplateJobsPigJob {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateJobsPigJob
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateJobsPigJob(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeWorkflowTemplateJobsPigJobQueryList(des, initial *WorkflowTemplateJobsPigJobQueryList, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPigJobQueryList {
@@ -1596,6 +1875,26 @@ func canonicalizeNewWorkflowTemplateJobsPigJobQueryListSet(c *Client, des, nw []
 	return reorderedNew
 }
 
+func canonicalizeNewWorkflowTemplateJobsPigJobQueryListSlice(c *Client, des, nw []WorkflowTemplateJobsPigJobQueryList) []WorkflowTemplateJobsPigJobQueryList {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateJobsPigJobQueryList
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateJobsPigJobQueryList(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeWorkflowTemplateJobsPigJobLoggingConfig(des, initial *WorkflowTemplateJobsPigJobLoggingConfig, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPigJobLoggingConfig {
 	if des == nil {
 		return initial
@@ -1644,6 +1943,26 @@ func canonicalizeNewWorkflowTemplateJobsPigJobLoggingConfigSet(c *Client, des, n
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewWorkflowTemplateJobsPigJobLoggingConfigSlice(c *Client, des, nw []WorkflowTemplateJobsPigJobLoggingConfig) []WorkflowTemplateJobsPigJobLoggingConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateJobsPigJobLoggingConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateJobsPigJobLoggingConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeWorkflowTemplateJobsSparkRJob(des, initial *WorkflowTemplateJobsSparkRJob, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkRJob {
@@ -1714,6 +2033,26 @@ func canonicalizeNewWorkflowTemplateJobsSparkRJobSet(c *Client, des, nw []Workfl
 	return reorderedNew
 }
 
+func canonicalizeNewWorkflowTemplateJobsSparkRJobSlice(c *Client, des, nw []WorkflowTemplateJobsSparkRJob) []WorkflowTemplateJobsSparkRJob {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateJobsSparkRJob
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateJobsSparkRJob(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeWorkflowTemplateJobsSparkRJobLoggingConfig(des, initial *WorkflowTemplateJobsSparkRJobLoggingConfig, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkRJobLoggingConfig {
 	if des == nil {
 		return initial
@@ -1762,6 +2101,26 @@ func canonicalizeNewWorkflowTemplateJobsSparkRJobLoggingConfigSet(c *Client, des
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewWorkflowTemplateJobsSparkRJobLoggingConfigSlice(c *Client, des, nw []WorkflowTemplateJobsSparkRJobLoggingConfig) []WorkflowTemplateJobsSparkRJobLoggingConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateJobsSparkRJobLoggingConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateJobsSparkRJobLoggingConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeWorkflowTemplateJobsSparkSqlJob(des, initial *WorkflowTemplateJobsSparkSqlJob, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkSqlJob {
@@ -1831,6 +2190,26 @@ func canonicalizeNewWorkflowTemplateJobsSparkSqlJobSet(c *Client, des, nw []Work
 	return reorderedNew
 }
 
+func canonicalizeNewWorkflowTemplateJobsSparkSqlJobSlice(c *Client, des, nw []WorkflowTemplateJobsSparkSqlJob) []WorkflowTemplateJobsSparkSqlJob {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateJobsSparkSqlJob
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateJobsSparkSqlJob(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeWorkflowTemplateJobsSparkSqlJobQueryList(des, initial *WorkflowTemplateJobsSparkSqlJobQueryList, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkSqlJobQueryList {
 	if des == nil {
 		return initial
@@ -1879,6 +2258,26 @@ func canonicalizeNewWorkflowTemplateJobsSparkSqlJobQueryListSet(c *Client, des, 
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewWorkflowTemplateJobsSparkSqlJobQueryListSlice(c *Client, des, nw []WorkflowTemplateJobsSparkSqlJobQueryList) []WorkflowTemplateJobsSparkSqlJobQueryList {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateJobsSparkSqlJobQueryList
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateJobsSparkSqlJobQueryList(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeWorkflowTemplateJobsSparkSqlJobLoggingConfig(des, initial *WorkflowTemplateJobsSparkSqlJobLoggingConfig, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkSqlJobLoggingConfig {
@@ -1931,6 +2330,26 @@ func canonicalizeNewWorkflowTemplateJobsSparkSqlJobLoggingConfigSet(c *Client, d
 	return reorderedNew
 }
 
+func canonicalizeNewWorkflowTemplateJobsSparkSqlJobLoggingConfigSlice(c *Client, des, nw []WorkflowTemplateJobsSparkSqlJobLoggingConfig) []WorkflowTemplateJobsSparkSqlJobLoggingConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateJobsSparkSqlJobLoggingConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateJobsSparkSqlJobLoggingConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeWorkflowTemplateJobsPrestoJob(des, initial *WorkflowTemplateJobsPrestoJob, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPrestoJob {
 	if des == nil {
 		return initial
@@ -1947,7 +2366,7 @@ func canonicalizeWorkflowTemplateJobsPrestoJob(des, initial *WorkflowTemplateJob
 		des.QueryFileUri = initial.QueryFileUri
 	}
 	des.QueryList = canonicalizeWorkflowTemplateJobsPrestoJobQueryList(des.QueryList, initial.QueryList, opts...)
-	if dcl.IsZeroValue(des.ContinueOnFailure) {
+	if dcl.BoolCanonicalize(des.ContinueOnFailure, initial.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
 		des.ContinueOnFailure = initial.ContinueOnFailure
 	}
 	if dcl.StringCanonicalize(des.OutputFormat, initial.OutputFormat) || dcl.IsZeroValue(des.OutputFormat) {
@@ -1973,6 +2392,9 @@ func canonicalizeNewWorkflowTemplateJobsPrestoJob(c *Client, des, nw *WorkflowTe
 		nw.QueryFileUri = des.QueryFileUri
 	}
 	nw.QueryList = canonicalizeNewWorkflowTemplateJobsPrestoJobQueryList(c, des.QueryList, nw.QueryList)
+	if dcl.BoolCanonicalize(des.ContinueOnFailure, nw.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
+		nw.ContinueOnFailure = des.ContinueOnFailure
+	}
 	if dcl.StringCanonicalize(des.OutputFormat, nw.OutputFormat) || dcl.IsZeroValue(des.OutputFormat) {
 		nw.OutputFormat = des.OutputFormat
 	}
@@ -2002,6 +2424,26 @@ func canonicalizeNewWorkflowTemplateJobsPrestoJobSet(c *Client, des, nw []Workfl
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewWorkflowTemplateJobsPrestoJobSlice(c *Client, des, nw []WorkflowTemplateJobsPrestoJob) []WorkflowTemplateJobsPrestoJob {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateJobsPrestoJob
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateJobsPrestoJob(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeWorkflowTemplateJobsPrestoJobQueryList(des, initial *WorkflowTemplateJobsPrestoJobQueryList, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPrestoJobQueryList {
@@ -2054,6 +2496,26 @@ func canonicalizeNewWorkflowTemplateJobsPrestoJobQueryListSet(c *Client, des, nw
 	return reorderedNew
 }
 
+func canonicalizeNewWorkflowTemplateJobsPrestoJobQueryListSlice(c *Client, des, nw []WorkflowTemplateJobsPrestoJobQueryList) []WorkflowTemplateJobsPrestoJobQueryList {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateJobsPrestoJobQueryList
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateJobsPrestoJobQueryList(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeWorkflowTemplateJobsPrestoJobLoggingConfig(des, initial *WorkflowTemplateJobsPrestoJobLoggingConfig, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPrestoJobLoggingConfig {
 	if des == nil {
 		return initial
@@ -2102,6 +2564,26 @@ func canonicalizeNewWorkflowTemplateJobsPrestoJobLoggingConfigSet(c *Client, des
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewWorkflowTemplateJobsPrestoJobLoggingConfigSlice(c *Client, des, nw []WorkflowTemplateJobsPrestoJobLoggingConfig) []WorkflowTemplateJobsPrestoJobLoggingConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateJobsPrestoJobLoggingConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateJobsPrestoJobLoggingConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeWorkflowTemplateJobsScheduling(des, initial *WorkflowTemplateJobsScheduling, opts ...dcl.ApplyOption) *WorkflowTemplateJobsScheduling {
@@ -2155,6 +2637,26 @@ func canonicalizeNewWorkflowTemplateJobsSchedulingSet(c *Client, des, nw []Workf
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewWorkflowTemplateJobsSchedulingSlice(c *Client, des, nw []WorkflowTemplateJobsScheduling) []WorkflowTemplateJobsScheduling {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateJobsScheduling
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateJobsScheduling(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeWorkflowTemplateParameters(des, initial *WorkflowTemplateParameters, opts ...dcl.ApplyOption) *WorkflowTemplateParameters {
@@ -2222,6 +2724,26 @@ func canonicalizeNewWorkflowTemplateParametersSet(c *Client, des, nw []WorkflowT
 	return reorderedNew
 }
 
+func canonicalizeNewWorkflowTemplateParametersSlice(c *Client, des, nw []WorkflowTemplateParameters) []WorkflowTemplateParameters {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateParameters
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateParameters(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeWorkflowTemplateParametersValidation(des, initial *WorkflowTemplateParametersValidation, opts ...dcl.ApplyOption) *WorkflowTemplateParametersValidation {
 	if des == nil {
 		return initial
@@ -2274,6 +2796,26 @@ func canonicalizeNewWorkflowTemplateParametersValidationSet(c *Client, des, nw [
 	return reorderedNew
 }
 
+func canonicalizeNewWorkflowTemplateParametersValidationSlice(c *Client, des, nw []WorkflowTemplateParametersValidation) []WorkflowTemplateParametersValidation {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateParametersValidation
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateParametersValidation(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeWorkflowTemplateParametersValidationRegex(des, initial *WorkflowTemplateParametersValidationRegex, opts ...dcl.ApplyOption) *WorkflowTemplateParametersValidationRegex {
 	if des == nil {
 		return initial
@@ -2324,6 +2866,26 @@ func canonicalizeNewWorkflowTemplateParametersValidationRegexSet(c *Client, des,
 	return reorderedNew
 }
 
+func canonicalizeNewWorkflowTemplateParametersValidationRegexSlice(c *Client, des, nw []WorkflowTemplateParametersValidationRegex) []WorkflowTemplateParametersValidationRegex {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateParametersValidationRegex
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateParametersValidationRegex(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeWorkflowTemplateParametersValidationValues(des, initial *WorkflowTemplateParametersValidationValues, opts ...dcl.ApplyOption) *WorkflowTemplateParametersValidationValues {
 	if des == nil {
 		return initial
@@ -2372,6 +2934,26 @@ func canonicalizeNewWorkflowTemplateParametersValidationValuesSet(c *Client, des
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewWorkflowTemplateParametersValidationValuesSlice(c *Client, des, nw []WorkflowTemplateParametersValidationValues) []WorkflowTemplateParametersValidationValues {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkflowTemplateParametersValidationValues
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateParametersValidationValues(c, &d, &n))
+	}
+
+	return items
 }
 
 type workflowTemplateDiff struct {
@@ -3279,7 +3861,7 @@ func compareWorkflowTemplateJobsHiveJob(c *Client, desired, actual *WorkflowTemp
 		c.Config.Logger.Infof("desired ContinueOnFailure %s - but actually nil", dcl.SprintResource(desired.ContinueOnFailure))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) {
+	if !dcl.BoolCanonicalize(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) {
 		c.Config.Logger.Infof("Diff in ContinueOnFailure. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContinueOnFailure), dcl.SprintResource(actual.ContinueOnFailure))
 		return true
 	}
@@ -3421,7 +4003,7 @@ func compareWorkflowTemplateJobsPigJob(c *Client, desired, actual *WorkflowTempl
 		c.Config.Logger.Infof("desired ContinueOnFailure %s - but actually nil", dcl.SprintResource(desired.ContinueOnFailure))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) {
+	if !dcl.BoolCanonicalize(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) {
 		c.Config.Logger.Infof("Diff in ContinueOnFailure. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContinueOnFailure), dcl.SprintResource(actual.ContinueOnFailure))
 		return true
 	}
@@ -3957,7 +4539,7 @@ func compareWorkflowTemplateJobsPrestoJob(c *Client, desired, actual *WorkflowTe
 		c.Config.Logger.Infof("desired ContinueOnFailure %s - but actually nil", dcl.SprintResource(desired.ContinueOnFailure))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) {
+	if !dcl.BoolCanonicalize(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) {
 		c.Config.Logger.Infof("Diff in ContinueOnFailure. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContinueOnFailure), dcl.SprintResource(actual.ContinueOnFailure))
 		return true
 	}

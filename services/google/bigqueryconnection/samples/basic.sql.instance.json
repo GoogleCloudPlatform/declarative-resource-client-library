@@ -1,6 +1,6 @@
 {
   "name": "{{instance_name}}",
-  "project": "{{ref:basic.serviceusage.service.json:project}}",
+  "project": "{{project}}",
   "region": "{{region}}",
   "settings": {
     "tier": "db-f1-micro"

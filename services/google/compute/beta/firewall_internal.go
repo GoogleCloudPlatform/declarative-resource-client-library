@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -310,9 +311,20 @@ func (op *deleteFirewallOperation) do(ctx context.Context, r *Firewall, c *Clien
 	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/beta/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetFirewall(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetFirewall(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -415,7 +427,6 @@ func (c *Client) firewallDiffsForRawDesired(ctx context.Context, rawDesired *Fir
 		desired, err = canonicalizeFirewallDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Firewall: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Firewall: %v", rawDesired)
 
@@ -472,7 +483,7 @@ func canonicalizeFirewallDesiredState(rawDesired, rawInitial *Firewall, opts ...
 	if dcl.IsZeroValue(rawDesired.Direction) {
 		rawDesired.Direction = rawInitial.Direction
 	}
-	if dcl.IsZeroValue(rawDesired.Disabled) {
+	if dcl.BoolCanonicalize(rawDesired.Disabled, rawInitial.Disabled) {
 		rawDesired.Disabled = rawInitial.Disabled
 	}
 	if dcl.StringCanonicalize(rawDesired.Id, rawInitial.Id) {
@@ -545,6 +556,9 @@ func canonicalizeFirewallNewState(c *Client, rawNew, rawDesired *Firewall) (*Fir
 	if dcl.IsEmptyValueIndirect(rawNew.Disabled) && dcl.IsEmptyValueIndirect(rawDesired.Disabled) {
 		rawNew.Disabled = rawDesired.Disabled
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.Disabled, rawNew.Disabled) {
+			rawNew.Disabled = rawDesired.Disabled
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Id) && dcl.IsEmptyValueIndirect(rawDesired.Id) {
@@ -646,7 +660,7 @@ func canonicalizeFirewallLogConfig(des, initial *FirewallLogConfig, opts ...dcl.
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Enable) {
+	if dcl.BoolCanonicalize(des.Enable, initial.Enable) || dcl.IsZeroValue(des.Enable) {
 		des.Enable = initial.Enable
 	}
 
@@ -656,6 +670,10 @@ func canonicalizeFirewallLogConfig(des, initial *FirewallLogConfig, opts ...dcl.
 func canonicalizeNewFirewallLogConfig(c *Client, des, nw *FirewallLogConfig) *FirewallLogConfig {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.Enable, nw.Enable) || dcl.IsZeroValue(des.Enable) {
+		nw.Enable = des.Enable
 	}
 
 	return nw
@@ -682,6 +700,26 @@ func canonicalizeNewFirewallLogConfigSet(c *Client, des, nw []FirewallLogConfig)
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewFirewallLogConfigSlice(c *Client, des, nw []FirewallLogConfig) []FirewallLogConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []FirewallLogConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFirewallLogConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeFirewallAllowed(des, initial *FirewallAllowed, opts ...dcl.ApplyOption) *FirewallAllowed {
@@ -744,6 +782,26 @@ func canonicalizeNewFirewallAllowedSet(c *Client, des, nw []FirewallAllowed) []F
 	return reorderedNew
 }
 
+func canonicalizeNewFirewallAllowedSlice(c *Client, des, nw []FirewallAllowed) []FirewallAllowed {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []FirewallAllowed
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFirewallAllowed(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeFirewallDenied(des, initial *FirewallDenied, opts ...dcl.ApplyOption) *FirewallDenied {
 	if des == nil {
 		return initial
@@ -804,6 +862,26 @@ func canonicalizeNewFirewallDeniedSet(c *Client, des, nw []FirewallDenied) []Fir
 	return reorderedNew
 }
 
+func canonicalizeNewFirewallDeniedSlice(c *Client, des, nw []FirewallDenied) []FirewallDenied {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []FirewallDenied
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFirewallDenied(c, &d, &n))
+	}
+
+	return items
+}
+
 type firewallDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
@@ -839,7 +917,7 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 			FieldName:        "Direction",
 		})
 	}
-	if !reflect.DeepEqual(desired.Disabled, actual.Disabled) {
+	if !dcl.IsZeroValue(desired.Disabled) && !dcl.BoolCanonicalize(desired.Disabled, actual.Disabled) {
 		c.Config.Logger.Infof("Detected diff in Disabled.\nDESIRED: %v\nACTUAL: %v", desired.Disabled, actual.Disabled)
 
 		diffs = append(diffs, firewallDiff{
@@ -1040,7 +1118,7 @@ func compareFirewallLogConfig(c *Client, desired, actual *FirewallLogConfig) boo
 		c.Config.Logger.Infof("desired Enable %s - but actually nil", dcl.SprintResource(desired.Enable))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Enable, actual.Enable) && !dcl.IsZeroValue(desired.Enable) {
+	if !dcl.BoolCanonicalize(desired.Enable, actual.Enable) && !dcl.IsZeroValue(desired.Enable) {
 		c.Config.Logger.Infof("Diff in Enable. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Enable), dcl.SprintResource(actual.Enable))
 		return true
 	}

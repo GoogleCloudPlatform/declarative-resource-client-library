@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -326,9 +327,20 @@ func (op *deleteLogMetricOperation) do(ctx context.Context, r *LogMetric, c *Cli
 	if err != nil {
 		return fmt.Errorf("failed to delete LogMetric: %w", err)
 	}
-	_, err = c.GetLogMetric(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetLogMetric(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -423,7 +435,6 @@ func (c *Client) logMetricDiffsForRawDesired(ctx context.Context, rawDesired *Lo
 		desired, err = canonicalizeLogMetricDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for LogMetric: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for LogMetric: %v", rawDesired)
 
@@ -477,7 +488,7 @@ func canonicalizeLogMetricDesiredState(rawDesired, rawInitial *LogMetric, opts .
 	if dcl.StringCanonicalize(rawDesired.Filter, rawInitial.Filter) {
 		rawDesired.Filter = rawInitial.Filter
 	}
-	if dcl.IsZeroValue(rawDesired.Disabled) {
+	if dcl.BoolCanonicalize(rawDesired.Disabled, rawInitial.Disabled) {
 		rawDesired.Disabled = rawInitial.Disabled
 	}
 	rawDesired.MetricDescriptor = canonicalizeLogMetricMetricDescriptor(rawDesired.MetricDescriptor, rawInitial.MetricDescriptor, opts...)
@@ -533,6 +544,9 @@ func canonicalizeLogMetricNewState(c *Client, rawNew, rawDesired *LogMetric) (*L
 	if dcl.IsEmptyValueIndirect(rawNew.Disabled) && dcl.IsEmptyValueIndirect(rawDesired.Disabled) {
 		rawNew.Disabled = rawDesired.Disabled
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.Disabled, rawNew.Disabled) {
+			rawNew.Disabled = rawDesired.Disabled
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.MetricDescriptor) && dcl.IsEmptyValueIndirect(rawDesired.MetricDescriptor) {
@@ -635,6 +649,7 @@ func canonicalizeNewLogMetricMetricDescriptor(c *Client, des, nw *LogMetricMetri
 	if dcl.StringCanonicalize(des.Type, nw.Type) || dcl.IsZeroValue(des.Type) {
 		nw.Type = des.Type
 	}
+	nw.Labels = canonicalizeNewLogMetricMetricDescriptorLabelsSlice(c, des.Labels, nw.Labels)
 	if dcl.StringCanonicalize(des.Unit, nw.Unit) || dcl.IsZeroValue(des.Unit) {
 		nw.Unit = des.Unit
 	}
@@ -667,6 +682,26 @@ func canonicalizeNewLogMetricMetricDescriptorSet(c *Client, des, nw []LogMetricM
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewLogMetricMetricDescriptorSlice(c *Client, des, nw []LogMetricMetricDescriptor) []LogMetricMetricDescriptor {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []LogMetricMetricDescriptor
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewLogMetricMetricDescriptor(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeLogMetricMetricDescriptorLabels(des, initial *LogMetricMetricDescriptorLabels, opts ...dcl.ApplyOption) *LogMetricMetricDescriptorLabels {
@@ -732,6 +767,26 @@ func canonicalizeNewLogMetricMetricDescriptorLabelsSet(c *Client, des, nw []LogM
 	return reorderedNew
 }
 
+func canonicalizeNewLogMetricMetricDescriptorLabelsSlice(c *Client, des, nw []LogMetricMetricDescriptorLabels) []LogMetricMetricDescriptorLabels {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []LogMetricMetricDescriptorLabels
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewLogMetricMetricDescriptorLabels(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeLogMetricMetricDescriptorMetadata(des, initial *LogMetricMetricDescriptorMetadata, opts ...dcl.ApplyOption) *LogMetricMetricDescriptorMetadata {
 	if des == nil {
 		return initial
@@ -787,6 +842,26 @@ func canonicalizeNewLogMetricMetricDescriptorMetadataSet(c *Client, des, nw []Lo
 	return reorderedNew
 }
 
+func canonicalizeNewLogMetricMetricDescriptorMetadataSlice(c *Client, des, nw []LogMetricMetricDescriptorMetadata) []LogMetricMetricDescriptorMetadata {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []LogMetricMetricDescriptorMetadata
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewLogMetricMetricDescriptorMetadata(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeLogMetricMetricDescriptorMetadataSamplePeriod(des, initial *LogMetricMetricDescriptorMetadataSamplePeriod, opts ...dcl.ApplyOption) *LogMetricMetricDescriptorMetadataSamplePeriod {
 	if des == nil {
 		return initial
@@ -838,6 +913,26 @@ func canonicalizeNewLogMetricMetricDescriptorMetadataSamplePeriodSet(c *Client, 
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewLogMetricMetricDescriptorMetadataSamplePeriodSlice(c *Client, des, nw []LogMetricMetricDescriptorMetadataSamplePeriod) []LogMetricMetricDescriptorMetadataSamplePeriod {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []LogMetricMetricDescriptorMetadataSamplePeriod
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewLogMetricMetricDescriptorMetadataSamplePeriod(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeLogMetricMetricDescriptorMetadataIngestDelay(des, initial *LogMetricMetricDescriptorMetadataIngestDelay, opts ...dcl.ApplyOption) *LogMetricMetricDescriptorMetadataIngestDelay {
@@ -893,6 +988,26 @@ func canonicalizeNewLogMetricMetricDescriptorMetadataIngestDelaySet(c *Client, d
 	return reorderedNew
 }
 
+func canonicalizeNewLogMetricMetricDescriptorMetadataIngestDelaySlice(c *Client, des, nw []LogMetricMetricDescriptorMetadataIngestDelay) []LogMetricMetricDescriptorMetadataIngestDelay {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []LogMetricMetricDescriptorMetadataIngestDelay
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewLogMetricMetricDescriptorMetadataIngestDelay(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeLogMetricBucketOptions(des, initial *LogMetricBucketOptions, opts ...dcl.ApplyOption) *LogMetricBucketOptions {
 	if des == nil {
 		return initial
@@ -945,6 +1060,26 @@ func canonicalizeNewLogMetricBucketOptionsSet(c *Client, des, nw []LogMetricBuck
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewLogMetricBucketOptionsSlice(c *Client, des, nw []LogMetricBucketOptions) []LogMetricBucketOptions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []LogMetricBucketOptions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewLogMetricBucketOptions(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeLogMetricBucketOptionsLinearBuckets(des, initial *LogMetricBucketOptionsLinearBuckets, opts ...dcl.ApplyOption) *LogMetricBucketOptionsLinearBuckets {
@@ -1003,6 +1138,26 @@ func canonicalizeNewLogMetricBucketOptionsLinearBucketsSet(c *Client, des, nw []
 	return reorderedNew
 }
 
+func canonicalizeNewLogMetricBucketOptionsLinearBucketsSlice(c *Client, des, nw []LogMetricBucketOptionsLinearBuckets) []LogMetricBucketOptionsLinearBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []LogMetricBucketOptionsLinearBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewLogMetricBucketOptionsLinearBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeLogMetricBucketOptionsExponentialBuckets(des, initial *LogMetricBucketOptionsExponentialBuckets, opts ...dcl.ApplyOption) *LogMetricBucketOptionsExponentialBuckets {
 	if des == nil {
 		return initial
@@ -1059,6 +1214,26 @@ func canonicalizeNewLogMetricBucketOptionsExponentialBucketsSet(c *Client, des, 
 	return reorderedNew
 }
 
+func canonicalizeNewLogMetricBucketOptionsExponentialBucketsSlice(c *Client, des, nw []LogMetricBucketOptionsExponentialBuckets) []LogMetricBucketOptionsExponentialBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []LogMetricBucketOptionsExponentialBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewLogMetricBucketOptionsExponentialBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeLogMetricBucketOptionsExplicitBuckets(des, initial *LogMetricBucketOptionsExplicitBuckets, opts ...dcl.ApplyOption) *LogMetricBucketOptionsExplicitBuckets {
 	if des == nil {
 		return initial
@@ -1109,6 +1284,26 @@ func canonicalizeNewLogMetricBucketOptionsExplicitBucketsSet(c *Client, des, nw 
 	return reorderedNew
 }
 
+func canonicalizeNewLogMetricBucketOptionsExplicitBucketsSlice(c *Client, des, nw []LogMetricBucketOptionsExplicitBuckets) []LogMetricBucketOptionsExplicitBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []LogMetricBucketOptionsExplicitBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewLogMetricBucketOptionsExplicitBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 type logMetricDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
@@ -1155,7 +1350,7 @@ func diffLogMetric(c *Client, desired, actual *LogMetric, opts ...dcl.ApplyOptio
 		})
 
 	}
-	if !reflect.DeepEqual(desired.Disabled, actual.Disabled) {
+	if !dcl.IsZeroValue(desired.Disabled) && !dcl.BoolCanonicalize(desired.Disabled, actual.Disabled) {
 		c.Config.Logger.Infof("Detected diff in Disabled.\nDESIRED: %v\nACTUAL: %v", desired.Disabled, actual.Disabled)
 
 		diffs = append(diffs, logMetricDiff{

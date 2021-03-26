@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -489,9 +490,20 @@ func (op *deleteJobOperation) do(ctx context.Context, r *Job, c *Client) error {
 	if err != nil {
 		return fmt.Errorf("failed to delete Job: %w", err)
 	}
-	_, err = c.GetJob(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetJob(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -592,7 +604,6 @@ func (c *Client) jobDiffsForRawDesired(ctx context.Context, rawDesired *Job, opt
 		desired, err := canonicalizeJobDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
-
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetJob(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -605,7 +616,6 @@ func (c *Client) jobDiffsForRawDesired(ctx context.Context, rawDesired *Job, opt
 		desired, err = canonicalizeJobDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Job: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Job: %v", rawDesired)
 
@@ -803,7 +813,7 @@ func canonicalizeJobDesiredState(rawDesired, rawInitial *Job, opts ...dcl.ApplyO
 	if dcl.StringCanonicalize(rawDesired.DriverControlFilesUri, rawInitial.DriverControlFilesUri) {
 		rawDesired.DriverControlFilesUri = rawInitial.DriverControlFilesUri
 	}
-	if dcl.IsZeroValue(rawDesired.Interactive) {
+	if dcl.BoolCanonicalize(rawDesired.Interactive, rawInitial.Interactive) {
 		rawDesired.Interactive = rawInitial.Interactive
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
@@ -813,7 +823,7 @@ func canonicalizeJobDesiredState(rawDesired, rawInitial *Job, opts ...dcl.ApplyO
 	if dcl.IsZeroValue(rawDesired.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Done) {
+	if dcl.BoolCanonicalize(rawDesired.Done, rawInitial.Done) {
 		rawDesired.Done = rawInitial.Done
 	}
 	rawDesired.DriverRunner = canonicalizeJobDriverRunner(rawDesired.DriverRunner, rawInitial.DriverRunner, opts...)
@@ -898,11 +908,13 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 	if dcl.IsEmptyValueIndirect(rawNew.StatusHistory) && dcl.IsEmptyValueIndirect(rawDesired.StatusHistory) {
 		rawNew.StatusHistory = rawDesired.StatusHistory
 	} else {
+		rawNew.StatusHistory = canonicalizeNewJobStatusHistorySlice(c, rawDesired.StatusHistory, rawNew.StatusHistory)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.YarnApplications) && dcl.IsEmptyValueIndirect(rawDesired.YarnApplications) {
 		rawNew.YarnApplications = rawDesired.YarnApplications
 	} else {
+		rawNew.YarnApplications = canonicalizeNewJobYarnApplicationsSlice(c, rawDesired.YarnApplications, rawNew.YarnApplications)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.SubmittedBy) && dcl.IsEmptyValueIndirect(rawDesired.SubmittedBy) {
@@ -940,6 +952,9 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 	if dcl.IsEmptyValueIndirect(rawNew.Interactive) && dcl.IsEmptyValueIndirect(rawDesired.Interactive) {
 		rawNew.Interactive = rawDesired.Interactive
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.Interactive, rawNew.Interactive) {
+			rawNew.Interactive = rawDesired.Interactive
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
@@ -961,6 +976,9 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 	if dcl.IsEmptyValueIndirect(rawNew.Done) && dcl.IsEmptyValueIndirect(rawDesired.Done) {
 		rawNew.Done = rawDesired.Done
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.Done, rawNew.Done) {
+			rawNew.Done = rawDesired.Done
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.DriverRunner) && dcl.IsEmptyValueIndirect(rawDesired.DriverRunner) {
@@ -1036,6 +1054,26 @@ func canonicalizeNewJobReferenceSet(c *Client, des, nw []JobReference) []JobRefe
 	return reorderedNew
 }
 
+func canonicalizeNewJobReferenceSlice(c *Client, des, nw []JobReference) []JobReference {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobReference
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobReference(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeJobPlacement(des, initial *JobPlacement, opts ...dcl.ApplyOption) *JobPlacement {
 	if des == nil {
 		return initial
@@ -1097,6 +1135,26 @@ func canonicalizeNewJobPlacementSet(c *Client, des, nw []JobPlacement) []JobPlac
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewJobPlacementSlice(c *Client, des, nw []JobPlacement) []JobPlacement {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobPlacement
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobPlacement(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeJobHadoopJob(des, initial *JobHadoopJob, opts ...dcl.ApplyOption) *JobHadoopJob {
@@ -1176,6 +1234,26 @@ func canonicalizeNewJobHadoopJobSet(c *Client, des, nw []JobHadoopJob) []JobHado
 	return reorderedNew
 }
 
+func canonicalizeNewJobHadoopJobSlice(c *Client, des, nw []JobHadoopJob) []JobHadoopJob {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobHadoopJob
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobHadoopJob(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeJobHadoopJobLoggingConfig(des, initial *JobHadoopJobLoggingConfig, opts ...dcl.ApplyOption) *JobHadoopJobLoggingConfig {
 	if des == nil {
 		return initial
@@ -1224,6 +1302,26 @@ func canonicalizeNewJobHadoopJobLoggingConfigSet(c *Client, des, nw []JobHadoopJ
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewJobHadoopJobLoggingConfigSlice(c *Client, des, nw []JobHadoopJobLoggingConfig) []JobHadoopJobLoggingConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobHadoopJobLoggingConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobHadoopJobLoggingConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeJobSparkJob(des, initial *JobSparkJob, opts ...dcl.ApplyOption) *JobSparkJob {
@@ -1303,6 +1401,26 @@ func canonicalizeNewJobSparkJobSet(c *Client, des, nw []JobSparkJob) []JobSparkJ
 	return reorderedNew
 }
 
+func canonicalizeNewJobSparkJobSlice(c *Client, des, nw []JobSparkJob) []JobSparkJob {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobSparkJob
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobSparkJob(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeJobSparkJobLoggingConfig(des, initial *JobSparkJobLoggingConfig, opts ...dcl.ApplyOption) *JobSparkJobLoggingConfig {
 	if des == nil {
 		return initial
@@ -1351,6 +1469,26 @@ func canonicalizeNewJobSparkJobLoggingConfigSet(c *Client, des, nw []JobSparkJob
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewJobSparkJobLoggingConfigSlice(c *Client, des, nw []JobSparkJobLoggingConfig) []JobSparkJobLoggingConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobSparkJobLoggingConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobSparkJobLoggingConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeJobPysparkJob(des, initial *JobPysparkJob, opts ...dcl.ApplyOption) *JobPysparkJob {
@@ -1427,6 +1565,26 @@ func canonicalizeNewJobPysparkJobSet(c *Client, des, nw []JobPysparkJob) []JobPy
 	return reorderedNew
 }
 
+func canonicalizeNewJobPysparkJobSlice(c *Client, des, nw []JobPysparkJob) []JobPysparkJob {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobPysparkJob
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobPysparkJob(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeJobPysparkJobLoggingConfig(des, initial *JobPysparkJobLoggingConfig, opts ...dcl.ApplyOption) *JobPysparkJobLoggingConfig {
 	if des == nil {
 		return initial
@@ -1477,6 +1635,26 @@ func canonicalizeNewJobPysparkJobLoggingConfigSet(c *Client, des, nw []JobPyspar
 	return reorderedNew
 }
 
+func canonicalizeNewJobPysparkJobLoggingConfigSlice(c *Client, des, nw []JobPysparkJobLoggingConfig) []JobPysparkJobLoggingConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobPysparkJobLoggingConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobPysparkJobLoggingConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeJobHiveJob(des, initial *JobHiveJob, opts ...dcl.ApplyOption) *JobHiveJob {
 	if des == nil {
 		return initial
@@ -1493,7 +1671,7 @@ func canonicalizeJobHiveJob(des, initial *JobHiveJob, opts ...dcl.ApplyOption) *
 		des.QueryFileUri = initial.QueryFileUri
 	}
 	des.QueryList = canonicalizeJobHiveJobQueryList(des.QueryList, initial.QueryList, opts...)
-	if dcl.IsZeroValue(des.ContinueOnFailure) {
+	if dcl.BoolCanonicalize(des.ContinueOnFailure, initial.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
 		des.ContinueOnFailure = initial.ContinueOnFailure
 	}
 	if dcl.IsZeroValue(des.ScriptVariables) {
@@ -1518,6 +1696,9 @@ func canonicalizeNewJobHiveJob(c *Client, des, nw *JobHiveJob) *JobHiveJob {
 		nw.QueryFileUri = des.QueryFileUri
 	}
 	nw.QueryList = canonicalizeNewJobHiveJobQueryList(c, des.QueryList, nw.QueryList)
+	if dcl.BoolCanonicalize(des.ContinueOnFailure, nw.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
+		nw.ContinueOnFailure = des.ContinueOnFailure
+	}
 
 	return nw
 }
@@ -1543,6 +1724,26 @@ func canonicalizeNewJobHiveJobSet(c *Client, des, nw []JobHiveJob) []JobHiveJob 
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewJobHiveJobSlice(c *Client, des, nw []JobHiveJob) []JobHiveJob {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobHiveJob
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobHiveJob(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeJobHiveJobQueryList(des, initial *JobHiveJobQueryList, opts ...dcl.ApplyOption) *JobHiveJobQueryList {
@@ -1595,6 +1796,26 @@ func canonicalizeNewJobHiveJobQueryListSet(c *Client, des, nw []JobHiveJobQueryL
 	return reorderedNew
 }
 
+func canonicalizeNewJobHiveJobQueryListSlice(c *Client, des, nw []JobHiveJobQueryList) []JobHiveJobQueryList {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobHiveJobQueryList
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobHiveJobQueryList(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeJobPigJob(des, initial *JobPigJob, opts ...dcl.ApplyOption) *JobPigJob {
 	if des == nil {
 		return initial
@@ -1611,7 +1832,7 @@ func canonicalizeJobPigJob(des, initial *JobPigJob, opts ...dcl.ApplyOption) *Jo
 		des.QueryFileUri = initial.QueryFileUri
 	}
 	des.QueryList = canonicalizeJobPigJobQueryList(des.QueryList, initial.QueryList, opts...)
-	if dcl.IsZeroValue(des.ContinueOnFailure) {
+	if dcl.BoolCanonicalize(des.ContinueOnFailure, initial.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
 		des.ContinueOnFailure = initial.ContinueOnFailure
 	}
 	if dcl.IsZeroValue(des.ScriptVariables) {
@@ -1637,6 +1858,9 @@ func canonicalizeNewJobPigJob(c *Client, des, nw *JobPigJob) *JobPigJob {
 		nw.QueryFileUri = des.QueryFileUri
 	}
 	nw.QueryList = canonicalizeNewJobPigJobQueryList(c, des.QueryList, nw.QueryList)
+	if dcl.BoolCanonicalize(des.ContinueOnFailure, nw.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
+		nw.ContinueOnFailure = des.ContinueOnFailure
+	}
 	nw.LoggingConfig = canonicalizeNewJobPigJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
 	return nw
@@ -1663,6 +1887,26 @@ func canonicalizeNewJobPigJobSet(c *Client, des, nw []JobPigJob) []JobPigJob {
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewJobPigJobSlice(c *Client, des, nw []JobPigJob) []JobPigJob {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobPigJob
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobPigJob(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeJobPigJobQueryList(des, initial *JobPigJobQueryList, opts ...dcl.ApplyOption) *JobPigJobQueryList {
@@ -1715,6 +1959,26 @@ func canonicalizeNewJobPigJobQueryListSet(c *Client, des, nw []JobPigJobQueryLis
 	return reorderedNew
 }
 
+func canonicalizeNewJobPigJobQueryListSlice(c *Client, des, nw []JobPigJobQueryList) []JobPigJobQueryList {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobPigJobQueryList
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobPigJobQueryList(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeJobPigJobLoggingConfig(des, initial *JobPigJobLoggingConfig, opts ...dcl.ApplyOption) *JobPigJobLoggingConfig {
 	if des == nil {
 		return initial
@@ -1763,6 +2027,26 @@ func canonicalizeNewJobPigJobLoggingConfigSet(c *Client, des, nw []JobPigJobLogg
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewJobPigJobLoggingConfigSlice(c *Client, des, nw []JobPigJobLoggingConfig) []JobPigJobLoggingConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobPigJobLoggingConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobPigJobLoggingConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeJobSparkRJob(des, initial *JobSparkRJob, opts ...dcl.ApplyOption) *JobSparkRJob {
@@ -1833,6 +2117,26 @@ func canonicalizeNewJobSparkRJobSet(c *Client, des, nw []JobSparkRJob) []JobSpar
 	return reorderedNew
 }
 
+func canonicalizeNewJobSparkRJobSlice(c *Client, des, nw []JobSparkRJob) []JobSparkRJob {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobSparkRJob
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobSparkRJob(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeJobSparkRJobLoggingConfig(des, initial *JobSparkRJobLoggingConfig, opts ...dcl.ApplyOption) *JobSparkRJobLoggingConfig {
 	if des == nil {
 		return initial
@@ -1881,6 +2185,26 @@ func canonicalizeNewJobSparkRJobLoggingConfigSet(c *Client, des, nw []JobSparkRJ
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewJobSparkRJobLoggingConfigSlice(c *Client, des, nw []JobSparkRJobLoggingConfig) []JobSparkRJobLoggingConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobSparkRJobLoggingConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobSparkRJobLoggingConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeJobSparkSqlJob(des, initial *JobSparkSqlJob, opts ...dcl.ApplyOption) *JobSparkSqlJob {
@@ -1950,6 +2274,26 @@ func canonicalizeNewJobSparkSqlJobSet(c *Client, des, nw []JobSparkSqlJob) []Job
 	return reorderedNew
 }
 
+func canonicalizeNewJobSparkSqlJobSlice(c *Client, des, nw []JobSparkSqlJob) []JobSparkSqlJob {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobSparkSqlJob
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobSparkSqlJob(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeJobSparkSqlJobQueryList(des, initial *JobSparkSqlJobQueryList, opts ...dcl.ApplyOption) *JobSparkSqlJobQueryList {
 	if des == nil {
 		return initial
@@ -1998,6 +2342,26 @@ func canonicalizeNewJobSparkSqlJobQueryListSet(c *Client, des, nw []JobSparkSqlJ
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewJobSparkSqlJobQueryListSlice(c *Client, des, nw []JobSparkSqlJobQueryList) []JobSparkSqlJobQueryList {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobSparkSqlJobQueryList
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobSparkSqlJobQueryList(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeJobSparkSqlJobLoggingConfig(des, initial *JobSparkSqlJobLoggingConfig, opts ...dcl.ApplyOption) *JobSparkSqlJobLoggingConfig {
@@ -2050,6 +2414,26 @@ func canonicalizeNewJobSparkSqlJobLoggingConfigSet(c *Client, des, nw []JobSpark
 	return reorderedNew
 }
 
+func canonicalizeNewJobSparkSqlJobLoggingConfigSlice(c *Client, des, nw []JobSparkSqlJobLoggingConfig) []JobSparkSqlJobLoggingConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobSparkSqlJobLoggingConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobSparkSqlJobLoggingConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeJobPrestoJob(des, initial *JobPrestoJob, opts ...dcl.ApplyOption) *JobPrestoJob {
 	if des == nil {
 		return initial
@@ -2066,7 +2450,7 @@ func canonicalizeJobPrestoJob(des, initial *JobPrestoJob, opts ...dcl.ApplyOptio
 		des.QueryFileUri = initial.QueryFileUri
 	}
 	des.QueryList = canonicalizeJobPrestoJobQueryList(des.QueryList, initial.QueryList, opts...)
-	if dcl.IsZeroValue(des.ContinueOnFailure) {
+	if dcl.BoolCanonicalize(des.ContinueOnFailure, initial.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
 		des.ContinueOnFailure = initial.ContinueOnFailure
 	}
 	if dcl.StringCanonicalize(des.OutputFormat, initial.OutputFormat) || dcl.IsZeroValue(des.OutputFormat) {
@@ -2092,6 +2476,9 @@ func canonicalizeNewJobPrestoJob(c *Client, des, nw *JobPrestoJob) *JobPrestoJob
 		nw.QueryFileUri = des.QueryFileUri
 	}
 	nw.QueryList = canonicalizeNewJobPrestoJobQueryList(c, des.QueryList, nw.QueryList)
+	if dcl.BoolCanonicalize(des.ContinueOnFailure, nw.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
+		nw.ContinueOnFailure = des.ContinueOnFailure
+	}
 	if dcl.StringCanonicalize(des.OutputFormat, nw.OutputFormat) || dcl.IsZeroValue(des.OutputFormat) {
 		nw.OutputFormat = des.OutputFormat
 	}
@@ -2121,6 +2508,26 @@ func canonicalizeNewJobPrestoJobSet(c *Client, des, nw []JobPrestoJob) []JobPres
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewJobPrestoJobSlice(c *Client, des, nw []JobPrestoJob) []JobPrestoJob {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobPrestoJob
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobPrestoJob(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeJobPrestoJobQueryList(des, initial *JobPrestoJobQueryList, opts ...dcl.ApplyOption) *JobPrestoJobQueryList {
@@ -2173,6 +2580,26 @@ func canonicalizeNewJobPrestoJobQueryListSet(c *Client, des, nw []JobPrestoJobQu
 	return reorderedNew
 }
 
+func canonicalizeNewJobPrestoJobQueryListSlice(c *Client, des, nw []JobPrestoJobQueryList) []JobPrestoJobQueryList {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobPrestoJobQueryList
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobPrestoJobQueryList(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeJobPrestoJobLoggingConfig(des, initial *JobPrestoJobLoggingConfig, opts ...dcl.ApplyOption) *JobPrestoJobLoggingConfig {
 	if des == nil {
 		return initial
@@ -2221,6 +2648,26 @@ func canonicalizeNewJobPrestoJobLoggingConfigSet(c *Client, des, nw []JobPrestoJ
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewJobPrestoJobLoggingConfigSlice(c *Client, des, nw []JobPrestoJobLoggingConfig) []JobPrestoJobLoggingConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobPrestoJobLoggingConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobPrestoJobLoggingConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeJobStatus(des, initial *JobStatus, opts ...dcl.ApplyOption) *JobStatus {
@@ -2286,6 +2733,26 @@ func canonicalizeNewJobStatusSet(c *Client, des, nw []JobStatus) []JobStatus {
 	return reorderedNew
 }
 
+func canonicalizeNewJobStatusSlice(c *Client, des, nw []JobStatus) []JobStatus {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobStatus
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobStatus(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeJobStatusHistory(des, initial *JobStatusHistory, opts ...dcl.ApplyOption) *JobStatusHistory {
 	if des == nil {
 		return initial
@@ -2347,6 +2814,26 @@ func canonicalizeNewJobStatusHistorySet(c *Client, des, nw []JobStatusHistory) [
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewJobStatusHistorySlice(c *Client, des, nw []JobStatusHistory) []JobStatusHistory {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobStatusHistory
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobStatusHistory(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeJobYarnApplications(des, initial *JobYarnApplications, opts ...dcl.ApplyOption) *JobYarnApplications {
@@ -2415,6 +2902,26 @@ func canonicalizeNewJobYarnApplicationsSet(c *Client, des, nw []JobYarnApplicati
 	return reorderedNew
 }
 
+func canonicalizeNewJobYarnApplicationsSlice(c *Client, des, nw []JobYarnApplications) []JobYarnApplications {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobYarnApplications
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobYarnApplications(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeJobScheduling(des, initial *JobScheduling, opts ...dcl.ApplyOption) *JobScheduling {
 	if des == nil {
 		return initial
@@ -2466,6 +2973,26 @@ func canonicalizeNewJobSchedulingSet(c *Client, des, nw []JobScheduling) []JobSc
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewJobSchedulingSlice(c *Client, des, nw []JobScheduling) []JobScheduling {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobScheduling
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobScheduling(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeJobDriverRunner(des, initial *JobDriverRunner, opts ...dcl.ApplyOption) *JobDriverRunner {
@@ -2520,6 +3047,26 @@ func canonicalizeNewJobDriverRunnerSet(c *Client, des, nw []JobDriverRunner) []J
 	return reorderedNew
 }
 
+func canonicalizeNewJobDriverRunnerSlice(c *Client, des, nw []JobDriverRunner) []JobDriverRunner {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobDriverRunner
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobDriverRunner(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeJobDriverRunnerMasterDriverRunner(des, initial *JobDriverRunnerMasterDriverRunner, opts ...dcl.ApplyOption) *JobDriverRunnerMasterDriverRunner {
 	if des == nil {
 		return initial
@@ -2564,6 +3111,26 @@ func canonicalizeNewJobDriverRunnerMasterDriverRunnerSet(c *Client, des, nw []Jo
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewJobDriverRunnerMasterDriverRunnerSlice(c *Client, des, nw []JobDriverRunnerMasterDriverRunner) []JobDriverRunnerMasterDriverRunner {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobDriverRunnerMasterDriverRunner
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobDriverRunnerMasterDriverRunner(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeJobDriverRunnerYarnDriverRunner(des, initial *JobDriverRunnerYarnDriverRunner, opts ...dcl.ApplyOption) *JobDriverRunnerYarnDriverRunner {
@@ -2617,6 +3184,26 @@ func canonicalizeNewJobDriverRunnerYarnDriverRunnerSet(c *Client, des, nw []JobD
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewJobDriverRunnerYarnDriverRunnerSlice(c *Client, des, nw []JobDriverRunnerYarnDriverRunner) []JobDriverRunnerYarnDriverRunner {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobDriverRunnerYarnDriverRunner
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobDriverRunnerYarnDriverRunner(c, &d, &n))
+	}
+
+	return items
 }
 
 type jobDiff struct {
@@ -2710,7 +3297,7 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]jobDif
 			FieldName:        "PrestoJob",
 		})
 	}
-	if !reflect.DeepEqual(desired.Interactive, actual.Interactive) {
+	if !dcl.IsZeroValue(desired.Interactive) && !dcl.BoolCanonicalize(desired.Interactive, actual.Interactive) {
 		c.Config.Logger.Infof("Detected diff in Interactive.\nDESIRED: %v\nACTUAL: %v", desired.Interactive, actual.Interactive)
 		diffs = append(diffs, jobDiff{
 			RequiresRecreate: true,
@@ -3383,7 +3970,7 @@ func compareJobHiveJob(c *Client, desired, actual *JobHiveJob) bool {
 		c.Config.Logger.Infof("desired ContinueOnFailure %s - but actually nil", dcl.SprintResource(desired.ContinueOnFailure))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) {
+	if !dcl.BoolCanonicalize(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) {
 		c.Config.Logger.Infof("Diff in ContinueOnFailure. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContinueOnFailure), dcl.SprintResource(actual.ContinueOnFailure))
 		return true
 	}
@@ -3525,7 +4112,7 @@ func compareJobPigJob(c *Client, desired, actual *JobPigJob) bool {
 		c.Config.Logger.Infof("desired ContinueOnFailure %s - but actually nil", dcl.SprintResource(desired.ContinueOnFailure))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) {
+	if !dcl.BoolCanonicalize(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) {
 		c.Config.Logger.Infof("Diff in ContinueOnFailure. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContinueOnFailure), dcl.SprintResource(actual.ContinueOnFailure))
 		return true
 	}
@@ -4061,7 +4648,7 @@ func compareJobPrestoJob(c *Client, desired, actual *JobPrestoJob) bool {
 		c.Config.Logger.Infof("desired ContinueOnFailure %s - but actually nil", dcl.SprintResource(desired.ContinueOnFailure))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) {
+	if !dcl.BoolCanonicalize(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) {
 		c.Config.Logger.Infof("Diff in ContinueOnFailure. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContinueOnFailure), dcl.SprintResource(actual.ContinueOnFailure))
 		return true
 	}

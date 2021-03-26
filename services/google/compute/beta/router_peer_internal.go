@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -296,9 +297,20 @@ func (op *deleteRouterPeerOperation) do(ctx context.Context, r *RouterPeer, c *C
 	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/beta/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetRouterPeer(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetRouterPeer(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -403,7 +415,6 @@ func (c *Client) routerPeerDiffsForRawDesired(ctx context.Context, rawDesired *R
 		desired, err = canonicalizeRouterPeerDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for RouterPeer: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for RouterPeer: %v", rawDesired)
 
@@ -646,6 +657,7 @@ func canonicalizeRouterPeerNewState(c *Client, rawNew, rawDesired *RouterPeer) (
 	if dcl.IsEmptyValueIndirect(rawNew.AdvertisedIPRanges) && dcl.IsEmptyValueIndirect(rawDesired.AdvertisedIPRanges) {
 		rawNew.AdvertisedIPRanges = rawDesired.AdvertisedIPRanges
 	} else {
+		rawNew.AdvertisedIPRanges = canonicalizeNewRouterPeerAdvertisedIPRangesSlice(c, rawDesired.AdvertisedIPRanges, rawNew.AdvertisedIPRanges)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Region) && dcl.IsEmptyValueIndirect(rawDesired.Region) {
@@ -719,6 +731,26 @@ func canonicalizeNewRouterPeerAdvertisedIPRangesSet(c *Client, des, nw []RouterP
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewRouterPeerAdvertisedIPRangesSlice(c *Client, des, nw []RouterPeerAdvertisedIPRanges) []RouterPeerAdvertisedIPRanges {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []RouterPeerAdvertisedIPRanges
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewRouterPeerAdvertisedIPRanges(c, &d, &n))
+	}
+
+	return items
 }
 
 type routerPeerDiff struct {

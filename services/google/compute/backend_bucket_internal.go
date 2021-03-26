@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -267,9 +268,20 @@ func (op *deleteBackendBucketOperation) do(ctx context.Context, r *BackendBucket
 	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetBackendBucket(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetBackendBucket(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -369,7 +381,6 @@ func (c *Client) backendBucketDiffsForRawDesired(ctx context.Context, rawDesired
 		desired, err = canonicalizeBackendBucketDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for BackendBucket: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for BackendBucket: %v", rawDesired)
 
@@ -420,7 +431,7 @@ func canonicalizeBackendBucketDesiredState(rawDesired, rawInitial *BackendBucket
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.IsZeroValue(rawDesired.EnableCdn) {
+	if dcl.BoolCanonicalize(rawDesired.EnableCdn, rawInitial.EnableCdn) {
 		rawDesired.EnableCdn = rawInitial.EnableCdn
 	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
@@ -463,6 +474,9 @@ func canonicalizeBackendBucketNewState(c *Client, rawNew, rawDesired *BackendBuc
 	if dcl.IsEmptyValueIndirect(rawNew.EnableCdn) && dcl.IsEmptyValueIndirect(rawDesired.EnableCdn) {
 		rawNew.EnableCdn = rawDesired.EnableCdn
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.EnableCdn, rawNew.EnableCdn) {
+			rawNew.EnableCdn = rawDesired.EnableCdn
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
@@ -539,6 +553,26 @@ func canonicalizeNewBackendBucketCdnPolicySet(c *Client, des, nw []BackendBucket
 	return reorderedNew
 }
 
+func canonicalizeNewBackendBucketCdnPolicySlice(c *Client, des, nw []BackendBucketCdnPolicy) []BackendBucketCdnPolicy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []BackendBucketCdnPolicy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewBackendBucketCdnPolicy(c, &d, &n))
+	}
+
+	return items
+}
+
 type backendBucketDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
@@ -587,7 +621,7 @@ func diffBackendBucket(c *Client, desired, actual *BackendBucket, opts ...dcl.Ap
 		})
 
 	}
-	if !reflect.DeepEqual(desired.EnableCdn, actual.EnableCdn) {
+	if !dcl.IsZeroValue(desired.EnableCdn) && !dcl.BoolCanonicalize(desired.EnableCdn, actual.EnableCdn) {
 		c.Config.Logger.Infof("Detected diff in EnableCdn.\nDESIRED: %v\nACTUAL: %v", desired.EnableCdn, actual.EnableCdn)
 
 		diffs = append(diffs, backendBucketDiff{

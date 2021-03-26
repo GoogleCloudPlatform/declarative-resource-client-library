@@ -19,8 +19,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -245,9 +245,20 @@ func (op *deleteGroupOperation) do(ctx context.Context, r *Group, c *Client) err
 	if err != nil {
 		return fmt.Errorf("failed to delete Group: %w", err)
 	}
-	_, err = c.GetGroup(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetGroup(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -343,7 +354,6 @@ func (c *Client) groupDiffsForRawDesired(ctx context.Context, rawDesired *Group,
 		desired, err := canonicalizeGroupDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
-
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetGroup(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -356,7 +366,6 @@ func (c *Client) groupDiffsForRawDesired(ctx context.Context, rawDesired *Group,
 		desired, err = canonicalizeGroupDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Group: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Group: %v", rawDesired)
 
@@ -405,7 +414,7 @@ func canonicalizeGroupDesiredState(rawDesired, rawInitial *Group, opts ...dcl.Ap
 	if dcl.StringCanonicalize(rawDesired.Filter, rawInitial.Filter) {
 		rawDesired.Filter = rawInitial.Filter
 	}
-	if dcl.IsZeroValue(rawDesired.IsCluster) {
+	if dcl.BoolCanonicalize(rawDesired.IsCluster, rawInitial.IsCluster) {
 		rawDesired.IsCluster = rawInitial.IsCluster
 	}
 	if dcl.IsZeroValue(rawDesired.Name) {
@@ -442,6 +451,9 @@ func canonicalizeGroupNewState(c *Client, rawNew, rawDesired *Group) (*Group, er
 	if dcl.IsEmptyValueIndirect(rawNew.IsCluster) && dcl.IsEmptyValueIndirect(rawDesired.IsCluster) {
 		rawNew.IsCluster = rawDesired.IsCluster
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.IsCluster, rawNew.IsCluster) {
+			rawNew.IsCluster = rawDesired.IsCluster
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
@@ -501,7 +513,7 @@ func diffGroup(c *Client, desired, actual *Group, opts ...dcl.ApplyOption) ([]gr
 		})
 
 	}
-	if !reflect.DeepEqual(desired.IsCluster, actual.IsCluster) {
+	if !dcl.IsZeroValue(desired.IsCluster) && !dcl.BoolCanonicalize(desired.IsCluster, actual.IsCluster) {
 		c.Config.Logger.Infof("Detected diff in IsCluster.\nDESIRED: %v\nACTUAL: %v", desired.IsCluster, actual.IsCluster)
 
 		diffs = append(diffs, groupDiff{

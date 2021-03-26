@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -212,9 +213,20 @@ func (op *deleteReservationOperation) do(ctx context.Context, r *Reservation, c 
 	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/beta/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetReservation(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetReservation(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -314,7 +326,6 @@ func (c *Client) reservationDiffsForRawDesired(ctx context.Context, rawDesired *
 		desired, err = canonicalizeReservationDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Reservation: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Reservation: %v", rawDesired)
 
@@ -377,7 +388,7 @@ func canonicalizeReservationDesiredState(rawDesired, rawInitial *Reservation, op
 	if dcl.StringCanonicalize(rawDesired.Commitment, rawInitial.Commitment) {
 		rawDesired.Commitment = rawInitial.Commitment
 	}
-	if dcl.IsZeroValue(rawDesired.SpecificReservationRequired) {
+	if dcl.BoolCanonicalize(rawDesired.SpecificReservationRequired, rawInitial.SpecificReservationRequired) {
 		rawDesired.SpecificReservationRequired = rawInitial.SpecificReservationRequired
 	}
 	if dcl.IsZeroValue(rawDesired.Status) {
@@ -446,6 +457,9 @@ func canonicalizeReservationNewState(c *Client, rawNew, rawDesired *Reservation)
 	if dcl.IsEmptyValueIndirect(rawNew.SpecificReservationRequired) && dcl.IsEmptyValueIndirect(rawDesired.SpecificReservationRequired) {
 		rawNew.SpecificReservationRequired = rawDesired.SpecificReservationRequired
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.SpecificReservationRequired, rawNew.SpecificReservationRequired) {
+			rawNew.SpecificReservationRequired = rawDesired.SpecificReservationRequired
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Status) && dcl.IsEmptyValueIndirect(rawDesired.Status) {
@@ -514,6 +528,26 @@ func canonicalizeNewReservationSpecificReservationSet(c *Client, des, nw []Reser
 	return reorderedNew
 }
 
+func canonicalizeNewReservationSpecificReservationSlice(c *Client, des, nw []ReservationSpecificReservation) []ReservationSpecificReservation {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ReservationSpecificReservation
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewReservationSpecificReservation(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeReservationSpecificReservationInstanceProperties(des, initial *ReservationSpecificReservationInstanceProperties, opts ...dcl.ApplyOption) *ReservationSpecificReservationInstanceProperties {
 	if des == nil {
 		return initial
@@ -550,9 +584,11 @@ func canonicalizeNewReservationSpecificReservationInstanceProperties(c *Client, 
 	if dcl.StringCanonicalize(des.MachineType, nw.MachineType) || dcl.IsZeroValue(des.MachineType) {
 		nw.MachineType = des.MachineType
 	}
+	nw.GuestAccelerators = canonicalizeNewReservationSpecificReservationInstancePropertiesGuestAcceleratorsSlice(c, des.GuestAccelerators, nw.GuestAccelerators)
 	if canonicalizeReservationCPUPlatform(des.MinCpuPlatform, nw.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
 		nw.MinCpuPlatform = des.MinCpuPlatform
 	}
+	nw.LocalSsds = canonicalizeNewReservationSpecificReservationInstancePropertiesLocalSsdsSlice(c, des.LocalSsds, nw.LocalSsds)
 
 	return nw
 }
@@ -578,6 +614,26 @@ func canonicalizeNewReservationSpecificReservationInstancePropertiesSet(c *Clien
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewReservationSpecificReservationInstancePropertiesSlice(c *Client, des, nw []ReservationSpecificReservationInstanceProperties) []ReservationSpecificReservationInstanceProperties {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ReservationSpecificReservationInstanceProperties
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewReservationSpecificReservationInstanceProperties(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeReservationSpecificReservationInstancePropertiesGuestAccelerators(des, initial *ReservationSpecificReservationInstancePropertiesGuestAccelerators, opts ...dcl.ApplyOption) *ReservationSpecificReservationInstancePropertiesGuestAccelerators {
@@ -637,6 +693,26 @@ func canonicalizeNewReservationSpecificReservationInstancePropertiesGuestAcceler
 	return reorderedNew
 }
 
+func canonicalizeNewReservationSpecificReservationInstancePropertiesGuestAcceleratorsSlice(c *Client, des, nw []ReservationSpecificReservationInstancePropertiesGuestAccelerators) []ReservationSpecificReservationInstancePropertiesGuestAccelerators {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ReservationSpecificReservationInstancePropertiesGuestAccelerators
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewReservationSpecificReservationInstancePropertiesGuestAccelerators(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeReservationSpecificReservationInstancePropertiesLocalSsds(des, initial *ReservationSpecificReservationInstancePropertiesLocalSsds, opts ...dcl.ApplyOption) *ReservationSpecificReservationInstancePropertiesLocalSsds {
 	if des == nil {
 		return initial
@@ -688,6 +764,26 @@ func canonicalizeNewReservationSpecificReservationInstancePropertiesLocalSsdsSet
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewReservationSpecificReservationInstancePropertiesLocalSsdsSlice(c *Client, des, nw []ReservationSpecificReservationInstancePropertiesLocalSsds) []ReservationSpecificReservationInstancePropertiesLocalSsds {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ReservationSpecificReservationInstancePropertiesLocalSsds
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewReservationSpecificReservationInstancePropertiesLocalSsds(c, &d, &n))
+	}
+
+	return items
 }
 
 type reservationDiff struct {
@@ -753,7 +849,7 @@ func diffReservation(c *Client, desired, actual *Reservation, opts ...dcl.ApplyO
 			FieldName:        "Commitment",
 		})
 	}
-	if !reflect.DeepEqual(desired.SpecificReservationRequired, actual.SpecificReservationRequired) {
+	if !dcl.IsZeroValue(desired.SpecificReservationRequired) && !dcl.BoolCanonicalize(desired.SpecificReservationRequired, actual.SpecificReservationRequired) {
 		c.Config.Logger.Infof("Detected diff in SpecificReservationRequired.\nDESIRED: %v\nACTUAL: %v", desired.SpecificReservationRequired, actual.SpecificReservationRequired)
 		diffs = append(diffs, reservationDiff{
 			RequiresRecreate: true,

@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -119,7 +120,7 @@ func featureGetURL(userBasePath string, r *Feature) (string, error) {
 		"location": dcl.ValueOrEmptyString(r.Location),
 		"name":     dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/features/{{name}}", "https://gkehub.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("v1beta/projects/{{project}}/locations/{{location}}/features/{{name}}", "https://gkehub.googleapis.com/v1beta1/", userBasePath, params), nil
 }
 
 func featureListURL(userBasePath, project, location string) (string, error) {
@@ -127,7 +128,7 @@ func featureListURL(userBasePath, project, location string) (string, error) {
 		"project":  project,
 		"location": location,
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/features", "https://gkehub.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("v1beta/projects/{{project}}/locations/{{location}}/features", "https://gkehub.googleapis.com/v1beta1/", userBasePath, params), nil
 
 }
 
@@ -137,7 +138,7 @@ func featureCreateURL(userBasePath, project, location, name string) (string, err
 		"location": location,
 		"name":     name,
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/features?featureId={{name}}", "https://gkehub.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("v1beta/projects/{{project}}/locations/{{location}}/features?featureId={{name}}", "https://gkehub.googleapis.com/v1beta1/", userBasePath, params), nil
 
 }
 
@@ -147,7 +148,7 @@ func featureDeleteURL(userBasePath string, r *Feature) (string, error) {
 		"location": dcl.ValueOrEmptyString(r.Location),
 		"name":     dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/features/{{name}}", "https://gkehub.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("v1beta/projects/{{project}}/locations/{{location}}/features/{{name}}", "https://gkehub.googleapis.com/v1beta1/", userBasePath, params), nil
 }
 
 // featureApiOperation represents a mutable operation in the underlying REST
@@ -340,9 +341,20 @@ func (op *deleteFeatureOperation) do(ctx context.Context, r *Feature, c *Client)
 	if err := o.Wait(ctx, c.Config, "https://gkehub.googleapis.com/v1beta1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetFeature(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetFeature(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -442,7 +454,6 @@ func (c *Client) featureDiffsForRawDesired(ctx context.Context, rawDesired *Feat
 		desired, err = canonicalizeFeatureDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Feature: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Feature: %v", rawDesired)
 
@@ -637,6 +648,26 @@ func canonicalizeNewFeatureResourceStateSet(c *Client, des, nw []FeatureResource
 	return reorderedNew
 }
 
+func canonicalizeNewFeatureResourceStateSlice(c *Client, des, nw []FeatureResourceState) []FeatureResourceState {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []FeatureResourceState
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFeatureResourceState(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeFeatureSpec(des, initial *FeatureSpec, opts ...dcl.ApplyOption) *FeatureSpec {
 	if des == nil {
 		return initial
@@ -687,6 +718,26 @@ func canonicalizeNewFeatureSpecSet(c *Client, des, nw []FeatureSpec) []FeatureSp
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewFeatureSpecSlice(c *Client, des, nw []FeatureSpec) []FeatureSpec {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []FeatureSpec
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFeatureSpec(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeFeatureSpecMulticlusteringress(des, initial *FeatureSpecMulticlusteringress, opts ...dcl.ApplyOption) *FeatureSpecMulticlusteringress {
@@ -746,6 +797,26 @@ func canonicalizeNewFeatureSpecMulticlusteringressSet(c *Client, des, nw []Featu
 	return reorderedNew
 }
 
+func canonicalizeNewFeatureSpecMulticlusteringressSlice(c *Client, des, nw []FeatureSpecMulticlusteringress) []FeatureSpecMulticlusteringress {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []FeatureSpecMulticlusteringress
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFeatureSpecMulticlusteringress(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeFeatureSpecHelloworld(des, initial *FeatureSpecHelloworld, opts ...dcl.ApplyOption) *FeatureSpecHelloworld {
 	if des == nil {
 		return initial
@@ -800,6 +871,26 @@ func canonicalizeNewFeatureSpecHelloworldSet(c *Client, des, nw []FeatureSpecHel
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewFeatureSpecHelloworldSlice(c *Client, des, nw []FeatureSpecHelloworld) []FeatureSpecHelloworld {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []FeatureSpecHelloworld
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFeatureSpecHelloworld(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeFeatureSpecHelloworldFeatureTest(des, initial *FeatureSpecHelloworldFeatureTest, opts ...dcl.ApplyOption) *FeatureSpecHelloworldFeatureTest {
@@ -858,6 +949,7 @@ func canonicalizeNewFeatureSpecHelloworldFeatureTest(c *Client, des, nw *Feature
 	if dcl.StringCanonicalize(des.Seventh, nw.Seventh) || dcl.IsZeroValue(des.Seventh) {
 		nw.Seventh = des.Seventh
 	}
+	nw.Eighth = canonicalizeNewFeatureSpecHelloworldFeatureTestEighthSlice(c, des.Eighth, nw.Eighth)
 
 	return nw
 }
@@ -883,6 +975,26 @@ func canonicalizeNewFeatureSpecHelloworldFeatureTestSet(c *Client, des, nw []Fea
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewFeatureSpecHelloworldFeatureTestSlice(c *Client, des, nw []FeatureSpecHelloworldFeatureTest) []FeatureSpecHelloworldFeatureTest {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []FeatureSpecHelloworldFeatureTest
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFeatureSpecHelloworldFeatureTest(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeFeatureSpecHelloworldFeatureTestFifth(des, initial *FeatureSpecHelloworldFeatureTestFifth, opts ...dcl.ApplyOption) *FeatureSpecHelloworldFeatureTestFifth {
@@ -945,6 +1057,26 @@ func canonicalizeNewFeatureSpecHelloworldFeatureTestFifthSet(c *Client, des, nw 
 	return reorderedNew
 }
 
+func canonicalizeNewFeatureSpecHelloworldFeatureTestFifthSlice(c *Client, des, nw []FeatureSpecHelloworldFeatureTestFifth) []FeatureSpecHelloworldFeatureTestFifth {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []FeatureSpecHelloworldFeatureTestFifth
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFeatureSpecHelloworldFeatureTestFifth(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeFeatureSpecHelloworldFeatureTestEighth(des, initial *FeatureSpecHelloworldFeatureTestEighth, opts ...dcl.ApplyOption) *FeatureSpecHelloworldFeatureTestEighth {
 	if des == nil {
 		return initial
@@ -1002,6 +1134,26 @@ func canonicalizeNewFeatureSpecHelloworldFeatureTestEighthSet(c *Client, des, nw
 	return reorderedNew
 }
 
+func canonicalizeNewFeatureSpecHelloworldFeatureTestEighthSlice(c *Client, des, nw []FeatureSpecHelloworldFeatureTestEighth) []FeatureSpecHelloworldFeatureTestEighth {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []FeatureSpecHelloworldFeatureTestEighth
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFeatureSpecHelloworldFeatureTestEighth(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeFeatureState(des, initial *FeatureState, opts ...dcl.ApplyOption) *FeatureState {
 	if des == nil {
 		return initial
@@ -1052,6 +1204,26 @@ func canonicalizeNewFeatureStateSet(c *Client, des, nw []FeatureState) []Feature
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewFeatureStateSlice(c *Client, des, nw []FeatureState) []FeatureState {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []FeatureState
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFeatureState(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeFeatureStateState(des, initial *FeatureStateState, opts ...dcl.ApplyOption) *FeatureStateState {
@@ -1114,6 +1286,26 @@ func canonicalizeNewFeatureStateStateSet(c *Client, des, nw []FeatureStateState)
 	return reorderedNew
 }
 
+func canonicalizeNewFeatureStateStateSlice(c *Client, des, nw []FeatureStateState) []FeatureStateState {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []FeatureStateState
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFeatureStateState(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeFeatureStateHelloworld(des, initial *FeatureStateHelloworld, opts ...dcl.ApplyOption) *FeatureStateHelloworld {
 	if des == nil {
 		return initial
@@ -1158,6 +1350,26 @@ func canonicalizeNewFeatureStateHelloworldSet(c *Client, des, nw []FeatureStateH
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewFeatureStateHelloworldSlice(c *Client, des, nw []FeatureStateHelloworld) []FeatureStateHelloworld {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []FeatureStateHelloworld
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFeatureStateHelloworld(c, &d, &n))
+	}
+
+	return items
 }
 
 type featureDiff struct {
@@ -1967,7 +2179,7 @@ func (r *Feature) updateURL(userBasePath, updateName string) (string, error) {
 			"location": dcl.ValueOrEmptyString(n.Location),
 			"name":     dcl.ValueOrEmptyString(n.Name),
 		}
-		return dcl.URL("projects/{{project}}/locations/{{location}}/features/{{name}}", "https://gkehub.googleapis.com/v1beta1/", userBasePath, fields), nil
+		return dcl.URL("v1beta/projects/{{project}}/locations/{{location}}/features/{{name}}", "https://gkehub.googleapis.com/v1beta1/", userBasePath, fields), nil
 
 	}
 	return "", fmt.Errorf("unknown update name: %s", updateName)

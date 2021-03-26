@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -410,9 +411,20 @@ func (op *deleteImageOperation) do(ctx context.Context, r *Image, c *Client) err
 	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetImage(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetImage(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -512,7 +524,6 @@ func (c *Client) imageDiffsForRawDesired(ctx context.Context, rawDesired *Image,
 		desired, err = canonicalizeImageDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Image: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Image: %v", rawDesired)
 
@@ -846,6 +857,26 @@ func canonicalizeNewImageGuestOsFeatureSet(c *Client, des, nw []ImageGuestOsFeat
 	return reorderedNew
 }
 
+func canonicalizeNewImageGuestOsFeatureSlice(c *Client, des, nw []ImageGuestOsFeature) []ImageGuestOsFeature {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ImageGuestOsFeature
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewImageGuestOsFeature(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeImageImageEncryptionKey(des, initial *ImageImageEncryptionKey, opts ...dcl.ApplyOption) *ImageImageEncryptionKey {
 	if des == nil {
 		return initial
@@ -916,6 +947,26 @@ func canonicalizeNewImageImageEncryptionKeySet(c *Client, des, nw []ImageImageEn
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewImageImageEncryptionKeySlice(c *Client, des, nw []ImageImageEncryptionKey) []ImageImageEncryptionKey {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ImageImageEncryptionKey
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewImageImageEncryptionKey(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeImageRawDisk(des, initial *ImageRawDisk, opts ...dcl.ApplyOption) *ImageRawDisk {
@@ -989,6 +1040,26 @@ func canonicalizeNewImageRawDiskSet(c *Client, des, nw []ImageRawDisk) []ImageRa
 	return reorderedNew
 }
 
+func canonicalizeNewImageRawDiskSlice(c *Client, des, nw []ImageRawDisk) []ImageRawDisk {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ImageRawDisk
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewImageRawDisk(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeImageShieldedInstanceInitialState(des, initial *ImageShieldedInstanceInitialState, opts ...dcl.ApplyOption) *ImageShieldedInstanceInitialState {
 	if des == nil {
 		return initial
@@ -1021,6 +1092,9 @@ func canonicalizeNewImageShieldedInstanceInitialState(c *Client, des, nw *ImageS
 	}
 
 	nw.Pk = canonicalizeNewImageShieldedInstanceInitialStatePk(c, des.Pk, nw.Pk)
+	nw.Kek = canonicalizeNewImageShieldedInstanceInitialStateKekSlice(c, des.Kek, nw.Kek)
+	nw.Db = canonicalizeNewImageShieldedInstanceInitialStateDbSlice(c, des.Db, nw.Db)
+	nw.Dbx = canonicalizeNewImageShieldedInstanceInitialStateDbxSlice(c, des.Dbx, nw.Dbx)
 
 	return nw
 }
@@ -1046,6 +1120,26 @@ func canonicalizeNewImageShieldedInstanceInitialStateSet(c *Client, des, nw []Im
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewImageShieldedInstanceInitialStateSlice(c *Client, des, nw []ImageShieldedInstanceInitialState) []ImageShieldedInstanceInitialState {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ImageShieldedInstanceInitialState
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewImageShieldedInstanceInitialState(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeImageShieldedInstanceInitialStatePk(des, initial *ImageShieldedInstanceInitialStatePk, opts ...dcl.ApplyOption) *ImageShieldedInstanceInitialStatePk {
@@ -1105,6 +1199,26 @@ func canonicalizeNewImageShieldedInstanceInitialStatePkSet(c *Client, des, nw []
 	return reorderedNew
 }
 
+func canonicalizeNewImageShieldedInstanceInitialStatePkSlice(c *Client, des, nw []ImageShieldedInstanceInitialStatePk) []ImageShieldedInstanceInitialStatePk {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ImageShieldedInstanceInitialStatePk
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewImageShieldedInstanceInitialStatePk(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeImageShieldedInstanceInitialStateKek(des, initial *ImageShieldedInstanceInitialStateKek, opts ...dcl.ApplyOption) *ImageShieldedInstanceInitialStateKek {
 	if des == nil {
 		return initial
@@ -1160,6 +1274,26 @@ func canonicalizeNewImageShieldedInstanceInitialStateKekSet(c *Client, des, nw [
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewImageShieldedInstanceInitialStateKekSlice(c *Client, des, nw []ImageShieldedInstanceInitialStateKek) []ImageShieldedInstanceInitialStateKek {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ImageShieldedInstanceInitialStateKek
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewImageShieldedInstanceInitialStateKek(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeImageShieldedInstanceInitialStateDb(des, initial *ImageShieldedInstanceInitialStateDb, opts ...dcl.ApplyOption) *ImageShieldedInstanceInitialStateDb {
@@ -1219,6 +1353,26 @@ func canonicalizeNewImageShieldedInstanceInitialStateDbSet(c *Client, des, nw []
 	return reorderedNew
 }
 
+func canonicalizeNewImageShieldedInstanceInitialStateDbSlice(c *Client, des, nw []ImageShieldedInstanceInitialStateDb) []ImageShieldedInstanceInitialStateDb {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ImageShieldedInstanceInitialStateDb
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewImageShieldedInstanceInitialStateDb(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeImageShieldedInstanceInitialStateDbx(des, initial *ImageShieldedInstanceInitialStateDbx, opts ...dcl.ApplyOption) *ImageShieldedInstanceInitialStateDbx {
 	if des == nil {
 		return initial
@@ -1274,6 +1428,26 @@ func canonicalizeNewImageShieldedInstanceInitialStateDbxSet(c *Client, des, nw [
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewImageShieldedInstanceInitialStateDbxSlice(c *Client, des, nw []ImageShieldedInstanceInitialStateDbx) []ImageShieldedInstanceInitialStateDbx {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ImageShieldedInstanceInitialStateDbx
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewImageShieldedInstanceInitialStateDbx(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeImageSourceDiskEncryptionKey(des, initial *ImageSourceDiskEncryptionKey, opts ...dcl.ApplyOption) *ImageSourceDiskEncryptionKey {
@@ -1348,6 +1522,26 @@ func canonicalizeNewImageSourceDiskEncryptionKeySet(c *Client, des, nw []ImageSo
 	return reorderedNew
 }
 
+func canonicalizeNewImageSourceDiskEncryptionKeySlice(c *Client, des, nw []ImageSourceDiskEncryptionKey) []ImageSourceDiskEncryptionKey {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ImageSourceDiskEncryptionKey
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewImageSourceDiskEncryptionKey(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeImageSourceImageEncryptionKey(des, initial *ImageSourceImageEncryptionKey, opts ...dcl.ApplyOption) *ImageSourceImageEncryptionKey {
 	if des == nil {
 		return initial
@@ -1420,6 +1614,26 @@ func canonicalizeNewImageSourceImageEncryptionKeySet(c *Client, des, nw []ImageS
 	return reorderedNew
 }
 
+func canonicalizeNewImageSourceImageEncryptionKeySlice(c *Client, des, nw []ImageSourceImageEncryptionKey) []ImageSourceImageEncryptionKey {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ImageSourceImageEncryptionKey
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewImageSourceImageEncryptionKey(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeImageSourceSnapshotEncryptionKey(des, initial *ImageSourceSnapshotEncryptionKey, opts ...dcl.ApplyOption) *ImageSourceSnapshotEncryptionKey {
 	if des == nil {
 		return initial
@@ -1490,6 +1704,26 @@ func canonicalizeNewImageSourceSnapshotEncryptionKeySet(c *Client, des, nw []Ima
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewImageSourceSnapshotEncryptionKeySlice(c *Client, des, nw []ImageSourceSnapshotEncryptionKey) []ImageSourceSnapshotEncryptionKey {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ImageSourceSnapshotEncryptionKey
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewImageSourceSnapshotEncryptionKey(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeImageDeprecated(des, initial *ImageDeprecated, opts ...dcl.ApplyOption) *ImageDeprecated {
@@ -1565,6 +1799,26 @@ func canonicalizeNewImageDeprecatedSet(c *Client, des, nw []ImageDeprecated) []I
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewImageDeprecatedSlice(c *Client, des, nw []ImageDeprecated) []ImageDeprecated {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ImageDeprecated
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewImageDeprecated(c, &d, &n))
+	}
+
+	return items
 }
 
 type imageDiff struct {

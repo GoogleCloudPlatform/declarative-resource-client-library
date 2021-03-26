@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -248,9 +249,20 @@ func (op *deleteNetworkEndpointGroupOperation) do(ctx context.Context, r *Networ
 	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/beta/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetNetworkEndpointGroup(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetNetworkEndpointGroup(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -350,7 +362,6 @@ func (c *Client) networkEndpointGroupDiffsForRawDesired(ctx context.Context, raw
 		desired, err = canonicalizeNetworkEndpointGroupDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for NetworkEndpointGroup: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for NetworkEndpointGroup: %v", rawDesired)
 
@@ -651,6 +662,26 @@ func canonicalizeNewNetworkEndpointGroupCloudRunSet(c *Client, des, nw []Network
 	return reorderedNew
 }
 
+func canonicalizeNewNetworkEndpointGroupCloudRunSlice(c *Client, des, nw []NetworkEndpointGroupCloudRun) []NetworkEndpointGroupCloudRun {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NetworkEndpointGroupCloudRun
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNetworkEndpointGroupCloudRun(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeNetworkEndpointGroupAppEngine(des, initial *NetworkEndpointGroupAppEngine, opts ...dcl.ApplyOption) *NetworkEndpointGroupAppEngine {
 	if des == nil {
 		return initial
@@ -717,6 +748,26 @@ func canonicalizeNewNetworkEndpointGroupAppEngineSet(c *Client, des, nw []Networ
 	return reorderedNew
 }
 
+func canonicalizeNewNetworkEndpointGroupAppEngineSlice(c *Client, des, nw []NetworkEndpointGroupAppEngine) []NetworkEndpointGroupAppEngine {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NetworkEndpointGroupAppEngine
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNetworkEndpointGroupAppEngine(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeNetworkEndpointGroupCloudFunction(des, initial *NetworkEndpointGroupCloudFunction, opts ...dcl.ApplyOption) *NetworkEndpointGroupCloudFunction {
 	if des == nil {
 		return initial
@@ -775,6 +826,26 @@ func canonicalizeNewNetworkEndpointGroupCloudFunctionSet(c *Client, des, nw []Ne
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewNetworkEndpointGroupCloudFunctionSlice(c *Client, des, nw []NetworkEndpointGroupCloudFunction) []NetworkEndpointGroupCloudFunction {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NetworkEndpointGroupCloudFunction
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNetworkEndpointGroupCloudFunction(c, &d, &n))
+	}
+
+	return items
 }
 
 type networkEndpointGroupDiff struct {

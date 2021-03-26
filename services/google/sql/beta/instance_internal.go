@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -530,9 +531,20 @@ func (op *deleteInstanceOperation) do(ctx context.Context, r *Instance, c *Clien
 	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/sql/v1beta4/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetInstance(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetInstance(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -632,7 +644,6 @@ func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Ins
 		desired, err = canonicalizeInstanceDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Instance: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Instance: %v", rawDesired)
 
@@ -831,9 +842,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsEmptyValueIndirect(rawNew.RootPassword) && dcl.IsEmptyValueIndirect(rawDesired.RootPassword) {
 		rawNew.RootPassword = rawDesired.RootPassword
 	} else {
-		if dcl.StringCanonicalize(rawDesired.RootPassword, rawNew.RootPassword) {
-			rawNew.RootPassword = rawDesired.RootPassword
-		}
+		rawNew.RootPassword = rawDesired.RootPassword
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.CurrentDiskSize) && dcl.IsEmptyValueIndirect(rawDesired.CurrentDiskSize) {
@@ -857,6 +866,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsEmptyValueIndirect(rawNew.IPAddresses) && dcl.IsEmptyValueIndirect(rawDesired.IPAddresses) {
 		rawNew.IPAddresses = rawDesired.IPAddresses
 	} else {
+		rawNew.IPAddresses = canonicalizeNewInstanceIPAddressesSlice(c, rawDesired.IPAddresses, rawNew.IPAddresses)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.MasterInstance) && dcl.IsEmptyValueIndirect(rawDesired.MasterInstance) {
@@ -894,6 +904,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsEmptyValueIndirect(rawNew.ReplicaInstances) && dcl.IsEmptyValueIndirect(rawDesired.ReplicaInstances) {
 		rawNew.ReplicaInstances = rawDesired.ReplicaInstances
 	} else {
+		rawNew.ReplicaInstances = canonicalizeNewInstanceReplicaInstancesSlice(c, rawDesired.ReplicaInstances, rawNew.ReplicaInstances)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ServerCaCert) && dcl.IsEmptyValueIndirect(rawDesired.ServerCaCert) {
@@ -996,6 +1007,26 @@ func canonicalizeNewInstanceMaxDiskSizeSet(c *Client, des, nw []InstanceMaxDiskS
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceMaxDiskSizeSlice(c *Client, des, nw []InstanceMaxDiskSize) []InstanceMaxDiskSize {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceMaxDiskSize
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceMaxDiskSize(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceCurrentDiskSize(des, initial *InstanceCurrentDiskSize, opts ...dcl.ApplyOption) *InstanceCurrentDiskSize {
 	if des == nil {
 		return initial
@@ -1044,6 +1075,26 @@ func canonicalizeNewInstanceCurrentDiskSizeSet(c *Client, des, nw []InstanceCurr
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceCurrentDiskSizeSlice(c *Client, des, nw []InstanceCurrentDiskSize) []InstanceCurrentDiskSize {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceCurrentDiskSize
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceCurrentDiskSize(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceDiskEncryptionConfiguration(des, initial *InstanceDiskEncryptionConfiguration, opts ...dcl.ApplyOption) *InstanceDiskEncryptionConfiguration {
@@ -1106,6 +1157,26 @@ func canonicalizeNewInstanceDiskEncryptionConfigurationSet(c *Client, des, nw []
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceDiskEncryptionConfigurationSlice(c *Client, des, nw []InstanceDiskEncryptionConfiguration) []InstanceDiskEncryptionConfiguration {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceDiskEncryptionConfiguration
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceDiskEncryptionConfiguration(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceFailoverReplica(des, initial *InstanceFailoverReplica, opts ...dcl.ApplyOption) *InstanceFailoverReplica {
 	if des == nil {
 		return initial
@@ -1121,7 +1192,7 @@ func canonicalizeInstanceFailoverReplica(des, initial *InstanceFailoverReplica, 
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
-	if dcl.IsZeroValue(des.Available) {
+	if dcl.BoolCanonicalize(des.Available, initial.Available) || dcl.IsZeroValue(des.Available) {
 		des.Available = initial.Available
 	}
 	des.FailoverInstance = canonicalizeInstanceFailoverReplicaFailoverInstance(des.FailoverInstance, initial.FailoverInstance, opts...)
@@ -1136,6 +1207,9 @@ func canonicalizeNewInstanceFailoverReplica(c *Client, des, nw *InstanceFailover
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
 		nw.Name = des.Name
+	}
+	if dcl.BoolCanonicalize(des.Available, nw.Available) || dcl.IsZeroValue(des.Available) {
+		nw.Available = des.Available
 	}
 	nw.FailoverInstance = canonicalizeNewInstanceFailoverReplicaFailoverInstance(c, des.FailoverInstance, nw.FailoverInstance)
 
@@ -1163,6 +1237,26 @@ func canonicalizeNewInstanceFailoverReplicaSet(c *Client, des, nw []InstanceFail
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceFailoverReplicaSlice(c *Client, des, nw []InstanceFailoverReplica) []InstanceFailoverReplica {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceFailoverReplica
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceFailoverReplica(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceFailoverReplicaFailoverInstance(des, initial *InstanceFailoverReplicaFailoverInstance, opts ...dcl.ApplyOption) *InstanceFailoverReplicaFailoverInstance {
@@ -1225,6 +1319,26 @@ func canonicalizeNewInstanceFailoverReplicaFailoverInstanceSet(c *Client, des, n
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceFailoverReplicaFailoverInstanceSlice(c *Client, des, nw []InstanceFailoverReplicaFailoverInstance) []InstanceFailoverReplicaFailoverInstance {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceFailoverReplicaFailoverInstance
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceFailoverReplicaFailoverInstance(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceIPAddresses(des, initial *InstanceIPAddresses, opts ...dcl.ApplyOption) *InstanceIPAddresses {
 	if des == nil {
 		return initial
@@ -1284,6 +1398,26 @@ func canonicalizeNewInstanceIPAddressesSet(c *Client, des, nw []InstanceIPAddres
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceIPAddressesSlice(c *Client, des, nw []InstanceIPAddresses) []InstanceIPAddresses {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceIPAddresses
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceIPAddresses(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceIPAddressesTimeToRetire(des, initial *InstanceIPAddressesTimeToRetire, opts ...dcl.ApplyOption) *InstanceIPAddressesTimeToRetire {
 	if des == nil {
 		return initial
@@ -1335,6 +1469,26 @@ func canonicalizeNewInstanceIPAddressesTimeToRetireSet(c *Client, des, nw []Inst
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceIPAddressesTimeToRetireSlice(c *Client, des, nw []InstanceIPAddressesTimeToRetire) []InstanceIPAddressesTimeToRetire {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceIPAddressesTimeToRetire
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceIPAddressesTimeToRetire(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceMasterInstance(des, initial *InstanceMasterInstance, opts ...dcl.ApplyOption) *InstanceMasterInstance {
@@ -1397,6 +1551,26 @@ func canonicalizeNewInstanceMasterInstanceSet(c *Client, des, nw []InstanceMaste
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceMasterInstanceSlice(c *Client, des, nw []InstanceMasterInstance) []InstanceMasterInstance {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceMasterInstance
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceMasterInstance(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceReplicaConfiguration(des, initial *InstanceReplicaConfiguration, opts ...dcl.ApplyOption) *InstanceReplicaConfiguration {
 	if des == nil {
 		return initial
@@ -1413,7 +1587,7 @@ func canonicalizeInstanceReplicaConfiguration(des, initial *InstanceReplicaConfi
 		des.Kind = initial.Kind
 	}
 	des.MysqlReplicaConfiguration = canonicalizeInstanceReplicaConfigurationMysqlReplicaConfiguration(des.MysqlReplicaConfiguration, initial.MysqlReplicaConfiguration, opts...)
-	if dcl.IsZeroValue(des.FailoverTarget) {
+	if dcl.BoolCanonicalize(des.FailoverTarget, initial.FailoverTarget) || dcl.IsZeroValue(des.FailoverTarget) {
 		des.FailoverTarget = initial.FailoverTarget
 	}
 	des.ReplicaPoolConfiguration = canonicalizeInstanceReplicaConfigurationReplicaPoolConfiguration(des.ReplicaPoolConfiguration, initial.ReplicaPoolConfiguration, opts...)
@@ -1430,6 +1604,9 @@ func canonicalizeNewInstanceReplicaConfiguration(c *Client, des, nw *InstanceRep
 		nw.Kind = des.Kind
 	}
 	nw.MysqlReplicaConfiguration = canonicalizeNewInstanceReplicaConfigurationMysqlReplicaConfiguration(c, des.MysqlReplicaConfiguration, nw.MysqlReplicaConfiguration)
+	if dcl.BoolCanonicalize(des.FailoverTarget, nw.FailoverTarget) || dcl.IsZeroValue(des.FailoverTarget) {
+		nw.FailoverTarget = des.FailoverTarget
+	}
 	nw.ReplicaPoolConfiguration = canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfiguration(c, des.ReplicaPoolConfiguration, nw.ReplicaPoolConfiguration)
 
 	return nw
@@ -1456,6 +1633,26 @@ func canonicalizeNewInstanceReplicaConfigurationSet(c *Client, des, nw []Instanc
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceReplicaConfigurationSlice(c *Client, des, nw []InstanceReplicaConfiguration) []InstanceReplicaConfiguration {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceReplicaConfiguration
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceReplicaConfiguration(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceReplicaConfigurationMysqlReplicaConfiguration(des, initial *InstanceReplicaConfigurationMysqlReplicaConfiguration, opts ...dcl.ApplyOption) *InstanceReplicaConfigurationMysqlReplicaConfiguration {
@@ -1495,7 +1692,7 @@ func canonicalizeInstanceReplicaConfigurationMysqlReplicaConfiguration(des, init
 	if dcl.StringCanonicalize(des.SslCipher, initial.SslCipher) || dcl.IsZeroValue(des.SslCipher) {
 		des.SslCipher = initial.SslCipher
 	}
-	if dcl.IsZeroValue(des.VerifyServerCertificate) {
+	if dcl.BoolCanonicalize(des.VerifyServerCertificate, initial.VerifyServerCertificate) || dcl.IsZeroValue(des.VerifyServerCertificate) {
 		des.VerifyServerCertificate = initial.VerifyServerCertificate
 	}
 	if dcl.StringCanonicalize(des.Kind, initial.Kind) || dcl.IsZeroValue(des.Kind) {
@@ -1532,6 +1729,9 @@ func canonicalizeNewInstanceReplicaConfigurationMysqlReplicaConfiguration(c *Cli
 	if dcl.StringCanonicalize(des.SslCipher, nw.SslCipher) || dcl.IsZeroValue(des.SslCipher) {
 		nw.SslCipher = des.SslCipher
 	}
+	if dcl.BoolCanonicalize(des.VerifyServerCertificate, nw.VerifyServerCertificate) || dcl.IsZeroValue(des.VerifyServerCertificate) {
+		nw.VerifyServerCertificate = des.VerifyServerCertificate
+	}
 	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
 		nw.Kind = des.Kind
 	}
@@ -1560,6 +1760,26 @@ func canonicalizeNewInstanceReplicaConfigurationMysqlReplicaConfigurationSet(c *
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceReplicaConfigurationMysqlReplicaConfigurationSlice(c *Client, des, nw []InstanceReplicaConfigurationMysqlReplicaConfiguration) []InstanceReplicaConfigurationMysqlReplicaConfiguration {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceReplicaConfigurationMysqlReplicaConfiguration
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceReplicaConfigurationMysqlReplicaConfiguration(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriod(des, initial *InstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriod, opts ...dcl.ApplyOption) *InstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriod {
@@ -1612,6 +1832,26 @@ func canonicalizeNewInstanceReplicaConfigurationMysqlReplicaConfigurationMasterH
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriodSlice(c *Client, des, nw []InstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriod) []InstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriod {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriod
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriod(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceReplicaConfigurationReplicaPoolConfiguration(des, initial *InstanceReplicaConfigurationReplicaPoolConfiguration, opts ...dcl.ApplyOption) *InstanceReplicaConfigurationReplicaPoolConfiguration {
 	if des == nil {
 		return initial
@@ -1632,7 +1872,7 @@ func canonicalizeInstanceReplicaConfigurationReplicaPoolConfiguration(des, initi
 	if dcl.IsZeroValue(des.ReplicaCount) {
 		des.ReplicaCount = initial.ReplicaCount
 	}
-	if dcl.IsZeroValue(des.ExposeReplicaIP) {
+	if dcl.BoolCanonicalize(des.ExposeReplicaIP, initial.ExposeReplicaIP) || dcl.IsZeroValue(des.ExposeReplicaIP) {
 		des.ExposeReplicaIP = initial.ExposeReplicaIP
 	}
 
@@ -1649,6 +1889,9 @@ func canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfiguration(c *Clie
 	}
 	nw.StaticPoolConfiguration = canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfiguration(c, des.StaticPoolConfiguration, nw.StaticPoolConfiguration)
 	nw.AutoscalingPoolConfiguration = canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfiguration(c, des.AutoscalingPoolConfiguration, nw.AutoscalingPoolConfiguration)
+	if dcl.BoolCanonicalize(des.ExposeReplicaIP, nw.ExposeReplicaIP) || dcl.IsZeroValue(des.ExposeReplicaIP) {
+		nw.ExposeReplicaIP = des.ExposeReplicaIP
+	}
 
 	return nw
 }
@@ -1676,6 +1919,26 @@ func canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfigurationSet(c *C
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfigurationSlice(c *Client, des, nw []InstanceReplicaConfigurationReplicaPoolConfiguration) []InstanceReplicaConfigurationReplicaPoolConfiguration {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceReplicaConfigurationReplicaPoolConfiguration
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfiguration(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfiguration(des, initial *InstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfiguration, opts ...dcl.ApplyOption) *InstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfiguration {
 	if des == nil {
 		return initial
@@ -1694,7 +1957,7 @@ func canonicalizeInstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolC
 	if dcl.IsZeroValue(des.ReplicaCount) {
 		des.ReplicaCount = initial.ReplicaCount
 	}
-	if dcl.IsZeroValue(des.ExposeReplicaIP) {
+	if dcl.BoolCanonicalize(des.ExposeReplicaIP, initial.ExposeReplicaIP) || dcl.IsZeroValue(des.ExposeReplicaIP) {
 		des.ExposeReplicaIP = initial.ExposeReplicaIP
 	}
 
@@ -1708,6 +1971,9 @@ func canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfigurationStaticPo
 
 	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
 		nw.Kind = des.Kind
+	}
+	if dcl.BoolCanonicalize(des.ExposeReplicaIP, nw.ExposeReplicaIP) || dcl.IsZeroValue(des.ExposeReplicaIP) {
+		nw.ExposeReplicaIP = des.ExposeReplicaIP
 	}
 
 	return nw
@@ -1734,6 +2000,26 @@ func canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfigurationStaticPo
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfigurationSlice(c *Client, des, nw []InstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfiguration) []InstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfiguration {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfiguration
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfiguration(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfiguration(des, initial *InstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfiguration, opts ...dcl.ApplyOption) *InstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfiguration {
@@ -1799,6 +2085,26 @@ func canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfigurationAutoscal
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfigurationSlice(c *Client, des, nw []InstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfiguration) []InstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfiguration {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfiguration
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfiguration(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceScheduledMaintenance(des, initial *InstanceScheduledMaintenance, opts ...dcl.ApplyOption) *InstanceScheduledMaintenance {
 	if des == nil {
 		return initial
@@ -1812,10 +2118,10 @@ func canonicalizeInstanceScheduledMaintenance(des, initial *InstanceScheduledMai
 	}
 
 	des.StartTime = canonicalizeInstanceScheduledMaintenanceStartTime(des.StartTime, initial.StartTime, opts...)
-	if dcl.IsZeroValue(des.CanDefer) {
+	if dcl.BoolCanonicalize(des.CanDefer, initial.CanDefer) || dcl.IsZeroValue(des.CanDefer) {
 		des.CanDefer = initial.CanDefer
 	}
-	if dcl.IsZeroValue(des.CanReschedule) {
+	if dcl.BoolCanonicalize(des.CanReschedule, initial.CanReschedule) || dcl.IsZeroValue(des.CanReschedule) {
 		des.CanReschedule = initial.CanReschedule
 	}
 
@@ -1828,6 +2134,12 @@ func canonicalizeNewInstanceScheduledMaintenance(c *Client, des, nw *InstanceSch
 	}
 
 	nw.StartTime = canonicalizeNewInstanceScheduledMaintenanceStartTime(c, des.StartTime, nw.StartTime)
+	if dcl.BoolCanonicalize(des.CanDefer, nw.CanDefer) || dcl.IsZeroValue(des.CanDefer) {
+		nw.CanDefer = des.CanDefer
+	}
+	if dcl.BoolCanonicalize(des.CanReschedule, nw.CanReschedule) || dcl.IsZeroValue(des.CanReschedule) {
+		nw.CanReschedule = des.CanReschedule
+	}
 
 	return nw
 }
@@ -1853,6 +2165,26 @@ func canonicalizeNewInstanceScheduledMaintenanceSet(c *Client, des, nw []Instanc
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceScheduledMaintenanceSlice(c *Client, des, nw []InstanceScheduledMaintenance) []InstanceScheduledMaintenance {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceScheduledMaintenance
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceScheduledMaintenance(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceScheduledMaintenanceStartTime(des, initial *InstanceScheduledMaintenanceStartTime, opts ...dcl.ApplyOption) *InstanceScheduledMaintenanceStartTime {
@@ -1908,6 +2240,26 @@ func canonicalizeNewInstanceScheduledMaintenanceStartTimeSet(c *Client, des, nw 
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceScheduledMaintenanceStartTimeSlice(c *Client, des, nw []InstanceScheduledMaintenanceStartTime) []InstanceScheduledMaintenanceStartTime {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceScheduledMaintenanceStartTime
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceScheduledMaintenanceStartTime(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceSettings(des, initial *InstanceSettings, opts ...dcl.ApplyOption) *InstanceSettings {
 	if des == nil {
 		return initial
@@ -1941,16 +2293,16 @@ func canonicalizeInstanceSettings(des, initial *InstanceSettings, opts ...dcl.Ap
 	if dcl.IsZeroValue(des.ActivationPolicy) {
 		des.ActivationPolicy = initial.ActivationPolicy
 	}
-	if dcl.IsZeroValue(des.StorageAutoResize) {
+	if dcl.BoolCanonicalize(des.StorageAutoResize, initial.StorageAutoResize) || dcl.IsZeroValue(des.StorageAutoResize) {
 		des.StorageAutoResize = initial.StorageAutoResize
 	}
 	if dcl.IsZeroValue(des.DataDiskType) {
 		des.DataDiskType = initial.DataDiskType
 	}
-	if dcl.IsZeroValue(des.DatabaseReplicationEnabled) {
+	if dcl.BoolCanonicalize(des.DatabaseReplicationEnabled, initial.DatabaseReplicationEnabled) || dcl.IsZeroValue(des.DatabaseReplicationEnabled) {
 		des.DatabaseReplicationEnabled = initial.DatabaseReplicationEnabled
 	}
-	if dcl.IsZeroValue(des.CrashSafeReplicationEnabled) {
+	if dcl.BoolCanonicalize(des.CrashSafeReplicationEnabled, initial.CrashSafeReplicationEnabled) || dcl.IsZeroValue(des.CrashSafeReplicationEnabled) {
 		des.CrashSafeReplicationEnabled = initial.CrashSafeReplicationEnabled
 	}
 	des.SettingsVersion = canonicalizeInstanceSettingsSettingsVersion(des.SettingsVersion, initial.SettingsVersion, opts...)
@@ -1989,10 +2341,20 @@ func canonicalizeNewInstanceSettings(c *Client, des, nw *InstanceSettings) *Inst
 	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
 		nw.Kind = des.Kind
 	}
+	if dcl.BoolCanonicalize(des.StorageAutoResize, nw.StorageAutoResize) || dcl.IsZeroValue(des.StorageAutoResize) {
+		nw.StorageAutoResize = des.StorageAutoResize
+	}
+	if dcl.BoolCanonicalize(des.DatabaseReplicationEnabled, nw.DatabaseReplicationEnabled) || dcl.IsZeroValue(des.DatabaseReplicationEnabled) {
+		nw.DatabaseReplicationEnabled = des.DatabaseReplicationEnabled
+	}
+	if dcl.BoolCanonicalize(des.CrashSafeReplicationEnabled, nw.CrashSafeReplicationEnabled) || dcl.IsZeroValue(des.CrashSafeReplicationEnabled) {
+		nw.CrashSafeReplicationEnabled = des.CrashSafeReplicationEnabled
+	}
 	nw.SettingsVersion = canonicalizeNewInstanceSettingsSettingsVersion(c, des.SettingsVersion, nw.SettingsVersion)
 	nw.StorageAutoResizeLimit = canonicalizeNewInstanceSettingsStorageAutoResizeLimit(c, des.StorageAutoResizeLimit, nw.StorageAutoResizeLimit)
 	nw.IPConfiguration = canonicalizeNewInstanceSettingsIPConfiguration(c, des.IPConfiguration, nw.IPConfiguration)
 	nw.LocationPreference = canonicalizeNewInstanceSettingsLocationPreference(c, des.LocationPreference, nw.LocationPreference)
+	nw.DatabaseFlags = canonicalizeNewInstanceSettingsDatabaseFlagsSlice(c, des.DatabaseFlags, nw.DatabaseFlags)
 	nw.MaintenanceWindow = canonicalizeNewInstanceSettingsMaintenanceWindow(c, des.MaintenanceWindow, nw.MaintenanceWindow)
 	nw.BackupConfiguration = canonicalizeNewInstanceSettingsBackupConfiguration(c, des.BackupConfiguration, nw.BackupConfiguration)
 	nw.DataDiskSizeGb = canonicalizeNewInstanceSettingsDataDiskSizeGb(c, des.DataDiskSizeGb, nw.DataDiskSizeGb)
@@ -2000,6 +2362,7 @@ func canonicalizeNewInstanceSettings(c *Client, des, nw *InstanceSettings) *Inst
 	if dcl.StringCanonicalize(des.Collation, nw.Collation) || dcl.IsZeroValue(des.Collation) {
 		nw.Collation = des.Collation
 	}
+	nw.DenyMaintenancePeriods = canonicalizeNewInstanceSettingsDenyMaintenancePeriodsSlice(c, des.DenyMaintenancePeriods, nw.DenyMaintenancePeriods)
 	nw.InsightsConfig = canonicalizeNewInstanceSettingsInsightsConfig(c, des.InsightsConfig, nw.InsightsConfig)
 
 	return nw
@@ -2026,6 +2389,26 @@ func canonicalizeNewInstanceSettingsSet(c *Client, des, nw []InstanceSettings) [
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceSettingsSlice(c *Client, des, nw []InstanceSettings) []InstanceSettings {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceSettings
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceSettings(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceSettingsSettingsVersion(des, initial *InstanceSettingsSettingsVersion, opts ...dcl.ApplyOption) *InstanceSettingsSettingsVersion {
@@ -2078,6 +2461,26 @@ func canonicalizeNewInstanceSettingsSettingsVersionSet(c *Client, des, nw []Inst
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceSettingsSettingsVersionSlice(c *Client, des, nw []InstanceSettingsSettingsVersion) []InstanceSettingsSettingsVersion {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceSettingsSettingsVersion
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceSettingsSettingsVersion(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceSettingsStorageAutoResizeLimit(des, initial *InstanceSettingsStorageAutoResizeLimit, opts ...dcl.ApplyOption) *InstanceSettingsStorageAutoResizeLimit {
 	if des == nil {
 		return initial
@@ -2128,6 +2531,26 @@ func canonicalizeNewInstanceSettingsStorageAutoResizeLimitSet(c *Client, des, nw
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceSettingsStorageAutoResizeLimitSlice(c *Client, des, nw []InstanceSettingsStorageAutoResizeLimit) []InstanceSettingsStorageAutoResizeLimit {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceSettingsStorageAutoResizeLimit
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceSettingsStorageAutoResizeLimit(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceSettingsIPConfiguration(des, initial *InstanceSettingsIPConfiguration, opts ...dcl.ApplyOption) *InstanceSettingsIPConfiguration {
 	if des == nil {
 		return initial
@@ -2140,13 +2563,13 @@ func canonicalizeInstanceSettingsIPConfiguration(des, initial *InstanceSettingsI
 		return des
 	}
 
-	if dcl.IsZeroValue(des.IPv4Enabled) {
+	if dcl.BoolCanonicalize(des.IPv4Enabled, initial.IPv4Enabled) || dcl.IsZeroValue(des.IPv4Enabled) {
 		des.IPv4Enabled = initial.IPv4Enabled
 	}
 	if dcl.NameToSelfLink(des.PrivateNetwork, initial.PrivateNetwork) || dcl.IsZeroValue(des.PrivateNetwork) {
 		des.PrivateNetwork = initial.PrivateNetwork
 	}
-	if dcl.IsZeroValue(des.RequireSsl) {
+	if dcl.BoolCanonicalize(des.RequireSsl, initial.RequireSsl) || dcl.IsZeroValue(des.RequireSsl) {
 		des.RequireSsl = initial.RequireSsl
 	}
 	if dcl.IsZeroValue(des.AuthorizedNetworks) {
@@ -2161,9 +2584,16 @@ func canonicalizeNewInstanceSettingsIPConfiguration(c *Client, des, nw *Instance
 		return nw
 	}
 
+	if dcl.BoolCanonicalize(des.IPv4Enabled, nw.IPv4Enabled) || dcl.IsZeroValue(des.IPv4Enabled) {
+		nw.IPv4Enabled = des.IPv4Enabled
+	}
 	if dcl.NameToSelfLink(des.PrivateNetwork, nw.PrivateNetwork) || dcl.IsZeroValue(des.PrivateNetwork) {
 		nw.PrivateNetwork = des.PrivateNetwork
 	}
+	if dcl.BoolCanonicalize(des.RequireSsl, nw.RequireSsl) || dcl.IsZeroValue(des.RequireSsl) {
+		nw.RequireSsl = des.RequireSsl
+	}
+	nw.AuthorizedNetworks = canonicalizeNewInstanceSettingsIPConfigurationAuthorizedNetworksSlice(c, des.AuthorizedNetworks, nw.AuthorizedNetworks)
 
 	return nw
 }
@@ -2189,6 +2619,26 @@ func canonicalizeNewInstanceSettingsIPConfigurationSet(c *Client, des, nw []Inst
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceSettingsIPConfigurationSlice(c *Client, des, nw []InstanceSettingsIPConfiguration) []InstanceSettingsIPConfiguration {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceSettingsIPConfiguration
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceSettingsIPConfiguration(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceSettingsIPConfigurationAuthorizedNetworks(des, initial *InstanceSettingsIPConfigurationAuthorizedNetworks, opts ...dcl.ApplyOption) *InstanceSettingsIPConfigurationAuthorizedNetworks {
@@ -2260,6 +2710,26 @@ func canonicalizeNewInstanceSettingsIPConfigurationAuthorizedNetworksSet(c *Clie
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceSettingsIPConfigurationAuthorizedNetworksSlice(c *Client, des, nw []InstanceSettingsIPConfigurationAuthorizedNetworks) []InstanceSettingsIPConfigurationAuthorizedNetworks {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceSettingsIPConfigurationAuthorizedNetworks
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceSettingsIPConfigurationAuthorizedNetworks(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceSettingsLocationPreference(des, initial *InstanceSettingsLocationPreference, opts ...dcl.ApplyOption) *InstanceSettingsLocationPreference {
 	if des == nil {
 		return initial
@@ -2320,6 +2790,26 @@ func canonicalizeNewInstanceSettingsLocationPreferenceSet(c *Client, des, nw []I
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceSettingsLocationPreferenceSlice(c *Client, des, nw []InstanceSettingsLocationPreference) []InstanceSettingsLocationPreference {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceSettingsLocationPreference
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceSettingsLocationPreference(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceSettingsDatabaseFlags(des, initial *InstanceSettingsDatabaseFlags, opts ...dcl.ApplyOption) *InstanceSettingsDatabaseFlags {
 	if des == nil {
 		return initial
@@ -2378,6 +2868,26 @@ func canonicalizeNewInstanceSettingsDatabaseFlagsSet(c *Client, des, nw []Instan
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceSettingsDatabaseFlagsSlice(c *Client, des, nw []InstanceSettingsDatabaseFlags) []InstanceSettingsDatabaseFlags {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceSettingsDatabaseFlags
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceSettingsDatabaseFlags(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceSettingsMaintenanceWindow(des, initial *InstanceSettingsMaintenanceWindow, opts ...dcl.ApplyOption) *InstanceSettingsMaintenanceWindow {
@@ -2443,6 +2953,26 @@ func canonicalizeNewInstanceSettingsMaintenanceWindowSet(c *Client, des, nw []In
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceSettingsMaintenanceWindowSlice(c *Client, des, nw []InstanceSettingsMaintenanceWindow) []InstanceSettingsMaintenanceWindow {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceSettingsMaintenanceWindow
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceSettingsMaintenanceWindow(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceSettingsBackupConfiguration(des, initial *InstanceSettingsBackupConfiguration, opts ...dcl.ApplyOption) *InstanceSettingsBackupConfiguration {
 	if des == nil {
 		return initial
@@ -2458,13 +2988,13 @@ func canonicalizeInstanceSettingsBackupConfiguration(des, initial *InstanceSetti
 	if dcl.StringCanonicalize(des.StartTime, initial.StartTime) || dcl.IsZeroValue(des.StartTime) {
 		des.StartTime = initial.StartTime
 	}
-	if dcl.IsZeroValue(des.Enabled) {
+	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
 		des.Enabled = initial.Enabled
 	}
 	if dcl.StringCanonicalize(des.Kind, initial.Kind) || dcl.IsZeroValue(des.Kind) {
 		des.Kind = initial.Kind
 	}
-	if dcl.IsZeroValue(des.BinaryLogEnabled) {
+	if dcl.BoolCanonicalize(des.BinaryLogEnabled, initial.BinaryLogEnabled) || dcl.IsZeroValue(des.BinaryLogEnabled) {
 		des.BinaryLogEnabled = initial.BinaryLogEnabled
 	}
 	if dcl.StringCanonicalize(des.Location, initial.Location) || dcl.IsZeroValue(des.Location) {
@@ -2486,8 +3016,14 @@ func canonicalizeNewInstanceSettingsBackupConfiguration(c *Client, des, nw *Inst
 	if dcl.StringCanonicalize(des.StartTime, nw.StartTime) || dcl.IsZeroValue(des.StartTime) {
 		nw.StartTime = des.StartTime
 	}
+	if dcl.BoolCanonicalize(des.Enabled, nw.Enabled) || dcl.IsZeroValue(des.Enabled) {
+		nw.Enabled = des.Enabled
+	}
 	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
 		nw.Kind = des.Kind
+	}
+	if dcl.BoolCanonicalize(des.BinaryLogEnabled, nw.BinaryLogEnabled) || dcl.IsZeroValue(des.BinaryLogEnabled) {
+		nw.BinaryLogEnabled = des.BinaryLogEnabled
 	}
 	if dcl.StringCanonicalize(des.Location, nw.Location) || dcl.IsZeroValue(des.Location) {
 		nw.Location = des.Location
@@ -2518,6 +3054,26 @@ func canonicalizeNewInstanceSettingsBackupConfigurationSet(c *Client, des, nw []
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceSettingsBackupConfigurationSlice(c *Client, des, nw []InstanceSettingsBackupConfiguration) []InstanceSettingsBackupConfiguration {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceSettingsBackupConfiguration
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceSettingsBackupConfiguration(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceSettingsBackupConfigurationBackupRetentionSettings(des, initial *InstanceSettingsBackupConfigurationBackupRetentionSettings, opts ...dcl.ApplyOption) *InstanceSettingsBackupConfigurationBackupRetentionSettings {
@@ -2573,6 +3129,26 @@ func canonicalizeNewInstanceSettingsBackupConfigurationBackupRetentionSettingsSe
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceSettingsBackupConfigurationBackupRetentionSettingsSlice(c *Client, des, nw []InstanceSettingsBackupConfigurationBackupRetentionSettings) []InstanceSettingsBackupConfigurationBackupRetentionSettings {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceSettingsBackupConfigurationBackupRetentionSettings
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceSettingsBackupConfigurationBackupRetentionSettings(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceSettingsDataDiskSizeGb(des, initial *InstanceSettingsDataDiskSizeGb, opts ...dcl.ApplyOption) *InstanceSettingsDataDiskSizeGb {
 	if des == nil {
 		return initial
@@ -2621,6 +3197,26 @@ func canonicalizeNewInstanceSettingsDataDiskSizeGbSet(c *Client, des, nw []Insta
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceSettingsDataDiskSizeGbSlice(c *Client, des, nw []InstanceSettingsDataDiskSizeGb) []InstanceSettingsDataDiskSizeGb {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceSettingsDataDiskSizeGb
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceSettingsDataDiskSizeGb(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceSettingsActiveDirectoryConfig(des, initial *InstanceSettingsActiveDirectoryConfig, opts ...dcl.ApplyOption) *InstanceSettingsActiveDirectoryConfig {
@@ -2681,6 +3277,26 @@ func canonicalizeNewInstanceSettingsActiveDirectoryConfigSet(c *Client, des, nw 
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceSettingsActiveDirectoryConfigSlice(c *Client, des, nw []InstanceSettingsActiveDirectoryConfig) []InstanceSettingsActiveDirectoryConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceSettingsActiveDirectoryConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceSettingsActiveDirectoryConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceSettingsDenyMaintenancePeriods(des, initial *InstanceSettingsDenyMaintenancePeriods, opts ...dcl.ApplyOption) *InstanceSettingsDenyMaintenancePeriods {
@@ -2749,6 +3365,26 @@ func canonicalizeNewInstanceSettingsDenyMaintenancePeriodsSet(c *Client, des, nw
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceSettingsDenyMaintenancePeriodsSlice(c *Client, des, nw []InstanceSettingsDenyMaintenancePeriods) []InstanceSettingsDenyMaintenancePeriods {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceSettingsDenyMaintenancePeriods
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceSettingsDenyMaintenancePeriods(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceSettingsInsightsConfig(des, initial *InstanceSettingsInsightsConfig, opts ...dcl.ApplyOption) *InstanceSettingsInsightsConfig {
 	if des == nil {
 		return initial
@@ -2761,13 +3397,13 @@ func canonicalizeInstanceSettingsInsightsConfig(des, initial *InstanceSettingsIn
 		return des
 	}
 
-	if dcl.IsZeroValue(des.QueryInsightsEnabled) {
+	if dcl.BoolCanonicalize(des.QueryInsightsEnabled, initial.QueryInsightsEnabled) || dcl.IsZeroValue(des.QueryInsightsEnabled) {
 		des.QueryInsightsEnabled = initial.QueryInsightsEnabled
 	}
-	if dcl.IsZeroValue(des.RecordClientAddress) {
+	if dcl.BoolCanonicalize(des.RecordClientAddress, initial.RecordClientAddress) || dcl.IsZeroValue(des.RecordClientAddress) {
 		des.RecordClientAddress = initial.RecordClientAddress
 	}
-	if dcl.IsZeroValue(des.RecordApplicationTags) {
+	if dcl.BoolCanonicalize(des.RecordApplicationTags, initial.RecordApplicationTags) || dcl.IsZeroValue(des.RecordApplicationTags) {
 		des.RecordApplicationTags = initial.RecordApplicationTags
 	}
 	if dcl.IsZeroValue(des.QueryStringLength) {
@@ -2780,6 +3416,16 @@ func canonicalizeInstanceSettingsInsightsConfig(des, initial *InstanceSettingsIn
 func canonicalizeNewInstanceSettingsInsightsConfig(c *Client, des, nw *InstanceSettingsInsightsConfig) *InstanceSettingsInsightsConfig {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.QueryInsightsEnabled, nw.QueryInsightsEnabled) || dcl.IsZeroValue(des.QueryInsightsEnabled) {
+		nw.QueryInsightsEnabled = des.QueryInsightsEnabled
+	}
+	if dcl.BoolCanonicalize(des.RecordClientAddress, nw.RecordClientAddress) || dcl.IsZeroValue(des.RecordClientAddress) {
+		nw.RecordClientAddress = des.RecordClientAddress
+	}
+	if dcl.BoolCanonicalize(des.RecordApplicationTags, nw.RecordApplicationTags) || dcl.IsZeroValue(des.RecordApplicationTags) {
+		nw.RecordApplicationTags = des.RecordApplicationTags
 	}
 
 	return nw
@@ -2806,6 +3452,26 @@ func canonicalizeNewInstanceSettingsInsightsConfigSet(c *Client, des, nw []Insta
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceSettingsInsightsConfigSlice(c *Client, des, nw []InstanceSettingsInsightsConfig) []InstanceSettingsInsightsConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceSettingsInsightsConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceSettingsInsightsConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceReplicaInstances(des, initial *InstanceReplicaInstances, opts ...dcl.ApplyOption) *InstanceReplicaInstances {
@@ -2866,6 +3532,26 @@ func canonicalizeNewInstanceReplicaInstancesSet(c *Client, des, nw []InstanceRep
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceReplicaInstancesSlice(c *Client, des, nw []InstanceReplicaInstances) []InstanceReplicaInstances {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceReplicaInstances
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceReplicaInstances(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceServerCaCert(des, initial *InstanceServerCaCert, opts ...dcl.ApplyOption) *InstanceServerCaCert {
@@ -2956,6 +3642,26 @@ func canonicalizeNewInstanceServerCaCertSet(c *Client, des, nw []InstanceServerC
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceServerCaCertSlice(c *Client, des, nw []InstanceServerCaCert) []InstanceServerCaCert {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceServerCaCert
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceServerCaCert(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceOnPremisesConfiguration(des, initial *InstanceOnPremisesConfiguration, opts ...dcl.ApplyOption) *InstanceOnPremisesConfiguration {
@@ -3063,6 +3769,26 @@ func canonicalizeNewInstanceOnPremisesConfigurationSet(c *Client, des, nw []Inst
 	return reorderedNew
 }
 
+func canonicalizeNewInstanceOnPremisesConfigurationSlice(c *Client, des, nw []InstanceOnPremisesConfiguration) []InstanceOnPremisesConfiguration {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceOnPremisesConfiguration
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceOnPremisesConfiguration(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceDiskEncryptionStatus(des, initial *InstanceDiskEncryptionStatus, opts ...dcl.ApplyOption) *InstanceDiskEncryptionStatus {
 	if des == nil {
 		return initial
@@ -3121,6 +3847,26 @@ func canonicalizeNewInstanceDiskEncryptionStatusSet(c *Client, des, nw []Instanc
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceDiskEncryptionStatusSlice(c *Client, des, nw []InstanceDiskEncryptionStatus) []InstanceDiskEncryptionStatus {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceDiskEncryptionStatus
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceDiskEncryptionStatus(c, &d, &n))
+	}
+
+	return items
 }
 
 type instanceDiff struct {
@@ -3562,7 +4308,7 @@ func compareInstanceFailoverReplica(c *Client, desired, actual *InstanceFailover
 		c.Config.Logger.Infof("desired Available %s - but actually nil", dcl.SprintResource(desired.Available))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Available, actual.Available) && !dcl.IsZeroValue(desired.Available) {
+	if !dcl.BoolCanonicalize(desired.Available, actual.Available) && !dcl.IsZeroValue(desired.Available) {
 		c.Config.Logger.Infof("Diff in Available. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Available), dcl.SprintResource(actual.Available))
 		return true
 	}
@@ -3881,7 +4627,7 @@ func compareInstanceReplicaConfiguration(c *Client, desired, actual *InstanceRep
 		c.Config.Logger.Infof("desired FailoverTarget %s - but actually nil", dcl.SprintResource(desired.FailoverTarget))
 		return true
 	}
-	if !reflect.DeepEqual(desired.FailoverTarget, actual.FailoverTarget) && !dcl.IsZeroValue(desired.FailoverTarget) {
+	if !dcl.BoolCanonicalize(desired.FailoverTarget, actual.FailoverTarget) && !dcl.IsZeroValue(desired.FailoverTarget) {
 		c.Config.Logger.Infof("Diff in FailoverTarget. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FailoverTarget), dcl.SprintResource(actual.FailoverTarget))
 		return true
 	}
@@ -4012,7 +4758,7 @@ func compareInstanceReplicaConfigurationMysqlReplicaConfiguration(c *Client, des
 		c.Config.Logger.Infof("desired VerifyServerCertificate %s - but actually nil", dcl.SprintResource(desired.VerifyServerCertificate))
 		return true
 	}
-	if !reflect.DeepEqual(desired.VerifyServerCertificate, actual.VerifyServerCertificate) && !dcl.IsZeroValue(desired.VerifyServerCertificate) {
+	if !dcl.BoolCanonicalize(desired.VerifyServerCertificate, actual.VerifyServerCertificate) && !dcl.IsZeroValue(desired.VerifyServerCertificate) {
 		c.Config.Logger.Infof("Diff in VerifyServerCertificate. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.VerifyServerCertificate), dcl.SprintResource(actual.VerifyServerCertificate))
 		return true
 	}
@@ -4154,7 +4900,7 @@ func compareInstanceReplicaConfigurationReplicaPoolConfiguration(c *Client, desi
 		c.Config.Logger.Infof("desired ExposeReplicaIP %s - but actually nil", dcl.SprintResource(desired.ExposeReplicaIP))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ExposeReplicaIP, actual.ExposeReplicaIP) && !dcl.IsZeroValue(desired.ExposeReplicaIP) {
+	if !dcl.BoolCanonicalize(desired.ExposeReplicaIP, actual.ExposeReplicaIP) && !dcl.IsZeroValue(desired.ExposeReplicaIP) {
 		c.Config.Logger.Infof("Diff in ExposeReplicaIP. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExposeReplicaIP), dcl.SprintResource(actual.ExposeReplicaIP))
 		return true
 	}
@@ -4221,7 +4967,7 @@ func compareInstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfig
 		c.Config.Logger.Infof("desired ExposeReplicaIP %s - but actually nil", dcl.SprintResource(desired.ExposeReplicaIP))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ExposeReplicaIP, actual.ExposeReplicaIP) && !dcl.IsZeroValue(desired.ExposeReplicaIP) {
+	if !dcl.BoolCanonicalize(desired.ExposeReplicaIP, actual.ExposeReplicaIP) && !dcl.IsZeroValue(desired.ExposeReplicaIP) {
 		c.Config.Logger.Infof("Diff in ExposeReplicaIP. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExposeReplicaIP), dcl.SprintResource(actual.ExposeReplicaIP))
 		return true
 	}
@@ -4355,7 +5101,7 @@ func compareInstanceScheduledMaintenance(c *Client, desired, actual *InstanceSch
 		c.Config.Logger.Infof("desired CanDefer %s - but actually nil", dcl.SprintResource(desired.CanDefer))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CanDefer, actual.CanDefer) && !dcl.IsZeroValue(desired.CanDefer) {
+	if !dcl.BoolCanonicalize(desired.CanDefer, actual.CanDefer) && !dcl.IsZeroValue(desired.CanDefer) {
 		c.Config.Logger.Infof("Diff in CanDefer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CanDefer), dcl.SprintResource(actual.CanDefer))
 		return true
 	}
@@ -4363,7 +5109,7 @@ func compareInstanceScheduledMaintenance(c *Client, desired, actual *InstanceSch
 		c.Config.Logger.Infof("desired CanReschedule %s - but actually nil", dcl.SprintResource(desired.CanReschedule))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CanReschedule, actual.CanReschedule) && !dcl.IsZeroValue(desired.CanReschedule) {
+	if !dcl.BoolCanonicalize(desired.CanReschedule, actual.CanReschedule) && !dcl.IsZeroValue(desired.CanReschedule) {
 		c.Config.Logger.Infof("Diff in CanReschedule. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CanReschedule), dcl.SprintResource(actual.CanReschedule))
 		return true
 	}
@@ -4529,7 +5275,7 @@ func compareInstanceSettings(c *Client, desired, actual *InstanceSettings) bool 
 		c.Config.Logger.Infof("desired StorageAutoResize %s - but actually nil", dcl.SprintResource(desired.StorageAutoResize))
 		return true
 	}
-	if !reflect.DeepEqual(desired.StorageAutoResize, actual.StorageAutoResize) && !dcl.IsZeroValue(desired.StorageAutoResize) {
+	if !dcl.BoolCanonicalize(desired.StorageAutoResize, actual.StorageAutoResize) && !dcl.IsZeroValue(desired.StorageAutoResize) {
 		c.Config.Logger.Infof("Diff in StorageAutoResize. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StorageAutoResize), dcl.SprintResource(actual.StorageAutoResize))
 		return true
 	}
@@ -4545,7 +5291,7 @@ func compareInstanceSettings(c *Client, desired, actual *InstanceSettings) bool 
 		c.Config.Logger.Infof("desired DatabaseReplicationEnabled %s - but actually nil", dcl.SprintResource(desired.DatabaseReplicationEnabled))
 		return true
 	}
-	if !reflect.DeepEqual(desired.DatabaseReplicationEnabled, actual.DatabaseReplicationEnabled) && !dcl.IsZeroValue(desired.DatabaseReplicationEnabled) {
+	if !dcl.BoolCanonicalize(desired.DatabaseReplicationEnabled, actual.DatabaseReplicationEnabled) && !dcl.IsZeroValue(desired.DatabaseReplicationEnabled) {
 		c.Config.Logger.Infof("Diff in DatabaseReplicationEnabled. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DatabaseReplicationEnabled), dcl.SprintResource(actual.DatabaseReplicationEnabled))
 		return true
 	}
@@ -4553,7 +5299,7 @@ func compareInstanceSettings(c *Client, desired, actual *InstanceSettings) bool 
 		c.Config.Logger.Infof("desired CrashSafeReplicationEnabled %s - but actually nil", dcl.SprintResource(desired.CrashSafeReplicationEnabled))
 		return true
 	}
-	if !reflect.DeepEqual(desired.CrashSafeReplicationEnabled, actual.CrashSafeReplicationEnabled) && !dcl.IsZeroValue(desired.CrashSafeReplicationEnabled) {
+	if !dcl.BoolCanonicalize(desired.CrashSafeReplicationEnabled, actual.CrashSafeReplicationEnabled) && !dcl.IsZeroValue(desired.CrashSafeReplicationEnabled) {
 		c.Config.Logger.Infof("Diff in CrashSafeReplicationEnabled. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrashSafeReplicationEnabled), dcl.SprintResource(actual.CrashSafeReplicationEnabled))
 		return true
 	}
@@ -4810,7 +5556,7 @@ func compareInstanceSettingsIPConfiguration(c *Client, desired, actual *Instance
 		c.Config.Logger.Infof("desired IPv4Enabled %s - but actually nil", dcl.SprintResource(desired.IPv4Enabled))
 		return true
 	}
-	if !reflect.DeepEqual(desired.IPv4Enabled, actual.IPv4Enabled) && !dcl.IsZeroValue(desired.IPv4Enabled) {
+	if !dcl.BoolCanonicalize(desired.IPv4Enabled, actual.IPv4Enabled) && !dcl.IsZeroValue(desired.IPv4Enabled) {
 		c.Config.Logger.Infof("Diff in IPv4Enabled. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IPv4Enabled), dcl.SprintResource(actual.IPv4Enabled))
 		return true
 	}
@@ -4826,7 +5572,7 @@ func compareInstanceSettingsIPConfiguration(c *Client, desired, actual *Instance
 		c.Config.Logger.Infof("desired RequireSsl %s - but actually nil", dcl.SprintResource(desired.RequireSsl))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RequireSsl, actual.RequireSsl) && !dcl.IsZeroValue(desired.RequireSsl) {
+	if !dcl.BoolCanonicalize(desired.RequireSsl, actual.RequireSsl) && !dcl.IsZeroValue(desired.RequireSsl) {
 		c.Config.Logger.Infof("Diff in RequireSsl. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequireSsl), dcl.SprintResource(actual.RequireSsl))
 		return true
 	}
@@ -5161,7 +5907,7 @@ func compareInstanceSettingsBackupConfiguration(c *Client, desired, actual *Inst
 		c.Config.Logger.Infof("desired Enabled %s - but actually nil", dcl.SprintResource(desired.Enabled))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Enabled, actual.Enabled) && !dcl.IsZeroValue(desired.Enabled) {
+	if !dcl.BoolCanonicalize(desired.Enabled, actual.Enabled) && !dcl.IsZeroValue(desired.Enabled) {
 		c.Config.Logger.Infof("Diff in Enabled. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Enabled), dcl.SprintResource(actual.Enabled))
 		return true
 	}
@@ -5177,7 +5923,7 @@ func compareInstanceSettingsBackupConfiguration(c *Client, desired, actual *Inst
 		c.Config.Logger.Infof("desired BinaryLogEnabled %s - but actually nil", dcl.SprintResource(desired.BinaryLogEnabled))
 		return true
 	}
-	if !reflect.DeepEqual(desired.BinaryLogEnabled, actual.BinaryLogEnabled) && !dcl.IsZeroValue(desired.BinaryLogEnabled) {
+	if !dcl.BoolCanonicalize(desired.BinaryLogEnabled, actual.BinaryLogEnabled) && !dcl.IsZeroValue(desired.BinaryLogEnabled) {
 		c.Config.Logger.Infof("Diff in BinaryLogEnabled. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BinaryLogEnabled), dcl.SprintResource(actual.BinaryLogEnabled))
 		return true
 	}
@@ -5488,7 +6234,7 @@ func compareInstanceSettingsInsightsConfig(c *Client, desired, actual *InstanceS
 		c.Config.Logger.Infof("desired QueryInsightsEnabled %s - but actually nil", dcl.SprintResource(desired.QueryInsightsEnabled))
 		return true
 	}
-	if !reflect.DeepEqual(desired.QueryInsightsEnabled, actual.QueryInsightsEnabled) && !dcl.IsZeroValue(desired.QueryInsightsEnabled) {
+	if !dcl.BoolCanonicalize(desired.QueryInsightsEnabled, actual.QueryInsightsEnabled) && !dcl.IsZeroValue(desired.QueryInsightsEnabled) {
 		c.Config.Logger.Infof("Diff in QueryInsightsEnabled. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryInsightsEnabled), dcl.SprintResource(actual.QueryInsightsEnabled))
 		return true
 	}
@@ -5496,7 +6242,7 @@ func compareInstanceSettingsInsightsConfig(c *Client, desired, actual *InstanceS
 		c.Config.Logger.Infof("desired RecordClientAddress %s - but actually nil", dcl.SprintResource(desired.RecordClientAddress))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RecordClientAddress, actual.RecordClientAddress) && !dcl.IsZeroValue(desired.RecordClientAddress) {
+	if !dcl.BoolCanonicalize(desired.RecordClientAddress, actual.RecordClientAddress) && !dcl.IsZeroValue(desired.RecordClientAddress) {
 		c.Config.Logger.Infof("Diff in RecordClientAddress. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RecordClientAddress), dcl.SprintResource(actual.RecordClientAddress))
 		return true
 	}
@@ -5504,7 +6250,7 @@ func compareInstanceSettingsInsightsConfig(c *Client, desired, actual *InstanceS
 		c.Config.Logger.Infof("desired RecordApplicationTags %s - but actually nil", dcl.SprintResource(desired.RecordApplicationTags))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RecordApplicationTags, actual.RecordApplicationTags) && !dcl.IsZeroValue(desired.RecordApplicationTags) {
+	if !dcl.BoolCanonicalize(desired.RecordApplicationTags, actual.RecordApplicationTags) && !dcl.IsZeroValue(desired.RecordApplicationTags) {
 		c.Config.Logger.Infof("Diff in RecordApplicationTags. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RecordApplicationTags), dcl.SprintResource(actual.RecordApplicationTags))
 		return true
 	}

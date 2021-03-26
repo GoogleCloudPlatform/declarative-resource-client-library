@@ -11,6 +11,6 @@
       "password": "{{ref:basic.sql.user.json:password}}"
     }
   },
-  "project": "{{ref:basic.serviceusage.service.json:project}}",
+  "project": "{{project}}",
   "location": "{{region}}"
 }

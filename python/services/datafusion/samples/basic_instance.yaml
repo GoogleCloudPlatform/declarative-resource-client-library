@@ -15,8 +15,6 @@ dependencies:
 - samples/basic.cloudbilling.project_billing_info.json
 - samples/basic.cloudresourcemanager.project.json
 - samples/basic.compute.network.json
-- samples/compute.serviceusage.service.json
-- samples/datafusion.serviceusage.service.json
 description: A basic example for a Data Fusion Instance
 name: basic_instance
 resource: samples/basic.instance.json

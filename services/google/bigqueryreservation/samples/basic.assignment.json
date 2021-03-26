@@ -1,7 +1,7 @@
 {
-  "assignee": "projects/{{ref:basic.serviceusage.service.json:project}}",
+  "assignee": "projects/{{project}}",
   "jobType": "PIPELINE",
-  "project": "{{ref:basic.serviceusage.service.json:project}}",
+  "project": "{{project}}",
   "location": "{{region}}",
   "reservation": "{{ref:basic.reservation.json:name}}"
 }

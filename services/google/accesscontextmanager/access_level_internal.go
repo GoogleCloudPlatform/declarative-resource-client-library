@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -291,9 +292,20 @@ func (op *deleteAccessLevelOperation) do(ctx context.Context, r *AccessLevel, c 
 	if err := o.Wait(ctx, c.Config, "https://accesscontextmanager.googleapis.com/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetAccessLevel(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetAccessLevel(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -393,7 +405,6 @@ func (c *Client) accessLevelDiffsForRawDesired(ctx context.Context, rawDesired *
 		desired, err = canonicalizeAccessLevelDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for AccessLevel: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for AccessLevel: %v", rawDesired)
 
@@ -542,6 +553,8 @@ func canonicalizeNewAccessLevelBasic(c *Client, des, nw *AccessLevelBasic) *Acce
 		nw.CombiningFunction = AccessLevelBasicCombiningFunctionEnumRef("AND")
 	}
 
+	nw.Conditions = canonicalizeNewAccessLevelBasicConditionsSlice(c, des.Conditions, nw.Conditions)
+
 	return nw
 }
 
@@ -568,6 +581,26 @@ func canonicalizeNewAccessLevelBasicSet(c *Client, des, nw []AccessLevelBasic) [
 	return reorderedNew
 }
 
+func canonicalizeNewAccessLevelBasicSlice(c *Client, des, nw []AccessLevelBasic) []AccessLevelBasic {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AccessLevelBasic
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAccessLevelBasic(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAccessLevelBasicConditions(des, initial *AccessLevelBasicConditions, opts ...dcl.ApplyOption) *AccessLevelBasicConditions {
 	if des == nil {
 		return initial
@@ -592,7 +625,7 @@ func canonicalizeAccessLevelBasicConditions(des, initial *AccessLevelBasicCondit
 	if dcl.IsZeroValue(des.Members) {
 		des.Members = initial.Members
 	}
-	if dcl.IsZeroValue(des.Negate) {
+	if dcl.BoolCanonicalize(des.Negate, initial.Negate) || dcl.IsZeroValue(des.Negate) {
 		des.Negate = initial.Negate
 	}
 	des.DevicePolicy = canonicalizeAccessLevelBasicConditionsDevicePolicy(des.DevicePolicy, initial.DevicePolicy, opts...)
@@ -605,6 +638,9 @@ func canonicalizeNewAccessLevelBasicConditions(c *Client, des, nw *AccessLevelBa
 		return nw
 	}
 
+	if dcl.BoolCanonicalize(des.Negate, nw.Negate) || dcl.IsZeroValue(des.Negate) {
+		nw.Negate = des.Negate
+	}
 	nw.DevicePolicy = canonicalizeNewAccessLevelBasicConditionsDevicePolicy(c, des.DevicePolicy, nw.DevicePolicy)
 
 	return nw
@@ -633,6 +669,26 @@ func canonicalizeNewAccessLevelBasicConditionsSet(c *Client, des, nw []AccessLev
 	return reorderedNew
 }
 
+func canonicalizeNewAccessLevelBasicConditionsSlice(c *Client, des, nw []AccessLevelBasicConditions) []AccessLevelBasicConditions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AccessLevelBasicConditions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAccessLevelBasicConditions(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAccessLevelBasicConditionsDevicePolicy(des, initial *AccessLevelBasicConditionsDevicePolicy, opts ...dcl.ApplyOption) *AccessLevelBasicConditionsDevicePolicy {
 	if des == nil {
 		return initial
@@ -645,13 +701,13 @@ func canonicalizeAccessLevelBasicConditionsDevicePolicy(des, initial *AccessLeve
 		return des
 	}
 
-	if dcl.IsZeroValue(des.RequireScreenlock) {
+	if dcl.BoolCanonicalize(des.RequireScreenlock, initial.RequireScreenlock) || dcl.IsZeroValue(des.RequireScreenlock) {
 		des.RequireScreenlock = initial.RequireScreenlock
 	}
-	if dcl.IsZeroValue(des.RequireAdminApproval) {
+	if dcl.BoolCanonicalize(des.RequireAdminApproval, initial.RequireAdminApproval) || dcl.IsZeroValue(des.RequireAdminApproval) {
 		des.RequireAdminApproval = initial.RequireAdminApproval
 	}
-	if dcl.IsZeroValue(des.RequireCorpOwned) {
+	if dcl.BoolCanonicalize(des.RequireCorpOwned, initial.RequireCorpOwned) || dcl.IsZeroValue(des.RequireCorpOwned) {
 		des.RequireCorpOwned = initial.RequireCorpOwned
 	}
 	if dcl.IsZeroValue(des.AllowedEncryptionStatuses) {
@@ -671,6 +727,17 @@ func canonicalizeNewAccessLevelBasicConditionsDevicePolicy(c *Client, des, nw *A
 	if des == nil || nw == nil {
 		return nw
 	}
+
+	if dcl.BoolCanonicalize(des.RequireScreenlock, nw.RequireScreenlock) || dcl.IsZeroValue(des.RequireScreenlock) {
+		nw.RequireScreenlock = des.RequireScreenlock
+	}
+	if dcl.BoolCanonicalize(des.RequireAdminApproval, nw.RequireAdminApproval) || dcl.IsZeroValue(des.RequireAdminApproval) {
+		nw.RequireAdminApproval = des.RequireAdminApproval
+	}
+	if dcl.BoolCanonicalize(des.RequireCorpOwned, nw.RequireCorpOwned) || dcl.IsZeroValue(des.RequireCorpOwned) {
+		nw.RequireCorpOwned = des.RequireCorpOwned
+	}
+	nw.OsConstraints = canonicalizeNewAccessLevelBasicConditionsDevicePolicyOsConstraintsSlice(c, des.OsConstraints, nw.OsConstraints)
 
 	return nw
 }
@@ -698,6 +765,26 @@ func canonicalizeNewAccessLevelBasicConditionsDevicePolicySet(c *Client, des, nw
 	return reorderedNew
 }
 
+func canonicalizeNewAccessLevelBasicConditionsDevicePolicySlice(c *Client, des, nw []AccessLevelBasicConditionsDevicePolicy) []AccessLevelBasicConditionsDevicePolicy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AccessLevelBasicConditionsDevicePolicy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAccessLevelBasicConditionsDevicePolicy(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAccessLevelBasicConditionsDevicePolicyOsConstraints(des, initial *AccessLevelBasicConditionsDevicePolicyOsConstraints, opts ...dcl.ApplyOption) *AccessLevelBasicConditionsDevicePolicyOsConstraints {
 	if des == nil {
 		return initial
@@ -716,7 +803,7 @@ func canonicalizeAccessLevelBasicConditionsDevicePolicyOsConstraints(des, initia
 	if dcl.IsZeroValue(des.OsType) {
 		des.OsType = initial.OsType
 	}
-	if dcl.IsZeroValue(des.RequireVerifiedChromeOs) {
+	if dcl.BoolCanonicalize(des.RequireVerifiedChromeOs, initial.RequireVerifiedChromeOs) || dcl.IsZeroValue(des.RequireVerifiedChromeOs) {
 		des.RequireVerifiedChromeOs = initial.RequireVerifiedChromeOs
 	}
 
@@ -730,6 +817,9 @@ func canonicalizeNewAccessLevelBasicConditionsDevicePolicyOsConstraints(c *Clien
 
 	if dcl.StringCanonicalize(des.MinimumVersion, nw.MinimumVersion) || dcl.IsZeroValue(des.MinimumVersion) {
 		nw.MinimumVersion = des.MinimumVersion
+	}
+	if dcl.BoolCanonicalize(des.RequireVerifiedChromeOs, nw.RequireVerifiedChromeOs) || dcl.IsZeroValue(des.RequireVerifiedChromeOs) {
+		nw.RequireVerifiedChromeOs = des.RequireVerifiedChromeOs
 	}
 
 	return nw
@@ -756,6 +846,26 @@ func canonicalizeNewAccessLevelBasicConditionsDevicePolicyOsConstraintsSet(c *Cl
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAccessLevelBasicConditionsDevicePolicyOsConstraintsSlice(c *Client, des, nw []AccessLevelBasicConditionsDevicePolicyOsConstraints) []AccessLevelBasicConditionsDevicePolicyOsConstraints {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AccessLevelBasicConditionsDevicePolicyOsConstraints
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAccessLevelBasicConditionsDevicePolicyOsConstraints(c, &d, &n))
+	}
+
+	return items
 }
 
 type accessLevelDiff struct {
@@ -955,7 +1065,7 @@ func compareAccessLevelBasicConditions(c *Client, desired, actual *AccessLevelBa
 		c.Config.Logger.Infof("desired Negate %s - but actually nil", dcl.SprintResource(desired.Negate))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Negate, actual.Negate) && !dcl.IsZeroValue(desired.Negate) {
+	if !dcl.BoolCanonicalize(desired.Negate, actual.Negate) && !dcl.IsZeroValue(desired.Negate) {
 		c.Config.Logger.Infof("Diff in Negate. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Negate), dcl.SprintResource(actual.Negate))
 		return true
 	}
@@ -1014,7 +1124,7 @@ func compareAccessLevelBasicConditionsDevicePolicy(c *Client, desired, actual *A
 		c.Config.Logger.Infof("desired RequireScreenlock %s - but actually nil", dcl.SprintResource(desired.RequireScreenlock))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RequireScreenlock, actual.RequireScreenlock) && !dcl.IsZeroValue(desired.RequireScreenlock) {
+	if !dcl.BoolCanonicalize(desired.RequireScreenlock, actual.RequireScreenlock) && !dcl.IsZeroValue(desired.RequireScreenlock) {
 		c.Config.Logger.Infof("Diff in RequireScreenlock. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequireScreenlock), dcl.SprintResource(actual.RequireScreenlock))
 		return true
 	}
@@ -1022,7 +1132,7 @@ func compareAccessLevelBasicConditionsDevicePolicy(c *Client, desired, actual *A
 		c.Config.Logger.Infof("desired RequireAdminApproval %s - but actually nil", dcl.SprintResource(desired.RequireAdminApproval))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RequireAdminApproval, actual.RequireAdminApproval) && !dcl.IsZeroValue(desired.RequireAdminApproval) {
+	if !dcl.BoolCanonicalize(desired.RequireAdminApproval, actual.RequireAdminApproval) && !dcl.IsZeroValue(desired.RequireAdminApproval) {
 		c.Config.Logger.Infof("Diff in RequireAdminApproval. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequireAdminApproval), dcl.SprintResource(actual.RequireAdminApproval))
 		return true
 	}
@@ -1030,7 +1140,7 @@ func compareAccessLevelBasicConditionsDevicePolicy(c *Client, desired, actual *A
 		c.Config.Logger.Infof("desired RequireCorpOwned %s - but actually nil", dcl.SprintResource(desired.RequireCorpOwned))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RequireCorpOwned, actual.RequireCorpOwned) && !dcl.IsZeroValue(desired.RequireCorpOwned) {
+	if !dcl.BoolCanonicalize(desired.RequireCorpOwned, actual.RequireCorpOwned) && !dcl.IsZeroValue(desired.RequireCorpOwned) {
 		c.Config.Logger.Infof("Diff in RequireCorpOwned. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequireCorpOwned), dcl.SprintResource(actual.RequireCorpOwned))
 		return true
 	}
@@ -1121,7 +1231,7 @@ func compareAccessLevelBasicConditionsDevicePolicyOsConstraints(c *Client, desir
 		c.Config.Logger.Infof("desired RequireVerifiedChromeOs %s - but actually nil", dcl.SprintResource(desired.RequireVerifiedChromeOs))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RequireVerifiedChromeOs, actual.RequireVerifiedChromeOs) && !dcl.IsZeroValue(desired.RequireVerifiedChromeOs) {
+	if !dcl.BoolCanonicalize(desired.RequireVerifiedChromeOs, actual.RequireVerifiedChromeOs) && !dcl.IsZeroValue(desired.RequireVerifiedChromeOs) {
 		c.Config.Logger.Infof("Diff in RequireVerifiedChromeOs. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequireVerifiedChromeOs), dcl.SprintResource(actual.RequireVerifiedChromeOs))
 		return true
 	}

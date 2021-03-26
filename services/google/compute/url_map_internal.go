@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -685,9 +686,20 @@ func (op *deleteUrlMapOperation) do(ctx context.Context, r *UrlMap, c *Client) e
 	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetUrlMap(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetUrlMap(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -787,7 +799,6 @@ func (c *Client) urlMapDiffsForRawDesired(ctx context.Context, rawDesired *UrlMa
 		desired, err = canonicalizeUrlMapDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for UrlMap: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for UrlMap: %v", rawDesired)
 
@@ -931,6 +942,7 @@ func canonicalizeUrlMapNewState(c *Client, rawNew, rawDesired *UrlMap) (*UrlMap,
 	if dcl.IsEmptyValueIndirect(rawNew.Test) && dcl.IsEmptyValueIndirect(rawDesired.Test) {
 		rawNew.Test = rawDesired.Test
 	} else {
+		rawNew.Test = canonicalizeNewUrlMapTestSlice(c, rawDesired.Test, rawNew.Test)
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -968,6 +980,7 @@ func canonicalizeNewUrlMapDefaultRouteAction(c *Client, des, nw *UrlMapDefaultRo
 		return nw
 	}
 
+	nw.WeightedBackendService = canonicalizeNewUrlMapDefaultRouteActionWeightedBackendServiceSlice(c, des.WeightedBackendService, nw.WeightedBackendService)
 	nw.UrlRewrite = canonicalizeNewUrlMapDefaultRouteActionUrlRewrite(c, des.UrlRewrite, nw.UrlRewrite)
 	nw.Timeout = canonicalizeNewUrlMapDefaultRouteActionTimeout(c, des.Timeout, nw.Timeout)
 	nw.RetryPolicy = canonicalizeNewUrlMapDefaultRouteActionRetryPolicy(c, des.RetryPolicy, nw.RetryPolicy)
@@ -999,6 +1012,26 @@ func canonicalizeNewUrlMapDefaultRouteActionSet(c *Client, des, nw []UrlMapDefau
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapDefaultRouteActionSlice(c *Client, des, nw []UrlMapDefaultRouteAction) []UrlMapDefaultRouteAction {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapDefaultRouteAction
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapDefaultRouteAction(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapDefaultRouteActionWeightedBackendService(des, initial *UrlMapDefaultRouteActionWeightedBackendService, opts ...dcl.ApplyOption) *UrlMapDefaultRouteActionWeightedBackendService {
@@ -1060,6 +1093,26 @@ func canonicalizeNewUrlMapDefaultRouteActionWeightedBackendServiceSet(c *Client,
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapDefaultRouteActionWeightedBackendServiceSlice(c *Client, des, nw []UrlMapDefaultRouteActionWeightedBackendService) []UrlMapDefaultRouteActionWeightedBackendService {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapDefaultRouteActionWeightedBackendService
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapDefaultRouteActionWeightedBackendService(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapHeaderAction(des, initial *UrlMapHeaderAction, opts ...dcl.ApplyOption) *UrlMapHeaderAction {
 	if des == nil {
 		return initial
@@ -1093,6 +1146,9 @@ func canonicalizeNewUrlMapHeaderAction(c *Client, des, nw *UrlMapHeaderAction) *
 		return nw
 	}
 
+	nw.RequestHeadersToAdd = canonicalizeNewUrlMapHeaderActionRequestHeadersToAddSlice(c, des.RequestHeadersToAdd, nw.RequestHeadersToAdd)
+	nw.ResponseHeadersToAdd = canonicalizeNewUrlMapHeaderActionResponseHeadersToAddSlice(c, des.ResponseHeadersToAdd, nw.ResponseHeadersToAdd)
+
 	return nw
 }
 
@@ -1119,6 +1175,26 @@ func canonicalizeNewUrlMapHeaderActionSet(c *Client, des, nw []UrlMapHeaderActio
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapHeaderActionSlice(c *Client, des, nw []UrlMapHeaderAction) []UrlMapHeaderAction {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapHeaderAction
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapHeaderAction(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapHeaderActionRequestHeadersToAdd(des, initial *UrlMapHeaderActionRequestHeadersToAdd, opts ...dcl.ApplyOption) *UrlMapHeaderActionRequestHeadersToAdd {
 	if des == nil {
 		return initial
@@ -1137,7 +1213,7 @@ func canonicalizeUrlMapHeaderActionRequestHeadersToAdd(des, initial *UrlMapHeade
 	if dcl.StringCanonicalize(des.HeaderValue, initial.HeaderValue) || dcl.IsZeroValue(des.HeaderValue) {
 		des.HeaderValue = initial.HeaderValue
 	}
-	if dcl.IsZeroValue(des.Replace) {
+	if dcl.BoolCanonicalize(des.Replace, initial.Replace) || dcl.IsZeroValue(des.Replace) {
 		des.Replace = initial.Replace
 	}
 
@@ -1154,6 +1230,9 @@ func canonicalizeNewUrlMapHeaderActionRequestHeadersToAdd(c *Client, des, nw *Ur
 	}
 	if dcl.StringCanonicalize(des.HeaderValue, nw.HeaderValue) || dcl.IsZeroValue(des.HeaderValue) {
 		nw.HeaderValue = des.HeaderValue
+	}
+	if dcl.BoolCanonicalize(des.Replace, nw.Replace) || dcl.IsZeroValue(des.Replace) {
+		nw.Replace = des.Replace
 	}
 
 	return nw
@@ -1182,6 +1261,26 @@ func canonicalizeNewUrlMapHeaderActionRequestHeadersToAddSet(c *Client, des, nw 
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapHeaderActionRequestHeadersToAddSlice(c *Client, des, nw []UrlMapHeaderActionRequestHeadersToAdd) []UrlMapHeaderActionRequestHeadersToAdd {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapHeaderActionRequestHeadersToAdd
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapHeaderActionRequestHeadersToAdd(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapHeaderActionResponseHeadersToAdd(des, initial *UrlMapHeaderActionResponseHeadersToAdd, opts ...dcl.ApplyOption) *UrlMapHeaderActionResponseHeadersToAdd {
 	if des == nil {
 		return initial
@@ -1200,7 +1299,7 @@ func canonicalizeUrlMapHeaderActionResponseHeadersToAdd(des, initial *UrlMapHead
 	if dcl.StringCanonicalize(des.HeaderValue, initial.HeaderValue) || dcl.IsZeroValue(des.HeaderValue) {
 		des.HeaderValue = initial.HeaderValue
 	}
-	if dcl.IsZeroValue(des.Replace) {
+	if dcl.BoolCanonicalize(des.Replace, initial.Replace) || dcl.IsZeroValue(des.Replace) {
 		des.Replace = initial.Replace
 	}
 
@@ -1217,6 +1316,9 @@ func canonicalizeNewUrlMapHeaderActionResponseHeadersToAdd(c *Client, des, nw *U
 	}
 	if dcl.StringCanonicalize(des.HeaderValue, nw.HeaderValue) || dcl.IsZeroValue(des.HeaderValue) {
 		nw.HeaderValue = des.HeaderValue
+	}
+	if dcl.BoolCanonicalize(des.Replace, nw.Replace) || dcl.IsZeroValue(des.Replace) {
+		nw.Replace = des.Replace
 	}
 
 	return nw
@@ -1243,6 +1345,26 @@ func canonicalizeNewUrlMapHeaderActionResponseHeadersToAddSet(c *Client, des, nw
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapHeaderActionResponseHeadersToAddSlice(c *Client, des, nw []UrlMapHeaderActionResponseHeadersToAdd) []UrlMapHeaderActionResponseHeadersToAdd {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapHeaderActionResponseHeadersToAdd
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapHeaderActionResponseHeadersToAdd(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapDefaultRouteActionUrlRewrite(des, initial *UrlMapDefaultRouteActionUrlRewrite, opts ...dcl.ApplyOption) *UrlMapDefaultRouteActionUrlRewrite {
@@ -1305,6 +1427,26 @@ func canonicalizeNewUrlMapDefaultRouteActionUrlRewriteSet(c *Client, des, nw []U
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapDefaultRouteActionUrlRewriteSlice(c *Client, des, nw []UrlMapDefaultRouteActionUrlRewrite) []UrlMapDefaultRouteActionUrlRewrite {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapDefaultRouteActionUrlRewrite
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapDefaultRouteActionUrlRewrite(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapDefaultRouteActionTimeout(des, initial *UrlMapDefaultRouteActionTimeout, opts ...dcl.ApplyOption) *UrlMapDefaultRouteActionTimeout {
 	if des == nil {
 		return initial
@@ -1356,6 +1498,26 @@ func canonicalizeNewUrlMapDefaultRouteActionTimeoutSet(c *Client, des, nw []UrlM
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapDefaultRouteActionTimeoutSlice(c *Client, des, nw []UrlMapDefaultRouteActionTimeout) []UrlMapDefaultRouteActionTimeout {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapDefaultRouteActionTimeout
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapDefaultRouteActionTimeout(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapDefaultRouteActionRetryPolicy(des, initial *UrlMapDefaultRouteActionRetryPolicy, opts ...dcl.ApplyOption) *UrlMapDefaultRouteActionRetryPolicy {
@@ -1414,6 +1576,26 @@ func canonicalizeNewUrlMapDefaultRouteActionRetryPolicySet(c *Client, des, nw []
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapDefaultRouteActionRetryPolicySlice(c *Client, des, nw []UrlMapDefaultRouteActionRetryPolicy) []UrlMapDefaultRouteActionRetryPolicy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapDefaultRouteActionRetryPolicy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapDefaultRouteActionRetryPolicy(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapDefaultRouteActionRetryPolicyPerTryTimeout(des, initial *UrlMapDefaultRouteActionRetryPolicyPerTryTimeout, opts ...dcl.ApplyOption) *UrlMapDefaultRouteActionRetryPolicyPerTryTimeout {
 	if des == nil {
 		return initial
@@ -1465,6 +1647,26 @@ func canonicalizeNewUrlMapDefaultRouteActionRetryPolicyPerTryTimeoutSet(c *Clien
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapDefaultRouteActionRetryPolicyPerTryTimeoutSlice(c *Client, des, nw []UrlMapDefaultRouteActionRetryPolicyPerTryTimeout) []UrlMapDefaultRouteActionRetryPolicyPerTryTimeout {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapDefaultRouteActionRetryPolicyPerTryTimeout
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapDefaultRouteActionRetryPolicyPerTryTimeout(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapDefaultRouteActionRequestMirrorPolicy(des, initial *UrlMapDefaultRouteActionRequestMirrorPolicy, opts ...dcl.ApplyOption) *UrlMapDefaultRouteActionRequestMirrorPolicy {
@@ -1521,6 +1723,26 @@ func canonicalizeNewUrlMapDefaultRouteActionRequestMirrorPolicySet(c *Client, de
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapDefaultRouteActionRequestMirrorPolicySlice(c *Client, des, nw []UrlMapDefaultRouteActionRequestMirrorPolicy) []UrlMapDefaultRouteActionRequestMirrorPolicy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapDefaultRouteActionRequestMirrorPolicy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapDefaultRouteActionRequestMirrorPolicy(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapDefaultRouteActionCorsPolicy(des, initial *UrlMapDefaultRouteActionCorsPolicy, opts ...dcl.ApplyOption) *UrlMapDefaultRouteActionCorsPolicy {
 	if des == nil {
 		return initial
@@ -1551,10 +1773,10 @@ func canonicalizeUrlMapDefaultRouteActionCorsPolicy(des, initial *UrlMapDefaultR
 	if dcl.IsZeroValue(des.MaxAge) {
 		des.MaxAge = initial.MaxAge
 	}
-	if dcl.IsZeroValue(des.AllowCredentials) {
+	if dcl.BoolCanonicalize(des.AllowCredentials, initial.AllowCredentials) || dcl.IsZeroValue(des.AllowCredentials) {
 		des.AllowCredentials = initial.AllowCredentials
 	}
-	if dcl.IsZeroValue(des.Disabled) {
+	if dcl.BoolCanonicalize(des.Disabled, initial.Disabled) || dcl.IsZeroValue(des.Disabled) {
 		des.Disabled = initial.Disabled
 	}
 
@@ -1564,6 +1786,13 @@ func canonicalizeUrlMapDefaultRouteActionCorsPolicy(des, initial *UrlMapDefaultR
 func canonicalizeNewUrlMapDefaultRouteActionCorsPolicy(c *Client, des, nw *UrlMapDefaultRouteActionCorsPolicy) *UrlMapDefaultRouteActionCorsPolicy {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.AllowCredentials, nw.AllowCredentials) || dcl.IsZeroValue(des.AllowCredentials) {
+		nw.AllowCredentials = des.AllowCredentials
+	}
+	if dcl.BoolCanonicalize(des.Disabled, nw.Disabled) || dcl.IsZeroValue(des.Disabled) {
+		nw.Disabled = des.Disabled
 	}
 
 	return nw
@@ -1590,6 +1819,26 @@ func canonicalizeNewUrlMapDefaultRouteActionCorsPolicySet(c *Client, des, nw []U
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapDefaultRouteActionCorsPolicySlice(c *Client, des, nw []UrlMapDefaultRouteActionCorsPolicy) []UrlMapDefaultRouteActionCorsPolicy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapDefaultRouteActionCorsPolicy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapDefaultRouteActionCorsPolicy(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapDefaultRouteActionFaultInjectionPolicy(des, initial *UrlMapDefaultRouteActionFaultInjectionPolicy, opts ...dcl.ApplyOption) *UrlMapDefaultRouteActionFaultInjectionPolicy {
@@ -1642,6 +1891,26 @@ func canonicalizeNewUrlMapDefaultRouteActionFaultInjectionPolicySet(c *Client, d
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapDefaultRouteActionFaultInjectionPolicySlice(c *Client, des, nw []UrlMapDefaultRouteActionFaultInjectionPolicy) []UrlMapDefaultRouteActionFaultInjectionPolicy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapDefaultRouteActionFaultInjectionPolicy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapDefaultRouteActionFaultInjectionPolicy(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapDefaultRouteActionFaultInjectionPolicyDelay(des, initial *UrlMapDefaultRouteActionFaultInjectionPolicyDelay, opts ...dcl.ApplyOption) *UrlMapDefaultRouteActionFaultInjectionPolicyDelay {
@@ -1697,6 +1966,26 @@ func canonicalizeNewUrlMapDefaultRouteActionFaultInjectionPolicyDelaySet(c *Clie
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapDefaultRouteActionFaultInjectionPolicyDelaySlice(c *Client, des, nw []UrlMapDefaultRouteActionFaultInjectionPolicyDelay) []UrlMapDefaultRouteActionFaultInjectionPolicyDelay {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapDefaultRouteActionFaultInjectionPolicyDelay
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapDefaultRouteActionFaultInjectionPolicyDelay(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay(des, initial *UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay, opts ...dcl.ApplyOption) *UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay {
 	if des == nil {
 		return initial
@@ -1748,6 +2037,26 @@ func canonicalizeNewUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelayS
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelaySlice(c *Client, des, nw []UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay) []UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapDefaultRouteActionFaultInjectionPolicyAbort(des, initial *UrlMapDefaultRouteActionFaultInjectionPolicyAbort, opts ...dcl.ApplyOption) *UrlMapDefaultRouteActionFaultInjectionPolicyAbort {
@@ -1803,6 +2112,26 @@ func canonicalizeNewUrlMapDefaultRouteActionFaultInjectionPolicyAbortSet(c *Clie
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapDefaultRouteActionFaultInjectionPolicyAbortSlice(c *Client, des, nw []UrlMapDefaultRouteActionFaultInjectionPolicyAbort) []UrlMapDefaultRouteActionFaultInjectionPolicyAbort {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapDefaultRouteActionFaultInjectionPolicyAbort
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapDefaultRouteActionFaultInjectionPolicyAbort(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapDefaultUrlRedirect(des, initial *UrlMapDefaultUrlRedirect, opts ...dcl.ApplyOption) *UrlMapDefaultUrlRedirect {
 	if des == nil {
 		return initial
@@ -1827,10 +2156,10 @@ func canonicalizeUrlMapDefaultUrlRedirect(des, initial *UrlMapDefaultUrlRedirect
 	if dcl.IsZeroValue(des.RedirectResponseCode) {
 		des.RedirectResponseCode = initial.RedirectResponseCode
 	}
-	if dcl.IsZeroValue(des.HttpsRedirect) {
+	if dcl.BoolCanonicalize(des.HttpsRedirect, initial.HttpsRedirect) || dcl.IsZeroValue(des.HttpsRedirect) {
 		des.HttpsRedirect = initial.HttpsRedirect
 	}
-	if dcl.IsZeroValue(des.StripQuery) {
+	if dcl.BoolCanonicalize(des.StripQuery, initial.StripQuery) || dcl.IsZeroValue(des.StripQuery) {
 		des.StripQuery = initial.StripQuery
 	}
 
@@ -1850,6 +2179,12 @@ func canonicalizeNewUrlMapDefaultUrlRedirect(c *Client, des, nw *UrlMapDefaultUr
 	}
 	if dcl.StringCanonicalize(des.PrefixRedirect, nw.PrefixRedirect) || dcl.IsZeroValue(des.PrefixRedirect) {
 		nw.PrefixRedirect = des.PrefixRedirect
+	}
+	if dcl.BoolCanonicalize(des.HttpsRedirect, nw.HttpsRedirect) || dcl.IsZeroValue(des.HttpsRedirect) {
+		nw.HttpsRedirect = des.HttpsRedirect
+	}
+	if dcl.BoolCanonicalize(des.StripQuery, nw.StripQuery) || dcl.IsZeroValue(des.StripQuery) {
+		nw.StripQuery = des.StripQuery
 	}
 
 	return nw
@@ -1876,6 +2211,26 @@ func canonicalizeNewUrlMapDefaultUrlRedirectSet(c *Client, des, nw []UrlMapDefau
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapDefaultUrlRedirectSlice(c *Client, des, nw []UrlMapDefaultUrlRedirect) []UrlMapDefaultUrlRedirect {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapDefaultUrlRedirect
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapDefaultUrlRedirect(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapHostRule(des, initial *UrlMapHostRule, opts ...dcl.ApplyOption) *UrlMapHostRule {
@@ -1941,6 +2296,26 @@ func canonicalizeNewUrlMapHostRuleSet(c *Client, des, nw []UrlMapHostRule) []Url
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapHostRuleSlice(c *Client, des, nw []UrlMapHostRule) []UrlMapHostRule {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapHostRule
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapHostRule(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapPathMatcher(des, initial *UrlMapPathMatcher, opts ...dcl.ApplyOption) *UrlMapPathMatcher {
 	if des == nil {
 		return initial
@@ -1991,6 +2366,8 @@ func canonicalizeNewUrlMapPathMatcher(c *Client, des, nw *UrlMapPathMatcher) *Ur
 	}
 	nw.DefaultRouteAction = canonicalizeNewUrlMapDefaultRouteAction(c, des.DefaultRouteAction, nw.DefaultRouteAction)
 	nw.DefaultUrlRedirect = canonicalizeNewUrlMapPathMatcherDefaultUrlRedirect(c, des.DefaultUrlRedirect, nw.DefaultUrlRedirect)
+	nw.PathRule = canonicalizeNewUrlMapPathMatcherPathRuleSlice(c, des.PathRule, nw.PathRule)
+	nw.RouteRule = canonicalizeNewUrlMapPathMatcherRouteRuleSlice(c, des.RouteRule, nw.RouteRule)
 	nw.HeaderAction = canonicalizeNewUrlMapHeaderAction(c, des.HeaderAction, nw.HeaderAction)
 
 	return nw
@@ -2019,6 +2396,26 @@ func canonicalizeNewUrlMapPathMatcherSet(c *Client, des, nw []UrlMapPathMatcher)
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapPathMatcherSlice(c *Client, des, nw []UrlMapPathMatcher) []UrlMapPathMatcher {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcher
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcher(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapPathMatcherDefaultUrlRedirect(des, initial *UrlMapPathMatcherDefaultUrlRedirect, opts ...dcl.ApplyOption) *UrlMapPathMatcherDefaultUrlRedirect {
 	if des == nil {
 		return initial
@@ -2043,10 +2440,10 @@ func canonicalizeUrlMapPathMatcherDefaultUrlRedirect(des, initial *UrlMapPathMat
 	if dcl.IsZeroValue(des.RedirectResponseCode) {
 		des.RedirectResponseCode = initial.RedirectResponseCode
 	}
-	if dcl.IsZeroValue(des.HttpsRedirect) {
+	if dcl.BoolCanonicalize(des.HttpsRedirect, initial.HttpsRedirect) || dcl.IsZeroValue(des.HttpsRedirect) {
 		des.HttpsRedirect = initial.HttpsRedirect
 	}
-	if dcl.IsZeroValue(des.StripQuery) {
+	if dcl.BoolCanonicalize(des.StripQuery, initial.StripQuery) || dcl.IsZeroValue(des.StripQuery) {
 		des.StripQuery = initial.StripQuery
 	}
 
@@ -2066,6 +2463,12 @@ func canonicalizeNewUrlMapPathMatcherDefaultUrlRedirect(c *Client, des, nw *UrlM
 	}
 	if dcl.StringCanonicalize(des.PrefixRedirect, nw.PrefixRedirect) || dcl.IsZeroValue(des.PrefixRedirect) {
 		nw.PrefixRedirect = des.PrefixRedirect
+	}
+	if dcl.BoolCanonicalize(des.HttpsRedirect, nw.HttpsRedirect) || dcl.IsZeroValue(des.HttpsRedirect) {
+		nw.HttpsRedirect = des.HttpsRedirect
+	}
+	if dcl.BoolCanonicalize(des.StripQuery, nw.StripQuery) || dcl.IsZeroValue(des.StripQuery) {
+		nw.StripQuery = des.StripQuery
 	}
 
 	return nw
@@ -2092,6 +2495,26 @@ func canonicalizeNewUrlMapPathMatcherDefaultUrlRedirectSet(c *Client, des, nw []
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapPathMatcherDefaultUrlRedirectSlice(c *Client, des, nw []UrlMapPathMatcherDefaultUrlRedirect) []UrlMapPathMatcherDefaultUrlRedirect {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherDefaultUrlRedirect
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherDefaultUrlRedirect(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapPathMatcherPathRule(des, initial *UrlMapPathMatcherPathRule, opts ...dcl.ApplyOption) *UrlMapPathMatcherPathRule {
@@ -2155,6 +2578,26 @@ func canonicalizeNewUrlMapPathMatcherPathRuleSet(c *Client, des, nw []UrlMapPath
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapPathMatcherPathRuleSlice(c *Client, des, nw []UrlMapPathMatcherPathRule) []UrlMapPathMatcherPathRule {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherPathRule
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherPathRule(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapPathMatcherPathRuleRouteAction(des, initial *UrlMapPathMatcherPathRuleRouteAction, opts ...dcl.ApplyOption) *UrlMapPathMatcherPathRuleRouteAction {
 	if des == nil {
 		return initial
@@ -2185,6 +2628,7 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteAction(c *Client, des, nw *Url
 		return nw
 	}
 
+	nw.WeightedBackendService = canonicalizeNewUrlMapPathMatcherPathRuleRouteActionWeightedBackendServiceSlice(c, des.WeightedBackendService, nw.WeightedBackendService)
 	nw.UrlRewrite = canonicalizeNewUrlMapPathMatcherPathRuleRouteActionUrlRewrite(c, des.UrlRewrite, nw.UrlRewrite)
 	nw.Timeout = canonicalizeNewUrlMapPathMatcherPathRuleRouteActionTimeout(c, des.Timeout, nw.Timeout)
 	nw.RetryPolicy = canonicalizeNewUrlMapPathMatcherPathRuleRouteActionRetryPolicy(c, des.RetryPolicy, nw.RetryPolicy)
@@ -2216,6 +2660,26 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionSet(c *Client, des, nw [
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionSlice(c *Client, des, nw []UrlMapPathMatcherPathRuleRouteAction) []UrlMapPathMatcherPathRuleRouteAction {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherPathRuleRouteAction
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherPathRuleRouteAction(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapPathMatcherPathRuleRouteActionWeightedBackendService(des, initial *UrlMapPathMatcherPathRuleRouteActionWeightedBackendService, opts ...dcl.ApplyOption) *UrlMapPathMatcherPathRuleRouteActionWeightedBackendService {
@@ -2275,6 +2739,26 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionWeightedBackendServiceSe
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionWeightedBackendServiceSlice(c *Client, des, nw []UrlMapPathMatcherPathRuleRouteActionWeightedBackendService) []UrlMapPathMatcherPathRuleRouteActionWeightedBackendService {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherPathRuleRouteActionWeightedBackendService
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherPathRuleRouteActionWeightedBackendService(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapPathMatcherPathRuleRouteActionUrlRewrite(des, initial *UrlMapPathMatcherPathRuleRouteActionUrlRewrite, opts ...dcl.ApplyOption) *UrlMapPathMatcherPathRuleRouteActionUrlRewrite {
@@ -2337,6 +2821,26 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionUrlRewriteSet(c *Client,
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionUrlRewriteSlice(c *Client, des, nw []UrlMapPathMatcherPathRuleRouteActionUrlRewrite) []UrlMapPathMatcherPathRuleRouteActionUrlRewrite {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherPathRuleRouteActionUrlRewrite
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherPathRuleRouteActionUrlRewrite(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapPathMatcherPathRuleRouteActionTimeout(des, initial *UrlMapPathMatcherPathRuleRouteActionTimeout, opts ...dcl.ApplyOption) *UrlMapPathMatcherPathRuleRouteActionTimeout {
 	if des == nil {
 		return initial
@@ -2388,6 +2892,26 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionTimeoutSet(c *Client, de
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionTimeoutSlice(c *Client, des, nw []UrlMapPathMatcherPathRuleRouteActionTimeout) []UrlMapPathMatcherPathRuleRouteActionTimeout {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherPathRuleRouteActionTimeout
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherPathRuleRouteActionTimeout(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapPathMatcherPathRuleRouteActionRetryPolicy(des, initial *UrlMapPathMatcherPathRuleRouteActionRetryPolicy, opts ...dcl.ApplyOption) *UrlMapPathMatcherPathRuleRouteActionRetryPolicy {
@@ -2446,6 +2970,26 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionRetryPolicySet(c *Client
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionRetryPolicySlice(c *Client, des, nw []UrlMapPathMatcherPathRuleRouteActionRetryPolicy) []UrlMapPathMatcherPathRuleRouteActionRetryPolicy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherPathRuleRouteActionRetryPolicy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherPathRuleRouteActionRetryPolicy(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout(des, initial *UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout, opts ...dcl.ApplyOption) *UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout {
 	if des == nil {
 		return initial
@@ -2497,6 +3041,26 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeoutSlice(c *Client, des, nw []UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout) []UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy(des, initial *UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy, opts ...dcl.ApplyOption) *UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy {
@@ -2553,6 +3117,26 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicySet(c
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicySlice(c *Client, des, nw []UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy) []UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapPathMatcherPathRuleRouteActionCorsPolicy(des, initial *UrlMapPathMatcherPathRuleRouteActionCorsPolicy, opts ...dcl.ApplyOption) *UrlMapPathMatcherPathRuleRouteActionCorsPolicy {
 	if des == nil {
 		return initial
@@ -2583,10 +3167,10 @@ func canonicalizeUrlMapPathMatcherPathRuleRouteActionCorsPolicy(des, initial *Ur
 	if dcl.IsZeroValue(des.MaxAge) {
 		des.MaxAge = initial.MaxAge
 	}
-	if dcl.IsZeroValue(des.AllowCredentials) {
+	if dcl.BoolCanonicalize(des.AllowCredentials, initial.AllowCredentials) || dcl.IsZeroValue(des.AllowCredentials) {
 		des.AllowCredentials = initial.AllowCredentials
 	}
-	if dcl.IsZeroValue(des.Disabled) {
+	if dcl.BoolCanonicalize(des.Disabled, initial.Disabled) || dcl.IsZeroValue(des.Disabled) {
 		des.Disabled = initial.Disabled
 	}
 
@@ -2596,6 +3180,13 @@ func canonicalizeUrlMapPathMatcherPathRuleRouteActionCorsPolicy(des, initial *Ur
 func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionCorsPolicy(c *Client, des, nw *UrlMapPathMatcherPathRuleRouteActionCorsPolicy) *UrlMapPathMatcherPathRuleRouteActionCorsPolicy {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.AllowCredentials, nw.AllowCredentials) || dcl.IsZeroValue(des.AllowCredentials) {
+		nw.AllowCredentials = des.AllowCredentials
+	}
+	if dcl.BoolCanonicalize(des.Disabled, nw.Disabled) || dcl.IsZeroValue(des.Disabled) {
+		nw.Disabled = des.Disabled
 	}
 
 	return nw
@@ -2622,6 +3213,26 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionCorsPolicySet(c *Client,
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionCorsPolicySlice(c *Client, des, nw []UrlMapPathMatcherPathRuleRouteActionCorsPolicy) []UrlMapPathMatcherPathRuleRouteActionCorsPolicy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherPathRuleRouteActionCorsPolicy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherPathRuleRouteActionCorsPolicy(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy(des, initial *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy, opts ...dcl.ApplyOption) *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy {
@@ -2674,6 +3285,26 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicySet(
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicySlice(c *Client, des, nw []UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy) []UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay(des, initial *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay, opts ...dcl.ApplyOption) *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay {
@@ -2729,6 +3360,26 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDela
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelaySlice(c *Client, des, nw []UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay) []UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay(des, initial *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay, opts ...dcl.ApplyOption) *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay {
 	if des == nil {
 		return initial
@@ -2780,6 +3431,26 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDela
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelaySlice(c *Client, des, nw []UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay) []UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort(des, initial *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort, opts ...dcl.ApplyOption) *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort {
@@ -2835,6 +3506,26 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbor
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbortSlice(c *Client, des, nw []UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort) []UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapPathMatcherPathRuleUrlRedirect(des, initial *UrlMapPathMatcherPathRuleUrlRedirect, opts ...dcl.ApplyOption) *UrlMapPathMatcherPathRuleUrlRedirect {
 	if des == nil {
 		return initial
@@ -2859,10 +3550,10 @@ func canonicalizeUrlMapPathMatcherPathRuleUrlRedirect(des, initial *UrlMapPathMa
 	if dcl.IsZeroValue(des.RedirectResponseCode) {
 		des.RedirectResponseCode = initial.RedirectResponseCode
 	}
-	if dcl.IsZeroValue(des.HttpsRedirect) {
+	if dcl.BoolCanonicalize(des.HttpsRedirect, initial.HttpsRedirect) || dcl.IsZeroValue(des.HttpsRedirect) {
 		des.HttpsRedirect = initial.HttpsRedirect
 	}
-	if dcl.IsZeroValue(des.StripQuery) {
+	if dcl.BoolCanonicalize(des.StripQuery, initial.StripQuery) || dcl.IsZeroValue(des.StripQuery) {
 		des.StripQuery = initial.StripQuery
 	}
 
@@ -2882,6 +3573,12 @@ func canonicalizeNewUrlMapPathMatcherPathRuleUrlRedirect(c *Client, des, nw *Url
 	}
 	if dcl.StringCanonicalize(des.PrefixRedirect, nw.PrefixRedirect) || dcl.IsZeroValue(des.PrefixRedirect) {
 		nw.PrefixRedirect = des.PrefixRedirect
+	}
+	if dcl.BoolCanonicalize(des.HttpsRedirect, nw.HttpsRedirect) || dcl.IsZeroValue(des.HttpsRedirect) {
+		nw.HttpsRedirect = des.HttpsRedirect
+	}
+	if dcl.BoolCanonicalize(des.StripQuery, nw.StripQuery) || dcl.IsZeroValue(des.StripQuery) {
+		nw.StripQuery = des.StripQuery
 	}
 
 	return nw
@@ -2908,6 +3605,26 @@ func canonicalizeNewUrlMapPathMatcherPathRuleUrlRedirectSet(c *Client, des, nw [
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapPathMatcherPathRuleUrlRedirectSlice(c *Client, des, nw []UrlMapPathMatcherPathRuleUrlRedirect) []UrlMapPathMatcherPathRuleUrlRedirect {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherPathRuleUrlRedirect
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherPathRuleUrlRedirect(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapPathMatcherRouteRule(des, initial *UrlMapPathMatcherRouteRule, opts ...dcl.ApplyOption) *UrlMapPathMatcherRouteRule {
@@ -2949,6 +3666,7 @@ func canonicalizeNewUrlMapPathMatcherRouteRule(c *Client, des, nw *UrlMapPathMat
 	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
 		nw.Description = des.Description
 	}
+	nw.MatchRule = canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleSlice(c, des.MatchRule, nw.MatchRule)
 	if dcl.StringCanonicalize(des.BackendService, nw.BackendService) || dcl.IsZeroValue(des.BackendService) {
 		nw.BackendService = des.BackendService
 	}
@@ -2982,6 +3700,26 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleSet(c *Client, des, nw []UrlMapPat
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapPathMatcherRouteRuleSlice(c *Client, des, nw []UrlMapPathMatcherRouteRule) []UrlMapPathMatcherRouteRule {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherRouteRule
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherRouteRule(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapPathMatcherRouteRuleMatchRule(des, initial *UrlMapPathMatcherRouteRuleMatchRule, opts ...dcl.ApplyOption) *UrlMapPathMatcherRouteRuleMatchRule {
 	if des == nil {
 		return initial
@@ -3003,7 +3741,7 @@ func canonicalizeUrlMapPathMatcherRouteRuleMatchRule(des, initial *UrlMapPathMat
 	if dcl.StringCanonicalize(des.RegexMatch, initial.RegexMatch) || dcl.IsZeroValue(des.RegexMatch) {
 		des.RegexMatch = initial.RegexMatch
 	}
-	if dcl.IsZeroValue(des.IgnoreCase) {
+	if dcl.BoolCanonicalize(des.IgnoreCase, initial.IgnoreCase) || dcl.IsZeroValue(des.IgnoreCase) {
 		des.IgnoreCase = initial.IgnoreCase
 	}
 	if dcl.IsZeroValue(des.HeaderMatch) {
@@ -3033,6 +3771,12 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleMatchRule(c *Client, des, nw *UrlM
 	if dcl.StringCanonicalize(des.RegexMatch, nw.RegexMatch) || dcl.IsZeroValue(des.RegexMatch) {
 		nw.RegexMatch = des.RegexMatch
 	}
+	if dcl.BoolCanonicalize(des.IgnoreCase, nw.IgnoreCase) || dcl.IsZeroValue(des.IgnoreCase) {
+		nw.IgnoreCase = des.IgnoreCase
+	}
+	nw.HeaderMatch = canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchSlice(c, des.HeaderMatch, nw.HeaderMatch)
+	nw.QueryParameterMatch = canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatchSlice(c, des.QueryParameterMatch, nw.QueryParameterMatch)
+	nw.MetadataFilter = canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterSlice(c, des.MetadataFilter, nw.MetadataFilter)
 
 	return nw
 }
@@ -3060,6 +3804,26 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleSet(c *Client, des, nw []
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleSlice(c *Client, des, nw []UrlMapPathMatcherRouteRuleMatchRule) []UrlMapPathMatcherRouteRuleMatchRule {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherRouteRuleMatchRule
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherRouteRuleMatchRule(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapPathMatcherRouteRuleMatchRuleHeaderMatch(des, initial *UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch, opts ...dcl.ApplyOption) *UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch {
 	if des == nil {
 		return initial
@@ -3082,7 +3846,7 @@ func canonicalizeUrlMapPathMatcherRouteRuleMatchRuleHeaderMatch(des, initial *Ur
 		des.RegexMatch = initial.RegexMatch
 	}
 	des.RangeMatch = canonicalizeUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch(des.RangeMatch, initial.RangeMatch, opts...)
-	if dcl.IsZeroValue(des.PresentMatch) {
+	if dcl.BoolCanonicalize(des.PresentMatch, initial.PresentMatch) || dcl.IsZeroValue(des.PresentMatch) {
 		des.PresentMatch = initial.PresentMatch
 	}
 	if dcl.StringCanonicalize(des.PrefixMatch, initial.PrefixMatch) || dcl.IsZeroValue(des.PrefixMatch) {
@@ -3091,7 +3855,7 @@ func canonicalizeUrlMapPathMatcherRouteRuleMatchRuleHeaderMatch(des, initial *Ur
 	if dcl.StringCanonicalize(des.SuffixMatch, initial.SuffixMatch) || dcl.IsZeroValue(des.SuffixMatch) {
 		des.SuffixMatch = initial.SuffixMatch
 	}
-	if dcl.IsZeroValue(des.InvertMatch) {
+	if dcl.BoolCanonicalize(des.InvertMatch, initial.InvertMatch) || dcl.IsZeroValue(des.InvertMatch) {
 		des.InvertMatch = initial.InvertMatch
 	}
 
@@ -3113,11 +3877,17 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleHeaderMatch(c *Client, de
 		nw.RegexMatch = des.RegexMatch
 	}
 	nw.RangeMatch = canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch(c, des.RangeMatch, nw.RangeMatch)
+	if dcl.BoolCanonicalize(des.PresentMatch, nw.PresentMatch) || dcl.IsZeroValue(des.PresentMatch) {
+		nw.PresentMatch = des.PresentMatch
+	}
 	if dcl.StringCanonicalize(des.PrefixMatch, nw.PrefixMatch) || dcl.IsZeroValue(des.PrefixMatch) {
 		nw.PrefixMatch = des.PrefixMatch
 	}
 	if dcl.StringCanonicalize(des.SuffixMatch, nw.SuffixMatch) || dcl.IsZeroValue(des.SuffixMatch) {
 		nw.SuffixMatch = des.SuffixMatch
+	}
+	if dcl.BoolCanonicalize(des.InvertMatch, nw.InvertMatch) || dcl.IsZeroValue(des.InvertMatch) {
+		nw.InvertMatch = des.InvertMatch
 	}
 
 	return nw
@@ -3144,6 +3914,26 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchSet(c *Client,
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchSlice(c *Client, des, nw []UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch) []UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleHeaderMatch(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch(des, initial *UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch, opts ...dcl.ApplyOption) *UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch {
@@ -3199,6 +3989,26 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatchSet(
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatchSlice(c *Client, des, nw []UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch) []UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch(des, initial *UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch, opts ...dcl.ApplyOption) *UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch {
 	if des == nil {
 		return initial
@@ -3214,7 +4024,7 @@ func canonicalizeUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch(des, ini
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
-	if dcl.IsZeroValue(des.PresentMatch) {
+	if dcl.BoolCanonicalize(des.PresentMatch, initial.PresentMatch) || dcl.IsZeroValue(des.PresentMatch) {
 		des.PresentMatch = initial.PresentMatch
 	}
 	if dcl.StringCanonicalize(des.ExactMatch, initial.ExactMatch) || dcl.IsZeroValue(des.ExactMatch) {
@@ -3234,6 +4044,9 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch(c *Cl
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
 		nw.Name = des.Name
+	}
+	if dcl.BoolCanonicalize(des.PresentMatch, nw.PresentMatch) || dcl.IsZeroValue(des.PresentMatch) {
+		nw.PresentMatch = des.PresentMatch
 	}
 	if dcl.StringCanonicalize(des.ExactMatch, nw.ExactMatch) || dcl.IsZeroValue(des.ExactMatch) {
 		nw.ExactMatch = des.ExactMatch
@@ -3268,6 +4081,26 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatchSet(c 
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatchSlice(c *Client, des, nw []UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch) []UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapPathMatcherRouteRuleMatchRuleMetadataFilter(des, initial *UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter, opts ...dcl.ApplyOption) *UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter {
 	if des == nil {
 		return initial
@@ -3295,6 +4128,8 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleMetadataFilter(c *Client,
 		return nw
 	}
 
+	nw.FilterLabel = canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabelSlice(c, des.FilterLabel, nw.FilterLabel)
+
 	return nw
 }
 
@@ -3319,6 +4154,26 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterSet(c *Clie
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterSlice(c *Client, des, nw []UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter) []UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleMetadataFilter(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel(des, initial *UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel, opts ...dcl.ApplyOption) *UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel {
@@ -3381,6 +4236,26 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabelSlice(c *Client, des, nw []UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel) []UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapPathMatcherRouteRuleRouteAction(des, initial *UrlMapPathMatcherRouteRuleRouteAction, opts ...dcl.ApplyOption) *UrlMapPathMatcherRouteRuleRouteAction {
 	if des == nil {
 		return initial
@@ -3411,6 +4286,7 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteAction(c *Client, des, nw *Ur
 		return nw
 	}
 
+	nw.WeightedBackendService = canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionWeightedBackendServiceSlice(c, des.WeightedBackendService, nw.WeightedBackendService)
 	nw.UrlRewrite = canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionUrlRewrite(c, des.UrlRewrite, nw.UrlRewrite)
 	nw.Timeout = canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionTimeout(c, des.Timeout, nw.Timeout)
 	nw.RetryPolicy = canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionRetryPolicy(c, des.RetryPolicy, nw.RetryPolicy)
@@ -3442,6 +4318,26 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionSet(c *Client, des, nw 
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionSlice(c *Client, des, nw []UrlMapPathMatcherRouteRuleRouteAction) []UrlMapPathMatcherRouteRuleRouteAction {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherRouteRuleRouteAction
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherRouteRuleRouteAction(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapPathMatcherRouteRuleRouteActionWeightedBackendService(des, initial *UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService, opts ...dcl.ApplyOption) *UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService {
@@ -3501,6 +4397,26 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionWeightedBackendServiceS
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionWeightedBackendServiceSlice(c *Client, des, nw []UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService) []UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionWeightedBackendService(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapPathMatcherRouteRuleRouteActionUrlRewrite(des, initial *UrlMapPathMatcherRouteRuleRouteActionUrlRewrite, opts ...dcl.ApplyOption) *UrlMapPathMatcherRouteRuleRouteActionUrlRewrite {
@@ -3563,6 +4479,26 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionUrlRewriteSet(c *Client
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionUrlRewriteSlice(c *Client, des, nw []UrlMapPathMatcherRouteRuleRouteActionUrlRewrite) []UrlMapPathMatcherRouteRuleRouteActionUrlRewrite {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherRouteRuleRouteActionUrlRewrite
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionUrlRewrite(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapPathMatcherRouteRuleRouteActionTimeout(des, initial *UrlMapPathMatcherRouteRuleRouteActionTimeout, opts ...dcl.ApplyOption) *UrlMapPathMatcherRouteRuleRouteActionTimeout {
 	if des == nil {
 		return initial
@@ -3614,6 +4550,26 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionTimeoutSet(c *Client, d
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionTimeoutSlice(c *Client, des, nw []UrlMapPathMatcherRouteRuleRouteActionTimeout) []UrlMapPathMatcherRouteRuleRouteActionTimeout {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherRouteRuleRouteActionTimeout
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionTimeout(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapPathMatcherRouteRuleRouteActionRetryPolicy(des, initial *UrlMapPathMatcherRouteRuleRouteActionRetryPolicy, opts ...dcl.ApplyOption) *UrlMapPathMatcherRouteRuleRouteActionRetryPolicy {
@@ -3672,6 +4628,26 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionRetryPolicySet(c *Clien
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionRetryPolicySlice(c *Client, des, nw []UrlMapPathMatcherRouteRuleRouteActionRetryPolicy) []UrlMapPathMatcherRouteRuleRouteActionRetryPolicy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherRouteRuleRouteActionRetryPolicy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionRetryPolicy(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout(des, initial *UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout, opts ...dcl.ApplyOption) *UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout {
 	if des == nil {
 		return initial
@@ -3723,6 +4699,26 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeou
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeoutSlice(c *Client, des, nw []UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout) []UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy(des, initial *UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy, opts ...dcl.ApplyOption) *UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy {
@@ -3779,6 +4775,26 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicySet(
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicySlice(c *Client, des, nw []UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy) []UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapPathMatcherRouteRuleRouteActionCorsPolicy(des, initial *UrlMapPathMatcherRouteRuleRouteActionCorsPolicy, opts ...dcl.ApplyOption) *UrlMapPathMatcherRouteRuleRouteActionCorsPolicy {
 	if des == nil {
 		return initial
@@ -3809,10 +4825,10 @@ func canonicalizeUrlMapPathMatcherRouteRuleRouteActionCorsPolicy(des, initial *U
 	if dcl.IsZeroValue(des.MaxAge) {
 		des.MaxAge = initial.MaxAge
 	}
-	if dcl.IsZeroValue(des.AllowCredentials) {
+	if dcl.BoolCanonicalize(des.AllowCredentials, initial.AllowCredentials) || dcl.IsZeroValue(des.AllowCredentials) {
 		des.AllowCredentials = initial.AllowCredentials
 	}
-	if dcl.IsZeroValue(des.Disabled) {
+	if dcl.BoolCanonicalize(des.Disabled, initial.Disabled) || dcl.IsZeroValue(des.Disabled) {
 		des.Disabled = initial.Disabled
 	}
 
@@ -3822,6 +4838,13 @@ func canonicalizeUrlMapPathMatcherRouteRuleRouteActionCorsPolicy(des, initial *U
 func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionCorsPolicy(c *Client, des, nw *UrlMapPathMatcherRouteRuleRouteActionCorsPolicy) *UrlMapPathMatcherRouteRuleRouteActionCorsPolicy {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.AllowCredentials, nw.AllowCredentials) || dcl.IsZeroValue(des.AllowCredentials) {
+		nw.AllowCredentials = des.AllowCredentials
+	}
+	if dcl.BoolCanonicalize(des.Disabled, nw.Disabled) || dcl.IsZeroValue(des.Disabled) {
+		nw.Disabled = des.Disabled
 	}
 
 	return nw
@@ -3848,6 +4871,26 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionCorsPolicySet(c *Client
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionCorsPolicySlice(c *Client, des, nw []UrlMapPathMatcherRouteRuleRouteActionCorsPolicy) []UrlMapPathMatcherRouteRuleRouteActionCorsPolicy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherRouteRuleRouteActionCorsPolicy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionCorsPolicy(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy(des, initial *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy, opts ...dcl.ApplyOption) *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy {
@@ -3900,6 +4943,26 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicySet
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicySlice(c *Client, des, nw []UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy) []UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay(des, initial *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay, opts ...dcl.ApplyOption) *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay {
@@ -3955,6 +5018,26 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDel
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelaySlice(c *Client, des, nw []UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay) []UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay(des, initial *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay, opts ...dcl.ApplyOption) *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay {
 	if des == nil {
 		return initial
@@ -4006,6 +5089,26 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDel
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelaySlice(c *Client, des, nw []UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay) []UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort(des, initial *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort, opts ...dcl.ApplyOption) *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort {
@@ -4061,6 +5164,26 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbo
 	return reorderedNew
 }
 
+func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbortSlice(c *Client, des, nw []UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort) []UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeUrlMapPathMatcherRouteRuleUrlRedirect(des, initial *UrlMapPathMatcherRouteRuleUrlRedirect, opts ...dcl.ApplyOption) *UrlMapPathMatcherRouteRuleUrlRedirect {
 	if des == nil {
 		return initial
@@ -4085,10 +5208,10 @@ func canonicalizeUrlMapPathMatcherRouteRuleUrlRedirect(des, initial *UrlMapPathM
 	if dcl.IsZeroValue(des.RedirectResponseCode) {
 		des.RedirectResponseCode = initial.RedirectResponseCode
 	}
-	if dcl.IsZeroValue(des.HttpsRedirect) {
+	if dcl.BoolCanonicalize(des.HttpsRedirect, initial.HttpsRedirect) || dcl.IsZeroValue(des.HttpsRedirect) {
 		des.HttpsRedirect = initial.HttpsRedirect
 	}
-	if dcl.IsZeroValue(des.StripQuery) {
+	if dcl.BoolCanonicalize(des.StripQuery, initial.StripQuery) || dcl.IsZeroValue(des.StripQuery) {
 		des.StripQuery = initial.StripQuery
 	}
 
@@ -4108,6 +5231,12 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleUrlRedirect(c *Client, des, nw *Ur
 	}
 	if dcl.StringCanonicalize(des.PrefixRedirect, nw.PrefixRedirect) || dcl.IsZeroValue(des.PrefixRedirect) {
 		nw.PrefixRedirect = des.PrefixRedirect
+	}
+	if dcl.BoolCanonicalize(des.HttpsRedirect, nw.HttpsRedirect) || dcl.IsZeroValue(des.HttpsRedirect) {
+		nw.HttpsRedirect = des.HttpsRedirect
+	}
+	if dcl.BoolCanonicalize(des.StripQuery, nw.StripQuery) || dcl.IsZeroValue(des.StripQuery) {
+		nw.StripQuery = des.StripQuery
 	}
 
 	return nw
@@ -4134,6 +5263,26 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleUrlRedirectSet(c *Client, des, nw 
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapPathMatcherRouteRuleUrlRedirectSlice(c *Client, des, nw []UrlMapPathMatcherRouteRuleUrlRedirect) []UrlMapPathMatcherRouteRuleUrlRedirect {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapPathMatcherRouteRuleUrlRedirect
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapPathMatcherRouteRuleUrlRedirect(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeUrlMapTest(des, initial *UrlMapTest, opts ...dcl.ApplyOption) *UrlMapTest {
@@ -4206,6 +5355,26 @@ func canonicalizeNewUrlMapTestSet(c *Client, des, nw []UrlMapTest) []UrlMapTest 
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewUrlMapTestSlice(c *Client, des, nw []UrlMapTest) []UrlMapTest {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []UrlMapTest
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewUrlMapTest(c, &d, &n))
+	}
+
+	return items
 }
 
 type urlMapDiff struct {
@@ -4619,7 +5788,7 @@ func compareUrlMapHeaderActionRequestHeadersToAdd(c *Client, desired, actual *Ur
 		c.Config.Logger.Infof("desired Replace %s - but actually nil", dcl.SprintResource(desired.Replace))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Replace, actual.Replace) && !dcl.IsZeroValue(desired.Replace) {
+	if !dcl.BoolCanonicalize(desired.Replace, actual.Replace) && !dcl.IsZeroValue(desired.Replace) {
 		c.Config.Logger.Infof("Diff in Replace. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Replace), dcl.SprintResource(actual.Replace))
 		return true
 	}
@@ -4686,7 +5855,7 @@ func compareUrlMapHeaderActionResponseHeadersToAdd(c *Client, desired, actual *U
 		c.Config.Logger.Infof("desired Replace %s - but actually nil", dcl.SprintResource(desired.Replace))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Replace, actual.Replace) && !dcl.IsZeroValue(desired.Replace) {
+	if !dcl.BoolCanonicalize(desired.Replace, actual.Replace) && !dcl.IsZeroValue(desired.Replace) {
 		c.Config.Logger.Infof("Diff in Replace. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Replace), dcl.SprintResource(actual.Replace))
 		return true
 	}
@@ -5080,7 +6249,7 @@ func compareUrlMapDefaultRouteActionCorsPolicy(c *Client, desired, actual *UrlMa
 		c.Config.Logger.Infof("desired AllowCredentials %s - but actually nil", dcl.SprintResource(desired.AllowCredentials))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AllowCredentials, actual.AllowCredentials) && !dcl.IsZeroValue(desired.AllowCredentials) {
+	if !dcl.BoolCanonicalize(desired.AllowCredentials, actual.AllowCredentials) && !dcl.IsZeroValue(desired.AllowCredentials) {
 		c.Config.Logger.Infof("Diff in AllowCredentials. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowCredentials), dcl.SprintResource(actual.AllowCredentials))
 		return true
 	}
@@ -5088,7 +6257,7 @@ func compareUrlMapDefaultRouteActionCorsPolicy(c *Client, desired, actual *UrlMa
 		c.Config.Logger.Infof("desired Disabled %s - but actually nil", dcl.SprintResource(desired.Disabled))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Disabled, actual.Disabled) && !dcl.IsZeroValue(desired.Disabled) {
+	if !dcl.BoolCanonicalize(desired.Disabled, actual.Disabled) && !dcl.IsZeroValue(desired.Disabled) {
 		c.Config.Logger.Infof("Diff in Disabled. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Disabled), dcl.SprintResource(actual.Disabled))
 		return true
 	}
@@ -5407,7 +6576,7 @@ func compareUrlMapDefaultUrlRedirect(c *Client, desired, actual *UrlMapDefaultUr
 		c.Config.Logger.Infof("desired HttpsRedirect %s - but actually nil", dcl.SprintResource(desired.HttpsRedirect))
 		return true
 	}
-	if !reflect.DeepEqual(desired.HttpsRedirect, actual.HttpsRedirect) && !dcl.IsZeroValue(desired.HttpsRedirect) {
+	if !dcl.BoolCanonicalize(desired.HttpsRedirect, actual.HttpsRedirect) && !dcl.IsZeroValue(desired.HttpsRedirect) {
 		c.Config.Logger.Infof("Diff in HttpsRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpsRedirect), dcl.SprintResource(actual.HttpsRedirect))
 		return true
 	}
@@ -5415,7 +6584,7 @@ func compareUrlMapDefaultUrlRedirect(c *Client, desired, actual *UrlMapDefaultUr
 		c.Config.Logger.Infof("desired StripQuery %s - but actually nil", dcl.SprintResource(desired.StripQuery))
 		return true
 	}
-	if !reflect.DeepEqual(desired.StripQuery, actual.StripQuery) && !dcl.IsZeroValue(desired.StripQuery) {
+	if !dcl.BoolCanonicalize(desired.StripQuery, actual.StripQuery) && !dcl.IsZeroValue(desired.StripQuery) {
 		c.Config.Logger.Infof("Diff in StripQuery. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StripQuery), dcl.SprintResource(actual.StripQuery))
 		return true
 	}
@@ -5770,7 +6939,7 @@ func compareUrlMapPathMatcherDefaultUrlRedirect(c *Client, desired, actual *UrlM
 		c.Config.Logger.Infof("desired HttpsRedirect %s - but actually nil", dcl.SprintResource(desired.HttpsRedirect))
 		return true
 	}
-	if !reflect.DeepEqual(desired.HttpsRedirect, actual.HttpsRedirect) && !dcl.IsZeroValue(desired.HttpsRedirect) {
+	if !dcl.BoolCanonicalize(desired.HttpsRedirect, actual.HttpsRedirect) && !dcl.IsZeroValue(desired.HttpsRedirect) {
 		c.Config.Logger.Infof("Diff in HttpsRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpsRedirect), dcl.SprintResource(actual.HttpsRedirect))
 		return true
 	}
@@ -5778,7 +6947,7 @@ func compareUrlMapPathMatcherDefaultUrlRedirect(c *Client, desired, actual *UrlM
 		c.Config.Logger.Infof("desired StripQuery %s - but actually nil", dcl.SprintResource(desired.StripQuery))
 		return true
 	}
-	if !reflect.DeepEqual(desired.StripQuery, actual.StripQuery) && !dcl.IsZeroValue(desired.StripQuery) {
+	if !dcl.BoolCanonicalize(desired.StripQuery, actual.StripQuery) && !dcl.IsZeroValue(desired.StripQuery) {
 		c.Config.Logger.Infof("Diff in StripQuery. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StripQuery), dcl.SprintResource(actual.StripQuery))
 		return true
 	}
@@ -6413,7 +7582,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionCorsPolicy(c *Client, desired, a
 		c.Config.Logger.Infof("desired AllowCredentials %s - but actually nil", dcl.SprintResource(desired.AllowCredentials))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AllowCredentials, actual.AllowCredentials) && !dcl.IsZeroValue(desired.AllowCredentials) {
+	if !dcl.BoolCanonicalize(desired.AllowCredentials, actual.AllowCredentials) && !dcl.IsZeroValue(desired.AllowCredentials) {
 		c.Config.Logger.Infof("Diff in AllowCredentials. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowCredentials), dcl.SprintResource(actual.AllowCredentials))
 		return true
 	}
@@ -6421,7 +7590,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionCorsPolicy(c *Client, desired, a
 		c.Config.Logger.Infof("desired Disabled %s - but actually nil", dcl.SprintResource(desired.Disabled))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Disabled, actual.Disabled) && !dcl.IsZeroValue(desired.Disabled) {
+	if !dcl.BoolCanonicalize(desired.Disabled, actual.Disabled) && !dcl.IsZeroValue(desired.Disabled) {
 		c.Config.Logger.Infof("Diff in Disabled. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Disabled), dcl.SprintResource(actual.Disabled))
 		return true
 	}
@@ -6740,7 +7909,7 @@ func compareUrlMapPathMatcherPathRuleUrlRedirect(c *Client, desired, actual *Url
 		c.Config.Logger.Infof("desired HttpsRedirect %s - but actually nil", dcl.SprintResource(desired.HttpsRedirect))
 		return true
 	}
-	if !reflect.DeepEqual(desired.HttpsRedirect, actual.HttpsRedirect) && !dcl.IsZeroValue(desired.HttpsRedirect) {
+	if !dcl.BoolCanonicalize(desired.HttpsRedirect, actual.HttpsRedirect) && !dcl.IsZeroValue(desired.HttpsRedirect) {
 		c.Config.Logger.Infof("Diff in HttpsRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpsRedirect), dcl.SprintResource(actual.HttpsRedirect))
 		return true
 	}
@@ -6748,7 +7917,7 @@ func compareUrlMapPathMatcherPathRuleUrlRedirect(c *Client, desired, actual *Url
 		c.Config.Logger.Infof("desired StripQuery %s - but actually nil", dcl.SprintResource(desired.StripQuery))
 		return true
 	}
-	if !reflect.DeepEqual(desired.StripQuery, actual.StripQuery) && !dcl.IsZeroValue(desired.StripQuery) {
+	if !dcl.BoolCanonicalize(desired.StripQuery, actual.StripQuery) && !dcl.IsZeroValue(desired.StripQuery) {
 		c.Config.Logger.Infof("Diff in StripQuery. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StripQuery), dcl.SprintResource(actual.StripQuery))
 		return true
 	}
@@ -6922,7 +8091,7 @@ func compareUrlMapPathMatcherRouteRuleMatchRule(c *Client, desired, actual *UrlM
 		c.Config.Logger.Infof("desired IgnoreCase %s - but actually nil", dcl.SprintResource(desired.IgnoreCase))
 		return true
 	}
-	if !reflect.DeepEqual(desired.IgnoreCase, actual.IgnoreCase) && !dcl.IsZeroValue(desired.IgnoreCase) {
+	if !dcl.BoolCanonicalize(desired.IgnoreCase, actual.IgnoreCase) && !dcl.IsZeroValue(desired.IgnoreCase) {
 		c.Config.Logger.Infof("Diff in IgnoreCase. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IgnoreCase), dcl.SprintResource(actual.IgnoreCase))
 		return true
 	}
@@ -7029,7 +8198,7 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleHeaderMatch(c *Client, desired, a
 		c.Config.Logger.Infof("desired PresentMatch %s - but actually nil", dcl.SprintResource(desired.PresentMatch))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PresentMatch, actual.PresentMatch) && !dcl.IsZeroValue(desired.PresentMatch) {
+	if !dcl.BoolCanonicalize(desired.PresentMatch, actual.PresentMatch) && !dcl.IsZeroValue(desired.PresentMatch) {
 		c.Config.Logger.Infof("Diff in PresentMatch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PresentMatch), dcl.SprintResource(actual.PresentMatch))
 		return true
 	}
@@ -7053,7 +8222,7 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleHeaderMatch(c *Client, desired, a
 		c.Config.Logger.Infof("desired InvertMatch %s - but actually nil", dcl.SprintResource(desired.InvertMatch))
 		return true
 	}
-	if !reflect.DeepEqual(desired.InvertMatch, actual.InvertMatch) && !dcl.IsZeroValue(desired.InvertMatch) {
+	if !dcl.BoolCanonicalize(desired.InvertMatch, actual.InvertMatch) && !dcl.IsZeroValue(desired.InvertMatch) {
 		c.Config.Logger.Infof("Diff in InvertMatch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InvertMatch), dcl.SprintResource(actual.InvertMatch))
 		return true
 	}
@@ -7171,7 +8340,7 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch(c *Client, de
 		c.Config.Logger.Infof("desired PresentMatch %s - but actually nil", dcl.SprintResource(desired.PresentMatch))
 		return true
 	}
-	if !reflect.DeepEqual(desired.PresentMatch, actual.PresentMatch) && !dcl.IsZeroValue(desired.PresentMatch) {
+	if !dcl.BoolCanonicalize(desired.PresentMatch, actual.PresentMatch) && !dcl.IsZeroValue(desired.PresentMatch) {
 		c.Config.Logger.Infof("Diff in PresentMatch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PresentMatch), dcl.SprintResource(actual.PresentMatch))
 		return true
 	}
@@ -7865,7 +9034,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionCorsPolicy(c *Client, desired, 
 		c.Config.Logger.Infof("desired AllowCredentials %s - but actually nil", dcl.SprintResource(desired.AllowCredentials))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AllowCredentials, actual.AllowCredentials) && !dcl.IsZeroValue(desired.AllowCredentials) {
+	if !dcl.BoolCanonicalize(desired.AllowCredentials, actual.AllowCredentials) && !dcl.IsZeroValue(desired.AllowCredentials) {
 		c.Config.Logger.Infof("Diff in AllowCredentials. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowCredentials), dcl.SprintResource(actual.AllowCredentials))
 		return true
 	}
@@ -7873,7 +9042,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionCorsPolicy(c *Client, desired, 
 		c.Config.Logger.Infof("desired Disabled %s - but actually nil", dcl.SprintResource(desired.Disabled))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Disabled, actual.Disabled) && !dcl.IsZeroValue(desired.Disabled) {
+	if !dcl.BoolCanonicalize(desired.Disabled, actual.Disabled) && !dcl.IsZeroValue(desired.Disabled) {
 		c.Config.Logger.Infof("Diff in Disabled. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Disabled), dcl.SprintResource(actual.Disabled))
 		return true
 	}
@@ -8192,7 +9361,7 @@ func compareUrlMapPathMatcherRouteRuleUrlRedirect(c *Client, desired, actual *Ur
 		c.Config.Logger.Infof("desired HttpsRedirect %s - but actually nil", dcl.SprintResource(desired.HttpsRedirect))
 		return true
 	}
-	if !reflect.DeepEqual(desired.HttpsRedirect, actual.HttpsRedirect) && !dcl.IsZeroValue(desired.HttpsRedirect) {
+	if !dcl.BoolCanonicalize(desired.HttpsRedirect, actual.HttpsRedirect) && !dcl.IsZeroValue(desired.HttpsRedirect) {
 		c.Config.Logger.Infof("Diff in HttpsRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpsRedirect), dcl.SprintResource(actual.HttpsRedirect))
 		return true
 	}
@@ -8200,7 +9369,7 @@ func compareUrlMapPathMatcherRouteRuleUrlRedirect(c *Client, desired, actual *Ur
 		c.Config.Logger.Infof("desired StripQuery %s - but actually nil", dcl.SprintResource(desired.StripQuery))
 		return true
 	}
-	if !reflect.DeepEqual(desired.StripQuery, actual.StripQuery) && !dcl.IsZeroValue(desired.StripQuery) {
+	if !dcl.BoolCanonicalize(desired.StripQuery, actual.StripQuery) && !dcl.IsZeroValue(desired.StripQuery) {
 		c.Config.Logger.Infof("Diff in StripQuery. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StripQuery), dcl.SprintResource(actual.StripQuery))
 		return true
 	}

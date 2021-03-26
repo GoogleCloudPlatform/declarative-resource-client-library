@@ -68,10 +68,9 @@ func (op *SQLOperation) FirstResponse() (map[string]interface{}, bool) {
 type SQLCreateCertOperation struct {
 	Operation  SQLOperation `json:"operation"`
 	ClientCert struct {
-		CertInfo struct {
-			SHA1Fingerprint string `json:"sha1Fingerprint"`
-		} `json:"certInfo"`
+		CertInfo map[string]interface{} `json:"certInfo"`
 	} `json:"clientCert"`
+	response map[string]interface{}
 }
 
 // Wait waits for an SQLOperation to complete by fetching the operation until it completes.
@@ -79,13 +78,11 @@ func (op *SQLCreateCertOperation) Wait(ctx context.Context, c *dcl.Config, _, _ 
 	return op.Operation.Wait(ctx, c, "", "")
 }
 
-// FetchName gets the eventual resource's name from the operation.
-func (op *SQLCreateCertOperation) FetchName() (*string, error) {
-	return &op.ClientCert.CertInfo.SHA1Fingerprint, nil
-}
-
 // FirstResponse returns the first response that this operation receives with the resource.
 // This response may contain special information.
 func (op *SQLCreateCertOperation) FirstResponse() (map[string]interface{}, bool) {
+	if len(op.ClientCert.CertInfo) > 0 {
+		return op.ClientCert.CertInfo, true
+	}
 	return make(map[string]interface{}), false
 }

@@ -1,0 +1,9 @@
+{
+  "project": "{{project}}",
+  "name": "{{name}}",
+  "location": "us-central1-a",
+  "initialNodeCount": 1,
+  "workloadIdentityConfig": {
+    "identityNamespace": "wenjuntoy2.svc.id.goog"
+  }
+}

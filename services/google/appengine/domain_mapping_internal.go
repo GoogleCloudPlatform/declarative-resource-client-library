@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -261,9 +262,20 @@ func (op *deleteDomainMappingOperation) do(ctx context.Context, r *DomainMapping
 	if err := o.Wait(ctx, c.Config, "https://appengine.googleapis.com/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetDomainMapping(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetDomainMapping(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -363,7 +375,6 @@ func (c *Client) domainMappingDiffsForRawDesired(ctx context.Context, rawDesired
 		desired, err = canonicalizeDomainMappingDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for DomainMapping: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for DomainMapping: %v", rawDesired)
 
@@ -451,6 +462,7 @@ func canonicalizeDomainMappingNewState(c *Client, rawNew, rawDesired *DomainMapp
 	if dcl.IsEmptyValueIndirect(rawNew.ResourceRecords) && dcl.IsEmptyValueIndirect(rawDesired.ResourceRecords) {
 		rawNew.ResourceRecords = rawDesired.ResourceRecords
 	} else {
+		rawNew.ResourceRecords = canonicalizeNewDomainMappingResourceRecordsSlice(c, rawDesired.ResourceRecords, rawNew.ResourceRecords)
 	}
 
 	rawNew.App = rawDesired.App
@@ -521,6 +533,26 @@ func canonicalizeNewDomainMappingSslSettingsSet(c *Client, des, nw []DomainMappi
 	return reorderedNew
 }
 
+func canonicalizeNewDomainMappingSslSettingsSlice(c *Client, des, nw []DomainMappingSslSettings) []DomainMappingSslSettings {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DomainMappingSslSettings
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDomainMappingSslSettings(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDomainMappingResourceRecords(des, initial *DomainMappingResourceRecords, opts ...dcl.ApplyOption) *DomainMappingResourceRecords {
 	if des == nil {
 		return initial
@@ -582,6 +614,26 @@ func canonicalizeNewDomainMappingResourceRecordsSet(c *Client, des, nw []DomainM
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDomainMappingResourceRecordsSlice(c *Client, des, nw []DomainMappingResourceRecords) []DomainMappingResourceRecords {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DomainMappingResourceRecords
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDomainMappingResourceRecords(c, &d, &n))
+	}
+
+	return items
 }
 
 type domainMappingDiff struct {

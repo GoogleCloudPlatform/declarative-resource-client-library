@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -441,9 +442,20 @@ func (op *deleteClusterOperation) do(ctx context.Context, r *Cluster, c *Client)
 	if err := o.Wait(ctx, c.Config, "https://dataproc.googleapis.com/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetCluster(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetCluster(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -543,7 +555,6 @@ func (c *Client) clusterDiffsForRawDesired(ctx context.Context, rawDesired *Clus
 		desired, err = canonicalizeClusterDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Cluster: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Cluster: %v", rawDesired)
 
@@ -652,6 +663,7 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 	if dcl.IsEmptyValueIndirect(rawNew.StatusHistory) && dcl.IsEmptyValueIndirect(rawDesired.StatusHistory) {
 		rawNew.StatusHistory = rawDesired.StatusHistory
 	} else {
+		rawNew.StatusHistory = canonicalizeNewClusterStatusHistorySlice(c, rawDesired.StatusHistory, rawNew.StatusHistory)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ClusterUuid) && dcl.IsEmptyValueIndirect(rawDesired.ClusterUuid) {
@@ -724,6 +736,7 @@ func canonicalizeNewClusterClusterConfig(c *Client, des, nw *ClusterClusterConfi
 	nw.WorkerConfig = canonicalizeNewClusterInstanceGroupConfig(c, des.WorkerConfig, nw.WorkerConfig)
 	nw.SecondaryWorkerConfig = canonicalizeNewClusterInstanceGroupConfig(c, des.SecondaryWorkerConfig, nw.SecondaryWorkerConfig)
 	nw.SoftwareConfig = canonicalizeNewClusterClusterConfigSoftwareConfig(c, des.SoftwareConfig, nw.SoftwareConfig)
+	nw.InitializationActions = canonicalizeNewClusterClusterConfigInitializationActionsSlice(c, des.InitializationActions, nw.InitializationActions)
 	nw.EncryptionConfig = canonicalizeNewClusterClusterConfigEncryptionConfig(c, des.EncryptionConfig, nw.EncryptionConfig)
 	nw.AutoscalingConfig = canonicalizeNewClusterClusterConfigAutoscalingConfig(c, des.AutoscalingConfig, nw.AutoscalingConfig)
 	nw.SecurityConfig = canonicalizeNewClusterClusterConfigSecurityConfig(c, des.SecurityConfig, nw.SecurityConfig)
@@ -756,6 +769,26 @@ func canonicalizeNewClusterClusterConfigSet(c *Client, des, nw []ClusterClusterC
 	return reorderedNew
 }
 
+func canonicalizeNewClusterClusterConfigSlice(c *Client, des, nw []ClusterClusterConfig) []ClusterClusterConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ClusterClusterConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterClusterConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeClusterClusterConfigGceClusterConfig(des, initial *ClusterClusterConfigGceClusterConfig, opts ...dcl.ApplyOption) *ClusterClusterConfigGceClusterConfig {
 	if des == nil {
 		return initial
@@ -777,7 +810,7 @@ func canonicalizeClusterClusterConfigGceClusterConfig(des, initial *ClusterClust
 	if dcl.NameToSelfLink(des.Subnetwork, initial.Subnetwork) || dcl.IsZeroValue(des.Subnetwork) {
 		des.Subnetwork = initial.Subnetwork
 	}
-	if dcl.IsZeroValue(des.InternalIPOnly) {
+	if dcl.BoolCanonicalize(des.InternalIPOnly, initial.InternalIPOnly) || dcl.IsZeroValue(des.InternalIPOnly) {
 		des.InternalIPOnly = initial.InternalIPOnly
 	}
 	if dcl.IsZeroValue(des.PrivateIPv6GoogleAccess) {
@@ -815,6 +848,9 @@ func canonicalizeNewClusterClusterConfigGceClusterConfig(c *Client, des, nw *Clu
 	if dcl.NameToSelfLink(des.Subnetwork, nw.Subnetwork) || dcl.IsZeroValue(des.Subnetwork) {
 		nw.Subnetwork = des.Subnetwork
 	}
+	if dcl.BoolCanonicalize(des.InternalIPOnly, nw.InternalIPOnly) || dcl.IsZeroValue(des.InternalIPOnly) {
+		nw.InternalIPOnly = des.InternalIPOnly
+	}
 	if dcl.NameToSelfLink(des.ServiceAccount, nw.ServiceAccount) || dcl.IsZeroValue(des.ServiceAccount) {
 		nw.ServiceAccount = des.ServiceAccount
 	}
@@ -845,6 +881,26 @@ func canonicalizeNewClusterClusterConfigGceClusterConfigSet(c *Client, des, nw [
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewClusterClusterConfigGceClusterConfigSlice(c *Client, des, nw []ClusterClusterConfigGceClusterConfig) []ClusterClusterConfigGceClusterConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ClusterClusterConfigGceClusterConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterClusterConfigGceClusterConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeClusterClusterConfigGceClusterConfigReservationAffinity(des, initial *ClusterClusterConfigGceClusterConfigReservationAffinity, opts ...dcl.ApplyOption) *ClusterClusterConfigGceClusterConfigReservationAffinity {
@@ -907,6 +963,26 @@ func canonicalizeNewClusterClusterConfigGceClusterConfigReservationAffinitySet(c
 	return reorderedNew
 }
 
+func canonicalizeNewClusterClusterConfigGceClusterConfigReservationAffinitySlice(c *Client, des, nw []ClusterClusterConfigGceClusterConfigReservationAffinity) []ClusterClusterConfigGceClusterConfigReservationAffinity {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ClusterClusterConfigGceClusterConfigReservationAffinity
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterClusterConfigGceClusterConfigReservationAffinity(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeClusterClusterConfigGceClusterConfigNodeGroupAffinity(des, initial *ClusterClusterConfigGceClusterConfigNodeGroupAffinity, opts ...dcl.ApplyOption) *ClusterClusterConfigGceClusterConfigNodeGroupAffinity {
 	if des == nil {
 		return initial
@@ -961,6 +1037,26 @@ func canonicalizeNewClusterClusterConfigGceClusterConfigNodeGroupAffinitySet(c *
 	return reorderedNew
 }
 
+func canonicalizeNewClusterClusterConfigGceClusterConfigNodeGroupAffinitySlice(c *Client, des, nw []ClusterClusterConfigGceClusterConfigNodeGroupAffinity) []ClusterClusterConfigGceClusterConfigNodeGroupAffinity {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ClusterClusterConfigGceClusterConfigNodeGroupAffinity
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterClusterConfigGceClusterConfigNodeGroupAffinity(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeClusterInstanceGroupConfig(des, initial *ClusterInstanceGroupConfig, opts ...dcl.ApplyOption) *ClusterInstanceGroupConfig {
 	if des == nil {
 		return initial
@@ -986,7 +1082,7 @@ func canonicalizeClusterInstanceGroupConfig(des, initial *ClusterInstanceGroupCo
 		des.MachineType = initial.MachineType
 	}
 	des.DiskConfig = canonicalizeClusterInstanceGroupConfigDiskConfig(des.DiskConfig, initial.DiskConfig, opts...)
-	if dcl.IsZeroValue(des.IsPreemptible) {
+	if dcl.BoolCanonicalize(des.IsPreemptible, initial.IsPreemptible) || dcl.IsZeroValue(des.IsPreemptible) {
 		des.IsPreemptible = initial.IsPreemptible
 	}
 	if dcl.IsZeroValue(des.Preemptibility) {
@@ -1015,7 +1111,11 @@ func canonicalizeNewClusterInstanceGroupConfig(c *Client, des, nw *ClusterInstan
 		nw.MachineType = des.MachineType
 	}
 	nw.DiskConfig = canonicalizeNewClusterInstanceGroupConfigDiskConfig(c, des.DiskConfig, nw.DiskConfig)
+	if dcl.BoolCanonicalize(des.IsPreemptible, nw.IsPreemptible) || dcl.IsZeroValue(des.IsPreemptible) {
+		nw.IsPreemptible = des.IsPreemptible
+	}
 	nw.ManagedGroupConfig = canonicalizeNewClusterInstanceGroupConfigManagedGroupConfig(c, des.ManagedGroupConfig, nw.ManagedGroupConfig)
+	nw.Accelerators = canonicalizeNewClusterInstanceGroupConfigAcceleratorsSlice(c, des.Accelerators, nw.Accelerators)
 	if dcl.StringCanonicalize(des.MinCpuPlatform, nw.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
 		nw.MinCpuPlatform = des.MinCpuPlatform
 	}
@@ -1044,6 +1144,26 @@ func canonicalizeNewClusterInstanceGroupConfigSet(c *Client, des, nw []ClusterIn
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewClusterInstanceGroupConfigSlice(c *Client, des, nw []ClusterInstanceGroupConfig) []ClusterInstanceGroupConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ClusterInstanceGroupConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterInstanceGroupConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeClusterInstanceGroupConfigDiskConfig(des, initial *ClusterInstanceGroupConfigDiskConfig, opts ...dcl.ApplyOption) *ClusterInstanceGroupConfigDiskConfig {
@@ -1106,6 +1226,26 @@ func canonicalizeNewClusterInstanceGroupConfigDiskConfigSet(c *Client, des, nw [
 	return reorderedNew
 }
 
+func canonicalizeNewClusterInstanceGroupConfigDiskConfigSlice(c *Client, des, nw []ClusterInstanceGroupConfigDiskConfig) []ClusterInstanceGroupConfigDiskConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ClusterInstanceGroupConfigDiskConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterInstanceGroupConfigDiskConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeClusterInstanceGroupConfigManagedGroupConfig(des, initial *ClusterInstanceGroupConfigManagedGroupConfig, opts ...dcl.ApplyOption) *ClusterInstanceGroupConfigManagedGroupConfig {
 	if des == nil {
 		return initial
@@ -1166,6 +1306,26 @@ func canonicalizeNewClusterInstanceGroupConfigManagedGroupConfigSet(c *Client, d
 	return reorderedNew
 }
 
+func canonicalizeNewClusterInstanceGroupConfigManagedGroupConfigSlice(c *Client, des, nw []ClusterInstanceGroupConfigManagedGroupConfig) []ClusterInstanceGroupConfigManagedGroupConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ClusterInstanceGroupConfigManagedGroupConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterInstanceGroupConfigManagedGroupConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeClusterInstanceGroupConfigAccelerators(des, initial *ClusterInstanceGroupConfigAccelerators, opts ...dcl.ApplyOption) *ClusterInstanceGroupConfigAccelerators {
 	if des == nil {
 		return initial
@@ -1221,6 +1381,26 @@ func canonicalizeNewClusterInstanceGroupConfigAcceleratorsSet(c *Client, des, nw
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewClusterInstanceGroupConfigAcceleratorsSlice(c *Client, des, nw []ClusterInstanceGroupConfigAccelerators) []ClusterInstanceGroupConfigAccelerators {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ClusterInstanceGroupConfigAccelerators
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterInstanceGroupConfigAccelerators(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeClusterClusterConfigSoftwareConfig(des, initial *ClusterClusterConfigSoftwareConfig, opts ...dcl.ApplyOption) *ClusterClusterConfigSoftwareConfig {
@@ -1283,6 +1463,26 @@ func canonicalizeNewClusterClusterConfigSoftwareConfigSet(c *Client, des, nw []C
 	return reorderedNew
 }
 
+func canonicalizeNewClusterClusterConfigSoftwareConfigSlice(c *Client, des, nw []ClusterClusterConfigSoftwareConfig) []ClusterClusterConfigSoftwareConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ClusterClusterConfigSoftwareConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterClusterConfigSoftwareConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeClusterClusterConfigInitializationActions(des, initial *ClusterClusterConfigInitializationActions, opts ...dcl.ApplyOption) *ClusterClusterConfigInitializationActions {
 	if des == nil {
 		return initial
@@ -1343,6 +1543,26 @@ func canonicalizeNewClusterClusterConfigInitializationActionsSet(c *Client, des,
 	return reorderedNew
 }
 
+func canonicalizeNewClusterClusterConfigInitializationActionsSlice(c *Client, des, nw []ClusterClusterConfigInitializationActions) []ClusterClusterConfigInitializationActions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ClusterClusterConfigInitializationActions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterClusterConfigInitializationActions(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeClusterClusterConfigEncryptionConfig(des, initial *ClusterClusterConfigEncryptionConfig, opts ...dcl.ApplyOption) *ClusterClusterConfigEncryptionConfig {
 	if des == nil {
 		return initial
@@ -1395,6 +1615,26 @@ func canonicalizeNewClusterClusterConfigEncryptionConfigSet(c *Client, des, nw [
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewClusterClusterConfigEncryptionConfigSlice(c *Client, des, nw []ClusterClusterConfigEncryptionConfig) []ClusterClusterConfigEncryptionConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ClusterClusterConfigEncryptionConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterClusterConfigEncryptionConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeClusterClusterConfigAutoscalingConfig(des, initial *ClusterClusterConfigAutoscalingConfig, opts ...dcl.ApplyOption) *ClusterClusterConfigAutoscalingConfig {
@@ -1451,6 +1691,26 @@ func canonicalizeNewClusterClusterConfigAutoscalingConfigSet(c *Client, des, nw 
 	return reorderedNew
 }
 
+func canonicalizeNewClusterClusterConfigAutoscalingConfigSlice(c *Client, des, nw []ClusterClusterConfigAutoscalingConfig) []ClusterClusterConfigAutoscalingConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ClusterClusterConfigAutoscalingConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterClusterConfigAutoscalingConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeClusterClusterConfigSecurityConfig(des, initial *ClusterClusterConfigSecurityConfig, opts ...dcl.ApplyOption) *ClusterClusterConfigSecurityConfig {
 	if des == nil {
 		return initial
@@ -1501,6 +1761,26 @@ func canonicalizeNewClusterClusterConfigSecurityConfigSet(c *Client, des, nw []C
 	return reorderedNew
 }
 
+func canonicalizeNewClusterClusterConfigSecurityConfigSlice(c *Client, des, nw []ClusterClusterConfigSecurityConfig) []ClusterClusterConfigSecurityConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ClusterClusterConfigSecurityConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterClusterConfigSecurityConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeClusterClusterConfigSecurityConfigKerberosConfig(des, initial *ClusterClusterConfigSecurityConfigKerberosConfig, opts ...dcl.ApplyOption) *ClusterClusterConfigSecurityConfigKerberosConfig {
 	if des == nil {
 		return initial
@@ -1513,7 +1793,7 @@ func canonicalizeClusterClusterConfigSecurityConfigKerberosConfig(des, initial *
 		return des
 	}
 
-	if dcl.IsZeroValue(des.EnableKerberos) {
+	if dcl.BoolCanonicalize(des.EnableKerberos, initial.EnableKerberos) || dcl.IsZeroValue(des.EnableKerberos) {
 		des.EnableKerberos = initial.EnableKerberos
 	}
 	if dcl.StringCanonicalize(des.RootPrincipalPassword, initial.RootPrincipalPassword) || dcl.IsZeroValue(des.RootPrincipalPassword) {
@@ -1567,6 +1847,9 @@ func canonicalizeNewClusterClusterConfigSecurityConfigKerberosConfig(c *Client, 
 		return nw
 	}
 
+	if dcl.BoolCanonicalize(des.EnableKerberos, nw.EnableKerberos) || dcl.IsZeroValue(des.EnableKerberos) {
+		nw.EnableKerberos = des.EnableKerberos
+	}
 	if dcl.StringCanonicalize(des.RootPrincipalPassword, nw.RootPrincipalPassword) || dcl.IsZeroValue(des.RootPrincipalPassword) {
 		nw.RootPrincipalPassword = des.RootPrincipalPassword
 	}
@@ -1631,6 +1914,26 @@ func canonicalizeNewClusterClusterConfigSecurityConfigKerberosConfigSet(c *Clien
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewClusterClusterConfigSecurityConfigKerberosConfigSlice(c *Client, des, nw []ClusterClusterConfigSecurityConfigKerberosConfig) []ClusterClusterConfigSecurityConfigKerberosConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ClusterClusterConfigSecurityConfigKerberosConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterClusterConfigSecurityConfigKerberosConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeClusterClusterConfigLifecycleConfig(des, initial *ClusterClusterConfigLifecycleConfig, opts ...dcl.ApplyOption) *ClusterClusterConfigLifecycleConfig {
@@ -1699,6 +2002,26 @@ func canonicalizeNewClusterClusterConfigLifecycleConfigSet(c *Client, des, nw []
 	return reorderedNew
 }
 
+func canonicalizeNewClusterClusterConfigLifecycleConfigSlice(c *Client, des, nw []ClusterClusterConfigLifecycleConfig) []ClusterClusterConfigLifecycleConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ClusterClusterConfigLifecycleConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterClusterConfigLifecycleConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeClusterClusterConfigEndpointConfig(des, initial *ClusterClusterConfigEndpointConfig, opts ...dcl.ApplyOption) *ClusterClusterConfigEndpointConfig {
 	if des == nil {
 		return initial
@@ -1714,7 +2037,7 @@ func canonicalizeClusterClusterConfigEndpointConfig(des, initial *ClusterCluster
 	if dcl.IsZeroValue(des.HttpPorts) {
 		des.HttpPorts = initial.HttpPorts
 	}
-	if dcl.IsZeroValue(des.EnableHttpPortAccess) {
+	if dcl.BoolCanonicalize(des.EnableHttpPortAccess, initial.EnableHttpPortAccess) || dcl.IsZeroValue(des.EnableHttpPortAccess) {
 		des.EnableHttpPortAccess = initial.EnableHttpPortAccess
 	}
 
@@ -1724,6 +2047,10 @@ func canonicalizeClusterClusterConfigEndpointConfig(des, initial *ClusterCluster
 func canonicalizeNewClusterClusterConfigEndpointConfig(c *Client, des, nw *ClusterClusterConfigEndpointConfig) *ClusterClusterConfigEndpointConfig {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.EnableHttpPortAccess, nw.EnableHttpPortAccess) || dcl.IsZeroValue(des.EnableHttpPortAccess) {
+		nw.EnableHttpPortAccess = des.EnableHttpPortAccess
 	}
 
 	return nw
@@ -1750,6 +2077,26 @@ func canonicalizeNewClusterClusterConfigEndpointConfigSet(c *Client, des, nw []C
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewClusterClusterConfigEndpointConfigSlice(c *Client, des, nw []ClusterClusterConfigEndpointConfig) []ClusterClusterConfigEndpointConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ClusterClusterConfigEndpointConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterClusterConfigEndpointConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeClusterStatus(des, initial *ClusterStatus, opts ...dcl.ApplyOption) *ClusterStatus {
@@ -1815,6 +2162,26 @@ func canonicalizeNewClusterStatusSet(c *Client, des, nw []ClusterStatus) []Clust
 	return reorderedNew
 }
 
+func canonicalizeNewClusterStatusSlice(c *Client, des, nw []ClusterStatus) []ClusterStatus {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ClusterStatus
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterStatus(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeClusterStatusHistory(des, initial *ClusterStatusHistory, opts ...dcl.ApplyOption) *ClusterStatusHistory {
 	if des == nil {
 		return initial
@@ -1878,6 +2245,26 @@ func canonicalizeNewClusterStatusHistorySet(c *Client, des, nw []ClusterStatusHi
 	return reorderedNew
 }
 
+func canonicalizeNewClusterStatusHistorySlice(c *Client, des, nw []ClusterStatusHistory) []ClusterStatusHistory {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ClusterStatusHistory
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterStatusHistory(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeClusterMetrics(des, initial *ClusterMetrics, opts ...dcl.ApplyOption) *ClusterMetrics {
 	if des == nil {
 		return initial
@@ -1929,6 +2316,26 @@ func canonicalizeNewClusterMetricsSet(c *Client, des, nw []ClusterMetrics) []Clu
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewClusterMetricsSlice(c *Client, des, nw []ClusterMetrics) []ClusterMetrics {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ClusterMetrics
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterMetrics(c, &d, &n))
+	}
+
+	return items
 }
 
 type clusterDiff struct {
@@ -2188,7 +2595,7 @@ func compareClusterClusterConfigGceClusterConfig(c *Client, desired, actual *Clu
 		c.Config.Logger.Infof("desired InternalIPOnly %s - but actually nil", dcl.SprintResource(desired.InternalIPOnly))
 		return true
 	}
-	if !reflect.DeepEqual(desired.InternalIPOnly, actual.InternalIPOnly) && !dcl.IsZeroValue(desired.InternalIPOnly) {
+	if !dcl.BoolCanonicalize(desired.InternalIPOnly, actual.InternalIPOnly) && !dcl.IsZeroValue(desired.InternalIPOnly) {
 		c.Config.Logger.Infof("Diff in InternalIPOnly. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InternalIPOnly), dcl.SprintResource(actual.InternalIPOnly))
 		return true
 	}
@@ -2960,7 +3367,7 @@ func compareClusterClusterConfigSecurityConfigKerberosConfig(c *Client, desired,
 		c.Config.Logger.Infof("desired EnableKerberos %s - but actually nil", dcl.SprintResource(desired.EnableKerberos))
 		return true
 	}
-	if !reflect.DeepEqual(desired.EnableKerberos, actual.EnableKerberos) && !dcl.IsZeroValue(desired.EnableKerberos) {
+	if !dcl.BoolCanonicalize(desired.EnableKerberos, actual.EnableKerberos) && !dcl.IsZeroValue(desired.EnableKerberos) {
 		c.Config.Logger.Infof("Diff in EnableKerberos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableKerberos), dcl.SprintResource(actual.EnableKerberos))
 		return true
 	}
@@ -3190,7 +3597,7 @@ func compareClusterClusterConfigEndpointConfig(c *Client, desired, actual *Clust
 		c.Config.Logger.Infof("desired EnableHttpPortAccess %s - but actually nil", dcl.SprintResource(desired.EnableHttpPortAccess))
 		return true
 	}
-	if !reflect.DeepEqual(desired.EnableHttpPortAccess, actual.EnableHttpPortAccess) && !dcl.IsZeroValue(desired.EnableHttpPortAccess) {
+	if !dcl.BoolCanonicalize(desired.EnableHttpPortAccess, actual.EnableHttpPortAccess) && !dcl.IsZeroValue(desired.EnableHttpPortAccess) {
 		c.Config.Logger.Infof("Diff in EnableHttpPortAccess. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableHttpPortAccess), dcl.SprintResource(actual.EnableHttpPortAccess))
 		return true
 	}

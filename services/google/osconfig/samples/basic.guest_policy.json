@@ -1,6 +1,6 @@
 {
   "name": "{{policy}}",
-  "project": "{{ref:osconfig.serviceusage.service.json:project}}",
+  "project": "{{project}}",
   "assignment": {
     "instances": ["{{ref:basic.compute.instance.json:selfLink}}"]
   },

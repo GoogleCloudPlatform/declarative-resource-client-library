@@ -19,8 +19,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -234,9 +234,20 @@ func (op *deleteLogExclusionOperation) do(ctx context.Context, r *LogExclusion, 
 	if err != nil {
 		return fmt.Errorf("failed to delete LogExclusion: %w", err)
 	}
-	_, err = c.GetLogExclusion(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetLogExclusion(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -331,7 +342,6 @@ func (c *Client) logExclusionDiffsForRawDesired(ctx context.Context, rawDesired 
 		desired, err = canonicalizeLogExclusionDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for LogExclusion: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for LogExclusion: %v", rawDesired)
 
@@ -384,7 +394,7 @@ func canonicalizeLogExclusionDesiredState(rawDesired, rawInitial *LogExclusion, 
 	if dcl.StringCanonicalize(rawDesired.Filter, rawInitial.Filter) {
 		rawDesired.Filter = rawInitial.Filter
 	}
-	if dcl.IsZeroValue(rawDesired.Disabled) {
+	if dcl.BoolCanonicalize(rawDesired.Disabled, rawInitial.Disabled) {
 		rawDesired.Disabled = rawInitial.Disabled
 	}
 	if dcl.IsZeroValue(rawDesired.CreateTime) {
@@ -429,6 +439,9 @@ func canonicalizeLogExclusionNewState(c *Client, rawNew, rawDesired *LogExclusio
 	if dcl.IsEmptyValueIndirect(rawNew.Disabled) && dcl.IsEmptyValueIndirect(rawDesired.Disabled) {
 		rawNew.Disabled = rawDesired.Disabled
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.Disabled, rawNew.Disabled) {
+			rawNew.Disabled = rawDesired.Disabled
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
@@ -490,7 +503,7 @@ func diffLogExclusion(c *Client, desired, actual *LogExclusion, opts ...dcl.Appl
 			FieldName:        "Filter",
 		})
 	}
-	if !reflect.DeepEqual(desired.Disabled, actual.Disabled) {
+	if !dcl.IsZeroValue(desired.Disabled) && !dcl.BoolCanonicalize(desired.Disabled, actual.Disabled) {
 		c.Config.Logger.Infof("Detected diff in Disabled.\nDESIRED: %v\nACTUAL: %v", desired.Disabled, actual.Disabled)
 		diffs = append(diffs, logExclusionDiff{
 			RequiresRecreate: true,

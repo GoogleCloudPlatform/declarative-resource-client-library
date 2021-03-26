@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -298,9 +299,20 @@ func (op *deleteConnectionOperation) do(ctx context.Context, r *Connection, c *C
 	if err != nil {
 		return fmt.Errorf("failed to delete Connection: %w", err)
 	}
-	_, err = c.GetConnection(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetConnection(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -395,7 +407,6 @@ func (c *Client) connectionDiffsForRawDesired(ctx context.Context, rawDesired *C
 		desired, err = canonicalizeConnectionDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Connection: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Connection: %v", rawDesired)
 
@@ -455,7 +466,7 @@ func canonicalizeConnectionDesiredState(rawDesired, rawInitial *Connection, opts
 	if dcl.IsZeroValue(rawDesired.LastModifiedTime) {
 		rawDesired.LastModifiedTime = rawInitial.LastModifiedTime
 	}
-	if dcl.IsZeroValue(rawDesired.HasCredential) {
+	if dcl.BoolCanonicalize(rawDesired.HasCredential, rawInitial.HasCredential) {
 		rawDesired.HasCredential = rawInitial.HasCredential
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
@@ -513,6 +524,9 @@ func canonicalizeConnectionNewState(c *Client, rawNew, rawDesired *Connection) (
 	if dcl.IsEmptyValueIndirect(rawNew.HasCredential) && dcl.IsEmptyValueIndirect(rawDesired.HasCredential) {
 		rawNew.HasCredential = rawDesired.HasCredential
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.HasCredential, rawNew.HasCredential) {
+			rawNew.HasCredential = rawDesired.HasCredential
+		}
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -587,6 +601,26 @@ func canonicalizeNewConnectionCloudSqlSet(c *Client, des, nw []ConnectionCloudSq
 	return reorderedNew
 }
 
+func canonicalizeNewConnectionCloudSqlSlice(c *Client, des, nw []ConnectionCloudSql) []ConnectionCloudSql {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ConnectionCloudSql
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewConnectionCloudSql(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeConnectionCloudSqlCredential(des, initial *ConnectionCloudSqlCredential, opts ...dcl.ApplyOption) *ConnectionCloudSqlCredential {
 	if des == nil {
 		return initial
@@ -645,6 +679,26 @@ func canonicalizeNewConnectionCloudSqlCredentialSet(c *Client, des, nw []Connect
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewConnectionCloudSqlCredentialSlice(c *Client, des, nw []ConnectionCloudSqlCredential) []ConnectionCloudSqlCredential {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ConnectionCloudSqlCredential
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewConnectionCloudSqlCredential(c, &d, &n))
+	}
+
+	return items
 }
 
 type connectionDiff struct {

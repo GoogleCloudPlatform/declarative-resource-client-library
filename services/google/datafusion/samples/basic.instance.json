@@ -1,6 +1,6 @@
 {
   "name": "{{instance}}",
-  "project": "{{ref:datafusion.serviceusage.service.json:project}}",
+  "project": "{{project}}",
   "location": "us-central1",
   "type": "BASIC",
   "privateInstance": true,

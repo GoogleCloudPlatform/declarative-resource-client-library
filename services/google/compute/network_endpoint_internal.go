@@ -280,7 +280,6 @@ func (c *Client) networkEndpointDiffsForRawDesired(ctx context.Context, rawDesir
 		desired, err = canonicalizeNetworkEndpointDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for NetworkEndpoint: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for NetworkEndpoint: %v", rawDesired)
 

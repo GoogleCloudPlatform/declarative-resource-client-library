@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -546,9 +547,20 @@ func (op *deleteServiceOperation) do(ctx context.Context, r *Service, c *Client)
 	if err != nil {
 		return fmt.Errorf("failed to delete Service: %w", err)
 	}
-	_, err = c.GetService(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetService(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -654,7 +666,6 @@ func (c *Client) serviceDiffsForRawDesired(ctx context.Context, rawDesired *Serv
 		desired, err = canonicalizeServiceDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Service: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Service: %v", rawDesired)
 
@@ -856,6 +867,7 @@ func canonicalizeNewServiceMetadata(c *Client, des, nw *ServiceMetadata) *Servic
 		nw.ResourceVersion = des.ResourceVersion
 	}
 	nw.CreateTime = canonicalizeNewServiceMetadataCreateTime(c, des.CreateTime, nw.CreateTime)
+	nw.OwnerReferences = canonicalizeNewServiceMetadataOwnerReferencesSlice(c, des.OwnerReferences, nw.OwnerReferences)
 	nw.DeleteTime = canonicalizeNewServiceMetadataDeleteTime(c, des.DeleteTime, nw.DeleteTime)
 	if dcl.StringCanonicalize(des.ClusterName, nw.ClusterName) || dcl.IsZeroValue(des.ClusterName) {
 		nw.ClusterName = des.ClusterName
@@ -885,6 +897,26 @@ func canonicalizeNewServiceMetadataSet(c *Client, des, nw []ServiceMetadata) []S
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceMetadataSlice(c *Client, des, nw []ServiceMetadata) []ServiceMetadata {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceMetadata
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceMetadata(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceMetadataCreateTime(des, initial *ServiceMetadataCreateTime, opts ...dcl.ApplyOption) *ServiceMetadataCreateTime {
@@ -940,6 +972,26 @@ func canonicalizeNewServiceMetadataCreateTimeSet(c *Client, des, nw []ServiceMet
 	return reorderedNew
 }
 
+func canonicalizeNewServiceMetadataCreateTimeSlice(c *Client, des, nw []ServiceMetadataCreateTime) []ServiceMetadataCreateTime {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceMetadataCreateTime
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceMetadataCreateTime(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceMetadataOwnerReferences(des, initial *ServiceMetadataOwnerReferences, opts ...dcl.ApplyOption) *ServiceMetadataOwnerReferences {
 	if des == nil {
 		return initial
@@ -964,10 +1016,10 @@ func canonicalizeServiceMetadataOwnerReferences(des, initial *ServiceMetadataOwn
 	if dcl.StringCanonicalize(des.Uid, initial.Uid) || dcl.IsZeroValue(des.Uid) {
 		des.Uid = initial.Uid
 	}
-	if dcl.IsZeroValue(des.Controller) {
+	if dcl.BoolCanonicalize(des.Controller, initial.Controller) || dcl.IsZeroValue(des.Controller) {
 		des.Controller = initial.Controller
 	}
-	if dcl.IsZeroValue(des.BlockOwnerDeletion) {
+	if dcl.BoolCanonicalize(des.BlockOwnerDeletion, initial.BlockOwnerDeletion) || dcl.IsZeroValue(des.BlockOwnerDeletion) {
 		des.BlockOwnerDeletion = initial.BlockOwnerDeletion
 	}
 
@@ -990,6 +1042,12 @@ func canonicalizeNewServiceMetadataOwnerReferences(c *Client, des, nw *ServiceMe
 	}
 	if dcl.StringCanonicalize(des.Uid, nw.Uid) || dcl.IsZeroValue(des.Uid) {
 		nw.Uid = des.Uid
+	}
+	if dcl.BoolCanonicalize(des.Controller, nw.Controller) || dcl.IsZeroValue(des.Controller) {
+		nw.Controller = des.Controller
+	}
+	if dcl.BoolCanonicalize(des.BlockOwnerDeletion, nw.BlockOwnerDeletion) || dcl.IsZeroValue(des.BlockOwnerDeletion) {
+		nw.BlockOwnerDeletion = des.BlockOwnerDeletion
 	}
 
 	return nw
@@ -1016,6 +1074,26 @@ func canonicalizeNewServiceMetadataOwnerReferencesSet(c *Client, des, nw []Servi
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceMetadataOwnerReferencesSlice(c *Client, des, nw []ServiceMetadataOwnerReferences) []ServiceMetadataOwnerReferences {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceMetadataOwnerReferences
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceMetadataOwnerReferences(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceMetadataDeleteTime(des, initial *ServiceMetadataDeleteTime, opts ...dcl.ApplyOption) *ServiceMetadataDeleteTime {
@@ -1071,6 +1149,26 @@ func canonicalizeNewServiceMetadataDeleteTimeSet(c *Client, des, nw []ServiceMet
 	return reorderedNew
 }
 
+func canonicalizeNewServiceMetadataDeleteTimeSlice(c *Client, des, nw []ServiceMetadataDeleteTime) []ServiceMetadataDeleteTime {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceMetadataDeleteTime
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceMetadataDeleteTime(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceSpec(des, initial *ServiceSpec, opts ...dcl.ApplyOption) *ServiceSpec {
 	if des == nil {
 		return initial
@@ -1097,6 +1195,7 @@ func canonicalizeNewServiceSpec(c *Client, des, nw *ServiceSpec) *ServiceSpec {
 	}
 
 	nw.Template = canonicalizeNewServiceSpecTemplate(c, des.Template, nw.Template)
+	nw.Traffic = canonicalizeNewServiceSpecTrafficSlice(c, des.Traffic, nw.Traffic)
 
 	return nw
 }
@@ -1122,6 +1221,26 @@ func canonicalizeNewServiceSpecSet(c *Client, des, nw []ServiceSpec) []ServiceSp
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceSpecSlice(c *Client, des, nw []ServiceSpec) []ServiceSpec {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpec
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpec(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceSpecTemplate(des, initial *ServiceSpecTemplate, opts ...dcl.ApplyOption) *ServiceSpecTemplate {
@@ -1174,6 +1293,26 @@ func canonicalizeNewServiceSpecTemplateSet(c *Client, des, nw []ServiceSpecTempl
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceSpecTemplateSlice(c *Client, des, nw []ServiceSpecTemplate) []ServiceSpecTemplate {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplate
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplate(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceSpecTemplateMetadata(des, initial *ServiceSpecTemplateMetadata, opts ...dcl.ApplyOption) *ServiceSpecTemplateMetadata {
@@ -1257,6 +1396,7 @@ func canonicalizeNewServiceSpecTemplateMetadata(c *Client, des, nw *ServiceSpecT
 		nw.ResourceVersion = des.ResourceVersion
 	}
 	nw.CreateTime = canonicalizeNewServiceSpecTemplateMetadataCreateTime(c, des.CreateTime, nw.CreateTime)
+	nw.OwnerReferences = canonicalizeNewServiceSpecTemplateMetadataOwnerReferencesSlice(c, des.OwnerReferences, nw.OwnerReferences)
 	nw.DeleteTime = canonicalizeNewServiceSpecTemplateMetadataDeleteTime(c, des.DeleteTime, nw.DeleteTime)
 	if dcl.StringCanonicalize(des.ClusterName, nw.ClusterName) || dcl.IsZeroValue(des.ClusterName) {
 		nw.ClusterName = des.ClusterName
@@ -1286,6 +1426,26 @@ func canonicalizeNewServiceSpecTemplateMetadataSet(c *Client, des, nw []ServiceS
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceSpecTemplateMetadataSlice(c *Client, des, nw []ServiceSpecTemplateMetadata) []ServiceSpecTemplateMetadata {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateMetadata
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateMetadata(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceSpecTemplateMetadataCreateTime(des, initial *ServiceSpecTemplateMetadataCreateTime, opts ...dcl.ApplyOption) *ServiceSpecTemplateMetadataCreateTime {
@@ -1341,6 +1501,26 @@ func canonicalizeNewServiceSpecTemplateMetadataCreateTimeSet(c *Client, des, nw 
 	return reorderedNew
 }
 
+func canonicalizeNewServiceSpecTemplateMetadataCreateTimeSlice(c *Client, des, nw []ServiceSpecTemplateMetadataCreateTime) []ServiceSpecTemplateMetadataCreateTime {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateMetadataCreateTime
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateMetadataCreateTime(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceSpecTemplateMetadataOwnerReferences(des, initial *ServiceSpecTemplateMetadataOwnerReferences, opts ...dcl.ApplyOption) *ServiceSpecTemplateMetadataOwnerReferences {
 	if des == nil {
 		return initial
@@ -1365,10 +1545,10 @@ func canonicalizeServiceSpecTemplateMetadataOwnerReferences(des, initial *Servic
 	if dcl.StringCanonicalize(des.Uid, initial.Uid) || dcl.IsZeroValue(des.Uid) {
 		des.Uid = initial.Uid
 	}
-	if dcl.IsZeroValue(des.Controller) {
+	if dcl.BoolCanonicalize(des.Controller, initial.Controller) || dcl.IsZeroValue(des.Controller) {
 		des.Controller = initial.Controller
 	}
-	if dcl.IsZeroValue(des.BlockOwnerDeletion) {
+	if dcl.BoolCanonicalize(des.BlockOwnerDeletion, initial.BlockOwnerDeletion) || dcl.IsZeroValue(des.BlockOwnerDeletion) {
 		des.BlockOwnerDeletion = initial.BlockOwnerDeletion
 	}
 
@@ -1391,6 +1571,12 @@ func canonicalizeNewServiceSpecTemplateMetadataOwnerReferences(c *Client, des, n
 	}
 	if dcl.StringCanonicalize(des.Uid, nw.Uid) || dcl.IsZeroValue(des.Uid) {
 		nw.Uid = des.Uid
+	}
+	if dcl.BoolCanonicalize(des.Controller, nw.Controller) || dcl.IsZeroValue(des.Controller) {
+		nw.Controller = des.Controller
+	}
+	if dcl.BoolCanonicalize(des.BlockOwnerDeletion, nw.BlockOwnerDeletion) || dcl.IsZeroValue(des.BlockOwnerDeletion) {
+		nw.BlockOwnerDeletion = des.BlockOwnerDeletion
 	}
 
 	return nw
@@ -1417,6 +1603,26 @@ func canonicalizeNewServiceSpecTemplateMetadataOwnerReferencesSet(c *Client, des
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceSpecTemplateMetadataOwnerReferencesSlice(c *Client, des, nw []ServiceSpecTemplateMetadataOwnerReferences) []ServiceSpecTemplateMetadataOwnerReferences {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateMetadataOwnerReferences
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateMetadataOwnerReferences(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceSpecTemplateMetadataDeleteTime(des, initial *ServiceSpecTemplateMetadataDeleteTime, opts ...dcl.ApplyOption) *ServiceSpecTemplateMetadataDeleteTime {
@@ -1472,6 +1678,26 @@ func canonicalizeNewServiceSpecTemplateMetadataDeleteTimeSet(c *Client, des, nw 
 	return reorderedNew
 }
 
+func canonicalizeNewServiceSpecTemplateMetadataDeleteTimeSlice(c *Client, des, nw []ServiceSpecTemplateMetadataDeleteTime) []ServiceSpecTemplateMetadataDeleteTime {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateMetadataDeleteTime
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateMetadataDeleteTime(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceSpecTemplateSpec(des, initial *ServiceSpecTemplateSpec, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpec {
 	if des == nil {
 		return initial
@@ -1511,6 +1737,8 @@ func canonicalizeNewServiceSpecTemplateSpec(c *Client, des, nw *ServiceSpecTempl
 	if dcl.StringCanonicalize(des.ServiceAccountName, nw.ServiceAccountName) || dcl.IsZeroValue(des.ServiceAccountName) {
 		nw.ServiceAccountName = des.ServiceAccountName
 	}
+	nw.Containers = canonicalizeNewServiceSpecTemplateSpecContainersSlice(c, des.Containers, nw.Containers)
+	nw.Volumes = canonicalizeNewServiceSpecTemplateSpecVolumesSlice(c, des.Volumes, nw.Volumes)
 
 	return nw
 }
@@ -1536,6 +1764,26 @@ func canonicalizeNewServiceSpecTemplateSpecSet(c *Client, des, nw []ServiceSpecT
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceSpecTemplateSpecSlice(c *Client, des, nw []ServiceSpecTemplateSpec) []ServiceSpecTemplateSpec {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpec
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpec(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceSpecTemplateSpecContainers(des, initial *ServiceSpecTemplateSpecContainers, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainers {
@@ -1605,10 +1853,14 @@ func canonicalizeNewServiceSpecTemplateSpecContainers(c *Client, des, nw *Servic
 	if dcl.StringCanonicalize(des.Image, nw.Image) || dcl.IsZeroValue(des.Image) {
 		nw.Image = des.Image
 	}
+	nw.Env = canonicalizeNewServiceSpecTemplateSpecContainersEnvSlice(c, des.Env, nw.Env)
 	nw.Resources = canonicalizeNewServiceSpecTemplateSpecContainersResources(c, des.Resources, nw.Resources)
 	if dcl.StringCanonicalize(des.WorkingDir, nw.WorkingDir) || dcl.IsZeroValue(des.WorkingDir) {
 		nw.WorkingDir = des.WorkingDir
 	}
+	nw.Ports = canonicalizeNewServiceSpecTemplateSpecContainersPortsSlice(c, des.Ports, nw.Ports)
+	nw.EnvFrom = canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSlice(c, des.EnvFrom, nw.EnvFrom)
+	nw.VolumeMounts = canonicalizeNewServiceSpecTemplateSpecContainersVolumeMountsSlice(c, des.VolumeMounts, nw.VolumeMounts)
 	nw.LivenessProbe = canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbe(c, des.LivenessProbe, nw.LivenessProbe)
 	nw.ReadinessProbe = canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbe(c, des.ReadinessProbe, nw.ReadinessProbe)
 	if dcl.StringCanonicalize(des.TerminationMessagePath, nw.TerminationMessagePath) || dcl.IsZeroValue(des.TerminationMessagePath) {
@@ -1646,6 +1898,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersSet(c *Client, des, nw []Se
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainers) []ServiceSpecTemplateSpecContainers {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainers
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainers(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceSpecTemplateSpecContainersEnv(des, initial *ServiceSpecTemplateSpecContainersEnv, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersEnv {
@@ -1710,6 +1982,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvSet(c *Client, des, nw [
 	return reorderedNew
 }
 
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersEnv) []ServiceSpecTemplateSpecContainersEnv {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersEnv
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersEnv(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceSpecTemplateSpecContainersEnvValueFrom(des, initial *ServiceSpecTemplateSpecContainersEnvValueFrom, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersEnvValueFrom {
 	if des == nil {
 		return initial
@@ -1762,6 +2054,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSet(c *Client, 
 	return reorderedNew
 }
 
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersEnvValueFrom) []ServiceSpecTemplateSpecContainersEnvValueFrom {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersEnvValueFrom
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFrom(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(des, initial *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef {
 	if des == nil {
 		return initial
@@ -1778,7 +2090,7 @@ func canonicalizeServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(de
 	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
 		des.Key = initial.Key
 	}
-	if dcl.IsZeroValue(des.Optional) {
+	if dcl.BoolCanonicalize(des.Optional, initial.Optional) || dcl.IsZeroValue(des.Optional) {
 		des.Optional = initial.Optional
 	}
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
@@ -1796,6 +2108,9 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef
 	nw.LocalObjectReference = canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, des.LocalObjectReference, nw.LocalObjectReference)
 	if dcl.StringCanonicalize(des.Key, nw.Key) || dcl.IsZeroValue(des.Key) {
 		nw.Key = des.Key
+	}
+	if dcl.BoolCanonicalize(des.Optional, nw.Optional) || dcl.IsZeroValue(des.Optional) {
+		nw.Optional = des.Optional
 	}
 	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
 		nw.Name = des.Name
@@ -1825,6 +2140,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef) []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(des, initial *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference {
@@ -1881,6 +2216,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef
 	return reorderedNew
 }
 
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReferenceSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference) []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(des, initial *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef {
 	if des == nil {
 		return initial
@@ -1897,7 +2252,7 @@ func canonicalizeServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(des, 
 	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
 		des.Key = initial.Key
 	}
-	if dcl.IsZeroValue(des.Optional) {
+	if dcl.BoolCanonicalize(des.Optional, initial.Optional) || dcl.IsZeroValue(des.Optional) {
 		des.Optional = initial.Optional
 	}
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
@@ -1915,6 +2270,9 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c 
 	nw.LocalObjectReference = canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, des.LocalObjectReference, nw.LocalObjectReference)
 	if dcl.StringCanonicalize(des.Key, nw.Key) || dcl.IsZeroValue(des.Key) {
 		nw.Key = des.Key
+	}
+	if dcl.BoolCanonicalize(des.Optional, nw.Optional) || dcl.IsZeroValue(des.Optional) {
+		nw.Optional = des.Optional
 	}
 	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
 		nw.Name = des.Name
@@ -1944,6 +2302,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefSet
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef) []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(des, initial *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference {
@@ -2000,6 +2378,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLoc
 	return reorderedNew
 }
 
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReferenceSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference) []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceSpecTemplateSpecContainersResources(des, initial *ServiceSpecTemplateSpecContainersResources, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersResources {
 	if des == nil {
 		return initial
@@ -2051,6 +2449,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersResourcesSet(c *Client, des
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersResourcesSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersResources) []ServiceSpecTemplateSpecContainersResources {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersResources
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersResources(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceSpecTemplateSpecContainersPorts(des, initial *ServiceSpecTemplateSpecContainersPorts, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersPorts {
@@ -2116,6 +2534,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersPortsSet(c *Client, des, nw
 	return reorderedNew
 }
 
+func canonicalizeNewServiceSpecTemplateSpecContainersPortsSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersPorts) []ServiceSpecTemplateSpecContainersPorts {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersPorts
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersPorts(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceSpecTemplateSpecContainersEnvFrom(des, initial *ServiceSpecTemplateSpecContainersEnvFrom, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersEnvFrom {
 	if des == nil {
 		return initial
@@ -2174,6 +2612,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSet(c *Client, des, 
 	return reorderedNew
 }
 
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersEnvFrom) []ServiceSpecTemplateSpecContainersEnvFrom {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersEnvFrom
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersEnvFrom(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceSpecTemplateSpecContainersEnvFromConfigMapRef(des, initial *ServiceSpecTemplateSpecContainersEnvFromConfigMapRef, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersEnvFromConfigMapRef {
 	if des == nil {
 		return initial
@@ -2187,7 +2645,7 @@ func canonicalizeServiceSpecTemplateSpecContainersEnvFromConfigMapRef(des, initi
 	}
 
 	des.LocalObjectReference = canonicalizeServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(des.LocalObjectReference, initial.LocalObjectReference, opts...)
-	if dcl.IsZeroValue(des.Optional) {
+	if dcl.BoolCanonicalize(des.Optional, initial.Optional) || dcl.IsZeroValue(des.Optional) {
 		des.Optional = initial.Optional
 	}
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
@@ -2203,6 +2661,9 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c *Clie
 	}
 
 	nw.LocalObjectReference = canonicalizeNewServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, des.LocalObjectReference, nw.LocalObjectReference)
+	if dcl.BoolCanonicalize(des.Optional, nw.Optional) || dcl.IsZeroValue(des.Optional) {
+		nw.Optional = des.Optional
+	}
 	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
 		nw.Name = des.Name
 	}
@@ -2231,6 +2692,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromConfigMapRefSet(c *C
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromConfigMapRefSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersEnvFromConfigMapRef) []ServiceSpecTemplateSpecContainersEnvFromConfigMapRef {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersEnvFromConfigMapRef
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(des, initial *ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference {
@@ -2287,6 +2768,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObj
 	return reorderedNew
 }
 
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReferenceSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference) []ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceSpecTemplateSpecContainersEnvFromSecretRef(des, initial *ServiceSpecTemplateSpecContainersEnvFromSecretRef, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersEnvFromSecretRef {
 	if des == nil {
 		return initial
@@ -2300,7 +2801,7 @@ func canonicalizeServiceSpecTemplateSpecContainersEnvFromSecretRef(des, initial 
 	}
 
 	des.LocalObjectReference = canonicalizeServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(des.LocalObjectReference, initial.LocalObjectReference, opts...)
-	if dcl.IsZeroValue(des.Optional) {
+	if dcl.BoolCanonicalize(des.Optional, initial.Optional) || dcl.IsZeroValue(des.Optional) {
 		des.Optional = initial.Optional
 	}
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
@@ -2316,6 +2817,9 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSecretRef(c *Client,
 	}
 
 	nw.LocalObjectReference = canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, des.LocalObjectReference, nw.LocalObjectReference)
+	if dcl.BoolCanonicalize(des.Optional, nw.Optional) || dcl.IsZeroValue(des.Optional) {
+		nw.Optional = des.Optional
+	}
 	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
 		nw.Name = des.Name
 	}
@@ -2344,6 +2848,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSecretRefSet(c *Clie
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSecretRefSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersEnvFromSecretRef) []ServiceSpecTemplateSpecContainersEnvFromSecretRef {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersEnvFromSecretRef
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSecretRef(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(des, initial *ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference {
@@ -2400,6 +2924,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObject
 	return reorderedNew
 }
 
+func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenceSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference) []ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceSpecTemplateSpecContainersVolumeMounts(des, initial *ServiceSpecTemplateSpecContainersVolumeMounts, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersVolumeMounts {
 	if des == nil {
 		return initial
@@ -2415,7 +2959,7 @@ func canonicalizeServiceSpecTemplateSpecContainersVolumeMounts(des, initial *Ser
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
-	if dcl.IsZeroValue(des.ReadOnly) {
+	if dcl.BoolCanonicalize(des.ReadOnly, initial.ReadOnly) || dcl.IsZeroValue(des.ReadOnly) {
 		des.ReadOnly = initial.ReadOnly
 	}
 	if dcl.StringCanonicalize(des.MountPath, initial.MountPath) || dcl.IsZeroValue(des.MountPath) {
@@ -2435,6 +2979,9 @@ func canonicalizeNewServiceSpecTemplateSpecContainersVolumeMounts(c *Client, des
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
 		nw.Name = des.Name
+	}
+	if dcl.BoolCanonicalize(des.ReadOnly, nw.ReadOnly) || dcl.IsZeroValue(des.ReadOnly) {
+		nw.ReadOnly = des.ReadOnly
 	}
 	if dcl.StringCanonicalize(des.MountPath, nw.MountPath) || dcl.IsZeroValue(des.MountPath) {
 		nw.MountPath = des.MountPath
@@ -2467,6 +3014,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersVolumeMountsSet(c *Client, 
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersVolumeMountsSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersVolumeMounts) []ServiceSpecTemplateSpecContainersVolumeMounts {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersVolumeMounts
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersVolumeMounts(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceSpecTemplateSpecContainersLivenessProbe(des, initial *ServiceSpecTemplateSpecContainersLivenessProbe, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersLivenessProbe {
@@ -2538,6 +3105,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeSet(c *Client,
 	return reorderedNew
 }
 
+func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersLivenessProbe) []ServiceSpecTemplateSpecContainersLivenessProbe {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersLivenessProbe
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbe(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceSpecTemplateSpecContainersLivenessProbeExec(des, initial *ServiceSpecTemplateSpecContainersLivenessProbeExec, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersLivenessProbeExec {
 	if des == nil {
 		return initial
@@ -2592,6 +3179,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeExecSet(c *Cli
 	return reorderedNew
 }
 
+func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeExecSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersLivenessProbeExec) []ServiceSpecTemplateSpecContainersLivenessProbeExec {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersLivenessProbeExec
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeExec(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceSpecTemplateSpecContainersLivenessProbeHttpGet(des, initial *ServiceSpecTemplateSpecContainersLivenessProbeHttpGet, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersLivenessProbeHttpGet {
 	if des == nil {
 		return initial
@@ -2634,6 +3241,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c *Cli
 	if dcl.StringCanonicalize(des.Scheme, nw.Scheme) || dcl.IsZeroValue(des.Scheme) {
 		nw.Scheme = des.Scheme
 	}
+	nw.HttpHeaders = canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersSlice(c, des.HttpHeaders, nw.HttpHeaders)
 
 	return nw
 }
@@ -2659,6 +3267,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeHttpGetSet(c *
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeHttpGetSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersLivenessProbeHttpGet) []ServiceSpecTemplateSpecContainersLivenessProbeHttpGet {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersLivenessProbeHttpGet
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(des, initial *ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders {
@@ -2721,6 +3349,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHea
 	return reorderedNew
 }
 
+func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders) []ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(des, initial *ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket {
 	if des == nil {
 		return initial
@@ -2776,6 +3424,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeTcpSocketSet(c
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeTcpSocketSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket) []ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceSpecTemplateSpecContainersReadinessProbe(des, initial *ServiceSpecTemplateSpecContainersReadinessProbe, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersReadinessProbe {
@@ -2847,6 +3515,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeSet(c *Client
 	return reorderedNew
 }
 
+func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersReadinessProbe) []ServiceSpecTemplateSpecContainersReadinessProbe {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersReadinessProbe
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbe(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceSpecTemplateSpecContainersReadinessProbeExec(des, initial *ServiceSpecTemplateSpecContainersReadinessProbeExec, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersReadinessProbeExec {
 	if des == nil {
 		return initial
@@ -2901,6 +3589,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeExecSet(c *Cl
 	return reorderedNew
 }
 
+func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeExecSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersReadinessProbeExec) []ServiceSpecTemplateSpecContainersReadinessProbeExec {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersReadinessProbeExec
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeExec(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceSpecTemplateSpecContainersReadinessProbeHttpGet(des, initial *ServiceSpecTemplateSpecContainersReadinessProbeHttpGet, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersReadinessProbeHttpGet {
 	if des == nil {
 		return initial
@@ -2943,6 +3651,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c *Cl
 	if dcl.StringCanonicalize(des.Scheme, nw.Scheme) || dcl.IsZeroValue(des.Scheme) {
 		nw.Scheme = des.Scheme
 	}
+	nw.HttpHeaders = canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersSlice(c, des.HttpHeaders, nw.HttpHeaders)
 
 	return nw
 }
@@ -2968,6 +3677,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeHttpGetSet(c 
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeHttpGetSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersReadinessProbeHttpGet) []ServiceSpecTemplateSpecContainersReadinessProbeHttpGet {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersReadinessProbeHttpGet
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(des, initial *ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders {
@@ -3030,6 +3759,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHe
 	return reorderedNew
 }
 
+func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders) []ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(des, initial *ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket {
 	if des == nil {
 		return initial
@@ -3087,6 +3836,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeTcpSocketSet(
 	return reorderedNew
 }
 
+func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeTcpSocketSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket) []ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceSpecTemplateSpecContainersSecurityContext(des, initial *ServiceSpecTemplateSpecContainersSecurityContext, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecContainersSecurityContext {
 	if des == nil {
 		return initial
@@ -3135,6 +3904,26 @@ func canonicalizeNewServiceSpecTemplateSpecContainersSecurityContextSet(c *Clien
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceSpecTemplateSpecContainersSecurityContextSlice(c *Client, des, nw []ServiceSpecTemplateSpecContainersSecurityContext) []ServiceSpecTemplateSpecContainersSecurityContext {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecContainersSecurityContext
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecContainersSecurityContext(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceSpecTemplateSpecVolumes(des, initial *ServiceSpecTemplateSpecVolumes, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecVolumes {
@@ -3195,6 +3984,26 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesSet(c *Client, des, nw []Servi
 	return reorderedNew
 }
 
+func canonicalizeNewServiceSpecTemplateSpecVolumesSlice(c *Client, des, nw []ServiceSpecTemplateSpecVolumes) []ServiceSpecTemplateSpecVolumes {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecVolumes
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecVolumes(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceSpecTemplateSpecVolumesSecret(des, initial *ServiceSpecTemplateSpecVolumesSecret, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecVolumesSecret {
 	if des == nil {
 		return initial
@@ -3216,7 +4025,7 @@ func canonicalizeServiceSpecTemplateSpecVolumesSecret(des, initial *ServiceSpecT
 	if dcl.IsZeroValue(des.DefaultMode) {
 		des.DefaultMode = initial.DefaultMode
 	}
-	if dcl.IsZeroValue(des.Optional) {
+	if dcl.BoolCanonicalize(des.Optional, initial.Optional) || dcl.IsZeroValue(des.Optional) {
 		des.Optional = initial.Optional
 	}
 
@@ -3230,6 +4039,10 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesSecret(c *Client, des, nw *Ser
 
 	if dcl.StringCanonicalize(des.SecretName, nw.SecretName) || dcl.IsZeroValue(des.SecretName) {
 		nw.SecretName = des.SecretName
+	}
+	nw.Items = canonicalizeNewServiceSpecTemplateSpecVolumesSecretItemsSlice(c, des.Items, nw.Items)
+	if dcl.BoolCanonicalize(des.Optional, nw.Optional) || dcl.IsZeroValue(des.Optional) {
+		nw.Optional = des.Optional
 	}
 
 	return nw
@@ -3256,6 +4069,26 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesSecretSet(c *Client, des, nw [
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceSpecTemplateSpecVolumesSecretSlice(c *Client, des, nw []ServiceSpecTemplateSpecVolumesSecret) []ServiceSpecTemplateSpecVolumesSecret {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecVolumesSecret
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecVolumesSecret(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceSpecTemplateSpecVolumesSecretItems(des, initial *ServiceSpecTemplateSpecVolumesSecretItems, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecVolumesSecretItems {
@@ -3321,6 +4154,26 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesSecretItemsSet(c *Client, des,
 	return reorderedNew
 }
 
+func canonicalizeNewServiceSpecTemplateSpecVolumesSecretItemsSlice(c *Client, des, nw []ServiceSpecTemplateSpecVolumesSecretItems) []ServiceSpecTemplateSpecVolumesSecretItems {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecVolumesSecretItems
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecVolumesSecretItems(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceSpecTemplateSpecVolumesConfigMap(des, initial *ServiceSpecTemplateSpecVolumesConfigMap, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecVolumesConfigMap {
 	if des == nil {
 		return initial
@@ -3342,7 +4195,7 @@ func canonicalizeServiceSpecTemplateSpecVolumesConfigMap(des, initial *ServiceSp
 	if dcl.IsZeroValue(des.DefaultMode) {
 		des.DefaultMode = initial.DefaultMode
 	}
-	if dcl.IsZeroValue(des.Optional) {
+	if dcl.BoolCanonicalize(des.Optional, initial.Optional) || dcl.IsZeroValue(des.Optional) {
 		des.Optional = initial.Optional
 	}
 
@@ -3356,6 +4209,10 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesConfigMap(c *Client, des, nw *
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
 		nw.Name = des.Name
+	}
+	nw.Items = canonicalizeNewServiceSpecTemplateSpecVolumesConfigMapItemsSlice(c, des.Items, nw.Items)
+	if dcl.BoolCanonicalize(des.Optional, nw.Optional) || dcl.IsZeroValue(des.Optional) {
+		nw.Optional = des.Optional
 	}
 
 	return nw
@@ -3382,6 +4239,26 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesConfigMapSet(c *Client, des, n
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceSpecTemplateSpecVolumesConfigMapSlice(c *Client, des, nw []ServiceSpecTemplateSpecVolumesConfigMap) []ServiceSpecTemplateSpecVolumesConfigMap {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecVolumesConfigMap
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecVolumesConfigMap(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceSpecTemplateSpecVolumesConfigMapItems(des, initial *ServiceSpecTemplateSpecVolumesConfigMapItems, opts ...dcl.ApplyOption) *ServiceSpecTemplateSpecVolumesConfigMapItems {
@@ -3447,6 +4324,26 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesConfigMapItemsSet(c *Client, d
 	return reorderedNew
 }
 
+func canonicalizeNewServiceSpecTemplateSpecVolumesConfigMapItemsSlice(c *Client, des, nw []ServiceSpecTemplateSpecVolumesConfigMapItems) []ServiceSpecTemplateSpecVolumesConfigMapItems {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTemplateSpecVolumesConfigMapItems
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTemplateSpecVolumesConfigMapItems(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceSpecTraffic(des, initial *ServiceSpecTraffic, opts ...dcl.ApplyOption) *ServiceSpecTraffic {
 	if des == nil {
 		return initial
@@ -3471,7 +4368,7 @@ func canonicalizeServiceSpecTraffic(des, initial *ServiceSpecTraffic, opts ...dc
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
 		des.Tag = initial.Tag
 	}
-	if dcl.IsZeroValue(des.LatestRevision) {
+	if dcl.BoolCanonicalize(des.LatestRevision, initial.LatestRevision) || dcl.IsZeroValue(des.LatestRevision) {
 		des.LatestRevision = initial.LatestRevision
 	}
 	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
@@ -3494,6 +4391,9 @@ func canonicalizeNewServiceSpecTraffic(c *Client, des, nw *ServiceSpecTraffic) *
 	}
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) || dcl.IsZeroValue(des.Tag) {
 		nw.Tag = des.Tag
+	}
+	if dcl.BoolCanonicalize(des.LatestRevision, nw.LatestRevision) || dcl.IsZeroValue(des.LatestRevision) {
+		nw.LatestRevision = des.LatestRevision
 	}
 	if dcl.StringCanonicalize(des.Url, nw.Url) || dcl.IsZeroValue(des.Url) {
 		nw.Url = des.Url
@@ -3523,6 +4423,26 @@ func canonicalizeNewServiceSpecTrafficSet(c *Client, des, nw []ServiceSpecTraffi
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceSpecTrafficSlice(c *Client, des, nw []ServiceSpecTraffic) []ServiceSpecTraffic {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceSpecTraffic
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceSpecTraffic(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceStatus(des, initial *ServiceStatus, opts ...dcl.ApplyOption) *ServiceStatus {
@@ -3565,12 +4485,14 @@ func canonicalizeNewServiceStatus(c *Client, des, nw *ServiceStatus) *ServiceSta
 		return nw
 	}
 
+	nw.Conditions = canonicalizeNewServiceStatusConditionsSlice(c, des.Conditions, nw.Conditions)
 	if dcl.StringCanonicalize(des.LatestReadyRevisionName, nw.LatestReadyRevisionName) || dcl.IsZeroValue(des.LatestReadyRevisionName) {
 		nw.LatestReadyRevisionName = des.LatestReadyRevisionName
 	}
 	if dcl.StringCanonicalize(des.LatestCreatedRevisionName, nw.LatestCreatedRevisionName) || dcl.IsZeroValue(des.LatestCreatedRevisionName) {
 		nw.LatestCreatedRevisionName = des.LatestCreatedRevisionName
 	}
+	nw.Traffic = canonicalizeNewServiceStatusTrafficSlice(c, des.Traffic, nw.Traffic)
 	if dcl.StringCanonicalize(des.Url, nw.Url) || dcl.IsZeroValue(des.Url) {
 		nw.Url = des.Url
 	}
@@ -3600,6 +4522,26 @@ func canonicalizeNewServiceStatusSet(c *Client, des, nw []ServiceStatus) []Servi
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceStatusSlice(c *Client, des, nw []ServiceStatus) []ServiceStatus {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceStatus
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceStatus(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceStatusConditions(des, initial *ServiceStatusConditions, opts ...dcl.ApplyOption) *ServiceStatusConditions {
@@ -3682,6 +4624,26 @@ func canonicalizeNewServiceStatusConditionsSet(c *Client, des, nw []ServiceStatu
 	return reorderedNew
 }
 
+func canonicalizeNewServiceStatusConditionsSlice(c *Client, des, nw []ServiceStatusConditions) []ServiceStatusConditions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceStatusConditions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceStatusConditions(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceStatusConditionsLastTransitionTime(des, initial *ServiceStatusConditionsLastTransitionTime, opts ...dcl.ApplyOption) *ServiceStatusConditionsLastTransitionTime {
 	if des == nil {
 		return initial
@@ -3735,6 +4697,26 @@ func canonicalizeNewServiceStatusConditionsLastTransitionTimeSet(c *Client, des,
 	return reorderedNew
 }
 
+func canonicalizeNewServiceStatusConditionsLastTransitionTimeSlice(c *Client, des, nw []ServiceStatusConditionsLastTransitionTime) []ServiceStatusConditionsLastTransitionTime {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceStatusConditionsLastTransitionTime
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceStatusConditionsLastTransitionTime(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServiceStatusTraffic(des, initial *ServiceStatusTraffic, opts ...dcl.ApplyOption) *ServiceStatusTraffic {
 	if des == nil {
 		return initial
@@ -3759,7 +4741,7 @@ func canonicalizeServiceStatusTraffic(des, initial *ServiceStatusTraffic, opts .
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
 		des.Tag = initial.Tag
 	}
-	if dcl.IsZeroValue(des.LatestRevision) {
+	if dcl.BoolCanonicalize(des.LatestRevision, initial.LatestRevision) || dcl.IsZeroValue(des.LatestRevision) {
 		des.LatestRevision = initial.LatestRevision
 	}
 	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
@@ -3782,6 +4764,9 @@ func canonicalizeNewServiceStatusTraffic(c *Client, des, nw *ServiceStatusTraffi
 	}
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) || dcl.IsZeroValue(des.Tag) {
 		nw.Tag = des.Tag
+	}
+	if dcl.BoolCanonicalize(des.LatestRevision, nw.LatestRevision) || dcl.IsZeroValue(des.LatestRevision) {
+		nw.LatestRevision = des.LatestRevision
 	}
 	if dcl.StringCanonicalize(des.Url, nw.Url) || dcl.IsZeroValue(des.Url) {
 		nw.Url = des.Url
@@ -3811,6 +4796,26 @@ func canonicalizeNewServiceStatusTrafficSet(c *Client, des, nw []ServiceStatusTr
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceStatusTrafficSlice(c *Client, des, nw []ServiceStatusTraffic) []ServiceStatusTraffic {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceStatusTraffic
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceStatusTraffic(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceStatusAddress(des, initial *ServiceStatusAddress, opts ...dcl.ApplyOption) *ServiceStatusAddress {
@@ -3865,6 +4870,26 @@ func canonicalizeNewServiceStatusAddressSet(c *Client, des, nw []ServiceStatusAd
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceStatusAddressSlice(c *Client, des, nw []ServiceStatusAddress) []ServiceStatusAddress {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceStatusAddress
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceStatusAddress(c, &d, &n))
+	}
+
+	return items
 }
 
 type serviceDiff struct {
@@ -4205,7 +5230,7 @@ func compareServiceMetadataOwnerReferences(c *Client, desired, actual *ServiceMe
 		c.Config.Logger.Infof("desired Controller %s - but actually nil", dcl.SprintResource(desired.Controller))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Controller, actual.Controller) && !dcl.IsZeroValue(desired.Controller) {
+	if !dcl.BoolCanonicalize(desired.Controller, actual.Controller) && !dcl.IsZeroValue(desired.Controller) {
 		c.Config.Logger.Infof("Diff in Controller. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Controller), dcl.SprintResource(actual.Controller))
 		return true
 	}
@@ -4213,7 +5238,7 @@ func compareServiceMetadataOwnerReferences(c *Client, desired, actual *ServiceMe
 		c.Config.Logger.Infof("desired BlockOwnerDeletion %s - but actually nil", dcl.SprintResource(desired.BlockOwnerDeletion))
 		return true
 	}
-	if !reflect.DeepEqual(desired.BlockOwnerDeletion, actual.BlockOwnerDeletion) && !dcl.IsZeroValue(desired.BlockOwnerDeletion) {
+	if !dcl.BoolCanonicalize(desired.BlockOwnerDeletion, actual.BlockOwnerDeletion) && !dcl.IsZeroValue(desired.BlockOwnerDeletion) {
 		c.Config.Logger.Infof("Diff in BlockOwnerDeletion. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BlockOwnerDeletion), dcl.SprintResource(actual.BlockOwnerDeletion))
 		return true
 	}
@@ -4695,7 +5720,7 @@ func compareServiceSpecTemplateMetadataOwnerReferences(c *Client, desired, actua
 		c.Config.Logger.Infof("desired Controller %s - but actually nil", dcl.SprintResource(desired.Controller))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Controller, actual.Controller) && !dcl.IsZeroValue(desired.Controller) {
+	if !dcl.BoolCanonicalize(desired.Controller, actual.Controller) && !dcl.IsZeroValue(desired.Controller) {
 		c.Config.Logger.Infof("Diff in Controller. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Controller), dcl.SprintResource(actual.Controller))
 		return true
 	}
@@ -4703,7 +5728,7 @@ func compareServiceSpecTemplateMetadataOwnerReferences(c *Client, desired, actua
 		c.Config.Logger.Infof("desired BlockOwnerDeletion %s - but actually nil", dcl.SprintResource(desired.BlockOwnerDeletion))
 		return true
 	}
-	if !reflect.DeepEqual(desired.BlockOwnerDeletion, actual.BlockOwnerDeletion) && !dcl.IsZeroValue(desired.BlockOwnerDeletion) {
+	if !dcl.BoolCanonicalize(desired.BlockOwnerDeletion, actual.BlockOwnerDeletion) && !dcl.IsZeroValue(desired.BlockOwnerDeletion) {
 		c.Config.Logger.Infof("Diff in BlockOwnerDeletion. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BlockOwnerDeletion), dcl.SprintResource(actual.BlockOwnerDeletion))
 		return true
 	}
@@ -5209,7 +6234,7 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c *Clie
 		c.Config.Logger.Infof("desired Optional %s - but actually nil", dcl.SprintResource(desired.Optional))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
+	if !dcl.BoolCanonicalize(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
 		c.Config.Logger.Infof("Diff in Optional. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
 		return true
 	}
@@ -5335,7 +6360,7 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c *Client,
 		c.Config.Logger.Infof("desired Optional %s - but actually nil", dcl.SprintResource(desired.Optional))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
+	if !dcl.BoolCanonicalize(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
 		c.Config.Logger.Infof("Diff in Optional. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
 		return true
 	}
@@ -5646,7 +6671,7 @@ func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c *Client, desi
 		c.Config.Logger.Infof("desired Optional %s - but actually nil", dcl.SprintResource(desired.Optional))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
+	if !dcl.BoolCanonicalize(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
 		c.Config.Logger.Infof("Diff in Optional. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
 		return true
 	}
@@ -5764,7 +6789,7 @@ func compareServiceSpecTemplateSpecContainersEnvFromSecretRef(c *Client, desired
 		c.Config.Logger.Infof("desired Optional %s - but actually nil", dcl.SprintResource(desired.Optional))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
+	if !dcl.BoolCanonicalize(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
 		c.Config.Logger.Infof("Diff in Optional. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
 		return true
 	}
@@ -5882,7 +6907,7 @@ func compareServiceSpecTemplateSpecContainersVolumeMounts(c *Client, desired, ac
 		c.Config.Logger.Infof("desired ReadOnly %s - but actually nil", dcl.SprintResource(desired.ReadOnly))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ReadOnly, actual.ReadOnly) && !dcl.IsZeroValue(desired.ReadOnly) {
+	if !dcl.BoolCanonicalize(desired.ReadOnly, actual.ReadOnly) && !dcl.IsZeroValue(desired.ReadOnly) {
 		c.Config.Logger.Infof("Diff in ReadOnly. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReadOnly), dcl.SprintResource(actual.ReadOnly))
 		return true
 	}
@@ -6793,7 +7818,7 @@ func compareServiceSpecTemplateSpecVolumesSecret(c *Client, desired, actual *Ser
 		c.Config.Logger.Infof("desired Optional %s - but actually nil", dcl.SprintResource(desired.Optional))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
+	if !dcl.BoolCanonicalize(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
 		c.Config.Logger.Infof("Diff in Optional. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
 		return true
 	}
@@ -6935,7 +7960,7 @@ func compareServiceSpecTemplateSpecVolumesConfigMap(c *Client, desired, actual *
 		c.Config.Logger.Infof("desired Optional %s - but actually nil", dcl.SprintResource(desired.Optional))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
+	if !dcl.BoolCanonicalize(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
 		c.Config.Logger.Infof("Diff in Optional. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
 		return true
 	}
@@ -7085,7 +8110,7 @@ func compareServiceSpecTraffic(c *Client, desired, actual *ServiceSpecTraffic) b
 		c.Config.Logger.Infof("desired LatestRevision %s - but actually nil", dcl.SprintResource(desired.LatestRevision))
 		return true
 	}
-	if !reflect.DeepEqual(desired.LatestRevision, actual.LatestRevision) && !dcl.IsZeroValue(desired.LatestRevision) {
+	if !dcl.BoolCanonicalize(desired.LatestRevision, actual.LatestRevision) && !dcl.IsZeroValue(desired.LatestRevision) {
 		c.Config.Logger.Infof("Diff in LatestRevision. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LatestRevision), dcl.SprintResource(actual.LatestRevision))
 		return true
 	}
@@ -7417,7 +8442,7 @@ func compareServiceStatusTraffic(c *Client, desired, actual *ServiceStatusTraffi
 		c.Config.Logger.Infof("desired LatestRevision %s - but actually nil", dcl.SprintResource(desired.LatestRevision))
 		return true
 	}
-	if !reflect.DeepEqual(desired.LatestRevision, actual.LatestRevision) && !dcl.IsZeroValue(desired.LatestRevision) {
+	if !dcl.BoolCanonicalize(desired.LatestRevision, actual.LatestRevision) && !dcl.IsZeroValue(desired.LatestRevision) {
 		c.Config.Logger.Infof("Diff in LatestRevision. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LatestRevision), dcl.SprintResource(actual.LatestRevision))
 		return true
 	}

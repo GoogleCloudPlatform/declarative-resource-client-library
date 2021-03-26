@@ -11,8 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-dependencies:
-- samples/autopilot.serviceusage.service.json
 description: A test of GKE Autopilot clusters
 name: autopilot_cluster
 resource: samples/autopilot.cluster.json

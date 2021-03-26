@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -248,9 +249,20 @@ func (op *deleteReservationOperation) do(ctx context.Context, r *Reservation, c 
 	if err != nil {
 		return fmt.Errorf("failed to delete Reservation: %w", err)
 	}
-	_, err = c.GetReservation(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetReservation(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -345,7 +357,6 @@ func (c *Client) reservationDiffsForRawDesired(ctx context.Context, rawDesired *
 		desired, err = canonicalizeReservationDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Reservation: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Reservation: %v", rawDesired)
 
@@ -394,7 +405,7 @@ func canonicalizeReservationDesiredState(rawDesired, rawInitial *Reservation, op
 	if dcl.IsZeroValue(rawDesired.SlotCapacity) {
 		rawDesired.SlotCapacity = rawInitial.SlotCapacity
 	}
-	if dcl.IsZeroValue(rawDesired.IgnoreIdleSlots) {
+	if dcl.BoolCanonicalize(rawDesired.IgnoreIdleSlots, rawInitial.IgnoreIdleSlots) {
 		rawDesired.IgnoreIdleSlots = rawInitial.IgnoreIdleSlots
 	}
 	if dcl.IsZeroValue(rawDesired.CreationTime) {
@@ -425,6 +436,9 @@ func canonicalizeReservationNewState(c *Client, rawNew, rawDesired *Reservation)
 	if dcl.IsEmptyValueIndirect(rawNew.IgnoreIdleSlots) && dcl.IsEmptyValueIndirect(rawDesired.IgnoreIdleSlots) {
 		rawNew.IgnoreIdleSlots = rawDesired.IgnoreIdleSlots
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.IgnoreIdleSlots, rawNew.IgnoreIdleSlots) {
+			rawNew.IgnoreIdleSlots = rawDesired.IgnoreIdleSlots
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.CreationTime) && dcl.IsEmptyValueIndirect(rawDesired.CreationTime) {
@@ -474,7 +488,7 @@ func diffReservation(c *Client, desired, actual *Reservation, opts ...dcl.ApplyO
 		})
 
 	}
-	if !reflect.DeepEqual(desired.IgnoreIdleSlots, actual.IgnoreIdleSlots) {
+	if !dcl.IsZeroValue(desired.IgnoreIdleSlots) && !dcl.BoolCanonicalize(desired.IgnoreIdleSlots, actual.IgnoreIdleSlots) {
 		c.Config.Logger.Infof("Detected diff in IgnoreIdleSlots.\nDESIRED: %v\nACTUAL: %v", desired.IgnoreIdleSlots, actual.IgnoreIdleSlots)
 
 		diffs = append(diffs, reservationDiff{

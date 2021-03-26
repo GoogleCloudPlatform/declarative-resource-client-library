@@ -806,7 +806,7 @@ func ProtoToMonitoringDashboardWidgetXyChart(p *monitoringpb.MonitoringDashboard
 	obj := &monitoring.DashboardWidgetXyChart{
 		SourceDrilldown:   ProtoToMonitoringDashboardWidgetXyChartSourceDrilldown(p.GetSourceDrilldown()),
 		MetricDrilldown:   ProtoToMonitoringDashboardWidgetXyChartMetricDrilldown(p.GetMetricDrilldown()),
-		TimeshiftDuration: ProtoToMonitoringDashboardWidgetXyChartTimeshiftDuration(p.GetTimeshiftDuration()),
+		TimeshiftDuration: dcl.StringOrNil(p.TimeshiftDuration),
 		XAxis:             ProtoToMonitoringDashboardWidgetXyChartXAxis(p.GetXAxis()),
 		YAxis:             ProtoToMonitoringDashboardWidgetXyChartYAxis(p.GetYAxis()),
 		ChartOptions:      ProtoToMonitoringDashboardWidgetXyChartChartOptions(p.GetChartOptions()),
@@ -829,7 +829,7 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSets(p *monitoringpb.MonitoringD
 		TimeSeriesQuery:    ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQuery(p.GetTimeSeriesQuery()),
 		PlotType:           ProtoToMonitoringDashboardWidgetXyChartDataSetsPlotTypeEnum(p.GetPlotType()),
 		LegendTemplate:     dcl.StringOrNil(p.LegendTemplate),
-		MinAlignmentPeriod: ProtoToMonitoringDashboardWidgetXyChartDataSetsMinAlignmentPeriod(p.GetMinAlignmentPeriod()),
+		MinAlignmentPeriod: dcl.StringOrNil(p.MinAlignmentPeriod),
 	}
 	return obj
 }
@@ -869,7 +869,7 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 		return nil
 	}
 	obj := &monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{
-		AlignmentPeriod:              ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(p.GetAlignmentPeriod()),
+		AlignmentPeriod:              dcl.StringOrNil(p.AlignmentPeriod),
 		PerSeriesAligner:             ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(p.GetPerSeriesAligner()),
 		CrossSeriesReducer:           ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(p.GetCrossSeriesReducer()),
 		ReduceFractionLessThanParams: ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(p.GetReduceFractionLessThanParams()),
@@ -877,18 +877,6 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 	}
 	for _, r := range p.GetGroupByFields() {
 		obj.GroupByFields = append(obj.GroupByFields, r)
-	}
-	return obj
-}
-
-// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod resource from its proto representation.
-func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(p *monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) *monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
 	}
 	return obj
 }
@@ -984,7 +972,7 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 		return nil
 	}
 	obj := &monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{
-		AlignmentPeriod:              ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(p.GetAlignmentPeriod()),
+		AlignmentPeriod:              dcl.StringOrNil(p.AlignmentPeriod),
 		PerSeriesAligner:             ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(p.GetPerSeriesAligner()),
 		CrossSeriesReducer:           ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(p.GetCrossSeriesReducer()),
 		ReduceFractionLessThanParams: ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(p.GetReduceFractionLessThanParams()),
@@ -992,18 +980,6 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 	}
 	for _, r := range p.GetGroupByFields() {
 		obj.GroupByFields = append(obj.GroupByFields, r)
-	}
-	return obj
-}
-
-// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod resource from its proto representation.
-func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(p *monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) *monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
 	}
 	return obj
 }
@@ -1138,7 +1114,7 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 		return nil
 	}
 	obj := &monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{
-		AlignmentPeriod:              ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(p.GetAlignmentPeriod()),
+		AlignmentPeriod:              dcl.StringOrNil(p.AlignmentPeriod),
 		PerSeriesAligner:             ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(p.GetPerSeriesAligner()),
 		CrossSeriesReducer:           ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(p.GetCrossSeriesReducer()),
 		ReduceFractionLessThanParams: ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(p.GetReduceFractionLessThanParams()),
@@ -1146,18 +1122,6 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 	}
 	for _, r := range p.GetGroupByFields() {
 		obj.GroupByFields = append(obj.GroupByFields, r)
-	}
-	return obj
-}
-
-// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod resource from its proto representation.
-func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(p *monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) *monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
 	}
 	return obj
 }
@@ -1265,7 +1229,7 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 		return nil
 	}
 	obj := &monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{
-		AlignmentPeriod:              ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(p.GetAlignmentPeriod()),
+		AlignmentPeriod:              dcl.StringOrNil(p.AlignmentPeriod),
 		PerSeriesAligner:             ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(p.GetPerSeriesAligner()),
 		CrossSeriesReducer:           ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(p.GetCrossSeriesReducer()),
 		ReduceFractionLessThanParams: ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(p.GetReduceFractionLessThanParams()),
@@ -1273,18 +1237,6 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 	}
 	for _, r := range p.GetGroupByFields() {
 		obj.GroupByFields = append(obj.GroupByFields, r)
-	}
-	return obj
-}
-
-// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod resource from its proto representation.
-func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(p *monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) *monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
 	}
 	return obj
 }
@@ -1380,7 +1332,7 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 		return nil
 	}
 	obj := &monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{
-		AlignmentPeriod:              ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(p.GetAlignmentPeriod()),
+		AlignmentPeriod:              dcl.StringOrNil(p.AlignmentPeriod),
 		PerSeriesAligner:             ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(p.GetPerSeriesAligner()),
 		CrossSeriesReducer:           ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(p.GetCrossSeriesReducer()),
 		ReduceFractionLessThanParams: ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(p.GetReduceFractionLessThanParams()),
@@ -1388,18 +1340,6 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 	}
 	for _, r := range p.GetGroupByFields() {
 		obj.GroupByFields = append(obj.GroupByFields, r)
-	}
-	return obj
-}
-
-// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod resource from its proto representation.
-func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(p *monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) *monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
 	}
 	return obj
 }
@@ -1498,18 +1438,6 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 		RankingMethod: ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(p.GetRankingMethod()),
 		NumTimeSeries: dcl.Int64OrNil(p.NumTimeSeries),
 		Direction:     ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(p.GetDirection()),
-	}
-	return obj
-}
-
-// ProtoToDashboardWidgetXyChartDataSetsMinAlignmentPeriod converts a DashboardWidgetXyChartDataSetsMinAlignmentPeriod resource from its proto representation.
-func ProtoToMonitoringDashboardWidgetXyChartDataSetsMinAlignmentPeriod(p *monitoringpb.MonitoringDashboardWidgetXyChartDataSetsMinAlignmentPeriod) *monitoring.DashboardWidgetXyChartDataSetsMinAlignmentPeriod {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardWidgetXyChartDataSetsMinAlignmentPeriod{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
 	}
 	return obj
 }
@@ -1742,18 +1670,6 @@ func ProtoToMonitoringDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldow
 	return obj
 }
 
-// ProtoToDashboardWidgetXyChartTimeshiftDuration converts a DashboardWidgetXyChartTimeshiftDuration resource from its proto representation.
-func ProtoToMonitoringDashboardWidgetXyChartTimeshiftDuration(p *monitoringpb.MonitoringDashboardWidgetXyChartTimeshiftDuration) *monitoring.DashboardWidgetXyChartTimeshiftDuration {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardWidgetXyChartTimeshiftDuration{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
-	}
-	return obj
-}
-
 // ProtoToDashboardWidgetXyChartThresholds converts a DashboardWidgetXyChartThresholds resource from its proto representation.
 func ProtoToMonitoringDashboardWidgetXyChartThresholds(p *monitoringpb.MonitoringDashboardWidgetXyChartThresholds) *monitoring.DashboardWidgetXyChartThresholds {
 	if p == nil {
@@ -1857,7 +1773,7 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAgg
 		return nil
 	}
 	obj := &monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation{
-		AlignmentPeriod:              ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(p.GetAlignmentPeriod()),
+		AlignmentPeriod:              dcl.StringOrNil(p.AlignmentPeriod),
 		PerSeriesAligner:             ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(p.GetPerSeriesAligner()),
 		CrossSeriesReducer:           ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(p.GetCrossSeriesReducer()),
 		ReduceFractionLessThanParams: ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(p.GetReduceFractionLessThanParams()),
@@ -1865,18 +1781,6 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAgg
 	}
 	for _, r := range p.GetGroupByFields() {
 		obj.GroupByFields = append(obj.GroupByFields, r)
-	}
-	return obj
-}
-
-// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod resource from its proto representation.
-func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(p *monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) *monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
 	}
 	return obj
 }
@@ -1972,7 +1876,7 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSec
 		return nil
 	}
 	obj := &monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{
-		AlignmentPeriod:              ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(p.GetAlignmentPeriod()),
+		AlignmentPeriod:              dcl.StringOrNil(p.AlignmentPeriod),
 		PerSeriesAligner:             ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(p.GetPerSeriesAligner()),
 		CrossSeriesReducer:           ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(p.GetCrossSeriesReducer()),
 		ReduceFractionLessThanParams: ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(p.GetReduceFractionLessThanParams()),
@@ -1980,18 +1884,6 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSec
 	}
 	for _, r := range p.GetGroupByFields() {
 		obj.GroupByFields = append(obj.GroupByFields, r)
-	}
-	return obj
-}
-
-// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod resource from its proto representation.
-func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(p *monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) *monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
 	}
 	return obj
 }
@@ -2126,7 +2018,7 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRat
 		return nil
 	}
 	obj := &monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{
-		AlignmentPeriod:              ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(p.GetAlignmentPeriod()),
+		AlignmentPeriod:              dcl.StringOrNil(p.AlignmentPeriod),
 		PerSeriesAligner:             ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(p.GetPerSeriesAligner()),
 		CrossSeriesReducer:           ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(p.GetCrossSeriesReducer()),
 		ReduceFractionLessThanParams: ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(p.GetReduceFractionLessThanParams()),
@@ -2134,18 +2026,6 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRat
 	}
 	for _, r := range p.GetGroupByFields() {
 		obj.GroupByFields = append(obj.GroupByFields, r)
-	}
-	return obj
-}
-
-// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod resource from its proto representation.
-func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(p *monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) *monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
 	}
 	return obj
 }
@@ -2253,7 +2133,7 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRat
 		return nil
 	}
 	obj := &monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{
-		AlignmentPeriod:              ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(p.GetAlignmentPeriod()),
+		AlignmentPeriod:              dcl.StringOrNil(p.AlignmentPeriod),
 		PerSeriesAligner:             ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(p.GetPerSeriesAligner()),
 		CrossSeriesReducer:           ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(p.GetCrossSeriesReducer()),
 		ReduceFractionLessThanParams: ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(p.GetReduceFractionLessThanParams()),
@@ -2261,18 +2141,6 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRat
 	}
 	for _, r := range p.GetGroupByFields() {
 		obj.GroupByFields = append(obj.GroupByFields, r)
-	}
-	return obj
-}
-
-// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod resource from its proto representation.
-func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(p *monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) *monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
 	}
 	return obj
 }
@@ -2368,7 +2236,7 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRat
 		return nil
 	}
 	obj := &monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{
-		AlignmentPeriod:              ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(p.GetAlignmentPeriod()),
+		AlignmentPeriod:              dcl.StringOrNil(p.AlignmentPeriod),
 		PerSeriesAligner:             ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(p.GetPerSeriesAligner()),
 		CrossSeriesReducer:           ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(p.GetCrossSeriesReducer()),
 		ReduceFractionLessThanParams: ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(p.GetReduceFractionLessThanParams()),
@@ -2376,18 +2244,6 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRat
 	}
 	for _, r := range p.GetGroupByFields() {
 		obj.GroupByFields = append(obj.GroupByFields, r)
-	}
-	return obj
-}
-
-// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod resource from its proto representation.
-func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(p *monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) *monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
 	}
 	return obj
 }
@@ -2737,19 +2593,7 @@ func ProtoToMonitoringDashboardWidgetScorecardSparkChartView(p *monitoringpb.Mon
 	}
 	obj := &monitoring.DashboardWidgetScorecardSparkChartView{
 		SparkChartType:     ProtoToMonitoringDashboardWidgetScorecardSparkChartViewSparkChartTypeEnum(p.GetSparkChartType()),
-		MinAlignmentPeriod: ProtoToMonitoringDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(p.GetMinAlignmentPeriod()),
-	}
-	return obj
-}
-
-// ProtoToDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod converts a DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod resource from its proto representation.
-func ProtoToMonitoringDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(p *monitoringpb.MonitoringDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod) *monitoring.DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod{
-		Seconds: dcl.Int64OrNil(p.Seconds),
-		Nanos:   dcl.Int64OrNil(p.Nanos),
+		MinAlignmentPeriod: dcl.StringOrNil(p.MinAlignmentPeriod),
 	}
 	return obj
 }
@@ -3748,7 +3592,7 @@ func MonitoringDashboardWidgetXyChartToProto(o *monitoring.DashboardWidgetXyChar
 	p := &monitoringpb.MonitoringDashboardWidgetXyChart{
 		SourceDrilldown:   MonitoringDashboardWidgetXyChartSourceDrilldownToProto(o.SourceDrilldown),
 		MetricDrilldown:   MonitoringDashboardWidgetXyChartMetricDrilldownToProto(o.MetricDrilldown),
-		TimeshiftDuration: MonitoringDashboardWidgetXyChartTimeshiftDurationToProto(o.TimeshiftDuration),
+		TimeshiftDuration: dcl.ValueOrEmptyString(o.TimeshiftDuration),
 		XAxis:             MonitoringDashboardWidgetXyChartXAxisToProto(o.XAxis),
 		YAxis:             MonitoringDashboardWidgetXyChartYAxisToProto(o.YAxis),
 		ChartOptions:      MonitoringDashboardWidgetXyChartChartOptionsToProto(o.ChartOptions),
@@ -3771,7 +3615,7 @@ func MonitoringDashboardWidgetXyChartDataSetsToProto(o *monitoring.DashboardWidg
 		TimeSeriesQuery:    MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryToProto(o.TimeSeriesQuery),
 		PlotType:           MonitoringDashboardWidgetXyChartDataSetsPlotTypeEnumToProto(o.PlotType),
 		LegendTemplate:     dcl.ValueOrEmptyString(o.LegendTemplate),
-		MinAlignmentPeriod: MonitoringDashboardWidgetXyChartDataSetsMinAlignmentPeriodToProto(o.MinAlignmentPeriod),
+		MinAlignmentPeriod: dcl.ValueOrEmptyString(o.MinAlignmentPeriod),
 	}
 	return p
 }
@@ -3811,7 +3655,7 @@ func MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggr
 		return nil
 	}
 	p := &monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{
-		AlignmentPeriod:              MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodToProto(o.AlignmentPeriod),
+		AlignmentPeriod:              dcl.ValueOrEmptyString(o.AlignmentPeriod),
 		PerSeriesAligner:             MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner),
 		CrossSeriesReducer:           MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer),
 		ReduceFractionLessThanParams: MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParamsToProto(o.ReduceFractionLessThanParams),
@@ -3819,18 +3663,6 @@ func MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggr
 	}
 	for _, r := range o.GroupByFields {
 		p.GroupByFields = append(p.GroupByFields, r)
-	}
-	return p
-}
-
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod resource to its proto representation.
-func MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodToProto(o *monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) *monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
 	}
 	return p
 }
@@ -3926,7 +3758,7 @@ func MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeco
 		return nil
 	}
 	p := &monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{
-		AlignmentPeriod:              MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodToProto(o.AlignmentPeriod),
+		AlignmentPeriod:              dcl.ValueOrEmptyString(o.AlignmentPeriod),
 		PerSeriesAligner:             MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner),
 		CrossSeriesReducer:           MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer),
 		ReduceFractionLessThanParams: MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParamsToProto(o.ReduceFractionLessThanParams),
@@ -3934,18 +3766,6 @@ func MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeco
 	}
 	for _, r := range o.GroupByFields {
 		p.GroupByFields = append(p.GroupByFields, r)
-	}
-	return p
-}
-
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod resource to its proto representation.
-func MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodToProto(o *monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) *monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
 	}
 	return p
 }
@@ -4080,7 +3900,7 @@ func MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRati
 		return nil
 	}
 	p := &monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{
-		AlignmentPeriod:              MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodToProto(o.AlignmentPeriod),
+		AlignmentPeriod:              dcl.ValueOrEmptyString(o.AlignmentPeriod),
 		PerSeriesAligner:             MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner),
 		CrossSeriesReducer:           MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer),
 		ReduceFractionLessThanParams: MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParamsToProto(o.ReduceFractionLessThanParams),
@@ -4088,18 +3908,6 @@ func MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRati
 	}
 	for _, r := range o.GroupByFields {
 		p.GroupByFields = append(p.GroupByFields, r)
-	}
-	return p
-}
-
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod resource to its proto representation.
-func MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodToProto(o *monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) *monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
 	}
 	return p
 }
@@ -4207,7 +4015,7 @@ func MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRati
 		return nil
 	}
 	p := &monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{
-		AlignmentPeriod:              MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodToProto(o.AlignmentPeriod),
+		AlignmentPeriod:              dcl.ValueOrEmptyString(o.AlignmentPeriod),
 		PerSeriesAligner:             MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner),
 		CrossSeriesReducer:           MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer),
 		ReduceFractionLessThanParams: MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParamsToProto(o.ReduceFractionLessThanParams),
@@ -4215,18 +4023,6 @@ func MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRati
 	}
 	for _, r := range o.GroupByFields {
 		p.GroupByFields = append(p.GroupByFields, r)
-	}
-	return p
-}
-
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod resource to its proto representation.
-func MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodToProto(o *monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) *monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
 	}
 	return p
 }
@@ -4322,7 +4118,7 @@ func MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRati
 		return nil
 	}
 	p := &monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{
-		AlignmentPeriod:              MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodToProto(o.AlignmentPeriod),
+		AlignmentPeriod:              dcl.ValueOrEmptyString(o.AlignmentPeriod),
 		PerSeriesAligner:             MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner),
 		CrossSeriesReducer:           MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer),
 		ReduceFractionLessThanParams: MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParamsToProto(o.ReduceFractionLessThanParams),
@@ -4330,18 +4126,6 @@ func MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRati
 	}
 	for _, r := range o.GroupByFields {
 		p.GroupByFields = append(p.GroupByFields, r)
-	}
-	return p
-}
-
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod resource to its proto representation.
-func MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodToProto(o *monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) *monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
 	}
 	return p
 }
@@ -4440,18 +4224,6 @@ func MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRati
 		RankingMethod: MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumToProto(o.RankingMethod),
 		NumTimeSeries: dcl.ValueOrEmptyInt64(o.NumTimeSeries),
 		Direction:     MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumToProto(o.Direction),
-	}
-	return p
-}
-
-// DashboardWidgetXyChartDataSetsMinAlignmentPeriodToProto converts a DashboardWidgetXyChartDataSetsMinAlignmentPeriod resource to its proto representation.
-func MonitoringDashboardWidgetXyChartDataSetsMinAlignmentPeriodToProto(o *monitoring.DashboardWidgetXyChartDataSetsMinAlignmentPeriod) *monitoringpb.MonitoringDashboardWidgetXyChartDataSetsMinAlignmentPeriod {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardWidgetXyChartDataSetsMinAlignmentPeriod{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
 	}
 	return p
 }
@@ -4684,18 +4456,6 @@ func MonitoringDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownToProt
 	return p
 }
 
-// DashboardWidgetXyChartTimeshiftDurationToProto converts a DashboardWidgetXyChartTimeshiftDuration resource to its proto representation.
-func MonitoringDashboardWidgetXyChartTimeshiftDurationToProto(o *monitoring.DashboardWidgetXyChartTimeshiftDuration) *monitoringpb.MonitoringDashboardWidgetXyChartTimeshiftDuration {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardWidgetXyChartTimeshiftDuration{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
-	}
-	return p
-}
-
 // DashboardWidgetXyChartThresholdsToProto converts a DashboardWidgetXyChartThresholds resource to its proto representation.
 func MonitoringDashboardWidgetXyChartThresholdsToProto(o *monitoring.DashboardWidgetXyChartThresholds) *monitoringpb.MonitoringDashboardWidgetXyChartThresholds {
 	if o == nil {
@@ -4799,7 +4559,7 @@ func MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregatio
 		return nil
 	}
 	p := &monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation{
-		AlignmentPeriod:              MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodToProto(o.AlignmentPeriod),
+		AlignmentPeriod:              dcl.ValueOrEmptyString(o.AlignmentPeriod),
 		PerSeriesAligner:             MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner),
 		CrossSeriesReducer:           MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer),
 		ReduceFractionLessThanParams: MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParamsToProto(o.ReduceFractionLessThanParams),
@@ -4807,18 +4567,6 @@ func MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregatio
 	}
 	for _, r := range o.GroupByFields {
 		p.GroupByFields = append(p.GroupByFields, r)
-	}
-	return p
-}
-
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod resource to its proto representation.
-func MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodToProto(o *monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) *monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
 	}
 	return p
 }
@@ -4914,7 +4662,7 @@ func MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryA
 		return nil
 	}
 	p := &monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{
-		AlignmentPeriod:              MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodToProto(o.AlignmentPeriod),
+		AlignmentPeriod:              dcl.ValueOrEmptyString(o.AlignmentPeriod),
 		PerSeriesAligner:             MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner),
 		CrossSeriesReducer:           MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer),
 		ReduceFractionLessThanParams: MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParamsToProto(o.ReduceFractionLessThanParams),
@@ -4922,18 +4670,6 @@ func MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryA
 	}
 	for _, r := range o.GroupByFields {
 		p.GroupByFields = append(p.GroupByFields, r)
-	}
-	return p
-}
-
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod resource to its proto representation.
-func MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodToProto(o *monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) *monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
 	}
 	return p
 }
@@ -5068,7 +4804,7 @@ func MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumer
 		return nil
 	}
 	p := &monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{
-		AlignmentPeriod:              MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodToProto(o.AlignmentPeriod),
+		AlignmentPeriod:              dcl.ValueOrEmptyString(o.AlignmentPeriod),
 		PerSeriesAligner:             MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner),
 		CrossSeriesReducer:           MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer),
 		ReduceFractionLessThanParams: MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParamsToProto(o.ReduceFractionLessThanParams),
@@ -5076,18 +4812,6 @@ func MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumer
 	}
 	for _, r := range o.GroupByFields {
 		p.GroupByFields = append(p.GroupByFields, r)
-	}
-	return p
-}
-
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod resource to its proto representation.
-func MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodToProto(o *monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) *monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
 	}
 	return p
 }
@@ -5195,7 +4919,7 @@ func MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenom
 		return nil
 	}
 	p := &monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{
-		AlignmentPeriod:              MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodToProto(o.AlignmentPeriod),
+		AlignmentPeriod:              dcl.ValueOrEmptyString(o.AlignmentPeriod),
 		PerSeriesAligner:             MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner),
 		CrossSeriesReducer:           MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer),
 		ReduceFractionLessThanParams: MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParamsToProto(o.ReduceFractionLessThanParams),
@@ -5203,18 +4927,6 @@ func MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenom
 	}
 	for _, r := range o.GroupByFields {
 		p.GroupByFields = append(p.GroupByFields, r)
-	}
-	return p
-}
-
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod resource to its proto representation.
-func MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodToProto(o *monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) *monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
 	}
 	return p
 }
@@ -5310,7 +5022,7 @@ func MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecon
 		return nil
 	}
 	p := &monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{
-		AlignmentPeriod:              MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodToProto(o.AlignmentPeriod),
+		AlignmentPeriod:              dcl.ValueOrEmptyString(o.AlignmentPeriod),
 		PerSeriesAligner:             MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner),
 		CrossSeriesReducer:           MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer),
 		ReduceFractionLessThanParams: MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParamsToProto(o.ReduceFractionLessThanParams),
@@ -5318,18 +5030,6 @@ func MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecon
 	}
 	for _, r := range o.GroupByFields {
 		p.GroupByFields = append(p.GroupByFields, r)
-	}
-	return p
-}
-
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod resource to its proto representation.
-func MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodToProto(o *monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) *monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
 	}
 	return p
 }
@@ -5679,19 +5379,7 @@ func MonitoringDashboardWidgetScorecardSparkChartViewToProto(o *monitoring.Dashb
 	}
 	p := &monitoringpb.MonitoringDashboardWidgetScorecardSparkChartView{
 		SparkChartType:     MonitoringDashboardWidgetScorecardSparkChartViewSparkChartTypeEnumToProto(o.SparkChartType),
-		MinAlignmentPeriod: MonitoringDashboardWidgetScorecardSparkChartViewMinAlignmentPeriodToProto(o.MinAlignmentPeriod),
-	}
-	return p
-}
-
-// DashboardWidgetScorecardSparkChartViewMinAlignmentPeriodToProto converts a DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod resource to its proto representation.
-func MonitoringDashboardWidgetScorecardSparkChartViewMinAlignmentPeriodToProto(o *monitoring.DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod) *monitoringpb.MonitoringDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod{
-		Seconds: dcl.ValueOrEmptyInt64(o.Seconds),
-		Nanos:   dcl.ValueOrEmptyInt64(o.Nanos),
+		MinAlignmentPeriod: dcl.ValueOrEmptyString(o.MinAlignmentPeriod),
 	}
 	return p
 }

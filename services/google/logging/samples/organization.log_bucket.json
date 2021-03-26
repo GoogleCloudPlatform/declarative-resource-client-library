@@ -1,0 +1,6 @@
+{
+  "name": "_Default",
+  "parent": "organizations/{{org_id}}",
+  "location": "global",
+  "retentionDays": 30
+}

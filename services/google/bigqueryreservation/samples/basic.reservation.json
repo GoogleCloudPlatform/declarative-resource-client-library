@@ -2,6 +2,6 @@
   "name": "{{reservation_name}}",
   "slotCapacity": 0,
   "ignoreIdleSlots": false,
-  "project": "{{ref:basic.serviceusage.service.json:project}}",
+  "project": "{{project}}",
   "location": "{{region}}"
 }

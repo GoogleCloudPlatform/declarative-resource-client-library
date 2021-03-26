@@ -14,7 +14,6 @@
 dependencies:
 - samples/basic.cloudresourcemanager.project.json
 - samples/storage_admin.iam.member.json
-- samples/basic.serviceusage.service.json
 - samples/basic.cloudbilling.project_billing_info.json
 - samples/basic.application.json
 description: A basic example for an appengine version

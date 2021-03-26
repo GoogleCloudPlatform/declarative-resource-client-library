@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -327,9 +328,20 @@ func (op *deleteFunctionOperation) do(ctx context.Context, r *Function, c *Clien
 	if err := o.Wait(ctx, c.Config, "https://cloudfunctions.googleapis.com/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetFunction(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetFunction(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -429,7 +441,6 @@ func (c *Client) functionDiffsForRawDesired(ctx context.Context, rawDesired *Fun
 		desired, err = canonicalizeFunctionDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Function: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Function: %v", rawDesired)
 
@@ -806,6 +817,26 @@ func canonicalizeNewFunctionSourceRepositorySet(c *Client, des, nw []FunctionSou
 	return reorderedNew
 }
 
+func canonicalizeNewFunctionSourceRepositorySlice(c *Client, des, nw []FunctionSourceRepository) []FunctionSourceRepository {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []FunctionSourceRepository
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFunctionSourceRepository(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeFunctionHttpsTrigger(des, initial *FunctionHttpsTrigger, opts ...dcl.ApplyOption) *FunctionHttpsTrigger {
 	if des == nil {
 		return initial
@@ -860,6 +891,26 @@ func canonicalizeNewFunctionHttpsTriggerSet(c *Client, des, nw []FunctionHttpsTr
 	return reorderedNew
 }
 
+func canonicalizeNewFunctionHttpsTriggerSlice(c *Client, des, nw []FunctionHttpsTrigger) []FunctionHttpsTrigger {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []FunctionHttpsTrigger
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFunctionHttpsTrigger(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeFunctionEventTrigger(des, initial *FunctionEventTrigger, opts ...dcl.ApplyOption) *FunctionEventTrigger {
 	if des == nil {
 		return initial
@@ -881,7 +932,7 @@ func canonicalizeFunctionEventTrigger(des, initial *FunctionEventTrigger, opts .
 	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
 		des.Service = initial.Service
 	}
-	if dcl.IsZeroValue(des.FailurePolicy) {
+	if dcl.BoolCanonicalize(des.FailurePolicy, initial.FailurePolicy) || dcl.IsZeroValue(des.FailurePolicy) {
 		des.FailurePolicy = initial.FailurePolicy
 	}
 
@@ -901,6 +952,9 @@ func canonicalizeNewFunctionEventTrigger(c *Client, des, nw *FunctionEventTrigge
 	}
 	if dcl.StringCanonicalize(des.Service, nw.Service) || dcl.IsZeroValue(des.Service) {
 		nw.Service = des.Service
+	}
+	if dcl.BoolCanonicalize(des.FailurePolicy, nw.FailurePolicy) || dcl.IsZeroValue(des.FailurePolicy) {
+		nw.FailurePolicy = des.FailurePolicy
 	}
 
 	return nw
@@ -927,6 +981,26 @@ func canonicalizeNewFunctionEventTriggerSet(c *Client, des, nw []FunctionEventTr
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewFunctionEventTriggerSlice(c *Client, des, nw []FunctionEventTrigger) []FunctionEventTrigger {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []FunctionEventTrigger
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFunctionEventTrigger(c, &d, &n))
+	}
+
+	return items
 }
 
 type functionDiff struct {
@@ -1247,7 +1321,7 @@ func compareFunctionEventTrigger(c *Client, desired, actual *FunctionEventTrigge
 		c.Config.Logger.Infof("desired FailurePolicy %s - but actually nil", dcl.SprintResource(desired.FailurePolicy))
 		return true
 	}
-	if !reflect.DeepEqual(desired.FailurePolicy, actual.FailurePolicy) && !dcl.IsZeroValue(desired.FailurePolicy) {
+	if !dcl.BoolCanonicalize(desired.FailurePolicy, actual.FailurePolicy) && !dcl.IsZeroValue(desired.FailurePolicy) {
 		c.Config.Logger.Infof("Diff in FailurePolicy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FailurePolicy), dcl.SprintResource(actual.FailurePolicy))
 		return true
 	}

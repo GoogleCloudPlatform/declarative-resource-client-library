@@ -848,7 +848,7 @@ message MonitoringDashboardWidgetXyChart {
   repeated MonitoringDashboardWidgetXyChartDataSets data_sets = 1;
   MonitoringDashboardWidgetXyChartSourceDrilldown source_drilldown = 2;
   MonitoringDashboardWidgetXyChartMetricDrilldown metric_drilldown = 3;
-  MonitoringDashboardWidgetXyChartTimeshiftDuration timeshift_duration = 4;
+  string timeshift_duration = 4;
   repeated MonitoringDashboardWidgetXyChartThresholds thresholds = 5;
   MonitoringDashboardWidgetXyChartXAxis x_axis = 6;
   MonitoringDashboardWidgetXyChartYAxis y_axis = 7;
@@ -859,7 +859,7 @@ message MonitoringDashboardWidgetXyChartDataSets {
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQuery time_series_query = 1;
   MonitoringDashboardWidgetXyChartDataSetsPlotTypeEnum plot_type = 2;
   string legend_template = 3;
-  MonitoringDashboardWidgetXyChartDataSetsMinAlignmentPeriod min_alignment_period = 4;
+  string min_alignment_period = 4;
 }
 
 message MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQuery {
@@ -878,17 +878,12 @@ message MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter 
 }
 
 message MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
-  MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod alignment_period = 1;
+  string alignment_period = 1;
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum per_series_aligner = 2;
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum cross_series_reducer = 3;
   repeated string group_by_fields = 4;
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams reduce_fraction_less_than_params = 5;
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams reduce_make_distribution_params = 6;
-}
-
-message MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod {
-  int64 seconds = 1;
-  int64 nanos = 2;
 }
 
 message MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams {
@@ -927,17 +922,12 @@ message MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterA
 }
 
 message MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
-  MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod alignment_period = 1;
+  string alignment_period = 1;
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum per_series_aligner = 2;
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum cross_series_reducer = 3;
   repeated string group_by_fields = 4;
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams reduce_fraction_less_than_params = 5;
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams reduce_make_distribution_params = 6;
-}
-
-message MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod {
-  int64 seconds = 1;
-  int64 nanos = 2;
 }
 
 message MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams {
@@ -994,17 +984,12 @@ message MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterR
 }
 
 message MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
-  MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod alignment_period = 1;
+  string alignment_period = 1;
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum per_series_aligner = 2;
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum cross_series_reducer = 3;
   repeated string group_by_fields = 4;
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams reduce_fraction_less_than_params = 5;
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams reduce_make_distribution_params = 6;
-}
-
-message MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod {
-  int64 seconds = 1;
-  int64 nanos = 2;
 }
 
 message MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams {
@@ -1048,17 +1033,12 @@ message MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterR
 }
 
 message MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
-  MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod alignment_period = 1;
+  string alignment_period = 1;
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum per_series_aligner = 2;
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum cross_series_reducer = 3;
   repeated string group_by_fields = 4;
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams reduce_fraction_less_than_params = 5;
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams reduce_make_distribution_params = 6;
-}
-
-message MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod {
-  int64 seconds = 1;
-  int64 nanos = 2;
 }
 
 message MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams {
@@ -1097,17 +1077,12 @@ message MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterR
 }
 
 message MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
-  MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod alignment_period = 1;
+  string alignment_period = 1;
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum per_series_aligner = 2;
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum cross_series_reducer = 3;
   repeated string group_by_fields = 4;
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams reduce_fraction_less_than_params = 5;
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams reduce_make_distribution_params = 6;
-}
-
-message MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod {
-  int64 seconds = 1;
-  int64 nanos = 2;
 }
 
 message MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams {
@@ -1149,11 +1124,6 @@ message MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterR
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum ranking_method = 1;
   int64 num_time_series = 2;
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum direction = 3;
-}
-
-message MonitoringDashboardWidgetXyChartDataSetsMinAlignmentPeriod {
-  int64 seconds = 1;
-  int64 nanos = 2;
 }
 
 message MonitoringDashboardWidgetXyChartSourceDrilldown {
@@ -1244,11 +1214,6 @@ message MonitoringDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown {
   MonitoringDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownReducerEnum reducer = 5;
 }
 
-message MonitoringDashboardWidgetXyChartTimeshiftDuration {
-  int64 seconds = 1;
-  int64 nanos = 2;
-}
-
 message MonitoringDashboardWidgetXyChartThresholds {
   string label = 1;
   double value = 2;
@@ -1296,17 +1261,12 @@ message MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter {
 }
 
 message MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
-  MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod alignment_period = 1;
+  string alignment_period = 1;
   MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum per_series_aligner = 2;
   MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum cross_series_reducer = 3;
   repeated string group_by_fields = 4;
   MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams reduce_fraction_less_than_params = 5;
   MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams reduce_make_distribution_params = 6;
-}
-
-message MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod {
-  int64 seconds = 1;
-  int64 nanos = 2;
 }
 
 message MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams {
@@ -1345,17 +1305,12 @@ message MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggrega
 }
 
 message MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
-  MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod alignment_period = 1;
+  string alignment_period = 1;
   MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum per_series_aligner = 2;
   MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum cross_series_reducer = 3;
   repeated string group_by_fields = 4;
   MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams reduce_fraction_less_than_params = 5;
   MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams reduce_make_distribution_params = 6;
-}
-
-message MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod {
-  int64 seconds = 1;
-  int64 nanos = 2;
 }
 
 message MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams {
@@ -1412,17 +1367,12 @@ message MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNu
 }
 
 message MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
-  MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod alignment_period = 1;
+  string alignment_period = 1;
   MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum per_series_aligner = 2;
   MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum cross_series_reducer = 3;
   repeated string group_by_fields = 4;
   MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams reduce_fraction_less_than_params = 5;
   MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams reduce_make_distribution_params = 6;
-}
-
-message MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod {
-  int64 seconds = 1;
-  int64 nanos = 2;
 }
 
 message MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams {
@@ -1466,17 +1416,12 @@ message MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDe
 }
 
 message MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
-  MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod alignment_period = 1;
+  string alignment_period = 1;
   MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum per_series_aligner = 2;
   MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum cross_series_reducer = 3;
   repeated string group_by_fields = 4;
   MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams reduce_fraction_less_than_params = 5;
   MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams reduce_make_distribution_params = 6;
-}
-
-message MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod {
-  int64 seconds = 1;
-  int64 nanos = 2;
 }
 
 message MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams {
@@ -1515,17 +1460,12 @@ message MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDe
 }
 
 message MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
-  MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod alignment_period = 1;
+  string alignment_period = 1;
   MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum per_series_aligner = 2;
   MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum cross_series_reducer = 3;
   repeated string group_by_fields = 4;
   MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams reduce_fraction_less_than_params = 5;
   MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams reduce_make_distribution_params = 6;
-}
-
-message MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod {
-  int64 seconds = 1;
-  int64 nanos = 2;
 }
 
 message MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams {
@@ -1664,12 +1604,7 @@ message MonitoringDashboardWidgetScorecardGaugeView {
 
 message MonitoringDashboardWidgetScorecardSparkChartView {
   MonitoringDashboardWidgetScorecardSparkChartViewSparkChartTypeEnum spark_chart_type = 1;
-  MonitoringDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod min_alignment_period = 2;
-}
-
-message MonitoringDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod {
-  int64 seconds = 1;
-  int64 nanos = 2;
+  string min_alignment_period = 2;
 }
 
 message MonitoringDashboardWidgetScorecardThresholds {

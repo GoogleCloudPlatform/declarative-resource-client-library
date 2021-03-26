@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -304,9 +305,20 @@ func (op *deleteServicePerimeterOperation) do(ctx context.Context, r *ServicePer
 	if err := o.Wait(ctx, c.Config, "https://accesscontextmanager.googleapis.com/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetServicePerimeter(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetServicePerimeter(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -409,7 +421,6 @@ func (c *Client) servicePerimeterDiffsForRawDesired(ctx context.Context, rawDesi
 		desired, err = canonicalizeServicePerimeterDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for ServicePerimeter: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for ServicePerimeter: %v", rawDesired)
 
@@ -480,7 +491,7 @@ func canonicalizeServicePerimeterDesiredState(rawDesired, rawInitial *ServicePer
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.UseExplicitDryRunSpec) {
+	if dcl.BoolCanonicalize(rawDesired.UseExplicitDryRunSpec, rawInitial.UseExplicitDryRunSpec) {
 		rawDesired.UseExplicitDryRunSpec = rawInitial.UseExplicitDryRunSpec
 	}
 	rawDesired.Spec = canonicalizeServicePerimeterSpec(rawDesired.Spec, rawInitial.Spec, opts...)
@@ -540,6 +551,9 @@ func canonicalizeServicePerimeterNewState(c *Client, rawNew, rawDesired *Service
 	if dcl.IsEmptyValueIndirect(rawNew.UseExplicitDryRunSpec) && dcl.IsEmptyValueIndirect(rawDesired.UseExplicitDryRunSpec) {
 		rawNew.UseExplicitDryRunSpec = rawDesired.UseExplicitDryRunSpec
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.UseExplicitDryRunSpec, rawNew.UseExplicitDryRunSpec) {
+			rawNew.UseExplicitDryRunSpec = rawDesired.UseExplicitDryRunSpec
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Spec) && dcl.IsEmptyValueIndirect(rawDesired.Spec) {
@@ -610,6 +624,26 @@ func canonicalizeNewServicePerimeterStatusSet(c *Client, des, nw []ServicePerime
 	return reorderedNew
 }
 
+func canonicalizeNewServicePerimeterStatusSlice(c *Client, des, nw []ServicePerimeterStatus) []ServicePerimeterStatus {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServicePerimeterStatus
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServicePerimeterStatus(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServicePerimeterStatusVPCAccessibleServices(des, initial *ServicePerimeterStatusVPCAccessibleServices, opts ...dcl.ApplyOption) *ServicePerimeterStatusVPCAccessibleServices {
 	if des == nil {
 		return initial
@@ -622,7 +656,7 @@ func canonicalizeServicePerimeterStatusVPCAccessibleServices(des, initial *Servi
 		return des
 	}
 
-	if dcl.IsZeroValue(des.EnableRestriction) {
+	if dcl.BoolCanonicalize(des.EnableRestriction, initial.EnableRestriction) || dcl.IsZeroValue(des.EnableRestriction) {
 		des.EnableRestriction = initial.EnableRestriction
 	}
 	if dcl.IsZeroValue(des.AllowedServices) {
@@ -635,6 +669,10 @@ func canonicalizeServicePerimeterStatusVPCAccessibleServices(des, initial *Servi
 func canonicalizeNewServicePerimeterStatusVPCAccessibleServices(c *Client, des, nw *ServicePerimeterStatusVPCAccessibleServices) *ServicePerimeterStatusVPCAccessibleServices {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.EnableRestriction, nw.EnableRestriction) || dcl.IsZeroValue(des.EnableRestriction) {
+		nw.EnableRestriction = des.EnableRestriction
 	}
 
 	return nw
@@ -661,6 +699,26 @@ func canonicalizeNewServicePerimeterStatusVPCAccessibleServicesSet(c *Client, de
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServicePerimeterStatusVPCAccessibleServicesSlice(c *Client, des, nw []ServicePerimeterStatusVPCAccessibleServices) []ServicePerimeterStatusVPCAccessibleServices {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServicePerimeterStatusVPCAccessibleServices
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServicePerimeterStatusVPCAccessibleServices(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServicePerimeterSpec(des, initial *ServicePerimeterSpec, opts ...dcl.ApplyOption) *ServicePerimeterSpec {
@@ -722,6 +780,26 @@ func canonicalizeNewServicePerimeterSpecSet(c *Client, des, nw []ServicePerimete
 	return reorderedNew
 }
 
+func canonicalizeNewServicePerimeterSpecSlice(c *Client, des, nw []ServicePerimeterSpec) []ServicePerimeterSpec {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServicePerimeterSpec
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServicePerimeterSpec(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeServicePerimeterSpecVPCAccessibleServices(des, initial *ServicePerimeterSpecVPCAccessibleServices, opts ...dcl.ApplyOption) *ServicePerimeterSpecVPCAccessibleServices {
 	if des == nil {
 		return initial
@@ -734,7 +812,7 @@ func canonicalizeServicePerimeterSpecVPCAccessibleServices(des, initial *Service
 		return des
 	}
 
-	if dcl.IsZeroValue(des.EnableRestriction) {
+	if dcl.BoolCanonicalize(des.EnableRestriction, initial.EnableRestriction) || dcl.IsZeroValue(des.EnableRestriction) {
 		des.EnableRestriction = initial.EnableRestriction
 	}
 	if dcl.IsZeroValue(des.AllowedServices) {
@@ -747,6 +825,10 @@ func canonicalizeServicePerimeterSpecVPCAccessibleServices(des, initial *Service
 func canonicalizeNewServicePerimeterSpecVPCAccessibleServices(c *Client, des, nw *ServicePerimeterSpecVPCAccessibleServices) *ServicePerimeterSpecVPCAccessibleServices {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.EnableRestriction, nw.EnableRestriction) || dcl.IsZeroValue(des.EnableRestriction) {
+		nw.EnableRestriction = des.EnableRestriction
 	}
 
 	return nw
@@ -773,6 +855,26 @@ func canonicalizeNewServicePerimeterSpecVPCAccessibleServicesSet(c *Client, des,
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServicePerimeterSpecVPCAccessibleServicesSlice(c *Client, des, nw []ServicePerimeterSpecVPCAccessibleServices) []ServicePerimeterSpecVPCAccessibleServices {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServicePerimeterSpecVPCAccessibleServices
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServicePerimeterSpecVPCAccessibleServices(c, &d, &n))
+	}
+
+	return items
 }
 
 type servicePerimeterDiff struct {
@@ -837,7 +939,7 @@ func diffServicePerimeter(c *Client, desired, actual *ServicePerimeter, opts ...
 			FieldName:        "Name",
 		})
 	}
-	if !reflect.DeepEqual(desired.UseExplicitDryRunSpec, actual.UseExplicitDryRunSpec) {
+	if !dcl.IsZeroValue(desired.UseExplicitDryRunSpec) && !dcl.BoolCanonicalize(desired.UseExplicitDryRunSpec, actual.UseExplicitDryRunSpec) {
 		c.Config.Logger.Infof("Detected diff in UseExplicitDryRunSpec.\nDESIRED: %v\nACTUAL: %v", desired.UseExplicitDryRunSpec, actual.UseExplicitDryRunSpec)
 		diffs = append(diffs, servicePerimeterDiff{
 			RequiresRecreate: true,
@@ -963,7 +1065,7 @@ func compareServicePerimeterStatusVPCAccessibleServices(c *Client, desired, actu
 		c.Config.Logger.Infof("desired EnableRestriction %s - but actually nil", dcl.SprintResource(desired.EnableRestriction))
 		return true
 	}
-	if !reflect.DeepEqual(desired.EnableRestriction, actual.EnableRestriction) && !dcl.IsZeroValue(desired.EnableRestriction) {
+	if !dcl.BoolCanonicalize(desired.EnableRestriction, actual.EnableRestriction) && !dcl.IsZeroValue(desired.EnableRestriction) {
 		c.Config.Logger.Infof("Diff in EnableRestriction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableRestriction), dcl.SprintResource(actual.EnableRestriction))
 		return true
 	}
@@ -1097,7 +1199,7 @@ func compareServicePerimeterSpecVPCAccessibleServices(c *Client, desired, actual
 		c.Config.Logger.Infof("desired EnableRestriction %s - but actually nil", dcl.SprintResource(desired.EnableRestriction))
 		return true
 	}
-	if !reflect.DeepEqual(desired.EnableRestriction, actual.EnableRestriction) && !dcl.IsZeroValue(desired.EnableRestriction) {
+	if !dcl.BoolCanonicalize(desired.EnableRestriction, actual.EnableRestriction) && !dcl.IsZeroValue(desired.EnableRestriction) {
 		c.Config.Logger.Infof("Diff in EnableRestriction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableRestriction), dcl.SprintResource(actual.EnableRestriction))
 		return true
 	}

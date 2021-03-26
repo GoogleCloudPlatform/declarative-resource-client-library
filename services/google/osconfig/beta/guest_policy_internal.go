@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -491,9 +492,20 @@ func (op *deleteGuestPolicyOperation) do(ctx context.Context, r *GuestPolicy, c 
 	if err != nil {
 		return fmt.Errorf("failed to delete GuestPolicy: %w", err)
 	}
-	_, err = c.GetGuestPolicy(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetGuestPolicy(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -588,7 +600,6 @@ func (c *Client) guestPolicyDiffsForRawDesired(ctx context.Context, rawDesired *
 		desired, err = canonicalizeGuestPolicyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for GuestPolicy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for GuestPolicy: %v", rawDesired)
 
@@ -701,16 +712,19 @@ func canonicalizeGuestPolicyNewState(c *Client, rawNew, rawDesired *GuestPolicy)
 	if dcl.IsEmptyValueIndirect(rawNew.Packages) && dcl.IsEmptyValueIndirect(rawDesired.Packages) {
 		rawNew.Packages = rawDesired.Packages
 	} else {
+		rawNew.Packages = canonicalizeNewGuestPolicyPackagesSlice(c, rawDesired.Packages, rawNew.Packages)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.PackageRepositories) && dcl.IsEmptyValueIndirect(rawDesired.PackageRepositories) {
 		rawNew.PackageRepositories = rawDesired.PackageRepositories
 	} else {
+		rawNew.PackageRepositories = canonicalizeNewGuestPolicyPackageRepositoriesSlice(c, rawDesired.PackageRepositories, rawNew.PackageRepositories)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Recipes) && dcl.IsEmptyValueIndirect(rawDesired.Recipes) {
 		rawNew.Recipes = rawDesired.Recipes
 	} else {
+		rawNew.Recipes = canonicalizeNewGuestPolicyRecipesSlice(c, rawDesired.Recipes, rawNew.Recipes)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
@@ -762,6 +776,9 @@ func canonicalizeNewGuestPolicyAssignment(c *Client, des, nw *GuestPolicyAssignm
 		return nw
 	}
 
+	nw.GroupLabels = canonicalizeNewGuestPolicyAssignmentGroupLabelsSlice(c, des.GroupLabels, nw.GroupLabels)
+	nw.OsTypes = canonicalizeNewGuestPolicyAssignmentOsTypesSlice(c, des.OsTypes, nw.OsTypes)
+
 	return nw
 }
 
@@ -786,6 +803,26 @@ func canonicalizeNewGuestPolicyAssignmentSet(c *Client, des, nw []GuestPolicyAss
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewGuestPolicyAssignmentSlice(c *Client, des, nw []GuestPolicyAssignment) []GuestPolicyAssignment {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyAssignment
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyAssignment(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeGuestPolicyAssignmentGroupLabels(des, initial *GuestPolicyAssignmentGroupLabels, opts ...dcl.ApplyOption) *GuestPolicyAssignmentGroupLabels {
@@ -836,6 +873,26 @@ func canonicalizeNewGuestPolicyAssignmentGroupLabelsSet(c *Client, des, nw []Gue
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewGuestPolicyAssignmentGroupLabelsSlice(c *Client, des, nw []GuestPolicyAssignmentGroupLabels) []GuestPolicyAssignmentGroupLabels {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyAssignmentGroupLabels
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyAssignmentGroupLabels(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeGuestPolicyAssignmentOsTypes(des, initial *GuestPolicyAssignmentOsTypes, opts ...dcl.ApplyOption) *GuestPolicyAssignmentOsTypes {
@@ -904,6 +961,26 @@ func canonicalizeNewGuestPolicyAssignmentOsTypesSet(c *Client, des, nw []GuestPo
 	return reorderedNew
 }
 
+func canonicalizeNewGuestPolicyAssignmentOsTypesSlice(c *Client, des, nw []GuestPolicyAssignmentOsTypes) []GuestPolicyAssignmentOsTypes {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyAssignmentOsTypes
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyAssignmentOsTypes(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeGuestPolicyPackages(des, initial *GuestPolicyPackages, opts ...dcl.ApplyOption) *GuestPolicyPackages {
 	if des == nil {
 		return initial
@@ -964,6 +1041,26 @@ func canonicalizeNewGuestPolicyPackagesSet(c *Client, des, nw []GuestPolicyPacka
 	return reorderedNew
 }
 
+func canonicalizeNewGuestPolicyPackagesSlice(c *Client, des, nw []GuestPolicyPackages) []GuestPolicyPackages {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyPackages
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyPackages(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeGuestPolicyPackageRepositories(des, initial *GuestPolicyPackageRepositories, opts ...dcl.ApplyOption) *GuestPolicyPackageRepositories {
 	if des == nil {
 		return initial
@@ -1018,6 +1115,26 @@ func canonicalizeNewGuestPolicyPackageRepositoriesSet(c *Client, des, nw []Guest
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewGuestPolicyPackageRepositoriesSlice(c *Client, des, nw []GuestPolicyPackageRepositories) []GuestPolicyPackageRepositories {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyPackageRepositories
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyPackageRepositories(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeGuestPolicyPackageRepositoriesApt(des, initial *GuestPolicyPackageRepositoriesApt, opts ...dcl.ApplyOption) *GuestPolicyPackageRepositoriesApt {
@@ -1092,6 +1209,26 @@ func canonicalizeNewGuestPolicyPackageRepositoriesAptSet(c *Client, des, nw []Gu
 	return reorderedNew
 }
 
+func canonicalizeNewGuestPolicyPackageRepositoriesAptSlice(c *Client, des, nw []GuestPolicyPackageRepositoriesApt) []GuestPolicyPackageRepositoriesApt {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyPackageRepositoriesApt
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyPackageRepositoriesApt(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeGuestPolicyPackageRepositoriesYum(des, initial *GuestPolicyPackageRepositoriesYum, opts ...dcl.ApplyOption) *GuestPolicyPackageRepositoriesYum {
 	if des == nil {
 		return initial
@@ -1159,6 +1296,26 @@ func canonicalizeNewGuestPolicyPackageRepositoriesYumSet(c *Client, des, nw []Gu
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewGuestPolicyPackageRepositoriesYumSlice(c *Client, des, nw []GuestPolicyPackageRepositoriesYum) []GuestPolicyPackageRepositoriesYum {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyPackageRepositoriesYum
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyPackageRepositoriesYum(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeGuestPolicyPackageRepositoriesZypper(des, initial *GuestPolicyPackageRepositoriesZypper, opts ...dcl.ApplyOption) *GuestPolicyPackageRepositoriesZypper {
@@ -1230,6 +1387,26 @@ func canonicalizeNewGuestPolicyPackageRepositoriesZypperSet(c *Client, des, nw [
 	return reorderedNew
 }
 
+func canonicalizeNewGuestPolicyPackageRepositoriesZypperSlice(c *Client, des, nw []GuestPolicyPackageRepositoriesZypper) []GuestPolicyPackageRepositoriesZypper {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyPackageRepositoriesZypper
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyPackageRepositoriesZypper(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeGuestPolicyPackageRepositoriesGoo(des, initial *GuestPolicyPackageRepositoriesGoo, opts ...dcl.ApplyOption) *GuestPolicyPackageRepositoriesGoo {
 	if des == nil {
 		return initial
@@ -1290,6 +1467,26 @@ func canonicalizeNewGuestPolicyPackageRepositoriesGooSet(c *Client, des, nw []Gu
 	return reorderedNew
 }
 
+func canonicalizeNewGuestPolicyPackageRepositoriesGooSlice(c *Client, des, nw []GuestPolicyPackageRepositoriesGoo) []GuestPolicyPackageRepositoriesGoo {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyPackageRepositoriesGoo
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyPackageRepositoriesGoo(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeGuestPolicyRecipes(des, initial *GuestPolicyRecipes, opts ...dcl.ApplyOption) *GuestPolicyRecipes {
 	if des == nil {
 		return initial
@@ -1335,6 +1532,9 @@ func canonicalizeNewGuestPolicyRecipes(c *Client, des, nw *GuestPolicyRecipes) *
 	if dcl.StringCanonicalize(des.Version, nw.Version) || dcl.IsZeroValue(des.Version) {
 		nw.Version = des.Version
 	}
+	nw.Artifacts = canonicalizeNewGuestPolicyRecipesArtifactsSlice(c, des.Artifacts, nw.Artifacts)
+	nw.InstallSteps = canonicalizeNewGuestPolicyRecipesInstallStepsSlice(c, des.InstallSteps, nw.InstallSteps)
+	nw.UpdateSteps = canonicalizeNewGuestPolicyRecipesUpdateStepsSlice(c, des.UpdateSteps, nw.UpdateSteps)
 
 	return nw
 }
@@ -1362,6 +1562,26 @@ func canonicalizeNewGuestPolicyRecipesSet(c *Client, des, nw []GuestPolicyRecipe
 	return reorderedNew
 }
 
+func canonicalizeNewGuestPolicyRecipesSlice(c *Client, des, nw []GuestPolicyRecipes) []GuestPolicyRecipes {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyRecipes
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyRecipes(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeGuestPolicyRecipesArtifacts(des, initial *GuestPolicyRecipesArtifacts, opts ...dcl.ApplyOption) *GuestPolicyRecipesArtifacts {
 	if des == nil {
 		return initial
@@ -1379,7 +1599,7 @@ func canonicalizeGuestPolicyRecipesArtifacts(des, initial *GuestPolicyRecipesArt
 	}
 	des.Remote = canonicalizeGuestPolicyRecipesArtifactsRemote(des.Remote, initial.Remote, opts...)
 	des.Gcs = canonicalizeGuestPolicyRecipesArtifactsGcs(des.Gcs, initial.Gcs, opts...)
-	if dcl.IsZeroValue(des.AllowInsecure) {
+	if dcl.BoolCanonicalize(des.AllowInsecure, initial.AllowInsecure) || dcl.IsZeroValue(des.AllowInsecure) {
 		des.AllowInsecure = initial.AllowInsecure
 	}
 
@@ -1396,6 +1616,9 @@ func canonicalizeNewGuestPolicyRecipesArtifacts(c *Client, des, nw *GuestPolicyR
 	}
 	nw.Remote = canonicalizeNewGuestPolicyRecipesArtifactsRemote(c, des.Remote, nw.Remote)
 	nw.Gcs = canonicalizeNewGuestPolicyRecipesArtifactsGcs(c, des.Gcs, nw.Gcs)
+	if dcl.BoolCanonicalize(des.AllowInsecure, nw.AllowInsecure) || dcl.IsZeroValue(des.AllowInsecure) {
+		nw.AllowInsecure = des.AllowInsecure
+	}
 
 	return nw
 }
@@ -1421,6 +1644,26 @@ func canonicalizeNewGuestPolicyRecipesArtifactsSet(c *Client, des, nw []GuestPol
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewGuestPolicyRecipesArtifactsSlice(c *Client, des, nw []GuestPolicyRecipesArtifacts) []GuestPolicyRecipesArtifacts {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyRecipesArtifacts
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyRecipesArtifacts(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeGuestPolicyRecipesArtifactsRemote(des, initial *GuestPolicyRecipesArtifactsRemote, opts ...dcl.ApplyOption) *GuestPolicyRecipesArtifactsRemote {
@@ -1481,6 +1724,26 @@ func canonicalizeNewGuestPolicyRecipesArtifactsRemoteSet(c *Client, des, nw []Gu
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewGuestPolicyRecipesArtifactsRemoteSlice(c *Client, des, nw []GuestPolicyRecipesArtifactsRemote) []GuestPolicyRecipesArtifactsRemote {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyRecipesArtifactsRemote
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyRecipesArtifactsRemote(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeGuestPolicyRecipesArtifactsGcs(des, initial *GuestPolicyRecipesArtifactsGcs, opts ...dcl.ApplyOption) *GuestPolicyRecipesArtifactsGcs {
@@ -1546,6 +1809,26 @@ func canonicalizeNewGuestPolicyRecipesArtifactsGcsSet(c *Client, des, nw []Guest
 	return reorderedNew
 }
 
+func canonicalizeNewGuestPolicyRecipesArtifactsGcsSlice(c *Client, des, nw []GuestPolicyRecipesArtifactsGcs) []GuestPolicyRecipesArtifactsGcs {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyRecipesArtifactsGcs
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyRecipesArtifactsGcs(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeGuestPolicyRecipesInstallSteps(des, initial *GuestPolicyRecipesInstallSteps, opts ...dcl.ApplyOption) *GuestPolicyRecipesInstallSteps {
 	if des == nil {
 		return initial
@@ -1608,6 +1891,26 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsSet(c *Client, des, nw []Guest
 	return reorderedNew
 }
 
+func canonicalizeNewGuestPolicyRecipesInstallStepsSlice(c *Client, des, nw []GuestPolicyRecipesInstallSteps) []GuestPolicyRecipesInstallSteps {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyRecipesInstallSteps
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyRecipesInstallSteps(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeGuestPolicyRecipesInstallStepsFileCopy(des, initial *GuestPolicyRecipesInstallStepsFileCopy, opts ...dcl.ApplyOption) *GuestPolicyRecipesInstallStepsFileCopy {
 	if des == nil {
 		return initial
@@ -1626,7 +1929,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsFileCopy(des, initial *GuestPolic
 	if dcl.StringCanonicalize(des.Destination, initial.Destination) || dcl.IsZeroValue(des.Destination) {
 		des.Destination = initial.Destination
 	}
-	if dcl.IsZeroValue(des.Overwrite) {
+	if dcl.BoolCanonicalize(des.Overwrite, initial.Overwrite) || dcl.IsZeroValue(des.Overwrite) {
 		des.Overwrite = initial.Overwrite
 	}
 	if dcl.StringCanonicalize(des.Permissions, initial.Permissions) || dcl.IsZeroValue(des.Permissions) {
@@ -1646,6 +1949,9 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsFileCopy(c *Client, des, nw *G
 	}
 	if dcl.StringCanonicalize(des.Destination, nw.Destination) || dcl.IsZeroValue(des.Destination) {
 		nw.Destination = des.Destination
+	}
+	if dcl.BoolCanonicalize(des.Overwrite, nw.Overwrite) || dcl.IsZeroValue(des.Overwrite) {
+		nw.Overwrite = des.Overwrite
 	}
 	if dcl.StringCanonicalize(des.Permissions, nw.Permissions) || dcl.IsZeroValue(des.Permissions) {
 		nw.Permissions = des.Permissions
@@ -1675,6 +1981,26 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsFileCopySet(c *Client, des, nw
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewGuestPolicyRecipesInstallStepsFileCopySlice(c *Client, des, nw []GuestPolicyRecipesInstallStepsFileCopy) []GuestPolicyRecipesInstallStepsFileCopy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyRecipesInstallStepsFileCopy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyRecipesInstallStepsFileCopy(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeGuestPolicyRecipesInstallStepsArchiveExtraction(des, initial *GuestPolicyRecipesInstallStepsArchiveExtraction, opts ...dcl.ApplyOption) *GuestPolicyRecipesInstallStepsArchiveExtraction {
@@ -1740,6 +2066,26 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsArchiveExtractionSet(c *Client
 	return reorderedNew
 }
 
+func canonicalizeNewGuestPolicyRecipesInstallStepsArchiveExtractionSlice(c *Client, des, nw []GuestPolicyRecipesInstallStepsArchiveExtraction) []GuestPolicyRecipesInstallStepsArchiveExtraction {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyRecipesInstallStepsArchiveExtraction
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyRecipesInstallStepsArchiveExtraction(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeGuestPolicyRecipesInstallStepsMsiInstallation(des, initial *GuestPolicyRecipesInstallStepsMsiInstallation, opts ...dcl.ApplyOption) *GuestPolicyRecipesInstallStepsMsiInstallation {
 	if des == nil {
 		return initial
@@ -1800,6 +2146,26 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsMsiInstallationSet(c *Client, 
 	return reorderedNew
 }
 
+func canonicalizeNewGuestPolicyRecipesInstallStepsMsiInstallationSlice(c *Client, des, nw []GuestPolicyRecipesInstallStepsMsiInstallation) []GuestPolicyRecipesInstallStepsMsiInstallation {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyRecipesInstallStepsMsiInstallation
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyRecipesInstallStepsMsiInstallation(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeGuestPolicyRecipesInstallStepsDpkgInstallation(des, initial *GuestPolicyRecipesInstallStepsDpkgInstallation, opts ...dcl.ApplyOption) *GuestPolicyRecipesInstallStepsDpkgInstallation {
 	if des == nil {
 		return initial
@@ -1854,6 +2220,26 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsDpkgInstallationSet(c *Client,
 	return reorderedNew
 }
 
+func canonicalizeNewGuestPolicyRecipesInstallStepsDpkgInstallationSlice(c *Client, des, nw []GuestPolicyRecipesInstallStepsDpkgInstallation) []GuestPolicyRecipesInstallStepsDpkgInstallation {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyRecipesInstallStepsDpkgInstallation
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyRecipesInstallStepsDpkgInstallation(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeGuestPolicyRecipesInstallStepsRpmInstallation(des, initial *GuestPolicyRecipesInstallStepsRpmInstallation, opts ...dcl.ApplyOption) *GuestPolicyRecipesInstallStepsRpmInstallation {
 	if des == nil {
 		return initial
@@ -1906,6 +2292,26 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsRpmInstallationSet(c *Client, 
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewGuestPolicyRecipesInstallStepsRpmInstallationSlice(c *Client, des, nw []GuestPolicyRecipesInstallStepsRpmInstallation) []GuestPolicyRecipesInstallStepsRpmInstallation {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyRecipesInstallStepsRpmInstallation
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyRecipesInstallStepsRpmInstallation(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeGuestPolicyRecipesInstallStepsFileExec(des, initial *GuestPolicyRecipesInstallStepsFileExec, opts ...dcl.ApplyOption) *GuestPolicyRecipesInstallStepsFileExec {
@@ -1974,6 +2380,26 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsFileExecSet(c *Client, des, nw
 	return reorderedNew
 }
 
+func canonicalizeNewGuestPolicyRecipesInstallStepsFileExecSlice(c *Client, des, nw []GuestPolicyRecipesInstallStepsFileExec) []GuestPolicyRecipesInstallStepsFileExec {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyRecipesInstallStepsFileExec
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyRecipesInstallStepsFileExec(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeGuestPolicyRecipesInstallStepsScriptRun(des, initial *GuestPolicyRecipesInstallStepsScriptRun, opts ...dcl.ApplyOption) *GuestPolicyRecipesInstallStepsScriptRun {
 	if des == nil {
 		return initial
@@ -2032,6 +2458,26 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsScriptRunSet(c *Client, des, n
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewGuestPolicyRecipesInstallStepsScriptRunSlice(c *Client, des, nw []GuestPolicyRecipesInstallStepsScriptRun) []GuestPolicyRecipesInstallStepsScriptRun {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyRecipesInstallStepsScriptRun
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyRecipesInstallStepsScriptRun(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeGuestPolicyRecipesUpdateSteps(des, initial *GuestPolicyRecipesUpdateSteps, opts ...dcl.ApplyOption) *GuestPolicyRecipesUpdateSteps {
@@ -2096,6 +2542,26 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsSet(c *Client, des, nw []GuestP
 	return reorderedNew
 }
 
+func canonicalizeNewGuestPolicyRecipesUpdateStepsSlice(c *Client, des, nw []GuestPolicyRecipesUpdateSteps) []GuestPolicyRecipesUpdateSteps {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyRecipesUpdateSteps
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyRecipesUpdateSteps(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeGuestPolicyRecipesUpdateStepsFileCopy(des, initial *GuestPolicyRecipesUpdateStepsFileCopy, opts ...dcl.ApplyOption) *GuestPolicyRecipesUpdateStepsFileCopy {
 	if des == nil {
 		return initial
@@ -2114,7 +2580,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsFileCopy(des, initial *GuestPolicy
 	if dcl.StringCanonicalize(des.Destination, initial.Destination) || dcl.IsZeroValue(des.Destination) {
 		des.Destination = initial.Destination
 	}
-	if dcl.IsZeroValue(des.Overwrite) {
+	if dcl.BoolCanonicalize(des.Overwrite, initial.Overwrite) || dcl.IsZeroValue(des.Overwrite) {
 		des.Overwrite = initial.Overwrite
 	}
 	if dcl.StringCanonicalize(des.Permissions, initial.Permissions) || dcl.IsZeroValue(des.Permissions) {
@@ -2134,6 +2600,9 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsFileCopy(c *Client, des, nw *Gu
 	}
 	if dcl.StringCanonicalize(des.Destination, nw.Destination) || dcl.IsZeroValue(des.Destination) {
 		nw.Destination = des.Destination
+	}
+	if dcl.BoolCanonicalize(des.Overwrite, nw.Overwrite) || dcl.IsZeroValue(des.Overwrite) {
+		nw.Overwrite = des.Overwrite
 	}
 	if dcl.StringCanonicalize(des.Permissions, nw.Permissions) || dcl.IsZeroValue(des.Permissions) {
 		nw.Permissions = des.Permissions
@@ -2163,6 +2632,26 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsFileCopySet(c *Client, des, nw 
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewGuestPolicyRecipesUpdateStepsFileCopySlice(c *Client, des, nw []GuestPolicyRecipesUpdateStepsFileCopy) []GuestPolicyRecipesUpdateStepsFileCopy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyRecipesUpdateStepsFileCopy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyRecipesUpdateStepsFileCopy(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeGuestPolicyRecipesUpdateStepsArchiveExtraction(des, initial *GuestPolicyRecipesUpdateStepsArchiveExtraction, opts ...dcl.ApplyOption) *GuestPolicyRecipesUpdateStepsArchiveExtraction {
@@ -2228,6 +2717,26 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsArchiveExtractionSet(c *Client,
 	return reorderedNew
 }
 
+func canonicalizeNewGuestPolicyRecipesUpdateStepsArchiveExtractionSlice(c *Client, des, nw []GuestPolicyRecipesUpdateStepsArchiveExtraction) []GuestPolicyRecipesUpdateStepsArchiveExtraction {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyRecipesUpdateStepsArchiveExtraction
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyRecipesUpdateStepsArchiveExtraction(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeGuestPolicyRecipesUpdateStepsMsiInstallation(des, initial *GuestPolicyRecipesUpdateStepsMsiInstallation, opts ...dcl.ApplyOption) *GuestPolicyRecipesUpdateStepsMsiInstallation {
 	if des == nil {
 		return initial
@@ -2288,6 +2797,26 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsMsiInstallationSet(c *Client, d
 	return reorderedNew
 }
 
+func canonicalizeNewGuestPolicyRecipesUpdateStepsMsiInstallationSlice(c *Client, des, nw []GuestPolicyRecipesUpdateStepsMsiInstallation) []GuestPolicyRecipesUpdateStepsMsiInstallation {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyRecipesUpdateStepsMsiInstallation
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyRecipesUpdateStepsMsiInstallation(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeGuestPolicyRecipesUpdateStepsDpkgInstallation(des, initial *GuestPolicyRecipesUpdateStepsDpkgInstallation, opts ...dcl.ApplyOption) *GuestPolicyRecipesUpdateStepsDpkgInstallation {
 	if des == nil {
 		return initial
@@ -2342,6 +2871,26 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsDpkgInstallationSet(c *Client, 
 	return reorderedNew
 }
 
+func canonicalizeNewGuestPolicyRecipesUpdateStepsDpkgInstallationSlice(c *Client, des, nw []GuestPolicyRecipesUpdateStepsDpkgInstallation) []GuestPolicyRecipesUpdateStepsDpkgInstallation {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyRecipesUpdateStepsDpkgInstallation
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyRecipesUpdateStepsDpkgInstallation(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeGuestPolicyRecipesUpdateStepsRpmInstallation(des, initial *GuestPolicyRecipesUpdateStepsRpmInstallation, opts ...dcl.ApplyOption) *GuestPolicyRecipesUpdateStepsRpmInstallation {
 	if des == nil {
 		return initial
@@ -2394,6 +2943,26 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsRpmInstallationSet(c *Client, d
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewGuestPolicyRecipesUpdateStepsRpmInstallationSlice(c *Client, des, nw []GuestPolicyRecipesUpdateStepsRpmInstallation) []GuestPolicyRecipesUpdateStepsRpmInstallation {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyRecipesUpdateStepsRpmInstallation
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyRecipesUpdateStepsRpmInstallation(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeGuestPolicyRecipesUpdateStepsFileExec(des, initial *GuestPolicyRecipesUpdateStepsFileExec, opts ...dcl.ApplyOption) *GuestPolicyRecipesUpdateStepsFileExec {
@@ -2462,6 +3031,26 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsFileExecSet(c *Client, des, nw 
 	return reorderedNew
 }
 
+func canonicalizeNewGuestPolicyRecipesUpdateStepsFileExecSlice(c *Client, des, nw []GuestPolicyRecipesUpdateStepsFileExec) []GuestPolicyRecipesUpdateStepsFileExec {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyRecipesUpdateStepsFileExec
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyRecipesUpdateStepsFileExec(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeGuestPolicyRecipesUpdateStepsScriptRun(des, initial *GuestPolicyRecipesUpdateStepsScriptRun, opts ...dcl.ApplyOption) *GuestPolicyRecipesUpdateStepsScriptRun {
 	if des == nil {
 		return initial
@@ -2520,6 +3109,26 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsScriptRunSet(c *Client, des, nw
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewGuestPolicyRecipesUpdateStepsScriptRunSlice(c *Client, des, nw []GuestPolicyRecipesUpdateStepsScriptRun) []GuestPolicyRecipesUpdateStepsScriptRun {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []GuestPolicyRecipesUpdateStepsScriptRun
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGuestPolicyRecipesUpdateStepsScriptRun(c, &d, &n))
+	}
+
+	return items
 }
 
 type guestPolicyDiff struct {
@@ -3391,7 +4000,7 @@ func compareGuestPolicyRecipesArtifacts(c *Client, desired, actual *GuestPolicyR
 		c.Config.Logger.Infof("desired AllowInsecure %s - but actually nil", dcl.SprintResource(desired.AllowInsecure))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AllowInsecure, actual.AllowInsecure) && !dcl.IsZeroValue(desired.AllowInsecure) {
+	if !dcl.BoolCanonicalize(desired.AllowInsecure, actual.AllowInsecure) && !dcl.IsZeroValue(desired.AllowInsecure) {
 		c.Config.Logger.Infof("Diff in AllowInsecure. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowInsecure), dcl.SprintResource(actual.AllowInsecure))
 		return true
 	}
@@ -3683,7 +4292,7 @@ func compareGuestPolicyRecipesInstallStepsFileCopy(c *Client, desired, actual *G
 		c.Config.Logger.Infof("desired Overwrite %s - but actually nil", dcl.SprintResource(desired.Overwrite))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Overwrite, actual.Overwrite) && !dcl.IsZeroValue(desired.Overwrite) {
+	if !dcl.BoolCanonicalize(desired.Overwrite, actual.Overwrite) && !dcl.IsZeroValue(desired.Overwrite) {
 		c.Config.Logger.Infof("Diff in Overwrite. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Overwrite), dcl.SprintResource(actual.Overwrite))
 		return true
 	}
@@ -4235,7 +4844,7 @@ func compareGuestPolicyRecipesUpdateStepsFileCopy(c *Client, desired, actual *Gu
 		c.Config.Logger.Infof("desired Overwrite %s - but actually nil", dcl.SprintResource(desired.Overwrite))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Overwrite, actual.Overwrite) && !dcl.IsZeroValue(desired.Overwrite) {
+	if !dcl.BoolCanonicalize(desired.Overwrite, actual.Overwrite) && !dcl.IsZeroValue(desired.Overwrite) {
 		c.Config.Logger.Infof("Diff in Overwrite. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Overwrite), dcl.SprintResource(actual.Overwrite))
 		return true
 	}

@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -594,9 +595,20 @@ func (op *deleteNodePoolOperation) do(ctx context.Context, r *NodePool, c *Clien
 	if err := o.Wait(ctx, c.Config, "https://container.googleapis.com/v1beta1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetNodePool(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetNodePool(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -696,7 +708,6 @@ func (c *Client) nodePoolDiffsForRawDesired(ctx context.Context, rawDesired *Nod
 		desired, err = canonicalizeNodePoolDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for NodePool: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for NodePool: %v", rawDesired)
 
@@ -919,6 +930,7 @@ func canonicalizeNodePoolNewState(c *Client, rawNew, rawDesired *NodePool) (*Nod
 	if dcl.IsEmptyValueIndirect(rawNew.Conditions) && dcl.IsEmptyValueIndirect(rawDesired.Conditions) {
 		rawNew.Conditions = rawDesired.Conditions
 	} else {
+		rawNew.Conditions = canonicalizeNewNodePoolConditionsSlice(c, rawDesired.Conditions, rawNew.Conditions)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.PodIPv4CidrSize) && dcl.IsEmptyValueIndirect(rawDesired.PodIPv4CidrSize) {
@@ -980,7 +992,7 @@ func canonicalizeNodePoolConfig(des, initial *NodePoolConfig, opts ...dcl.ApplyO
 	if dcl.IsZeroValue(des.Tags) {
 		des.Tags = initial.Tags
 	}
-	if dcl.IsZeroValue(des.Preemptible) {
+	if dcl.BoolCanonicalize(des.Preemptible, initial.Preemptible) || dcl.IsZeroValue(des.Preemptible) {
 		des.Preemptible = initial.Preemptible
 	}
 	if dcl.IsZeroValue(des.Accelerators) {
@@ -1016,12 +1028,17 @@ func canonicalizeNewNodePoolConfig(c *Client, des, nw *NodePoolConfig) *NodePool
 	if dcl.StringCanonicalize(des.ImageType, nw.ImageType) || dcl.IsZeroValue(des.ImageType) {
 		nw.ImageType = des.ImageType
 	}
+	if dcl.BoolCanonicalize(des.Preemptible, nw.Preemptible) || dcl.IsZeroValue(des.Preemptible) {
+		nw.Preemptible = des.Preemptible
+	}
+	nw.Accelerators = canonicalizeNewNodePoolConfigAcceleratorsSlice(c, des.Accelerators, nw.Accelerators)
 	if dcl.StringCanonicalize(des.DiskType, nw.DiskType) || dcl.IsZeroValue(des.DiskType) {
 		nw.DiskType = des.DiskType
 	}
 	if dcl.StringCanonicalize(des.MinCpuPlatform, nw.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
 		nw.MinCpuPlatform = des.MinCpuPlatform
 	}
+	nw.Taints = canonicalizeNewNodePoolConfigTaintsSlice(c, des.Taints, nw.Taints)
 	nw.SandboxConfig = canonicalizeNewNodePoolConfigSandboxConfig(c, des.SandboxConfig, nw.SandboxConfig)
 	nw.ReservationAffinity = canonicalizeNewNodePoolConfigReservationAffinity(c, des.ReservationAffinity, nw.ReservationAffinity)
 	nw.ShieldedInstanceConfig = canonicalizeNewNodePoolConfigShieldedInstanceConfig(c, des.ShieldedInstanceConfig, nw.ShieldedInstanceConfig)
@@ -1050,6 +1067,26 @@ func canonicalizeNewNodePoolConfigSet(c *Client, des, nw []NodePoolConfig) []Nod
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewNodePoolConfigSlice(c *Client, des, nw []NodePoolConfig) []NodePoolConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NodePoolConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNodePoolConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeNodePoolConfigAccelerators(des, initial *NodePoolConfigAccelerators, opts ...dcl.ApplyOption) *NodePoolConfigAccelerators {
@@ -1107,6 +1144,26 @@ func canonicalizeNewNodePoolConfigAcceleratorsSet(c *Client, des, nw []NodePoolC
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewNodePoolConfigAcceleratorsSlice(c *Client, des, nw []NodePoolConfigAccelerators) []NodePoolConfigAccelerators {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NodePoolConfigAccelerators
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNodePoolConfigAccelerators(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeNodePoolConfigTaints(des, initial *NodePoolConfigTaints, opts ...dcl.ApplyOption) *NodePoolConfigTaints {
@@ -1175,6 +1232,26 @@ func canonicalizeNewNodePoolConfigTaintsSet(c *Client, des, nw []NodePoolConfigT
 	return reorderedNew
 }
 
+func canonicalizeNewNodePoolConfigTaintsSlice(c *Client, des, nw []NodePoolConfigTaints) []NodePoolConfigTaints {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NodePoolConfigTaints
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNodePoolConfigTaints(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeNodePoolConfigSandboxConfig(des, initial *NodePoolConfigSandboxConfig, opts ...dcl.ApplyOption) *NodePoolConfigSandboxConfig {
 	if des == nil {
 		return initial
@@ -1223,6 +1300,26 @@ func canonicalizeNewNodePoolConfigSandboxConfigSet(c *Client, des, nw []NodePool
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewNodePoolConfigSandboxConfigSlice(c *Client, des, nw []NodePoolConfigSandboxConfig) []NodePoolConfigSandboxConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NodePoolConfigSandboxConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNodePoolConfigSandboxConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeNodePoolConfigReservationAffinity(des, initial *NodePoolConfigReservationAffinity, opts ...dcl.ApplyOption) *NodePoolConfigReservationAffinity {
@@ -1285,6 +1382,26 @@ func canonicalizeNewNodePoolConfigReservationAffinitySet(c *Client, des, nw []No
 	return reorderedNew
 }
 
+func canonicalizeNewNodePoolConfigReservationAffinitySlice(c *Client, des, nw []NodePoolConfigReservationAffinity) []NodePoolConfigReservationAffinity {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NodePoolConfigReservationAffinity
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNodePoolConfigReservationAffinity(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeNodePoolConfigShieldedInstanceConfig(des, initial *NodePoolConfigShieldedInstanceConfig, opts ...dcl.ApplyOption) *NodePoolConfigShieldedInstanceConfig {
 	if des == nil {
 		return initial
@@ -1297,10 +1414,10 @@ func canonicalizeNodePoolConfigShieldedInstanceConfig(des, initial *NodePoolConf
 		return des
 	}
 
-	if dcl.IsZeroValue(des.EnableSecureBoot) {
+	if dcl.BoolCanonicalize(des.EnableSecureBoot, initial.EnableSecureBoot) || dcl.IsZeroValue(des.EnableSecureBoot) {
 		des.EnableSecureBoot = initial.EnableSecureBoot
 	}
-	if dcl.IsZeroValue(des.EnableIntegrityMonitoring) {
+	if dcl.BoolCanonicalize(des.EnableIntegrityMonitoring, initial.EnableIntegrityMonitoring) || dcl.IsZeroValue(des.EnableIntegrityMonitoring) {
 		des.EnableIntegrityMonitoring = initial.EnableIntegrityMonitoring
 	}
 
@@ -1310,6 +1427,13 @@ func canonicalizeNodePoolConfigShieldedInstanceConfig(des, initial *NodePoolConf
 func canonicalizeNewNodePoolConfigShieldedInstanceConfig(c *Client, des, nw *NodePoolConfigShieldedInstanceConfig) *NodePoolConfigShieldedInstanceConfig {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.EnableSecureBoot, nw.EnableSecureBoot) || dcl.IsZeroValue(des.EnableSecureBoot) {
+		nw.EnableSecureBoot = des.EnableSecureBoot
+	}
+	if dcl.BoolCanonicalize(des.EnableIntegrityMonitoring, nw.EnableIntegrityMonitoring) || dcl.IsZeroValue(des.EnableIntegrityMonitoring) {
+		nw.EnableIntegrityMonitoring = des.EnableIntegrityMonitoring
 	}
 
 	return nw
@@ -1338,6 +1462,26 @@ func canonicalizeNewNodePoolConfigShieldedInstanceConfigSet(c *Client, des, nw [
 	return reorderedNew
 }
 
+func canonicalizeNewNodePoolConfigShieldedInstanceConfigSlice(c *Client, des, nw []NodePoolConfigShieldedInstanceConfig) []NodePoolConfigShieldedInstanceConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NodePoolConfigShieldedInstanceConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNodePoolConfigShieldedInstanceConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeNodePoolAutoscaling(des, initial *NodePoolAutoscaling, opts ...dcl.ApplyOption) *NodePoolAutoscaling {
 	if des == nil {
 		return initial
@@ -1350,7 +1494,7 @@ func canonicalizeNodePoolAutoscaling(des, initial *NodePoolAutoscaling, opts ...
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Enabled) {
+	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
 		des.Enabled = initial.Enabled
 	}
 	if dcl.IsZeroValue(des.MinNodeCount) {
@@ -1359,7 +1503,7 @@ func canonicalizeNodePoolAutoscaling(des, initial *NodePoolAutoscaling, opts ...
 	if dcl.IsZeroValue(des.MaxNodeCount) {
 		des.MaxNodeCount = initial.MaxNodeCount
 	}
-	if dcl.IsZeroValue(des.Autoprovisioned) {
+	if dcl.BoolCanonicalize(des.Autoprovisioned, initial.Autoprovisioned) || dcl.IsZeroValue(des.Autoprovisioned) {
 		des.Autoprovisioned = initial.Autoprovisioned
 	}
 
@@ -1369,6 +1513,13 @@ func canonicalizeNodePoolAutoscaling(des, initial *NodePoolAutoscaling, opts ...
 func canonicalizeNewNodePoolAutoscaling(c *Client, des, nw *NodePoolAutoscaling) *NodePoolAutoscaling {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.Enabled, nw.Enabled) || dcl.IsZeroValue(des.Enabled) {
+		nw.Enabled = des.Enabled
+	}
+	if dcl.BoolCanonicalize(des.Autoprovisioned, nw.Autoprovisioned) || dcl.IsZeroValue(des.Autoprovisioned) {
+		nw.Autoprovisioned = des.Autoprovisioned
 	}
 
 	return nw
@@ -1397,6 +1548,26 @@ func canonicalizeNewNodePoolAutoscalingSet(c *Client, des, nw []NodePoolAutoscal
 	return reorderedNew
 }
 
+func canonicalizeNewNodePoolAutoscalingSlice(c *Client, des, nw []NodePoolAutoscaling) []NodePoolAutoscaling {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NodePoolAutoscaling
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNodePoolAutoscaling(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeNodePoolManagement(des, initial *NodePoolManagement, opts ...dcl.ApplyOption) *NodePoolManagement {
 	if des == nil {
 		return initial
@@ -1409,10 +1580,10 @@ func canonicalizeNodePoolManagement(des, initial *NodePoolManagement, opts ...dc
 		return des
 	}
 
-	if dcl.IsZeroValue(des.AutoUpgrade) {
+	if dcl.BoolCanonicalize(des.AutoUpgrade, initial.AutoUpgrade) || dcl.IsZeroValue(des.AutoUpgrade) {
 		des.AutoUpgrade = initial.AutoUpgrade
 	}
-	if dcl.IsZeroValue(des.AutoRepair) {
+	if dcl.BoolCanonicalize(des.AutoRepair, initial.AutoRepair) || dcl.IsZeroValue(des.AutoRepair) {
 		des.AutoRepair = initial.AutoRepair
 	}
 	des.UpgradeOptions = canonicalizeNodePoolManagementUpgradeOptions(des.UpgradeOptions, initial.UpgradeOptions, opts...)
@@ -1425,6 +1596,12 @@ func canonicalizeNewNodePoolManagement(c *Client, des, nw *NodePoolManagement) *
 		return nw
 	}
 
+	if dcl.BoolCanonicalize(des.AutoUpgrade, nw.AutoUpgrade) || dcl.IsZeroValue(des.AutoUpgrade) {
+		nw.AutoUpgrade = des.AutoUpgrade
+	}
+	if dcl.BoolCanonicalize(des.AutoRepair, nw.AutoRepair) || dcl.IsZeroValue(des.AutoRepair) {
+		nw.AutoRepair = des.AutoRepair
+	}
 	nw.UpgradeOptions = canonicalizeNewNodePoolManagementUpgradeOptions(c, des.UpgradeOptions, nw.UpgradeOptions)
 
 	return nw
@@ -1451,6 +1628,26 @@ func canonicalizeNewNodePoolManagementSet(c *Client, des, nw []NodePoolManagemen
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewNodePoolManagementSlice(c *Client, des, nw []NodePoolManagement) []NodePoolManagement {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NodePoolManagement
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNodePoolManagement(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeNodePoolManagementUpgradeOptions(des, initial *NodePoolManagementUpgradeOptions, opts ...dcl.ApplyOption) *NodePoolManagementUpgradeOptions {
@@ -1510,6 +1707,26 @@ func canonicalizeNewNodePoolManagementUpgradeOptionsSet(c *Client, des, nw []Nod
 	return reorderedNew
 }
 
+func canonicalizeNewNodePoolManagementUpgradeOptionsSlice(c *Client, des, nw []NodePoolManagementUpgradeOptions) []NodePoolManagementUpgradeOptions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NodePoolManagementUpgradeOptions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNodePoolManagementUpgradeOptions(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeNodePoolMaxPodsConstraint(des, initial *NodePoolMaxPodsConstraint, opts ...dcl.ApplyOption) *NodePoolMaxPodsConstraint {
 	if des == nil {
 		return initial
@@ -1558,6 +1775,26 @@ func canonicalizeNewNodePoolMaxPodsConstraintSet(c *Client, des, nw []NodePoolMa
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewNodePoolMaxPodsConstraintSlice(c *Client, des, nw []NodePoolMaxPodsConstraint) []NodePoolMaxPodsConstraint {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NodePoolMaxPodsConstraint
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNodePoolMaxPodsConstraint(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeNodePoolConditions(des, initial *NodePoolConditions, opts ...dcl.ApplyOption) *NodePoolConditions {
@@ -1617,6 +1854,26 @@ func canonicalizeNewNodePoolConditionsSet(c *Client, des, nw []NodePoolCondition
 	return reorderedNew
 }
 
+func canonicalizeNewNodePoolConditionsSlice(c *Client, des, nw []NodePoolConditions) []NodePoolConditions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NodePoolConditions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNodePoolConditions(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeNodePoolUpgradeSettings(des, initial *NodePoolUpgradeSettings, opts ...dcl.ApplyOption) *NodePoolUpgradeSettings {
 	if des == nil {
 		return initial
@@ -1668,6 +1925,26 @@ func canonicalizeNewNodePoolUpgradeSettingsSet(c *Client, des, nw []NodePoolUpgr
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewNodePoolUpgradeSettingsSlice(c *Client, des, nw []NodePoolUpgradeSettings) []NodePoolUpgradeSettings {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []NodePoolUpgradeSettings
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNodePoolUpgradeSettings(c, &d, &n))
+	}
+
+	return items
 }
 
 type nodePoolDiff struct {
@@ -1869,7 +2146,7 @@ func compareNodePoolConfig(c *Client, desired, actual *NodePoolConfig) bool {
 		c.Config.Logger.Infof("desired Preemptible %s - but actually nil", dcl.SprintResource(desired.Preemptible))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Preemptible, actual.Preemptible) && !dcl.IsZeroValue(desired.Preemptible) {
+	if !dcl.BoolCanonicalize(desired.Preemptible, actual.Preemptible) && !dcl.IsZeroValue(desired.Preemptible) {
 		c.Config.Logger.Infof("Diff in Preemptible. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Preemptible), dcl.SprintResource(actual.Preemptible))
 		return true
 	}
@@ -2220,7 +2497,7 @@ func compareNodePoolConfigShieldedInstanceConfig(c *Client, desired, actual *Nod
 		c.Config.Logger.Infof("desired EnableSecureBoot %s - but actually nil", dcl.SprintResource(desired.EnableSecureBoot))
 		return true
 	}
-	if !reflect.DeepEqual(desired.EnableSecureBoot, actual.EnableSecureBoot) && !dcl.IsZeroValue(desired.EnableSecureBoot) {
+	if !dcl.BoolCanonicalize(desired.EnableSecureBoot, actual.EnableSecureBoot) && !dcl.IsZeroValue(desired.EnableSecureBoot) {
 		c.Config.Logger.Infof("Diff in EnableSecureBoot. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableSecureBoot), dcl.SprintResource(actual.EnableSecureBoot))
 		return true
 	}
@@ -2228,7 +2505,7 @@ func compareNodePoolConfigShieldedInstanceConfig(c *Client, desired, actual *Nod
 		c.Config.Logger.Infof("desired EnableIntegrityMonitoring %s - but actually nil", dcl.SprintResource(desired.EnableIntegrityMonitoring))
 		return true
 	}
-	if !reflect.DeepEqual(desired.EnableIntegrityMonitoring, actual.EnableIntegrityMonitoring) && !dcl.IsZeroValue(desired.EnableIntegrityMonitoring) {
+	if !dcl.BoolCanonicalize(desired.EnableIntegrityMonitoring, actual.EnableIntegrityMonitoring) && !dcl.IsZeroValue(desired.EnableIntegrityMonitoring) {
 		c.Config.Logger.Infof("Diff in EnableIntegrityMonitoring. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableIntegrityMonitoring), dcl.SprintResource(actual.EnableIntegrityMonitoring))
 		return true
 	}
@@ -2279,7 +2556,7 @@ func compareNodePoolAutoscaling(c *Client, desired, actual *NodePoolAutoscaling)
 		c.Config.Logger.Infof("desired Enabled %s - but actually nil", dcl.SprintResource(desired.Enabled))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Enabled, actual.Enabled) && !dcl.IsZeroValue(desired.Enabled) {
+	if !dcl.BoolCanonicalize(desired.Enabled, actual.Enabled) && !dcl.IsZeroValue(desired.Enabled) {
 		c.Config.Logger.Infof("Diff in Enabled. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Enabled), dcl.SprintResource(actual.Enabled))
 		return true
 	}
@@ -2303,7 +2580,7 @@ func compareNodePoolAutoscaling(c *Client, desired, actual *NodePoolAutoscaling)
 		c.Config.Logger.Infof("desired Autoprovisioned %s - but actually nil", dcl.SprintResource(desired.Autoprovisioned))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Autoprovisioned, actual.Autoprovisioned) && !dcl.IsZeroValue(desired.Autoprovisioned) {
+	if !dcl.BoolCanonicalize(desired.Autoprovisioned, actual.Autoprovisioned) && !dcl.IsZeroValue(desired.Autoprovisioned) {
 		c.Config.Logger.Infof("Diff in Autoprovisioned. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Autoprovisioned), dcl.SprintResource(actual.Autoprovisioned))
 		return true
 	}
@@ -2354,7 +2631,7 @@ func compareNodePoolManagement(c *Client, desired, actual *NodePoolManagement) b
 		c.Config.Logger.Infof("desired AutoUpgrade %s - but actually nil", dcl.SprintResource(desired.AutoUpgrade))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AutoUpgrade, actual.AutoUpgrade) && !dcl.IsZeroValue(desired.AutoUpgrade) {
+	if !dcl.BoolCanonicalize(desired.AutoUpgrade, actual.AutoUpgrade) && !dcl.IsZeroValue(desired.AutoUpgrade) {
 		c.Config.Logger.Infof("Diff in AutoUpgrade. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AutoUpgrade), dcl.SprintResource(actual.AutoUpgrade))
 		return true
 	}
@@ -2362,7 +2639,7 @@ func compareNodePoolManagement(c *Client, desired, actual *NodePoolManagement) b
 		c.Config.Logger.Infof("desired AutoRepair %s - but actually nil", dcl.SprintResource(desired.AutoRepair))
 		return true
 	}
-	if !reflect.DeepEqual(desired.AutoRepair, actual.AutoRepair) && !dcl.IsZeroValue(desired.AutoRepair) {
+	if !dcl.BoolCanonicalize(desired.AutoRepair, actual.AutoRepair) && !dcl.IsZeroValue(desired.AutoRepair) {
 		c.Config.Logger.Infof("Diff in AutoRepair. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AutoRepair), dcl.SprintResource(actual.AutoRepair))
 		return true
 	}

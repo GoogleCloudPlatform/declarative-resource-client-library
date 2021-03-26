@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -594,9 +595,20 @@ func (op *deleteVersionOperation) do(ctx context.Context, r *Version, c *Client)
 	if err := o.Wait(ctx, c.Config, "https://appengine.googleapis.com/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetVersion(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetVersion(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -696,7 +708,6 @@ func (c *Client) versionDiffsForRawDesired(ctx context.Context, rawDesired *Vers
 		desired, err = canonicalizeVersionDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Version: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Version: %v", rawDesired)
 
@@ -777,10 +788,10 @@ func canonicalizeVersionDesiredState(rawDesired, rawInitial *Version, opts ...dc
 	if dcl.StringCanonicalize(rawDesired.RuntimeChannel, rawInitial.RuntimeChannel) {
 		rawDesired.RuntimeChannel = rawInitial.RuntimeChannel
 	}
-	if dcl.IsZeroValue(rawDesired.Threadsafe) {
+	if dcl.BoolCanonicalize(rawDesired.Threadsafe, rawInitial.Threadsafe) {
 		rawDesired.Threadsafe = rawInitial.Threadsafe
 	}
-	if dcl.IsZeroValue(rawDesired.Vm) {
+	if dcl.BoolCanonicalize(rawDesired.Vm, rawInitial.Vm) {
 		rawDesired.Vm = rawInitial.Vm
 	}
 	if dcl.IsZeroValue(rawDesired.BetaSettings) {
@@ -930,11 +941,17 @@ func canonicalizeVersionNewState(c *Client, rawNew, rawDesired *Version) (*Versi
 	if dcl.IsEmptyValueIndirect(rawNew.Threadsafe) && dcl.IsEmptyValueIndirect(rawDesired.Threadsafe) {
 		rawNew.Threadsafe = rawDesired.Threadsafe
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.Threadsafe, rawNew.Threadsafe) {
+			rawNew.Threadsafe = rawDesired.Threadsafe
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Vm) && dcl.IsEmptyValueIndirect(rawDesired.Vm) {
 		rawNew.Vm = rawDesired.Vm
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.Vm, rawNew.Vm) {
+			rawNew.Vm = rawDesired.Vm
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.BetaSettings) && dcl.IsEmptyValueIndirect(rawDesired.BetaSettings) {
@@ -992,16 +1009,19 @@ func canonicalizeVersionNewState(c *Client, rawNew, rawDesired *Version) (*Versi
 	if dcl.IsEmptyValueIndirect(rawNew.Handlers) && dcl.IsEmptyValueIndirect(rawDesired.Handlers) {
 		rawNew.Handlers = rawDesired.Handlers
 	} else {
+		rawNew.Handlers = canonicalizeNewVersionHandlersSlice(c, rawDesired.Handlers, rawNew.Handlers)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ErrorHandlers) && dcl.IsEmptyValueIndirect(rawDesired.ErrorHandlers) {
 		rawNew.ErrorHandlers = rawDesired.ErrorHandlers
 	} else {
+		rawNew.ErrorHandlers = canonicalizeNewVersionErrorHandlersSlice(c, rawDesired.ErrorHandlers, rawNew.ErrorHandlers)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Libraries) && dcl.IsEmptyValueIndirect(rawDesired.Libraries) {
 		rawNew.Libraries = rawDesired.Libraries
 	} else {
+		rawNew.Libraries = canonicalizeNewVersionLibrariesSlice(c, rawDesired.Libraries, rawNew.Libraries)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ApiConfig) && dcl.IsEmptyValueIndirect(rawDesired.ApiConfig) {
@@ -1173,6 +1193,26 @@ func canonicalizeNewVersionAutomaticScalingSet(c *Client, des, nw []VersionAutom
 	return reorderedNew
 }
 
+func canonicalizeNewVersionAutomaticScalingSlice(c *Client, des, nw []VersionAutomaticScaling) []VersionAutomaticScaling {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionAutomaticScaling
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionAutomaticScaling(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeVersionAutomaticScalingCpuUtilization(des, initial *VersionAutomaticScalingCpuUtilization, opts ...dcl.ApplyOption) *VersionAutomaticScalingCpuUtilization {
 	if des == nil {
 		return initial
@@ -1230,6 +1270,26 @@ func canonicalizeNewVersionAutomaticScalingCpuUtilizationSet(c *Client, des, nw 
 	return reorderedNew
 }
 
+func canonicalizeNewVersionAutomaticScalingCpuUtilizationSlice(c *Client, des, nw []VersionAutomaticScalingCpuUtilization) []VersionAutomaticScalingCpuUtilization {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionAutomaticScalingCpuUtilization
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionAutomaticScalingCpuUtilization(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeVersionAutomaticScalingRequestUtilization(des, initial *VersionAutomaticScalingRequestUtilization, opts ...dcl.ApplyOption) *VersionAutomaticScalingRequestUtilization {
 	if des == nil {
 		return initial
@@ -1281,6 +1341,26 @@ func canonicalizeNewVersionAutomaticScalingRequestUtilizationSet(c *Client, des,
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewVersionAutomaticScalingRequestUtilizationSlice(c *Client, des, nw []VersionAutomaticScalingRequestUtilization) []VersionAutomaticScalingRequestUtilization {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionAutomaticScalingRequestUtilization
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionAutomaticScalingRequestUtilization(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeVersionAutomaticScalingDiskUtilization(des, initial *VersionAutomaticScalingDiskUtilization, opts ...dcl.ApplyOption) *VersionAutomaticScalingDiskUtilization {
@@ -1342,6 +1422,26 @@ func canonicalizeNewVersionAutomaticScalingDiskUtilizationSet(c *Client, des, nw
 	return reorderedNew
 }
 
+func canonicalizeNewVersionAutomaticScalingDiskUtilizationSlice(c *Client, des, nw []VersionAutomaticScalingDiskUtilization) []VersionAutomaticScalingDiskUtilization {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionAutomaticScalingDiskUtilization
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionAutomaticScalingDiskUtilization(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeVersionAutomaticScalingNetworkUtilization(des, initial *VersionAutomaticScalingNetworkUtilization, opts ...dcl.ApplyOption) *VersionAutomaticScalingNetworkUtilization {
 	if des == nil {
 		return initial
@@ -1399,6 +1499,26 @@ func canonicalizeNewVersionAutomaticScalingNetworkUtilizationSet(c *Client, des,
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewVersionAutomaticScalingNetworkUtilizationSlice(c *Client, des, nw []VersionAutomaticScalingNetworkUtilization) []VersionAutomaticScalingNetworkUtilization {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionAutomaticScalingNetworkUtilization
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionAutomaticScalingNetworkUtilization(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeVersionAutomaticScalingStandardSchedulerSettings(des, initial *VersionAutomaticScalingStandardSchedulerSettings, opts ...dcl.ApplyOption) *VersionAutomaticScalingStandardSchedulerSettings {
@@ -1460,6 +1580,26 @@ func canonicalizeNewVersionAutomaticScalingStandardSchedulerSettingsSet(c *Clien
 	return reorderedNew
 }
 
+func canonicalizeNewVersionAutomaticScalingStandardSchedulerSettingsSlice(c *Client, des, nw []VersionAutomaticScalingStandardSchedulerSettings) []VersionAutomaticScalingStandardSchedulerSettings {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionAutomaticScalingStandardSchedulerSettings
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionAutomaticScalingStandardSchedulerSettings(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeVersionBasicScaling(des, initial *VersionBasicScaling, opts ...dcl.ApplyOption) *VersionBasicScaling {
 	if des == nil {
 		return initial
@@ -1517,6 +1657,26 @@ func canonicalizeNewVersionBasicScalingSet(c *Client, des, nw []VersionBasicScal
 	return reorderedNew
 }
 
+func canonicalizeNewVersionBasicScalingSlice(c *Client, des, nw []VersionBasicScaling) []VersionBasicScaling {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionBasicScaling
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionBasicScaling(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeVersionManualScaling(des, initial *VersionManualScaling, opts ...dcl.ApplyOption) *VersionManualScaling {
 	if des == nil {
 		return initial
@@ -1567,6 +1727,26 @@ func canonicalizeNewVersionManualScalingSet(c *Client, des, nw []VersionManualSc
 	return reorderedNew
 }
 
+func canonicalizeNewVersionManualScalingSlice(c *Client, des, nw []VersionManualScaling) []VersionManualScaling {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionManualScaling
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionManualScaling(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeVersionNetwork(des, initial *VersionNetwork, opts ...dcl.ApplyOption) *VersionNetwork {
 	if des == nil {
 		return initial
@@ -1591,7 +1771,7 @@ func canonicalizeVersionNetwork(des, initial *VersionNetwork, opts ...dcl.ApplyO
 	if dcl.NameToSelfLink(des.SubnetworkName, initial.SubnetworkName) || dcl.IsZeroValue(des.SubnetworkName) {
 		des.SubnetworkName = initial.SubnetworkName
 	}
-	if dcl.IsZeroValue(des.SessionAffinity) {
+	if dcl.BoolCanonicalize(des.SessionAffinity, initial.SessionAffinity) || dcl.IsZeroValue(des.SessionAffinity) {
 		des.SessionAffinity = initial.SessionAffinity
 	}
 
@@ -1611,6 +1791,9 @@ func canonicalizeNewVersionNetwork(c *Client, des, nw *VersionNetwork) *VersionN
 	}
 	if dcl.NameToSelfLink(des.SubnetworkName, nw.SubnetworkName) || dcl.IsZeroValue(des.SubnetworkName) {
 		nw.SubnetworkName = des.SubnetworkName
+	}
+	if dcl.BoolCanonicalize(des.SessionAffinity, nw.SessionAffinity) || dcl.IsZeroValue(des.SessionAffinity) {
+		nw.SessionAffinity = des.SessionAffinity
 	}
 
 	return nw
@@ -1637,6 +1820,26 @@ func canonicalizeNewVersionNetworkSet(c *Client, des, nw []VersionNetwork) []Ver
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewVersionNetworkSlice(c *Client, des, nw []VersionNetwork) []VersionNetwork {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionNetwork
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionNetwork(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeVersionResources(des, initial *VersionResources, opts ...dcl.ApplyOption) *VersionResources {
@@ -1672,6 +1875,8 @@ func canonicalizeNewVersionResources(c *Client, des, nw *VersionResources) *Vers
 		return nw
 	}
 
+	nw.Volumes = canonicalizeNewVersionResourcesVolumesSlice(c, des.Volumes, nw.Volumes)
+
 	return nw
 }
 
@@ -1696,6 +1901,26 @@ func canonicalizeNewVersionResourcesSet(c *Client, des, nw []VersionResources) [
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewVersionResourcesSlice(c *Client, des, nw []VersionResources) []VersionResources {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionResources
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionResources(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeVersionResourcesVolumes(des, initial *VersionResourcesVolumes, opts ...dcl.ApplyOption) *VersionResourcesVolumes {
@@ -1759,6 +1984,26 @@ func canonicalizeNewVersionResourcesVolumesSet(c *Client, des, nw []VersionResou
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewVersionResourcesVolumesSlice(c *Client, des, nw []VersionResourcesVolumes) []VersionResourcesVolumes {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionResourcesVolumes
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionResourcesVolumes(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeVersionHandlers(des, initial *VersionHandlers, opts ...dcl.ApplyOption) *VersionHandlers {
@@ -1833,6 +2078,26 @@ func canonicalizeNewVersionHandlersSet(c *Client, des, nw []VersionHandlers) []V
 	return reorderedNew
 }
 
+func canonicalizeNewVersionHandlersSlice(c *Client, des, nw []VersionHandlers) []VersionHandlers {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionHandlers
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionHandlers(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeVersionHandlersStaticFiles(des, initial *VersionHandlersStaticFiles, opts ...dcl.ApplyOption) *VersionHandlersStaticFiles {
 	if des == nil {
 		return initial
@@ -1860,10 +2125,10 @@ func canonicalizeVersionHandlersStaticFiles(des, initial *VersionHandlersStaticF
 	if dcl.StringCanonicalize(des.Expiration, initial.Expiration) || dcl.IsZeroValue(des.Expiration) {
 		des.Expiration = initial.Expiration
 	}
-	if dcl.IsZeroValue(des.RequireMatchingFile) {
+	if dcl.BoolCanonicalize(des.RequireMatchingFile, initial.RequireMatchingFile) || dcl.IsZeroValue(des.RequireMatchingFile) {
 		des.RequireMatchingFile = initial.RequireMatchingFile
 	}
-	if dcl.IsZeroValue(des.ApplicationReadable) {
+	if dcl.BoolCanonicalize(des.ApplicationReadable, initial.ApplicationReadable) || dcl.IsZeroValue(des.ApplicationReadable) {
 		des.ApplicationReadable = initial.ApplicationReadable
 	}
 
@@ -1886,6 +2151,12 @@ func canonicalizeNewVersionHandlersStaticFiles(c *Client, des, nw *VersionHandle
 	}
 	if dcl.StringCanonicalize(des.Expiration, nw.Expiration) || dcl.IsZeroValue(des.Expiration) {
 		nw.Expiration = des.Expiration
+	}
+	if dcl.BoolCanonicalize(des.RequireMatchingFile, nw.RequireMatchingFile) || dcl.IsZeroValue(des.RequireMatchingFile) {
+		nw.RequireMatchingFile = des.RequireMatchingFile
+	}
+	if dcl.BoolCanonicalize(des.ApplicationReadable, nw.ApplicationReadable) || dcl.IsZeroValue(des.ApplicationReadable) {
+		nw.ApplicationReadable = des.ApplicationReadable
 	}
 
 	return nw
@@ -1912,6 +2183,26 @@ func canonicalizeNewVersionHandlersStaticFilesSet(c *Client, des, nw []VersionHa
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewVersionHandlersStaticFilesSlice(c *Client, des, nw []VersionHandlersStaticFiles) []VersionHandlersStaticFiles {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionHandlersStaticFiles
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionHandlersStaticFiles(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeVersionHandlersScript(des, initial *VersionHandlersScript, opts ...dcl.ApplyOption) *VersionHandlersScript {
@@ -1968,6 +2259,26 @@ func canonicalizeNewVersionHandlersScriptSet(c *Client, des, nw []VersionHandler
 	return reorderedNew
 }
 
+func canonicalizeNewVersionHandlersScriptSlice(c *Client, des, nw []VersionHandlersScript) []VersionHandlersScript {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionHandlersScript
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionHandlersScript(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeVersionHandlersApiEndpoint(des, initial *VersionHandlersApiEndpoint, opts ...dcl.ApplyOption) *VersionHandlersApiEndpoint {
 	if des == nil {
 		return initial
@@ -2020,6 +2331,26 @@ func canonicalizeNewVersionHandlersApiEndpointSet(c *Client, des, nw []VersionHa
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewVersionHandlersApiEndpointSlice(c *Client, des, nw []VersionHandlersApiEndpoint) []VersionHandlersApiEndpoint {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionHandlersApiEndpoint
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionHandlersApiEndpoint(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeVersionErrorHandlers(des, initial *VersionErrorHandlers, opts ...dcl.ApplyOption) *VersionErrorHandlers {
@@ -2085,6 +2416,26 @@ func canonicalizeNewVersionErrorHandlersSet(c *Client, des, nw []VersionErrorHan
 	return reorderedNew
 }
 
+func canonicalizeNewVersionErrorHandlersSlice(c *Client, des, nw []VersionErrorHandlers) []VersionErrorHandlers {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionErrorHandlers
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionErrorHandlers(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeVersionLibraries(des, initial *VersionLibraries, opts ...dcl.ApplyOption) *VersionLibraries {
 	if des == nil {
 		return initial
@@ -2143,6 +2494,26 @@ func canonicalizeNewVersionLibrariesSet(c *Client, des, nw []VersionLibraries) [
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewVersionLibrariesSlice(c *Client, des, nw []VersionLibraries) []VersionLibraries {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionLibraries
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionLibraries(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeVersionApiConfig(des, initial *VersionApiConfig, opts ...dcl.ApplyOption) *VersionApiConfig {
@@ -2214,6 +2585,26 @@ func canonicalizeNewVersionApiConfigSet(c *Client, des, nw []VersionApiConfig) [
 	return reorderedNew
 }
 
+func canonicalizeNewVersionApiConfigSlice(c *Client, des, nw []VersionApiConfig) []VersionApiConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionApiConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionApiConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeVersionDeployment(des, initial *VersionDeployment, opts ...dcl.ApplyOption) *VersionDeployment {
 	if des == nil {
 		return initial
@@ -2269,6 +2660,26 @@ func canonicalizeNewVersionDeploymentSet(c *Client, des, nw []VersionDeployment)
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewVersionDeploymentSlice(c *Client, des, nw []VersionDeployment) []VersionDeployment {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionDeployment
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionDeployment(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeVersionDeploymentFiles(des, initial *VersionDeploymentFiles, opts ...dcl.ApplyOption) *VersionDeploymentFiles {
@@ -2337,6 +2748,26 @@ func canonicalizeNewVersionDeploymentFilesSet(c *Client, des, nw []VersionDeploy
 	return reorderedNew
 }
 
+func canonicalizeNewVersionDeploymentFilesSlice(c *Client, des, nw []VersionDeploymentFiles) []VersionDeploymentFiles {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionDeploymentFiles
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionDeploymentFiles(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeVersionDeploymentContainer(des, initial *VersionDeploymentContainer, opts ...dcl.ApplyOption) *VersionDeploymentContainer {
 	if des == nil {
 		return initial
@@ -2389,6 +2820,26 @@ func canonicalizeNewVersionDeploymentContainerSet(c *Client, des, nw []VersionDe
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewVersionDeploymentContainerSlice(c *Client, des, nw []VersionDeploymentContainer) []VersionDeploymentContainer {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionDeploymentContainer
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionDeploymentContainer(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeVersionDeploymentZip(des, initial *VersionDeploymentZip, opts ...dcl.ApplyOption) *VersionDeploymentZip {
@@ -2446,6 +2897,26 @@ func canonicalizeNewVersionDeploymentZipSet(c *Client, des, nw []VersionDeployme
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewVersionDeploymentZipSlice(c *Client, des, nw []VersionDeploymentZip) []VersionDeploymentZip {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionDeploymentZip
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionDeploymentZip(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeVersionDeploymentCloudBuildOptions(des, initial *VersionDeploymentCloudBuildOptions, opts ...dcl.ApplyOption) *VersionDeploymentCloudBuildOptions {
@@ -2508,6 +2979,26 @@ func canonicalizeNewVersionDeploymentCloudBuildOptionsSet(c *Client, des, nw []V
 	return reorderedNew
 }
 
+func canonicalizeNewVersionDeploymentCloudBuildOptionsSlice(c *Client, des, nw []VersionDeploymentCloudBuildOptions) []VersionDeploymentCloudBuildOptions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionDeploymentCloudBuildOptions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionDeploymentCloudBuildOptions(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeVersionHealthCheck(des, initial *VersionHealthCheck, opts ...dcl.ApplyOption) *VersionHealthCheck {
 	if des == nil {
 		return initial
@@ -2520,7 +3011,7 @@ func canonicalizeVersionHealthCheck(des, initial *VersionHealthCheck, opts ...dc
 		return des
 	}
 
-	if dcl.IsZeroValue(des.DisableHealthCheck) {
+	if dcl.BoolCanonicalize(des.DisableHealthCheck, initial.DisableHealthCheck) || dcl.IsZeroValue(des.DisableHealthCheck) {
 		des.DisableHealthCheck = initial.DisableHealthCheck
 	}
 	if dcl.StringCanonicalize(des.Host, initial.Host) || dcl.IsZeroValue(des.Host) {
@@ -2550,6 +3041,9 @@ func canonicalizeNewVersionHealthCheck(c *Client, des, nw *VersionHealthCheck) *
 		return nw
 	}
 
+	if dcl.BoolCanonicalize(des.DisableHealthCheck, nw.DisableHealthCheck) || dcl.IsZeroValue(des.DisableHealthCheck) {
+		nw.DisableHealthCheck = des.DisableHealthCheck
+	}
 	if dcl.StringCanonicalize(des.Host, nw.Host) || dcl.IsZeroValue(des.Host) {
 		nw.Host = des.Host
 	}
@@ -2584,6 +3078,26 @@ func canonicalizeNewVersionHealthCheckSet(c *Client, des, nw []VersionHealthChec
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewVersionHealthCheckSlice(c *Client, des, nw []VersionHealthCheck) []VersionHealthCheck {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionHealthCheck
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionHealthCheck(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeVersionReadinessCheck(des, initial *VersionReadinessCheck, opts ...dcl.ApplyOption) *VersionReadinessCheck {
@@ -2670,6 +3184,26 @@ func canonicalizeNewVersionReadinessCheckSet(c *Client, des, nw []VersionReadine
 	return reorderedNew
 }
 
+func canonicalizeNewVersionReadinessCheckSlice(c *Client, des, nw []VersionReadinessCheck) []VersionReadinessCheck {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionReadinessCheck
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionReadinessCheck(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeVersionLivenessCheck(des, initial *VersionLivenessCheck, opts ...dcl.ApplyOption) *VersionLivenessCheck {
 	if des == nil {
 		return initial
@@ -2754,6 +3288,26 @@ func canonicalizeNewVersionLivenessCheckSet(c *Client, des, nw []VersionLiveness
 	return reorderedNew
 }
 
+func canonicalizeNewVersionLivenessCheckSlice(c *Client, des, nw []VersionLivenessCheck) []VersionLivenessCheck {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionLivenessCheck
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionLivenessCheck(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeVersionEntrypoint(des, initial *VersionEntrypoint, opts ...dcl.ApplyOption) *VersionEntrypoint {
 	if des == nil {
 		return initial
@@ -2808,6 +3362,26 @@ func canonicalizeNewVersionEntrypointSet(c *Client, des, nw []VersionEntrypoint)
 	return reorderedNew
 }
 
+func canonicalizeNewVersionEntrypointSlice(c *Client, des, nw []VersionEntrypoint) []VersionEntrypoint {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionEntrypoint
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionEntrypoint(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeVersionVPCAccessConnector(des, initial *VersionVPCAccessConnector, opts ...dcl.ApplyOption) *VersionVPCAccessConnector {
 	if des == nil {
 		return initial
@@ -2860,6 +3434,26 @@ func canonicalizeNewVersionVPCAccessConnectorSet(c *Client, des, nw []VersionVPC
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewVersionVPCAccessConnectorSlice(c *Client, des, nw []VersionVPCAccessConnector) []VersionVPCAccessConnector {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []VersionVPCAccessConnector
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewVersionVPCAccessConnector(c, &d, &n))
+	}
+
+	return items
 }
 
 type versionDiff struct {
@@ -2991,7 +3585,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if !reflect.DeepEqual(desired.Threadsafe, actual.Threadsafe) {
+	if !dcl.IsZeroValue(desired.Threadsafe) && !dcl.BoolCanonicalize(desired.Threadsafe, actual.Threadsafe) {
 		c.Config.Logger.Infof("Detected diff in Threadsafe.\nDESIRED: %v\nACTUAL: %v", desired.Threadsafe, actual.Threadsafe)
 
 		diffs = append(diffs, versionDiff{
@@ -3000,7 +3594,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		})
 
 	}
-	if !reflect.DeepEqual(desired.Vm, actual.Vm) {
+	if !dcl.IsZeroValue(desired.Vm) && !dcl.BoolCanonicalize(desired.Vm, actual.Vm) {
 		c.Config.Logger.Infof("Detected diff in Vm.\nDESIRED: %v\nACTUAL: %v", desired.Vm, actual.Vm)
 
 		diffs = append(diffs, versionDiff{
@@ -3836,7 +4430,7 @@ func compareVersionNetwork(c *Client, desired, actual *VersionNetwork) bool {
 		c.Config.Logger.Infof("desired SessionAffinity %s - but actually nil", dcl.SprintResource(desired.SessionAffinity))
 		return true
 	}
-	if !reflect.DeepEqual(desired.SessionAffinity, actual.SessionAffinity) && !dcl.IsZeroValue(desired.SessionAffinity) {
+	if !dcl.BoolCanonicalize(desired.SessionAffinity, actual.SessionAffinity) && !dcl.IsZeroValue(desired.SessionAffinity) {
 		c.Config.Logger.Infof("Diff in SessionAffinity. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SessionAffinity), dcl.SprintResource(actual.SessionAffinity))
 		return true
 	}
@@ -4176,7 +4770,7 @@ func compareVersionHandlersStaticFiles(c *Client, desired, actual *VersionHandle
 		c.Config.Logger.Infof("desired RequireMatchingFile %s - but actually nil", dcl.SprintResource(desired.RequireMatchingFile))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RequireMatchingFile, actual.RequireMatchingFile) && !dcl.IsZeroValue(desired.RequireMatchingFile) {
+	if !dcl.BoolCanonicalize(desired.RequireMatchingFile, actual.RequireMatchingFile) && !dcl.IsZeroValue(desired.RequireMatchingFile) {
 		c.Config.Logger.Infof("Diff in RequireMatchingFile. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequireMatchingFile), dcl.SprintResource(actual.RequireMatchingFile))
 		return true
 	}
@@ -4184,7 +4778,7 @@ func compareVersionHandlersStaticFiles(c *Client, desired, actual *VersionHandle
 		c.Config.Logger.Infof("desired ApplicationReadable %s - but actually nil", dcl.SprintResource(desired.ApplicationReadable))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ApplicationReadable, actual.ApplicationReadable) && !dcl.IsZeroValue(desired.ApplicationReadable) {
+	if !dcl.BoolCanonicalize(desired.ApplicationReadable, actual.ApplicationReadable) && !dcl.IsZeroValue(desired.ApplicationReadable) {
 		c.Config.Logger.Infof("Diff in ApplicationReadable. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ApplicationReadable), dcl.SprintResource(actual.ApplicationReadable))
 		return true
 	}
@@ -4857,7 +5451,7 @@ func compareVersionHealthCheck(c *Client, desired, actual *VersionHealthCheck) b
 		c.Config.Logger.Infof("desired DisableHealthCheck %s - but actually nil", dcl.SprintResource(desired.DisableHealthCheck))
 		return true
 	}
-	if !reflect.DeepEqual(desired.DisableHealthCheck, actual.DisableHealthCheck) && !dcl.IsZeroValue(desired.DisableHealthCheck) {
+	if !dcl.BoolCanonicalize(desired.DisableHealthCheck, actual.DisableHealthCheck) && !dcl.IsZeroValue(desired.DisableHealthCheck) {
 		c.Config.Logger.Infof("Diff in DisableHealthCheck. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DisableHealthCheck), dcl.SprintResource(actual.DisableHealthCheck))
 		return true
 	}

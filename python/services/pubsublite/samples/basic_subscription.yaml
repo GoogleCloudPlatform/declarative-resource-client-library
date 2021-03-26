@@ -13,7 +13,6 @@
 # limitations under the License.
 dependencies:
 - samples/basic.pubsublite.topic.json
-- samples/basic.serviceusage.service.json
 description: A basic test of pubsub lite
 name: basic_subscription
 resource: samples/basic.subscription.json

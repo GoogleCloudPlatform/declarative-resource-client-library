@@ -68,7 +68,6 @@ components:
             Must match the regex: `*` This field is present for legacy purposes.'
           type: string
           x-dcl-go-name: Description
-          x-kubernetes-immutable: true
         endpoint:
           description: Optional. Endpoint information to reach this member.
           properties:

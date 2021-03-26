@@ -18,10 +18,107 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+enum ContainerClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnum {
+  ContainerClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnumLOAD_BALANCER_TYPE_UNSPECIFIED = 1;
+  ContainerClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnumLOAD_BALANCER_TYPE_EXTERNAL = 2;
+  ContainerClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnumLOAD_BALANCER_TYPE_INTERNAL = 3;
+}
+
+enum ContainerClusterNodePoolsConfigWorkloadMetadataConfigModeEnum {
+  ContainerClusterNodePoolsConfigWorkloadMetadataConfigModeEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerClusterNodePoolsConfigWorkloadMetadataConfigModeEnumMODE_UNSPECIFIED = 1;
+  ContainerClusterNodePoolsConfigWorkloadMetadataConfigModeEnumGCE_METADATA = 2;
+  ContainerClusterNodePoolsConfigWorkloadMetadataConfigModeEnumGKE_METADATA = 3;
+}
+
+enum ContainerClusterNodePoolsConfigTaintsEffectEnum {
+  ContainerClusterNodePoolsConfigTaintsEffectEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerClusterNodePoolsConfigTaintsEffectEnumEFFECT_UNSPECIFIED = 1;
+  ContainerClusterNodePoolsConfigTaintsEffectEnumNO_SCHEDULE = 2;
+  ContainerClusterNodePoolsConfigTaintsEffectEnumPREFER_NO_SCHEDULE = 3;
+  ContainerClusterNodePoolsConfigTaintsEffectEnumNO_EXECUTE = 4;
+}
+
+enum ContainerClusterNodePoolsConfigSandboxConfigTypeEnum {
+  ContainerClusterNodePoolsConfigSandboxConfigTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerClusterNodePoolsConfigSandboxConfigTypeEnumUNSPECIFIED = 1;
+  ContainerClusterNodePoolsConfigSandboxConfigTypeEnumGVISOR = 2;
+}
+
+enum ContainerClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnum {
+  ContainerClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnumUNSPECIFIED = 1;
+  ContainerClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnumNO_RESERVATION = 2;
+  ContainerClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnumANY_RESERVATION = 3;
+  ContainerClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnumSPECIFIC_RESERVATION = 4;
+}
+
+enum ContainerClusterNodePoolsStatusEnum {
+  ContainerClusterNodePoolsStatusEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerClusterNodePoolsStatusEnumSTATUS_UNSPECIFIED = 1;
+  ContainerClusterNodePoolsStatusEnumPROVISIONING = 2;
+  ContainerClusterNodePoolsStatusEnumRUNNING = 3;
+  ContainerClusterNodePoolsStatusEnumRECONCILING = 4;
+  ContainerClusterNodePoolsStatusEnumSTOPPING = 5;
+  ContainerClusterNodePoolsStatusEnumERROR = 6;
+  ContainerClusterNodePoolsStatusEnumDEGRADED = 7;
+}
+
+enum ContainerClusterNodePoolsConditionsCodeEnum {
+  ContainerClusterNodePoolsConditionsCodeEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerClusterNodePoolsConditionsCodeEnumOK = 1;
+  ContainerClusterNodePoolsConditionsCodeEnumCANCELLED = 2;
+  ContainerClusterNodePoolsConditionsCodeEnumUNKNOWN = 3;
+  ContainerClusterNodePoolsConditionsCodeEnumINVALID_ARGUMENT = 4;
+  ContainerClusterNodePoolsConditionsCodeEnumDEADLINE_EXCEEDED = 5;
+  ContainerClusterNodePoolsConditionsCodeEnumNOT_FOUND = 6;
+  ContainerClusterNodePoolsConditionsCodeEnumALREADY_EXISTS = 7;
+  ContainerClusterNodePoolsConditionsCodeEnumPERMISSION_DENIED = 8;
+  ContainerClusterNodePoolsConditionsCodeEnumUNAUTHENTICATED = 9;
+  ContainerClusterNodePoolsConditionsCodeEnumRESOURCE_EXHAUSTED = 10;
+  ContainerClusterNodePoolsConditionsCodeEnumFAILED_PRECONDITION = 11;
+  ContainerClusterNodePoolsConditionsCodeEnumABORTED = 12;
+  ContainerClusterNodePoolsConditionsCodeEnumOUT_OF_RANGE = 13;
+  ContainerClusterNodePoolsConditionsCodeEnumUNIMPLEMENTED = 14;
+  ContainerClusterNodePoolsConditionsCodeEnumINTERNAL = 15;
+  ContainerClusterNodePoolsConditionsCodeEnumUNAVAILABLE = 16;
+  ContainerClusterNodePoolsConditionsCodeEnumDATA_LOSS = 17;
+}
+
+enum ContainerClusterNodePoolsConditionsCanonicalCodeEnum {
+  ContainerClusterNodePoolsConditionsCanonicalCodeEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerClusterNodePoolsConditionsCanonicalCodeEnumOK = 1;
+  ContainerClusterNodePoolsConditionsCanonicalCodeEnumCANCELLED = 2;
+  ContainerClusterNodePoolsConditionsCanonicalCodeEnumUNKNOWN = 3;
+  ContainerClusterNodePoolsConditionsCanonicalCodeEnumINVALID_ARGUMENT = 4;
+  ContainerClusterNodePoolsConditionsCanonicalCodeEnumDEADLINE_EXCEEDED = 5;
+  ContainerClusterNodePoolsConditionsCanonicalCodeEnumNOT_FOUND = 6;
+  ContainerClusterNodePoolsConditionsCanonicalCodeEnumALREADY_EXISTS = 7;
+  ContainerClusterNodePoolsConditionsCanonicalCodeEnumPERMISSION_DENIED = 8;
+  ContainerClusterNodePoolsConditionsCanonicalCodeEnumUNAUTHENTICATED = 9;
+  ContainerClusterNodePoolsConditionsCanonicalCodeEnumRESOURCE_EXHAUSTED = 10;
+  ContainerClusterNodePoolsConditionsCanonicalCodeEnumFAILED_PRECONDITION = 11;
+  ContainerClusterNodePoolsConditionsCanonicalCodeEnumABORTED = 12;
+  ContainerClusterNodePoolsConditionsCanonicalCodeEnumOUT_OF_RANGE = 13;
+  ContainerClusterNodePoolsConditionsCanonicalCodeEnumUNIMPLEMENTED = 14;
+  ContainerClusterNodePoolsConditionsCanonicalCodeEnumINTERNAL = 15;
+  ContainerClusterNodePoolsConditionsCanonicalCodeEnumUNAVAILABLE = 16;
+  ContainerClusterNodePoolsConditionsCanonicalCodeEnumDATA_LOSS = 17;
+}
+
 enum ContainerClusterNetworkPolicyProviderEnum {
   ContainerClusterNetworkPolicyProviderEnumNO_VALUE_DO_NOT_USE = 0;
   ContainerClusterNetworkPolicyProviderEnumPROVIDER_UNSPECIFIED = 1;
   ContainerClusterNetworkPolicyProviderEnumCALICO = 2;
+}
+
+enum ContainerClusterNetworkConfigPrivateIPv6GoogleAccessEnum {
+  ContainerClusterNetworkConfigPrivateIPv6GoogleAccessEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerClusterNetworkConfigPrivateIPv6GoogleAccessEnumPRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED = 1;
+  ContainerClusterNetworkConfigPrivateIPv6GoogleAccessEnumPRIVATE_IPV6_GOOGLE_ACCESS_DISABLED = 2;
+  ContainerClusterNetworkConfigPrivateIPv6GoogleAccessEnumPRIVATE_IPV6_GOOGLE_ACCESS_TO_GOOGLE = 3;
+  ContainerClusterNetworkConfigPrivateIPv6GoogleAccessEnumPRIVATE_IPV6_GOOGLE_ACCESS_BIDIRECTIONAL = 4;
 }
 
 enum ContainerClusterDatabaseEncryptionStateEnum {
@@ -29,6 +126,64 @@ enum ContainerClusterDatabaseEncryptionStateEnum {
   ContainerClusterDatabaseEncryptionStateEnumUNKNOWN = 1;
   ContainerClusterDatabaseEncryptionStateEnumENCRYPTED = 2;
   ContainerClusterDatabaseEncryptionStateEnumDECRYPTED = 3;
+}
+
+enum ContainerClusterConditionsCanonicalCodeEnum {
+  ContainerClusterConditionsCanonicalCodeEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerClusterConditionsCanonicalCodeEnumOK = 1;
+  ContainerClusterConditionsCanonicalCodeEnumCANCELLED = 2;
+  ContainerClusterConditionsCanonicalCodeEnumUNKNOWN = 3;
+  ContainerClusterConditionsCanonicalCodeEnumINVALID_ARGUMENT = 4;
+  ContainerClusterConditionsCanonicalCodeEnumDEADLINE_EXCEEDED = 5;
+  ContainerClusterConditionsCanonicalCodeEnumNOT_FOUND = 6;
+  ContainerClusterConditionsCanonicalCodeEnumALREADY_EXISTS = 7;
+  ContainerClusterConditionsCanonicalCodeEnumPERMISSION_DENIED = 8;
+  ContainerClusterConditionsCanonicalCodeEnumUNAUTHENTICATED = 9;
+  ContainerClusterConditionsCanonicalCodeEnumRESOURCE_EXHAUSTED = 10;
+  ContainerClusterConditionsCanonicalCodeEnumFAILED_PRECONDITION = 11;
+  ContainerClusterConditionsCanonicalCodeEnumABORTED = 12;
+  ContainerClusterConditionsCanonicalCodeEnumOUT_OF_RANGE = 13;
+  ContainerClusterConditionsCanonicalCodeEnumUNIMPLEMENTED = 14;
+  ContainerClusterConditionsCanonicalCodeEnumINTERNAL = 15;
+  ContainerClusterConditionsCanonicalCodeEnumUNAVAILABLE = 16;
+  ContainerClusterConditionsCanonicalCodeEnumDATA_LOSS = 17;
+}
+
+enum ContainerClusterNodeConfigWorkloadMetadataConfigModeEnum {
+  ContainerClusterNodeConfigWorkloadMetadataConfigModeEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerClusterNodeConfigWorkloadMetadataConfigModeEnumMODE_UNSPECIFIED = 1;
+  ContainerClusterNodeConfigWorkloadMetadataConfigModeEnumGCE_METADATA = 2;
+  ContainerClusterNodeConfigWorkloadMetadataConfigModeEnumGKE_METADATA = 3;
+}
+
+enum ContainerClusterNodeConfigTaintsEffectEnum {
+  ContainerClusterNodeConfigTaintsEffectEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerClusterNodeConfigTaintsEffectEnumEFFECT_UNSPECIFIED = 1;
+  ContainerClusterNodeConfigTaintsEffectEnumNO_SCHEDULE = 2;
+  ContainerClusterNodeConfigTaintsEffectEnumPREFER_NO_SCHEDULE = 3;
+  ContainerClusterNodeConfigTaintsEffectEnumNO_EXECUTE = 4;
+}
+
+enum ContainerClusterNodeConfigSandboxConfigTypeEnum {
+  ContainerClusterNodeConfigSandboxConfigTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerClusterNodeConfigSandboxConfigTypeEnumUNSPECIFIED = 1;
+  ContainerClusterNodeConfigSandboxConfigTypeEnumGVISOR = 2;
+}
+
+enum ContainerClusterNodeConfigReservationAffinityConsumeReservationTypeEnum {
+  ContainerClusterNodeConfigReservationAffinityConsumeReservationTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerClusterNodeConfigReservationAffinityConsumeReservationTypeEnumUNSPECIFIED = 1;
+  ContainerClusterNodeConfigReservationAffinityConsumeReservationTypeEnumNO_RESERVATION = 2;
+  ContainerClusterNodeConfigReservationAffinityConsumeReservationTypeEnumANY_RESERVATION = 3;
+  ContainerClusterNodeConfigReservationAffinityConsumeReservationTypeEnumSPECIFIC_RESERVATION = 4;
+}
+
+enum ContainerClusterReleaseChannelChannelEnum {
+  ContainerClusterReleaseChannelChannelEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerClusterReleaseChannelChannelEnumUNSPECIFIED = 1;
+  ContainerClusterReleaseChannelChannelEnumRAPID = 2;
+  ContainerClusterReleaseChannelChannelEnumREGULAR = 3;
+  ContainerClusterReleaseChannelChannelEnumSTABLE = 4;
 }
 
 message ContainerCluster {
@@ -76,6 +231,19 @@ message ContainerCluster {
   repeated ContainerClusterConditions conditions = 42;
   ContainerClusterAutopilot autopilot = 43;
   string project = 44;
+  ContainerClusterNodeConfig node_config = 45;
+  ContainerClusterReleaseChannel release_channel = 46;
+  ContainerClusterWorkloadIdentityConfig workload_identity_config = 47;
+  ContainerClusterNotificationConfig notification_config = 48;
+  ContainerClusterConfidentialNodes confidential_nodes = 49;
+  string self_link = 50;
+  string zone = 51;
+  string initial_cluster_version = 52;
+  string current_master_version = 53;
+  string current_node_version = 54;
+  repeated string instance_group_urls = 55;
+  int64 current_node_count = 56;
+  string id = 57;
 }
 
 message ContainerClusterMasterAuth {
@@ -97,6 +265,9 @@ message ContainerClusterAddonsConfig {
   ContainerClusterAddonsConfigKubernetesDashboard kubernetes_dashboard = 3;
   ContainerClusterAddonsConfigNetworkPolicyConfig network_policy_config = 4;
   ContainerClusterAddonsConfigCloudRunConfig cloud_run_config = 5;
+  ContainerClusterAddonsConfigDnsCacheConfig dns_cache_config = 6;
+  ContainerClusterAddonsConfigConfigConnectorConfig config_connector_config = 7;
+  ContainerClusterAddonsConfigGcePersistentDiskCsiDriverConfig gce_persistent_disk_csi_driver_config = 8;
 }
 
 message ContainerClusterAddonsConfigHttpLoadBalancing {
@@ -117,10 +288,135 @@ message ContainerClusterAddonsConfigNetworkPolicyConfig {
 
 message ContainerClusterAddonsConfigCloudRunConfig {
   bool disabled = 1;
+  ContainerClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnum load_balancer_type = 2;
+}
+
+message ContainerClusterAddonsConfigDnsCacheConfig {
+  bool enabled = 1;
+}
+
+message ContainerClusterAddonsConfigConfigConnectorConfig {
+  bool enabled = 1;
+}
+
+message ContainerClusterAddonsConfigGcePersistentDiskCsiDriverConfig {
+  bool enabled = 1;
 }
 
 message ContainerClusterNodePools {
   string name = 1;
+  ContainerClusterNodePoolsConfig config = 2;
+  int64 initial_node_count = 3;
+  repeated string locations = 4;
+  string self_link = 5;
+  string version = 6;
+  repeated string instance_group_urls = 7;
+  ContainerClusterNodePoolsStatusEnum status = 8;
+  string status_message = 9;
+  ContainerClusterNodePoolsAutoscaling autoscaling = 10;
+  ContainerClusterNodePoolsManagement management = 11;
+  ContainerClusterNodePoolsMaxPodsConstraint max_pods_constraint = 12;
+  repeated ContainerClusterNodePoolsConditions conditions = 13;
+  int64 pod_ipv4_cidr_size = 14;
+  ContainerClusterNodePoolsUpgradeSettings upgrade_settings = 15;
+}
+
+message ContainerClusterNodePoolsConfig {
+  string machine_type = 1;
+  int64 disk_size_gb = 2;
+  repeated string oauth_scopes = 3;
+  string service_account = 4;
+  map<string, string> metadata = 5;
+  string image_type = 6;
+  map<string, string> labels = 7;
+  int64 local_ssd_count = 8;
+  repeated string tags = 9;
+  bool preemptible = 10;
+  repeated ContainerClusterNodePoolsConfigAccelerators accelerators = 11;
+  string disk_type = 12;
+  string min_cpu_platform = 13;
+  ContainerClusterNodePoolsConfigWorkloadMetadataConfig workload_metadata_config = 14;
+  repeated ContainerClusterNodePoolsConfigTaints taints = 15;
+  ContainerClusterNodePoolsConfigSandboxConfig sandbox_config = 16;
+  string node_group = 17;
+  ContainerClusterNodePoolsConfigReservationAffinity reservation_affinity = 18;
+  ContainerClusterNodePoolsConfigShieldedInstanceConfig shielded_instance_config = 19;
+  ContainerClusterNodePoolsConfigLinuxNodeConfig linux_node_config = 20;
+  ContainerClusterNodePoolsConfigKubeletConfig kubelet_config = 21;
+  string boot_disk_kms_key = 22;
+}
+
+message ContainerClusterNodePoolsConfigAccelerators {
+  int64 accelerator_count = 1;
+  string accelerator_type = 2;
+}
+
+message ContainerClusterNodePoolsConfigWorkloadMetadataConfig {
+  ContainerClusterNodePoolsConfigWorkloadMetadataConfigModeEnum mode = 1;
+}
+
+message ContainerClusterNodePoolsConfigTaints {
+  string key = 1;
+  string value = 2;
+  ContainerClusterNodePoolsConfigTaintsEffectEnum effect = 3;
+}
+
+message ContainerClusterNodePoolsConfigSandboxConfig {
+  ContainerClusterNodePoolsConfigSandboxConfigTypeEnum type = 1;
+}
+
+message ContainerClusterNodePoolsConfigReservationAffinity {
+  ContainerClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnum consume_reservation_type = 1;
+  string key = 2;
+  repeated string values = 3;
+}
+
+message ContainerClusterNodePoolsConfigShieldedInstanceConfig {
+  bool enable_secure_boot = 1;
+  bool enable_integrity_monitoring = 2;
+}
+
+message ContainerClusterNodePoolsConfigLinuxNodeConfig {
+  map<string, string> sysctls = 1;
+}
+
+message ContainerClusterNodePoolsConfigKubeletConfig {
+  string cpu_manager_policy = 1;
+  bool cpu_cfs_quota = 2;
+  string cpu_cfs_quota_period = 3;
+}
+
+message ContainerClusterNodePoolsAutoscaling {
+  bool enabled = 1;
+  int64 min_node_count = 2;
+  int64 max_node_count = 3;
+  bool autoprovisioned = 4;
+}
+
+message ContainerClusterNodePoolsManagement {
+  bool auto_upgrade = 1;
+  bool auto_repair = 2;
+  ContainerClusterNodePoolsManagementUpgradeOptions upgrade_options = 3;
+}
+
+message ContainerClusterNodePoolsManagementUpgradeOptions {
+  string auto_upgrade_start_time = 1;
+  string description = 2;
+}
+
+message ContainerClusterNodePoolsMaxPodsConstraint {
+  int64 max_pods_per_node = 1;
+}
+
+message ContainerClusterNodePoolsConditions {
+  ContainerClusterNodePoolsConditionsCodeEnum code = 1;
+  string message = 2;
+  ContainerClusterNodePoolsConditionsCanonicalCodeEnum canonical_code = 3;
+}
+
+message ContainerClusterNodePoolsUpgradeSettings {
+  int64 max_surge = 1;
+  int64 max_unavailable = 2;
 }
 
 message ContainerClusterLegacyAbac {
@@ -142,6 +438,10 @@ message ContainerClusterIPAllocationPolicy {
   string node_ipv4_cidr_block = 7;
   string services_ipv4_cidr_block = 8;
   string tpu_ipv4_cidr_block = 9;
+  string cluster_ipv4_cidr = 10;
+  string node_ipv4_cidr = 11;
+  string services_ipv4_cidr = 12;
+  bool use_routes = 13;
 }
 
 message ContainerClusterMasterAuthorizedNetworksConfig {
@@ -162,6 +462,7 @@ message ContainerClusterAutoscaling {
   bool enable_node_autoprovisioning = 1;
   repeated ContainerClusterAutoscalingResourceLimits resource_limits = 2;
   ContainerClusterAutoscalingAutoprovisioningNodePoolDefaults autoprovisioning_node_pool_defaults = 3;
+  repeated string autoprovisioning_locations = 4;
 }
 
 message ContainerClusterAutoscalingResourceLimits {
@@ -175,6 +476,11 @@ message ContainerClusterAutoscalingAutoprovisioningNodePoolDefaults {
   string service_account = 2;
   ContainerClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings upgrade_settings = 3;
   ContainerClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement management = 4;
+  string min_cpu_platform = 5;
+  int64 disk_size_gb = 6;
+  string disk_type = 7;
+  ContainerClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig shielded_instance_config = 8;
+  string boot_disk_kms_key = 9;
 }
 
 message ContainerClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings {
@@ -185,12 +491,29 @@ message ContainerClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettin
 message ContainerClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement {
   bool auto_upgrade = 1;
   bool auto_repair = 2;
+  ContainerClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions upgrade_options = 3;
+}
+
+message ContainerClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions {
+  string auto_upgrade_start_time = 1;
+  string description = 2;
+}
+
+message ContainerClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig {
+  bool enable_secure_boot = 1;
+  bool enable_integrity_monitoring = 2;
 }
 
 message ContainerClusterNetworkConfig {
   string network = 1;
   string subnetwork = 2;
   bool enable_intra_node_visibility = 3;
+  ContainerClusterNetworkConfigDefaultSnatStatus default_snat_status = 4;
+  ContainerClusterNetworkConfigPrivateIPv6GoogleAccessEnum private_ipv6_google_access = 5;
+}
+
+message ContainerClusterNetworkConfigDefaultSnatStatus {
+  bool disabled = 1;
 }
 
 message ContainerClusterMaintenancePolicy {
@@ -201,6 +524,7 @@ message ContainerClusterMaintenancePolicy {
 message ContainerClusterMaintenancePolicyWindow {
   ContainerClusterMaintenancePolicyWindowDailyMaintenanceWindow daily_maintenance_window = 1;
   ContainerClusterMaintenancePolicyWindowRecurringWindow recurring_window = 2;
+  map<string, string> maintenance_exclusions = 3;
 }
 
 message ContainerClusterMaintenancePolicyWindowDailyMaintenanceWindow {
@@ -226,6 +550,7 @@ message ContainerClusterResourceUsageExportConfig {
   ContainerClusterResourceUsageExportConfigBigqueryDestination bigquery_destination = 1;
   bool enable_network_egress_monitoring = 2;
   ContainerClusterResourceUsageExportConfigConsumptionMeteringConfig consumption_metering_config = 3;
+  bool enable_network_egress_metering = 4;
 }
 
 message ContainerClusterResourceUsageExportConfigBigqueryDestination {
@@ -248,6 +573,11 @@ message ContainerClusterPrivateClusterConfig {
   string private_endpoint = 4;
   string public_endpoint = 5;
   string peering_name = 6;
+  ContainerClusterPrivateClusterConfigMasterGlobalAccessConfig master_global_access_config = 7;
+}
+
+message ContainerClusterPrivateClusterConfigMasterGlobalAccessConfig {
+  bool enabled = 1;
 }
 
 message ContainerClusterDatabaseEncryption {
@@ -266,9 +596,96 @@ message ContainerClusterShieldedNodes {
 message ContainerClusterConditions {
   string code = 1;
   string message = 2;
+  ContainerClusterConditionsCanonicalCodeEnum canonical_code = 3;
 }
 
 message ContainerClusterAutopilot {
+  bool enabled = 1;
+}
+
+message ContainerClusterNodeConfig {
+  string machine_type = 1;
+  int64 disk_size_gb = 2;
+  repeated string oauth_scopes = 3;
+  string service_account = 4;
+  map<string, string> metadata = 5;
+  string image_type = 6;
+  map<string, string> labels = 7;
+  int64 local_ssd_count = 8;
+  repeated string tags = 9;
+  bool preemptible = 10;
+  repeated ContainerClusterNodeConfigAccelerators accelerators = 11;
+  string disk_type = 12;
+  string min_cpu_platform = 13;
+  ContainerClusterNodeConfigWorkloadMetadataConfig workload_metadata_config = 14;
+  repeated ContainerClusterNodeConfigTaints taints = 15;
+  ContainerClusterNodeConfigSandboxConfig sandbox_config = 16;
+  string node_group = 17;
+  ContainerClusterNodeConfigReservationAffinity reservation_affinity = 18;
+  ContainerClusterNodeConfigShieldedInstanceConfig shielded_instance_config = 19;
+  ContainerClusterNodeConfigLinuxNodeConfig linux_node_config = 20;
+  ContainerClusterNodeConfigKubeletConfig kubelet_config = 21;
+  string boot_disk_kms_key = 22;
+}
+
+message ContainerClusterNodeConfigAccelerators {
+  int64 accelerator_count = 1;
+  string accelerator_type = 2;
+}
+
+message ContainerClusterNodeConfigWorkloadMetadataConfig {
+  ContainerClusterNodeConfigWorkloadMetadataConfigModeEnum mode = 1;
+}
+
+message ContainerClusterNodeConfigTaints {
+  string key = 1;
+  string value = 2;
+  ContainerClusterNodeConfigTaintsEffectEnum effect = 3;
+}
+
+message ContainerClusterNodeConfigSandboxConfig {
+  ContainerClusterNodeConfigSandboxConfigTypeEnum type = 1;
+}
+
+message ContainerClusterNodeConfigReservationAffinity {
+  ContainerClusterNodeConfigReservationAffinityConsumeReservationTypeEnum consume_reservation_type = 1;
+  string key = 2;
+  repeated string values = 3;
+}
+
+message ContainerClusterNodeConfigShieldedInstanceConfig {
+  bool enable_secure_boot = 1;
+  bool enable_integrity_monitoring = 2;
+}
+
+message ContainerClusterNodeConfigLinuxNodeConfig {
+  map<string, string> sysctls = 1;
+}
+
+message ContainerClusterNodeConfigKubeletConfig {
+  string cpu_manager_policy = 1;
+  bool cpu_cfs_quota = 2;
+  string cpu_cfs_quota_period = 3;
+}
+
+message ContainerClusterReleaseChannel {
+  ContainerClusterReleaseChannelChannelEnum channel = 1;
+}
+
+message ContainerClusterWorkloadIdentityConfig {
+  string workload_pool = 1;
+}
+
+message ContainerClusterNotificationConfig {
+  ContainerClusterNotificationConfigPubsub pubsub = 1;
+}
+
+message ContainerClusterNotificationConfigPubsub {
+  bool enabled = 1;
+  string topic = 2;
+}
+
+message ContainerClusterConfidentialNodes {
   bool enabled = 1;
 }
 

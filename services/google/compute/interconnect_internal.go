@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -293,9 +294,20 @@ func (op *deleteInterconnectOperation) do(ctx context.Context, r *Interconnect, 
 	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetInterconnect(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetInterconnect(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -395,7 +407,6 @@ func (c *Client) interconnectDiffsForRawDesired(ctx context.Context, rawDesired 
 		desired, err = canonicalizeInterconnectDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Interconnect: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Interconnect: %v", rawDesired)
 
@@ -462,7 +473,7 @@ func canonicalizeInterconnectDesiredState(rawDesired, rawInitial *Interconnect, 
 	if dcl.IsZeroValue(rawDesired.InterconnectType) {
 		rawDesired.InterconnectType = rawInitial.InterconnectType
 	}
-	if dcl.IsZeroValue(rawDesired.AdminEnabled) {
+	if dcl.BoolCanonicalize(rawDesired.AdminEnabled, rawInitial.AdminEnabled) {
 		rawDesired.AdminEnabled = rawInitial.AdminEnabled
 	}
 	if dcl.StringCanonicalize(rawDesired.NocContactEmail, rawInitial.NocContactEmail) {
@@ -562,6 +573,9 @@ func canonicalizeInterconnectNewState(c *Client, rawNew, rawDesired *Interconnec
 	if dcl.IsEmptyValueIndirect(rawNew.AdminEnabled) && dcl.IsEmptyValueIndirect(rawDesired.AdminEnabled) {
 		rawNew.AdminEnabled = rawDesired.AdminEnabled
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.AdminEnabled, rawNew.AdminEnabled) {
+			rawNew.AdminEnabled = rawDesired.AdminEnabled
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.NocContactEmail) && dcl.IsEmptyValueIndirect(rawDesired.NocContactEmail) {
@@ -622,11 +636,13 @@ func canonicalizeInterconnectNewState(c *Client, rawNew, rawDesired *Interconnec
 	if dcl.IsEmptyValueIndirect(rawNew.ExpectedOutages) && dcl.IsEmptyValueIndirect(rawDesired.ExpectedOutages) {
 		rawNew.ExpectedOutages = rawDesired.ExpectedOutages
 	} else {
+		rawNew.ExpectedOutages = canonicalizeNewInterconnectExpectedOutagesSlice(c, rawDesired.ExpectedOutages, rawNew.ExpectedOutages)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.CircuitInfos) && dcl.IsEmptyValueIndirect(rawDesired.CircuitInfos) {
 		rawNew.CircuitInfos = rawDesired.CircuitInfos
 	} else {
+		rawNew.CircuitInfos = canonicalizeNewInterconnectCircuitInfosSlice(c, rawDesired.CircuitInfos, rawNew.CircuitInfos)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
@@ -717,6 +733,26 @@ func canonicalizeNewInterconnectExpectedOutagesSet(c *Client, des, nw []Intercon
 	return reorderedNew
 }
 
+func canonicalizeNewInterconnectExpectedOutagesSlice(c *Client, des, nw []InterconnectExpectedOutages) []InterconnectExpectedOutages {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InterconnectExpectedOutages
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInterconnectExpectedOutages(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInterconnectCircuitInfos(des, initial *InterconnectCircuitInfos, opts ...dcl.ApplyOption) *InterconnectCircuitInfos {
 	if des == nil {
 		return initial
@@ -781,6 +817,26 @@ func canonicalizeNewInterconnectCircuitInfosSet(c *Client, des, nw []Interconnec
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInterconnectCircuitInfosSlice(c *Client, des, nw []InterconnectCircuitInfos) []InterconnectCircuitInfos {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InterconnectCircuitInfos
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInterconnectCircuitInfos(c, &d, &n))
+	}
+
+	return items
 }
 
 type interconnectDiff struct {
@@ -858,7 +914,7 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 		})
 
 	}
-	if !reflect.DeepEqual(desired.AdminEnabled, actual.AdminEnabled) {
+	if !dcl.IsZeroValue(desired.AdminEnabled) && !dcl.BoolCanonicalize(desired.AdminEnabled, actual.AdminEnabled) {
 		c.Config.Logger.Infof("Detected diff in AdminEnabled.\nDESIRED: %v\nACTUAL: %v", desired.AdminEnabled, actual.AdminEnabled)
 
 		diffs = append(diffs, interconnectDiff{

@@ -18,7 +18,11 @@ import (
 
 	accesscontextmanager_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/accesscontextmanager/connector"
 
+	apigee_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apigee/connector"
+
 	appengine_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/appengine/connector"
+
+	assuredworkloads_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads/connector"
 
 	bigqueryconnection_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryconnection/connector"
 
@@ -68,6 +72,8 @@ import (
 
 	monitoring_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring/connector"
 
+	networksecurity_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networksecurity/alpha_connector"
+
 	osconfig_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/beta_connector"
 
 	pubsub_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub/connector"
@@ -107,7 +113,11 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	accesscontextmanager_connector.RegisterServers(grpcServer)
 
+	apigee_connector.RegisterServers(grpcServer)
+
 	appengine_connector.RegisterServers(grpcServer)
+
+	assuredworkloads_connector.RegisterServers(grpcServer)
 
 	bigqueryconnection_connector.RegisterServers(grpcServer)
 
@@ -156,6 +166,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	identitytoolkit_connector.RegisterServers(grpcServer)
 
 	monitoring_connector.RegisterServers(grpcServer)
+
+	networksecurity_alpha_connector.RegisterServers(grpcServer)
 
 	osconfig_beta_connector.RegisterServers(grpcServer)
 

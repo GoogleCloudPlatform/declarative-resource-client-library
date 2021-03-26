@@ -13,7 +13,6 @@
 # limitations under the License.
 dependencies:
 - samples/basic.reservation.json
-- samples/basic.serviceusage.service.json
 description: A basic test of a bigqueryreservation assignment api
 name: basic_assignment
 resource: samples/basic.assignment.json

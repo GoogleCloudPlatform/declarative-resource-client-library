@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -256,9 +257,20 @@ func (op *deleteTenantOperation) do(ctx context.Context, r *Tenant, c *Client) e
 	if err != nil {
 		return fmt.Errorf("failed to delete Tenant: %w", err)
 	}
-	_, err = c.GetTenant(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetTenant(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -354,7 +366,6 @@ func (c *Client) tenantDiffsForRawDesired(ctx context.Context, rawDesired *Tenan
 		desired, err := canonicalizeTenantDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
-
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetTenant(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -367,7 +378,6 @@ func (c *Client) tenantDiffsForRawDesired(ctx context.Context, rawDesired *Tenan
 		desired, err = canonicalizeTenantDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Tenant: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Tenant: %v", rawDesired)
 
@@ -417,16 +427,16 @@ func canonicalizeTenantDesiredState(rawDesired, rawInitial *Tenant, opts ...dcl.
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
 		rawDesired.DisplayName = rawInitial.DisplayName
 	}
-	if dcl.IsZeroValue(rawDesired.AllowPasswordSignup) {
+	if dcl.BoolCanonicalize(rawDesired.AllowPasswordSignup, rawInitial.AllowPasswordSignup) {
 		rawDesired.AllowPasswordSignup = rawInitial.AllowPasswordSignup
 	}
-	if dcl.IsZeroValue(rawDesired.EnableEmailLinkSignin) {
+	if dcl.BoolCanonicalize(rawDesired.EnableEmailLinkSignin, rawInitial.EnableEmailLinkSignin) {
 		rawDesired.EnableEmailLinkSignin = rawInitial.EnableEmailLinkSignin
 	}
-	if dcl.IsZeroValue(rawDesired.DisableAuth) {
+	if dcl.BoolCanonicalize(rawDesired.DisableAuth, rawInitial.DisableAuth) {
 		rawDesired.DisableAuth = rawInitial.DisableAuth
 	}
-	if dcl.IsZeroValue(rawDesired.EnableAnonymousUser) {
+	if dcl.BoolCanonicalize(rawDesired.EnableAnonymousUser, rawInitial.EnableAnonymousUser) {
 		rawDesired.EnableAnonymousUser = rawInitial.EnableAnonymousUser
 	}
 	rawDesired.MfaConfig = canonicalizeTenantMfaConfig(rawDesired.MfaConfig, rawInitial.MfaConfig, opts...)
@@ -458,21 +468,33 @@ func canonicalizeTenantNewState(c *Client, rawNew, rawDesired *Tenant) (*Tenant,
 	if dcl.IsEmptyValueIndirect(rawNew.AllowPasswordSignup) && dcl.IsEmptyValueIndirect(rawDesired.AllowPasswordSignup) {
 		rawNew.AllowPasswordSignup = rawDesired.AllowPasswordSignup
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.AllowPasswordSignup, rawNew.AllowPasswordSignup) {
+			rawNew.AllowPasswordSignup = rawDesired.AllowPasswordSignup
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.EnableEmailLinkSignin) && dcl.IsEmptyValueIndirect(rawDesired.EnableEmailLinkSignin) {
 		rawNew.EnableEmailLinkSignin = rawDesired.EnableEmailLinkSignin
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.EnableEmailLinkSignin, rawNew.EnableEmailLinkSignin) {
+			rawNew.EnableEmailLinkSignin = rawDesired.EnableEmailLinkSignin
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.DisableAuth) && dcl.IsEmptyValueIndirect(rawDesired.DisableAuth) {
 		rawNew.DisableAuth = rawDesired.DisableAuth
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.DisableAuth, rawNew.DisableAuth) {
+			rawNew.DisableAuth = rawDesired.DisableAuth
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.EnableAnonymousUser) && dcl.IsEmptyValueIndirect(rawDesired.EnableAnonymousUser) {
 		rawNew.EnableAnonymousUser = rawDesired.EnableAnonymousUser
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.EnableAnonymousUser, rawNew.EnableAnonymousUser) {
+			rawNew.EnableAnonymousUser = rawDesired.EnableAnonymousUser
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.MfaConfig) && dcl.IsEmptyValueIndirect(rawDesired.MfaConfig) {
@@ -544,6 +566,26 @@ func canonicalizeNewTenantMfaConfigSet(c *Client, des, nw []TenantMfaConfig) []T
 	return reorderedNew
 }
 
+func canonicalizeNewTenantMfaConfigSlice(c *Client, des, nw []TenantMfaConfig) []TenantMfaConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []TenantMfaConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewTenantMfaConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 type tenantDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
@@ -581,7 +623,7 @@ func diffTenant(c *Client, desired, actual *Tenant, opts ...dcl.ApplyOption) ([]
 		})
 
 	}
-	if !reflect.DeepEqual(desired.AllowPasswordSignup, actual.AllowPasswordSignup) {
+	if !dcl.IsZeroValue(desired.AllowPasswordSignup) && !dcl.BoolCanonicalize(desired.AllowPasswordSignup, actual.AllowPasswordSignup) {
 		c.Config.Logger.Infof("Detected diff in AllowPasswordSignup.\nDESIRED: %v\nACTUAL: %v", desired.AllowPasswordSignup, actual.AllowPasswordSignup)
 
 		diffs = append(diffs, tenantDiff{
@@ -590,7 +632,7 @@ func diffTenant(c *Client, desired, actual *Tenant, opts ...dcl.ApplyOption) ([]
 		})
 
 	}
-	if !reflect.DeepEqual(desired.EnableEmailLinkSignin, actual.EnableEmailLinkSignin) {
+	if !dcl.IsZeroValue(desired.EnableEmailLinkSignin) && !dcl.BoolCanonicalize(desired.EnableEmailLinkSignin, actual.EnableEmailLinkSignin) {
 		c.Config.Logger.Infof("Detected diff in EnableEmailLinkSignin.\nDESIRED: %v\nACTUAL: %v", desired.EnableEmailLinkSignin, actual.EnableEmailLinkSignin)
 
 		diffs = append(diffs, tenantDiff{
@@ -599,7 +641,7 @@ func diffTenant(c *Client, desired, actual *Tenant, opts ...dcl.ApplyOption) ([]
 		})
 
 	}
-	if !reflect.DeepEqual(desired.DisableAuth, actual.DisableAuth) {
+	if !dcl.IsZeroValue(desired.DisableAuth) && !dcl.BoolCanonicalize(desired.DisableAuth, actual.DisableAuth) {
 		c.Config.Logger.Infof("Detected diff in DisableAuth.\nDESIRED: %v\nACTUAL: %v", desired.DisableAuth, actual.DisableAuth)
 
 		diffs = append(diffs, tenantDiff{
@@ -608,7 +650,7 @@ func diffTenant(c *Client, desired, actual *Tenant, opts ...dcl.ApplyOption) ([]
 		})
 
 	}
-	if !reflect.DeepEqual(desired.EnableAnonymousUser, actual.EnableAnonymousUser) {
+	if !dcl.IsZeroValue(desired.EnableAnonymousUser) && !dcl.BoolCanonicalize(desired.EnableAnonymousUser, actual.EnableAnonymousUser) {
 		c.Config.Logger.Infof("Detected diff in EnableAnonymousUser.\nDESIRED: %v\nACTUAL: %v", desired.EnableAnonymousUser, actual.EnableAnonymousUser)
 
 		diffs = append(diffs, tenantDiff{

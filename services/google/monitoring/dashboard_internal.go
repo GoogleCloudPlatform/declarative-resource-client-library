@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -98,11 +99,6 @@ func (r *DashboardWidgetXyChart) validate() error {
 			return err
 		}
 	}
-	if !dcl.IsEmptyValueIndirect(r.TimeshiftDuration) {
-		if err := r.TimeshiftDuration.validate(); err != nil {
-			return err
-		}
-	}
 	if !dcl.IsEmptyValueIndirect(r.XAxis) {
 		if err := r.XAxis.validate(); err != nil {
 			return err
@@ -123,11 +119,6 @@ func (r *DashboardWidgetXyChart) validate() error {
 func (r *DashboardWidgetXyChartDataSets) validate() error {
 	if !dcl.IsEmptyValueIndirect(r.TimeSeriesQuery) {
 		if err := r.TimeSeriesQuery.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.MinAlignmentPeriod) {
-		if err := r.MinAlignmentPeriod.validate(); err != nil {
 			return err
 		}
 	}
@@ -165,11 +156,6 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) validate
 	return nil
 }
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.AlignmentPeriod) {
-		if err := r.AlignmentPeriod.validate(); err != nil {
-			return err
-		}
-	}
 	if !dcl.IsEmptyValueIndirect(r.ReduceFractionLessThanParams) {
 		if err := r.ReduceFractionLessThanParams.validate(); err != nil {
 			return err
@@ -180,9 +166,6 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregatio
 			return err
 		}
 	}
-	return nil
-}
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) validate() error {
 	return nil
 }
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams) validate() error {
@@ -232,11 +215,6 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregatio
 	return nil
 }
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.AlignmentPeriod) {
-		if err := r.AlignmentPeriod.validate(); err != nil {
-			return err
-		}
-	}
 	if !dcl.IsEmptyValueIndirect(r.ReduceFractionLessThanParams) {
 		if err := r.ReduceFractionLessThanParams.validate(); err != nil {
 			return err
@@ -247,9 +225,6 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryA
 			return err
 		}
 	}
-	return nil
-}
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) validate() error {
 	return nil
 }
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams) validate() error {
@@ -333,11 +308,6 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumer
 	return nil
 }
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.AlignmentPeriod) {
-		if err := r.AlignmentPeriod.validate(); err != nil {
-			return err
-		}
-	}
 	if !dcl.IsEmptyValueIndirect(r.ReduceFractionLessThanParams) {
 		if err := r.ReduceFractionLessThanParams.validate(); err != nil {
 			return err
@@ -348,9 +318,6 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumer
 			return err
 		}
 	}
-	return nil
-}
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) validate() error {
 	return nil
 }
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams) validate() error {
@@ -408,11 +375,6 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 	return nil
 }
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.AlignmentPeriod) {
-		if err := r.AlignmentPeriod.validate(); err != nil {
-			return err
-		}
-	}
 	if !dcl.IsEmptyValueIndirect(r.ReduceFractionLessThanParams) {
 		if err := r.ReduceFractionLessThanParams.validate(); err != nil {
 			return err
@@ -423,9 +385,6 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 			return err
 		}
 	}
-	return nil
-}
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) validate() error {
 	return nil
 }
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams) validate() error {
@@ -475,11 +434,6 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 	return nil
 }
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.AlignmentPeriod) {
-		if err := r.AlignmentPeriod.validate(); err != nil {
-			return err
-		}
-	}
 	if !dcl.IsEmptyValueIndirect(r.ReduceFractionLessThanParams) {
 		if err := r.ReduceFractionLessThanParams.validate(); err != nil {
 			return err
@@ -490,9 +444,6 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecon
 			return err
 		}
 	}
-	return nil
-}
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) validate() error {
 	return nil
 }
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams) validate() error {
@@ -542,9 +493,6 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecon
 	return nil
 }
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) validate() error {
-	return nil
-}
-func (r *DashboardWidgetXyChartDataSetsMinAlignmentPeriod) validate() error {
 	return nil
 }
 func (r *DashboardWidgetXyChartSourceDrilldown) validate() error {
@@ -625,9 +573,6 @@ func (r *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrict
 func (r *DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown) validate() error {
 	return nil
 }
-func (r *DashboardWidgetXyChartTimeshiftDuration) validate() error {
-	return nil
-}
 func (r *DashboardWidgetXyChartThresholds) validate() error {
 	return nil
 }
@@ -700,11 +645,6 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) validate() err
 	return nil
 }
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.AlignmentPeriod) {
-		if err := r.AlignmentPeriod.validate(); err != nil {
-			return err
-		}
-	}
 	if !dcl.IsEmptyValueIndirect(r.ReduceFractionLessThanParams) {
 		if err := r.ReduceFractionLessThanParams.validate(); err != nil {
 			return err
@@ -715,9 +655,6 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) val
 			return err
 		}
 	}
-	return nil
-}
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) validate() error {
 	return nil
 }
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams) validate() error {
@@ -767,11 +704,6 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduc
 	return nil
 }
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.AlignmentPeriod) {
-		if err := r.AlignmentPeriod.validate(); err != nil {
-			return err
-		}
-	}
 	if !dcl.IsEmptyValueIndirect(r.ReduceFractionLessThanParams) {
 		if err := r.ReduceFractionLessThanParams.validate(); err != nil {
 			return err
@@ -782,9 +714,6 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggrega
 			return err
 		}
 	}
-	return nil
-}
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) validate() error {
 	return nil
 }
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams) validate() error {
@@ -868,11 +797,6 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) 
 	return nil
 }
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.AlignmentPeriod) {
-		if err := r.AlignmentPeriod.validate(); err != nil {
-			return err
-		}
-	}
 	if !dcl.IsEmptyValueIndirect(r.ReduceFractionLessThanParams) {
 		if err := r.ReduceFractionLessThanParams.validate(); err != nil {
 			return err
@@ -883,9 +807,6 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAg
 			return err
 		}
 	}
-	return nil
-}
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) validate() error {
 	return nil
 }
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams) validate() error {
@@ -943,11 +864,6 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 	return nil
 }
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.AlignmentPeriod) {
-		if err := r.AlignmentPeriod.validate(); err != nil {
-			return err
-		}
-	}
 	if !dcl.IsEmptyValueIndirect(r.ReduceFractionLessThanParams) {
 		if err := r.ReduceFractionLessThanParams.validate(); err != nil {
 			return err
@@ -958,9 +874,6 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 			return err
 		}
 	}
-	return nil
-}
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) validate() error {
 	return nil
 }
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams) validate() error {
@@ -1010,11 +923,6 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 	return nil
 }
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.AlignmentPeriod) {
-		if err := r.AlignmentPeriod.validate(); err != nil {
-			return err
-		}
-	}
 	if !dcl.IsEmptyValueIndirect(r.ReduceFractionLessThanParams) {
 		if err := r.ReduceFractionLessThanParams.validate(); err != nil {
 			return err
@@ -1025,9 +933,6 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAg
 			return err
 		}
 	}
-	return nil
-}
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) validate() error {
 	return nil
 }
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams) validate() error {
@@ -1161,14 +1066,6 @@ func (r *DashboardWidgetScorecardGaugeView) validate() error {
 	return nil
 }
 func (r *DashboardWidgetScorecardSparkChartView) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.MinAlignmentPeriod) {
-		if err := r.MinAlignmentPeriod.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod) validate() error {
 	return nil
 }
 func (r *DashboardWidgetScorecardThresholds) validate() error {
@@ -1497,9 +1394,20 @@ func (op *deleteDashboardOperation) do(ctx context.Context, r *Dashboard, c *Cli
 	if err != nil {
 		return fmt.Errorf("failed to delete Dashboard: %w", err)
 	}
-	_, err = c.GetDashboard(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetDashboard(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -1605,7 +1513,6 @@ func (c *Client) dashboardDiffsForRawDesired(ctx context.Context, rawDesired *Da
 		desired, err = canonicalizeDashboardDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Dashboard: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Dashboard: %v", rawDesired)
 
@@ -1750,6 +1657,8 @@ func canonicalizeNewDashboardColumnLayout(c *Client, des, nw *DashboardColumnLay
 		return nw
 	}
 
+	nw.Columns = canonicalizeNewDashboardColumnLayoutColumnsSlice(c, des.Columns, nw.Columns)
+
 	return nw
 }
 
@@ -1774,6 +1683,26 @@ func canonicalizeNewDashboardColumnLayoutSet(c *Client, des, nw []DashboardColum
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardColumnLayoutSlice(c *Client, des, nw []DashboardColumnLayout) []DashboardColumnLayout {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardColumnLayout
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardColumnLayout(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardColumnLayoutColumns(des, initial *DashboardColumnLayoutColumns, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumns {
@@ -1803,6 +1732,8 @@ func canonicalizeNewDashboardColumnLayoutColumns(c *Client, des, nw *DashboardCo
 		return nw
 	}
 
+	nw.Widgets = canonicalizeNewDashboardWidgetSlice(c, des.Widgets, nw.Widgets)
+
 	return nw
 }
 
@@ -1827,6 +1758,26 @@ func canonicalizeNewDashboardColumnLayoutColumnsSet(c *Client, des, nw []Dashboa
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardColumnLayoutColumnsSlice(c *Client, des, nw []DashboardColumnLayoutColumns) []DashboardColumnLayoutColumns {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardColumnLayoutColumns
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardColumnLayoutColumns(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidget(des, initial *DashboardWidget, opts ...dcl.ApplyOption) *DashboardWidget {
@@ -1891,6 +1842,26 @@ func canonicalizeNewDashboardWidgetSet(c *Client, des, nw []DashboardWidget) []D
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetSlice(c *Client, des, nw []DashboardWidget) []DashboardWidget {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidget
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidget(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChart(des, initial *DashboardWidgetXyChart, opts ...dcl.ApplyOption) *DashboardWidgetXyChart {
 	if des == nil {
 		return initial
@@ -1908,7 +1879,9 @@ func canonicalizeDashboardWidgetXyChart(des, initial *DashboardWidgetXyChart, op
 	}
 	des.SourceDrilldown = canonicalizeDashboardWidgetXyChartSourceDrilldown(des.SourceDrilldown, initial.SourceDrilldown, opts...)
 	des.MetricDrilldown = canonicalizeDashboardWidgetXyChartMetricDrilldown(des.MetricDrilldown, initial.MetricDrilldown, opts...)
-	des.TimeshiftDuration = canonicalizeDashboardWidgetXyChartTimeshiftDuration(des.TimeshiftDuration, initial.TimeshiftDuration, opts...)
+	if dcl.StringCanonicalize(des.TimeshiftDuration, initial.TimeshiftDuration) || dcl.IsZeroValue(des.TimeshiftDuration) {
+		des.TimeshiftDuration = initial.TimeshiftDuration
+	}
 	if dcl.IsZeroValue(des.Thresholds) {
 		des.Thresholds = initial.Thresholds
 	}
@@ -1924,9 +1897,13 @@ func canonicalizeNewDashboardWidgetXyChart(c *Client, des, nw *DashboardWidgetXy
 		return nw
 	}
 
+	nw.DataSets = canonicalizeNewDashboardWidgetXyChartDataSetsSlice(c, des.DataSets, nw.DataSets)
 	nw.SourceDrilldown = canonicalizeNewDashboardWidgetXyChartSourceDrilldown(c, des.SourceDrilldown, nw.SourceDrilldown)
 	nw.MetricDrilldown = canonicalizeNewDashboardWidgetXyChartMetricDrilldown(c, des.MetricDrilldown, nw.MetricDrilldown)
-	nw.TimeshiftDuration = canonicalizeNewDashboardWidgetXyChartTimeshiftDuration(c, des.TimeshiftDuration, nw.TimeshiftDuration)
+	if dcl.StringCanonicalize(des.TimeshiftDuration, nw.TimeshiftDuration) || dcl.IsZeroValue(des.TimeshiftDuration) {
+		nw.TimeshiftDuration = des.TimeshiftDuration
+	}
+	nw.Thresholds = canonicalizeNewDashboardWidgetXyChartThresholdsSlice(c, des.Thresholds, nw.Thresholds)
 	nw.XAxis = canonicalizeNewDashboardWidgetXyChartXAxis(c, des.XAxis, nw.XAxis)
 	nw.YAxis = canonicalizeNewDashboardWidgetXyChartYAxis(c, des.YAxis, nw.YAxis)
 	nw.ChartOptions = canonicalizeNewDashboardWidgetXyChartChartOptions(c, des.ChartOptions, nw.ChartOptions)
@@ -1957,6 +1934,26 @@ func canonicalizeNewDashboardWidgetXyChartSet(c *Client, des, nw []DashboardWidg
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartSlice(c *Client, des, nw []DashboardWidgetXyChart) []DashboardWidgetXyChart {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChart
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChart(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSets(des, initial *DashboardWidgetXyChartDataSets, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSets {
 	if des == nil {
 		return initial
@@ -1976,7 +1973,9 @@ func canonicalizeDashboardWidgetXyChartDataSets(des, initial *DashboardWidgetXyC
 	if dcl.StringCanonicalize(des.LegendTemplate, initial.LegendTemplate) || dcl.IsZeroValue(des.LegendTemplate) {
 		des.LegendTemplate = initial.LegendTemplate
 	}
-	des.MinAlignmentPeriod = canonicalizeDashboardWidgetXyChartDataSetsMinAlignmentPeriod(des.MinAlignmentPeriod, initial.MinAlignmentPeriod, opts...)
+	if dcl.StringCanonicalize(des.MinAlignmentPeriod, initial.MinAlignmentPeriod) || dcl.IsZeroValue(des.MinAlignmentPeriod) {
+		des.MinAlignmentPeriod = initial.MinAlignmentPeriod
+	}
 
 	return des
 }
@@ -1990,7 +1989,9 @@ func canonicalizeNewDashboardWidgetXyChartDataSets(c *Client, des, nw *Dashboard
 	if dcl.StringCanonicalize(des.LegendTemplate, nw.LegendTemplate) || dcl.IsZeroValue(des.LegendTemplate) {
 		nw.LegendTemplate = des.LegendTemplate
 	}
-	nw.MinAlignmentPeriod = canonicalizeNewDashboardWidgetXyChartDataSetsMinAlignmentPeriod(c, des.MinAlignmentPeriod, nw.MinAlignmentPeriod)
+	if dcl.StringCanonicalize(des.MinAlignmentPeriod, nw.MinAlignmentPeriod) || dcl.IsZeroValue(des.MinAlignmentPeriod) {
+		nw.MinAlignmentPeriod = des.MinAlignmentPeriod
+	}
 
 	return nw
 }
@@ -2016,6 +2017,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsSet(c *Client, des, nw []Dashb
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartDataSetsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSets) []DashboardWidgetXyChartDataSets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSets(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQuery(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQuery, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQuery {
@@ -2085,6 +2106,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQuerySet(c *Client, 
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQuerySlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQuery) []DashboardWidgetXyChartDataSetsTimeSeriesQuery {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQuery
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
 	if des == nil {
 		return initial
@@ -2145,6 +2186,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
 	if des == nil {
 		return initial
@@ -2157,7 +2218,9 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAg
 		return des
 	}
 
-	des.AlignmentPeriod = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(des.AlignmentPeriod, initial.AlignmentPeriod, opts...)
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+		des.AlignmentPeriod = initial.AlignmentPeriod
+	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
 	}
@@ -2178,7 +2241,9 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 		return nw
 	}
 
-	nw.AlignmentPeriod = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, des.AlignmentPeriod, nw.AlignmentPeriod)
+	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+		nw.AlignmentPeriod = des.AlignmentPeriod
+	}
 	nw.ReduceFractionLessThanParams = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(c, des.ReduceFractionLessThanParams, nw.ReduceFractionLessThanParams)
 	nw.ReduceMakeDistributionParams = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(c, des.ReduceMakeDistributionParams, nw.ReduceMakeDistributionParams)
 
@@ -2208,57 +2273,24 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
-func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodSet(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod {
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
 
-	return reorderedNew
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams {
@@ -2309,6 +2341,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParamsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams {
@@ -2363,6 +2415,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions {
 	if des == nil {
 		return initial
@@ -2415,6 +2487,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets {
@@ -2473,6 +2565,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
 	if des == nil {
 		return initial
@@ -2529,6 +2641,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
 	if des == nil {
 		return initial
@@ -2577,6 +2709,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling {
@@ -2629,6 +2781,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 	if des == nil {
 		return initial
@@ -2641,7 +2813,9 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSe
 		return des
 	}
 
-	des.AlignmentPeriod = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(des.AlignmentPeriod, initial.AlignmentPeriod, opts...)
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+		des.AlignmentPeriod = initial.AlignmentPeriod
+	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
 	}
@@ -2662,7 +2836,9 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 		return nw
 	}
 
-	nw.AlignmentPeriod = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, des.AlignmentPeriod, nw.AlignmentPeriod)
+	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+		nw.AlignmentPeriod = des.AlignmentPeriod
+	}
 	nw.ReduceFractionLessThanParams = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(c, des.ReduceFractionLessThanParams, nw.ReduceFractionLessThanParams)
 	nw.ReduceMakeDistributionParams = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(c, des.ReduceMakeDistributionParams, nw.ReduceMakeDistributionParams)
 
@@ -2692,57 +2868,24 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
-func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodSet(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod {
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
 
-	return reorderedNew
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams {
@@ -2793,6 +2936,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParamsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams {
@@ -2847,6 +3010,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions {
 	if des == nil {
 		return initial
@@ -2899,6 +3082,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets {
@@ -2957,6 +3160,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
 	if des == nil {
 		return initial
@@ -3013,6 +3236,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
 	if des == nil {
 		return initial
@@ -3063,6 +3306,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling {
 	if des == nil {
 		return initial
@@ -3111,6 +3374,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
@@ -3169,6 +3452,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
 	if des == nil {
 		return initial
@@ -3223,6 +3526,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
@@ -3281,6 +3604,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 	if des == nil {
 		return initial
@@ -3293,7 +3636,9 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	des.AlignmentPeriod = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(des.AlignmentPeriod, initial.AlignmentPeriod, opts...)
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+		des.AlignmentPeriod = initial.AlignmentPeriod
+	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
 	}
@@ -3314,7 +3659,9 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 		return nw
 	}
 
-	nw.AlignmentPeriod = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, des.AlignmentPeriod, nw.AlignmentPeriod)
+	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+		nw.AlignmentPeriod = des.AlignmentPeriod
+	}
 	nw.ReduceFractionLessThanParams = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(c, des.ReduceFractionLessThanParams, nw.ReduceFractionLessThanParams)
 	nw.ReduceMakeDistributionParams = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(c, des.ReduceMakeDistributionParams, nw.ReduceMakeDistributionParams)
 
@@ -3344,57 +3691,24 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
-func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodSet(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod {
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
 
-	return reorderedNew
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams {
@@ -3445,6 +3759,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParamsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams {
@@ -3499,6 +3833,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions {
 	if des == nil {
 		return initial
@@ -3551,6 +3905,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets {
@@ -3609,6 +3983,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
 	if des == nil {
 		return initial
@@ -3665,6 +4059,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
 	if des == nil {
 		return initial
@@ -3715,6 +4129,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling {
 	if des == nil {
 		return initial
@@ -3763,6 +4197,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
@@ -3821,6 +4275,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 	if des == nil {
 		return initial
@@ -3833,7 +4307,9 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	des.AlignmentPeriod = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(des.AlignmentPeriod, initial.AlignmentPeriod, opts...)
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+		des.AlignmentPeriod = initial.AlignmentPeriod
+	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
 	}
@@ -3854,7 +4330,9 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 		return nw
 	}
 
-	nw.AlignmentPeriod = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, des.AlignmentPeriod, nw.AlignmentPeriod)
+	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+		nw.AlignmentPeriod = des.AlignmentPeriod
+	}
 	nw.ReduceFractionLessThanParams = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(c, des.ReduceFractionLessThanParams, nw.ReduceFractionLessThanParams)
 	nw.ReduceMakeDistributionParams = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(c, des.ReduceMakeDistributionParams, nw.ReduceMakeDistributionParams)
 
@@ -3884,57 +4362,24 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
-func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodSet(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod {
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
 
-	return reorderedNew
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams {
@@ -3985,6 +4430,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParamsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams {
@@ -4039,6 +4504,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions {
 	if des == nil {
 		return initial
@@ -4091,6 +4576,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets {
@@ -4149,6 +4654,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
 	if des == nil {
 		return initial
@@ -4205,6 +4730,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
 	if des == nil {
 		return initial
@@ -4253,6 +4798,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling {
@@ -4305,6 +4870,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 	if des == nil {
 		return initial
@@ -4317,7 +4902,9 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	des.AlignmentPeriod = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(des.AlignmentPeriod, initial.AlignmentPeriod, opts...)
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+		des.AlignmentPeriod = initial.AlignmentPeriod
+	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
 	}
@@ -4338,7 +4925,9 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 		return nw
 	}
 
-	nw.AlignmentPeriod = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, des.AlignmentPeriod, nw.AlignmentPeriod)
+	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+		nw.AlignmentPeriod = des.AlignmentPeriod
+	}
 	nw.ReduceFractionLessThanParams = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(c, des.ReduceFractionLessThanParams, nw.ReduceFractionLessThanParams)
 	nw.ReduceMakeDistributionParams = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(c, des.ReduceMakeDistributionParams, nw.ReduceMakeDistributionParams)
 
@@ -4368,57 +4957,24 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
-func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodSet(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod {
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
 
-	return reorderedNew
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams {
@@ -4469,6 +5025,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParamsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams {
@@ -4523,6 +5099,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions {
 	if des == nil {
 		return initial
@@ -4575,6 +5171,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets {
@@ -4633,6 +5249,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
 	if des == nil {
 		return initial
@@ -4689,6 +5325,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
 	if des == nil {
 		return initial
@@ -4739,6 +5395,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling {
 	if des == nil {
 		return initial
@@ -4787,6 +5463,26 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(des, initial *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
@@ -4845,57 +5541,24 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	return reorderedNew
 }
 
-func canonicalizeDashboardWidgetXyChartDataSetsMinAlignmentPeriod(des, initial *DashboardWidgetXyChartDataSetsMinAlignmentPeriod, opts ...dcl.ApplyOption) *DashboardWidgetXyChartDataSetsMinAlignmentPeriod {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardWidgetXyChartDataSetsMinAlignmentPeriod(c *Client, des, nw *DashboardWidgetXyChartDataSetsMinAlignmentPeriod) *DashboardWidgetXyChartDataSetsMinAlignmentPeriod {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewDashboardWidgetXyChartDataSetsMinAlignmentPeriodSet(c *Client, des, nw []DashboardWidgetXyChartDataSetsMinAlignmentPeriod) []DashboardWidgetXyChartDataSetsMinAlignmentPeriod {
+func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(c *Client, des, nw []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []DashboardWidgetXyChartDataSetsMinAlignmentPeriod
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardWidgetXyChartDataSetsMinAlignmentPeriod(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
 
-	return reorderedNew
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartSourceDrilldown(des, initial *DashboardWidgetXyChartSourceDrilldown, opts ...dcl.ApplyOption) *DashboardWidgetXyChartSourceDrilldown {
@@ -4933,6 +5596,9 @@ func canonicalizeNewDashboardWidgetXyChartSourceDrilldown(c *Client, des, nw *Da
 	}
 
 	nw.ResourceTypeDrilldown = canonicalizeNewDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown(c, des.ResourceTypeDrilldown, nw.ResourceTypeDrilldown)
+	nw.ResourceLabelDrilldowns = canonicalizeNewDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsSlice(c, des.ResourceLabelDrilldowns, nw.ResourceLabelDrilldowns)
+	nw.MetadataSystemLabelDrilldowns = canonicalizeNewDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsSlice(c, des.MetadataSystemLabelDrilldowns, nw.MetadataSystemLabelDrilldowns)
+	nw.MetadataUserLabelDrilldowns = canonicalizeNewDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsSlice(c, des.MetadataUserLabelDrilldowns, nw.MetadataUserLabelDrilldowns)
 	nw.GroupNameDrilldown = canonicalizeNewDashboardWidgetXyChartSourceDrilldownGroupNameDrilldown(c, des.GroupNameDrilldown, nw.GroupNameDrilldown)
 	nw.ServiceNameDrilldown = canonicalizeNewDashboardWidgetXyChartSourceDrilldownServiceNameDrilldown(c, des.ServiceNameDrilldown, nw.ServiceNameDrilldown)
 	nw.ServiceTypeDrilldown = canonicalizeNewDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown(c, des.ServiceTypeDrilldown, nw.ServiceTypeDrilldown)
@@ -4961,6 +5627,26 @@ func canonicalizeNewDashboardWidgetXyChartSourceDrilldownSet(c *Client, des, nw 
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartSourceDrilldownSlice(c *Client, des, nw []DashboardWidgetXyChartSourceDrilldown) []DashboardWidgetXyChartSourceDrilldown {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartSourceDrilldown
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartSourceDrilldown(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown(des, initial *DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown, opts ...dcl.ApplyOption) *DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown {
@@ -5013,6 +5699,26 @@ func canonicalizeNewDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldownSe
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldownSlice(c *Client, des, nw []DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown) []DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns(des, initial *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns, opts ...dcl.ApplyOption) *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns {
 	if des == nil {
 		return initial
@@ -5046,6 +5752,7 @@ func canonicalizeNewDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns
 	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
 		nw.Label = des.Label
 	}
+	nw.ValueRestrictions = canonicalizeNewDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictionsSlice(c, des.ValueRestrictions, nw.ValueRestrictions)
 
 	return nw
 }
@@ -5071,6 +5778,26 @@ func canonicalizeNewDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsSlice(c *Client, des, nw []DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns) []DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions(des, initial *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions, opts ...dcl.ApplyOption) *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions {
@@ -5130,6 +5857,26 @@ func canonicalizeNewDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictionsSlice(c *Client, des, nw []DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions) []DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns(des, initial *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns, opts ...dcl.ApplyOption) *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns {
 	if des == nil {
 		return initial
@@ -5163,6 +5910,7 @@ func canonicalizeNewDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDril
 	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
 		nw.Label = des.Label
 	}
+	nw.ValueRestrictions = canonicalizeNewDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsSlice(c, des.ValueRestrictions, nw.ValueRestrictions)
 
 	return nw
 }
@@ -5188,6 +5936,26 @@ func canonicalizeNewDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDril
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsSlice(c *Client, des, nw []DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns) []DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions(des, initial *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, opts ...dcl.ApplyOption) *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions {
@@ -5247,6 +6015,26 @@ func canonicalizeNewDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDril
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsSlice(c *Client, des, nw []DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions) []DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns(des, initial *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns, opts ...dcl.ApplyOption) *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns {
 	if des == nil {
 		return initial
@@ -5280,6 +6068,7 @@ func canonicalizeNewDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilld
 	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
 		nw.Label = des.Label
 	}
+	nw.ValueRestrictions = canonicalizeNewDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsSlice(c, des.ValueRestrictions, nw.ValueRestrictions)
 
 	return nw
 }
@@ -5305,6 +6094,26 @@ func canonicalizeNewDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilld
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsSlice(c *Client, des, nw []DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns) []DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions(des, initial *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, opts ...dcl.ApplyOption) *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions {
@@ -5364,6 +6173,26 @@ func canonicalizeNewDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilld
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsSlice(c *Client, des, nw []DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions) []DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartSourceDrilldownGroupNameDrilldown(des, initial *DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown, opts ...dcl.ApplyOption) *DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown {
 	if des == nil {
 		return initial
@@ -5412,6 +6241,26 @@ func canonicalizeNewDashboardWidgetXyChartSourceDrilldownGroupNameDrilldownSet(c
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartSourceDrilldownGroupNameDrilldownSlice(c *Client, des, nw []DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown) []DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartSourceDrilldownGroupNameDrilldown(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartSourceDrilldownServiceNameDrilldown(des, initial *DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown, opts ...dcl.ApplyOption) *DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown {
@@ -5464,6 +6313,26 @@ func canonicalizeNewDashboardWidgetXyChartSourceDrilldownServiceNameDrilldownSet
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartSourceDrilldownServiceNameDrilldownSlice(c *Client, des, nw []DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown) []DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartSourceDrilldownServiceNameDrilldown(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown(des, initial *DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown, opts ...dcl.ApplyOption) *DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown {
 	if des == nil {
 		return initial
@@ -5514,6 +6383,26 @@ func canonicalizeNewDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownSet
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownSlice(c *Client, des, nw []DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown) []DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartMetricDrilldown(des, initial *DashboardWidgetXyChartMetricDrilldown, opts ...dcl.ApplyOption) *DashboardWidgetXyChartMetricDrilldown {
 	if des == nil {
 		return initial
@@ -5541,6 +6430,7 @@ func canonicalizeNewDashboardWidgetXyChartMetricDrilldown(c *Client, des, nw *Da
 	}
 
 	nw.MetricTypeDrilldown = canonicalizeNewDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown(c, des.MetricTypeDrilldown, nw.MetricTypeDrilldown)
+	nw.MetricLabelDrilldowns = canonicalizeNewDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsSlice(c, des.MetricLabelDrilldowns, nw.MetricLabelDrilldowns)
 	nw.MetricGroupByDrilldown = canonicalizeNewDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown(c, des.MetricGroupByDrilldown, nw.MetricGroupByDrilldown)
 
 	return nw
@@ -5567,6 +6457,26 @@ func canonicalizeNewDashboardWidgetXyChartMetricDrilldownSet(c *Client, des, nw 
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartMetricDrilldownSlice(c *Client, des, nw []DashboardWidgetXyChartMetricDrilldown) []DashboardWidgetXyChartMetricDrilldown {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartMetricDrilldown
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartMetricDrilldown(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown(des, initial *DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown, opts ...dcl.ApplyOption) *DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown {
@@ -5623,6 +6533,26 @@ func canonicalizeNewDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldownSet(
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldownSlice(c *Client, des, nw []DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown) []DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns(des, initial *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns, opts ...dcl.ApplyOption) *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns {
 	if des == nil {
 		return initial
@@ -5656,6 +6586,7 @@ func canonicalizeNewDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns(c
 	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
 		nw.Label = des.Label
 	}
+	nw.ValueRestrictions = canonicalizeNewDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictionsSlice(c, des.ValueRestrictions, nw.ValueRestrictions)
 
 	return nw
 }
@@ -5681,6 +6612,26 @@ func canonicalizeNewDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsSe
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsSlice(c *Client, des, nw []DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns) []DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions(des, initial *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions, opts ...dcl.ApplyOption) *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions {
@@ -5738,6 +6689,26 @@ func canonicalizeNewDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsVa
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictionsSlice(c *Client, des, nw []DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions) []DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown(des, initial *DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown, opts ...dcl.ApplyOption) *DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown {
@@ -5802,57 +6773,24 @@ func canonicalizeNewDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownS
 	return reorderedNew
 }
 
-func canonicalizeDashboardWidgetXyChartTimeshiftDuration(des, initial *DashboardWidgetXyChartTimeshiftDuration, opts ...dcl.ApplyOption) *DashboardWidgetXyChartTimeshiftDuration {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardWidgetXyChartTimeshiftDuration(c *Client, des, nw *DashboardWidgetXyChartTimeshiftDuration) *DashboardWidgetXyChartTimeshiftDuration {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewDashboardWidgetXyChartTimeshiftDurationSet(c *Client, des, nw []DashboardWidgetXyChartTimeshiftDuration) []DashboardWidgetXyChartTimeshiftDuration {
+func canonicalizeNewDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownSlice(c *Client, des, nw []DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown) []DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []DashboardWidgetXyChartTimeshiftDuration
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardWidgetXyChartTimeshiftDuration(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
 
-	return reorderedNew
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartThresholds(des, initial *DashboardWidgetXyChartThresholds, opts ...dcl.ApplyOption) *DashboardWidgetXyChartThresholds {
@@ -5918,6 +6856,26 @@ func canonicalizeNewDashboardWidgetXyChartThresholdsSet(c *Client, des, nw []Das
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartThresholdsSlice(c *Client, des, nw []DashboardWidgetXyChartThresholds) []DashboardWidgetXyChartThresholds {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartThresholds
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartThresholds(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartXAxis(des, initial *DashboardWidgetXyChartXAxis, opts ...dcl.ApplyOption) *DashboardWidgetXyChartXAxis {
 	if des == nil {
 		return initial
@@ -5973,6 +6931,26 @@ func canonicalizeNewDashboardWidgetXyChartXAxisSet(c *Client, des, nw []Dashboar
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartXAxisSlice(c *Client, des, nw []DashboardWidgetXyChartXAxis) []DashboardWidgetXyChartXAxis {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartXAxis
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartXAxis(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetXyChartYAxis(des, initial *DashboardWidgetXyChartYAxis, opts ...dcl.ApplyOption) *DashboardWidgetXyChartYAxis {
@@ -6032,6 +7010,26 @@ func canonicalizeNewDashboardWidgetXyChartYAxisSet(c *Client, des, nw []Dashboar
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetXyChartYAxisSlice(c *Client, des, nw []DashboardWidgetXyChartYAxis) []DashboardWidgetXyChartYAxis {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartYAxis
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartYAxis(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetXyChartChartOptions(des, initial *DashboardWidgetXyChartChartOptions, opts ...dcl.ApplyOption) *DashboardWidgetXyChartChartOptions {
 	if des == nil {
 		return initial
@@ -6047,7 +7045,7 @@ func canonicalizeDashboardWidgetXyChartChartOptions(des, initial *DashboardWidge
 	if dcl.IsZeroValue(des.Mode) {
 		des.Mode = initial.Mode
 	}
-	if dcl.IsZeroValue(des.ShowLegend) {
+	if dcl.BoolCanonicalize(des.ShowLegend, initial.ShowLegend) || dcl.IsZeroValue(des.ShowLegend) {
 		des.ShowLegend = initial.ShowLegend
 	}
 
@@ -6057,6 +7055,10 @@ func canonicalizeDashboardWidgetXyChartChartOptions(des, initial *DashboardWidge
 func canonicalizeNewDashboardWidgetXyChartChartOptions(c *Client, des, nw *DashboardWidgetXyChartChartOptions) *DashboardWidgetXyChartChartOptions {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.ShowLegend, nw.ShowLegend) || dcl.IsZeroValue(des.ShowLegend) {
+		nw.ShowLegend = des.ShowLegend
 	}
 
 	return nw
@@ -6083,6 +7085,26 @@ func canonicalizeNewDashboardWidgetXyChartChartOptionsSet(c *Client, des, nw []D
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetXyChartChartOptionsSlice(c *Client, des, nw []DashboardWidgetXyChartChartOptions) []DashboardWidgetXyChartChartOptions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetXyChartChartOptions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetXyChartChartOptions(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecard(des, initial *DashboardWidgetScorecard, opts ...dcl.ApplyOption) *DashboardWidgetScorecard {
@@ -6119,6 +7141,7 @@ func canonicalizeNewDashboardWidgetScorecard(c *Client, des, nw *DashboardWidget
 	nw.MetricDrilldown = canonicalizeNewDashboardWidgetScorecardMetricDrilldown(c, des.MetricDrilldown, nw.MetricDrilldown)
 	nw.GaugeView = canonicalizeNewDashboardWidgetScorecardGaugeView(c, des.GaugeView, nw.GaugeView)
 	nw.SparkChartView = canonicalizeNewDashboardWidgetScorecardSparkChartView(c, des.SparkChartView, nw.SparkChartView)
+	nw.Thresholds = canonicalizeNewDashboardWidgetScorecardThresholdsSlice(c, des.Thresholds, nw.Thresholds)
 
 	return nw
 }
@@ -6144,6 +7167,26 @@ func canonicalizeNewDashboardWidgetScorecardSet(c *Client, des, nw []DashboardWi
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardSlice(c *Client, des, nw []DashboardWidgetScorecard) []DashboardWidgetScorecard {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecard
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecard(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQuery(des, initial *DashboardWidgetScorecardTimeSeriesQuery, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQuery {
@@ -6213,6 +7256,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQuerySet(c *Client, des, n
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQuerySlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQuery) []DashboardWidgetScorecardTimeSeriesQuery {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQuery
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQuery(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter {
 	if des == nil {
 		return initial
@@ -6273,6 +7336,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSet(c
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
 	if des == nil {
 		return initial
@@ -6285,7 +7368,9 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregat
 		return des
 	}
 
-	des.AlignmentPeriod = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(des.AlignmentPeriod, initial.AlignmentPeriod, opts...)
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+		des.AlignmentPeriod = initial.AlignmentPeriod
+	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
 	}
@@ -6306,7 +7391,9 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggre
 		return nw
 	}
 
-	nw.AlignmentPeriod = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, des.AlignmentPeriod, nw.AlignmentPeriod)
+	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+		nw.AlignmentPeriod = des.AlignmentPeriod
+	}
 	nw.ReduceFractionLessThanParams = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(c, des.ReduceFractionLessThanParams, nw.ReduceFractionLessThanParams)
 	nw.ReduceMakeDistributionParams = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(c, des.ReduceMakeDistributionParams, nw.ReduceMakeDistributionParams)
 
@@ -6336,57 +7423,24 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggre
 	return reorderedNew
 }
 
-func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodSet(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod {
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
 
-	return reorderedNew
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams {
@@ -6437,6 +7491,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggre
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParamsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams {
@@ -6491,6 +7565,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggre
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions {
 	if des == nil {
 		return initial
@@ -6543,6 +7637,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggre
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets {
@@ -6601,6 +7715,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggre
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
 	if des == nil {
 		return initial
@@ -6657,6 +7791,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggre
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
 	if des == nil {
 		return initial
@@ -6705,6 +7859,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggre
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling {
@@ -6757,6 +7931,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggre
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 	if des == nil {
 		return initial
@@ -6769,7 +7963,9 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondar
 		return des
 	}
 
-	des.AlignmentPeriod = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(des.AlignmentPeriod, initial.AlignmentPeriod, opts...)
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+		des.AlignmentPeriod = initial.AlignmentPeriod
+	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
 	}
@@ -6790,7 +7986,9 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecon
 		return nw
 	}
 
-	nw.AlignmentPeriod = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, des.AlignmentPeriod, nw.AlignmentPeriod)
+	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+		nw.AlignmentPeriod = des.AlignmentPeriod
+	}
 	nw.ReduceFractionLessThanParams = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(c, des.ReduceFractionLessThanParams, nw.ReduceFractionLessThanParams)
 	nw.ReduceMakeDistributionParams = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(c, des.ReduceMakeDistributionParams, nw.ReduceMakeDistributionParams)
 
@@ -6820,57 +8018,24 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecon
 	return reorderedNew
 }
 
-func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodSet(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod {
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
 
-	return reorderedNew
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams {
@@ -6921,6 +8086,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecon
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParamsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams {
@@ -6975,6 +8160,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecon
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions {
 	if des == nil {
 		return initial
@@ -7027,6 +8232,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecon
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets {
@@ -7085,6 +8310,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecon
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
 	if des == nil {
 		return initial
@@ -7141,6 +8386,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecon
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
 	if des == nil {
 		return initial
@@ -7191,6 +8456,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecon
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling {
 	if des == nil {
 		return initial
@@ -7239,6 +8524,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecon
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
@@ -7297,6 +8602,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickT
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio {
 	if des == nil {
 		return initial
@@ -7351,6 +8676,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
@@ -7409,6 +8754,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 	if des == nil {
 		return initial
@@ -7421,7 +8786,9 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 		return des
 	}
 
-	des.AlignmentPeriod = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(des.AlignmentPeriod, initial.AlignmentPeriod, opts...)
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+		des.AlignmentPeriod = initial.AlignmentPeriod
+	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
 	}
@@ -7442,7 +8809,9 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 		return nw
 	}
 
-	nw.AlignmentPeriod = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, des.AlignmentPeriod, nw.AlignmentPeriod)
+	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+		nw.AlignmentPeriod = des.AlignmentPeriod
+	}
 	nw.ReduceFractionLessThanParams = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(c, des.ReduceFractionLessThanParams, nw.ReduceFractionLessThanParams)
 	nw.ReduceMakeDistributionParams = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(c, des.ReduceMakeDistributionParams, nw.ReduceMakeDistributionParams)
 
@@ -7472,57 +8841,24 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	return reorderedNew
 }
 
-func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodSet(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod {
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
 
-	return reorderedNew
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams {
@@ -7573,6 +8909,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParamsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams {
@@ -7627,6 +8983,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions {
 	if des == nil {
 		return initial
@@ -7679,6 +9055,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets {
@@ -7737,6 +9133,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
 	if des == nil {
 		return initial
@@ -7793,6 +9209,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
 	if des == nil {
 		return initial
@@ -7843,6 +9279,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling {
 	if des == nil {
 		return initial
@@ -7891,6 +9347,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
@@ -7949,6 +9425,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 	if des == nil {
 		return initial
@@ -7961,7 +9457,9 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 		return des
 	}
 
-	des.AlignmentPeriod = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(des.AlignmentPeriod, initial.AlignmentPeriod, opts...)
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+		des.AlignmentPeriod = initial.AlignmentPeriod
+	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
 	}
@@ -7982,7 +9480,9 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 		return nw
 	}
 
-	nw.AlignmentPeriod = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, des.AlignmentPeriod, nw.AlignmentPeriod)
+	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+		nw.AlignmentPeriod = des.AlignmentPeriod
+	}
 	nw.ReduceFractionLessThanParams = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(c, des.ReduceFractionLessThanParams, nw.ReduceFractionLessThanParams)
 	nw.ReduceMakeDistributionParams = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(c, des.ReduceMakeDistributionParams, nw.ReduceMakeDistributionParams)
 
@@ -8012,57 +9512,24 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	return reorderedNew
 }
 
-func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodSet(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod {
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
 
-	return reorderedNew
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams {
@@ -8113,6 +9580,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParamsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams {
@@ -8167,6 +9654,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions {
 	if des == nil {
 		return initial
@@ -8219,6 +9726,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets {
@@ -8277,6 +9804,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
 	if des == nil {
 		return initial
@@ -8333,6 +9880,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
 	if des == nil {
 		return initial
@@ -8381,6 +9948,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling {
@@ -8433,6 +10020,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 	if des == nil {
 		return initial
@@ -8445,7 +10052,9 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSec
 		return des
 	}
 
-	des.AlignmentPeriod = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(des.AlignmentPeriod, initial.AlignmentPeriod, opts...)
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+		des.AlignmentPeriod = initial.AlignmentPeriod
+	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
 	}
@@ -8466,7 +10075,9 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 		return nw
 	}
 
-	nw.AlignmentPeriod = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, des.AlignmentPeriod, nw.AlignmentPeriod)
+	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+		nw.AlignmentPeriod = des.AlignmentPeriod
+	}
 	nw.ReduceFractionLessThanParams = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(c, des.ReduceFractionLessThanParams, nw.ReduceFractionLessThanParams)
 	nw.ReduceMakeDistributionParams = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(c, des.ReduceMakeDistributionParams, nw.ReduceMakeDistributionParams)
 
@@ -8496,57 +10107,24 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	return reorderedNew
 }
 
-func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodSet(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod {
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
 
-	return reorderedNew
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams {
@@ -8597,6 +10175,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParamsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams {
@@ -8651,6 +10249,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions {
 	if des == nil {
 		return initial
@@ -8703,6 +10321,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets {
@@ -8761,6 +10399,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
 	if des == nil {
 		return initial
@@ -8817,6 +10475,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
 	if des == nil {
 		return initial
@@ -8867,6 +10545,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling {
 	if des == nil {
 		return initial
@@ -8915,6 +10613,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(des, initial *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
@@ -8973,6 +10691,26 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(c *Client, des, nw []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardSourceDrilldown(des, initial *DashboardWidgetScorecardSourceDrilldown, opts ...dcl.ApplyOption) *DashboardWidgetScorecardSourceDrilldown {
 	if des == nil {
 		return initial
@@ -9008,6 +10746,9 @@ func canonicalizeNewDashboardWidgetScorecardSourceDrilldown(c *Client, des, nw *
 	}
 
 	nw.ResourceTypeDrilldown = canonicalizeNewDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown(c, des.ResourceTypeDrilldown, nw.ResourceTypeDrilldown)
+	nw.ResourceLabelDrilldowns = canonicalizeNewDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsSlice(c, des.ResourceLabelDrilldowns, nw.ResourceLabelDrilldowns)
+	nw.MetadataSystemLabelDrilldowns = canonicalizeNewDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsSlice(c, des.MetadataSystemLabelDrilldowns, nw.MetadataSystemLabelDrilldowns)
+	nw.MetadataUserLabelDrilldowns = canonicalizeNewDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsSlice(c, des.MetadataUserLabelDrilldowns, nw.MetadataUserLabelDrilldowns)
 	nw.GroupNameDrilldown = canonicalizeNewDashboardWidgetScorecardSourceDrilldownGroupNameDrilldown(c, des.GroupNameDrilldown, nw.GroupNameDrilldown)
 	nw.ServiceNameDrilldown = canonicalizeNewDashboardWidgetScorecardSourceDrilldownServiceNameDrilldown(c, des.ServiceNameDrilldown, nw.ServiceNameDrilldown)
 	nw.ServiceTypeDrilldown = canonicalizeNewDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown(c, des.ServiceTypeDrilldown, nw.ServiceTypeDrilldown)
@@ -9036,6 +10777,26 @@ func canonicalizeNewDashboardWidgetScorecardSourceDrilldownSet(c *Client, des, n
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardSourceDrilldownSlice(c *Client, des, nw []DashboardWidgetScorecardSourceDrilldown) []DashboardWidgetScorecardSourceDrilldown {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardSourceDrilldown
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardSourceDrilldown(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown(des, initial *DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown, opts ...dcl.ApplyOption) *DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown {
@@ -9088,6 +10849,26 @@ func canonicalizeNewDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldownSlice(c *Client, des, nw []DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown) []DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns(des, initial *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns, opts ...dcl.ApplyOption) *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns {
 	if des == nil {
 		return initial
@@ -9121,6 +10902,7 @@ func canonicalizeNewDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldow
 	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
 		nw.Label = des.Label
 	}
+	nw.ValueRestrictions = canonicalizeNewDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictionsSlice(c, des.ValueRestrictions, nw.ValueRestrictions)
 
 	return nw
 }
@@ -9146,6 +10928,26 @@ func canonicalizeNewDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldow
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsSlice(c *Client, des, nw []DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns) []DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions(des, initial *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions, opts ...dcl.ApplyOption) *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions {
@@ -9205,6 +11007,26 @@ func canonicalizeNewDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldow
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictionsSlice(c *Client, des, nw []DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions) []DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns(des, initial *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns, opts ...dcl.ApplyOption) *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns {
 	if des == nil {
 		return initial
@@ -9238,6 +11060,7 @@ func canonicalizeNewDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDr
 	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
 		nw.Label = des.Label
 	}
+	nw.ValueRestrictions = canonicalizeNewDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsSlice(c, des.ValueRestrictions, nw.ValueRestrictions)
 
 	return nw
 }
@@ -9263,6 +11086,26 @@ func canonicalizeNewDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDr
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsSlice(c *Client, des, nw []DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns) []DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions(des, initial *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, opts ...dcl.ApplyOption) *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions {
@@ -9322,6 +11165,26 @@ func canonicalizeNewDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDr
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsSlice(c *Client, des, nw []DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions) []DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns(des, initial *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns, opts ...dcl.ApplyOption) *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns {
 	if des == nil {
 		return initial
@@ -9355,6 +11218,7 @@ func canonicalizeNewDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDril
 	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
 		nw.Label = des.Label
 	}
+	nw.ValueRestrictions = canonicalizeNewDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsSlice(c, des.ValueRestrictions, nw.ValueRestrictions)
 
 	return nw
 }
@@ -9380,6 +11244,26 @@ func canonicalizeNewDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDril
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsSlice(c *Client, des, nw []DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns) []DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions(des, initial *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, opts ...dcl.ApplyOption) *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions {
@@ -9439,6 +11323,26 @@ func canonicalizeNewDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDril
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsSlice(c *Client, des, nw []DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions) []DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardSourceDrilldownGroupNameDrilldown(des, initial *DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown, opts ...dcl.ApplyOption) *DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown {
 	if des == nil {
 		return initial
@@ -9487,6 +11391,26 @@ func canonicalizeNewDashboardWidgetScorecardSourceDrilldownGroupNameDrilldownSet
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardSourceDrilldownGroupNameDrilldownSlice(c *Client, des, nw []DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown) []DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardSourceDrilldownGroupNameDrilldown(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardSourceDrilldownServiceNameDrilldown(des, initial *DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown, opts ...dcl.ApplyOption) *DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown {
@@ -9539,6 +11463,26 @@ func canonicalizeNewDashboardWidgetScorecardSourceDrilldownServiceNameDrilldownS
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardSourceDrilldownServiceNameDrilldownSlice(c *Client, des, nw []DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown) []DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardSourceDrilldownServiceNameDrilldown(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown(des, initial *DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown, opts ...dcl.ApplyOption) *DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown {
 	if des == nil {
 		return initial
@@ -9589,6 +11533,26 @@ func canonicalizeNewDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownS
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownSlice(c *Client, des, nw []DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown) []DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardMetricDrilldown(des, initial *DashboardWidgetScorecardMetricDrilldown, opts ...dcl.ApplyOption) *DashboardWidgetScorecardMetricDrilldown {
 	if des == nil {
 		return initial
@@ -9616,6 +11580,7 @@ func canonicalizeNewDashboardWidgetScorecardMetricDrilldown(c *Client, des, nw *
 	}
 
 	nw.MetricTypeDrilldown = canonicalizeNewDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown(c, des.MetricTypeDrilldown, nw.MetricTypeDrilldown)
+	nw.MetricLabelDrilldowns = canonicalizeNewDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsSlice(c, des.MetricLabelDrilldowns, nw.MetricLabelDrilldowns)
 	nw.MetricGroupByDrilldown = canonicalizeNewDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown(c, des.MetricGroupByDrilldown, nw.MetricGroupByDrilldown)
 
 	return nw
@@ -9642,6 +11607,26 @@ func canonicalizeNewDashboardWidgetScorecardMetricDrilldownSet(c *Client, des, n
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardMetricDrilldownSlice(c *Client, des, nw []DashboardWidgetScorecardMetricDrilldown) []DashboardWidgetScorecardMetricDrilldown {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardMetricDrilldown
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardMetricDrilldown(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown(des, initial *DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown, opts ...dcl.ApplyOption) *DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown {
@@ -9698,6 +11683,26 @@ func canonicalizeNewDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldownSe
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldownSlice(c *Client, des, nw []DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown) []DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns(des, initial *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns, opts ...dcl.ApplyOption) *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns {
 	if des == nil {
 		return initial
@@ -9731,6 +11736,7 @@ func canonicalizeNewDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns
 	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
 		nw.Label = des.Label
 	}
+	nw.ValueRestrictions = canonicalizeNewDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictionsSlice(c, des.ValueRestrictions, nw.ValueRestrictions)
 
 	return nw
 }
@@ -9756,6 +11762,26 @@ func canonicalizeNewDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsSlice(c *Client, des, nw []DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns) []DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions(des, initial *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions, opts ...dcl.ApplyOption) *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions {
@@ -9813,6 +11839,26 @@ func canonicalizeNewDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictionsSlice(c *Client, des, nw []DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions) []DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown(des, initial *DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown, opts ...dcl.ApplyOption) *DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown {
@@ -9877,6 +11923,26 @@ func canonicalizeNewDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldow
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldownSlice(c *Client, des, nw []DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown) []DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardGaugeView(des, initial *DashboardWidgetScorecardGaugeView, opts ...dcl.ApplyOption) *DashboardWidgetScorecardGaugeView {
 	if des == nil {
 		return initial
@@ -9930,6 +11996,26 @@ func canonicalizeNewDashboardWidgetScorecardGaugeViewSet(c *Client, des, nw []Da
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardGaugeViewSlice(c *Client, des, nw []DashboardWidgetScorecardGaugeView) []DashboardWidgetScorecardGaugeView {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardGaugeView
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardGaugeView(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetScorecardSparkChartView(des, initial *DashboardWidgetScorecardSparkChartView, opts ...dcl.ApplyOption) *DashboardWidgetScorecardSparkChartView {
 	if des == nil {
 		return initial
@@ -9945,7 +12031,9 @@ func canonicalizeDashboardWidgetScorecardSparkChartView(des, initial *DashboardW
 	if dcl.IsZeroValue(des.SparkChartType) {
 		des.SparkChartType = initial.SparkChartType
 	}
-	des.MinAlignmentPeriod = canonicalizeDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(des.MinAlignmentPeriod, initial.MinAlignmentPeriod, opts...)
+	if dcl.StringCanonicalize(des.MinAlignmentPeriod, initial.MinAlignmentPeriod) || dcl.IsZeroValue(des.MinAlignmentPeriod) {
+		des.MinAlignmentPeriod = initial.MinAlignmentPeriod
+	}
 
 	return des
 }
@@ -9955,7 +12043,9 @@ func canonicalizeNewDashboardWidgetScorecardSparkChartView(c *Client, des, nw *D
 		return nw
 	}
 
-	nw.MinAlignmentPeriod = canonicalizeNewDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(c, des.MinAlignmentPeriod, nw.MinAlignmentPeriod)
+	if dcl.StringCanonicalize(des.MinAlignmentPeriod, nw.MinAlignmentPeriod) || dcl.IsZeroValue(des.MinAlignmentPeriod) {
+		nw.MinAlignmentPeriod = des.MinAlignmentPeriod
+	}
 
 	return nw
 }
@@ -9983,57 +12073,24 @@ func canonicalizeNewDashboardWidgetScorecardSparkChartViewSet(c *Client, des, nw
 	return reorderedNew
 }
 
-func canonicalizeDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(des, initial *DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod, opts ...dcl.ApplyOption) *DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(c *Client, des, nw *DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod) *DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewDashboardWidgetScorecardSparkChartViewMinAlignmentPeriodSet(c *Client, des, nw []DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod) []DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod {
+func canonicalizeNewDashboardWidgetScorecardSparkChartViewSlice(c *Client, des, nw []DashboardWidgetScorecardSparkChartView) []DashboardWidgetScorecardSparkChartView {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
 
-	return reorderedNew
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardSparkChartView
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardSparkChartView(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardWidgetScorecardThresholds(des, initial *DashboardWidgetScorecardThresholds, opts ...dcl.ApplyOption) *DashboardWidgetScorecardThresholds {
@@ -10099,6 +12156,26 @@ func canonicalizeNewDashboardWidgetScorecardThresholdsSet(c *Client, des, nw []D
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetScorecardThresholdsSlice(c *Client, des, nw []DashboardWidgetScorecardThresholds) []DashboardWidgetScorecardThresholds {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetScorecardThresholds
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetScorecardThresholds(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetText(des, initial *DashboardWidgetText, opts ...dcl.ApplyOption) *DashboardWidgetText {
 	if des == nil {
 		return initial
@@ -10156,6 +12233,26 @@ func canonicalizeNewDashboardWidgetTextSet(c *Client, des, nw []DashboardWidgetT
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardWidgetTextSlice(c *Client, des, nw []DashboardWidgetText) []DashboardWidgetText {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetText
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetText(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardWidgetBlank(des, initial *DashboardWidgetBlank, opts ...dcl.ApplyOption) *DashboardWidgetBlank {
 	if des == nil {
 		return initial
@@ -10200,6 +12297,26 @@ func canonicalizeNewDashboardWidgetBlankSet(c *Client, des, nw []DashboardWidget
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardWidgetBlankSlice(c *Client, des, nw []DashboardWidgetBlank) []DashboardWidgetBlank {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardWidgetBlank
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardWidgetBlank(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardGridLayout(des, initial *DashboardGridLayout, opts ...dcl.ApplyOption) *DashboardGridLayout {
@@ -10255,6 +12372,26 @@ func canonicalizeNewDashboardGridLayoutSet(c *Client, des, nw []DashboardGridLay
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardGridLayoutSlice(c *Client, des, nw []DashboardGridLayout) []DashboardGridLayout {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardGridLayout
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardGridLayout(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardMosaicLayout(des, initial *DashboardMosaicLayout, opts ...dcl.ApplyOption) *DashboardMosaicLayout {
 	if des == nil {
 		return initial
@@ -10282,6 +12419,8 @@ func canonicalizeNewDashboardMosaicLayout(c *Client, des, nw *DashboardMosaicLay
 		return nw
 	}
 
+	nw.Tiles = canonicalizeNewDashboardMosaicLayoutTilesSlice(c, des.Tiles, nw.Tiles)
+
 	return nw
 }
 
@@ -10306,6 +12445,26 @@ func canonicalizeNewDashboardMosaicLayoutSet(c *Client, des, nw []DashboardMosai
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardMosaicLayoutSlice(c *Client, des, nw []DashboardMosaicLayout) []DashboardMosaicLayout {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardMosaicLayout
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardMosaicLayout(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardMosaicLayoutTiles(des, initial *DashboardMosaicLayoutTiles, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTiles {
@@ -10370,6 +12529,26 @@ func canonicalizeNewDashboardMosaicLayoutTilesSet(c *Client, des, nw []Dashboard
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardMosaicLayoutTilesSlice(c *Client, des, nw []DashboardMosaicLayoutTiles) []DashboardMosaicLayoutTiles {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardMosaicLayoutTiles
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardMosaicLayoutTiles(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardRowLayout(des, initial *DashboardRowLayout, opts ...dcl.ApplyOption) *DashboardRowLayout {
 	if des == nil {
 		return initial
@@ -10393,6 +12572,8 @@ func canonicalizeNewDashboardRowLayout(c *Client, des, nw *DashboardRowLayout) *
 	if des == nil || nw == nil {
 		return nw
 	}
+
+	nw.Rows = canonicalizeNewDashboardRowLayoutRowsSlice(c, des.Rows, nw.Rows)
 
 	return nw
 }
@@ -10418,6 +12599,26 @@ func canonicalizeNewDashboardRowLayoutSet(c *Client, des, nw []DashboardRowLayou
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardRowLayoutSlice(c *Client, des, nw []DashboardRowLayout) []DashboardRowLayout {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardRowLayout
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardRowLayout(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardRowLayoutRows(des, initial *DashboardRowLayoutRows, opts ...dcl.ApplyOption) *DashboardRowLayoutRows {
@@ -10473,6 +12674,26 @@ func canonicalizeNewDashboardRowLayoutRowsSet(c *Client, des, nw []DashboardRowL
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardRowLayoutRowsSlice(c *Client, des, nw []DashboardRowLayoutRows) []DashboardRowLayoutRows {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardRowLayoutRows
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardRowLayoutRows(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardTabbedLayout(des, initial *DashboardTabbedLayout, opts ...dcl.ApplyOption) *DashboardTabbedLayout {
 	if des == nil {
 		return initial
@@ -10498,6 +12719,7 @@ func canonicalizeNewDashboardTabbedLayout(c *Client, des, nw *DashboardTabbedLay
 		return nw
 	}
 
+	nw.Tabs = canonicalizeNewDashboardTabbedLayoutTabsSlice(c, des.Tabs, nw.Tabs)
 	nw.FeaturedMosaicLayout = canonicalizeNewDashboardTabbedLayoutFeaturedMosaicLayout(c, des.FeaturedMosaicLayout, nw.FeaturedMosaicLayout)
 
 	return nw
@@ -10524,6 +12746,26 @@ func canonicalizeNewDashboardTabbedLayoutSet(c *Client, des, nw []DashboardTabbe
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardTabbedLayoutSlice(c *Client, des, nw []DashboardTabbedLayout) []DashboardTabbedLayout {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardTabbedLayout
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardTabbedLayout(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardTabbedLayoutTabs(des, initial *DashboardTabbedLayoutTabs, opts ...dcl.ApplyOption) *DashboardTabbedLayoutTabs {
@@ -10594,6 +12836,26 @@ func canonicalizeNewDashboardTabbedLayoutTabsSet(c *Client, des, nw []DashboardT
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardTabbedLayoutTabsSlice(c *Client, des, nw []DashboardTabbedLayoutTabs) []DashboardTabbedLayoutTabs {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardTabbedLayoutTabs
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardTabbedLayoutTabs(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardTabbedLayoutTabsGridLayout(des, initial *DashboardTabbedLayoutTabsGridLayout, opts ...dcl.ApplyOption) *DashboardTabbedLayoutTabsGridLayout {
 	if des == nil {
 		return initial
@@ -10647,6 +12909,26 @@ func canonicalizeNewDashboardTabbedLayoutTabsGridLayoutSet(c *Client, des, nw []
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardTabbedLayoutTabsGridLayoutSlice(c *Client, des, nw []DashboardTabbedLayoutTabsGridLayout) []DashboardTabbedLayoutTabsGridLayout {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardTabbedLayoutTabsGridLayout
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardTabbedLayoutTabsGridLayout(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardTabbedLayoutTabsMosaicLayout(des, initial *DashboardTabbedLayoutTabsMosaicLayout, opts ...dcl.ApplyOption) *DashboardTabbedLayoutTabsMosaicLayout {
 	if des == nil {
 		return initial
@@ -10674,6 +12956,8 @@ func canonicalizeNewDashboardTabbedLayoutTabsMosaicLayout(c *Client, des, nw *Da
 		return nw
 	}
 
+	nw.Tiles = canonicalizeNewDashboardTabbedLayoutTabsMosaicLayoutTilesSlice(c, des.Tiles, nw.Tiles)
+
 	return nw
 }
 
@@ -10698,6 +12982,26 @@ func canonicalizeNewDashboardTabbedLayoutTabsMosaicLayoutSet(c *Client, des, nw 
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardTabbedLayoutTabsMosaicLayoutSlice(c *Client, des, nw []DashboardTabbedLayoutTabsMosaicLayout) []DashboardTabbedLayoutTabsMosaicLayout {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardTabbedLayoutTabsMosaicLayout
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardTabbedLayoutTabsMosaicLayout(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardTabbedLayoutTabsMosaicLayoutTiles(des, initial *DashboardTabbedLayoutTabsMosaicLayoutTiles, opts ...dcl.ApplyOption) *DashboardTabbedLayoutTabsMosaicLayoutTiles {
@@ -10762,6 +13066,26 @@ func canonicalizeNewDashboardTabbedLayoutTabsMosaicLayoutTilesSet(c *Client, des
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardTabbedLayoutTabsMosaicLayoutTilesSlice(c *Client, des, nw []DashboardTabbedLayoutTabsMosaicLayoutTiles) []DashboardTabbedLayoutTabsMosaicLayoutTiles {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardTabbedLayoutTabsMosaicLayoutTiles
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardTabbedLayoutTabsMosaicLayoutTiles(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardTabbedLayoutTabsRowLayout(des, initial *DashboardTabbedLayoutTabsRowLayout, opts ...dcl.ApplyOption) *DashboardTabbedLayoutTabsRowLayout {
 	if des == nil {
 		return initial
@@ -10785,6 +13109,8 @@ func canonicalizeNewDashboardTabbedLayoutTabsRowLayout(c *Client, des, nw *Dashb
 	if des == nil || nw == nil {
 		return nw
 	}
+
+	nw.Rows = canonicalizeNewDashboardTabbedLayoutTabsRowLayoutRowsSlice(c, des.Rows, nw.Rows)
 
 	return nw
 }
@@ -10810,6 +13136,26 @@ func canonicalizeNewDashboardTabbedLayoutTabsRowLayoutSet(c *Client, des, nw []D
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardTabbedLayoutTabsRowLayoutSlice(c *Client, des, nw []DashboardTabbedLayoutTabsRowLayout) []DashboardTabbedLayoutTabsRowLayout {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardTabbedLayoutTabsRowLayout
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardTabbedLayoutTabsRowLayout(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardTabbedLayoutTabsRowLayoutRows(des, initial *DashboardTabbedLayoutTabsRowLayoutRows, opts ...dcl.ApplyOption) *DashboardTabbedLayoutTabsRowLayoutRows {
@@ -10865,6 +13211,26 @@ func canonicalizeNewDashboardTabbedLayoutTabsRowLayoutRowsSet(c *Client, des, nw
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardTabbedLayoutTabsRowLayoutRowsSlice(c *Client, des, nw []DashboardTabbedLayoutTabsRowLayoutRows) []DashboardTabbedLayoutTabsRowLayoutRows {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardTabbedLayoutTabsRowLayoutRows
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardTabbedLayoutTabsRowLayoutRows(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardTabbedLayoutTabsColumnLayout(des, initial *DashboardTabbedLayoutTabsColumnLayout, opts ...dcl.ApplyOption) *DashboardTabbedLayoutTabsColumnLayout {
 	if des == nil {
 		return initial
@@ -10888,6 +13254,8 @@ func canonicalizeNewDashboardTabbedLayoutTabsColumnLayout(c *Client, des, nw *Da
 	if des == nil || nw == nil {
 		return nw
 	}
+
+	nw.Columns = canonicalizeNewDashboardTabbedLayoutTabsColumnLayoutColumnsSlice(c, des.Columns, nw.Columns)
 
 	return nw
 }
@@ -10913,6 +13281,26 @@ func canonicalizeNewDashboardTabbedLayoutTabsColumnLayoutSet(c *Client, des, nw 
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardTabbedLayoutTabsColumnLayoutSlice(c *Client, des, nw []DashboardTabbedLayoutTabsColumnLayout) []DashboardTabbedLayoutTabsColumnLayout {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardTabbedLayoutTabsColumnLayout
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardTabbedLayoutTabsColumnLayout(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardTabbedLayoutTabsColumnLayoutColumns(des, initial *DashboardTabbedLayoutTabsColumnLayoutColumns, opts ...dcl.ApplyOption) *DashboardTabbedLayoutTabsColumnLayoutColumns {
@@ -10968,6 +13356,26 @@ func canonicalizeNewDashboardTabbedLayoutTabsColumnLayoutColumnsSet(c *Client, d
 	return reorderedNew
 }
 
+func canonicalizeNewDashboardTabbedLayoutTabsColumnLayoutColumnsSlice(c *Client, des, nw []DashboardTabbedLayoutTabsColumnLayoutColumns) []DashboardTabbedLayoutTabsColumnLayoutColumns {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardTabbedLayoutTabsColumnLayoutColumns
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardTabbedLayoutTabsColumnLayoutColumns(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardTabbedLayoutFeaturedMosaicLayout(des, initial *DashboardTabbedLayoutFeaturedMosaicLayout, opts ...dcl.ApplyOption) *DashboardTabbedLayoutFeaturedMosaicLayout {
 	if des == nil {
 		return initial
@@ -10995,6 +13403,8 @@ func canonicalizeNewDashboardTabbedLayoutFeaturedMosaicLayout(c *Client, des, nw
 		return nw
 	}
 
+	nw.Tiles = canonicalizeNewDashboardTabbedLayoutFeaturedMosaicLayoutTilesSlice(c, des.Tiles, nw.Tiles)
+
 	return nw
 }
 
@@ -11019,6 +13429,26 @@ func canonicalizeNewDashboardTabbedLayoutFeaturedMosaicLayoutSet(c *Client, des,
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardTabbedLayoutFeaturedMosaicLayoutSlice(c *Client, des, nw []DashboardTabbedLayoutFeaturedMosaicLayout) []DashboardTabbedLayoutFeaturedMosaicLayout {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardTabbedLayoutFeaturedMosaicLayout
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardTabbedLayoutFeaturedMosaicLayout(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardTabbedLayoutFeaturedMosaicLayoutTiles(des, initial *DashboardTabbedLayoutFeaturedMosaicLayoutTiles, opts ...dcl.ApplyOption) *DashboardTabbedLayoutFeaturedMosaicLayoutTiles {
@@ -11081,6 +13511,26 @@ func canonicalizeNewDashboardTabbedLayoutFeaturedMosaicLayoutTilesSet(c *Client,
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewDashboardTabbedLayoutFeaturedMosaicLayoutTilesSlice(c *Client, des, nw []DashboardTabbedLayoutFeaturedMosaicLayoutTiles) []DashboardTabbedLayoutFeaturedMosaicLayoutTiles {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardTabbedLayoutFeaturedMosaicLayoutTiles
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardTabbedLayoutFeaturedMosaicLayoutTiles(c, &d, &n))
+	}
+
+	return items
 }
 
 type dashboardDiff struct {
@@ -11413,7 +13863,7 @@ func compareDashboardWidgetXyChart(c *Client, desired, actual *DashboardWidgetXy
 		c.Config.Logger.Infof("desired TimeshiftDuration %s - but actually nil", dcl.SprintResource(desired.TimeshiftDuration))
 		return true
 	}
-	if compareDashboardWidgetXyChartTimeshiftDuration(c, desired.TimeshiftDuration, actual.TimeshiftDuration) && !dcl.IsZeroValue(desired.TimeshiftDuration) {
+	if !dcl.StringCanonicalize(desired.TimeshiftDuration, actual.TimeshiftDuration) && !dcl.IsZeroValue(desired.TimeshiftDuration) {
 		c.Config.Logger.Infof("Diff in TimeshiftDuration. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeshiftDuration), dcl.SprintResource(actual.TimeshiftDuration))
 		return true
 	}
@@ -11520,7 +13970,7 @@ func compareDashboardWidgetXyChartDataSets(c *Client, desired, actual *Dashboard
 		c.Config.Logger.Infof("desired MinAlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.MinAlignmentPeriod))
 		return true
 	}
-	if compareDashboardWidgetXyChartDataSetsMinAlignmentPeriod(c, desired.MinAlignmentPeriod, actual.MinAlignmentPeriod) && !dcl.IsZeroValue(desired.MinAlignmentPeriod) {
+	if !dcl.StringCanonicalize(desired.MinAlignmentPeriod, actual.MinAlignmentPeriod) && !dcl.IsZeroValue(desired.MinAlignmentPeriod) {
 		c.Config.Logger.Infof("Diff in MinAlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinAlignmentPeriod), dcl.SprintResource(actual.MinAlignmentPeriod))
 		return true
 	}
@@ -11729,7 +14179,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 		c.Config.Logger.Infof("desired AlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.AlignmentPeriod))
 		return true
 	}
-	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
+	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
 		c.Config.Logger.Infof("Diff in AlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
 		return true
 	}
@@ -11803,65 +14253,6 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c, &desiredValue, &actualValue) {
 			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12292,7 +14683,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 		c.Config.Logger.Infof("desired AlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.AlignmentPeriod))
 		return true
 	}
-	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
+	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
 		c.Config.Logger.Infof("Diff in AlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
 		return true
 	}
@@ -12366,65 +14757,6 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, &desiredValue, &actualValue) {
 			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13056,7 +15388,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 		c.Config.Logger.Infof("desired AlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.AlignmentPeriod))
 		return true
 	}
-	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
+	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
 		c.Config.Logger.Infof("Diff in AlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
 		return true
 	}
@@ -13130,65 +15462,6 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, &desiredValue, &actualValue) {
 			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13678,7 +15951,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 		c.Config.Logger.Infof("desired AlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.AlignmentPeriod))
 		return true
 	}
-	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
+	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
 		c.Config.Logger.Infof("Diff in AlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
 		return true
 	}
@@ -13752,65 +16025,6 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, &desiredValue, &actualValue) {
 			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14241,7 +16455,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 		c.Config.Logger.Infof("desired AlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.AlignmentPeriod))
 		return true
 	}
-	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
+	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
 		c.Config.Logger.Infof("Diff in AlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
 		return true
 	}
@@ -14315,65 +16529,6 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, &desiredValue, &actualValue) {
 			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14854,65 +17009,6 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, &desiredValue, &actualValue) {
 			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetXyChartDataSetsMinAlignmentPeriod(c *Client, desired, actual *DashboardWidgetXyChartDataSetsMinAlignmentPeriod) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareDashboardWidgetXyChartDataSetsMinAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsMinAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsMinAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartDataSetsMinAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsMinAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetXyChartDataSetsMinAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetXyChartDataSetsMinAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsMinAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsMinAlignmentPeriod, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardWidgetXyChartDataSetsMinAlignmentPeriod(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsMinAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15927,65 +18023,6 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownMap(c *Cl
 	return false
 }
 
-func compareDashboardWidgetXyChartTimeshiftDuration(c *Client, desired, actual *DashboardWidgetXyChartTimeshiftDuration) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareDashboardWidgetXyChartTimeshiftDurationSlice(c *Client, desired, actual []DashboardWidgetXyChartTimeshiftDuration) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartTimeshiftDuration, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetXyChartTimeshiftDuration(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartTimeshiftDuration, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetXyChartTimeshiftDurationMap(c *Client, desired, actual map[string]DashboardWidgetXyChartTimeshiftDuration) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetXyChartTimeshiftDuration, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartTimeshiftDuration, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardWidgetXyChartTimeshiftDuration(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartTimeshiftDuration, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
 func compareDashboardWidgetXyChartThresholds(c *Client, desired, actual *DashboardWidgetXyChartThresholds) bool {
 	if desired == nil {
 		return false
@@ -16198,7 +18235,7 @@ func compareDashboardWidgetXyChartChartOptions(c *Client, desired, actual *Dashb
 		c.Config.Logger.Infof("desired ShowLegend %s - but actually nil", dcl.SprintResource(desired.ShowLegend))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ShowLegend, actual.ShowLegend) && !dcl.IsZeroValue(desired.ShowLegend) {
+	if !dcl.BoolCanonicalize(desired.ShowLegend, actual.ShowLegend) && !dcl.IsZeroValue(desired.ShowLegend) {
 		c.Config.Logger.Infof("Diff in ShowLegend. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ShowLegend), dcl.SprintResource(actual.ShowLegend))
 		return true
 	}
@@ -16498,7 +18535,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c
 		c.Config.Logger.Infof("desired AlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.AlignmentPeriod))
 		return true
 	}
-	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
+	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
 		c.Config.Logger.Infof("Diff in AlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
 		return true
 	}
@@ -16572,65 +18609,6 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationMa
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c, &desiredValue, &actualValue) {
 			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17061,7 +19039,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 		c.Config.Logger.Infof("desired AlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.AlignmentPeriod))
 		return true
 	}
-	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
+	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
 		c.Config.Logger.Infof("Diff in AlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
 		return true
 	}
@@ -17135,65 +19113,6 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, &desiredValue, &actualValue) {
 			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17825,7 +19744,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 		c.Config.Logger.Infof("desired AlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.AlignmentPeriod))
 		return true
 	}
-	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
+	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
 		c.Config.Logger.Infof("Diff in AlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
 		return true
 	}
@@ -17899,65 +19818,6 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, &desiredValue, &actualValue) {
 			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18447,7 +20307,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 		c.Config.Logger.Infof("desired AlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.AlignmentPeriod))
 		return true
 	}
-	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
+	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
 		c.Config.Logger.Infof("Diff in AlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
 		return true
 	}
@@ -18521,65 +20381,6 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, &desiredValue, &actualValue) {
 			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19010,7 +20811,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 		c.Config.Logger.Infof("desired AlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.AlignmentPeriod))
 		return true
 	}
-	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
+	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
 		c.Config.Logger.Infof("Diff in AlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
 		return true
 	}
@@ -19084,65 +20885,6 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, &desiredValue, &actualValue) {
 			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -20715,7 +22457,7 @@ func compareDashboardWidgetScorecardSparkChartView(c *Client, desired, actual *D
 		c.Config.Logger.Infof("desired MinAlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.MinAlignmentPeriod))
 		return true
 	}
-	if compareDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(c, desired.MinAlignmentPeriod, actual.MinAlignmentPeriod) && !dcl.IsZeroValue(desired.MinAlignmentPeriod) {
+	if !dcl.StringCanonicalize(desired.MinAlignmentPeriod, actual.MinAlignmentPeriod) && !dcl.IsZeroValue(desired.MinAlignmentPeriod) {
 		c.Config.Logger.Infof("Diff in MinAlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinAlignmentPeriod), dcl.SprintResource(actual.MinAlignmentPeriod))
 		return true
 	}
@@ -20749,65 +22491,6 @@ func compareDashboardWidgetScorecardSparkChartViewMap(c *Client, desired, actual
 		}
 		if compareDashboardWidgetScorecardSparkChartView(c, &desiredValue, &actualValue) {
 			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSparkChartView, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(c *Client, desired, actual *DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareDashboardWidgetScorecardSparkChartViewMinAlignmentPeriodSlice(c *Client, desired, actual []DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardWidgetScorecardSparkChartViewMinAlignmentPeriodMap(c *Client, desired, actual map[string]DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -21010,7 +22693,7 @@ func compareDashboardGridLayout(c *Client, desired, actual *DashboardGridLayout)
 		c.Config.Logger.Infof("desired Widgets %s - but actually nil", dcl.SprintResource(desired.Widgets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
+	if compareDashboardWidgetSlice(c, desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
 		c.Config.Logger.Infof("Diff in Widgets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
 		return true
 	}
@@ -21262,7 +22945,7 @@ func compareDashboardRowLayoutRows(c *Client, desired, actual *DashboardRowLayou
 		c.Config.Logger.Infof("desired Widgets %s - but actually nil", dcl.SprintResource(desired.Widgets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
+	if compareDashboardWidgetSlice(c, desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
 		c.Config.Logger.Infof("Diff in Widgets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
 		return true
 	}
@@ -21471,7 +23154,7 @@ func compareDashboardTabbedLayoutTabsGridLayout(c *Client, desired, actual *Dash
 		c.Config.Logger.Infof("desired Widgets %s - but actually nil", dcl.SprintResource(desired.Widgets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
+	if compareDashboardWidgetSlice(c, desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
 		c.Config.Logger.Infof("Diff in Widgets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
 		return true
 	}
@@ -21723,7 +23406,7 @@ func compareDashboardTabbedLayoutTabsRowLayoutRows(c *Client, desired, actual *D
 		c.Config.Logger.Infof("desired Widgets %s - but actually nil", dcl.SprintResource(desired.Widgets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
+	if compareDashboardWidgetSlice(c, desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
 		c.Config.Logger.Infof("Diff in Widgets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
 		return true
 	}
@@ -21833,7 +23516,7 @@ func compareDashboardTabbedLayoutTabsColumnLayoutColumns(c *Client, desired, act
 		c.Config.Logger.Infof("desired Widgets %s - but actually nil", dcl.SprintResource(desired.Widgets))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
+	if compareDashboardWidgetSlice(c, desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
 		c.Config.Logger.Infof("Diff in Widgets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
 		return true
 	}
@@ -23717,9 +25400,7 @@ func expandDashboardWidgetXyChart(c *Client, f *DashboardWidgetXyChart) (map[str
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["metricDrilldown"] = v
 	}
-	if v, err := expandDashboardWidgetXyChartTimeshiftDuration(c, f.TimeshiftDuration); err != nil {
-		return nil, fmt.Errorf("error expanding TimeshiftDuration into timeshiftDuration: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.TimeshiftDuration; !dcl.IsEmptyValueIndirect(v) {
 		m["timeshiftDuration"] = v
 	}
 	if v, err := expandDashboardWidgetXyChartThresholdsSlice(c, f.Thresholds); err != nil {
@@ -23758,7 +25439,7 @@ func flattenDashboardWidgetXyChart(c *Client, i interface{}) *DashboardWidgetXyC
 	r.DataSets = flattenDashboardWidgetXyChartDataSetsSlice(c, m["dataSets"])
 	r.SourceDrilldown = flattenDashboardWidgetXyChartSourceDrilldown(c, m["sourceDrilldown"])
 	r.MetricDrilldown = flattenDashboardWidgetXyChartMetricDrilldown(c, m["metricDrilldown"])
-	r.TimeshiftDuration = flattenDashboardWidgetXyChartTimeshiftDuration(c, m["timeshiftDuration"])
+	r.TimeshiftDuration = dcl.FlattenString(m["timeshiftDuration"])
 	r.Thresholds = flattenDashboardWidgetXyChartThresholdsSlice(c, m["thresholds"])
 	r.XAxis = flattenDashboardWidgetXyChartXAxis(c, m["xAxis"])
 	r.YAxis = flattenDashboardWidgetXyChartYAxis(c, m["yAxis"])
@@ -23867,9 +25548,7 @@ func expandDashboardWidgetXyChartDataSets(c *Client, f *DashboardWidgetXyChartDa
 	if v := f.LegendTemplate; !dcl.IsEmptyValueIndirect(v) {
 		m["legendTemplate"] = v
 	}
-	if v, err := expandDashboardWidgetXyChartDataSetsMinAlignmentPeriod(c, f.MinAlignmentPeriod); err != nil {
-		return nil, fmt.Errorf("error expanding MinAlignmentPeriod into minAlignmentPeriod: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.MinAlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["minAlignmentPeriod"] = v
 	}
 
@@ -23888,7 +25567,7 @@ func flattenDashboardWidgetXyChartDataSets(c *Client, i interface{}) *DashboardW
 	r.TimeSeriesQuery = flattenDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, m["timeSeriesQuery"])
 	r.PlotType = flattenDashboardWidgetXyChartDataSetsPlotTypeEnum(m["plotType"])
 	r.LegendTemplate = dcl.FlattenString(m["legendTemplate"])
-	r.MinAlignmentPeriod = flattenDashboardWidgetXyChartDataSetsMinAlignmentPeriod(c, m["minAlignmentPeriod"])
+	r.MinAlignmentPeriod = dcl.FlattenString(m["minAlignmentPeriod"])
 
 	return r
 }
@@ -24240,9 +25919,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregat
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, f.AlignmentPeriod); err != nil {
-		return nil, fmt.Errorf("error expanding AlignmentPeriod into alignmentPeriod: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
 	if v := f.PerSeriesAligner; !dcl.IsEmptyValueIndirect(v) {
@@ -24277,126 +25954,12 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{}
-	r.AlignmentPeriod = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, m["alignmentPeriod"])
+	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(m["crossSeriesReducer"])
 	r.GroupByFields = dcl.FlattenStringSlice(m["groupByFields"])
 	r.ReduceFractionLessThanParams = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(c, m["reduceFractionLessThanParams"])
 	r.ReduceMakeDistributionParams = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(c, m["reduceMakeDistributionParams"])
-
-	return r
-}
-
-// expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodMap expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodSlice expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod{}
-	}
-
-	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod)
-	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod{}
-	}
-
-	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod flattens an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c *Client, i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
 	return r
 }
@@ -25298,9 +26861,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondar
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, f.AlignmentPeriod); err != nil {
-		return nil, fmt.Errorf("error expanding AlignmentPeriod into alignmentPeriod: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
 	if v := f.PerSeriesAligner; !dcl.IsEmptyValueIndirect(v) {
@@ -25335,126 +26896,12 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
-	r.AlignmentPeriod = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, m["alignmentPeriod"])
+	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(m["crossSeriesReducer"])
 	r.GroupByFields = dcl.FlattenStringSlice(m["groupByFields"])
 	r.ReduceFractionLessThanParams = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(c, m["reduceFractionLessThanParams"])
 	r.ReduceMakeDistributionParams = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(c, m["reduceMakeDistributionParams"])
-
-	return r
-}
-
-// expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodMap expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodSlice expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod{}
-	}
-
-	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod)
-	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod{}
-	}
-
-	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod flattens an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c *Client, i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
 	return r
 }
@@ -26720,9 +28167,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNum
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, f.AlignmentPeriod); err != nil {
-		return nil, fmt.Errorf("error expanding AlignmentPeriod into alignmentPeriod: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
 	if v := f.PerSeriesAligner; !dcl.IsEmptyValueIndirect(v) {
@@ -26757,126 +28202,12 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
-	r.AlignmentPeriod = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, m["alignmentPeriod"])
+	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(m["crossSeriesReducer"])
 	r.GroupByFields = dcl.FlattenStringSlice(m["groupByFields"])
 	r.ReduceFractionLessThanParams = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(c, m["reduceFractionLessThanParams"])
 	r.ReduceMakeDistributionParams = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(c, m["reduceMakeDistributionParams"])
-
-	return r
-}
-
-// expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodMap expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodSlice expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod{}
-	}
-
-	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod)
-	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod{}
-	}
-
-	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod flattens an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c *Client, i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
 	return r
 }
@@ -27894,9 +29225,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDen
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, f.AlignmentPeriod); err != nil {
-		return nil, fmt.Errorf("error expanding AlignmentPeriod into alignmentPeriod: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
 	if v := f.PerSeriesAligner; !dcl.IsEmptyValueIndirect(v) {
@@ -27931,126 +29260,12 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
-	r.AlignmentPeriod = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, m["alignmentPeriod"])
+	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(m["crossSeriesReducer"])
 	r.GroupByFields = dcl.FlattenStringSlice(m["groupByFields"])
 	r.ReduceFractionLessThanParams = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(c, m["reduceFractionLessThanParams"])
 	r.ReduceMakeDistributionParams = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(c, m["reduceMakeDistributionParams"])
-
-	return r
-}
-
-// expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodMap expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodSlice expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod{}
-	}
-
-	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod)
-	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod{}
-	}
-
-	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod flattens an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c *Client, i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
 	return r
 }
@@ -28952,9 +30167,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSec
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, f.AlignmentPeriod); err != nil {
-		return nil, fmt.Errorf("error expanding AlignmentPeriod into alignmentPeriod: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
 	if v := f.PerSeriesAligner; !dcl.IsEmptyValueIndirect(v) {
@@ -28989,126 +30202,12 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
-	r.AlignmentPeriod = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, m["alignmentPeriod"])
+	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(m["crossSeriesReducer"])
 	r.GroupByFields = dcl.FlattenStringSlice(m["groupByFields"])
 	r.ReduceFractionLessThanParams = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(c, m["reduceFractionLessThanParams"])
 	r.ReduceMakeDistributionParams = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(c, m["reduceMakeDistributionParams"])
-
-	return r
-}
-
-// expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodMap expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodSlice expands the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodSlice(c *Client, f []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod{}
-	}
-
-	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod)
-	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod{}
-	}
-
-	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod flattens an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c *Client, i interface{}) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
 	return r
 }
@@ -30035,120 +31134,6 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 	r.RankingMethod = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(m["rankingMethod"])
 	r.NumTimeSeries = dcl.FlattenInteger(m["numTimeSeries"])
 	r.Direction = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(m["direction"])
-
-	return r
-}
-
-// expandDashboardWidgetXyChartDataSetsMinAlignmentPeriodMap expands the contents of DashboardWidgetXyChartDataSetsMinAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetXyChartDataSetsMinAlignmentPeriodMap(c *Client, f map[string]DashboardWidgetXyChartDataSetsMinAlignmentPeriod) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsMinAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardWidgetXyChartDataSetsMinAlignmentPeriodSlice expands the contents of DashboardWidgetXyChartDataSetsMinAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetXyChartDataSetsMinAlignmentPeriodSlice(c *Client, f []DashboardWidgetXyChartDataSetsMinAlignmentPeriod) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartDataSetsMinAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardWidgetXyChartDataSetsMinAlignmentPeriodMap flattens the contents of DashboardWidgetXyChartDataSetsMinAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetXyChartDataSetsMinAlignmentPeriodMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsMinAlignmentPeriod {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardWidgetXyChartDataSetsMinAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardWidgetXyChartDataSetsMinAlignmentPeriod{}
-	}
-
-	items := make(map[string]DashboardWidgetXyChartDataSetsMinAlignmentPeriod)
-	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartDataSetsMinAlignmentPeriod(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardWidgetXyChartDataSetsMinAlignmentPeriodSlice flattens the contents of DashboardWidgetXyChartDataSetsMinAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetXyChartDataSetsMinAlignmentPeriodSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsMinAlignmentPeriod {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardWidgetXyChartDataSetsMinAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardWidgetXyChartDataSetsMinAlignmentPeriod{}
-	}
-
-	items := make([]DashboardWidgetXyChartDataSetsMinAlignmentPeriod, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartDataSetsMinAlignmentPeriod(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardWidgetXyChartDataSetsMinAlignmentPeriod expands an instance of DashboardWidgetXyChartDataSetsMinAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetXyChartDataSetsMinAlignmentPeriod(c *Client, f *DashboardWidgetXyChartDataSetsMinAlignmentPeriod) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardWidgetXyChartDataSetsMinAlignmentPeriod flattens an instance of DashboardWidgetXyChartDataSetsMinAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetXyChartDataSetsMinAlignmentPeriod(c *Client, i interface{}) *DashboardWidgetXyChartDataSetsMinAlignmentPeriod {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardWidgetXyChartDataSetsMinAlignmentPeriod{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
 	return r
 }
@@ -32037,120 +33022,6 @@ func flattenDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown(c *Clien
 	return r
 }
 
-// expandDashboardWidgetXyChartTimeshiftDurationMap expands the contents of DashboardWidgetXyChartTimeshiftDuration into a JSON
-// request object.
-func expandDashboardWidgetXyChartTimeshiftDurationMap(c *Client, f map[string]DashboardWidgetXyChartTimeshiftDuration) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardWidgetXyChartTimeshiftDuration(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardWidgetXyChartTimeshiftDurationSlice expands the contents of DashboardWidgetXyChartTimeshiftDuration into a JSON
-// request object.
-func expandDashboardWidgetXyChartTimeshiftDurationSlice(c *Client, f []DashboardWidgetXyChartTimeshiftDuration) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardWidgetXyChartTimeshiftDuration(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardWidgetXyChartTimeshiftDurationMap flattens the contents of DashboardWidgetXyChartTimeshiftDuration from a JSON
-// response object.
-func flattenDashboardWidgetXyChartTimeshiftDurationMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartTimeshiftDuration {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardWidgetXyChartTimeshiftDuration{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardWidgetXyChartTimeshiftDuration{}
-	}
-
-	items := make(map[string]DashboardWidgetXyChartTimeshiftDuration)
-	for k, item := range a {
-		items[k] = *flattenDashboardWidgetXyChartTimeshiftDuration(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardWidgetXyChartTimeshiftDurationSlice flattens the contents of DashboardWidgetXyChartTimeshiftDuration from a JSON
-// response object.
-func flattenDashboardWidgetXyChartTimeshiftDurationSlice(c *Client, i interface{}) []DashboardWidgetXyChartTimeshiftDuration {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardWidgetXyChartTimeshiftDuration{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardWidgetXyChartTimeshiftDuration{}
-	}
-
-	items := make([]DashboardWidgetXyChartTimeshiftDuration, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetXyChartTimeshiftDuration(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardWidgetXyChartTimeshiftDuration expands an instance of DashboardWidgetXyChartTimeshiftDuration into a JSON
-// request object.
-func expandDashboardWidgetXyChartTimeshiftDuration(c *Client, f *DashboardWidgetXyChartTimeshiftDuration) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardWidgetXyChartTimeshiftDuration flattens an instance of DashboardWidgetXyChartTimeshiftDuration from a JSON
-// response object.
-func flattenDashboardWidgetXyChartTimeshiftDuration(c *Client, i interface{}) *DashboardWidgetXyChartTimeshiftDuration {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardWidgetXyChartTimeshiftDuration{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
-
-	return r
-}
-
 // expandDashboardWidgetXyChartThresholdsMap expands the contents of DashboardWidgetXyChartThresholds into a JSON
 // request object.
 func expandDashboardWidgetXyChartThresholdsMap(c *Client, f map[string]DashboardWidgetXyChartThresholds) (map[string]interface{}, error) {
@@ -33104,9 +33975,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c 
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, f.AlignmentPeriod); err != nil {
-		return nil, fmt.Errorf("error expanding AlignmentPeriod into alignmentPeriod: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
 	if v := f.PerSeriesAligner; !dcl.IsEmptyValueIndirect(v) {
@@ -33141,126 +34010,12 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation{}
-	r.AlignmentPeriod = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, m["alignmentPeriod"])
+	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(m["crossSeriesReducer"])
 	r.GroupByFields = dcl.FlattenStringSlice(m["groupByFields"])
 	r.ReduceFractionLessThanParams = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(c, m["reduceFractionLessThanParams"])
 	r.ReduceMakeDistributionParams = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(c, m["reduceMakeDistributionParams"])
-
-	return r
-}
-
-// expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodMap expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodSlice expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod{}
-	}
-
-	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod)
-	for k, item := range a {
-		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriodSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod{}
-	}
-
-	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod flattens an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod(c *Client, i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
 	return r
 }
@@ -34162,9 +34917,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggre
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, f.AlignmentPeriod); err != nil {
-		return nil, fmt.Errorf("error expanding AlignmentPeriod into alignmentPeriod: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
 	if v := f.PerSeriesAligner; !dcl.IsEmptyValueIndirect(v) {
@@ -34199,126 +34952,12 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
-	r.AlignmentPeriod = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, m["alignmentPeriod"])
+	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(m["crossSeriesReducer"])
 	r.GroupByFields = dcl.FlattenStringSlice(m["groupByFields"])
 	r.ReduceFractionLessThanParams = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(c, m["reduceFractionLessThanParams"])
 	r.ReduceMakeDistributionParams = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(c, m["reduceMakeDistributionParams"])
-
-	return r
-}
-
-// expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodMap expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodSlice expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod{}
-	}
-
-	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod)
-	for k, item := range a {
-		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriodSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod{}
-	}
-
-	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod flattens an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod(c *Client, i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
 	return r
 }
@@ -35584,9 +36223,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, f.AlignmentPeriod); err != nil {
-		return nil, fmt.Errorf("error expanding AlignmentPeriod into alignmentPeriod: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
 	if v := f.PerSeriesAligner; !dcl.IsEmptyValueIndirect(v) {
@@ -35621,126 +36258,12 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
-	r.AlignmentPeriod = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, m["alignmentPeriod"])
+	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(m["crossSeriesReducer"])
 	r.GroupByFields = dcl.FlattenStringSlice(m["groupByFields"])
 	r.ReduceFractionLessThanParams = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(c, m["reduceFractionLessThanParams"])
 	r.ReduceMakeDistributionParams = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(c, m["reduceMakeDistributionParams"])
-
-	return r
-}
-
-// expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodMap expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodSlice expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod{}
-	}
-
-	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod)
-	for k, item := range a {
-		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriodSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod{}
-	}
-
-	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod flattens an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod(c *Client, i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
 	return r
 }
@@ -36758,9 +37281,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominat
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, f.AlignmentPeriod); err != nil {
-		return nil, fmt.Errorf("error expanding AlignmentPeriod into alignmentPeriod: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
 	if v := f.PerSeriesAligner; !dcl.IsEmptyValueIndirect(v) {
@@ -36795,126 +37316,12 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
-	r.AlignmentPeriod = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, m["alignmentPeriod"])
+	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(m["crossSeriesReducer"])
 	r.GroupByFields = dcl.FlattenStringSlice(m["groupByFields"])
 	r.ReduceFractionLessThanParams = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(c, m["reduceFractionLessThanParams"])
 	r.ReduceMakeDistributionParams = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(c, m["reduceMakeDistributionParams"])
-
-	return r
-}
-
-// expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodMap expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodSlice expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod{}
-	}
-
-	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod)
-	for k, item := range a {
-		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriodSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod{}
-	}
-
-	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod flattens an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod(c *Client, i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
 	return r
 }
@@ -37816,9 +38223,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondary
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, f.AlignmentPeriod); err != nil {
-		return nil, fmt.Errorf("error expanding AlignmentPeriod into alignmentPeriod: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
 	if v := f.PerSeriesAligner; !dcl.IsEmptyValueIndirect(v) {
@@ -37853,126 +38258,12 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
-	r.AlignmentPeriod = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, m["alignmentPeriod"])
+	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(m["crossSeriesReducer"])
 	r.GroupByFields = dcl.FlattenStringSlice(m["groupByFields"])
 	r.ReduceFractionLessThanParams = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(c, m["reduceFractionLessThanParams"])
 	r.ReduceMakeDistributionParams = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(c, m["reduceMakeDistributionParams"])
-
-	return r
-}
-
-// expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodMap expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodMap(c *Client, f map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodSlice expands the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodSlice(c *Client, f []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod{}
-	}
-
-	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod)
-	for k, item := range a {
-		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriodSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod{}
-	}
-
-	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod flattens an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod(c *Client, i interface{}) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
 	return r
 }
@@ -40993,9 +41284,7 @@ func expandDashboardWidgetScorecardSparkChartView(c *Client, f *DashboardWidgetS
 	if v := f.SparkChartType; !dcl.IsEmptyValueIndirect(v) {
 		m["sparkChartType"] = v
 	}
-	if v, err := expandDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(c, f.MinAlignmentPeriod); err != nil {
-		return nil, fmt.Errorf("error expanding MinAlignmentPeriod into minAlignmentPeriod: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.MinAlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["minAlignmentPeriod"] = v
 	}
 
@@ -41012,121 +41301,7 @@ func flattenDashboardWidgetScorecardSparkChartView(c *Client, i interface{}) *Da
 
 	r := &DashboardWidgetScorecardSparkChartView{}
 	r.SparkChartType = flattenDashboardWidgetScorecardSparkChartViewSparkChartTypeEnum(m["sparkChartType"])
-	r.MinAlignmentPeriod = flattenDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(c, m["minAlignmentPeriod"])
-
-	return r
-}
-
-// expandDashboardWidgetScorecardSparkChartViewMinAlignmentPeriodMap expands the contents of DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetScorecardSparkChartViewMinAlignmentPeriodMap(c *Client, f map[string]DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardWidgetScorecardSparkChartViewMinAlignmentPeriodSlice expands the contents of DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetScorecardSparkChartViewMinAlignmentPeriodSlice(c *Client, f []DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardWidgetScorecardSparkChartViewMinAlignmentPeriodMap flattens the contents of DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetScorecardSparkChartViewMinAlignmentPeriodMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod{}
-	}
-
-	items := make(map[string]DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod)
-	for k, item := range a {
-		items[k] = *flattenDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardWidgetScorecardSparkChartViewMinAlignmentPeriodSlice flattens the contents of DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetScorecardSparkChartViewMinAlignmentPeriodSlice(c *Client, i interface{}) []DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod{}
-	}
-
-	items := make([]DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod expands an instance of DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod into a JSON
-// request object.
-func expandDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(c *Client, f *DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod flattens an instance of DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod from a JSON
-// response object.
-func flattenDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod(c *Client, i interface{}) *DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
+	r.MinAlignmentPeriod = dcl.FlattenString(m["minAlignmentPeriod"])
 
 	return r
 }

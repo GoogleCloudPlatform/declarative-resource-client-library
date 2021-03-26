@@ -111,6 +111,27 @@ func StringCanonicalize(l, r *string) bool {
 	return false
 }
 
+// BoolCanonicalize checks canonicalization for booleans.
+func BoolCanonicalize(l, r *bool) bool {
+	if l == nil && r == nil {
+		return true
+	}
+	if l != nil && r == nil {
+		left := *l
+		return left == false
+	}
+
+	if r != nil && l == nil {
+		right := *r
+		return right == false
+	}
+
+	left := *l
+	right := *r
+
+	return left == right
+}
+
 // NameToSelfLink returns true if left and right are equivalent for Names / SelfLinks.
 // It allows all the deviations that SelfLinkToSelfLink allows, plus it allows one
 // of the values to simply be the last element of the other value.
@@ -314,10 +335,6 @@ func SliceEquals(v []string, q []string) bool {
 
 // MapEquals returns if two maps are equal, while ignoring any keys with ignorePrefixes.
 func MapEquals(di, ai interface{}, ignorePrefixes []string) bool {
-	if len(ignorePrefixes) == 0 {
-		return reflect.DeepEqual(di, ai)
-	}
-
 	d, ok := di.(map[string]string)
 	if !ok {
 		return false
@@ -555,6 +572,13 @@ func IsEmptyValueIndirect(i interface{}) bool {
 		return true
 	}
 	iv := reflect.Indirect(reflect.ValueOf(i))
+
+	// All non-nil bools are not empty values.
+	_, ok := i.(*bool)
+	if ok {
+		return false
+	}
+
 	if !iv.IsValid() || iv.IsZero() {
 		return true
 	}

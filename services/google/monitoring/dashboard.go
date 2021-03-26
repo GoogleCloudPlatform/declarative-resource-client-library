@@ -1754,15 +1754,15 @@ func (r *DashboardWidget) HashCode() string {
 }
 
 type DashboardWidgetXyChart struct {
-	empty             bool                                     `json:"-"`
-	DataSets          []DashboardWidgetXyChartDataSets         `json:"dataSets"`
-	SourceDrilldown   *DashboardWidgetXyChartSourceDrilldown   `json:"sourceDrilldown"`
-	MetricDrilldown   *DashboardWidgetXyChartMetricDrilldown   `json:"metricDrilldown"`
-	TimeshiftDuration *DashboardWidgetXyChartTimeshiftDuration `json:"timeshiftDuration"`
-	Thresholds        []DashboardWidgetXyChartThresholds       `json:"thresholds"`
-	XAxis             *DashboardWidgetXyChartXAxis             `json:"xAxis"`
-	YAxis             *DashboardWidgetXyChartYAxis             `json:"yAxis"`
-	ChartOptions      *DashboardWidgetXyChartChartOptions      `json:"chartOptions"`
+	empty             bool                                   `json:"-"`
+	DataSets          []DashboardWidgetXyChartDataSets       `json:"dataSets"`
+	SourceDrilldown   *DashboardWidgetXyChartSourceDrilldown `json:"sourceDrilldown"`
+	MetricDrilldown   *DashboardWidgetXyChartMetricDrilldown `json:"metricDrilldown"`
+	TimeshiftDuration *string                                `json:"timeshiftDuration"`
+	Thresholds        []DashboardWidgetXyChartThresholds     `json:"thresholds"`
+	XAxis             *DashboardWidgetXyChartXAxis           `json:"xAxis"`
+	YAxis             *DashboardWidgetXyChartYAxis           `json:"yAxis"`
+	ChartOptions      *DashboardWidgetXyChartChartOptions    `json:"chartOptions"`
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChart is
@@ -1782,11 +1782,11 @@ func (r *DashboardWidgetXyChart) HashCode() string {
 }
 
 type DashboardWidgetXyChartDataSets struct {
-	empty              bool                                              `json:"-"`
-	TimeSeriesQuery    *DashboardWidgetXyChartDataSetsTimeSeriesQuery    `json:"timeSeriesQuery"`
-	PlotType           *DashboardWidgetXyChartDataSetsPlotTypeEnum       `json:"plotType"`
-	LegendTemplate     *string                                           `json:"legendTemplate"`
-	MinAlignmentPeriod *DashboardWidgetXyChartDataSetsMinAlignmentPeriod `json:"minAlignmentPeriod"`
+	empty              bool                                           `json:"-"`
+	TimeSeriesQuery    *DashboardWidgetXyChartDataSetsTimeSeriesQuery `json:"timeSeriesQuery"`
+	PlotType           *DashboardWidgetXyChartDataSetsPlotTypeEnum    `json:"plotType"`
+	LegendTemplate     *string                                        `json:"legendTemplate"`
+	MinAlignmentPeriod *string                                        `json:"minAlignmentPeriod"`
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSets is
@@ -1856,7 +1856,7 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) HashCode
 
 type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation struct {
 	empty                        bool                                                                                                  `json:"-"`
-	AlignmentPeriod              *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod              `json:"alignmentPeriod"`
+	AlignmentPeriod              *string                                                                                               `json:"alignmentPeriod"`
 	PerSeriesAligner             *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum         `json:"perSeriesAligner"`
 	CrossSeriesReducer           *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum       `json:"crossSeriesReducer"`
 	GroupByFields                []string                                                                                              `json:"groupByFields"`
@@ -1874,28 +1874,6 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregatio
 }
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod{empty: true}
-
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -2058,7 +2036,7 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregatio
 
 type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation struct {
 	empty                        bool                                                                                                           `json:"-"`
-	AlignmentPeriod              *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod              `json:"alignmentPeriod"`
+	AlignmentPeriod              *string                                                                                                        `json:"alignmentPeriod"`
 	PerSeriesAligner             *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum         `json:"perSeriesAligner"`
 	CrossSeriesReducer           *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum       `json:"crossSeriesReducer"`
 	GroupByFields                []string                                                                                                       `json:"groupByFields"`
@@ -2076,28 +2054,6 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryA
 }
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod{empty: true}
-
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -2329,7 +2285,7 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumer
 
 type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation struct {
 	empty                        bool                                                                                                                `json:"-"`
-	AlignmentPeriod              *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod              `json:"alignmentPeriod"`
+	AlignmentPeriod              *string                                                                                                             `json:"alignmentPeriod"`
 	PerSeriesAligner             *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum         `json:"perSeriesAligner"`
 	CrossSeriesReducer           *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum       `json:"crossSeriesReducer"`
 	GroupByFields                []string                                                                                                            `json:"groupByFields"`
@@ -2347,28 +2303,6 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumer
 }
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod{empty: true}
-
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -2553,7 +2487,7 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 
 type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation struct {
 	empty                        bool                                                                                                                  `json:"-"`
-	AlignmentPeriod              *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod              `json:"alignmentPeriod"`
+	AlignmentPeriod              *string                                                                                                               `json:"alignmentPeriod"`
 	PerSeriesAligner             *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum         `json:"perSeriesAligner"`
 	CrossSeriesReducer           *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum       `json:"crossSeriesReducer"`
 	GroupByFields                []string                                                                                                              `json:"groupByFields"`
@@ -2571,28 +2505,6 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 }
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod{empty: true}
-
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -2755,7 +2667,7 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 
 type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation struct {
 	empty                        bool                                                                                                                `json:"-"`
-	AlignmentPeriod              *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod              `json:"alignmentPeriod"`
+	AlignmentPeriod              *string                                                                                                             `json:"alignmentPeriod"`
 	PerSeriesAligner             *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum         `json:"perSeriesAligner"`
 	CrossSeriesReducer           *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum       `json:"crossSeriesReducer"`
 	GroupByFields                []string                                                                                                            `json:"groupByFields"`
@@ -2773,28 +2685,6 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecon
 }
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod{empty: true}
-
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -2972,28 +2862,6 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickT
 }
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardWidgetXyChartDataSetsMinAlignmentPeriod struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsMinAlignmentPeriod is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartDataSetsMinAlignmentPeriod *DashboardWidgetXyChartDataSetsMinAlignmentPeriod = &DashboardWidgetXyChartDataSetsMinAlignmentPeriod{empty: true}
-
-func (r *DashboardWidgetXyChartDataSetsMinAlignmentPeriod) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardWidgetXyChartDataSetsMinAlignmentPeriod) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -3360,28 +3228,6 @@ func (r *DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown) HashCode()
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetXyChartTimeshiftDuration struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this DashboardWidgetXyChartTimeshiftDuration is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartTimeshiftDuration *DashboardWidgetXyChartTimeshiftDuration = &DashboardWidgetXyChartTimeshiftDuration{empty: true}
-
-func (r *DashboardWidgetXyChartTimeshiftDuration) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardWidgetXyChartTimeshiftDuration) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type DashboardWidgetXyChartThresholds struct {
 	empty     bool                                           `json:"-"`
 	Label     *string                                        `json:"label"`
@@ -3549,7 +3395,7 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) HashCode() str
 
 type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation struct {
 	empty                        bool                                                                                            `json:"-"`
-	AlignmentPeriod              *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod              `json:"alignmentPeriod"`
+	AlignmentPeriod              *string                                                                                         `json:"alignmentPeriod"`
 	PerSeriesAligner             *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum         `json:"perSeriesAligner"`
 	CrossSeriesReducer           *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum       `json:"crossSeriesReducer"`
 	GroupByFields                []string                                                                                        `json:"groupByFields"`
@@ -3567,28 +3413,6 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) Str
 }
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod{empty: true}
-
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationAlignmentPeriod) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -3751,7 +3575,7 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduc
 
 type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation struct {
 	empty                        bool                                                                                                     `json:"-"`
-	AlignmentPeriod              *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod              `json:"alignmentPeriod"`
+	AlignmentPeriod              *string                                                                                                  `json:"alignmentPeriod"`
 	PerSeriesAligner             *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum         `json:"perSeriesAligner"`
 	CrossSeriesReducer           *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum       `json:"crossSeriesReducer"`
 	GroupByFields                []string                                                                                                 `json:"groupByFields"`
@@ -3769,28 +3593,6 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggrega
 }
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod{empty: true}
-
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationAlignmentPeriod) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -4022,7 +3824,7 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) 
 
 type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation struct {
 	empty                        bool                                                                                                          `json:"-"`
-	AlignmentPeriod              *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod              `json:"alignmentPeriod"`
+	AlignmentPeriod              *string                                                                                                       `json:"alignmentPeriod"`
 	PerSeriesAligner             *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum         `json:"perSeriesAligner"`
 	CrossSeriesReducer           *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum       `json:"crossSeriesReducer"`
 	GroupByFields                []string                                                                                                      `json:"groupByFields"`
@@ -4040,28 +3842,6 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAg
 }
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod{empty: true}
-
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationAlignmentPeriod) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -4246,7 +4026,7 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 
 type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation struct {
 	empty                        bool                                                                                                            `json:"-"`
-	AlignmentPeriod              *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod              `json:"alignmentPeriod"`
+	AlignmentPeriod              *string                                                                                                         `json:"alignmentPeriod"`
 	PerSeriesAligner             *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum         `json:"perSeriesAligner"`
 	CrossSeriesReducer           *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum       `json:"crossSeriesReducer"`
 	GroupByFields                []string                                                                                                        `json:"groupByFields"`
@@ -4264,28 +4044,6 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 }
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod{empty: true}
-
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationAlignmentPeriod) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -4448,7 +4206,7 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 
 type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation struct {
 	empty                        bool                                                                                                          `json:"-"`
-	AlignmentPeriod              *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod              `json:"alignmentPeriod"`
+	AlignmentPeriod              *string                                                                                                       `json:"alignmentPeriod"`
 	PerSeriesAligner             *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum         `json:"perSeriesAligner"`
 	CrossSeriesReducer           *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum       `json:"crossSeriesReducer"`
 	GroupByFields                []string                                                                                                      `json:"groupByFields"`
@@ -4466,28 +4224,6 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAg
 }
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod{empty: true}
-
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationAlignmentPeriod) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -5056,7 +4792,7 @@ func (r *DashboardWidgetScorecardGaugeView) HashCode() string {
 type DashboardWidgetScorecardSparkChartView struct {
 	empty              bool                                                      `json:"-"`
 	SparkChartType     *DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum `json:"sparkChartType"`
-	MinAlignmentPeriod *DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod `json:"minAlignmentPeriod"`
+	MinAlignmentPeriod *string                                                   `json:"minAlignmentPeriod"`
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardSparkChartView is
@@ -5069,28 +4805,6 @@ func (r *DashboardWidgetScorecardSparkChartView) String() string {
 }
 
 func (r *DashboardWidgetScorecardSparkChartView) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardWidgetScorecardSparkChartViewMinAlignmentPeriod *DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod = &DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod{empty: true}
-
-func (r *DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardWidgetScorecardSparkChartViewMinAlignmentPeriod) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

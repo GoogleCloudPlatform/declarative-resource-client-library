@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -352,9 +353,20 @@ func (op *deleteHealthCheckOperation) do(ctx context.Context, r *HealthCheck, c 
 	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetHealthCheck(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetHealthCheck(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -454,7 +466,6 @@ func (c *Client) healthCheckDiffsForRawDesired(ctx context.Context, rawDesired *
 		desired, err = canonicalizeHealthCheckDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for HealthCheck: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for HealthCheck: %v", rawDesired)
 
@@ -715,6 +726,26 @@ func canonicalizeNewHealthCheckHttp2HealthCheckSet(c *Client, des, nw []HealthCh
 	return reorderedNew
 }
 
+func canonicalizeNewHealthCheckHttp2HealthCheckSlice(c *Client, des, nw []HealthCheckHttp2HealthCheck) []HealthCheckHttp2HealthCheck {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []HealthCheckHttp2HealthCheck
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewHealthCheckHttp2HealthCheck(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeHealthCheckHttpHealthCheck(des, initial *HealthCheckHttpHealthCheck, opts ...dcl.ApplyOption) *HealthCheckHttpHealthCheck {
 	if des == nil {
 		return initial
@@ -794,6 +825,26 @@ func canonicalizeNewHealthCheckHttpHealthCheckSet(c *Client, des, nw []HealthChe
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewHealthCheckHttpHealthCheckSlice(c *Client, des, nw []HealthCheckHttpHealthCheck) []HealthCheckHttpHealthCheck {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []HealthCheckHttpHealthCheck
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewHealthCheckHttpHealthCheck(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeHealthCheckHttpsHealthCheck(des, initial *HealthCheckHttpsHealthCheck, opts ...dcl.ApplyOption) *HealthCheckHttpsHealthCheck {
@@ -877,6 +928,26 @@ func canonicalizeNewHealthCheckHttpsHealthCheckSet(c *Client, des, nw []HealthCh
 	return reorderedNew
 }
 
+func canonicalizeNewHealthCheckHttpsHealthCheckSlice(c *Client, des, nw []HealthCheckHttpsHealthCheck) []HealthCheckHttpsHealthCheck {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []HealthCheckHttpsHealthCheck
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewHealthCheckHttpsHealthCheck(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeHealthCheckSslHealthCheck(des, initial *HealthCheckSslHealthCheck, opts ...dcl.ApplyOption) *HealthCheckSslHealthCheck {
 	if des == nil {
 		return initial
@@ -952,6 +1023,26 @@ func canonicalizeNewHealthCheckSslHealthCheckSet(c *Client, des, nw []HealthChec
 	return reorderedNew
 }
 
+func canonicalizeNewHealthCheckSslHealthCheckSlice(c *Client, des, nw []HealthCheckSslHealthCheck) []HealthCheckSslHealthCheck {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []HealthCheckSslHealthCheck
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewHealthCheckSslHealthCheck(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeHealthCheckTcpHealthCheck(des, initial *HealthCheckTcpHealthCheck, opts ...dcl.ApplyOption) *HealthCheckTcpHealthCheck {
 	if des == nil {
 		return initial
@@ -1025,6 +1116,26 @@ func canonicalizeNewHealthCheckTcpHealthCheckSet(c *Client, des, nw []HealthChec
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewHealthCheckTcpHealthCheckSlice(c *Client, des, nw []HealthCheckTcpHealthCheck) []HealthCheckTcpHealthCheck {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []HealthCheckTcpHealthCheck
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewHealthCheckTcpHealthCheck(c, &d, &n))
+	}
+
+	return items
 }
 
 type healthCheckDiff struct {

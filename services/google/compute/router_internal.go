@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -310,9 +311,20 @@ func (op *deleteRouterOperation) do(ctx context.Context, r *Router, c *Client) e
 	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetRouter(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetRouter(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -412,7 +424,6 @@ func (c *Client) routerDiffsForRawDesired(ctx context.Context, rawDesired *Route
 		desired, err = canonicalizeRouterDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Router: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Router: %v", rawDesired)
 
@@ -501,6 +512,7 @@ func canonicalizeRouterNewState(c *Client, rawNew, rawDesired *Router) (*Router,
 	if dcl.IsEmptyValueIndirect(rawNew.Nats) && dcl.IsEmptyValueIndirect(rawDesired.Nats) {
 		rawNew.Nats = rawDesired.Nats
 	} else {
+		rawNew.Nats = canonicalizeNewRouterNatsSlice(c, rawDesired.Nats, rawNew.Nats)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
@@ -522,6 +534,7 @@ func canonicalizeRouterNewState(c *Client, rawNew, rawDesired *Router) (*Router,
 	if dcl.IsEmptyValueIndirect(rawNew.Interfaces) && dcl.IsEmptyValueIndirect(rawDesired.Interfaces) {
 		rawNew.Interfaces = rawDesired.Interfaces
 	} else {
+		rawNew.Interfaces = canonicalizeNewRouterInterfacesSlice(c, rawDesired.Interfaces, rawNew.Interfaces)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
@@ -535,6 +548,7 @@ func canonicalizeRouterNewState(c *Client, rawNew, rawDesired *Router) (*Router,
 	if dcl.IsEmptyValueIndirect(rawNew.BgpPeers) && dcl.IsEmptyValueIndirect(rawDesired.BgpPeers) {
 		rawNew.BgpPeers = rawDesired.BgpPeers
 	} else {
+		rawNew.BgpPeers = canonicalizeNewRouterBgpPeersSlice(c, rawDesired.BgpPeers, rawNew.BgpPeers)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Bgp) && dcl.IsEmptyValueIndirect(rawDesired.Bgp) {
@@ -623,6 +637,7 @@ func canonicalizeNewRouterNats(c *Client, des, nw *RouterNats) *RouterNats {
 		nw.Name = des.Name
 	}
 	nw.LogConfig = canonicalizeNewRouterNatsLogConfig(c, des.LogConfig, nw.LogConfig)
+	nw.Subnetworks = canonicalizeNewRouterNatsSubnetworksSlice(c, des.Subnetworks, nw.Subnetworks)
 
 	return nw
 }
@@ -650,6 +665,26 @@ func canonicalizeNewRouterNatsSet(c *Client, des, nw []RouterNats) []RouterNats 
 	return reorderedNew
 }
 
+func canonicalizeNewRouterNatsSlice(c *Client, des, nw []RouterNats) []RouterNats {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []RouterNats
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewRouterNats(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeRouterNatsLogConfig(des, initial *RouterNatsLogConfig, opts ...dcl.ApplyOption) *RouterNatsLogConfig {
 	if des == nil {
 		return initial
@@ -662,7 +697,7 @@ func canonicalizeRouterNatsLogConfig(des, initial *RouterNatsLogConfig, opts ...
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Enable) {
+	if dcl.BoolCanonicalize(des.Enable, initial.Enable) || dcl.IsZeroValue(des.Enable) {
 		des.Enable = initial.Enable
 	}
 	if dcl.IsZeroValue(des.Filter) {
@@ -675,6 +710,10 @@ func canonicalizeRouterNatsLogConfig(des, initial *RouterNatsLogConfig, opts ...
 func canonicalizeNewRouterNatsLogConfig(c *Client, des, nw *RouterNatsLogConfig) *RouterNatsLogConfig {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.Enable, nw.Enable) || dcl.IsZeroValue(des.Enable) {
+		nw.Enable = des.Enable
 	}
 
 	return nw
@@ -701,6 +740,26 @@ func canonicalizeNewRouterNatsLogConfigSet(c *Client, des, nw []RouterNatsLogCon
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewRouterNatsLogConfigSlice(c *Client, des, nw []RouterNatsLogConfig) []RouterNatsLogConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []RouterNatsLogConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewRouterNatsLogConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeRouterNatsSubnetworks(des, initial *RouterNatsSubnetworks, opts ...dcl.ApplyOption) *RouterNatsSubnetworks {
@@ -767,6 +826,26 @@ func canonicalizeNewRouterNatsSubnetworksSet(c *Client, des, nw []RouterNatsSubn
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewRouterNatsSubnetworksSlice(c *Client, des, nw []RouterNatsSubnetworks) []RouterNatsSubnetworks {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []RouterNatsSubnetworks
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewRouterNatsSubnetworks(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeRouterInterfaces(des, initial *RouterInterfaces, opts ...dcl.ApplyOption) *RouterInterfaces {
@@ -838,6 +917,26 @@ func canonicalizeNewRouterInterfacesSet(c *Client, des, nw []RouterInterfaces) [
 	return reorderedNew
 }
 
+func canonicalizeNewRouterInterfacesSlice(c *Client, des, nw []RouterInterfaces) []RouterInterfaces {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []RouterInterfaces
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewRouterInterfaces(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeRouterBgpPeers(des, initial *RouterBgpPeers, opts ...dcl.ApplyOption) *RouterBgpPeers {
 	if des == nil {
 		return initial
@@ -907,6 +1006,7 @@ func canonicalizeNewRouterBgpPeers(c *Client, des, nw *RouterBgpPeers) *RouterBg
 	if dcl.StringCanonicalize(des.ManagementType, nw.ManagementType) || dcl.IsZeroValue(des.ManagementType) {
 		nw.ManagementType = des.ManagementType
 	}
+	nw.AdvertisedIPRanges = canonicalizeNewRouterBgpPeersAdvertisedIPRangesSlice(c, des.AdvertisedIPRanges, nw.AdvertisedIPRanges)
 
 	return nw
 }
@@ -932,6 +1032,26 @@ func canonicalizeNewRouterBgpPeersSet(c *Client, des, nw []RouterBgpPeers) []Rou
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewRouterBgpPeersSlice(c *Client, des, nw []RouterBgpPeers) []RouterBgpPeers {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []RouterBgpPeers
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewRouterBgpPeers(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeRouterBgpPeersAdvertisedIPRanges(des, initial *RouterBgpPeersAdvertisedIPRanges, opts ...dcl.ApplyOption) *RouterBgpPeersAdvertisedIPRanges {
@@ -994,6 +1114,26 @@ func canonicalizeNewRouterBgpPeersAdvertisedIPRangesSet(c *Client, des, nw []Rou
 	return reorderedNew
 }
 
+func canonicalizeNewRouterBgpPeersAdvertisedIPRangesSlice(c *Client, des, nw []RouterBgpPeersAdvertisedIPRanges) []RouterBgpPeersAdvertisedIPRanges {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []RouterBgpPeersAdvertisedIPRanges
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewRouterBgpPeersAdvertisedIPRanges(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeRouterBgp(des, initial *RouterBgp, opts ...dcl.ApplyOption) *RouterBgp {
 	if des == nil {
 		return initial
@@ -1027,6 +1167,8 @@ func canonicalizeNewRouterBgp(c *Client, des, nw *RouterBgp) *RouterBgp {
 		return nw
 	}
 
+	nw.AdvertisedIPRanges = canonicalizeNewRouterBgpAdvertisedIPRangesSlice(c, des.AdvertisedIPRanges, nw.AdvertisedIPRanges)
+
 	return nw
 }
 
@@ -1051,6 +1193,26 @@ func canonicalizeNewRouterBgpSet(c *Client, des, nw []RouterBgp) []RouterBgp {
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewRouterBgpSlice(c *Client, des, nw []RouterBgp) []RouterBgp {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []RouterBgp
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewRouterBgp(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeRouterBgpAdvertisedIPRanges(des, initial *RouterBgpAdvertisedIPRanges, opts ...dcl.ApplyOption) *RouterBgpAdvertisedIPRanges {
@@ -1111,6 +1273,26 @@ func canonicalizeNewRouterBgpAdvertisedIPRangesSet(c *Client, des, nw []RouterBg
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewRouterBgpAdvertisedIPRangesSlice(c *Client, des, nw []RouterBgpAdvertisedIPRanges) []RouterBgpAdvertisedIPRanges {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []RouterBgpAdvertisedIPRanges
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewRouterBgpAdvertisedIPRanges(c, &d, &n))
+	}
+
+	return items
 }
 
 type routerDiff struct {
@@ -1378,7 +1560,7 @@ func compareRouterNatsLogConfig(c *Client, desired, actual *RouterNatsLogConfig)
 		c.Config.Logger.Infof("desired Enable %s - but actually nil", dcl.SprintResource(desired.Enable))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Enable, actual.Enable) && !dcl.IsZeroValue(desired.Enable) {
+	if !dcl.BoolCanonicalize(desired.Enable, actual.Enable) && !dcl.IsZeroValue(desired.Enable) {
 		c.Config.Logger.Infof("Diff in Enable. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Enable), dcl.SprintResource(actual.Enable))
 		return true
 	}

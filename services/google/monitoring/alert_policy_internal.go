@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -713,9 +714,20 @@ func (op *deleteAlertPolicyOperation) do(ctx context.Context, r *AlertPolicy, c 
 	if err != nil {
 		return fmt.Errorf("failed to delete AlertPolicy: %w", err)
 	}
-	_, err = c.GetAlertPolicy(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetAlertPolicy(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -811,7 +823,6 @@ func (c *Client) alertPolicyDiffsForRawDesired(ctx context.Context, rawDesired *
 		desired, err := canonicalizeAlertPolicyDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
-
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetAlertPolicy(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -824,7 +835,6 @@ func (c *Client) alertPolicyDiffsForRawDesired(ctx context.Context, rawDesired *
 		desired, err = canonicalizeAlertPolicyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for AlertPolicy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for AlertPolicy: %v", rawDesired)
 
@@ -890,7 +900,7 @@ func canonicalizeAlertPolicyDesiredState(rawDesired, rawInitial *AlertPolicy, op
 	if dcl.IsZeroValue(rawDesired.Combiner) {
 		rawDesired.Combiner = rawInitial.Combiner
 	}
-	if dcl.IsZeroValue(rawDesired.Disabled) {
+	if dcl.BoolCanonicalize(rawDesired.Disabled, rawInitial.Disabled) {
 		rawDesired.Disabled = rawInitial.Disabled
 	}
 	rawDesired.Enabled = canonicalizeAlertPolicyEnabled(rawDesired.Enabled, rawInitial.Enabled, opts...)
@@ -938,6 +948,7 @@ func canonicalizeAlertPolicyNewState(c *Client, rawNew, rawDesired *AlertPolicy)
 	if dcl.IsEmptyValueIndirect(rawNew.Conditions) && dcl.IsEmptyValueIndirect(rawDesired.Conditions) {
 		rawNew.Conditions = rawDesired.Conditions
 	} else {
+		rawNew.Conditions = canonicalizeNewAlertPolicyConditionsSlice(c, rawDesired.Conditions, rawNew.Conditions)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Combiner) && dcl.IsEmptyValueIndirect(rawDesired.Combiner) {
@@ -948,6 +959,9 @@ func canonicalizeAlertPolicyNewState(c *Client, rawNew, rawDesired *AlertPolicy)
 	if dcl.IsEmptyValueIndirect(rawNew.Disabled) && dcl.IsEmptyValueIndirect(rawDesired.Disabled) {
 		rawNew.Disabled = rawDesired.Disabled
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.Disabled, rawNew.Disabled) {
+			rawNew.Disabled = rawDesired.Disabled
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Enabled) && dcl.IsEmptyValueIndirect(rawDesired.Enabled) {
@@ -1056,6 +1070,26 @@ func canonicalizeNewAlertPolicyDocumentationSet(c *Client, des, nw []AlertPolicy
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyDocumentationSlice(c *Client, des, nw []AlertPolicyDocumentation) []AlertPolicyDocumentation {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyDocumentation
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyDocumentation(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditions(des, initial *AlertPolicyConditions, opts ...dcl.ApplyOption) *AlertPolicyConditions {
 	if des == nil {
 		return initial
@@ -1137,6 +1171,26 @@ func canonicalizeNewAlertPolicyConditionsSet(c *Client, des, nw []AlertPolicyCon
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsSlice(c *Client, des, nw []AlertPolicyConditions) []AlertPolicyConditions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditions(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionThreshold(des, initial *AlertPolicyConditionsConditionThreshold, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionThreshold {
 	if des == nil {
 		return initial
@@ -1183,9 +1237,11 @@ func canonicalizeNewAlertPolicyConditionsConditionThreshold(c *Client, des, nw *
 	if dcl.StringCanonicalize(des.Filter, nw.Filter) || dcl.IsZeroValue(des.Filter) {
 		nw.Filter = des.Filter
 	}
+	nw.Aggregations = canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsSlice(c, des.Aggregations, nw.Aggregations)
 	if dcl.StringCanonicalize(des.DenominatorFilter, nw.DenominatorFilter) || dcl.IsZeroValue(des.DenominatorFilter) {
 		nw.DenominatorFilter = des.DenominatorFilter
 	}
+	nw.DenominatorAggregations = canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsSlice(c, des.DenominatorAggregations, nw.DenominatorAggregations)
 	if dcl.StringCanonicalize(des.Duration, nw.Duration) || dcl.IsZeroValue(des.Duration) {
 		nw.Duration = des.Duration
 	}
@@ -1215,6 +1271,26 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdSet(c *Client, des, n
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyConditionsConditionThresholdSlice(c *Client, des, nw []AlertPolicyConditionsConditionThreshold) []AlertPolicyConditionsConditionThreshold {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionThreshold
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionThreshold(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyConditionsConditionThresholdAggregations(des, initial *AlertPolicyConditionsConditionThresholdAggregations, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionThresholdAggregations {
@@ -1284,6 +1360,26 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsSet(c *Cl
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsSlice(c *Client, des, nw []AlertPolicyConditionsConditionThresholdAggregations) []AlertPolicyConditionsConditionThresholdAggregations {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionThresholdAggregations
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionThresholdAggregations(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams(des, initial *AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams {
 	if des == nil {
 		return initial
@@ -1332,6 +1428,26 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceFra
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParamsSlice(c *Client, des, nw []AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams) []AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams(des, initial *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams {
@@ -1386,6 +1502,26 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsSlice(c *Client, des, nw []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams) []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions(des, initial *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions {
 	if des == nil {
 		return initial
@@ -1438,6 +1574,26 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsSlice(c *Client, des, nw []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions) []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(des, initial *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets {
@@ -1496,6 +1652,26 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, des, nw []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(des, initial *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
 	if des == nil {
 		return initial
@@ -1552,6 +1728,26 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, des, nw []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(des, initial *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
 	if des == nil {
 		return initial
@@ -1602,6 +1798,26 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, des, nw []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling(des, initial *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling {
 	if des == nil {
 		return initial
@@ -1650,6 +1866,26 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, des, nw []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling) []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregations(des, initial *AlertPolicyConditionsConditionThresholdDenominatorAggregations, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionThresholdDenominatorAggregations {
@@ -1719,6 +1955,26 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsSlice(c *Client, des, nw []AlertPolicyConditionsConditionThresholdDenominatorAggregations) []AlertPolicyConditionsConditionThresholdDenominatorAggregations {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionThresholdDenominatorAggregations
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregations(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams(des, initial *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams {
 	if des == nil {
 		return initial
@@ -1767,6 +2023,26 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParamsSlice(c *Client, des, nw []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams) []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams(des, initial *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams {
@@ -1821,6 +2097,26 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsSlice(c *Client, des, nw []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams) []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions(des, initial *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions {
 	if des == nil {
 		return initial
@@ -1873,6 +2169,26 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsSlice(c *Client, des, nw []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions) []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(des, initial *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets {
@@ -1931,6 +2247,26 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, des, nw []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(des, initial *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
 	if des == nil {
 		return initial
@@ -1987,6 +2323,26 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, des, nw []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(des, initial *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
 	if des == nil {
 		return initial
@@ -2037,6 +2393,26 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, des, nw []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling(des, initial *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling {
 	if des == nil {
 		return initial
@@ -2085,6 +2461,26 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, des, nw []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling) []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyConditionsConditionThresholdTrigger(des, initial *AlertPolicyConditionsConditionThresholdTrigger, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionThresholdTrigger {
@@ -2140,6 +2536,26 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdTriggerSet(c *Client,
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionThresholdTriggerSlice(c *Client, des, nw []AlertPolicyConditionsConditionThresholdTrigger) []AlertPolicyConditionsConditionThresholdTrigger {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionThresholdTrigger
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionThresholdTrigger(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionAbsent(des, initial *AlertPolicyConditionsConditionAbsent, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionAbsent {
 	if des == nil {
 		return initial
@@ -2172,6 +2588,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsent(c *Client, des, nw *Ale
 	if dcl.StringCanonicalize(des.Filter, nw.Filter) || dcl.IsZeroValue(des.Filter) {
 		nw.Filter = des.Filter
 	}
+	nw.Aggregations = canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsSlice(c, des.Aggregations, nw.Aggregations)
 	nw.Duration = canonicalizeNewAlertPolicyConditionsConditionAbsentDuration(c, des.Duration, nw.Duration)
 	nw.Trigger = canonicalizeNewAlertPolicyConditionsConditionAbsentTrigger(c, des.Trigger, nw.Trigger)
 
@@ -2199,6 +2616,26 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentSet(c *Client, des, nw [
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyConditionsConditionAbsentSlice(c *Client, des, nw []AlertPolicyConditionsConditionAbsent) []AlertPolicyConditionsConditionAbsent {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionAbsent
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionAbsent(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyConditionsConditionAbsentAggregations(des, initial *AlertPolicyConditionsConditionAbsentAggregations, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionAbsentAggregations {
@@ -2268,6 +2705,26 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsSet(c *Clien
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsSlice(c *Client, des, nw []AlertPolicyConditionsConditionAbsentAggregations) []AlertPolicyConditionsConditionAbsentAggregations {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionAbsentAggregations
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionAbsentAggregations(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams(des, initial *AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams {
 	if des == nil {
 		return initial
@@ -2316,6 +2773,26 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceFracti
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParamsSlice(c *Client, des, nw []AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams) []AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams(des, initial *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams {
@@ -2370,6 +2847,26 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsSlice(c *Client, des, nw []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams) []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions(des, initial *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions {
 	if des == nil {
 		return initial
@@ -2422,6 +2919,26 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsSlice(c *Client, des, nw []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions) []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(des, initial *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets {
@@ -2480,6 +2997,26 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, des, nw []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(des, initial *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
 	if des == nil {
 		return initial
@@ -2536,6 +3073,26 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, des, nw []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(des, initial *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
 	if des == nil {
 		return initial
@@ -2586,6 +3143,26 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, des, nw []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling(des, initial *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling {
 	if des == nil {
 		return initial
@@ -2634,6 +3211,26 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, des, nw []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling) []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyConditionsConditionAbsentDuration(des, initial *AlertPolicyConditionsConditionAbsentDuration, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionAbsentDuration {
@@ -2689,6 +3286,26 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentDurationSet(c *Client, d
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionAbsentDurationSlice(c *Client, des, nw []AlertPolicyConditionsConditionAbsentDuration) []AlertPolicyConditionsConditionAbsentDuration {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionAbsentDuration
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionAbsentDuration(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionAbsentTrigger(des, initial *AlertPolicyConditionsConditionAbsentTrigger, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionAbsentTrigger {
 	if des == nil {
 		return initial
@@ -2740,6 +3357,26 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentTriggerSet(c *Client, de
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyConditionsConditionAbsentTriggerSlice(c *Client, des, nw []AlertPolicyConditionsConditionAbsentTrigger) []AlertPolicyConditionsConditionAbsentTrigger {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionAbsentTrigger
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionAbsentTrigger(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyConditionsConditionMatchedLog(des, initial *AlertPolicyConditionsConditionMatchedLog, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionMatchedLog {
@@ -2799,6 +3436,26 @@ func canonicalizeNewAlertPolicyConditionsConditionMatchedLogSet(c *Client, des, 
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionMatchedLogSlice(c *Client, des, nw []AlertPolicyConditionsConditionMatchedLog) []AlertPolicyConditionsConditionMatchedLog {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionMatchedLog
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionMatchedLog(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionClusterOutlier(des, initial *AlertPolicyConditionsConditionClusterOutlier, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionClusterOutlier {
 	if des == nil {
 		return initial
@@ -2853,6 +3510,26 @@ func canonicalizeNewAlertPolicyConditionsConditionClusterOutlierSet(c *Client, d
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionClusterOutlierSlice(c *Client, des, nw []AlertPolicyConditionsConditionClusterOutlier) []AlertPolicyConditionsConditionClusterOutlier {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionClusterOutlier
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionClusterOutlier(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionRate(des, initial *AlertPolicyConditionsConditionRate, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionRate {
 	if des == nil {
 		return initial
@@ -2891,6 +3568,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRate(c *Client, des, nw *Alert
 	if dcl.StringCanonicalize(des.Filter, nw.Filter) || dcl.IsZeroValue(des.Filter) {
 		nw.Filter = des.Filter
 	}
+	nw.Aggregations = canonicalizeNewAlertPolicyConditionsConditionRateAggregationsSlice(c, des.Aggregations, nw.Aggregations)
 	nw.TimeWindow = canonicalizeNewAlertPolicyConditionsConditionRateTimeWindow(c, des.TimeWindow, nw.TimeWindow)
 	nw.Trigger = canonicalizeNewAlertPolicyConditionsConditionRateTrigger(c, des.Trigger, nw.Trigger)
 
@@ -2918,6 +3596,26 @@ func canonicalizeNewAlertPolicyConditionsConditionRateSet(c *Client, des, nw []A
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyConditionsConditionRateSlice(c *Client, des, nw []AlertPolicyConditionsConditionRate) []AlertPolicyConditionsConditionRate {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionRate
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionRate(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyConditionsConditionRateAggregations(des, initial *AlertPolicyConditionsConditionRateAggregations, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionRateAggregations {
@@ -2987,6 +3685,26 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsSet(c *Client,
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsSlice(c *Client, des, nw []AlertPolicyConditionsConditionRateAggregations) []AlertPolicyConditionsConditionRateAggregations {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionRateAggregations
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionRateAggregations(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams(des, initial *AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams {
 	if des == nil {
 		return initial
@@ -3035,6 +3753,26 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceFraction
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParamsSlice(c *Client, des, nw []AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams) []AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams(des, initial *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams {
@@ -3089,6 +3827,26 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsSlice(c *Client, des, nw []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams) []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions(des, initial *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions {
 	if des == nil {
 		return initial
@@ -3141,6 +3899,26 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsSlice(c *Client, des, nw []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions) []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(des, initial *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets {
@@ -3199,6 +3977,26 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, des, nw []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(des, initial *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
 	if des == nil {
 		return initial
@@ -3255,6 +4053,26 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, des, nw []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(des, initial *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
 	if des == nil {
 		return initial
@@ -3305,6 +4123,26 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, des, nw []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling(des, initial *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling {
 	if des == nil {
 		return initial
@@ -3353,6 +4191,26 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, des, nw []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling) []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyConditionsConditionRateTimeWindow(des, initial *AlertPolicyConditionsConditionRateTimeWindow, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionRateTimeWindow {
@@ -3408,6 +4266,26 @@ func canonicalizeNewAlertPolicyConditionsConditionRateTimeWindowSet(c *Client, d
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionRateTimeWindowSlice(c *Client, des, nw []AlertPolicyConditionsConditionRateTimeWindow) []AlertPolicyConditionsConditionRateTimeWindow {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionRateTimeWindow
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionRateTimeWindow(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionRateTrigger(des, initial *AlertPolicyConditionsConditionRateTrigger, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionRateTrigger {
 	if des == nil {
 		return initial
@@ -3459,6 +4337,26 @@ func canonicalizeNewAlertPolicyConditionsConditionRateTriggerSet(c *Client, des,
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyConditionsConditionRateTriggerSlice(c *Client, des, nw []AlertPolicyConditionsConditionRateTrigger) []AlertPolicyConditionsConditionRateTrigger {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionRateTrigger
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionRateTrigger(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyConditionsConditionUpMon(des, initial *AlertPolicyConditionsConditionUpMon, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionUpMon {
@@ -3531,6 +4429,26 @@ func canonicalizeNewAlertPolicyConditionsConditionUpMonSet(c *Client, des, nw []
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionUpMonSlice(c *Client, des, nw []AlertPolicyConditionsConditionUpMon) []AlertPolicyConditionsConditionUpMon {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionUpMon
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionUpMon(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionUpMonDuration(des, initial *AlertPolicyConditionsConditionUpMonDuration, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionUpMonDuration {
 	if des == nil {
 		return initial
@@ -3584,6 +4502,26 @@ func canonicalizeNewAlertPolicyConditionsConditionUpMonDurationSet(c *Client, de
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionUpMonDurationSlice(c *Client, des, nw []AlertPolicyConditionsConditionUpMonDuration) []AlertPolicyConditionsConditionUpMonDuration {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionUpMonDuration
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionUpMonDuration(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionUpMonTrigger(des, initial *AlertPolicyConditionsConditionUpMonTrigger, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionUpMonTrigger {
 	if des == nil {
 		return initial
@@ -3635,6 +4573,26 @@ func canonicalizeNewAlertPolicyConditionsConditionUpMonTriggerSet(c *Client, des
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyConditionsConditionUpMonTriggerSlice(c *Client, des, nw []AlertPolicyConditionsConditionUpMonTrigger) []AlertPolicyConditionsConditionUpMonTrigger {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionUpMonTrigger
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionUpMonTrigger(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyConditionsConditionProcessCount(des, initial *AlertPolicyConditionsConditionProcessCount, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionProcessCount {
@@ -3713,6 +4671,26 @@ func canonicalizeNewAlertPolicyConditionsConditionProcessCountSet(c *Client, des
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionProcessCountSlice(c *Client, des, nw []AlertPolicyConditionsConditionProcessCount) []AlertPolicyConditionsConditionProcessCount {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionProcessCount
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionProcessCount(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionProcessCountTrigger(des, initial *AlertPolicyConditionsConditionProcessCountTrigger, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionProcessCountTrigger {
 	if des == nil {
 		return initial
@@ -3766,6 +4744,26 @@ func canonicalizeNewAlertPolicyConditionsConditionProcessCountTriggerSet(c *Clie
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionProcessCountTriggerSlice(c *Client, des, nw []AlertPolicyConditionsConditionProcessCountTrigger) []AlertPolicyConditionsConditionProcessCountTrigger {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionProcessCountTrigger
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionProcessCountTrigger(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionProcessCountDuration(des, initial *AlertPolicyConditionsConditionProcessCountDuration, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionProcessCountDuration {
 	if des == nil {
 		return initial
@@ -3817,6 +4815,26 @@ func canonicalizeNewAlertPolicyConditionsConditionProcessCountDurationSet(c *Cli
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyConditionsConditionProcessCountDurationSlice(c *Client, des, nw []AlertPolicyConditionsConditionProcessCountDuration) []AlertPolicyConditionsConditionProcessCountDuration {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionProcessCountDuration
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionProcessCountDuration(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyConditionsConditionTimeSeriesQueryLanguage(des, initial *AlertPolicyConditionsConditionTimeSeriesQueryLanguage, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionTimeSeriesQueryLanguage {
@@ -3879,6 +4897,26 @@ func canonicalizeNewAlertPolicyConditionsConditionTimeSeriesQueryLanguageSet(c *
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionTimeSeriesQueryLanguageSlice(c *Client, des, nw []AlertPolicyConditionsConditionTimeSeriesQueryLanguage) []AlertPolicyConditionsConditionTimeSeriesQueryLanguage {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionTimeSeriesQueryLanguage
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionTimeSeriesQueryLanguage(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionMonitoringQueryLanguage(des, initial *AlertPolicyConditionsConditionMonitoringQueryLanguage, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionMonitoringQueryLanguage {
 	if des == nil {
 		return initial
@@ -3937,6 +4975,26 @@ func canonicalizeNewAlertPolicyConditionsConditionMonitoringQueryLanguageSet(c *
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionMonitoringQueryLanguageSlice(c *Client, des, nw []AlertPolicyConditionsConditionMonitoringQueryLanguage) []AlertPolicyConditionsConditionMonitoringQueryLanguage {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionMonitoringQueryLanguage
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionMonitoringQueryLanguage(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyConditionsConditionMonitoringQueryLanguageDuration(des, initial *AlertPolicyConditionsConditionMonitoringQueryLanguageDuration, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionMonitoringQueryLanguageDuration {
 	if des == nil {
 		return initial
@@ -3988,6 +5046,26 @@ func canonicalizeNewAlertPolicyConditionsConditionMonitoringQueryLanguageDuratio
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyConditionsConditionMonitoringQueryLanguageDurationSlice(c *Client, des, nw []AlertPolicyConditionsConditionMonitoringQueryLanguageDuration) []AlertPolicyConditionsConditionMonitoringQueryLanguageDuration {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionMonitoringQueryLanguageDuration
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionMonitoringQueryLanguageDuration(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger(des, initial *AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger, opts ...dcl.ApplyOption) *AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger {
@@ -4043,6 +5121,26 @@ func canonicalizeNewAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyConditionsConditionMonitoringQueryLanguageTriggerSlice(c *Client, des, nw []AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger) []AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyEnabled(des, initial *AlertPolicyEnabled, opts ...dcl.ApplyOption) *AlertPolicyEnabled {
 	if des == nil {
 		return initial
@@ -4055,7 +5153,7 @@ func canonicalizeAlertPolicyEnabled(des, initial *AlertPolicyEnabled, opts ...dc
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Value) {
+	if dcl.BoolCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
 		des.Value = initial.Value
 	}
 
@@ -4065,6 +5163,10 @@ func canonicalizeAlertPolicyEnabled(des, initial *AlertPolicyEnabled, opts ...dc
 func canonicalizeNewAlertPolicyEnabled(c *Client, des, nw *AlertPolicyEnabled) *AlertPolicyEnabled {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.Value, nw.Value) || dcl.IsZeroValue(des.Value) {
+		nw.Value = des.Value
 	}
 
 	return nw
@@ -4091,6 +5193,26 @@ func canonicalizeNewAlertPolicyEnabledSet(c *Client, des, nw []AlertPolicyEnable
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyEnabledSlice(c *Client, des, nw []AlertPolicyEnabled) []AlertPolicyEnabled {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyEnabled
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyEnabled(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyValidity(des, initial *AlertPolicyValidity, opts ...dcl.ApplyOption) *AlertPolicyValidity {
@@ -4126,6 +5248,7 @@ func canonicalizeNewAlertPolicyValidity(c *Client, des, nw *AlertPolicyValidity)
 	if dcl.StringCanonicalize(des.Message, nw.Message) || dcl.IsZeroValue(des.Message) {
 		nw.Message = des.Message
 	}
+	nw.Details = canonicalizeNewAlertPolicyValidityDetailsSlice(c, des.Details, nw.Details)
 
 	return nw
 }
@@ -4151,6 +5274,26 @@ func canonicalizeNewAlertPolicyValiditySet(c *Client, des, nw []AlertPolicyValid
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyValiditySlice(c *Client, des, nw []AlertPolicyValidity) []AlertPolicyValidity {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyValidity
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyValidity(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyValidityDetails(des, initial *AlertPolicyValidityDetails, opts ...dcl.ApplyOption) *AlertPolicyValidityDetails {
@@ -4213,6 +5356,26 @@ func canonicalizeNewAlertPolicyValidityDetailsSet(c *Client, des, nw []AlertPoli
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyValidityDetailsSlice(c *Client, des, nw []AlertPolicyValidityDetails) []AlertPolicyValidityDetails {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyValidityDetails
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyValidityDetails(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyCreationRecord(des, initial *AlertPolicyCreationRecord, opts ...dcl.ApplyOption) *AlertPolicyCreationRecord {
 	if des == nil {
 		return initial
@@ -4269,6 +5432,26 @@ func canonicalizeNewAlertPolicyCreationRecordSet(c *Client, des, nw []AlertPolic
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyCreationRecordSlice(c *Client, des, nw []AlertPolicyCreationRecord) []AlertPolicyCreationRecord {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyCreationRecord
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyCreationRecord(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyCreationRecordMutateTime(des, initial *AlertPolicyCreationRecordMutateTime, opts ...dcl.ApplyOption) *AlertPolicyCreationRecordMutateTime {
 	if des == nil {
 		return initial
@@ -4320,6 +5503,26 @@ func canonicalizeNewAlertPolicyCreationRecordMutateTimeSet(c *Client, des, nw []
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyCreationRecordMutateTimeSlice(c *Client, des, nw []AlertPolicyCreationRecordMutateTime) []AlertPolicyCreationRecordMutateTime {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyCreationRecordMutateTime
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyCreationRecordMutateTime(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeAlertPolicyMutationRecord(des, initial *AlertPolicyMutationRecord, opts ...dcl.ApplyOption) *AlertPolicyMutationRecord {
@@ -4378,6 +5581,26 @@ func canonicalizeNewAlertPolicyMutationRecordSet(c *Client, des, nw []AlertPolic
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyMutationRecordSlice(c *Client, des, nw []AlertPolicyMutationRecord) []AlertPolicyMutationRecord {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyMutationRecord
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyMutationRecord(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyMutationRecordMutateTime(des, initial *AlertPolicyMutationRecordMutateTime, opts ...dcl.ApplyOption) *AlertPolicyMutationRecordMutateTime {
 	if des == nil {
 		return initial
@@ -4431,6 +5654,26 @@ func canonicalizeNewAlertPolicyMutationRecordMutateTimeSet(c *Client, des, nw []
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyMutationRecordMutateTimeSlice(c *Client, des, nw []AlertPolicyMutationRecordMutateTime) []AlertPolicyMutationRecordMutateTime {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyMutationRecordMutateTime
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyMutationRecordMutateTime(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyIncidentStrategy(des, initial *AlertPolicyIncidentStrategy, opts ...dcl.ApplyOption) *AlertPolicyIncidentStrategy {
 	if des == nil {
 		return initial
@@ -4481,6 +5724,26 @@ func canonicalizeNewAlertPolicyIncidentStrategySet(c *Client, des, nw []AlertPol
 	return reorderedNew
 }
 
+func canonicalizeNewAlertPolicyIncidentStrategySlice(c *Client, des, nw []AlertPolicyIncidentStrategy) []AlertPolicyIncidentStrategy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyIncidentStrategy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyIncidentStrategy(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeAlertPolicyMetadata(des, initial *AlertPolicyMetadata, opts ...dcl.ApplyOption) *AlertPolicyMetadata {
 	if des == nil {
 		return initial
@@ -4529,6 +5792,26 @@ func canonicalizeNewAlertPolicyMetadataSet(c *Client, des, nw []AlertPolicyMetad
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewAlertPolicyMetadataSlice(c *Client, des, nw []AlertPolicyMetadata) []AlertPolicyMetadata {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []AlertPolicyMetadata
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewAlertPolicyMetadata(c, &d, &n))
+	}
+
+	return items
 }
 
 type alertPolicyDiff struct {
@@ -4594,7 +5877,7 @@ func diffAlertPolicy(c *Client, desired, actual *AlertPolicy, opts ...dcl.ApplyO
 			FieldName:        "Combiner",
 		})
 	}
-	if !reflect.DeepEqual(desired.Disabled, actual.Disabled) {
+	if !dcl.IsZeroValue(desired.Disabled) && !dcl.BoolCanonicalize(desired.Disabled, actual.Disabled) {
 		c.Config.Logger.Infof("Detected diff in Disabled.\nDESIRED: %v\nACTUAL: %v", desired.Disabled, actual.Disabled)
 		diffs = append(diffs, alertPolicyDiff{
 			RequiresRecreate: true,
@@ -8239,7 +9522,7 @@ func compareAlertPolicyEnabled(c *Client, desired, actual *AlertPolicyEnabled) b
 		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
+	if !dcl.BoolCanonicalize(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
 		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}

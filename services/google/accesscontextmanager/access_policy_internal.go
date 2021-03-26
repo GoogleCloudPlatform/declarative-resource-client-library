@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -246,9 +247,20 @@ func (op *deleteAccessPolicyOperation) do(ctx context.Context, r *AccessPolicy, 
 	if err := o.Wait(ctx, c.Config, "https://accesscontextmanager.googleapis.com/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetAccessPolicy(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetAccessPolicy(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -355,7 +367,6 @@ func (c *Client) accessPolicyDiffsForRawDesired(ctx context.Context, rawDesired 
 		desired, err := canonicalizeAccessPolicyDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
-
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetAccessPolicy(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -368,7 +379,6 @@ func (c *Client) accessPolicyDiffsForRawDesired(ctx context.Context, rawDesired 
 		desired, err = canonicalizeAccessPolicyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for AccessPolicy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for AccessPolicy: %v", rawDesired)
 

@@ -10,6 +10,6 @@
   "retentionConfig": {
     "perPartitionBytes": 32212254720
   },
-  "project": "{{ref:basic.serviceusage.service.json:project}}",
+  "project": "{{project}}",
   "location": "{{zone}}"
 }

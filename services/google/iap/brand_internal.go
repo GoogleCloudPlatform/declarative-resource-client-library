@@ -203,7 +203,6 @@ func (c *Client) brandDiffsForRawDesired(ctx context.Context, rawDesired *Brand,
 		desired, err := canonicalizeBrandDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
-
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetBrand(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -216,7 +215,6 @@ func (c *Client) brandDiffsForRawDesired(ctx context.Context, rawDesired *Brand,
 		desired, err = canonicalizeBrandDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Brand: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Brand: %v", rawDesired)
 
@@ -265,7 +263,7 @@ func canonicalizeBrandDesiredState(rawDesired, rawInitial *Brand, opts ...dcl.Ap
 	if dcl.IsZeroValue(rawDesired.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.OrgInternalOnly) {
+	if dcl.BoolCanonicalize(rawDesired.OrgInternalOnly, rawInitial.OrgInternalOnly) {
 		rawDesired.OrgInternalOnly = rawInitial.OrgInternalOnly
 	}
 	if dcl.StringCanonicalize(rawDesired.SupportEmail, rawInitial.SupportEmail) {
@@ -296,6 +294,9 @@ func canonicalizeBrandNewState(c *Client, rawNew, rawDesired *Brand) (*Brand, er
 	if dcl.IsEmptyValueIndirect(rawNew.OrgInternalOnly) && dcl.IsEmptyValueIndirect(rawDesired.OrgInternalOnly) {
 		rawNew.OrgInternalOnly = rawDesired.OrgInternalOnly
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.OrgInternalOnly, rawNew.OrgInternalOnly) {
+			rawNew.OrgInternalOnly = rawDesired.OrgInternalOnly
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.SupportEmail) && dcl.IsEmptyValueIndirect(rawDesired.SupportEmail) {

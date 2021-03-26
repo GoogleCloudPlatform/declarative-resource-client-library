@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -280,9 +281,20 @@ func (op *deleteSslPolicyOperation) do(ctx context.Context, r *SslPolicy, c *Cli
 	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetSslPolicy(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetSslPolicy(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -388,7 +400,6 @@ func (c *Client) sslPolicyDiffsForRawDesired(ctx context.Context, rawDesired *Ss
 		desired, err = canonicalizeSslPolicyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for SslPolicy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for SslPolicy: %v", rawDesired)
 
@@ -527,6 +538,7 @@ func canonicalizeSslPolicyNewState(c *Client, rawNew, rawDesired *SslPolicy) (*S
 	if dcl.IsEmptyValueIndirect(rawNew.Warning) && dcl.IsEmptyValueIndirect(rawDesired.Warning) {
 		rawNew.Warning = rawDesired.Warning
 	} else {
+		rawNew.Warning = canonicalizeNewSslPolicyWarningSlice(c, rawDesired.Warning, rawNew.Warning)
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -570,6 +582,7 @@ func canonicalizeNewSslPolicyWarning(c *Client, des, nw *SslPolicyWarning) *SslP
 	if dcl.StringCanonicalize(des.Message, nw.Message) || dcl.IsZeroValue(des.Message) {
 		nw.Message = des.Message
 	}
+	nw.Data = canonicalizeNewSslPolicyWarningDataSlice(c, des.Data, nw.Data)
 
 	return nw
 }
@@ -595,6 +608,26 @@ func canonicalizeNewSslPolicyWarningSet(c *Client, des, nw []SslPolicyWarning) [
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewSslPolicyWarningSlice(c *Client, des, nw []SslPolicyWarning) []SslPolicyWarning {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []SslPolicyWarning
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewSslPolicyWarning(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeSslPolicyWarningData(des, initial *SslPolicyWarningData, opts ...dcl.ApplyOption) *SslPolicyWarningData {
@@ -655,6 +688,26 @@ func canonicalizeNewSslPolicyWarningDataSet(c *Client, des, nw []SslPolicyWarnin
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewSslPolicyWarningDataSlice(c *Client, des, nw []SslPolicyWarningData) []SslPolicyWarningData {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []SslPolicyWarningData
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewSslPolicyWarningData(c, &d, &n))
+	}
+
+	return items
 }
 
 type sslPolicyDiff struct {

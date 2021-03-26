@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -297,9 +298,20 @@ func (op *deleteInstanceOperation) do(ctx context.Context, r *Instance, c *Clien
 	if err := o.Wait(ctx, c.Config, "https://file.googleapis.com/v1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetInstance(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetInstance(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -399,7 +411,6 @@ func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Ins
 		desired, err = canonicalizeInstanceDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Instance: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Instance: %v", rawDesired)
 
@@ -525,11 +536,13 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsEmptyValueIndirect(rawNew.FileShares) && dcl.IsEmptyValueIndirect(rawDesired.FileShares) {
 		rawNew.FileShares = rawDesired.FileShares
 	} else {
+		rawNew.FileShares = canonicalizeNewInstanceFileSharesSlice(c, rawDesired.FileShares, rawNew.FileShares)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Networks) && dcl.IsEmptyValueIndirect(rawDesired.Networks) {
 		rawNew.Networks = rawDesired.Networks
 	} else {
+		rawNew.Networks = canonicalizeNewInstanceNetworksSlice(c, rawDesired.Networks, rawNew.Networks)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
@@ -586,6 +599,7 @@ func canonicalizeNewInstanceFileShares(c *Client, des, nw *InstanceFileShares) *
 	if dcl.NameToSelfLink(des.SourceBackup, nw.SourceBackup) || dcl.IsZeroValue(des.SourceBackup) {
 		nw.SourceBackup = des.SourceBackup
 	}
+	nw.NfsExportOptions = canonicalizeNewInstanceFileSharesNfsExportOptionsSlice(c, des.NfsExportOptions, nw.NfsExportOptions)
 
 	return nw
 }
@@ -611,6 +625,26 @@ func canonicalizeNewInstanceFileSharesSet(c *Client, des, nw []InstanceFileShare
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceFileSharesSlice(c *Client, des, nw []InstanceFileShares) []InstanceFileShares {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceFileShares
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceFileShares(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceFileSharesNfsExportOptions(des, initial *InstanceFileSharesNfsExportOptions, opts ...dcl.ApplyOption) *InstanceFileSharesNfsExportOptions {
@@ -673,6 +707,26 @@ func canonicalizeNewInstanceFileSharesNfsExportOptionsSet(c *Client, des, nw []I
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceFileSharesNfsExportOptionsSlice(c *Client, des, nw []InstanceFileSharesNfsExportOptions) []InstanceFileSharesNfsExportOptions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceFileSharesNfsExportOptions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceFileSharesNfsExportOptions(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeInstanceNetworks(des, initial *InstanceNetworks, opts ...dcl.ApplyOption) *InstanceNetworks {
@@ -739,6 +793,26 @@ func canonicalizeNewInstanceNetworksSet(c *Client, des, nw []InstanceNetworks) [
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewInstanceNetworksSlice(c *Client, des, nw []InstanceNetworks) []InstanceNetworks {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []InstanceNetworks
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceNetworks(c, &d, &n))
+	}
+
+	return items
 }
 
 type instanceDiff struct {

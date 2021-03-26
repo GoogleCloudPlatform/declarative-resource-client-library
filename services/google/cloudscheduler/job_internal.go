@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -346,9 +347,20 @@ func (op *deleteJobOperation) do(ctx context.Context, r *Job, c *Client) error {
 	if err != nil {
 		return fmt.Errorf("failed to delete Job: %w", err)
 	}
-	_, err = c.GetJob(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetJob(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -443,7 +455,6 @@ func (c *Client) jobDiffsForRawDesired(ctx context.Context, rawDesired *Job, opt
 		desired, err = canonicalizeJobDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Job: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Job: %v", rawDesired)
 
@@ -695,6 +706,26 @@ func canonicalizeNewJobPubsubTargetSet(c *Client, des, nw []JobPubsubTarget) []J
 	return reorderedNew
 }
 
+func canonicalizeNewJobPubsubTargetSlice(c *Client, des, nw []JobPubsubTarget) []JobPubsubTarget {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobPubsubTarget
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobPubsubTarget(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeJobAppEngineHttpTarget(des, initial *JobAppEngineHttpTarget, opts ...dcl.ApplyOption) *JobAppEngineHttpTarget {
 	if des == nil {
 		return initial
@@ -761,6 +792,26 @@ func canonicalizeNewJobAppEngineHttpTargetSet(c *Client, des, nw []JobAppEngineH
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewJobAppEngineHttpTargetSlice(c *Client, des, nw []JobAppEngineHttpTarget) []JobAppEngineHttpTarget {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobAppEngineHttpTarget
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobAppEngineHttpTarget(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeJobAppEngineHttpTargetAppEngineRouting(des, initial *JobAppEngineHttpTargetAppEngineRouting, opts ...dcl.ApplyOption) *JobAppEngineHttpTargetAppEngineRouting {
@@ -835,6 +886,26 @@ func canonicalizeNewJobAppEngineHttpTargetAppEngineRoutingSet(c *Client, des, nw
 	return reorderedNew
 }
 
+func canonicalizeNewJobAppEngineHttpTargetAppEngineRoutingSlice(c *Client, des, nw []JobAppEngineHttpTargetAppEngineRouting) []JobAppEngineHttpTargetAppEngineRouting {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobAppEngineHttpTargetAppEngineRouting
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobAppEngineHttpTargetAppEngineRouting(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeJobHttpTarget(des, initial *JobHttpTarget, opts ...dcl.ApplyOption) *JobHttpTarget {
 	if des == nil {
 		return initial
@@ -905,6 +976,26 @@ func canonicalizeNewJobHttpTargetSet(c *Client, des, nw []JobHttpTarget) []JobHt
 	return reorderedNew
 }
 
+func canonicalizeNewJobHttpTargetSlice(c *Client, des, nw []JobHttpTarget) []JobHttpTarget {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobHttpTarget
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobHttpTarget(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeJobHttpTargetOAuthToken(des, initial *JobHttpTargetOAuthToken, opts ...dcl.ApplyOption) *JobHttpTargetOAuthToken {
 	if des == nil {
 		return initial
@@ -963,6 +1054,26 @@ func canonicalizeNewJobHttpTargetOAuthTokenSet(c *Client, des, nw []JobHttpTarge
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewJobHttpTargetOAuthTokenSlice(c *Client, des, nw []JobHttpTargetOAuthToken) []JobHttpTargetOAuthToken {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobHttpTargetOAuthToken
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobHttpTargetOAuthToken(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeJobHttpTargetOidcToken(des, initial *JobHttpTargetOidcToken, opts ...dcl.ApplyOption) *JobHttpTargetOidcToken {
@@ -1025,6 +1136,26 @@ func canonicalizeNewJobHttpTargetOidcTokenSet(c *Client, des, nw []JobHttpTarget
 	return reorderedNew
 }
 
+func canonicalizeNewJobHttpTargetOidcTokenSlice(c *Client, des, nw []JobHttpTargetOidcToken) []JobHttpTargetOidcToken {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobHttpTargetOidcToken
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobHttpTargetOidcToken(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeJobStatus(des, initial *JobStatus, opts ...dcl.ApplyOption) *JobStatus {
 	if des == nil {
 		return initial
@@ -1058,6 +1189,7 @@ func canonicalizeNewJobStatus(c *Client, des, nw *JobStatus) *JobStatus {
 	if dcl.StringCanonicalize(des.Message, nw.Message) || dcl.IsZeroValue(des.Message) {
 		nw.Message = des.Message
 	}
+	nw.Details = canonicalizeNewJobStatusDetailsSlice(c, des.Details, nw.Details)
 
 	return nw
 }
@@ -1083,6 +1215,26 @@ func canonicalizeNewJobStatusSet(c *Client, des, nw []JobStatus) []JobStatus {
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewJobStatusSlice(c *Client, des, nw []JobStatus) []JobStatus {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobStatus
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobStatus(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeJobStatusDetails(des, initial *JobStatusDetails, opts ...dcl.ApplyOption) *JobStatusDetails {
@@ -1143,6 +1295,26 @@ func canonicalizeNewJobStatusDetailsSet(c *Client, des, nw []JobStatusDetails) [
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewJobStatusDetailsSlice(c *Client, des, nw []JobStatusDetails) []JobStatusDetails {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobStatusDetails
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobStatusDetails(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeJobRetryConfig(des, initial *JobRetryConfig, opts ...dcl.ApplyOption) *JobRetryConfig {
@@ -1215,6 +1387,26 @@ func canonicalizeNewJobRetryConfigSet(c *Client, des, nw []JobRetryConfig) []Job
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewJobRetryConfigSlice(c *Client, des, nw []JobRetryConfig) []JobRetryConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []JobRetryConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewJobRetryConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 type jobDiff struct {

@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -247,9 +248,20 @@ func (op *deleteNotificationChannelOperation) do(ctx context.Context, r *Notific
 	if err != nil {
 		return fmt.Errorf("failed to delete NotificationChannel: %w", err)
 	}
-	_, err = c.GetNotificationChannel(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetNotificationChannel(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -348,7 +360,6 @@ func (c *Client) notificationChannelDiffsForRawDesired(ctx context.Context, rawD
 		desired, err := canonicalizeNotificationChannelDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
-
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetNotificationChannel(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -361,7 +372,6 @@ func (c *Client) notificationChannelDiffsForRawDesired(ctx context.Context, rawD
 		desired, err = canonicalizeNotificationChannelDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for NotificationChannel: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for NotificationChannel: %v", rawDesired)
 
@@ -414,7 +424,7 @@ func canonicalizeNotificationChannelDesiredState(rawDesired, rawInitial *Notific
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
 		rawDesired.DisplayName = rawInitial.DisplayName
 	}
-	if dcl.IsZeroValue(rawDesired.Enabled) {
+	if dcl.BoolCanonicalize(rawDesired.Enabled, rawInitial.Enabled) {
 		rawDesired.Enabled = rawInitial.Enabled
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
@@ -460,6 +470,9 @@ func canonicalizeNotificationChannelNewState(c *Client, rawNew, rawDesired *Noti
 	if dcl.IsEmptyValueIndirect(rawNew.Enabled) && dcl.IsEmptyValueIndirect(rawDesired.Enabled) {
 		rawNew.Enabled = rawDesired.Enabled
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.Enabled, rawNew.Enabled) {
+			rawNew.Enabled = rawDesired.Enabled
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
@@ -534,7 +547,7 @@ func diffNotificationChannel(c *Client, desired, actual *NotificationChannel, op
 		})
 
 	}
-	if !reflect.DeepEqual(desired.Enabled, actual.Enabled) {
+	if !dcl.IsZeroValue(desired.Enabled) && !dcl.BoolCanonicalize(desired.Enabled, actual.Enabled) {
 		c.Config.Logger.Infof("Detected diff in Enabled.\nDESIRED: %v\nACTUAL: %v", desired.Enabled, actual.Enabled)
 
 		diffs = append(diffs, notificationChannelDiff{

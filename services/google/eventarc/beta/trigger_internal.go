@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -155,11 +156,6 @@ func newUpdateTriggerUpdateTriggerRequest(ctx context.Context, f *Trigger, c *Cl
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["destination"] = v
 	}
-	if v, err := expandTriggerTransport(c, f.Transport); err != nil {
-		return nil, fmt.Errorf("error expanding Transport into transport: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["transport"] = v
-	}
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
 	}
@@ -216,7 +212,7 @@ func (op *updateTriggerUpdateTriggerOperation) do(ctx context.Context, r *Trigge
 	if err != nil {
 		return err
 	}
-	mask := strings.Join([]string{"name", "serviceAccount", "destination", "transport", "labels", "matchingCriteria", "etag"}, ",")
+	mask := strings.Join([]string{"name", "serviceAccount", "destination", "labels", "matchingCriteria", "etag"}, ",")
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -357,9 +353,20 @@ func (op *deleteTriggerOperation) do(ctx context.Context, r *Trigger, c *Client)
 	if err := o.Wait(ctx, c.Config, "https://eventarc.googleapis.com/v1beta1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetTrigger(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetTrigger(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -459,7 +466,6 @@ func (c *Client) triggerDiffsForRawDesired(ctx context.Context, rawDesired *Trig
 		desired, err = canonicalizeTriggerDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Trigger: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Trigger: %v", rawDesired)
 
@@ -653,6 +659,26 @@ func canonicalizeNewTriggerDestinationSet(c *Client, des, nw []TriggerDestinatio
 	return reorderedNew
 }
 
+func canonicalizeNewTriggerDestinationSlice(c *Client, des, nw []TriggerDestination) []TriggerDestination {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []TriggerDestination
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewTriggerDestination(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeTriggerDestinationCloudRunService(des, initial *TriggerDestinationCloudRunService, opts ...dcl.ApplyOption) *TriggerDestinationCloudRunService {
 	if des == nil {
 		return initial
@@ -719,6 +745,26 @@ func canonicalizeNewTriggerDestinationCloudRunServiceSet(c *Client, des, nw []Tr
 	return reorderedNew
 }
 
+func canonicalizeNewTriggerDestinationCloudRunServiceSlice(c *Client, des, nw []TriggerDestinationCloudRunService) []TriggerDestinationCloudRunService {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []TriggerDestinationCloudRunService
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewTriggerDestinationCloudRunService(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeTriggerTransport(des, initial *TriggerTransport, opts ...dcl.ApplyOption) *TriggerTransport {
 	if des == nil {
 		return initial
@@ -767,6 +813,26 @@ func canonicalizeNewTriggerTransportSet(c *Client, des, nw []TriggerTransport) [
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewTriggerTransportSlice(c *Client, des, nw []TriggerTransport) []TriggerTransport {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []TriggerTransport
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewTriggerTransport(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeTriggerTransportPubsub(des, initial *TriggerTransportPubsub, opts ...dcl.ApplyOption) *TriggerTransportPubsub {
@@ -829,6 +895,26 @@ func canonicalizeNewTriggerTransportPubsubSet(c *Client, des, nw []TriggerTransp
 	return reorderedNew
 }
 
+func canonicalizeNewTriggerTransportPubsubSlice(c *Client, des, nw []TriggerTransportPubsub) []TriggerTransportPubsub {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []TriggerTransportPubsub
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewTriggerTransportPubsub(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeTriggerMatchingCriteria(des, initial *TriggerMatchingCriteria, opts ...dcl.ApplyOption) *TriggerMatchingCriteria {
 	if des == nil {
 		return initial
@@ -889,6 +975,26 @@ func canonicalizeNewTriggerMatchingCriteriaSet(c *Client, des, nw []TriggerMatch
 	return reorderedNew
 }
 
+func canonicalizeNewTriggerMatchingCriteriaSlice(c *Client, des, nw []TriggerMatchingCriteria) []TriggerMatchingCriteria {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []TriggerMatchingCriteria
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewTriggerMatchingCriteria(c, &d, &n))
+	}
+
+	return items
+}
+
 type triggerDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
@@ -939,12 +1045,10 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 	}
 	if compareTriggerTransport(c, desired.Transport, actual.Transport) {
 		c.Config.Logger.Infof("Detected diff in Transport.\nDESIRED: %v\nACTUAL: %v", desired.Transport, actual.Transport)
-
 		diffs = append(diffs, triggerDiff{
-			UpdateOp:  &updateTriggerUpdateTriggerOperation{},
-			FieldName: "Transport",
+			RequiresRecreate: true,
+			FieldName:        "Transport",
 		})
-
 	}
 	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
 		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)

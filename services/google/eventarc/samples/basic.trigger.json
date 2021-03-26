@@ -2,6 +2,7 @@
   "project": "{{project}}",
   "location": "{{region}}",
   "name": "{{name}}",
+  "labels": {},
   "destination": {
     "cloudRunService": {
       "service": "{{ref:basicservice.run.service.json:name}}",

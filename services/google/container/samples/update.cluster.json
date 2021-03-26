@@ -5,6 +5,6 @@
       "disabled": true
     }
   },
-  "project": "{{ref:autopilot.serviceusage.service.json:project}}",
+  "project": "{{project}}",
   "location": "{{region}}"
 }

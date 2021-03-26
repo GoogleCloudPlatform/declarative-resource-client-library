@@ -223,7 +223,10 @@ func assertIntSlice(id []interface{}) []int64 {
 		if v == nil {
 			continue
 		}
-
+		if f, ok := v.(float64); ok {
+			dd = append(dd, int64(f))
+			continue
+		}
 		if d, ok := v.(int64); ok {
 			dd = append(dd, d)
 		}

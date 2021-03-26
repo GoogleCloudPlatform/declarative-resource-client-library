@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -249,9 +250,20 @@ func (op *deleteServiceAccountOperation) do(ctx context.Context, r *ServiceAccou
 	if err != nil {
 		return fmt.Errorf("failed to delete ServiceAccount: %w", err)
 	}
-	_, err = c.GetServiceAccount(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetServiceAccount(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -346,7 +358,6 @@ func (c *Client) serviceAccountDiffsForRawDesired(ctx context.Context, rawDesire
 		desired, err = canonicalizeServiceAccountDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for ServiceAccount: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for ServiceAccount: %v", rawDesired)
 
@@ -412,7 +423,7 @@ func canonicalizeServiceAccountDesiredState(rawDesired, rawInitial *ServiceAccou
 		rawDesired.OAuth2ClientId = rawInitial.OAuth2ClientId
 	}
 	rawDesired.ActasResources = canonicalizeServiceAccountActasResources(rawDesired.ActasResources, rawInitial.ActasResources, opts...)
-	if dcl.IsZeroValue(rawDesired.Disabled) {
+	if dcl.BoolCanonicalize(rawDesired.Disabled, rawInitial.Disabled) {
 		rawDesired.Disabled = rawInitial.Disabled
 	}
 
@@ -486,6 +497,9 @@ func canonicalizeServiceAccountNewState(c *Client, rawNew, rawDesired *ServiceAc
 	if dcl.IsEmptyValueIndirect(rawNew.Disabled) && dcl.IsEmptyValueIndirect(rawDesired.Disabled) {
 		rawNew.Disabled = rawDesired.Disabled
 	} else {
+		if dcl.BoolCanonicalize(rawDesired.Disabled, rawNew.Disabled) {
+			rawNew.Disabled = rawDesired.Disabled
+		}
 	}
 
 	return rawNew, nil
@@ -515,6 +529,8 @@ func canonicalizeNewServiceAccountActasResources(c *Client, des, nw *ServiceAcco
 		return nw
 	}
 
+	nw.Resources = canonicalizeNewServiceAccountActasResourcesResourcesSlice(c, des.Resources, nw.Resources)
+
 	return nw
 }
 
@@ -539,6 +555,26 @@ func canonicalizeNewServiceAccountActasResourcesSet(c *Client, des, nw []Service
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceAccountActasResourcesSlice(c *Client, des, nw []ServiceAccountActasResources) []ServiceAccountActasResources {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceAccountActasResources
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceAccountActasResources(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeServiceAccountActasResourcesResources(des, initial *ServiceAccountActasResourcesResources, opts ...dcl.ApplyOption) *ServiceAccountActasResourcesResources {
@@ -593,6 +629,26 @@ func canonicalizeNewServiceAccountActasResourcesResourcesSet(c *Client, des, nw 
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewServiceAccountActasResourcesResourcesSlice(c *Client, des, nw []ServiceAccountActasResourcesResources) []ServiceAccountActasResourcesResources {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ServiceAccountActasResourcesResources
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewServiceAccountActasResourcesResources(c, &d, &n))
+	}
+
+	return items
 }
 
 type serviceAccountDiff struct {

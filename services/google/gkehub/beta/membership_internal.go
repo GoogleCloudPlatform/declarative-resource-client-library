@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -160,6 +161,9 @@ func newUpdateMembershipUpdateMembershipRequest(ctx context.Context, f *Membersh
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
 	}
+	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+		req["description"] = v
+	}
 	if v := f.ExternalId; !dcl.IsEmptyValueIndirect(v) {
 		req["externalId"] = v
 	}
@@ -199,6 +203,11 @@ func (op *updateMembershipUpdateMembershipOperation) do(ctx context.Context, r *
 	}
 
 	u, err := r.updateURL(c.Config.BasePath, "UpdateMembership")
+	if err != nil {
+		return err
+	}
+	mask := strings.Join([]string{"endpoint", "labels", "description", "externalId", "authority", "infrastructureType"}, ",")
+	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
 	}
@@ -338,9 +347,20 @@ func (op *deleteMembershipOperation) do(ctx context.Context, r *Membership, c *C
 	if err := o.Wait(ctx, c.Config, "https://gkehub.googleapis.com/v1beta1/", "GET"); err != nil {
 		return err
 	}
-	_, err = c.GetMembership(ctx, r.urlNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetMembership(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
 	}
 	return nil
 }
@@ -440,7 +460,6 @@ func (c *Client) membershipDiffsForRawDesired(ctx context.Context, rawDesired *M
 		desired, err = canonicalizeMembershipDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Membership: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Membership: %v", rawDesired)
 
@@ -672,6 +691,26 @@ func canonicalizeNewMembershipEndpointSet(c *Client, des, nw []MembershipEndpoin
 	return reorderedNew
 }
 
+func canonicalizeNewMembershipEndpointSlice(c *Client, des, nw []MembershipEndpoint) []MembershipEndpoint {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []MembershipEndpoint
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewMembershipEndpoint(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeMembershipEndpointGkeCluster(des, initial *MembershipEndpointGkeCluster, opts ...dcl.ApplyOption) *MembershipEndpointGkeCluster {
 	if des == nil {
 		return initial
@@ -724,6 +763,26 @@ func canonicalizeNewMembershipEndpointGkeClusterSet(c *Client, des, nw []Members
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewMembershipEndpointGkeClusterSlice(c *Client, des, nw []MembershipEndpointGkeCluster) []MembershipEndpointGkeCluster {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []MembershipEndpointGkeCluster
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewMembershipEndpointGkeCluster(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeMembershipEndpointKubernetesMetadata(des, initial *MembershipEndpointKubernetesMetadata, opts ...dcl.ApplyOption) *MembershipEndpointKubernetesMetadata {
@@ -798,6 +857,26 @@ func canonicalizeNewMembershipEndpointKubernetesMetadataSet(c *Client, des, nw [
 	return reorderedNew
 }
 
+func canonicalizeNewMembershipEndpointKubernetesMetadataSlice(c *Client, des, nw []MembershipEndpointKubernetesMetadata) []MembershipEndpointKubernetesMetadata {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []MembershipEndpointKubernetesMetadata
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewMembershipEndpointKubernetesMetadata(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeMembershipEndpointKubernetesResource(des, initial *MembershipEndpointKubernetesResource, opts ...dcl.ApplyOption) *MembershipEndpointKubernetesResource {
 	if des == nil {
 		return initial
@@ -832,6 +911,8 @@ func canonicalizeNewMembershipEndpointKubernetesResource(c *Client, des, nw *Mem
 	if dcl.StringCanonicalize(des.MembershipCrManifest, nw.MembershipCrManifest) || dcl.IsZeroValue(des.MembershipCrManifest) {
 		nw.MembershipCrManifest = des.MembershipCrManifest
 	}
+	nw.MembershipResources = canonicalizeNewMembershipEndpointKubernetesResourceMembershipResourcesSlice(c, des.MembershipResources, nw.MembershipResources)
+	nw.ConnectResources = canonicalizeNewMembershipEndpointKubernetesResourceConnectResourcesSlice(c, des.ConnectResources, nw.ConnectResources)
 	nw.ResourceOptions = canonicalizeNewMembershipEndpointKubernetesResourceResourceOptions(c, des.ResourceOptions, nw.ResourceOptions)
 
 	return nw
@@ -860,6 +941,26 @@ func canonicalizeNewMembershipEndpointKubernetesResourceSet(c *Client, des, nw [
 	return reorderedNew
 }
 
+func canonicalizeNewMembershipEndpointKubernetesResourceSlice(c *Client, des, nw []MembershipEndpointKubernetesResource) []MembershipEndpointKubernetesResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []MembershipEndpointKubernetesResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewMembershipEndpointKubernetesResource(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeMembershipEndpointKubernetesResourceMembershipResources(des, initial *MembershipEndpointKubernetesResourceMembershipResources, opts ...dcl.ApplyOption) *MembershipEndpointKubernetesResourceMembershipResources {
 	if des == nil {
 		return initial
@@ -875,7 +976,7 @@ func canonicalizeMembershipEndpointKubernetesResourceMembershipResources(des, in
 	if dcl.StringCanonicalize(des.Manifest, initial.Manifest) || dcl.IsZeroValue(des.Manifest) {
 		des.Manifest = initial.Manifest
 	}
-	if dcl.IsZeroValue(des.ClusterScoped) {
+	if dcl.BoolCanonicalize(des.ClusterScoped, initial.ClusterScoped) || dcl.IsZeroValue(des.ClusterScoped) {
 		des.ClusterScoped = initial.ClusterScoped
 	}
 
@@ -889,6 +990,9 @@ func canonicalizeNewMembershipEndpointKubernetesResourceMembershipResources(c *C
 
 	if dcl.StringCanonicalize(des.Manifest, nw.Manifest) || dcl.IsZeroValue(des.Manifest) {
 		nw.Manifest = des.Manifest
+	}
+	if dcl.BoolCanonicalize(des.ClusterScoped, nw.ClusterScoped) || dcl.IsZeroValue(des.ClusterScoped) {
+		nw.ClusterScoped = des.ClusterScoped
 	}
 
 	return nw
@@ -917,6 +1021,26 @@ func canonicalizeNewMembershipEndpointKubernetesResourceMembershipResourcesSet(c
 	return reorderedNew
 }
 
+func canonicalizeNewMembershipEndpointKubernetesResourceMembershipResourcesSlice(c *Client, des, nw []MembershipEndpointKubernetesResourceMembershipResources) []MembershipEndpointKubernetesResourceMembershipResources {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []MembershipEndpointKubernetesResourceMembershipResources
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewMembershipEndpointKubernetesResourceMembershipResources(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeMembershipEndpointKubernetesResourceConnectResources(des, initial *MembershipEndpointKubernetesResourceConnectResources, opts ...dcl.ApplyOption) *MembershipEndpointKubernetesResourceConnectResources {
 	if des == nil {
 		return initial
@@ -932,7 +1056,7 @@ func canonicalizeMembershipEndpointKubernetesResourceConnectResources(des, initi
 	if dcl.StringCanonicalize(des.Manifest, initial.Manifest) || dcl.IsZeroValue(des.Manifest) {
 		des.Manifest = initial.Manifest
 	}
-	if dcl.IsZeroValue(des.ClusterScoped) {
+	if dcl.BoolCanonicalize(des.ClusterScoped, initial.ClusterScoped) || dcl.IsZeroValue(des.ClusterScoped) {
 		des.ClusterScoped = initial.ClusterScoped
 	}
 
@@ -946,6 +1070,9 @@ func canonicalizeNewMembershipEndpointKubernetesResourceConnectResources(c *Clie
 
 	if dcl.StringCanonicalize(des.Manifest, nw.Manifest) || dcl.IsZeroValue(des.Manifest) {
 		nw.Manifest = des.Manifest
+	}
+	if dcl.BoolCanonicalize(des.ClusterScoped, nw.ClusterScoped) || dcl.IsZeroValue(des.ClusterScoped) {
+		nw.ClusterScoped = des.ClusterScoped
 	}
 
 	return nw
@@ -974,6 +1101,26 @@ func canonicalizeNewMembershipEndpointKubernetesResourceConnectResourcesSet(c *C
 	return reorderedNew
 }
 
+func canonicalizeNewMembershipEndpointKubernetesResourceConnectResourcesSlice(c *Client, des, nw []MembershipEndpointKubernetesResourceConnectResources) []MembershipEndpointKubernetesResourceConnectResources {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []MembershipEndpointKubernetesResourceConnectResources
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewMembershipEndpointKubernetesResourceConnectResources(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeMembershipEndpointKubernetesResourceResourceOptions(des, initial *MembershipEndpointKubernetesResourceResourceOptions, opts ...dcl.ApplyOption) *MembershipEndpointKubernetesResourceResourceOptions {
 	if des == nil {
 		return initial
@@ -989,7 +1136,7 @@ func canonicalizeMembershipEndpointKubernetesResourceResourceOptions(des, initia
 	if dcl.StringCanonicalize(des.ConnectVersion, initial.ConnectVersion) || dcl.IsZeroValue(des.ConnectVersion) {
 		des.ConnectVersion = initial.ConnectVersion
 	}
-	if dcl.IsZeroValue(des.V1Beta1Crd) {
+	if dcl.BoolCanonicalize(des.V1Beta1Crd, initial.V1Beta1Crd) || dcl.IsZeroValue(des.V1Beta1Crd) {
 		des.V1Beta1Crd = initial.V1Beta1Crd
 	}
 
@@ -1003,6 +1150,9 @@ func canonicalizeNewMembershipEndpointKubernetesResourceResourceOptions(c *Clien
 
 	if dcl.StringCanonicalize(des.ConnectVersion, nw.ConnectVersion) || dcl.IsZeroValue(des.ConnectVersion) {
 		nw.ConnectVersion = des.ConnectVersion
+	}
+	if dcl.BoolCanonicalize(des.V1Beta1Crd, nw.V1Beta1Crd) || dcl.IsZeroValue(des.V1Beta1Crd) {
+		nw.V1Beta1Crd = des.V1Beta1Crd
 	}
 
 	return nw
@@ -1029,6 +1179,26 @@ func canonicalizeNewMembershipEndpointKubernetesResourceResourceOptionsSet(c *Cl
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewMembershipEndpointKubernetesResourceResourceOptionsSlice(c *Client, des, nw []MembershipEndpointKubernetesResourceResourceOptions) []MembershipEndpointKubernetesResourceResourceOptions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []MembershipEndpointKubernetesResourceResourceOptions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewMembershipEndpointKubernetesResourceResourceOptions(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeMembershipState(des, initial *MembershipState, opts ...dcl.ApplyOption) *MembershipState {
@@ -1079,6 +1249,26 @@ func canonicalizeNewMembershipStateSet(c *Client, des, nw []MembershipState) []M
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewMembershipStateSlice(c *Client, des, nw []MembershipState) []MembershipState {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []MembershipState
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewMembershipState(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeMembershipAuthority(des, initial *MembershipAuthority, opts ...dcl.ApplyOption) *MembershipAuthority {
@@ -1147,6 +1337,26 @@ func canonicalizeNewMembershipAuthoritySet(c *Client, des, nw []MembershipAuthor
 	return reorderedNew
 }
 
+func canonicalizeNewMembershipAuthoritySlice(c *Client, des, nw []MembershipAuthority) []MembershipAuthority {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []MembershipAuthority
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewMembershipAuthority(c, &d, &n))
+	}
+
+	return items
+}
+
 type membershipDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
@@ -1195,10 +1405,12 @@ func diffMembership(c *Client, desired, actual *Membership, opts ...dcl.ApplyOpt
 	}
 	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
+
 		diffs = append(diffs, membershipDiff{
-			RequiresRecreate: true,
-			FieldName:        "Description",
+			UpdateOp:  &updateMembershipUpdateMembershipOperation{},
+			FieldName: "Description",
 		})
+
 	}
 	if !dcl.IsZeroValue(desired.ExternalId) && !dcl.StringCanonicalize(desired.ExternalId, actual.ExternalId) {
 		c.Config.Logger.Infof("Detected diff in ExternalId.\nDESIRED: %v\nACTUAL: %v", desired.ExternalId, actual.ExternalId)
@@ -1474,7 +1686,7 @@ func compareMembershipEndpointKubernetesResourceMembershipResources(c *Client, d
 		c.Config.Logger.Infof("desired ClusterScoped %s - but actually nil", dcl.SprintResource(desired.ClusterScoped))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ClusterScoped, actual.ClusterScoped) && !dcl.IsZeroValue(desired.ClusterScoped) {
+	if !dcl.BoolCanonicalize(desired.ClusterScoped, actual.ClusterScoped) && !dcl.IsZeroValue(desired.ClusterScoped) {
 		c.Config.Logger.Infof("Diff in ClusterScoped. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterScoped), dcl.SprintResource(actual.ClusterScoped))
 		return true
 	}
@@ -1533,7 +1745,7 @@ func compareMembershipEndpointKubernetesResourceConnectResources(c *Client, desi
 		c.Config.Logger.Infof("desired ClusterScoped %s - but actually nil", dcl.SprintResource(desired.ClusterScoped))
 		return true
 	}
-	if !reflect.DeepEqual(desired.ClusterScoped, actual.ClusterScoped) && !dcl.IsZeroValue(desired.ClusterScoped) {
+	if !dcl.BoolCanonicalize(desired.ClusterScoped, actual.ClusterScoped) && !dcl.IsZeroValue(desired.ClusterScoped) {
 		c.Config.Logger.Infof("Diff in ClusterScoped. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterScoped), dcl.SprintResource(actual.ClusterScoped))
 		return true
 	}
@@ -1592,7 +1804,7 @@ func compareMembershipEndpointKubernetesResourceResourceOptions(c *Client, desir
 		c.Config.Logger.Infof("desired V1Beta1Crd %s - but actually nil", dcl.SprintResource(desired.V1Beta1Crd))
 		return true
 	}
-	if !reflect.DeepEqual(desired.V1Beta1Crd, actual.V1Beta1Crd) && !dcl.IsZeroValue(desired.V1Beta1Crd) {
+	if !dcl.BoolCanonicalize(desired.V1Beta1Crd, actual.V1Beta1Crd) && !dcl.IsZeroValue(desired.V1Beta1Crd) {
 		c.Config.Logger.Infof("Diff in V1Beta1Crd. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.V1Beta1Crd), dcl.SprintResource(actual.V1Beta1Crd))
 		return true
 	}
@@ -2139,7 +2351,9 @@ func expandMembershipEndpointGkeCluster(c *Client, f *MembershipEndpointGkeClust
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ResourceLink; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := expandHubReferenceLink(f, f.ResourceLink); err != nil {
+		return nil, fmt.Errorf("error expanding ResourceLink into resourceLink: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["resourceLink"] = v
 	}
 
@@ -2155,7 +2369,7 @@ func flattenMembershipEndpointGkeCluster(c *Client, i interface{}) *MembershipEn
 	}
 
 	r := &MembershipEndpointGkeCluster{}
-	r.ResourceLink = dcl.FlattenString(m["resourceLink"])
+	r.ResourceLink = flattenHubReferenceLink(m["resourceLink"])
 
 	return r
 }

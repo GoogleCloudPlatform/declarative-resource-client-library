@@ -20,6 +20,7 @@ import (
 
 // RegisterServers registers each resource with the gRPC server.
 func RegisterServers(s *grpc.Server) {
+	sdkgrpc.RegisterLoggingLogBucketServiceServer(s, &LogBucketServer{})
 	sdkgrpc.RegisterLoggingLogExclusionServiceServer(s, &LogExclusionServer{})
 	sdkgrpc.RegisterLoggingLogMetricServiceServer(s, &LogMetricServer{})
 }

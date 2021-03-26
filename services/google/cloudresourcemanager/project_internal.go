@@ -356,7 +356,6 @@ func (c *Client) projectDiffsForRawDesired(ctx context.Context, rawDesired *Proj
 		desired, err = canonicalizeProjectDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Project: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Project: %v", rawDesired)
 
@@ -520,6 +519,26 @@ func canonicalizeNewProjectParentSet(c *Client, des, nw []ProjectParent) []Proje
 	reorderedNew = append(reorderedNew, nw...)
 
 	return reorderedNew
+}
+
+func canonicalizeNewProjectParentSlice(c *Client, des, nw []ProjectParent) []ProjectParent {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []ProjectParent
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewProjectParent(c, &d, &n))
+	}
+
+	return items
 }
 
 type projectDiff struct {
