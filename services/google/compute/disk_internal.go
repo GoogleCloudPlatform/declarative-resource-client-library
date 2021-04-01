@@ -998,16 +998,16 @@ func canonicalizeNewDiskEncryptionKey(c *Client, des, nw *DiskEncryptionKey) *Di
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) || dcl.IsZeroValue(des.RawKey) {
+	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) {
 		nw.RawKey = des.RawKey
 	}
-	if dcl.StringCanonicalize(des.KmsKeyName, nw.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
+	if dcl.StringCanonicalize(des.KmsKeyName, nw.KmsKeyName) {
 		nw.KmsKeyName = des.KmsKeyName
 	}
-	if dcl.StringCanonicalize(des.Sha256, nw.Sha256) || dcl.IsZeroValue(des.Sha256) {
+	if dcl.StringCanonicalize(des.Sha256, nw.Sha256) {
 		nw.Sha256 = des.Sha256
 	}
-	if dcl.StringCanonicalize(des.KmsKeyServiceAccount, nw.KmsKeyServiceAccount) || dcl.IsZeroValue(des.KmsKeyServiceAccount) {
+	if dcl.StringCanonicalize(des.KmsKeyServiceAccount, nw.KmsKeyServiceAccount) {
 		nw.KmsKeyServiceAccount = des.KmsKeyServiceAccount
 	}
 

@@ -296,7 +296,7 @@ components:
       - location
       title: Feature
       type: object
-      x-dcl-id: v1beta/projects/{{project}}/locations/{{location}}/features/{{name}}
+      x-dcl-id: projects/{{project}}/locations/{{location}}/features/{{name}}
       x-dcl-labels: labels
       x-dcl-locations: []
       x-dcl-parent-container: project

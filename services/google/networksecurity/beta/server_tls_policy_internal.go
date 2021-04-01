@@ -728,10 +728,10 @@ func canonicalizeNewServerTlsPolicyServerCertificateLocalFilepath(c *Client, des
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.CertificatePath, nw.CertificatePath) || dcl.IsZeroValue(des.CertificatePath) {
+	if dcl.StringCanonicalize(des.CertificatePath, nw.CertificatePath) {
 		nw.CertificatePath = des.CertificatePath
 	}
-	if dcl.StringCanonicalize(des.PrivateKeyPath, nw.PrivateKeyPath) || dcl.IsZeroValue(des.PrivateKeyPath) {
+	if dcl.StringCanonicalize(des.PrivateKeyPath, nw.PrivateKeyPath) {
 		nw.PrivateKeyPath = des.PrivateKeyPath
 	}
 
@@ -805,7 +805,7 @@ func canonicalizeNewServerTlsPolicyServerCertificateGrpcEndpoint(c *Client, des,
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.TargetUri, nw.TargetUri) || dcl.IsZeroValue(des.TargetUri) {
+	if dcl.StringCanonicalize(des.TargetUri, nw.TargetUri) {
 		nw.TargetUri = des.TargetUri
 	}
 
@@ -879,7 +879,7 @@ func canonicalizeNewServerTlsPolicyServerCertificateCertificateProviderInstance(
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.PluginInstance, nw.PluginInstance) || dcl.IsZeroValue(des.PluginInstance) {
+	if dcl.StringCanonicalize(des.PluginInstance, nw.PluginInstance) {
 		nw.PluginInstance = des.PluginInstance
 	}
 
@@ -1027,7 +1027,7 @@ func canonicalizeNewServerTlsPolicyMtlsPolicyClientValidationCa(c *Client, des, 
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.CaCertPath, nw.CaCertPath) || dcl.IsZeroValue(des.CaCertPath) {
+	if dcl.StringCanonicalize(des.CaCertPath, nw.CaCertPath) {
 		nw.CaCertPath = des.CaCertPath
 	}
 	nw.GrpcEndpoint = canonicalizeNewServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c, des.GrpcEndpoint, nw.GrpcEndpoint)
@@ -1103,7 +1103,7 @@ func canonicalizeNewServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c *C
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.TargetUri, nw.TargetUri) || dcl.IsZeroValue(des.TargetUri) {
+	if dcl.StringCanonicalize(des.TargetUri, nw.TargetUri) {
 		nw.TargetUri = des.TargetUri
 	}
 
@@ -1177,7 +1177,7 @@ func canonicalizeNewServerTlsPolicyMtlsPolicyClientValidationCaCertificateProvid
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.PluginInstance, nw.PluginInstance) || dcl.IsZeroValue(des.PluginInstance) {
+	if dcl.StringCanonicalize(des.PluginInstance, nw.PluginInstance) {
 		nw.PluginInstance = des.PluginInstance
 	}
 

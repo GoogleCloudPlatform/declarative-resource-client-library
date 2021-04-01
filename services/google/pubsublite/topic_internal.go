@@ -661,7 +661,7 @@ func canonicalizeNewTopicRetentionConfig(c *Client, des, nw *TopicRetentionConfi
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Period, nw.Period) || dcl.IsZeroValue(des.Period) {
+	if dcl.StringCanonicalize(des.Period, nw.Period) {
 		nw.Period = des.Period
 	}
 

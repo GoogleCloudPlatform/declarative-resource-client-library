@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 
 	"github.com/mohae/deepcopy"
@@ -479,7 +478,7 @@ func diffConnection(c *Client, desired, actual *Connection, opts ...dcl.ApplyOpt
 		})
 
 	}
-	if !reflect.DeepEqual(desired.ReservedPeeringRanges, actual.ReservedPeeringRanges) {
+	if !dcl.StringSliceEqualsWithSelfLink(desired.ReservedPeeringRanges, actual.ReservedPeeringRanges) {
 		c.Config.Logger.Infof("Detected diff in ReservedPeeringRanges.\nDESIRED: %v\nACTUAL: %v", desired.ReservedPeeringRanges, actual.ReservedPeeringRanges)
 
 		diffs = append(diffs, connectionDiff{

@@ -784,10 +784,10 @@ func canonicalizeNewFunctionSourceRepository(c *Client, des, nw *FunctionSourceR
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Url, nw.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, nw.Url) {
 		nw.Url = des.Url
 	}
-	if dcl.StringCanonicalize(des.DeployedUrl, nw.DeployedUrl) || dcl.IsZeroValue(des.DeployedUrl) {
+	if dcl.StringCanonicalize(des.DeployedUrl, nw.DeployedUrl) {
 		nw.DeployedUrl = des.DeployedUrl
 	}
 
@@ -861,7 +861,7 @@ func canonicalizeNewFunctionHttpsTrigger(c *Client, des, nw *FunctionHttpsTrigge
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Url, nw.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, nw.Url) {
 		nw.Url = des.Url
 	}
 
@@ -944,16 +944,16 @@ func canonicalizeNewFunctionEventTrigger(c *Client, des, nw *FunctionEventTrigge
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.EventType, nw.EventType) || dcl.IsZeroValue(des.EventType) {
+	if dcl.StringCanonicalize(des.EventType, nw.EventType) {
 		nw.EventType = des.EventType
 	}
-	if dcl.NameToSelfLink(des.Resource, nw.Resource) || dcl.IsZeroValue(des.Resource) {
+	if dcl.NameToSelfLink(des.Resource, nw.Resource) {
 		nw.Resource = des.Resource
 	}
-	if dcl.StringCanonicalize(des.Service, nw.Service) || dcl.IsZeroValue(des.Service) {
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
 		nw.Service = des.Service
 	}
-	if dcl.BoolCanonicalize(des.FailurePolicy, nw.FailurePolicy) || dcl.IsZeroValue(des.FailurePolicy) {
+	if dcl.BoolCanonicalize(des.FailurePolicy, nw.FailurePolicy) {
 		nw.FailurePolicy = des.FailurePolicy
 	}
 

@@ -798,13 +798,13 @@ func canonicalizeNewInstanceServerCaCerts(c *Client, des, nw *InstanceServerCaCe
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.SerialNumber, nw.SerialNumber) || dcl.IsZeroValue(des.SerialNumber) {
+	if dcl.StringCanonicalize(des.SerialNumber, nw.SerialNumber) {
 		nw.SerialNumber = des.SerialNumber
 	}
-	if dcl.StringCanonicalize(des.Cert, nw.Cert) || dcl.IsZeroValue(des.Cert) {
+	if dcl.StringCanonicalize(des.Cert, nw.Cert) {
 		nw.Cert = des.Cert
 	}
-	if dcl.StringCanonicalize(des.Sha1Fingerprint, nw.Sha1Fingerprint) || dcl.IsZeroValue(des.Sha1Fingerprint) {
+	if dcl.StringCanonicalize(des.Sha1Fingerprint, nw.Sha1Fingerprint) {
 		nw.Sha1Fingerprint = des.Sha1Fingerprint
 	}
 
@@ -887,7 +887,7 @@ func canonicalizeNewInstanceMaintenancePolicy(c *Client, des, nw *InstanceMainte
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
 	nw.WeeklyMaintenanceWindow = canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindowSlice(c, des.WeeklyMaintenanceWindow, nw.WeeklyMaintenanceWindow)
@@ -967,7 +967,7 @@ func canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindow(c *Client, 
 	}
 
 	nw.StartTime = canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c, des.StartTime, nw.StartTime)
-	if dcl.StringCanonicalize(des.Duration, nw.Duration) || dcl.IsZeroValue(des.Duration) {
+	if dcl.StringCanonicalize(des.Duration, nw.Duration) {
 		nw.Duration = des.Duration
 	}
 
@@ -1126,7 +1126,7 @@ func canonicalizeNewInstanceMaintenanceSchedule(c *Client, des, nw *InstanceMain
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.CanReschedule, nw.CanReschedule) || dcl.IsZeroValue(des.CanReschedule) {
+	if dcl.BoolCanonicalize(des.CanReschedule, nw.CanReschedule) {
 		nw.CanReschedule = des.CanReschedule
 	}
 
@@ -1621,6 +1621,14 @@ func compareInstanceMaintenanceSchedule(c *Client, desired, actual *InstanceMain
 		return false
 	}
 	if actual == nil {
+		return true
+	}
+	if actual.CanReschedule == nil && desired.CanReschedule != nil && !dcl.IsEmptyValueIndirect(desired.CanReschedule) {
+		c.Config.Logger.Infof("desired CanReschedule %s - but actually nil", dcl.SprintResource(desired.CanReschedule))
+		return true
+	}
+	if !dcl.BoolCanonicalize(desired.CanReschedule, actual.CanReschedule) && !dcl.IsZeroValue(desired.CanReschedule) {
+		c.Config.Logger.Infof("Diff in CanReschedule. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CanReschedule), dcl.SprintResource(actual.CanReschedule))
 		return true
 	}
 	return false

@@ -633,7 +633,7 @@ func canonicalizeNewUptimeCheckConfigMonitoredResource(c *Client, des, nw *Uptim
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Type, nw.Type) || dcl.IsZeroValue(des.Type) {
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
 		nw.Type = des.Type
 	}
 
@@ -710,7 +710,7 @@ func canonicalizeNewUptimeCheckConfigResourceGroup(c *Client, des, nw *UptimeChe
 		return nw
 	}
 
-	if dcl.NameToSelfLink(des.GroupId, nw.GroupId) || dcl.IsZeroValue(des.GroupId) {
+	if dcl.NameToSelfLink(des.GroupId, nw.GroupId) {
 		nw.GroupId = des.GroupId
 	}
 
@@ -825,20 +825,20 @@ func canonicalizeNewUptimeCheckConfigHttpCheck(c *Client, des, nw *UptimeCheckCo
 		nw.Path = dcl.String("/")
 	}
 
-	if dcl.BoolCanonicalize(des.UseSsl, nw.UseSsl) || dcl.IsZeroValue(des.UseSsl) {
+	if dcl.BoolCanonicalize(des.UseSsl, nw.UseSsl) {
 		nw.UseSsl = des.UseSsl
 	}
-	if dcl.StringCanonicalize(des.Path, nw.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, nw.Path) {
 		nw.Path = des.Path
 	}
 	nw.AuthInfo = canonicalizeNewUptimeCheckConfigHttpCheckAuthInfo(c, des.AuthInfo, nw.AuthInfo)
-	if dcl.BoolCanonicalize(des.MaskHeaders, nw.MaskHeaders) || dcl.IsZeroValue(des.MaskHeaders) {
+	if dcl.BoolCanonicalize(des.MaskHeaders, nw.MaskHeaders) {
 		nw.MaskHeaders = des.MaskHeaders
 	}
-	if dcl.BoolCanonicalize(des.ValidateSsl, nw.ValidateSsl) || dcl.IsZeroValue(des.ValidateSsl) {
+	if dcl.BoolCanonicalize(des.ValidateSsl, nw.ValidateSsl) {
 		nw.ValidateSsl = des.ValidateSsl
 	}
-	if dcl.StringCanonicalize(des.Body, nw.Body) || dcl.IsZeroValue(des.Body) {
+	if dcl.StringCanonicalize(des.Body, nw.Body) {
 		nw.Body = des.Body
 	}
 
@@ -915,7 +915,7 @@ func canonicalizeNewUptimeCheckConfigHttpCheckAuthInfo(c *Client, des, nw *Uptim
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Username, nw.Username) || dcl.IsZeroValue(des.Username) {
+	if dcl.StringCanonicalize(des.Username, nw.Username) {
 		nw.Username = des.Username
 	}
 	nw.Password = des.Password
@@ -1071,7 +1071,7 @@ func canonicalizeNewUptimeCheckConfigContentMatchers(c *Client, des, nw *UptimeC
 		nw.Matcher = UptimeCheckConfigContentMatchersMatcherEnumRef("CONTAINS_STRING")
 	}
 
-	if dcl.StringCanonicalize(des.Content, nw.Content) || dcl.IsZeroValue(des.Content) {
+	if dcl.StringCanonicalize(des.Content, nw.Content) {
 		nw.Content = des.Content
 	}
 

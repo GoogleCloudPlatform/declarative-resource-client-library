@@ -488,10 +488,10 @@ func canonicalizeNewProjectParent(c *Client, des, nw *ProjectParent) *ProjectPar
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Type, nw.Type) || dcl.IsZeroValue(des.Type) {
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
 		nw.Type = des.Type
 	}
-	if dcl.StringCanonicalize(des.Id, nw.Id) || dcl.IsZeroValue(des.Id) {
+	if dcl.StringCanonicalize(des.Id, nw.Id) {
 		nw.Id = des.Id
 	}
 

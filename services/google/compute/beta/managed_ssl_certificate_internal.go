@@ -473,7 +473,7 @@ func canonicalizeNewManagedSslCertificateManaged(c *Client, des, nw *ManagedSslC
 		return nw
 	}
 
-	if dcl.WithoutTrailingDotArray(des.Domains, nw.Domains) || dcl.IsZeroValue(des.Domains) {
+	if dcl.WithoutTrailingDotArray(des.Domains, nw.Domains) {
 		nw.Domains = des.Domains
 	}
 

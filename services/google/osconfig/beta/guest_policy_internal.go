@@ -925,13 +925,13 @@ func canonicalizeNewGuestPolicyAssignmentOsTypes(c *Client, des, nw *GuestPolicy
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.OsShortName, nw.OsShortName) || dcl.IsZeroValue(des.OsShortName) {
+	if dcl.StringCanonicalize(des.OsShortName, nw.OsShortName) {
 		nw.OsShortName = des.OsShortName
 	}
-	if dcl.StringCanonicalize(des.OsVersion, nw.OsVersion) || dcl.IsZeroValue(des.OsVersion) {
+	if dcl.StringCanonicalize(des.OsVersion, nw.OsVersion) {
 		nw.OsVersion = des.OsVersion
 	}
-	if dcl.StringCanonicalize(des.OsArchitecture, nw.OsArchitecture) || dcl.IsZeroValue(des.OsArchitecture) {
+	if dcl.StringCanonicalize(des.OsArchitecture, nw.OsArchitecture) {
 		nw.OsArchitecture = des.OsArchitecture
 	}
 
@@ -1011,7 +1011,7 @@ func canonicalizeNewGuestPolicyPackages(c *Client, des, nw *GuestPolicyPackages)
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
 
@@ -1173,13 +1173,13 @@ func canonicalizeNewGuestPolicyPackageRepositoriesApt(c *Client, des, nw *GuestP
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Uri, nw.Uri) || dcl.IsZeroValue(des.Uri) {
+	if dcl.StringCanonicalize(des.Uri, nw.Uri) {
 		nw.Uri = des.Uri
 	}
-	if dcl.StringCanonicalize(des.Distribution, nw.Distribution) || dcl.IsZeroValue(des.Distribution) {
+	if dcl.StringCanonicalize(des.Distribution, nw.Distribution) {
 		nw.Distribution = des.Distribution
 	}
-	if dcl.StringCanonicalize(des.GpgKey, nw.GpgKey) || dcl.IsZeroValue(des.GpgKey) {
+	if dcl.StringCanonicalize(des.GpgKey, nw.GpgKey) {
 		nw.GpgKey = des.GpgKey
 	}
 
@@ -1262,13 +1262,13 @@ func canonicalizeNewGuestPolicyPackageRepositoriesYum(c *Client, des, nw *GuestP
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Id, nw.Id) || dcl.IsZeroValue(des.Id) {
+	if dcl.StringCanonicalize(des.Id, nw.Id) {
 		nw.Id = des.Id
 	}
-	if dcl.StringCanonicalize(des.DisplayName, nw.DisplayName) || dcl.IsZeroValue(des.DisplayName) {
+	if dcl.StringCanonicalize(des.DisplayName, nw.DisplayName) {
 		nw.DisplayName = des.DisplayName
 	}
-	if dcl.StringCanonicalize(des.BaseUrl, nw.BaseUrl) || dcl.IsZeroValue(des.BaseUrl) {
+	if dcl.StringCanonicalize(des.BaseUrl, nw.BaseUrl) {
 		nw.BaseUrl = des.BaseUrl
 	}
 
@@ -1351,13 +1351,13 @@ func canonicalizeNewGuestPolicyPackageRepositoriesZypper(c *Client, des, nw *Gue
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Id, nw.Id) || dcl.IsZeroValue(des.Id) {
+	if dcl.StringCanonicalize(des.Id, nw.Id) {
 		nw.Id = des.Id
 	}
-	if dcl.StringCanonicalize(des.DisplayName, nw.DisplayName) || dcl.IsZeroValue(des.DisplayName) {
+	if dcl.StringCanonicalize(des.DisplayName, nw.DisplayName) {
 		nw.DisplayName = des.DisplayName
 	}
-	if dcl.StringCanonicalize(des.BaseUrl, nw.BaseUrl) || dcl.IsZeroValue(des.BaseUrl) {
+	if dcl.StringCanonicalize(des.BaseUrl, nw.BaseUrl) {
 		nw.BaseUrl = des.BaseUrl
 	}
 
@@ -1434,10 +1434,10 @@ func canonicalizeNewGuestPolicyPackageRepositoriesGoo(c *Client, des, nw *GuestP
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Url, nw.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, nw.Url) {
 		nw.Url = des.Url
 	}
 
@@ -1526,10 +1526,10 @@ func canonicalizeNewGuestPolicyRecipes(c *Client, des, nw *GuestPolicyRecipes) *
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Version, nw.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.StringCanonicalize(des.Version, nw.Version) {
 		nw.Version = des.Version
 	}
 	nw.Artifacts = canonicalizeNewGuestPolicyRecipesArtifactsSlice(c, des.Artifacts, nw.Artifacts)
@@ -1611,12 +1611,12 @@ func canonicalizeNewGuestPolicyRecipesArtifacts(c *Client, des, nw *GuestPolicyR
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Id, nw.Id) || dcl.IsZeroValue(des.Id) {
+	if dcl.StringCanonicalize(des.Id, nw.Id) {
 		nw.Id = des.Id
 	}
 	nw.Remote = canonicalizeNewGuestPolicyRecipesArtifactsRemote(c, des.Remote, nw.Remote)
 	nw.Gcs = canonicalizeNewGuestPolicyRecipesArtifactsGcs(c, des.Gcs, nw.Gcs)
-	if dcl.BoolCanonicalize(des.AllowInsecure, nw.AllowInsecure) || dcl.IsZeroValue(des.AllowInsecure) {
+	if dcl.BoolCanonicalize(des.AllowInsecure, nw.AllowInsecure) {
 		nw.AllowInsecure = des.AllowInsecure
 	}
 
@@ -1693,10 +1693,10 @@ func canonicalizeNewGuestPolicyRecipesArtifactsRemote(c *Client, des, nw *GuestP
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Uri, nw.Uri) || dcl.IsZeroValue(des.Uri) {
+	if dcl.StringCanonicalize(des.Uri, nw.Uri) {
 		nw.Uri = des.Uri
 	}
-	if dcl.StringCanonicalize(des.Checksum, nw.Checksum) || dcl.IsZeroValue(des.Checksum) {
+	if dcl.StringCanonicalize(des.Checksum, nw.Checksum) {
 		nw.Checksum = des.Checksum
 	}
 
@@ -1776,10 +1776,10 @@ func canonicalizeNewGuestPolicyRecipesArtifactsGcs(c *Client, des, nw *GuestPoli
 		return nw
 	}
 
-	if dcl.NameToSelfLink(des.Bucket, nw.Bucket) || dcl.IsZeroValue(des.Bucket) {
+	if dcl.NameToSelfLink(des.Bucket, nw.Bucket) {
 		nw.Bucket = des.Bucket
 	}
-	if dcl.StringCanonicalize(des.Object, nw.Object) || dcl.IsZeroValue(des.Object) {
+	if dcl.StringCanonicalize(des.Object, nw.Object) {
 		nw.Object = des.Object
 	}
 
@@ -1944,16 +1944,16 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsFileCopy(c *Client, des, nw *G
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
 		nw.ArtifactId = des.ArtifactId
 	}
-	if dcl.StringCanonicalize(des.Destination, nw.Destination) || dcl.IsZeroValue(des.Destination) {
+	if dcl.StringCanonicalize(des.Destination, nw.Destination) {
 		nw.Destination = des.Destination
 	}
-	if dcl.BoolCanonicalize(des.Overwrite, nw.Overwrite) || dcl.IsZeroValue(des.Overwrite) {
+	if dcl.BoolCanonicalize(des.Overwrite, nw.Overwrite) {
 		nw.Overwrite = des.Overwrite
 	}
-	if dcl.StringCanonicalize(des.Permissions, nw.Permissions) || dcl.IsZeroValue(des.Permissions) {
+	if dcl.StringCanonicalize(des.Permissions, nw.Permissions) {
 		nw.Permissions = des.Permissions
 	}
 
@@ -2033,10 +2033,10 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsArchiveExtraction(c *Client, d
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
 		nw.ArtifactId = des.ArtifactId
 	}
-	if dcl.StringCanonicalize(des.Destination, nw.Destination) || dcl.IsZeroValue(des.Destination) {
+	if dcl.StringCanonicalize(des.Destination, nw.Destination) {
 		nw.Destination = des.Destination
 	}
 
@@ -2116,7 +2116,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsMsiInstallation(c *Client, des
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
 		nw.ArtifactId = des.ArtifactId
 	}
 
@@ -2190,7 +2190,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsDpkgInstallation(c *Client, de
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
 		nw.ArtifactId = des.ArtifactId
 	}
 
@@ -2264,7 +2264,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsRpmInstallation(c *Client, des
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
 		nw.ArtifactId = des.ArtifactId
 	}
 
@@ -2347,10 +2347,10 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsFileExec(c *Client, des, nw *G
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
 		nw.ArtifactId = des.ArtifactId
 	}
-	if dcl.StringCanonicalize(des.LocalPath, nw.LocalPath) || dcl.IsZeroValue(des.LocalPath) {
+	if dcl.StringCanonicalize(des.LocalPath, nw.LocalPath) {
 		nw.LocalPath = des.LocalPath
 	}
 
@@ -2430,7 +2430,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsScriptRun(c *Client, des, nw *
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Script, nw.Script) || dcl.IsZeroValue(des.Script) {
+	if dcl.StringCanonicalize(des.Script, nw.Script) {
 		nw.Script = des.Script
 	}
 
@@ -2595,16 +2595,16 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsFileCopy(c *Client, des, nw *Gu
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
 		nw.ArtifactId = des.ArtifactId
 	}
-	if dcl.StringCanonicalize(des.Destination, nw.Destination) || dcl.IsZeroValue(des.Destination) {
+	if dcl.StringCanonicalize(des.Destination, nw.Destination) {
 		nw.Destination = des.Destination
 	}
-	if dcl.BoolCanonicalize(des.Overwrite, nw.Overwrite) || dcl.IsZeroValue(des.Overwrite) {
+	if dcl.BoolCanonicalize(des.Overwrite, nw.Overwrite) {
 		nw.Overwrite = des.Overwrite
 	}
-	if dcl.StringCanonicalize(des.Permissions, nw.Permissions) || dcl.IsZeroValue(des.Permissions) {
+	if dcl.StringCanonicalize(des.Permissions, nw.Permissions) {
 		nw.Permissions = des.Permissions
 	}
 
@@ -2684,10 +2684,10 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsArchiveExtraction(c *Client, de
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
 		nw.ArtifactId = des.ArtifactId
 	}
-	if dcl.StringCanonicalize(des.Destination, nw.Destination) || dcl.IsZeroValue(des.Destination) {
+	if dcl.StringCanonicalize(des.Destination, nw.Destination) {
 		nw.Destination = des.Destination
 	}
 
@@ -2767,7 +2767,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsMsiInstallation(c *Client, des,
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
 		nw.ArtifactId = des.ArtifactId
 	}
 
@@ -2841,7 +2841,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsDpkgInstallation(c *Client, des
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
 		nw.ArtifactId = des.ArtifactId
 	}
 
@@ -2915,7 +2915,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsRpmInstallation(c *Client, des,
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
 		nw.ArtifactId = des.ArtifactId
 	}
 
@@ -2998,10 +2998,10 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsFileExec(c *Client, des, nw *Gu
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
 		nw.ArtifactId = des.ArtifactId
 	}
-	if dcl.StringCanonicalize(des.LocalPath, nw.LocalPath) || dcl.IsZeroValue(des.LocalPath) {
+	if dcl.StringCanonicalize(des.LocalPath, nw.LocalPath) {
 		nw.LocalPath = des.LocalPath
 	}
 
@@ -3081,7 +3081,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsScriptRun(c *Client, des, nw *G
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Script, nw.Script) || dcl.IsZeroValue(des.Script) {
+	if dcl.StringCanonicalize(des.Script, nw.Script) {
 		nw.Script = des.Script
 	}
 
@@ -3266,7 +3266,7 @@ func compareGuestPolicyAssignment(c *Client, desired, actual *GuestPolicyAssignm
 		c.Config.Logger.Infof("desired Instances %s - but actually nil", dcl.SprintResource(desired.Instances))
 		return true
 	}
-	if !reflect.DeepEqual(desired.Instances, actual.Instances) && !dcl.IsZeroValue(desired.Instances) {
+	if !dcl.StringSliceEqualsWithSelfLink(desired.Instances, actual.Instances) && !dcl.IsZeroValue(desired.Instances) {
 		c.Config.Logger.Infof("Diff in Instances. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Instances), dcl.SprintResource(actual.Instances))
 		return true
 	}

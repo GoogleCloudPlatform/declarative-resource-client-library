@@ -700,10 +700,10 @@ func canonicalizeNewRouterPeerAdvertisedIPRanges(c *Client, des, nw *RouterPeerA
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Range, nw.Range) || dcl.IsZeroValue(des.Range) {
+	if dcl.StringCanonicalize(des.Range, nw.Range) {
 		nw.Range = des.Range
 	}
-	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
 

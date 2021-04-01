@@ -593,10 +593,10 @@ func canonicalizeNewInstanceFileShares(c *Client, des, nw *InstanceFileShares) *
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.NameToSelfLink(des.SourceBackup, nw.SourceBackup) || dcl.IsZeroValue(des.SourceBackup) {
+	if dcl.NameToSelfLink(des.SourceBackup, nw.SourceBackup) {
 		nw.SourceBackup = des.SourceBackup
 	}
 	nw.NfsExportOptions = canonicalizeNewInstanceFileSharesNfsExportOptionsSlice(c, des.NfsExportOptions, nw.NfsExportOptions)
@@ -762,10 +762,10 @@ func canonicalizeNewInstanceNetworks(c *Client, des, nw *InstanceNetworks) *Inst
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Network, nw.Network) || dcl.IsZeroValue(des.Network) {
+	if dcl.StringCanonicalize(des.Network, nw.Network) {
 		nw.Network = des.Network
 	}
-	if dcl.StringCanonicalize(des.ReservedIPRange, nw.ReservedIPRange) || dcl.IsZeroValue(des.ReservedIPRange) {
+	if dcl.StringCanonicalize(des.ReservedIPRange, nw.ReservedIPRange) {
 		nw.ReservedIPRange = des.ReservedIPRange
 	}
 

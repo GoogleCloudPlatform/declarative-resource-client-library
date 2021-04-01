@@ -185,9 +185,8 @@ components:
           description: Output only. Published maintenance schedule.
           properties:
             canReschedule:
-              description: Output only. If the scheduled maintenance can be rescheduled,
-                default is true.
-              readOnly: true
+              description: If the scheduled maintenance can be rescheduled, default
+                is true.
               type: boolean
               x-dcl-go-name: CanReschedule
               x-kubernetes-immutable: true

@@ -1062,7 +1062,7 @@ func canonicalizeNewUrlMapDefaultRouteActionWeightedBackendService(c *Client, de
 		return nw
 	}
 
-	if dcl.NameToSelfLink(des.BackendService, nw.BackendService) || dcl.IsZeroValue(des.BackendService) {
+	if dcl.NameToSelfLink(des.BackendService, nw.BackendService) {
 		nw.BackendService = des.BackendService
 	}
 	nw.HeaderAction = canonicalizeNewUrlMapHeaderAction(c, des.HeaderAction, nw.HeaderAction)
@@ -1225,13 +1225,13 @@ func canonicalizeNewUrlMapHeaderActionRequestHeadersToAdd(c *Client, des, nw *Ur
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.HeaderName, nw.HeaderName) || dcl.IsZeroValue(des.HeaderName) {
+	if dcl.StringCanonicalize(des.HeaderName, nw.HeaderName) {
 		nw.HeaderName = des.HeaderName
 	}
-	if dcl.StringCanonicalize(des.HeaderValue, nw.HeaderValue) || dcl.IsZeroValue(des.HeaderValue) {
+	if dcl.StringCanonicalize(des.HeaderValue, nw.HeaderValue) {
 		nw.HeaderValue = des.HeaderValue
 	}
-	if dcl.BoolCanonicalize(des.Replace, nw.Replace) || dcl.IsZeroValue(des.Replace) {
+	if dcl.BoolCanonicalize(des.Replace, nw.Replace) {
 		nw.Replace = des.Replace
 	}
 
@@ -1311,13 +1311,13 @@ func canonicalizeNewUrlMapHeaderActionResponseHeadersToAdd(c *Client, des, nw *U
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.HeaderName, nw.HeaderName) || dcl.IsZeroValue(des.HeaderName) {
+	if dcl.StringCanonicalize(des.HeaderName, nw.HeaderName) {
 		nw.HeaderName = des.HeaderName
 	}
-	if dcl.StringCanonicalize(des.HeaderValue, nw.HeaderValue) || dcl.IsZeroValue(des.HeaderValue) {
+	if dcl.StringCanonicalize(des.HeaderValue, nw.HeaderValue) {
 		nw.HeaderValue = des.HeaderValue
 	}
-	if dcl.BoolCanonicalize(des.Replace, nw.Replace) || dcl.IsZeroValue(des.Replace) {
+	if dcl.BoolCanonicalize(des.Replace, nw.Replace) {
 		nw.Replace = des.Replace
 	}
 
@@ -1394,10 +1394,10 @@ func canonicalizeNewUrlMapDefaultRouteActionUrlRewrite(c *Client, des, nw *UrlMa
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.PathPrefixRewrite, nw.PathPrefixRewrite) || dcl.IsZeroValue(des.PathPrefixRewrite) {
+	if dcl.StringCanonicalize(des.PathPrefixRewrite, nw.PathPrefixRewrite) {
 		nw.PathPrefixRewrite = des.PathPrefixRewrite
 	}
-	if dcl.StringCanonicalize(des.HostRewrite, nw.HostRewrite) || dcl.IsZeroValue(des.HostRewrite) {
+	if dcl.StringCanonicalize(des.HostRewrite, nw.HostRewrite) {
 		nw.HostRewrite = des.HostRewrite
 	}
 
@@ -1693,7 +1693,7 @@ func canonicalizeNewUrlMapDefaultRouteActionRequestMirrorPolicy(c *Client, des, 
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.BackendService, nw.BackendService) || dcl.IsZeroValue(des.BackendService) {
+	if dcl.StringCanonicalize(des.BackendService, nw.BackendService) {
 		nw.BackendService = des.BackendService
 	}
 
@@ -1788,10 +1788,10 @@ func canonicalizeNewUrlMapDefaultRouteActionCorsPolicy(c *Client, des, nw *UrlMa
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.AllowCredentials, nw.AllowCredentials) || dcl.IsZeroValue(des.AllowCredentials) {
+	if dcl.BoolCanonicalize(des.AllowCredentials, nw.AllowCredentials) {
 		nw.AllowCredentials = des.AllowCredentials
 	}
-	if dcl.BoolCanonicalize(des.Disabled, nw.Disabled) || dcl.IsZeroValue(des.Disabled) {
+	if dcl.BoolCanonicalize(des.Disabled, nw.Disabled) {
 		nw.Disabled = des.Disabled
 	}
 
@@ -2171,19 +2171,19 @@ func canonicalizeNewUrlMapDefaultUrlRedirect(c *Client, des, nw *UrlMapDefaultUr
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.HostRedirect, nw.HostRedirect) || dcl.IsZeroValue(des.HostRedirect) {
+	if dcl.StringCanonicalize(des.HostRedirect, nw.HostRedirect) {
 		nw.HostRedirect = des.HostRedirect
 	}
-	if dcl.StringCanonicalize(des.PathRedirect, nw.PathRedirect) || dcl.IsZeroValue(des.PathRedirect) {
+	if dcl.StringCanonicalize(des.PathRedirect, nw.PathRedirect) {
 		nw.PathRedirect = des.PathRedirect
 	}
-	if dcl.StringCanonicalize(des.PrefixRedirect, nw.PrefixRedirect) || dcl.IsZeroValue(des.PrefixRedirect) {
+	if dcl.StringCanonicalize(des.PrefixRedirect, nw.PrefixRedirect) {
 		nw.PrefixRedirect = des.PrefixRedirect
 	}
-	if dcl.BoolCanonicalize(des.HttpsRedirect, nw.HttpsRedirect) || dcl.IsZeroValue(des.HttpsRedirect) {
+	if dcl.BoolCanonicalize(des.HttpsRedirect, nw.HttpsRedirect) {
 		nw.HttpsRedirect = des.HttpsRedirect
 	}
-	if dcl.BoolCanonicalize(des.StripQuery, nw.StripQuery) || dcl.IsZeroValue(des.StripQuery) {
+	if dcl.BoolCanonicalize(des.StripQuery, nw.StripQuery) {
 		nw.StripQuery = des.StripQuery
 	}
 
@@ -2263,10 +2263,10 @@ func canonicalizeNewUrlMapHostRule(c *Client, des, nw *UrlMapHostRule) *UrlMapHo
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
-	if dcl.StringCanonicalize(des.PathMatcher, nw.PathMatcher) || dcl.IsZeroValue(des.PathMatcher) {
+	if dcl.StringCanonicalize(des.PathMatcher, nw.PathMatcher) {
 		nw.PathMatcher = des.PathMatcher
 	}
 
@@ -2355,13 +2355,13 @@ func canonicalizeNewUrlMapPathMatcher(c *Client, des, nw *UrlMapPathMatcher) *Ur
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
-	if dcl.StringCanonicalize(des.DefaultService, nw.DefaultService) || dcl.IsZeroValue(des.DefaultService) {
+	if dcl.StringCanonicalize(des.DefaultService, nw.DefaultService) {
 		nw.DefaultService = des.DefaultService
 	}
 	nw.DefaultRouteAction = canonicalizeNewUrlMapDefaultRouteAction(c, des.DefaultRouteAction, nw.DefaultRouteAction)
@@ -2455,19 +2455,19 @@ func canonicalizeNewUrlMapPathMatcherDefaultUrlRedirect(c *Client, des, nw *UrlM
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.HostRedirect, nw.HostRedirect) || dcl.IsZeroValue(des.HostRedirect) {
+	if dcl.StringCanonicalize(des.HostRedirect, nw.HostRedirect) {
 		nw.HostRedirect = des.HostRedirect
 	}
-	if dcl.StringCanonicalize(des.PathRedirect, nw.PathRedirect) || dcl.IsZeroValue(des.PathRedirect) {
+	if dcl.StringCanonicalize(des.PathRedirect, nw.PathRedirect) {
 		nw.PathRedirect = des.PathRedirect
 	}
-	if dcl.StringCanonicalize(des.PrefixRedirect, nw.PrefixRedirect) || dcl.IsZeroValue(des.PrefixRedirect) {
+	if dcl.StringCanonicalize(des.PrefixRedirect, nw.PrefixRedirect) {
 		nw.PrefixRedirect = des.PrefixRedirect
 	}
-	if dcl.BoolCanonicalize(des.HttpsRedirect, nw.HttpsRedirect) || dcl.IsZeroValue(des.HttpsRedirect) {
+	if dcl.BoolCanonicalize(des.HttpsRedirect, nw.HttpsRedirect) {
 		nw.HttpsRedirect = des.HttpsRedirect
 	}
-	if dcl.BoolCanonicalize(des.StripQuery, nw.StripQuery) || dcl.IsZeroValue(des.StripQuery) {
+	if dcl.BoolCanonicalize(des.StripQuery, nw.StripQuery) {
 		nw.StripQuery = des.StripQuery
 	}
 
@@ -2546,7 +2546,7 @@ func canonicalizeNewUrlMapPathMatcherPathRule(c *Client, des, nw *UrlMapPathMatc
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.BackendService, nw.BackendService) || dcl.IsZeroValue(des.BackendService) {
+	if dcl.StringCanonicalize(des.BackendService, nw.BackendService) {
 		nw.BackendService = des.BackendService
 	}
 	nw.RouteAction = canonicalizeNewUrlMapPathMatcherPathRuleRouteAction(c, des.RouteAction, nw.RouteAction)
@@ -2710,7 +2710,7 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionWeightedBackendService(c
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.BackendService, nw.BackendService) || dcl.IsZeroValue(des.BackendService) {
+	if dcl.StringCanonicalize(des.BackendService, nw.BackendService) {
 		nw.BackendService = des.BackendService
 	}
 	nw.HeaderAction = canonicalizeNewUrlMapHeaderAction(c, des.HeaderAction, nw.HeaderAction)
@@ -2788,10 +2788,10 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionUrlRewrite(c *Client, de
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.PathPrefixRewrite, nw.PathPrefixRewrite) || dcl.IsZeroValue(des.PathPrefixRewrite) {
+	if dcl.StringCanonicalize(des.PathPrefixRewrite, nw.PathPrefixRewrite) {
 		nw.PathPrefixRewrite = des.PathPrefixRewrite
 	}
-	if dcl.StringCanonicalize(des.HostRewrite, nw.HostRewrite) || dcl.IsZeroValue(des.HostRewrite) {
+	if dcl.StringCanonicalize(des.HostRewrite, nw.HostRewrite) {
 		nw.HostRewrite = des.HostRewrite
 	}
 
@@ -3087,7 +3087,7 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy(c *C
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.BackendService, nw.BackendService) || dcl.IsZeroValue(des.BackendService) {
+	if dcl.StringCanonicalize(des.BackendService, nw.BackendService) {
 		nw.BackendService = des.BackendService
 	}
 
@@ -3182,10 +3182,10 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionCorsPolicy(c *Client, de
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.AllowCredentials, nw.AllowCredentials) || dcl.IsZeroValue(des.AllowCredentials) {
+	if dcl.BoolCanonicalize(des.AllowCredentials, nw.AllowCredentials) {
 		nw.AllowCredentials = des.AllowCredentials
 	}
-	if dcl.BoolCanonicalize(des.Disabled, nw.Disabled) || dcl.IsZeroValue(des.Disabled) {
+	if dcl.BoolCanonicalize(des.Disabled, nw.Disabled) {
 		nw.Disabled = des.Disabled
 	}
 
@@ -3565,19 +3565,19 @@ func canonicalizeNewUrlMapPathMatcherPathRuleUrlRedirect(c *Client, des, nw *Url
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.HostRedirect, nw.HostRedirect) || dcl.IsZeroValue(des.HostRedirect) {
+	if dcl.StringCanonicalize(des.HostRedirect, nw.HostRedirect) {
 		nw.HostRedirect = des.HostRedirect
 	}
-	if dcl.StringCanonicalize(des.PathRedirect, nw.PathRedirect) || dcl.IsZeroValue(des.PathRedirect) {
+	if dcl.StringCanonicalize(des.PathRedirect, nw.PathRedirect) {
 		nw.PathRedirect = des.PathRedirect
 	}
-	if dcl.StringCanonicalize(des.PrefixRedirect, nw.PrefixRedirect) || dcl.IsZeroValue(des.PrefixRedirect) {
+	if dcl.StringCanonicalize(des.PrefixRedirect, nw.PrefixRedirect) {
 		nw.PrefixRedirect = des.PrefixRedirect
 	}
-	if dcl.BoolCanonicalize(des.HttpsRedirect, nw.HttpsRedirect) || dcl.IsZeroValue(des.HttpsRedirect) {
+	if dcl.BoolCanonicalize(des.HttpsRedirect, nw.HttpsRedirect) {
 		nw.HttpsRedirect = des.HttpsRedirect
 	}
-	if dcl.BoolCanonicalize(des.StripQuery, nw.StripQuery) || dcl.IsZeroValue(des.StripQuery) {
+	if dcl.BoolCanonicalize(des.StripQuery, nw.StripQuery) {
 		nw.StripQuery = des.StripQuery
 	}
 
@@ -3663,11 +3663,11 @@ func canonicalizeNewUrlMapPathMatcherRouteRule(c *Client, des, nw *UrlMapPathMat
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
 	nw.MatchRule = canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleSlice(c, des.MatchRule, nw.MatchRule)
-	if dcl.StringCanonicalize(des.BackendService, nw.BackendService) || dcl.IsZeroValue(des.BackendService) {
+	if dcl.StringCanonicalize(des.BackendService, nw.BackendService) {
 		nw.BackendService = des.BackendService
 	}
 	nw.RouteAction = canonicalizeNewUrlMapPathMatcherRouteRuleRouteAction(c, des.RouteAction, nw.RouteAction)
@@ -3762,16 +3762,16 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleMatchRule(c *Client, des, nw *UrlM
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.PrefixMatch, nw.PrefixMatch) || dcl.IsZeroValue(des.PrefixMatch) {
+	if dcl.StringCanonicalize(des.PrefixMatch, nw.PrefixMatch) {
 		nw.PrefixMatch = des.PrefixMatch
 	}
-	if dcl.StringCanonicalize(des.FullPathMatch, nw.FullPathMatch) || dcl.IsZeroValue(des.FullPathMatch) {
+	if dcl.StringCanonicalize(des.FullPathMatch, nw.FullPathMatch) {
 		nw.FullPathMatch = des.FullPathMatch
 	}
-	if dcl.StringCanonicalize(des.RegexMatch, nw.RegexMatch) || dcl.IsZeroValue(des.RegexMatch) {
+	if dcl.StringCanonicalize(des.RegexMatch, nw.RegexMatch) {
 		nw.RegexMatch = des.RegexMatch
 	}
-	if dcl.BoolCanonicalize(des.IgnoreCase, nw.IgnoreCase) || dcl.IsZeroValue(des.IgnoreCase) {
+	if dcl.BoolCanonicalize(des.IgnoreCase, nw.IgnoreCase) {
 		nw.IgnoreCase = des.IgnoreCase
 	}
 	nw.HeaderMatch = canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchSlice(c, des.HeaderMatch, nw.HeaderMatch)
@@ -3867,26 +3867,26 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleHeaderMatch(c *Client, de
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.HeaderName, nw.HeaderName) || dcl.IsZeroValue(des.HeaderName) {
+	if dcl.StringCanonicalize(des.HeaderName, nw.HeaderName) {
 		nw.HeaderName = des.HeaderName
 	}
-	if dcl.StringCanonicalize(des.ExactMatch, nw.ExactMatch) || dcl.IsZeroValue(des.ExactMatch) {
+	if dcl.StringCanonicalize(des.ExactMatch, nw.ExactMatch) {
 		nw.ExactMatch = des.ExactMatch
 	}
-	if dcl.StringCanonicalize(des.RegexMatch, nw.RegexMatch) || dcl.IsZeroValue(des.RegexMatch) {
+	if dcl.StringCanonicalize(des.RegexMatch, nw.RegexMatch) {
 		nw.RegexMatch = des.RegexMatch
 	}
 	nw.RangeMatch = canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch(c, des.RangeMatch, nw.RangeMatch)
-	if dcl.BoolCanonicalize(des.PresentMatch, nw.PresentMatch) || dcl.IsZeroValue(des.PresentMatch) {
+	if dcl.BoolCanonicalize(des.PresentMatch, nw.PresentMatch) {
 		nw.PresentMatch = des.PresentMatch
 	}
-	if dcl.StringCanonicalize(des.PrefixMatch, nw.PrefixMatch) || dcl.IsZeroValue(des.PrefixMatch) {
+	if dcl.StringCanonicalize(des.PrefixMatch, nw.PrefixMatch) {
 		nw.PrefixMatch = des.PrefixMatch
 	}
-	if dcl.StringCanonicalize(des.SuffixMatch, nw.SuffixMatch) || dcl.IsZeroValue(des.SuffixMatch) {
+	if dcl.StringCanonicalize(des.SuffixMatch, nw.SuffixMatch) {
 		nw.SuffixMatch = des.SuffixMatch
 	}
-	if dcl.BoolCanonicalize(des.InvertMatch, nw.InvertMatch) || dcl.IsZeroValue(des.InvertMatch) {
+	if dcl.BoolCanonicalize(des.InvertMatch, nw.InvertMatch) {
 		nw.InvertMatch = des.InvertMatch
 	}
 
@@ -4042,16 +4042,16 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch(c *Cl
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.BoolCanonicalize(des.PresentMatch, nw.PresentMatch) || dcl.IsZeroValue(des.PresentMatch) {
+	if dcl.BoolCanonicalize(des.PresentMatch, nw.PresentMatch) {
 		nw.PresentMatch = des.PresentMatch
 	}
-	if dcl.StringCanonicalize(des.ExactMatch, nw.ExactMatch) || dcl.IsZeroValue(des.ExactMatch) {
+	if dcl.StringCanonicalize(des.ExactMatch, nw.ExactMatch) {
 		nw.ExactMatch = des.ExactMatch
 	}
-	if dcl.StringCanonicalize(des.RegexMatch, nw.RegexMatch) || dcl.IsZeroValue(des.RegexMatch) {
+	if dcl.StringCanonicalize(des.RegexMatch, nw.RegexMatch) {
 		nw.RegexMatch = des.RegexMatch
 	}
 
@@ -4203,10 +4203,10 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Value, nw.Value) || dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, nw.Value) {
 		nw.Value = des.Value
 	}
 
@@ -4368,7 +4368,7 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionWeightedBackendService(
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.BackendService, nw.BackendService) || dcl.IsZeroValue(des.BackendService) {
+	if dcl.StringCanonicalize(des.BackendService, nw.BackendService) {
 		nw.BackendService = des.BackendService
 	}
 	nw.HeaderAction = canonicalizeNewUrlMapHeaderAction(c, des.HeaderAction, nw.HeaderAction)
@@ -4446,10 +4446,10 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionUrlRewrite(c *Client, d
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.PathPrefixRewrite, nw.PathPrefixRewrite) || dcl.IsZeroValue(des.PathPrefixRewrite) {
+	if dcl.StringCanonicalize(des.PathPrefixRewrite, nw.PathPrefixRewrite) {
 		nw.PathPrefixRewrite = des.PathPrefixRewrite
 	}
-	if dcl.StringCanonicalize(des.HostRewrite, nw.HostRewrite) || dcl.IsZeroValue(des.HostRewrite) {
+	if dcl.StringCanonicalize(des.HostRewrite, nw.HostRewrite) {
 		nw.HostRewrite = des.HostRewrite
 	}
 
@@ -4745,7 +4745,7 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy(c *
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.BackendService, nw.BackendService) || dcl.IsZeroValue(des.BackendService) {
+	if dcl.StringCanonicalize(des.BackendService, nw.BackendService) {
 		nw.BackendService = des.BackendService
 	}
 
@@ -4840,10 +4840,10 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionCorsPolicy(c *Client, d
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.AllowCredentials, nw.AllowCredentials) || dcl.IsZeroValue(des.AllowCredentials) {
+	if dcl.BoolCanonicalize(des.AllowCredentials, nw.AllowCredentials) {
 		nw.AllowCredentials = des.AllowCredentials
 	}
-	if dcl.BoolCanonicalize(des.Disabled, nw.Disabled) || dcl.IsZeroValue(des.Disabled) {
+	if dcl.BoolCanonicalize(des.Disabled, nw.Disabled) {
 		nw.Disabled = des.Disabled
 	}
 
@@ -5223,19 +5223,19 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleUrlRedirect(c *Client, des, nw *Ur
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.HostRedirect, nw.HostRedirect) || dcl.IsZeroValue(des.HostRedirect) {
+	if dcl.StringCanonicalize(des.HostRedirect, nw.HostRedirect) {
 		nw.HostRedirect = des.HostRedirect
 	}
-	if dcl.StringCanonicalize(des.PathRedirect, nw.PathRedirect) || dcl.IsZeroValue(des.PathRedirect) {
+	if dcl.StringCanonicalize(des.PathRedirect, nw.PathRedirect) {
 		nw.PathRedirect = des.PathRedirect
 	}
-	if dcl.StringCanonicalize(des.PrefixRedirect, nw.PrefixRedirect) || dcl.IsZeroValue(des.PrefixRedirect) {
+	if dcl.StringCanonicalize(des.PrefixRedirect, nw.PrefixRedirect) {
 		nw.PrefixRedirect = des.PrefixRedirect
 	}
-	if dcl.BoolCanonicalize(des.HttpsRedirect, nw.HttpsRedirect) || dcl.IsZeroValue(des.HttpsRedirect) {
+	if dcl.BoolCanonicalize(des.HttpsRedirect, nw.HttpsRedirect) {
 		nw.HttpsRedirect = des.HttpsRedirect
 	}
-	if dcl.BoolCanonicalize(des.StripQuery, nw.StripQuery) || dcl.IsZeroValue(des.StripQuery) {
+	if dcl.BoolCanonicalize(des.StripQuery, nw.StripQuery) {
 		nw.StripQuery = des.StripQuery
 	}
 
@@ -5318,16 +5318,16 @@ func canonicalizeNewUrlMapTest(c *Client, des, nw *UrlMapTest) *UrlMapTest {
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
-	if dcl.StringCanonicalize(des.Host, nw.Host) || dcl.IsZeroValue(des.Host) {
+	if dcl.StringCanonicalize(des.Host, nw.Host) {
 		nw.Host = des.Host
 	}
-	if dcl.StringCanonicalize(des.Path, nw.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, nw.Path) {
 		nw.Path = des.Path
 	}
-	if dcl.StringCanonicalize(des.ExpectedBackendService, nw.ExpectedBackendService) || dcl.IsZeroValue(des.ExpectedBackendService) {
+	if dcl.StringCanonicalize(des.ExpectedBackendService, nw.ExpectedBackendService) {
 		nw.ExpectedBackendService = des.ExpectedBackendService
 	}
 

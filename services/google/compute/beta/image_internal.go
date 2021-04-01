@@ -910,16 +910,16 @@ func canonicalizeNewImageImageEncryptionKey(c *Client, des, nw *ImageImageEncryp
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) || dcl.IsZeroValue(des.RawKey) {
+	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) {
 		nw.RawKey = des.RawKey
 	}
-	if dcl.StringCanonicalize(des.KmsKeyName, nw.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
+	if dcl.StringCanonicalize(des.KmsKeyName, nw.KmsKeyName) {
 		nw.KmsKeyName = des.KmsKeyName
 	}
-	if dcl.StringCanonicalize(des.Sha256, nw.Sha256) || dcl.IsZeroValue(des.Sha256) {
+	if dcl.StringCanonicalize(des.Sha256, nw.Sha256) {
 		nw.Sha256 = des.Sha256
 	}
-	if dcl.StringCanonicalize(des.KmsKeyServiceAccount, nw.KmsKeyServiceAccount) || dcl.IsZeroValue(des.KmsKeyServiceAccount) {
+	if dcl.StringCanonicalize(des.KmsKeyServiceAccount, nw.KmsKeyServiceAccount) {
 		nw.KmsKeyServiceAccount = des.KmsKeyServiceAccount
 	}
 
@@ -1007,10 +1007,10 @@ func canonicalizeNewImageRawDisk(c *Client, des, nw *ImageRawDisk) *ImageRawDisk
 		nw.ContainerType = ImageRawDiskContainerTypeEnumRef("TAR")
 	}
 
-	if dcl.StringCanonicalize(des.Source, nw.Source) || dcl.IsZeroValue(des.Source) {
+	if dcl.StringCanonicalize(des.Source, nw.Source) {
 		nw.Source = des.Source
 	}
-	if dcl.StringCanonicalize(des.Sha1Checksum, nw.Sha1Checksum) || dcl.IsZeroValue(des.Sha1Checksum) {
+	if dcl.StringCanonicalize(des.Sha1Checksum, nw.Sha1Checksum) {
 		nw.Sha1Checksum = des.Sha1Checksum
 	}
 
@@ -1169,7 +1169,7 @@ func canonicalizeNewImageShieldedInstanceInitialStatePk(c *Client, des, nw *Imag
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Content, nw.Content) || dcl.IsZeroValue(des.Content) {
+	if dcl.StringCanonicalize(des.Content, nw.Content) {
 		nw.Content = des.Content
 	}
 
@@ -1246,7 +1246,7 @@ func canonicalizeNewImageShieldedInstanceInitialStateKek(c *Client, des, nw *Ima
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Content, nw.Content) || dcl.IsZeroValue(des.Content) {
+	if dcl.StringCanonicalize(des.Content, nw.Content) {
 		nw.Content = des.Content
 	}
 
@@ -1323,7 +1323,7 @@ func canonicalizeNewImageShieldedInstanceInitialStateDb(c *Client, des, nw *Imag
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Content, nw.Content) || dcl.IsZeroValue(des.Content) {
+	if dcl.StringCanonicalize(des.Content, nw.Content) {
 		nw.Content = des.Content
 	}
 
@@ -1400,7 +1400,7 @@ func canonicalizeNewImageShieldedInstanceInitialStateDbx(c *Client, des, nw *Ima
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Content, nw.Content) || dcl.IsZeroValue(des.Content) {
+	if dcl.StringCanonicalize(des.Content, nw.Content) {
 		nw.Content = des.Content
 	}
 
@@ -1483,16 +1483,16 @@ func canonicalizeNewImageSourceDiskEncryptionKey(c *Client, des, nw *ImageSource
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) || dcl.IsZeroValue(des.RawKey) {
+	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) {
 		nw.RawKey = des.RawKey
 	}
-	if dcl.StringCanonicalize(des.KmsKeyName, nw.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
+	if dcl.StringCanonicalize(des.KmsKeyName, nw.KmsKeyName) {
 		nw.KmsKeyName = des.KmsKeyName
 	}
-	if dcl.StringCanonicalize(des.Sha256, nw.Sha256) || dcl.IsZeroValue(des.Sha256) {
+	if dcl.StringCanonicalize(des.Sha256, nw.Sha256) {
 		nw.Sha256 = des.Sha256
 	}
-	if dcl.StringCanonicalize(des.KmsKeyServiceAccount, nw.KmsKeyServiceAccount) || dcl.IsZeroValue(des.KmsKeyServiceAccount) {
+	if dcl.StringCanonicalize(des.KmsKeyServiceAccount, nw.KmsKeyServiceAccount) {
 		nw.KmsKeyServiceAccount = des.KmsKeyServiceAccount
 	}
 
@@ -1575,16 +1575,16 @@ func canonicalizeNewImageSourceImageEncryptionKey(c *Client, des, nw *ImageSourc
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) || dcl.IsZeroValue(des.RawKey) {
+	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) {
 		nw.RawKey = des.RawKey
 	}
-	if dcl.StringCanonicalize(des.KmsKeyName, nw.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
+	if dcl.StringCanonicalize(des.KmsKeyName, nw.KmsKeyName) {
 		nw.KmsKeyName = des.KmsKeyName
 	}
-	if dcl.StringCanonicalize(des.Sha256, nw.Sha256) || dcl.IsZeroValue(des.Sha256) {
+	if dcl.StringCanonicalize(des.Sha256, nw.Sha256) {
 		nw.Sha256 = des.Sha256
 	}
-	if dcl.StringCanonicalize(des.KmsKeyServiceAccount, nw.KmsKeyServiceAccount) || dcl.IsZeroValue(des.KmsKeyServiceAccount) {
+	if dcl.StringCanonicalize(des.KmsKeyServiceAccount, nw.KmsKeyServiceAccount) {
 		nw.KmsKeyServiceAccount = des.KmsKeyServiceAccount
 	}
 
@@ -1667,16 +1667,16 @@ func canonicalizeNewImageSourceSnapshotEncryptionKey(c *Client, des, nw *ImageSo
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) || dcl.IsZeroValue(des.RawKey) {
+	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) {
 		nw.RawKey = des.RawKey
 	}
-	if dcl.StringCanonicalize(des.KmsKeyName, nw.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
+	if dcl.StringCanonicalize(des.KmsKeyName, nw.KmsKeyName) {
 		nw.KmsKeyName = des.KmsKeyName
 	}
-	if dcl.StringCanonicalize(des.Sha256, nw.Sha256) || dcl.IsZeroValue(des.Sha256) {
+	if dcl.StringCanonicalize(des.Sha256, nw.Sha256) {
 		nw.Sha256 = des.Sha256
 	}
-	if dcl.StringCanonicalize(des.KmsKeyServiceAccount, nw.KmsKeyServiceAccount) || dcl.IsZeroValue(des.KmsKeyServiceAccount) {
+	if dcl.StringCanonicalize(des.KmsKeyServiceAccount, nw.KmsKeyServiceAccount) {
 		nw.KmsKeyServiceAccount = des.KmsKeyServiceAccount
 	}
 
@@ -1762,16 +1762,16 @@ func canonicalizeNewImageDeprecated(c *Client, des, nw *ImageDeprecated) *ImageD
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Replacement, nw.Replacement) || dcl.IsZeroValue(des.Replacement) {
+	if dcl.StringCanonicalize(des.Replacement, nw.Replacement) {
 		nw.Replacement = des.Replacement
 	}
-	if dcl.StringCanonicalize(des.Deprecated, nw.Deprecated) || dcl.IsZeroValue(des.Deprecated) {
+	if dcl.StringCanonicalize(des.Deprecated, nw.Deprecated) {
 		nw.Deprecated = des.Deprecated
 	}
-	if dcl.StringCanonicalize(des.Obsolete, nw.Obsolete) || dcl.IsZeroValue(des.Obsolete) {
+	if dcl.StringCanonicalize(des.Obsolete, nw.Obsolete) {
 		nw.Obsolete = des.Obsolete
 	}
-	if dcl.StringCanonicalize(des.Deleted, nw.Deleted) || dcl.IsZeroValue(des.Deleted) {
+	if dcl.StringCanonicalize(des.Deleted, nw.Deleted) {
 		nw.Deleted = des.Deleted
 	}
 

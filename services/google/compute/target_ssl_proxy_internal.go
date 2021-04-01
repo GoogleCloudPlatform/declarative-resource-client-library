@@ -487,7 +487,7 @@ func diffTargetSslProxy(c *Client, desired, actual *TargetSslProxy, opts ...dcl.
 			FieldName:        "Service",
 		})
 	}
-	if !reflect.DeepEqual(desired.SslCertificates, actual.SslCertificates) {
+	if !dcl.StringSliceEqualsWithSelfLink(desired.SslCertificates, actual.SslCertificates) {
 		c.Config.Logger.Infof("Detected diff in SslCertificates.\nDESIRED: %v\nACTUAL: %v", desired.SslCertificates, actual.SslCertificates)
 		diffs = append(diffs, targetSslProxyDiff{
 			RequiresRecreate: true,

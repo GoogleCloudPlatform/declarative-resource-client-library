@@ -734,10 +734,10 @@ func canonicalizeNewInstanceNetworkConfig(c *Client, des, nw *InstanceNetworkCon
 		return nw
 	}
 
-	if dcl.NameToSelfLink(des.Network, nw.Network) || dcl.IsZeroValue(des.Network) {
+	if dcl.NameToSelfLink(des.Network, nw.Network) {
 		nw.Network = des.Network
 	}
-	if dcl.StringCanonicalize(des.IPAllocation, nw.IPAllocation) || dcl.IsZeroValue(des.IPAllocation) {
+	if dcl.StringCanonicalize(des.IPAllocation, nw.IPAllocation) {
 		nw.IPAllocation = des.IPAllocation
 	}
 
@@ -817,10 +817,10 @@ func canonicalizeNewInstanceAvailableVersion(c *Client, des, nw *InstanceAvailab
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.VersionNumber, nw.VersionNumber) || dcl.IsZeroValue(des.VersionNumber) {
+	if dcl.StringCanonicalize(des.VersionNumber, nw.VersionNumber) {
 		nw.VersionNumber = des.VersionNumber
 	}
-	if dcl.BoolCanonicalize(des.DefaultVersion, nw.DefaultVersion) || dcl.IsZeroValue(des.DefaultVersion) {
+	if dcl.BoolCanonicalize(des.DefaultVersion, nw.DefaultVersion) {
 		nw.DefaultVersion = des.DefaultVersion
 	}
 

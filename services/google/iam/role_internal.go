@@ -543,10 +543,10 @@ func canonicalizeNewRoleLocalizedValues(c *Client, des, nw *RoleLocalizedValues)
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.LocalizedTitle, nw.LocalizedTitle) || dcl.IsZeroValue(des.LocalizedTitle) {
+	if dcl.StringCanonicalize(des.LocalizedTitle, nw.LocalizedTitle) {
 		nw.LocalizedTitle = des.LocalizedTitle
 	}
-	if dcl.StringCanonicalize(des.LocalizedDescription, nw.LocalizedDescription) || dcl.IsZeroValue(des.LocalizedDescription) {
+	if dcl.StringCanonicalize(des.LocalizedDescription, nw.LocalizedDescription) {
 		nw.LocalizedDescription = des.LocalizedDescription
 	}
 

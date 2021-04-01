@@ -462,13 +462,13 @@ func canonicalizeNewApplicationDispatchRules(c *Client, des, nw *ApplicationDisp
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Domain, nw.Domain) || dcl.IsZeroValue(des.Domain) {
+	if dcl.StringCanonicalize(des.Domain, nw.Domain) {
 		nw.Domain = des.Domain
 	}
-	if dcl.StringCanonicalize(des.Path, nw.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, nw.Path) {
 		nw.Path = des.Path
 	}
-	if dcl.StringCanonicalize(des.Service, nw.Service) || dcl.IsZeroValue(des.Service) {
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
 		nw.Service = des.Service
 	}
 
@@ -545,10 +545,10 @@ func canonicalizeNewApplicationFeatureSettings(c *Client, des, nw *ApplicationFe
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.SplitHealthChecks, nw.SplitHealthChecks) || dcl.IsZeroValue(des.SplitHealthChecks) {
+	if dcl.BoolCanonicalize(des.SplitHealthChecks, nw.SplitHealthChecks) {
 		nw.SplitHealthChecks = des.SplitHealthChecks
 	}
-	if dcl.BoolCanonicalize(des.UseContainerOptimizedOs, nw.UseContainerOptimizedOs) || dcl.IsZeroValue(des.UseContainerOptimizedOs) {
+	if dcl.BoolCanonicalize(des.UseContainerOptimizedOs, nw.UseContainerOptimizedOs) {
 		nw.UseContainerOptimizedOs = des.UseContainerOptimizedOs
 	}
 
@@ -631,14 +631,14 @@ func canonicalizeNewApplicationIap(c *Client, des, nw *ApplicationIap) *Applicat
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.Enabled, nw.Enabled) || dcl.IsZeroValue(des.Enabled) {
+	if dcl.BoolCanonicalize(des.Enabled, nw.Enabled) {
 		nw.Enabled = des.Enabled
 	}
-	if dcl.StringCanonicalize(des.OAuth2ClientId, nw.OAuth2ClientId) || dcl.IsZeroValue(des.OAuth2ClientId) {
+	if dcl.StringCanonicalize(des.OAuth2ClientId, nw.OAuth2ClientId) {
 		nw.OAuth2ClientId = des.OAuth2ClientId
 	}
 	nw.OAuth2ClientSecret = des.OAuth2ClientSecret
-	if dcl.StringCanonicalize(des.OAuth2ClientSecretSha256, nw.OAuth2ClientSecretSha256) || dcl.IsZeroValue(des.OAuth2ClientSecretSha256) {
+	if dcl.StringCanonicalize(des.OAuth2ClientSecretSha256, nw.OAuth2ClientSecretSha256) {
 		nw.OAuth2ClientSecretSha256 = des.OAuth2ClientSecretSha256
 	}
 

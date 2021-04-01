@@ -626,13 +626,13 @@ func canonicalizeNewNetworkEndpointGroupCloudRun(c *Client, des, nw *NetworkEndp
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Service, nw.Service) || dcl.IsZeroValue(des.Service) {
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
 		nw.Service = des.Service
 	}
-	if dcl.StringCanonicalize(des.Tag, nw.Tag) || dcl.IsZeroValue(des.Tag) {
+	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
 		nw.Tag = des.Tag
 	}
-	if dcl.StringCanonicalize(des.UrlMask, nw.UrlMask) || dcl.IsZeroValue(des.UrlMask) {
+	if dcl.StringCanonicalize(des.UrlMask, nw.UrlMask) {
 		nw.UrlMask = des.UrlMask
 	}
 
@@ -712,13 +712,13 @@ func canonicalizeNewNetworkEndpointGroupAppEngine(c *Client, des, nw *NetworkEnd
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Service, nw.Service) || dcl.IsZeroValue(des.Service) {
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
 		nw.Service = des.Service
 	}
-	if dcl.NameToSelfLink(des.Version, nw.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.NameToSelfLink(des.Version, nw.Version) {
 		nw.Version = des.Version
 	}
-	if dcl.StringCanonicalize(des.UrlMask, nw.UrlMask) || dcl.IsZeroValue(des.UrlMask) {
+	if dcl.StringCanonicalize(des.UrlMask, nw.UrlMask) {
 		nw.UrlMask = des.UrlMask
 	}
 
@@ -795,10 +795,10 @@ func canonicalizeNewNetworkEndpointGroupCloudFunction(c *Client, des, nw *Networ
 		return nw
 	}
 
-	if dcl.NameToSelfLink(des.Function, nw.Function) || dcl.IsZeroValue(des.Function) {
+	if dcl.NameToSelfLink(des.Function, nw.Function) {
 		nw.Function = des.Function
 	}
-	if dcl.StringCanonicalize(des.UrlMask, nw.UrlMask) || dcl.IsZeroValue(des.UrlMask) {
+	if dcl.StringCanonicalize(des.UrlMask, nw.UrlMask) {
 		nw.UrlMask = des.UrlMask
 	}
 

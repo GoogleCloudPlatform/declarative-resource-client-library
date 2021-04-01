@@ -643,17 +643,17 @@ func canonicalizeNewLogMetricMetricDescriptor(c *Client, des, nw *LogMetricMetri
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Type, nw.Type) || dcl.IsZeroValue(des.Type) {
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
 		nw.Type = des.Type
 	}
 	nw.Labels = canonicalizeNewLogMetricMetricDescriptorLabelsSlice(c, des.Labels, nw.Labels)
-	if dcl.StringCanonicalize(des.Unit, nw.Unit) || dcl.IsZeroValue(des.Unit) {
+	if dcl.StringCanonicalize(des.Unit, nw.Unit) {
 		nw.Unit = des.Unit
 	}
-	if dcl.StringCanonicalize(des.DisplayName, nw.DisplayName) || dcl.IsZeroValue(des.DisplayName) {
+	if dcl.StringCanonicalize(des.DisplayName, nw.DisplayName) {
 		nw.DisplayName = des.DisplayName
 	}
 	nw.Metadata = canonicalizeNewLogMetricMetricDescriptorMetadata(c, des.Metadata, nw.Metadata)
@@ -734,10 +734,10 @@ func canonicalizeNewLogMetricMetricDescriptorLabels(c *Client, des, nw *LogMetri
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Key, nw.Key) || dcl.IsZeroValue(des.Key) {
+	if dcl.StringCanonicalize(des.Key, nw.Key) {
 		nw.Key = des.Key
 	}
-	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
 

@@ -877,7 +877,7 @@ func canonicalizeNewInstanceGroupManagerDistributionPolicyZones(c *Client, des, 
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Zone, nw.Zone) || dcl.IsZeroValue(des.Zone) {
+	if dcl.StringCanonicalize(des.Zone, nw.Zone) {
 		nw.Zone = des.Zone
 	}
 
@@ -1046,10 +1046,10 @@ func canonicalizeNewInstanceGroupManagerVersions(c *Client, des, nw *InstanceGro
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.NameToSelfLink(des.InstanceTemplate, nw.InstanceTemplate) || dcl.IsZeroValue(des.InstanceTemplate) {
+	if dcl.NameToSelfLink(des.InstanceTemplate, nw.InstanceTemplate) {
 		nw.InstanceTemplate = des.InstanceTemplate
 	}
 	nw.TargetSize = canonicalizeNewInstanceGroupManagerVersionsTargetSize(c, des.TargetSize, nw.TargetSize)
@@ -1203,7 +1203,7 @@ func canonicalizeNewInstanceGroupManagerNamedPorts(c *Client, des, nw *InstanceG
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
 
@@ -1281,11 +1281,11 @@ func canonicalizeNewInstanceGroupManagerStatus(c *Client, des, nw *InstanceGroup
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.IsStable, nw.IsStable) || dcl.IsZeroValue(des.IsStable) {
+	if dcl.BoolCanonicalize(des.IsStable, nw.IsStable) {
 		nw.IsStable = des.IsStable
 	}
 	nw.VersionTarget = canonicalizeNewInstanceGroupManagerStatusVersionTarget(c, des.VersionTarget, nw.VersionTarget)
-	if dcl.NameToSelfLink(des.Autoscalar, nw.Autoscalar) || dcl.IsZeroValue(des.Autoscalar) {
+	if dcl.NameToSelfLink(des.Autoscalar, nw.Autoscalar) {
 		nw.Autoscalar = des.Autoscalar
 	}
 
@@ -1359,7 +1359,7 @@ func canonicalizeNewInstanceGroupManagerStatusVersionTarget(c *Client, des, nw *
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.IsReached, nw.IsReached) || dcl.IsZeroValue(des.IsReached) {
+	if dcl.BoolCanonicalize(des.IsReached, nw.IsReached) {
 		nw.IsReached = des.IsReached
 	}
 
@@ -1436,7 +1436,7 @@ func canonicalizeNewInstanceGroupManagerAutoHealingPolicies(c *Client, des, nw *
 		return nw
 	}
 
-	if dcl.NameToSelfLink(des.HealthCheck, nw.HealthCheck) || dcl.IsZeroValue(des.HealthCheck) {
+	if dcl.NameToSelfLink(des.HealthCheck, nw.HealthCheck) {
 		nw.HealthCheck = des.HealthCheck
 	}
 
@@ -1789,7 +1789,7 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 			FieldName:        "NamedPorts",
 		})
 	}
-	if !reflect.DeepEqual(desired.TargetPools, actual.TargetPools) {
+	if !dcl.StringSliceEqualsWithSelfLink(desired.TargetPools, actual.TargetPools) {
 		c.Config.Logger.Infof("Detected diff in TargetPools.\nDESIRED: %v\nACTUAL: %v", desired.TargetPools, actual.TargetPools)
 
 		diffs = append(diffs, instanceGroupManagerDiff{

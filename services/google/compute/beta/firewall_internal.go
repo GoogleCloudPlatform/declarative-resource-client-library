@@ -672,7 +672,7 @@ func canonicalizeNewFirewallLogConfig(c *Client, des, nw *FirewallLogConfig) *Fi
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.Enable, nw.Enable) || dcl.IsZeroValue(des.Enable) {
+	if dcl.BoolCanonicalize(des.Enable, nw.Enable) {
 		nw.Enable = des.Enable
 	}
 
@@ -752,7 +752,7 @@ func canonicalizeNewFirewallAllowed(c *Client, des, nw *FirewallAllowed) *Firewa
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.IPProtocol, nw.IPProtocol) || dcl.IsZeroValue(des.IPProtocol) {
+	if dcl.StringCanonicalize(des.IPProtocol, nw.IPProtocol) {
 		nw.IPProtocol = des.IPProtocol
 	}
 
@@ -832,7 +832,7 @@ func canonicalizeNewFirewallDenied(c *Client, des, nw *FirewallDenied) *Firewall
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.IPProtocol, nw.IPProtocol) || dcl.IsZeroValue(des.IPProtocol) {
+	if dcl.StringCanonicalize(des.IPProtocol, nw.IPProtocol) {
 		nw.IPProtocol = des.IPProtocol
 	}
 

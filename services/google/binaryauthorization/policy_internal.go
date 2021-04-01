@@ -374,7 +374,7 @@ func canonicalizeNewPolicyAdmissionWhitelistPatterns(c *Client, des, nw *PolicyA
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.NamePattern, nw.NamePattern) || dcl.IsZeroValue(des.NamePattern) {
+	if dcl.StringCanonicalize(des.NamePattern, nw.NamePattern) {
 		nw.NamePattern = des.NamePattern
 	}
 
@@ -726,7 +726,7 @@ func comparePolicyClusterAdmissionRules(c *Client, desired, actual *PolicyCluste
 		c.Config.Logger.Infof("desired RequireAttestationsBy %s - but actually nil", dcl.SprintResource(desired.RequireAttestationsBy))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RequireAttestationsBy, actual.RequireAttestationsBy) && !dcl.IsZeroValue(desired.RequireAttestationsBy) {
+	if !dcl.StringSliceEqualsWithSelfLink(desired.RequireAttestationsBy, actual.RequireAttestationsBy) && !dcl.IsZeroValue(desired.RequireAttestationsBy) {
 		c.Config.Logger.Infof("Diff in RequireAttestationsBy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequireAttestationsBy), dcl.SprintResource(actual.RequireAttestationsBy))
 		return true
 	}
@@ -793,7 +793,7 @@ func comparePolicyDefaultAdmissionRule(c *Client, desired, actual *PolicyDefault
 		c.Config.Logger.Infof("desired RequireAttestationsBy %s - but actually nil", dcl.SprintResource(desired.RequireAttestationsBy))
 		return true
 	}
-	if !reflect.DeepEqual(desired.RequireAttestationsBy, actual.RequireAttestationsBy) && !dcl.IsZeroValue(desired.RequireAttestationsBy) {
+	if !dcl.StringSliceEqualsWithSelfLink(desired.RequireAttestationsBy, actual.RequireAttestationsBy) && !dcl.IsZeroValue(desired.RequireAttestationsBy) {
 		c.Config.Logger.Infof("Diff in RequireAttestationsBy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequireAttestationsBy), dcl.SprintResource(actual.RequireAttestationsBy))
 		return true
 	}

@@ -538,13 +538,13 @@ func canonicalizeNewTenantOAuthIdpConfigResponseType(c *Client, des, nw *TenantO
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.IdToken, nw.IdToken) || dcl.IsZeroValue(des.IdToken) {
+	if dcl.BoolCanonicalize(des.IdToken, nw.IdToken) {
 		nw.IdToken = des.IdToken
 	}
-	if dcl.BoolCanonicalize(des.Code, nw.Code) || dcl.IsZeroValue(des.Code) {
+	if dcl.BoolCanonicalize(des.Code, nw.Code) {
 		nw.Code = des.Code
 	}
-	if dcl.BoolCanonicalize(des.Token, nw.Token) || dcl.IsZeroValue(des.Token) {
+	if dcl.BoolCanonicalize(des.Token, nw.Token) {
 		nw.Token = des.Token
 	}
 

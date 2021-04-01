@@ -552,7 +552,7 @@ func canonicalizeNewVpnGatewayVpnInterface(c *Client, des, nw *VpnGatewayVpnInte
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.IPAddress, nw.IPAddress) || dcl.IsZeroValue(des.IPAddress) {
+	if dcl.StringCanonicalize(des.IPAddress, nw.IPAddress) {
 		nw.IPAddress = des.IPAddress
 	}
 

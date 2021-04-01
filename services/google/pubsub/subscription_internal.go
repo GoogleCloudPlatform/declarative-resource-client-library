@@ -573,7 +573,7 @@ func canonicalizeNewSubscriptionExpirationPolicy(c *Client, des, nw *Subscriptio
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Ttl, nw.Ttl) || dcl.IsZeroValue(des.Ttl) {
+	if dcl.StringCanonicalize(des.Ttl, nw.Ttl) {
 		nw.Ttl = des.Ttl
 	}
 
@@ -650,7 +650,7 @@ func canonicalizeNewSubscriptionDeadLetterPolicy(c *Client, des, nw *Subscriptio
 		return nw
 	}
 
-	if dcl.NameToSelfLink(des.DeadLetterTopic, nw.DeadLetterTopic) || dcl.IsZeroValue(des.DeadLetterTopic) {
+	if dcl.NameToSelfLink(des.DeadLetterTopic, nw.DeadLetterTopic) {
 		nw.DeadLetterTopic = des.DeadLetterTopic
 	}
 
@@ -736,7 +736,7 @@ func canonicalizeNewSubscriptionPushConfig(c *Client, des, nw *SubscriptionPushC
 		nw.Attributes = map[string]string{"x-goog-version": "v1"}
 	}
 
-	if dcl.StringCanonicalize(des.PushEndpoint, nw.PushEndpoint) || dcl.IsZeroValue(des.PushEndpoint) {
+	if dcl.StringCanonicalize(des.PushEndpoint, nw.PushEndpoint) {
 		nw.PushEndpoint = des.PushEndpoint
 	}
 	nw.OidcToken = canonicalizeNewSubscriptionPushConfigOidcToken(c, des.OidcToken, nw.OidcToken)
@@ -814,10 +814,10 @@ func canonicalizeNewSubscriptionPushConfigOidcToken(c *Client, des, nw *Subscrip
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ServiceAccountEmail, nw.ServiceAccountEmail) || dcl.IsZeroValue(des.ServiceAccountEmail) {
+	if dcl.StringCanonicalize(des.ServiceAccountEmail, nw.ServiceAccountEmail) {
 		nw.ServiceAccountEmail = des.ServiceAccountEmail
 	}
-	if dcl.StringCanonicalize(des.Audience, nw.Audience) || dcl.IsZeroValue(des.Audience) {
+	if dcl.StringCanonicalize(des.Audience, nw.Audience) {
 		nw.Audience = des.Audience
 	}
 

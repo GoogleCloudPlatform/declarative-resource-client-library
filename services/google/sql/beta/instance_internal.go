@@ -1124,10 +1124,10 @@ func canonicalizeNewInstanceDiskEncryptionConfiguration(c *Client, des, nw *Inst
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.KmsKeyName, nw.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
+	if dcl.StringCanonicalize(des.KmsKeyName, nw.KmsKeyName) {
 		nw.KmsKeyName = des.KmsKeyName
 	}
-	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
+	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
 
@@ -1205,10 +1205,10 @@ func canonicalizeNewInstanceFailoverReplica(c *Client, des, nw *InstanceFailover
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.BoolCanonicalize(des.Available, nw.Available) || dcl.IsZeroValue(des.Available) {
+	if dcl.BoolCanonicalize(des.Available, nw.Available) {
 		nw.Available = des.Available
 	}
 	nw.FailoverInstance = canonicalizeNewInstanceFailoverReplicaFailoverInstance(c, des.FailoverInstance, nw.FailoverInstance)
@@ -1286,10 +1286,10 @@ func canonicalizeNewInstanceFailoverReplicaFailoverInstance(c *Client, des, nw *
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Region, nw.Region) || dcl.IsZeroValue(des.Region) {
+	if dcl.StringCanonicalize(des.Region, nw.Region) {
 		nw.Region = des.Region
 	}
 
@@ -1367,7 +1367,7 @@ func canonicalizeNewInstanceIPAddresses(c *Client, des, nw *InstanceIPAddresses)
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.IPAddress, nw.IPAddress) || dcl.IsZeroValue(des.IPAddress) {
+	if dcl.StringCanonicalize(des.IPAddress, nw.IPAddress) {
 		nw.IPAddress = des.IPAddress
 	}
 	nw.TimeToRetire = canonicalizeNewInstanceIPAddressesTimeToRetire(c, des.TimeToRetire, nw.TimeToRetire)
@@ -1518,10 +1518,10 @@ func canonicalizeNewInstanceMasterInstance(c *Client, des, nw *InstanceMasterIns
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Region, nw.Region) || dcl.IsZeroValue(des.Region) {
+	if dcl.StringCanonicalize(des.Region, nw.Region) {
 		nw.Region = des.Region
 	}
 
@@ -1600,11 +1600,11 @@ func canonicalizeNewInstanceReplicaConfiguration(c *Client, des, nw *InstanceRep
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
+	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
 	nw.MysqlReplicaConfiguration = canonicalizeNewInstanceReplicaConfigurationMysqlReplicaConfiguration(c, des.MysqlReplicaConfiguration, nw.MysqlReplicaConfiguration)
-	if dcl.BoolCanonicalize(des.FailoverTarget, nw.FailoverTarget) || dcl.IsZeroValue(des.FailoverTarget) {
+	if dcl.BoolCanonicalize(des.FailoverTarget, nw.FailoverTarget) {
 		nw.FailoverTarget = des.FailoverTarget
 	}
 	nw.ReplicaPoolConfiguration = canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfiguration(c, des.ReplicaPoolConfiguration, nw.ReplicaPoolConfiguration)
@@ -1707,32 +1707,32 @@ func canonicalizeNewInstanceReplicaConfigurationMysqlReplicaConfiguration(c *Cli
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.DumpFilePath, nw.DumpFilePath) || dcl.IsZeroValue(des.DumpFilePath) {
+	if dcl.StringCanonicalize(des.DumpFilePath, nw.DumpFilePath) {
 		nw.DumpFilePath = des.DumpFilePath
 	}
-	if dcl.StringCanonicalize(des.Username, nw.Username) || dcl.IsZeroValue(des.Username) {
+	if dcl.StringCanonicalize(des.Username, nw.Username) {
 		nw.Username = des.Username
 	}
-	if dcl.StringCanonicalize(des.Password, nw.Password) || dcl.IsZeroValue(des.Password) {
+	if dcl.StringCanonicalize(des.Password, nw.Password) {
 		nw.Password = des.Password
 	}
 	nw.MasterHeartbeatPeriod = canonicalizeNewInstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriod(c, des.MasterHeartbeatPeriod, nw.MasterHeartbeatPeriod)
-	if dcl.StringCanonicalize(des.CaCertificate, nw.CaCertificate) || dcl.IsZeroValue(des.CaCertificate) {
+	if dcl.StringCanonicalize(des.CaCertificate, nw.CaCertificate) {
 		nw.CaCertificate = des.CaCertificate
 	}
-	if dcl.StringCanonicalize(des.ClientCertificate, nw.ClientCertificate) || dcl.IsZeroValue(des.ClientCertificate) {
+	if dcl.StringCanonicalize(des.ClientCertificate, nw.ClientCertificate) {
 		nw.ClientCertificate = des.ClientCertificate
 	}
-	if dcl.StringCanonicalize(des.ClientKey, nw.ClientKey) || dcl.IsZeroValue(des.ClientKey) {
+	if dcl.StringCanonicalize(des.ClientKey, nw.ClientKey) {
 		nw.ClientKey = des.ClientKey
 	}
-	if dcl.StringCanonicalize(des.SslCipher, nw.SslCipher) || dcl.IsZeroValue(des.SslCipher) {
+	if dcl.StringCanonicalize(des.SslCipher, nw.SslCipher) {
 		nw.SslCipher = des.SslCipher
 	}
-	if dcl.BoolCanonicalize(des.VerifyServerCertificate, nw.VerifyServerCertificate) || dcl.IsZeroValue(des.VerifyServerCertificate) {
+	if dcl.BoolCanonicalize(des.VerifyServerCertificate, nw.VerifyServerCertificate) {
 		nw.VerifyServerCertificate = des.VerifyServerCertificate
 	}
-	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
+	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
 
@@ -1884,12 +1884,12 @@ func canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfiguration(c *Clie
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
+	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
 	nw.StaticPoolConfiguration = canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfiguration(c, des.StaticPoolConfiguration, nw.StaticPoolConfiguration)
 	nw.AutoscalingPoolConfiguration = canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfiguration(c, des.AutoscalingPoolConfiguration, nw.AutoscalingPoolConfiguration)
-	if dcl.BoolCanonicalize(des.ExposeReplicaIP, nw.ExposeReplicaIP) || dcl.IsZeroValue(des.ExposeReplicaIP) {
+	if dcl.BoolCanonicalize(des.ExposeReplicaIP, nw.ExposeReplicaIP) {
 		nw.ExposeReplicaIP = des.ExposeReplicaIP
 	}
 
@@ -1969,10 +1969,10 @@ func canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfigurationStaticPo
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
+	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
-	if dcl.BoolCanonicalize(des.ExposeReplicaIP, nw.ExposeReplicaIP) || dcl.IsZeroValue(des.ExposeReplicaIP) {
+	if dcl.BoolCanonicalize(des.ExposeReplicaIP, nw.ExposeReplicaIP) {
 		nw.ExposeReplicaIP = des.ExposeReplicaIP
 	}
 
@@ -2055,7 +2055,7 @@ func canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfigurationAutoscal
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
+	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
 
@@ -2134,10 +2134,10 @@ func canonicalizeNewInstanceScheduledMaintenance(c *Client, des, nw *InstanceSch
 	}
 
 	nw.StartTime = canonicalizeNewInstanceScheduledMaintenanceStartTime(c, des.StartTime, nw.StartTime)
-	if dcl.BoolCanonicalize(des.CanDefer, nw.CanDefer) || dcl.IsZeroValue(des.CanDefer) {
+	if dcl.BoolCanonicalize(des.CanDefer, nw.CanDefer) {
 		nw.CanDefer = des.CanDefer
 	}
-	if dcl.BoolCanonicalize(des.CanReschedule, nw.CanReschedule) || dcl.IsZeroValue(des.CanReschedule) {
+	if dcl.BoolCanonicalize(des.CanReschedule, nw.CanReschedule) {
 		nw.CanReschedule = des.CanReschedule
 	}
 
@@ -2335,19 +2335,19 @@ func canonicalizeNewInstanceSettings(c *Client, des, nw *InstanceSettings) *Inst
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Tier, nw.Tier) || dcl.IsZeroValue(des.Tier) {
+	if dcl.StringCanonicalize(des.Tier, nw.Tier) {
 		nw.Tier = des.Tier
 	}
-	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
+	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
-	if dcl.BoolCanonicalize(des.StorageAutoResize, nw.StorageAutoResize) || dcl.IsZeroValue(des.StorageAutoResize) {
+	if dcl.BoolCanonicalize(des.StorageAutoResize, nw.StorageAutoResize) {
 		nw.StorageAutoResize = des.StorageAutoResize
 	}
-	if dcl.BoolCanonicalize(des.DatabaseReplicationEnabled, nw.DatabaseReplicationEnabled) || dcl.IsZeroValue(des.DatabaseReplicationEnabled) {
+	if dcl.BoolCanonicalize(des.DatabaseReplicationEnabled, nw.DatabaseReplicationEnabled) {
 		nw.DatabaseReplicationEnabled = des.DatabaseReplicationEnabled
 	}
-	if dcl.BoolCanonicalize(des.CrashSafeReplicationEnabled, nw.CrashSafeReplicationEnabled) || dcl.IsZeroValue(des.CrashSafeReplicationEnabled) {
+	if dcl.BoolCanonicalize(des.CrashSafeReplicationEnabled, nw.CrashSafeReplicationEnabled) {
 		nw.CrashSafeReplicationEnabled = des.CrashSafeReplicationEnabled
 	}
 	nw.SettingsVersion = canonicalizeNewInstanceSettingsSettingsVersion(c, des.SettingsVersion, nw.SettingsVersion)
@@ -2359,7 +2359,7 @@ func canonicalizeNewInstanceSettings(c *Client, des, nw *InstanceSettings) *Inst
 	nw.BackupConfiguration = canonicalizeNewInstanceSettingsBackupConfiguration(c, des.BackupConfiguration, nw.BackupConfiguration)
 	nw.DataDiskSizeGb = canonicalizeNewInstanceSettingsDataDiskSizeGb(c, des.DataDiskSizeGb, nw.DataDiskSizeGb)
 	nw.ActiveDirectoryConfig = canonicalizeNewInstanceSettingsActiveDirectoryConfig(c, des.ActiveDirectoryConfig, nw.ActiveDirectoryConfig)
-	if dcl.StringCanonicalize(des.Collation, nw.Collation) || dcl.IsZeroValue(des.Collation) {
+	if dcl.StringCanonicalize(des.Collation, nw.Collation) {
 		nw.Collation = des.Collation
 	}
 	nw.DenyMaintenancePeriods = canonicalizeNewInstanceSettingsDenyMaintenancePeriodsSlice(c, des.DenyMaintenancePeriods, nw.DenyMaintenancePeriods)
@@ -2584,13 +2584,13 @@ func canonicalizeNewInstanceSettingsIPConfiguration(c *Client, des, nw *Instance
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.IPv4Enabled, nw.IPv4Enabled) || dcl.IsZeroValue(des.IPv4Enabled) {
+	if dcl.BoolCanonicalize(des.IPv4Enabled, nw.IPv4Enabled) {
 		nw.IPv4Enabled = des.IPv4Enabled
 	}
-	if dcl.NameToSelfLink(des.PrivateNetwork, nw.PrivateNetwork) || dcl.IsZeroValue(des.PrivateNetwork) {
+	if dcl.NameToSelfLink(des.PrivateNetwork, nw.PrivateNetwork) {
 		nw.PrivateNetwork = des.PrivateNetwork
 	}
-	if dcl.BoolCanonicalize(des.RequireSsl, nw.RequireSsl) || dcl.IsZeroValue(des.RequireSsl) {
+	if dcl.BoolCanonicalize(des.RequireSsl, nw.RequireSsl) {
 		nw.RequireSsl = des.RequireSsl
 	}
 	nw.AuthorizedNetworks = canonicalizeNewInstanceSettingsIPConfigurationAuthorizedNetworksSlice(c, des.AuthorizedNetworks, nw.AuthorizedNetworks)
@@ -2674,13 +2674,13 @@ func canonicalizeNewInstanceSettingsIPConfigurationAuthorizedNetworks(c *Client,
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Value, nw.Value) || dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, nw.Value) {
 		nw.Value = des.Value
 	}
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
+	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
 
@@ -2757,10 +2757,10 @@ func canonicalizeNewInstanceSettingsLocationPreference(c *Client, des, nw *Insta
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Zone, nw.Zone) || dcl.IsZeroValue(des.Zone) {
+	if dcl.StringCanonicalize(des.Zone, nw.Zone) {
 		nw.Zone = des.Zone
 	}
-	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
+	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
 
@@ -2837,10 +2837,10 @@ func canonicalizeNewInstanceSettingsDatabaseFlags(c *Client, des, nw *InstanceSe
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Value, nw.Value) || dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, nw.Value) {
 		nw.Value = des.Value
 	}
 
@@ -2923,7 +2923,7 @@ func canonicalizeNewInstanceSettingsMaintenanceWindow(c *Client, des, nw *Instan
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
+	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
 
@@ -3013,19 +3013,19 @@ func canonicalizeNewInstanceSettingsBackupConfiguration(c *Client, des, nw *Inst
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.StartTime, nw.StartTime) || dcl.IsZeroValue(des.StartTime) {
+	if dcl.StringCanonicalize(des.StartTime, nw.StartTime) {
 		nw.StartTime = des.StartTime
 	}
-	if dcl.BoolCanonicalize(des.Enabled, nw.Enabled) || dcl.IsZeroValue(des.Enabled) {
+	if dcl.BoolCanonicalize(des.Enabled, nw.Enabled) {
 		nw.Enabled = des.Enabled
 	}
-	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
+	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
-	if dcl.BoolCanonicalize(des.BinaryLogEnabled, nw.BinaryLogEnabled) || dcl.IsZeroValue(des.BinaryLogEnabled) {
+	if dcl.BoolCanonicalize(des.BinaryLogEnabled, nw.BinaryLogEnabled) {
 		nw.BinaryLogEnabled = des.BinaryLogEnabled
 	}
-	if dcl.StringCanonicalize(des.Location, nw.Location) || dcl.IsZeroValue(des.Location) {
+	if dcl.StringCanonicalize(des.Location, nw.Location) {
 		nw.Location = des.Location
 	}
 	nw.BackupRetentionSettings = canonicalizeNewInstanceSettingsBackupConfigurationBackupRetentionSettings(c, des.BackupRetentionSettings, nw.BackupRetentionSettings)
@@ -3246,10 +3246,10 @@ func canonicalizeNewInstanceSettingsActiveDirectoryConfig(c *Client, des, nw *In
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
+	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
-	if dcl.StringCanonicalize(des.Domain, nw.Domain) || dcl.IsZeroValue(des.Domain) {
+	if dcl.StringCanonicalize(des.Domain, nw.Domain) {
 		nw.Domain = des.Domain
 	}
 
@@ -3329,13 +3329,13 @@ func canonicalizeNewInstanceSettingsDenyMaintenancePeriods(c *Client, des, nw *I
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.StartDate, nw.StartDate) || dcl.IsZeroValue(des.StartDate) {
+	if dcl.StringCanonicalize(des.StartDate, nw.StartDate) {
 		nw.StartDate = des.StartDate
 	}
-	if dcl.StringCanonicalize(des.EndDate, nw.EndDate) || dcl.IsZeroValue(des.EndDate) {
+	if dcl.StringCanonicalize(des.EndDate, nw.EndDate) {
 		nw.EndDate = des.EndDate
 	}
-	if dcl.StringCanonicalize(des.Time, nw.Time) || dcl.IsZeroValue(des.Time) {
+	if dcl.StringCanonicalize(des.Time, nw.Time) {
 		nw.Time = des.Time
 	}
 
@@ -3418,13 +3418,13 @@ func canonicalizeNewInstanceSettingsInsightsConfig(c *Client, des, nw *InstanceS
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.QueryInsightsEnabled, nw.QueryInsightsEnabled) || dcl.IsZeroValue(des.QueryInsightsEnabled) {
+	if dcl.BoolCanonicalize(des.QueryInsightsEnabled, nw.QueryInsightsEnabled) {
 		nw.QueryInsightsEnabled = des.QueryInsightsEnabled
 	}
-	if dcl.BoolCanonicalize(des.RecordClientAddress, nw.RecordClientAddress) || dcl.IsZeroValue(des.RecordClientAddress) {
+	if dcl.BoolCanonicalize(des.RecordClientAddress, nw.RecordClientAddress) {
 		nw.RecordClientAddress = des.RecordClientAddress
 	}
-	if dcl.BoolCanonicalize(des.RecordApplicationTags, nw.RecordApplicationTags) || dcl.IsZeroValue(des.RecordApplicationTags) {
+	if dcl.BoolCanonicalize(des.RecordApplicationTags, nw.RecordApplicationTags) {
 		nw.RecordApplicationTags = des.RecordApplicationTags
 	}
 
@@ -3501,10 +3501,10 @@ func canonicalizeNewInstanceReplicaInstances(c *Client, des, nw *InstanceReplica
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Region, nw.Region) || dcl.IsZeroValue(des.Region) {
+	if dcl.StringCanonicalize(des.Region, nw.Region) {
 		nw.Region = des.Region
 	}
 
@@ -3599,22 +3599,22 @@ func canonicalizeNewInstanceServerCaCert(c *Client, des, nw *InstanceServerCaCer
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
+	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
-	if dcl.StringCanonicalize(des.CertSerialNumber, nw.CertSerialNumber) || dcl.IsZeroValue(des.CertSerialNumber) {
+	if dcl.StringCanonicalize(des.CertSerialNumber, nw.CertSerialNumber) {
 		nw.CertSerialNumber = des.CertSerialNumber
 	}
-	if dcl.StringCanonicalize(des.Cert, nw.Cert) || dcl.IsZeroValue(des.Cert) {
+	if dcl.StringCanonicalize(des.Cert, nw.Cert) {
 		nw.Cert = des.Cert
 	}
-	if dcl.StringCanonicalize(des.CommonName, nw.CommonName) || dcl.IsZeroValue(des.CommonName) {
+	if dcl.StringCanonicalize(des.CommonName, nw.CommonName) {
 		nw.CommonName = des.CommonName
 	}
-	if dcl.StringCanonicalize(des.Sha1Fingerprint, nw.Sha1Fingerprint) || dcl.IsZeroValue(des.Sha1Fingerprint) {
+	if dcl.StringCanonicalize(des.Sha1Fingerprint, nw.Sha1Fingerprint) {
 		nw.Sha1Fingerprint = des.Sha1Fingerprint
 	}
-	if dcl.StringCanonicalize(des.Instance, nw.Instance) || dcl.IsZeroValue(des.Instance) {
+	if dcl.StringCanonicalize(des.Instance, nw.Instance) {
 		nw.Instance = des.Instance
 	}
 
@@ -3715,31 +3715,31 @@ func canonicalizeNewInstanceOnPremisesConfiguration(c *Client, des, nw *Instance
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.HostPort, nw.HostPort) || dcl.IsZeroValue(des.HostPort) {
+	if dcl.StringCanonicalize(des.HostPort, nw.HostPort) {
 		nw.HostPort = des.HostPort
 	}
-	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
+	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
-	if dcl.StringCanonicalize(des.Username, nw.Username) || dcl.IsZeroValue(des.Username) {
+	if dcl.StringCanonicalize(des.Username, nw.Username) {
 		nw.Username = des.Username
 	}
-	if dcl.StringCanonicalize(des.Password, nw.Password) || dcl.IsZeroValue(des.Password) {
+	if dcl.StringCanonicalize(des.Password, nw.Password) {
 		nw.Password = des.Password
 	}
-	if dcl.StringCanonicalize(des.CaCertificate, nw.CaCertificate) || dcl.IsZeroValue(des.CaCertificate) {
+	if dcl.StringCanonicalize(des.CaCertificate, nw.CaCertificate) {
 		nw.CaCertificate = des.CaCertificate
 	}
-	if dcl.StringCanonicalize(des.ClientCertificate, nw.ClientCertificate) || dcl.IsZeroValue(des.ClientCertificate) {
+	if dcl.StringCanonicalize(des.ClientCertificate, nw.ClientCertificate) {
 		nw.ClientCertificate = des.ClientCertificate
 	}
-	if dcl.StringCanonicalize(des.ClientKey, nw.ClientKey) || dcl.IsZeroValue(des.ClientKey) {
+	if dcl.StringCanonicalize(des.ClientKey, nw.ClientKey) {
 		nw.ClientKey = des.ClientKey
 	}
-	if dcl.StringCanonicalize(des.DumpFilePath, nw.DumpFilePath) || dcl.IsZeroValue(des.DumpFilePath) {
+	if dcl.StringCanonicalize(des.DumpFilePath, nw.DumpFilePath) {
 		nw.DumpFilePath = des.DumpFilePath
 	}
-	if dcl.StringCanonicalize(des.Database, nw.Database) || dcl.IsZeroValue(des.Database) {
+	if dcl.StringCanonicalize(des.Database, nw.Database) {
 		nw.Database = des.Database
 	}
 
@@ -3816,10 +3816,10 @@ func canonicalizeNewInstanceDiskEncryptionStatus(c *Client, des, nw *InstanceDis
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.KmsKeyVersionName, nw.KmsKeyVersionName) || dcl.IsZeroValue(des.KmsKeyVersionName) {
+	if dcl.StringCanonicalize(des.KmsKeyVersionName, nw.KmsKeyVersionName) {
 		nw.KmsKeyVersionName = des.KmsKeyVersionName
 	}
-	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
+	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
 

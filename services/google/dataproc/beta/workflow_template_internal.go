@@ -858,7 +858,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedCluster(c *Client, des, nw *
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ClusterName, nw.ClusterName) || dcl.IsZeroValue(des.ClusterName) {
+	if dcl.StringCanonicalize(des.ClusterName, nw.ClusterName) {
 		nw.ClusterName = des.ClusterName
 	}
 	nw.Config = canonicalizeNewClusterClusterConfig(c, des.Config, nw.Config)
@@ -936,7 +936,7 @@ func canonicalizeNewWorkflowTemplatePlacementClusterSelector(c *Client, des, nw 
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Zone, nw.Zone) || dcl.IsZeroValue(des.Zone) {
+	if dcl.StringCanonicalize(des.Zone, nw.Zone) {
 		nw.Zone = des.Zone
 	}
 
@@ -1025,7 +1025,7 @@ func canonicalizeNewWorkflowTemplateJobs(c *Client, des, nw *WorkflowTemplateJob
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.StepId, nw.StepId) || dcl.IsZeroValue(des.StepId) {
+	if dcl.StringCanonicalize(des.StepId, nw.StepId) {
 		nw.StepId = des.StepId
 	}
 	nw.HadoopJob = canonicalizeNewWorkflowTemplateJobsHadoopJob(c, des.HadoopJob, nw.HadoopJob)
@@ -1127,10 +1127,10 @@ func canonicalizeNewWorkflowTemplateJobsHadoopJob(c *Client, des, nw *WorkflowTe
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.MainJarFileUri, nw.MainJarFileUri) || dcl.IsZeroValue(des.MainJarFileUri) {
+	if dcl.StringCanonicalize(des.MainJarFileUri, nw.MainJarFileUri) {
 		nw.MainJarFileUri = des.MainJarFileUri
 	}
-	if dcl.StringCanonicalize(des.MainClass, nw.MainClass) || dcl.IsZeroValue(des.MainClass) {
+	if dcl.StringCanonicalize(des.MainClass, nw.MainClass) {
 		nw.MainClass = des.MainClass
 	}
 	nw.LoggingConfig = canonicalizeNewWorkflowTemplateJobsHadoopJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
@@ -1294,10 +1294,10 @@ func canonicalizeNewWorkflowTemplateJobsSparkJob(c *Client, des, nw *WorkflowTem
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.MainJarFileUri, nw.MainJarFileUri) || dcl.IsZeroValue(des.MainJarFileUri) {
+	if dcl.StringCanonicalize(des.MainJarFileUri, nw.MainJarFileUri) {
 		nw.MainJarFileUri = des.MainJarFileUri
 	}
-	if dcl.StringCanonicalize(des.MainClass, nw.MainClass) || dcl.IsZeroValue(des.MainClass) {
+	if dcl.StringCanonicalize(des.MainClass, nw.MainClass) {
 		nw.MainClass = des.MainClass
 	}
 	nw.LoggingConfig = canonicalizeNewWorkflowTemplateJobsSparkJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
@@ -1461,7 +1461,7 @@ func canonicalizeNewWorkflowTemplateJobsPysparkJob(c *Client, des, nw *WorkflowT
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.MainPythonFileUri, nw.MainPythonFileUri) || dcl.IsZeroValue(des.MainPythonFileUri) {
+	if dcl.StringCanonicalize(des.MainPythonFileUri, nw.MainPythonFileUri) {
 		nw.MainPythonFileUri = des.MainPythonFileUri
 	}
 	nw.LoggingConfig = canonicalizeNewWorkflowTemplateJobsPysparkJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
@@ -1619,11 +1619,11 @@ func canonicalizeNewWorkflowTemplateJobsHiveJob(c *Client, des, nw *WorkflowTemp
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.QueryFileUri, nw.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
+	if dcl.StringCanonicalize(des.QueryFileUri, nw.QueryFileUri) {
 		nw.QueryFileUri = des.QueryFileUri
 	}
 	nw.QueryList = canonicalizeNewWorkflowTemplateJobsHiveJobQueryList(c, des.QueryList, nw.QueryList)
-	if dcl.BoolCanonicalize(des.ContinueOnFailure, nw.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
+	if dcl.BoolCanonicalize(des.ContinueOnFailure, nw.ContinueOnFailure) {
 		nw.ContinueOnFailure = des.ContinueOnFailure
 	}
 
@@ -1781,11 +1781,11 @@ func canonicalizeNewWorkflowTemplateJobsPigJob(c *Client, des, nw *WorkflowTempl
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.QueryFileUri, nw.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
+	if dcl.StringCanonicalize(des.QueryFileUri, nw.QueryFileUri) {
 		nw.QueryFileUri = des.QueryFileUri
 	}
 	nw.QueryList = canonicalizeNewWorkflowTemplateJobsPigJobQueryList(c, des.QueryList, nw.QueryList)
-	if dcl.BoolCanonicalize(des.ContinueOnFailure, nw.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
+	if dcl.BoolCanonicalize(des.ContinueOnFailure, nw.ContinueOnFailure) {
 		nw.ContinueOnFailure = des.ContinueOnFailure
 	}
 	nw.LoggingConfig = canonicalizeNewWorkflowTemplateJobsPigJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
@@ -2013,7 +2013,7 @@ func canonicalizeNewWorkflowTemplateJobsSparkRJob(c *Client, des, nw *WorkflowTe
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.MainRFileUri, nw.MainRFileUri) || dcl.IsZeroValue(des.MainRFileUri) {
+	if dcl.StringCanonicalize(des.MainRFileUri, nw.MainRFileUri) {
 		nw.MainRFileUri = des.MainRFileUri
 	}
 	nw.LoggingConfig = canonicalizeNewWorkflowTemplateJobsSparkRJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
@@ -2169,7 +2169,7 @@ func canonicalizeNewWorkflowTemplateJobsSparkSqlJob(c *Client, des, nw *Workflow
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.QueryFileUri, nw.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
+	if dcl.StringCanonicalize(des.QueryFileUri, nw.QueryFileUri) {
 		nw.QueryFileUri = des.QueryFileUri
 	}
 	nw.QueryList = canonicalizeNewWorkflowTemplateJobsSparkSqlJobQueryList(c, des.QueryList, nw.QueryList)
@@ -2399,14 +2399,14 @@ func canonicalizeNewWorkflowTemplateJobsPrestoJob(c *Client, des, nw *WorkflowTe
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.QueryFileUri, nw.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
+	if dcl.StringCanonicalize(des.QueryFileUri, nw.QueryFileUri) {
 		nw.QueryFileUri = des.QueryFileUri
 	}
 	nw.QueryList = canonicalizeNewWorkflowTemplateJobsPrestoJobQueryList(c, des.QueryList, nw.QueryList)
-	if dcl.BoolCanonicalize(des.ContinueOnFailure, nw.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
+	if dcl.BoolCanonicalize(des.ContinueOnFailure, nw.ContinueOnFailure) {
 		nw.ContinueOnFailure = des.ContinueOnFailure
 	}
-	if dcl.StringCanonicalize(des.OutputFormat, nw.OutputFormat) || dcl.IsZeroValue(des.OutputFormat) {
+	if dcl.StringCanonicalize(des.OutputFormat, nw.OutputFormat) {
 		nw.OutputFormat = des.OutputFormat
 	}
 	nw.LoggingConfig = canonicalizeNewWorkflowTemplateJobsPrestoJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
@@ -2701,10 +2701,10 @@ func canonicalizeNewWorkflowTemplateParameters(c *Client, des, nw *WorkflowTempl
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
 	nw.Validation = canonicalizeNewWorkflowTemplateParametersValidation(c, des.Validation, nw.Validation)

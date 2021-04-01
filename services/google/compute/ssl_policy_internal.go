@@ -576,10 +576,10 @@ func canonicalizeNewSslPolicyWarning(c *Client, des, nw *SslPolicyWarning) *SslP
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Code, nw.Code) || dcl.IsZeroValue(des.Code) {
+	if dcl.StringCanonicalize(des.Code, nw.Code) {
 		nw.Code = des.Code
 	}
-	if dcl.StringCanonicalize(des.Message, nw.Message) || dcl.IsZeroValue(des.Message) {
+	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
 	nw.Data = canonicalizeNewSslPolicyWarningDataSlice(c, des.Data, nw.Data)
@@ -657,10 +657,10 @@ func canonicalizeNewSslPolicyWarningData(c *Client, des, nw *SslPolicyWarningDat
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Key, nw.Key) || dcl.IsZeroValue(des.Key) {
+	if dcl.StringCanonicalize(des.Key, nw.Key) {
 		nw.Key = des.Key
 	}
-	if dcl.StringCanonicalize(des.Value, nw.Value) || dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, nw.Value) {
 		nw.Value = des.Value
 	}
 

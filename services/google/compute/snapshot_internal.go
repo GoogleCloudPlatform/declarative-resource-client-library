@@ -585,10 +585,10 @@ func canonicalizeNewSnapshotSnapshotEncryptionKey(c *Client, des, nw *SnapshotSn
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) || dcl.IsZeroValue(des.RawKey) {
+	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) {
 		nw.RawKey = des.RawKey
 	}
-	if dcl.StringCanonicalize(des.Sha256, nw.Sha256) || dcl.IsZeroValue(des.Sha256) {
+	if dcl.StringCanonicalize(des.Sha256, nw.Sha256) {
 		nw.Sha256 = des.Sha256
 	}
 
@@ -662,7 +662,7 @@ func canonicalizeNewSnapshotSourceDiskEncryptionKey(c *Client, des, nw *Snapshot
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) || dcl.IsZeroValue(des.RawKey) {
+	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) {
 		nw.RawKey = des.RawKey
 	}
 

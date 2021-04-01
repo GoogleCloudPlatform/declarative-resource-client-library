@@ -1019,23 +1019,23 @@ func canonicalizeNewNodePoolConfig(c *Client, des, nw *NodePoolConfig) *NodePool
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.MachineType, nw.MachineType) || dcl.IsZeroValue(des.MachineType) {
+	if dcl.StringCanonicalize(des.MachineType, nw.MachineType) {
 		nw.MachineType = des.MachineType
 	}
-	if dcl.StringCanonicalize(des.ServiceAccount, nw.ServiceAccount) || dcl.IsZeroValue(des.ServiceAccount) {
+	if dcl.StringCanonicalize(des.ServiceAccount, nw.ServiceAccount) {
 		nw.ServiceAccount = des.ServiceAccount
 	}
-	if dcl.StringCanonicalize(des.ImageType, nw.ImageType) || dcl.IsZeroValue(des.ImageType) {
+	if dcl.StringCanonicalize(des.ImageType, nw.ImageType) {
 		nw.ImageType = des.ImageType
 	}
-	if dcl.BoolCanonicalize(des.Preemptible, nw.Preemptible) || dcl.IsZeroValue(des.Preemptible) {
+	if dcl.BoolCanonicalize(des.Preemptible, nw.Preemptible) {
 		nw.Preemptible = des.Preemptible
 	}
 	nw.Accelerators = canonicalizeNewNodePoolConfigAcceleratorsSlice(c, des.Accelerators, nw.Accelerators)
-	if dcl.StringCanonicalize(des.DiskType, nw.DiskType) || dcl.IsZeroValue(des.DiskType) {
+	if dcl.StringCanonicalize(des.DiskType, nw.DiskType) {
 		nw.DiskType = des.DiskType
 	}
-	if dcl.StringCanonicalize(des.MinCpuPlatform, nw.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
+	if dcl.StringCanonicalize(des.MinCpuPlatform, nw.MinCpuPlatform) {
 		nw.MinCpuPlatform = des.MinCpuPlatform
 	}
 	nw.Taints = canonicalizeNewNodePoolConfigTaintsSlice(c, des.Taints, nw.Taints)
@@ -1116,7 +1116,7 @@ func canonicalizeNewNodePoolConfigAccelerators(c *Client, des, nw *NodePoolConfi
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.AcceleratorType, nw.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
+	if dcl.StringCanonicalize(des.AcceleratorType, nw.AcceleratorType) {
 		nw.AcceleratorType = des.AcceleratorType
 	}
 
@@ -1196,13 +1196,13 @@ func canonicalizeNewNodePoolConfigTaints(c *Client, des, nw *NodePoolConfigTaint
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Key, nw.Key) || dcl.IsZeroValue(des.Key) {
+	if dcl.StringCanonicalize(des.Key, nw.Key) {
 		nw.Key = des.Key
 	}
-	if dcl.StringCanonicalize(des.Value, nw.Value) || dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, nw.Value) {
 		nw.Value = des.Value
 	}
-	if dcl.StringCanonicalize(des.Effect, nw.Effect) || dcl.IsZeroValue(des.Effect) {
+	if dcl.StringCanonicalize(des.Effect, nw.Effect) {
 		nw.Effect = des.Effect
 	}
 
@@ -1352,7 +1352,7 @@ func canonicalizeNewNodePoolConfigReservationAffinity(c *Client, des, nw *NodePo
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Key, nw.Key) || dcl.IsZeroValue(des.Key) {
+	if dcl.StringCanonicalize(des.Key, nw.Key) {
 		nw.Key = des.Key
 	}
 
@@ -1429,10 +1429,10 @@ func canonicalizeNewNodePoolConfigShieldedInstanceConfig(c *Client, des, nw *Nod
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.EnableSecureBoot, nw.EnableSecureBoot) || dcl.IsZeroValue(des.EnableSecureBoot) {
+	if dcl.BoolCanonicalize(des.EnableSecureBoot, nw.EnableSecureBoot) {
 		nw.EnableSecureBoot = des.EnableSecureBoot
 	}
-	if dcl.BoolCanonicalize(des.EnableIntegrityMonitoring, nw.EnableIntegrityMonitoring) || dcl.IsZeroValue(des.EnableIntegrityMonitoring) {
+	if dcl.BoolCanonicalize(des.EnableIntegrityMonitoring, nw.EnableIntegrityMonitoring) {
 		nw.EnableIntegrityMonitoring = des.EnableIntegrityMonitoring
 	}
 
@@ -1515,10 +1515,10 @@ func canonicalizeNewNodePoolAutoscaling(c *Client, des, nw *NodePoolAutoscaling)
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.Enabled, nw.Enabled) || dcl.IsZeroValue(des.Enabled) {
+	if dcl.BoolCanonicalize(des.Enabled, nw.Enabled) {
 		nw.Enabled = des.Enabled
 	}
-	if dcl.BoolCanonicalize(des.Autoprovisioned, nw.Autoprovisioned) || dcl.IsZeroValue(des.Autoprovisioned) {
+	if dcl.BoolCanonicalize(des.Autoprovisioned, nw.Autoprovisioned) {
 		nw.Autoprovisioned = des.Autoprovisioned
 	}
 
@@ -1596,10 +1596,10 @@ func canonicalizeNewNodePoolManagement(c *Client, des, nw *NodePoolManagement) *
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.AutoUpgrade, nw.AutoUpgrade) || dcl.IsZeroValue(des.AutoUpgrade) {
+	if dcl.BoolCanonicalize(des.AutoUpgrade, nw.AutoUpgrade) {
 		nw.AutoUpgrade = des.AutoUpgrade
 	}
-	if dcl.BoolCanonicalize(des.AutoRepair, nw.AutoRepair) || dcl.IsZeroValue(des.AutoRepair) {
+	if dcl.BoolCanonicalize(des.AutoRepair, nw.AutoRepair) {
 		nw.AutoRepair = des.AutoRepair
 	}
 	nw.UpgradeOptions = canonicalizeNewNodePoolManagementUpgradeOptions(c, des.UpgradeOptions, nw.UpgradeOptions)
@@ -1677,7 +1677,7 @@ func canonicalizeNewNodePoolManagementUpgradeOptions(c *Client, des, nw *NodePoo
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
 
@@ -1824,7 +1824,7 @@ func canonicalizeNewNodePoolConditions(c *Client, des, nw *NodePoolConditions) *
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Message, nw.Message) || dcl.IsZeroValue(des.Message) {
+	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
 

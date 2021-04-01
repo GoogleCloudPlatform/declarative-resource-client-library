@@ -633,7 +633,7 @@ func canonicalizeNewRouterNats(c *Client, des, nw *RouterNats) *RouterNats {
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
 	nw.LogConfig = canonicalizeNewRouterNatsLogConfig(c, des.LogConfig, nw.LogConfig)
@@ -712,7 +712,7 @@ func canonicalizeNewRouterNatsLogConfig(c *Client, des, nw *RouterNatsLogConfig)
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.Enable, nw.Enable) || dcl.IsZeroValue(des.Enable) {
+	if dcl.BoolCanonicalize(des.Enable, nw.Enable) {
 		nw.Enable = des.Enable
 	}
 
@@ -792,13 +792,13 @@ func canonicalizeNewRouterNatsSubnetworks(c *Client, des, nw *RouterNatsSubnetwo
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.SourceIPRangesToNat, nw.SourceIPRangesToNat) || dcl.IsZeroValue(des.SourceIPRangesToNat) {
+	if dcl.StringCanonicalize(des.SourceIPRangesToNat, nw.SourceIPRangesToNat) {
 		nw.SourceIPRangesToNat = des.SourceIPRangesToNat
 	}
-	if dcl.StringCanonicalize(des.SecondaryIPRangeNames, nw.SecondaryIPRangeNames) || dcl.IsZeroValue(des.SecondaryIPRangeNames) {
+	if dcl.StringCanonicalize(des.SecondaryIPRangeNames, nw.SecondaryIPRangeNames) {
 		nw.SecondaryIPRangeNames = des.SecondaryIPRangeNames
 	}
 
@@ -881,13 +881,13 @@ func canonicalizeNewRouterInterfaces(c *Client, des, nw *RouterInterfaces) *Rout
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.NameToSelfLink(des.LinkedVpnTunnel, nw.LinkedVpnTunnel) || dcl.IsZeroValue(des.LinkedVpnTunnel) {
+	if dcl.NameToSelfLink(des.LinkedVpnTunnel, nw.LinkedVpnTunnel) {
 		nw.LinkedVpnTunnel = des.LinkedVpnTunnel
 	}
-	if dcl.StringCanonicalize(des.IPRange, nw.IPRange) || dcl.IsZeroValue(des.IPRange) {
+	if dcl.StringCanonicalize(des.IPRange, nw.IPRange) {
 		nw.IPRange = des.IPRange
 	}
 
@@ -988,22 +988,22 @@ func canonicalizeNewRouterBgpPeers(c *Client, des, nw *RouterBgpPeers) *RouterBg
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.InterfaceName, nw.InterfaceName) || dcl.IsZeroValue(des.InterfaceName) {
+	if dcl.StringCanonicalize(des.InterfaceName, nw.InterfaceName) {
 		nw.InterfaceName = des.InterfaceName
 	}
-	if dcl.StringCanonicalize(des.IPAddress, nw.IPAddress) || dcl.IsZeroValue(des.IPAddress) {
+	if dcl.StringCanonicalize(des.IPAddress, nw.IPAddress) {
 		nw.IPAddress = des.IPAddress
 	}
-	if dcl.StringCanonicalize(des.PeerIPAddress, nw.PeerIPAddress) || dcl.IsZeroValue(des.PeerIPAddress) {
+	if dcl.StringCanonicalize(des.PeerIPAddress, nw.PeerIPAddress) {
 		nw.PeerIPAddress = des.PeerIPAddress
 	}
-	if dcl.StringCanonicalize(des.AdvertiseMode, nw.AdvertiseMode) || dcl.IsZeroValue(des.AdvertiseMode) {
+	if dcl.StringCanonicalize(des.AdvertiseMode, nw.AdvertiseMode) {
 		nw.AdvertiseMode = des.AdvertiseMode
 	}
-	if dcl.StringCanonicalize(des.ManagementType, nw.ManagementType) || dcl.IsZeroValue(des.ManagementType) {
+	if dcl.StringCanonicalize(des.ManagementType, nw.ManagementType) {
 		nw.ManagementType = des.ManagementType
 	}
 	nw.AdvertisedIPRanges = canonicalizeNewRouterBgpPeersAdvertisedIPRangesSlice(c, des.AdvertisedIPRanges, nw.AdvertisedIPRanges)
@@ -1081,10 +1081,10 @@ func canonicalizeNewRouterBgpPeersAdvertisedIPRanges(c *Client, des, nw *RouterB
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Range, nw.Range) || dcl.IsZeroValue(des.Range) {
+	if dcl.StringCanonicalize(des.Range, nw.Range) {
 		nw.Range = des.Range
 	}
-	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
 
@@ -1242,10 +1242,10 @@ func canonicalizeNewRouterBgpAdvertisedIPRanges(c *Client, des, nw *RouterBgpAdv
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Range, nw.Range) || dcl.IsZeroValue(des.Range) {
+	if dcl.StringCanonicalize(des.Range, nw.Range) {
 		nw.Range = des.Range
 	}
-	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
 

@@ -826,10 +826,10 @@ func canonicalizeNewAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c *Clien
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.HeaderName, nw.HeaderName) || dcl.IsZeroValue(des.HeaderName) {
+	if dcl.StringCanonicalize(des.HeaderName, nw.HeaderName) {
 		nw.HeaderName = des.HeaderName
 	}
-	if dcl.StringCanonicalize(des.RegexMatch, nw.RegexMatch) || dcl.IsZeroValue(des.RegexMatch) {
+	if dcl.StringCanonicalize(des.RegexMatch, nw.RegexMatch) {
 		nw.RegexMatch = des.RegexMatch
 	}
 

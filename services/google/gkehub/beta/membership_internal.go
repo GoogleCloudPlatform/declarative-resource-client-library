@@ -735,7 +735,7 @@ func canonicalizeNewMembershipEndpointGkeCluster(c *Client, des, nw *MembershipE
 		return nw
 	}
 
-	if dcl.NameToSelfLink(des.ResourceLink, nw.ResourceLink) || dcl.IsZeroValue(des.ResourceLink) {
+	if dcl.NameToSelfLink(des.ResourceLink, nw.ResourceLink) {
 		nw.ResourceLink = des.ResourceLink
 	}
 
@@ -824,10 +824,10 @@ func canonicalizeNewMembershipEndpointKubernetesMetadata(c *Client, des, nw *Mem
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.KubernetesApiServerVersion, nw.KubernetesApiServerVersion) || dcl.IsZeroValue(des.KubernetesApiServerVersion) {
+	if dcl.StringCanonicalize(des.KubernetesApiServerVersion, nw.KubernetesApiServerVersion) {
 		nw.KubernetesApiServerVersion = des.KubernetesApiServerVersion
 	}
-	if dcl.StringCanonicalize(des.NodeProviderId, nw.NodeProviderId) || dcl.IsZeroValue(des.NodeProviderId) {
+	if dcl.StringCanonicalize(des.NodeProviderId, nw.NodeProviderId) {
 		nw.NodeProviderId = des.NodeProviderId
 	}
 
@@ -908,7 +908,7 @@ func canonicalizeNewMembershipEndpointKubernetesResource(c *Client, des, nw *Mem
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.MembershipCrManifest, nw.MembershipCrManifest) || dcl.IsZeroValue(des.MembershipCrManifest) {
+	if dcl.StringCanonicalize(des.MembershipCrManifest, nw.MembershipCrManifest) {
 		nw.MembershipCrManifest = des.MembershipCrManifest
 	}
 	nw.MembershipResources = canonicalizeNewMembershipEndpointKubernetesResourceMembershipResourcesSlice(c, des.MembershipResources, nw.MembershipResources)
@@ -988,10 +988,10 @@ func canonicalizeNewMembershipEndpointKubernetesResourceMembershipResources(c *C
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Manifest, nw.Manifest) || dcl.IsZeroValue(des.Manifest) {
+	if dcl.StringCanonicalize(des.Manifest, nw.Manifest) {
 		nw.Manifest = des.Manifest
 	}
-	if dcl.BoolCanonicalize(des.ClusterScoped, nw.ClusterScoped) || dcl.IsZeroValue(des.ClusterScoped) {
+	if dcl.BoolCanonicalize(des.ClusterScoped, nw.ClusterScoped) {
 		nw.ClusterScoped = des.ClusterScoped
 	}
 
@@ -1068,10 +1068,10 @@ func canonicalizeNewMembershipEndpointKubernetesResourceConnectResources(c *Clie
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Manifest, nw.Manifest) || dcl.IsZeroValue(des.Manifest) {
+	if dcl.StringCanonicalize(des.Manifest, nw.Manifest) {
 		nw.Manifest = des.Manifest
 	}
-	if dcl.BoolCanonicalize(des.ClusterScoped, nw.ClusterScoped) || dcl.IsZeroValue(des.ClusterScoped) {
+	if dcl.BoolCanonicalize(des.ClusterScoped, nw.ClusterScoped) {
 		nw.ClusterScoped = des.ClusterScoped
 	}
 
@@ -1148,10 +1148,10 @@ func canonicalizeNewMembershipEndpointKubernetesResourceResourceOptions(c *Clien
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ConnectVersion, nw.ConnectVersion) || dcl.IsZeroValue(des.ConnectVersion) {
+	if dcl.StringCanonicalize(des.ConnectVersion, nw.ConnectVersion) {
 		nw.ConnectVersion = des.ConnectVersion
 	}
-	if dcl.BoolCanonicalize(des.V1Beta1Crd, nw.V1Beta1Crd) || dcl.IsZeroValue(des.V1Beta1Crd) {
+	if dcl.BoolCanonicalize(des.V1Beta1Crd, nw.V1Beta1Crd) {
 		nw.V1Beta1Crd = des.V1Beta1Crd
 	}
 
@@ -1301,13 +1301,13 @@ func canonicalizeNewMembershipAuthority(c *Client, des, nw *MembershipAuthority)
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Issuer, nw.Issuer) || dcl.IsZeroValue(des.Issuer) {
+	if dcl.StringCanonicalize(des.Issuer, nw.Issuer) {
 		nw.Issuer = des.Issuer
 	}
-	if dcl.StringCanonicalize(des.WorkloadIdentityPool, nw.WorkloadIdentityPool) || dcl.IsZeroValue(des.WorkloadIdentityPool) {
+	if dcl.StringCanonicalize(des.WorkloadIdentityPool, nw.WorkloadIdentityPool) {
 		nw.WorkloadIdentityPool = des.WorkloadIdentityPool
 	}
-	if dcl.StringCanonicalize(des.IdentityProvider, nw.IdentityProvider) || dcl.IsZeroValue(des.IdentityProvider) {
+	if dcl.StringCanonicalize(des.IdentityProvider, nw.IdentityProvider) {
 		nw.IdentityProvider = des.IdentityProvider
 	}
 

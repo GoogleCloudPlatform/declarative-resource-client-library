@@ -560,7 +560,7 @@ func canonicalizeNewObjectAccessControlProjectTeam(c *Client, des, nw *ObjectAcc
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ProjectNumber, nw.ProjectNumber) || dcl.IsZeroValue(des.ProjectNumber) {
+	if dcl.StringCanonicalize(des.ProjectNumber, nw.ProjectNumber) {
 		nw.ProjectNumber = des.ProjectNumber
 	}
 

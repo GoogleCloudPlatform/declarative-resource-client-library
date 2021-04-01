@@ -596,7 +596,7 @@ func canonicalizeNewManagedZoneDnssecConfig(c *Client, des, nw *ManagedZoneDnsse
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
+	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
 	nw.DefaultKeySpecs = canonicalizeNewManagedZoneDnssecConfigDefaultKeySpecsSlice(c, des.DefaultKeySpecs, nw.DefaultKeySpecs)
@@ -680,7 +680,7 @@ func canonicalizeNewManagedZoneDnssecConfigDefaultKeySpecs(c *Client, des, nw *M
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
+	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
 
@@ -826,7 +826,7 @@ func canonicalizeNewManagedZonePrivateVisibilityConfigNetworks(c *Client, des, n
 		return nw
 	}
 
-	if dcl.NameToSelfLink(des.NetworkUrl, nw.NetworkUrl) || dcl.IsZeroValue(des.NetworkUrl) {
+	if dcl.NameToSelfLink(des.NetworkUrl, nw.NetworkUrl) {
 		nw.NetworkUrl = des.NetworkUrl
 	}
 
@@ -975,7 +975,7 @@ func canonicalizeNewManagedZoneForwardingConfigTargetNameServers(c *Client, des,
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.IPv4Address, nw.IPv4Address) || dcl.IsZeroValue(des.IPv4Address) {
+	if dcl.StringCanonicalize(des.IPv4Address, nw.IPv4Address) {
 		nw.IPv4Address = des.IPv4Address
 	}
 
@@ -1119,7 +1119,7 @@ func canonicalizeNewManagedZonePeeringConfigTargetNetwork(c *Client, des, nw *Ma
 		return nw
 	}
 
-	if dcl.NameToSelfLink(des.NetworkUrl, nw.NetworkUrl) || dcl.IsZeroValue(des.NetworkUrl) {
+	if dcl.NameToSelfLink(des.NetworkUrl, nw.NetworkUrl) {
 		nw.NetworkUrl = des.NetworkUrl
 	}
 

@@ -563,7 +563,7 @@ func canonicalizeNewRouteWarning(c *Client, des, nw *RouteWarning) *RouteWarning
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Message, nw.Message) || dcl.IsZeroValue(des.Message) {
+	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
 

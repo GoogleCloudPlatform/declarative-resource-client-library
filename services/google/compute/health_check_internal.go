@@ -687,16 +687,16 @@ func canonicalizeNewHealthCheckHttp2HealthCheck(c *Client, des, nw *HealthCheckH
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.PortName, nw.PortName) || dcl.IsZeroValue(des.PortName) {
+	if dcl.StringCanonicalize(des.PortName, nw.PortName) {
 		nw.PortName = des.PortName
 	}
-	if dcl.StringCanonicalize(des.Host, nw.Host) || dcl.IsZeroValue(des.Host) {
+	if dcl.StringCanonicalize(des.Host, nw.Host) {
 		nw.Host = des.Host
 	}
-	if dcl.StringCanonicalize(des.RequestPath, nw.RequestPath) || dcl.IsZeroValue(des.RequestPath) {
+	if dcl.StringCanonicalize(des.RequestPath, nw.RequestPath) {
 		nw.RequestPath = des.RequestPath
 	}
-	if dcl.StringCanonicalize(des.Response, nw.Response) || dcl.IsZeroValue(des.Response) {
+	if dcl.StringCanonicalize(des.Response, nw.Response) {
 		nw.Response = des.Response
 	}
 
@@ -788,16 +788,16 @@ func canonicalizeNewHealthCheckHttpHealthCheck(c *Client, des, nw *HealthCheckHt
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.PortName, nw.PortName) || dcl.IsZeroValue(des.PortName) {
+	if dcl.StringCanonicalize(des.PortName, nw.PortName) {
 		nw.PortName = des.PortName
 	}
-	if dcl.StringCanonicalize(des.Host, nw.Host) || dcl.IsZeroValue(des.Host) {
+	if dcl.StringCanonicalize(des.Host, nw.Host) {
 		nw.Host = des.Host
 	}
-	if dcl.StringCanonicalize(des.RequestPath, nw.RequestPath) || dcl.IsZeroValue(des.RequestPath) {
+	if dcl.StringCanonicalize(des.RequestPath, nw.RequestPath) {
 		nw.RequestPath = des.RequestPath
 	}
-	if dcl.StringCanonicalize(des.Response, nw.Response) || dcl.IsZeroValue(des.Response) {
+	if dcl.StringCanonicalize(des.Response, nw.Response) {
 		nw.Response = des.Response
 	}
 
@@ -889,16 +889,16 @@ func canonicalizeNewHealthCheckHttpsHealthCheck(c *Client, des, nw *HealthCheckH
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.PortName, nw.PortName) || dcl.IsZeroValue(des.PortName) {
+	if dcl.StringCanonicalize(des.PortName, nw.PortName) {
 		nw.PortName = des.PortName
 	}
-	if dcl.StringCanonicalize(des.Host, nw.Host) || dcl.IsZeroValue(des.Host) {
+	if dcl.StringCanonicalize(des.Host, nw.Host) {
 		nw.Host = des.Host
 	}
-	if dcl.StringCanonicalize(des.RequestPath, nw.RequestPath) || dcl.IsZeroValue(des.RequestPath) {
+	if dcl.StringCanonicalize(des.RequestPath, nw.RequestPath) {
 		nw.RequestPath = des.RequestPath
 	}
-	if dcl.StringCanonicalize(des.Response, nw.Response) || dcl.IsZeroValue(des.Response) {
+	if dcl.StringCanonicalize(des.Response, nw.Response) {
 		nw.Response = des.Response
 	}
 
@@ -987,13 +987,13 @@ func canonicalizeNewHealthCheckSslHealthCheck(c *Client, des, nw *HealthCheckSsl
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.PortName, nw.PortName) || dcl.IsZeroValue(des.PortName) {
+	if dcl.StringCanonicalize(des.PortName, nw.PortName) {
 		nw.PortName = des.PortName
 	}
-	if dcl.StringCanonicalize(des.Request, nw.Request) || dcl.IsZeroValue(des.Request) {
+	if dcl.StringCanonicalize(des.Request, nw.Request) {
 		nw.Request = des.Request
 	}
-	if dcl.StringCanonicalize(des.Response, nw.Response) || dcl.IsZeroValue(des.Response) {
+	if dcl.StringCanonicalize(des.Response, nw.Response) {
 		nw.Response = des.Response
 	}
 
@@ -1082,13 +1082,13 @@ func canonicalizeNewHealthCheckTcpHealthCheck(c *Client, des, nw *HealthCheckTcp
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.PortName, nw.PortName) || dcl.IsZeroValue(des.PortName) {
+	if dcl.StringCanonicalize(des.PortName, nw.PortName) {
 		nw.PortName = des.PortName
 	}
-	if dcl.StringCanonicalize(des.Request, nw.Request) || dcl.IsZeroValue(des.Request) {
+	if dcl.StringCanonicalize(des.Request, nw.Request) {
 		nw.Request = des.Request
 	}
-	if dcl.StringCanonicalize(des.Response, nw.Response) || dcl.IsZeroValue(des.Response) {
+	if dcl.StringCanonicalize(des.Response, nw.Response) {
 		nw.Response = des.Response
 	}
 

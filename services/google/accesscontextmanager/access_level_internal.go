@@ -638,7 +638,7 @@ func canonicalizeNewAccessLevelBasicConditions(c *Client, des, nw *AccessLevelBa
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.Negate, nw.Negate) || dcl.IsZeroValue(des.Negate) {
+	if dcl.BoolCanonicalize(des.Negate, nw.Negate) {
 		nw.Negate = des.Negate
 	}
 	nw.DevicePolicy = canonicalizeNewAccessLevelBasicConditionsDevicePolicy(c, des.DevicePolicy, nw.DevicePolicy)
@@ -728,13 +728,13 @@ func canonicalizeNewAccessLevelBasicConditionsDevicePolicy(c *Client, des, nw *A
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.RequireScreenlock, nw.RequireScreenlock) || dcl.IsZeroValue(des.RequireScreenlock) {
+	if dcl.BoolCanonicalize(des.RequireScreenlock, nw.RequireScreenlock) {
 		nw.RequireScreenlock = des.RequireScreenlock
 	}
-	if dcl.BoolCanonicalize(des.RequireAdminApproval, nw.RequireAdminApproval) || dcl.IsZeroValue(des.RequireAdminApproval) {
+	if dcl.BoolCanonicalize(des.RequireAdminApproval, nw.RequireAdminApproval) {
 		nw.RequireAdminApproval = des.RequireAdminApproval
 	}
-	if dcl.BoolCanonicalize(des.RequireCorpOwned, nw.RequireCorpOwned) || dcl.IsZeroValue(des.RequireCorpOwned) {
+	if dcl.BoolCanonicalize(des.RequireCorpOwned, nw.RequireCorpOwned) {
 		nw.RequireCorpOwned = des.RequireCorpOwned
 	}
 	nw.OsConstraints = canonicalizeNewAccessLevelBasicConditionsDevicePolicyOsConstraintsSlice(c, des.OsConstraints, nw.OsConstraints)
@@ -815,10 +815,10 @@ func canonicalizeNewAccessLevelBasicConditionsDevicePolicyOsConstraints(c *Clien
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.MinimumVersion, nw.MinimumVersion) || dcl.IsZeroValue(des.MinimumVersion) {
+	if dcl.StringCanonicalize(des.MinimumVersion, nw.MinimumVersion) {
 		nw.MinimumVersion = des.MinimumVersion
 	}
-	if dcl.BoolCanonicalize(des.RequireVerifiedChromeOs, nw.RequireVerifiedChromeOs) || dcl.IsZeroValue(des.RequireVerifiedChromeOs) {
+	if dcl.BoolCanonicalize(des.RequireVerifiedChromeOs, nw.RequireVerifiedChromeOs) {
 		nw.RequireVerifiedChromeOs = des.RequireVerifiedChromeOs
 	}
 

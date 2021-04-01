@@ -883,10 +883,10 @@ func canonicalizeNewNoteRelatedUrl(c *Client, des, nw *NoteRelatedUrl) *NoteRela
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Url, nw.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, nw.Url) {
 		nw.Url = des.Url
 	}
-	if dcl.StringCanonicalize(des.Label, nw.Label) || dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, nw.Label) {
 		nw.Label = des.Label
 	}
 
@@ -1074,31 +1074,31 @@ func canonicalizeNewNoteVulnerabilityDetails(c *Client, des, nw *NoteVulnerabili
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.SeverityName, nw.SeverityName) || dcl.IsZeroValue(des.SeverityName) {
+	if dcl.StringCanonicalize(des.SeverityName, nw.SeverityName) {
 		nw.SeverityName = des.SeverityName
 	}
-	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
-	if dcl.StringCanonicalize(des.PackageType, nw.PackageType) || dcl.IsZeroValue(des.PackageType) {
+	if dcl.StringCanonicalize(des.PackageType, nw.PackageType) {
 		nw.PackageType = des.PackageType
 	}
-	if dcl.StringCanonicalize(des.AffectedCpeUri, nw.AffectedCpeUri) || dcl.IsZeroValue(des.AffectedCpeUri) {
+	if dcl.StringCanonicalize(des.AffectedCpeUri, nw.AffectedCpeUri) {
 		nw.AffectedCpeUri = des.AffectedCpeUri
 	}
-	if dcl.StringCanonicalize(des.AffectedPackage, nw.AffectedPackage) || dcl.IsZeroValue(des.AffectedPackage) {
+	if dcl.StringCanonicalize(des.AffectedPackage, nw.AffectedPackage) {
 		nw.AffectedPackage = des.AffectedPackage
 	}
 	nw.AffectedVersionStart = canonicalizeNewNoteVulnerabilityDetailsAffectedVersionStart(c, des.AffectedVersionStart, nw.AffectedVersionStart)
 	nw.AffectedVersionEnd = canonicalizeNewNoteVulnerabilityDetailsAffectedVersionEnd(c, des.AffectedVersionEnd, nw.AffectedVersionEnd)
-	if dcl.StringCanonicalize(des.FixedCpeUri, nw.FixedCpeUri) || dcl.IsZeroValue(des.FixedCpeUri) {
+	if dcl.StringCanonicalize(des.FixedCpeUri, nw.FixedCpeUri) {
 		nw.FixedCpeUri = des.FixedCpeUri
 	}
-	if dcl.StringCanonicalize(des.FixedPackage, nw.FixedPackage) || dcl.IsZeroValue(des.FixedPackage) {
+	if dcl.StringCanonicalize(des.FixedPackage, nw.FixedPackage) {
 		nw.FixedPackage = des.FixedPackage
 	}
 	nw.FixedVersion = canonicalizeNewNoteVulnerabilityDetailsFixedVersion(c, des.FixedVersion, nw.FixedVersion)
-	if dcl.BoolCanonicalize(des.IsObsolete, nw.IsObsolete) || dcl.IsZeroValue(des.IsObsolete) {
+	if dcl.BoolCanonicalize(des.IsObsolete, nw.IsObsolete) {
 		nw.IsObsolete = des.IsObsolete
 	}
 
@@ -1184,13 +1184,13 @@ func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionStart(c *Client, des,
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Revision, nw.Revision) || dcl.IsZeroValue(des.Revision) {
+	if dcl.StringCanonicalize(des.Revision, nw.Revision) {
 		nw.Revision = des.Revision
 	}
-	if dcl.StringCanonicalize(des.FullName, nw.FullName) || dcl.IsZeroValue(des.FullName) {
+	if dcl.StringCanonicalize(des.FullName, nw.FullName) {
 		nw.FullName = des.FullName
 	}
 
@@ -1276,13 +1276,13 @@ func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionEnd(c *Client, des, n
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Revision, nw.Revision) || dcl.IsZeroValue(des.Revision) {
+	if dcl.StringCanonicalize(des.Revision, nw.Revision) {
 		nw.Revision = des.Revision
 	}
-	if dcl.StringCanonicalize(des.FullName, nw.FullName) || dcl.IsZeroValue(des.FullName) {
+	if dcl.StringCanonicalize(des.FullName, nw.FullName) {
 		nw.FullName = des.FullName
 	}
 
@@ -1368,13 +1368,13 @@ func canonicalizeNewNoteVulnerabilityDetailsFixedVersion(c *Client, des, nw *Not
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Revision, nw.Revision) || dcl.IsZeroValue(des.Revision) {
+	if dcl.StringCanonicalize(des.Revision, nw.Revision) {
 		nw.Revision = des.Revision
 	}
-	if dcl.StringCanonicalize(des.FullName, nw.FullName) || dcl.IsZeroValue(des.FullName) {
+	if dcl.StringCanonicalize(des.FullName, nw.FullName) {
 		nw.FullName = des.FullName
 	}
 
@@ -1557,13 +1557,13 @@ func canonicalizeNewNoteVulnerabilityWindowsDetails(c *Client, des, nw *NoteVuln
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.CpeUri, nw.CpeUri) || dcl.IsZeroValue(des.CpeUri) {
+	if dcl.StringCanonicalize(des.CpeUri, nw.CpeUri) {
 		nw.CpeUri = des.CpeUri
 	}
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
 	nw.FixingKbs = canonicalizeNewNoteVulnerabilityWindowsDetailsFixingKbsSlice(c, des.FixingKbs, nw.FixingKbs)
@@ -1641,10 +1641,10 @@ func canonicalizeNewNoteVulnerabilityWindowsDetailsFixingKbs(c *Client, des, nw 
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Url, nw.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, nw.Url) {
 		nw.Url = des.Url
 	}
 
@@ -1718,7 +1718,7 @@ func canonicalizeNewNoteBuild(c *Client, des, nw *NoteBuild) *NoteBuild {
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.BuilderVersion, nw.BuilderVersion) || dcl.IsZeroValue(des.BuilderVersion) {
+	if dcl.StringCanonicalize(des.BuilderVersion, nw.BuilderVersion) {
 		nw.BuilderVersion = des.BuilderVersion
 	}
 
@@ -1793,7 +1793,7 @@ func canonicalizeNewNoteImage(c *Client, des, nw *NoteImage) *NoteImage {
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ResourceUrl, nw.ResourceUrl) || dcl.IsZeroValue(des.ResourceUrl) {
+	if dcl.StringCanonicalize(des.ResourceUrl, nw.ResourceUrl) {
 		nw.ResourceUrl = des.ResourceUrl
 	}
 	nw.Fingerprint = canonicalizeNewNoteImageFingerprint(c, des.Fingerprint, nw.Fingerprint)
@@ -1874,10 +1874,10 @@ func canonicalizeNewNoteImageFingerprint(c *Client, des, nw *NoteImageFingerprin
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.V1Name, nw.V1Name) || dcl.IsZeroValue(des.V1Name) {
+	if dcl.StringCanonicalize(des.V1Name, nw.V1Name) {
 		nw.V1Name = des.V1Name
 	}
-	if dcl.StringCanonicalize(des.V2Name, nw.V2Name) || dcl.IsZeroValue(des.V2Name) {
+	if dcl.StringCanonicalize(des.V2Name, nw.V2Name) {
 		nw.V2Name = des.V2Name
 	}
 
@@ -1954,7 +1954,7 @@ func canonicalizeNewNotePackage(c *Client, des, nw *NotePackage) *NotePackage {
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
 	nw.Distribution = canonicalizeNewNotePackageDistributionSlice(c, des.Distribution, nw.Distribution)
@@ -2042,17 +2042,17 @@ func canonicalizeNewNotePackageDistribution(c *Client, des, nw *NotePackageDistr
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.CpeUri, nw.CpeUri) || dcl.IsZeroValue(des.CpeUri) {
+	if dcl.StringCanonicalize(des.CpeUri, nw.CpeUri) {
 		nw.CpeUri = des.CpeUri
 	}
 	nw.LatestVersion = canonicalizeNewNotePackageDistributionLatestVersion(c, des.LatestVersion, nw.LatestVersion)
-	if dcl.StringCanonicalize(des.Maintainer, nw.Maintainer) || dcl.IsZeroValue(des.Maintainer) {
+	if dcl.StringCanonicalize(des.Maintainer, nw.Maintainer) {
 		nw.Maintainer = des.Maintainer
 	}
-	if dcl.StringCanonicalize(des.Url, nw.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, nw.Url) {
 		nw.Url = des.Url
 	}
-	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
 
@@ -2138,13 +2138,13 @@ func canonicalizeNewNotePackageDistributionLatestVersion(c *Client, des, nw *Not
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Revision, nw.Revision) || dcl.IsZeroValue(des.Revision) {
+	if dcl.StringCanonicalize(des.Revision, nw.Revision) {
 		nw.Revision = des.Revision
 	}
-	if dcl.StringCanonicalize(des.FullName, nw.FullName) || dcl.IsZeroValue(des.FullName) {
+	if dcl.StringCanonicalize(des.FullName, nw.FullName) {
 		nw.FullName = des.FullName
 	}
 
@@ -2428,7 +2428,7 @@ func canonicalizeNewNoteAttestationHint(c *Client, des, nw *NoteAttestationHint)
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.HumanReadableName, nw.HumanReadableName) || dcl.IsZeroValue(des.HumanReadableName) {
+	if dcl.StringCanonicalize(des.HumanReadableName, nw.HumanReadableName) {
 		nw.HumanReadableName = des.HumanReadableName
 	}
 
@@ -2535,7 +2535,7 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 		})
 
 	}
-	if !reflect.DeepEqual(desired.RelatedNoteNames, actual.RelatedNoteNames) {
+	if !dcl.StringSliceEqualsWithSelfLink(desired.RelatedNoteNames, actual.RelatedNoteNames) {
 		c.Config.Logger.Infof("Detected diff in RelatedNoteNames.\nDESIRED: %v\nACTUAL: %v", desired.RelatedNoteNames, actual.RelatedNoteNames)
 
 		diffs = append(diffs, noteDiff{

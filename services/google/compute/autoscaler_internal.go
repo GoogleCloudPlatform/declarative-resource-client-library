@@ -1036,7 +1036,7 @@ func canonicalizeNewAutoscalerAutoscalingPolicyCustomMetricUtilizations(c *Clien
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Metric, nw.Metric) || dcl.IsZeroValue(des.Metric) {
+	if dcl.StringCanonicalize(des.Metric, nw.Metric) {
 		nw.Metric = des.Metric
 	}
 
@@ -1183,7 +1183,7 @@ func canonicalizeNewAutoscalerStatusDetails(c *Client, des, nw *AutoscalerStatus
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Message, nw.Message) || dcl.IsZeroValue(des.Message) {
+	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
 

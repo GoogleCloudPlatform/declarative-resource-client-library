@@ -772,10 +772,10 @@ func canonicalizeNewSubnetworkSecondaryIPRanges(c *Client, des, nw *SubnetworkSe
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.RangeName, nw.RangeName) || dcl.IsZeroValue(des.RangeName) {
+	if dcl.StringCanonicalize(des.RangeName, nw.RangeName) {
 		nw.RangeName = des.RangeName
 	}
-	if dcl.StringCanonicalize(des.IPCidrRange, nw.IPCidrRange) || dcl.IsZeroValue(des.IPCidrRange) {
+	if dcl.StringCanonicalize(des.IPCidrRange, nw.IPCidrRange) {
 		nw.IPCidrRange = des.IPCidrRange
 	}
 

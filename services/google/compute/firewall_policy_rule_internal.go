@@ -550,7 +550,7 @@ func canonicalizeNewFirewallPolicyRuleMatchLayer4Configs(c *Client, des, nw *Fir
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.IPProtocol, nw.IPProtocol) || dcl.IsZeroValue(des.IPProtocol) {
+	if dcl.StringCanonicalize(des.IPProtocol, nw.IPProtocol) {
 		nw.IPProtocol = des.IPProtocol
 	}
 
@@ -664,7 +664,7 @@ func diffFirewallPolicyRule(c *Client, desired, actual *FirewallPolicyRule, opts
 		})
 
 	}
-	if !reflect.DeepEqual(desired.TargetResources, actual.TargetResources) {
+	if !dcl.StringSliceEqualsWithSelfLink(desired.TargetResources, actual.TargetResources) {
 		c.Config.Logger.Infof("Detected diff in TargetResources.\nDESIRED: %v\nACTUAL: %v", desired.TargetResources, actual.TargetResources)
 
 		diffs = append(diffs, firewallPolicyRuleDiff{
@@ -682,7 +682,7 @@ func diffFirewallPolicyRule(c *Client, desired, actual *FirewallPolicyRule, opts
 		})
 
 	}
-	if !reflect.DeepEqual(desired.TargetServiceAccounts, actual.TargetServiceAccounts) {
+	if !dcl.StringSliceEqualsWithSelfLink(desired.TargetServiceAccounts, actual.TargetServiceAccounts) {
 		c.Config.Logger.Infof("Detected diff in TargetServiceAccounts.\nDESIRED: %v\nACTUAL: %v", desired.TargetServiceAccounts, actual.TargetServiceAccounts)
 
 		diffs = append(diffs, firewallPolicyRuleDiff{

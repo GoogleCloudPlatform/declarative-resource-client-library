@@ -799,7 +799,7 @@ func canonicalizeNewBucketLifecycleRuleAction(c *Client, des, nw *BucketLifecycl
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.StorageClass, nw.StorageClass) || dcl.IsZeroValue(des.StorageClass) {
+	if dcl.StringCanonicalize(des.StorageClass, nw.StorageClass) {
 		nw.StorageClass = des.StorageClass
 	}
 
@@ -958,10 +958,10 @@ func canonicalizeNewBucketLogging(c *Client, des, nw *BucketLogging) *BucketLogg
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.LogBucket, nw.LogBucket) || dcl.IsZeroValue(des.LogBucket) {
+	if dcl.StringCanonicalize(des.LogBucket, nw.LogBucket) {
 		nw.LogBucket = des.LogBucket
 	}
-	if dcl.StringCanonicalize(des.LogObjectPrefix, nw.LogObjectPrefix) || dcl.IsZeroValue(des.LogObjectPrefix) {
+	if dcl.StringCanonicalize(des.LogObjectPrefix, nw.LogObjectPrefix) {
 		nw.LogObjectPrefix = des.LogObjectPrefix
 	}
 
@@ -1035,7 +1035,7 @@ func canonicalizeNewBucketVersioning(c *Client, des, nw *BucketVersioning) *Buck
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.Enabled, nw.Enabled) || dcl.IsZeroValue(des.Enabled) {
+	if dcl.BoolCanonicalize(des.Enabled, nw.Enabled) {
 		nw.Enabled = des.Enabled
 	}
 
@@ -1112,10 +1112,10 @@ func canonicalizeNewBucketWebsite(c *Client, des, nw *BucketWebsite) *BucketWebs
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.MainPageSuffix, nw.MainPageSuffix) || dcl.IsZeroValue(des.MainPageSuffix) {
+	if dcl.StringCanonicalize(des.MainPageSuffix, nw.MainPageSuffix) {
 		nw.MainPageSuffix = des.MainPageSuffix
 	}
-	if dcl.StringCanonicalize(des.NotFoundPage, nw.NotFoundPage) || dcl.IsZeroValue(des.NotFoundPage) {
+	if dcl.StringCanonicalize(des.NotFoundPage, nw.NotFoundPage) {
 		nw.NotFoundPage = des.NotFoundPage
 	}
 

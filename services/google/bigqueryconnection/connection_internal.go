@@ -567,10 +567,10 @@ func canonicalizeNewConnectionCloudSql(c *Client, des, nw *ConnectionCloudSql) *
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.InstanceId, nw.InstanceId) || dcl.IsZeroValue(des.InstanceId) {
+	if dcl.StringCanonicalize(des.InstanceId, nw.InstanceId) {
 		nw.InstanceId = des.InstanceId
 	}
-	if dcl.StringCanonicalize(des.Database, nw.Database) || dcl.IsZeroValue(des.Database) {
+	if dcl.StringCanonicalize(des.Database, nw.Database) {
 		nw.Database = des.Database
 	}
 	nw.Credential = canonicalizeNewConnectionCloudSqlCredential(c, des.Credential, nw.Credential)
@@ -648,10 +648,10 @@ func canonicalizeNewConnectionCloudSqlCredential(c *Client, des, nw *ConnectionC
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Username, nw.Username) || dcl.IsZeroValue(des.Username) {
+	if dcl.StringCanonicalize(des.Username, nw.Username) {
 		nw.Username = des.Username
 	}
-	if dcl.StringCanonicalize(des.Password, nw.Password) || dcl.IsZeroValue(des.Password) {
+	if dcl.StringCanonicalize(des.Password, nw.Password) {
 		nw.Password = des.Password
 	}
 

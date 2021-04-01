@@ -3,9 +3,11 @@
   "project": "{{project}}",
   "location": "{{region}}",
   "workerConfig": {
-    "maxInstances": 3
+    "maxInstances": 2
   },
-
+  "secondaryWorkerConfig": {
+    "maxInstances": 2
+  },
   "basicAlgorithm": {
     "yarnConfig": {
       "gracefulDecommissionTimeout": "30s",

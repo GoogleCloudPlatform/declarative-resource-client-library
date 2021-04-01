@@ -650,7 +650,7 @@ func canonicalizeNewWorkloadKmsSettings(c *Client, des, nw *WorkloadKmsSettings)
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.RotationPeriod, nw.RotationPeriod) || dcl.IsZeroValue(des.RotationPeriod) {
+	if dcl.StringCanonicalize(des.RotationPeriod, nw.RotationPeriod) {
 		nw.RotationPeriod = des.RotationPeriod
 	}
 

@@ -756,10 +756,10 @@ func canonicalizeNewNodeSchedulingConfig(c *Client, des, nw *NodeSchedulingConfi
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.Preemptible, nw.Preemptible) || dcl.IsZeroValue(des.Preemptible) {
+	if dcl.BoolCanonicalize(des.Preemptible, nw.Preemptible) {
 		nw.Preemptible = des.Preemptible
 	}
-	if dcl.BoolCanonicalize(des.Reserved, nw.Reserved) || dcl.IsZeroValue(des.Reserved) {
+	if dcl.BoolCanonicalize(des.Reserved, nw.Reserved) {
 		nw.Reserved = des.Reserved
 	}
 
@@ -836,7 +836,7 @@ func canonicalizeNewNodeNetworkEndpoints(c *Client, des, nw *NodeNetworkEndpoint
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.IPAddress, nw.IPAddress) || dcl.IsZeroValue(des.IPAddress) {
+	if dcl.StringCanonicalize(des.IPAddress, nw.IPAddress) {
 		nw.IPAddress = des.IPAddress
 	}
 
@@ -918,10 +918,10 @@ func canonicalizeNewNodeSymptoms(c *Client, des, nw *NodeSymptoms) *NodeSymptoms
 	}
 
 	nw.CreateTime = canonicalizeNewNodeSymptomsCreateTime(c, des.CreateTime, nw.CreateTime)
-	if dcl.StringCanonicalize(des.Details, nw.Details) || dcl.IsZeroValue(des.Details) {
+	if dcl.StringCanonicalize(des.Details, nw.Details) {
 		nw.Details = des.Details
 	}
-	if dcl.StringCanonicalize(des.WorkerId, nw.WorkerId) || dcl.IsZeroValue(des.WorkerId) {
+	if dcl.StringCanonicalize(des.WorkerId, nw.WorkerId) {
 		nw.WorkerId = des.WorkerId
 	}
 

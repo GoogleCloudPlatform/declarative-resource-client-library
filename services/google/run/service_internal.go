@@ -848,28 +848,28 @@ func canonicalizeNewServiceMetadata(c *Client, des, nw *ServiceMetadata) *Servic
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.GenerateName, nw.GenerateName) || dcl.IsZeroValue(des.GenerateName) {
+	if dcl.StringCanonicalize(des.GenerateName, nw.GenerateName) {
 		nw.GenerateName = des.GenerateName
 	}
-	if dcl.StringCanonicalize(des.Namespace, nw.Namespace) || dcl.IsZeroValue(des.Namespace) {
+	if dcl.StringCanonicalize(des.Namespace, nw.Namespace) {
 		nw.Namespace = des.Namespace
 	}
-	if dcl.StringCanonicalize(des.SelfLink, nw.SelfLink) || dcl.IsZeroValue(des.SelfLink) {
+	if dcl.StringCanonicalize(des.SelfLink, nw.SelfLink) {
 		nw.SelfLink = des.SelfLink
 	}
-	if dcl.StringCanonicalize(des.Uid, nw.Uid) || dcl.IsZeroValue(des.Uid) {
+	if dcl.StringCanonicalize(des.Uid, nw.Uid) {
 		nw.Uid = des.Uid
 	}
-	if dcl.StringCanonicalize(des.ResourceVersion, nw.ResourceVersion) || dcl.IsZeroValue(des.ResourceVersion) {
+	if dcl.StringCanonicalize(des.ResourceVersion, nw.ResourceVersion) {
 		nw.ResourceVersion = des.ResourceVersion
 	}
 	nw.CreateTime = canonicalizeNewServiceMetadataCreateTime(c, des.CreateTime, nw.CreateTime)
 	nw.OwnerReferences = canonicalizeNewServiceMetadataOwnerReferencesSlice(c, des.OwnerReferences, nw.OwnerReferences)
 	nw.DeleteTime = canonicalizeNewServiceMetadataDeleteTime(c, des.DeleteTime, nw.DeleteTime)
-	if dcl.StringCanonicalize(des.ClusterName, nw.ClusterName) || dcl.IsZeroValue(des.ClusterName) {
+	if dcl.StringCanonicalize(des.ClusterName, nw.ClusterName) {
 		nw.ClusterName = des.ClusterName
 	}
 
@@ -1031,22 +1031,22 @@ func canonicalizeNewServiceMetadataOwnerReferences(c *Client, des, nw *ServiceMe
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ApiVersion, nw.ApiVersion) || dcl.IsZeroValue(des.ApiVersion) {
+	if dcl.StringCanonicalize(des.ApiVersion, nw.ApiVersion) {
 		nw.ApiVersion = des.ApiVersion
 	}
-	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
+	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Uid, nw.Uid) || dcl.IsZeroValue(des.Uid) {
+	if dcl.StringCanonicalize(des.Uid, nw.Uid) {
 		nw.Uid = des.Uid
 	}
-	if dcl.BoolCanonicalize(des.Controller, nw.Controller) || dcl.IsZeroValue(des.Controller) {
+	if dcl.BoolCanonicalize(des.Controller, nw.Controller) {
 		nw.Controller = des.Controller
 	}
-	if dcl.BoolCanonicalize(des.BlockOwnerDeletion, nw.BlockOwnerDeletion) || dcl.IsZeroValue(des.BlockOwnerDeletion) {
+	if dcl.BoolCanonicalize(des.BlockOwnerDeletion, nw.BlockOwnerDeletion) {
 		nw.BlockOwnerDeletion = des.BlockOwnerDeletion
 	}
 
@@ -1377,28 +1377,28 @@ func canonicalizeNewServiceSpecTemplateMetadata(c *Client, des, nw *ServiceSpecT
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.GenerateName, nw.GenerateName) || dcl.IsZeroValue(des.GenerateName) {
+	if dcl.StringCanonicalize(des.GenerateName, nw.GenerateName) {
 		nw.GenerateName = des.GenerateName
 	}
-	if dcl.StringCanonicalize(des.Namespace, nw.Namespace) || dcl.IsZeroValue(des.Namespace) {
+	if dcl.StringCanonicalize(des.Namespace, nw.Namespace) {
 		nw.Namespace = des.Namespace
 	}
-	if dcl.StringCanonicalize(des.SelfLink, nw.SelfLink) || dcl.IsZeroValue(des.SelfLink) {
+	if dcl.StringCanonicalize(des.SelfLink, nw.SelfLink) {
 		nw.SelfLink = des.SelfLink
 	}
-	if dcl.StringCanonicalize(des.Uid, nw.Uid) || dcl.IsZeroValue(des.Uid) {
+	if dcl.StringCanonicalize(des.Uid, nw.Uid) {
 		nw.Uid = des.Uid
 	}
-	if dcl.StringCanonicalize(des.ResourceVersion, nw.ResourceVersion) || dcl.IsZeroValue(des.ResourceVersion) {
+	if dcl.StringCanonicalize(des.ResourceVersion, nw.ResourceVersion) {
 		nw.ResourceVersion = des.ResourceVersion
 	}
 	nw.CreateTime = canonicalizeNewServiceSpecTemplateMetadataCreateTime(c, des.CreateTime, nw.CreateTime)
 	nw.OwnerReferences = canonicalizeNewServiceSpecTemplateMetadataOwnerReferencesSlice(c, des.OwnerReferences, nw.OwnerReferences)
 	nw.DeleteTime = canonicalizeNewServiceSpecTemplateMetadataDeleteTime(c, des.DeleteTime, nw.DeleteTime)
-	if dcl.StringCanonicalize(des.ClusterName, nw.ClusterName) || dcl.IsZeroValue(des.ClusterName) {
+	if dcl.StringCanonicalize(des.ClusterName, nw.ClusterName) {
 		nw.ClusterName = des.ClusterName
 	}
 
@@ -1560,22 +1560,22 @@ func canonicalizeNewServiceSpecTemplateMetadataOwnerReferences(c *Client, des, n
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ApiVersion, nw.ApiVersion) || dcl.IsZeroValue(des.ApiVersion) {
+	if dcl.StringCanonicalize(des.ApiVersion, nw.ApiVersion) {
 		nw.ApiVersion = des.ApiVersion
 	}
-	if dcl.StringCanonicalize(des.Kind, nw.Kind) || dcl.IsZeroValue(des.Kind) {
+	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Uid, nw.Uid) || dcl.IsZeroValue(des.Uid) {
+	if dcl.StringCanonicalize(des.Uid, nw.Uid) {
 		nw.Uid = des.Uid
 	}
-	if dcl.BoolCanonicalize(des.Controller, nw.Controller) || dcl.IsZeroValue(des.Controller) {
+	if dcl.BoolCanonicalize(des.Controller, nw.Controller) {
 		nw.Controller = des.Controller
 	}
-	if dcl.BoolCanonicalize(des.BlockOwnerDeletion, nw.BlockOwnerDeletion) || dcl.IsZeroValue(des.BlockOwnerDeletion) {
+	if dcl.BoolCanonicalize(des.BlockOwnerDeletion, nw.BlockOwnerDeletion) {
 		nw.BlockOwnerDeletion = des.BlockOwnerDeletion
 	}
 
@@ -1734,7 +1734,7 @@ func canonicalizeNewServiceSpecTemplateSpec(c *Client, des, nw *ServiceSpecTempl
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ServiceAccountName, nw.ServiceAccountName) || dcl.IsZeroValue(des.ServiceAccountName) {
+	if dcl.StringCanonicalize(des.ServiceAccountName, nw.ServiceAccountName) {
 		nw.ServiceAccountName = des.ServiceAccountName
 	}
 	nw.Containers = canonicalizeNewServiceSpecTemplateSpecContainersSlice(c, des.Containers, nw.Containers)
@@ -1847,15 +1847,15 @@ func canonicalizeNewServiceSpecTemplateSpecContainers(c *Client, des, nw *Servic
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Image, nw.Image) || dcl.IsZeroValue(des.Image) {
+	if dcl.StringCanonicalize(des.Image, nw.Image) {
 		nw.Image = des.Image
 	}
 	nw.Env = canonicalizeNewServiceSpecTemplateSpecContainersEnvSlice(c, des.Env, nw.Env)
 	nw.Resources = canonicalizeNewServiceSpecTemplateSpecContainersResources(c, des.Resources, nw.Resources)
-	if dcl.StringCanonicalize(des.WorkingDir, nw.WorkingDir) || dcl.IsZeroValue(des.WorkingDir) {
+	if dcl.StringCanonicalize(des.WorkingDir, nw.WorkingDir) {
 		nw.WorkingDir = des.WorkingDir
 	}
 	nw.Ports = canonicalizeNewServiceSpecTemplateSpecContainersPortsSlice(c, des.Ports, nw.Ports)
@@ -1863,13 +1863,13 @@ func canonicalizeNewServiceSpecTemplateSpecContainers(c *Client, des, nw *Servic
 	nw.VolumeMounts = canonicalizeNewServiceSpecTemplateSpecContainersVolumeMountsSlice(c, des.VolumeMounts, nw.VolumeMounts)
 	nw.LivenessProbe = canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbe(c, des.LivenessProbe, nw.LivenessProbe)
 	nw.ReadinessProbe = canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbe(c, des.ReadinessProbe, nw.ReadinessProbe)
-	if dcl.StringCanonicalize(des.TerminationMessagePath, nw.TerminationMessagePath) || dcl.IsZeroValue(des.TerminationMessagePath) {
+	if dcl.StringCanonicalize(des.TerminationMessagePath, nw.TerminationMessagePath) {
 		nw.TerminationMessagePath = des.TerminationMessagePath
 	}
-	if dcl.StringCanonicalize(des.TerminationMessagePolicy, nw.TerminationMessagePolicy) || dcl.IsZeroValue(des.TerminationMessagePolicy) {
+	if dcl.StringCanonicalize(des.TerminationMessagePolicy, nw.TerminationMessagePolicy) {
 		nw.TerminationMessagePolicy = des.TerminationMessagePolicy
 	}
-	if dcl.StringCanonicalize(des.ImagePullPolicy, nw.ImagePullPolicy) || dcl.IsZeroValue(des.ImagePullPolicy) {
+	if dcl.StringCanonicalize(des.ImagePullPolicy, nw.ImagePullPolicy) {
 		nw.ImagePullPolicy = des.ImagePullPolicy
 	}
 	nw.SecurityContext = canonicalizeNewServiceSpecTemplateSpecContainersSecurityContext(c, des.SecurityContext, nw.SecurityContext)
@@ -1948,10 +1948,10 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnv(c *Client, des, nw *Ser
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Value, nw.Value) || dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, nw.Value) {
 		nw.Value = des.Value
 	}
 	nw.ValueFrom = canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFrom(c, des.ValueFrom, nw.ValueFrom)
@@ -2106,13 +2106,13 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef
 	}
 
 	nw.LocalObjectReference = canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, des.LocalObjectReference, nw.LocalObjectReference)
-	if dcl.StringCanonicalize(des.Key, nw.Key) || dcl.IsZeroValue(des.Key) {
+	if dcl.StringCanonicalize(des.Key, nw.Key) {
 		nw.Key = des.Key
 	}
-	if dcl.BoolCanonicalize(des.Optional, nw.Optional) || dcl.IsZeroValue(des.Optional) {
+	if dcl.BoolCanonicalize(des.Optional, nw.Optional) {
 		nw.Optional = des.Optional
 	}
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
 
@@ -2186,7 +2186,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
 
@@ -2268,13 +2268,13 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c 
 	}
 
 	nw.LocalObjectReference = canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, des.LocalObjectReference, nw.LocalObjectReference)
-	if dcl.StringCanonicalize(des.Key, nw.Key) || dcl.IsZeroValue(des.Key) {
+	if dcl.StringCanonicalize(des.Key, nw.Key) {
 		nw.Key = des.Key
 	}
-	if dcl.BoolCanonicalize(des.Optional, nw.Optional) || dcl.IsZeroValue(des.Optional) {
+	if dcl.BoolCanonicalize(des.Optional, nw.Optional) {
 		nw.Optional = des.Optional
 	}
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
 
@@ -2348,7 +2348,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLoc
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
 
@@ -2501,10 +2501,10 @@ func canonicalizeNewServiceSpecTemplateSpecContainersPorts(c *Client, des, nw *S
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Protocol, nw.Protocol) || dcl.IsZeroValue(des.Protocol) {
+	if dcl.StringCanonicalize(des.Protocol, nw.Protocol) {
 		nw.Protocol = des.Protocol
 	}
 
@@ -2580,7 +2580,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvFrom(c *Client, des, nw 
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Prefix, nw.Prefix) || dcl.IsZeroValue(des.Prefix) {
+	if dcl.StringCanonicalize(des.Prefix, nw.Prefix) {
 		nw.Prefix = des.Prefix
 	}
 	nw.ConfigMapRef = canonicalizeNewServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c, des.ConfigMapRef, nw.ConfigMapRef)
@@ -2661,10 +2661,10 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c *Clie
 	}
 
 	nw.LocalObjectReference = canonicalizeNewServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, des.LocalObjectReference, nw.LocalObjectReference)
-	if dcl.BoolCanonicalize(des.Optional, nw.Optional) || dcl.IsZeroValue(des.Optional) {
+	if dcl.BoolCanonicalize(des.Optional, nw.Optional) {
 		nw.Optional = des.Optional
 	}
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
 
@@ -2738,7 +2738,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObj
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
 
@@ -2817,10 +2817,10 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSecretRef(c *Client,
 	}
 
 	nw.LocalObjectReference = canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, des.LocalObjectReference, nw.LocalObjectReference)
-	if dcl.BoolCanonicalize(des.Optional, nw.Optional) || dcl.IsZeroValue(des.Optional) {
+	if dcl.BoolCanonicalize(des.Optional, nw.Optional) {
 		nw.Optional = des.Optional
 	}
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
 
@@ -2894,7 +2894,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObject
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
 
@@ -2977,16 +2977,16 @@ func canonicalizeNewServiceSpecTemplateSpecContainersVolumeMounts(c *Client, des
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.BoolCanonicalize(des.ReadOnly, nw.ReadOnly) || dcl.IsZeroValue(des.ReadOnly) {
+	if dcl.BoolCanonicalize(des.ReadOnly, nw.ReadOnly) {
 		nw.ReadOnly = des.ReadOnly
 	}
-	if dcl.StringCanonicalize(des.MountPath, nw.MountPath) || dcl.IsZeroValue(des.MountPath) {
+	if dcl.StringCanonicalize(des.MountPath, nw.MountPath) {
 		nw.MountPath = des.MountPath
 	}
-	if dcl.StringCanonicalize(des.SubPath, nw.SubPath) || dcl.IsZeroValue(des.SubPath) {
+	if dcl.StringCanonicalize(des.SubPath, nw.SubPath) {
 		nw.SubPath = des.SubPath
 	}
 
@@ -3149,7 +3149,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeExec(c *Client
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Command, nw.Command) || dcl.IsZeroValue(des.Command) {
+	if dcl.StringCanonicalize(des.Command, nw.Command) {
 		nw.Command = des.Command
 	}
 
@@ -3232,13 +3232,13 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c *Cli
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Path, nw.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, nw.Path) {
 		nw.Path = des.Path
 	}
-	if dcl.StringCanonicalize(des.Host, nw.Host) || dcl.IsZeroValue(des.Host) {
+	if dcl.StringCanonicalize(des.Host, nw.Host) {
 		nw.Host = des.Host
 	}
-	if dcl.StringCanonicalize(des.Scheme, nw.Scheme) || dcl.IsZeroValue(des.Scheme) {
+	if dcl.StringCanonicalize(des.Scheme, nw.Scheme) {
 		nw.Scheme = des.Scheme
 	}
 	nw.HttpHeaders = canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersSlice(c, des.HttpHeaders, nw.HttpHeaders)
@@ -3316,10 +3316,10 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHea
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Value, nw.Value) || dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, nw.Value) {
 		nw.Value = des.Value
 	}
 
@@ -3396,7 +3396,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c *C
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Host, nw.Host) || dcl.IsZeroValue(des.Host) {
+	if dcl.StringCanonicalize(des.Host, nw.Host) {
 		nw.Host = des.Host
 	}
 
@@ -3559,7 +3559,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeExec(c *Clien
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Command, nw.Command) || dcl.IsZeroValue(des.Command) {
+	if dcl.StringCanonicalize(des.Command, nw.Command) {
 		nw.Command = des.Command
 	}
 
@@ -3642,13 +3642,13 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c *Cl
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Path, nw.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, nw.Path) {
 		nw.Path = des.Path
 	}
-	if dcl.StringCanonicalize(des.Host, nw.Host) || dcl.IsZeroValue(des.Host) {
+	if dcl.StringCanonicalize(des.Host, nw.Host) {
 		nw.Host = des.Host
 	}
-	if dcl.StringCanonicalize(des.Scheme, nw.Scheme) || dcl.IsZeroValue(des.Scheme) {
+	if dcl.StringCanonicalize(des.Scheme, nw.Scheme) {
 		nw.Scheme = des.Scheme
 	}
 	nw.HttpHeaders = canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersSlice(c, des.HttpHeaders, nw.HttpHeaders)
@@ -3726,10 +3726,10 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHe
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Value, nw.Value) || dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, nw.Value) {
 		nw.Value = des.Value
 	}
 
@@ -3806,7 +3806,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c *
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Host, nw.Host) || dcl.IsZeroValue(des.Host) {
+	if dcl.StringCanonicalize(des.Host, nw.Host) {
 		nw.Host = des.Host
 	}
 
@@ -3952,7 +3952,7 @@ func canonicalizeNewServiceSpecTemplateSpecVolumes(c *Client, des, nw *ServiceSp
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
 	nw.Secret = canonicalizeNewServiceSpecTemplateSpecVolumesSecret(c, des.Secret, nw.Secret)
@@ -4037,11 +4037,11 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesSecret(c *Client, des, nw *Ser
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.SecretName, nw.SecretName) || dcl.IsZeroValue(des.SecretName) {
+	if dcl.StringCanonicalize(des.SecretName, nw.SecretName) {
 		nw.SecretName = des.SecretName
 	}
 	nw.Items = canonicalizeNewServiceSpecTemplateSpecVolumesSecretItemsSlice(c, des.Items, nw.Items)
-	if dcl.BoolCanonicalize(des.Optional, nw.Optional) || dcl.IsZeroValue(des.Optional) {
+	if dcl.BoolCanonicalize(des.Optional, nw.Optional) {
 		nw.Optional = des.Optional
 	}
 
@@ -4121,10 +4121,10 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesSecretItems(c *Client, des, nw
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Key, nw.Key) || dcl.IsZeroValue(des.Key) {
+	if dcl.StringCanonicalize(des.Key, nw.Key) {
 		nw.Key = des.Key
 	}
-	if dcl.StringCanonicalize(des.Path, nw.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, nw.Path) {
 		nw.Path = des.Path
 	}
 
@@ -4207,11 +4207,11 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesConfigMap(c *Client, des, nw *
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
 	nw.Items = canonicalizeNewServiceSpecTemplateSpecVolumesConfigMapItemsSlice(c, des.Items, nw.Items)
-	if dcl.BoolCanonicalize(des.Optional, nw.Optional) || dcl.IsZeroValue(des.Optional) {
+	if dcl.BoolCanonicalize(des.Optional, nw.Optional) {
 		nw.Optional = des.Optional
 	}
 
@@ -4291,10 +4291,10 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesConfigMapItems(c *Client, des,
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Key, nw.Key) || dcl.IsZeroValue(des.Key) {
+	if dcl.StringCanonicalize(des.Key, nw.Key) {
 		nw.Key = des.Key
 	}
-	if dcl.StringCanonicalize(des.Path, nw.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, nw.Path) {
 		nw.Path = des.Path
 	}
 
@@ -4383,19 +4383,19 @@ func canonicalizeNewServiceSpecTraffic(c *Client, des, nw *ServiceSpecTraffic) *
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ConfigurationName, nw.ConfigurationName) || dcl.IsZeroValue(des.ConfigurationName) {
+	if dcl.StringCanonicalize(des.ConfigurationName, nw.ConfigurationName) {
 		nw.ConfigurationName = des.ConfigurationName
 	}
-	if dcl.StringCanonicalize(des.RevisionName, nw.RevisionName) || dcl.IsZeroValue(des.RevisionName) {
+	if dcl.StringCanonicalize(des.RevisionName, nw.RevisionName) {
 		nw.RevisionName = des.RevisionName
 	}
-	if dcl.StringCanonicalize(des.Tag, nw.Tag) || dcl.IsZeroValue(des.Tag) {
+	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
 		nw.Tag = des.Tag
 	}
-	if dcl.BoolCanonicalize(des.LatestRevision, nw.LatestRevision) || dcl.IsZeroValue(des.LatestRevision) {
+	if dcl.BoolCanonicalize(des.LatestRevision, nw.LatestRevision) {
 		nw.LatestRevision = des.LatestRevision
 	}
-	if dcl.StringCanonicalize(des.Url, nw.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, nw.Url) {
 		nw.Url = des.Url
 	}
 
@@ -4486,14 +4486,14 @@ func canonicalizeNewServiceStatus(c *Client, des, nw *ServiceStatus) *ServiceSta
 	}
 
 	nw.Conditions = canonicalizeNewServiceStatusConditionsSlice(c, des.Conditions, nw.Conditions)
-	if dcl.StringCanonicalize(des.LatestReadyRevisionName, nw.LatestReadyRevisionName) || dcl.IsZeroValue(des.LatestReadyRevisionName) {
+	if dcl.StringCanonicalize(des.LatestReadyRevisionName, nw.LatestReadyRevisionName) {
 		nw.LatestReadyRevisionName = des.LatestReadyRevisionName
 	}
-	if dcl.StringCanonicalize(des.LatestCreatedRevisionName, nw.LatestCreatedRevisionName) || dcl.IsZeroValue(des.LatestCreatedRevisionName) {
+	if dcl.StringCanonicalize(des.LatestCreatedRevisionName, nw.LatestCreatedRevisionName) {
 		nw.LatestCreatedRevisionName = des.LatestCreatedRevisionName
 	}
 	nw.Traffic = canonicalizeNewServiceStatusTrafficSlice(c, des.Traffic, nw.Traffic)
-	if dcl.StringCanonicalize(des.Url, nw.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, nw.Url) {
 		nw.Url = des.Url
 	}
 	nw.Address = canonicalizeNewServiceStatusAddress(c, des.Address, nw.Address)
@@ -4581,20 +4581,20 @@ func canonicalizeNewServiceStatusConditions(c *Client, des, nw *ServiceStatusCon
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Type, nw.Type) || dcl.IsZeroValue(des.Type) {
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
 		nw.Type = des.Type
 	}
-	if dcl.StringCanonicalize(des.Status, nw.Status) || dcl.IsZeroValue(des.Status) {
+	if dcl.StringCanonicalize(des.Status, nw.Status) {
 		nw.Status = des.Status
 	}
-	if dcl.StringCanonicalize(des.Reason, nw.Reason) || dcl.IsZeroValue(des.Reason) {
+	if dcl.StringCanonicalize(des.Reason, nw.Reason) {
 		nw.Reason = des.Reason
 	}
-	if dcl.StringCanonicalize(des.Message, nw.Message) || dcl.IsZeroValue(des.Message) {
+	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
 	nw.LastTransitionTime = canonicalizeNewServiceStatusConditionsLastTransitionTime(c, des.LastTransitionTime, nw.LastTransitionTime)
-	if dcl.StringCanonicalize(des.Severity, nw.Severity) || dcl.IsZeroValue(des.Severity) {
+	if dcl.StringCanonicalize(des.Severity, nw.Severity) {
 		nw.Severity = des.Severity
 	}
 
@@ -4756,19 +4756,19 @@ func canonicalizeNewServiceStatusTraffic(c *Client, des, nw *ServiceStatusTraffi
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ConfigurationName, nw.ConfigurationName) || dcl.IsZeroValue(des.ConfigurationName) {
+	if dcl.StringCanonicalize(des.ConfigurationName, nw.ConfigurationName) {
 		nw.ConfigurationName = des.ConfigurationName
 	}
-	if dcl.StringCanonicalize(des.RevisionName, nw.RevisionName) || dcl.IsZeroValue(des.RevisionName) {
+	if dcl.StringCanonicalize(des.RevisionName, nw.RevisionName) {
 		nw.RevisionName = des.RevisionName
 	}
-	if dcl.StringCanonicalize(des.Tag, nw.Tag) || dcl.IsZeroValue(des.Tag) {
+	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
 		nw.Tag = des.Tag
 	}
-	if dcl.BoolCanonicalize(des.LatestRevision, nw.LatestRevision) || dcl.IsZeroValue(des.LatestRevision) {
+	if dcl.BoolCanonicalize(des.LatestRevision, nw.LatestRevision) {
 		nw.LatestRevision = des.LatestRevision
 	}
-	if dcl.StringCanonicalize(des.Url, nw.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, nw.Url) {
 		nw.Url = des.Url
 	}
 
@@ -4842,7 +4842,7 @@ func canonicalizeNewServiceStatusAddress(c *Client, des, nw *ServiceStatusAddres
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Url, nw.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, nw.Url) {
 		nw.Url = des.Url
 	}
 

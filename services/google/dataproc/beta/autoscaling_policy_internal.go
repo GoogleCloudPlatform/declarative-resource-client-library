@@ -541,7 +541,7 @@ func canonicalizeNewAutoscalingPolicyBasicAlgorithm(c *Client, des, nw *Autoscal
 	}
 
 	nw.YarnConfig = canonicalizeNewAutoscalingPolicyBasicAlgorithmYarnConfig(c, des.YarnConfig, nw.YarnConfig)
-	if dcl.StringCanonicalize(des.CooldownPeriod, nw.CooldownPeriod) || dcl.IsZeroValue(des.CooldownPeriod) {
+	if dcl.StringCanonicalize(des.CooldownPeriod, nw.CooldownPeriod) {
 		nw.CooldownPeriod = des.CooldownPeriod
 	}
 
@@ -627,7 +627,7 @@ func canonicalizeNewAutoscalingPolicyBasicAlgorithmYarnConfig(c *Client, des, nw
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.GracefulDecommissionTimeout, nw.GracefulDecommissionTimeout) || dcl.IsZeroValue(des.GracefulDecommissionTimeout) {
+	if dcl.StringCanonicalize(des.GracefulDecommissionTimeout, nw.GracefulDecommissionTimeout) {
 		nw.GracefulDecommissionTimeout = des.GracefulDecommissionTimeout
 	}
 

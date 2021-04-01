@@ -601,7 +601,7 @@ func canonicalizeNewServiceAccountActasResourcesResources(c *Client, des, nw *Se
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.FullResourceName, nw.FullResourceName) || dcl.IsZeroValue(des.FullResourceName) {
+	if dcl.StringCanonicalize(des.FullResourceName, nw.FullResourceName) {
 		nw.FullResourceName = des.FullResourceName
 	}
 

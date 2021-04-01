@@ -114,43 +114,6 @@ func (r *FeatureStateHelloworld) validate() error {
 	return nil
 }
 
-func featureGetURL(userBasePath string, r *Feature) (string, error) {
-	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("v1beta/projects/{{project}}/locations/{{location}}/features/{{name}}", "https://gkehub.googleapis.com/v1beta1/", userBasePath, params), nil
-}
-
-func featureListURL(userBasePath, project, location string) (string, error) {
-	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
-	}
-	return dcl.URL("v1beta/projects/{{project}}/locations/{{location}}/features", "https://gkehub.googleapis.com/v1beta1/", userBasePath, params), nil
-
-}
-
-func featureCreateURL(userBasePath, project, location, name string) (string, error) {
-	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
-		"name":     name,
-	}
-	return dcl.URL("v1beta/projects/{{project}}/locations/{{location}}/features?featureId={{name}}", "https://gkehub.googleapis.com/v1beta1/", userBasePath, params), nil
-
-}
-
-func featureDeleteURL(userBasePath string, r *Feature) (string, error) {
-	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("v1beta/projects/{{project}}/locations/{{location}}/features/{{name}}", "https://gkehub.googleapis.com/v1beta1/", userBasePath, params), nil
-}
-
 // featureApiOperation represents a mutable operation in the underlying REST
 // API such as Create, Update, or Delete.
 type featureApiOperation interface {
@@ -194,45 +157,6 @@ type updateFeatureUpdateFeatureOperation struct {
 // do creates a request and sends it to the appropriate URL. In most operations,
 // do will transcribe a subset of the resource into a request object and send a
 // PUT request to a single URL.
-
-func (op *updateFeatureUpdateFeatureOperation) do(ctx context.Context, r *Feature, c *Client) error {
-	_, err := c.GetFeature(ctx, r.urlNormalized())
-	if err != nil {
-		return err
-	}
-
-	u, err := r.updateURL(c.Config.BasePath, "UpdateFeature")
-	if err != nil {
-		return err
-	}
-
-	req, err := newUpdateFeatureUpdateFeatureRequest(ctx, r, c)
-	if err != nil {
-		return err
-	}
-
-	c.Config.Logger.Infof("Created update: %#v", req)
-	body, err := marshalUpdateFeatureUpdateFeatureRequest(c, req)
-	if err != nil {
-		return err
-	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
-	if err != nil {
-		return err
-	}
-
-	var o operations.StandardGCPOperation
-	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
-		return err
-	}
-	err = o.Wait(ctx, c.Config, "https://gkehub.googleapis.com/v1beta1/", "GET")
-
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
 
 func (c *Client) listFeatureRaw(ctx context.Context, project, location, pageToken string, pageSize int32) ([]byte, error) {
 	u, err := featureListURL(c.Config.BasePath, project, location)
@@ -767,7 +691,7 @@ func canonicalizeNewFeatureSpecMulticlusteringress(c *Client, des, nw *FeatureSp
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ConfigMembership, nw.ConfigMembership) || dcl.IsZeroValue(des.ConfigMembership) {
+	if dcl.StringCanonicalize(des.ConfigMembership, nw.ConfigMembership) {
 		nw.ConfigMembership = des.ConfigMembership
 	}
 
@@ -843,7 +767,7 @@ func canonicalizeNewFeatureSpecHelloworld(c *Client, des, nw *FeatureSpecHellowo
 	}
 
 	nw.FeatureTest = canonicalizeNewFeatureSpecHelloworldFeatureTest(c, des.FeatureTest, nw.FeatureTest)
-	if dcl.StringCanonicalize(des.CustomConfig, nw.CustomConfig) || dcl.IsZeroValue(des.CustomConfig) {
+	if dcl.StringCanonicalize(des.CustomConfig, nw.CustomConfig) {
 		nw.CustomConfig = des.CustomConfig
 	}
 
@@ -939,14 +863,14 @@ func canonicalizeNewFeatureSpecHelloworldFeatureTest(c *Client, des, nw *Feature
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.First, nw.First) || dcl.IsZeroValue(des.First) {
+	if dcl.StringCanonicalize(des.First, nw.First) {
 		nw.First = des.First
 	}
-	if dcl.StringCanonicalize(des.Fourth, nw.Fourth) || dcl.IsZeroValue(des.Fourth) {
+	if dcl.StringCanonicalize(des.Fourth, nw.Fourth) {
 		nw.Fourth = des.Fourth
 	}
 	nw.Fifth = canonicalizeNewFeatureSpecHelloworldFeatureTestFifth(c, des.Fifth, nw.Fifth)
-	if dcl.StringCanonicalize(des.Seventh, nw.Seventh) || dcl.IsZeroValue(des.Seventh) {
+	if dcl.StringCanonicalize(des.Seventh, nw.Seventh) {
 		nw.Seventh = des.Seventh
 	}
 	nw.Eighth = canonicalizeNewFeatureSpecHelloworldFeatureTestEighthSlice(c, des.Eighth, nw.Eighth)
@@ -1024,10 +948,10 @@ func canonicalizeNewFeatureSpecHelloworldFeatureTestFifth(c *Client, des, nw *Fe
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
+	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
 		nw.TypeUrl = des.TypeUrl
 	}
-	if dcl.StringCanonicalize(des.Value, nw.Value) || dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, nw.Value) {
 		nw.Value = des.Value
 	}
 
@@ -1104,7 +1028,7 @@ func canonicalizeNewFeatureSpecHelloworldFeatureTestEighth(c *Client, des, nw *F
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.First, nw.First) || dcl.IsZeroValue(des.First) {
+	if dcl.StringCanonicalize(des.First, nw.First) {
 		nw.First = des.First
 	}
 
@@ -1256,7 +1180,7 @@ func canonicalizeNewFeatureStateState(c *Client, des, nw *FeatureStateState) *Fe
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
 
@@ -2179,7 +2103,7 @@ func (r *Feature) updateURL(userBasePath, updateName string) (string, error) {
 			"location": dcl.ValueOrEmptyString(n.Location),
 			"name":     dcl.ValueOrEmptyString(n.Name),
 		}
-		return dcl.URL("v1beta/projects/{{project}}/locations/{{location}}/features/{{name}}", "https://gkehub.googleapis.com/v1beta1/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/locations/{{location}}/features/{{name}}", "https://gkehub.googleapis.com/v1beta1/", userBasePath, fields), nil
 
 	}
 	return "", fmt.Errorf("unknown update name: %s", updateName)

@@ -500,10 +500,10 @@ func canonicalizeNewDomainMappingSslSettings(c *Client, des, nw *DomainMappingSs
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.CertificateId, nw.CertificateId) || dcl.IsZeroValue(des.CertificateId) {
+	if dcl.StringCanonicalize(des.CertificateId, nw.CertificateId) {
 		nw.CertificateId = des.CertificateId
 	}
-	if dcl.StringCanonicalize(des.PendingManagedCertificateId, nw.PendingManagedCertificateId) || dcl.IsZeroValue(des.PendingManagedCertificateId) {
+	if dcl.StringCanonicalize(des.PendingManagedCertificateId, nw.PendingManagedCertificateId) {
 		nw.PendingManagedCertificateId = des.PendingManagedCertificateId
 	}
 
@@ -583,10 +583,10 @@ func canonicalizeNewDomainMappingResourceRecords(c *Client, des, nw *DomainMappi
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Rrdata, nw.Rrdata) || dcl.IsZeroValue(des.Rrdata) {
+	if dcl.StringCanonicalize(des.Rrdata, nw.Rrdata) {
 		nw.Rrdata = des.Rrdata
 	}
 

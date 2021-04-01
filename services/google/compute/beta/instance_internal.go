@@ -1382,18 +1382,18 @@ func canonicalizeNewInstanceDisks(c *Client, des, nw *InstanceDisks) *InstanceDi
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.AutoDelete, nw.AutoDelete) || dcl.IsZeroValue(des.AutoDelete) {
+	if dcl.BoolCanonicalize(des.AutoDelete, nw.AutoDelete) {
 		nw.AutoDelete = des.AutoDelete
 	}
-	if dcl.BoolCanonicalize(des.Boot, nw.Boot) || dcl.IsZeroValue(des.Boot) {
+	if dcl.BoolCanonicalize(des.Boot, nw.Boot) {
 		nw.Boot = des.Boot
 	}
-	if dcl.StringCanonicalize(des.DeviceName, nw.DeviceName) || dcl.IsZeroValue(des.DeviceName) {
+	if dcl.StringCanonicalize(des.DeviceName, nw.DeviceName) {
 		nw.DeviceName = des.DeviceName
 	}
 	nw.DiskEncryptionKey = canonicalizeNewInstanceDisksDiskEncryptionKey(c, des.DiskEncryptionKey, nw.DiskEncryptionKey)
 	nw.InitializeParams = canonicalizeNewInstanceDisksInitializeParams(c, des.InitializeParams, nw.InitializeParams)
-	if dcl.NameToSelfLink(des.Source, nw.Source) || dcl.IsZeroValue(des.Source) {
+	if dcl.NameToSelfLink(des.Source, nw.Source) {
 		nw.Source = des.Source
 	}
 
@@ -1473,13 +1473,13 @@ func canonicalizeNewInstanceDisksDiskEncryptionKey(c *Client, des, nw *InstanceD
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) || dcl.IsZeroValue(des.RawKey) {
+	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) {
 		nw.RawKey = des.RawKey
 	}
-	if dcl.StringCanonicalize(des.RsaEncryptedKey, nw.RsaEncryptedKey) || dcl.IsZeroValue(des.RsaEncryptedKey) {
+	if dcl.StringCanonicalize(des.RsaEncryptedKey, nw.RsaEncryptedKey) {
 		nw.RsaEncryptedKey = des.RsaEncryptedKey
 	}
-	if dcl.StringCanonicalize(des.Sha256, nw.Sha256) || dcl.IsZeroValue(des.Sha256) {
+	if dcl.StringCanonicalize(des.Sha256, nw.Sha256) {
 		nw.Sha256 = des.Sha256
 	}
 
@@ -1563,13 +1563,13 @@ func canonicalizeNewInstanceDisksInitializeParams(c *Client, des, nw *InstanceDi
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.DiskName, nw.DiskName) || dcl.IsZeroValue(des.DiskName) {
+	if dcl.StringCanonicalize(des.DiskName, nw.DiskName) {
 		nw.DiskName = des.DiskName
 	}
-	if dcl.NameToSelfLink(des.DiskType, nw.DiskType) || dcl.IsZeroValue(des.DiskType) {
+	if dcl.NameToSelfLink(des.DiskType, nw.DiskType) {
 		nw.DiskType = des.DiskType
 	}
-	if dcl.StringCanonicalize(des.SourceImage, nw.SourceImage) || dcl.IsZeroValue(des.SourceImage) {
+	if dcl.StringCanonicalize(des.SourceImage, nw.SourceImage) {
 		nw.SourceImage = des.SourceImage
 	}
 	nw.SourceImageEncryptionKey = canonicalizeNewInstanceDisksInitializeParamsSourceImageEncryptionKey(c, des.SourceImageEncryptionKey, nw.SourceImageEncryptionKey)
@@ -1647,10 +1647,10 @@ func canonicalizeNewInstanceDisksInitializeParamsSourceImageEncryptionKey(c *Cli
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) || dcl.IsZeroValue(des.RawKey) {
+	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) {
 		nw.RawKey = des.RawKey
 	}
-	if dcl.StringCanonicalize(des.Sha256, nw.Sha256) || dcl.IsZeroValue(des.Sha256) {
+	if dcl.StringCanonicalize(des.Sha256, nw.Sha256) {
 		nw.Sha256 = des.Sha256
 	}
 
@@ -1727,7 +1727,7 @@ func canonicalizeNewInstanceGuestAccelerators(c *Client, des, nw *InstanceGuestA
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.AcceleratorType, nw.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
+	if dcl.StringCanonicalize(des.AcceleratorType, nw.AcceleratorType) {
 		nw.AcceleratorType = des.AcceleratorType
 	}
 
@@ -1818,16 +1818,16 @@ func canonicalizeNewInstanceNetworkInterfaces(c *Client, des, nw *InstanceNetwor
 
 	nw.AccessConfigs = canonicalizeNewInstanceNetworkInterfacesAccessConfigsSlice(c, des.AccessConfigs, nw.AccessConfigs)
 	nw.AliasIPRanges = canonicalizeNewInstanceNetworkInterfacesAliasIPRangesSlice(c, des.AliasIPRanges, nw.AliasIPRanges)
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.NameToSelfLink(des.Network, nw.Network) || dcl.IsZeroValue(des.Network) {
+	if dcl.NameToSelfLink(des.Network, nw.Network) {
 		nw.Network = des.Network
 	}
-	if dcl.StringCanonicalize(des.NetworkIP, nw.NetworkIP) || dcl.IsZeroValue(des.NetworkIP) {
+	if dcl.StringCanonicalize(des.NetworkIP, nw.NetworkIP) {
 		nw.NetworkIP = des.NetworkIP
 	}
-	if dcl.NameToSelfLink(des.Subnetwork, nw.Subnetwork) || dcl.IsZeroValue(des.Subnetwork) {
+	if dcl.NameToSelfLink(des.Subnetwork, nw.Subnetwork) {
 		nw.Subnetwork = des.Subnetwork
 	}
 
@@ -1907,10 +1907,10 @@ func canonicalizeNewInstanceNetworkInterfacesAccessConfigs(c *Client, des, nw *I
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.NatIP, nw.NatIP) || dcl.IsZeroValue(des.NatIP) {
+	if dcl.StringCanonicalize(des.NatIP, nw.NatIP) {
 		nw.NatIP = des.NatIP
 	}
 
@@ -1987,10 +1987,10 @@ func canonicalizeNewInstanceNetworkInterfacesAliasIPRanges(c *Client, des, nw *I
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.IPCidrRange, nw.IPCidrRange) || dcl.IsZeroValue(des.IPCidrRange) {
+	if dcl.StringCanonicalize(des.IPCidrRange, nw.IPCidrRange) {
 		nw.IPCidrRange = des.IPCidrRange
 	}
-	if dcl.StringCanonicalize(des.SubnetworkRangeName, nw.SubnetworkRangeName) || dcl.IsZeroValue(des.SubnetworkRangeName) {
+	if dcl.StringCanonicalize(des.SubnetworkRangeName, nw.SubnetworkRangeName) {
 		nw.SubnetworkRangeName = des.SubnetworkRangeName
 	}
 
@@ -2070,13 +2070,13 @@ func canonicalizeNewInstanceScheduling(c *Client, des, nw *InstanceScheduling) *
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.AutomaticRestart, nw.AutomaticRestart) || dcl.IsZeroValue(des.AutomaticRestart) {
+	if dcl.BoolCanonicalize(des.AutomaticRestart, nw.AutomaticRestart) {
 		nw.AutomaticRestart = des.AutomaticRestart
 	}
-	if dcl.StringCanonicalize(des.OnHostMaintenance, nw.OnHostMaintenance) || dcl.IsZeroValue(des.OnHostMaintenance) {
+	if dcl.StringCanonicalize(des.OnHostMaintenance, nw.OnHostMaintenance) {
 		nw.OnHostMaintenance = des.OnHostMaintenance
 	}
-	if dcl.BoolCanonicalize(des.Preemptible, nw.Preemptible) || dcl.IsZeroValue(des.Preemptible) {
+	if dcl.BoolCanonicalize(des.Preemptible, nw.Preemptible) {
 		nw.Preemptible = des.Preemptible
 	}
 
@@ -2153,7 +2153,7 @@ func canonicalizeNewInstanceServiceAccounts(c *Client, des, nw *InstanceServiceA
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Email, nw.Email) || dcl.IsZeroValue(des.Email) {
+	if dcl.StringCanonicalize(des.Email, nw.Email) {
 		nw.Email = des.Email
 	}
 
@@ -2233,13 +2233,13 @@ func canonicalizeNewInstanceShieldedInstanceConfig(c *Client, des, nw *InstanceS
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.EnableSecureBoot, nw.EnableSecureBoot) || dcl.IsZeroValue(des.EnableSecureBoot) {
+	if dcl.BoolCanonicalize(des.EnableSecureBoot, nw.EnableSecureBoot) {
 		nw.EnableSecureBoot = des.EnableSecureBoot
 	}
-	if dcl.BoolCanonicalize(des.EnableVtpm, nw.EnableVtpm) || dcl.IsZeroValue(des.EnableVtpm) {
+	if dcl.BoolCanonicalize(des.EnableVtpm, nw.EnableVtpm) {
 		nw.EnableVtpm = des.EnableVtpm
 	}
-	if dcl.BoolCanonicalize(des.EnableIntegrityMonitoring, nw.EnableIntegrityMonitoring) || dcl.IsZeroValue(des.EnableIntegrityMonitoring) {
+	if dcl.BoolCanonicalize(des.EnableIntegrityMonitoring, nw.EnableIntegrityMonitoring) {
 		nw.EnableIntegrityMonitoring = des.EnableIntegrityMonitoring
 	}
 

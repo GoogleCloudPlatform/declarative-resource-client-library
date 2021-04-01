@@ -725,10 +725,10 @@ func canonicalizeNewClusterClusterConfig(c *Client, des, nw *ClusterClusterConfi
 		return nw
 	}
 
-	if dcl.NameToSelfLink(des.StagingBucket, nw.StagingBucket) || dcl.IsZeroValue(des.StagingBucket) {
+	if dcl.NameToSelfLink(des.StagingBucket, nw.StagingBucket) {
 		nw.StagingBucket = des.StagingBucket
 	}
-	if dcl.NameToSelfLink(des.TempBucket, nw.TempBucket) || dcl.IsZeroValue(des.TempBucket) {
+	if dcl.NameToSelfLink(des.TempBucket, nw.TempBucket) {
 		nw.TempBucket = des.TempBucket
 	}
 	nw.GceClusterConfig = canonicalizeNewClusterClusterConfigGceClusterConfig(c, des.GceClusterConfig, nw.GceClusterConfig)
@@ -839,19 +839,19 @@ func canonicalizeNewClusterClusterConfigGceClusterConfig(c *Client, des, nw *Clu
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Zone, nw.Zone) || dcl.IsZeroValue(des.Zone) {
+	if dcl.StringCanonicalize(des.Zone, nw.Zone) {
 		nw.Zone = des.Zone
 	}
-	if dcl.NameToSelfLink(des.Network, nw.Network) || dcl.IsZeroValue(des.Network) {
+	if dcl.NameToSelfLink(des.Network, nw.Network) {
 		nw.Network = des.Network
 	}
-	if dcl.NameToSelfLink(des.Subnetwork, nw.Subnetwork) || dcl.IsZeroValue(des.Subnetwork) {
+	if dcl.NameToSelfLink(des.Subnetwork, nw.Subnetwork) {
 		nw.Subnetwork = des.Subnetwork
 	}
-	if dcl.BoolCanonicalize(des.InternalIPOnly, nw.InternalIPOnly) || dcl.IsZeroValue(des.InternalIPOnly) {
+	if dcl.BoolCanonicalize(des.InternalIPOnly, nw.InternalIPOnly) {
 		nw.InternalIPOnly = des.InternalIPOnly
 	}
-	if dcl.NameToSelfLink(des.ServiceAccount, nw.ServiceAccount) || dcl.IsZeroValue(des.ServiceAccount) {
+	if dcl.NameToSelfLink(des.ServiceAccount, nw.ServiceAccount) {
 		nw.ServiceAccount = des.ServiceAccount
 	}
 	nw.ReservationAffinity = canonicalizeNewClusterClusterConfigGceClusterConfigReservationAffinity(c, des.ReservationAffinity, nw.ReservationAffinity)
@@ -933,7 +933,7 @@ func canonicalizeNewClusterClusterConfigGceClusterConfigReservationAffinity(c *C
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Key, nw.Key) || dcl.IsZeroValue(des.Key) {
+	if dcl.StringCanonicalize(des.Key, nw.Key) {
 		nw.Key = des.Key
 	}
 
@@ -1007,7 +1007,7 @@ func canonicalizeNewClusterClusterConfigGceClusterConfigNodeGroupAffinity(c *Cli
 		return nw
 	}
 
-	if dcl.NameToSelfLink(des.NodeGroup, nw.NodeGroup) || dcl.IsZeroValue(des.NodeGroup) {
+	if dcl.NameToSelfLink(des.NodeGroup, nw.NodeGroup) {
 		nw.NodeGroup = des.NodeGroup
 	}
 
@@ -1104,19 +1104,19 @@ func canonicalizeNewClusterInstanceGroupConfig(c *Client, des, nw *ClusterInstan
 		return nw
 	}
 
-	if dcl.NameToSelfLink(des.Image, nw.Image) || dcl.IsZeroValue(des.Image) {
+	if dcl.NameToSelfLink(des.Image, nw.Image) {
 		nw.Image = des.Image
 	}
-	if dcl.StringCanonicalize(des.MachineType, nw.MachineType) || dcl.IsZeroValue(des.MachineType) {
+	if dcl.StringCanonicalize(des.MachineType, nw.MachineType) {
 		nw.MachineType = des.MachineType
 	}
 	nw.DiskConfig = canonicalizeNewClusterInstanceGroupConfigDiskConfig(c, des.DiskConfig, nw.DiskConfig)
-	if dcl.BoolCanonicalize(des.IsPreemptible, nw.IsPreemptible) || dcl.IsZeroValue(des.IsPreemptible) {
+	if dcl.BoolCanonicalize(des.IsPreemptible, nw.IsPreemptible) {
 		nw.IsPreemptible = des.IsPreemptible
 	}
 	nw.ManagedGroupConfig = canonicalizeNewClusterInstanceGroupConfigManagedGroupConfig(c, des.ManagedGroupConfig, nw.ManagedGroupConfig)
 	nw.Accelerators = canonicalizeNewClusterInstanceGroupConfigAcceleratorsSlice(c, des.Accelerators, nw.Accelerators)
-	if dcl.StringCanonicalize(des.MinCpuPlatform, nw.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
+	if dcl.StringCanonicalize(des.MinCpuPlatform, nw.MinCpuPlatform) {
 		nw.MinCpuPlatform = des.MinCpuPlatform
 	}
 
@@ -1196,7 +1196,7 @@ func canonicalizeNewClusterInstanceGroupConfigDiskConfig(c *Client, des, nw *Clu
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.BootDiskType, nw.BootDiskType) || dcl.IsZeroValue(des.BootDiskType) {
+	if dcl.StringCanonicalize(des.BootDiskType, nw.BootDiskType) {
 		nw.BootDiskType = des.BootDiskType
 	}
 
@@ -1273,10 +1273,10 @@ func canonicalizeNewClusterInstanceGroupConfigManagedGroupConfig(c *Client, des,
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.InstanceTemplateName, nw.InstanceTemplateName) || dcl.IsZeroValue(des.InstanceTemplateName) {
+	if dcl.StringCanonicalize(des.InstanceTemplateName, nw.InstanceTemplateName) {
 		nw.InstanceTemplateName = des.InstanceTemplateName
 	}
-	if dcl.StringCanonicalize(des.InstanceGroupManagerName, nw.InstanceGroupManagerName) || dcl.IsZeroValue(des.InstanceGroupManagerName) {
+	if dcl.StringCanonicalize(des.InstanceGroupManagerName, nw.InstanceGroupManagerName) {
 		nw.InstanceGroupManagerName = des.InstanceGroupManagerName
 	}
 
@@ -1353,7 +1353,7 @@ func canonicalizeNewClusterInstanceGroupConfigAccelerators(c *Client, des, nw *C
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.AcceleratorType, nw.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
+	if dcl.StringCanonicalize(des.AcceleratorType, nw.AcceleratorType) {
 		nw.AcceleratorType = des.AcceleratorType
 	}
 
@@ -1433,7 +1433,7 @@ func canonicalizeNewClusterClusterConfigSoftwareConfig(c *Client, des, nw *Clust
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ImageVersion, nw.ImageVersion) || dcl.IsZeroValue(des.ImageVersion) {
+	if dcl.StringCanonicalize(des.ImageVersion, nw.ImageVersion) {
 		nw.ImageVersion = des.ImageVersion
 	}
 
@@ -1510,10 +1510,10 @@ func canonicalizeNewClusterClusterConfigInitializationActions(c *Client, des, nw
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ExecutableFile, nw.ExecutableFile) || dcl.IsZeroValue(des.ExecutableFile) {
+	if dcl.StringCanonicalize(des.ExecutableFile, nw.ExecutableFile) {
 		nw.ExecutableFile = des.ExecutableFile
 	}
-	if dcl.StringCanonicalize(des.ExecutionTimeout, nw.ExecutionTimeout) || dcl.IsZeroValue(des.ExecutionTimeout) {
+	if dcl.StringCanonicalize(des.ExecutionTimeout, nw.ExecutionTimeout) {
 		nw.ExecutionTimeout = des.ExecutionTimeout
 	}
 
@@ -1587,7 +1587,7 @@ func canonicalizeNewClusterClusterConfigEncryptionConfig(c *Client, des, nw *Clu
 		return nw
 	}
 
-	if dcl.NameToSelfLink(des.GcePdKmsKeyName, nw.GcePdKmsKeyName) || dcl.IsZeroValue(des.GcePdKmsKeyName) {
+	if dcl.NameToSelfLink(des.GcePdKmsKeyName, nw.GcePdKmsKeyName) {
 		nw.GcePdKmsKeyName = des.GcePdKmsKeyName
 	}
 
@@ -1661,7 +1661,7 @@ func canonicalizeNewClusterClusterConfigAutoscalingConfig(c *Client, des, nw *Cl
 		return nw
 	}
 
-	if dcl.NameToSelfLink(des.Policy, nw.Policy) || dcl.IsZeroValue(des.Policy) {
+	if dcl.NameToSelfLink(des.Policy, nw.Policy) {
 		nw.Policy = des.Policy
 	}
 
@@ -1847,46 +1847,46 @@ func canonicalizeNewClusterClusterConfigSecurityConfigKerberosConfig(c *Client, 
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.EnableKerberos, nw.EnableKerberos) || dcl.IsZeroValue(des.EnableKerberos) {
+	if dcl.BoolCanonicalize(des.EnableKerberos, nw.EnableKerberos) {
 		nw.EnableKerberos = des.EnableKerberos
 	}
-	if dcl.StringCanonicalize(des.RootPrincipalPassword, nw.RootPrincipalPassword) || dcl.IsZeroValue(des.RootPrincipalPassword) {
+	if dcl.StringCanonicalize(des.RootPrincipalPassword, nw.RootPrincipalPassword) {
 		nw.RootPrincipalPassword = des.RootPrincipalPassword
 	}
-	if dcl.NameToSelfLink(des.KmsKey, nw.KmsKey) || dcl.IsZeroValue(des.KmsKey) {
+	if dcl.NameToSelfLink(des.KmsKey, nw.KmsKey) {
 		nw.KmsKey = des.KmsKey
 	}
-	if dcl.StringCanonicalize(des.Keystore, nw.Keystore) || dcl.IsZeroValue(des.Keystore) {
+	if dcl.StringCanonicalize(des.Keystore, nw.Keystore) {
 		nw.Keystore = des.Keystore
 	}
-	if dcl.StringCanonicalize(des.Truststore, nw.Truststore) || dcl.IsZeroValue(des.Truststore) {
+	if dcl.StringCanonicalize(des.Truststore, nw.Truststore) {
 		nw.Truststore = des.Truststore
 	}
-	if dcl.StringCanonicalize(des.KeystorePassword, nw.KeystorePassword) || dcl.IsZeroValue(des.KeystorePassword) {
+	if dcl.StringCanonicalize(des.KeystorePassword, nw.KeystorePassword) {
 		nw.KeystorePassword = des.KeystorePassword
 	}
-	if dcl.StringCanonicalize(des.KeyPassword, nw.KeyPassword) || dcl.IsZeroValue(des.KeyPassword) {
+	if dcl.StringCanonicalize(des.KeyPassword, nw.KeyPassword) {
 		nw.KeyPassword = des.KeyPassword
 	}
-	if dcl.StringCanonicalize(des.TruststorePassword, nw.TruststorePassword) || dcl.IsZeroValue(des.TruststorePassword) {
+	if dcl.StringCanonicalize(des.TruststorePassword, nw.TruststorePassword) {
 		nw.TruststorePassword = des.TruststorePassword
 	}
-	if dcl.StringCanonicalize(des.CrossRealmTrustRealm, nw.CrossRealmTrustRealm) || dcl.IsZeroValue(des.CrossRealmTrustRealm) {
+	if dcl.StringCanonicalize(des.CrossRealmTrustRealm, nw.CrossRealmTrustRealm) {
 		nw.CrossRealmTrustRealm = des.CrossRealmTrustRealm
 	}
-	if dcl.StringCanonicalize(des.CrossRealmTrustKdc, nw.CrossRealmTrustKdc) || dcl.IsZeroValue(des.CrossRealmTrustKdc) {
+	if dcl.StringCanonicalize(des.CrossRealmTrustKdc, nw.CrossRealmTrustKdc) {
 		nw.CrossRealmTrustKdc = des.CrossRealmTrustKdc
 	}
-	if dcl.StringCanonicalize(des.CrossRealmTrustAdminServer, nw.CrossRealmTrustAdminServer) || dcl.IsZeroValue(des.CrossRealmTrustAdminServer) {
+	if dcl.StringCanonicalize(des.CrossRealmTrustAdminServer, nw.CrossRealmTrustAdminServer) {
 		nw.CrossRealmTrustAdminServer = des.CrossRealmTrustAdminServer
 	}
-	if dcl.StringCanonicalize(des.CrossRealmTrustSharedPassword, nw.CrossRealmTrustSharedPassword) || dcl.IsZeroValue(des.CrossRealmTrustSharedPassword) {
+	if dcl.StringCanonicalize(des.CrossRealmTrustSharedPassword, nw.CrossRealmTrustSharedPassword) {
 		nw.CrossRealmTrustSharedPassword = des.CrossRealmTrustSharedPassword
 	}
-	if dcl.StringCanonicalize(des.KdcDbKey, nw.KdcDbKey) || dcl.IsZeroValue(des.KdcDbKey) {
+	if dcl.StringCanonicalize(des.KdcDbKey, nw.KdcDbKey) {
 		nw.KdcDbKey = des.KdcDbKey
 	}
-	if dcl.StringCanonicalize(des.Realm, nw.Realm) || dcl.IsZeroValue(des.Realm) {
+	if dcl.StringCanonicalize(des.Realm, nw.Realm) {
 		nw.Realm = des.Realm
 	}
 
@@ -1969,10 +1969,10 @@ func canonicalizeNewClusterClusterConfigLifecycleConfig(c *Client, des, nw *Clus
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.IdleDeleteTtl, nw.IdleDeleteTtl) || dcl.IsZeroValue(des.IdleDeleteTtl) {
+	if dcl.StringCanonicalize(des.IdleDeleteTtl, nw.IdleDeleteTtl) {
 		nw.IdleDeleteTtl = des.IdleDeleteTtl
 	}
-	if dcl.StringCanonicalize(des.AutoDeleteTtl, nw.AutoDeleteTtl) || dcl.IsZeroValue(des.AutoDeleteTtl) {
+	if dcl.StringCanonicalize(des.AutoDeleteTtl, nw.AutoDeleteTtl) {
 		nw.AutoDeleteTtl = des.AutoDeleteTtl
 	}
 
@@ -2049,7 +2049,7 @@ func canonicalizeNewClusterClusterConfigEndpointConfig(c *Client, des, nw *Clust
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.EnableHttpPortAccess, nw.EnableHttpPortAccess) || dcl.IsZeroValue(des.EnableHttpPortAccess) {
+	if dcl.BoolCanonicalize(des.EnableHttpPortAccess, nw.EnableHttpPortAccess) {
 		nw.EnableHttpPortAccess = des.EnableHttpPortAccess
 	}
 
@@ -2132,7 +2132,7 @@ func canonicalizeNewClusterStatus(c *Client, des, nw *ClusterStatus) *ClusterSta
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Detail, nw.Detail) || dcl.IsZeroValue(des.Detail) {
+	if dcl.StringCanonicalize(des.Detail, nw.Detail) {
 		nw.Detail = des.Detail
 	}
 
@@ -2215,7 +2215,7 @@ func canonicalizeNewClusterStatusHistory(c *Client, des, nw *ClusterStatusHistor
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Detail, nw.Detail) || dcl.IsZeroValue(des.Detail) {
+	if dcl.StringCanonicalize(des.Detail, nw.Detail) {
 		nw.Detail = des.Detail
 	}
 

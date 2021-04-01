@@ -8,5 +8,6 @@
       "ipv4Enabled": true,
       "privateNetwork": "{{ref:vpc_connection.servicenetworking.connection.json:network}}"
     }
-  }
+  },
+  "rootPassword": "{{random}}"
 }

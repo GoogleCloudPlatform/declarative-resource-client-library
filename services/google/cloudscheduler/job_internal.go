@@ -673,10 +673,10 @@ func canonicalizeNewJobPubsubTarget(c *Client, des, nw *JobPubsubTarget) *JobPub
 		return nw
 	}
 
-	if dcl.NameToSelfLink(des.TopicName, nw.TopicName) || dcl.IsZeroValue(des.TopicName) {
+	if dcl.NameToSelfLink(des.TopicName, nw.TopicName) {
 		nw.TopicName = des.TopicName
 	}
-	if dcl.StringCanonicalize(des.Data, nw.Data) || dcl.IsZeroValue(des.Data) {
+	if dcl.StringCanonicalize(des.Data, nw.Data) {
 		nw.Data = des.Data
 	}
 
@@ -761,10 +761,10 @@ func canonicalizeNewJobAppEngineHttpTarget(c *Client, des, nw *JobAppEngineHttpT
 	}
 
 	nw.AppEngineRouting = canonicalizeNewJobAppEngineHttpTargetAppEngineRouting(c, des.AppEngineRouting, nw.AppEngineRouting)
-	if dcl.StringCanonicalize(des.RelativeUri, nw.RelativeUri) || dcl.IsZeroValue(des.RelativeUri) {
+	if dcl.StringCanonicalize(des.RelativeUri, nw.RelativeUri) {
 		nw.RelativeUri = des.RelativeUri
 	}
-	if dcl.StringCanonicalize(des.Body, nw.Body) || dcl.IsZeroValue(des.Body) {
+	if dcl.StringCanonicalize(des.Body, nw.Body) {
 		nw.Body = des.Body
 	}
 
@@ -847,16 +847,16 @@ func canonicalizeNewJobAppEngineHttpTargetAppEngineRouting(c *Client, des, nw *J
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Service, nw.Service) || dcl.IsZeroValue(des.Service) {
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
 		nw.Service = des.Service
 	}
-	if dcl.StringCanonicalize(des.Version, nw.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.StringCanonicalize(des.Version, nw.Version) {
 		nw.Version = des.Version
 	}
-	if dcl.StringCanonicalize(des.Instance, nw.Instance) || dcl.IsZeroValue(des.Instance) {
+	if dcl.StringCanonicalize(des.Instance, nw.Instance) {
 		nw.Instance = des.Instance
 	}
-	if dcl.StringCanonicalize(des.Host, nw.Host) || dcl.IsZeroValue(des.Host) {
+	if dcl.StringCanonicalize(des.Host, nw.Host) {
 		nw.Host = des.Host
 	}
 
@@ -941,10 +941,10 @@ func canonicalizeNewJobHttpTarget(c *Client, des, nw *JobHttpTarget) *JobHttpTar
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Uri, nw.Uri) || dcl.IsZeroValue(des.Uri) {
+	if dcl.StringCanonicalize(des.Uri, nw.Uri) {
 		nw.Uri = des.Uri
 	}
-	if dcl.StringCanonicalize(des.Body, nw.Body) || dcl.IsZeroValue(des.Body) {
+	if dcl.StringCanonicalize(des.Body, nw.Body) {
 		nw.Body = des.Body
 	}
 	nw.OAuthToken = canonicalizeNewJobHttpTargetOAuthToken(c, des.OAuthToken, nw.OAuthToken)
@@ -1023,10 +1023,10 @@ func canonicalizeNewJobHttpTargetOAuthToken(c *Client, des, nw *JobHttpTargetOAu
 		return nw
 	}
 
-	if dcl.NameToSelfLink(des.ServiceAccountEmail, nw.ServiceAccountEmail) || dcl.IsZeroValue(des.ServiceAccountEmail) {
+	if dcl.NameToSelfLink(des.ServiceAccountEmail, nw.ServiceAccountEmail) {
 		nw.ServiceAccountEmail = des.ServiceAccountEmail
 	}
-	if dcl.StringCanonicalize(des.Scope, nw.Scope) || dcl.IsZeroValue(des.Scope) {
+	if dcl.StringCanonicalize(des.Scope, nw.Scope) {
 		nw.Scope = des.Scope
 	}
 
@@ -1103,10 +1103,10 @@ func canonicalizeNewJobHttpTargetOidcToken(c *Client, des, nw *JobHttpTargetOidc
 		return nw
 	}
 
-	if dcl.NameToSelfLink(des.ServiceAccountEmail, nw.ServiceAccountEmail) || dcl.IsZeroValue(des.ServiceAccountEmail) {
+	if dcl.NameToSelfLink(des.ServiceAccountEmail, nw.ServiceAccountEmail) {
 		nw.ServiceAccountEmail = des.ServiceAccountEmail
 	}
-	if dcl.StringCanonicalize(des.Audience, nw.Audience) || dcl.IsZeroValue(des.Audience) {
+	if dcl.StringCanonicalize(des.Audience, nw.Audience) {
 		nw.Audience = des.Audience
 	}
 
@@ -1186,7 +1186,7 @@ func canonicalizeNewJobStatus(c *Client, des, nw *JobStatus) *JobStatus {
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Message, nw.Message) || dcl.IsZeroValue(des.Message) {
+	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
 	nw.Details = canonicalizeNewJobStatusDetailsSlice(c, des.Details, nw.Details)
@@ -1264,10 +1264,10 @@ func canonicalizeNewJobStatusDetails(c *Client, des, nw *JobStatusDetails) *JobS
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
+	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
 		nw.TypeUrl = des.TypeUrl
 	}
-	if dcl.StringCanonicalize(des.Value, nw.Value) || dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, nw.Value) {
 		nw.Value = des.Value
 	}
 
@@ -1353,13 +1353,13 @@ func canonicalizeNewJobRetryConfig(c *Client, des, nw *JobRetryConfig) *JobRetry
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.MaxRetryDuration, nw.MaxRetryDuration) || dcl.IsZeroValue(des.MaxRetryDuration) {
+	if dcl.StringCanonicalize(des.MaxRetryDuration, nw.MaxRetryDuration) {
 		nw.MaxRetryDuration = des.MaxRetryDuration
 	}
-	if dcl.StringCanonicalize(des.MinBackoffDuration, nw.MinBackoffDuration) || dcl.IsZeroValue(des.MinBackoffDuration) {
+	if dcl.StringCanonicalize(des.MinBackoffDuration, nw.MinBackoffDuration) {
 		nw.MinBackoffDuration = des.MinBackoffDuration
 	}
-	if dcl.StringCanonicalize(des.MaxBackoffDuration, nw.MaxBackoffDuration) || dcl.IsZeroValue(des.MaxBackoffDuration) {
+	if dcl.StringCanonicalize(des.MaxBackoffDuration, nw.MaxBackoffDuration) {
 		nw.MaxBackoffDuration = des.MaxBackoffDuration
 	}
 

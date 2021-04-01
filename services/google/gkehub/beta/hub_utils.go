@@ -15,7 +15,12 @@
 package beta
 
 import (
+	"bytes"
+	"context"
 	"strings"
+
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func expandHubReferenceLink(f *MembershipEndpointGkeCluster, val *string) (interface{}, error) {
@@ -40,4 +45,81 @@ func flattenHubReferenceLink(config interface{}) *string {
 	v = strings.Replace(v, "//container.googleapis.com/", "", 1)
 
 	return &v
+}
+
+func featureGetURL(userBasePath string, r *Feature) (string, error) {
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(r.Project),
+		"location": dcl.ValueOrEmptyString(r.Location),
+		"name":     dcl.ValueOrEmptyString(r.Name),
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/features/{{name}}", "https://gkehub.googleapis.com/v1beta/", userBasePath, params), nil
+}
+
+func featureListURL(userBasePath, project, location string) (string, error) {
+	params := map[string]interface{}{
+		"project":  project,
+		"location": location,
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/features", "https://gkehub.googleapis.com/v1beta/", userBasePath, params), nil
+
+}
+
+func featureCreateURL(userBasePath, project, location, name string) (string, error) {
+	params := map[string]interface{}{
+		"project":  project,
+		"location": location,
+		"name":     name,
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/features?featureId={{name}}", "https://gkehub.googleapis.com/v1beta/", userBasePath, params), nil
+
+}
+
+func featureDeleteURL(userBasePath string, r *Feature) (string, error) {
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(r.Project),
+		"location": dcl.ValueOrEmptyString(r.Location),
+		"name":     dcl.ValueOrEmptyString(r.Name),
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/features/{{name}}", "https://gkehub.googleapis.com/v1beta/", userBasePath, params), nil
+}
+
+func (op *updateFeatureUpdateFeatureOperation) do(ctx context.Context, r *Feature, c *Client) error {
+	_, err := c.GetFeature(ctx, r.urlNormalized())
+	if err != nil {
+		return err
+	}
+
+	u, err := r.updateURL(c.Config.BasePath, "UpdateFeature")
+	if err != nil {
+		return err
+	}
+	u = strings.Replace(u, "v1beta1", "v1beta", 1)
+
+	req, err := newUpdateFeatureUpdateFeatureRequest(ctx, r, c)
+	if err != nil {
+		return err
+	}
+
+	c.Config.Logger.Infof("Created update: %#v", req)
+	body, err := marshalUpdateFeatureUpdateFeatureRequest(c, req)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+
+	var o operations.StandardGCPOperation
+	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+		return err
+	}
+	err = o.Wait(ctx, c.Config, "https://gkehub.googleapis.com/v1beta/", "GET")
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

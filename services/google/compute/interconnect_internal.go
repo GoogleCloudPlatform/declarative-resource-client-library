@@ -700,10 +700,10 @@ func canonicalizeNewInterconnectExpectedOutages(c *Client, des, nw *Interconnect
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
 
@@ -783,13 +783,13 @@ func canonicalizeNewInterconnectCircuitInfos(c *Client, des, nw *InterconnectCir
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.GoogleCircuitId, nw.GoogleCircuitId) || dcl.IsZeroValue(des.GoogleCircuitId) {
+	if dcl.StringCanonicalize(des.GoogleCircuitId, nw.GoogleCircuitId) {
 		nw.GoogleCircuitId = des.GoogleCircuitId
 	}
-	if dcl.StringCanonicalize(des.GoogleDemarcId, nw.GoogleDemarcId) || dcl.IsZeroValue(des.GoogleDemarcId) {
+	if dcl.StringCanonicalize(des.GoogleDemarcId, nw.GoogleDemarcId) {
 		nw.GoogleDemarcId = des.GoogleDemarcId
 	}
-	if dcl.StringCanonicalize(des.CustomerDemarcId, nw.CustomerDemarcId) || dcl.IsZeroValue(des.CustomerDemarcId) {
+	if dcl.StringCanonicalize(des.CustomerDemarcId, nw.CustomerDemarcId) {
 		nw.CustomerDemarcId = des.CustomerDemarcId
 	}
 

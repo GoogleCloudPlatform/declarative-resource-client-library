@@ -470,6 +470,20 @@ func StringSliceEquals(v, q []string) bool {
 	return true
 }
 
+// StringSliceEqualsWithSelfLink returns true if v, q arrays of strings are equal according to StringEqualsWithSelfLink
+func StringSliceEqualsWithSelfLink(v, q []string) bool {
+	if len(v) != len(q) {
+		return false
+	}
+
+	for i := 0; i < len(v); i++ {
+		if !StringEqualsWithSelfLink(&v[i], &q[i]) {
+			return false
+		}
+	}
+	return true
+}
+
 // DeriveFieldArray calls DeriveField on each entry in the provided slice.  The final
 // entry in the input variadic argument can be a slice, and those values will be replaced
 // by the values in the provided current value.
@@ -571,6 +585,15 @@ func IsEmptyValueIndirect(i interface{}) bool {
 	if i == nil {
 		return true
 	}
+
+	rt := reflect.TypeOf(i)
+	switch rt.Kind() {
+	case reflect.Slice:
+		return reflect.ValueOf(i).Len() == 0
+	case reflect.Array:
+		return rt.Len() == 0
+	}
+
 	iv := reflect.Indirect(reflect.ValueOf(i))
 
 	// All non-nil bools are not empty values.

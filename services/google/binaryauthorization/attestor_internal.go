@@ -495,11 +495,11 @@ func canonicalizeNewAttestorUserOwnedGrafeasNote(c *Client, des, nw *AttestorUse
 		return nw
 	}
 
-	if dcl.NameToSelfLink(des.NoteReference, nw.NoteReference) || dcl.IsZeroValue(des.NoteReference) {
+	if dcl.NameToSelfLink(des.NoteReference, nw.NoteReference) {
 		nw.NoteReference = des.NoteReference
 	}
 	nw.PublicKeys = canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeysSlice(c, des.PublicKeys, nw.PublicKeys)
-	if dcl.StringCanonicalize(des.DelegationServiceAccountEmail, nw.DelegationServiceAccountEmail) || dcl.IsZeroValue(des.DelegationServiceAccountEmail) {
+	if dcl.StringCanonicalize(des.DelegationServiceAccountEmail, nw.DelegationServiceAccountEmail) {
 		nw.DelegationServiceAccountEmail = des.DelegationServiceAccountEmail
 	}
 
@@ -580,13 +580,13 @@ func canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeys(c *Client, des, nw *A
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Comment, nw.Comment) || dcl.IsZeroValue(des.Comment) {
+	if dcl.StringCanonicalize(des.Comment, nw.Comment) {
 		nw.Comment = des.Comment
 	}
-	if dcl.StringCanonicalize(des.Id, nw.Id) || dcl.IsZeroValue(des.Id) {
+	if dcl.StringCanonicalize(des.Id, nw.Id) {
 		nw.Id = des.Id
 	}
-	if dcl.StringCanonicalize(des.AsciiArmoredPgpPublicKey, nw.AsciiArmoredPgpPublicKey) || dcl.IsZeroValue(des.AsciiArmoredPgpPublicKey) {
+	if dcl.StringCanonicalize(des.AsciiArmoredPgpPublicKey, nw.AsciiArmoredPgpPublicKey) {
 		nw.AsciiArmoredPgpPublicKey = des.AsciiArmoredPgpPublicKey
 	}
 	nw.PkixPublicKey = canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c, des.PkixPublicKey, nw.PkixPublicKey)
@@ -664,7 +664,7 @@ func canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c *Clien
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.PublicKeyPem, nw.PublicKeyPem) || dcl.IsZeroValue(des.PublicKeyPem) {
+	if dcl.StringCanonicalize(des.PublicKeyPem, nw.PublicKeyPem) {
 		nw.PublicKeyPem = des.PublicKeyPem
 	}
 

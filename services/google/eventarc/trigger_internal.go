@@ -647,10 +647,10 @@ func canonicalizeNewTriggerEventFilters(c *Client, des, nw *TriggerEventFilters)
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Attribute, nw.Attribute) || dcl.IsZeroValue(des.Attribute) {
+	if dcl.StringCanonicalize(des.Attribute, nw.Attribute) {
 		nw.Attribute = des.Attribute
 	}
-	if dcl.StringCanonicalize(des.Value, nw.Value) || dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, nw.Value) {
 		nw.Value = des.Value
 	}
 
@@ -726,7 +726,7 @@ func canonicalizeNewTriggerDestination(c *Client, des, nw *TriggerDestination) *
 	}
 
 	nw.CloudRun = canonicalizeNewTriggerDestinationCloudRun(c, des.CloudRun, nw.CloudRun)
-	if dcl.NameToSelfLink(des.CloudFunction, nw.CloudFunction) || dcl.IsZeroValue(des.CloudFunction) {
+	if dcl.NameToSelfLink(des.CloudFunction, nw.CloudFunction) {
 		nw.CloudFunction = des.CloudFunction
 	}
 
@@ -806,13 +806,13 @@ func canonicalizeNewTriggerDestinationCloudRun(c *Client, des, nw *TriggerDestin
 		return nw
 	}
 
-	if dcl.NameToSelfLink(des.Service, nw.Service) || dcl.IsZeroValue(des.Service) {
+	if dcl.NameToSelfLink(des.Service, nw.Service) {
 		nw.Service = des.Service
 	}
-	if dcl.StringCanonicalize(des.Path, nw.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, nw.Path) {
 		nw.Path = des.Path
 	}
-	if dcl.StringCanonicalize(des.Region, nw.Region) || dcl.IsZeroValue(des.Region) {
+	if dcl.StringCanonicalize(des.Region, nw.Region) {
 		nw.Region = des.Region
 	}
 
@@ -959,10 +959,10 @@ func canonicalizeNewTriggerTransportPubsub(c *Client, des, nw *TriggerTransportP
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Topic, nw.Topic) || dcl.IsZeroValue(des.Topic) {
+	if dcl.StringCanonicalize(des.Topic, nw.Topic) {
 		nw.Topic = des.Topic
 	}
-	if dcl.StringCanonicalize(des.Subscription, nw.Subscription) || dcl.IsZeroValue(des.Subscription) {
+	if dcl.StringCanonicalize(des.Subscription, nw.Subscription) {
 		nw.Subscription = des.Subscription
 	}
 

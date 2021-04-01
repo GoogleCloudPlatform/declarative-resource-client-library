@@ -581,11 +581,11 @@ func canonicalizeNewReservationSpecificReservationInstanceProperties(c *Client, 
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.MachineType, nw.MachineType) || dcl.IsZeroValue(des.MachineType) {
+	if dcl.StringCanonicalize(des.MachineType, nw.MachineType) {
 		nw.MachineType = des.MachineType
 	}
 	nw.GuestAccelerators = canonicalizeNewReservationSpecificReservationInstancePropertiesGuestAcceleratorsSlice(c, des.GuestAccelerators, nw.GuestAccelerators)
-	if canonicalizeReservationCPUPlatform(des.MinCpuPlatform, nw.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
+	if canonicalizeReservationCPUPlatform(des.MinCpuPlatform, nw.MinCpuPlatform) {
 		nw.MinCpuPlatform = des.MinCpuPlatform
 	}
 	nw.LocalSsds = canonicalizeNewReservationSpecificReservationInstancePropertiesLocalSsdsSlice(c, des.LocalSsds, nw.LocalSsds)
@@ -663,7 +663,7 @@ func canonicalizeNewReservationSpecificReservationInstancePropertiesGuestAcceler
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.AcceleratorType, nw.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
+	if dcl.StringCanonicalize(des.AcceleratorType, nw.AcceleratorType) {
 		nw.AcceleratorType = des.AcceleratorType
 	}
 

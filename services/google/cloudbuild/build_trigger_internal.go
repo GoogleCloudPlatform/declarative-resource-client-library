@@ -752,25 +752,25 @@ func canonicalizeNewBuildTriggerTriggerTemplate(c *Client, des, nw *BuildTrigger
 		nw.RepoName = dcl.String("default")
 	}
 
-	if dcl.StringCanonicalize(des.ProjectId, nw.ProjectId) || dcl.IsZeroValue(des.ProjectId) {
+	if dcl.StringCanonicalize(des.ProjectId, nw.ProjectId) {
 		nw.ProjectId = des.ProjectId
 	}
-	if dcl.StringCanonicalize(des.RepoName, nw.RepoName) || dcl.IsZeroValue(des.RepoName) {
+	if dcl.StringCanonicalize(des.RepoName, nw.RepoName) {
 		nw.RepoName = des.RepoName
 	}
-	if dcl.StringCanonicalize(des.BranchName, nw.BranchName) || dcl.IsZeroValue(des.BranchName) {
+	if dcl.StringCanonicalize(des.BranchName, nw.BranchName) {
 		nw.BranchName = des.BranchName
 	}
-	if dcl.StringCanonicalize(des.TagName, nw.TagName) || dcl.IsZeroValue(des.TagName) {
+	if dcl.StringCanonicalize(des.TagName, nw.TagName) {
 		nw.TagName = des.TagName
 	}
-	if dcl.StringCanonicalize(des.CommitSha, nw.CommitSha) || dcl.IsZeroValue(des.CommitSha) {
+	if dcl.StringCanonicalize(des.CommitSha, nw.CommitSha) {
 		nw.CommitSha = des.CommitSha
 	}
-	if dcl.StringCanonicalize(des.Dir, nw.Dir) || dcl.IsZeroValue(des.Dir) {
+	if dcl.StringCanonicalize(des.Dir, nw.Dir) {
 		nw.Dir = des.Dir
 	}
-	if dcl.BoolCanonicalize(des.InvertRegex, nw.InvertRegex) || dcl.IsZeroValue(des.InvertRegex) {
+	if dcl.BoolCanonicalize(des.InvertRegex, nw.InvertRegex) {
 		nw.InvertRegex = des.InvertRegex
 	}
 
@@ -849,10 +849,10 @@ func canonicalizeNewBuildTriggerGithub(c *Client, des, nw *BuildTriggerGithub) *
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Owner, nw.Owner) || dcl.IsZeroValue(des.Owner) {
+	if dcl.StringCanonicalize(des.Owner, nw.Owner) {
 		nw.Owner = des.Owner
 	}
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
 	nw.PullRequest = canonicalizeNewBuildTriggerGithubPullRequest(c, des.PullRequest, nw.PullRequest)
@@ -934,10 +934,10 @@ func canonicalizeNewBuildTriggerGithubPullRequest(c *Client, des, nw *BuildTrigg
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Branch, nw.Branch) || dcl.IsZeroValue(des.Branch) {
+	if dcl.StringCanonicalize(des.Branch, nw.Branch) {
 		nw.Branch = des.Branch
 	}
-	if dcl.BoolCanonicalize(des.InvertRegex, nw.InvertRegex) || dcl.IsZeroValue(des.InvertRegex) {
+	if dcl.BoolCanonicalize(des.InvertRegex, nw.InvertRegex) {
 		nw.InvertRegex = des.InvertRegex
 	}
 
@@ -1017,13 +1017,13 @@ func canonicalizeNewBuildTriggerGithubPush(c *Client, des, nw *BuildTriggerGithu
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Branch, nw.Branch) || dcl.IsZeroValue(des.Branch) {
+	if dcl.StringCanonicalize(des.Branch, nw.Branch) {
 		nw.Branch = des.Branch
 	}
-	if dcl.StringCanonicalize(des.Tag, nw.Tag) || dcl.IsZeroValue(des.Tag) {
+	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
 		nw.Tag = des.Tag
 	}
-	if dcl.BoolCanonicalize(des.InvertRegex, nw.InvertRegex) || dcl.IsZeroValue(des.InvertRegex) {
+	if dcl.BoolCanonicalize(des.InvertRegex, nw.InvertRegex) {
 		nw.InvertRegex = des.InvertRegex
 	}
 
@@ -1127,13 +1127,13 @@ func canonicalizeNewBuildTriggerBuild(c *Client, des, nw *BuildTriggerBuild) *Bu
 		nw.Timeout = dcl.String("600s")
 	}
 
-	if dcl.StringCanonicalize(des.QueueTtl, nw.QueueTtl) || dcl.IsZeroValue(des.QueueTtl) {
+	if dcl.StringCanonicalize(des.QueueTtl, nw.QueueTtl) {
 		nw.QueueTtl = des.QueueTtl
 	}
-	if dcl.StringCanonicalize(des.LogsBucket, nw.LogsBucket) || dcl.IsZeroValue(des.LogsBucket) {
+	if dcl.StringCanonicalize(des.LogsBucket, nw.LogsBucket) {
 		nw.LogsBucket = des.LogsBucket
 	}
-	if dcl.StringCanonicalize(des.Timeout, nw.Timeout) || dcl.IsZeroValue(des.Timeout) {
+	if dcl.StringCanonicalize(des.Timeout, nw.Timeout) {
 		nw.Timeout = des.Timeout
 	}
 	nw.Secrets = canonicalizeNewBuildTriggerBuildSecretsSlice(c, des.Secrets, nw.Secrets)
@@ -1213,7 +1213,7 @@ func canonicalizeNewBuildTriggerBuildSecrets(c *Client, des, nw *BuildTriggerBui
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.KmsKeyName, nw.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
+	if dcl.StringCanonicalize(des.KmsKeyName, nw.KmsKeyName) {
 		nw.KmsKeyName = des.KmsKeyName
 	}
 
@@ -1327,22 +1327,22 @@ func canonicalizeNewBuildTriggerBuildSteps(c *Client, des, nw *BuildTriggerBuild
 		nw.Timeout = dcl.String("300s")
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Dir, nw.Dir) || dcl.IsZeroValue(des.Dir) {
+	if dcl.StringCanonicalize(des.Dir, nw.Dir) {
 		nw.Dir = des.Dir
 	}
-	if dcl.StringCanonicalize(des.Id, nw.Id) || dcl.IsZeroValue(des.Id) {
+	if dcl.StringCanonicalize(des.Id, nw.Id) {
 		nw.Id = des.Id
 	}
-	if dcl.StringCanonicalize(des.Entrypoint, nw.Entrypoint) || dcl.IsZeroValue(des.Entrypoint) {
+	if dcl.StringCanonicalize(des.Entrypoint, nw.Entrypoint) {
 		nw.Entrypoint = des.Entrypoint
 	}
 	nw.Volumes = canonicalizeNewBuildTriggerBuildStepsVolumesSlice(c, des.Volumes, nw.Volumes)
 	nw.Timing = canonicalizeNewBuildTriggerBuildStepsTiming(c, des.Timing, nw.Timing)
 	nw.PullTiming = canonicalizeNewBuildTriggerBuildStepsPullTiming(c, des.PullTiming, nw.PullTiming)
-	if dcl.StringCanonicalize(des.Timeout, nw.Timeout) || dcl.IsZeroValue(des.Timeout) {
+	if dcl.StringCanonicalize(des.Timeout, nw.Timeout) {
 		nw.Timeout = des.Timeout
 	}
 
@@ -1419,10 +1419,10 @@ func canonicalizeNewBuildTriggerBuildStepsVolumes(c *Client, des, nw *BuildTrigg
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Path, nw.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, nw.Path) {
 		nw.Path = des.Path
 	}
 
@@ -1499,10 +1499,10 @@ func canonicalizeNewBuildTriggerBuildStepsTiming(c *Client, des, nw *BuildTrigge
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.StartTime, nw.StartTime) || dcl.IsZeroValue(des.StartTime) {
+	if dcl.StringCanonicalize(des.StartTime, nw.StartTime) {
 		nw.StartTime = des.StartTime
 	}
-	if dcl.StringCanonicalize(des.EndTime, nw.EndTime) || dcl.IsZeroValue(des.EndTime) {
+	if dcl.StringCanonicalize(des.EndTime, nw.EndTime) {
 		nw.EndTime = des.EndTime
 	}
 
@@ -1579,10 +1579,10 @@ func canonicalizeNewBuildTriggerBuildStepsPullTiming(c *Client, des, nw *BuildTr
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.StartTime, nw.StartTime) || dcl.IsZeroValue(des.StartTime) {
+	if dcl.StringCanonicalize(des.StartTime, nw.StartTime) {
 		nw.StartTime = des.StartTime
 	}
-	if dcl.StringCanonicalize(des.EndTime, nw.EndTime) || dcl.IsZeroValue(des.EndTime) {
+	if dcl.StringCanonicalize(des.EndTime, nw.EndTime) {
 		nw.EndTime = des.EndTime
 	}
 
@@ -1734,13 +1734,13 @@ func canonicalizeNewBuildTriggerBuildSourceStorageSource(c *Client, des, nw *Bui
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Bucket, nw.Bucket) || dcl.IsZeroValue(des.Bucket) {
+	if dcl.StringCanonicalize(des.Bucket, nw.Bucket) {
 		nw.Bucket = des.Bucket
 	}
-	if dcl.StringCanonicalize(des.Object, nw.Object) || dcl.IsZeroValue(des.Object) {
+	if dcl.StringCanonicalize(des.Object, nw.Object) {
 		nw.Object = des.Object
 	}
-	if dcl.StringCanonicalize(des.Generation, nw.Generation) || dcl.IsZeroValue(des.Generation) {
+	if dcl.StringCanonicalize(des.Generation, nw.Generation) {
 		nw.Generation = des.Generation
 	}
 
@@ -1835,25 +1835,25 @@ func canonicalizeNewBuildTriggerBuildSourceRepoSource(c *Client, des, nw *BuildT
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ProjectId, nw.ProjectId) || dcl.IsZeroValue(des.ProjectId) {
+	if dcl.StringCanonicalize(des.ProjectId, nw.ProjectId) {
 		nw.ProjectId = des.ProjectId
 	}
-	if dcl.StringCanonicalize(des.RepoName, nw.RepoName) || dcl.IsZeroValue(des.RepoName) {
+	if dcl.StringCanonicalize(des.RepoName, nw.RepoName) {
 		nw.RepoName = des.RepoName
 	}
-	if dcl.StringCanonicalize(des.BranchName, nw.BranchName) || dcl.IsZeroValue(des.BranchName) {
+	if dcl.StringCanonicalize(des.BranchName, nw.BranchName) {
 		nw.BranchName = des.BranchName
 	}
-	if dcl.StringCanonicalize(des.TagName, nw.TagName) || dcl.IsZeroValue(des.TagName) {
+	if dcl.StringCanonicalize(des.TagName, nw.TagName) {
 		nw.TagName = des.TagName
 	}
-	if dcl.StringCanonicalize(des.CommitSha, nw.CommitSha) || dcl.IsZeroValue(des.CommitSha) {
+	if dcl.StringCanonicalize(des.CommitSha, nw.CommitSha) {
 		nw.CommitSha = des.CommitSha
 	}
-	if dcl.StringCanonicalize(des.Dir, nw.Dir) || dcl.IsZeroValue(des.Dir) {
+	if dcl.StringCanonicalize(des.Dir, nw.Dir) {
 		nw.Dir = des.Dir
 	}
-	if dcl.BoolCanonicalize(des.InvertRegex, nw.InvertRegex) || dcl.IsZeroValue(des.InvertRegex) {
+	if dcl.BoolCanonicalize(des.InvertRegex, nw.InvertRegex) {
 		nw.InvertRegex = des.InvertRegex
 	}
 

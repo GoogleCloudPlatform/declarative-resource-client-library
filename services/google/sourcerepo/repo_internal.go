@@ -481,13 +481,13 @@ func canonicalizeNewRepoPubsubConfigs(c *Client, des, nw *RepoPubsubConfigs) *Re
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Topic, nw.Topic) || dcl.IsZeroValue(des.Topic) {
+	if dcl.StringCanonicalize(des.Topic, nw.Topic) {
 		nw.Topic = des.Topic
 	}
-	if dcl.StringCanonicalize(des.MessageFormat, nw.MessageFormat) || dcl.IsZeroValue(des.MessageFormat) {
+	if dcl.StringCanonicalize(des.MessageFormat, nw.MessageFormat) {
 		nw.MessageFormat = des.MessageFormat
 	}
-	if dcl.StringCanonicalize(des.ServiceAccountEmail, nw.ServiceAccountEmail) || dcl.IsZeroValue(des.ServiceAccountEmail) {
+	if dcl.StringCanonicalize(des.ServiceAccountEmail, nw.ServiceAccountEmail) {
 		nw.ServiceAccountEmail = des.ServiceAccountEmail
 	}
 

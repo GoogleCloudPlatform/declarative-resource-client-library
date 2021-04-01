@@ -501,10 +501,10 @@ func canonicalizeNewMetricDescriptorDescriptorLabels(c *Client, des, nw *MetricD
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Key, nw.Key) || dcl.IsZeroValue(des.Key) {
+	if dcl.StringCanonicalize(des.Key, nw.Key) {
 		nw.Key = des.Key
 	}
-	if dcl.StringCanonicalize(des.Description, nw.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
 
@@ -584,10 +584,10 @@ func canonicalizeNewMetricDescriptorMetadata(c *Client, des, nw *MetricDescripto
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.SamplePeriod, nw.SamplePeriod) || dcl.IsZeroValue(des.SamplePeriod) {
+	if dcl.StringCanonicalize(des.SamplePeriod, nw.SamplePeriod) {
 		nw.SamplePeriod = des.SamplePeriod
 	}
-	if dcl.StringCanonicalize(des.IngestDelay, nw.IngestDelay) || dcl.IsZeroValue(des.IngestDelay) {
+	if dcl.StringCanonicalize(des.IngestDelay, nw.IngestDelay) {
 		nw.IngestDelay = des.IngestDelay
 	}
 

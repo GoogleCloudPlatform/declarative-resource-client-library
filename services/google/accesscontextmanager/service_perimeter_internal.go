@@ -671,7 +671,7 @@ func canonicalizeNewServicePerimeterStatusVPCAccessibleServices(c *Client, des, 
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.EnableRestriction, nw.EnableRestriction) || dcl.IsZeroValue(des.EnableRestriction) {
+	if dcl.BoolCanonicalize(des.EnableRestriction, nw.EnableRestriction) {
 		nw.EnableRestriction = des.EnableRestriction
 	}
 
@@ -827,7 +827,7 @@ func canonicalizeNewServicePerimeterSpecVPCAccessibleServices(c *Client, des, nw
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.EnableRestriction, nw.EnableRestriction) || dcl.IsZeroValue(des.EnableRestriction) {
+	if dcl.BoolCanonicalize(des.EnableRestriction, nw.EnableRestriction) {
 		nw.EnableRestriction = des.EnableRestriction
 	}
 
