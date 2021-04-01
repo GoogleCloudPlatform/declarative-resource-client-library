@@ -386,6 +386,7 @@ func (c *Client) userDiffsForRawDesired(ctx context.Context, rawDesired *User, o
 		desired, err = canonicalizeUserDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for User: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for User: %v", rawDesired)
 

@@ -400,6 +400,7 @@ func (c *Client) topicDiffsForRawDesired(ctx context.Context, rawDesired *Topic,
 		desired, err = canonicalizeTopicDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Topic: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Topic: %v", rawDesired)
 

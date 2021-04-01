@@ -444,6 +444,7 @@ func (c *Client) authorizationPolicyDiffsForRawDesired(ctx context.Context, rawD
 		desired, err = canonicalizeAuthorizationPolicyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for AuthorizationPolicy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for AuthorizationPolicy: %v", rawDesired)
 

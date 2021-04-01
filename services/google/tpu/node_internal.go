@@ -416,6 +416,7 @@ func (c *Client) nodeDiffsForRawDesired(ctx context.Context, rawDesired *Node, o
 		desired, err = canonicalizeNodeDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Node: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Node: %v", rawDesired)
 

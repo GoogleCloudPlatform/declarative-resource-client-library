@@ -219,18 +219,11 @@ func (c *Client) policyDiffsForRawDesired(ctx context.Context, rawDesired *Polic
 		fetchState = rawDesired
 	}
 
-	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetPolicy(ctx, fetchState.urlNormalized())
-	if rawInitial == nil {
-		if !dcl.IsNotFound(err) {
-			c.Config.Logger.Warningf("Failed to retrieve whether a Policy resource already exists: %s", err)
-			return nil, nil, nil, fmt.Errorf("failed to retrieve Policy resource: %v", err)
-		}
-		c.Config.Logger.Info("Found that Policy resource did not exist.")
-		// Perform canonicalization to pick up defaults.
-		desired, err = canonicalizePolicyDesiredState(rawDesired, rawInitial)
-		return nil, desired, nil, err
-	}
+	// Simulate the resource not existing because create operation should be called anyway.
+	rawInitial := &Policy{}
+	desired, err = canonicalizePolicyDesiredState(rawDesired, rawInitial)
+	return nil, desired, nil, err
+
 	c.Config.Logger.Infof("Found initial state for Policy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Policy: %v", rawDesired)
 

@@ -369,6 +369,7 @@ func (c *Client) targetHttpProxyDiffsForRawDesired(ctx context.Context, rawDesir
 		desired, err = canonicalizeTargetHttpProxyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for TargetHttpProxy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for TargetHttpProxy: %v", rawDesired)
 

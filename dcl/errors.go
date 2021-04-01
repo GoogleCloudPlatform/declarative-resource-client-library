@@ -35,7 +35,6 @@ func (e NotFoundError) Error() string {
 // HasCode returns true if the given error is an HTTP response with the given code.
 func HasCode(err error, code int) bool {
 	if gerr, ok := err.(*googleapi.Error); ok {
-		fmt.Printf("gerr: %v, Code: %d\n", gerr, gerr.Code)
 		if gerr.Code == code {
 			return true
 		}

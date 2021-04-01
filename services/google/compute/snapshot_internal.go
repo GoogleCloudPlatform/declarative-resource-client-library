@@ -405,6 +405,7 @@ func (c *Client) snapshotDiffsForRawDesired(ctx context.Context, rawDesired *Sna
 		desired, err = canonicalizeSnapshotDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Snapshot: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Snapshot: %v", rawDesired)
 

@@ -1,0 +1,7 @@
+{
+  "project": "{{project}}",
+  "name": "{{instance}}",
+  "displayName": "My Instance",
+  "nodeCount": 3,
+  "config": "regional-us-central1"
+}

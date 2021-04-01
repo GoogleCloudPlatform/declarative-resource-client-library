@@ -371,6 +371,7 @@ func (c *Client) attestorDiffsForRawDesired(ctx context.Context, rawDesired *Att
 		desired, err = canonicalizeAttestorDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Attestor: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Attestor: %v", rawDesired)
 

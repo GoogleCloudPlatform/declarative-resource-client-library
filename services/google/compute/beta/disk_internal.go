@@ -517,6 +517,7 @@ func (c *Client) diskDiffsForRawDesired(ctx context.Context, rawDesired *Disk, o
 		desired, err = canonicalizeDiskDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Disk: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Disk: %v", rawDesired)
 

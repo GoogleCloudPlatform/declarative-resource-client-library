@@ -524,6 +524,7 @@ func (c *Client) imageDiffsForRawDesired(ctx context.Context, rawDesired *Image,
 		desired, err = canonicalizeImageDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Image: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Image: %v", rawDesired)
 

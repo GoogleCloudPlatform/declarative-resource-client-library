@@ -823,6 +823,7 @@ func (c *Client) alertPolicyDiffsForRawDesired(ctx context.Context, rawDesired *
 		desired, err := canonicalizeAlertPolicyDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
+
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetAlertPolicy(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -835,6 +836,7 @@ func (c *Client) alertPolicyDiffsForRawDesired(ctx context.Context, rawDesired *
 		desired, err = canonicalizeAlertPolicyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for AlertPolicy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for AlertPolicy: %v", rawDesired)
 

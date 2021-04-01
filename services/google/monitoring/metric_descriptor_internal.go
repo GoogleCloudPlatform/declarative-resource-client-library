@@ -311,6 +311,7 @@ func (c *Client) metricDescriptorDiffsForRawDesired(ctx context.Context, rawDesi
 		desired, err = canonicalizeMetricDescriptorDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for MetricDescriptor: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for MetricDescriptor: %v", rawDesired)
 

@@ -407,6 +407,7 @@ func (c *Client) interconnectDiffsForRawDesired(ctx context.Context, rawDesired 
 		desired, err = canonicalizeInterconnectDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Interconnect: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Interconnect: %v", rawDesired)
 

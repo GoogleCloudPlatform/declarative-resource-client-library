@@ -708,6 +708,7 @@ func (c *Client) nodePoolDiffsForRawDesired(ctx context.Context, rawDesired *Nod
 		desired, err = canonicalizeNodePoolDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for NodePool: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for NodePool: %v", rawDesired)
 

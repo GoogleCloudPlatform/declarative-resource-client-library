@@ -360,6 +360,7 @@ func (c *Client) notificationChannelDiffsForRawDesired(ctx context.Context, rawD
 		desired, err := canonicalizeNotificationChannelDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
+
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetNotificationChannel(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -372,6 +373,7 @@ func (c *Client) notificationChannelDiffsForRawDesired(ctx context.Context, rawD
 		desired, err = canonicalizeNotificationChannelDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for NotificationChannel: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for NotificationChannel: %v", rawDesired)
 

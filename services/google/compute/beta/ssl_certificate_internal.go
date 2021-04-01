@@ -307,6 +307,7 @@ func (c *Client) sslCertificateDiffsForRawDesired(ctx context.Context, rawDesire
 		desired, err = canonicalizeSslCertificateDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for SslCertificate: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for SslCertificate: %v", rawDesired)
 

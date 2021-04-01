@@ -317,6 +317,7 @@ func (c *Client) connectorDiffsForRawDesired(ctx context.Context, rawDesired *Co
 		desired, err = canonicalizeConnectorDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Connector: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Connector: %v", rawDesired)
 

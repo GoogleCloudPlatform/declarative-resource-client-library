@@ -312,6 +312,7 @@ func (c *Client) indexDiffsForRawDesired(ctx context.Context, rawDesired *Index,
 		desired, err := canonicalizeIndexDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
+
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetIndex(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -324,6 +325,7 @@ func (c *Client) indexDiffsForRawDesired(ctx context.Context, rawDesired *Index,
 		desired, err = canonicalizeIndexDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Index: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Index: %v", rawDesired)
 

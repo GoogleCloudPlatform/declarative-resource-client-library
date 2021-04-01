@@ -341,6 +341,7 @@ func (c *Client) organizationDiffsForRawDesired(ctx context.Context, rawDesired 
 		desired, err := canonicalizeOrganizationDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
+
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetOrganization(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -353,6 +354,7 @@ func (c *Client) organizationDiffsForRawDesired(ctx context.Context, rawDesired 
 		desired, err = canonicalizeOrganizationDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Organization: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Organization: %v", rawDesired)
 

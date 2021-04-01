@@ -376,6 +376,7 @@ func (c *Client) objectAccessControlDiffsForRawDesired(ctx context.Context, rawD
 		desired, err = canonicalizeObjectAccessControlDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for ObjectAccessControl: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for ObjectAccessControl: %v", rawDesired)
 

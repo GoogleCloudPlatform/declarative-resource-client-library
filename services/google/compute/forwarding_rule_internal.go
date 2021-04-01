@@ -320,6 +320,7 @@ func (c *Client) forwardingRuleDiffsForRawDesired(ctx context.Context, rawDesire
 		desired, err = canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for ForwardingRule: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for ForwardingRule: %v", rawDesired)
 

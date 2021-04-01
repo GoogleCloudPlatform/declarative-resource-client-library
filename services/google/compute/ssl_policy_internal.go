@@ -400,6 +400,7 @@ func (c *Client) sslPolicyDiffsForRawDesired(ctx context.Context, rawDesired *Ss
 		desired, err = canonicalizeSslPolicyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for SslPolicy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for SslPolicy: %v", rawDesired)
 

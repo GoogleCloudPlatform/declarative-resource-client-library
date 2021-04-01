@@ -435,6 +435,7 @@ func (c *Client) logMetricDiffsForRawDesired(ctx context.Context, rawDesired *Lo
 		desired, err = canonicalizeLogMetricDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for LogMetric: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for LogMetric: %v", rawDesired)
 

@@ -381,6 +381,7 @@ func (c *Client) backendBucketDiffsForRawDesired(ctx context.Context, rawDesired
 		desired, err = canonicalizeBackendBucketDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for BackendBucket: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for BackendBucket: %v", rawDesired)
 

@@ -376,6 +376,7 @@ func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Ins
 		desired, err = canonicalizeInstanceDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Instance: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Instance: %v", rawDesired)
 
@@ -666,7 +667,7 @@ func unmarshalMapInstance(m map[string]interface{}, c *Client) (*Instance, error
 func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
-		m["instanceId"] = v
+		m["name"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
@@ -706,7 +707,7 @@ func flattenInstance(c *Client, i interface{}) *Instance {
 	}
 
 	r := &Instance{}
-	r.Name = dcl.FlattenString(m["instanceId"])
+	r.Name = dcl.FlattenString(m["name"])
 	r.Project = dcl.FlattenString(m["project"])
 	r.Config = dcl.FlattenString(m["config"])
 	r.DisplayName = dcl.FlattenString(m["displayName"])

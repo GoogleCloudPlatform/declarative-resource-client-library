@@ -386,6 +386,7 @@ func (c *Client) subscriptionDiffsForRawDesired(ctx context.Context, rawDesired 
 		desired, err = canonicalizeSubscriptionDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Subscription: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Subscription: %v", rawDesired)
 

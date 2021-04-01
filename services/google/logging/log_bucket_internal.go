@@ -226,39 +226,6 @@ func (op *createLogBucketOperation) FirstResponse() (map[string]interface{}, boo
 	return op.response, len(op.response) > 0
 }
 
-func (op *createLogBucketOperation) do(ctx context.Context, r *LogBucket, c *Client) error {
-	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	location, parent, name := r.createFields()
-	u, err := logBucketCreateURL(c.Config.BasePath, location, parent, name)
-
-	if err != nil {
-		return err
-	}
-
-	req, err := r.marshal(c)
-	if err != nil {
-		return err
-	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
-	if err != nil {
-		return err
-	}
-
-	o, err := dcl.ResponseBodyAsJSON(resp)
-	if err != nil {
-		return fmt.Errorf("error decoding response body into JSON: %w", err)
-	}
-	op.response = o
-
-	if _, err := c.GetLogBucket(ctx, r.urlNormalized()); err != nil {
-		c.Config.Logger.Warningf("get returned error: %v", err)
-		return err
-	}
-
-	return nil
-}
-
 func (c *Client) getLogBucketRaw(ctx context.Context, r *LogBucket) ([]byte, error) {
 
 	u, err := logBucketGetURL(c.Config.BasePath, r.urlNormalized())
@@ -305,6 +272,7 @@ func (c *Client) logBucketDiffsForRawDesired(ctx context.Context, rawDesired *Lo
 		desired, err = canonicalizeLogBucketDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for LogBucket: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for LogBucket: %v", rawDesired)
 

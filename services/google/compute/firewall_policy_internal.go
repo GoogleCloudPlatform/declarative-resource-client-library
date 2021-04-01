@@ -289,6 +289,7 @@ func (c *Client) firewallPolicyDiffsForRawDesired(ctx context.Context, rawDesire
 		desired, err := canonicalizeFirewallPolicyDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
+
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetFirewallPolicy(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -301,6 +302,7 @@ func (c *Client) firewallPolicyDiffsForRawDesired(ctx context.Context, rawDesire
 		desired, err = canonicalizeFirewallPolicyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for FirewallPolicy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for FirewallPolicy: %v", rawDesired)
 

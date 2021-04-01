@@ -263,6 +263,7 @@ func (c *Client) resourceRecordSetDiffsForRawDesired(ctx context.Context, rawDes
 		desired, err = canonicalizeResourceRecordSetDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for ResourceRecordSet: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for ResourceRecordSet: %v", rawDesired)
 

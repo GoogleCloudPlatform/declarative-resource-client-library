@@ -421,6 +421,7 @@ func (c *Client) servicePerimeterDiffsForRawDesired(ctx context.Context, rawDesi
 		desired, err = canonicalizeServicePerimeterDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for ServicePerimeter: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for ServicePerimeter: %v", rawDesired)
 

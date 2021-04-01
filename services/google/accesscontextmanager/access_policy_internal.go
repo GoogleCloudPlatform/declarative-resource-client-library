@@ -367,6 +367,7 @@ func (c *Client) accessPolicyDiffsForRawDesired(ctx context.Context, rawDesired 
 		desired, err := canonicalizeAccessPolicyDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
+
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetAccessPolicy(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -379,6 +380,7 @@ func (c *Client) accessPolicyDiffsForRawDesired(ctx context.Context, rawDesired 
 		desired, err = canonicalizeAccessPolicyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for AccessPolicy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for AccessPolicy: %v", rawDesired)
 

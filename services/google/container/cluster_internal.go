@@ -1879,6 +1879,7 @@ func (c *Client) clusterDiffsForRawDesired(ctx context.Context, rawDesired *Clus
 		desired, err = canonicalizeClusterDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Cluster: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Cluster: %v", rawDesired)
 

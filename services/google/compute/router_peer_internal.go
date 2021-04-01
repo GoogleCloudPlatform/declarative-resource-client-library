@@ -415,6 +415,7 @@ func (c *Client) routerPeerDiffsForRawDesired(ctx context.Context, rawDesired *R
 		desired, err = canonicalizeRouterPeerDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for RouterPeer: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for RouterPeer: %v", rawDesired)
 

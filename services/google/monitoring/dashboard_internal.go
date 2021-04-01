@@ -1513,6 +1513,7 @@ func (c *Client) dashboardDiffsForRawDesired(ctx context.Context, rawDesired *Da
 		desired, err = canonicalizeDashboardDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Dashboard: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Dashboard: %v", rawDesired)
 

@@ -378,6 +378,7 @@ func (c *Client) networkDiffsForRawDesired(ctx context.Context, rawDesired *Netw
 		desired, err = canonicalizeNetworkDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Network: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Network: %v", rawDesired)
 

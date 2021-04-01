@@ -544,6 +544,7 @@ func (c *Client) subnetworkDiffsForRawDesired(ctx context.Context, rawDesired *S
 		desired, err = canonicalizeSubnetworkDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Subnetwork: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Subnetwork: %v", rawDesired)
 

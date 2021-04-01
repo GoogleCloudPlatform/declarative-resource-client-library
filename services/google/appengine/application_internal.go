@@ -263,6 +263,7 @@ func (c *Client) applicationDiffsForRawDesired(ctx context.Context, rawDesired *
 		desired, err = canonicalizeApplicationDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Application: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Application: %v", rawDesired)
 

@@ -552,6 +552,7 @@ func (c *Client) instanceGroupManagerDiffsForRawDesired(ctx context.Context, raw
 		desired, err = canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for InstanceGroupManager: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for InstanceGroupManager: %v", rawDesired)
 

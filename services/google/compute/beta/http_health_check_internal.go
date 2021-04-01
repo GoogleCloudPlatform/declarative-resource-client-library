@@ -404,6 +404,7 @@ func (c *Client) httpHealthCheckDiffsForRawDesired(ctx context.Context, rawDesir
 		desired, err = canonicalizeHttpHealthCheckDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for HttpHealthCheck: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for HttpHealthCheck: %v", rawDesired)
 

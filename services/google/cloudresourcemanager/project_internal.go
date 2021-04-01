@@ -356,6 +356,7 @@ func (c *Client) projectDiffsForRawDesired(ctx context.Context, rawDesired *Proj
 		desired, err = canonicalizeProjectDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Project: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Project: %v", rawDesired)
 

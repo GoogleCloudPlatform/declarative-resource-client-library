@@ -413,6 +413,7 @@ func (c *Client) managedZoneDiffsForRawDesired(ctx context.Context, rawDesired *
 		desired, err = canonicalizeManagedZoneDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for ManagedZone: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for ManagedZone: %v", rawDesired)
 

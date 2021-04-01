@@ -427,6 +427,7 @@ func (c *Client) firewallDiffsForRawDesired(ctx context.Context, rawDesired *Fir
 		desired, err = canonicalizeFirewallDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Firewall: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Firewall: %v", rawDesired)
 

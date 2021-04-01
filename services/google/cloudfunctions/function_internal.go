@@ -441,6 +441,7 @@ func (c *Client) functionDiffsForRawDesired(ctx context.Context, rawDesired *Fun
 		desired, err = canonicalizeFunctionDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Function: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Function: %v", rawDesired)
 

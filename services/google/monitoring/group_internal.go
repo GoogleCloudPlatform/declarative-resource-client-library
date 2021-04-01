@@ -354,6 +354,7 @@ func (c *Client) groupDiffsForRawDesired(ctx context.Context, rawDesired *Group,
 		desired, err := canonicalizeGroupDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
+
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetGroup(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -366,6 +367,7 @@ func (c *Client) groupDiffsForRawDesired(ctx context.Context, rawDesired *Group,
 		desired, err = canonicalizeGroupDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Group: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Group: %v", rawDesired)
 

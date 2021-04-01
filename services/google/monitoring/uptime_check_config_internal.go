@@ -436,6 +436,7 @@ func (c *Client) uptimeCheckConfigDiffsForRawDesired(ctx context.Context, rawDes
 		desired, err := canonicalizeUptimeCheckConfigDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
+
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetUptimeCheckConfig(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -448,6 +449,7 @@ func (c *Client) uptimeCheckConfigDiffsForRawDesired(ctx context.Context, rawDes
 		desired, err = canonicalizeUptimeCheckConfigDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for UptimeCheckConfig: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for UptimeCheckConfig: %v", rawDesired)
 

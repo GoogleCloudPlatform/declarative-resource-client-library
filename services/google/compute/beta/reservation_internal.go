@@ -326,6 +326,7 @@ func (c *Client) reservationDiffsForRawDesired(ctx context.Context, rawDesired *
 		desired, err = canonicalizeReservationDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Reservation: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Reservation: %v", rawDesired)
 

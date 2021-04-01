@@ -375,6 +375,7 @@ func (c *Client) domainMappingDiffsForRawDesired(ctx context.Context, rawDesired
 		desired, err = canonicalizeDomainMappingDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for DomainMapping: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for DomainMapping: %v", rawDesired)
 

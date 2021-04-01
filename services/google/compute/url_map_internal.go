@@ -799,6 +799,7 @@ func (c *Client) urlMapDiffsForRawDesired(ctx context.Context, rawDesired *UrlMa
 		desired, err = canonicalizeUrlMapDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for UrlMap: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for UrlMap: %v", rawDesired)
 

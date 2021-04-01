@@ -466,6 +466,7 @@ func (c *Client) healthCheckDiffsForRawDesired(ctx context.Context, rawDesired *
 		desired, err = canonicalizeHealthCheckDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for HealthCheck: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for HealthCheck: %v", rawDesired)
 

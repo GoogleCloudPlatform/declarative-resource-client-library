@@ -483,6 +483,7 @@ func (c *Client) autoscalerDiffsForRawDesired(ctx context.Context, rawDesired *A
 		desired, err = canonicalizeAutoscalerDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Autoscaler: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Autoscaler: %v", rawDesired)
 

@@ -306,6 +306,7 @@ func (c *Client) assignmentDiffsForRawDesired(ctx context.Context, rawDesired *A
 		desired, err := canonicalizeAssignmentDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
+
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetAssignment(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -318,6 +319,7 @@ func (c *Client) assignmentDiffsForRawDesired(ctx context.Context, rawDesired *A
 		desired, err = canonicalizeAssignmentDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Assignment: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Assignment: %v", rawDesired)
 

@@ -460,6 +460,7 @@ func (c *Client) membershipDiffsForRawDesired(ctx context.Context, rawDesired *M
 		desired, err = canonicalizeMembershipDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Membership: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Membership: %v", rawDesired)
 

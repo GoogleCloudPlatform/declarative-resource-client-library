@@ -278,18 +278,11 @@ func (c *Client) projectBillingInfoDiffsForRawDesired(ctx context.Context, rawDe
 		fetchState = rawDesired
 	}
 
-	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetProjectBillingInfo(ctx, fetchState.urlNormalized())
-	if rawInitial == nil {
-		if !dcl.IsNotFound(err) {
-			c.Config.Logger.Warningf("Failed to retrieve whether a ProjectBillingInfo resource already exists: %s", err)
-			return nil, nil, nil, fmt.Errorf("failed to retrieve ProjectBillingInfo resource: %v", err)
-		}
-		c.Config.Logger.Info("Found that ProjectBillingInfo resource did not exist.")
-		// Perform canonicalization to pick up defaults.
-		desired, err = canonicalizeProjectBillingInfoDesiredState(rawDesired, rawInitial)
-		return nil, desired, nil, err
-	}
+	// Simulate the resource not existing because create operation should be called anyway.
+	rawInitial := &ProjectBillingInfo{}
+	desired, err = canonicalizeProjectBillingInfoDesiredState(rawDesired, rawInitial)
+	return nil, desired, nil, err
+
 	c.Config.Logger.Infof("Found initial state for ProjectBillingInfo: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for ProjectBillingInfo: %v", rawDesired)
 

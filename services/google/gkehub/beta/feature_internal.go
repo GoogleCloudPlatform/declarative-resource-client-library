@@ -378,6 +378,7 @@ func (c *Client) featureDiffsForRawDesired(ctx context.Context, rawDesired *Feat
 		desired, err = canonicalizeFeatureDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Feature: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Feature: %v", rawDesired)
 

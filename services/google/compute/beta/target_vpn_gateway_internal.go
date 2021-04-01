@@ -298,6 +298,7 @@ func (c *Client) targetVpnGatewayDiffsForRawDesired(ctx context.Context, rawDesi
 		desired, err = canonicalizeTargetVpnGatewayDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for TargetVpnGateway: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for TargetVpnGateway: %v", rawDesired)
 

@@ -355,6 +355,7 @@ func (c *Client) folderDiffsForRawDesired(ctx context.Context, rawDesired *Folde
 		desired, err := canonicalizeFolderDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
+
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetFolder(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -367,6 +368,7 @@ func (c *Client) folderDiffsForRawDesired(ctx context.Context, rawDesired *Folde
 		desired, err = canonicalizeFolderDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Folder: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Folder: %v", rawDesired)
 

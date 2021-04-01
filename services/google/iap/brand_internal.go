@@ -203,6 +203,7 @@ func (c *Client) brandDiffsForRawDesired(ctx context.Context, rawDesired *Brand,
 		desired, err := canonicalizeBrandDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
+
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetBrand(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -215,6 +216,7 @@ func (c *Client) brandDiffsForRawDesired(ctx context.Context, rawDesired *Brand,
 		desired, err = canonicalizeBrandDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Brand: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Brand: %v", rawDesired)
 

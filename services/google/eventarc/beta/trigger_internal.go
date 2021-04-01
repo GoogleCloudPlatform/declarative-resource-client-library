@@ -466,6 +466,7 @@ func (c *Client) triggerDiffsForRawDesired(ctx context.Context, rawDesired *Trig
 		desired, err = canonicalizeTriggerDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Trigger: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Trigger: %v", rawDesired)
 

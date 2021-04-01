@@ -407,6 +407,7 @@ func (c *Client) connectionDiffsForRawDesired(ctx context.Context, rawDesired *C
 		desired, err = canonicalizeConnectionDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Connection: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Connection: %v", rawDesired)
 

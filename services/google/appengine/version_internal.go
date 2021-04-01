@@ -708,6 +708,7 @@ func (c *Client) versionDiffsForRawDesired(ctx context.Context, rawDesired *Vers
 		desired, err = canonicalizeVersionDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Version: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Version: %v", rawDesired)
 

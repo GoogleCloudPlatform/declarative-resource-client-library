@@ -384,6 +384,7 @@ func (c *Client) realmDiffsForRawDesired(ctx context.Context, rawDesired *Realm,
 		desired, err = canonicalizeRealmDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Realm: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Realm: %v", rawDesired)
 

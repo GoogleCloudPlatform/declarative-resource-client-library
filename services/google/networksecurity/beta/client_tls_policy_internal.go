@@ -485,6 +485,7 @@ func (c *Client) clientTlsPolicyDiffsForRawDesired(ctx context.Context, rawDesir
 		desired, err = canonicalizeClientTlsPolicyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for ClientTlsPolicy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for ClientTlsPolicy: %v", rawDesired)
 

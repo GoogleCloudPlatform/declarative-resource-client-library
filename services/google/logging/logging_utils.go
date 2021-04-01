@@ -22,6 +22,46 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
+// do makes a request to create a new log bucket if the name of the desired bucket is not
+// "_Default" or "_Required"
+func (op *createLogBucketOperation) do(ctx context.Context, r *LogBucket, c *Client) error {
+	if *r.Name == "_Default" || *r.Name == "_Required" {
+		return nil
+	}
+	c.Config.Logger.Infof("Attempting to create %v", r)
+
+	location, parent, name := r.createFields()
+	u, err := logBucketCreateURL(c.Config.BasePath, location, parent, name)
+
+	if err != nil {
+		return err
+	}
+
+	req, err := r.marshal(c)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+
+	o, err := dcl.ResponseBodyAsJSON(resp)
+	if err != nil {
+		return fmt.Errorf("error decoding response body into JSON: %w", err)
+	}
+	op.response = o
+
+	if _, err := c.GetLogBucket(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
+		return err
+	}
+
+	return nil
+}
+
+// do makes a request to delete a log bucket if the name of the bucket is not
+// "_Default" or "_Required"
 func (op *deleteLogBucketOperation) do(ctx context.Context, r *LogBucket, c *Client) error {
 
 	_, err := c.GetLogBucket(ctx, r.urlNormalized())
@@ -35,18 +75,20 @@ func (op *deleteLogBucketOperation) do(ctx context.Context, r *LogBucket, c *Cli
 		return err
 	}
 
-	if *r.Name != "_Default" && *r.Name != "_Required" {
-		u, err := logBucketDeleteURL(c.Config.BasePath, r.urlNormalized())
-		if err != nil {
-			return err
-		}
+	if *r.Name == "_Default" || *r.Name == "_Required" {
+		return nil
+	}
 
-		// Delete should never have a body
-		body := &bytes.Buffer{}
-		_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
-		if err != nil {
-			return fmt.Errorf("failed to delete LogBucket: %w", err)
-		}
+	u, err := logBucketDeleteURL(c.Config.BasePath, r.urlNormalized())
+	if err != nil {
+		return err
+	}
+
+	// Delete should never have a body
+	body := &bytes.Buffer{}
+	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
+	if err != nil {
+		return fmt.Errorf("failed to delete LogBucket: %w", err)
 	}
 	return nil
 }

@@ -422,6 +422,7 @@ func (c *Client) bucketDiffsForRawDesired(ctx context.Context, rawDesired *Bucke
 		desired, err = canonicalizeBucketDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Bucket: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Bucket: %v", rawDesired)
 

@@ -188,18 +188,11 @@ func (c *Client) serviceDiffsForRawDesired(ctx context.Context, rawDesired *Serv
 		fetchState = rawDesired
 	}
 
-	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetService(ctx, fetchState.urlNormalized())
-	if rawInitial == nil {
-		if !dcl.IsNotFound(err) {
-			c.Config.Logger.Warningf("Failed to retrieve whether a Service resource already exists: %s", err)
-			return nil, nil, nil, fmt.Errorf("failed to retrieve Service resource: %v", err)
-		}
-		c.Config.Logger.Info("Found that Service resource did not exist.")
-		// Perform canonicalization to pick up defaults.
-		desired, err = canonicalizeServiceDesiredState(rawDesired, rawInitial)
-		return nil, desired, nil, err
-	}
+	// Simulate the resource not existing because create operation should be called anyway.
+	rawInitial := &Service{}
+	desired, err = canonicalizeServiceDesiredState(rawDesired, rawInitial)
+	return nil, desired, nil, err
+
 	c.Config.Logger.Infof("Found initial state for Service: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Service: %v", rawDesired)
 

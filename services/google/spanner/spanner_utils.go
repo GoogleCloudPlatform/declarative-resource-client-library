@@ -22,7 +22,7 @@ import (
 func EncodeSpannerInstanceCreateRequest(m map[string]interface{}) map[string]interface{} {
 	req := make(map[string]interface{})
 	dcl.PutMapEntry(req, []string{"instance"}, m)
-	dcl.MoveMapEntry(req, []string{"instance", "instanceId"}, []string{"instanceId"})
+	dcl.MoveMapEntry(req, []string{"instance", "name"}, []string{"instanceId"})
 	return req
 }
 

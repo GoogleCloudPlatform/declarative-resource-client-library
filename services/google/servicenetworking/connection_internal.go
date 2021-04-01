@@ -338,6 +338,7 @@ func (c *Client) connectionDiffsForRawDesired(ctx context.Context, rawDesired *C
 		desired, err := canonicalizeConnectionDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
+
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetConnection(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -350,6 +351,7 @@ func (c *Client) connectionDiffsForRawDesired(ctx context.Context, rawDesired *C
 		desired, err = canonicalizeConnectionDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Connection: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Connection: %v", rawDesired)
 

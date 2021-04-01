@@ -462,6 +462,7 @@ func (c *Client) instanceTemplateDiffsForRawDesired(ctx context.Context, rawDesi
 		desired, err = canonicalizeInstanceTemplateDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for InstanceTemplate: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for InstanceTemplate: %v", rawDesired)
 

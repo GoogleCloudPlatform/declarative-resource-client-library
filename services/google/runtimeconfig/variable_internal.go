@@ -355,6 +355,7 @@ func (c *Client) variableDiffsForRawDesired(ctx context.Context, rawDesired *Var
 		desired, err = canonicalizeVariableDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
+
 	c.Config.Logger.Infof("Found initial state for Variable: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Variable: %v", rawDesired)
 
