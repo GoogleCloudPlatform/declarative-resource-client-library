@@ -892,6 +892,149 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []instanceDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "Description"})
+	}
+
+	if d, err := dcl.Diff(desired.EnableStackdriverLogging, actual.EnableStackdriverLogging, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "EnableStackdriverLogging",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.EnableStackdriverMonitoring, actual.EnableStackdriverMonitoring, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "EnableStackdriverMonitoring",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.PrivateInstance, actual.PrivateInstance, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "PrivateInstance"})
+	}
+
+	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "Labels",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Options, actual.Options, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "Options",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "CreateTime"})
+	}
+
+	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
+	}
+
+	if d, err := dcl.Diff(desired.StateMessage, actual.StateMessage, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "StateMessage"})
+	}
+
+	if d, err := dcl.Diff(desired.ServiceEndpoint, actual.ServiceEndpoint, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "ServiceEndpoint"})
+	}
+
+	if d, err := dcl.Diff(desired.Zone, actual.Zone, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "Zone",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Version, actual.Version, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "Version",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "DisplayName",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.ApiEndpoint, actual.ApiEndpoint, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "ApiEndpoint"})
+	}
+
+	if d, err := dcl.Diff(desired.GcsBucket, actual.GcsBucket, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "GcsBucket"})
+	}
+
+	if d, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "P4ServiceAccount"})
+	}
+
+	if d, err := dcl.Diff(desired.TenantProjectId, actual.TenantProjectId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "TenantProjectId"})
+	}
+
+	if d, err := dcl.Diff(desired.DataprocServiceAccount, actual.DataprocServiceAccount, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "DataprocServiceAccount",
+		})
+	}
+
 	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, instanceDiff{

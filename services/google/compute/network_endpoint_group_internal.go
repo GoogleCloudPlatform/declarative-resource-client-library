@@ -870,6 +870,77 @@ func diffNetworkEndpointGroup(c *Client, desired, actual *NetworkEndpointGroup, 
 	}
 
 	var diffs []networkEndpointGroupDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Id, actual.Id, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, FieldName: "Id"})
+	}
+
+	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+	}
+
+	if d, err := dcl.Diff(desired.SelfLinkWithId, actual.SelfLinkWithId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, FieldName: "SelfLinkWithId"})
+	}
+
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, FieldName: "Description"})
+	}
+
+	if d, err := dcl.Diff(desired.Size, actual.Size, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, FieldName: "Size"})
+	}
+
+	if d, err := dcl.Diff(desired.Network, actual.Network, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, FieldName: "Network"})
+	}
+
+	if d, err := dcl.Diff(desired.Subnetwork, actual.Subnetwork, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, FieldName: "Subnetwork"})
+	}
+
+	if d, err := dcl.Diff(desired.DefaultPort, actual.DefaultPort, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, FieldName: "DefaultPort"})
+	}
+
+	if d, err := dcl.Diff(desired.Annotations, actual.Annotations, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, FieldName: "Annotations"})
+	}
+
 	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, networkEndpointGroupDiff{

@@ -88,6 +88,10 @@ components:
                 description: User-specified list of prefix groups to advertise in
                   custom mode
                 items:
+                  enum:
+                  - ALL_SUBNETS
+                  - ALL_VPC_SUBNETS
+                  - ALL_PEER_VPC_SUBNETS
                   type: string
                   x-dcl-go-type: RouterBgpPeersAdvertisedGroupsEnum
                 type: array
@@ -270,6 +274,9 @@ components:
               natIPAllocateOption:
                 description: The NAT IP Allocate Option
                 items:
+                  enum:
+                  - MANUAL_ONLY
+                  - AUTO_ONLY
                   type: string
                   x-dcl-go-type: RouterNatsNatIPAllocateOptionEnum
                 type: array

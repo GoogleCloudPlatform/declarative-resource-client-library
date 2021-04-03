@@ -590,6 +590,28 @@ func diffPolicy(c *Client, desired, actual *Policy, opts ...dcl.ApplyOption) ([]
 	}
 
 	var diffs []policyDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, policyDiff{RequiresRecreate: true, FieldName: "Description"})
+	}
+
+	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, policyDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+	}
+
+	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, policyDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
+	}
+
 	if comparePolicyAdmissionWhitelistPatternsSlice(c, desired.AdmissionWhitelistPatterns, actual.AdmissionWhitelistPatterns) {
 		c.Config.Logger.Infof("Detected diff in AdmissionWhitelistPatterns.\nDESIRED: %v\nACTUAL: %v", desired.AdmissionWhitelistPatterns, actual.AdmissionWhitelistPatterns)
 		diffs = append(diffs, policyDiff{

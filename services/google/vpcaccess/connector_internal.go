@@ -470,6 +470,42 @@ func diffConnector(c *Client, desired, actual *Connector, opts ...dcl.ApplyOptio
 	}
 
 	var diffs []connectorDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Network, actual.Network, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, FieldName: "Network"})
+	}
+
+	if d, err := dcl.Diff(desired.IPCidrRange, actual.IPCidrRange, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, FieldName: "IPCidrRange"})
+	}
+
+	if d, err := dcl.Diff(desired.MinThroughput, actual.MinThroughput, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, FieldName: "MinThroughput"})
+	}
+
+	if d, err := dcl.Diff(desired.MaxThroughput, actual.MaxThroughput, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, FieldName: "MaxThroughput"})
+	}
+
+	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+	}
+
 	if !dcl.IsZeroValue(desired.Network) && !dcl.StringCanonicalize(desired.Network, actual.Network) {
 		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
 		diffs = append(diffs, connectorDiff{

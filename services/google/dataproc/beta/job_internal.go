@@ -3229,6 +3229,58 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]jobDif
 	}
 
 	var diffs []jobDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.SubmittedBy, actual.SubmittedBy, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, jobDiff{RequiresRecreate: true, FieldName: "SubmittedBy"})
+	}
+
+	if d, err := dcl.Diff(desired.DriverInputResourceUri, actual.DriverInputResourceUri, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, jobDiff{RequiresRecreate: true, FieldName: "DriverInputResourceUri"})
+	}
+
+	if d, err := dcl.Diff(desired.DriverOutputResourceUri, actual.DriverOutputResourceUri, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, jobDiff{RequiresRecreate: true, FieldName: "DriverOutputResourceUri"})
+	}
+
+	if d, err := dcl.Diff(desired.DriverControlFilesUri, actual.DriverControlFilesUri, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, jobDiff{RequiresRecreate: true, FieldName: "DriverControlFilesUri"})
+	}
+
+	if d, err := dcl.Diff(desired.Interactive, actual.Interactive, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, jobDiff{RequiresRecreate: true, FieldName: "Interactive"})
+	}
+
+	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, jobDiff{
+			UpdateOp: &updateJobPatchOperation{}, FieldName: "Labels",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Done, actual.Done, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, jobDiff{RequiresRecreate: true, FieldName: "Done"})
+	}
+
 	if compareJobReference(c, desired.Reference, actual.Reference) {
 		c.Config.Logger.Infof("Detected diff in Reference.\nDESIRED: %v\nACTUAL: %v", desired.Reference, actual.Reference)
 		diffs = append(diffs, jobDiff{
@@ -8721,6 +8773,10 @@ func expandJobDriverRunnerMasterDriverRunner(c *Client, f *JobDriverRunnerMaster
 // flattenJobDriverRunnerMasterDriverRunner flattens an instance of JobDriverRunnerMasterDriverRunner from a JSON
 // response object.
 func flattenJobDriverRunnerMasterDriverRunner(c *Client, i interface{}) *JobDriverRunnerMasterDriverRunner {
+	_, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
 
 	r := &JobDriverRunnerMasterDriverRunner{}
 

@@ -335,6 +335,28 @@ func diffBrand(c *Client, desired, actual *Brand, opts ...dcl.ApplyOption) ([]br
 	}
 
 	var diffs []brandDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.ApplicationTitle, actual.ApplicationTitle, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, brandDiff{RequiresRecreate: true, FieldName: "ApplicationTitle"})
+	}
+
+	if d, err := dcl.Diff(desired.OrgInternalOnly, actual.OrgInternalOnly, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, brandDiff{RequiresRecreate: true, FieldName: "OrgInternalOnly"})
+	}
+
+	if d, err := dcl.Diff(desired.SupportEmail, actual.SupportEmail, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, brandDiff{RequiresRecreate: true, FieldName: "SupportEmail"})
+	}
+
 	if !dcl.IsZeroValue(desired.ApplicationTitle) && !dcl.StringCanonicalize(desired.ApplicationTitle, actual.ApplicationTitle) {
 		c.Config.Logger.Infof("Detected diff in ApplicationTitle.\nDESIRED: %v\nACTUAL: %v", desired.ApplicationTitle, actual.ApplicationTitle)
 		diffs = append(diffs, brandDiff{

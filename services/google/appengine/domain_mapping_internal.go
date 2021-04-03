@@ -658,6 +658,21 @@ func diffDomainMapping(c *Client, desired, actual *DomainMapping, opts ...dcl.Ap
 	}
 
 	var diffs []domainMappingDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, domainMappingDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+	}
+
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, domainMappingDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
 	if !dcl.IsZeroValue(desired.SelfLink) && !dcl.StringCanonicalize(desired.SelfLink, actual.SelfLink) {
 		c.Config.Logger.Infof("Detected diff in SelfLink.\nDESIRED: %v\nACTUAL: %v", desired.SelfLink, actual.SelfLink)
 		diffs = append(diffs, domainMappingDiff{

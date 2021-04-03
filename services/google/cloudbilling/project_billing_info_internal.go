@@ -382,6 +382,23 @@ func diffProjectBillingInfo(c *Client, desired, actual *ProjectBillingInfo, opts
 	}
 
 	var diffs []projectBillingInfoDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.BillingAccountName, actual.BillingAccountName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, projectBillingInfoDiff{
+			UpdateOp: &updateProjectBillingInfoUpdateProjectBillingInfoOperation{}, FieldName: "BillingAccountName",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.BillingEnabled, actual.BillingEnabled, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, projectBillingInfoDiff{RequiresRecreate: true, FieldName: "BillingEnabled"})
+	}
+
 	if !dcl.IsZeroValue(desired.BillingAccountName) && !dcl.PartialSelfLinkToSelfLink(desired.BillingAccountName, actual.BillingAccountName) {
 		c.Config.Logger.Infof("Detected diff in BillingAccountName.\nDESIRED: %v\nACTUAL: %v", desired.BillingAccountName, actual.BillingAccountName)
 

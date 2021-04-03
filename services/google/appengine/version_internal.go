@@ -3478,6 +3478,169 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []versionDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.ConsumerName, actual.ConsumerName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, versionDiff{
+			UpdateOp: &updateVersionPatchVersionOperation{}, FieldName: "ConsumerName",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, versionDiff{
+			UpdateOp: &updateVersionPatchVersionOperation{}, FieldName: "Name",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.InstanceClass, actual.InstanceClass, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, versionDiff{
+			UpdateOp: &updateVersionPatchVersionOperation{}, FieldName: "InstanceClass",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Runtime, actual.Runtime, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, versionDiff{
+			UpdateOp: &updateVersionPatchVersionOperation{}, FieldName: "Runtime",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.RuntimeChannel, actual.RuntimeChannel, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, versionDiff{
+			UpdateOp: &updateVersionPatchVersionOperation{}, FieldName: "RuntimeChannel",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Threadsafe, actual.Threadsafe, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, versionDiff{
+			UpdateOp: &updateVersionPatchVersionOperation{}, FieldName: "Threadsafe",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Vm, actual.Vm, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, versionDiff{
+			UpdateOp: &updateVersionPatchVersionOperation{}, FieldName: "Vm",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.BetaSettings, actual.BetaSettings, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, versionDiff{
+			UpdateOp: &updateVersionPatchVersionOperation{}, FieldName: "BetaSettings",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Env, actual.Env, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, versionDiff{
+			UpdateOp: &updateVersionPatchVersionOperation{}, FieldName: "Env",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.CreatedBy, actual.CreatedBy, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, versionDiff{
+			UpdateOp: &updateVersionPatchVersionOperation{}, FieldName: "CreatedBy",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, versionDiff{
+			UpdateOp: &updateVersionPatchVersionOperation{}, FieldName: "CreateTime",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.DiskUsageBytes, actual.DiskUsageBytes, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, versionDiff{
+			UpdateOp: &updateVersionPatchVersionOperation{}, FieldName: "DiskUsageBytes",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.RuntimeApiVersion, actual.RuntimeApiVersion, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, versionDiff{
+			UpdateOp: &updateVersionPatchVersionOperation{}, FieldName: "RuntimeApiVersion",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.RuntimeMainExecutablePath, actual.RuntimeMainExecutablePath, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, versionDiff{
+			UpdateOp: &updateVersionPatchVersionOperation{}, FieldName: "RuntimeMainExecutablePath",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.EnvVariables, actual.EnvVariables, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, versionDiff{
+			UpdateOp: &updateVersionPatchVersionOperation{}, FieldName: "EnvVariables",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.DefaultExpiration, actual.DefaultExpiration, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, versionDiff{
+			UpdateOp: &updateVersionPatchVersionOperation{}, FieldName: "DefaultExpiration",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.NobuildFilesRegex, actual.NobuildFilesRegex, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, versionDiff{
+			UpdateOp: &updateVersionPatchVersionOperation{}, FieldName: "NobuildFilesRegex",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.VersionUrl, actual.VersionUrl, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, versionDiff{
+			UpdateOp: &updateVersionPatchVersionOperation{}, FieldName: "VersionUrl",
+		})
+	}
+
 	if !dcl.IsZeroValue(desired.ConsumerName) && !dcl.StringCanonicalize(desired.ConsumerName, actual.ConsumerName) {
 		c.Config.Logger.Infof("Detected diff in ConsumerName.\nDESIRED: %v\nACTUAL: %v", desired.ConsumerName, actual.ConsumerName)
 

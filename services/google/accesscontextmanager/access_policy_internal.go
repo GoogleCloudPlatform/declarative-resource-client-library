@@ -499,6 +499,37 @@ func diffAccessPolicy(c *Client, desired, actual *AccessPolicy, opts ...dcl.Appl
 	}
 
 	var diffs []accessPolicyDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Parent, actual.Parent, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, accessPolicyDiff{RequiresRecreate: true, FieldName: "Parent"})
+	}
+
+	if d, err := dcl.Diff(desired.Title, actual.Title, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, accessPolicyDiff{
+			UpdateOp: &updateAccessPolicyUpdateOperation{}, FieldName: "Title",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, accessPolicyDiff{RequiresRecreate: true, FieldName: "CreateTime"})
+	}
+
+	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, accessPolicyDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
+	}
+
 	if !dcl.IsZeroValue(desired.Parent) && !dcl.PartialSelfLinkToSelfLink(desired.Parent, actual.Parent) {
 		c.Config.Logger.Infof("Detected diff in Parent.\nDESIRED: %v\nACTUAL: %v", desired.Parent, actual.Parent)
 		diffs = append(diffs, accessPolicyDiff{

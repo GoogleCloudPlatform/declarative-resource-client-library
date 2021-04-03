@@ -481,6 +481,51 @@ func diffLogExclusion(c *Client, desired, actual *LogExclusion, opts ...dcl.Appl
 	}
 
 	var diffs []logExclusionDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, logExclusionDiff{
+			UpdateOp: &updateLogExclusionUpdateExclusionOperation{}, FieldName: "Name",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, logExclusionDiff{RequiresRecreate: true, FieldName: "Description"})
+	}
+
+	if d, err := dcl.Diff(desired.Filter, actual.Filter, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, logExclusionDiff{RequiresRecreate: true, FieldName: "Filter"})
+	}
+
+	if d, err := dcl.Diff(desired.Disabled, actual.Disabled, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, logExclusionDiff{RequiresRecreate: true, FieldName: "Disabled"})
+	}
+
+	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, logExclusionDiff{RequiresRecreate: true, FieldName: "CreateTime"})
+	}
+
+	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, logExclusionDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
+	}
+
 	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 

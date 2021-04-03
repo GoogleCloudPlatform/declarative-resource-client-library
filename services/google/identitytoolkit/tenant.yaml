@@ -43,6 +43,9 @@ components:
             enabledProviders:
               description: A list of usable second factors for this project.
               items:
+                enum:
+                - PROVIDER_UNSPECIFIED
+                - PHONE_SMS
                 type: string
                 x-dcl-go-type: TenantMfaConfigEnabledProvidersEnum
               type: array

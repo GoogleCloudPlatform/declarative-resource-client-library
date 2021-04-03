@@ -723,6 +723,46 @@ func diffWorkload(c *Client, desired, actual *Workload, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []workloadDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workloadDiff{
+			UpdateOp: &updateWorkloadUpdateWorkloadOperation{}, FieldName: "DisplayName",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workloadDiff{RequiresRecreate: true, FieldName: "CreateTime"})
+	}
+
+	if d, err := dcl.Diff(desired.BillingAccount, actual.BillingAccount, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workloadDiff{RequiresRecreate: true, FieldName: "BillingAccount"})
+	}
+
+	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workloadDiff{
+			UpdateOp: &updateWorkloadUpdateWorkloadOperation{}, FieldName: "Labels",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.ProvisionedResourcesParent, actual.ProvisionedResourcesParent, &dcl.Info{Ignore: true, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workloadDiff{RequiresRecreate: true, FieldName: "ProvisionedResourcesParent"})
+	}
+
 	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
 		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 

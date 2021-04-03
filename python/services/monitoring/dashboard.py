@@ -21,42 +21,32 @@ from typing import List
 class Dashboard(object):
     def __init__(
         self,
-        category: str = None,
-        column_layout: dict = None,
+        name: str = None,
         display_name: str = None,
         grid_layout: dict = None,
         mosaic_layout: dict = None,
-        name: str = None,
         row_layout: dict = None,
-        tabbed_layout: dict = None,
+        column_layout: dict = None,
         project: str = None,
         service_account_file: str = "",
     ):
 
         channel.initialize()
-        self.category = category
-        self.column_layout = column_layout
+        self.name = name
         self.display_name = display_name
         self.grid_layout = grid_layout
         self.mosaic_layout = mosaic_layout
-        self.name = name
         self.row_layout = row_layout
-        self.tabbed_layout = tabbed_layout
+        self.column_layout = column_layout
         self.project = project
         self.service_account_file = service_account_file
 
     def apply(self):
         stub = dashboard_pb2_grpc.MonitoringDashboardServiceStub(channel.Channel())
         request = dashboard_pb2.ApplyMonitoringDashboardRequest()
-        if DashboardCategoryEnum.to_proto(self.category):
-            request.resource.category = DashboardCategoryEnum.to_proto(self.category)
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        if DashboardColumnLayout.to_proto(self.column_layout):
-            request.resource.column_layout.CopyFrom(
-                DashboardColumnLayout.to_proto(self.column_layout)
-            )
-        else:
-            request.resource.ClearField("column_layout")
         if Primitive.to_proto(self.display_name):
             request.resource.display_name = Primitive.to_proto(self.display_name)
 
@@ -72,50 +62,39 @@ class Dashboard(object):
             )
         else:
             request.resource.ClearField("mosaic_layout")
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
         if DashboardRowLayout.to_proto(self.row_layout):
             request.resource.row_layout.CopyFrom(
                 DashboardRowLayout.to_proto(self.row_layout)
             )
         else:
             request.resource.ClearField("row_layout")
-        if DashboardTabbedLayout.to_proto(self.tabbed_layout):
-            request.resource.tabbed_layout.CopyFrom(
-                DashboardTabbedLayout.to_proto(self.tabbed_layout)
+        if DashboardColumnLayout.to_proto(self.column_layout):
+            request.resource.column_layout.CopyFrom(
+                DashboardColumnLayout.to_proto(self.column_layout)
             )
         else:
-            request.resource.ClearField("tabbed_layout")
+            request.resource.ClearField("column_layout")
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyMonitoringDashboard(request)
-        self.category = DashboardCategoryEnum.from_proto(response.category)
-        self.column_layout = DashboardColumnLayout.from_proto(response.column_layout)
+        self.name = Primitive.from_proto(response.name)
         self.display_name = Primitive.from_proto(response.display_name)
         self.grid_layout = DashboardGridLayout.from_proto(response.grid_layout)
         self.mosaic_layout = DashboardMosaicLayout.from_proto(response.mosaic_layout)
-        self.name = Primitive.from_proto(response.name)
         self.row_layout = DashboardRowLayout.from_proto(response.row_layout)
-        self.tabbed_layout = DashboardTabbedLayout.from_proto(response.tabbed_layout)
+        self.column_layout = DashboardColumnLayout.from_proto(response.column_layout)
         self.project = Primitive.from_proto(response.project)
 
     def delete(self):
         stub = dashboard_pb2_grpc.MonitoringDashboardServiceStub(channel.Channel())
         request = dashboard_pb2.DeleteMonitoringDashboardRequest()
         request.service_account_file = self.service_account_file
-        if DashboardCategoryEnum.to_proto(self.category):
-            request.resource.category = DashboardCategoryEnum.to_proto(self.category)
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        if DashboardColumnLayout.to_proto(self.column_layout):
-            request.resource.column_layout.CopyFrom(
-                DashboardColumnLayout.to_proto(self.column_layout)
-            )
-        else:
-            request.resource.ClearField("column_layout")
         if Primitive.to_proto(self.display_name):
             request.resource.display_name = Primitive.to_proto(self.display_name)
 
@@ -131,21 +110,18 @@ class Dashboard(object):
             )
         else:
             request.resource.ClearField("mosaic_layout")
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
         if DashboardRowLayout.to_proto(self.row_layout):
             request.resource.row_layout.CopyFrom(
                 DashboardRowLayout.to_proto(self.row_layout)
             )
         else:
             request.resource.ClearField("row_layout")
-        if DashboardTabbedLayout.to_proto(self.tabbed_layout):
-            request.resource.tabbed_layout.CopyFrom(
-                DashboardTabbedLayout.to_proto(self.tabbed_layout)
+        if DashboardColumnLayout.to_proto(self.column_layout):
+            request.resource.column_layout.CopyFrom(
+                DashboardColumnLayout.to_proto(self.column_layout)
             )
         else:
-            request.resource.ClearField("tabbed_layout")
+            request.resource.ClearField("column_layout")
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -167,27 +143,19 @@ class Dashboard(object):
         any_proto.Unpack(res_proto)
 
         res = Dashboard()
-        res.category = DashboardCategoryEnum.from_proto(res_proto.category)
-        res.column_layout = DashboardColumnLayout.from_proto(res_proto.column_layout)
+        res.name = Primitive.from_proto(res_proto.name)
         res.display_name = Primitive.from_proto(res_proto.display_name)
         res.grid_layout = DashboardGridLayout.from_proto(res_proto.grid_layout)
         res.mosaic_layout = DashboardMosaicLayout.from_proto(res_proto.mosaic_layout)
-        res.name = Primitive.from_proto(res_proto.name)
         res.row_layout = DashboardRowLayout.from_proto(res_proto.row_layout)
-        res.tabbed_layout = DashboardTabbedLayout.from_proto(res_proto.tabbed_layout)
+        res.column_layout = DashboardColumnLayout.from_proto(res_proto.column_layout)
         res.project = Primitive.from_proto(res_proto.project)
         return res
 
     def to_proto(self):
         resource = dashboard_pb2.MonitoringDashboard()
-        if DashboardCategoryEnum.to_proto(self.category):
-            resource.category = DashboardCategoryEnum.to_proto(self.category)
-        if DashboardColumnLayout.to_proto(self.column_layout):
-            resource.column_layout.CopyFrom(
-                DashboardColumnLayout.to_proto(self.column_layout)
-            )
-        else:
-            resource.ClearField("column_layout")
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.display_name):
             resource.display_name = Primitive.to_proto(self.display_name)
         if DashboardGridLayout.to_proto(self.grid_layout):
@@ -202,21 +170,225 @@ class Dashboard(object):
             )
         else:
             resource.ClearField("mosaic_layout")
-        if Primitive.to_proto(self.name):
-            resource.name = Primitive.to_proto(self.name)
         if DashboardRowLayout.to_proto(self.row_layout):
             resource.row_layout.CopyFrom(DashboardRowLayout.to_proto(self.row_layout))
         else:
             resource.ClearField("row_layout")
-        if DashboardTabbedLayout.to_proto(self.tabbed_layout):
-            resource.tabbed_layout.CopyFrom(
-                DashboardTabbedLayout.to_proto(self.tabbed_layout)
+        if DashboardColumnLayout.to_proto(self.column_layout):
+            resource.column_layout.CopyFrom(
+                DashboardColumnLayout.to_proto(self.column_layout)
             )
         else:
-            resource.ClearField("tabbed_layout")
+            resource.ClearField("column_layout")
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         return resource
+
+
+class DashboardGridLayout(object):
+    def __init__(self, columns: int = None, widgets: list = None):
+        self.columns = columns
+        self.widgets = widgets
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = dashboard_pb2.MonitoringDashboardGridLayout()
+        if Primitive.to_proto(resource.columns):
+            res.columns = Primitive.to_proto(resource.columns)
+        if DashboardWidgetArray.to_proto(resource.widgets):
+            res.widgets.extend(DashboardWidgetArray.to_proto(resource.widgets))
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DashboardGridLayout(columns=resource.columns, widgets=resource.widgets,)
+
+
+class DashboardGridLayoutArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [DashboardGridLayout.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [DashboardGridLayout.from_proto(i) for i in resources]
+
+
+class DashboardMosaicLayout(object):
+    def __init__(self, columns: int = None, tiles: list = None):
+        self.columns = columns
+        self.tiles = tiles
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = dashboard_pb2.MonitoringDashboardMosaicLayout()
+        if Primitive.to_proto(resource.columns):
+            res.columns = Primitive.to_proto(resource.columns)
+        if DashboardMosaicLayoutTilesArray.to_proto(resource.tiles):
+            res.tiles.extend(DashboardMosaicLayoutTilesArray.to_proto(resource.tiles))
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DashboardMosaicLayout(columns=resource.columns, tiles=resource.tiles,)
+
+
+class DashboardMosaicLayoutArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [DashboardMosaicLayout.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [DashboardMosaicLayout.from_proto(i) for i in resources]
+
+
+class DashboardMosaicLayoutTiles(object):
+    def __init__(
+        self,
+        x_pos: int = None,
+        y_pos: int = None,
+        width: int = None,
+        height: int = None,
+        widget: dict = None,
+    ):
+        self.x_pos = x_pos
+        self.y_pos = y_pos
+        self.width = width
+        self.height = height
+        self.widget = widget
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = dashboard_pb2.MonitoringDashboardMosaicLayoutTiles()
+        if Primitive.to_proto(resource.x_pos):
+            res.x_pos = Primitive.to_proto(resource.x_pos)
+        if Primitive.to_proto(resource.y_pos):
+            res.y_pos = Primitive.to_proto(resource.y_pos)
+        if Primitive.to_proto(resource.width):
+            res.width = Primitive.to_proto(resource.width)
+        if Primitive.to_proto(resource.height):
+            res.height = Primitive.to_proto(resource.height)
+        if DashboardWidget.to_proto(resource.widget):
+            res.widget.CopyFrom(DashboardWidget.to_proto(resource.widget))
+        else:
+            res.ClearField("widget")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DashboardMosaicLayoutTiles(
+            x_pos=resource.x_pos,
+            y_pos=resource.y_pos,
+            width=resource.width,
+            height=resource.height,
+            widget=resource.widget,
+        )
+
+
+class DashboardMosaicLayoutTilesArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [DashboardMosaicLayoutTiles.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [DashboardMosaicLayoutTiles.from_proto(i) for i in resources]
+
+
+class DashboardRowLayout(object):
+    def __init__(self, rows: list = None):
+        self.rows = rows
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = dashboard_pb2.MonitoringDashboardRowLayout()
+        if DashboardRowLayoutRowsArray.to_proto(resource.rows):
+            res.rows.extend(DashboardRowLayoutRowsArray.to_proto(resource.rows))
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DashboardRowLayout(rows=resource.rows,)
+
+
+class DashboardRowLayoutArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [DashboardRowLayout.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [DashboardRowLayout.from_proto(i) for i in resources]
+
+
+class DashboardRowLayoutRows(object):
+    def __init__(self, weight: int = None, widgets: list = None):
+        self.weight = weight
+        self.widgets = widgets
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = dashboard_pb2.MonitoringDashboardRowLayoutRows()
+        if Primitive.to_proto(resource.weight):
+            res.weight = Primitive.to_proto(resource.weight)
+        if DashboardWidgetArray.to_proto(resource.widgets):
+            res.widgets.extend(DashboardWidgetArray.to_proto(resource.widgets))
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DashboardRowLayoutRows(weight=resource.weight, widgets=resource.widgets,)
+
+
+class DashboardRowLayoutRowsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [DashboardRowLayoutRows.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [DashboardRowLayoutRows.from_proto(i) for i in resources]
 
 
 class DashboardColumnLayout(object):
@@ -9552,773 +9724,6 @@ class DashboardWidgetBlankArray(object):
     @classmethod
     def from_proto(self, resources):
         return [DashboardWidgetBlank.from_proto(i) for i in resources]
-
-
-class DashboardGridLayout(object):
-    def __init__(self, columns: int = None, widgets: list = None):
-        self.columns = columns
-        self.widgets = widgets
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = dashboard_pb2.MonitoringDashboardGridLayout()
-        if Primitive.to_proto(resource.columns):
-            res.columns = Primitive.to_proto(resource.columns)
-        if DashboardWidgetArray.to_proto(resource.widgets):
-            res.widgets.extend(DashboardWidgetArray.to_proto(resource.widgets))
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardGridLayout(columns=resource.columns, widgets=resource.widgets,)
-
-
-class DashboardGridLayoutArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [DashboardGridLayout.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [DashboardGridLayout.from_proto(i) for i in resources]
-
-
-class DashboardMosaicLayout(object):
-    def __init__(self, columns: int = None, tiles: list = None):
-        self.columns = columns
-        self.tiles = tiles
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = dashboard_pb2.MonitoringDashboardMosaicLayout()
-        if Primitive.to_proto(resource.columns):
-            res.columns = Primitive.to_proto(resource.columns)
-        if DashboardMosaicLayoutTilesArray.to_proto(resource.tiles):
-            res.tiles.extend(DashboardMosaicLayoutTilesArray.to_proto(resource.tiles))
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardMosaicLayout(columns=resource.columns, tiles=resource.tiles,)
-
-
-class DashboardMosaicLayoutArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [DashboardMosaicLayout.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [DashboardMosaicLayout.from_proto(i) for i in resources]
-
-
-class DashboardMosaicLayoutTiles(object):
-    def __init__(
-        self,
-        x_pos: int = None,
-        y_pos: int = None,
-        width: int = None,
-        height: int = None,
-        widget: dict = None,
-    ):
-        self.x_pos = x_pos
-        self.y_pos = y_pos
-        self.width = width
-        self.height = height
-        self.widget = widget
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = dashboard_pb2.MonitoringDashboardMosaicLayoutTiles()
-        if Primitive.to_proto(resource.x_pos):
-            res.x_pos = Primitive.to_proto(resource.x_pos)
-        if Primitive.to_proto(resource.y_pos):
-            res.y_pos = Primitive.to_proto(resource.y_pos)
-        if Primitive.to_proto(resource.width):
-            res.width = Primitive.to_proto(resource.width)
-        if Primitive.to_proto(resource.height):
-            res.height = Primitive.to_proto(resource.height)
-        if DashboardWidget.to_proto(resource.widget):
-            res.widget.CopyFrom(DashboardWidget.to_proto(resource.widget))
-        else:
-            res.ClearField("widget")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardMosaicLayoutTiles(
-            x_pos=resource.x_pos,
-            y_pos=resource.y_pos,
-            width=resource.width,
-            height=resource.height,
-            widget=resource.widget,
-        )
-
-
-class DashboardMosaicLayoutTilesArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [DashboardMosaicLayoutTiles.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [DashboardMosaicLayoutTiles.from_proto(i) for i in resources]
-
-
-class DashboardRowLayout(object):
-    def __init__(self, rows: list = None):
-        self.rows = rows
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = dashboard_pb2.MonitoringDashboardRowLayout()
-        if DashboardRowLayoutRowsArray.to_proto(resource.rows):
-            res.rows.extend(DashboardRowLayoutRowsArray.to_proto(resource.rows))
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardRowLayout(rows=resource.rows,)
-
-
-class DashboardRowLayoutArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [DashboardRowLayout.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [DashboardRowLayout.from_proto(i) for i in resources]
-
-
-class DashboardRowLayoutRows(object):
-    def __init__(self, weight: int = None, widgets: list = None):
-        self.weight = weight
-        self.widgets = widgets
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = dashboard_pb2.MonitoringDashboardRowLayoutRows()
-        if Primitive.to_proto(resource.weight):
-            res.weight = Primitive.to_proto(resource.weight)
-        if DashboardWidgetArray.to_proto(resource.widgets):
-            res.widgets.extend(DashboardWidgetArray.to_proto(resource.widgets))
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardRowLayoutRows(weight=resource.weight, widgets=resource.widgets,)
-
-
-class DashboardRowLayoutRowsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [DashboardRowLayoutRows.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [DashboardRowLayoutRows.from_proto(i) for i in resources]
-
-
-class DashboardTabbedLayout(object):
-    def __init__(self, tabs: list = None, featured_mosaic_layout: dict = None):
-        self.tabs = tabs
-        self.featured_mosaic_layout = featured_mosaic_layout
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = dashboard_pb2.MonitoringDashboardTabbedLayout()
-        if DashboardTabbedLayoutTabsArray.to_proto(resource.tabs):
-            res.tabs.extend(DashboardTabbedLayoutTabsArray.to_proto(resource.tabs))
-        if DashboardTabbedLayoutFeaturedMosaicLayout.to_proto(
-            resource.featured_mosaic_layout
-        ):
-            res.featured_mosaic_layout.CopyFrom(
-                DashboardTabbedLayoutFeaturedMosaicLayout.to_proto(
-                    resource.featured_mosaic_layout
-                )
-            )
-        else:
-            res.ClearField("featured_mosaic_layout")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardTabbedLayout(
-            tabs=resource.tabs, featured_mosaic_layout=resource.featured_mosaic_layout,
-        )
-
-
-class DashboardTabbedLayoutArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [DashboardTabbedLayout.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [DashboardTabbedLayout.from_proto(i) for i in resources]
-
-
-class DashboardTabbedLayoutTabs(object):
-    def __init__(
-        self,
-        label: str = None,
-        hint_text: str = None,
-        grid_layout: dict = None,
-        mosaic_layout: dict = None,
-        row_layout: dict = None,
-        column_layout: dict = None,
-    ):
-        self.label = label
-        self.hint_text = hint_text
-        self.grid_layout = grid_layout
-        self.mosaic_layout = mosaic_layout
-        self.row_layout = row_layout
-        self.column_layout = column_layout
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = dashboard_pb2.MonitoringDashboardTabbedLayoutTabs()
-        if Primitive.to_proto(resource.label):
-            res.label = Primitive.to_proto(resource.label)
-        if Primitive.to_proto(resource.hint_text):
-            res.hint_text = Primitive.to_proto(resource.hint_text)
-        if DashboardTabbedLayoutTabsGridLayout.to_proto(resource.grid_layout):
-            res.grid_layout.CopyFrom(
-                DashboardTabbedLayoutTabsGridLayout.to_proto(resource.grid_layout)
-            )
-        else:
-            res.ClearField("grid_layout")
-        if DashboardTabbedLayoutTabsMosaicLayout.to_proto(resource.mosaic_layout):
-            res.mosaic_layout.CopyFrom(
-                DashboardTabbedLayoutTabsMosaicLayout.to_proto(resource.mosaic_layout)
-            )
-        else:
-            res.ClearField("mosaic_layout")
-        if DashboardTabbedLayoutTabsRowLayout.to_proto(resource.row_layout):
-            res.row_layout.CopyFrom(
-                DashboardTabbedLayoutTabsRowLayout.to_proto(resource.row_layout)
-            )
-        else:
-            res.ClearField("row_layout")
-        if DashboardTabbedLayoutTabsColumnLayout.to_proto(resource.column_layout):
-            res.column_layout.CopyFrom(
-                DashboardTabbedLayoutTabsColumnLayout.to_proto(resource.column_layout)
-            )
-        else:
-            res.ClearField("column_layout")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardTabbedLayoutTabs(
-            label=resource.label,
-            hint_text=resource.hint_text,
-            grid_layout=resource.grid_layout,
-            mosaic_layout=resource.mosaic_layout,
-            row_layout=resource.row_layout,
-            column_layout=resource.column_layout,
-        )
-
-
-class DashboardTabbedLayoutTabsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [DashboardTabbedLayoutTabs.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [DashboardTabbedLayoutTabs.from_proto(i) for i in resources]
-
-
-class DashboardTabbedLayoutTabsGridLayout(object):
-    def __init__(self, columns: int = None, widgets: list = None):
-        self.columns = columns
-        self.widgets = widgets
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = dashboard_pb2.MonitoringDashboardTabbedLayoutTabsGridLayout()
-        if Primitive.to_proto(resource.columns):
-            res.columns = Primitive.to_proto(resource.columns)
-        if DashboardWidgetArray.to_proto(resource.widgets):
-            res.widgets.extend(DashboardWidgetArray.to_proto(resource.widgets))
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardTabbedLayoutTabsGridLayout(
-            columns=resource.columns, widgets=resource.widgets,
-        )
-
-
-class DashboardTabbedLayoutTabsGridLayoutArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [DashboardTabbedLayoutTabsGridLayout.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [DashboardTabbedLayoutTabsGridLayout.from_proto(i) for i in resources]
-
-
-class DashboardTabbedLayoutTabsMosaicLayout(object):
-    def __init__(self, columns: int = None, tiles: list = None):
-        self.columns = columns
-        self.tiles = tiles
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = dashboard_pb2.MonitoringDashboardTabbedLayoutTabsMosaicLayout()
-        if Primitive.to_proto(resource.columns):
-            res.columns = Primitive.to_proto(resource.columns)
-        if DashboardTabbedLayoutTabsMosaicLayoutTilesArray.to_proto(resource.tiles):
-            res.tiles.extend(
-                DashboardTabbedLayoutTabsMosaicLayoutTilesArray.to_proto(resource.tiles)
-            )
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardTabbedLayoutTabsMosaicLayout(
-            columns=resource.columns, tiles=resource.tiles,
-        )
-
-
-class DashboardTabbedLayoutTabsMosaicLayoutArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [DashboardTabbedLayoutTabsMosaicLayout.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [DashboardTabbedLayoutTabsMosaicLayout.from_proto(i) for i in resources]
-
-
-class DashboardTabbedLayoutTabsMosaicLayoutTiles(object):
-    def __init__(
-        self,
-        x_pos: int = None,
-        y_pos: int = None,
-        width: int = None,
-        height: int = None,
-        widget: dict = None,
-    ):
-        self.x_pos = x_pos
-        self.y_pos = y_pos
-        self.width = width
-        self.height = height
-        self.widget = widget
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = dashboard_pb2.MonitoringDashboardTabbedLayoutTabsMosaicLayoutTiles()
-        if Primitive.to_proto(resource.x_pos):
-            res.x_pos = Primitive.to_proto(resource.x_pos)
-        if Primitive.to_proto(resource.y_pos):
-            res.y_pos = Primitive.to_proto(resource.y_pos)
-        if Primitive.to_proto(resource.width):
-            res.width = Primitive.to_proto(resource.width)
-        if Primitive.to_proto(resource.height):
-            res.height = Primitive.to_proto(resource.height)
-        if DashboardWidget.to_proto(resource.widget):
-            res.widget.CopyFrom(DashboardWidget.to_proto(resource.widget))
-        else:
-            res.ClearField("widget")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardTabbedLayoutTabsMosaicLayoutTiles(
-            x_pos=resource.x_pos,
-            y_pos=resource.y_pos,
-            width=resource.width,
-            height=resource.height,
-            widget=resource.widget,
-        )
-
-
-class DashboardTabbedLayoutTabsMosaicLayoutTilesArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            DashboardTabbedLayoutTabsMosaicLayoutTiles.to_proto(i) for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            DashboardTabbedLayoutTabsMosaicLayoutTiles.from_proto(i) for i in resources
-        ]
-
-
-class DashboardTabbedLayoutTabsRowLayout(object):
-    def __init__(self, rows: list = None):
-        self.rows = rows
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = dashboard_pb2.MonitoringDashboardTabbedLayoutTabsRowLayout()
-        if DashboardTabbedLayoutTabsRowLayoutRowsArray.to_proto(resource.rows):
-            res.rows.extend(
-                DashboardTabbedLayoutTabsRowLayoutRowsArray.to_proto(resource.rows)
-            )
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardTabbedLayoutTabsRowLayout(rows=resource.rows,)
-
-
-class DashboardTabbedLayoutTabsRowLayoutArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [DashboardTabbedLayoutTabsRowLayout.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [DashboardTabbedLayoutTabsRowLayout.from_proto(i) for i in resources]
-
-
-class DashboardTabbedLayoutTabsRowLayoutRows(object):
-    def __init__(self, weight: int = None, widgets: list = None):
-        self.weight = weight
-        self.widgets = widgets
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = dashboard_pb2.MonitoringDashboardTabbedLayoutTabsRowLayoutRows()
-        if Primitive.to_proto(resource.weight):
-            res.weight = Primitive.to_proto(resource.weight)
-        if DashboardWidgetArray.to_proto(resource.widgets):
-            res.widgets.extend(DashboardWidgetArray.to_proto(resource.widgets))
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardTabbedLayoutTabsRowLayoutRows(
-            weight=resource.weight, widgets=resource.widgets,
-        )
-
-
-class DashboardTabbedLayoutTabsRowLayoutRowsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [DashboardTabbedLayoutTabsRowLayoutRows.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [DashboardTabbedLayoutTabsRowLayoutRows.from_proto(i) for i in resources]
-
-
-class DashboardTabbedLayoutTabsColumnLayout(object):
-    def __init__(self, columns: list = None):
-        self.columns = columns
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = dashboard_pb2.MonitoringDashboardTabbedLayoutTabsColumnLayout()
-        if DashboardTabbedLayoutTabsColumnLayoutColumnsArray.to_proto(resource.columns):
-            res.columns.extend(
-                DashboardTabbedLayoutTabsColumnLayoutColumnsArray.to_proto(
-                    resource.columns
-                )
-            )
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardTabbedLayoutTabsColumnLayout(columns=resource.columns,)
-
-
-class DashboardTabbedLayoutTabsColumnLayoutArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [DashboardTabbedLayoutTabsColumnLayout.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [DashboardTabbedLayoutTabsColumnLayout.from_proto(i) for i in resources]
-
-
-class DashboardTabbedLayoutTabsColumnLayoutColumns(object):
-    def __init__(self, weight: int = None, widgets: list = None):
-        self.weight = weight
-        self.widgets = widgets
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = dashboard_pb2.MonitoringDashboardTabbedLayoutTabsColumnLayoutColumns()
-        if Primitive.to_proto(resource.weight):
-            res.weight = Primitive.to_proto(resource.weight)
-        if DashboardWidgetArray.to_proto(resource.widgets):
-            res.widgets.extend(DashboardWidgetArray.to_proto(resource.widgets))
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardTabbedLayoutTabsColumnLayoutColumns(
-            weight=resource.weight, widgets=resource.widgets,
-        )
-
-
-class DashboardTabbedLayoutTabsColumnLayoutColumnsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            DashboardTabbedLayoutTabsColumnLayoutColumns.to_proto(i) for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            DashboardTabbedLayoutTabsColumnLayoutColumns.from_proto(i)
-            for i in resources
-        ]
-
-
-class DashboardTabbedLayoutFeaturedMosaicLayout(object):
-    def __init__(self, columns: int = None, tiles: list = None):
-        self.columns = columns
-        self.tiles = tiles
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = dashboard_pb2.MonitoringDashboardTabbedLayoutFeaturedMosaicLayout()
-        if Primitive.to_proto(resource.columns):
-            res.columns = Primitive.to_proto(resource.columns)
-        if DashboardTabbedLayoutFeaturedMosaicLayoutTilesArray.to_proto(resource.tiles):
-            res.tiles.extend(
-                DashboardTabbedLayoutFeaturedMosaicLayoutTilesArray.to_proto(
-                    resource.tiles
-                )
-            )
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardTabbedLayoutFeaturedMosaicLayout(
-            columns=resource.columns, tiles=resource.tiles,
-        )
-
-
-class DashboardTabbedLayoutFeaturedMosaicLayoutArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            DashboardTabbedLayoutFeaturedMosaicLayout.to_proto(i) for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            DashboardTabbedLayoutFeaturedMosaicLayout.from_proto(i) for i in resources
-        ]
-
-
-class DashboardTabbedLayoutFeaturedMosaicLayoutTiles(object):
-    def __init__(
-        self,
-        x_pos: int = None,
-        y_pos: int = None,
-        width: int = None,
-        height: int = None,
-        widget: dict = None,
-    ):
-        self.x_pos = x_pos
-        self.y_pos = y_pos
-        self.width = width
-        self.height = height
-        self.widget = widget
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = dashboard_pb2.MonitoringDashboardTabbedLayoutFeaturedMosaicLayoutTiles()
-        if Primitive.to_proto(resource.x_pos):
-            res.x_pos = Primitive.to_proto(resource.x_pos)
-        if Primitive.to_proto(resource.y_pos):
-            res.y_pos = Primitive.to_proto(resource.y_pos)
-        if Primitive.to_proto(resource.width):
-            res.width = Primitive.to_proto(resource.width)
-        if Primitive.to_proto(resource.height):
-            res.height = Primitive.to_proto(resource.height)
-        if DashboardWidget.to_proto(resource.widget):
-            res.widget.CopyFrom(DashboardWidget.to_proto(resource.widget))
-        else:
-            res.ClearField("widget")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return DashboardTabbedLayoutFeaturedMosaicLayoutTiles(
-            x_pos=resource.x_pos,
-            y_pos=resource.y_pos,
-            width=resource.width,
-            height=resource.height,
-            widget=resource.widget,
-        )
-
-
-class DashboardTabbedLayoutFeaturedMosaicLayoutTilesArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            DashboardTabbedLayoutFeaturedMosaicLayoutTiles.to_proto(i)
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            DashboardTabbedLayoutFeaturedMosaicLayoutTiles.from_proto(i)
-            for i in resources
-        ]
-
-
-class DashboardCategoryEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return dashboard_pb2.MonitoringDashboardCategoryEnum.Value(
-            "MonitoringDashboardCategoryEnum%s" % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return dashboard_pb2.MonitoringDashboardCategoryEnum.Name(resource)[
-            len("MonitoringDashboardCategoryEnum") :
-        ]
 
 
 class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(

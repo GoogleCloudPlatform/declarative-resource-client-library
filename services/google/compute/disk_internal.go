@@ -1152,6 +1152,153 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]disk
 	}
 
 	var diffs []diskDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "Description"})
+	}
+
+	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{
+			UpdateOp: &updateDiskSetLabelsOperation{}, FieldName: "Labels",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.LabelFingerprint, actual.LabelFingerprint, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{
+			UpdateOp: &updateDiskSetLabelsOperation{}, FieldName: "LabelFingerprint",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
+	if d, err := dcl.Diff(desired.Region, actual.Region, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "Region"})
+	}
+
+	if d, err := dcl.Diff(desired.SizeGb, actual.SizeGb, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{
+			UpdateOp: &updateDiskResizeOperation{}, FieldName: "SizeGb",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.SourceImage, actual.SourceImage, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "SourceImage"})
+	}
+
+	if d, err := dcl.Diff(desired.SourceImageId, actual.SourceImageId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "SourceImageId"})
+	}
+
+	if d, err := dcl.Diff(desired.SourceSnapshot, actual.SourceSnapshot, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "SourceSnapshot"})
+	}
+
+	if d, err := dcl.Diff(desired.SourceSnapshotId, actual.SourceSnapshotId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "SourceSnapshotId"})
+	}
+
+	if d, err := dcl.Diff(desired.Type, actual.Type, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "Type"})
+	}
+
+	if d, err := dcl.Diff(desired.Zone, actual.Zone, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "Zone"})
+	}
+
+	if d, err := dcl.Diff(desired.Id, actual.Id, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "Id"})
+	}
+
+	if d, err := dcl.Diff(desired.Options, actual.Options, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "Options"})
+	}
+
+	if d, err := dcl.Diff(desired.LastAttachTimestamp, actual.LastAttachTimestamp, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "LastAttachTimestamp"})
+	}
+
+	if d, err := dcl.Diff(desired.LastDetachTimestamp, actual.LastDetachTimestamp, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "LastDetachTimestamp"})
+	}
+
+	if d, err := dcl.Diff(desired.PhysicalBlockSizeBytes, actual.PhysicalBlockSizeBytes, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "PhysicalBlockSizeBytes"})
+	}
+
+	if d, err := dcl.Diff(desired.SourceDisk, actual.SourceDisk, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "SourceDisk"})
+	}
+
+	if d, err := dcl.Diff(desired.SourceDiskId, actual.SourceDiskId, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "SourceDiskId"})
+	}
+
 	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, diskDiff{

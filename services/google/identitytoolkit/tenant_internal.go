@@ -609,6 +609,61 @@ func diffTenant(c *Client, desired, actual *Tenant, opts ...dcl.ApplyOption) ([]
 	}
 
 	var diffs []tenantDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, tenantDiff{
+			UpdateOp: &updateTenantUpdateTenantOperation{}, FieldName: "DisplayName",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.AllowPasswordSignup, actual.AllowPasswordSignup, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, tenantDiff{
+			UpdateOp: &updateTenantUpdateTenantOperation{}, FieldName: "AllowPasswordSignup",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.EnableEmailLinkSignin, actual.EnableEmailLinkSignin, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, tenantDiff{
+			UpdateOp: &updateTenantUpdateTenantOperation{}, FieldName: "EnableEmailLinkSignin",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.DisableAuth, actual.DisableAuth, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, tenantDiff{
+			UpdateOp: &updateTenantUpdateTenantOperation{}, FieldName: "DisableAuth",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.EnableAnonymousUser, actual.EnableAnonymousUser, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, tenantDiff{
+			UpdateOp: &updateTenantUpdateTenantOperation{}, FieldName: "EnableAnonymousUser",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.TestPhoneNumbers, actual.TestPhoneNumbers, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, tenantDiff{
+			UpdateOp: &updateTenantUpdateTenantOperation{}, FieldName: "TestPhoneNumbers",
+		})
+	}
+
 	if !dcl.StringEqualsWithSelfLink(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, tenantDiff{

@@ -1326,6 +1326,82 @@ func diffLogMetric(c *Client, desired, actual *LogMetric, opts ...dcl.ApplyOptio
 	}
 
 	var diffs []logMetricDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, logMetricDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, logMetricDiff{
+			UpdateOp: &updateLogMetricUpdateOperation{}, FieldName: "Description",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Filter, actual.Filter, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, logMetricDiff{
+			UpdateOp: &updateLogMetricUpdateOperation{}, FieldName: "Filter",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Disabled, actual.Disabled, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, logMetricDiff{
+			UpdateOp: &updateLogMetricUpdateOperation{}, FieldName: "Disabled",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.ValueExtractor, actual.ValueExtractor, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, logMetricDiff{
+			UpdateOp: &updateLogMetricUpdateOperation{}, FieldName: "ValueExtractor",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.LabelExtractors, actual.LabelExtractors, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, logMetricDiff{
+			UpdateOp: &updateLogMetricUpdateOperation{}, FieldName: "LabelExtractors",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, logMetricDiff{RequiresRecreate: true, FieldName: "CreateTime"})
+	}
+
+	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, logMetricDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
+	}
+
+	if d, err := dcl.Diff(desired.Resolution, actual.Resolution, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, logMetricDiff{
+			UpdateOp: &updateLogMetricUpdateOperation{}, FieldName: "Resolution",
+		})
+	}
+
 	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, logMetricDiff{

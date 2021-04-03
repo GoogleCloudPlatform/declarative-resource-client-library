@@ -2615,6 +2615,37 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []clusterDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Project, actual.Project, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "Project"})
+	}
+
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
+	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string{"goog-dataproc-"}, Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{
+			UpdateOp: &updateClusterUpdateClusterOperation{}, FieldName: "Labels",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.ClusterUuid, actual.ClusterUuid, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "ClusterUuid"})
+	}
+
 	if !dcl.IsZeroValue(desired.Project) && !dcl.StringCanonicalize(desired.Project, actual.Project) {
 		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %v\nACTUAL: %v", desired.Project, actual.Project)
 		diffs = append(diffs, clusterDiff{

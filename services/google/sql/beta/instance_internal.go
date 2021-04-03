@@ -3891,6 +3891,92 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []instanceDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.ConnectionName, actual.ConnectionName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "ConnectionName"})
+	}
+
+	if d, err := dcl.Diff(desired.Etag, actual.Etag, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "Etag"})
+	}
+
+	if d, err := dcl.Diff(desired.GceZone, actual.GceZone, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "GceZone"})
+	}
+
+	if d, err := dcl.Diff(desired.MasterInstanceName, actual.MasterInstanceName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "MasterInstanceName"})
+	}
+
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
+	if d, err := dcl.Diff(desired.Region, actual.Region, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "Region"})
+	}
+
+	if d, err := dcl.Diff(desired.RootPassword, actual.RootPassword, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "RootPassword"})
+	}
+
+	if d, err := dcl.Diff(desired.State, actual.State, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateOperation{}, FieldName: "State",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.IPv6Address, actual.IPv6Address, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateOperation{}, FieldName: "IPv6Address",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.ServiceAccountEmailAddress, actual.ServiceAccountEmailAddress, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateOperation{}, FieldName: "ServiceAccountEmailAddress",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.InstanceUid, actual.InstanceUid, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateOperation{}, FieldName: "InstanceUid",
+		})
+	}
+
 	if !reflect.DeepEqual(desired.BackendType, actual.BackendType) {
 		c.Config.Logger.Infof("Detected diff in BackendType.\nDESIRED: %v\nACTUAL: %v", desired.BackendType, actual.BackendType)
 		diffs = append(diffs, instanceDiff{

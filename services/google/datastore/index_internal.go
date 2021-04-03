@@ -528,6 +528,14 @@ func diffIndex(c *Client, desired, actual *Index, opts ...dcl.ApplyOption) ([]in
 	}
 
 	var diffs []indexDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Kind, actual.Kind, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, indexDiff{RequiresRecreate: true, FieldName: "Kind"})
+	}
+
 	if !reflect.DeepEqual(desired.Ancestor, actual.Ancestor) {
 		c.Config.Logger.Infof("Detected diff in Ancestor.\nDESIRED: %v\nACTUAL: %v", desired.Ancestor, actual.Ancestor)
 		diffs = append(diffs, indexDiff{

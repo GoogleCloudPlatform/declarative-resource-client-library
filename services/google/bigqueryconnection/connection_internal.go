@@ -723,6 +723,55 @@ func diffConnection(c *Client, desired, actual *Connection, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []connectionDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, connectionDiff{
+			UpdateOp: &updateConnectionUpdateConnectionOperation{}, FieldName: "Name",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.FriendlyName, actual.FriendlyName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, connectionDiff{
+			UpdateOp: &updateConnectionUpdateConnectionOperation{}, FieldName: "FriendlyName",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, connectionDiff{
+			UpdateOp: &updateConnectionUpdateConnectionOperation{}, FieldName: "Description",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.CreationTime, actual.CreationTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, connectionDiff{RequiresRecreate: true, FieldName: "CreationTime"})
+	}
+
+	if d, err := dcl.Diff(desired.LastModifiedTime, actual.LastModifiedTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, connectionDiff{RequiresRecreate: true, FieldName: "LastModifiedTime"})
+	}
+
+	if d, err := dcl.Diff(desired.HasCredential, actual.HasCredential, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, connectionDiff{RequiresRecreate: true, FieldName: "HasCredential"})
+	}
+
 	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 

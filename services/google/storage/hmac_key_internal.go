@@ -492,6 +492,35 @@ func diffHmacKey(c *Client, desired, actual *HmacKey, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []hmacKeyDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.TimeCreated, actual.TimeCreated, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, hmacKeyDiff{RequiresRecreate: true, FieldName: "TimeCreated"})
+	}
+
+	if d, err := dcl.Diff(desired.Updated, actual.Updated, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, hmacKeyDiff{RequiresRecreate: true, FieldName: "Updated"})
+	}
+
+	if d, err := dcl.Diff(desired.Secret, actual.Secret, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, hmacKeyDiff{RequiresRecreate: true, FieldName: "Secret"})
+	}
+
+	if d, err := dcl.Diff(desired.ServiceAccountEmail, actual.ServiceAccountEmail, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, hmacKeyDiff{RequiresRecreate: true, FieldName: "ServiceAccountEmail"})
+	}
+
 	if !dcl.StringEqualsWithSelfLink(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, hmacKeyDiff{

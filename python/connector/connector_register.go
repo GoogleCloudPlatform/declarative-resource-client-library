@@ -74,6 +74,8 @@ import (
 
 	networksecurity_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networksecurity/alpha_connector"
 
+	networkservices_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkservices/alpha_connector"
+
 	osconfig_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/beta_connector"
 
 	pubsub_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub/connector"
@@ -168,6 +170,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	monitoring_connector.RegisterServers(grpcServer)
 
 	networksecurity_alpha_connector.RegisterServers(grpcServer)
+
+	networkservices_alpha_connector.RegisterServers(grpcServer)
 
 	osconfig_beta_connector.RegisterServers(grpcServer)
 

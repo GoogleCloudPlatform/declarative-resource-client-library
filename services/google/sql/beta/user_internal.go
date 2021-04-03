@@ -600,6 +600,37 @@ func diffUser(c *Client, desired, actual *User, opts ...dcl.ApplyOption) ([]user
 	}
 
 	var diffs []userDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, userDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
+	if d, err := dcl.Diff(desired.Password, actual.Password, &dcl.Info{Ignore: true, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, userDiff{
+			UpdateOp: &updateUserUpdateOperation{}, FieldName: "Password",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Etag, actual.Etag, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, userDiff{RequiresRecreate: true, FieldName: "Etag"})
+	}
+
+	if d, err := dcl.Diff(desired.Host, actual.Host, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, userDiff{RequiresRecreate: true, FieldName: "Host"})
+	}
+
 	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, userDiff{

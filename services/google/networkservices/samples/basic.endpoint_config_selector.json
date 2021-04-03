@@ -1,0 +1,23 @@
+{
+  "name": "{{selector}}",
+  "location": "global",
+  "project": "{{project}}",
+  "labels": {
+    "label-one": "value-one"
+  },
+  "type": "SIDECAR_PROXY",
+  "httpFilters": {
+    "httpFilters": ["{{ref:basic.http_filter.json:name}}"]
+  },
+  "endpointMatcher": {
+    "metadataLabelMatcher": {
+      "metadataLabelMatchCriteria": "MATCH_ANY",
+      "metadataLabels": [
+        {
+          "labelName": "filter-test",
+          "labelValue": "true"
+        }
+      ]
+    }
+  }
+}

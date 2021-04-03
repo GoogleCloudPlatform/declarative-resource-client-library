@@ -627,6 +627,21 @@ components:
             optionalComponents:
               description: Optional. The set of components to activate on the cluster.
               items:
+                enum:
+                - COMPONENT_UNSPECIFIED
+                - ANACONDA
+                - DOCKER
+                - DRUID
+                - FLINK
+                - HBASE
+                - HIVE_WEBHCAT
+                - JUPYTER
+                - KERBEROS
+                - PRESTO
+                - RANGER
+                - SOLR
+                - ZEPPELIN
+                - ZOOKEEPER
                 type: string
                 x-dcl-go-type: ClusterClusterConfigSoftwareConfigOptionalComponentsEnum
               type: array

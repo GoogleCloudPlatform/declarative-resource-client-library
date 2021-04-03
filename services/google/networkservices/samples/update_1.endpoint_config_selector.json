@@ -1,0 +1,31 @@
+{
+  "name": "{{selector}}",
+  "project": "{{project}}",
+  "location": "global",
+  "labels": {
+    "label-one": "value-one",
+    "label-two": "value-two"
+  },
+  "type": "SIDECAR_PROXY",
+  "authorizationPolicy": "{{ref:basic.networksecurity.authorization_policy.json:name}}",
+  "httpFilters": {
+    "httpFilters": ["{{ref:basic.http_filter.json:name}}"]
+  },
+  "endpointMatcher": {
+    "metadataLabelMatcher": {
+      "metadataLabelMatchCriteria": "MATCH_ANY",
+      "metadataLabels": [
+        {
+          "labelName": "filter-test",
+          "labelValue": "true"
+        }
+      ]
+    }
+  },
+  "trafficPortSelector": {
+    "ports": ["8081"]
+  },
+  "description": "An updated sample endpoint config selector",
+  "clientTlsPolicy": "{{ref:basic.networksecurity.client_tls_policy.json:name}}",
+  "serverTlsPolicy": "{{ref:basic.networksecurity.server_tls_policy.json:name}}"
+}

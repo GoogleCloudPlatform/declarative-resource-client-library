@@ -861,6 +861,112 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 	}
 
 	var diffs []interconnectDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, interconnectDiff{
+			UpdateOp: &updateInterconnectPatchOperation{}, FieldName: "Description",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+	}
+
+	if d, err := dcl.Diff(desired.Id, actual.Id, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, FieldName: "Id"})
+	}
+
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, interconnectDiff{
+			UpdateOp: &updateInterconnectPatchOperation{}, FieldName: "Name",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Location, actual.Location, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, interconnectDiff{
+			UpdateOp: &updateInterconnectPatchOperation{}, FieldName: "Location",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.RequestedLinkCount, actual.RequestedLinkCount, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, interconnectDiff{
+			UpdateOp: &updateInterconnectPatchOperation{}, FieldName: "RequestedLinkCount",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.AdminEnabled, actual.AdminEnabled, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, interconnectDiff{
+			UpdateOp: &updateInterconnectPatchOperation{}, FieldName: "AdminEnabled",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.NocContactEmail, actual.NocContactEmail, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, interconnectDiff{
+			UpdateOp: &updateInterconnectPatchOperation{}, FieldName: "NocContactEmail",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.CustomerName, actual.CustomerName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, interconnectDiff{
+			UpdateOp: &updateInterconnectPatchOperation{}, FieldName: "CustomerName",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.ProvisionedLinkCount, actual.ProvisionedLinkCount, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, FieldName: "ProvisionedLinkCount"})
+	}
+
+	if d, err := dcl.Diff(desired.PeerIPAddress, actual.PeerIPAddress, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, FieldName: "PeerIPAddress"})
+	}
+
+	if d, err := dcl.Diff(desired.GoogleIPAddress, actual.GoogleIPAddress, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, FieldName: "GoogleIPAddress"})
+	}
+
+	if d, err := dcl.Diff(desired.GoogleReferenceId, actual.GoogleReferenceId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, FieldName: "GoogleReferenceId"})
+	}
+
 	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 

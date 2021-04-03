@@ -25,18 +25,6 @@ import (
 // Server implements the gRPC interface for Dashboard.
 type DashboardServer struct{}
 
-// ProtoToDashboardCategoryEnum converts a DashboardCategoryEnum enum from its proto representation.
-func ProtoToMonitoringDashboardCategoryEnum(e monitoringpb.MonitoringDashboardCategoryEnum) *monitoring.DashboardCategoryEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := monitoringpb.MonitoringDashboardCategoryEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardCategoryEnum(n[len("DashboardCategoryEnum"):])
-		return &e
-	}
-	return nil
-}
-
 // ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum enum from its proto representation.
 func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(e monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum) *monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
 	if e == 0 {
@@ -755,6 +743,75 @@ func ProtoToMonitoringDashboardWidgetTextFormatEnum(e monitoringpb.MonitoringDas
 		return &e
 	}
 	return nil
+}
+
+// ProtoToDashboardGridLayout converts a DashboardGridLayout resource from its proto representation.
+func ProtoToMonitoringDashboardGridLayout(p *monitoringpb.MonitoringDashboardGridLayout) *monitoring.DashboardGridLayout {
+	if p == nil {
+		return nil
+	}
+	obj := &monitoring.DashboardGridLayout{
+		Columns: dcl.Int64OrNil(p.Columns),
+	}
+	for _, r := range p.GetWidgets() {
+		obj.Widgets = append(obj.Widgets, *ProtoToMonitoringDashboardWidget(r))
+	}
+	return obj
+}
+
+// ProtoToDashboardMosaicLayout converts a DashboardMosaicLayout resource from its proto representation.
+func ProtoToMonitoringDashboardMosaicLayout(p *monitoringpb.MonitoringDashboardMosaicLayout) *monitoring.DashboardMosaicLayout {
+	if p == nil {
+		return nil
+	}
+	obj := &monitoring.DashboardMosaicLayout{
+		Columns: dcl.Int64OrNil(p.Columns),
+	}
+	for _, r := range p.GetTiles() {
+		obj.Tiles = append(obj.Tiles, *ProtoToMonitoringDashboardMosaicLayoutTiles(r))
+	}
+	return obj
+}
+
+// ProtoToDashboardMosaicLayoutTiles converts a DashboardMosaicLayoutTiles resource from its proto representation.
+func ProtoToMonitoringDashboardMosaicLayoutTiles(p *monitoringpb.MonitoringDashboardMosaicLayoutTiles) *monitoring.DashboardMosaicLayoutTiles {
+	if p == nil {
+		return nil
+	}
+	obj := &monitoring.DashboardMosaicLayoutTiles{
+		XPos:   dcl.Int64OrNil(p.XPos),
+		YPos:   dcl.Int64OrNil(p.YPos),
+		Width:  dcl.Int64OrNil(p.Width),
+		Height: dcl.Int64OrNil(p.Height),
+		Widget: ProtoToMonitoringDashboardWidget(p.GetWidget()),
+	}
+	return obj
+}
+
+// ProtoToDashboardRowLayout converts a DashboardRowLayout resource from its proto representation.
+func ProtoToMonitoringDashboardRowLayout(p *monitoringpb.MonitoringDashboardRowLayout) *monitoring.DashboardRowLayout {
+	if p == nil {
+		return nil
+	}
+	obj := &monitoring.DashboardRowLayout{}
+	for _, r := range p.GetRows() {
+		obj.Rows = append(obj.Rows, *ProtoToMonitoringDashboardRowLayoutRows(r))
+	}
+	return obj
+}
+
+// ProtoToDashboardRowLayoutRows converts a DashboardRowLayoutRows resource from its proto representation.
+func ProtoToMonitoringDashboardRowLayoutRows(p *monitoringpb.MonitoringDashboardRowLayoutRows) *monitoring.DashboardRowLayoutRows {
+	if p == nil {
+		return nil
+	}
+	obj := &monitoring.DashboardRowLayoutRows{
+		Weight: dcl.Int64OrNil(p.Weight),
+	}
+	for _, r := range p.GetWidgets() {
+		obj.Widgets = append(obj.Widgets, *ProtoToMonitoringDashboardWidget(r))
+	}
+	return obj
 }
 
 // ProtoToDashboardColumnLayout converts a DashboardColumnLayout resource from its proto representation.
@@ -2633,254 +2690,18 @@ func ProtoToMonitoringDashboardWidgetBlank(p *monitoringpb.MonitoringDashboardWi
 	return obj
 }
 
-// ProtoToDashboardGridLayout converts a DashboardGridLayout resource from its proto representation.
-func ProtoToMonitoringDashboardGridLayout(p *monitoringpb.MonitoringDashboardGridLayout) *monitoring.DashboardGridLayout {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardGridLayout{
-		Columns: dcl.Int64OrNil(p.Columns),
-	}
-	for _, r := range p.GetWidgets() {
-		obj.Widgets = append(obj.Widgets, *ProtoToMonitoringDashboardWidget(r))
-	}
-	return obj
-}
-
-// ProtoToDashboardMosaicLayout converts a DashboardMosaicLayout resource from its proto representation.
-func ProtoToMonitoringDashboardMosaicLayout(p *monitoringpb.MonitoringDashboardMosaicLayout) *monitoring.DashboardMosaicLayout {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardMosaicLayout{
-		Columns: dcl.Int64OrNil(p.Columns),
-	}
-	for _, r := range p.GetTiles() {
-		obj.Tiles = append(obj.Tiles, *ProtoToMonitoringDashboardMosaicLayoutTiles(r))
-	}
-	return obj
-}
-
-// ProtoToDashboardMosaicLayoutTiles converts a DashboardMosaicLayoutTiles resource from its proto representation.
-func ProtoToMonitoringDashboardMosaicLayoutTiles(p *monitoringpb.MonitoringDashboardMosaicLayoutTiles) *monitoring.DashboardMosaicLayoutTiles {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardMosaicLayoutTiles{
-		XPos:   dcl.Int64OrNil(p.XPos),
-		YPos:   dcl.Int64OrNil(p.YPos),
-		Width:  dcl.Int64OrNil(p.Width),
-		Height: dcl.Int64OrNil(p.Height),
-		Widget: ProtoToMonitoringDashboardWidget(p.GetWidget()),
-	}
-	return obj
-}
-
-// ProtoToDashboardRowLayout converts a DashboardRowLayout resource from its proto representation.
-func ProtoToMonitoringDashboardRowLayout(p *monitoringpb.MonitoringDashboardRowLayout) *monitoring.DashboardRowLayout {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardRowLayout{}
-	for _, r := range p.GetRows() {
-		obj.Rows = append(obj.Rows, *ProtoToMonitoringDashboardRowLayoutRows(r))
-	}
-	return obj
-}
-
-// ProtoToDashboardRowLayoutRows converts a DashboardRowLayoutRows resource from its proto representation.
-func ProtoToMonitoringDashboardRowLayoutRows(p *monitoringpb.MonitoringDashboardRowLayoutRows) *monitoring.DashboardRowLayoutRows {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardRowLayoutRows{
-		Weight: dcl.Int64OrNil(p.Weight),
-	}
-	for _, r := range p.GetWidgets() {
-		obj.Widgets = append(obj.Widgets, *ProtoToMonitoringDashboardWidget(r))
-	}
-	return obj
-}
-
-// ProtoToDashboardTabbedLayout converts a DashboardTabbedLayout resource from its proto representation.
-func ProtoToMonitoringDashboardTabbedLayout(p *monitoringpb.MonitoringDashboardTabbedLayout) *monitoring.DashboardTabbedLayout {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardTabbedLayout{
-		FeaturedMosaicLayout: ProtoToMonitoringDashboardTabbedLayoutFeaturedMosaicLayout(p.GetFeaturedMosaicLayout()),
-	}
-	for _, r := range p.GetTabs() {
-		obj.Tabs = append(obj.Tabs, *ProtoToMonitoringDashboardTabbedLayoutTabs(r))
-	}
-	return obj
-}
-
-// ProtoToDashboardTabbedLayoutTabs converts a DashboardTabbedLayoutTabs resource from its proto representation.
-func ProtoToMonitoringDashboardTabbedLayoutTabs(p *monitoringpb.MonitoringDashboardTabbedLayoutTabs) *monitoring.DashboardTabbedLayoutTabs {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardTabbedLayoutTabs{
-		Label:        dcl.StringOrNil(p.Label),
-		HintText:     dcl.StringOrNil(p.HintText),
-		GridLayout:   ProtoToMonitoringDashboardTabbedLayoutTabsGridLayout(p.GetGridLayout()),
-		MosaicLayout: ProtoToMonitoringDashboardTabbedLayoutTabsMosaicLayout(p.GetMosaicLayout()),
-		RowLayout:    ProtoToMonitoringDashboardTabbedLayoutTabsRowLayout(p.GetRowLayout()),
-		ColumnLayout: ProtoToMonitoringDashboardTabbedLayoutTabsColumnLayout(p.GetColumnLayout()),
-	}
-	return obj
-}
-
-// ProtoToDashboardTabbedLayoutTabsGridLayout converts a DashboardTabbedLayoutTabsGridLayout resource from its proto representation.
-func ProtoToMonitoringDashboardTabbedLayoutTabsGridLayout(p *monitoringpb.MonitoringDashboardTabbedLayoutTabsGridLayout) *monitoring.DashboardTabbedLayoutTabsGridLayout {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardTabbedLayoutTabsGridLayout{
-		Columns: dcl.Int64OrNil(p.Columns),
-	}
-	for _, r := range p.GetWidgets() {
-		obj.Widgets = append(obj.Widgets, *ProtoToMonitoringDashboardWidget(r))
-	}
-	return obj
-}
-
-// ProtoToDashboardTabbedLayoutTabsMosaicLayout converts a DashboardTabbedLayoutTabsMosaicLayout resource from its proto representation.
-func ProtoToMonitoringDashboardTabbedLayoutTabsMosaicLayout(p *monitoringpb.MonitoringDashboardTabbedLayoutTabsMosaicLayout) *monitoring.DashboardTabbedLayoutTabsMosaicLayout {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardTabbedLayoutTabsMosaicLayout{
-		Columns: dcl.Int64OrNil(p.Columns),
-	}
-	for _, r := range p.GetTiles() {
-		obj.Tiles = append(obj.Tiles, *ProtoToMonitoringDashboardTabbedLayoutTabsMosaicLayoutTiles(r))
-	}
-	return obj
-}
-
-// ProtoToDashboardTabbedLayoutTabsMosaicLayoutTiles converts a DashboardTabbedLayoutTabsMosaicLayoutTiles resource from its proto representation.
-func ProtoToMonitoringDashboardTabbedLayoutTabsMosaicLayoutTiles(p *monitoringpb.MonitoringDashboardTabbedLayoutTabsMosaicLayoutTiles) *monitoring.DashboardTabbedLayoutTabsMosaicLayoutTiles {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardTabbedLayoutTabsMosaicLayoutTiles{
-		XPos:   dcl.Int64OrNil(p.XPos),
-		YPos:   dcl.Int64OrNil(p.YPos),
-		Width:  dcl.Int64OrNil(p.Width),
-		Height: dcl.Int64OrNil(p.Height),
-		Widget: ProtoToMonitoringDashboardWidget(p.GetWidget()),
-	}
-	return obj
-}
-
-// ProtoToDashboardTabbedLayoutTabsRowLayout converts a DashboardTabbedLayoutTabsRowLayout resource from its proto representation.
-func ProtoToMonitoringDashboardTabbedLayoutTabsRowLayout(p *monitoringpb.MonitoringDashboardTabbedLayoutTabsRowLayout) *monitoring.DashboardTabbedLayoutTabsRowLayout {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardTabbedLayoutTabsRowLayout{}
-	for _, r := range p.GetRows() {
-		obj.Rows = append(obj.Rows, *ProtoToMonitoringDashboardTabbedLayoutTabsRowLayoutRows(r))
-	}
-	return obj
-}
-
-// ProtoToDashboardTabbedLayoutTabsRowLayoutRows converts a DashboardTabbedLayoutTabsRowLayoutRows resource from its proto representation.
-func ProtoToMonitoringDashboardTabbedLayoutTabsRowLayoutRows(p *monitoringpb.MonitoringDashboardTabbedLayoutTabsRowLayoutRows) *monitoring.DashboardTabbedLayoutTabsRowLayoutRows {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardTabbedLayoutTabsRowLayoutRows{
-		Weight: dcl.Int64OrNil(p.Weight),
-	}
-	for _, r := range p.GetWidgets() {
-		obj.Widgets = append(obj.Widgets, *ProtoToMonitoringDashboardWidget(r))
-	}
-	return obj
-}
-
-// ProtoToDashboardTabbedLayoutTabsColumnLayout converts a DashboardTabbedLayoutTabsColumnLayout resource from its proto representation.
-func ProtoToMonitoringDashboardTabbedLayoutTabsColumnLayout(p *monitoringpb.MonitoringDashboardTabbedLayoutTabsColumnLayout) *monitoring.DashboardTabbedLayoutTabsColumnLayout {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardTabbedLayoutTabsColumnLayout{}
-	for _, r := range p.GetColumns() {
-		obj.Columns = append(obj.Columns, *ProtoToMonitoringDashboardTabbedLayoutTabsColumnLayoutColumns(r))
-	}
-	return obj
-}
-
-// ProtoToDashboardTabbedLayoutTabsColumnLayoutColumns converts a DashboardTabbedLayoutTabsColumnLayoutColumns resource from its proto representation.
-func ProtoToMonitoringDashboardTabbedLayoutTabsColumnLayoutColumns(p *monitoringpb.MonitoringDashboardTabbedLayoutTabsColumnLayoutColumns) *monitoring.DashboardTabbedLayoutTabsColumnLayoutColumns {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardTabbedLayoutTabsColumnLayoutColumns{
-		Weight: dcl.Int64OrNil(p.Weight),
-	}
-	for _, r := range p.GetWidgets() {
-		obj.Widgets = append(obj.Widgets, *ProtoToMonitoringDashboardWidget(r))
-	}
-	return obj
-}
-
-// ProtoToDashboardTabbedLayoutFeaturedMosaicLayout converts a DashboardTabbedLayoutFeaturedMosaicLayout resource from its proto representation.
-func ProtoToMonitoringDashboardTabbedLayoutFeaturedMosaicLayout(p *monitoringpb.MonitoringDashboardTabbedLayoutFeaturedMosaicLayout) *monitoring.DashboardTabbedLayoutFeaturedMosaicLayout {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardTabbedLayoutFeaturedMosaicLayout{
-		Columns: dcl.Int64OrNil(p.Columns),
-	}
-	for _, r := range p.GetTiles() {
-		obj.Tiles = append(obj.Tiles, *ProtoToMonitoringDashboardTabbedLayoutFeaturedMosaicLayoutTiles(r))
-	}
-	return obj
-}
-
-// ProtoToDashboardTabbedLayoutFeaturedMosaicLayoutTiles converts a DashboardTabbedLayoutFeaturedMosaicLayoutTiles resource from its proto representation.
-func ProtoToMonitoringDashboardTabbedLayoutFeaturedMosaicLayoutTiles(p *monitoringpb.MonitoringDashboardTabbedLayoutFeaturedMosaicLayoutTiles) *monitoring.DashboardTabbedLayoutFeaturedMosaicLayoutTiles {
-	if p == nil {
-		return nil
-	}
-	obj := &monitoring.DashboardTabbedLayoutFeaturedMosaicLayoutTiles{
-		XPos:   dcl.Int64OrNil(p.XPos),
-		YPos:   dcl.Int64OrNil(p.YPos),
-		Width:  dcl.Int64OrNil(p.Width),
-		Height: dcl.Int64OrNil(p.Height),
-		Widget: ProtoToMonitoringDashboardWidget(p.GetWidget()),
-	}
-	return obj
-}
-
 // ProtoToDashboard converts a Dashboard resource from its proto representation.
 func ProtoToDashboard(p *monitoringpb.MonitoringDashboard) *monitoring.Dashboard {
 	obj := &monitoring.Dashboard{
-		Category:     ProtoToMonitoringDashboardCategoryEnum(p.GetCategory()),
-		ColumnLayout: ProtoToMonitoringDashboardColumnLayout(p.GetColumnLayout()),
+		Name:         dcl.StringOrNil(p.Name),
 		DisplayName:  dcl.StringOrNil(p.DisplayName),
 		GridLayout:   ProtoToMonitoringDashboardGridLayout(p.GetGridLayout()),
 		MosaicLayout: ProtoToMonitoringDashboardMosaicLayout(p.GetMosaicLayout()),
-		Name:         dcl.StringOrNil(p.Name),
 		RowLayout:    ProtoToMonitoringDashboardRowLayout(p.GetRowLayout()),
-		TabbedLayout: ProtoToMonitoringDashboardTabbedLayout(p.GetTabbedLayout()),
+		ColumnLayout: ProtoToMonitoringDashboardColumnLayout(p.GetColumnLayout()),
 		Project:      dcl.StringOrNil(p.Project),
 	}
 	return obj
-}
-
-// DashboardCategoryEnumToProto converts a DashboardCategoryEnum enum to its proto representation.
-func MonitoringDashboardCategoryEnumToProto(e *monitoring.DashboardCategoryEnum) monitoringpb.MonitoringDashboardCategoryEnum {
-	if e == nil {
-		return monitoringpb.MonitoringDashboardCategoryEnum(0)
-	}
-	if v, ok := monitoringpb.MonitoringDashboardCategoryEnum_value["DashboardCategoryEnum"+string(*e)]; ok {
-		return monitoringpb.MonitoringDashboardCategoryEnum(v)
-	}
-	return monitoringpb.MonitoringDashboardCategoryEnum(0)
 }
 
 // DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum enum to its proto representation.
@@ -3541,6 +3362,75 @@ func MonitoringDashboardWidgetTextFormatEnumToProto(e *monitoring.DashboardWidge
 		return monitoringpb.MonitoringDashboardWidgetTextFormatEnum(v)
 	}
 	return monitoringpb.MonitoringDashboardWidgetTextFormatEnum(0)
+}
+
+// DashboardGridLayoutToProto converts a DashboardGridLayout resource to its proto representation.
+func MonitoringDashboardGridLayoutToProto(o *monitoring.DashboardGridLayout) *monitoringpb.MonitoringDashboardGridLayout {
+	if o == nil {
+		return nil
+	}
+	p := &monitoringpb.MonitoringDashboardGridLayout{
+		Columns: dcl.ValueOrEmptyInt64(o.Columns),
+	}
+	for _, r := range o.Widgets {
+		p.Widgets = append(p.Widgets, MonitoringDashboardWidgetToProto(&r))
+	}
+	return p
+}
+
+// DashboardMosaicLayoutToProto converts a DashboardMosaicLayout resource to its proto representation.
+func MonitoringDashboardMosaicLayoutToProto(o *monitoring.DashboardMosaicLayout) *monitoringpb.MonitoringDashboardMosaicLayout {
+	if o == nil {
+		return nil
+	}
+	p := &monitoringpb.MonitoringDashboardMosaicLayout{
+		Columns: dcl.ValueOrEmptyInt64(o.Columns),
+	}
+	for _, r := range o.Tiles {
+		p.Tiles = append(p.Tiles, MonitoringDashboardMosaicLayoutTilesToProto(&r))
+	}
+	return p
+}
+
+// DashboardMosaicLayoutTilesToProto converts a DashboardMosaicLayoutTiles resource to its proto representation.
+func MonitoringDashboardMosaicLayoutTilesToProto(o *monitoring.DashboardMosaicLayoutTiles) *monitoringpb.MonitoringDashboardMosaicLayoutTiles {
+	if o == nil {
+		return nil
+	}
+	p := &monitoringpb.MonitoringDashboardMosaicLayoutTiles{
+		XPos:   dcl.ValueOrEmptyInt64(o.XPos),
+		YPos:   dcl.ValueOrEmptyInt64(o.YPos),
+		Width:  dcl.ValueOrEmptyInt64(o.Width),
+		Height: dcl.ValueOrEmptyInt64(o.Height),
+		Widget: MonitoringDashboardWidgetToProto(o.Widget),
+	}
+	return p
+}
+
+// DashboardRowLayoutToProto converts a DashboardRowLayout resource to its proto representation.
+func MonitoringDashboardRowLayoutToProto(o *monitoring.DashboardRowLayout) *monitoringpb.MonitoringDashboardRowLayout {
+	if o == nil {
+		return nil
+	}
+	p := &monitoringpb.MonitoringDashboardRowLayout{}
+	for _, r := range o.Rows {
+		p.Rows = append(p.Rows, MonitoringDashboardRowLayoutRowsToProto(&r))
+	}
+	return p
+}
+
+// DashboardRowLayoutRowsToProto converts a DashboardRowLayoutRows resource to its proto representation.
+func MonitoringDashboardRowLayoutRowsToProto(o *monitoring.DashboardRowLayoutRows) *monitoringpb.MonitoringDashboardRowLayoutRows {
+	if o == nil {
+		return nil
+	}
+	p := &monitoringpb.MonitoringDashboardRowLayoutRows{
+		Weight: dcl.ValueOrEmptyInt64(o.Weight),
+	}
+	for _, r := range o.Widgets {
+		p.Widgets = append(p.Widgets, MonitoringDashboardWidgetToProto(&r))
+	}
+	return p
 }
 
 // DashboardColumnLayoutToProto converts a DashboardColumnLayout resource to its proto representation.
@@ -5419,240 +5309,15 @@ func MonitoringDashboardWidgetBlankToProto(o *monitoring.DashboardWidgetBlank) *
 	return p
 }
 
-// DashboardGridLayoutToProto converts a DashboardGridLayout resource to its proto representation.
-func MonitoringDashboardGridLayoutToProto(o *monitoring.DashboardGridLayout) *monitoringpb.MonitoringDashboardGridLayout {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardGridLayout{
-		Columns: dcl.ValueOrEmptyInt64(o.Columns),
-	}
-	for _, r := range o.Widgets {
-		p.Widgets = append(p.Widgets, MonitoringDashboardWidgetToProto(&r))
-	}
-	return p
-}
-
-// DashboardMosaicLayoutToProto converts a DashboardMosaicLayout resource to its proto representation.
-func MonitoringDashboardMosaicLayoutToProto(o *monitoring.DashboardMosaicLayout) *monitoringpb.MonitoringDashboardMosaicLayout {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardMosaicLayout{
-		Columns: dcl.ValueOrEmptyInt64(o.Columns),
-	}
-	for _, r := range o.Tiles {
-		p.Tiles = append(p.Tiles, MonitoringDashboardMosaicLayoutTilesToProto(&r))
-	}
-	return p
-}
-
-// DashboardMosaicLayoutTilesToProto converts a DashboardMosaicLayoutTiles resource to its proto representation.
-func MonitoringDashboardMosaicLayoutTilesToProto(o *monitoring.DashboardMosaicLayoutTiles) *monitoringpb.MonitoringDashboardMosaicLayoutTiles {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardMosaicLayoutTiles{
-		XPos:   dcl.ValueOrEmptyInt64(o.XPos),
-		YPos:   dcl.ValueOrEmptyInt64(o.YPos),
-		Width:  dcl.ValueOrEmptyInt64(o.Width),
-		Height: dcl.ValueOrEmptyInt64(o.Height),
-		Widget: MonitoringDashboardWidgetToProto(o.Widget),
-	}
-	return p
-}
-
-// DashboardRowLayoutToProto converts a DashboardRowLayout resource to its proto representation.
-func MonitoringDashboardRowLayoutToProto(o *monitoring.DashboardRowLayout) *monitoringpb.MonitoringDashboardRowLayout {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardRowLayout{}
-	for _, r := range o.Rows {
-		p.Rows = append(p.Rows, MonitoringDashboardRowLayoutRowsToProto(&r))
-	}
-	return p
-}
-
-// DashboardRowLayoutRowsToProto converts a DashboardRowLayoutRows resource to its proto representation.
-func MonitoringDashboardRowLayoutRowsToProto(o *monitoring.DashboardRowLayoutRows) *monitoringpb.MonitoringDashboardRowLayoutRows {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardRowLayoutRows{
-		Weight: dcl.ValueOrEmptyInt64(o.Weight),
-	}
-	for _, r := range o.Widgets {
-		p.Widgets = append(p.Widgets, MonitoringDashboardWidgetToProto(&r))
-	}
-	return p
-}
-
-// DashboardTabbedLayoutToProto converts a DashboardTabbedLayout resource to its proto representation.
-func MonitoringDashboardTabbedLayoutToProto(o *monitoring.DashboardTabbedLayout) *monitoringpb.MonitoringDashboardTabbedLayout {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardTabbedLayout{
-		FeaturedMosaicLayout: MonitoringDashboardTabbedLayoutFeaturedMosaicLayoutToProto(o.FeaturedMosaicLayout),
-	}
-	for _, r := range o.Tabs {
-		p.Tabs = append(p.Tabs, MonitoringDashboardTabbedLayoutTabsToProto(&r))
-	}
-	return p
-}
-
-// DashboardTabbedLayoutTabsToProto converts a DashboardTabbedLayoutTabs resource to its proto representation.
-func MonitoringDashboardTabbedLayoutTabsToProto(o *monitoring.DashboardTabbedLayoutTabs) *monitoringpb.MonitoringDashboardTabbedLayoutTabs {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardTabbedLayoutTabs{
-		Label:        dcl.ValueOrEmptyString(o.Label),
-		HintText:     dcl.ValueOrEmptyString(o.HintText),
-		GridLayout:   MonitoringDashboardTabbedLayoutTabsGridLayoutToProto(o.GridLayout),
-		MosaicLayout: MonitoringDashboardTabbedLayoutTabsMosaicLayoutToProto(o.MosaicLayout),
-		RowLayout:    MonitoringDashboardTabbedLayoutTabsRowLayoutToProto(o.RowLayout),
-		ColumnLayout: MonitoringDashboardTabbedLayoutTabsColumnLayoutToProto(o.ColumnLayout),
-	}
-	return p
-}
-
-// DashboardTabbedLayoutTabsGridLayoutToProto converts a DashboardTabbedLayoutTabsGridLayout resource to its proto representation.
-func MonitoringDashboardTabbedLayoutTabsGridLayoutToProto(o *monitoring.DashboardTabbedLayoutTabsGridLayout) *monitoringpb.MonitoringDashboardTabbedLayoutTabsGridLayout {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardTabbedLayoutTabsGridLayout{
-		Columns: dcl.ValueOrEmptyInt64(o.Columns),
-	}
-	for _, r := range o.Widgets {
-		p.Widgets = append(p.Widgets, MonitoringDashboardWidgetToProto(&r))
-	}
-	return p
-}
-
-// DashboardTabbedLayoutTabsMosaicLayoutToProto converts a DashboardTabbedLayoutTabsMosaicLayout resource to its proto representation.
-func MonitoringDashboardTabbedLayoutTabsMosaicLayoutToProto(o *monitoring.DashboardTabbedLayoutTabsMosaicLayout) *monitoringpb.MonitoringDashboardTabbedLayoutTabsMosaicLayout {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardTabbedLayoutTabsMosaicLayout{
-		Columns: dcl.ValueOrEmptyInt64(o.Columns),
-	}
-	for _, r := range o.Tiles {
-		p.Tiles = append(p.Tiles, MonitoringDashboardTabbedLayoutTabsMosaicLayoutTilesToProto(&r))
-	}
-	return p
-}
-
-// DashboardTabbedLayoutTabsMosaicLayoutTilesToProto converts a DashboardTabbedLayoutTabsMosaicLayoutTiles resource to its proto representation.
-func MonitoringDashboardTabbedLayoutTabsMosaicLayoutTilesToProto(o *monitoring.DashboardTabbedLayoutTabsMosaicLayoutTiles) *monitoringpb.MonitoringDashboardTabbedLayoutTabsMosaicLayoutTiles {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardTabbedLayoutTabsMosaicLayoutTiles{
-		XPos:   dcl.ValueOrEmptyInt64(o.XPos),
-		YPos:   dcl.ValueOrEmptyInt64(o.YPos),
-		Width:  dcl.ValueOrEmptyInt64(o.Width),
-		Height: dcl.ValueOrEmptyInt64(o.Height),
-		Widget: MonitoringDashboardWidgetToProto(o.Widget),
-	}
-	return p
-}
-
-// DashboardTabbedLayoutTabsRowLayoutToProto converts a DashboardTabbedLayoutTabsRowLayout resource to its proto representation.
-func MonitoringDashboardTabbedLayoutTabsRowLayoutToProto(o *monitoring.DashboardTabbedLayoutTabsRowLayout) *monitoringpb.MonitoringDashboardTabbedLayoutTabsRowLayout {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardTabbedLayoutTabsRowLayout{}
-	for _, r := range o.Rows {
-		p.Rows = append(p.Rows, MonitoringDashboardTabbedLayoutTabsRowLayoutRowsToProto(&r))
-	}
-	return p
-}
-
-// DashboardTabbedLayoutTabsRowLayoutRowsToProto converts a DashboardTabbedLayoutTabsRowLayoutRows resource to its proto representation.
-func MonitoringDashboardTabbedLayoutTabsRowLayoutRowsToProto(o *monitoring.DashboardTabbedLayoutTabsRowLayoutRows) *monitoringpb.MonitoringDashboardTabbedLayoutTabsRowLayoutRows {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardTabbedLayoutTabsRowLayoutRows{
-		Weight: dcl.ValueOrEmptyInt64(o.Weight),
-	}
-	for _, r := range o.Widgets {
-		p.Widgets = append(p.Widgets, MonitoringDashboardWidgetToProto(&r))
-	}
-	return p
-}
-
-// DashboardTabbedLayoutTabsColumnLayoutToProto converts a DashboardTabbedLayoutTabsColumnLayout resource to its proto representation.
-func MonitoringDashboardTabbedLayoutTabsColumnLayoutToProto(o *monitoring.DashboardTabbedLayoutTabsColumnLayout) *monitoringpb.MonitoringDashboardTabbedLayoutTabsColumnLayout {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardTabbedLayoutTabsColumnLayout{}
-	for _, r := range o.Columns {
-		p.Columns = append(p.Columns, MonitoringDashboardTabbedLayoutTabsColumnLayoutColumnsToProto(&r))
-	}
-	return p
-}
-
-// DashboardTabbedLayoutTabsColumnLayoutColumnsToProto converts a DashboardTabbedLayoutTabsColumnLayoutColumns resource to its proto representation.
-func MonitoringDashboardTabbedLayoutTabsColumnLayoutColumnsToProto(o *monitoring.DashboardTabbedLayoutTabsColumnLayoutColumns) *monitoringpb.MonitoringDashboardTabbedLayoutTabsColumnLayoutColumns {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardTabbedLayoutTabsColumnLayoutColumns{
-		Weight: dcl.ValueOrEmptyInt64(o.Weight),
-	}
-	for _, r := range o.Widgets {
-		p.Widgets = append(p.Widgets, MonitoringDashboardWidgetToProto(&r))
-	}
-	return p
-}
-
-// DashboardTabbedLayoutFeaturedMosaicLayoutToProto converts a DashboardTabbedLayoutFeaturedMosaicLayout resource to its proto representation.
-func MonitoringDashboardTabbedLayoutFeaturedMosaicLayoutToProto(o *monitoring.DashboardTabbedLayoutFeaturedMosaicLayout) *monitoringpb.MonitoringDashboardTabbedLayoutFeaturedMosaicLayout {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardTabbedLayoutFeaturedMosaicLayout{
-		Columns: dcl.ValueOrEmptyInt64(o.Columns),
-	}
-	for _, r := range o.Tiles {
-		p.Tiles = append(p.Tiles, MonitoringDashboardTabbedLayoutFeaturedMosaicLayoutTilesToProto(&r))
-	}
-	return p
-}
-
-// DashboardTabbedLayoutFeaturedMosaicLayoutTilesToProto converts a DashboardTabbedLayoutFeaturedMosaicLayoutTiles resource to its proto representation.
-func MonitoringDashboardTabbedLayoutFeaturedMosaicLayoutTilesToProto(o *monitoring.DashboardTabbedLayoutFeaturedMosaicLayoutTiles) *monitoringpb.MonitoringDashboardTabbedLayoutFeaturedMosaicLayoutTiles {
-	if o == nil {
-		return nil
-	}
-	p := &monitoringpb.MonitoringDashboardTabbedLayoutFeaturedMosaicLayoutTiles{
-		XPos:   dcl.ValueOrEmptyInt64(o.XPos),
-		YPos:   dcl.ValueOrEmptyInt64(o.YPos),
-		Width:  dcl.ValueOrEmptyInt64(o.Width),
-		Height: dcl.ValueOrEmptyInt64(o.Height),
-		Widget: MonitoringDashboardWidgetToProto(o.Widget),
-	}
-	return p
-}
-
 // DashboardToProto converts a Dashboard resource to its proto representation.
 func DashboardToProto(resource *monitoring.Dashboard) *monitoringpb.MonitoringDashboard {
 	p := &monitoringpb.MonitoringDashboard{
-		Category:     MonitoringDashboardCategoryEnumToProto(resource.Category),
-		ColumnLayout: MonitoringDashboardColumnLayoutToProto(resource.ColumnLayout),
+		Name:         dcl.ValueOrEmptyString(resource.Name),
 		DisplayName:  dcl.ValueOrEmptyString(resource.DisplayName),
 		GridLayout:   MonitoringDashboardGridLayoutToProto(resource.GridLayout),
 		MosaicLayout: MonitoringDashboardMosaicLayoutToProto(resource.MosaicLayout),
-		Name:         dcl.ValueOrEmptyString(resource.Name),
 		RowLayout:    MonitoringDashboardRowLayoutToProto(resource.RowLayout),
-		TabbedLayout: MonitoringDashboardTabbedLayoutToProto(resource.TabbedLayout),
+		ColumnLayout: MonitoringDashboardColumnLayoutToProto(resource.ColumnLayout),
 		Project:      dcl.ValueOrEmptyString(resource.Project),
 	}
 

@@ -1,0 +1,60 @@
+{
+  "project": "{{project}}",
+  "name": "{{template_name}}",
+  "location": "{{region}}",
+  "placement": {
+    "managedCluster": {
+      "clusterName": "my-cluster",
+      "config": {
+        "initializationActions": [],
+        "gceClusterConfig": {
+          "zone": "us-centra1-a",
+          "internalIPOnly": false,
+          "tags": ["foo", "bar"],
+          "serviceAccountScopes": [],
+          "metadata": {}
+        },
+        "masterConfig": {
+          "numInstances": 1,
+          "machineType": "n1-standard-1",
+          "diskConfig": {
+            "bootDiskType": "pd-ssd",
+            "bootDiskSizeGb": 15
+          }
+        },
+        "workerConfig": {
+          "numInstances": 3,
+          "machineType": "n1-standard-2",
+          "diskConfig": {
+            "bootDiskSizeGb": 10,
+            "numLocalSsds": 2
+          },
+          "instanceNames": []
+        },
+        "secondaryWorkerConfig": {
+          "numInstances": 2,
+          "instanceNames": []
+        },
+        "softwareConfig": {
+          "imageVersion": "1.3.7-deb9",
+          "optionalComponents": []
+        }
+      }
+    }
+  },
+  "jobs": [
+    {
+      "stepId": "someJob",
+      "sparkJob": {
+        "mainClass": "SomeClass"
+      }
+    },
+    {
+      "stepId": "otherJob",
+      "prerequisiteStepIds": ["someJob"],
+      "prestoJob": {
+        "queryFileUri": "someuri"
+      }
+    }
+  ]
+}

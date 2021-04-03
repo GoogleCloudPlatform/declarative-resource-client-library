@@ -511,6 +511,53 @@ func diffDatabase(c *Client, desired, actual *Database, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []databaseDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Charset, actual.Charset, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, databaseDiff{
+			UpdateOp: &updateDatabaseUpdateOperation{}, FieldName: "Charset",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Collation, actual.Collation, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, databaseDiff{
+			UpdateOp: &updateDatabaseUpdateOperation{}, FieldName: "Collation",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Instance, actual.Instance, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, databaseDiff{RequiresRecreate: true, FieldName: "Instance"})
+	}
+
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, databaseDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
+	if d, err := dcl.Diff(desired.Project, actual.Project, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, databaseDiff{RequiresRecreate: true, FieldName: "Project"})
+	}
+
+	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, databaseDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+	}
+
 	if !dcl.IsZeroValue(desired.Charset) && !dcl.StringCanonicalize(desired.Charset, actual.Charset) {
 		c.Config.Logger.Infof("Detected diff in Charset.\nDESIRED: %v\nACTUAL: %v", desired.Charset, actual.Charset)
 

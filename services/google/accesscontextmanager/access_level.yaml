@@ -45,6 +45,11 @@ components:
                         description: A list of allowed device management levels. An
                           empty list allows all management levels.
                         items:
+                          enum:
+                          - MANAGEMENT_UNSPECIFIED
+                          - NONE
+                          - BASIC
+                          - COMPLETE
                           type: string
                           x-dcl-go-type: AccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum
                         type: array
@@ -54,6 +59,11 @@ components:
                         description: A list of allowed encryptions statuses. An empty
                           list allows all statuses.
                         items:
+                          enum:
+                          - ENCRYPTION_UNSPECIFIED
+                          - ENCRYPTION_UNSUPPORTED
+                          - UNENCRYPTED
+                          - ENCRYPTED
                           type: string
                           x-dcl-go-type: AccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnum
                         type: array

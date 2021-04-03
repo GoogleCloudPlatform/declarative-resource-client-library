@@ -4914,6 +4914,21 @@ func diffService(c *Client, desired, actual *Service, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []serviceDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.ApiVersion, actual.ApiVersion, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceDiff{RequiresRecreate: true, FieldName: "ApiVersion"})
+	}
+
+	if d, err := dcl.Diff(desired.Kind, actual.Kind, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceDiff{RequiresRecreate: true, FieldName: "Kind"})
+	}
+
 	if !dcl.IsZeroValue(desired.ApiVersion) && !dcl.StringCanonicalize(desired.ApiVersion, actual.ApiVersion) {
 		c.Config.Logger.Infof("Detected diff in ApiVersion.\nDESIRED: %v\nACTUAL: %v", desired.ApiVersion, actual.ApiVersion)
 		diffs = append(diffs, serviceDiff{

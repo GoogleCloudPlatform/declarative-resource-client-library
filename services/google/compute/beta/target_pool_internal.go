@@ -865,6 +865,58 @@ func diffTargetPool(c *Client, desired, actual *TargetPool, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []targetPoolDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.BackupPool, actual.BackupPool, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, targetPoolDiff{
+			UpdateOp: &updateTargetPoolSetBackupOperation{}, FieldName: "BackupPool",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, FieldName: "Description"})
+	}
+
+	if d, err := dcl.Diff(desired.FailoverRatio, actual.FailoverRatio, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, FieldName: "FailoverRatio"})
+	}
+
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
+	if d, err := dcl.Diff(desired.Region, actual.Region, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, FieldName: "Region"})
+	}
+
+	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+	}
+
+	if d, err := dcl.Diff(desired.Project, actual.Project, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, FieldName: "Project"})
+	}
+
 	if !dcl.IsZeroValue(desired.BackupPool) && !dcl.StringCanonicalize(desired.BackupPool, actual.BackupPool) {
 		c.Config.Logger.Infof("Detected diff in BackupPool.\nDESIRED: %v\nACTUAL: %v", desired.BackupPool, actual.BackupPool)
 

@@ -412,6 +412,21 @@ func diffIdentityAwareProxyClient(c *Client, desired, actual *IdentityAwareProxy
 	}
 
 	var diffs []identityAwareProxyClientDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Secret, actual.Secret, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, identityAwareProxyClientDiff{RequiresRecreate: true, FieldName: "Secret"})
+	}
+
+	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, identityAwareProxyClientDiff{RequiresRecreate: true, FieldName: "DisplayName"})
+	}
+
 	if !dcl.StringEqualsWithSelfLink(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, identityAwareProxyClientDiff{

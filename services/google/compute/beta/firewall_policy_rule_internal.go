@@ -622,6 +622,73 @@ func diffFirewallPolicyRule(c *Client, desired, actual *FirewallPolicyRule, opts
 	}
 
 	var diffs []firewallPolicyRuleDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallPolicyRuleDiff{
+			UpdateOp: &updateFirewallPolicyRulePatchRuleOperation{}, FieldName: "Description",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Priority, actual.Priority, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallPolicyRuleDiff{RequiresRecreate: true, FieldName: "Priority"})
+	}
+
+	if d, err := dcl.Diff(desired.Action, actual.Action, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallPolicyRuleDiff{
+			UpdateOp: &updateFirewallPolicyRulePatchRuleOperation{}, FieldName: "Action",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.EnableLogging, actual.EnableLogging, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallPolicyRuleDiff{
+			UpdateOp: &updateFirewallPolicyRulePatchRuleOperation{}, FieldName: "EnableLogging",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.RuleTupleCount, actual.RuleTupleCount, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallPolicyRuleDiff{
+			UpdateOp: &updateFirewallPolicyRulePatchRuleOperation{}, FieldName: "RuleTupleCount",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Disabled, actual.Disabled, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallPolicyRuleDiff{
+			UpdateOp: &updateFirewallPolicyRulePatchRuleOperation{}, FieldName: "Disabled",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Kind, actual.Kind, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallPolicyRuleDiff{RequiresRecreate: true, FieldName: "Kind"})
+	}
+
+	if d, err := dcl.Diff(desired.FirewallPolicy, actual.FirewallPolicy, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallPolicyRuleDiff{RequiresRecreate: true, FieldName: "FirewallPolicy"})
+	}
+
 	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 

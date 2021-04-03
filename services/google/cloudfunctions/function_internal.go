@@ -1025,6 +1025,126 @@ func diffFunction(c *Client, desired, actual *Function, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []functionDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{
+			UpdateOp: &updateFunctionUpdateOperation{}, FieldName: "Description",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.SourceArchiveUrl, actual.SourceArchiveUrl, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, FieldName: "SourceArchiveUrl"})
+	}
+
+	if d, err := dcl.Diff(desired.EntryPoint, actual.EntryPoint, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, FieldName: "EntryPoint"})
+	}
+
+	if d, err := dcl.Diff(desired.Runtime, actual.Runtime, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{
+			UpdateOp: &updateFunctionUpdateOperation{}, FieldName: "Runtime",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Timeout, actual.Timeout, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{
+			UpdateOp: &updateFunctionUpdateOperation{}, FieldName: "Timeout",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.AvailableMemoryMb, actual.AvailableMemoryMb, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{
+			UpdateOp: &updateFunctionUpdateOperation{}, FieldName: "AvailableMemoryMb",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.ServiceAccountEmail, actual.ServiceAccountEmail, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, FieldName: "ServiceAccountEmail"})
+	}
+
+	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
+	}
+
+	if d, err := dcl.Diff(desired.VersionId, actual.VersionId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, FieldName: "VersionId"})
+	}
+
+	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{
+			UpdateOp: &updateFunctionUpdateOperation{}, FieldName: "Labels",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.EnvironmentVariables, actual.EnvironmentVariables, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{
+			UpdateOp: &updateFunctionUpdateOperation{}, FieldName: "EnvironmentVariables",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Network, actual.Network, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, FieldName: "Network"})
+	}
+
+	if d, err := dcl.Diff(desired.MaxInstances, actual.MaxInstances, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{
+			UpdateOp: &updateFunctionUpdateOperation{}, FieldName: "MaxInstances",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.VPCConnector, actual.VPCConnector, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, FieldName: "VPCConnector"})
+	}
+
 	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, functionDiff{

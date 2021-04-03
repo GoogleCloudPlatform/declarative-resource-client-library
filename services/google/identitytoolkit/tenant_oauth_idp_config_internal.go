@@ -616,6 +616,61 @@ func diffTenantOAuthIdpConfig(c *Client, desired, actual *TenantOAuthIdpConfig, 
 	}
 
 	var diffs []tenantOAuthIdpConfigDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, tenantOAuthIdpConfigDiff{
+			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, FieldName: "Name",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.ClientId, actual.ClientId, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, tenantOAuthIdpConfigDiff{
+			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, FieldName: "ClientId",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Issuer, actual.Issuer, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, tenantOAuthIdpConfigDiff{
+			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, FieldName: "Issuer",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, tenantOAuthIdpConfigDiff{
+			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, FieldName: "DisplayName",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Enabled, actual.Enabled, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, tenantOAuthIdpConfigDiff{
+			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, FieldName: "Enabled",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.ClientSecret, actual.ClientSecret, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, tenantOAuthIdpConfigDiff{
+			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, FieldName: "ClientSecret",
+		})
+	}
+
 	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 

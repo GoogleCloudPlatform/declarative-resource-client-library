@@ -1739,6 +1739,79 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 	}
 
 	var diffs []instanceGroupManagerDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.BaseInstanceName, actual.BaseInstanceName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, FieldName: "BaseInstanceName"})
+	}
+
+	if d, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, FieldName: "CreationTimestamp"})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, FieldName: "Description"})
+	}
+
+	if d, err := dcl.Diff(desired.Id, actual.Id, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, FieldName: "Id"})
+	}
+
+	if d, err := dcl.Diff(desired.InstanceGroup, actual.InstanceGroup, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, FieldName: "InstanceGroup"})
+	}
+
+	if d, err := dcl.Diff(desired.InstanceTemplate, actual.InstanceTemplate, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceGroupManagerDiff{
+			UpdateOp: &updateInstanceGroupManagerSetInstanceTemplateOperation{}, FieldName: "InstanceTemplate",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
+	if d, err := dcl.Diff(desired.TargetSize, actual.TargetSize, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, FieldName: "TargetSize"})
+	}
+
+	if d, err := dcl.Diff(desired.Zone, actual.Zone, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, FieldName: "Zone"})
+	}
+
+	if d, err := dcl.Diff(desired.Region, actual.Region, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, FieldName: "Region"})
+	}
+
 	if !dcl.IsZeroValue(desired.BaseInstanceName) && !dcl.StringCanonicalize(desired.BaseInstanceName, actual.BaseInstanceName) {
 		c.Config.Logger.Infof("Detected diff in BaseInstanceName.\nDESIRED: %v\nACTUAL: %v", desired.BaseInstanceName, actual.BaseInstanceName)
 		diffs = append(diffs, instanceGroupManagerDiff{

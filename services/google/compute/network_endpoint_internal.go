@@ -417,6 +417,42 @@ func diffNetworkEndpoint(c *Client, desired, actual *NetworkEndpoint, opts ...dc
 	}
 
 	var diffs []networkEndpointDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Port, actual.Port, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, FieldName: "Port"})
+	}
+
+	if d, err := dcl.Diff(desired.IPAddress, actual.IPAddress, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, FieldName: "IPAddress"})
+	}
+
+	if d, err := dcl.Diff(desired.Fqdn, actual.Fqdn, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, FieldName: "Fqdn"})
+	}
+
+	if d, err := dcl.Diff(desired.Instance, actual.Instance, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, FieldName: "Instance"})
+	}
+
+	if d, err := dcl.Diff(desired.Annotations, actual.Annotations, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, FieldName: "Annotations"})
+	}
+
 	if !reflect.DeepEqual(desired.Port, actual.Port) {
 		c.Config.Logger.Infof("Detected diff in Port.\nDESIRED: %v\nACTUAL: %v", desired.Port, actual.Port)
 		diffs = append(diffs, networkEndpointDiff{

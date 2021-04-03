@@ -1255,6 +1255,88 @@ func diffAutoscaler(c *Client, desired, actual *Autoscaler, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []autoscalerDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Id, actual.Id, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, FieldName: "Id"})
+	}
+
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalerDiff{
+			UpdateOp: &updateAutoscalerUpdateOperation{}, FieldName: "Description",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Target, actual.Target, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalerDiff{
+			UpdateOp: &updateAutoscalerUpdateOperation{}, FieldName: "Target",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Zone, actual.Zone, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, FieldName: "Zone"})
+	}
+
+	if d, err := dcl.Diff(desired.Region, actual.Region, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, FieldName: "Region"})
+	}
+
+	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+	}
+
+	if d, err := dcl.Diff(desired.RecommendedSize, actual.RecommendedSize, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, FieldName: "RecommendedSize"})
+	}
+
+	if d, err := dcl.Diff(desired.SelfLinkWithId, actual.SelfLinkWithId, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, FieldName: "SelfLinkWithId"})
+	}
+
+	if d, err := dcl.Diff(desired.ScalingScheduleStatus, actual.ScalingScheduleStatus, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, FieldName: "ScalingScheduleStatus"})
+	}
+
+	if d, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, FieldName: "CreationTimestamp"})
+	}
+
 	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, autoscalerDiff{

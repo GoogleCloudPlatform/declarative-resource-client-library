@@ -2989,6 +2989,42 @@ func diffWorkflowTemplate(c *Client, desired, actual *WorkflowTemplate, opts ...
 	}
 
 	var diffs []workflowTemplateDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Version, actual.Version, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, FieldName: "Version"})
+	}
+
+	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, FieldName: "CreateTime"})
+	}
+
+	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
+	}
+
+	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, FieldName: "Labels"})
+	}
+
+	if d, err := dcl.Diff(desired.DagTimeout, actual.DagTimeout, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, FieldName: "DagTimeout"})
+	}
+
 	if !reflect.DeepEqual(desired.Version, actual.Version) {
 		c.Config.Logger.Infof("Detected diff in Version.\nDESIRED: %v\nACTUAL: %v", desired.Version, actual.Version)
 		diffs = append(diffs, workflowTemplateDiff{

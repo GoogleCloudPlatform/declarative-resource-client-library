@@ -673,6 +673,67 @@ func diffServiceAccount(c *Client, desired, actual *ServiceAccount, opts ...dcl.
 	}
 
 	var diffs []serviceAccountDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
+	if d, err := dcl.Diff(desired.Project, actual.Project, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, FieldName: "Project"})
+	}
+
+	if d, err := dcl.Diff(desired.UniqueId, actual.UniqueId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, FieldName: "UniqueId"})
+	}
+
+	if d, err := dcl.Diff(desired.Email, actual.Email, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, FieldName: "Email"})
+	}
+
+	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceAccountDiff{
+			UpdateOp: &updateServiceAccountPatchServiceAccountOperation{}, FieldName: "DisplayName",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceAccountDiff{
+			UpdateOp: &updateServiceAccountPatchServiceAccountOperation{}, FieldName: "Description",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.OAuth2ClientId, actual.OAuth2ClientId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, FieldName: "OAuth2ClientId"})
+	}
+
+	if d, err := dcl.Diff(desired.Disabled, actual.Disabled, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, FieldName: "Disabled"})
+	}
+
 	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, serviceAccountDiff{

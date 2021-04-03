@@ -159,6 +159,9 @@ components:
                 description: Internet protocol versions for which the instance has
                   IP addresses assigned. For this version, only MODE_IPV4 is supported.
                 items:
+                  enum:
+                  - ADDRESS_MODE_UNSPECIFIED
+                  - MODE_IPV4
                   type: string
                   x-dcl-go-type: InstanceNetworksModesEnum
                 type: array

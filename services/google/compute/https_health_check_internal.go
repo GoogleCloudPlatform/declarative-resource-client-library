@@ -612,6 +612,100 @@ func diffHttpsHealthCheck(c *Client, desired, actual *HttpsHealthCheck, opts ...
 	}
 
 	var diffs []httpsHealthCheckDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.CheckIntervalSec, actual.CheckIntervalSec, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, httpsHealthCheckDiff{
+			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, FieldName: "CheckIntervalSec",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, httpsHealthCheckDiff{
+			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, FieldName: "Description",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.HealthyThreshold, actual.HealthyThreshold, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, httpsHealthCheckDiff{
+			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, FieldName: "HealthyThreshold",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Host, actual.Host, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, httpsHealthCheckDiff{
+			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, FieldName: "Host",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, httpsHealthCheckDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
+	if d, err := dcl.Diff(desired.Port, actual.Port, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, httpsHealthCheckDiff{
+			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, FieldName: "Port",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.RequestPath, actual.RequestPath, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, httpsHealthCheckDiff{
+			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, FieldName: "RequestPath",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.TimeoutSec, actual.TimeoutSec, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, httpsHealthCheckDiff{
+			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, FieldName: "TimeoutSec",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.UnhealthyThreshold, actual.UnhealthyThreshold, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, httpsHealthCheckDiff{
+			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, FieldName: "UnhealthyThreshold",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, httpsHealthCheckDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+	}
+
+	if d, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, httpsHealthCheckDiff{RequiresRecreate: true, FieldName: "CreationTimestamp"})
+	}
+
 	if !reflect.DeepEqual(desired.CheckIntervalSec, actual.CheckIntervalSec) {
 		c.Config.Logger.Infof("Detected diff in CheckIntervalSec.\nDESIRED: %v\nACTUAL: %v", desired.CheckIntervalSec, actual.CheckIntervalSec)
 

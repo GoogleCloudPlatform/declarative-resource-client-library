@@ -1318,6 +1318,60 @@ func diffFeature(c *Client, desired, actual *Feature, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []featureDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, featureDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
+	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, featureDiff{
+			UpdateOp: &updateFeatureUpdateFeatureOperation{}, FieldName: "Labels",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.MembershipSpecs, actual.MembershipSpecs, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, featureDiff{
+			UpdateOp: &updateFeatureUpdateFeatureOperation{}, FieldName: "MembershipSpecs",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.MembershipStates, actual.MembershipStates, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, featureDiff{RequiresRecreate: true, FieldName: "MembershipStates"})
+	}
+
+	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, featureDiff{RequiresRecreate: true, FieldName: "CreateTime"})
+	}
+
+	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, featureDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
+	}
+
+	if d, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, featureDiff{RequiresRecreate: true, FieldName: "DeleteTime"})
+	}
+
 	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, featureDiff{
@@ -3383,6 +3437,10 @@ func expandFeatureStateHelloworld(c *Client, f *FeatureStateHelloworld) (map[str
 // flattenFeatureStateHelloworld flattens an instance of FeatureStateHelloworld from a JSON
 // response object.
 func flattenFeatureStateHelloworld(c *Client, i interface{}) *FeatureStateHelloworld {
+	_, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
 
 	r := &FeatureStateHelloworld{}
 

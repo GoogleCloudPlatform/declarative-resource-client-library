@@ -407,6 +407,7 @@ func diffDatabase(c *Client, desired, actual *Database, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []databaseDiff
+	// New style diffs.
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any

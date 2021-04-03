@@ -1160,6 +1160,68 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 	}
 
 	var diffs []healthCheckDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.CheckIntervalSec, actual.CheckIntervalSec, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, healthCheckDiff{
+			UpdateOp: &updateHealthCheckUpdateOperation{}, FieldName: "CheckIntervalSec",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, healthCheckDiff{
+			UpdateOp: &updateHealthCheckUpdateOperation{}, FieldName: "Description",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.HealthyThreshold, actual.HealthyThreshold, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, healthCheckDiff{
+			UpdateOp: &updateHealthCheckUpdateOperation{}, FieldName: "HealthyThreshold",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, healthCheckDiff{
+			UpdateOp: &updateHealthCheckUpdateOperation{}, FieldName: "Name",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.UnhealthyThreshold, actual.UnhealthyThreshold, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, healthCheckDiff{
+			UpdateOp: &updateHealthCheckUpdateOperation{}, FieldName: "UnhealthyThreshold",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.TimeoutSec, actual.TimeoutSec, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, healthCheckDiff{
+			UpdateOp: &updateHealthCheckUpdateOperation{}, FieldName: "TimeoutSec",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, healthCheckDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+	}
+
 	if !reflect.DeepEqual(desired.CheckIntervalSec, actual.CheckIntervalSec) {
 		c.Config.Logger.Infof("Detected diff in CheckIntervalSec.\nDESIRED: %v\nACTUAL: %v", desired.CheckIntervalSec, actual.CheckIntervalSec)
 

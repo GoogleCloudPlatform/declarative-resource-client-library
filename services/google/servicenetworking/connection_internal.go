@@ -471,6 +471,25 @@ func diffConnection(c *Client, desired, actual *Connection, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []connectionDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Network, actual.Network, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, connectionDiff{
+			UpdateOp: &updateConnectionPatchOperation{}, FieldName: "Network",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Service, actual.Service, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, connectionDiff{
+			UpdateOp: &updateConnectionPatchOperation{}, FieldName: "Service",
+		})
+	}
+
 	if !dcl.IsZeroValue(desired.Network) && !dcl.PartialSelfLinkToSelfLink(desired.Network, actual.Network) {
 		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
 

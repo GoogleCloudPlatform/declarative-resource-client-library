@@ -450,6 +450,28 @@ func diffFirewallRule(c *Client, desired, actual *FirewallRule, opts ...dcl.Appl
 	}
 
 	var diffs []firewallRuleDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallRuleDiff{RequiresRecreate: true, FieldName: "Description"})
+	}
+
+	if d, err := dcl.Diff(desired.Priority, actual.Priority, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallRuleDiff{RequiresRecreate: true, FieldName: "Priority"})
+	}
+
+	if d, err := dcl.Diff(desired.SourceRange, actual.SourceRange, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallRuleDiff{RequiresRecreate: true, FieldName: "SourceRange"})
+	}
+
 	if !reflect.DeepEqual(desired.Action, actual.Action) {
 		c.Config.Logger.Infof("Detected diff in Action.\nDESIRED: %v\nACTUAL: %v", desired.Action, actual.Action)
 		diffs = append(diffs, firewallRuleDiff{

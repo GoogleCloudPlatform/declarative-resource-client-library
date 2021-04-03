@@ -632,6 +632,69 @@ func diffObjectAccessControl(c *Client, desired, actual *ObjectAccessControl, op
 	}
 
 	var diffs []objectAccessControlDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Bucket, actual.Bucket, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, objectAccessControlDiff{
+			UpdateOp: &updateObjectAccessControlUpdateOperation{}, FieldName: "Bucket",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Domain, actual.Domain, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, FieldName: "Domain"})
+	}
+
+	if d, err := dcl.Diff(desired.Email, actual.Email, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, FieldName: "Email"})
+	}
+
+	if d, err := dcl.Diff(desired.Entity, actual.Entity, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, objectAccessControlDiff{
+			UpdateOp: &updateObjectAccessControlUpdateOperation{}, FieldName: "Entity",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.EntityId, actual.EntityId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, FieldName: "EntityId"})
+	}
+
+	if d, err := dcl.Diff(desired.Id, actual.Id, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, FieldName: "Id"})
+	}
+
+	if d, err := dcl.Diff(desired.Object, actual.Object, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, objectAccessControlDiff{
+			UpdateOp: &updateObjectAccessControlUpdateOperation{}, FieldName: "Object",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Generation, actual.Generation, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, FieldName: "Generation"})
+	}
+
 	if !dcl.IsZeroValue(desired.Bucket) && !dcl.NameToSelfLink(desired.Bucket, actual.Bucket) {
 		c.Config.Logger.Infof("Detected diff in Bucket.\nDESIRED: %v\nACTUAL: %v", desired.Bucket, actual.Bucket)
 

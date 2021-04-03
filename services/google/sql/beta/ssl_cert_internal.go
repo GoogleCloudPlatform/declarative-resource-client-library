@@ -460,6 +460,49 @@ func diffSslCert(c *Client, desired, actual *SslCert, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []sslCertDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.CertSerialNumber, actual.CertSerialNumber, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, FieldName: "CertSerialNumber"})
+	}
+
+	if d, err := dcl.Diff(desired.Cert, actual.Cert, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, FieldName: "Cert"})
+	}
+
+	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, FieldName: "CreateTime"})
+	}
+
+	if d, err := dcl.Diff(desired.CommonName, actual.CommonName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, FieldName: "CommonName"})
+	}
+
+	if d, err := dcl.Diff(desired.ExpirationTime, actual.ExpirationTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, FieldName: "ExpirationTime"})
+	}
+
+	if d, err := dcl.Diff(desired.Instance, actual.Instance, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, FieldName: "Instance"})
+	}
+
 	if !dcl.IsZeroValue(desired.CommonName) && !dcl.StringCanonicalize(desired.CommonName, actual.CommonName) {
 		c.Config.Logger.Infof("Detected diff in CommonName.\nDESIRED: %v\nACTUAL: %v", desired.CommonName, actual.CommonName)
 		diffs = append(diffs, sslCertDiff{

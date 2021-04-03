@@ -1187,6 +1187,21 @@ func diffBucket(c *Client, desired, actual *Bucket, opts ...dcl.ApplyOption) ([]
 	}
 
 	var diffs []bucketDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Location, actual.Location, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, bucketDiff{RequiresRecreate: true, FieldName: "Location"})
+	}
+
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, bucketDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
 	if !dcl.IsZeroValue(desired.Location) && !dcl.StringCanonicalize(desired.Location, actual.Location) {
 		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %v\nACTUAL: %v", desired.Location, actual.Location)
 		diffs = append(diffs, bucketDiff{

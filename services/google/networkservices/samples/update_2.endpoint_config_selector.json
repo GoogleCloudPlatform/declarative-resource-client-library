@@ -1,0 +1,25 @@
+{
+  "name": "{{selector}}",
+  "location": "global",
+  "project": "{{project}}",
+  "labels": {
+    "label-one": "value-one",
+    "label-two": "value-two"
+  },
+  "type": "SIDECAR_PROXY",
+  "description": "An updated sample endpoint config selector",
+  "endpointMatcher": {
+    "metadataLabelMatcher": {
+      "metadataLabelMatchCriteria": "MATCH_ALL",
+      "metadataLabels": [
+        {
+          "labelName": "filter-test",
+          "labelValue": "true"
+        }
+      ]
+    }
+  },
+  "trafficPortSelector": {
+    "ports": ["8082"]
+  }
+}

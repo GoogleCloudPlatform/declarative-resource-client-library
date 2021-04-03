@@ -457,6 +457,66 @@ func diffFirewallPolicy(c *Client, desired, actual *FirewallPolicy, opts ...dcl.
 	}
 
 	var diffs []firewallPolicyDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallPolicyDiff{
+			UpdateOp: &updateFirewallPolicyPatchOperation{}, FieldName: "Description",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Fingerprint, actual.Fingerprint, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallPolicyDiff{
+			UpdateOp: &updateFirewallPolicyPatchOperation{}, FieldName: "Fingerprint",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallPolicyDiff{
+			UpdateOp: &updateFirewallPolicyPatchOperation{}, FieldName: "SelfLink",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.SelfLinkWithId, actual.SelfLinkWithId, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallPolicyDiff{
+			UpdateOp: &updateFirewallPolicyPatchOperation{}, FieldName: "SelfLinkWithId",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.RuleTupleCount, actual.RuleTupleCount, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallPolicyDiff{RequiresRecreate: true, FieldName: "RuleTupleCount"})
+	}
+
+	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallPolicyDiff{
+			UpdateOp: &updateFirewallPolicyPatchOperation{}, FieldName: "DisplayName",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Parent, actual.Parent, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallPolicyDiff{RequiresRecreate: true, FieldName: "Parent"})
+	}
+
 	if !dcl.StringEqualsWithSelfLink(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, firewallPolicyDiff{

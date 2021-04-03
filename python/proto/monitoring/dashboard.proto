@@ -18,14 +18,6 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
-enum MonitoringDashboardCategoryEnum {
-  MonitoringDashboardCategoryEnumNO_VALUE_DO_NOT_USE = 0;
-  MonitoringDashboardCategoryEnumCATEGORY_UNSPECIFIED = 1;
-  MonitoringDashboardCategoryEnumCUSTOM = 2;
-  MonitoringDashboardCategoryEnumGROUP = 3;
-  MonitoringDashboardCategoryEnumHOMEPAGE = 4;
-}
-
 enum MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumNO_VALUE_DO_NOT_USE = 0;
   MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumALIGN_NONE = 1;
@@ -816,15 +808,40 @@ enum MonitoringDashboardWidgetTextFormatEnum {
 }
 
 message MonitoringDashboard {
-  MonitoringDashboardCategoryEnum category = 1;
-  MonitoringDashboardColumnLayout column_layout = 2;
-  string display_name = 3;
-  MonitoringDashboardGridLayout grid_layout = 4;
-  MonitoringDashboardMosaicLayout mosaic_layout = 5;
-  string name = 6;
-  MonitoringDashboardRowLayout row_layout = 7;
-  MonitoringDashboardTabbedLayout tabbed_layout = 8;
-  string project = 9;
+  string name = 1;
+  string display_name = 2;
+  MonitoringDashboardGridLayout grid_layout = 3;
+  MonitoringDashboardMosaicLayout mosaic_layout = 4;
+  MonitoringDashboardRowLayout row_layout = 5;
+  MonitoringDashboardColumnLayout column_layout = 6;
+  string project = 7;
+}
+
+message MonitoringDashboardGridLayout {
+  int64 columns = 1;
+  repeated MonitoringDashboardWidget widgets = 2;
+}
+
+message MonitoringDashboardMosaicLayout {
+  int64 columns = 1;
+  repeated MonitoringDashboardMosaicLayoutTiles tiles = 2;
+}
+
+message MonitoringDashboardMosaicLayoutTiles {
+  int64 x_pos = 1;
+  int64 y_pos = 2;
+  int64 width = 3;
+  int64 height = 4;
+  MonitoringDashboardWidget widget = 5;
+}
+
+message MonitoringDashboardRowLayout {
+  repeated MonitoringDashboardRowLayoutRows rows = 1;
+}
+
+message MonitoringDashboardRowLayoutRows {
+  int64 weight = 1;
+  repeated MonitoringDashboardWidget widgets = 2;
 }
 
 message MonitoringDashboardColumnLayout {
@@ -1620,96 +1637,6 @@ message MonitoringDashboardWidgetText {
 }
 
 message MonitoringDashboardWidgetBlank {
-}
-
-message MonitoringDashboardGridLayout {
-  int64 columns = 1;
-  repeated MonitoringDashboardWidget widgets = 2;
-}
-
-message MonitoringDashboardMosaicLayout {
-  int64 columns = 1;
-  repeated MonitoringDashboardMosaicLayoutTiles tiles = 2;
-}
-
-message MonitoringDashboardMosaicLayoutTiles {
-  int64 x_pos = 1;
-  int64 y_pos = 2;
-  int64 width = 3;
-  int64 height = 4;
-  MonitoringDashboardWidget widget = 5;
-}
-
-message MonitoringDashboardRowLayout {
-  repeated MonitoringDashboardRowLayoutRows rows = 1;
-}
-
-message MonitoringDashboardRowLayoutRows {
-  int64 weight = 1;
-  repeated MonitoringDashboardWidget widgets = 2;
-}
-
-message MonitoringDashboardTabbedLayout {
-  repeated MonitoringDashboardTabbedLayoutTabs tabs = 1;
-  MonitoringDashboardTabbedLayoutFeaturedMosaicLayout featured_mosaic_layout = 2;
-}
-
-message MonitoringDashboardTabbedLayoutTabs {
-  string label = 1;
-  string hint_text = 2;
-  MonitoringDashboardTabbedLayoutTabsGridLayout grid_layout = 3;
-  MonitoringDashboardTabbedLayoutTabsMosaicLayout mosaic_layout = 4;
-  MonitoringDashboardTabbedLayoutTabsRowLayout row_layout = 5;
-  MonitoringDashboardTabbedLayoutTabsColumnLayout column_layout = 6;
-}
-
-message MonitoringDashboardTabbedLayoutTabsGridLayout {
-  int64 columns = 1;
-  repeated MonitoringDashboardWidget widgets = 2;
-}
-
-message MonitoringDashboardTabbedLayoutTabsMosaicLayout {
-  int64 columns = 1;
-  repeated MonitoringDashboardTabbedLayoutTabsMosaicLayoutTiles tiles = 2;
-}
-
-message MonitoringDashboardTabbedLayoutTabsMosaicLayoutTiles {
-  int64 x_pos = 1;
-  int64 y_pos = 2;
-  int64 width = 3;
-  int64 height = 4;
-  MonitoringDashboardWidget widget = 5;
-}
-
-message MonitoringDashboardTabbedLayoutTabsRowLayout {
-  repeated MonitoringDashboardTabbedLayoutTabsRowLayoutRows rows = 1;
-}
-
-message MonitoringDashboardTabbedLayoutTabsRowLayoutRows {
-  int64 weight = 1;
-  repeated MonitoringDashboardWidget widgets = 2;
-}
-
-message MonitoringDashboardTabbedLayoutTabsColumnLayout {
-  repeated MonitoringDashboardTabbedLayoutTabsColumnLayoutColumns columns = 1;
-}
-
-message MonitoringDashboardTabbedLayoutTabsColumnLayoutColumns {
-  int64 weight = 1;
-  repeated MonitoringDashboardWidget widgets = 2;
-}
-
-message MonitoringDashboardTabbedLayoutFeaturedMosaicLayout {
-  int64 columns = 1;
-  repeated MonitoringDashboardTabbedLayoutFeaturedMosaicLayoutTiles tiles = 2;
-}
-
-message MonitoringDashboardTabbedLayoutFeaturedMosaicLayoutTiles {
-  int64 x_pos = 1;
-  int64 y_pos = 2;
-  int64 width = 3;
-  int64 height = 4;
-  MonitoringDashboardWidget widget = 5;
 }
 
 message ApplyMonitoringDashboardRequest {

@@ -789,6 +789,126 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 	}
 
 	var diffs []forwardingRuleDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.AllPorts, actual.AllPorts, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, FieldName: "AllPorts"})
+	}
+
+	if d, err := dcl.Diff(desired.AllowGlobalAccess, actual.AllowGlobalAccess, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, FieldName: "AllowGlobalAccess"})
+	}
+
+	if d, err := dcl.Diff(desired.BackendService, actual.BackendService, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, FieldName: "BackendService"})
+	}
+
+	if d, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, FieldName: "CreationTimestamp"})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, FieldName: "Description"})
+	}
+
+	if d, err := dcl.Diff(desired.IPAddress, actual.IPAddress, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, FieldName: "IPAddress"})
+	}
+
+	if d, err := dcl.Diff(desired.IsMirroringCollector, actual.IsMirroringCollector, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, FieldName: "IsMirroringCollector"})
+	}
+
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
+	if d, err := dcl.Diff(desired.Network, actual.Network, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, FieldName: "Network"})
+	}
+
+	if d, err := dcl.Diff(desired.PortRange, actual.PortRange, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, FieldName: "PortRange"})
+	}
+
+	if d, err := dcl.Diff(desired.Region, actual.Region, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, FieldName: "Region"})
+	}
+
+	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+	}
+
+	if d, err := dcl.Diff(desired.ServiceLabel, actual.ServiceLabel, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, FieldName: "ServiceLabel"})
+	}
+
+	if d, err := dcl.Diff(desired.ServiceName, actual.ServiceName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, FieldName: "ServiceName"})
+	}
+
+	if d, err := dcl.Diff(desired.Subnetwork, actual.Subnetwork, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, FieldName: "Subnetwork"})
+	}
+
+	if d, err := dcl.Diff(desired.Target, actual.Target, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, FieldName: "Target"})
+	}
+
+	if d, err := dcl.Diff(desired.Project, actual.Project, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, FieldName: "Project"})
+	}
+
 	if !dcl.IsZeroValue(desired.AllPorts) && !dcl.BoolCanonicalize(desired.AllPorts, actual.AllPorts) {
 		c.Config.Logger.Infof("Detected diff in AllPorts.\nDESIRED: %v\nACTUAL: %v", desired.AllPorts, actual.AllPorts)
 		diffs = append(diffs, forwardingRuleDiff{

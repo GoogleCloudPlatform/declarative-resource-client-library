@@ -289,6 +289,14 @@ func diffService(c *Client, desired, actual *Service, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []serviceDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Project, actual.Project, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceDiff{RequiresRecreate: true, FieldName: "Project"})
+	}
+
 	if !reflect.DeepEqual(desired.State, actual.State) {
 		c.Config.Logger.Infof("Detected diff in State.\nDESIRED: %v\nACTUAL: %v", desired.State, actual.State)
 		diffs = append(diffs, serviceDiff{

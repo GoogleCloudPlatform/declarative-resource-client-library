@@ -561,6 +561,25 @@ func diffTopic(c *Client, desired, actual *Topic, opts ...dcl.ApplyOption) ([]to
 	}
 
 	var diffs []topicDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.KmsKeyName, actual.KmsKeyName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, topicDiff{
+			UpdateOp: &updateTopicUpdateOperation{}, FieldName: "KmsKeyName",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, topicDiff{
+			UpdateOp: &updateTopicUpdateOperation{}, FieldName: "Labels",
+		})
+	}
+
 	if !dcl.IsZeroValue(desired.KmsKeyName) && !dcl.StringCanonicalize(desired.KmsKeyName, actual.KmsKeyName) {
 		c.Config.Logger.Infof("Detected diff in KmsKeyName.\nDESIRED: %v\nACTUAL: %v", desired.KmsKeyName, actual.KmsKeyName)
 

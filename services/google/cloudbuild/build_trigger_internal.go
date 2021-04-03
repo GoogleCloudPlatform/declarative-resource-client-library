@@ -1925,6 +1925,66 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 	}
 
 	var diffs []buildTriggerDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, buildTriggerDiff{
+			UpdateOp: &updateBuildTriggerUpdateBuildTriggerOperation{}, FieldName: "Name",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, buildTriggerDiff{
+			UpdateOp: &updateBuildTriggerUpdateBuildTriggerOperation{}, FieldName: "Description",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Disabled, actual.Disabled, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, buildTriggerDiff{
+			UpdateOp: &updateBuildTriggerUpdateBuildTriggerOperation{}, FieldName: "Disabled",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Substitutions, actual.Substitutions, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, buildTriggerDiff{
+			UpdateOp: &updateBuildTriggerUpdateBuildTriggerOperation{}, FieldName: "Substitutions",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Filename, actual.Filename, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, buildTriggerDiff{
+			UpdateOp: &updateBuildTriggerUpdateBuildTriggerOperation{}, FieldName: "Filename",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Id, actual.Id, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, buildTriggerDiff{RequiresRecreate: true, FieldName: "Id"})
+	}
+
+	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, buildTriggerDiff{RequiresRecreate: true, FieldName: "CreateTime"})
+	}
+
 	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 

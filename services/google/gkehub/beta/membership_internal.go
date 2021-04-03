@@ -1379,6 +1379,76 @@ func diffMembership(c *Client, desired, actual *Membership, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []membershipDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, membershipDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
+	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, membershipDiff{
+			UpdateOp: &updateMembershipUpdateMembershipOperation{}, FieldName: "Labels",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, membershipDiff{
+			UpdateOp: &updateMembershipUpdateMembershipOperation{}, FieldName: "Description",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, membershipDiff{RequiresRecreate: true, FieldName: "CreateTime"})
+	}
+
+	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, membershipDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
+	}
+
+	if d, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, membershipDiff{RequiresRecreate: true, FieldName: "DeleteTime"})
+	}
+
+	if d, err := dcl.Diff(desired.ExternalId, actual.ExternalId, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, membershipDiff{
+			UpdateOp: &updateMembershipUpdateMembershipOperation{}, FieldName: "ExternalId",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.LastConnectionTime, actual.LastConnectionTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, membershipDiff{RequiresRecreate: true, FieldName: "LastConnectionTime"})
+	}
+
+	if d, err := dcl.Diff(desired.UniqueId, actual.UniqueId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, membershipDiff{RequiresRecreate: true, FieldName: "UniqueId"})
+	}
+
 	if compareMembershipEndpoint(c, desired.Endpoint, actual.Endpoint) {
 		c.Config.Logger.Infof("Detected diff in Endpoint.\nDESIRED: %v\nACTUAL: %v", desired.Endpoint, actual.Endpoint)
 

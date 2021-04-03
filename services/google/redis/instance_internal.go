@@ -1198,6 +1198,148 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []instanceDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "Name",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "DisplayName",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "Labels",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.LocationId, actual.LocationId, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "LocationId",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.AlternativeLocationId, actual.AlternativeLocationId, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "AlternativeLocationId",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.RedisVersion, actual.RedisVersion, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "RedisVersion",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.ReservedIPRange, actual.ReservedIPRange, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "ReservedIPRange",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Host, actual.Host, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "Host"})
+	}
+
+	if d, err := dcl.Diff(desired.Port, actual.Port, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "Port"})
+	}
+
+	if d, err := dcl.Diff(desired.CurrentLocationId, actual.CurrentLocationId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "CurrentLocationId"})
+	}
+
+	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "CreateTime"})
+	}
+
+	if d, err := dcl.Diff(desired.StatusMessage, actual.StatusMessage, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "StatusMessage"})
+	}
+
+	if d, err := dcl.Diff(desired.RedisConfigs, actual.RedisConfigs, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "RedisConfigs",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.MemorySizeGb, actual.MemorySizeGb, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "MemorySizeGb",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.AuthorizedNetwork, actual.AuthorizedNetwork, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "AuthorizedNetwork",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.PersistenceIamIdentity, actual.PersistenceIamIdentity, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "PersistenceIamIdentity"})
+	}
+
+	if d, err := dcl.Diff(desired.AuthEnabled, actual.AuthEnabled, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "AuthEnabled",
+		})
+	}
+
 	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 

@@ -387,6 +387,34 @@ func diffResourceRecordSet(c *Client, desired, actual *ResourceRecordSet, opts .
 	}
 
 	var diffs []resourceRecordSetDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.DnsName, actual.DnsName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, resourceRecordSetDiff{
+			UpdateOp: &updateResourceRecordSetUpdateOperation{ApplyOptions: opts}, FieldName: "DnsName",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.DnsType, actual.DnsType, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, resourceRecordSetDiff{
+			UpdateOp: &updateResourceRecordSetUpdateOperation{ApplyOptions: opts}, FieldName: "DnsType",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Ttl, actual.Ttl, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, resourceRecordSetDiff{
+			UpdateOp: &updateResourceRecordSetUpdateOperation{ApplyOptions: opts}, FieldName: "Ttl",
+		})
+	}
+
 	if !dcl.IsZeroValue(desired.DnsName) && !dcl.StringCanonicalize(desired.DnsName, actual.DnsName) {
 		c.Config.Logger.Infof("Detected diff in DnsName.\nDESIRED: %v\nACTUAL: %v", desired.DnsName, actual.DnsName)
 

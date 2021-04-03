@@ -9322,6 +9322,230 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []clusterDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "Description"})
+	}
+
+	if d, err := dcl.Diff(desired.InitialNodeCount, actual.InitialNodeCount, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "InitialNodeCount"})
+	}
+
+	if d, err := dcl.Diff(desired.LoggingService, actual.LoggingService, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{
+			UpdateOp: &updateClusterUpdateMonitoringAndLoggingServiceOperation{}, FieldName: "LoggingService",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.MonitoringService, actual.MonitoringService, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{
+			UpdateOp: &updateClusterUpdateMonitoringAndLoggingServiceOperation{}, FieldName: "MonitoringService",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Network, actual.Network, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "Network"})
+	}
+
+	if d, err := dcl.Diff(desired.ClusterIPv4Cidr, actual.ClusterIPv4Cidr, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "ClusterIPv4Cidr"})
+	}
+
+	if d, err := dcl.Diff(desired.Subnetwork, actual.Subnetwork, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "Subnetwork"})
+	}
+
+	if d, err := dcl.Diff(desired.EnableKubernetesAlpha, actual.EnableKubernetesAlpha, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "EnableKubernetesAlpha"})
+	}
+
+	if d, err := dcl.Diff(desired.ResourceLabels, actual.ResourceLabels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "ResourceLabels"})
+	}
+
+	if d, err := dcl.Diff(desired.LabelFingerprint, actual.LabelFingerprint, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "LabelFingerprint"})
+	}
+
+	if d, err := dcl.Diff(desired.Endpoint, actual.Endpoint, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "Endpoint"})
+	}
+
+	if d, err := dcl.Diff(desired.MasterVersion, actual.MasterVersion, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{
+			UpdateOp: &updateClusterUpdateMasterVersionOperation{}, FieldName: "MasterVersion",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "CreateTime"})
+	}
+
+	if d, err := dcl.Diff(desired.Status, actual.Status, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "Status"})
+	}
+
+	if d, err := dcl.Diff(desired.StatusMessage, actual.StatusMessage, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "StatusMessage"})
+	}
+
+	if d, err := dcl.Diff(desired.NodeIPv4CidrSize, actual.NodeIPv4CidrSize, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "NodeIPv4CidrSize"})
+	}
+
+	if d, err := dcl.Diff(desired.ServicesIPv4Cidr, actual.ServicesIPv4Cidr, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "ServicesIPv4Cidr"})
+	}
+
+	if d, err := dcl.Diff(desired.ExpireTime, actual.ExpireTime, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "ExpireTime"})
+	}
+
+	if d, err := dcl.Diff(desired.Location, actual.Location, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "Location"})
+	}
+
+	if d, err := dcl.Diff(desired.EnableTPU, actual.EnableTPU, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "EnableTPU"})
+	}
+
+	if d, err := dcl.Diff(desired.TPUIPv4CidrBlock, actual.TPUIPv4CidrBlock, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "TPUIPv4CidrBlock"})
+	}
+
+	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+	}
+
+	if d, err := dcl.Diff(desired.Zone, actual.Zone, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "Zone"})
+	}
+
+	if d, err := dcl.Diff(desired.InitialClusterVersion, actual.InitialClusterVersion, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "InitialClusterVersion"})
+	}
+
+	if d, err := dcl.Diff(desired.CurrentMasterVersion, actual.CurrentMasterVersion, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "CurrentMasterVersion"})
+	}
+
+	if d, err := dcl.Diff(desired.CurrentNodeVersion, actual.CurrentNodeVersion, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "CurrentNodeVersion"})
+	}
+
+	if d, err := dcl.Diff(desired.CurrentNodeCount, actual.CurrentNodeCount, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "CurrentNodeCount"})
+	}
+
+	if d, err := dcl.Diff(desired.Id, actual.Id, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "Id"})
+	}
+
+	if d, err := dcl.Diff(desired.PrivateCluster, actual.PrivateCluster, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "PrivateCluster"})
+	}
+
+	if d, err := dcl.Diff(desired.MasterIPv4CidrBlock, actual.MasterIPv4CidrBlock, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "MasterIPv4CidrBlock"})
+	}
+
 	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, clusterDiff{
@@ -26022,6 +26246,10 @@ func expandClusterMaster(c *Client, f *ClusterMaster) (map[string]interface{}, e
 // flattenClusterMaster flattens an instance of ClusterMaster from a JSON
 // response object.
 func flattenClusterMaster(c *Client, i interface{}) *ClusterMaster {
+	_, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
 
 	r := &ClusterMaster{}
 

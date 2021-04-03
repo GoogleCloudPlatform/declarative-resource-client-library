@@ -5837,6 +5837,28 @@ func diffAlertPolicy(c *Client, desired, actual *AlertPolicy, opts ...dcl.ApplyO
 	}
 
 	var diffs []alertPolicyDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, FieldName: "DisplayName"})
+	}
+
+	if d, err := dcl.Diff(desired.UserLabels, actual.UserLabels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, FieldName: "UserLabels"})
+	}
+
+	if d, err := dcl.Diff(desired.Disabled, actual.Disabled, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, FieldName: "Disabled"})
+	}
+
 	if !dcl.StringEqualsWithSelfLink(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, alertPolicyDiff{

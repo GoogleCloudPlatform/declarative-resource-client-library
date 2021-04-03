@@ -1144,6 +1144,32 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 	}
 
 	var diffs []uptimeCheckConfigDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, uptimeCheckConfigDiff{
+			UpdateOp: &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{}, FieldName: "DisplayName",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Period, actual.Period, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, uptimeCheckConfigDiff{RequiresRecreate: true, FieldName: "Period"})
+	}
+
+	if d, err := dcl.Diff(desired.Timeout, actual.Timeout, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, uptimeCheckConfigDiff{
+			UpdateOp: &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{}, FieldName: "Timeout",
+		})
+	}
+
 	if !dcl.StringEqualsWithSelfLink(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, uptimeCheckConfigDiff{

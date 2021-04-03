@@ -23,46 +23,17 @@ import (
 )
 
 type Dashboard struct {
-	Category     *DashboardCategoryEnum `json:"category"`
-	ColumnLayout *DashboardColumnLayout `json:"columnLayout"`
+	Name         *string                `json:"name"`
 	DisplayName  *string                `json:"displayName"`
 	GridLayout   *DashboardGridLayout   `json:"gridLayout"`
 	MosaicLayout *DashboardMosaicLayout `json:"mosaicLayout"`
-	Name         *string                `json:"name"`
 	RowLayout    *DashboardRowLayout    `json:"rowLayout"`
-	TabbedLayout *DashboardTabbedLayout `json:"tabbedLayout"`
+	ColumnLayout *DashboardColumnLayout `json:"columnLayout"`
 	Project      *string                `json:"project"`
 }
 
 func (r *Dashboard) String() string {
 	return dcl.SprintResource(r)
-}
-
-// The enum DashboardCategoryEnum.
-type DashboardCategoryEnum string
-
-// DashboardCategoryEnumRef returns a *DashboardCategoryEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func DashboardCategoryEnumRef(s string) *DashboardCategoryEnum {
-	if s == "" {
-		return nil
-	}
-
-	v := DashboardCategoryEnum(s)
-	return &v
-}
-
-func (v DashboardCategoryEnum) Validate() error {
-	for _, s := range []string{"CATEGORY_UNSPECIFIED", "CUSTOM", "GROUP", "HOMEPAGE"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "DashboardCategoryEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
 }
 
 // The enum DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum.
@@ -1683,6 +1654,118 @@ func (v DashboardWidgetTextFormatEnum) Validate() error {
 		Value: string(v),
 		Valid: []string{},
 	}
+}
+
+type DashboardGridLayout struct {
+	empty   bool              `json:"-"`
+	Columns *int64            `json:"columns"`
+	Widgets []DashboardWidget `json:"widgets"`
+}
+
+// This object is used to assert a desired state where this DashboardGridLayout is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyDashboardGridLayout *DashboardGridLayout = &DashboardGridLayout{empty: true}
+
+func (r *DashboardGridLayout) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayout) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayout struct {
+	empty   bool                         `json:"-"`
+	Columns *int64                       `json:"columns"`
+	Tiles   []DashboardMosaicLayoutTiles `json:"tiles"`
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayout is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayout *DashboardMosaicLayout = &DashboardMosaicLayout{empty: true}
+
+func (r *DashboardMosaicLayout) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayout) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTiles struct {
+	empty  bool             `json:"-"`
+	XPos   *int64           `json:"xPos"`
+	YPos   *int64           `json:"yPos"`
+	Width  *int64           `json:"width"`
+	Height *int64           `json:"height"`
+	Widget *DashboardWidget `json:"widget"`
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTiles is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTiles *DashboardMosaicLayoutTiles = &DashboardMosaicLayoutTiles{empty: true}
+
+func (r *DashboardMosaicLayoutTiles) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTiles) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayout struct {
+	empty bool                     `json:"-"`
+	Rows  []DashboardRowLayoutRows `json:"rows"`
+}
+
+// This object is used to assert a desired state where this DashboardRowLayout is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyDashboardRowLayout *DashboardRowLayout = &DashboardRowLayout{empty: true}
+
+func (r *DashboardRowLayout) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayout) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRows struct {
+	empty   bool              `json:"-"`
+	Weight  *int64            `json:"weight"`
+	Widgets []DashboardWidget `json:"widgets"`
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRows is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRows *DashboardRowLayoutRows = &DashboardRowLayoutRows{empty: true}
+
+func (r *DashboardRowLayoutRows) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRows) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
 }
 
 type DashboardColumnLayout struct {
@@ -4871,368 +4954,6 @@ func (r *DashboardWidgetBlank) String() string {
 }
 
 func (r *DashboardWidgetBlank) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardGridLayout struct {
-	empty   bool              `json:"-"`
-	Columns *int64            `json:"columns"`
-	Widgets []DashboardWidget `json:"widgets"`
-}
-
-// This object is used to assert a desired state where this DashboardGridLayout is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardGridLayout *DashboardGridLayout = &DashboardGridLayout{empty: true}
-
-func (r *DashboardGridLayout) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardGridLayout) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardMosaicLayout struct {
-	empty   bool                         `json:"-"`
-	Columns *int64                       `json:"columns"`
-	Tiles   []DashboardMosaicLayoutTiles `json:"tiles"`
-}
-
-// This object is used to assert a desired state where this DashboardMosaicLayout is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardMosaicLayout *DashboardMosaicLayout = &DashboardMosaicLayout{empty: true}
-
-func (r *DashboardMosaicLayout) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardMosaicLayout) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardMosaicLayoutTiles struct {
-	empty  bool             `json:"-"`
-	XPos   *int64           `json:"xPos"`
-	YPos   *int64           `json:"yPos"`
-	Width  *int64           `json:"width"`
-	Height *int64           `json:"height"`
-	Widget *DashboardWidget `json:"widget"`
-}
-
-// This object is used to assert a desired state where this DashboardMosaicLayoutTiles is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardMosaicLayoutTiles *DashboardMosaicLayoutTiles = &DashboardMosaicLayoutTiles{empty: true}
-
-func (r *DashboardMosaicLayoutTiles) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardMosaicLayoutTiles) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardRowLayout struct {
-	empty bool                     `json:"-"`
-	Rows  []DashboardRowLayoutRows `json:"rows"`
-}
-
-// This object is used to assert a desired state where this DashboardRowLayout is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardRowLayout *DashboardRowLayout = &DashboardRowLayout{empty: true}
-
-func (r *DashboardRowLayout) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardRowLayout) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardRowLayoutRows struct {
-	empty   bool              `json:"-"`
-	Weight  *int64            `json:"weight"`
-	Widgets []DashboardWidget `json:"widgets"`
-}
-
-// This object is used to assert a desired state where this DashboardRowLayoutRows is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardRowLayoutRows *DashboardRowLayoutRows = &DashboardRowLayoutRows{empty: true}
-
-func (r *DashboardRowLayoutRows) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardRowLayoutRows) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardTabbedLayout struct {
-	empty                bool                                       `json:"-"`
-	Tabs                 []DashboardTabbedLayoutTabs                `json:"tabs"`
-	FeaturedMosaicLayout *DashboardTabbedLayoutFeaturedMosaicLayout `json:"featuredMosaicLayout"`
-}
-
-// This object is used to assert a desired state where this DashboardTabbedLayout is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardTabbedLayout *DashboardTabbedLayout = &DashboardTabbedLayout{empty: true}
-
-func (r *DashboardTabbedLayout) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardTabbedLayout) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardTabbedLayoutTabs struct {
-	empty        bool                                   `json:"-"`
-	Label        *string                                `json:"label"`
-	HintText     *string                                `json:"hintText"`
-	GridLayout   *DashboardTabbedLayoutTabsGridLayout   `json:"gridLayout"`
-	MosaicLayout *DashboardTabbedLayoutTabsMosaicLayout `json:"mosaicLayout"`
-	RowLayout    *DashboardTabbedLayoutTabsRowLayout    `json:"rowLayout"`
-	ColumnLayout *DashboardTabbedLayoutTabsColumnLayout `json:"columnLayout"`
-}
-
-// This object is used to assert a desired state where this DashboardTabbedLayoutTabs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardTabbedLayoutTabs *DashboardTabbedLayoutTabs = &DashboardTabbedLayoutTabs{empty: true}
-
-func (r *DashboardTabbedLayoutTabs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardTabbedLayoutTabs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardTabbedLayoutTabsGridLayout struct {
-	empty   bool              `json:"-"`
-	Columns *int64            `json:"columns"`
-	Widgets []DashboardWidget `json:"widgets"`
-}
-
-// This object is used to assert a desired state where this DashboardTabbedLayoutTabsGridLayout is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardTabbedLayoutTabsGridLayout *DashboardTabbedLayoutTabsGridLayout = &DashboardTabbedLayoutTabsGridLayout{empty: true}
-
-func (r *DashboardTabbedLayoutTabsGridLayout) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardTabbedLayoutTabsGridLayout) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardTabbedLayoutTabsMosaicLayout struct {
-	empty   bool                                         `json:"-"`
-	Columns *int64                                       `json:"columns"`
-	Tiles   []DashboardTabbedLayoutTabsMosaicLayoutTiles `json:"tiles"`
-}
-
-// This object is used to assert a desired state where this DashboardTabbedLayoutTabsMosaicLayout is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardTabbedLayoutTabsMosaicLayout *DashboardTabbedLayoutTabsMosaicLayout = &DashboardTabbedLayoutTabsMosaicLayout{empty: true}
-
-func (r *DashboardTabbedLayoutTabsMosaicLayout) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardTabbedLayoutTabsMosaicLayout) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardTabbedLayoutTabsMosaicLayoutTiles struct {
-	empty  bool             `json:"-"`
-	XPos   *int64           `json:"xPos"`
-	YPos   *int64           `json:"yPos"`
-	Width  *int64           `json:"width"`
-	Height *int64           `json:"height"`
-	Widget *DashboardWidget `json:"widget"`
-}
-
-// This object is used to assert a desired state where this DashboardTabbedLayoutTabsMosaicLayoutTiles is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardTabbedLayoutTabsMosaicLayoutTiles *DashboardTabbedLayoutTabsMosaicLayoutTiles = &DashboardTabbedLayoutTabsMosaicLayoutTiles{empty: true}
-
-func (r *DashboardTabbedLayoutTabsMosaicLayoutTiles) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardTabbedLayoutTabsMosaicLayoutTiles) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardTabbedLayoutTabsRowLayout struct {
-	empty bool                                     `json:"-"`
-	Rows  []DashboardTabbedLayoutTabsRowLayoutRows `json:"rows"`
-}
-
-// This object is used to assert a desired state where this DashboardTabbedLayoutTabsRowLayout is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardTabbedLayoutTabsRowLayout *DashboardTabbedLayoutTabsRowLayout = &DashboardTabbedLayoutTabsRowLayout{empty: true}
-
-func (r *DashboardTabbedLayoutTabsRowLayout) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardTabbedLayoutTabsRowLayout) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardTabbedLayoutTabsRowLayoutRows struct {
-	empty   bool              `json:"-"`
-	Weight  *int64            `json:"weight"`
-	Widgets []DashboardWidget `json:"widgets"`
-}
-
-// This object is used to assert a desired state where this DashboardTabbedLayoutTabsRowLayoutRows is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardTabbedLayoutTabsRowLayoutRows *DashboardTabbedLayoutTabsRowLayoutRows = &DashboardTabbedLayoutTabsRowLayoutRows{empty: true}
-
-func (r *DashboardTabbedLayoutTabsRowLayoutRows) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardTabbedLayoutTabsRowLayoutRows) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardTabbedLayoutTabsColumnLayout struct {
-	empty   bool                                           `json:"-"`
-	Columns []DashboardTabbedLayoutTabsColumnLayoutColumns `json:"columns"`
-}
-
-// This object is used to assert a desired state where this DashboardTabbedLayoutTabsColumnLayout is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardTabbedLayoutTabsColumnLayout *DashboardTabbedLayoutTabsColumnLayout = &DashboardTabbedLayoutTabsColumnLayout{empty: true}
-
-func (r *DashboardTabbedLayoutTabsColumnLayout) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardTabbedLayoutTabsColumnLayout) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardTabbedLayoutTabsColumnLayoutColumns struct {
-	empty   bool              `json:"-"`
-	Weight  *int64            `json:"weight"`
-	Widgets []DashboardWidget `json:"widgets"`
-}
-
-// This object is used to assert a desired state where this DashboardTabbedLayoutTabsColumnLayoutColumns is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardTabbedLayoutTabsColumnLayoutColumns *DashboardTabbedLayoutTabsColumnLayoutColumns = &DashboardTabbedLayoutTabsColumnLayoutColumns{empty: true}
-
-func (r *DashboardTabbedLayoutTabsColumnLayoutColumns) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardTabbedLayoutTabsColumnLayoutColumns) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardTabbedLayoutFeaturedMosaicLayout struct {
-	empty   bool                                             `json:"-"`
-	Columns *int64                                           `json:"columns"`
-	Tiles   []DashboardTabbedLayoutFeaturedMosaicLayoutTiles `json:"tiles"`
-}
-
-// This object is used to assert a desired state where this DashboardTabbedLayoutFeaturedMosaicLayout is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardTabbedLayoutFeaturedMosaicLayout *DashboardTabbedLayoutFeaturedMosaicLayout = &DashboardTabbedLayoutFeaturedMosaicLayout{empty: true}
-
-func (r *DashboardTabbedLayoutFeaturedMosaicLayout) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardTabbedLayoutFeaturedMosaicLayout) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DashboardTabbedLayoutFeaturedMosaicLayoutTiles struct {
-	empty  bool             `json:"-"`
-	XPos   *int64           `json:"xPos"`
-	YPos   *int64           `json:"yPos"`
-	Width  *int64           `json:"width"`
-	Height *int64           `json:"height"`
-	Widget *DashboardWidget `json:"widget"`
-}
-
-// This object is used to assert a desired state where this DashboardTabbedLayoutFeaturedMosaicLayoutTiles is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyDashboardTabbedLayoutFeaturedMosaicLayoutTiles *DashboardTabbedLayoutFeaturedMosaicLayoutTiles = &DashboardTabbedLayoutFeaturedMosaicLayoutTiles{empty: true}
-
-func (r *DashboardTabbedLayoutFeaturedMosaicLayoutTiles) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DashboardTabbedLayoutFeaturedMosaicLayoutTiles) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

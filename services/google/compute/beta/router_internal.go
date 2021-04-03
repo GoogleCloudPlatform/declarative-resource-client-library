@@ -1317,6 +1317,55 @@ func diffRouter(c *Client, desired, actual *Router, opts ...dcl.ApplyOption) ([]
 	}
 
 	var diffs []routerDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routerDiff{RequiresRecreate: true, FieldName: "CreationTimestamp"})
+	}
+
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routerDiff{
+			UpdateOp: &updateRouterUpdateOperation{}, FieldName: "Name",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Network, actual.Network, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routerDiff{RequiresRecreate: true, FieldName: "Network"})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routerDiff{
+			UpdateOp: &updateRouterUpdateOperation{}, FieldName: "Description",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Region, actual.Region, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routerDiff{
+			UpdateOp: &updateRouterUpdateOperation{}, FieldName: "Region",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routerDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+	}
+
 	if compareRouterNatsSlice(c, desired.Nats, actual.Nats) {
 		c.Config.Logger.Infof("Detected diff in Nats.\nDESIRED: %v\nACTUAL: %v", desired.Nats, actual.Nats)
 

@@ -480,6 +480,39 @@ func diffReservation(c *Client, desired, actual *Reservation, opts ...dcl.ApplyO
 	}
 
 	var diffs []reservationDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.SlotCapacity, actual.SlotCapacity, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, reservationDiff{
+			UpdateOp: &updateReservationUpdateReservationOperation{}, FieldName: "SlotCapacity",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.IgnoreIdleSlots, actual.IgnoreIdleSlots, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, reservationDiff{
+			UpdateOp: &updateReservationUpdateReservationOperation{}, FieldName: "IgnoreIdleSlots",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.CreationTime, actual.CreationTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, reservationDiff{RequiresRecreate: true, FieldName: "CreationTime"})
+	}
+
+	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, reservationDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
+	}
+
 	if !reflect.DeepEqual(desired.SlotCapacity, actual.SlotCapacity) {
 		c.Config.Logger.Infof("Detected diff in SlotCapacity.\nDESIRED: %v\nACTUAL: %v", desired.SlotCapacity, actual.SlotCapacity)
 

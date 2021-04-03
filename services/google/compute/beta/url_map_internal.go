@@ -5399,6 +5399,41 @@ func diffUrlMap(c *Client, desired, actual *UrlMap, opts ...dcl.ApplyOption) ([]
 	}
 
 	var diffs []urlMapDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.DefaultService, actual.DefaultService, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, urlMapDiff{
+			UpdateOp: &updateUrlMapUpdateOperation{}, FieldName: "DefaultService",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, urlMapDiff{
+			UpdateOp: &updateUrlMapUpdateOperation{}, FieldName: "Description",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, urlMapDiff{
+			UpdateOp: &updateUrlMapUpdateOperation{}, FieldName: "Name",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Region, actual.Region, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, urlMapDiff{RequiresRecreate: true, FieldName: "Region"})
+	}
+
 	if compareUrlMapDefaultRouteAction(c, desired.DefaultRouteAction, actual.DefaultRouteAction) {
 		c.Config.Logger.Infof("Detected diff in DefaultRouteAction.\nDESIRED: %v\nACTUAL: %v", desired.DefaultRouteAction, actual.DefaultRouteAction)
 

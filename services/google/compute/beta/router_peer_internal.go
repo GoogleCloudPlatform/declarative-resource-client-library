@@ -775,6 +775,93 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []routerPeerDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routerPeerDiff{RequiresRecreate: true, FieldName: "CreationTimestamp"})
+	}
+
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routerPeerDiff{
+			UpdateOp: &updateRouterPeerUpdateOperation{}, FieldName: "Name",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.InterfaceName, actual.InterfaceName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routerPeerDiff{
+			UpdateOp: &updateRouterPeerUpdateOperation{}, FieldName: "InterfaceName",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.IPAddress, actual.IPAddress, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routerPeerDiff{
+			UpdateOp: &updateRouterPeerUpdateOperation{}, FieldName: "IPAddress",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.PeerIPAddress, actual.PeerIPAddress, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routerPeerDiff{
+			UpdateOp: &updateRouterPeerUpdateOperation{}, FieldName: "PeerIPAddress",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.PeerAsn, actual.PeerAsn, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routerPeerDiff{
+			UpdateOp: &updateRouterPeerUpdateOperation{}, FieldName: "PeerAsn",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.AdvertisedRoutePriority, actual.AdvertisedRoutePriority, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routerPeerDiff{
+			UpdateOp: &updateRouterPeerUpdateOperation{}, FieldName: "AdvertisedRoutePriority",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.AdvertiseMode, actual.AdvertiseMode, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routerPeerDiff{
+			UpdateOp: &updateRouterPeerUpdateOperation{}, FieldName: "AdvertiseMode",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.ManagementType, actual.ManagementType, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routerPeerDiff{RequiresRecreate: true, FieldName: "ManagementType"})
+	}
+
+	if d, err := dcl.Diff(desired.Region, actual.Region, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routerPeerDiff{
+			UpdateOp: &updateRouterPeerUpdateOperation{}, FieldName: "Region",
+		})
+	}
+
 	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 

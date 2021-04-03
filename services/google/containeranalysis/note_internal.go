@@ -2500,6 +2500,48 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 	}
 
 	var diffs []noteDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.ShortDescription, actual.ShortDescription, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, noteDiff{
+			UpdateOp: &updateNoteUpdateNoteOperation{}, FieldName: "ShortDescription",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.LongDescription, actual.LongDescription, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, noteDiff{
+			UpdateOp: &updateNoteUpdateNoteOperation{}, FieldName: "LongDescription",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.ExpirationTime, actual.ExpirationTime, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, noteDiff{
+			UpdateOp: &updateNoteUpdateNoteOperation{}, FieldName: "ExpirationTime",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, noteDiff{RequiresRecreate: true, FieldName: "CreateTime"})
+	}
+
+	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, noteDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
+	}
+
 	if !dcl.IsZeroValue(desired.ShortDescription) && !dcl.StringCanonicalize(desired.ShortDescription, actual.ShortDescription) {
 		c.Config.Logger.Infof("Detected diff in ShortDescription.\nDESIRED: %v\nACTUAL: %v", desired.ShortDescription, actual.ShortDescription)
 

@@ -659,6 +659,42 @@ func diffMetricDescriptor(c *Client, desired, actual *MetricDescriptor, opts ...
 	}
 
 	var diffs []metricDescriptorDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, metricDescriptorDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+	}
+
+	if d, err := dcl.Diff(desired.Type, actual.Type, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, metricDescriptorDiff{RequiresRecreate: true, FieldName: "Type"})
+	}
+
+	if d, err := dcl.Diff(desired.Unit, actual.Unit, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, metricDescriptorDiff{RequiresRecreate: true, FieldName: "Unit"})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, metricDescriptorDiff{RequiresRecreate: true, FieldName: "Description"})
+	}
+
+	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, metricDescriptorDiff{RequiresRecreate: true, FieldName: "DisplayName"})
+	}
+
 	if !dcl.IsZeroValue(desired.Type) && !dcl.StringCanonicalize(desired.Type, actual.Type) {
 		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %v\nACTUAL: %v", desired.Type, actual.Type)
 		diffs = append(diffs, metricDescriptorDiff{

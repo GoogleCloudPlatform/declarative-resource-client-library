@@ -1969,6 +1969,51 @@ func diffNodePool(c *Client, desired, actual *NodePool, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []nodePoolDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
+	if d, err := dcl.Diff(desired.NodeCount, actual.NodeCount, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodePoolDiff{
+			UpdateOp: &updateNodePoolSetSizeOperation{}, FieldName: "NodeCount",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Version, actual.Version, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, FieldName: "Version"})
+	}
+
+	if d, err := dcl.Diff(desired.Status, actual.Status, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, FieldName: "Status"})
+	}
+
+	if d, err := dcl.Diff(desired.StatusMessage, actual.StatusMessage, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, FieldName: "StatusMessage"})
+	}
+
+	if d, err := dcl.Diff(desired.PodIPv4CidrSize, actual.PodIPv4CidrSize, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, FieldName: "PodIPv4CidrSize"})
+	}
+
 	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, nodePoolDiff{

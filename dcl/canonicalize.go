@@ -592,6 +592,8 @@ func IsEmptyValueIndirect(i interface{}) bool {
 		return reflect.ValueOf(i).Len() == 0
 	case reflect.Array:
 		return rt.Len() == 0
+	case reflect.Map:
+		return len(reflect.ValueOf(i).MapKeys()) == 0
 	}
 
 	iv := reflect.Indirect(reflect.ValueOf(i))

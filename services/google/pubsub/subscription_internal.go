@@ -889,6 +889,48 @@ func diffSubscription(c *Client, desired, actual *Subscription, opts ...dcl.Appl
 	}
 
 	var diffs []subscriptionDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Topic, actual.Topic, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, subscriptionDiff{RequiresRecreate: true, FieldName: "Topic"})
+	}
+
+	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, subscriptionDiff{
+			UpdateOp: &updateSubscriptionUpdateOperation{}, FieldName: "Labels",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.MessageRetentionDuration, actual.MessageRetentionDuration, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, subscriptionDiff{
+			UpdateOp: &updateSubscriptionUpdateOperation{}, FieldName: "MessageRetentionDuration",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.RetainAckedMessages, actual.RetainAckedMessages, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, subscriptionDiff{
+			UpdateOp: &updateSubscriptionUpdateOperation{}, FieldName: "RetainAckedMessages",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.AckDeadlineSeconds, actual.AckDeadlineSeconds, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, subscriptionDiff{RequiresRecreate: true, FieldName: "AckDeadlineSeconds"})
+	}
+
 	if !dcl.IsZeroValue(desired.Topic) && !dcl.PartialSelfLinkToSelfLink(desired.Topic, actual.Topic) {
 		c.Config.Logger.Infof("Detected diff in Topic.\nDESIRED: %v\nACTUAL: %v", desired.Topic, actual.Topic)
 		diffs = append(diffs, subscriptionDiff{

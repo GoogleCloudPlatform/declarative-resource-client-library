@@ -641,6 +641,16 @@ components:
           description: Before an application can receive email or XMPP messages, the
             application must be configured to enable the service.
           items:
+            enum:
+            - INBOUND_SERVICE_UNSPECIFIED
+            - INBOUND_SERVICE_MAIL
+            - INBOUND_SERVICE_MAIL_BOUNCE
+            - INBOUND_SERVICE_XMPP_ERROR
+            - INBOUND_SERVICE_XMPP_MESSAGE
+            - INBOUND_SERVICE_XMPP_SUBSCRIBE
+            - INBOUND_SERVICE_XMPP_PRESENCE
+            - INBOUND_SERVICE_CHANNEL_PRESENCE
+            - INBOUND_SERVICE_WARMUP
             type: string
             x-dcl-go-type: VersionInboundServicesEnum
           type: array

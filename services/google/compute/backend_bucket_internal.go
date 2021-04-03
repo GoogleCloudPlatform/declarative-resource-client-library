@@ -595,6 +595,50 @@ func diffBackendBucket(c *Client, desired, actual *BackendBucket, opts ...dcl.Ap
 	}
 
 	var diffs []backendBucketDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.BucketName, actual.BucketName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, backendBucketDiff{
+			UpdateOp: &updateBackendBucketUpdateOperation{}, FieldName: "BucketName",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, backendBucketDiff{
+			UpdateOp: &updateBackendBucketUpdateOperation{}, FieldName: "Description",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.EnableCdn, actual.EnableCdn, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, backendBucketDiff{
+			UpdateOp: &updateBackendBucketUpdateOperation{}, FieldName: "EnableCdn",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, backendBucketDiff{
+			UpdateOp: &updateBackendBucketUpdateOperation{}, FieldName: "Name",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, backendBucketDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+	}
+
 	if !dcl.IsZeroValue(desired.BucketName) && !dcl.NameToSelfLink(desired.BucketName, actual.BucketName) {
 		c.Config.Logger.Infof("Detected diff in BucketName.\nDESIRED: %v\nACTUAL: %v", desired.BucketName, actual.BucketName)
 

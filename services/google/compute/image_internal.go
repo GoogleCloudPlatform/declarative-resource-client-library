@@ -1843,6 +1843,100 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 	}
 
 	var diffs []imageDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.ArchiveSizeBytes, actual.ArchiveSizeBytes, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "ArchiveSizeBytes"})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "Description"})
+	}
+
+	if d, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "DiskSizeGb"})
+	}
+
+	if d, err := dcl.Diff(desired.Family, actual.Family, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "Family"})
+	}
+
+	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{
+			UpdateOp: &updateImageSetLabelsOperation{}, FieldName: "Labels",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
+	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+	}
+
+	if d, err := dcl.Diff(desired.SourceDisk, actual.SourceDisk, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "SourceDisk"})
+	}
+
+	if d, err := dcl.Diff(desired.SourceDiskId, actual.SourceDiskId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "SourceDiskId"})
+	}
+
+	if d, err := dcl.Diff(desired.SourceImage, actual.SourceImage, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "SourceImage"})
+	}
+
+	if d, err := dcl.Diff(desired.SourceImageId, actual.SourceImageId, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "SourceImageId"})
+	}
+
+	if d, err := dcl.Diff(desired.SourceSnapshot, actual.SourceSnapshot, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "SourceSnapshot"})
+	}
+
+	if d, err := dcl.Diff(desired.SourceSnapshotId, actual.SourceSnapshotId, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "SourceSnapshotId"})
+	}
+
 	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
 		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, imageDiff{

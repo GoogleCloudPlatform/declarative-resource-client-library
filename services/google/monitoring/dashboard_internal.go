@@ -29,13 +29,11 @@ import (
 
 func (r *Dashboard) validate() error {
 
-	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"GridLayout", "MosaicLayout", "RowLayout", "ColumnLayout"}, r.GridLayout, r.MosaicLayout, r.RowLayout, r.ColumnLayout); err != nil {
 		return err
 	}
-	if !dcl.IsEmptyValueIndirect(r.ColumnLayout) {
-		if err := r.ColumnLayout.validate(); err != nil {
-			return err
-		}
+	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
+		return err
 	}
 	if !dcl.IsEmptyValueIndirect(r.GridLayout) {
 		if err := r.GridLayout.validate(); err != nil {
@@ -52,11 +50,31 @@ func (r *Dashboard) validate() error {
 			return err
 		}
 	}
-	if !dcl.IsEmptyValueIndirect(r.TabbedLayout) {
-		if err := r.TabbedLayout.validate(); err != nil {
+	if !dcl.IsEmptyValueIndirect(r.ColumnLayout) {
+		if err := r.ColumnLayout.validate(); err != nil {
 			return err
 		}
 	}
+	return nil
+}
+func (r *DashboardGridLayout) validate() error {
+	return nil
+}
+func (r *DashboardMosaicLayout) validate() error {
+	return nil
+}
+func (r *DashboardMosaicLayoutTiles) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.Widget) {
+		if err := r.Widget.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *DashboardRowLayout) validate() error {
+	return nil
+}
+func (r *DashboardRowLayoutRows) validate() error {
 	return nil
 }
 func (r *DashboardColumnLayout) validate() error {
@@ -1077,94 +1095,6 @@ func (r *DashboardWidgetText) validate() error {
 func (r *DashboardWidgetBlank) validate() error {
 	return nil
 }
-func (r *DashboardGridLayout) validate() error {
-	return nil
-}
-func (r *DashboardMosaicLayout) validate() error {
-	return nil
-}
-func (r *DashboardMosaicLayoutTiles) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.Widget) {
-		if err := r.Widget.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *DashboardRowLayout) validate() error {
-	return nil
-}
-func (r *DashboardRowLayoutRows) validate() error {
-	return nil
-}
-func (r *DashboardTabbedLayout) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.FeaturedMosaicLayout) {
-		if err := r.FeaturedMosaicLayout.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *DashboardTabbedLayoutTabs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.GridLayout) {
-		if err := r.GridLayout.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.MosaicLayout) {
-		if err := r.MosaicLayout.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.RowLayout) {
-		if err := r.RowLayout.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.ColumnLayout) {
-		if err := r.ColumnLayout.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *DashboardTabbedLayoutTabsGridLayout) validate() error {
-	return nil
-}
-func (r *DashboardTabbedLayoutTabsMosaicLayout) validate() error {
-	return nil
-}
-func (r *DashboardTabbedLayoutTabsMosaicLayoutTiles) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.Widget) {
-		if err := r.Widget.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *DashboardTabbedLayoutTabsRowLayout) validate() error {
-	return nil
-}
-func (r *DashboardTabbedLayoutTabsRowLayoutRows) validate() error {
-	return nil
-}
-func (r *DashboardTabbedLayoutTabsColumnLayout) validate() error {
-	return nil
-}
-func (r *DashboardTabbedLayoutTabsColumnLayoutColumns) validate() error {
-	return nil
-}
-func (r *DashboardTabbedLayoutFeaturedMosaicLayout) validate() error {
-	return nil
-}
-func (r *DashboardTabbedLayoutFeaturedMosaicLayoutTiles) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.Widget) {
-		if err := r.Widget.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
 
 func dashboardGetURL(userBasePath string, r *Dashboard) (string, error) {
 	params := map[string]interface{}{
@@ -1210,11 +1140,6 @@ type dashboardApiOperation interface {
 func newUpdateDashboardUpdateRequest(ctx context.Context, f *Dashboard, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	if v, err := expandDashboardColumnLayout(c, f.ColumnLayout); err != nil {
-		return nil, fmt.Errorf("error expanding ColumnLayout into columnLayout: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["columnLayout"] = v
-	}
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
 	}
@@ -1227,6 +1152,11 @@ func newUpdateDashboardUpdateRequest(ctx context.Context, f *Dashboard, c *Clien
 		return nil, fmt.Errorf("error expanding MosaicLayout into mosaicLayout: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["mosaicLayout"] = v
+	}
+	if v, err := expandDashboardColumnLayout(c, f.ColumnLayout); err != nil {
+		return nil, fmt.Errorf("error expanding ColumnLayout into columnLayout: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["columnLayout"] = v
 	}
 	b, err := c.getDashboardRaw(ctx, f.urlNormalized())
 	if err != nil {
@@ -1538,6 +1468,35 @@ func (c *Client) dashboardDiffsForRawDesired(ctx context.Context, rawDesired *Da
 
 func canonicalizeDashboardInitialState(rawInitial, rawDesired *Dashboard) (*Dashboard, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
+
+	if dcl.IsZeroValue(rawInitial.GridLayout) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.MosaicLayout, rawInitial.RowLayout, rawInitial.ColumnLayout) {
+			rawInitial.GridLayout = EmptyDashboardGridLayout
+		}
+	}
+
+	if dcl.IsZeroValue(rawInitial.MosaicLayout) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.GridLayout, rawInitial.RowLayout, rawInitial.ColumnLayout) {
+			rawInitial.MosaicLayout = EmptyDashboardMosaicLayout
+		}
+	}
+
+	if dcl.IsZeroValue(rawInitial.RowLayout) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.GridLayout, rawInitial.MosaicLayout, rawInitial.ColumnLayout) {
+			rawInitial.RowLayout = EmptyDashboardRowLayout
+		}
+	}
+
+	if dcl.IsZeroValue(rawInitial.ColumnLayout) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.GridLayout, rawInitial.MosaicLayout, rawInitial.RowLayout) {
+			rawInitial.ColumnLayout = EmptyDashboardColumnLayout
+		}
+	}
+
 	return rawInitial, nil
 }
 
@@ -1550,31 +1509,54 @@ func canonicalizeDashboardInitialState(rawInitial, rawDesired *Dashboard) (*Dash
 
 func canonicalizeDashboardDesiredState(rawDesired, rawInitial *Dashboard, opts ...dcl.ApplyOption) (*Dashboard, error) {
 
+	if dcl.IsZeroValue(rawDesired.GridLayout) {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.MosaicLayout, rawDesired.RowLayout, rawDesired.ColumnLayout) {
+			rawDesired.GridLayout = EmptyDashboardGridLayout
+		}
+	}
+
+	if dcl.IsZeroValue(rawDesired.MosaicLayout) {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.GridLayout, rawDesired.RowLayout, rawDesired.ColumnLayout) {
+			rawDesired.MosaicLayout = EmptyDashboardMosaicLayout
+		}
+	}
+
+	if dcl.IsZeroValue(rawDesired.RowLayout) {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.GridLayout, rawDesired.MosaicLayout, rawDesired.ColumnLayout) {
+			rawDesired.RowLayout = EmptyDashboardRowLayout
+		}
+	}
+
+	if dcl.IsZeroValue(rawDesired.ColumnLayout) {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.GridLayout, rawDesired.MosaicLayout, rawDesired.RowLayout) {
+			rawDesired.ColumnLayout = EmptyDashboardColumnLayout
+		}
+	}
+
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
-		rawDesired.ColumnLayout = canonicalizeDashboardColumnLayout(rawDesired.ColumnLayout, nil, opts...)
 		rawDesired.GridLayout = canonicalizeDashboardGridLayout(rawDesired.GridLayout, nil, opts...)
 		rawDesired.MosaicLayout = canonicalizeDashboardMosaicLayout(rawDesired.MosaicLayout, nil, opts...)
 		rawDesired.RowLayout = canonicalizeDashboardRowLayout(rawDesired.RowLayout, nil, opts...)
-		rawDesired.TabbedLayout = canonicalizeDashboardTabbedLayout(rawDesired.TabbedLayout, nil, opts...)
+		rawDesired.ColumnLayout = canonicalizeDashboardColumnLayout(rawDesired.ColumnLayout, nil, opts...)
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Category) {
-		rawDesired.Category = rawInitial.Category
+	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
+		rawDesired.Name = rawInitial.Name
 	}
-	rawDesired.ColumnLayout = canonicalizeDashboardColumnLayout(rawDesired.ColumnLayout, rawInitial.ColumnLayout, opts...)
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
 		rawDesired.DisplayName = rawInitial.DisplayName
 	}
 	rawDesired.GridLayout = canonicalizeDashboardGridLayout(rawDesired.GridLayout, rawInitial.GridLayout, opts...)
 	rawDesired.MosaicLayout = canonicalizeDashboardMosaicLayout(rawDesired.MosaicLayout, rawInitial.MosaicLayout, opts...)
-	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
-	}
 	rawDesired.RowLayout = canonicalizeDashboardRowLayout(rawDesired.RowLayout, rawInitial.RowLayout, opts...)
-	rawDesired.TabbedLayout = canonicalizeDashboardTabbedLayout(rawDesired.TabbedLayout, rawInitial.TabbedLayout, opts...)
+	rawDesired.ColumnLayout = canonicalizeDashboardColumnLayout(rawDesired.ColumnLayout, rawInitial.ColumnLayout, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
@@ -1584,16 +1566,7 @@ func canonicalizeDashboardDesiredState(rawDesired, rawInitial *Dashboard, opts .
 
 func canonicalizeDashboardNewState(c *Client, rawNew, rawDesired *Dashboard) (*Dashboard, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Category) && dcl.IsEmptyValueIndirect(rawDesired.Category) {
-		rawNew.Category = rawDesired.Category
-	} else {
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.ColumnLayout) && dcl.IsEmptyValueIndirect(rawDesired.ColumnLayout) {
-		rawNew.ColumnLayout = rawDesired.ColumnLayout
-	} else {
-		rawNew.ColumnLayout = canonicalizeNewDashboardColumnLayout(c, rawDesired.ColumnLayout, rawNew.ColumnLayout)
-	}
+	rawNew.Name = rawDesired.Name
 
 	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
 		rawNew.DisplayName = rawDesired.DisplayName
@@ -1615,23 +1588,396 @@ func canonicalizeDashboardNewState(c *Client, rawNew, rawDesired *Dashboard) (*D
 		rawNew.MosaicLayout = canonicalizeNewDashboardMosaicLayout(c, rawDesired.MosaicLayout, rawNew.MosaicLayout)
 	}
 
-	rawNew.Name = rawDesired.Name
-
 	if dcl.IsEmptyValueIndirect(rawNew.RowLayout) && dcl.IsEmptyValueIndirect(rawDesired.RowLayout) {
 		rawNew.RowLayout = rawDesired.RowLayout
 	} else {
 		rawNew.RowLayout = canonicalizeNewDashboardRowLayout(c, rawDesired.RowLayout, rawNew.RowLayout)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.TabbedLayout) && dcl.IsEmptyValueIndirect(rawDesired.TabbedLayout) {
-		rawNew.TabbedLayout = rawDesired.TabbedLayout
+	if dcl.IsEmptyValueIndirect(rawNew.ColumnLayout) && dcl.IsEmptyValueIndirect(rawDesired.ColumnLayout) {
+		rawNew.ColumnLayout = rawDesired.ColumnLayout
 	} else {
-		rawNew.TabbedLayout = canonicalizeNewDashboardTabbedLayout(c, rawDesired.TabbedLayout, rawNew.TabbedLayout)
+		rawNew.ColumnLayout = canonicalizeNewDashboardColumnLayout(c, rawDesired.ColumnLayout, rawNew.ColumnLayout)
 	}
 
 	rawNew.Project = rawDesired.Project
 
 	return rawNew, nil
+}
+
+func canonicalizeDashboardGridLayout(des, initial *DashboardGridLayout, opts ...dcl.ApplyOption) *DashboardGridLayout {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Columns) {
+		des.Columns = initial.Columns
+	}
+	if dcl.IsZeroValue(des.Widgets) {
+		des.Widgets = initial.Widgets
+	}
+
+	return des
+}
+
+func canonicalizeNewDashboardGridLayout(c *Client, des, nw *DashboardGridLayout) *DashboardGridLayout {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewDashboardGridLayoutSet(c *Client, des, nw []DashboardGridLayout) []DashboardGridLayout {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []DashboardGridLayout
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareDashboardGridLayout(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewDashboardGridLayoutSlice(c *Client, des, nw []DashboardGridLayout) []DashboardGridLayout {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardGridLayout
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardGridLayout(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeDashboardMosaicLayout(des, initial *DashboardMosaicLayout, opts ...dcl.ApplyOption) *DashboardMosaicLayout {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Columns) {
+		des.Columns = initial.Columns
+	}
+	if dcl.IsZeroValue(des.Tiles) {
+		des.Tiles = initial.Tiles
+	}
+
+	return des
+}
+
+func canonicalizeNewDashboardMosaicLayout(c *Client, des, nw *DashboardMosaicLayout) *DashboardMosaicLayout {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	nw.Tiles = canonicalizeNewDashboardMosaicLayoutTilesSlice(c, des.Tiles, nw.Tiles)
+
+	return nw
+}
+
+func canonicalizeNewDashboardMosaicLayoutSet(c *Client, des, nw []DashboardMosaicLayout) []DashboardMosaicLayout {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []DashboardMosaicLayout
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareDashboardMosaicLayout(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewDashboardMosaicLayoutSlice(c *Client, des, nw []DashboardMosaicLayout) []DashboardMosaicLayout {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardMosaicLayout
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardMosaicLayout(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeDashboardMosaicLayoutTiles(des, initial *DashboardMosaicLayoutTiles, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTiles {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.XPos) {
+		des.XPos = initial.XPos
+	}
+	if dcl.IsZeroValue(des.YPos) {
+		des.YPos = initial.YPos
+	}
+	if dcl.IsZeroValue(des.Width) {
+		des.Width = initial.Width
+	}
+	if dcl.IsZeroValue(des.Height) {
+		des.Height = initial.Height
+	}
+	des.Widget = canonicalizeDashboardWidget(des.Widget, initial.Widget, opts...)
+
+	return des
+}
+
+func canonicalizeNewDashboardMosaicLayoutTiles(c *Client, des, nw *DashboardMosaicLayoutTiles) *DashboardMosaicLayoutTiles {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	nw.Widget = canonicalizeNewDashboardWidget(c, des.Widget, nw.Widget)
+
+	return nw
+}
+
+func canonicalizeNewDashboardMosaicLayoutTilesSet(c *Client, des, nw []DashboardMosaicLayoutTiles) []DashboardMosaicLayoutTiles {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []DashboardMosaicLayoutTiles
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareDashboardMosaicLayoutTiles(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewDashboardMosaicLayoutTilesSlice(c *Client, des, nw []DashboardMosaicLayoutTiles) []DashboardMosaicLayoutTiles {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardMosaicLayoutTiles
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardMosaicLayoutTiles(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeDashboardRowLayout(des, initial *DashboardRowLayout, opts ...dcl.ApplyOption) *DashboardRowLayout {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Rows) {
+		des.Rows = initial.Rows
+	}
+
+	return des
+}
+
+func canonicalizeNewDashboardRowLayout(c *Client, des, nw *DashboardRowLayout) *DashboardRowLayout {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	nw.Rows = canonicalizeNewDashboardRowLayoutRowsSlice(c, des.Rows, nw.Rows)
+
+	return nw
+}
+
+func canonicalizeNewDashboardRowLayoutSet(c *Client, des, nw []DashboardRowLayout) []DashboardRowLayout {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []DashboardRowLayout
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareDashboardRowLayout(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewDashboardRowLayoutSlice(c *Client, des, nw []DashboardRowLayout) []DashboardRowLayout {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardRowLayout
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardRowLayout(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeDashboardRowLayoutRows(des, initial *DashboardRowLayoutRows, opts ...dcl.ApplyOption) *DashboardRowLayoutRows {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.Weight) {
+		des.Weight = initial.Weight
+	}
+	if dcl.IsZeroValue(des.Widgets) {
+		des.Widgets = initial.Widgets
+	}
+
+	return des
+}
+
+func canonicalizeNewDashboardRowLayoutRows(c *Client, des, nw *DashboardRowLayoutRows) *DashboardRowLayoutRows {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	return nw
+}
+
+func canonicalizeNewDashboardRowLayoutRowsSet(c *Client, des, nw []DashboardRowLayoutRows) []DashboardRowLayoutRows {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []DashboardRowLayoutRows
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareDashboardRowLayoutRows(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewDashboardRowLayoutRowsSlice(c *Client, des, nw []DashboardRowLayoutRows) []DashboardRowLayoutRows {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []DashboardRowLayoutRows
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardRowLayoutRows(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeDashboardColumnLayout(des, initial *DashboardColumnLayout, opts ...dcl.ApplyOption) *DashboardColumnLayout {
@@ -12320,1220 +12666,6 @@ func canonicalizeNewDashboardWidgetBlankSlice(c *Client, des, nw []DashboardWidg
 	return items
 }
 
-func canonicalizeDashboardGridLayout(des, initial *DashboardGridLayout, opts ...dcl.ApplyOption) *DashboardGridLayout {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Columns) {
-		des.Columns = initial.Columns
-	}
-	if dcl.IsZeroValue(des.Widgets) {
-		des.Widgets = initial.Widgets
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardGridLayout(c *Client, des, nw *DashboardGridLayout) *DashboardGridLayout {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewDashboardGridLayoutSet(c *Client, des, nw []DashboardGridLayout) []DashboardGridLayout {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []DashboardGridLayout
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardGridLayout(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewDashboardGridLayoutSlice(c *Client, des, nw []DashboardGridLayout) []DashboardGridLayout {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return des
-	}
-
-	var items []DashboardGridLayout
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewDashboardGridLayout(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeDashboardMosaicLayout(des, initial *DashboardMosaicLayout, opts ...dcl.ApplyOption) *DashboardMosaicLayout {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Columns) {
-		des.Columns = initial.Columns
-	}
-	if dcl.IsZeroValue(des.Tiles) {
-		des.Tiles = initial.Tiles
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardMosaicLayout(c *Client, des, nw *DashboardMosaicLayout) *DashboardMosaicLayout {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.Tiles = canonicalizeNewDashboardMosaicLayoutTilesSlice(c, des.Tiles, nw.Tiles)
-
-	return nw
-}
-
-func canonicalizeNewDashboardMosaicLayoutSet(c *Client, des, nw []DashboardMosaicLayout) []DashboardMosaicLayout {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []DashboardMosaicLayout
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardMosaicLayout(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewDashboardMosaicLayoutSlice(c *Client, des, nw []DashboardMosaicLayout) []DashboardMosaicLayout {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return des
-	}
-
-	var items []DashboardMosaicLayout
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewDashboardMosaicLayout(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeDashboardMosaicLayoutTiles(des, initial *DashboardMosaicLayoutTiles, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTiles {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.XPos) {
-		des.XPos = initial.XPos
-	}
-	if dcl.IsZeroValue(des.YPos) {
-		des.YPos = initial.YPos
-	}
-	if dcl.IsZeroValue(des.Width) {
-		des.Width = initial.Width
-	}
-	if dcl.IsZeroValue(des.Height) {
-		des.Height = initial.Height
-	}
-	des.Widget = canonicalizeDashboardWidget(des.Widget, initial.Widget, opts...)
-
-	return des
-}
-
-func canonicalizeNewDashboardMosaicLayoutTiles(c *Client, des, nw *DashboardMosaicLayoutTiles) *DashboardMosaicLayoutTiles {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.Widget = canonicalizeNewDashboardWidget(c, des.Widget, nw.Widget)
-
-	return nw
-}
-
-func canonicalizeNewDashboardMosaicLayoutTilesSet(c *Client, des, nw []DashboardMosaicLayoutTiles) []DashboardMosaicLayoutTiles {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []DashboardMosaicLayoutTiles
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardMosaicLayoutTiles(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewDashboardMosaicLayoutTilesSlice(c *Client, des, nw []DashboardMosaicLayoutTiles) []DashboardMosaicLayoutTiles {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return des
-	}
-
-	var items []DashboardMosaicLayoutTiles
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewDashboardMosaicLayoutTiles(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeDashboardRowLayout(des, initial *DashboardRowLayout, opts ...dcl.ApplyOption) *DashboardRowLayout {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Rows) {
-		des.Rows = initial.Rows
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardRowLayout(c *Client, des, nw *DashboardRowLayout) *DashboardRowLayout {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.Rows = canonicalizeNewDashboardRowLayoutRowsSlice(c, des.Rows, nw.Rows)
-
-	return nw
-}
-
-func canonicalizeNewDashboardRowLayoutSet(c *Client, des, nw []DashboardRowLayout) []DashboardRowLayout {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []DashboardRowLayout
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardRowLayout(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewDashboardRowLayoutSlice(c *Client, des, nw []DashboardRowLayout) []DashboardRowLayout {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return des
-	}
-
-	var items []DashboardRowLayout
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewDashboardRowLayout(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeDashboardRowLayoutRows(des, initial *DashboardRowLayoutRows, opts ...dcl.ApplyOption) *DashboardRowLayoutRows {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Weight) {
-		des.Weight = initial.Weight
-	}
-	if dcl.IsZeroValue(des.Widgets) {
-		des.Widgets = initial.Widgets
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardRowLayoutRows(c *Client, des, nw *DashboardRowLayoutRows) *DashboardRowLayoutRows {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewDashboardRowLayoutRowsSet(c *Client, des, nw []DashboardRowLayoutRows) []DashboardRowLayoutRows {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []DashboardRowLayoutRows
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardRowLayoutRows(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewDashboardRowLayoutRowsSlice(c *Client, des, nw []DashboardRowLayoutRows) []DashboardRowLayoutRows {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return des
-	}
-
-	var items []DashboardRowLayoutRows
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewDashboardRowLayoutRows(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeDashboardTabbedLayout(des, initial *DashboardTabbedLayout, opts ...dcl.ApplyOption) *DashboardTabbedLayout {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Tabs) {
-		des.Tabs = initial.Tabs
-	}
-	des.FeaturedMosaicLayout = canonicalizeDashboardTabbedLayoutFeaturedMosaicLayout(des.FeaturedMosaicLayout, initial.FeaturedMosaicLayout, opts...)
-
-	return des
-}
-
-func canonicalizeNewDashboardTabbedLayout(c *Client, des, nw *DashboardTabbedLayout) *DashboardTabbedLayout {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.Tabs = canonicalizeNewDashboardTabbedLayoutTabsSlice(c, des.Tabs, nw.Tabs)
-	nw.FeaturedMosaicLayout = canonicalizeNewDashboardTabbedLayoutFeaturedMosaicLayout(c, des.FeaturedMosaicLayout, nw.FeaturedMosaicLayout)
-
-	return nw
-}
-
-func canonicalizeNewDashboardTabbedLayoutSet(c *Client, des, nw []DashboardTabbedLayout) []DashboardTabbedLayout {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []DashboardTabbedLayout
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardTabbedLayout(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewDashboardTabbedLayoutSlice(c *Client, des, nw []DashboardTabbedLayout) []DashboardTabbedLayout {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return des
-	}
-
-	var items []DashboardTabbedLayout
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewDashboardTabbedLayout(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeDashboardTabbedLayoutTabs(des, initial *DashboardTabbedLayoutTabs, opts ...dcl.ApplyOption) *DashboardTabbedLayoutTabs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
-		des.Label = initial.Label
-	}
-	if dcl.StringCanonicalize(des.HintText, initial.HintText) || dcl.IsZeroValue(des.HintText) {
-		des.HintText = initial.HintText
-	}
-	des.GridLayout = canonicalizeDashboardTabbedLayoutTabsGridLayout(des.GridLayout, initial.GridLayout, opts...)
-	des.MosaicLayout = canonicalizeDashboardTabbedLayoutTabsMosaicLayout(des.MosaicLayout, initial.MosaicLayout, opts...)
-	des.RowLayout = canonicalizeDashboardTabbedLayoutTabsRowLayout(des.RowLayout, initial.RowLayout, opts...)
-	des.ColumnLayout = canonicalizeDashboardTabbedLayoutTabsColumnLayout(des.ColumnLayout, initial.ColumnLayout, opts...)
-
-	return des
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabs(c *Client, des, nw *DashboardTabbedLayoutTabs) *DashboardTabbedLayoutTabs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.Label, nw.Label) {
-		nw.Label = des.Label
-	}
-	if dcl.StringCanonicalize(des.HintText, nw.HintText) {
-		nw.HintText = des.HintText
-	}
-	nw.GridLayout = canonicalizeNewDashboardTabbedLayoutTabsGridLayout(c, des.GridLayout, nw.GridLayout)
-	nw.MosaicLayout = canonicalizeNewDashboardTabbedLayoutTabsMosaicLayout(c, des.MosaicLayout, nw.MosaicLayout)
-	nw.RowLayout = canonicalizeNewDashboardTabbedLayoutTabsRowLayout(c, des.RowLayout, nw.RowLayout)
-	nw.ColumnLayout = canonicalizeNewDashboardTabbedLayoutTabsColumnLayout(c, des.ColumnLayout, nw.ColumnLayout)
-
-	return nw
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsSet(c *Client, des, nw []DashboardTabbedLayoutTabs) []DashboardTabbedLayoutTabs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []DashboardTabbedLayoutTabs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardTabbedLayoutTabs(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsSlice(c *Client, des, nw []DashboardTabbedLayoutTabs) []DashboardTabbedLayoutTabs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return des
-	}
-
-	var items []DashboardTabbedLayoutTabs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewDashboardTabbedLayoutTabs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeDashboardTabbedLayoutTabsGridLayout(des, initial *DashboardTabbedLayoutTabsGridLayout, opts ...dcl.ApplyOption) *DashboardTabbedLayoutTabsGridLayout {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Columns) {
-		des.Columns = initial.Columns
-	}
-	if dcl.IsZeroValue(des.Widgets) {
-		des.Widgets = initial.Widgets
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsGridLayout(c *Client, des, nw *DashboardTabbedLayoutTabsGridLayout) *DashboardTabbedLayoutTabsGridLayout {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsGridLayoutSet(c *Client, des, nw []DashboardTabbedLayoutTabsGridLayout) []DashboardTabbedLayoutTabsGridLayout {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []DashboardTabbedLayoutTabsGridLayout
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardTabbedLayoutTabsGridLayout(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsGridLayoutSlice(c *Client, des, nw []DashboardTabbedLayoutTabsGridLayout) []DashboardTabbedLayoutTabsGridLayout {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return des
-	}
-
-	var items []DashboardTabbedLayoutTabsGridLayout
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewDashboardTabbedLayoutTabsGridLayout(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeDashboardTabbedLayoutTabsMosaicLayout(des, initial *DashboardTabbedLayoutTabsMosaicLayout, opts ...dcl.ApplyOption) *DashboardTabbedLayoutTabsMosaicLayout {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Columns) {
-		des.Columns = initial.Columns
-	}
-	if dcl.IsZeroValue(des.Tiles) {
-		des.Tiles = initial.Tiles
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsMosaicLayout(c *Client, des, nw *DashboardTabbedLayoutTabsMosaicLayout) *DashboardTabbedLayoutTabsMosaicLayout {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.Tiles = canonicalizeNewDashboardTabbedLayoutTabsMosaicLayoutTilesSlice(c, des.Tiles, nw.Tiles)
-
-	return nw
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsMosaicLayoutSet(c *Client, des, nw []DashboardTabbedLayoutTabsMosaicLayout) []DashboardTabbedLayoutTabsMosaicLayout {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []DashboardTabbedLayoutTabsMosaicLayout
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardTabbedLayoutTabsMosaicLayout(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsMosaicLayoutSlice(c *Client, des, nw []DashboardTabbedLayoutTabsMosaicLayout) []DashboardTabbedLayoutTabsMosaicLayout {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return des
-	}
-
-	var items []DashboardTabbedLayoutTabsMosaicLayout
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewDashboardTabbedLayoutTabsMosaicLayout(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeDashboardTabbedLayoutTabsMosaicLayoutTiles(des, initial *DashboardTabbedLayoutTabsMosaicLayoutTiles, opts ...dcl.ApplyOption) *DashboardTabbedLayoutTabsMosaicLayoutTiles {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.XPos) {
-		des.XPos = initial.XPos
-	}
-	if dcl.IsZeroValue(des.YPos) {
-		des.YPos = initial.YPos
-	}
-	if dcl.IsZeroValue(des.Width) {
-		des.Width = initial.Width
-	}
-	if dcl.IsZeroValue(des.Height) {
-		des.Height = initial.Height
-	}
-	des.Widget = canonicalizeDashboardWidget(des.Widget, initial.Widget, opts...)
-
-	return des
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsMosaicLayoutTiles(c *Client, des, nw *DashboardTabbedLayoutTabsMosaicLayoutTiles) *DashboardTabbedLayoutTabsMosaicLayoutTiles {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.Widget = canonicalizeNewDashboardWidget(c, des.Widget, nw.Widget)
-
-	return nw
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsMosaicLayoutTilesSet(c *Client, des, nw []DashboardTabbedLayoutTabsMosaicLayoutTiles) []DashboardTabbedLayoutTabsMosaicLayoutTiles {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []DashboardTabbedLayoutTabsMosaicLayoutTiles
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardTabbedLayoutTabsMosaicLayoutTiles(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsMosaicLayoutTilesSlice(c *Client, des, nw []DashboardTabbedLayoutTabsMosaicLayoutTiles) []DashboardTabbedLayoutTabsMosaicLayoutTiles {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return des
-	}
-
-	var items []DashboardTabbedLayoutTabsMosaicLayoutTiles
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewDashboardTabbedLayoutTabsMosaicLayoutTiles(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeDashboardTabbedLayoutTabsRowLayout(des, initial *DashboardTabbedLayoutTabsRowLayout, opts ...dcl.ApplyOption) *DashboardTabbedLayoutTabsRowLayout {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Rows) {
-		des.Rows = initial.Rows
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsRowLayout(c *Client, des, nw *DashboardTabbedLayoutTabsRowLayout) *DashboardTabbedLayoutTabsRowLayout {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.Rows = canonicalizeNewDashboardTabbedLayoutTabsRowLayoutRowsSlice(c, des.Rows, nw.Rows)
-
-	return nw
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsRowLayoutSet(c *Client, des, nw []DashboardTabbedLayoutTabsRowLayout) []DashboardTabbedLayoutTabsRowLayout {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []DashboardTabbedLayoutTabsRowLayout
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardTabbedLayoutTabsRowLayout(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsRowLayoutSlice(c *Client, des, nw []DashboardTabbedLayoutTabsRowLayout) []DashboardTabbedLayoutTabsRowLayout {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return des
-	}
-
-	var items []DashboardTabbedLayoutTabsRowLayout
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewDashboardTabbedLayoutTabsRowLayout(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeDashboardTabbedLayoutTabsRowLayoutRows(des, initial *DashboardTabbedLayoutTabsRowLayoutRows, opts ...dcl.ApplyOption) *DashboardTabbedLayoutTabsRowLayoutRows {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Weight) {
-		des.Weight = initial.Weight
-	}
-	if dcl.IsZeroValue(des.Widgets) {
-		des.Widgets = initial.Widgets
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsRowLayoutRows(c *Client, des, nw *DashboardTabbedLayoutTabsRowLayoutRows) *DashboardTabbedLayoutTabsRowLayoutRows {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsRowLayoutRowsSet(c *Client, des, nw []DashboardTabbedLayoutTabsRowLayoutRows) []DashboardTabbedLayoutTabsRowLayoutRows {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []DashboardTabbedLayoutTabsRowLayoutRows
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardTabbedLayoutTabsRowLayoutRows(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsRowLayoutRowsSlice(c *Client, des, nw []DashboardTabbedLayoutTabsRowLayoutRows) []DashboardTabbedLayoutTabsRowLayoutRows {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return des
-	}
-
-	var items []DashboardTabbedLayoutTabsRowLayoutRows
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewDashboardTabbedLayoutTabsRowLayoutRows(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeDashboardTabbedLayoutTabsColumnLayout(des, initial *DashboardTabbedLayoutTabsColumnLayout, opts ...dcl.ApplyOption) *DashboardTabbedLayoutTabsColumnLayout {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Columns) {
-		des.Columns = initial.Columns
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsColumnLayout(c *Client, des, nw *DashboardTabbedLayoutTabsColumnLayout) *DashboardTabbedLayoutTabsColumnLayout {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.Columns = canonicalizeNewDashboardTabbedLayoutTabsColumnLayoutColumnsSlice(c, des.Columns, nw.Columns)
-
-	return nw
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsColumnLayoutSet(c *Client, des, nw []DashboardTabbedLayoutTabsColumnLayout) []DashboardTabbedLayoutTabsColumnLayout {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []DashboardTabbedLayoutTabsColumnLayout
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardTabbedLayoutTabsColumnLayout(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsColumnLayoutSlice(c *Client, des, nw []DashboardTabbedLayoutTabsColumnLayout) []DashboardTabbedLayoutTabsColumnLayout {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return des
-	}
-
-	var items []DashboardTabbedLayoutTabsColumnLayout
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewDashboardTabbedLayoutTabsColumnLayout(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeDashboardTabbedLayoutTabsColumnLayoutColumns(des, initial *DashboardTabbedLayoutTabsColumnLayoutColumns, opts ...dcl.ApplyOption) *DashboardTabbedLayoutTabsColumnLayoutColumns {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Weight) {
-		des.Weight = initial.Weight
-	}
-	if dcl.IsZeroValue(des.Widgets) {
-		des.Widgets = initial.Widgets
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsColumnLayoutColumns(c *Client, des, nw *DashboardTabbedLayoutTabsColumnLayoutColumns) *DashboardTabbedLayoutTabsColumnLayoutColumns {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsColumnLayoutColumnsSet(c *Client, des, nw []DashboardTabbedLayoutTabsColumnLayoutColumns) []DashboardTabbedLayoutTabsColumnLayoutColumns {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []DashboardTabbedLayoutTabsColumnLayoutColumns
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardTabbedLayoutTabsColumnLayoutColumns(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewDashboardTabbedLayoutTabsColumnLayoutColumnsSlice(c *Client, des, nw []DashboardTabbedLayoutTabsColumnLayoutColumns) []DashboardTabbedLayoutTabsColumnLayoutColumns {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return des
-	}
-
-	var items []DashboardTabbedLayoutTabsColumnLayoutColumns
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewDashboardTabbedLayoutTabsColumnLayoutColumns(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeDashboardTabbedLayoutFeaturedMosaicLayout(des, initial *DashboardTabbedLayoutFeaturedMosaicLayout, opts ...dcl.ApplyOption) *DashboardTabbedLayoutFeaturedMosaicLayout {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Columns) {
-		des.Columns = initial.Columns
-	}
-	if dcl.IsZeroValue(des.Tiles) {
-		des.Tiles = initial.Tiles
-	}
-
-	return des
-}
-
-func canonicalizeNewDashboardTabbedLayoutFeaturedMosaicLayout(c *Client, des, nw *DashboardTabbedLayoutFeaturedMosaicLayout) *DashboardTabbedLayoutFeaturedMosaicLayout {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.Tiles = canonicalizeNewDashboardTabbedLayoutFeaturedMosaicLayoutTilesSlice(c, des.Tiles, nw.Tiles)
-
-	return nw
-}
-
-func canonicalizeNewDashboardTabbedLayoutFeaturedMosaicLayoutSet(c *Client, des, nw []DashboardTabbedLayoutFeaturedMosaicLayout) []DashboardTabbedLayoutFeaturedMosaicLayout {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []DashboardTabbedLayoutFeaturedMosaicLayout
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardTabbedLayoutFeaturedMosaicLayout(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewDashboardTabbedLayoutFeaturedMosaicLayoutSlice(c *Client, des, nw []DashboardTabbedLayoutFeaturedMosaicLayout) []DashboardTabbedLayoutFeaturedMosaicLayout {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return des
-	}
-
-	var items []DashboardTabbedLayoutFeaturedMosaicLayout
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewDashboardTabbedLayoutFeaturedMosaicLayout(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeDashboardTabbedLayoutFeaturedMosaicLayoutTiles(des, initial *DashboardTabbedLayoutFeaturedMosaicLayoutTiles, opts ...dcl.ApplyOption) *DashboardTabbedLayoutFeaturedMosaicLayoutTiles {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.XPos) {
-		des.XPos = initial.XPos
-	}
-	if dcl.IsZeroValue(des.YPos) {
-		des.YPos = initial.YPos
-	}
-	if dcl.IsZeroValue(des.Width) {
-		des.Width = initial.Width
-	}
-	if dcl.IsZeroValue(des.Height) {
-		des.Height = initial.Height
-	}
-	des.Widget = canonicalizeDashboardWidget(des.Widget, initial.Widget, opts...)
-
-	return des
-}
-
-func canonicalizeNewDashboardTabbedLayoutFeaturedMosaicLayoutTiles(c *Client, des, nw *DashboardTabbedLayoutFeaturedMosaicLayoutTiles) *DashboardTabbedLayoutFeaturedMosaicLayoutTiles {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.Widget = canonicalizeNewDashboardWidget(c, des.Widget, nw.Widget)
-
-	return nw
-}
-
-func canonicalizeNewDashboardTabbedLayoutFeaturedMosaicLayoutTilesSet(c *Client, des, nw []DashboardTabbedLayoutFeaturedMosaicLayoutTiles) []DashboardTabbedLayoutFeaturedMosaicLayoutTiles {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []DashboardTabbedLayoutFeaturedMosaicLayoutTiles
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareDashboardTabbedLayoutFeaturedMosaicLayoutTiles(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewDashboardTabbedLayoutFeaturedMosaicLayoutTilesSlice(c *Client, des, nw []DashboardTabbedLayoutFeaturedMosaicLayoutTiles) []DashboardTabbedLayoutFeaturedMosaicLayoutTiles {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return des
-	}
-
-	var items []DashboardTabbedLayoutFeaturedMosaicLayoutTiles
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewDashboardTabbedLayoutFeaturedMosaicLayoutTiles(c, &d, &n))
-	}
-
-	return items
-}
-
 type dashboardDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
@@ -13555,22 +12687,16 @@ func diffDashboard(c *Client, desired, actual *Dashboard, opts ...dcl.ApplyOptio
 	}
 
 	var diffs []dashboardDiff
-	if !reflect.DeepEqual(desired.Category, actual.Category) {
-		c.Config.Logger.Infof("Detected diff in Category.\nDESIRED: %v\nACTUAL: %v", desired.Category, actual.Category)
+	// New style diffs.
+	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, dashboardDiff{
-			RequiresRecreate: true,
-			FieldName:        "Category",
+			UpdateOp: &updateDashboardUpdateOperation{}, FieldName: "DisplayName",
 		})
 	}
-	if compareDashboardColumnLayout(c, desired.ColumnLayout, actual.ColumnLayout) {
-		c.Config.Logger.Infof("Detected diff in ColumnLayout.\nDESIRED: %v\nACTUAL: %v", desired.ColumnLayout, actual.ColumnLayout)
 
-		diffs = append(diffs, dashboardDiff{
-			UpdateOp:  &updateDashboardUpdateOperation{},
-			FieldName: "ColumnLayout",
-		})
-
-	}
 	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
 		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 
@@ -13605,12 +12731,14 @@ func diffDashboard(c *Client, desired, actual *Dashboard, opts ...dcl.ApplyOptio
 			FieldName:        "RowLayout",
 		})
 	}
-	if compareDashboardTabbedLayout(c, desired.TabbedLayout, actual.TabbedLayout) {
-		c.Config.Logger.Infof("Detected diff in TabbedLayout.\nDESIRED: %v\nACTUAL: %v", desired.TabbedLayout, actual.TabbedLayout)
+	if compareDashboardColumnLayout(c, desired.ColumnLayout, actual.ColumnLayout) {
+		c.Config.Logger.Infof("Detected diff in ColumnLayout.\nDESIRED: %v\nACTUAL: %v", desired.ColumnLayout, actual.ColumnLayout)
+
 		diffs = append(diffs, dashboardDiff{
-			RequiresRecreate: true,
-			FieldName:        "TabbedLayout",
+			UpdateOp:  &updateDashboardUpdateOperation{},
+			FieldName: "ColumnLayout",
 		})
+
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
@@ -13636,6 +12764,317 @@ func diffDashboard(c *Client, desired, actual *Dashboard, opts ...dcl.ApplyOptio
 
 	return deduped, nil
 }
+func compareDashboardGridLayout(c *Client, desired, actual *DashboardGridLayout) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Columns == nil && desired.Columns != nil && !dcl.IsEmptyValueIndirect(desired.Columns) {
+		c.Config.Logger.Infof("desired Columns %s - but actually nil", dcl.SprintResource(desired.Columns))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Columns, actual.Columns) && !dcl.IsZeroValue(desired.Columns) {
+		c.Config.Logger.Infof("Diff in Columns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Columns), dcl.SprintResource(actual.Columns))
+		return true
+	}
+	if actual.Widgets == nil && desired.Widgets != nil && !dcl.IsEmptyValueIndirect(desired.Widgets) {
+		c.Config.Logger.Infof("desired Widgets %s - but actually nil", dcl.SprintResource(desired.Widgets))
+		return true
+	}
+	if compareDashboardWidgetSlice(c, desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
+		c.Config.Logger.Infof("Diff in Widgets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
+		return true
+	}
+	return false
+}
+
+func compareDashboardGridLayoutSlice(c *Client, desired, actual []DashboardGridLayout) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardGridLayout, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareDashboardGridLayout(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardGridLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardGridLayoutMap(c *Client, desired, actual map[string]DashboardGridLayout) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardGridLayout, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardGridLayout, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardGridLayout(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardGridLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardMosaicLayout(c *Client, desired, actual *DashboardMosaicLayout) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Columns == nil && desired.Columns != nil && !dcl.IsEmptyValueIndirect(desired.Columns) {
+		c.Config.Logger.Infof("desired Columns %s - but actually nil", dcl.SprintResource(desired.Columns))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Columns, actual.Columns) && !dcl.IsZeroValue(desired.Columns) {
+		c.Config.Logger.Infof("Diff in Columns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Columns), dcl.SprintResource(actual.Columns))
+		return true
+	}
+	if actual.Tiles == nil && desired.Tiles != nil && !dcl.IsEmptyValueIndirect(desired.Tiles) {
+		c.Config.Logger.Infof("desired Tiles %s - but actually nil", dcl.SprintResource(desired.Tiles))
+		return true
+	}
+	if compareDashboardMosaicLayoutTilesSlice(c, desired.Tiles, actual.Tiles) && !dcl.IsZeroValue(desired.Tiles) {
+		c.Config.Logger.Infof("Diff in Tiles. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Tiles), dcl.SprintResource(actual.Tiles))
+		return true
+	}
+	return false
+}
+
+func compareDashboardMosaicLayoutSlice(c *Client, desired, actual []DashboardMosaicLayout) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardMosaicLayout, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareDashboardMosaicLayout(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardMosaicLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardMosaicLayoutMap(c *Client, desired, actual map[string]DashboardMosaicLayout) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardMosaicLayout, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardMosaicLayout, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardMosaicLayout(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardMosaicLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardMosaicLayoutTiles(c *Client, desired, actual *DashboardMosaicLayoutTiles) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.XPos == nil && desired.XPos != nil && !dcl.IsEmptyValueIndirect(desired.XPos) {
+		c.Config.Logger.Infof("desired XPos %s - but actually nil", dcl.SprintResource(desired.XPos))
+		return true
+	}
+	if !reflect.DeepEqual(desired.XPos, actual.XPos) && !dcl.IsZeroValue(desired.XPos) {
+		c.Config.Logger.Infof("Diff in XPos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.XPos), dcl.SprintResource(actual.XPos))
+		return true
+	}
+	if actual.YPos == nil && desired.YPos != nil && !dcl.IsEmptyValueIndirect(desired.YPos) {
+		c.Config.Logger.Infof("desired YPos %s - but actually nil", dcl.SprintResource(desired.YPos))
+		return true
+	}
+	if !reflect.DeepEqual(desired.YPos, actual.YPos) && !dcl.IsZeroValue(desired.YPos) {
+		c.Config.Logger.Infof("Diff in YPos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.YPos), dcl.SprintResource(actual.YPos))
+		return true
+	}
+	if actual.Width == nil && desired.Width != nil && !dcl.IsEmptyValueIndirect(desired.Width) {
+		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
+		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
+		return true
+	}
+	if actual.Height == nil && desired.Height != nil && !dcl.IsEmptyValueIndirect(desired.Height) {
+		c.Config.Logger.Infof("desired Height %s - but actually nil", dcl.SprintResource(desired.Height))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Height, actual.Height) && !dcl.IsZeroValue(desired.Height) {
+		c.Config.Logger.Infof("Diff in Height. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Height), dcl.SprintResource(actual.Height))
+		return true
+	}
+	if actual.Widget == nil && desired.Widget != nil && !dcl.IsEmptyValueIndirect(desired.Widget) {
+		c.Config.Logger.Infof("desired Widget %s - but actually nil", dcl.SprintResource(desired.Widget))
+		return true
+	}
+	if compareDashboardWidget(c, desired.Widget, actual.Widget) && !dcl.IsZeroValue(desired.Widget) {
+		c.Config.Logger.Infof("Diff in Widget. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widget), dcl.SprintResource(actual.Widget))
+		return true
+	}
+	return false
+}
+
+func compareDashboardMosaicLayoutTilesSlice(c *Client, desired, actual []DashboardMosaicLayoutTiles) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardMosaicLayoutTiles, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareDashboardMosaicLayoutTiles(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardMosaicLayoutTiles, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardMosaicLayoutTilesMap(c *Client, desired, actual map[string]DashboardMosaicLayoutTiles) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardMosaicLayoutTiles, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardMosaicLayoutTiles, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardMosaicLayoutTiles(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardMosaicLayoutTiles, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardRowLayout(c *Client, desired, actual *DashboardRowLayout) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Rows == nil && desired.Rows != nil && !dcl.IsEmptyValueIndirect(desired.Rows) {
+		c.Config.Logger.Infof("desired Rows %s - but actually nil", dcl.SprintResource(desired.Rows))
+		return true
+	}
+	if compareDashboardRowLayoutRowsSlice(c, desired.Rows, actual.Rows) && !dcl.IsZeroValue(desired.Rows) {
+		c.Config.Logger.Infof("Diff in Rows. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Rows), dcl.SprintResource(actual.Rows))
+		return true
+	}
+	return false
+}
+
+func compareDashboardRowLayoutSlice(c *Client, desired, actual []DashboardRowLayout) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardRowLayout, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareDashboardRowLayout(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardRowLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardRowLayoutMap(c *Client, desired, actual map[string]DashboardRowLayout) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardRowLayout, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardRowLayout, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardRowLayout(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardRowLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardRowLayoutRows(c *Client, desired, actual *DashboardRowLayoutRows) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if actual.Weight == nil && desired.Weight != nil && !dcl.IsEmptyValueIndirect(desired.Weight) {
+		c.Config.Logger.Infof("desired Weight %s - but actually nil", dcl.SprintResource(desired.Weight))
+		return true
+	}
+	if !reflect.DeepEqual(desired.Weight, actual.Weight) && !dcl.IsZeroValue(desired.Weight) {
+		c.Config.Logger.Infof("Diff in Weight. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Weight), dcl.SprintResource(actual.Weight))
+		return true
+	}
+	if actual.Widgets == nil && desired.Widgets != nil && !dcl.IsEmptyValueIndirect(desired.Widgets) {
+		c.Config.Logger.Infof("desired Widgets %s - but actually nil", dcl.SprintResource(desired.Widgets))
+		return true
+	}
+	if compareDashboardWidgetSlice(c, desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
+		c.Config.Logger.Infof("Diff in Widgets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
+		return true
+	}
+	return false
+}
+
+func compareDashboardRowLayoutRowsSlice(c *Client, desired, actual []DashboardRowLayoutRows) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardRowLayoutRows, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareDashboardRowLayoutRows(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in DashboardRowLayoutRows, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareDashboardRowLayoutRowsMap(c *Client, desired, actual map[string]DashboardRowLayoutRows) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in DashboardRowLayoutRows, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in DashboardRowLayoutRows, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareDashboardRowLayoutRows(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in DashboardRowLayoutRows, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
 func compareDashboardColumnLayout(c *Client, desired, actual *DashboardColumnLayout) bool {
 	if desired == nil {
 		return false
@@ -22675,1048 +22114,6 @@ func compareDashboardWidgetBlankMap(c *Client, desired, actual map[string]Dashbo
 	return false
 }
 
-func compareDashboardGridLayout(c *Client, desired, actual *DashboardGridLayout) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Columns == nil && desired.Columns != nil && !dcl.IsEmptyValueIndirect(desired.Columns) {
-		c.Config.Logger.Infof("desired Columns %s - but actually nil", dcl.SprintResource(desired.Columns))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Columns, actual.Columns) && !dcl.IsZeroValue(desired.Columns) {
-		c.Config.Logger.Infof("Diff in Columns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Columns), dcl.SprintResource(actual.Columns))
-		return true
-	}
-	if actual.Widgets == nil && desired.Widgets != nil && !dcl.IsEmptyValueIndirect(desired.Widgets) {
-		c.Config.Logger.Infof("desired Widgets %s - but actually nil", dcl.SprintResource(desired.Widgets))
-		return true
-	}
-	if compareDashboardWidgetSlice(c, desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
-		c.Config.Logger.Infof("Diff in Widgets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
-		return true
-	}
-	return false
-}
-
-func compareDashboardGridLayoutSlice(c *Client, desired, actual []DashboardGridLayout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardGridLayout, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardGridLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardGridLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardGridLayoutMap(c *Client, desired, actual map[string]DashboardGridLayout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardGridLayout, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardGridLayout, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardGridLayout(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardGridLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardMosaicLayout(c *Client, desired, actual *DashboardMosaicLayout) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Columns == nil && desired.Columns != nil && !dcl.IsEmptyValueIndirect(desired.Columns) {
-		c.Config.Logger.Infof("desired Columns %s - but actually nil", dcl.SprintResource(desired.Columns))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Columns, actual.Columns) && !dcl.IsZeroValue(desired.Columns) {
-		c.Config.Logger.Infof("Diff in Columns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Columns), dcl.SprintResource(actual.Columns))
-		return true
-	}
-	if actual.Tiles == nil && desired.Tiles != nil && !dcl.IsEmptyValueIndirect(desired.Tiles) {
-		c.Config.Logger.Infof("desired Tiles %s - but actually nil", dcl.SprintResource(desired.Tiles))
-		return true
-	}
-	if compareDashboardMosaicLayoutTilesSlice(c, desired.Tiles, actual.Tiles) && !dcl.IsZeroValue(desired.Tiles) {
-		c.Config.Logger.Infof("Diff in Tiles. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Tiles), dcl.SprintResource(actual.Tiles))
-		return true
-	}
-	return false
-}
-
-func compareDashboardMosaicLayoutSlice(c *Client, desired, actual []DashboardMosaicLayout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardMosaicLayout, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardMosaicLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardMosaicLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardMosaicLayoutMap(c *Client, desired, actual map[string]DashboardMosaicLayout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardMosaicLayout, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardMosaicLayout, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardMosaicLayout(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardMosaicLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardMosaicLayoutTiles(c *Client, desired, actual *DashboardMosaicLayoutTiles) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.XPos == nil && desired.XPos != nil && !dcl.IsEmptyValueIndirect(desired.XPos) {
-		c.Config.Logger.Infof("desired XPos %s - but actually nil", dcl.SprintResource(desired.XPos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.XPos, actual.XPos) && !dcl.IsZeroValue(desired.XPos) {
-		c.Config.Logger.Infof("Diff in XPos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.XPos), dcl.SprintResource(actual.XPos))
-		return true
-	}
-	if actual.YPos == nil && desired.YPos != nil && !dcl.IsEmptyValueIndirect(desired.YPos) {
-		c.Config.Logger.Infof("desired YPos %s - but actually nil", dcl.SprintResource(desired.YPos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.YPos, actual.YPos) && !dcl.IsZeroValue(desired.YPos) {
-		c.Config.Logger.Infof("Diff in YPos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.YPos), dcl.SprintResource(actual.YPos))
-		return true
-	}
-	if actual.Width == nil && desired.Width != nil && !dcl.IsEmptyValueIndirect(desired.Width) {
-		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
-		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
-		return true
-	}
-	if actual.Height == nil && desired.Height != nil && !dcl.IsEmptyValueIndirect(desired.Height) {
-		c.Config.Logger.Infof("desired Height %s - but actually nil", dcl.SprintResource(desired.Height))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Height, actual.Height) && !dcl.IsZeroValue(desired.Height) {
-		c.Config.Logger.Infof("Diff in Height. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Height), dcl.SprintResource(actual.Height))
-		return true
-	}
-	if actual.Widget == nil && desired.Widget != nil && !dcl.IsEmptyValueIndirect(desired.Widget) {
-		c.Config.Logger.Infof("desired Widget %s - but actually nil", dcl.SprintResource(desired.Widget))
-		return true
-	}
-	if compareDashboardWidget(c, desired.Widget, actual.Widget) && !dcl.IsZeroValue(desired.Widget) {
-		c.Config.Logger.Infof("Diff in Widget. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widget), dcl.SprintResource(actual.Widget))
-		return true
-	}
-	return false
-}
-
-func compareDashboardMosaicLayoutTilesSlice(c *Client, desired, actual []DashboardMosaicLayoutTiles) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardMosaicLayoutTiles, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardMosaicLayoutTiles(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardMosaicLayoutTiles, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardMosaicLayoutTilesMap(c *Client, desired, actual map[string]DashboardMosaicLayoutTiles) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardMosaicLayoutTiles, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardMosaicLayoutTiles, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardMosaicLayoutTiles(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardMosaicLayoutTiles, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardRowLayout(c *Client, desired, actual *DashboardRowLayout) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Rows == nil && desired.Rows != nil && !dcl.IsEmptyValueIndirect(desired.Rows) {
-		c.Config.Logger.Infof("desired Rows %s - but actually nil", dcl.SprintResource(desired.Rows))
-		return true
-	}
-	if compareDashboardRowLayoutRowsSlice(c, desired.Rows, actual.Rows) && !dcl.IsZeroValue(desired.Rows) {
-		c.Config.Logger.Infof("Diff in Rows. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Rows), dcl.SprintResource(actual.Rows))
-		return true
-	}
-	return false
-}
-
-func compareDashboardRowLayoutSlice(c *Client, desired, actual []DashboardRowLayout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardRowLayout, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardRowLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardRowLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardRowLayoutMap(c *Client, desired, actual map[string]DashboardRowLayout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardRowLayout, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardRowLayout, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardRowLayout(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardRowLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardRowLayoutRows(c *Client, desired, actual *DashboardRowLayoutRows) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Weight == nil && desired.Weight != nil && !dcl.IsEmptyValueIndirect(desired.Weight) {
-		c.Config.Logger.Infof("desired Weight %s - but actually nil", dcl.SprintResource(desired.Weight))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Weight, actual.Weight) && !dcl.IsZeroValue(desired.Weight) {
-		c.Config.Logger.Infof("Diff in Weight. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Weight), dcl.SprintResource(actual.Weight))
-		return true
-	}
-	if actual.Widgets == nil && desired.Widgets != nil && !dcl.IsEmptyValueIndirect(desired.Widgets) {
-		c.Config.Logger.Infof("desired Widgets %s - but actually nil", dcl.SprintResource(desired.Widgets))
-		return true
-	}
-	if compareDashboardWidgetSlice(c, desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
-		c.Config.Logger.Infof("Diff in Widgets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
-		return true
-	}
-	return false
-}
-
-func compareDashboardRowLayoutRowsSlice(c *Client, desired, actual []DashboardRowLayoutRows) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardRowLayoutRows, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardRowLayoutRows(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardRowLayoutRows, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardRowLayoutRowsMap(c *Client, desired, actual map[string]DashboardRowLayoutRows) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardRowLayoutRows, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardRowLayoutRows, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardRowLayoutRows(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardRowLayoutRows, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardTabbedLayout(c *Client, desired, actual *DashboardTabbedLayout) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Tabs == nil && desired.Tabs != nil && !dcl.IsEmptyValueIndirect(desired.Tabs) {
-		c.Config.Logger.Infof("desired Tabs %s - but actually nil", dcl.SprintResource(desired.Tabs))
-		return true
-	}
-	if compareDashboardTabbedLayoutTabsSlice(c, desired.Tabs, actual.Tabs) && !dcl.IsZeroValue(desired.Tabs) {
-		c.Config.Logger.Infof("Diff in Tabs. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Tabs), dcl.SprintResource(actual.Tabs))
-		return true
-	}
-	if actual.FeaturedMosaicLayout == nil && desired.FeaturedMosaicLayout != nil && !dcl.IsEmptyValueIndirect(desired.FeaturedMosaicLayout) {
-		c.Config.Logger.Infof("desired FeaturedMosaicLayout %s - but actually nil", dcl.SprintResource(desired.FeaturedMosaicLayout))
-		return true
-	}
-	if compareDashboardTabbedLayoutFeaturedMosaicLayout(c, desired.FeaturedMosaicLayout, actual.FeaturedMosaicLayout) && !dcl.IsZeroValue(desired.FeaturedMosaicLayout) {
-		c.Config.Logger.Infof("Diff in FeaturedMosaicLayout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FeaturedMosaicLayout), dcl.SprintResource(actual.FeaturedMosaicLayout))
-		return true
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutSlice(c *Client, desired, actual []DashboardTabbedLayout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayout, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardTabbedLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutMap(c *Client, desired, actual map[string]DashboardTabbedLayout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayout, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayout, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardTabbedLayout(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabs(c *Client, desired, actual *DashboardTabbedLayoutTabs) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Label == nil && desired.Label != nil && !dcl.IsEmptyValueIndirect(desired.Label) {
-		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
-		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
-		return true
-	}
-	if actual.HintText == nil && desired.HintText != nil && !dcl.IsEmptyValueIndirect(desired.HintText) {
-		c.Config.Logger.Infof("desired HintText %s - but actually nil", dcl.SprintResource(desired.HintText))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.HintText, actual.HintText) && !dcl.IsZeroValue(desired.HintText) {
-		c.Config.Logger.Infof("Diff in HintText. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HintText), dcl.SprintResource(actual.HintText))
-		return true
-	}
-	if actual.GridLayout == nil && desired.GridLayout != nil && !dcl.IsEmptyValueIndirect(desired.GridLayout) {
-		c.Config.Logger.Infof("desired GridLayout %s - but actually nil", dcl.SprintResource(desired.GridLayout))
-		return true
-	}
-	if compareDashboardTabbedLayoutTabsGridLayout(c, desired.GridLayout, actual.GridLayout) && !dcl.IsZeroValue(desired.GridLayout) {
-		c.Config.Logger.Infof("Diff in GridLayout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GridLayout), dcl.SprintResource(actual.GridLayout))
-		return true
-	}
-	if actual.MosaicLayout == nil && desired.MosaicLayout != nil && !dcl.IsEmptyValueIndirect(desired.MosaicLayout) {
-		c.Config.Logger.Infof("desired MosaicLayout %s - but actually nil", dcl.SprintResource(desired.MosaicLayout))
-		return true
-	}
-	if compareDashboardTabbedLayoutTabsMosaicLayout(c, desired.MosaicLayout, actual.MosaicLayout) && !dcl.IsZeroValue(desired.MosaicLayout) {
-		c.Config.Logger.Infof("Diff in MosaicLayout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MosaicLayout), dcl.SprintResource(actual.MosaicLayout))
-		return true
-	}
-	if actual.RowLayout == nil && desired.RowLayout != nil && !dcl.IsEmptyValueIndirect(desired.RowLayout) {
-		c.Config.Logger.Infof("desired RowLayout %s - but actually nil", dcl.SprintResource(desired.RowLayout))
-		return true
-	}
-	if compareDashboardTabbedLayoutTabsRowLayout(c, desired.RowLayout, actual.RowLayout) && !dcl.IsZeroValue(desired.RowLayout) {
-		c.Config.Logger.Infof("Diff in RowLayout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RowLayout), dcl.SprintResource(actual.RowLayout))
-		return true
-	}
-	if actual.ColumnLayout == nil && desired.ColumnLayout != nil && !dcl.IsEmptyValueIndirect(desired.ColumnLayout) {
-		c.Config.Logger.Infof("desired ColumnLayout %s - but actually nil", dcl.SprintResource(desired.ColumnLayout))
-		return true
-	}
-	if compareDashboardTabbedLayoutTabsColumnLayout(c, desired.ColumnLayout, actual.ColumnLayout) && !dcl.IsZeroValue(desired.ColumnLayout) {
-		c.Config.Logger.Infof("Diff in ColumnLayout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ColumnLayout), dcl.SprintResource(actual.ColumnLayout))
-		return true
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsSlice(c *Client, desired, actual []DashboardTabbedLayoutTabs) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabs, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardTabbedLayoutTabs(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabs, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsMap(c *Client, desired, actual map[string]DashboardTabbedLayoutTabs) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabs, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabs, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardTabbedLayoutTabs(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabs, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsGridLayout(c *Client, desired, actual *DashboardTabbedLayoutTabsGridLayout) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Columns == nil && desired.Columns != nil && !dcl.IsEmptyValueIndirect(desired.Columns) {
-		c.Config.Logger.Infof("desired Columns %s - but actually nil", dcl.SprintResource(desired.Columns))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Columns, actual.Columns) && !dcl.IsZeroValue(desired.Columns) {
-		c.Config.Logger.Infof("Diff in Columns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Columns), dcl.SprintResource(actual.Columns))
-		return true
-	}
-	if actual.Widgets == nil && desired.Widgets != nil && !dcl.IsEmptyValueIndirect(desired.Widgets) {
-		c.Config.Logger.Infof("desired Widgets %s - but actually nil", dcl.SprintResource(desired.Widgets))
-		return true
-	}
-	if compareDashboardWidgetSlice(c, desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
-		c.Config.Logger.Infof("Diff in Widgets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
-		return true
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsGridLayoutSlice(c *Client, desired, actual []DashboardTabbedLayoutTabsGridLayout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsGridLayout, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardTabbedLayoutTabsGridLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsGridLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsGridLayoutMap(c *Client, desired, actual map[string]DashboardTabbedLayoutTabsGridLayout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsGridLayout, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsGridLayout, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardTabbedLayoutTabsGridLayout(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsGridLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsMosaicLayout(c *Client, desired, actual *DashboardTabbedLayoutTabsMosaicLayout) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Columns == nil && desired.Columns != nil && !dcl.IsEmptyValueIndirect(desired.Columns) {
-		c.Config.Logger.Infof("desired Columns %s - but actually nil", dcl.SprintResource(desired.Columns))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Columns, actual.Columns) && !dcl.IsZeroValue(desired.Columns) {
-		c.Config.Logger.Infof("Diff in Columns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Columns), dcl.SprintResource(actual.Columns))
-		return true
-	}
-	if actual.Tiles == nil && desired.Tiles != nil && !dcl.IsEmptyValueIndirect(desired.Tiles) {
-		c.Config.Logger.Infof("desired Tiles %s - but actually nil", dcl.SprintResource(desired.Tiles))
-		return true
-	}
-	if compareDashboardTabbedLayoutTabsMosaicLayoutTilesSlice(c, desired.Tiles, actual.Tiles) && !dcl.IsZeroValue(desired.Tiles) {
-		c.Config.Logger.Infof("Diff in Tiles. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Tiles), dcl.SprintResource(actual.Tiles))
-		return true
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsMosaicLayoutSlice(c *Client, desired, actual []DashboardTabbedLayoutTabsMosaicLayout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsMosaicLayout, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardTabbedLayoutTabsMosaicLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsMosaicLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsMosaicLayoutMap(c *Client, desired, actual map[string]DashboardTabbedLayoutTabsMosaicLayout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsMosaicLayout, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsMosaicLayout, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardTabbedLayoutTabsMosaicLayout(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsMosaicLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsMosaicLayoutTiles(c *Client, desired, actual *DashboardTabbedLayoutTabsMosaicLayoutTiles) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.XPos == nil && desired.XPos != nil && !dcl.IsEmptyValueIndirect(desired.XPos) {
-		c.Config.Logger.Infof("desired XPos %s - but actually nil", dcl.SprintResource(desired.XPos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.XPos, actual.XPos) && !dcl.IsZeroValue(desired.XPos) {
-		c.Config.Logger.Infof("Diff in XPos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.XPos), dcl.SprintResource(actual.XPos))
-		return true
-	}
-	if actual.YPos == nil && desired.YPos != nil && !dcl.IsEmptyValueIndirect(desired.YPos) {
-		c.Config.Logger.Infof("desired YPos %s - but actually nil", dcl.SprintResource(desired.YPos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.YPos, actual.YPos) && !dcl.IsZeroValue(desired.YPos) {
-		c.Config.Logger.Infof("Diff in YPos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.YPos), dcl.SprintResource(actual.YPos))
-		return true
-	}
-	if actual.Width == nil && desired.Width != nil && !dcl.IsEmptyValueIndirect(desired.Width) {
-		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
-		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
-		return true
-	}
-	if actual.Height == nil && desired.Height != nil && !dcl.IsEmptyValueIndirect(desired.Height) {
-		c.Config.Logger.Infof("desired Height %s - but actually nil", dcl.SprintResource(desired.Height))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Height, actual.Height) && !dcl.IsZeroValue(desired.Height) {
-		c.Config.Logger.Infof("Diff in Height. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Height), dcl.SprintResource(actual.Height))
-		return true
-	}
-	if actual.Widget == nil && desired.Widget != nil && !dcl.IsEmptyValueIndirect(desired.Widget) {
-		c.Config.Logger.Infof("desired Widget %s - but actually nil", dcl.SprintResource(desired.Widget))
-		return true
-	}
-	if compareDashboardWidget(c, desired.Widget, actual.Widget) && !dcl.IsZeroValue(desired.Widget) {
-		c.Config.Logger.Infof("Diff in Widget. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widget), dcl.SprintResource(actual.Widget))
-		return true
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsMosaicLayoutTilesSlice(c *Client, desired, actual []DashboardTabbedLayoutTabsMosaicLayoutTiles) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsMosaicLayoutTiles, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardTabbedLayoutTabsMosaicLayoutTiles(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsMosaicLayoutTiles, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsMosaicLayoutTilesMap(c *Client, desired, actual map[string]DashboardTabbedLayoutTabsMosaicLayoutTiles) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsMosaicLayoutTiles, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsMosaicLayoutTiles, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardTabbedLayoutTabsMosaicLayoutTiles(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsMosaicLayoutTiles, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsRowLayout(c *Client, desired, actual *DashboardTabbedLayoutTabsRowLayout) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Rows == nil && desired.Rows != nil && !dcl.IsEmptyValueIndirect(desired.Rows) {
-		c.Config.Logger.Infof("desired Rows %s - but actually nil", dcl.SprintResource(desired.Rows))
-		return true
-	}
-	if compareDashboardTabbedLayoutTabsRowLayoutRowsSlice(c, desired.Rows, actual.Rows) && !dcl.IsZeroValue(desired.Rows) {
-		c.Config.Logger.Infof("Diff in Rows. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Rows), dcl.SprintResource(actual.Rows))
-		return true
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsRowLayoutSlice(c *Client, desired, actual []DashboardTabbedLayoutTabsRowLayout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsRowLayout, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardTabbedLayoutTabsRowLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsRowLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsRowLayoutMap(c *Client, desired, actual map[string]DashboardTabbedLayoutTabsRowLayout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsRowLayout, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsRowLayout, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardTabbedLayoutTabsRowLayout(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsRowLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsRowLayoutRows(c *Client, desired, actual *DashboardTabbedLayoutTabsRowLayoutRows) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Weight == nil && desired.Weight != nil && !dcl.IsEmptyValueIndirect(desired.Weight) {
-		c.Config.Logger.Infof("desired Weight %s - but actually nil", dcl.SprintResource(desired.Weight))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Weight, actual.Weight) && !dcl.IsZeroValue(desired.Weight) {
-		c.Config.Logger.Infof("Diff in Weight. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Weight), dcl.SprintResource(actual.Weight))
-		return true
-	}
-	if actual.Widgets == nil && desired.Widgets != nil && !dcl.IsEmptyValueIndirect(desired.Widgets) {
-		c.Config.Logger.Infof("desired Widgets %s - but actually nil", dcl.SprintResource(desired.Widgets))
-		return true
-	}
-	if compareDashboardWidgetSlice(c, desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
-		c.Config.Logger.Infof("Diff in Widgets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
-		return true
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsRowLayoutRowsSlice(c *Client, desired, actual []DashboardTabbedLayoutTabsRowLayoutRows) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsRowLayoutRows, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardTabbedLayoutTabsRowLayoutRows(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsRowLayoutRows, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsRowLayoutRowsMap(c *Client, desired, actual map[string]DashboardTabbedLayoutTabsRowLayoutRows) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsRowLayoutRows, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsRowLayoutRows, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardTabbedLayoutTabsRowLayoutRows(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsRowLayoutRows, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsColumnLayout(c *Client, desired, actual *DashboardTabbedLayoutTabsColumnLayout) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Columns == nil && desired.Columns != nil && !dcl.IsEmptyValueIndirect(desired.Columns) {
-		c.Config.Logger.Infof("desired Columns %s - but actually nil", dcl.SprintResource(desired.Columns))
-		return true
-	}
-	if compareDashboardTabbedLayoutTabsColumnLayoutColumnsSlice(c, desired.Columns, actual.Columns) && !dcl.IsZeroValue(desired.Columns) {
-		c.Config.Logger.Infof("Diff in Columns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Columns), dcl.SprintResource(actual.Columns))
-		return true
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsColumnLayoutSlice(c *Client, desired, actual []DashboardTabbedLayoutTabsColumnLayout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsColumnLayout, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardTabbedLayoutTabsColumnLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsColumnLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsColumnLayoutMap(c *Client, desired, actual map[string]DashboardTabbedLayoutTabsColumnLayout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsColumnLayout, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsColumnLayout, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardTabbedLayoutTabsColumnLayout(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsColumnLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsColumnLayoutColumns(c *Client, desired, actual *DashboardTabbedLayoutTabsColumnLayoutColumns) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Weight == nil && desired.Weight != nil && !dcl.IsEmptyValueIndirect(desired.Weight) {
-		c.Config.Logger.Infof("desired Weight %s - but actually nil", dcl.SprintResource(desired.Weight))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Weight, actual.Weight) && !dcl.IsZeroValue(desired.Weight) {
-		c.Config.Logger.Infof("Diff in Weight. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Weight), dcl.SprintResource(actual.Weight))
-		return true
-	}
-	if actual.Widgets == nil && desired.Widgets != nil && !dcl.IsEmptyValueIndirect(desired.Widgets) {
-		c.Config.Logger.Infof("desired Widgets %s - but actually nil", dcl.SprintResource(desired.Widgets))
-		return true
-	}
-	if compareDashboardWidgetSlice(c, desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
-		c.Config.Logger.Infof("Diff in Widgets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
-		return true
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsColumnLayoutColumnsSlice(c *Client, desired, actual []DashboardTabbedLayoutTabsColumnLayoutColumns) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsColumnLayoutColumns, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardTabbedLayoutTabsColumnLayoutColumns(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsColumnLayoutColumns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutTabsColumnLayoutColumnsMap(c *Client, desired, actual map[string]DashboardTabbedLayoutTabsColumnLayoutColumns) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutTabsColumnLayoutColumns, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsColumnLayoutColumns, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardTabbedLayoutTabsColumnLayoutColumns(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutTabsColumnLayoutColumns, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutFeaturedMosaicLayout(c *Client, desired, actual *DashboardTabbedLayoutFeaturedMosaicLayout) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.Columns == nil && desired.Columns != nil && !dcl.IsEmptyValueIndirect(desired.Columns) {
-		c.Config.Logger.Infof("desired Columns %s - but actually nil", dcl.SprintResource(desired.Columns))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Columns, actual.Columns) && !dcl.IsZeroValue(desired.Columns) {
-		c.Config.Logger.Infof("Diff in Columns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Columns), dcl.SprintResource(actual.Columns))
-		return true
-	}
-	if actual.Tiles == nil && desired.Tiles != nil && !dcl.IsEmptyValueIndirect(desired.Tiles) {
-		c.Config.Logger.Infof("desired Tiles %s - but actually nil", dcl.SprintResource(desired.Tiles))
-		return true
-	}
-	if compareDashboardTabbedLayoutFeaturedMosaicLayoutTilesSlice(c, desired.Tiles, actual.Tiles) && !dcl.IsZeroValue(desired.Tiles) {
-		c.Config.Logger.Infof("Diff in Tiles. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Tiles), dcl.SprintResource(actual.Tiles))
-		return true
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutFeaturedMosaicLayoutSlice(c *Client, desired, actual []DashboardTabbedLayoutFeaturedMosaicLayout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutFeaturedMosaicLayout, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardTabbedLayoutFeaturedMosaicLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutFeaturedMosaicLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutFeaturedMosaicLayoutMap(c *Client, desired, actual map[string]DashboardTabbedLayoutFeaturedMosaicLayout) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutFeaturedMosaicLayout, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutFeaturedMosaicLayout, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardTabbedLayoutFeaturedMosaicLayout(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutFeaturedMosaicLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutFeaturedMosaicLayoutTiles(c *Client, desired, actual *DashboardTabbedLayoutFeaturedMosaicLayoutTiles) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if actual.XPos == nil && desired.XPos != nil && !dcl.IsEmptyValueIndirect(desired.XPos) {
-		c.Config.Logger.Infof("desired XPos %s - but actually nil", dcl.SprintResource(desired.XPos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.XPos, actual.XPos) && !dcl.IsZeroValue(desired.XPos) {
-		c.Config.Logger.Infof("Diff in XPos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.XPos), dcl.SprintResource(actual.XPos))
-		return true
-	}
-	if actual.YPos == nil && desired.YPos != nil && !dcl.IsEmptyValueIndirect(desired.YPos) {
-		c.Config.Logger.Infof("desired YPos %s - but actually nil", dcl.SprintResource(desired.YPos))
-		return true
-	}
-	if !reflect.DeepEqual(desired.YPos, actual.YPos) && !dcl.IsZeroValue(desired.YPos) {
-		c.Config.Logger.Infof("Diff in YPos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.YPos), dcl.SprintResource(actual.YPos))
-		return true
-	}
-	if actual.Width == nil && desired.Width != nil && !dcl.IsEmptyValueIndirect(desired.Width) {
-		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
-		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
-		return true
-	}
-	if actual.Height == nil && desired.Height != nil && !dcl.IsEmptyValueIndirect(desired.Height) {
-		c.Config.Logger.Infof("desired Height %s - but actually nil", dcl.SprintResource(desired.Height))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Height, actual.Height) && !dcl.IsZeroValue(desired.Height) {
-		c.Config.Logger.Infof("Diff in Height. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Height), dcl.SprintResource(actual.Height))
-		return true
-	}
-	if actual.Widget == nil && desired.Widget != nil && !dcl.IsEmptyValueIndirect(desired.Widget) {
-		c.Config.Logger.Infof("desired Widget %s - but actually nil", dcl.SprintResource(desired.Widget))
-		return true
-	}
-	if compareDashboardWidget(c, desired.Widget, actual.Widget) && !dcl.IsZeroValue(desired.Widget) {
-		c.Config.Logger.Infof("Diff in Widget. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widget), dcl.SprintResource(actual.Widget))
-		return true
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutFeaturedMosaicLayoutTilesSlice(c *Client, desired, actual []DashboardTabbedLayoutFeaturedMosaicLayoutTiles) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutFeaturedMosaicLayoutTiles, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardTabbedLayoutFeaturedMosaicLayoutTiles(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutFeaturedMosaicLayoutTiles, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardTabbedLayoutFeaturedMosaicLayoutTilesMap(c *Client, desired, actual map[string]DashboardTabbedLayoutFeaturedMosaicLayoutTiles) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardTabbedLayoutFeaturedMosaicLayoutTiles, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutFeaturedMosaicLayoutTiles, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareDashboardTabbedLayoutFeaturedMosaicLayoutTiles(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardTabbedLayoutFeaturedMosaicLayoutTiles, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardCategoryEnumSlice(c *Client, desired, actual []DashboardCategoryEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DashboardCategoryEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDashboardCategoryEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardCategoryEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDashboardCategoryEnum(c *Client, desired, actual *DashboardCategoryEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumSlice(c *Client, desired, actual []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum) bool {
 	if len(desired) != len(actual) {
 		c.Config.Logger.Info("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum, lengths unequal.")
@@ -24802,8 +23199,8 @@ func compareDashboardWidgetTextFormatEnum(c *Client, desired, actual *DashboardW
 // short-form so they can be substituted in.
 func (r *Dashboard) urlNormalized() *Dashboard {
 	normalized := deepcopy.Copy(*r).(Dashboard)
-	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -24865,13 +23262,10 @@ func unmarshalMapDashboard(m map[string]interface{}, c *Client) (*Dashboard, err
 // expandDashboard expands Dashboard into a JSON request object.
 func expandDashboard(c *Client, f *Dashboard) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.Category; !dcl.IsEmptyValueIndirect(v) {
-		m["category"] = v
-	}
-	if v, err := expandDashboardColumnLayout(c, f.ColumnLayout); err != nil {
-		return nil, fmt.Errorf("error expanding ColumnLayout into columnLayout: %w", err)
+	if v, err := dcl.EmptyValue(); err != nil {
+		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["columnLayout"] = v
+		m["name"] = v
 	}
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		m["displayName"] = v
@@ -24886,20 +23280,15 @@ func expandDashboard(c *Client, f *Dashboard) (map[string]interface{}, error) {
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["mosaicLayout"] = v
 	}
-	if v, err := dcl.EmptyValue(); err != nil {
-		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["name"] = v
-	}
 	if v, err := expandDashboardRowLayout(c, f.RowLayout); err != nil {
 		return nil, fmt.Errorf("error expanding RowLayout into rowLayout: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["rowLayout"] = v
 	}
-	if v, err := expandDashboardTabbedLayout(c, f.TabbedLayout); err != nil {
-		return nil, fmt.Errorf("error expanding TabbedLayout into tabbedLayout: %w", err)
+	if v, err := expandDashboardColumnLayout(c, f.ColumnLayout); err != nil {
+		return nil, fmt.Errorf("error expanding ColumnLayout into columnLayout: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["tabbedLayout"] = v
+		m["columnLayout"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
@@ -24922,15 +23311,597 @@ func flattenDashboard(c *Client, i interface{}) *Dashboard {
 	}
 
 	r := &Dashboard{}
-	r.Category = flattenDashboardCategoryEnum(m["category"])
-	r.ColumnLayout = flattenDashboardColumnLayout(c, m["columnLayout"])
+	r.Name = dcl.FlattenString(m["name"])
 	r.DisplayName = dcl.FlattenString(m["displayName"])
 	r.GridLayout = flattenDashboardGridLayout(c, m["gridLayout"])
 	r.MosaicLayout = flattenDashboardMosaicLayout(c, m["mosaicLayout"])
-	r.Name = dcl.FlattenString(m["name"])
 	r.RowLayout = flattenDashboardRowLayout(c, m["rowLayout"])
-	r.TabbedLayout = flattenDashboardTabbedLayout(c, m["tabbedLayout"])
+	r.ColumnLayout = flattenDashboardColumnLayout(c, m["columnLayout"])
 	r.Project = dcl.FlattenString(m["project"])
+
+	return r
+}
+
+// expandDashboardGridLayoutMap expands the contents of DashboardGridLayout into a JSON
+// request object.
+func expandDashboardGridLayoutMap(c *Client, f map[string]DashboardGridLayout) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandDashboardGridLayout(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandDashboardGridLayoutSlice expands the contents of DashboardGridLayout into a JSON
+// request object.
+func expandDashboardGridLayoutSlice(c *Client, f []DashboardGridLayout) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandDashboardGridLayout(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenDashboardGridLayoutMap flattens the contents of DashboardGridLayout from a JSON
+// response object.
+func flattenDashboardGridLayoutMap(c *Client, i interface{}) map[string]DashboardGridLayout {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardGridLayout{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardGridLayout{}
+	}
+
+	items := make(map[string]DashboardGridLayout)
+	for k, item := range a {
+		items[k] = *flattenDashboardGridLayout(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenDashboardGridLayoutSlice flattens the contents of DashboardGridLayout from a JSON
+// response object.
+func flattenDashboardGridLayoutSlice(c *Client, i interface{}) []DashboardGridLayout {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []DashboardGridLayout{}
+	}
+
+	if len(a) == 0 {
+		return []DashboardGridLayout{}
+	}
+
+	items := make([]DashboardGridLayout, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenDashboardGridLayout(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandDashboardGridLayout expands an instance of DashboardGridLayout into a JSON
+// request object.
+func expandDashboardGridLayout(c *Client, f *DashboardGridLayout) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Columns; !dcl.IsEmptyValueIndirect(v) {
+		m["columns"] = v
+	}
+	if v := f.Widgets; !dcl.IsEmptyValueIndirect(v) {
+		m["widgets"] = v
+	}
+
+	return m, nil
+}
+
+// flattenDashboardGridLayout flattens an instance of DashboardGridLayout from a JSON
+// response object.
+func flattenDashboardGridLayout(c *Client, i interface{}) *DashboardGridLayout {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &DashboardGridLayout{}
+	r.Columns = dcl.FlattenInteger(m["columns"])
+	r.Widgets = flattenDashboardWidgetSlice(c, m["widgets"])
+
+	return r
+}
+
+// expandDashboardMosaicLayoutMap expands the contents of DashboardMosaicLayout into a JSON
+// request object.
+func expandDashboardMosaicLayoutMap(c *Client, f map[string]DashboardMosaicLayout) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandDashboardMosaicLayout(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandDashboardMosaicLayoutSlice expands the contents of DashboardMosaicLayout into a JSON
+// request object.
+func expandDashboardMosaicLayoutSlice(c *Client, f []DashboardMosaicLayout) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandDashboardMosaicLayout(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenDashboardMosaicLayoutMap flattens the contents of DashboardMosaicLayout from a JSON
+// response object.
+func flattenDashboardMosaicLayoutMap(c *Client, i interface{}) map[string]DashboardMosaicLayout {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardMosaicLayout{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardMosaicLayout{}
+	}
+
+	items := make(map[string]DashboardMosaicLayout)
+	for k, item := range a {
+		items[k] = *flattenDashboardMosaicLayout(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenDashboardMosaicLayoutSlice flattens the contents of DashboardMosaicLayout from a JSON
+// response object.
+func flattenDashboardMosaicLayoutSlice(c *Client, i interface{}) []DashboardMosaicLayout {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []DashboardMosaicLayout{}
+	}
+
+	if len(a) == 0 {
+		return []DashboardMosaicLayout{}
+	}
+
+	items := make([]DashboardMosaicLayout, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenDashboardMosaicLayout(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandDashboardMosaicLayout expands an instance of DashboardMosaicLayout into a JSON
+// request object.
+func expandDashboardMosaicLayout(c *Client, f *DashboardMosaicLayout) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Columns; !dcl.IsEmptyValueIndirect(v) {
+		m["columns"] = v
+	}
+	if v, err := expandDashboardMosaicLayoutTilesSlice(c, f.Tiles); err != nil {
+		return nil, fmt.Errorf("error expanding Tiles into tiles: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["tiles"] = v
+	}
+
+	return m, nil
+}
+
+// flattenDashboardMosaicLayout flattens an instance of DashboardMosaicLayout from a JSON
+// response object.
+func flattenDashboardMosaicLayout(c *Client, i interface{}) *DashboardMosaicLayout {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &DashboardMosaicLayout{}
+	r.Columns = dcl.FlattenInteger(m["columns"])
+	r.Tiles = flattenDashboardMosaicLayoutTilesSlice(c, m["tiles"])
+
+	return r
+}
+
+// expandDashboardMosaicLayoutTilesMap expands the contents of DashboardMosaicLayoutTiles into a JSON
+// request object.
+func expandDashboardMosaicLayoutTilesMap(c *Client, f map[string]DashboardMosaicLayoutTiles) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandDashboardMosaicLayoutTiles(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandDashboardMosaicLayoutTilesSlice expands the contents of DashboardMosaicLayoutTiles into a JSON
+// request object.
+func expandDashboardMosaicLayoutTilesSlice(c *Client, f []DashboardMosaicLayoutTiles) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandDashboardMosaicLayoutTiles(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenDashboardMosaicLayoutTilesMap flattens the contents of DashboardMosaicLayoutTiles from a JSON
+// response object.
+func flattenDashboardMosaicLayoutTilesMap(c *Client, i interface{}) map[string]DashboardMosaicLayoutTiles {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardMosaicLayoutTiles{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardMosaicLayoutTiles{}
+	}
+
+	items := make(map[string]DashboardMosaicLayoutTiles)
+	for k, item := range a {
+		items[k] = *flattenDashboardMosaicLayoutTiles(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenDashboardMosaicLayoutTilesSlice flattens the contents of DashboardMosaicLayoutTiles from a JSON
+// response object.
+func flattenDashboardMosaicLayoutTilesSlice(c *Client, i interface{}) []DashboardMosaicLayoutTiles {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []DashboardMosaicLayoutTiles{}
+	}
+
+	if len(a) == 0 {
+		return []DashboardMosaicLayoutTiles{}
+	}
+
+	items := make([]DashboardMosaicLayoutTiles, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenDashboardMosaicLayoutTiles(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandDashboardMosaicLayoutTiles expands an instance of DashboardMosaicLayoutTiles into a JSON
+// request object.
+func expandDashboardMosaicLayoutTiles(c *Client, f *DashboardMosaicLayoutTiles) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.XPos; !dcl.IsEmptyValueIndirect(v) {
+		m["xPos"] = v
+	}
+	if v := f.YPos; !dcl.IsEmptyValueIndirect(v) {
+		m["yPos"] = v
+	}
+	if v := f.Width; !dcl.IsEmptyValueIndirect(v) {
+		m["width"] = v
+	}
+	if v := f.Height; !dcl.IsEmptyValueIndirect(v) {
+		m["height"] = v
+	}
+	if v, err := expandDashboardWidget(c, f.Widget); err != nil {
+		return nil, fmt.Errorf("error expanding Widget into widget: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["widget"] = v
+	}
+
+	return m, nil
+}
+
+// flattenDashboardMosaicLayoutTiles flattens an instance of DashboardMosaicLayoutTiles from a JSON
+// response object.
+func flattenDashboardMosaicLayoutTiles(c *Client, i interface{}) *DashboardMosaicLayoutTiles {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &DashboardMosaicLayoutTiles{}
+	r.XPos = dcl.FlattenInteger(m["xPos"])
+	r.YPos = dcl.FlattenInteger(m["yPos"])
+	r.Width = dcl.FlattenInteger(m["width"])
+	r.Height = dcl.FlattenInteger(m["height"])
+	r.Widget = flattenDashboardWidget(c, m["widget"])
+
+	return r
+}
+
+// expandDashboardRowLayoutMap expands the contents of DashboardRowLayout into a JSON
+// request object.
+func expandDashboardRowLayoutMap(c *Client, f map[string]DashboardRowLayout) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandDashboardRowLayout(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandDashboardRowLayoutSlice expands the contents of DashboardRowLayout into a JSON
+// request object.
+func expandDashboardRowLayoutSlice(c *Client, f []DashboardRowLayout) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandDashboardRowLayout(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenDashboardRowLayoutMap flattens the contents of DashboardRowLayout from a JSON
+// response object.
+func flattenDashboardRowLayoutMap(c *Client, i interface{}) map[string]DashboardRowLayout {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardRowLayout{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardRowLayout{}
+	}
+
+	items := make(map[string]DashboardRowLayout)
+	for k, item := range a {
+		items[k] = *flattenDashboardRowLayout(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenDashboardRowLayoutSlice flattens the contents of DashboardRowLayout from a JSON
+// response object.
+func flattenDashboardRowLayoutSlice(c *Client, i interface{}) []DashboardRowLayout {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []DashboardRowLayout{}
+	}
+
+	if len(a) == 0 {
+		return []DashboardRowLayout{}
+	}
+
+	items := make([]DashboardRowLayout, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenDashboardRowLayout(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandDashboardRowLayout expands an instance of DashboardRowLayout into a JSON
+// request object.
+func expandDashboardRowLayout(c *Client, f *DashboardRowLayout) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v, err := expandDashboardRowLayoutRowsSlice(c, f.Rows); err != nil {
+		return nil, fmt.Errorf("error expanding Rows into rows: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["rows"] = v
+	}
+
+	return m, nil
+}
+
+// flattenDashboardRowLayout flattens an instance of DashboardRowLayout from a JSON
+// response object.
+func flattenDashboardRowLayout(c *Client, i interface{}) *DashboardRowLayout {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &DashboardRowLayout{}
+	r.Rows = flattenDashboardRowLayoutRowsSlice(c, m["rows"])
+
+	return r
+}
+
+// expandDashboardRowLayoutRowsMap expands the contents of DashboardRowLayoutRows into a JSON
+// request object.
+func expandDashboardRowLayoutRowsMap(c *Client, f map[string]DashboardRowLayoutRows) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandDashboardRowLayoutRows(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandDashboardRowLayoutRowsSlice expands the contents of DashboardRowLayoutRows into a JSON
+// request object.
+func expandDashboardRowLayoutRowsSlice(c *Client, f []DashboardRowLayoutRows) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandDashboardRowLayoutRows(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenDashboardRowLayoutRowsMap flattens the contents of DashboardRowLayoutRows from a JSON
+// response object.
+func flattenDashboardRowLayoutRowsMap(c *Client, i interface{}) map[string]DashboardRowLayoutRows {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardRowLayoutRows{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardRowLayoutRows{}
+	}
+
+	items := make(map[string]DashboardRowLayoutRows)
+	for k, item := range a {
+		items[k] = *flattenDashboardRowLayoutRows(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenDashboardRowLayoutRowsSlice flattens the contents of DashboardRowLayoutRows from a JSON
+// response object.
+func flattenDashboardRowLayoutRowsSlice(c *Client, i interface{}) []DashboardRowLayoutRows {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []DashboardRowLayoutRows{}
+	}
+
+	if len(a) == 0 {
+		return []DashboardRowLayoutRows{}
+	}
+
+	items := make([]DashboardRowLayoutRows, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenDashboardRowLayoutRows(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandDashboardRowLayoutRows expands an instance of DashboardRowLayoutRows into a JSON
+// request object.
+func expandDashboardRowLayoutRows(c *Client, f *DashboardRowLayoutRows) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Weight; !dcl.IsEmptyValueIndirect(v) {
+		m["weight"] = v
+	}
+	if v := f.Widgets; !dcl.IsEmptyValueIndirect(v) {
+		m["widgets"] = v
+	}
+
+	return m, nil
+}
+
+// flattenDashboardRowLayoutRows flattens an instance of DashboardRowLayoutRows from a JSON
+// response object.
+func flattenDashboardRowLayoutRows(c *Client, i interface{}) *DashboardRowLayoutRows {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &DashboardRowLayoutRows{}
+	r.Weight = dcl.FlattenInteger(m["weight"])
+	r.Widgets = flattenDashboardWidgetSlice(c, m["widgets"])
 
 	return r
 }
@@ -41639,1935 +40610,14 @@ func expandDashboardWidgetBlank(c *Client, f *DashboardWidgetBlank) (map[string]
 // flattenDashboardWidgetBlank flattens an instance of DashboardWidgetBlank from a JSON
 // response object.
 func flattenDashboardWidgetBlank(c *Client, i interface{}) *DashboardWidgetBlank {
+	_, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
 
 	r := &DashboardWidgetBlank{}
 
 	return r
-}
-
-// expandDashboardGridLayoutMap expands the contents of DashboardGridLayout into a JSON
-// request object.
-func expandDashboardGridLayoutMap(c *Client, f map[string]DashboardGridLayout) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardGridLayout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardGridLayoutSlice expands the contents of DashboardGridLayout into a JSON
-// request object.
-func expandDashboardGridLayoutSlice(c *Client, f []DashboardGridLayout) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardGridLayout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardGridLayoutMap flattens the contents of DashboardGridLayout from a JSON
-// response object.
-func flattenDashboardGridLayoutMap(c *Client, i interface{}) map[string]DashboardGridLayout {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardGridLayout{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardGridLayout{}
-	}
-
-	items := make(map[string]DashboardGridLayout)
-	for k, item := range a {
-		items[k] = *flattenDashboardGridLayout(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardGridLayoutSlice flattens the contents of DashboardGridLayout from a JSON
-// response object.
-func flattenDashboardGridLayoutSlice(c *Client, i interface{}) []DashboardGridLayout {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardGridLayout{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardGridLayout{}
-	}
-
-	items := make([]DashboardGridLayout, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardGridLayout(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardGridLayout expands an instance of DashboardGridLayout into a JSON
-// request object.
-func expandDashboardGridLayout(c *Client, f *DashboardGridLayout) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Columns; !dcl.IsEmptyValueIndirect(v) {
-		m["columns"] = v
-	}
-	if v := f.Widgets; !dcl.IsEmptyValueIndirect(v) {
-		m["widgets"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardGridLayout flattens an instance of DashboardGridLayout from a JSON
-// response object.
-func flattenDashboardGridLayout(c *Client, i interface{}) *DashboardGridLayout {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardGridLayout{}
-	r.Columns = dcl.FlattenInteger(m["columns"])
-	r.Widgets = flattenDashboardWidgetSlice(c, m["widgets"])
-
-	return r
-}
-
-// expandDashboardMosaicLayoutMap expands the contents of DashboardMosaicLayout into a JSON
-// request object.
-func expandDashboardMosaicLayoutMap(c *Client, f map[string]DashboardMosaicLayout) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardMosaicLayout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardMosaicLayoutSlice expands the contents of DashboardMosaicLayout into a JSON
-// request object.
-func expandDashboardMosaicLayoutSlice(c *Client, f []DashboardMosaicLayout) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardMosaicLayout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardMosaicLayoutMap flattens the contents of DashboardMosaicLayout from a JSON
-// response object.
-func flattenDashboardMosaicLayoutMap(c *Client, i interface{}) map[string]DashboardMosaicLayout {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardMosaicLayout{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardMosaicLayout{}
-	}
-
-	items := make(map[string]DashboardMosaicLayout)
-	for k, item := range a {
-		items[k] = *flattenDashboardMosaicLayout(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardMosaicLayoutSlice flattens the contents of DashboardMosaicLayout from a JSON
-// response object.
-func flattenDashboardMosaicLayoutSlice(c *Client, i interface{}) []DashboardMosaicLayout {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardMosaicLayout{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardMosaicLayout{}
-	}
-
-	items := make([]DashboardMosaicLayout, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardMosaicLayout(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardMosaicLayout expands an instance of DashboardMosaicLayout into a JSON
-// request object.
-func expandDashboardMosaicLayout(c *Client, f *DashboardMosaicLayout) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Columns; !dcl.IsEmptyValueIndirect(v) {
-		m["columns"] = v
-	}
-	if v, err := expandDashboardMosaicLayoutTilesSlice(c, f.Tiles); err != nil {
-		return nil, fmt.Errorf("error expanding Tiles into tiles: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["tiles"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardMosaicLayout flattens an instance of DashboardMosaicLayout from a JSON
-// response object.
-func flattenDashboardMosaicLayout(c *Client, i interface{}) *DashboardMosaicLayout {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardMosaicLayout{}
-	r.Columns = dcl.FlattenInteger(m["columns"])
-	r.Tiles = flattenDashboardMosaicLayoutTilesSlice(c, m["tiles"])
-
-	return r
-}
-
-// expandDashboardMosaicLayoutTilesMap expands the contents of DashboardMosaicLayoutTiles into a JSON
-// request object.
-func expandDashboardMosaicLayoutTilesMap(c *Client, f map[string]DashboardMosaicLayoutTiles) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardMosaicLayoutTiles(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardMosaicLayoutTilesSlice expands the contents of DashboardMosaicLayoutTiles into a JSON
-// request object.
-func expandDashboardMosaicLayoutTilesSlice(c *Client, f []DashboardMosaicLayoutTiles) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardMosaicLayoutTiles(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardMosaicLayoutTilesMap flattens the contents of DashboardMosaicLayoutTiles from a JSON
-// response object.
-func flattenDashboardMosaicLayoutTilesMap(c *Client, i interface{}) map[string]DashboardMosaicLayoutTiles {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardMosaicLayoutTiles{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardMosaicLayoutTiles{}
-	}
-
-	items := make(map[string]DashboardMosaicLayoutTiles)
-	for k, item := range a {
-		items[k] = *flattenDashboardMosaicLayoutTiles(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardMosaicLayoutTilesSlice flattens the contents of DashboardMosaicLayoutTiles from a JSON
-// response object.
-func flattenDashboardMosaicLayoutTilesSlice(c *Client, i interface{}) []DashboardMosaicLayoutTiles {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardMosaicLayoutTiles{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardMosaicLayoutTiles{}
-	}
-
-	items := make([]DashboardMosaicLayoutTiles, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardMosaicLayoutTiles(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardMosaicLayoutTiles expands an instance of DashboardMosaicLayoutTiles into a JSON
-// request object.
-func expandDashboardMosaicLayoutTiles(c *Client, f *DashboardMosaicLayoutTiles) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.XPos; !dcl.IsEmptyValueIndirect(v) {
-		m["xPos"] = v
-	}
-	if v := f.YPos; !dcl.IsEmptyValueIndirect(v) {
-		m["yPos"] = v
-	}
-	if v := f.Width; !dcl.IsEmptyValueIndirect(v) {
-		m["width"] = v
-	}
-	if v := f.Height; !dcl.IsEmptyValueIndirect(v) {
-		m["height"] = v
-	}
-	if v, err := expandDashboardWidget(c, f.Widget); err != nil {
-		return nil, fmt.Errorf("error expanding Widget into widget: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["widget"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardMosaicLayoutTiles flattens an instance of DashboardMosaicLayoutTiles from a JSON
-// response object.
-func flattenDashboardMosaicLayoutTiles(c *Client, i interface{}) *DashboardMosaicLayoutTiles {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardMosaicLayoutTiles{}
-	r.XPos = dcl.FlattenInteger(m["xPos"])
-	r.YPos = dcl.FlattenInteger(m["yPos"])
-	r.Width = dcl.FlattenInteger(m["width"])
-	r.Height = dcl.FlattenInteger(m["height"])
-	r.Widget = flattenDashboardWidget(c, m["widget"])
-
-	return r
-}
-
-// expandDashboardRowLayoutMap expands the contents of DashboardRowLayout into a JSON
-// request object.
-func expandDashboardRowLayoutMap(c *Client, f map[string]DashboardRowLayout) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardRowLayout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardRowLayoutSlice expands the contents of DashboardRowLayout into a JSON
-// request object.
-func expandDashboardRowLayoutSlice(c *Client, f []DashboardRowLayout) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardRowLayout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardRowLayoutMap flattens the contents of DashboardRowLayout from a JSON
-// response object.
-func flattenDashboardRowLayoutMap(c *Client, i interface{}) map[string]DashboardRowLayout {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardRowLayout{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardRowLayout{}
-	}
-
-	items := make(map[string]DashboardRowLayout)
-	for k, item := range a {
-		items[k] = *flattenDashboardRowLayout(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardRowLayoutSlice flattens the contents of DashboardRowLayout from a JSON
-// response object.
-func flattenDashboardRowLayoutSlice(c *Client, i interface{}) []DashboardRowLayout {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardRowLayout{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardRowLayout{}
-	}
-
-	items := make([]DashboardRowLayout, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardRowLayout(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardRowLayout expands an instance of DashboardRowLayout into a JSON
-// request object.
-func expandDashboardRowLayout(c *Client, f *DashboardRowLayout) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandDashboardRowLayoutRowsSlice(c, f.Rows); err != nil {
-		return nil, fmt.Errorf("error expanding Rows into rows: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["rows"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardRowLayout flattens an instance of DashboardRowLayout from a JSON
-// response object.
-func flattenDashboardRowLayout(c *Client, i interface{}) *DashboardRowLayout {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardRowLayout{}
-	r.Rows = flattenDashboardRowLayoutRowsSlice(c, m["rows"])
-
-	return r
-}
-
-// expandDashboardRowLayoutRowsMap expands the contents of DashboardRowLayoutRows into a JSON
-// request object.
-func expandDashboardRowLayoutRowsMap(c *Client, f map[string]DashboardRowLayoutRows) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardRowLayoutRows(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardRowLayoutRowsSlice expands the contents of DashboardRowLayoutRows into a JSON
-// request object.
-func expandDashboardRowLayoutRowsSlice(c *Client, f []DashboardRowLayoutRows) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardRowLayoutRows(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardRowLayoutRowsMap flattens the contents of DashboardRowLayoutRows from a JSON
-// response object.
-func flattenDashboardRowLayoutRowsMap(c *Client, i interface{}) map[string]DashboardRowLayoutRows {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardRowLayoutRows{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardRowLayoutRows{}
-	}
-
-	items := make(map[string]DashboardRowLayoutRows)
-	for k, item := range a {
-		items[k] = *flattenDashboardRowLayoutRows(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardRowLayoutRowsSlice flattens the contents of DashboardRowLayoutRows from a JSON
-// response object.
-func flattenDashboardRowLayoutRowsSlice(c *Client, i interface{}) []DashboardRowLayoutRows {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardRowLayoutRows{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardRowLayoutRows{}
-	}
-
-	items := make([]DashboardRowLayoutRows, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardRowLayoutRows(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardRowLayoutRows expands an instance of DashboardRowLayoutRows into a JSON
-// request object.
-func expandDashboardRowLayoutRows(c *Client, f *DashboardRowLayoutRows) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Weight; !dcl.IsEmptyValueIndirect(v) {
-		m["weight"] = v
-	}
-	if v := f.Widgets; !dcl.IsEmptyValueIndirect(v) {
-		m["widgets"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardRowLayoutRows flattens an instance of DashboardRowLayoutRows from a JSON
-// response object.
-func flattenDashboardRowLayoutRows(c *Client, i interface{}) *DashboardRowLayoutRows {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardRowLayoutRows{}
-	r.Weight = dcl.FlattenInteger(m["weight"])
-	r.Widgets = flattenDashboardWidgetSlice(c, m["widgets"])
-
-	return r
-}
-
-// expandDashboardTabbedLayoutMap expands the contents of DashboardTabbedLayout into a JSON
-// request object.
-func expandDashboardTabbedLayoutMap(c *Client, f map[string]DashboardTabbedLayout) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardTabbedLayout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardTabbedLayoutSlice expands the contents of DashboardTabbedLayout into a JSON
-// request object.
-func expandDashboardTabbedLayoutSlice(c *Client, f []DashboardTabbedLayout) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardTabbedLayout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardTabbedLayoutMap flattens the contents of DashboardTabbedLayout from a JSON
-// response object.
-func flattenDashboardTabbedLayoutMap(c *Client, i interface{}) map[string]DashboardTabbedLayout {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardTabbedLayout{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardTabbedLayout{}
-	}
-
-	items := make(map[string]DashboardTabbedLayout)
-	for k, item := range a {
-		items[k] = *flattenDashboardTabbedLayout(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardTabbedLayoutSlice flattens the contents of DashboardTabbedLayout from a JSON
-// response object.
-func flattenDashboardTabbedLayoutSlice(c *Client, i interface{}) []DashboardTabbedLayout {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardTabbedLayout{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardTabbedLayout{}
-	}
-
-	items := make([]DashboardTabbedLayout, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardTabbedLayout(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardTabbedLayout expands an instance of DashboardTabbedLayout into a JSON
-// request object.
-func expandDashboardTabbedLayout(c *Client, f *DashboardTabbedLayout) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandDashboardTabbedLayoutTabsSlice(c, f.Tabs); err != nil {
-		return nil, fmt.Errorf("error expanding Tabs into tabs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["tabs"] = v
-	}
-	if v, err := expandDashboardTabbedLayoutFeaturedMosaicLayout(c, f.FeaturedMosaicLayout); err != nil {
-		return nil, fmt.Errorf("error expanding FeaturedMosaicLayout into featuredMosaicLayout: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["featuredMosaicLayout"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardTabbedLayout flattens an instance of DashboardTabbedLayout from a JSON
-// response object.
-func flattenDashboardTabbedLayout(c *Client, i interface{}) *DashboardTabbedLayout {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardTabbedLayout{}
-	r.Tabs = flattenDashboardTabbedLayoutTabsSlice(c, m["tabs"])
-	r.FeaturedMosaicLayout = flattenDashboardTabbedLayoutFeaturedMosaicLayout(c, m["featuredMosaicLayout"])
-
-	return r
-}
-
-// expandDashboardTabbedLayoutTabsMap expands the contents of DashboardTabbedLayoutTabs into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsMap(c *Client, f map[string]DashboardTabbedLayoutTabs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardTabbedLayoutTabs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardTabbedLayoutTabsSlice expands the contents of DashboardTabbedLayoutTabs into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsSlice(c *Client, f []DashboardTabbedLayoutTabs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardTabbedLayoutTabs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardTabbedLayoutTabsMap flattens the contents of DashboardTabbedLayoutTabs from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsMap(c *Client, i interface{}) map[string]DashboardTabbedLayoutTabs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardTabbedLayoutTabs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardTabbedLayoutTabs{}
-	}
-
-	items := make(map[string]DashboardTabbedLayoutTabs)
-	for k, item := range a {
-		items[k] = *flattenDashboardTabbedLayoutTabs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardTabbedLayoutTabsSlice flattens the contents of DashboardTabbedLayoutTabs from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsSlice(c *Client, i interface{}) []DashboardTabbedLayoutTabs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardTabbedLayoutTabs{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardTabbedLayoutTabs{}
-	}
-
-	items := make([]DashboardTabbedLayoutTabs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardTabbedLayoutTabs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardTabbedLayoutTabs expands an instance of DashboardTabbedLayoutTabs into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabs(c *Client, f *DashboardTabbedLayoutTabs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Label; !dcl.IsEmptyValueIndirect(v) {
-		m["label"] = v
-	}
-	if v := f.HintText; !dcl.IsEmptyValueIndirect(v) {
-		m["hintText"] = v
-	}
-	if v, err := expandDashboardTabbedLayoutTabsGridLayout(c, f.GridLayout); err != nil {
-		return nil, fmt.Errorf("error expanding GridLayout into gridLayout: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["gridLayout"] = v
-	}
-	if v, err := expandDashboardTabbedLayoutTabsMosaicLayout(c, f.MosaicLayout); err != nil {
-		return nil, fmt.Errorf("error expanding MosaicLayout into mosaicLayout: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["mosaicLayout"] = v
-	}
-	if v, err := expandDashboardTabbedLayoutTabsRowLayout(c, f.RowLayout); err != nil {
-		return nil, fmt.Errorf("error expanding RowLayout into rowLayout: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["rowLayout"] = v
-	}
-	if v, err := expandDashboardTabbedLayoutTabsColumnLayout(c, f.ColumnLayout); err != nil {
-		return nil, fmt.Errorf("error expanding ColumnLayout into columnLayout: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["columnLayout"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardTabbedLayoutTabs flattens an instance of DashboardTabbedLayoutTabs from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabs(c *Client, i interface{}) *DashboardTabbedLayoutTabs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardTabbedLayoutTabs{}
-	r.Label = dcl.FlattenString(m["label"])
-	r.HintText = dcl.FlattenString(m["hintText"])
-	r.GridLayout = flattenDashboardTabbedLayoutTabsGridLayout(c, m["gridLayout"])
-	r.MosaicLayout = flattenDashboardTabbedLayoutTabsMosaicLayout(c, m["mosaicLayout"])
-	r.RowLayout = flattenDashboardTabbedLayoutTabsRowLayout(c, m["rowLayout"])
-	r.ColumnLayout = flattenDashboardTabbedLayoutTabsColumnLayout(c, m["columnLayout"])
-
-	return r
-}
-
-// expandDashboardTabbedLayoutTabsGridLayoutMap expands the contents of DashboardTabbedLayoutTabsGridLayout into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsGridLayoutMap(c *Client, f map[string]DashboardTabbedLayoutTabsGridLayout) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardTabbedLayoutTabsGridLayout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardTabbedLayoutTabsGridLayoutSlice expands the contents of DashboardTabbedLayoutTabsGridLayout into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsGridLayoutSlice(c *Client, f []DashboardTabbedLayoutTabsGridLayout) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardTabbedLayoutTabsGridLayout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardTabbedLayoutTabsGridLayoutMap flattens the contents of DashboardTabbedLayoutTabsGridLayout from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsGridLayoutMap(c *Client, i interface{}) map[string]DashboardTabbedLayoutTabsGridLayout {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardTabbedLayoutTabsGridLayout{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardTabbedLayoutTabsGridLayout{}
-	}
-
-	items := make(map[string]DashboardTabbedLayoutTabsGridLayout)
-	for k, item := range a {
-		items[k] = *flattenDashboardTabbedLayoutTabsGridLayout(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardTabbedLayoutTabsGridLayoutSlice flattens the contents of DashboardTabbedLayoutTabsGridLayout from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsGridLayoutSlice(c *Client, i interface{}) []DashboardTabbedLayoutTabsGridLayout {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardTabbedLayoutTabsGridLayout{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardTabbedLayoutTabsGridLayout{}
-	}
-
-	items := make([]DashboardTabbedLayoutTabsGridLayout, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardTabbedLayoutTabsGridLayout(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardTabbedLayoutTabsGridLayout expands an instance of DashboardTabbedLayoutTabsGridLayout into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsGridLayout(c *Client, f *DashboardTabbedLayoutTabsGridLayout) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Columns; !dcl.IsEmptyValueIndirect(v) {
-		m["columns"] = v
-	}
-	if v := f.Widgets; !dcl.IsEmptyValueIndirect(v) {
-		m["widgets"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardTabbedLayoutTabsGridLayout flattens an instance of DashboardTabbedLayoutTabsGridLayout from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsGridLayout(c *Client, i interface{}) *DashboardTabbedLayoutTabsGridLayout {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardTabbedLayoutTabsGridLayout{}
-	r.Columns = dcl.FlattenInteger(m["columns"])
-	r.Widgets = flattenDashboardWidgetSlice(c, m["widgets"])
-
-	return r
-}
-
-// expandDashboardTabbedLayoutTabsMosaicLayoutMap expands the contents of DashboardTabbedLayoutTabsMosaicLayout into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsMosaicLayoutMap(c *Client, f map[string]DashboardTabbedLayoutTabsMosaicLayout) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardTabbedLayoutTabsMosaicLayout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardTabbedLayoutTabsMosaicLayoutSlice expands the contents of DashboardTabbedLayoutTabsMosaicLayout into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsMosaicLayoutSlice(c *Client, f []DashboardTabbedLayoutTabsMosaicLayout) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardTabbedLayoutTabsMosaicLayout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardTabbedLayoutTabsMosaicLayoutMap flattens the contents of DashboardTabbedLayoutTabsMosaicLayout from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsMosaicLayoutMap(c *Client, i interface{}) map[string]DashboardTabbedLayoutTabsMosaicLayout {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardTabbedLayoutTabsMosaicLayout{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardTabbedLayoutTabsMosaicLayout{}
-	}
-
-	items := make(map[string]DashboardTabbedLayoutTabsMosaicLayout)
-	for k, item := range a {
-		items[k] = *flattenDashboardTabbedLayoutTabsMosaicLayout(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardTabbedLayoutTabsMosaicLayoutSlice flattens the contents of DashboardTabbedLayoutTabsMosaicLayout from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsMosaicLayoutSlice(c *Client, i interface{}) []DashboardTabbedLayoutTabsMosaicLayout {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardTabbedLayoutTabsMosaicLayout{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardTabbedLayoutTabsMosaicLayout{}
-	}
-
-	items := make([]DashboardTabbedLayoutTabsMosaicLayout, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardTabbedLayoutTabsMosaicLayout(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardTabbedLayoutTabsMosaicLayout expands an instance of DashboardTabbedLayoutTabsMosaicLayout into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsMosaicLayout(c *Client, f *DashboardTabbedLayoutTabsMosaicLayout) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Columns; !dcl.IsEmptyValueIndirect(v) {
-		m["columns"] = v
-	}
-	if v, err := expandDashboardTabbedLayoutTabsMosaicLayoutTilesSlice(c, f.Tiles); err != nil {
-		return nil, fmt.Errorf("error expanding Tiles into tiles: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["tiles"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardTabbedLayoutTabsMosaicLayout flattens an instance of DashboardTabbedLayoutTabsMosaicLayout from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsMosaicLayout(c *Client, i interface{}) *DashboardTabbedLayoutTabsMosaicLayout {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardTabbedLayoutTabsMosaicLayout{}
-	r.Columns = dcl.FlattenInteger(m["columns"])
-	r.Tiles = flattenDashboardTabbedLayoutTabsMosaicLayoutTilesSlice(c, m["tiles"])
-
-	return r
-}
-
-// expandDashboardTabbedLayoutTabsMosaicLayoutTilesMap expands the contents of DashboardTabbedLayoutTabsMosaicLayoutTiles into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsMosaicLayoutTilesMap(c *Client, f map[string]DashboardTabbedLayoutTabsMosaicLayoutTiles) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardTabbedLayoutTabsMosaicLayoutTiles(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardTabbedLayoutTabsMosaicLayoutTilesSlice expands the contents of DashboardTabbedLayoutTabsMosaicLayoutTiles into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsMosaicLayoutTilesSlice(c *Client, f []DashboardTabbedLayoutTabsMosaicLayoutTiles) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardTabbedLayoutTabsMosaicLayoutTiles(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardTabbedLayoutTabsMosaicLayoutTilesMap flattens the contents of DashboardTabbedLayoutTabsMosaicLayoutTiles from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsMosaicLayoutTilesMap(c *Client, i interface{}) map[string]DashboardTabbedLayoutTabsMosaicLayoutTiles {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardTabbedLayoutTabsMosaicLayoutTiles{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardTabbedLayoutTabsMosaicLayoutTiles{}
-	}
-
-	items := make(map[string]DashboardTabbedLayoutTabsMosaicLayoutTiles)
-	for k, item := range a {
-		items[k] = *flattenDashboardTabbedLayoutTabsMosaicLayoutTiles(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardTabbedLayoutTabsMosaicLayoutTilesSlice flattens the contents of DashboardTabbedLayoutTabsMosaicLayoutTiles from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsMosaicLayoutTilesSlice(c *Client, i interface{}) []DashboardTabbedLayoutTabsMosaicLayoutTiles {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardTabbedLayoutTabsMosaicLayoutTiles{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardTabbedLayoutTabsMosaicLayoutTiles{}
-	}
-
-	items := make([]DashboardTabbedLayoutTabsMosaicLayoutTiles, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardTabbedLayoutTabsMosaicLayoutTiles(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardTabbedLayoutTabsMosaicLayoutTiles expands an instance of DashboardTabbedLayoutTabsMosaicLayoutTiles into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsMosaicLayoutTiles(c *Client, f *DashboardTabbedLayoutTabsMosaicLayoutTiles) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.XPos; !dcl.IsEmptyValueIndirect(v) {
-		m["xPos"] = v
-	}
-	if v := f.YPos; !dcl.IsEmptyValueIndirect(v) {
-		m["yPos"] = v
-	}
-	if v := f.Width; !dcl.IsEmptyValueIndirect(v) {
-		m["width"] = v
-	}
-	if v := f.Height; !dcl.IsEmptyValueIndirect(v) {
-		m["height"] = v
-	}
-	if v, err := expandDashboardWidget(c, f.Widget); err != nil {
-		return nil, fmt.Errorf("error expanding Widget into widget: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["widget"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardTabbedLayoutTabsMosaicLayoutTiles flattens an instance of DashboardTabbedLayoutTabsMosaicLayoutTiles from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsMosaicLayoutTiles(c *Client, i interface{}) *DashboardTabbedLayoutTabsMosaicLayoutTiles {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardTabbedLayoutTabsMosaicLayoutTiles{}
-	r.XPos = dcl.FlattenInteger(m["xPos"])
-	r.YPos = dcl.FlattenInteger(m["yPos"])
-	r.Width = dcl.FlattenInteger(m["width"])
-	r.Height = dcl.FlattenInteger(m["height"])
-	r.Widget = flattenDashboardWidget(c, m["widget"])
-
-	return r
-}
-
-// expandDashboardTabbedLayoutTabsRowLayoutMap expands the contents of DashboardTabbedLayoutTabsRowLayout into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsRowLayoutMap(c *Client, f map[string]DashboardTabbedLayoutTabsRowLayout) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardTabbedLayoutTabsRowLayout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardTabbedLayoutTabsRowLayoutSlice expands the contents of DashboardTabbedLayoutTabsRowLayout into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsRowLayoutSlice(c *Client, f []DashboardTabbedLayoutTabsRowLayout) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardTabbedLayoutTabsRowLayout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardTabbedLayoutTabsRowLayoutMap flattens the contents of DashboardTabbedLayoutTabsRowLayout from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsRowLayoutMap(c *Client, i interface{}) map[string]DashboardTabbedLayoutTabsRowLayout {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardTabbedLayoutTabsRowLayout{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardTabbedLayoutTabsRowLayout{}
-	}
-
-	items := make(map[string]DashboardTabbedLayoutTabsRowLayout)
-	for k, item := range a {
-		items[k] = *flattenDashboardTabbedLayoutTabsRowLayout(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardTabbedLayoutTabsRowLayoutSlice flattens the contents of DashboardTabbedLayoutTabsRowLayout from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsRowLayoutSlice(c *Client, i interface{}) []DashboardTabbedLayoutTabsRowLayout {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardTabbedLayoutTabsRowLayout{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardTabbedLayoutTabsRowLayout{}
-	}
-
-	items := make([]DashboardTabbedLayoutTabsRowLayout, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardTabbedLayoutTabsRowLayout(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardTabbedLayoutTabsRowLayout expands an instance of DashboardTabbedLayoutTabsRowLayout into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsRowLayout(c *Client, f *DashboardTabbedLayoutTabsRowLayout) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandDashboardTabbedLayoutTabsRowLayoutRowsSlice(c, f.Rows); err != nil {
-		return nil, fmt.Errorf("error expanding Rows into rows: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["rows"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardTabbedLayoutTabsRowLayout flattens an instance of DashboardTabbedLayoutTabsRowLayout from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsRowLayout(c *Client, i interface{}) *DashboardTabbedLayoutTabsRowLayout {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardTabbedLayoutTabsRowLayout{}
-	r.Rows = flattenDashboardTabbedLayoutTabsRowLayoutRowsSlice(c, m["rows"])
-
-	return r
-}
-
-// expandDashboardTabbedLayoutTabsRowLayoutRowsMap expands the contents of DashboardTabbedLayoutTabsRowLayoutRows into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsRowLayoutRowsMap(c *Client, f map[string]DashboardTabbedLayoutTabsRowLayoutRows) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardTabbedLayoutTabsRowLayoutRows(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardTabbedLayoutTabsRowLayoutRowsSlice expands the contents of DashboardTabbedLayoutTabsRowLayoutRows into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsRowLayoutRowsSlice(c *Client, f []DashboardTabbedLayoutTabsRowLayoutRows) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardTabbedLayoutTabsRowLayoutRows(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardTabbedLayoutTabsRowLayoutRowsMap flattens the contents of DashboardTabbedLayoutTabsRowLayoutRows from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsRowLayoutRowsMap(c *Client, i interface{}) map[string]DashboardTabbedLayoutTabsRowLayoutRows {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardTabbedLayoutTabsRowLayoutRows{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardTabbedLayoutTabsRowLayoutRows{}
-	}
-
-	items := make(map[string]DashboardTabbedLayoutTabsRowLayoutRows)
-	for k, item := range a {
-		items[k] = *flattenDashboardTabbedLayoutTabsRowLayoutRows(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardTabbedLayoutTabsRowLayoutRowsSlice flattens the contents of DashboardTabbedLayoutTabsRowLayoutRows from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsRowLayoutRowsSlice(c *Client, i interface{}) []DashboardTabbedLayoutTabsRowLayoutRows {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardTabbedLayoutTabsRowLayoutRows{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardTabbedLayoutTabsRowLayoutRows{}
-	}
-
-	items := make([]DashboardTabbedLayoutTabsRowLayoutRows, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardTabbedLayoutTabsRowLayoutRows(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardTabbedLayoutTabsRowLayoutRows expands an instance of DashboardTabbedLayoutTabsRowLayoutRows into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsRowLayoutRows(c *Client, f *DashboardTabbedLayoutTabsRowLayoutRows) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Weight; !dcl.IsEmptyValueIndirect(v) {
-		m["weight"] = v
-	}
-	if v := f.Widgets; !dcl.IsEmptyValueIndirect(v) {
-		m["widgets"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardTabbedLayoutTabsRowLayoutRows flattens an instance of DashboardTabbedLayoutTabsRowLayoutRows from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsRowLayoutRows(c *Client, i interface{}) *DashboardTabbedLayoutTabsRowLayoutRows {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardTabbedLayoutTabsRowLayoutRows{}
-	r.Weight = dcl.FlattenInteger(m["weight"])
-	r.Widgets = flattenDashboardWidgetSlice(c, m["widgets"])
-
-	return r
-}
-
-// expandDashboardTabbedLayoutTabsColumnLayoutMap expands the contents of DashboardTabbedLayoutTabsColumnLayout into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsColumnLayoutMap(c *Client, f map[string]DashboardTabbedLayoutTabsColumnLayout) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardTabbedLayoutTabsColumnLayout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardTabbedLayoutTabsColumnLayoutSlice expands the contents of DashboardTabbedLayoutTabsColumnLayout into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsColumnLayoutSlice(c *Client, f []DashboardTabbedLayoutTabsColumnLayout) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardTabbedLayoutTabsColumnLayout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardTabbedLayoutTabsColumnLayoutMap flattens the contents of DashboardTabbedLayoutTabsColumnLayout from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsColumnLayoutMap(c *Client, i interface{}) map[string]DashboardTabbedLayoutTabsColumnLayout {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardTabbedLayoutTabsColumnLayout{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardTabbedLayoutTabsColumnLayout{}
-	}
-
-	items := make(map[string]DashboardTabbedLayoutTabsColumnLayout)
-	for k, item := range a {
-		items[k] = *flattenDashboardTabbedLayoutTabsColumnLayout(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardTabbedLayoutTabsColumnLayoutSlice flattens the contents of DashboardTabbedLayoutTabsColumnLayout from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsColumnLayoutSlice(c *Client, i interface{}) []DashboardTabbedLayoutTabsColumnLayout {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardTabbedLayoutTabsColumnLayout{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardTabbedLayoutTabsColumnLayout{}
-	}
-
-	items := make([]DashboardTabbedLayoutTabsColumnLayout, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardTabbedLayoutTabsColumnLayout(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardTabbedLayoutTabsColumnLayout expands an instance of DashboardTabbedLayoutTabsColumnLayout into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsColumnLayout(c *Client, f *DashboardTabbedLayoutTabsColumnLayout) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandDashboardTabbedLayoutTabsColumnLayoutColumnsSlice(c, f.Columns); err != nil {
-		return nil, fmt.Errorf("error expanding Columns into columns: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["columns"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardTabbedLayoutTabsColumnLayout flattens an instance of DashboardTabbedLayoutTabsColumnLayout from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsColumnLayout(c *Client, i interface{}) *DashboardTabbedLayoutTabsColumnLayout {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardTabbedLayoutTabsColumnLayout{}
-	r.Columns = flattenDashboardTabbedLayoutTabsColumnLayoutColumnsSlice(c, m["columns"])
-
-	return r
-}
-
-// expandDashboardTabbedLayoutTabsColumnLayoutColumnsMap expands the contents of DashboardTabbedLayoutTabsColumnLayoutColumns into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsColumnLayoutColumnsMap(c *Client, f map[string]DashboardTabbedLayoutTabsColumnLayoutColumns) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardTabbedLayoutTabsColumnLayoutColumns(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardTabbedLayoutTabsColumnLayoutColumnsSlice expands the contents of DashboardTabbedLayoutTabsColumnLayoutColumns into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsColumnLayoutColumnsSlice(c *Client, f []DashboardTabbedLayoutTabsColumnLayoutColumns) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardTabbedLayoutTabsColumnLayoutColumns(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardTabbedLayoutTabsColumnLayoutColumnsMap flattens the contents of DashboardTabbedLayoutTabsColumnLayoutColumns from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsColumnLayoutColumnsMap(c *Client, i interface{}) map[string]DashboardTabbedLayoutTabsColumnLayoutColumns {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardTabbedLayoutTabsColumnLayoutColumns{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardTabbedLayoutTabsColumnLayoutColumns{}
-	}
-
-	items := make(map[string]DashboardTabbedLayoutTabsColumnLayoutColumns)
-	for k, item := range a {
-		items[k] = *flattenDashboardTabbedLayoutTabsColumnLayoutColumns(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardTabbedLayoutTabsColumnLayoutColumnsSlice flattens the contents of DashboardTabbedLayoutTabsColumnLayoutColumns from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsColumnLayoutColumnsSlice(c *Client, i interface{}) []DashboardTabbedLayoutTabsColumnLayoutColumns {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardTabbedLayoutTabsColumnLayoutColumns{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardTabbedLayoutTabsColumnLayoutColumns{}
-	}
-
-	items := make([]DashboardTabbedLayoutTabsColumnLayoutColumns, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardTabbedLayoutTabsColumnLayoutColumns(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardTabbedLayoutTabsColumnLayoutColumns expands an instance of DashboardTabbedLayoutTabsColumnLayoutColumns into a JSON
-// request object.
-func expandDashboardTabbedLayoutTabsColumnLayoutColumns(c *Client, f *DashboardTabbedLayoutTabsColumnLayoutColumns) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Weight; !dcl.IsEmptyValueIndirect(v) {
-		m["weight"] = v
-	}
-	if v := f.Widgets; !dcl.IsEmptyValueIndirect(v) {
-		m["widgets"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardTabbedLayoutTabsColumnLayoutColumns flattens an instance of DashboardTabbedLayoutTabsColumnLayoutColumns from a JSON
-// response object.
-func flattenDashboardTabbedLayoutTabsColumnLayoutColumns(c *Client, i interface{}) *DashboardTabbedLayoutTabsColumnLayoutColumns {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardTabbedLayoutTabsColumnLayoutColumns{}
-	r.Weight = dcl.FlattenInteger(m["weight"])
-	r.Widgets = flattenDashboardWidgetSlice(c, m["widgets"])
-
-	return r
-}
-
-// expandDashboardTabbedLayoutFeaturedMosaicLayoutMap expands the contents of DashboardTabbedLayoutFeaturedMosaicLayout into a JSON
-// request object.
-func expandDashboardTabbedLayoutFeaturedMosaicLayoutMap(c *Client, f map[string]DashboardTabbedLayoutFeaturedMosaicLayout) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardTabbedLayoutFeaturedMosaicLayout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardTabbedLayoutFeaturedMosaicLayoutSlice expands the contents of DashboardTabbedLayoutFeaturedMosaicLayout into a JSON
-// request object.
-func expandDashboardTabbedLayoutFeaturedMosaicLayoutSlice(c *Client, f []DashboardTabbedLayoutFeaturedMosaicLayout) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardTabbedLayoutFeaturedMosaicLayout(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardTabbedLayoutFeaturedMosaicLayoutMap flattens the contents of DashboardTabbedLayoutFeaturedMosaicLayout from a JSON
-// response object.
-func flattenDashboardTabbedLayoutFeaturedMosaicLayoutMap(c *Client, i interface{}) map[string]DashboardTabbedLayoutFeaturedMosaicLayout {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardTabbedLayoutFeaturedMosaicLayout{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardTabbedLayoutFeaturedMosaicLayout{}
-	}
-
-	items := make(map[string]DashboardTabbedLayoutFeaturedMosaicLayout)
-	for k, item := range a {
-		items[k] = *flattenDashboardTabbedLayoutFeaturedMosaicLayout(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardTabbedLayoutFeaturedMosaicLayoutSlice flattens the contents of DashboardTabbedLayoutFeaturedMosaicLayout from a JSON
-// response object.
-func flattenDashboardTabbedLayoutFeaturedMosaicLayoutSlice(c *Client, i interface{}) []DashboardTabbedLayoutFeaturedMosaicLayout {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardTabbedLayoutFeaturedMosaicLayout{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardTabbedLayoutFeaturedMosaicLayout{}
-	}
-
-	items := make([]DashboardTabbedLayoutFeaturedMosaicLayout, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardTabbedLayoutFeaturedMosaicLayout(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardTabbedLayoutFeaturedMosaicLayout expands an instance of DashboardTabbedLayoutFeaturedMosaicLayout into a JSON
-// request object.
-func expandDashboardTabbedLayoutFeaturedMosaicLayout(c *Client, f *DashboardTabbedLayoutFeaturedMosaicLayout) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Columns; !dcl.IsEmptyValueIndirect(v) {
-		m["columns"] = v
-	}
-	if v, err := expandDashboardTabbedLayoutFeaturedMosaicLayoutTilesSlice(c, f.Tiles); err != nil {
-		return nil, fmt.Errorf("error expanding Tiles into tiles: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["tiles"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardTabbedLayoutFeaturedMosaicLayout flattens an instance of DashboardTabbedLayoutFeaturedMosaicLayout from a JSON
-// response object.
-func flattenDashboardTabbedLayoutFeaturedMosaicLayout(c *Client, i interface{}) *DashboardTabbedLayoutFeaturedMosaicLayout {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardTabbedLayoutFeaturedMosaicLayout{}
-	r.Columns = dcl.FlattenInteger(m["columns"])
-	r.Tiles = flattenDashboardTabbedLayoutFeaturedMosaicLayoutTilesSlice(c, m["tiles"])
-
-	return r
-}
-
-// expandDashboardTabbedLayoutFeaturedMosaicLayoutTilesMap expands the contents of DashboardTabbedLayoutFeaturedMosaicLayoutTiles into a JSON
-// request object.
-func expandDashboardTabbedLayoutFeaturedMosaicLayoutTilesMap(c *Client, f map[string]DashboardTabbedLayoutFeaturedMosaicLayoutTiles) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandDashboardTabbedLayoutFeaturedMosaicLayoutTiles(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandDashboardTabbedLayoutFeaturedMosaicLayoutTilesSlice expands the contents of DashboardTabbedLayoutFeaturedMosaicLayoutTiles into a JSON
-// request object.
-func expandDashboardTabbedLayoutFeaturedMosaicLayoutTilesSlice(c *Client, f []DashboardTabbedLayoutFeaturedMosaicLayoutTiles) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandDashboardTabbedLayoutFeaturedMosaicLayoutTiles(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenDashboardTabbedLayoutFeaturedMosaicLayoutTilesMap flattens the contents of DashboardTabbedLayoutFeaturedMosaicLayoutTiles from a JSON
-// response object.
-func flattenDashboardTabbedLayoutFeaturedMosaicLayoutTilesMap(c *Client, i interface{}) map[string]DashboardTabbedLayoutFeaturedMosaicLayoutTiles {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]DashboardTabbedLayoutFeaturedMosaicLayoutTiles{}
-	}
-
-	if len(a) == 0 {
-		return map[string]DashboardTabbedLayoutFeaturedMosaicLayoutTiles{}
-	}
-
-	items := make(map[string]DashboardTabbedLayoutFeaturedMosaicLayoutTiles)
-	for k, item := range a {
-		items[k] = *flattenDashboardTabbedLayoutFeaturedMosaicLayoutTiles(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenDashboardTabbedLayoutFeaturedMosaicLayoutTilesSlice flattens the contents of DashboardTabbedLayoutFeaturedMosaicLayoutTiles from a JSON
-// response object.
-func flattenDashboardTabbedLayoutFeaturedMosaicLayoutTilesSlice(c *Client, i interface{}) []DashboardTabbedLayoutFeaturedMosaicLayoutTiles {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardTabbedLayoutFeaturedMosaicLayoutTiles{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardTabbedLayoutFeaturedMosaicLayoutTiles{}
-	}
-
-	items := make([]DashboardTabbedLayoutFeaturedMosaicLayoutTiles, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardTabbedLayoutFeaturedMosaicLayoutTiles(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandDashboardTabbedLayoutFeaturedMosaicLayoutTiles expands an instance of DashboardTabbedLayoutFeaturedMosaicLayoutTiles into a JSON
-// request object.
-func expandDashboardTabbedLayoutFeaturedMosaicLayoutTiles(c *Client, f *DashboardTabbedLayoutFeaturedMosaicLayoutTiles) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.XPos; !dcl.IsEmptyValueIndirect(v) {
-		m["xPos"] = v
-	}
-	if v := f.YPos; !dcl.IsEmptyValueIndirect(v) {
-		m["yPos"] = v
-	}
-	if v := f.Width; !dcl.IsEmptyValueIndirect(v) {
-		m["width"] = v
-	}
-	if v := f.Height; !dcl.IsEmptyValueIndirect(v) {
-		m["height"] = v
-	}
-	if v, err := expandDashboardWidget(c, f.Widget); err != nil {
-		return nil, fmt.Errorf("error expanding Widget into widget: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["widget"] = v
-	}
-
-	return m, nil
-}
-
-// flattenDashboardTabbedLayoutFeaturedMosaicLayoutTiles flattens an instance of DashboardTabbedLayoutFeaturedMosaicLayoutTiles from a JSON
-// response object.
-func flattenDashboardTabbedLayoutFeaturedMosaicLayoutTiles(c *Client, i interface{}) *DashboardTabbedLayoutFeaturedMosaicLayoutTiles {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &DashboardTabbedLayoutFeaturedMosaicLayoutTiles{}
-	r.XPos = dcl.FlattenInteger(m["xPos"])
-	r.YPos = dcl.FlattenInteger(m["yPos"])
-	r.Width = dcl.FlattenInteger(m["width"])
-	r.Height = dcl.FlattenInteger(m["height"])
-	r.Widget = flattenDashboardWidget(c, m["widget"])
-
-	return r
-}
-
-// flattenDashboardCategoryEnumSlice flattens the contents of DashboardCategoryEnum from a JSON
-// response object.
-func flattenDashboardCategoryEnumSlice(c *Client, i interface{}) []DashboardCategoryEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []DashboardCategoryEnum{}
-	}
-
-	if len(a) == 0 {
-		return []DashboardCategoryEnum{}
-	}
-
-	items := make([]DashboardCategoryEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenDashboardCategoryEnum(item.(interface{})))
-	}
-
-	return items
-}
-
-// flattenDashboardCategoryEnum asserts that an interface is a string, and returns a
-// pointer to a *DashboardCategoryEnum with the same value as that string.
-func flattenDashboardCategoryEnum(i interface{}) *DashboardCategoryEnum {
-	s, ok := i.(string)
-	if !ok {
-		return DashboardCategoryEnumRef("")
-	}
-
-	return DashboardCategoryEnumRef(s)
 }
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum from a JSON

@@ -1066,6 +1066,93 @@ func diffNode(c *Client, desired, actual *Node, opts ...dcl.ApplyOption) ([]node
 	}
 
 	var diffs []nodeDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, FieldName: "Description"})
+	}
+
+	if d, err := dcl.Diff(desired.AcceleratorType, actual.AcceleratorType, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, FieldName: "AcceleratorType"})
+	}
+
+	if d, err := dcl.Diff(desired.IPAddress, actual.IPAddress, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, FieldName: "IPAddress"})
+	}
+
+	if d, err := dcl.Diff(desired.Port, actual.Port, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, FieldName: "Port"})
+	}
+
+	if d, err := dcl.Diff(desired.HealthDescription, actual.HealthDescription, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, FieldName: "HealthDescription"})
+	}
+
+	if d, err := dcl.Diff(desired.TensorflowVersion, actual.TensorflowVersion, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{
+			UpdateOp: &updateNodeReimageNodeOperation{}, FieldName: "TensorflowVersion",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Network, actual.Network, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, FieldName: "Network"})
+	}
+
+	if d, err := dcl.Diff(desired.CidrBlock, actual.CidrBlock, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, FieldName: "CidrBlock"})
+	}
+
+	if d, err := dcl.Diff(desired.ServiceAccount, actual.ServiceAccount, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, FieldName: "ServiceAccount"})
+	}
+
+	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, FieldName: "Labels"})
+	}
+
+	if d, err := dcl.Diff(desired.UseServiceNetworking, actual.UseServiceNetworking, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, FieldName: "UseServiceNetworking"})
+	}
+
 	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, nodeDiff{

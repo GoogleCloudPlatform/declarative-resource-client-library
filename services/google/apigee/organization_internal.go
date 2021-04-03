@@ -741,6 +741,81 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 	}
 
 	var diffs []organizationDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{
+			UpdateOp: &updateOrganizationUpdateOrganizationOperation{}, FieldName: "DisplayName",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{
+			UpdateOp: &updateOrganizationUpdateOrganizationOperation{}, FieldName: "Description",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.CreatedAt, actual.CreatedAt, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, FieldName: "CreatedAt"})
+	}
+
+	if d, err := dcl.Diff(desired.LastModifiedAt, actual.LastModifiedAt, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, FieldName: "LastModifiedAt"})
+	}
+
+	if d, err := dcl.Diff(desired.ExpiresAt, actual.ExpiresAt, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, FieldName: "ExpiresAt"})
+	}
+
+	if d, err := dcl.Diff(desired.AnalyticsRegion, actual.AnalyticsRegion, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, FieldName: "AnalyticsRegion"})
+	}
+
+	if d, err := dcl.Diff(desired.AuthorizedNetwork, actual.AuthorizedNetwork, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, FieldName: "AuthorizedNetwork"})
+	}
+
+	if d, err := dcl.Diff(desired.CaCertificate, actual.CaCertificate, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, FieldName: "CaCertificate"})
+	}
+
+	if d, err := dcl.Diff(desired.RuntimeDatabaseEncryptionKeyName, actual.RuntimeDatabaseEncryptionKeyName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, FieldName: "RuntimeDatabaseEncryptionKeyName"})
+	}
+
+	if d, err := dcl.Diff(desired.ProjectId, actual.ProjectId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, FieldName: "ProjectId"})
+	}
+
 	if !dcl.StringEqualsWithSelfLink(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, organizationDiff{

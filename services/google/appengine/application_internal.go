@@ -710,6 +710,58 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 	}
 
 	var diffs []applicationDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.AuthDomain, actual.AuthDomain, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, applicationDiff{
+			UpdateOp: &updateApplicationUpdateApplicationOperation{}, FieldName: "AuthDomain",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.CodeBucket, actual.CodeBucket, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, applicationDiff{RequiresRecreate: true, FieldName: "CodeBucket"})
+	}
+
+	if d, err := dcl.Diff(desired.DefaultBucket, actual.DefaultBucket, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, applicationDiff{RequiresRecreate: true, FieldName: "DefaultBucket"})
+	}
+
+	if d, err := dcl.Diff(desired.DefaultHostname, actual.DefaultHostname, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, applicationDiff{RequiresRecreate: true, FieldName: "DefaultHostname"})
+	}
+
+	if d, err := dcl.Diff(desired.GcrDomain, actual.GcrDomain, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, applicationDiff{RequiresRecreate: true, FieldName: "GcrDomain"})
+	}
+
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, applicationDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
+	if d, err := dcl.Diff(desired.Location, actual.Location, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, applicationDiff{RequiresRecreate: true, FieldName: "Location"})
+	}
+
 	if !dcl.IsZeroValue(desired.AuthDomain) && !dcl.StringCanonicalize(desired.AuthDomain, actual.AuthDomain) {
 		c.Config.Logger.Infof("Detected diff in AuthDomain.\nDESIRED: %v\nACTUAL: %v", desired.AuthDomain, actual.AuthDomain)
 

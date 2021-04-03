@@ -582,6 +582,37 @@ func diffDefaultObjectAccessControl(c *Client, desired, actual *DefaultObjectAcc
 	}
 
 	var diffs []defaultObjectAccessControlDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Domain, actual.Domain, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, defaultObjectAccessControlDiff{RequiresRecreate: true, FieldName: "Domain"})
+	}
+
+	if d, err := dcl.Diff(desired.Email, actual.Email, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, defaultObjectAccessControlDiff{RequiresRecreate: true, FieldName: "Email"})
+	}
+
+	if d, err := dcl.Diff(desired.Entity, actual.Entity, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, defaultObjectAccessControlDiff{
+			UpdateOp: &updateDefaultObjectAccessControlUpdateOperation{}, FieldName: "Entity",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.EntityId, actual.EntityId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, defaultObjectAccessControlDiff{RequiresRecreate: true, FieldName: "EntityId"})
+	}
+
 	if !dcl.IsZeroValue(desired.Entity) && !dcl.StringCanonicalize(desired.Entity, actual.Entity) {
 		c.Config.Logger.Infof("Detected diff in Entity.\nDESIRED: %v\nACTUAL: %v", desired.Entity, actual.Entity)
 

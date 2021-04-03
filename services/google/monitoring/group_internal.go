@@ -497,6 +497,43 @@ func diffGroup(c *Client, desired, actual *Group, opts ...dcl.ApplyOption) ([]gr
 	}
 
 	var diffs []groupDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, groupDiff{
+			UpdateOp: &updateGroupUpdateOperation{}, FieldName: "DisplayName",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.Filter, actual.Filter, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, groupDiff{
+			UpdateOp: &updateGroupUpdateOperation{}, FieldName: "Filter",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.IsCluster, actual.IsCluster, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, groupDiff{
+			UpdateOp: &updateGroupUpdateOperation{}, FieldName: "IsCluster",
+		})
+	}
+
+	if d, err := dcl.Diff(desired.ParentName, actual.ParentName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, groupDiff{
+			UpdateOp: &updateGroupUpdateOperation{}, FieldName: "ParentName",
+		})
+	}
+
 	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
 		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 

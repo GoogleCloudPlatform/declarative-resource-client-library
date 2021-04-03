@@ -442,6 +442,14 @@ func diffAssignment(c *Client, desired, actual *Assignment, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []assignmentDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Assignee, actual.Assignee, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, FieldName: "Assignee"})
+	}
+
 	if !dcl.IsZeroValue(desired.Assignee) && !dcl.StringCanonicalize(desired.Assignee, actual.Assignee) {
 		c.Config.Logger.Infof("Detected diff in Assignee.\nDESIRED: %v\nACTUAL: %v", desired.Assignee, actual.Assignee)
 		diffs = append(diffs, assignmentDiff{

@@ -315,6 +315,35 @@ func diffFirewallPolicyAssociation(c *Client, desired, actual *FirewallPolicyAss
 	}
 
 	var diffs []firewallPolicyAssociationDiff
+	// New style diffs.
+	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, FieldName: "Name"})
+	}
+
+	if d, err := dcl.Diff(desired.AttachmentTarget, actual.AttachmentTarget, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, FieldName: "AttachmentTarget"})
+	}
+
+	if d, err := dcl.Diff(desired.FirewallPolicy, actual.FirewallPolicy, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, FieldName: "FirewallPolicy"})
+	}
+
+	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, FieldName: "DisplayName"})
+	}
+
 	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
 		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 		diffs = append(diffs, firewallPolicyAssociationDiff{
